@@ -1,0 +1,298 @@
+// Prisma schema for the Softsuave Blog CMS.
+// Prisma 7 uses the query compiler + driver adapters (no Rust engine binary),
+// so the client is generated into src/generated/prisma and instantiated with
+// a driver adapter (see src/lib/db.ts). Section 9 of the build spec defines the
+// core models; a Postgres tsvector search column is added on Post/Page via a
+// raw-SQL migration.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────────────────── Enums ───────────────────────────
+
+enum Role {
+  ADMIN
+  EDITOR
+}
+
+enum ContentStatus {
+  DRAFT
+  SCHEDULED
+  PUBLISHED
+}
+
+// ─────────────────────────── Users ───────────────────────────
+
+model User {
+  id                  String    @id @default(cuid())
+  email               String    @unique
+  name                String?
+  passwordHash        String
+  role                Role      @default(EDITOR)
+
+  // Public author profile (rendered in the author-bio box on posts).
+  title           String? // e.g. "Founder & CEO"
+  bio             String?
+  socialLinksJson Json? // [{ label, url }]
+  avatarMediaId   String?
+  avatar          Media?  @relation("UserAvatar", fields: [avatarMediaId], references: [id])
+
+  twoFactorSecret     String?
+  twoFactorEnabled    Boolean   @default(false)
+  failedLoginAttempts Int       @default(0)
+  lastFailedLoginAt   DateTime?
+  lockedUntil         DateTime?
+  lastLoginAt         DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  posts         Post[]         @relation("PostAuthor")
+  pages         Page[]         @relation("PageAuthor")
+  media         Media[]        @relation("MediaUploader")
+  auditLogs     AuditLog[]
+  refreshTokens RefreshToken[]
+
+  @@index([role])
+}
+
+// Server-side refresh tokens enable rotation + reuse detection. Each login opens
+// a token "family"; refreshing rotates the token within the family, and
+// presenting an already-used/revoked token revokes the whole family (theft
+// response). Only a SHA-256 hash of the JWT is stored.
+model RefreshToken {
+  id        String    @id @default(cuid()) // also the JWT `jti`
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  familyId  String
+  tokenHash String
+  expiresAt DateTime
+  usedAt    DateTime?
+  revokedAt DateTime?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@index([familyId])
+  @@index([expiresAt])
+}
+
+// ─────────────────────────── Posts ───────────────────────────
+
+model Post {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  contentJson Json
+  contentHtml String        @default("")
+  excerpt     String?
+  status      ContentStatus @default(DRAFT)
+  publishedAt DateTime?
+
+  authorId String
+  author   User   @relation("PostAuthor", fields: [authorId], references: [id])
+
+  coverImageId String?
+  coverImage   Media?  @relation("PostCover", fields: [coverImageId], references: [id])
+
+  // SEO
+  seoTitle       String?
+  seoDescription String?
+  ogImageId      String?
+  ogImage        Media?  @relation("PostOg", fields: [ogImageId], references: [id])
+  canonicalUrl   String?
+  noIndex        Boolean @default(false)
+
+  readingTimeMinutes Int @default(0)
+  wordCount          Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  categories PostCategory[]
+  tags       PostTag[]
+  revisions  PostRevision[]
+
+  // Full-text search vector; populated + indexed via raw SQL migration.
+  searchVector Unsupported("tsvector")?
+
+  @@index([status, publishedAt])
+  @@index([authorId])
+}
+
+model PostRevision {
+  id          String   @id @default(cuid())
+  postId      String
+  post        Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  title       String
+  excerpt     String?
+  contentJson Json
+  createdAt   DateTime @default(now())
+
+  @@index([postId, createdAt])
+}
+
+// ─────────────────────────── Pages ───────────────────────────
+// Same shape as Post, minus taxonomy (no categories/tags).
+
+model Page {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  contentJson Json
+  contentHtml String        @default("")
+  excerpt     String?
+  status      ContentStatus @default(DRAFT)
+  publishedAt DateTime?
+
+  authorId String
+  author   User   @relation("PageAuthor", fields: [authorId], references: [id])
+
+  coverImageId String?
+  coverImage   Media?  @relation("PageCover", fields: [coverImageId], references: [id])
+
+  seoTitle       String?
+  seoDescription String?
+  ogImageId      String?
+  ogImage        Media?  @relation("PageOg", fields: [ogImageId], references: [id])
+  canonicalUrl   String?
+  noIndex        Boolean @default(false)
+
+  readingTimeMinutes Int @default(0)
+  wordCount          Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  searchVector Unsupported("tsvector")?
+
+  @@index([status, publishedAt])
+}
+
+// ─────────────────────────── Taxonomy ───────────────────────────
+
+model Category {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  description String?
+
+  posts PostCategory[]
+}
+
+model Tag {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  description String?
+
+  posts PostTag[]
+}
+
+model PostCategory {
+  postId     String
+  categoryId String
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([postId, categoryId])
+  @@index([categoryId])
+}
+
+model PostTag {
+  postId String
+  tagId  String
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag    Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, tagId])
+  @@index([tagId])
+}
+
+// ─────────────────────────── Media ───────────────────────────
+
+model Media {
+  id           String   @id @default(cuid())
+  url          String
+  filename     String
+  altText      String   @default("")
+  mimeType     String?
+  width        Int?
+  height       Int?
+  sizeBytes    Int      @default(0)
+  // Resized/WebP variant descriptors: [{ label, url, width, height, format }]
+  variantsJson Json?
+
+  uploadedById String
+  uploadedBy   User   @relation("MediaUploader", fields: [uploadedById], references: [id])
+
+  createdAt DateTime @default(now())
+
+  coverForPosts      Post[]         @relation("PostCover")
+  ogForPosts         Post[]         @relation("PostOg")
+  coverForPages      Page[]         @relation("PageCover")
+  ogForPages         Page[]         @relation("PageOg")
+  logoForSettings    SiteSettings[] @relation("SettingsLogo")
+  faviconForSettings SiteSettings[] @relation("SettingsFavicon")
+  avatarForUsers     User[]         @relation("UserAvatar")
+
+  @@index([uploadedById])
+}
+
+// ─────────────────────────── Redirects ───────────────────────────
+
+model Redirect {
+  id         String   @id @default(cuid())
+  fromPath   String   @unique
+  toPath     String
+  statusCode Int      @default(301)
+  createdAt  DateTime @default(now())
+}
+
+// ─────────────────────────── Site settings ───────────────────────────
+// Single-row table addressed by the fixed id "singleton".
+
+model SiteSettings {
+  id              String  @id @default("singleton")
+  siteTitle       String  @default("Softsuave Blog")
+  tagline         String?
+  siteDescription String?
+  accentColor     String  @default("#2563eb")
+  fontChoice      String  @default("inter")
+  activeTheme     String  @default("minimal")
+  socialLinksJson Json?
+  analyticsSnippet String?
+
+  logoMediaId String?
+  logo        Media?  @relation("SettingsLogo", fields: [logoMediaId], references: [id])
+
+  faviconMediaId String?
+  favicon        Media?  @relation("SettingsFavicon", fields: [faviconMediaId], references: [id])
+
+  updatedAt DateTime @updatedAt
+}
+
+// ─────────────────────────── Audit log ───────────────────────────
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action     String
+  targetType String?
+  targetId   String?
+  ipAddress  String?
+  userAgent  String?
+  metadataJson Json?
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([action])
+}

@@ -1,0 +1,768 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* Admin-only brand accent. Scoped to #admin-shell so the public site keeps the
+   neutral shadcn palette above; the admin's interactive surfaces (primary
+   buttons, focus rings, sidebar highlights) use the Soft Suave crimson. A
+   lighter crimson is used in dark mode to keep contrast on dark surfaces. */
+#admin-shell {
+  --primary: #ff0042;
+  --primary-foreground: oklch(0.985 0 0);
+  --ring: #ff0042;
+  --sidebar-primary: #ff0042;
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-ring: #ff0042;
+}
+#admin-shell.dark {
+  --primary: #ff4d7d;
+  --primary-foreground: oklch(0.205 0 0);
+  --ring: #ff4d7d;
+  --sidebar-primary: #ff4d7d;
+  --sidebar-primary-foreground: oklch(0.205 0 0);
+  --sidebar-ring: #ff4d7d;
+}
+
+/* Brand-coloured scrollbars + text selection, site-wide (matches softsuave.com). */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #ff0042 transparent;
+}
+::selection {
+  background: #ff0042;
+  color: #fff;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #ff0042;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d6003a;
+}
+/* Readable rendering for stored, sanitized post/page HTML (also used by the
+   TipTap editor via .ProseMirror). */
+.rendered-content,
+.ProseMirror {
+  line-height: 1.75;
+  word-wrap: break-word;
+}
+.rendered-content > * + *,
+.ProseMirror > * + * {
+  margin-top: 1rem;
+}
+.rendered-content h2,
+.ProseMirror h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  line-height: 1.3;
+}
+.rendered-content h3,
+.ProseMirror h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+}
+.rendered-content h4,
+.ProseMirror h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.rendered-content a,
+.ProseMirror a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+.rendered-content ul,
+.ProseMirror ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+.rendered-content ol,
+.ProseMirror ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+}
+.rendered-content blockquote,
+.ProseMirror blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 1rem;
+  color: var(--muted-foreground);
+  font-style: italic;
+}
+.rendered-content pre,
+.ProseMirror pre {
+  background: var(--muted);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+}
+.rendered-content code,
+.ProseMirror code {
+  font-family: ui-monospace, monospace;
+  font-size: 0.9em;
+}
+.rendered-content img,
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+.ProseMirror {
+  min-height: 20rem;
+  outline: none;
+}
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: var(--muted-foreground);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.rendered-content :is(h2, h3) {
+  scroll-margin-top: 5rem;
+}
+
+/* Tables (comparison tables from content / TipTap) */
+.rendered-content table,
+.ProseMirror table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95em;
+  display: block;
+  overflow-x: auto;
+}
+.rendered-content th,
+.rendered-content td,
+.ProseMirror th,
+.ProseMirror td {
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.8rem;
+  text-align: left;
+  vertical-align: top;
+}
+.rendered-content th,
+.ProseMirror th {
+  background: var(--muted);
+  font-weight: 600;
+}
+.ProseMirror .selectedCell {
+  background: color-mix(in srgb, var(--theme-accent, #2563eb) 12%, transparent);
+}
+
+/* Callout / TL;DR / "Key Takeaways" boxes — modern card. One rule for both the
+   published page and the editor so they always match; the variant sets --theme-accent. */
+.rendered-content .callout,
+.rendered-content .key-takeaways,
+.rendered-content .wp-block-group.is-style-callout,
+.ProseMirror .callout {
+  position: relative;
+  margin: 2rem 0;
+  padding: 1.4rem 1.5rem 1.4rem 3.6rem;
+  border: 1px solid color-mix(in srgb, var(--theme-accent, #ff0042) 22%, transparent);
+  border-left: 4px solid var(--theme-accent, #ff0042);
+  border-radius: 0.9rem;
+  background: color-mix(in srgb, var(--theme-accent, #ff0042) 5%, var(--card, #fff));
+  box-shadow: 0 12px 32px -20px color-mix(in srgb, var(--theme-accent, #ff0042) 70%, transparent);
+}
+
+/* ── Soft Suave theme tokens ── */
+.ss-theme {
+  font-family: var(--font-pt-serif), Georgia, serif;
+  color: #1a1a1a;
+  --theme-accent: #ff0042;
+}
+.ss-theme h1,
+.ss-theme h2,
+.ss-theme h3,
+.ss-theme h4,
+.ss-heading {
+  font-family: var(--font-lato), system-ui, sans-serif;
+}
+.ss-theme .rendered-content a {
+  color: #ff0042;
+}
+.ss-theme .rendered-content {
+  font-size: 1.075rem;
+  line-height: 1.9;
+}
+.ss-theme .rendered-content h2 {
+  margin-top: 3rem;
+  margin-bottom: 0.25rem;
+  font-size: 1.7rem;
+  border-left: 4px solid #ff0042;
+  padding-left: 0.8rem;
+}
+.ss-theme .rendered-content h3 {
+  margin-top: 2.1rem;
+  font-size: 1.3rem;
+}
+.ss-theme .rendered-content p {
+  margin-top: 1.25rem;
+}
+.ss-theme .rendered-content ul,
+.ss-theme .rendered-content ol {
+  margin-top: 1.1rem;
+}
+.ss-theme .rendered-content li {
+  margin-top: 0.4rem;
+}
+.ss-theme .rendered-content img {
+  margin: 1.75rem auto;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.09);
+}
+/* Callout title (the leading <strong>, e.g. "TL;DR" / "Key Takeaways") as a label. */
+.ss-theme .rendered-content .callout > p:first-child strong {
+  display: inline-block;
+  margin-bottom: 0.15rem;
+  font-family: var(--font-lato), system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--theme-accent, #ff0042);
+}
+
+/* Thin scrollbar for the sticky sidebar. */
+.ss-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d4 transparent;
+}
+.ss-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.ss-scroll::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 9999px;
+}
+.ss-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.ss-theme .rendered-content table {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+}
+.ss-theme .rendered-content thead th {
+  background: #ff0042;
+  color: #fff;
+  border-color: #ff0042;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Custom content blocks (Gutenberg/Notion-style). These render via
+   each TipTap node's renderHTML, so styles target both the published
+   page (.rendered-content) and, for blocks without a NodeView, the
+   editor (.ProseMirror).
+   ───────────────────────────────────────────────────────────── */
+
+/* Callout emoji badge (circular chip in the accent tint) + per-variant colour. */
+.rendered-content .callout::before,
+.ProseMirror .callout::before {
+  content: '📌';
+  position: absolute;
+  left: 1rem;
+  top: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--theme-accent, #ff0042) 16%, #fff);
+  font-size: 0.95rem;
+  line-height: 1;
+}
+/* Callout lists get accent arrow markers. */
+.rendered-content .callout ul,
+.ProseMirror .callout ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.5rem;
+}
+.rendered-content .callout ul li,
+.ProseMirror .callout ul li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-top: 0.45rem;
+}
+.rendered-content .callout ul li::before,
+.ProseMirror .callout ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--theme-accent, #ff0042);
+  font-weight: 700;
+}
+/* TL;DR — the most prominent callout (brand accent, gradient, lightning badge). */
+.rendered-content .callout-tldr,
+.ProseMirror .callout-tldr {
+  --theme-accent: #ff0042;
+  background: linear-gradient(180deg, color-mix(in srgb, #ff0042 9%, #fff), #fff);
+}
+.rendered-content .callout-tldr::before,
+.ProseMirror .callout-tldr::before {
+  content: '⚡';
+  background: #ff0042;
+  color: #fff;
+}
+.rendered-content .callout-tip,
+.ProseMirror .callout-tip {
+  --theme-accent: #16a34a;
+}
+.rendered-content .callout-tip::before,
+.ProseMirror .callout-tip::before {
+  content: '💡';
+}
+.rendered-content .callout-warning,
+.ProseMirror .callout-warning {
+  --theme-accent: #d97706;
+}
+.rendered-content .callout-warning::before,
+.ProseMirror .callout-warning::before {
+  content: '⚠️';
+}
+.rendered-content .callout-success,
+.ProseMirror .callout-success {
+  --theme-accent: #059669;
+}
+.rendered-content .callout-success::before,
+.ProseMirror .callout-success::before {
+  content: '✅';
+}
+.rendered-content .callout-error,
+.ProseMirror .callout-error {
+  --theme-accent: #dc2626;
+}
+.rendered-content .callout-error::before,
+.ProseMirror .callout-error::before {
+  content: '⛔';
+}
+
+/* CTA button (block-level anchor). Combined-class selectors beat the theme's
+   link colour/underline rules. */
+.rendered-content a.cta-btn,
+.ProseMirror a.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.9rem;
+  border-radius: 9999px;
+  font-family: var(--font-lato), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+/* Trailing arrow for a bit of motion/affordance. */
+.rendered-content a.cta-btn::after,
+.ProseMirror a.cta-btn::after {
+  content: '→';
+  transition: transform 0.18s ease;
+}
+.rendered-content a.cta-btn:hover::after,
+.ProseMirror a.cta-btn:hover::after {
+  transform: translateX(3px);
+}
+.rendered-content a.cta-btn:hover,
+.ProseMirror a.cta-btn:hover {
+  transform: translateY(-2px);
+}
+.rendered-content a.cta-btn.cta-primary,
+.ProseMirror a.cta-btn.cta-primary {
+  background: linear-gradient(135deg, #ff0042, #d6003a);
+  color: #fff;
+  box-shadow: 0 10px 26px -8px rgba(255, 0, 66, 0.55);
+}
+.rendered-content a.cta-btn.cta-primary:hover,
+.ProseMirror a.cta-btn.cta-primary:hover {
+  box-shadow: 0 16px 32px -8px rgba(255, 0, 66, 0.7);
+  filter: brightness(1.05);
+}
+.rendered-content a.cta-btn.cta-secondary,
+.ProseMirror a.cta-btn.cta-secondary {
+  background: #111827;
+  color: #fff;
+  box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.5);
+}
+.rendered-content a.cta-btn.cta-outline,
+.ProseMirror a.cta-btn.cta-outline {
+  border: 2px solid #ff0042;
+  color: #ff0042;
+  background: transparent;
+}
+.rendered-content a.cta-btn.cta-outline:hover,
+.ProseMirror a.cta-btn.cta-outline:hover {
+  background: #ff0042;
+  color: #fff;
+}
+
+/* Decorative CTA section — premium framed card: soft red-tinted gradient, a top
+   glow, brand border + float shadow, and red side-diamond accents. Centered.
+   Published only (editor uses a NodeView form). */
+.rendered-content .cta-section {
+  position: relative;
+  margin: 3rem 0;
+  padding: 3.25rem 2.5rem;
+  border: 1px solid rgba(255, 0, 66, 0.18);
+  border-radius: 1.5rem;
+  text-align: center;
+  background: linear-gradient(160deg, #ffffff 0%, #fff4f7 100%);
+  box-shadow: 0 24px 60px -32px rgba(255, 0, 66, 0.5);
+  overflow: hidden;
+}
+/* Soft glow bleeding from the top centre. */
+.rendered-content .cta-section::before {
+  content: '';
+  position: absolute;
+  top: -45%;
+  left: 50%;
+  width: 70%;
+  height: 90%;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(255, 0, 66, 0.12), transparent 70%);
+  pointer-events: none;
+}
+.rendered-content .cta-section-inner {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  max-width: 640px;
+}
+/* Red diamond accents on the mid-left / mid-right edges. */
+.rendered-content .cta-section-inner::before,
+.rendered-content .cta-section-inner::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  background: #ff0042;
+  transform: translateY(-50%) rotate(45deg);
+}
+.rendered-content .cta-section-inner::before {
+  left: -1.75rem;
+}
+.rendered-content .cta-section-inner::after {
+  right: -1.75rem;
+}
+.rendered-content .cta-section-title {
+  margin: 0;
+  font-family: var(--font-lato), system-ui, sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.05rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #14141a;
+}
+.rendered-content .cta-section-text {
+  margin: 0.9rem auto 0;
+  max-width: 34rem;
+  color: #4a4a52;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+.rendered-content .cta-section .cta-btn {
+  margin-top: 1.75rem;
+}
+
+/* Responsive YouTube embed */
+.rendered-content .embed-youtube,
+.ProseMirror .embed-youtube {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 1.75rem 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #000;
+}
+.rendered-content .embed-youtube iframe,
+.ProseMirror .embed-youtube iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Captioned figure */
+.rendered-content figure.fig,
+.ProseMirror figure.fig {
+  margin: 1.75rem 0;
+}
+.rendered-content figure.fig img,
+.ProseMirror figure.fig img {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+.rendered-content figure.fig figcaption,
+.ProseMirror figure.fig figcaption {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+}
+
+/* FAQ (native <details> accordion) — published only; editor uses a NodeView. */
+.rendered-content .faq {
+  margin: 1.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.rendered-content .faq-item {
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  overflow: hidden;
+}
+.rendered-content .faq-item > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.9rem 1.1rem;
+  font-family: var(--font-lato), system-ui, sans-serif;
+  font-weight: 600;
+  position: relative;
+  padding-right: 2.5rem;
+}
+.rendered-content .faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+.rendered-content .faq-item > summary::after {
+  content: '+';
+  position: absolute;
+  right: 1.1rem;
+  font-size: 1.2rem;
+  color: #ff0042;
+}
+.rendered-content .faq-item[open] > summary::after {
+  content: '−';
+}
+.rendered-content .faq-answer {
+  padding: 0 1.1rem 1rem;
+}
+
+/* Feature grid — published only (editor uses a NodeView form). */
+.rendered-content .feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1.75rem 0;
+}
+.rendered-content .feature {
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--card);
+}
+.rendered-content .feature-ico {
+  font-size: 1.6rem;
+}
+.rendered-content .feature-title {
+  margin-top: 0.4rem;
+  font-family: var(--font-lato), system-ui, sans-serif;
+  font-weight: 700;
+}
+.rendered-content .feature-desc {
+  margin-top: 0.25rem;
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+}
+
+/* Stats counter — published only. */
+.rendered-content .stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+.rendered-content .stat-num {
+  display: block;
+  font-family: var(--font-lato), system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ff0042;
+}
+.rendered-content .stat-label {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+}
+
+/* Steps — published only. */
+.rendered-content .steps {
+  list-style: none;
+  padding: 0;
+  margin: 1.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.rendered-content .steps .step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.rendered-content .step-n {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background: #ff0042;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-lato), system-ui, sans-serif;
+  font-weight: 700;
+}
+.rendered-content .step-title {
+  font-family: var(--font-lato), system-ui, sans-serif;
+  font-weight: 700;
+}
+.rendered-content .step-desc {
+  color: var(--muted-foreground);
+  font-size: 0.92rem;
+}

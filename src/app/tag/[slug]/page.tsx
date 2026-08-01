@@ -1,0 +1,39 @@
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import { getSiteInfo, getPublishedPosts, getTagBySlug } from '@/lib/public/queries';
+import { getActiveTheme } from '@/lib/public/theme';
+import { buildMetadata } from '@/lib/seo/metadata';
+
+export const revalidate = 300;
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const [site, tag] = await Promise.all([getSiteInfo(), getTagBySlug(slug)]);
+  if (!tag) return {};
+  return buildMetadata({
+    site,
+    title: `#${tag.name}`,
+    description: tag.description,
+    path: `/tag/${slug}`,
+    type: 'website',
+  });
+}
+
+export default async function TagPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const tag = await getTagBySlug(slug);
+  if (!tag) notFound();
+
+  const [site, theme, { posts, total }] = await Promise.all([
+    getSiteInfo(),
+    getActiveTheme(),
+    getPublishedPosts({ tagSlug: slug, perPage: 10 }),
+  ]);
+  const { Layout, ArchiveView } = theme;
+
+  return (
+    <Layout site={site}>
+      <ArchiveView site={site} heading={`#${tag.name}`} description={tag.description} posts={posts} total={total} filter={{ tag: slug }} />
+    </Layout>
+  );
+}

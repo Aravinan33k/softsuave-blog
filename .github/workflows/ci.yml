@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx prisma generate
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run build
+        env:
+          # Build-time env (no real DB needed for `next build`). Provide dummy
+          # secrets so env validation passes.
+          DATABASE_URL: postgresql://user:pass@localhost:5432/db?schema=public
+          JWT_ACCESS_SECRET: ci-access-secret-placeholder-0000000000000000
+          JWT_REFRESH_SECRET: ci-refresh-secret-placeholder-000000000000000
+          PREVIEW_SECRET: ci-preview-secret-placeholder-0000000000000000
+          REVALIDATE_SECRET: ci-revalidate-secret-placeholder-000000000000
+
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # Fail the build on high/critical production vulnerabilities.
+      - run: npm run audit

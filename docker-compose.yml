@@ -1,0 +1,46 @@
+# Local development infrastructure.
+# Postgres only — object storage uses the local-disk driver in dev (see src/lib/storage).
+# In production, swap the storage adapter to the S3/R2 driver via env (STORAGE_DRIVER=s3).
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: softsuave-blog-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: blog
+      POSTGRES_PASSWORD: blog
+      POSTGRES_DB: softsuave_blog
+    # Host port 5433 to avoid clashing with a native Postgres on 5432.
+    ports:
+      - '5433:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U blog -d softsuave_blog']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Full self-hosted app. Not started by default — run with:
+  #   docker compose --profile app up -d --build
+  app:
+    profiles: ['app']
+    build: .
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      # Reach Postgres over the compose network (overrides .env's localhost).
+      DATABASE_URL: postgresql://blog:blog@postgres:5432/softsuave_blog?schema=public
+    ports:
+      - '3000:3000'
+    volumes:
+      - app_storage:/app/.storage
+
+volumes:
+  postgres_data:
+  app_storage:
