@@ -1,11 +1,12 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import type { PostCardProps } from '../_contract';
 
-// Client component so it can be reused by the Load More client control.
-export function SoftSuavePostCard({ post }: PostCardProps) {
+// Deliberately carries no 'use client' directive. It has no state or handlers,
+// so as a shared module it renders server-side (zero client JS) in the static
+// archive and related grids, while still being importable by the client-side
+// Load More control, which pulls it into that route's client graph on its own.
+export function SoftSuavePostCard({ post, sizes = '(max-width: 768px) 100vw, 600px', preload = false }: PostCardProps) {
   return (
     <article className="group flex flex-col overflow-hidden rounded-xl border bg-white shadow-sm transition hover:shadow-md">
       <Link href={`/${post.slug}`} className="relative block aspect-[300/157] overflow-hidden bg-neutral-100">
@@ -14,7 +15,8 @@ export function SoftSuavePostCard({ post }: PostCardProps) {
             src={post.coverImageUrl}
             alt={post.coverAlt ?? ''}
             fill
-            sizes="(max-width: 768px) 100vw, 600px"
+            sizes={sizes}
+            preload={preload}
             className="object-cover transition-transform group-hover:scale-105"
           />
         ) : (

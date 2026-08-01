@@ -35,6 +35,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ pat
     return new Response(new Uint8Array(data), {
       headers: {
         'content-type': type,
+        'content-length': String(data.byteLength),
         'cache-control': 'public, max-age=31536000, immutable',
       },
     });

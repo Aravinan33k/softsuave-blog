@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { getSiteInfo, getPostBySlug, getPageBySlug, getPublishedPostSlugs, getContentMeta, getAdjacentPosts, getRelatedPosts } from '@/lib/public/queries';
+import { getSiteInfo, getPostBySlug, getPageBySlug, getPublishedPostSlugs, getPublishedPageSlugs, getContentMeta, getAdjacentPosts, getRelatedPosts } from '@/lib/public/queries';
 import { getActiveTheme } from '@/lib/public/theme';
 import { buildMetadata, absoluteUrl } from '@/lib/seo/metadata';
 import { blogPostingLd, breadcrumbLd, organizationLd, websiteLd } from '@/lib/seo/jsonld';
@@ -10,8 +10,10 @@ import { JsonLd } from '@/components/seo/json-ld';
 export const revalidate = 300;
 
 export async function generateStaticParams() {
-  const slugs = await getPublishedPostSlugs();
-  return slugs.map((slug) => ({ slug }));
+  // This route serves standalone pages as well as posts; prerender both, or the
+  // first visitor to /about pays full SSR latency after every deploy.
+  const [postSlugs, pageSlugs] = await Promise.all([getPublishedPostSlugs(), getPublishedPageSlugs()]);
+  return [...new Set([...postSlugs, ...pageSlugs])].map((slug) => ({ slug }));
 }
 
 async function load(slug: string) {

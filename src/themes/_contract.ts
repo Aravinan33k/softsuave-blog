@@ -102,6 +102,18 @@ export interface PostViewProps {
 
 export interface PostCardProps {
   post: PostSummary;
+  /**
+   * `sizes` for the cover image. Defaults to the two-column archive grid; pass a
+   * narrower value where cards render smaller (e.g. the four-column related
+   * grid), or the browser downloads an image sized for a much wider slot.
+   */
+  sizes?: string;
+  /**
+   * Preload the cover image. Set on the first card or two of a listing — that
+   * card is the LCP element, and cards lazy-load by default. Never set it below
+   * the fold.
+   */
+  preload?: boolean;
 }
 
 export interface Theme {

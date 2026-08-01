@@ -10,7 +10,7 @@ import { postCreateSchema } from '@/lib/validation/content';
 import { slugify, ensureUniqueSlug } from '@/lib/content/slug';
 import { renderContent, resolvePublishState } from '@/lib/content/service';
 import { POST_INCLUDE } from '@/lib/content/queries';
-import { revalidateContent } from '@/lib/revalidate';
+import { revalidateContent, taxonomyPaths } from '@/lib/revalidate';
 
 // GET /api/v1/admin/posts — paginated list with optional status/search filters.
 export async function GET(req: NextRequest) {
@@ -103,7 +103,7 @@ export async function POST(req: NextRequest) {
     await logAudit({ action: 'CREATE', userId: session.sub, targetType: 'post', targetId: post.id, req });
     if (post.status === 'PUBLISHED') {
       await logAudit({ action: 'PUBLISH', userId: session.sub, targetType: 'post', targetId: post.id, req });
-      revalidateContent([`/${post.slug}`]);
+      revalidateContent([`/${post.slug}`, ...taxonomyPaths(post)]);
     }
     return NextResponse.json({ post }, { status: 201 });
   } catch (err) {

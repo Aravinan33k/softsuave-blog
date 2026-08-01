@@ -7,9 +7,15 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  /* --font-sans used to read `var(--font-sans)` — a self-reference, which
+     computes to the guaranteed-invalid value, so `html { font-family }` was
+     silently dropped and every non-.ss-theme surface fell back to the browser
+     default. Point it at the brand sans instead. Mono is a system stack: the
+     only `font-mono` uses are four admin code/secret displays, not worth a
+     webfont download on every route. */
+  --font-sans: var(--font-lato), system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-heading: var(--font-lato), system-ui, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Lato, PT_Serif } from "next/font/google";
+import { Lato, PT_Serif } from "next/font/google";
 import { env } from "@/lib/env";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// Only the two brand fonts are loaded. Fonts declared in the root layout are
+// preloaded on every route, so anything unused here costs a render-blocking
+// preload and a download on every page — Geist/Geist Mono used to sit here
+// without a single glyph rendering from either.
 
 // Soft Suave brand fonts: headings = Lato, body = PT Serif.
 const lato = Lato({
@@ -40,7 +35,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${lato.variable} ${ptSerif.variable} h-full antialiased`}
+      className={`${lato.variable} ${ptSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <a

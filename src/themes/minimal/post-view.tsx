@@ -28,7 +28,7 @@ export function MinimalPostView({ post }: PostViewProps) {
 
       {post.coverImageUrl && (
         <div className="relative mb-8 aspect-video w-full overflow-hidden rounded-lg">
-          <Image src={post.coverImageUrl} alt={post.coverAlt ?? ''} fill sizes="768px" className="object-cover" priority />
+          <Image src={post.coverImageUrl} alt={post.coverAlt ?? ''} fill sizes="768px" className="object-cover" preload />
         </div>
       )}
 

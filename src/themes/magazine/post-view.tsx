@@ -27,7 +27,7 @@ export function MagazinePostView({ post }: PostViewProps) {
 
       {post.coverImageUrl && (
         <div className="relative mb-10 aspect-[16/9] w-full overflow-hidden rounded-xl">
-          <Image src={post.coverImageUrl} alt={post.coverAlt ?? ''} fill sizes="768px" className="object-cover" priority />
+          <Image src={post.coverImageUrl} alt={post.coverAlt ?? ''} fill sizes="768px" className="object-cover" preload />
         </div>
       )}
 

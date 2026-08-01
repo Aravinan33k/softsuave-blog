@@ -1,4 +1,5 @@
 import 'server-only';
+import { cache } from 'react';
 import type { JSONContent } from '@tiptap/core';
 import type { Prisma } from '@/generated/prisma/client';
 import { prisma } from '../db';
@@ -8,12 +9,25 @@ import type { SiteInfo, PostSummary, PostFull, SocialLink } from '@/themes/_cont
 // Read model for the public site. Only published, already-live content is
 // returned. Prisma rows are normalised into the theme view models here so themes
 // never touch the database shape.
+//
+// Loaders that a route calls more than once per render — generateMetadata and
+// the page body both need the site chrome and the content row — are wrapped in
+// React's cache(). Next only auto-dedupes fetch(), not Prisma calls, so without
+// this every public page issues each of these queries twice.
 
 function publishedFilter() {
   return { status: 'PUBLISHED' as const, publishedAt: { lte: new Date() } };
 }
 
-const summaryInclude = {
+// `select`, not `include`: include returns every scalar column of the base row,
+// which for Post means dragging contentHtml and contentJson (the two largest
+// columns) into archive, related and search listings that never render a body.
+const summarySelect = {
+  slug: true,
+  title: true,
+  excerpt: true,
+  publishedAt: true,
+  readingTimeMinutes: true,
   coverImage: { select: { url: true, altText: true } },
   author: { select: { name: true } },
   categories: { include: { category: { select: { name: true, slug: true } } } },
@@ -75,7 +89,7 @@ async function safe<T>(fn: () => Promise<T>, fallback: T, ctx: string): Promise<
   }
 }
 
-export async function getSiteInfo(): Promise<SiteInfo> {
+export const getSiteInfo = cache(async function getSiteInfo(): Promise<SiteInfo> {
   return safe(
     async () => {
       const [settings, pages, categories] = await Promise.all([
@@ -98,7 +112,7 @@ export async function getSiteInfo(): Promise<SiteInfo> {
     DEFAULT_SITE,
     'getSiteInfo',
   );
-}
+});
 
 export async function getPublishedPosts(opts: {
   page?: number;
@@ -116,7 +130,7 @@ export async function getPublishedPosts(opts: {
   return safe(
     async () => {
       const [rows, total] = await Promise.all([
-        prisma.post.findMany({ where, orderBy: { publishedAt: 'desc' }, skip: (page - 1) * perPage, take: perPage, include: summaryInclude }),
+        prisma.post.findMany({ where, orderBy: { publishedAt: 'desc' }, skip: (page - 1) * perPage, take: perPage, select: summarySelect }),
         prisma.post.count({ where }),
       ]);
       return { posts: rows.map(toSummary), total };
@@ -137,7 +151,7 @@ export async function getPublishedPostSlugs(): Promise<string[]> {
   );
 }
 
-export async function getPostBySlug(slug: string): Promise<PostFull | null> {
+export const getPostBySlug = cache(async function getPostBySlug(slug: string): Promise<PostFull | null> {
   const p = await prisma.post.findFirst({
     where: { slug, ...publishedFilter() },
     include: {
@@ -179,7 +193,7 @@ export async function getPostBySlug(slug: string): Promise<PostFull | null> {
     updatedAt: p.updatedAt?.toISOString() ?? null,
     wordCount: p.wordCount,
   };
-}
+});
 
 /**
  * Related posts for the "Related Blogs" section: posts sharing a category first,
@@ -196,7 +210,7 @@ export async function getRelatedPosts(post: PostFull, limit = 4): Promise<PostSu
           where: { ...publishedFilter(), slug: { notIn: [...seen] }, ...extra },
           orderBy: { publishedAt: 'desc' },
           take: n,
-          include: summaryInclude,
+          select: summarySelect,
         });
         rows.forEach((r) => seen.add(r.slug));
         return rows.map(toSummary);
@@ -231,7 +245,7 @@ export async function getAdjacentPosts(publishedAt: string | null): Promise<{ pr
   return { prev, next };
 }
 
-export async function getPageBySlug(slug: string): Promise<PostFull | null> {
+export const getPageBySlug = cache(async function getPageBySlug(slug: string): Promise<PostFull | null> {
   const p = await prisma.page.findFirst({
     where: { slug, ...publishedFilter() },
     include: { coverImage: { select: { url: true, altText: true } }, author: { select: { name: true } } },
@@ -256,7 +270,7 @@ export async function getPageBySlug(slug: string): Promise<PostFull | null> {
     updatedAt: p.updatedAt?.toISOString() ?? null,
     wordCount: p.wordCount,
   };
-}
+});
 
 export interface ContentMeta {
   kind: 'post' | 'page';
@@ -276,21 +290,31 @@ export interface ContentMeta {
 }
 
 /** SEO metadata for a post or page by slug (post takes precedence). */
-export async function getContentMeta(slug: string): Promise<ContentMeta | null> {
-  const baseInclude = {
+export const getContentMeta = cache(async function getContentMeta(slug: string): Promise<ContentMeta | null> {
+  // Explicit select: this runs in generateMetadata on every content page, and
+  // none of the body columns are used to build the tags.
+  const baseSelect = {
+    title: true,
+    excerpt: true,
+    seoTitle: true,
+    seoDescription: true,
+    noIndex: true,
+    canonicalUrl: true,
+    publishedAt: true,
+    updatedAt: true,
     ogImage: { select: { url: true } },
     coverImage: { select: { url: true } },
     author: { select: { name: true } },
-  };
+  } as const;
   const post = await prisma.post.findFirst({
     where: { slug, ...publishedFilter() },
-    include: {
-      ...baseInclude,
+    select: {
+      ...baseSelect,
       categories: { include: { category: { select: { name: true } } } },
       tags: { include: { tag: { select: { name: true } } } },
     },
   });
-  const row = post ?? (await prisma.page.findFirst({ where: { slug, ...publishedFilter() }, include: baseInclude }));
+  const row = post ?? (await prisma.page.findFirst({ where: { slug, ...publishedFilter() }, select: baseSelect }));
   if (!row) return null;
   return {
     kind: post ? 'post' : 'page',
@@ -308,12 +332,40 @@ export async function getContentMeta(slug: string): Promise<ContentMeta | null> 
     tags: post?.tags.map((t) => t.tag.name) ?? [],
     authorName: row.author?.name ?? null,
   };
-}
+});
 
-export async function getCategoryBySlug(slug: string) {
+export const getCategoryBySlug = cache(async function getCategoryBySlug(slug: string) {
   return prisma.category.findUnique({ where: { slug }, select: { name: true, slug: true, description: true } });
-}
+});
 
-export async function getTagBySlug(slug: string) {
+export const getTagBySlug = cache(async function getTagBySlug(slug: string) {
   return prisma.tag.findUnique({ where: { slug }, select: { name: true, slug: true, description: true } });
-}
+});
+
+/** Slugs of published categories/tags that have at least one live post — used by generateStaticParams. */
+export const getTaxonomySlugs = cache(async function getTaxonomySlugs(kind: 'category' | 'tag'): Promise<string[]> {
+  return safe(
+    async () => {
+      const where = { posts: { some: { post: publishedFilter() } } };
+      const rows =
+        kind === 'category'
+          ? await prisma.category.findMany({ where, select: { slug: true } })
+          : await prisma.tag.findMany({ where, select: { slug: true } });
+      return rows.map((r) => r.slug);
+    },
+    [],
+    `getTaxonomySlugs(${kind})`,
+  );
+});
+
+/** Slugs of published standalone pages — the `[slug]` route serves these too. */
+export const getPublishedPageSlugs = cache(async function getPublishedPageSlugs(): Promise<string[]> {
+  return safe(
+    async () => {
+      const rows = await prisma.page.findMany({ where: publishedFilter(), select: { slug: true } });
+      return rows.map((r) => r.slug);
+    },
+    [],
+    'getPublishedPageSlugs',
+  );
+});

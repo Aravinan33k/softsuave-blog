@@ -14,3 +14,18 @@ export function revalidateContent(paths: string[] = []): void {
     }
   }
 }
+
+/**
+ * Archive paths for a post's categories and tags. Publishing or recategorising a
+ * post changes what those archives list, but nothing used to revalidate them —
+ * they stayed stale until the 300s window lapsed. Pass the result through to
+ * `revalidateContent` alongside the post's own path.
+ */
+export function taxonomyPaths(
+  post: { categories?: { category: { slug: string } }[]; tags?: { tag: { slug: string } }[] },
+): string[] {
+  return [
+    ...(post.categories ?? []).map((c) => `/category/${c.category.slug}`),
+    ...(post.tags ?? []).map((t) => `/tag/${t.tag.slug}`),
+  ];
+}

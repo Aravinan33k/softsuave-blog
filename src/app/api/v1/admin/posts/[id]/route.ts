@@ -10,7 +10,7 @@ import { postUpdateSchema } from '@/lib/validation/content';
 import { slugify, ensureUniqueSlug } from '@/lib/content/slug';
 import { canModifyContent, renderContent, resolvePublishState, MAX_REVISIONS } from '@/lib/content/service';
 import { POST_INCLUDE } from '@/lib/content/queries';
-import { revalidateContent } from '@/lib/revalidate';
+import { revalidateContent, taxonomyPaths } from '@/lib/revalidate';
 
 // GET /api/v1/admin/posts/[id] — full post for the editor.
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -129,7 +129,11 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       }
       // Revalidate if the post is (or just was) publicly visible.
       if (post.status === 'PUBLISHED' || existing.status === 'PUBLISHED') {
-        revalidateContent([`/${post.slug}`, ...(existing.slug !== post.slug ? [`/${existing.slug}`] : [])]);
+        revalidateContent([
+          `/${post.slug}`,
+          ...(existing.slug !== post.slug ? [`/${existing.slug}`] : []),
+          ...taxonomyPaths(post),
+        ]);
       }
     }
     return NextResponse.json({ post });
@@ -145,7 +149,18 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
     if (session instanceof NextResponse) return session;
 
     const { id } = await params;
-    const existing = await prisma.post.findUnique({ where: { id }, select: { authorId: true, slug: true, status: true } });
+    // Categories/tags are read before the delete cascades the join rows, so the
+    // archives the post used to appear in can still be revalidated.
+    const existing = await prisma.post.findUnique({
+      where: { id },
+      select: {
+        authorId: true,
+        slug: true,
+        status: true,
+        categories: { select: { category: { select: { slug: true } } } },
+        tags: { select: { tag: { select: { slug: true } } } },
+      },
+    });
     if (!existing) return jsonError(404, 'not_found', 'Post not found.');
     if (!canModifyContent(session, existing.authorId)) {
       return jsonError(403, 'forbidden', 'You can only delete your own posts.');
@@ -153,7 +168,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
 
     await prisma.post.delete({ where: { id } }); // revisions + join rows cascade
     await logAudit({ action: 'DELETE', userId: session.sub, targetType: 'post', targetId: id, req });
-    if (existing.status === 'PUBLISHED') revalidateContent([`/${existing.slug}`]);
+    if (existing.status === 'PUBLISHED') revalidateContent([`/${existing.slug}`, ...taxonomyPaths(existing)]);
     return NextResponse.json({ ok: true });
   } catch (err) {
     return handleRouteError(err, 'admin/posts/[id] DELETE');

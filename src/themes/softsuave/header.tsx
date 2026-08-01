@@ -79,7 +79,7 @@ export function SoftSuaveHeader() {
       <div className="relative">
         <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-4 px-4 py-3">
           <Link href="/" aria-label="Soft Suave" className="shrink-0">
-            <Image src={LOGO} alt="Soft Suave" width={150} height={40} unoptimized className="h-9 w-auto" priority />
+            <Image src={LOGO} alt="Soft Suave" width={150} height={40} unoptimized className="h-9 w-auto" preload />
           </Link>
 
           {/* Desktop nav */}

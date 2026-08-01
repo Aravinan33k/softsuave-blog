@@ -54,8 +54,10 @@ export function SoftSuaveArchiveView({ site, heading, description, posts, total,
         ) : (
           <>
             <div className="grid gap-6 md:grid-cols-2">
-              {posts.map((p) => (
-                <SoftSuavePostCard key={p.slug} post={p} />
+              {posts.map((p, i) => (
+                // These archive pages have no hero image, so the first row of
+                // cards holds the LCP element. Without preload they lazy-load.
+                <SoftSuavePostCard key={p.slug} post={p} preload={i < 2} />
               ))}
             </div>
             {typeof total === 'number' && total > posts.length && (

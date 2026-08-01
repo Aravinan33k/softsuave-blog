@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import Image, { getImageProps } from 'next/image';
 import type { PostViewProps } from '../_contract';
 import { formatDate } from '@/lib/format';
 import { ShareButtons } from './share-buttons';
@@ -20,13 +20,22 @@ export function SoftSuavePostView({ post, prev, next, relatedPosts }: PostViewPr
   const author = post.authorProfile;
   const category = post.categories[0];
 
+  // The banner renders the cover as a CSS background, which bypasses the image
+  // optimizer entirely — it was fetching the full-resolution original to sit
+  // under an 88%-black gradient. Route it through the optimizer at a fixed
+  // banner size instead. BANNER_BG stays raw: it is an off-site host that is not
+  // in images.remotePatterns, so the optimizer would reject it.
+  const bannerUrl = post.coverImageUrl
+    ? getImageProps({ src: post.coverImageUrl, alt: '', width: 1440, height: 600 }).props.src
+    : BANNER_BG;
+
   return (
     <article>
       <ReadingProgress />
       {/* Full-width dark banner (post cover as backdrop when available) */}
       <div
         className="bg-cover bg-center"
-        style={{ backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.88), rgba(0,0,0,0.35)), url(${post.coverImageUrl ?? BANNER_BG})` }}
+        style={{ backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.88), rgba(0,0,0,0.35)), url(${bannerUrl})` }}
       >
         <div className="mx-auto max-w-[1320px] px-4 pb-14 pt-10 text-white">
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-white/80">
@@ -96,7 +105,7 @@ export function SoftSuavePostView({ post, prev, next, relatedPosts }: PostViewPr
               src={post.coverImageUrl}
               alt={post.coverAlt ?? post.title}
               fill
-              priority
+              preload
               sizes="(max-width: 1320px) 100vw, 1320px"
               className="object-cover"
             />
@@ -175,7 +184,13 @@ export function SoftSuavePostView({ post, prev, next, relatedPosts }: PostViewPr
             <h2 id="related-blogs" className="ss-heading mb-6 text-2xl font-bold text-neutral-900">Related Blogs</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {relatedPosts.map((p) => (
-                <SoftSuavePostCard key={p.slug} post={p} />
+                // Four across in a 1320px container is a ~300px slot, half the
+                // card default — without this the browser fetches ~4x the pixels.
+                <SoftSuavePostCard
+                  key={p.slug}
+                  post={p}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 310px"
+                />
               ))}
             </div>
           </section>
