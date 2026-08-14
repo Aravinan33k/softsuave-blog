@@ -20,7 +20,11 @@ export async function getSitemapEntries(): Promise<SitemapEntry[]> {
     return await sitemapEntriesQuery();
   } catch (err) {
     console.warn('[sitemap] query failed (using home only):', (err as Error).message);
-    return [{ url: absoluteUrl('/'), lastModified: new Date() }];
+    const now = new Date();
+    return [
+      { url: absoluteUrl('/'), lastModified: now },
+      { url: absoluteUrl('/blog'), lastModified: now },
+    ];
   }
 }
 
@@ -36,7 +40,11 @@ async function sitemapEntriesQuery(): Promise<SitemapEntry[]> {
   ]);
 
   const now = new Date();
-  const entries: SitemapEntry[] = [{ url: absoluteUrl('/'), lastModified: now }];
+  // "/" is the marketing homepage; "/blog" is the post archive.
+  const entries: SitemapEntry[] = [
+    { url: absoluteUrl('/'), lastModified: now },
+    { url: absoluteUrl('/blog'), lastModified: now },
+  ];
   posts.forEach((p) =>
     entries.push({
       url: absoluteUrl(`/${p.slug}`),

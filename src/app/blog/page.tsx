@@ -7,12 +7,15 @@ import { JsonLd } from '@/components/seo/json-ld';
 
 export const revalidate = 300; // ISR fallback; on-demand revalidation on publish
 
+// The blog archive. "/" belongs to the marketing homepage (app/(marketing)),
+// so the post listing lives here; /category, /tag and /search still render the
+// same theme ArchiveView with a filter applied.
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteInfo();
-  return buildMetadata({ site, title: site.title, description: site.description, path: '/', home: true, type: 'website' });
+  return buildMetadata({ site, title: site.title, description: site.description, path: '/blog', home: true, type: 'website' });
 }
 
-export default async function HomePage() {
+export default async function BlogIndexPage() {
   const [site, theme, { posts, total }] = await Promise.all([
     getSiteInfo(),
     getActiveTheme(),

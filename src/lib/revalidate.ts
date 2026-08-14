@@ -1,11 +1,12 @@
 import 'server-only';
 import { revalidatePath } from 'next/cache';
 
-// Revalidate the ISR cache on content changes. Always refreshes the home page
-// and feeds; callers pass specific content paths too. Best-effort — a failure
-// is logged, never thrown.
+// Revalidate the ISR cache on content changes. Always refreshes the blog
+// archive and feeds; callers pass specific content paths too. ("/" is the
+// static marketing homepage and never lists posts, so it isn't refreshed.)
+// Best-effort — a failure is logged, never thrown.
 export function revalidateContent(paths: string[] = []): void {
-  const targets = new Set<string>(['/', '/sitemap.xml', '/rss.xml', ...paths]);
+  const targets = new Set<string>(['/blog', '/sitemap.xml', '/rss.xml', ...paths]);
   for (const p of targets) {
     try {
       revalidatePath(p);

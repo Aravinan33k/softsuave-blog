@@ -69,6 +69,7 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
 
   const breadcrumb = breadcrumbLd([
     { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog' },
     ...(content.categories[0] ? [{ name: content.categories[0].name, path: `/category/${content.categories[0].slug}` }] : []),
     { name: content.title, path: `/${slug}` },
   ]);

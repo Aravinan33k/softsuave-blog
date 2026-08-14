@@ -43,6 +43,10 @@ export function SoftSuavePostView({ post, prev, next, relatedPosts }: PostViewPr
               <li>
                 <Link href="/" className="hover:text-white">Home</Link>
               </li>
+              <li className="flex items-center">
+                <span aria-hidden className="mx-2">›</span>
+                <Link href="/blog" className="hover:text-white">Blog</Link>
+              </li>
               {category && (
                 <li className="flex items-center">
                   <span aria-hidden className="mx-2">›</span>

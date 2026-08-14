@@ -25,7 +25,7 @@ const INDUSTRIES = [
 ];
 const FOOTER_LINKS = [
   ['Clients', '/clients'],
-  ['Blog', '/'],
+  ['Blog', '/blog'],
   ['Careers', '/career-overview'],
   ['Contact', '/contact'],
   ['Case Studies', '/case-studies'],
@@ -40,8 +40,11 @@ const SOCIALS = [
   [YoutubeIcon, 'https://www.youtube.com/@softsuave', 'YouTube'],
 ] as const;
 
+/** Paths this app serves itself: the marketing homepage and the blog archive. */
+const LOCAL_PATHS = new Set(['/', '/blog']);
+
 function abs(href: string): string {
-  return href.startsWith('/') && href !== '/' ? `${SITE}${href}` : href;
+  return href.startsWith('/') && !LOCAL_PATHS.has(href) ? `${SITE}${href}` : href;
 }
 
 function Column({ title, links }: { title: string; links: string[][] }) {
