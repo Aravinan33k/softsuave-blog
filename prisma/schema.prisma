@@ -265,7 +265,10 @@ model SiteSettings {
   siteDescription String?
   accentColor     String  @default("#2563eb")
   fontChoice      String  @default("inter")
-  activeTheme     String  @default("minimal")
+  // Keep in sync with DEFAULT_THEME in src/themes/registry.ts — a fresh install
+  // seeds this row from the column default, so a mismatch silently ships the
+  // wrong theme.
+  activeTheme     String  @default("softsuave")
   socialLinksJson Json?
   analyticsSnippet String?
 
