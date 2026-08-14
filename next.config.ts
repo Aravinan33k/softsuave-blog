@@ -38,9 +38,16 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   // Allow next/image to optimize our own uploads (STORAGE_DRIVER=local) and
   // Cloudinary-hosted media (STORAGE_DRIVER=cloudinary). This Next build 400s
-  // local optimizer requests unless localPatterns permits them explicitly.
+  // local optimizer requests unless localPatterns permits them explicitly —
+  // which also covers the marketing homepage's bundled art in /public/images
+  // and /public/brand. Every pattern pins `search: ''` so the optimizer only
+  // ever serves these exact paths.
   images: {
-    localPatterns: [{ pathname: '/uploads/**', search: '' }],
+    localPatterns: [
+      { pathname: '/uploads/**', search: '' },
+      { pathname: '/images/**', search: '' },
+      { pathname: '/brand/**', search: '' },
+    ],
     remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com', pathname: '/**' }],
   },
   async headers() {
