@@ -1,0 +1,845 @@
+{
+  "$comment": "Every image slot across /one, /two, /three. keywords = tiers broad -> broader -> generic on-brand. Deduped by Pexels photo id across ALL slots (no photo repeats site-wide).",
+  "images": [
+    {
+      "id": "hero",
+      "page": "one",
+      "purpose": "hero-background",
+      "alt": "Abstract artificial intelligence neural network visualization on a dark background",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "artificial intelligence neural network abstract dark",
+        "abstract technology dark blue",
+        "digital network connection",
+        "technology background"
+      ]
+    },
+    {
+      "id": "work-ecommerce",
+      "page": "one",
+      "purpose": "case-study",
+      "alt": "AI-powered ecommerce personalization dashboard",
+      "orientation": "landscape",
+      "width": 1000,
+      "height": 750,
+      "keywords": [
+        "online shopping ecommerce technology",
+        "ecommerce retail analytics",
+        "online shopping",
+        "retail business"
+      ]
+    },
+    {
+      "id": "work-healthtech",
+      "page": "one",
+      "purpose": "case-study",
+      "alt": "AI in healthcare and clinical workflow automation",
+      "orientation": "landscape",
+      "width": 1000,
+      "height": 750,
+      "keywords": [
+        "healthcare technology data doctor",
+        "medical technology digital",
+        "hospital technology",
+        "healthcare"
+      ]
+    },
+    {
+      "id": "work-logistics",
+      "page": "one",
+      "purpose": "case-study",
+      "alt": "AI-driven logistics and supply chain optimization",
+      "orientation": "landscape",
+      "width": 1000,
+      "height": 750,
+      "keywords": [
+        "logistics warehouse automation technology",
+        "supply chain shipping",
+        "warehouse logistics",
+        "logistics"
+      ]
+    },
+    {
+      "id": "work-fintech",
+      "page": "one",
+      "purpose": "case-study",
+      "alt": "AI fraud detection in financial technology",
+      "orientation": "landscape",
+      "width": 1000,
+      "height": 750,
+      "keywords": [
+        "fintech financial data trading screen",
+        "finance technology analytics",
+        "financial charts",
+        "finance"
+      ]
+    },
+    {
+      "id": "integrations",
+      "page": "one",
+      "purpose": "feature",
+      "alt": "Connected enterprise systems and integrations",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 800,
+      "keywords": [
+        "server room data center network",
+        "connected systems technology",
+        "data center",
+        "technology infrastructure"
+      ]
+    },
+    {
+      "id": "hero",
+      "page": "two",
+      "purpose": "hero-background",
+      "alt": "Scalable AI infrastructure abstract visualization",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "ai infrastructure glowing abstract warm",
+        "futuristic technology abstract orange",
+        "abstract data flow",
+        "technology abstract"
+      ]
+    },
+    {
+      "id": "bento-custom-ai",
+      "page": "two",
+      "purpose": "feature",
+      "alt": "Custom AI models and large language models",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 700,
+      "keywords": [
+        "artificial intelligence brain circuit",
+        "machine learning abstract",
+        "ai chip technology",
+        "technology closeup"
+      ]
+    },
+    {
+      "id": "bento-automation",
+      "page": "two",
+      "purpose": "feature",
+      "alt": "AI workflow automation across business tools",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 700,
+      "keywords": [
+        "automation workflow robotic process",
+        "business process automation",
+        "automation technology",
+        "office technology"
+      ]
+    },
+    {
+      "id": "bento-agents",
+      "page": "two",
+      "purpose": "feature",
+      "alt": "AI chatbots and conversational agents",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 700,
+      "keywords": [
+        "chatbot conversation interface mobile",
+        "customer support technology",
+        "messaging app phone",
+        "communication technology"
+      ]
+    },
+    {
+      "id": "bento-modernization",
+      "page": "two",
+      "purpose": "feature",
+      "alt": "Enterprise modernization with cloud and AI",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 700,
+      "keywords": [
+        "cloud computing enterprise server abstract",
+        "cloud technology network",
+        "cloud data",
+        "digital transformation"
+      ]
+    },
+    {
+      "id": "analytics",
+      "page": "two",
+      "purpose": "feature",
+      "alt": "Real-time AI analytics dashboard",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 800,
+      "keywords": [
+        "analytics dashboard data visualization screen",
+        "business analytics charts monitor",
+        "data dashboard",
+        "business data"
+      ]
+    },
+    {
+      "id": "industry-ecommerce",
+      "page": "two",
+      "purpose": "industry",
+      "alt": "Ecommerce industry",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "ecommerce online store shopping cart",
+        "retail shopping bags",
+        "online retail",
+        "shopping"
+      ]
+    },
+    {
+      "id": "industry-healthtech",
+      "page": "two",
+      "purpose": "industry",
+      "alt": "HealthTech industry",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "healthtech medical technology tablet doctor",
+        "modern hospital equipment",
+        "medical care",
+        "healthcare"
+      ]
+    },
+    {
+      "id": "industry-logistics",
+      "page": "two",
+      "purpose": "industry",
+      "alt": "Logistics industry",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "logistics cargo container port",
+        "trucks transportation delivery",
+        "shipping cargo",
+        "transport"
+      ]
+    },
+    {
+      "id": "industry-edtech",
+      "page": "two",
+      "purpose": "industry",
+      "alt": "EdTech industry",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "edtech online learning student laptop",
+        "education technology classroom",
+        "student studying",
+        "education"
+      ]
+    },
+    {
+      "id": "industry-fintech",
+      "page": "two",
+      "purpose": "industry",
+      "alt": "FinTech industry",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "fintech mobile banking payment app",
+        "digital banking finance",
+        "mobile payment",
+        "finance"
+      ]
+    },
+    {
+      "id": "team-1",
+      "page": "two",
+      "purpose": "team",
+      "alt": "Soft Suave AI engineering team member",
+      "orientation": "portrait",
+      "width": 600,
+      "height": 750,
+      "keywords": [
+        "confident business man portrait office",
+        "professional man headshot",
+        "businessman portrait",
+        "professional person"
+      ]
+    },
+    {
+      "id": "team-2",
+      "page": "two",
+      "purpose": "team",
+      "alt": "Soft Suave AI engineering team member",
+      "orientation": "portrait",
+      "width": 600,
+      "height": 750,
+      "keywords": [
+        "confident business woman portrait office",
+        "professional woman headshot",
+        "businesswoman portrait",
+        "professional person"
+      ]
+    },
+    {
+      "id": "avatar-1",
+      "page": "two",
+      "purpose": "avatar",
+      "alt": "Client testimonial portrait",
+      "orientation": "square",
+      "width": 300,
+      "height": 300,
+      "keywords": [
+        "smiling professional woman headshot",
+        "woman portrait face",
+        "woman smiling",
+        "person face"
+      ]
+    },
+    {
+      "id": "avatar-2",
+      "page": "two",
+      "purpose": "avatar",
+      "alt": "Client testimonial portrait",
+      "orientation": "square",
+      "width": 300,
+      "height": 300,
+      "keywords": [
+        "smiling professional man headshot glasses",
+        "man portrait face",
+        "man smiling",
+        "person portrait"
+      ]
+    },
+    {
+      "id": "avatar-3",
+      "page": "two",
+      "purpose": "avatar",
+      "alt": "Client testimonial portrait",
+      "orientation": "square",
+      "width": 300,
+      "height": 300,
+      "keywords": [
+        "professional executive portrait studio",
+        "person headshot corporate",
+        "professional headshot",
+        "face portrait"
+      ]
+    },
+    {
+      "id": "hero",
+      "page": "three",
+      "purpose": "hero-background",
+      "alt": "Cinematic abstract representation of AI-driven design and engineering",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1200,
+      "keywords": [
+        "abstract fluid dark cinematic 3d render",
+        "abstract art dark motion",
+        "abstract dark texture",
+        "abstract background"
+      ]
+    },
+    {
+      "id": "work-1",
+      "page": "three",
+      "purpose": "project",
+      "alt": "Custom AI solution project",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "ai technology abstract vertical glowing",
+        "futuristic tech portrait",
+        "technology abstract vertical",
+        "abstract portrait"
+      ]
+    },
+    {
+      "id": "work-2",
+      "page": "three",
+      "purpose": "project",
+      "alt": "AI automation project",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "robotic automation arm factory vertical",
+        "automation robot technology",
+        "robot technology",
+        "industrial technology"
+      ]
+    },
+    {
+      "id": "work-3",
+      "page": "three",
+      "purpose": "project",
+      "alt": "Web and mobile product design project",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "mobile app design smartphone hand vertical",
+        "product design ui mobile",
+        "smartphone technology",
+        "mobile phone"
+      ]
+    },
+    {
+      "id": "work-4",
+      "page": "three",
+      "purpose": "project",
+      "alt": "Enterprise software modernization project",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "software code developer screen vertical",
+        "programming code closeup",
+        "coding screen",
+        "computer code"
+      ]
+    },
+    {
+      "id": "work-5",
+      "page": "three",
+      "purpose": "project",
+      "alt": "Data and analytics project",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "data visualization glowing lines vertical",
+        "big data abstract",
+        "data technology",
+        "abstract data"
+      ]
+    },
+    {
+      "id": "work-6",
+      "page": "three",
+      "purpose": "project",
+      "alt": "Global capability center and team project",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "modern tech team collaboration office vertical",
+        "startup team working",
+        "office collaboration",
+        "business team"
+      ]
+    },
+    {
+      "id": "story",
+      "page": "three",
+      "purpose": "feature",
+      "alt": "Soft Suave AI growth partnership from idea to launch",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 900,
+      "keywords": [
+        "creative team brainstorming modern office bright",
+        "team collaboration meeting",
+        "office teamwork",
+        "business meeting"
+      ]
+    },
+    {
+      "id": "contact-bg",
+      "page": "three",
+      "purpose": "background",
+      "alt": "Abstract dark texture for contact section",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "dark abstract gradient smoke texture",
+        "dark abstract minimal",
+        "dark texture",
+        "dark background"
+      ]
+    },
+    {
+      "id": "hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "Cinematic abstract representation of AI-driven design and engineering",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1200,
+      "keywords": [
+        "abstract fluid dark cinematic 3d render",
+        "abstract art dark motion",
+        "abstract dark texture",
+        "abstract background"
+      ]
+    },
+    {
+      "id": "work-1",
+      "page": "four",
+      "purpose": "project",
+      "alt": "AI personalization & inventory automation (Ecommerce)",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "ecommerce analytics dashboard data screen dark vertical",
+        "online retail data dashboard",
+        "ecommerce data analytics screen",
+        "data dashboard dark"
+      ]
+    },
+    {
+      "id": "work-2",
+      "page": "four",
+      "purpose": "project",
+      "alt": "Clinical workflow automation (HealthTech)",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "healthcare data technology screen dark vertical",
+        "medical ai dashboard monitor",
+        "health tech data interface",
+        "medical technology dark"
+      ]
+    },
+    {
+      "id": "work-3",
+      "page": "four",
+      "purpose": "project",
+      "alt": "Predictive routing & demand forecasting (Logistics)",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "logistics supply chain technology screen dark vertical",
+        "warehouse automation robotics",
+        "route map optimization screen",
+        "logistics technology dark"
+      ]
+    },
+    {
+      "id": "work-4",
+      "page": "four",
+      "purpose": "project",
+      "alt": "Real-time fraud detection (FinTech)",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "financial data trading dashboard screen dark vertical",
+        "cybersecurity finance analytics",
+        "fintech data security screen",
+        "finance data dark"
+      ]
+    },
+    {
+      "id": "work-5",
+      "page": "four",
+      "purpose": "project",
+      "alt": "Adaptive learning & content curation (EdTech)",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "online learning platform interface screen dark vertical",
+        "education technology dashboard",
+        "e-learning app screen",
+        "education software dark"
+      ]
+    },
+    {
+      "id": "work-6",
+      "page": "four",
+      "purpose": "project",
+      "alt": "Legacy modernization with cloud & AI (Enterprise)",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "server data center technology dark vertical",
+        "cloud infrastructure network servers",
+        "enterprise data center",
+        "data center dark"
+      ]
+    },
+    {
+      "id": "story",
+      "page": "four",
+      "purpose": "feature",
+      "alt": "Soft Suave AI growth partnership from idea to launch",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 900,
+      "keywords": [
+        "software engineering team collaboration office",
+        "developers working modern tech office",
+        "ai engineering team meeting",
+        "team collaboration office"
+      ]
+    },
+    {
+      "id": "contact-bg",
+      "page": "four",
+      "purpose": "background",
+      "alt": "Abstract dark texture for contact section",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "dark abstract gradient smoke texture",
+        "dark abstract minimal",
+        "dark texture",
+        "dark background"
+      ]
+    },
+    {
+      "id": "avatar-1",
+      "page": "four",
+      "purpose": "avatar",
+      "alt": "Client testimonial portrait 1",
+      "orientation": "square",
+      "width": 300,
+      "height": 300,
+      "keywords": [
+        "smiling professional woman headshot",
+        "woman portrait face",
+        "woman smiling",
+        "person face"
+      ]
+    },
+    {
+      "id": "avatar-2",
+      "page": "four",
+      "purpose": "avatar",
+      "alt": "Client testimonial portrait 2",
+      "orientation": "square",
+      "width": 300,
+      "height": 300,
+      "keywords": [
+        "smiling professional man headshot glasses",
+        "man portrait face",
+        "man smiling",
+        "person portrait"
+      ]
+    },
+    {
+      "id": "avatar-3",
+      "page": "four",
+      "purpose": "avatar",
+      "alt": "Client testimonial portrait — Lauren Contreras",
+      "orientation": "square",
+      "width": 300,
+      "height": 300,
+      "keywords": [
+        "professional woman headshot smiling",
+        "businesswoman portrait face",
+        "woman professional smiling",
+        "woman face"
+      ]
+    },
+    {
+      "id": "svc-custom-ai",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Custom AI solutions",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "artificial intelligence chip circuit processor board dark",
+        "machine learning ai brain digital technology",
+        "ai robot artificial intelligence dark",
+        "ai processor technology dark"
+      ]
+    },
+    {
+      "id": "svc-ai-integrations",
+      "page": "four",
+      "purpose": "service",
+      "alt": "AI integrations and workflow automation",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "workflow automation flowchart diagram screen dark",
+        "business process automation robotic technology",
+        "connected apps integration gears technology dark",
+        "automation process dashboard screen"
+      ]
+    },
+    {
+      "id": "svc-ai-agents",
+      "page": "four",
+      "purpose": "service",
+      "alt": "AI chatbots and AI agents",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "chatbot conversation messaging chat bubbles screen",
+        "customer support chat interface app screen",
+        "virtual assistant chat messaging dark",
+        "ai chatbot phone chat screen"
+      ]
+    },
+    {
+      "id": "svc-custom-software",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Custom software development",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "software code programming screen dark",
+        "developer code editor closeup dark",
+        "source code screen technology",
+        "programming code dark"
+      ]
+    },
+    {
+      "id": "svc-mobile",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Mobile app development",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "mobile app interface ui screen dark",
+        "smartphone app ui design technology",
+        "mobile ui wireframe screen dark",
+        "app interface dark"
+      ]
+    },
+    {
+      "id": "svc-web",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Web app development",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "web dashboard interface ui screen dark",
+        "responsive web app dashboard design",
+        "website ui dashboard technology dark",
+        "web interface dark"
+      ]
+    },
+    {
+      "id": "svc-modernization",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Enterprise modernization",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "cloud data center servers technology dark",
+        "enterprise cloud infrastructure network",
+        "server room technology dark",
+        "cloud technology dark"
+      ]
+    },
+    {
+      "id": "svc-gcc",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Global capability center",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "network operations center screens dark",
+        "global data network technology dark",
+        "tech control room monitors",
+        "technology operations dark"
+      ]
+    },
+    {
+      "id": "ind-ecommerce",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Ecommerce industry",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "ecommerce online shopping cart retail vertical",
+        "online store fashion shopping",
+        "retail ecommerce shopping",
+        "shopping online"
+      ]
+    },
+    {
+      "id": "ind-healthtech",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "HealthTech industry",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "healthcare medical technology doctor vertical",
+        "hospital health technology professional",
+        "medical healthcare",
+        "health technology"
+      ]
+    },
+    {
+      "id": "ind-logistics",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Logistics industry",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "logistics shipping containers cargo trucks vertical",
+        "supply chain transport delivery",
+        "cargo logistics port",
+        "logistics transport"
+      ]
+    },
+    {
+      "id": "ind-edtech",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "EdTech industry",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "education online learning student laptop vertical",
+        "edtech classroom digital learning",
+        "student education technology",
+        "education learning"
+      ]
+    },
+    {
+      "id": "ind-fintech",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "FinTech industry",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "fintech banking finance payment vertical",
+        "financial technology money digital",
+        "banking finance app",
+        "finance money"
+      ]
+    }
+  ]
+}

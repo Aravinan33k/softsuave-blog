@@ -4,6 +4,7 @@ out
 build
 .git
 .storage
+.cache
 .env
 .env.*
 !.env.example
