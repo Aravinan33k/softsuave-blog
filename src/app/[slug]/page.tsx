@@ -5,6 +5,7 @@ import { getActiveTheme } from '@/lib/public/theme';
 import { buildMetadata, absoluteUrl } from '@/lib/seo/metadata';
 import { blogPostingLd, breadcrumbLd, organizationLd, websiteLd } from '@/lib/seo/jsonld';
 import { faqLd } from '@/lib/seo/faq-ld';
+import { videoLd } from '@/lib/seo/video-ld';
 import { JsonLd } from '@/components/seo/json-ld';
 
 export const revalidate = 300;
@@ -74,10 +75,17 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
     { name: content.title, path: `/${slug}` },
   ]);
   const faq = faqLd(content.contentJson);
+  // Videos inherit the post's excerpt/publish date when the embed leaves those
+  // blank, so a VideoObject still qualifies without re-typing them per video.
+  const videos = videoLd(content.contentJson, {
+    description: content.excerpt,
+    uploadDate: content.publishedAt,
+  });
   const ld = [
     ...(kind === 'post' ? [blogPostingLd(site, content)] : []),
     breadcrumb,
     ...(faq ? [faq] : []),
+    ...videos,
     organizationLd(site),
     websiteLd(site),
   ];

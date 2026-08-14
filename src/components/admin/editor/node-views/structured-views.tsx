@@ -7,25 +7,46 @@ import type { FeatureItem, StatItem, StepItem } from '@/lib/tiptap/blocks/struct
 // Shared editor chrome for the data-driven blocks. The published HTML is built by
 // each node's renderHTML from the same `items` array — these forms only edit it.
 
-function BlockShell({ label, onAdd, children }: { label: string; onAdd: () => void; children: React.ReactNode }) {
+// `onAdd` covers the common case of appending a blank item. Blocks whose Add has
+// to open a picker pass `addControl` instead, and `headerExtra` carries any
+// block-level control (e.g. the gallery's column count) into the same header row.
+export function BlockShell({
+  label,
+  onAdd,
+  addControl,
+  headerExtra,
+  children,
+}: {
+  label: string;
+  onAdd?: () => void;
+  addControl?: React.ReactNode;
+  headerExtra?: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
     <NodeViewWrapper className="my-3 rounded-lg border bg-card p-3">
-      <div className="mb-2 flex items-center justify-between">
+      <div className="mb-2 flex items-center justify-between gap-2">
         <span className="text-xs font-bold uppercase tracking-wide text-muted-foreground">{label}</span>
-        <button
-          type="button"
-          onClick={onAdd}
-          className="flex items-center gap-1 rounded px-2 py-1 text-xs font-medium hover:bg-accent"
-        >
-          <Plus className="h-3.5 w-3.5" /> Add
-        </button>
+        <div className="flex items-center gap-2">
+          {headerExtra}
+          {addControl ??
+            (onAdd && (
+              <button
+                type="button"
+                onClick={onAdd}
+                className="flex items-center gap-1 rounded px-2 py-1 text-xs font-medium hover:bg-accent"
+              >
+                <Plus className="h-3.5 w-3.5" /> Add
+              </button>
+            ))}
+        </div>
       </div>
       {children}
     </NodeViewWrapper>
   );
 }
 
-function Field({
+export function Field({
   value,
   onChange,
   placeholder,
@@ -47,7 +68,7 @@ function Field({
   );
 }
 
-function Row({ onRemove, children }: { onRemove: () => void; children: React.ReactNode }) {
+export function Row({ onRemove, children }: { onRemove: () => void; children: React.ReactNode }) {
   return (
     <div className="mb-1.5 flex items-center gap-2">
       <GripVertical className="h-4 w-4 shrink-0 text-muted-foreground/50" />

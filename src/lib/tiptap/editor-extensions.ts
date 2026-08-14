@@ -4,6 +4,11 @@ import { baseExtensions } from './extensions';
 import { FaqItemView } from '@/components/admin/editor/node-views/faq-item-view';
 import { FeatureGridView, StatsView, StepsView } from '@/components/admin/editor/node-views/structured-views';
 import { CtaSectionView } from '@/components/admin/editor/node-views/cta-section-view';
+import { VideoView } from '@/components/admin/editor/node-views/video-view';
+import { RatingView } from '@/components/admin/editor/node-views/rating-view';
+import { GalleryView } from '@/components/admin/editor/node-views/gallery-view';
+import { AccordionItemView } from '@/components/admin/editor/node-views/accordion-item-view';
+import { RelatedPostView } from '@/components/admin/editor/node-views/related-post-view';
 
 // Client-only editor extension list. It reuses the shared, server-safe
 // baseExtensions and attaches React NodeViews to the nodes that need a custom
@@ -15,6 +20,13 @@ const nodeViews: Record<string, () => NodeViewRenderer> = {
   statsBlock: () => ReactNodeViewRenderer(StatsView),
   stepsBlock: () => ReactNodeViewRenderer(StepsView),
   ctaSection: () => ReactNodeViewRenderer(CtaSectionView),
+  // Both video nodes share one form; it branches on node.type.name.
+  youtubeEmbed: () => ReactNodeViewRenderer(VideoView),
+  vimeoEmbed: () => ReactNodeViewRenderer(VideoView),
+  ratingBlock: () => ReactNodeViewRenderer(RatingView),
+  imageGallery: () => ReactNodeViewRenderer(GalleryView),
+  accordionItem: () => ReactNodeViewRenderer(AccordionItemView),
+  relatedPost: () => ReactNodeViewRenderer(RelatedPostView),
 };
 
 export const editorExtensions = baseExtensions.map((ext) => {

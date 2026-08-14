@@ -9,6 +9,12 @@ import { YoutubeEmbed } from './blocks/youtube';
 import { FigureImage } from './blocks/figure-image';
 import { Faq, FaqItem } from './blocks/faq';
 import { FeatureGrid, StatsBlock, StepsBlock } from './blocks/structured';
+import { StyledTable } from './blocks/table-style';
+import { VimeoEmbed } from './blocks/vimeo';
+import { RatingBlock } from './blocks/rating';
+import { ImageGallery } from './blocks/gallery';
+import { Accordion, AccordionItem } from './blocks/accordion';
+import { RelatedPost } from './blocks/related-post';
 
 // Extension set shared between the client editor and the server-side HTML
 // renderer, so the stored contentJson and the rendered contentHtml always agree.
@@ -33,7 +39,10 @@ export const baseExtensions = [
     // Lazy-load + async-decode content images (they sit below the LCP banner).
     HTMLAttributes: { loading: 'lazy', decoding: 'async' },
   }),
-  TableKit.configure({ table: { resizable: true } }),
+  // TableKit supplies row/cell/header; its Table is disabled in favour of
+  // StyledTable, which is the same node plus a style variant attribute.
+  TableKit.configure({ table: false }),
+  StyledTable.configure({ resizable: true }),
   Callout,
   CtaButton,
   CtaSection,
@@ -44,4 +53,10 @@ export const baseExtensions = [
   FeatureGrid,
   StatsBlock,
   StepsBlock,
+  VimeoEmbed,
+  RatingBlock,
+  ImageGallery,
+  Accordion,
+  AccordionItem,
+  RelatedPost,
 ];

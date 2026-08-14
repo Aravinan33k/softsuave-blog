@@ -20,6 +20,11 @@ export function parseYouTubeId(input: string): string | null {
   return null;
 }
 
+/** Thumbnail URL for a video id. hqdefault always exists; maxres often doesn't. */
+export function youtubeThumbnail(videoId: string): string {
+  return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+}
+
 export const YoutubeEmbed = Node.create({
   name: 'youtubeEmbed',
   group: 'block',
@@ -29,10 +34,16 @@ export const YoutubeEmbed = Node.create({
 
   addAttributes() {
     // rendered:false — the iframe is built by hand in renderHTML, so these must
-    // not also leak onto the wrapper <div>.
+    // not also leak onto the wrapper <div>. description/uploadDate carry no
+    // visible output at all; they exist purely to feed VideoObject JSON-LD
+    // (see lib/seo/video-ld.ts), which Google requires them for.
     return {
       videoId: { default: '', rendered: false },
       title: { default: 'YouTube video', rendered: false },
+      description: { default: '', rendered: false },
+      uploadDate: { default: '', rendered: false },
+      // Optional override; falls back to the derived i.ytimg.com URL.
+      thumbnailUrl: { default: '', rendered: false },
     };
   },
 

@@ -267,22 +267,36 @@
   scroll-margin-top: 5rem;
 }
 
-/* Tables (comparison tables from content / TipTap) */
+/* Tables (comparison tables from content / TipTap).
+   Horizontal scroll lives on a wrapper, not the table itself: `display: block`
+   on a <table> drops it out of table layout, which breaks border-collapse and
+   stops columns filling the width. Published HTML is wrapped at read time
+   (withTableScroll); the editor gets ProseMirror's own .tableWrapper. */
+.rendered-content .table-scroll,
+.ProseMirror .tableWrapper {
+  margin: 1.75rem 0;
+  overflow-x: auto;
+  border-radius: 0.6rem;
+  border: 1px solid var(--border);
+}
 .rendered-content table,
 .ProseMirror table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.5rem 0;
+  margin: 1.75rem 0;
   font-size: 0.95em;
-  display: block;
-  overflow-x: auto;
+}
+/* Wrapped tables: the wrapper owns the outer margin and border. */
+.rendered-content .table-scroll > table,
+.ProseMirror .tableWrapper > table {
+  margin: 0;
 }
 .rendered-content th,
 .rendered-content td,
 .ProseMirror th,
 .ProseMirror td {
   border: 1px solid var(--border);
-  padding: 0.55rem 0.8rem;
+  padding: 0.7rem 0.9rem;
   text-align: left;
   vertical-align: top;
 }
@@ -384,15 +398,55 @@
 .ss-scroll::-webkit-scrollbar-track {
   background: transparent;
 }
-.ss-theme .rendered-content table {
-  border-radius: 0.5rem;
-  overflow: hidden;
+/* Brand comparison table: solid accent header row, white bold text.
+   TipTap emits header cells as <th> inside <tbody> (it never writes a <thead>),
+   so target <th> directly — a `thead th` selector only matches imported HTML.
+   Also applied to .ProseMirror so the editor previews the published look. */
+.ss-theme .rendered-content .table-scroll,
+.ProseMirror .tableWrapper {
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
 }
-.ss-theme .rendered-content thead th {
+.ss-theme .rendered-content th,
+.ProseMirror th {
   background: #ff0042;
   color: #fff;
-  border-color: #ff0042;
+  font-weight: 700;
+  border-color: color-mix(in srgb, #ff0042 82%, #fff);
+}
+.ss-theme .rendered-content tr:nth-child(even) td,
+.ProseMirror tr:nth-child(even) td {
+  background: #fafafa;
+}
+
+/* Minimal table variant (`variant: 'plain'` → class on the <table>): plain bold
+   header text with no fill, no inner rules so only the wrapper's outer frame
+   shows, no row striping, and roomier cells. Every selector carries
+   `table.table-plain` so it outspecifies both the base th/td rules and the
+   .ss-theme brand overrides above, in the editor and in published HTML alike. */
+.rendered-content table.table-plain th,
+.ss-theme .rendered-content table.table-plain th,
+.ProseMirror table.table-plain th {
+  background: transparent;
+  color: var(--foreground);
+  font-weight: 700;
+}
+.rendered-content table.table-plain th,
+.rendered-content table.table-plain td,
+.ss-theme .rendered-content table.table-plain th,
+.ss-theme .rendered-content table.table-plain td,
+.ProseMirror table.table-plain th,
+.ProseMirror table.table-plain td {
+  border-color: transparent;
+  padding: 0.85rem 1rem;
+}
+.ss-theme .rendered-content table.table-plain tr:nth-child(even) td,
+.ProseMirror table.table-plain tr:nth-child(even) td {
+  background: transparent;
+}
+/* The minimal variant drops the float shadow — the outer frame carries it. */
+.ss-theme .rendered-content .table-scroll:has(> table.table-plain),
+.ProseMirror .tableWrapper:has(> table.table-plain) {
+  box-shadow: none;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -771,4 +825,169 @@
 .rendered-content .step-desc {
   color: var(--muted-foreground);
   font-size: 0.92rem;
+}
+
+/* Responsive Vimeo embed — same 16:9 shell as the YouTube one. */
+.rendered-content .embed-vimeo,
+.ProseMirror .embed-vimeo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 1.75rem 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #000;
+}
+.rendered-content .embed-vimeo iframe,
+.ProseMirror .embed-vimeo iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Rating block — brand stars plus the exact numeric score. Published only
+   (the editor renders its own preview inside the NodeView form). */
+.rendered-content .rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 1.25rem 0;
+}
+.rendered-content .rating-stars {
+  font-size: 1.15rem;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  color: #ff0042;
+}
+.rendered-content .rating-score {
+  font-family: var(--font-lato), system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+.rendered-content .rating-label {
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+}
+.rendered-content .rating-count {
+  color: var(--muted-foreground);
+  font-size: 0.85rem;
+}
+.rendered-content .rating-count::before {
+  content: '· ';
+}
+
+/* Image gallery — column count comes from the class, since inline styles are
+   stripped by the sanitizer. Collapses to one column on narrow screens. */
+.rendered-content .gallery,
+.ProseMirror .gallery {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.75rem 0;
+}
+.rendered-content .gallery-2,
+.ProseMirror .gallery-2 {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.rendered-content .gallery-3,
+.ProseMirror .gallery-3 {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+.rendered-content .gallery-4,
+.ProseMirror .gallery-4 {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+.rendered-content .gallery-item {
+  margin: 0;
+}
+.rendered-content .gallery-item img {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+.rendered-content .gallery-item figcaption {
+  margin-top: 0.35rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted-foreground);
+}
+
+/* Generic accordion — same native <details> mechanics as the FAQ block, styled a
+   little quieter since it carries optional detail rather than headline Q&A. */
+.rendered-content .accordion {
+  margin: 1.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.rendered-content .ac-item {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.rendered-content .ac-item > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.75rem 1rem;
+  padding-right: 2.5rem;
+  position: relative;
+  font-family: var(--font-lato), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.rendered-content .ac-item > summary::-webkit-details-marker {
+  display: none;
+}
+.rendered-content .ac-item > summary::after {
+  content: '›';
+  position: absolute;
+  right: 1.1rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--muted-foreground);
+  transition: transform 0.15s ease;
+}
+.rendered-content .ac-item[open] > summary::after {
+  transform: rotate(90deg);
+}
+.rendered-content .ac-body {
+  padding: 0 1rem 0.9rem;
+}
+
+/* Inline related-reading card — an accent rail rather than a heavy box, so it
+   reads as an aside within the body copy instead of interrupting it. */
+.rendered-content .related-card {
+  margin: 1.75rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid #ff0042;
+  border-radius: 0 0.5rem 0.5rem 0;
+  background: color-mix(in srgb, #ff0042 4%, var(--card));
+}
+.rendered-content .related-card-label {
+  margin: 0;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ff0042;
+}
+.rendered-content .related-card-title {
+  display: inline-block;
+  margin-top: 0.3rem;
+  font-family: var(--font-lato), system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: inherit;
+  text-decoration: none;
+}
+.rendered-content .related-card-title:hover {
+  color: #ff0042;
+  text-decoration: underline;
+}
+.rendered-content .related-card-excerpt {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  color: var(--muted-foreground);
 }

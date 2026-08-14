@@ -15,14 +15,18 @@ const ALLOWED_TAGS = [
   'a', 'img', 'figure', 'figcaption', 'span', 'div',
   // Tables (comparison tables, etc.)
   'table', 'thead', 'tbody', 'tfoot', 'tr', 'td', 'th', 'caption', 'colgroup', 'col',
-  // Custom blocks: FAQ (native accordion), embeds, structured sections.
-  'section', 'details', 'summary', 'iframe',
+  // Custom blocks: FAQ + accordion (native <details>), embeds, structured
+  // sections, related-reading cards (<aside>).
+  'section', 'details', 'summary', 'iframe', 'aside',
 ];
 const ALLOWED_ATTR = [
   'href', 'title', 'target', 'rel', 'src', 'alt', 'width', 'height', 'class',
   'colspan', 'rowspan', 'scope',
   // Image performance (Core Web Vitals) + iframe embeds (host-allowlisted below).
   'loading', 'decoding', 'allow', 'allowfullscreen', 'frameborder', 'referrerpolicy', 'open',
+  // Accessibility only — these carry no script or URL payload. Needed so the
+  // rating block can hide its decorative star row from screen readers.
+  'role', 'aria-hidden', 'aria-label',
 ];
 
 // Only these hosts may appear in an <iframe src>. Everything else is dropped.
