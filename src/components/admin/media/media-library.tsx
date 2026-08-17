@@ -1,5 +1,6 @@
 'use client';
 
+import { publicMediaUrl } from '@/lib/media-url';
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Search, Trash2 } from 'lucide-react';
@@ -197,7 +198,7 @@ export function MediaLibrary() {
             {items.map((m) => (
               <Card key={m.id} className="overflow-hidden">
                 <div className="relative aspect-video bg-muted">
-                  <Image src={m.url} alt={m.altText} fill sizes="300px" className="object-cover" unoptimized />
+                  <Image src={publicMediaUrl(m.url)} alt={m.altText} fill sizes="300px" className="object-cover" unoptimized />
                 </div>
                 <CardContent className="space-y-2 p-3">
                   <p className="truncate text-xs text-muted-foreground" title={m.filename}>{m.filename}</p>

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getSiteInfo, getPostBySlug, getPageBySlug, getPublishedPostSlugs, getPublishedPageSlugs, getContentMeta, getAdjacentPosts, getRelatedPosts } from '@/lib/public/queries';
 import { getActiveTheme } from '@/lib/public/theme';
+import { homepageEnabled } from '@/lib/flags';
 import { buildMetadata, absoluteUrl } from '@/lib/seo/metadata';
 import { blogPostingLd, breadcrumbLd, organizationLd, websiteLd } from '@/lib/seo/jsonld';
 import { faqLd } from '@/lib/seo/faq-ld';
@@ -69,8 +70,10 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
   const { Layout, PostView } = theme;
 
   const breadcrumb = breadcrumbLd([
-    { name: 'Home', path: '/' },
-    { name: 'Blog', path: '/blog' },
+    // "/" is a real page only once the marketing homepage ships; until then the
+    // trail starts at the archive rather than pointing Google at a redirect.
+    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
+    { name: 'Blog', path: '/' },
     ...(content.categories[0] ? [{ name: content.categories[0].name, path: `/category/${content.categories[0].slug}` }] : []),
     { name: content.title, path: `/${slug}` },
   ]);

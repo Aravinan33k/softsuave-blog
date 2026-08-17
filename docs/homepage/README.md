@@ -5,6 +5,34 @@ The Soft Suave marketing homepage served at `/`. It began life as a standalone N
 cinematic/award-show evolution of `DESIGN-THREE.md` — was merged into this application. There is
 no second app, package.json or build: it is one route group inside the blog.
 
+## Release state: not served yet
+
+The blog and the homepage share one codebase but ship on different dates — the blog goes out
+first, the homepage a release later. `NEXT_PUBLIC_HOMEPAGE_ENABLED` decides which of the two the
+deployment actually serves. **Nothing here is deleted or excluded from the build**: the homepage
+compiles, typechecks and tests on every commit either way. It is only reachable when the flag is on.
+
+| | `NEXT_PUBLIC_HOMEPAGE_ENABLED` unset / `false` | `=true` |
+|---|---|---|
+| `/` | 307 → `/blog` (`next.config.ts` `redirects()`) | the homepage |
+| `/blog` and every post | unchanged | unchanged |
+| `/` in `sitemap.xml` | omitted | listed |
+| "Home" breadcrumb (visible + JSON-LD) | dropped, or points at `www.softsuave.com` | points at `/` |
+| Header logo, footer links | `www.softsuave.com` | `/` |
+| Admin "View site" | `/blog` | `/` |
+
+Two things to keep in mind:
+
+- **The redirect is a 307, never a 301.** A permanent redirect is cached indefinitely by browsers
+  and search engines, so it would keep sending visitors to `/blog` long after the homepage went
+  live — exactly the outcome this staging exists to avoid.
+- **The flag is `NEXT_PUBLIC_*`, so it is baked in at build time.** Changing it in a runtime
+  environment does nothing; taking the homepage live means rebuilding. For Docker that is
+  `--build-arg NEXT_PUBLIC_HOMEPAGE_ENABLED=true` (see `Dockerfile` / `docker-compose.yml`).
+
+Going live is therefore a one-variable change plus a rebuild, with no code moved back. The flag
+lives in `src/lib/flags.ts`; `src/themes/softsuave/nav-data.test.ts` covers both states.
+
 ## Where the code lives
 
 | Concern | Path |

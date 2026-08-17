@@ -1,6 +1,5 @@
 import { FacebookIcon, TwitterIcon, LinkedinIcon, InstagramIcon, YoutubeIcon } from './icons';
-
-const SITE = 'https://www.softsuave.com';
+import { SITE, navHref } from './nav-data';
 
 const SERVICES = [
   ['Global Capability Center (GCC)', '/global-capability-center'],
@@ -40,11 +39,9 @@ const SOCIALS = [
   [YoutubeIcon, 'https://www.youtube.com/@softsuave', 'YouTube'],
 ] as const;
 
-/** Paths this app serves itself: the marketing homepage and the blog archive. */
-const LOCAL_PATHS = new Set(['/', '/blog']);
-
+/** Site-relative hrefs resolve via the nav's rules; social URLs pass through. */
 function abs(href: string): string {
-  return href.startsWith('/') && !LOCAL_PATHS.has(href) ? `${SITE}${href}` : href;
+  return href.startsWith('/') ? navHref(href) : href;
 }
 
 function Column({ title, links }: { title: string; links: string[][] }) {

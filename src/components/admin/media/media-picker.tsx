@@ -1,5 +1,6 @@
 'use client';
 
+import { publicMediaUrl } from '@/lib/media-url';
 import { useEffect, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import { toast } from 'sonner';
@@ -120,7 +121,7 @@ function MediaPickerBody({ onPick }: { onPick: (m: MediaItem) => void }) {
                 className="group relative aspect-square overflow-hidden rounded-md border hover:ring-2 hover:ring-primary"
                 title={m.altText || m.filename}
               >
-                <Image src={m.url} alt={m.altText} fill sizes="150px" className="object-cover" unoptimized />
+                <Image src={publicMediaUrl(m.url)} alt={m.altText} fill sizes="150px" className="object-cover" unoptimized />
               </button>
             ))}
           </div>

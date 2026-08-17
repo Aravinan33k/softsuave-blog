@@ -25,7 +25,17 @@ services:
   #   docker compose --profile app up -d --build
   app:
     profiles: ['app']
-    build: .
+    build:
+      context: .
+      # Release flags must reach the *build* — `env_file` below only sets the
+      # runtime environment, and NEXT_PUBLIC_* values are already baked in by
+      # then. Compose interpolates this from ./.env, so a compose build matches
+      # what `npm run dev` serves.
+      args:
+        NEXT_PUBLIC_HOMEPAGE_ENABLED: ${NEXT_PUBLIC_HOMEPAGE_ENABLED:-false}
+        # Must carry the /blog mount subpath, or prerendered canonical/OG/sitemap
+        # URLs are baked pointing one level too high.
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
     restart: unless-stopped
     depends_on:
       postgres:

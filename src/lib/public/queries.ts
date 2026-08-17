@@ -4,6 +4,7 @@ import type { JSONContent } from '@tiptap/core';
 import type { Prisma } from '@/generated/prisma/client';
 import { prisma } from '../db';
 import { withHeadingAnchors } from '../content/toc';
+import { publicMediaUrl } from '../media-url';
 import type { SiteInfo, PostSummary, PostFull, SocialLink } from '@/themes/_contract';
 
 // Read model for the public site. Only published, already-live content is
@@ -49,7 +50,7 @@ function toSummary(p: SummaryRow): PostSummary {
     slug: p.slug,
     title: p.title,
     excerpt: p.excerpt,
-    coverImageUrl: p.coverImage?.url ?? null,
+    coverImageUrl: publicMediaUrl(p.coverImage?.url) ?? null,
     coverAlt: p.coverImage?.altText ?? null,
     publishedAt: p.publishedAt?.toISOString() ?? null,
     readingTimeMinutes: p.readingTimeMinutes,
@@ -101,7 +102,7 @@ export const getSiteInfo = cache(async function getSiteInfo(): Promise<SiteInfo>
         title: settings?.siteTitle ?? 'Softsuave Blog',
         tagline: settings?.tagline ?? null,
         description: settings?.siteDescription ?? null,
-        logoUrl: settings?.logo?.url ?? null,
+        logoUrl: publicMediaUrl(settings?.logo?.url) ?? null,
         accentColor: settings?.accentColor ?? '#2563eb',
         fontChoice: settings?.fontChoice ?? 'inter',
         socialLinks: parseSocial(settings?.socialLinksJson),
@@ -167,7 +168,7 @@ export const getPostBySlug = cache(async function getPostBySlug(slug: string): P
     slug: p.slug,
     title: p.title,
     excerpt: p.excerpt,
-    coverImageUrl: p.coverImage?.url ?? null,
+    coverImageUrl: publicMediaUrl(p.coverImage?.url) ?? null,
     coverAlt: p.coverImage?.altText ?? null,
     publishedAt: p.publishedAt?.toISOString() ?? null,
     readingTimeMinutes: p.readingTimeMinutes,
@@ -256,7 +257,7 @@ export const getPageBySlug = cache(async function getPageBySlug(slug: string): P
     slug: p.slug,
     title: p.title,
     excerpt: p.excerpt,
-    coverImageUrl: p.coverImage?.url ?? null,
+    coverImageUrl: publicMediaUrl(p.coverImage?.url) ?? null,
     coverAlt: p.coverImage?.altText ?? null,
     publishedAt: p.publishedAt?.toISOString() ?? null,
     readingTimeMinutes: p.readingTimeMinutes,
@@ -324,7 +325,7 @@ export const getContentMeta = cache(async function getContentMeta(slug: string):
     seoDescription: row.seoDescription,
     noIndex: row.noIndex,
     canonicalUrl: row.canonicalUrl,
-    ogImageUrl: row.ogImage?.url ?? null,
+    ogImageUrl: publicMediaUrl(row.ogImage?.url) ?? null,
     coverImageUrl: row.coverImage?.url ?? null,
     publishedAt: row.publishedAt?.toISOString() ?? null,
     updatedAt: row.updatedAt?.toISOString() ?? null,

@@ -1,4 +1,5 @@
 import { slugify } from './slug';
+import { withMediaBasePath } from '../media-url';
 import type { TocItem } from '@/themes/_contract';
 
 // Decode the handful of HTML entities that show up in headings so the TOC text
@@ -64,5 +65,5 @@ export function withHeadingAnchors(html: string): { html: string; toc: TocItem[]
     return `<h${lvl} id="${id}">${inner}</h${lvl}>`;
   });
 
-  return { html: withTableScroll(withLazyImages(out)), toc };
+  return { html: withMediaBasePath(withTableScroll(withLazyImages(out))), toc };
 }

@@ -12,7 +12,8 @@ export const revalidate = 300; // ISR fallback; on-demand revalidation on publis
 // same theme ArchiveView with a filter applied.
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteInfo();
-  return buildMetadata({ site, title: site.title, description: site.description, path: '/blog', home: true, type: 'website' });
+  // path '/' — the app is mounted at /blog, so its root is the archive's canonical.
+  return buildMetadata({ site, title: site.title, description: site.description, path: '/', home: true, type: 'website' });
 }
 
 export default async function BlogIndexPage() {

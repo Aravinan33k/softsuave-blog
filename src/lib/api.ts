@@ -1,3 +1,5 @@
+import { appPath } from './media-url';
+
 // Minimal browser fetch helper for the admin UI. Auth is cookie-based (same
 // origin), so no token handling here. Throws ApiError on non-2xx.
 
@@ -30,7 +32,9 @@ export async function api<T = unknown>(url: string, init?: RequestInit): Promise
   const isForm = init?.body instanceof FormData;
   const method = (init?.method ?? 'GET').toUpperCase();
   const csrf = SAFE.has(method) ? null : readCookie('sb_csrf');
-  const res = await fetch(url, {
+  // The app is mounted under a subpath and fetch() is not basePath-aware, so every
+  // caller can keep writing '/api/v1/…' and have it resolved here.
+  const res = await fetch(appPath(url), {
     ...init,
     headers: {
       ...(init?.body && !isForm ? { 'content-type': 'application/json' } : {}),
