@@ -25,7 +25,7 @@ export function SoftSuaveArchiveView({ site, heading, description, posts, total,
         {site.categories.length > 0 && (
           <div className="mb-10 flex flex-wrap justify-center gap-2">
             <Link
-              href="/"
+              href="/blog"
               className={`ss-heading rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
                 isHome ? 'bg-[#ff0042] text-white' : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
               }`}

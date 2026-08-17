@@ -4,6 +4,16 @@ import { absoluteUrl } from './metadata';
 
 // Shared data for sitemap + feeds. Only indexable, published, live content.
 
+/**
+ * The archive's landing URL. The app is mounted at /blog, so its root IS the
+ * archive — absoluteUrl('/') resolves to https://…/blog. The marketing homepage
+ * is deliberately absent: this deployment cannot serve the site root (the existing
+ * website does), so listing it would advertise a URL this app never answers.
+ */
+function landingEntries(now: Date): SitemapEntry[] {
+  return [{ url: absoluteUrl('/'), lastModified: now }];
+}
+
 function published() {
   return { status: 'PUBLISHED' as const, publishedAt: { lte: new Date() } };
 }
@@ -20,7 +30,7 @@ export async function getSitemapEntries(): Promise<SitemapEntry[]> {
     return await sitemapEntriesQuery();
   } catch (err) {
     console.warn('[sitemap] query failed (using home only):', (err as Error).message);
-    return [{ url: absoluteUrl('/'), lastModified: new Date() }];
+    return landingEntries(new Date());
   }
 }
 
@@ -36,7 +46,7 @@ async function sitemapEntriesQuery(): Promise<SitemapEntry[]> {
   ]);
 
   const now = new Date();
-  const entries: SitemapEntry[] = [{ url: absoluteUrl('/'), lastModified: now }];
+  const entries = landingEntries(now);
   posts.forEach((p) =>
     entries.push({
       url: absoluteUrl(`/${p.slug}`),

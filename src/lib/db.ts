@@ -11,9 +11,21 @@ import { env } from './env';
 // turns pool exhaustion into every request hanging indefinitely instead of a
 // fast, visible failure. `max` should stay under Postgres `max_connections`
 // divided by the number of app instances.
+//
+// The build needs a far smaller ceiling than the server does. `next build` fans
+// static generation out across one worker PROCESS per CPU, and every worker
+// constructs its own pool — so a runtime-sized pool silently multiplies by the
+// worker count. Here that was 11 workers × 20 = up to 220 connections against a
+// max_connections of 100, which failed prerendering with TooManyConnections.
+// Workers render their pages sequentially, so a couple of connections each is
+// ample. DATABASE_POOL_MAX overrides both, for deployments that must divide
+// max_connections across several instances.
+const isBuild = process.env.NEXT_PHASE === 'phase-production-build';
+const poolMax = env.DATABASE_POOL_MAX ?? (isBuild ? 2 : 20);
+
 const adapter = new PrismaPg({
   connectionString: env.DATABASE_URL,
-  max: 20,
+  max: poolMax,
   idleTimeoutMillis: 30_000,
   connectionTimeoutMillis: 5_000,
 });

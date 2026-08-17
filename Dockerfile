@@ -14,6 +14,21 @@ RUN npm ci
 # format only); real values are provided at runtime. Static pages that query the
 # DB fall back gracefully when no database is reachable during build.
 ENV NODE_ENV=production
+
+# Release flags are NEXT_PUBLIC_*, so they are compiled into the bundle here and
+# cannot be changed by the runtime environment — taking the marketing homepage
+# live means rebuilding with `--build-arg NEXT_PUBLIC_HOMEPAGE_ENABLED=true`.
+# Omitted means off: the blog ships, "/" redirects to /blog.
+ARG NEXT_PUBLIC_HOMEPAGE_ENABLED=false
+ENV NEXT_PUBLIC_HOMEPAGE_ENABLED=${NEXT_PUBLIC_HOMEPAGE_ENABLED}
+
+# Also NEXT_PUBLIC_*, so it must be present at BUILD time — providing it only via
+# the runtime env is too late: statically prerendered pages bake their canonical,
+# OG and sitemap URLs from it, and the schema default would ship localhost.
+# Must include the /blog mount subpath:
+#   --build-arg NEXT_PUBLIC_SITE_URL=https://www.softsuave.com/blog
+ARG NEXT_PUBLIC_SITE_URL=http://localhost:3000
+ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
 ENV DATABASE_URL=postgresql://placeholder:placeholder@localhost:5432/db?schema=public
 ENV JWT_ACCESS_SECRET=build-placeholder-secret-000000000000
 ENV JWT_REFRESH_SECRET=build-placeholder-secret-0000000000000

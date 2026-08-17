@@ -10,7 +10,10 @@ import type { StorageAdapter, UploadInput, UploadResult } from './types';
  * route handler (added with the media library in Phase 4).
  */
 export class LocalStorageAdapter implements StorageAdapter {
-  private readonly root = path.resolve(process.cwd(), env.LOCAL_STORAGE_DIR);
+  // turbopackIgnore: a runtime *data* directory, not a module path. Turbopack
+  // can't statically scope `process.cwd()` + a configurable env var, so without
+  // this it traces the whole project into the server bundle.
+  private readonly root = path.resolve(/*turbopackIgnore: true*/ process.cwd(), env.LOCAL_STORAGE_DIR);
   private readonly publicPath = env.LOCAL_STORAGE_PUBLIC_PATH.replace(/\/+$/, '');
 
   private resolveKey(key: string): string {

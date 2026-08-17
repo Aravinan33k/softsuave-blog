@@ -7,6 +7,7 @@ import { ReadingProgress } from './reading-progress';
 import { PostToc } from './post-toc';
 import { SoftSuavePostCard } from './post-card';
 import { navHref, RELATED_CASE_STUDIES, RELATED_SERVICES } from './nav-data';
+import { SiteLink } from './site-link';
 
 const BANNER_BG = 'https://www.softsuave.com/blog/wp-content/uploads/2026/01/blog-bg.png';
 
@@ -41,7 +42,11 @@ export function SoftSuavePostView({ post, prev, next, relatedPosts }: PostViewPr
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-white/80">
             <ol className="flex flex-wrap items-center">
               <li>
-                <Link href="/" className="hover:text-white">Home</Link>
+                <SiteLink href="/" className="hover:text-white">Home</SiteLink>
+              </li>
+              <li className="flex items-center">
+                <span aria-hidden className="mx-2">›</span>
+                <Link href="/blog" className="hover:text-white">Blog</Link>
               </li>
               {category && (
                 <li className="flex items-center">

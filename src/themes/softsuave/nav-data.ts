@@ -1,5 +1,7 @@
 // Full Soft Suave navigation, mirroring the live mega-menu. Relative hrefs point
 // at the main marketing site; the Blog link is local.
+import { homepageEnabled } from '@/lib/flags';
+
 export const SITE = 'https://www.softsuave.com';
 
 export interface NavLink {
@@ -122,7 +124,7 @@ const COMPANY: NavLink[] = [
 ];
 
 const RESOURCES: NavLink[] = [
-  { label: 'Blog', href: '/', desc: 'Insights, Trends & Tips' },
+  { label: 'Blog', href: '/blog', desc: 'Insights, Trends & Tips' },
   { label: 'Case Studies', href: '/case-studies', desc: 'Our Solutions in Action' },
 ];
 
@@ -145,10 +147,22 @@ export const NAV: NavItem[] = [
   { label: 'Services', href: '/services', kind: 'groups', groups: SERVICE_GROUPS },
   { label: 'Company', href: '/about', kind: 'grid', items: COMPANY },
   { label: 'Resources', href: '/case-studies', kind: 'grid', items: RESOURCES },
-  { label: 'Blog', href: '/', kind: 'link' },
+  { label: 'Blog', href: '/blog', kind: 'link' },
 ];
 
-/** Absolute URL: local for the blog ("/"), otherwise the marketing site. */
+/**
+ * Paths this app serves itself. The blog archive always; the marketing homepage
+ * only once it is released — until then `/` belongs to the live site, so "home"
+ * links go straight there rather than bouncing off our redirect to /blog.
+ */
+const LOCAL_PATHS = new Set(homepageEnabled ? ['/', '/blog'] : ['/blog']);
+
+/** Absolute URL: local for our own routes, otherwise the marketing site. */
 export function navHref(href: string): string {
-  return href === '/' ? '/' : `${SITE}${href}`;
+  return LOCAL_PATHS.has(href) ? href : `${SITE}${href}`;
+}
+
+/** True when `navHref` sent this path off to the marketing site. */
+export function isExternalHref(href: string): boolean {
+  return !LOCAL_PATHS.has(href);
 }

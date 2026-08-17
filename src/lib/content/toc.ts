@@ -1,4 +1,5 @@
 import { slugify } from './slug';
+import { withMediaBasePath } from '../media-url';
 import type { TocItem } from '@/themes/_contract';
 
 // Decode the handful of HTML entities that show up in headings so the TOC text
@@ -32,6 +33,17 @@ export function withLazyImages(html: string): string {
   });
 }
 
+// Wrap tables in a scroll container so wide comparison tables scroll on narrow
+// screens instead of stretching the page. The editor gets this for free from
+// ProseMirror's own .tableWrapper; published HTML has no wrapper, so add one.
+// Tables can't nest in our content model, so a non-greedy match is safe.
+export function withTableScroll(html: string): string {
+  return html.replace(
+    /<table\b[^>]*>[\s\S]*?<\/table>/gi,
+    (table) => `<div class="table-scroll">${table}</div>`,
+  );
+}
+
 // Inject stable id attributes into h2/h3 headings of already-sanitized content
 // HTML and return a table of contents. Runs at read time; ids are generated
 // here (not user input), so no re-sanitisation is needed.
@@ -53,5 +65,5 @@ export function withHeadingAnchors(html: string): { html: string; toc: TocItem[]
     return `<h${lvl} id="${id}">${inner}</h${lvl}>`;
   });
 
-  return { html: withLazyImages(out), toc };
+  return { html: withMediaBasePath(withTableScroll(withLazyImages(out))), toc };
 }

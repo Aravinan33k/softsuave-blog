@@ -1,3 +1,4 @@
+import { publicMediaUrl } from '@/lib/media-url';
 import type { Metadata } from 'next';
 import { getSiteInfo } from '@/lib/public/queries';
 import { getActiveTheme } from '@/lib/public/theme';
@@ -33,7 +34,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         slug: d.slug,
         title: d.title,
         excerpt: d.excerpt,
-        coverImageUrl: d.coverImage?.url ?? null,
+        coverImageUrl: publicMediaUrl(d.coverImage?.url) ?? null,
         coverAlt: d.coverImage?.alt ?? null,
         publishedAt: d.publishedAt,
         readingTimeMinutes: d.readingTimeMinutes,

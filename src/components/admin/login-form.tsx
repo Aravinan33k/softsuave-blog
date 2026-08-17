@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { appPath } from '@/lib/media-url';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -21,7 +22,7 @@ export function LoginForm({ nextPath, siteTitle }: { nextPath: string; siteTitle
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/v1/auth/login', {
+      const res = await fetch(appPath('/api/v1/auth/login'), {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ email, password, totp: totp || undefined }),

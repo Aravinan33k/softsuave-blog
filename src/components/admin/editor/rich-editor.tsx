@@ -21,6 +21,14 @@ import {
   ImageIcon,
   Image as ImageFrame,
   Table as TableIcon,
+  Table2,
+  Columns3,
+  Rows3,
+  Film,
+  Star,
+  Images,
+  ListCollapse,
+  BookOpen,
   Undo2,
   Redo2,
   Plus,
@@ -40,6 +48,8 @@ import { editorExtensions } from '@/lib/tiptap/editor-extensions';
 import { CALLOUT_VARIANTS } from '@/lib/tiptap/callout';
 import { CTA_VARIANTS } from '@/lib/tiptap/blocks/cta-button';
 import { parseYouTubeId } from '@/lib/tiptap/blocks/youtube';
+import { parseVimeoId } from '@/lib/tiptap/blocks/vimeo';
+import { TABLE_STYLES, comparisonTable } from '@/lib/tiptap/blocks/table-style';
 import { MediaPicker } from '@/components/admin/media/media-picker';
 
 const EMPTY_DOC: JSONContent = { type: 'doc', content: [{ type: 'paragraph' }] };
@@ -140,7 +150,24 @@ function Toolbar({ editor }: { editor: Editor }) {
     editor.chain().focus().insertContent({ type: 'youtubeEmbed', attrs: { videoId: id } }).run();
   };
 
-  const insertItems: { label: string; icon: React.ElementType; run: () => void }[] = [
+  const insertVimeo = () => {
+    const url = window.prompt('Vimeo URL or video ID');
+    if (!url) return;
+    const parsed = parseVimeoId(url);
+    if (!parsed) {
+      window.alert('Could not read a Vimeo video id from that link.');
+      return;
+    }
+    editor
+      .chain()
+      .focus()
+      .insertContent({ type: 'vimeoEmbed', attrs: { videoId: parsed.id, videoHash: parsed.hash } })
+      .run();
+  };
+
+  type InsertItem = { label: string; icon: React.ElementType; run: () => void };
+
+  const calloutItems: InsertItem[] = [
     {
       label: 'TL;DR',
       icon: Zap,
@@ -177,21 +204,44 @@ function Toolbar({ editor }: { editor: Editor }) {
           })
           .run(),
     },
+  ];
+
+  const tableItems: InsertItem[] = [
     {
-      label: 'CTA button',
-      icon: MousePointerClick,
+      label: 'Comparison table',
+      icon: Columns3,
+      run: () =>
+        editor.chain().focus().insertContent(comparisonTable(['Criteria', 'Option A', 'Option B'], 3)).run(),
+    },
+    {
+      label: 'Vendor table',
+      icon: Table2,
       run: () =>
         editor
           .chain()
           .focus()
-          .insertContent({ type: 'ctaButton', attrs: { href: '#', variant: 'primary' }, content: [{ type: 'text', text: 'Get Started' }] })
+          .insertContent(comparisonTable(['Company', 'Rating', 'Reviews', 'Key strengths', 'Best for'], 3))
           .run(),
     },
     {
-      label: 'CTA section',
-      icon: Megaphone,
-      run: () => editor.chain().focus().insertContent({ type: 'ctaSection' }).run(),
+      label: 'Plain table',
+      icon: Rows3,
+      run: () =>
+        editor
+          .chain()
+          .focus()
+          .insertContent(
+            comparisonTable(['Company', 'Headquarters', 'Focus areas', 'Engagement models'], 4, 'plain'),
+          )
+          .run(),
     },
+  ];
+
+  const sectionItems: InsertItem[] = [
+    { label: 'Feature grid', icon: LayoutGrid, run: () => editor.chain().focus().insertContent({ type: 'featureGrid' }).run() },
+    { label: 'Stats counter', icon: BarChart3, run: () => editor.chain().focus().insertContent({ type: 'statsBlock' }).run() },
+    { label: 'Steps', icon: ListChecks, run: () => editor.chain().focus().insertContent({ type: 'stepsBlock' }).run() },
+    { label: 'Rating', icon: Star, run: () => editor.chain().focus().insertContent({ type: 'ratingBlock' }).run() },
     {
       label: 'FAQ',
       icon: HelpCircle,
@@ -211,11 +261,71 @@ function Toolbar({ editor }: { editor: Editor }) {
           })
           .run(),
     },
+    {
+      label: 'Accordion',
+      icon: ListCollapse,
+      run: () =>
+        editor
+          .chain()
+          .focus()
+          .insertContent({
+            type: 'accordion',
+            content: [
+              {
+                type: 'accordionItem',
+                attrs: { title: 'Section title' },
+                content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Details…' }] }],
+              },
+            ],
+          })
+          .run(),
+    },
+  ];
+
+  const mediaItems: InsertItem[] = [
     { label: 'YouTube', icon: Video, run: insertYoutube },
-    { label: 'Feature grid', icon: LayoutGrid, run: () => editor.chain().focus().insertContent({ type: 'featureGrid' }).run() },
-    { label: 'Stats counter', icon: BarChart3, run: () => editor.chain().focus().insertContent({ type: 'statsBlock' }).run() },
-    { label: 'Steps', icon: ListChecks, run: () => editor.chain().focus().insertContent({ type: 'stepsBlock' }).run() },
-    { label: 'Divider', icon: Minus, run: () => editor.chain().focus().setHorizontalRule().run() },
+    { label: 'Vimeo', icon: Film, run: insertVimeo },
+    {
+      label: 'Image gallery',
+      icon: Images,
+      run: () => editor.chain().focus().insertContent({ type: 'imageGallery', attrs: { items: [] } }).run(),
+    },
+  ];
+
+  const conversionItems: InsertItem[] = [
+    {
+      label: 'CTA button',
+      icon: MousePointerClick,
+      run: () =>
+        editor
+          .chain()
+          .focus()
+          .insertContent({ type: 'ctaButton', attrs: { href: '#', variant: 'primary' }, content: [{ type: 'text', text: 'Get Started' }] })
+          .run(),
+    },
+    {
+      label: 'CTA section',
+      icon: Megaphone,
+      run: () => editor.chain().focus().insertContent({ type: 'ctaSection' }).run(),
+    },
+    {
+      label: 'Related reading',
+      icon: BookOpen,
+      run: () => editor.chain().focus().insertContent({ type: 'relatedPost' }).run(),
+    },
+  ];
+
+  // Grouped so the menu stays navigable — it carries 19 blocks now.
+  const insertGroups: { label: string; items: InsertItem[] }[] = [
+    { label: 'Callouts', items: calloutItems },
+    { label: 'Tables', items: tableItems },
+    { label: 'Sections', items: sectionItems },
+    { label: 'Media', items: mediaItems },
+    { label: 'Conversion', items: conversionItems },
+    {
+      label: 'Other',
+      items: [{ label: 'Divider', icon: Minus, run: () => editor.chain().focus().setHorizontalRule().run() }],
+    },
   ];
 
   return (
@@ -301,20 +411,27 @@ function Toolbar({ editor }: { editor: Editor }) {
         {insertOpen && (
           <>
             <div className="fixed inset-0 z-10" onClick={() => setInsertOpen(false)} />
-            <div className="absolute left-0 top-9 z-20 w-52 rounded-md border bg-popover p-1 shadow-md">
-              {insertItems.map((it) => (
-                <button
-                  key={it.label}
-                  type="button"
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => {
-                    it.run();
-                    setInsertOpen(false);
-                  }}
-                  className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left text-sm hover:bg-accent"
-                >
-                  <it.icon className="h-4 w-4 text-muted-foreground" /> {it.label}
-                </button>
+            <div className="absolute left-0 top-9 z-20 max-h-[70vh] w-56 overflow-y-auto rounded-md border bg-popover p-1 shadow-md">
+              {insertGroups.map((group) => (
+                <div key={group.label}>
+                  <p className="px-2 pb-0.5 pt-1.5 text-[0.65rem] font-bold uppercase tracking-wider text-muted-foreground">
+                    {group.label}
+                  </p>
+                  {group.items.map((it) => (
+                    <button
+                      key={it.label}
+                      type="button"
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => {
+                        it.run();
+                        setInsertOpen(false);
+                      }}
+                      className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left text-sm hover:bg-accent"
+                    >
+                      <it.icon className="h-4 w-4 text-muted-foreground" /> {it.label}
+                    </button>
+                  ))}
+                </div>
               ))}
             </div>
           </>
@@ -367,6 +484,18 @@ function Toolbar({ editor }: { editor: Editor }) {
 
       {editor.isActive('table') && (
         <>
+          <select
+            value={(editor.getAttributes('table').variant as string) ?? 'brand'}
+            onChange={(e) => editor.chain().focus().updateAttributes('table', { variant: e.target.value }).run()}
+            className="ml-1 h-8 rounded border bg-background px-1 text-xs"
+            title="Table style"
+          >
+            {TABLE_STYLES.map((v) => (
+              <option key={v} value={v}>
+                {v}
+              </option>
+            ))}
+          </select>
           <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => editor.chain().focus().addColumnAfter().run()} className="rounded px-1.5 text-xs hover:bg-accent" title="Add column">+Col</button>
           <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => editor.chain().focus().addRowAfter().run()} className="rounded px-1.5 text-xs hover:bg-accent" title="Add row">+Row</button>
           <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => editor.chain().focus().deleteColumn().run()} className="rounded px-1.5 text-xs hover:bg-accent" title="Delete column">−Col</button>

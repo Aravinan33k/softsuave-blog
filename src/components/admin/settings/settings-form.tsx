@@ -1,5 +1,6 @@
 'use client';
 
+import { publicMediaUrl } from '@/lib/media-url';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -196,7 +197,7 @@ function BrandImage({
       <Label>{label}</Label>
       {media && (
         <div className="relative h-16 w-16 overflow-hidden rounded border bg-muted">
-          <Image src={media.url} alt={media.altText} fill sizes="64px" className="object-contain" unoptimized />
+          <Image src={publicMediaUrl(media.url)} alt={media.altText} fill sizes="64px" className="object-contain" unoptimized />
         </div>
       )}
       <div className="flex gap-2">

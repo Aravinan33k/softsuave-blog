@@ -37,6 +37,9 @@ yarn-error.log*
 # local object storage (dev storage driver)
 /.storage/
 
+# Pexels response cache written by `npm run images:home`
+/.cache/
+
 # generated prisma client (regenerated via `prisma generate`)
 /src/generated/
 

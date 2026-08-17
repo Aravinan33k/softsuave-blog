@@ -13,6 +13,10 @@ const schema = z
     NEXT_PUBLIC_SITE_URL: z.string().min(1).default('http://localhost:3000'),
 
     DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
+    // Connection-pool ceiling per process. Unset lets lib/db.ts choose a default
+    // per phase; set it explicitly when several app instances share one Postgres,
+    // so the total stays under the server's max_connections.
+    DATABASE_POOL_MAX: z.coerce.number().int().positive().optional(),
 
     JWT_ACCESS_SECRET: z.string().min(16, 'JWT_ACCESS_SECRET must be at least 16 chars'),
     JWT_REFRESH_SECRET: z.string().min(16, 'JWT_REFRESH_SECRET must be at least 16 chars'),

@@ -21,8 +21,12 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ pat
 
   const { path: parts } = await params;
   const key = parts.join('/');
-  const root = path.resolve(process.cwd(), env.LOCAL_STORAGE_DIR);
-  const abs = path.resolve(root, key);
+  // turbopackIgnore: these resolve a runtime *data* directory, never a module.
+  // Without it Turbopack can't statically scope `process.cwd()` + a configurable
+  // env var, so it conservatively traces the whole project into the server
+  // bundle — shipping all source and /public as part of the deployed function.
+  const root = path.resolve(/*turbopackIgnore: true*/ process.cwd(), env.LOCAL_STORAGE_DIR);
+  const abs = path.resolve(/*turbopackIgnore: true*/ root, key);
 
   // Prevent path traversal outside the storage root.
   if (abs !== root && !abs.startsWith(root + path.sep)) {

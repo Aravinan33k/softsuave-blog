@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { CloudDownload, Loader2, StopCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { csrfToken } from '@/lib/api';
+import { appPath } from '@/lib/media-url';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -38,7 +39,7 @@ export function WpPullPanel() {
 
   async function refreshCounts() {
     try {
-      const res = await fetch(`/api/v1/admin/import/wordpress-rest?baseUrl=${encodeURIComponent(baseUrl)}`);
+      const res = await fetch(appPath(`/api/v1/admin/import/wordpress-rest?baseUrl=${encodeURIComponent(baseUrl)}`));
       if (!res.ok) return;
       const d = await res.json();
       setWpTotal(d.wpTotal ?? null);
@@ -61,7 +62,7 @@ export function WpPullPanel() {
   /** Runs one streaming batch; resolves with how many NEW posts it imported. */
   async function runBatch(): Promise<number> {
     const csrf = csrfToken();
-    const res = await fetch('/api/v1/admin/import/wordpress-rest', {
+    const res = await fetch(appPath('/api/v1/admin/import/wordpress-rest'), {
       method: 'POST',
       headers: { 'content-type': 'application/json', ...(csrf ? { 'x-csrf-token': csrf } : {}) },
       body: JSON.stringify({ baseUrl, limit: batchSize }),

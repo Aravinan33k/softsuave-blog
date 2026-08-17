@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { withHeadingAnchors, withLazyImages } from './toc';
+import { withHeadingAnchors, withLazyImages, withTableScroll } from './toc';
 
 describe('withHeadingAnchors', () => {
   it('injects ids and builds a table of contents', () => {
@@ -28,6 +28,28 @@ describe('withHeadingAnchors', () => {
     const { html } = withHeadingAnchors('<img src="/a.webp" alt="a"><img src="/b.webp" alt="b" loading="eager">');
     expect(html).toContain('<img src="/a.webp" alt="a" loading="lazy" decoding="async">');
     expect(html).toContain('<img src="/b.webp" alt="b" loading="eager" decoding="async">');
+  });
+});
+
+describe('withTableScroll', () => {
+  it('wraps each table in a scroll container', () => {
+    const out = withTableScroll('<table><tbody><tr><th>A</th></tr></tbody></table>');
+    expect(out).toBe('<div class="table-scroll"><table><tbody><tr><th>A</th></tr></tbody></table></div>');
+  });
+
+  it('wraps multiple tables independently', () => {
+    const out = withTableScroll('<table><tr><td>1</td></tr></table><p>x</p><table><tr><td>2</td></tr></table>');
+    expect(out.match(/<div class="table-scroll">/g)).toHaveLength(2);
+    expect(out).toContain('</table></div><p>x</p><div class="table-scroll"><table>');
+  });
+
+  it('leaves table-free markup untouched', () => {
+    expect(withTableScroll('<p>text</p>')).toBe('<p>text</p>');
+  });
+
+  it('runs as part of the read-time pipeline', () => {
+    const { html } = withHeadingAnchors('<h2>T</h2><table><tr><td>1</td></tr></table>');
+    expect(html).toContain('<div class="table-scroll"><table>');
   });
 });
 

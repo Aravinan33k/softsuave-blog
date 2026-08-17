@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ChevronDown, Menu, Search, X } from 'lucide-react';
 import { NAV, navHref, type NavItem } from './nav-data';
+import { SiteLink } from './site-link';
 
 const SITE = 'https://www.softsuave.com';
 const LOGO = 'https://www.softsuave.com/new-assets/common/images/softsuave_logo.webp';
@@ -78,9 +79,9 @@ export function SoftSuaveHeader() {
     <header className="sticky top-0 z-50 border-b bg-white">
       <div className="relative">
         <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-4 px-4 py-3">
-          <Link href="/" aria-label="Soft Suave" className="shrink-0">
+          <SiteLink href="/" aria-label="Soft Suave" className="shrink-0">
             <Image src={LOGO} alt="Soft Suave" width={150} height={40} unoptimized className="h-9 w-auto" preload />
-          </Link>
+          </SiteLink>
 
           {/* Desktop nav */}
           <nav className="hidden lg:block">

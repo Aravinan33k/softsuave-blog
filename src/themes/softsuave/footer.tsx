@@ -1,6 +1,5 @@
 import { FacebookIcon, TwitterIcon, LinkedinIcon, InstagramIcon, YoutubeIcon } from './icons';
-
-const SITE = 'https://www.softsuave.com';
+import { SITE, navHref } from './nav-data';
 
 const SERVICES = [
   ['Global Capability Center (GCC)', '/global-capability-center'],
@@ -25,7 +24,7 @@ const INDUSTRIES = [
 ];
 const FOOTER_LINKS = [
   ['Clients', '/clients'],
-  ['Blog', '/'],
+  ['Blog', '/blog'],
   ['Careers', '/career-overview'],
   ['Contact', '/contact'],
   ['Case Studies', '/case-studies'],
@@ -40,8 +39,9 @@ const SOCIALS = [
   [YoutubeIcon, 'https://www.youtube.com/@softsuave', 'YouTube'],
 ] as const;
 
+/** Site-relative hrefs resolve via the nav's rules; social URLs pass through. */
 function abs(href: string): string {
-  return href.startsWith('/') && href !== '/' ? `${SITE}${href}` : href;
+  return href.startsWith('/') ? navHref(href) : href;
 }
 
 function Column({ title, links }: { title: string; links: string[][] }) {
