@@ -19,6 +19,9 @@
     "migrate:media": "node --conditions=react-server --import tsx scripts/migrate-media-to-cloudinary.ts",
     "images:home": "node scripts/generate-home-images.mjs"
   },
+  "overrides": {
+    "deepmerge-ts": "^8.0.0"
+  },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
     "@gsap/react": "^2.1.2",
