@@ -8,7 +8,7 @@ import { revalidateContent } from '@/lib/revalidate';
 
 // Pull content straight from the live WordPress REST API, one batch at a time.
 // Long-running, so the batch streams NDJSON progress instead of buffering.
-export const maxDuration = 800;
+export const maxDuration = 300;
 export const dynamic = 'force-dynamic';
 
 const DEFAULT_BASE = 'https://www.softsuave.com/blog';
