@@ -99,7 +99,18 @@ export function parseCloudinaryUrl(url: string): { cloudName: string; apiKey: st
 }
 
 function loadEnv() {
-  const raw: Record<string, string | undefined> = { ...process.env };
+  // Vercel (and some CI runners) inject a declared-but-unset variable as an
+  // empty string rather than omitting it. `''` is not `undefined`, so it skips
+  // every `.default()` below it and then fails that field's own constraint —
+  // STORAGE_DRIVER='' reports "expected one of local|s3|cloudinary" instead of
+  // quietly falling back to 'local'. Treat empty as absent so defaults apply.
+  //
+  // NODE_ENV is deliberately exempt: letting it default to 'development' would
+  // disable Secure cookies (see lib/http.ts) on a production deployment, so an
+  // empty NODE_ENV has to stay a hard error rather than a silent downgrade.
+  const raw: Record<string, string | undefined> = Object.fromEntries(
+    Object.entries(process.env).filter(([k, v]) => v !== '' || k === 'NODE_ENV'),
+  );
   // Accept CLOUDINARY_URL (what the console copies out) as an alternative to
   // the discrete CLOUDINARY_* vars; explicitly set vars always win.
   if (raw.CLOUDINARY_URL) {
