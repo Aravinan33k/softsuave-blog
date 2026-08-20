@@ -2,10 +2,9 @@
 
 import { useState } from 'react';
 import { api } from '@/lib/api';
-import { SoftSuavePostCard } from './post-card';
+import { ARCHIVE_PAGE_SIZE } from '@/lib/pagination';
+import { ARCHIVE_CARD_SIZES, SoftSuavePostCard } from './post-card';
 import type { PostSummary } from '../_contract';
-
-const PER_PAGE = 10;
 
 interface ApiPost {
   slug: string;
@@ -43,7 +42,7 @@ export function LoadMore({ shown, total, filter }: { shown: number; total: numbe
     setLoading(true);
     try {
       const next = page + 1;
-      const q = new URLSearchParams({ page: String(next), perPage: String(PER_PAGE) });
+      const q = new URLSearchParams({ page: String(next), perPage: String(ARCHIVE_PAGE_SIZE) });
       if (filter?.category) q.set('category', filter.category);
       if (filter?.tag) q.set('tag', filter.tag);
       const data = await api<{ data: ApiPost[] }>(`/api/v1/posts?${q.toString()}`);
@@ -54,17 +53,17 @@ export function LoadMore({ shown, total, filter }: { shown: number; total: numbe
     }
   }
 
+  // Rendered as a child of the archive's grid rather than beside it: a second
+  // grid would restart the column flow, so every batch boundary left a short
+  // row mid-list. Appended cards become items of the one grid; the button takes
+  // a full-width row of its own beneath them.
   return (
     <>
-      {items.length > 0 && (
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
-          {items.map((p) => (
-            <SoftSuavePostCard key={p.slug} post={p} />
-          ))}
-        </div>
-      )}
+      {items.map((p) => (
+        <SoftSuavePostCard key={p.slug} post={p} sizes={ARCHIVE_CARD_SIZES} />
+      ))}
       {hasMore && (
-        <div className="mt-10 text-center">
+        <div className="col-span-full mt-4 text-center">
           <button
             onClick={loadMore}
             disabled={loading}

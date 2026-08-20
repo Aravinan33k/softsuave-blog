@@ -40,7 +40,7 @@ export function ShareButtons({ title }: { title: string }) {
   };
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex flex-wrap items-center gap-3">
       <span className="ss-heading text-sm font-semibold text-neutral-700">Share:</span>
       {links.map(([Icon, href, label]) => (
         <a

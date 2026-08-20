@@ -7,7 +7,7 @@ import type { TocItem } from '../_contract';
 // Compact, self-contained table of contents: a fixed-height box that scrolls
 // internally (never the page). Scrollspy highlights the current section and keeps
 // it in view within the box, so the Share/CTA cards below stay pinned.
-export function PostToc({ items }: { items: TocItem[] }) {
+export function PostToc({ items, className }: { items: TocItem[]; className?: string }) {
   const [active, setActive] = useState('');
   const listRef = useRef<HTMLUListElement>(null);
 
@@ -44,7 +44,7 @@ export function PostToc({ items }: { items: TocItem[] }) {
   }, [active]);
 
   return (
-    <nav aria-label="Table of contents" className="rounded-2xl border border-neutral-200 bg-white p-5">
+    <nav aria-label="Table of contents" className={cn('rounded-2xl border border-neutral-200 bg-white p-5', className)}>
       <p className="ss-heading mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-400">
         <span className="h-px w-5 bg-[#ff0042]" />
         On this page

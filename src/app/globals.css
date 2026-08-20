@@ -186,7 +186,11 @@
 .rendered-content,
 .ProseMirror {
   line-height: 1.75;
-  word-wrap: break-word;
+  /* `anywhere`, not `break-word`: only `anywhere` also shrinks the element's
+     min-content width. Under `break-word` a long unbreakable token (a Windows
+     path in inline <code>, a bare URL) still forced the body grid track wider
+     than a 320px phone, scrolling the whole page sideways. */
+  overflow-wrap: anywhere;
 }
 .rendered-content > * + *,
 .ProseMirror > * + * {
