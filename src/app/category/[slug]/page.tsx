@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getSiteInfo, getPublishedPosts, getCategoryBySlug, getTaxonomySlugs } from '@/lib/public/queries';
+import { ARCHIVE_PAGE_SIZE } from '@/lib/pagination';
 import { getActiveTheme } from '@/lib/public/theme';
 import { buildMetadata } from '@/lib/seo/metadata';
 
@@ -32,7 +33,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const [site, theme, { posts, total }] = await Promise.all([
     getSiteInfo(),
     getActiveTheme(),
-    getPublishedPosts({ categorySlug: slug, perPage: 10 }),
+    getPublishedPosts({ categorySlug: slug, perPage: ARCHIVE_PAGE_SIZE }),
   ]);
   const { Layout, ArchiveView } = theme;
 

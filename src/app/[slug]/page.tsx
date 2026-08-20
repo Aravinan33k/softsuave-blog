@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { getSiteInfo, getPostBySlug, getPageBySlug, getPublishedPostSlugs, getPublishedPageSlugs, getContentMeta, getAdjacentPosts, getRelatedPosts } from '@/lib/public/queries';
+import { getSiteInfo, getPostBySlug, getPageBySlug, getPublishedPostSlugs, getPublishedPageSlugs, getContentMeta, getRelatedPosts } from '@/lib/public/queries';
 import { getActiveTheme } from '@/lib/public/theme';
 import { homepageEnabled } from '@/lib/flags';
 import { buildMetadata, absoluteUrl } from '@/lib/seo/metadata';
@@ -61,10 +61,9 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
   if (!loaded) notFound();
   const { content, kind } = loaded;
 
-  const [site, theme, adjacent, relatedPosts] = await Promise.all([
+  const [site, theme, relatedPosts] = await Promise.all([
     getSiteInfo(),
     getActiveTheme(),
-    kind === 'post' ? getAdjacentPosts(content.publishedAt) : Promise.resolve({ prev: null, next: null }),
     kind === 'post' ? getRelatedPosts(content) : Promise.resolve([]),
   ]);
   const { Layout, PostView } = theme;
@@ -97,7 +96,7 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
     <>
       <JsonLd data={ld} />
       <Layout site={site}>
-        <PostView site={site} post={content} prev={adjacent.prev} next={adjacent.next} relatedPosts={relatedPosts} />
+        <PostView site={site} post={content} relatedPosts={relatedPosts} />
       </Layout>
     </>
   );

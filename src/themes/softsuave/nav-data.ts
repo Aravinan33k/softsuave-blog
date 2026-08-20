@@ -128,20 +128,6 @@ const RESOURCES: NavLink[] = [
   { label: 'Case Studies', href: '/case-studies', desc: 'Our Solutions in Action' },
 ];
 
-// Curated "Related Services" / "Related Case Studies" cards shown under blog
-// posts (relative hrefs resolve to the main marketing site via navHref).
-export const RELATED_SERVICES: NavLink[] = [
-  { label: 'Product Engineering Services', href: '/product-engineering-services', desc: 'From idea to market-ready product' },
-  { label: 'AI Development Services', href: '/ai-development-service', desc: 'Custom AI solutions & integrations' },
-  { label: 'Cloud Computing Services', href: '/cloud-computing', desc: 'Scalable, secure cloud architecture' },
-  { label: 'Offshore Development Center', href: '/offshore-software-development-company', desc: 'Dedicated teams, faster delivery' },
-];
-
-export const RELATED_CASE_STUDIES: NavLink[] = [
-  { label: 'Case Studies', href: '/case-studies', desc: 'Our solutions in action' },
-  { label: 'Success Stories', href: '/success-stories', desc: 'Real client wins, real impact' },
-];
-
 export const NAV: NavItem[] = [
   { label: 'Industries', href: '/industries', kind: 'grid', items: INDUSTRIES },
   { label: 'Services', href: '/services', kind: 'groups', groups: SERVICE_GROUPS },

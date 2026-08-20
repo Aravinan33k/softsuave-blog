@@ -1,44 +1,30 @@
 import Link from 'next/link';
-import Image, { getImageProps } from 'next/image';
+import Image from 'next/image';
 import type { PostViewProps } from '../_contract';
 import { formatDate } from '@/lib/format';
 import { ShareButtons } from './share-buttons';
 import { ReadingProgress } from './reading-progress';
 import { PostToc } from './post-toc';
+import { BANNER_BG } from './banner';
 import { SoftSuavePostCard } from './post-card';
-import { navHref, RELATED_CASE_STUDIES, RELATED_SERVICES } from './nav-data';
 import { SiteLink } from './site-link';
 
-const BANNER_BG = 'https://www.softsuave.com/blog/wp-content/uploads/2026/01/blog-bg.png';
-
-/** True when the post was modified on a later day than it was published. */
-function wasUpdated(publishedAt: string | null, updatedAt: string | null): boolean {
-  if (!publishedAt || !updatedAt) return false;
-  return updatedAt.slice(0, 10) > publishedAt.slice(0, 10);
-}
-
-export function SoftSuavePostView({ post, prev, next, relatedPosts }: PostViewProps) {
+export function SoftSuavePostView({ post, relatedPosts }: PostViewProps) {
   const author = post.authorProfile;
   const category = post.categories[0];
-
-  // The banner renders the cover as a CSS background, which bypasses the image
-  // optimizer entirely — it was fetching the full-resolution original to sit
-  // under an 88%-black gradient. Route it through the optimizer at a fixed
-  // banner size instead. BANNER_BG stays raw: it is an off-site host that is not
-  // in images.remotePatterns, so the optimizer would reject it.
-  const bannerUrl = post.coverImageUrl
-    ? getImageProps({ src: post.coverImageUrl, alt: '', width: 1440, height: 600 }).props.src
-    : BANNER_BG;
 
   return (
     <article>
       <ReadingProgress />
-      {/* Full-width dark banner (post cover as backdrop when available) */}
-      <div
-        className="bg-cover bg-center"
-        style={{ backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.88), rgba(0,0,0,0.35)), url(${bannerUrl})` }}
-      >
-        <div className="mx-auto max-w-[1320px] px-4 pb-14 pt-10 text-white">
+      {/* The site's blog banner artwork, matching the live post pages: shown at
+          full vibrancy with no darkening wash, which is what the live markup does
+          too — its .banner-overlay exists for featured-photo banners and is not
+          rendered for this one. Its own deep-purple end falls on the left, under
+          the copy. A CSS background is invisible to the preload scanner and this
+          is the LCP element, so ask for it explicitly. */}
+      <link rel="preload" as="image" href={BANNER_BG} fetchPriority="high" />
+      <div className="bg-cover bg-center" style={{ backgroundImage: `url(${BANNER_BG})` }}>
+        <div className="mx-auto max-w-[1320px] px-4 py-14 text-white sm:py-20">
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-white/80">
             <ol className="flex flex-wrap items-center">
               <li>
@@ -48,15 +34,21 @@ export function SoftSuavePostView({ post, prev, next, relatedPosts }: PostViewPr
                 <span aria-hidden className="mx-2">›</span>
                 <Link href="/blog" className="hover:text-white">Blog</Link>
               </li>
+              {/* Hidden on phones: the category level plus a long post title left
+                  no room for the title itself. Kept in the DOM so it still shows
+                  from sm up and stays consistent with the BreadcrumbList JSON-LD,
+                  which also carries the category. */}
               {category && (
-                <li className="flex items-center">
+                <li className="hidden items-center sm:flex">
                   <span aria-hidden className="mx-2">›</span>
                   <Link href={`/category/${category.slug}`} className="hover:text-white">{category.name}</Link>
                 </li>
               )}
-              <li className="flex min-w-0 items-center">
+              {/* Not a flex row and not truncated: the chevron and title share one
+                  inline flow, so a long title wraps in full instead of ellipsing. */}
+              <li className="min-w-0">
                 <span aria-hidden className="mx-2">›</span>
-                <span aria-current="page" className="truncate text-white">{post.title}</span>
+                <span aria-current="page" className="text-white">{post.title}</span>
               </li>
             </ol>
           </nav>
@@ -88,35 +80,9 @@ export function SoftSuavePostView({ post, prev, next, relatedPosts }: PostViewPr
               <span className="text-xs uppercase tracking-wide text-white/70">Published on</span>
               <span className="ss-heading font-semibold">{formatDate(post.publishedAt)}</span>
             </div>
-            {wasUpdated(post.publishedAt, post.updatedAt) && (
-              <div className="flex flex-col">
-                <span className="text-xs uppercase tracking-wide text-white/70">Updated on</span>
-                <span className="ss-heading font-semibold">{formatDate(post.updatedAt)}</span>
-              </div>
-            )}
-            <div className="flex flex-col">
-              <span className="text-xs uppercase tracking-wide text-white/70">Read time</span>
-              <span className="ss-heading font-semibold">{post.readingTimeMinutes} min</span>
-            </div>
           </div>
         </div>
       </div>
-
-      {/* Featured image (1200×630, WebP from the media pipeline) */}
-      {post.coverImageUrl && (
-        <div className="mx-auto max-w-[1320px] px-4 pt-10">
-          <figure className="relative aspect-[1200/630] overflow-hidden rounded-2xl bg-neutral-100">
-            <Image
-              src={post.coverImageUrl}
-              alt={post.coverAlt ?? post.title}
-              fill
-              preload
-              sizes="(max-width: 1320px) 100vw, 1320px"
-              className="object-cover"
-            />
-          </figure>
-        </div>
-      )}
 
       {/* Body: content + sticky sidebar */}
       <div className="mx-auto grid max-w-[1320px] gap-12 px-4 py-14 lg:grid-cols-[minmax(0,1fr)_320px]">
@@ -162,8 +128,12 @@ export function SoftSuavePostView({ post, prev, next, relatedPosts }: PostViewPr
         {/* Sticky sidebar: TOC first (most useful while reading), then share + CTA.
             The aside itself doesn't scroll — the TOC box scrolls internally, so the
             cards below stay pinned in the viewport. */}
-        <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
-          {post.toc.length > 1 && <PostToc items={post.toc} />}
+        <aside className="flex min-w-0 flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
+          {/* Desktop only. Below lg the sidebar stacks under the article, where a
+              scrollspy TOC sits after the sections it indexes and helps nobody.
+              gap (not space-y) spaces the cards, so hiding this one leaves no
+              orphan margin above Share — a display:none flex item takes no gap. */}
+          {post.toc.length > 1 && <PostToc items={post.toc} className="hidden lg:block" />}
 
           <div className="rounded-2xl border border-neutral-200 bg-white p-5">
             <ShareButtons title={post.title} />
@@ -182,7 +152,7 @@ export function SoftSuavePostView({ post, prev, next, relatedPosts }: PostViewPr
         </aside>
       </div>
 
-      {/* Related content + prev/next, full width below the body grid */}
+      {/* Related blogs, full width below the body grid */}
       <div className="mx-auto max-w-[1320px] px-4 pb-14">
         {relatedPosts && relatedPosts.length > 0 && (
           <section aria-labelledby="related-blogs" className="border-t pt-10">
@@ -199,42 +169,6 @@ export function SoftSuavePostView({ post, prev, next, relatedPosts }: PostViewPr
               ))}
             </div>
           </section>
-        )}
-
-        <section aria-label="Related services and case studies" className="mt-10 grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl border border-neutral-200 bg-white p-6">
-            <h2 className="ss-heading mb-4 text-xl font-bold text-neutral-900">Related Services</h2>
-            <ul className="space-y-3">
-              {RELATED_SERVICES.map((s) => (
-                <li key={s.href}>
-                  <a href={navHref(s.href)} className="group block">
-                    <span className="ss-heading font-semibold text-neutral-800 group-hover:text-[#ff0042]">{s.label} →</span>
-                    {s.desc && <span className="block text-sm text-neutral-500">{s.desc}</span>}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="rounded-2xl border border-neutral-200 bg-white p-6">
-            <h2 className="ss-heading mb-4 text-xl font-bold text-neutral-900">Related Case Studies</h2>
-            <ul className="space-y-3">
-              {RELATED_CASE_STUDIES.map((c) => (
-                <li key={c.href}>
-                  <a href={navHref(c.href)} className="group block">
-                    <span className="ss-heading font-semibold text-neutral-800 group-hover:text-[#ff0042]">{c.label} →</span>
-                    {c.desc && <span className="block text-sm text-neutral-500">{c.desc}</span>}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        {(prev || next) && (
-          <div className="mt-10 flex justify-between gap-4 border-t pt-6 text-sm font-medium">
-            {prev ? <Link href={`/${prev.slug}`} className="max-w-[46%] hover:text-[#ff0042]">← {prev.title}</Link> : <span />}
-            {next ? <Link href={`/${next.slug}`} className="max-w-[46%] text-right hover:text-[#ff0042]">{next.title} →</Link> : <span />}
-          </div>
         )}
       </div>
     </article>

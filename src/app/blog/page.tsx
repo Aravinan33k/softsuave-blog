@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getSiteInfo, getPublishedPosts } from '@/lib/public/queries';
+import { ARCHIVE_PAGE_SIZE } from '@/lib/pagination';
 import { getActiveTheme } from '@/lib/public/theme';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/jsonld';
@@ -20,7 +21,7 @@ export default async function BlogIndexPage() {
   const [site, theme, { posts, total }] = await Promise.all([
     getSiteInfo(),
     getActiveTheme(),
-    getPublishedPosts({ perPage: 10 }),
+    getPublishedPosts({ perPage: ARCHIVE_PAGE_SIZE }),
   ]);
   const { Layout, ArchiveView } = theme;
 

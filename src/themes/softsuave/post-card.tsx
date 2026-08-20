@@ -2,6 +2,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { PostCardProps } from '../_contract';
 
+// Three across in the 1320px archive container is a ~413px slot, well under the
+// card default — shared with Load More so both grids request the same variant.
+export const ARCHIVE_CARD_SIZES = '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 420px';
+
 // Deliberately carries no 'use client' directive. It has no state or handlers,
 // so as a shared module it renders server-side (zero client JS) in the static
 // archive and related grids, while still being importable by the client-side
@@ -38,8 +42,7 @@ export function SoftSuavePostCard({ post, sizes = '(max-width: 768px) 100vw, 600
         <h2 className="ss-heading text-lg font-bold leading-snug text-neutral-900">
           <Link href={`/${post.slug}`} className="hover:text-[#ff0042]">{post.title}</Link>
         </h2>
-        {post.excerpt && <p className="mt-2 line-clamp-3 text-sm text-neutral-600">{post.excerpt}</p>}
-        <div className="mt-4 flex items-center justify-between">
+        <div className="mt-auto flex items-center justify-between pt-4">
           <Link href={`/${post.slug}`} className="ss-heading text-sm font-bold text-[#ff0042] hover:underline">
             Know More →
           </Link>

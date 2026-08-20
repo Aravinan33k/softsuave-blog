@@ -107,12 +107,16 @@ export function SoftSuaveFooter() {
           <div>
             <p className="ss-heading mb-1 font-bold text-white">Main Branch — India</p>
             <p>Soft Suave Technologies, SSPDL Building, Alpha City, Gamma Block, 5th Floor, Navalur, Chennai — 603103.</p>
+            <p className="mt-1">
+              <a href="tel:+918015159981" className="hover:text-[#ff0042]">+91 8015159981</a> (HR)
+            </p>
           </div>
           <div>
             <p className="ss-heading mb-1 font-bold text-white">Let&apos;s meet up — USA</p>
             <p>Soft Suave LLC, 3030 K Street NW, Suite 102, Washington, DC 20007, USA.</p>
             <p className="mt-1">
-              <a href="mailto:contact@softsuave.com" className="hover:text-[#ff0042]">contact@softsuave.com</a> · +1 (410) 220-6301
+              <a href="mailto:contact@softsuave.com" className="hover:text-[#ff0042]">contact@softsuave.com</a> ·{' '}
+              <a href="tel:+14102206301" className="hover:text-[#ff0042]">+1 (410) 220-6301</a>
             </p>
           </div>
         </div>

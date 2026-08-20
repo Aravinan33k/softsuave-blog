@@ -144,7 +144,7 @@ export function SoftSuaveHeader() {
             <a href={`${SITE}/contact`} className="ss-heading hidden rounded-full bg-[#ff0042] px-5 py-2 text-sm font-bold text-white hover:bg-[#d6003a] sm:inline">
               Let&apos;s Connect
             </a>
-            <button className="lg:hidden" aria-label="Menu" onClick={() => setOpen(true)}>
+            <button className="-mr-2 flex h-11 w-11 items-center justify-center lg:hidden" aria-label="Menu" onClick={() => setOpen(true)}>
               <Menu className="h-6 w-6" />
             </button>
           </div>
@@ -158,7 +158,7 @@ export function SoftSuaveHeader() {
           <div className="absolute right-0 top-0 flex h-full w-80 max-w-[85vw] flex-col overflow-y-auto bg-white p-4">
             <div className="mb-4 flex items-center justify-between">
               <span className="ss-heading font-bold">Menu</span>
-              <button aria-label="Close" autoFocus onClick={() => setOpen(false)}><X className="h-5 w-5" /></button>
+              <button aria-label="Close" autoFocus onClick={() => setOpen(false)} className="-mr-2 flex h-11 w-11 items-center justify-center"><X className="h-5 w-5" /></button>
             </div>
             <form onSubmit={submitSearch} role="search" className="mb-4 flex gap-2">
               <input
