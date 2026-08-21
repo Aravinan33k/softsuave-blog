@@ -1,25 +1,49 @@
 # Local development infrastructure.
-# Postgres only — object storage uses the local-disk driver in dev (see src/lib/storage).
+# MySQL only — object storage uses the local-disk driver in dev (see src/lib/storage).
 # In production, swap the storage adapter to the S3/R2 driver via env (STORAGE_DRIVER=s3).
 services:
-  postgres:
-    image: postgres:16-alpine
+  mysql:
+    # 8.4 is the current MySQL LTS. Stay on 8.x: the app relies on window
+    # functions (COUNT(*) OVER () in the search query) and InnoDB FULLTEXT.
+    image: mysql:8.4
     container_name: softsuave-blog-db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: blog
-      POSTGRES_PASSWORD: blog
-      POSTGRES_DB: softsuave_blog
-    # Host port 5433 to avoid clashing with a native Postgres on 5432.
+      MYSQL_DATABASE: softsuave_blog
+      MYSQL_USER: blog
+      MYSQL_PASSWORD: blog
+      # Dev-only convenience. The app connects as `blog`, never as root — see the
+      # least-privilege grant in README.md for how the real server is set up.
+      MYSQL_ROOT_PASSWORD: root
+    command:
+      # Search correctness, not tuning. InnoDB refuses to index tokens shorter
+      # than innodb_ft_min_token_size, whose default of 3 makes "AI", "UI", "QA"
+      # and "Go" unfindable — fatal for this blog's subject matter. Must match
+      # SEARCH_MIN_TOKEN_SIZE in .env, and the same value has to be set on the
+      # production server (my.cnf) or search silently differs between the two.
+      - --innodb-ft-min-token-size=2
+      # The server clock is UTC so that anything reading these tables outside the
+      # app (mysql CLI, a dump, a BI tool) sees the same instants the app wrote.
+      # The app itself does not depend on this — it pins the session to UTC via
+      # the driver's timezone option in lib/db.ts.
+      - --default-time-zone=+00:00
+    # Host port 3307 to avoid clashing with a native MySQL on 3306.
     ports:
-      - '5433:5432'
+      - '3307:3306'
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U blog -d softsuave_blog']
+      # `mysqladmin ping` returns success even when access is denied, so it can
+      # report healthy on a server that rejects every login. Authenticating as the
+      # app user is what actually proves the database is ready to be migrated.
+      test: ['CMD-SHELL', 'mysqladmin ping -h 127.0.0.1 -u blog -pblog --silent']
       interval: 5s
       timeout: 5s
-      retries: 10
+      retries: 20
+      # Initial startup rebuilds the data directory on first run, which is far
+      # slower than a restart; without this the container is marked unhealthy and
+      # the app's depends_on gives up before MySQL has finished initialising.
+      start_period: 30s
 
   # Full self-hosted app. Not started by default — run with:
   #   docker compose --profile app up -d --build
@@ -38,19 +62,25 @@ services:
         NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
     restart: unless-stopped
     depends_on:
-      postgres:
+      mysql:
         condition: service_healthy
     env_file:
       - .env
     environment:
       NODE_ENV: production
-      # Reach Postgres over the compose network (overrides .env's localhost).
-      DATABASE_URL: postgresql://blog:blog@postgres:5432/softsuave_blog?schema=public
+      # Reach MySQL over the compose network (overrides .env's localhost). Note
+      # the container port 3306, not the 3307 host mapping.
+      DATABASE_URL: mysql://blog:blog@mysql:3306/softsuave_blog
+      # The compose network is a private bridge and this MySQL image is not
+      # configured with a server certificate, so TLS is off here. Any deployment
+      # where the database is a network hop away must leave DATABASE_SSL at
+      # `verify` — see sslConfig() in src/lib/db.ts.
+      DATABASE_SSL: disable
     ports:
       - '3000:3000'
     volumes:
       - app_storage:/app/.storage
 
 volumes:
-  postgres_data:
+  mysql_data:
   app_storage:

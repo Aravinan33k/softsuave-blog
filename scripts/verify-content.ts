@@ -1,4 +1,4 @@
-// Content verification harness — grades what is actually in Postgres.
+// Content verification harness — grades what is actually in the database.
 //
 // Written to be the gate before pointing nginx at this app: everything it checks
 // is something a reader or Googlebot would hit on day one. It reads the database

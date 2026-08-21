@@ -2,8 +2,25 @@
 // Prisma 7 uses the query compiler + driver adapters (no Rust engine binary),
 // so the client is generated into src/generated/prisma and instantiated with
 // a driver adapter (see src/lib/db.ts). Section 9 of the build spec defines the
-// core models; a Postgres tsvector search column is added on Post/Page via a
-// raw-SQL migration.
+// core models.
+//
+// ── MySQL notes (ported from Postgres) ───────────────────────────────────────
+// 1. `String` maps to VARCHAR(191) on MySQL, where Postgres gave it TEXT. Every
+//    field that can exceed that therefore carries an explicit `@db.` type —
+//    without one, long content is REJECTED (strict mode) or truncated. Treat a
+//    bare `String` here as a deliberate "this is short" assertion.
+// 2. MySQL forbids a literal DEFAULT on TEXT/LONGTEXT columns. Fields that need
+//    both a default and unbounded length (`contentHtml`) are therefore LONGTEXT
+//    with the default applied in application code, not DDL.
+// 3. Search is a real `searchText` column (HTML stripped at write time by
+//    lib/content/service.ts) plus MySQL FULLTEXT indexes — see the Post model.
+//    Unlike the Postgres tsvector column this is fully expressible in Prisma,
+//    so `migrate` no longer needs hand-restored raw-SQL indexes.
+// 4. Prisma creates tables as utf8mb4 / utf8mb4_unicode_ci, which is case- and
+//    accent-INSENSITIVE. So `@unique` on slug/email now rejects case-variant
+//    duplicates, and `contains` filters are case-insensitive without any query
+//    flag — MySQL has no equivalent of Postgres' `mode: 'insensitive'`. Stricter
+//    than Postgres was, and desirable for email.
 
 generator client {
   provider = "prisma-client"
@@ -11,7 +28,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
 }
 
 // ─────────────────────────── Enums ───────────────────────────
@@ -33,12 +50,12 @@ model User {
   id                  String    @id @default(cuid())
   email               String    @unique
   name                String?
-  passwordHash        String
+  passwordHash        String    @db.VarChar(255) // argon2id encoded hash
   role                Role      @default(EDITOR)
 
   // Public author profile (rendered in the author-bio box on posts).
   title           String? // e.g. "Founder & CEO"
-  bio             String?
+  bio             String? @db.Text
   socialLinksJson Json? // [{ label, url }]
   avatarMediaId   String?
   avatar          Media?  @relation("UserAvatar", fields: [avatarMediaId], references: [id])
@@ -70,12 +87,14 @@ model RefreshToken {
   userId    String
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   familyId  String
-  tokenHash String
+  tokenHash String    @db.VarChar(64) // SHA-256, hex
   expiresAt DateTime
   usedAt    DateTime?
   revokedAt DateTime?
-  ipAddress String?
-  userAgent String?
+  ipAddress String?   @db.VarChar(45) // fits IPv6
+  // User-Agent is attacker-controlled and routinely exceeds 191 chars. TEXT so a
+  // long header is recorded rather than rejecting the login that carried it.
+  userAgent String?   @db.Text
   createdAt DateTime  @default(now())
 
   @@index([userId])
@@ -86,12 +105,16 @@ model RefreshToken {
 // ─────────────────────────── Posts ───────────────────────────
 
 model Post {
-  id          String        @id @default(cuid())
-  title       String
-  slug        String        @unique
+  id    String @id @default(cuid())
+  title String @db.VarChar(255)
+  slug  String @unique @db.VarChar(255)
+
   contentJson Json
-  contentHtml String        @default("")
-  excerpt     String?
+  // LONGTEXT: imported WordPress bodies run well past any VARCHAR. MySQL rejects
+  // a literal DEFAULT on LONGTEXT, so the old `@default("")` lives in
+  // lib/content/service.ts instead — every write path supplies a value.
+  contentHtml String        @db.LongText
+  excerpt     String?       @db.Text
   status      ContentStatus @default(DRAFT)
   publishedAt DateTime?
 
@@ -102,11 +125,11 @@ model Post {
   coverImage   Media?  @relation("PostCover", fields: [coverImageId], references: [id])
 
   // SEO
-  seoTitle       String?
-  seoDescription String?
+  seoTitle       String? @db.VarChar(255)
+  seoDescription String? @db.Text
   ogImageId      String?
   ogImage        Media?  @relation("PostOg", fields: [ogImageId], references: [id])
-  canonicalUrl   String?
+  canonicalUrl   String? @db.Text
   noIndex        Boolean @default(false)
 
   readingTimeMinutes Int @default(0)
@@ -119,9 +142,18 @@ model Post {
   tags       PostTag[]
   revisions  PostRevision[]
 
-  // Full-text search vector; populated + indexed via raw SQL migration.
-  searchVector Unsupported("tsvector")?
+  // Full-text search source: `contentHtml` with tags stripped, written by
+  // lib/content/service.ts. Indexing the raw HTML instead would pour tag names,
+  // hrefs and CSS classes into the index and wreck relevance.
+  searchText String @db.LongText
 
+  // Two FULLTEXT indexes, not one: MySQL requires MATCH()'s column list to match
+  // an index exactly, so ranking a title hit above a body hit needs its own
+  // single-column index. lib/search/fulltext.ts scores
+  // MATCH(all) + TITLE_BOOST * MATCH(title). More indexes would allow finer
+  // weighting, but each one is maintained on every write.
+  @@fulltext([title, excerpt, searchText])
+  @@fulltext([title])
   @@index([status, publishedAt])
   @@index([authorId])
 }
@@ -130,8 +162,8 @@ model PostRevision {
   id          String   @id @default(cuid())
   postId      String
   post        Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  title       String
-  excerpt     String?
+  title       String   @db.VarChar(255)
+  excerpt     String?  @db.Text
   contentJson Json
   createdAt   DateTime @default(now())
 
@@ -142,12 +174,13 @@ model PostRevision {
 // Same shape as Post, minus taxonomy (no categories/tags).
 
 model Page {
-  id          String        @id @default(cuid())
-  title       String
-  slug        String        @unique
+  id    String @id @default(cuid())
+  title String @db.VarChar(255)
+  slug  String @unique @db.VarChar(255)
+
   contentJson Json
-  contentHtml String        @default("")
-  excerpt     String?
+  contentHtml String        @db.LongText
+  excerpt     String?       @db.Text
   status      ContentStatus @default(DRAFT)
   publishedAt DateTime?
 
@@ -157,11 +190,11 @@ model Page {
   coverImageId String?
   coverImage   Media?  @relation("PageCover", fields: [coverImageId], references: [id])
 
-  seoTitle       String?
-  seoDescription String?
+  seoTitle       String? @db.VarChar(255)
+  seoDescription String? @db.Text
   ogImageId      String?
   ogImage        Media?  @relation("PageOg", fields: [ogImageId], references: [id])
-  canonicalUrl   String?
+  canonicalUrl   String? @db.Text
   noIndex        Boolean @default(false)
 
   readingTimeMinutes Int @default(0)
@@ -170,8 +203,10 @@ model Page {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  searchVector Unsupported("tsvector")?
+  searchText String @db.LongText
 
+  @@fulltext([title, excerpt, searchText])
+  @@fulltext([title])
   @@index([status, publishedAt])
 }
 
@@ -179,18 +214,18 @@ model Page {
 
 model Category {
   id          String  @id @default(cuid())
-  name        String
-  slug        String  @unique
-  description String?
+  name        String  @db.VarChar(255)
+  slug        String  @unique @db.VarChar(255)
+  description String? @db.Text
 
   posts PostCategory[]
 }
 
 model Tag {
   id          String  @id @default(cuid())
-  name        String
-  slug        String  @unique
-  description String?
+  name        String  @db.VarChar(255)
+  slug        String  @unique @db.VarChar(255)
+  description String? @db.Text
 
   posts PostTag[]
 }
@@ -218,14 +253,20 @@ model PostTag {
 // ─────────────────────────── Media ───────────────────────────
 
 model Media {
-  id           String   @id @default(cuid())
-  url          String
-  filename     String
-  altText      String   @default("")
-  mimeType     String?
-  width        Int?
-  height       Int?
-  sizeBytes    Int      @default(0)
+  id       String @id @default(cuid())
+  // Cloudinary/S3 URLs run long, so VARCHAR(1024) rather than the 191 default.
+  // A full index on that exceeds InnoDB's 3072-byte key limit, hence the 191-char
+  // prefix index — the WordPress importer looks media up by exact url once per
+  // image, and the Cloudinary migration filters by url prefix.
+  url      String @db.VarChar(1024)
+  filename String @db.VarChar(255)
+  // VARCHAR, not TEXT, specifically so `@default("")` is legal on MySQL.
+  altText  String @default("") @db.VarChar(512)
+
+  mimeType  String? @db.VarChar(255)
+  width     Int?
+  height    Int?
+  sizeBytes Int     @default(0)
   // Resized/WebP variant descriptors: [{ label, url, width, height, format }]
   variantsJson Json?
 
@@ -243,14 +284,16 @@ model Media {
   avatarForUsers     User[]         @relation("UserAvatar")
 
   @@index([uploadedById])
+  @@index([url(length: 191)])
 }
 
 // ─────────────────────────── Redirects ───────────────────────────
 
 model Redirect {
   id         String   @id @default(cuid())
-  fromPath   String   @unique
-  toPath     String
+  // 512 chars keeps the UNIQUE index at 2048 bytes, inside InnoDB's 3072 limit.
+  fromPath   String   @unique @db.VarChar(512)
+  toPath     String   @db.Text
   statusCode Int      @default(301)
   createdAt  DateTime @default(now())
 }
@@ -260,17 +303,17 @@ model Redirect {
 
 model SiteSettings {
   id              String  @id @default("singleton")
-  siteTitle       String  @default("Softsuave Blog")
-  tagline         String?
-  siteDescription String?
-  accentColor     String  @default("#2563eb")
-  fontChoice      String  @default("inter")
+  siteTitle       String  @default("Softsuave Blog") @db.VarChar(255)
+  tagline         String? @db.Text
+  siteDescription String? @db.Text
+  accentColor     String  @default("#2563eb") @db.VarChar(32)
+  fontChoice      String  @default("inter") @db.VarChar(64)
   // Keep in sync with DEFAULT_THEME in src/themes/registry.ts — a fresh install
   // seeds this row from the column default, so a mismatch silently ships the
   // wrong theme.
-  activeTheme     String  @default("softsuave")
+  activeTheme     String  @default("softsuave") @db.VarChar(64)
   socialLinksJson Json?
-  analyticsSnippet String?
+  analyticsSnippet String? @db.Text
 
   logoMediaId String?
   logo        Media?  @relation("SettingsLogo", fields: [logoMediaId], references: [id])
@@ -284,16 +327,16 @@ model SiteSettings {
 // ─────────────────────────── Audit log ───────────────────────────
 
 model AuditLog {
-  id         String   @id @default(cuid())
-  userId     String?
-  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-  action     String
-  targetType String?
-  targetId   String?
-  ipAddress  String?
-  userAgent  String?
+  id           String   @id @default(cuid())
+  userId       String?
+  user         User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action       String   @db.VarChar(191)
+  targetType   String?  @db.VarChar(191)
+  targetId     String?  @db.VarChar(191)
+  ipAddress    String?  @db.VarChar(45)
+  userAgent    String?  @db.Text
   metadataJson Json?
-  createdAt  DateTime @default(now())
+  createdAt    DateTime @default(now())
 
   @@index([userId])
   @@index([createdAt])

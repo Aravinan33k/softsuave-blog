@@ -25,21 +25,21 @@ CMS bloat.
 
 ## Tech stack
 
-Next.js 16 (App Router, TS strict) · Tailwind v4 + shadcn/ui · PostgreSQL + Prisma 7 · `jose`
+Next.js 16 (App Router, TS strict) · Tailwind v4 + shadcn/ui · MySQL 8 + Prisma 7 · `jose`
 JWT · `@node-rs/argon2` · TipTap · `sharp` · Zod · a storage adapter (local disk in dev,
 S3/R2 in prod).
 
 ## Prerequisites
 
 - Node.js 20+ (tested on 24)
-- Docker (for local Postgres)
+- Docker (for local MySQL), or a native MySQL 8.0+
 
 ## Quick start
 
 ```bash
 npm install
 cp .env.example .env            # adjust secrets
-docker compose up -d            # Postgres on host port 5433
+docker compose up -d            # MySQL on host port 3307
 npm run db:migrate              # apply schema
 npm run db:seed                 # create the first ADMIN (from SEED_ADMIN_* in .env)
 npm run dev                     # http://localhost:3100
@@ -98,11 +98,111 @@ Business logic depends only on `StorageAdapter` (`uploadFile`/`deleteFile`/`getU
 - Prod: `STORAGE_DRIVER=s3` with `S3_*` (Cloudflare R2 / AWS S3 / MinIO). Complete
   `src/lib/storage/s3.ts` (upload/delete) with `@aws-sdk/client-s3` — `getUrl` is already done.
 
+## Database (MySQL 8)
+
+Prisma 7 talks to MySQL through the first-party `@prisma/adapter-mariadb` driver adapter
+(`src/lib/db.ts`). Requires **MySQL 8.0+** — the app uses window functions and InnoDB
+`FULLTEXT`.
+
+### Server setup
+
+The app must **not** connect as `root`. Create a database and a least-privilege user:
+
+```sql
+CREATE DATABASE softsuave_blog CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE USER 'blog'@'%' IDENTIFIED BY '<strong-password>';
+-- DML for the app, plus DDL because `prisma migrate deploy` runs as this user.
+-- Drop CREATE/ALTER/INDEX/DROP/REFERENCES if migrations are applied by a separate
+-- admin account, which is the safer arrangement.
+GRANT SELECT, INSERT, UPDATE, DELETE,
+      CREATE, ALTER, INDEX, DROP, REFERENCES
+  ON softsuave_blog.* TO 'blog'@'%';
+FLUSH PRIVILEGES;
+```
+
+Two server settings are load-bearing, both in `my.cnf` (`/etc/mysql/mysql.conf.d/`):
+
+```ini
+[mysqld]
+# InnoDB will not index tokens shorter than this, so at the default of 3 a search
+# for "AI", "UI", "QA" or "Go" returns nothing at all. Must equal
+# SEARCH_MIN_TOKEN_SIZE in .env.
+innodb_ft_min_token_size = 2
+# Keeps anything reading these tables outside the app (mysql CLI, dumps, BI tools)
+# in the same UTC frame the app writes in. The app pins its own session to UTC
+# regardless, via the driver's `timezone` option.
+default_time_zone = '+00:00'
+```
+
+Changing `innodb_ft_min_token_size` needs a restart **and** an index rebuild — existing
+FULLTEXT indexes keep the old tokenisation until then:
+
+```sql
+SET GLOBAL innodb_optimize_fulltext_only = ON;
+OPTIMIZE TABLE Post, Page;
+SET GLOBAL innodb_optimize_fulltext_only = OFF;
+```
+
+### Diagnosing connection problems
+
+```bash
+npm run db:check
+```
+
+Run this first, always. The connection pool reports its own acquire timeout
+(`ER_GET_CONNECTION_TIMEOUT: pool timeout ... after 5000ms`) and **discards the
+underlying cause**, so a wrong password, a missing database, a closed port and a
+failed TLS handshake all look identical — and all look like a pool-sizing problem,
+which is the wrong thing to investigate. `db:check` connects without a pool so the
+real driver error surfaces, then verifies the things that fail *silently*:
+
+- server reachable, credentials accepted (distinguishes auth from missing database)
+- MySQL 8.0+, and whether the connection is actually encrypted
+- **`innodb_ft_min_token_size` matches `SEARCH_MIN_TOKEN_SIZE`** — the easiest thing
+  to forget on a new server, and a mismatch produces no error, just short search
+  terms that quietly match nothing
+- database charset is `utf8mb4`
+- migrations applied, none left unfinished, 4 FULLTEXT indexes present
+- rows with an empty `searchText` (invisible to search until `search:backfill`)
+
+### Connection security
+
+`DATABASE_SSL` defaults to `verify`, which both encrypts and authenticates the server. Use
+`disable` only for a loopback connection in local development. `no-verify` encrypts but accepts
+any certificate, so it does **not** protect against a man-in-the-middle — with a self-signed
+server certificate, prefer `verify` plus `DATABASE_SSL_CA` (the CA's PEM contents).
+
+### Full-text search
+
+Search is MySQL `FULLTEXT` over a `searchText` column that holds the post body with HTML
+stripped. That column is written by the **application** (`renderContent` in
+`src/lib/content/service.ts`), not by a database trigger, so any row written outside the normal
+write paths — a restored dump, a manual `UPDATE` — is invisible to search until you run:
+
+```bash
+npm run search:backfill          # fill rows with an empty searchText
+npm run search:backfill -- --all # recompute every row
+```
+
+`src/lib/search/fulltext.ts` translates the search box into a BOOLEAN MODE query. Known
+differences from the previous Postgres `tsvector` implementation:
+
+| | Postgres (before) | MySQL (now) |
+|---|---|---|
+| Stemming | yes (`english`) | **none** — approximated with a `term*` prefix wildcard |
+| Short terms | indexed | **not indexed** below `innodb_ft_min_token_size` |
+| Column weighting | `setweight(A/B/C)` | title-only second `MATCH`, `TITLE_BOOST` in `api/public.ts` |
+| `or` | true disjunction | all terms become optional |
+
+Dropped short terms are returned as `ignoredTerms` from `searchPosts` and shown on `/search`, so
+an unindexable query reads as "too short to search" rather than "no results".
+
 ## Testing
 
 `npm run test` runs Vitest unit tests covering slug/TOC/sanitization, publish-state logic, JWT
-sign/verify, CSRF, and Argon2id hashing. CI (`.github/workflows/ci.yml`) runs typecheck, lint,
-build, and `npm audit`.
+sign/verify, CSRF, Argon2id hashing, and the MySQL full-text query builder. CI
+(`.github/workflows/ci.yml`) runs typecheck, lint, build, and `npm audit`.
 
 ## Deployment
 
@@ -111,8 +211,9 @@ build, and `npm audit`.
 1. Set env vars (all in `.env.example`) in the project settings. Use **`STORAGE_DRIVER=s3`**
    (local disk does not persist on Vercel) and **`RATE_LIMIT_DRIVER=upstash`** (the in-memory
    limiter is per-instance).
-2. Point `DATABASE_URL` at a managed Postgres (Neon, Supabase, RDS…). Run `npm run db:deploy`
-   from CI or locally against it.
+2. Point `DATABASE_URL` at a managed MySQL 8 (RDS, Aurora MySQL, Azure Database for MySQL,
+   PlanetScale…). Run `npm run db:deploy` from CI or locally against it. Set
+   `SEARCH_MIN_TOKEN_SIZE` to match that server’s `innodb_ft_min_token_size`.
 3. Deploy. Add a scheduled job (Vercel Cron) hitting
    `POST /api/v1/cron/publish-scheduled?secret=$REVALIDATE_SECRET` to publish scheduled content.
 
@@ -123,9 +224,9 @@ cp .env.example .env            # set real secrets + NEXT_PUBLIC_SITE_URL
 docker compose --profile app up -d --build
 ```
 
-This builds the app image, starts Postgres + the app (port 3000), runs `prisma migrate deploy`
+This builds the app image, starts MySQL + the app (port 3000), runs `prisma migrate deploy`
 on start, and persists local uploads in the `app_storage` volume. The `app` service reaches
-Postgres over the compose network (its `DATABASE_URL` is overridden to use the `postgres` host).
+MySQL over the compose network (its `DATABASE_URL` is overridden to use the `mysql` host).
 
 > **Build note:** the production build emits one Turbopack file-tracing warning for the local
 > `/uploads` route (it uses `process.cwd()`). It's harmless; on Vercel, use S3 storage and the

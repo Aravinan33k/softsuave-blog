@@ -9,7 +9,7 @@
 // Deliberately NOT redirected: /sitemap.xml, /robots.txt and /rss.xml. Those belong
 // to the existing website at the root, and hijacking them would break its own SEO.
 import 'dotenv/config';
-import pg from 'pg';
+import mariadb from 'mariadb';
 
 const BASE = '/blog';
 
@@ -19,19 +19,32 @@ const push = (from, to) => {
   rows.push([`${from}/`, to]);
 };
 
-const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
-await client.connect();
+// One-shot script, so a single connection rather than a pool. `timezone: 'Z'`
+// matches lib/db.ts: DATETIME columns hold UTC, so the publishedAt comparison
+// below has to be made against UTC_TIMESTAMP() and read back in the same frame.
+const dbUrl = new URL(process.env.DATABASE_URL);
+const client = await mariadb.createConnection({
+  host: dbUrl.hostname,
+  port: dbUrl.port ? Number(dbUrl.port) : 3306,
+  user: decodeURIComponent(dbUrl.username),
+  password: decodeURIComponent(dbUrl.password),
+  database: decodeURIComponent(dbUrl.pathname.replace(/^\//, '')),
+  timezone: 'Z',
+});
 try {
+  // The mariadb driver returns the row array directly — there is no `.rows`
+  // wrapper as there was with `pg`.
   const posts = await client.query(
-    `select slug from "Post" where status = 'PUBLISHED' and "publishedAt" <= now() order by slug`,
+    'select slug from `Post` where status = ? and publishedAt <= UTC_TIMESTAMP(3) order by slug',
+    ['PUBLISHED'],
   );
-  for (const { slug } of posts.rows) push(`/${slug}`, `${BASE}/${slug}`);
+  for (const { slug } of posts) push(`/${slug}`, `${BASE}/${slug}`);
 
-  const cats = await client.query(`select slug from "Category" order by slug`);
-  for (const { slug } of cats.rows) push(`/category/${slug}`, `${BASE}/category/${slug}`);
+  const cats = await client.query('select slug from `Category` order by slug');
+  for (const { slug } of cats) push(`/category/${slug}`, `${BASE}/category/${slug}`);
 
-  const tags = await client.query(`select slug from "Tag" order by slug`);
-  for (const { slug } of tags.rows) push(`/tag/${slug}`, `${BASE}/tag/${slug}`);
+  const tags = await client.query('select slug from `Tag` order by slug');
+  for (const { slug } of tags) push(`/tag/${slug}`, `${BASE}/tag/${slug}`);
 
   push('/search', `${BASE}/search`);
 } finally {

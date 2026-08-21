@@ -29,7 +29,7 @@ ENV NEXT_PUBLIC_HOMEPAGE_ENABLED=${NEXT_PUBLIC_HOMEPAGE_ENABLED}
 #   --build-arg NEXT_PUBLIC_SITE_URL=https://www.softsuave.com/blog
 ARG NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
-ENV DATABASE_URL=postgresql://placeholder:placeholder@localhost:5432/db?schema=public
+ENV DATABASE_URL=mysql://placeholder:placeholder@localhost:3306/db
 ENV JWT_ACCESS_SECRET=build-placeholder-secret-000000000000
 ENV JWT_REFRESH_SECRET=build-placeholder-secret-0000000000000
 ENV PREVIEW_SECRET=build-placeholder-secret-0000000000000000

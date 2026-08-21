@@ -5,7 +5,7 @@ import type { JSONContent } from '@tiptap/core';
 import { prisma } from '../db';
 import { Prisma } from '@/generated/prisma/client';
 import { baseExtensions } from '../tiptap/extensions';
-import { sanitizeHtml, contentStats, deriveExcerpt } from '../content/render';
+import { sanitizeHtml, contentStats, deriveExcerpt, htmlToText } from '../content/render';
 import { slugify, ensureUniqueSlug } from '../content/slug';
 import type { ContentStatus } from '@/generated/prisma/enums';
 
@@ -57,7 +57,8 @@ function htmlToContent(rawHtml: string) {
   const contentHtml = sanitizeHtml(demoted);
   const contentJson = generateJSON(demoted, baseExtensions) as JSONContent;
   const { wordCount, readingTimeMinutes } = contentStats(contentHtml);
-  return { contentHtml, contentJson, wordCount, readingTimeMinutes };
+  // searchText feeds the MySQL FULLTEXT index; see RenderedContent in content/service.
+  return { contentHtml, searchText: htmlToText(contentHtml), contentJson, wordCount, readingTimeMinutes };
 }
 
 export async function importWordpressWxr(xml: string, authorId: string): Promise<ImportSummary> {
@@ -145,7 +146,7 @@ export async function importWordpressWxr(xml: string, authorId: string): Promise
 
       const publishedAt = parseWpDate(text(item['wp:post_date_gmt']));
       const { status, publishedAt: pub } = mapStatus(text(item['wp:status']), publishedAt);
-      const { contentHtml, contentJson, wordCount, readingTimeMinutes } = htmlToContent(text(item['content:encoded']));
+      const { contentHtml, searchText, contentJson, wordCount, readingTimeMinutes } = htmlToContent(text(item['content:encoded']));
       const excerpt = text(item['excerpt:encoded']) || (contentHtml ? deriveExcerpt(contentHtml) : null);
 
       // Featured image via _thumbnail_id → attachment.
@@ -177,6 +178,7 @@ export async function importWordpressWxr(xml: string, authorId: string): Promise
         slug,
         contentJson: contentJson as unknown as Prisma.InputJsonValue,
         contentHtml,
+        searchText,
         excerpt,
         status,
         publishedAt: pub,
