@@ -18,7 +18,9 @@
     "import:wp": "node --conditions=react-server --import tsx scripts/import-wp.ts",
     "migrate:media": "node --conditions=react-server --import tsx scripts/migrate-media-to-cloudinary.ts",
     "content:strip-image": "node --conditions=react-server --import tsx scripts/strip-content-image.ts",
-    "images:home": "node scripts/generate-home-images.mjs"
+    "images:home": "node scripts/generate-home-images.mjs",
+    "verify:content": "node --conditions=react-server --import tsx scripts/verify-content.ts",
+    "relink:media": "node --conditions=react-server --import tsx scripts/relink-media-refs.ts"
   },
   "overrides": {
     "deepmerge-ts": "^8.0.0"
