@@ -58,3 +58,30 @@ describe('navHref', () => {
     }
   });
 });
+
+// `navRoute` is the next/link counterpart of `navHref`. next/link applies
+// `basePath` itself, so it needs the app-internal route where an anchor needs the
+// public url — handing it navHref's "/blog" produced "/blog/blog", which only
+// resolved via a 301 and downgraded client navigation to a full page reload.
+describe('navRoute', () => {
+  it('maps the public archive url onto its app-internal route', async () => {
+    for (const flag of ['true', 'false', undefined]) {
+      const { navRoute } = await loadNav(flag);
+      expect(navRoute('/blog')).toBe('/');
+    }
+  });
+
+  it('leaves marketing paths to navHref, absolute and unprefixed', async () => {
+    for (const flag of ['true', 'false']) {
+      const { navRoute } = await loadNav(flag);
+      expect(navRoute('/contact')).toBe(`${SITE}/contact`);
+    }
+  });
+
+  it('never returns a path next/link would prefix into /blog/blog', async () => {
+    for (const flag of ['true', 'false', undefined]) {
+      const { navRoute } = await loadNav(flag);
+      expect(navRoute('/blog').startsWith('/blog')).toBe(false);
+    }
+  });
+});

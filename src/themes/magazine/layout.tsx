@@ -9,12 +9,12 @@ export function MagazineLayout({ site, children }: LayoutProps) {
     <div style={style} className="flex min-h-screen flex-col bg-neutral-50 text-neutral-900">
       <header className="bg-neutral-900 text-white">
         <div className="mx-auto max-w-6xl px-6 py-8">
-          <Link href="/blog" className="text-3xl font-black uppercase tracking-tight">
+          <Link href="/" className="text-3xl font-black uppercase tracking-tight">
             {site.title}
           </Link>
           {site.tagline && <p className="mt-1 text-sm text-neutral-400">{site.tagline}</p>}
           <nav className="mt-4 flex flex-wrap gap-5 text-sm font-medium uppercase tracking-wide">
-            <Link href="/blog" className="hover:[color:var(--theme-accent)]">Home</Link>
+            <Link href="/" className="hover:[color:var(--theme-accent)]">Home</Link>
             {site.navPages.map((p) => (
               <Link key={p.slug} href={`/${p.slug}`} className="hover:[color:var(--theme-accent)]">
                 {p.title}

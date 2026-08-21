@@ -152,3 +152,16 @@ export function navHref(href: string): string {
 export function isExternalHref(href: string): boolean {
   return !LOCAL_PATHS.has(href);
 }
+
+/**
+ * App-internal route for a nav path, for use with `next/link`.
+ *
+ * `navHref` deliberately returns a PUBLIC url, which is what a plain `<a>`
+ * needs. `next/link` applies `basePath` itself, though, so handing it the public
+ * "/blog" produces "/blog/blog" — which only works via the 301 in next.config
+ * and breaks client-side RSC navigation into a full page reload. The archive's
+ * app-internal route is "/", which `basePath` renders back as "/blog".
+ */
+export function navRoute(href: string): string {
+  return href === '/blog' ? '/' : navHref(href);
+}

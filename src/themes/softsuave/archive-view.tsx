@@ -46,7 +46,7 @@ export function SoftSuaveArchiveView({ site, heading, description, posts, total,
               </div>
               <ul className="mt-5 flex flex-wrap gap-3">
                 <li>
-                  <Link href="/blog" className={pill(isHome)} aria-current={isHome ? 'page' : undefined}>
+                  <Link href="/" className={pill(isHome)} aria-current={isHome ? 'page' : undefined}>
                     All
                   </Link>
                 </li>

@@ -9,11 +9,11 @@ export function MinimalLayout({ site, children }: LayoutProps) {
     <div style={style} className="flex min-h-screen flex-col bg-white text-neutral-900">
       <header className="border-b">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5">
-          <Link href="/blog" className="text-lg font-semibold tracking-tight">
+          <Link href="/" className="text-lg font-semibold tracking-tight">
             {site.title}
           </Link>
           <nav className="flex items-center gap-4 text-sm">
-            <Link href="/blog" className="hover:opacity-70">Home</Link>
+            <Link href="/" className="hover:opacity-70">Home</Link>
             {site.navPages.map((p) => (
               <Link key={p.slug} href={`/${p.slug}`} className="hover:opacity-70">
                 {p.title}

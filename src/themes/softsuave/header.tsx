@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ChevronDown, Menu, Search, X } from 'lucide-react';
-import { NAV, navHref, type NavItem } from './nav-data';
+import { NAV, navHref, navRoute, type NavItem } from './nav-data';
 import { SiteLink } from './site-link';
 
 const SITE = 'https://www.softsuave.com';
@@ -89,7 +89,7 @@ export function SoftSuaveHeader() {
               {NAV.map((item) => (
                 <li key={item.label} className="group">
                   {item.kind === 'link' ? (
-                    <Link href={navHref(item.href)} className="ss-heading px-3 py-2 text-sm font-semibold text-neutral-800 hover:text-[#ff0042]">
+                    <Link href={navRoute(item.href)} className="ss-heading px-3 py-2 text-sm font-semibold text-neutral-800 hover:text-[#ff0042]">
                       {item.label}
                     </Link>
                   ) : (
@@ -177,7 +177,7 @@ export function SoftSuaveHeader() {
               {NAV.map((item) => (
                 <li key={item.label} className="border-b">
                   {item.kind === 'link' ? (
-                    <Link href={navHref(item.href)} className="ss-heading block py-3 font-semibold" onClick={() => setOpen(false)}>
+                    <Link href={navRoute(item.href)} className="ss-heading block py-3 font-semibold" onClick={() => setOpen(false)}>
                       {item.label}
                     </Link>
                   ) : (
