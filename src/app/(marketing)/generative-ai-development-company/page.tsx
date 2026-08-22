@@ -131,7 +131,11 @@ export default function GenerativeAiDevelopmentCompanyPage() {
         </div>
 
         <Industries />
-        <WhyUs />
+
+        <div className={styles.light}>
+          <WhyUs />
+        </div>
+
         <CaseStudies />
 
         {/* Dark, not wrapped in `.light` — on the homepage TechStack renders

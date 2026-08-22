@@ -1298,15 +1298,11 @@
    "Know More" link surface over a darkened scrim on hover/focus. `overflow:
    hidden` on the card clips both the image's hover zoom and the rounded
    corners; every other layer stacks above it by z-index, not paint order,
-   since the image is an absolutely-positioned `next/image` fill.
-
-   Taller than a plain 3:2 photo crop, and with a floor under that: a 4-up row
-   on a wide screen is narrow enough that 3:2 left too little height for the
-   hover copy to lay out without the reveal rectangle feeling cramped. */
+   since the image is an absolutely-positioned `next/image` fill. */
 .indCard {
   position: relative;
-  aspect-ratio: 4 / 3;
-  min-height: 260px;
+  aspect-ratio: 1 / 1;
+  min-height: 280px;
   border: 1px solid var(--line);
   border-radius: 14px;
   overflow: hidden;
@@ -1430,10 +1426,15 @@
   justify-content: flex-end;
   gap: 8px;
   padding: clamp(16px, 2vw, 22px);
+  /* A scrim, not a solid fill: the photo stays visible through the top of
+     the card, darkening only enough toward the bottom — where the copy
+     lives — to keep it legible over any of these backdrops. */
   background: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--accent) 30%, #0a0705) 0%,
-    rgba(8, 6, 5, 0.97) 46%
+    to top,
+    rgba(6, 5, 5, 0.96) 0%,
+    rgba(6, 5, 5, 0.82) 34%,
+    rgba(6, 5, 5, 0.32) 68%,
+    rgba(6, 5, 5, 0.05) 100%
   );
   opacity: 0;
   transform: scale(1.02);
@@ -1963,9 +1964,9 @@
     justify-content: flex-end;
   }
 
-  /* Industries / applications: 8 cards read as two rows of four. */
+  /* Industries: 8 cards read as three per row (the last row runs short). */
   .indGrid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   /* Why us: 6 proof points read as two rows of three. */
