@@ -42,7 +42,13 @@ const securityHeaders = [
 // Because of this the marketing homepage in app/(marketing) is NOT reachable in
 // this deployment: /blog is the deepest the proxy hands over, so there is no way
 // for this app to own the site root. The existing homepage keeps serving it.
-const BASE_PATH = '/blog';
+//
+// There is no reverse proxy in local dev, so the subpath only adds friction —
+// empty locally, so `next dev` serves everything at the true root. Must match
+// `BASE_PATH` in lib/flags.ts, which the same helpers (media-url.ts,
+// seo/metadata.ts) use to prefix things basePath itself doesn't reach
+// (hand-written fetch() calls, stored media URLs, canonical URLs).
+const BASE_PATH = isProd ? '/blog' : '';
 
 const nextConfig: NextConfig = {
   basePath: BASE_PATH,
@@ -88,6 +94,10 @@ const nextConfig: NextConfig = {
   // /blog/admin natively, without a redirect hop, so internal links stay
   // client-side navigable.
   async redirects() {
+    // Only needed when basePath is actually "/blog" (production). In local dev
+    // BASE_PATH is '', so "/" already IS the mount root — no redirect exists,
+    // and one to an empty destination is invalid config anyway.
+    if (!isProd) return [];
     return [
       // Bare "/" — i.e. OUTSIDE basePath — hands over to the mount root, which is
       // now the homepage. `basePath: false` opts this rule out of the prefix, which
