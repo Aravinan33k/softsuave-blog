@@ -1,17 +1,27 @@
 import 'server-only';
 import { prisma } from '../db';
 import { absoluteUrl } from './metadata';
+import { LANDING_PAGES } from '../home/landing-pages';
 
 // Shared data for sitemap + feeds. Only indexable, published, live content.
 
 /**
- * The archive's landing URL. The app is mounted at /blog, so its root IS the
+ * Landing URLs this app serves from code rather than from the database.
+ *
+ * The archive comes first: the app is mounted at /blog, so its root IS the
  * archive — absoluteUrl('/') resolves to https://…/blog. The marketing homepage
  * is deliberately absent: this deployment cannot serve the site root (the existing
  * website does), so listing it would advertise a URL this app never answers.
+ *
+ * The marketing landing pages are different — each is a real route under the
+ * mount, so each belongs in the sitemap. They come from one registry
+ * (`lib/home/landing-pages.ts`) so adding a page cannot silently miss it.
  */
 function landingEntries(now: Date): SitemapEntry[] {
-  return [{ url: absoluteUrl('/'), lastModified: now }];
+  return [
+    { url: absoluteUrl('/'), lastModified: now },
+    ...LANDING_PAGES.map((p) => ({ url: absoluteUrl(p.path), lastModified: now })),
+  ];
 }
 
 function published() {

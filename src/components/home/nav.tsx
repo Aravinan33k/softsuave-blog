@@ -8,13 +8,28 @@ import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import Magnetic from "./magnetic";
 import styles from "./home.module.css";
 
+type NavLink = { label: string; href: string };
+
 /**
  * Fixed top nav: sticky logo + inline links + rounded-full pill CTA. On mount
  * it drops in from above. Below the lg breakpoint the links collapse into a
  * full-screen overlay menu toggled by a burger. Adds a "scrolled" background
  * once the hero is passed.
+ *
+ * `links`, `cta` and `logoHref` default to the homepage's own content, so the
+ * homepage renders unchanged. Other pages in the (marketing) group pass their
+ * own set — the defaults are all same-page anchors (#services, #why, …) which
+ * would be dead links anywhere but the homepage.
  */
-export default function Nav() {
+export default function Nav({
+  links = nav.links,
+  cta = nav.cta,
+  logoHref = "#top",
+}: {
+  links?: readonly NavLink[];
+  cta?: NavLink;
+  logoHref?: string;
+} = {}) {
   const bar = useRef<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -52,18 +67,18 @@ export default function Nav() {
   return (
     <>
       <header ref={bar} className={`${styles.nav} ${scrolled ? styles.navScrolled : ""}`}>
-        <a href="#top" className={styles.navLogo} data-cursor="Home">
+        <a href={logoHref} className={styles.navLogo} data-cursor="Home">
           <Logo tone="light" size={40} />
         </a>
 
         <div className={styles.navRight}>
           <Magnetic>
             <a
-              href={nav.cta.href}
+              href={cta.href}
               className={`${styles.pill} ${styles.pillFilled} ${styles.navCta}`}
               data-cursor="Let's talk"
             >
-              {nav.cta.label}
+              {cta.label}
             </a>
           </Magnetic>
           <button
@@ -80,7 +95,7 @@ export default function Nav() {
 
       <div className={`${styles.overlay} ${open ? styles.overlayOpen : ""}`} aria-hidden={!open}>
         <nav className={styles.overlayNav}>
-          {nav.links.map((l) =>
+          {links.map((l) =>
             // In-page anchors stay plain <a> so the Lenis smooth-scroll handler
             // in ScrollProvider picks them up; real routes (e.g. /blog) use
             // next/link for client navigation + prefetch.
@@ -94,8 +109,8 @@ export default function Nav() {
               </a>
             ),
           )}
-          <a href={nav.cta.href} onClick={close} className={styles.overlayCta}>
-            {nav.cta.label}
+          <a href={cta.href} onClick={close} className={styles.overlayCta}>
+            {cta.label}
           </a>
         </nav>
       </div>
