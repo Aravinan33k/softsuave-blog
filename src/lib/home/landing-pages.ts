@@ -24,4 +24,5 @@ export interface LandingPage {
 export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/custome-ai-developement', title: 'Custom AI Development Services' },
   { path: '/generative-ai-development-company', title: 'Generative AI Development Company' },
+  { path: '/agentic-ai-development-services', title: 'Agentic AI Development Services' },
 ] as const;

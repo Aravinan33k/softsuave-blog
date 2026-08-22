@@ -1,9 +1,11 @@
 "use client";
 
 import { Fragment, useRef, useState } from "react";
+import Image from "next/image";
 import { brand } from "@/lib/home/content";
 import { hero as generativeAiHero } from "@/lib/home/generative-ai";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { publicMediaUrl } from "@/lib/media-url";
 import styles from "./gen-ai.module.css";
 
 /**
@@ -18,7 +20,17 @@ export interface HeroContent {
   titleLines: readonly string[];
   body: readonly string[];
   points: readonly string[];
-  badges: readonly string[];
+  /**
+   * Optional full-bleed backdrop photograph, the landing-page counterpart to
+   * the homepage hero's intro video: rendered with `fill` behind the content,
+   * held at low opacity under a dark gradient veil so the headline keeps its
+   * contrast. Purely atmospheric, so it is rendered `alt=""` inside an
+   * `aria-hidden` frame. Pages without one keep the plain gradient hero.
+   */
+  background?: {
+    src: string;
+    blurDataURL?: string;
+  };
   form: {
     eyebrow: string;
     title: string;
@@ -34,8 +46,7 @@ export interface HeroContent {
 
 /**
  * Page hero: the H1 + positioning copy and supporting points on the left, the
- * consultation enquiry form on the right, with the trust badges bridging the
- * two on narrow viewports.
+ * consultation enquiry form on the right.
  *
  * Typographically this is the landing-page voice, not the homepage's: a tight
  * semibold Inter headline instead of the ultralight Fraunces display, squared
@@ -75,11 +86,16 @@ export default function Hero({
         duration: 0.9,
         ease: "power3.out",
         stagger: 0.09,
-      })
+      }, 0.1)
         .from(`.${styles.heroBody}`, { opacity: 0, y: 20, duration: 0.7, ease: "power2.out", stagger: 0.08 }, "-=0.5")
         .from(`.${styles.heroPoint}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.05 }, "-=0.4")
-        .from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3")
         .from(`.${styles.form}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
+
+      // Backdrop lifts out of black underneath all of that — the same hand-off
+      // the homepage hero gives its video frame. Added last, at an absolute
+      // position, so the relative offsets above keep their original timing;
+      // a no-op on pages that supply no background.
+      tl.from(`.${styles.heroMedia}`, { opacity: 0, duration: 1.3, ease: "power2.out" }, 0);
     },
     { scope: root },
   );
@@ -106,6 +122,23 @@ export default function Hero({
 
   return (
     <section ref={root} className={styles.hero} id="top">
+      {content.background && (
+        <div className={styles.heroMedia} aria-hidden>
+          <Image
+            src={publicMediaUrl(content.background.src)}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className={styles.heroMediaImg}
+            {...(content.background.blurDataURL
+              ? { placeholder: "blur" as const, blurDataURL: content.background.blurDataURL }
+              : {})}
+          />
+          <div className={styles.heroMediaVeil} />
+        </div>
+      )}
+
       <div className={styles.heroGlow} aria-hidden />
 
       <div className={styles.heroGrid}>
@@ -151,15 +184,6 @@ export default function Hero({
                   <path d="M4 10.6l4 3.8 8-8.8" />
                 </svg>
                 <span>{point}</span>
-              </li>
-            ))}
-          </ul>
-
-          <ul className={styles.badges} aria-label="Credentials">
-            {content.badges.map((b) => (
-              <li key={b} className={styles.badge}>
-                <span className={styles.badgeDot} aria-hidden />
-                {b}
               </li>
             ))}
           </ul>

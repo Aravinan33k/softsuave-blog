@@ -40,11 +40,15 @@ export interface OverviewContent {
 /**
  * Overview: an editorial prose block defining the service category.
  *
- * With an `image`, the prose and the illustration sit side by side from 1000px
- * up — both inside the section's normal gutters, so the copy stays flush with
- * every other band on the page. The pull quote then spans the full width
- * underneath, as a bordered accent-ruled panel rather than the homepage's bare
- * oversized blockquote.
+ * With an `image`, the masthead and prose share ONE left column with the
+ * illustration in a right column beside them, both starting from the same top
+ * edge — not the masthead sitting full-width above a prose/image row. That
+ * second arrangement left the image stranded a title's-height below where the
+ * grid actually starts (dead space beside the title), because the row it
+ * shares with the image begins only at the first paragraph, not at the kicker.
+ * The pull quote still spans the full width underneath, outside this grid, as
+ * a bordered accent-ruled panel rather than the homepage's bare oversized
+ * blockquote.
  */
 export default function Overview({
   content = generativeAiOverview,
@@ -57,33 +61,49 @@ export default function Overview({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} />
+      {image ? (
+        <FadeUp>
+          <div className={styles.overviewGrid}>
+            <div>
+              <SectionHead kicker={content.eyebrow} title={content.title} />
 
-      <FadeUp>
-        <div className={image ? styles.overviewGrid : undefined}>
-          <div className={styles.prose}>
-            {content.paragraphs.map((p) => (
-              <p key={p.slice(0, 24)}>{p}</p>
-            ))}
-          </div>
+              <div className={styles.prose}>
+                {content.paragraphs.map((p) => (
+                  <p key={p.slice(0, 24)}>{p}</p>
+                ))}
+              </div>
+            </div>
 
-          {image && (
             <figure className={styles.overviewMedia}>
               <Image
                 src={publicMediaUrl(image.src)}
                 alt={image.alt}
                 fill
-                sizes="(max-width: 999px) 92vw, 46vw"
+                sizes="(max-width: 999px) 92vw, 34vw"
                 {...(image.blurDataURL
                   ? { placeholder: "blur" as const, blurDataURL: image.blurDataURL }
                   : {})}
               />
             </figure>
-          )}
-        </div>
+          </div>
 
-        {content.pullQuote && <p className={styles.pullQuote}>{content.pullQuote}</p>}
-      </FadeUp>
+          {content.pullQuote && <p className={styles.pullQuote}>{content.pullQuote}</p>}
+        </FadeUp>
+      ) : (
+        <>
+          <SectionHead kicker={content.eyebrow} title={content.title} />
+
+          <FadeUp>
+            <div className={styles.prose}>
+              {content.paragraphs.map((p) => (
+                <p key={p.slice(0, 24)}>{p}</p>
+              ))}
+            </div>
+
+            {content.pullQuote && <p className={styles.pullQuote}>{content.pullQuote}</p>}
+          </FadeUp>
+        </>
+      )}
     </section>
   );
 }

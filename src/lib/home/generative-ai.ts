@@ -33,16 +33,19 @@ export const hero = {
     "Continuous Quality Evaluation",
   ],
   /**
-   * Trust signals under the hero copy — the same claims the AI landing page
-   * leads with, rendered in this theme's chip type.
+   * Full-bleed hero backdrop, treated the way the homepage treats its intro
+   * video: the frame sits behind the content at low opacity under a dark
+   * gradient veil, so the photograph reads as atmosphere and the headline keeps
+   * its contrast. Stored root-relative — `publicMediaUrl` applies the mount
+   * subpath at render time, since next/image does not prefix local sources.
+   * `blurDataURL` is a 16px WebP of the same frame, matching the overview
+   * illustration and the generated homepage manifest.
    */
-  badges: [
-    "ISO 9001:2015 Certified",
-    "13+ Years in Business",
-    "400+ AI Specialists",
-    "NDA-Backed Engagements",
-    "150+ Global Clients",
-  ],
+  background: {
+    src: "/images/landing/generative-ai-hero-ai-figure.webp",
+    blurDataURL:
+      "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAABQAQCdASoQAAkAA4BaJQBOgC6gAP70ZSuMXAh7U5CLN/6R9Ag+TrLRBrkNmW0vWBn6rPX6AAA=",
+  },
   form: {
     eyebrow: "Free Consultation",
     title: "Book a 30-minute technical consultation",
@@ -54,12 +57,6 @@ export const hero = {
       "What should the system do, and which data or systems does it need to reach?",
     subject: "Generative AI consultation request",
   },
-} as const;
-
-export const clients = {
-  eyebrow: "Our Clients",
-  title: "Trusted by Teams Building With AI",
-  body: "From funded startups to global enterprises, teams across 21+ countries partner with Soft Suave to ship AI that holds up in production.",
 } as const;
 
 export const overview = {
@@ -80,43 +77,54 @@ export const overview = {
    * `public/images/**` is allow-listed for the optimizer in next.config.ts.
    */
   image: {
-    src: "/images/landing/generative-ai-overview.webp",
-    width: 1536,
-    height: 1024,
-    alt: "Generative AI application architecture: your data, knowledge base, and APIs feed a model that handles text, image, and code generation, returning insights, automation, and actions.",
+    src: "/images/landing/generative-ai-rag-architecture.webp",
+    width: 1448,
+    height: 1086,
+    alt: "How a generative AI solution fits together: your data, documents, knowledge base, and cloud storage feed a central AI model through a RAG layer, which connects out to CRM, ERP, APIs, and ticketing systems to return accurate answers and real business value.",
     blurDataURL:
-      "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADQAQCdASoQAAsAAwBSJQBdgCHw8jmZ4AD++d2x7Ec4yZsZwNneJSzpg06jp7kq2pW1BAGcN/1owBfXxUAAAA==",
+      "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAAAQAgCdASoQAAwAAwBSJQBOgCHw35H/X5wAAP75+5o1KWhylCAGLAV8fi2WhvhAXHsUdEL5/sjZZAf0swAAAA==",
   },
 } as const;
 
 export const problems = {
   eyebrow: "Problems & Solutions",
   title: "Business Problems Generative AI Solutions Actually Solve",
-  body: "Generative AI delivers value when applied to clear operational challenges. The table below highlights common business problems and explains how tailored Generative AI solutions address each one with practical, measurable outcomes.",
+  body: "Generative AI delivers value when applied to clear operational challenges. Select a problem below to see how a tailored Generative AI solution addresses it with practical, measurable outcomes.",
   columns: ["Problem", "How generative AI solutions help"],
+  /**
+   * Each row carries the artwork its panel wears as a backdrop. Root-relative,
+   * like every other stored media path here: `publicMediaUrl` applies the mount
+   * subpath at render time. The images are decorative — the panel's own copy
+   * carries the meaning — so they render with an empty `alt`.
+   */
   rows: [
     {
       problem: "Knowledge locked in documents",
+      image: "/images/landing/problems/knowledge-search.webp",
       solution:
         "Employees spend hours searching contracts, policies, and support tickets. AI-powered search provides direct answers from these documents, with citations linking back to the original sources.",
     },
     {
       problem: "Manual document processing",
+      image: "/images/landing/problems/document-processing.webp",
       solution:
         "Teams manually enter data from invoices, claims, and forms. Generative AI extracts information from unstructured documents and converts it into structured data for review.",
     },
     {
       problem: "Support demand exceeding team capacity",
+      image: "/images/landing/problems/support-capacity.webp",
       solution:
         "Repetitive Tier-1 queries take up valuable support time. An AI assistant answers common questions using your help centre and directs complex issues to the appropriate team.",
     },
     {
       problem: "Content production bottlenecks",
+      image: "/images/landing/problems/content-production.webp",
       solution:
         "Product, marketing, and localisation work slows when writing resources are limited. Generative AI creates initial drafts using your templates, ready for human review and approval.",
     },
     {
       problem: "Analysts spending time on routine research",
+      image: "/images/landing/problems/analyst-research.webp",
       solution:
         "Research, data summaries, and recurring reports consume valuable specialist time. AI agents prepare initial drafts using your data, allowing experts to review and refine the findings.",
     },
@@ -131,42 +139,52 @@ export const services = {
     {
       name: "Generative AI Consulting and Use-Case Discovery",
       body: "Identify which use cases justify investment before development begins. You receive a feasibility assessment, data-readiness review, and recommendation focused on the simplest approach that meets your requirements.",
+      image: "/images/landing/services/svc-consulting-discovery.webp",
     },
     {
       name: "Generative AI Proof of Concept Development",
       body: "Validate the idea in weeks, not quarters. Soft Suave builds a working proof of concept against your real data, so value is measured before you approve a full build.",
+      image: "/images/landing/services/svc-proof-of-concept.webp",
     },
     {
       name: "Custom Generative AI Application Development",
       body: "Build production applications with generative AI at the core: copilots, assistants, and internal tools. You get the whole application: interface, backend, and integrations, not just a model call.",
+      image: "/images/landing/services/svc-application-development.webp",
     },
     {
       name: "Generative AI Integration Services",
       body: "Embed generative AI into the systems you already run: CRM, ERP, ticketing, and internal APIs. Integration runs through your existing authentication and permission model, so nobody sees data they should not.",
+      image: "/images/landing/services/svc-integration.webp",
     },
     {
       name: "Model Selection and Customisation",
       body: "We select and fine-tune the right AI model based on your accuracy, speed, and cost requirements. Options from OpenAI, Anthropic, Google, Meta, and Mistral are tested against your specific business needs.",
+      image: "/images/landing/services/svc-model-selection.webp",
     },
     {
       name: "Generative AI Security and Governance",
       body: "We build security into every stage with access controls, guardrails, audit logging, and human oversight, helping your generative AI solution move safely from development to production.",
+      image: "/images/landing/services/svc-security-governance.webp",
     },
     {
       name: "Evaluation, Testing and LLMOps",
       body: "Measure quality before your users do. Soft Suave delivers evaluation sets, regression tests, prompt versioning, cost tracking, and drift monitoring as part of the build, not as aftercare.",
+      image: "/images/landing/services/svc-evaluation-llmops.webp",
     },
     {
       name: "Dedicated Generative AI Development Teams",
       body: "Scale your AI engineering capacity without a hiring cycle. Pre-vetted AI developers join within 48 hours and work in your sprints, your tools, and your timezone from day one.",
+      image: "/images/landing/services/svc-dedicated-teams.webp",
     },
     {
       name: "Generative AI Product Modernisation",
       body: "Add generative AI to software you already own. Assistants, search, and automation extend the existing product rather than forcing a rebuild around a new architecture.",
+      image: "/images/landing/services/svc-product-modernisation.webp",
     },
     {
       name: "Generative AI Support and Optimisation",
       body: "Keep the system accurate and affordable after launch. Quality is monitored, prompts are retuned, token spend is controlled, and models are upgraded as better and cheaper options reach the market.",
+      image: "/images/landing/services/svc-support-optimisation.webp",
     },
   ],
 } as const;
@@ -191,20 +209,6 @@ export const integration = {
       label: "Your systems, connected",
       body: "We connect the solution with your CRM, ERP, helpdesk, document repositories, data warehouses, identity providers, and internal APIs for smooth adoption across your organization.",
     },
-  ],
-  /**
-   * Names must match `components/home/tech-logo.tsx` so each chip renders its
-   * real mark instead of the generic fallback glyph.
-   */
-  targets: [
-    "AWS Bedrock",
-    "Azure AI",
-    "Google Vertex AI",
-    "OpenAI",
-    "Anthropic",
-    "Pinecone",
-    "Qdrant",
-    "LangChain",
   ],
 } as const;
 
@@ -245,37 +249,58 @@ export const industries = {
   eyebrow: "Industries",
   title: "Industries Soft Suave Builds Generative AI For",
   body: "Generative AI requirements vary across industries based on their data, risks, workflows, and approval processes. Soft Suave builds tailored solutions for the following sectors.",
+  /**
+   * `image` is a decorative photographic backdrop shown at rest with the icon
+   * and name; `body` only surfaces on hover/focus, matching the reveal-on-hover
+   * card the production softsuave.com site uses for this section.
+   */
   items: [
     {
+      key: "fintech",
       name: "FinTech",
+      image: "/images/landing/industries/ind-fintech.webp",
       body: "Answer policy and regulation questions from internal documentation, extract data from KYC and onboarding paperwork, and draft customer communications that a compliance reviewer approves before sending.",
     },
     {
+      key: "healthtech",
       name: "HealthTech",
+      image: "/images/landing/industries/ind-healthtech.webp",
       body: "Summarise clinical notes, organize patient intake forms, and draft patient communications, with a clinician reviewing all content affecting patient records or care decisions before final use.",
     },
     {
+      key: "edtech",
       name: "EdTech",
+      image: "/images/landing/industries/ind-edtech.webp",
       body: "Draft course material and assessments from approved curriculum, and give learners a support assistant that answers only from institution-approved sources rather than the open internet.",
     },
     {
+      key: "ecommerce",
       name: "eCommerce",
+      image: "/images/landing/industries/ind-ecommerce.webp",
       body: "Generate product descriptions across your full catalog, synthesize reviews into actionable insights, and power conversational search that understands intent rather than simply matching keywords.",
     },
     {
+      key: "logistics",
       name: "Logistics",
+      image: "/images/landing/industries/ind-logistics.webp",
       body: "Extract data from bills of lading, customs documents, and delivery reports, then highlight urgent issues so operations teams can identify and resolve exceptions quickly and efficiently.",
     },
     {
+      key: "telecom",
       name: "Telecom",
+      image: "/images/landing/industries/ind-telecom.webp",
       body: "Resolve repeat support queries from your own help content, summarise network incidents for faster handover, and make dense technical documentation searchable for field engineering teams.",
     },
     {
+      key: "realestate",
       name: "Real Estate",
+      image: "/images/landing/industries/ind-realestate.webp",
       body: "Draft property listings from unit and specification data, extract terms from leases and sale agreements, and qualify inbound enquiries against live availability so agents follow up on the ones worth their time.",
     },
     {
+      key: "manufacturing",
       name: "Manufacturing",
+      image: "/images/landing/industries/ind-manufacturing.webp",
       body: "Make equipment manuals, SOPs, and maintenance histories searchable for floor engineers, extract data from supplier and quality documents, and summarise defect reports so recurring issues surface early.",
     },
   ],
