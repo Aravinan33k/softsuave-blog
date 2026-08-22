@@ -75,43 +75,28 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },
-  // Redirects are matched before the filesystem, so this wins over
-  // app/(marketing)/page.tsx without that route having to know about the flag.
+  // The mount root serves the MARKETING HOMEPAGE, not the archive. app "/" is
+  // app/(marketing)/page.tsx, so basePath alone publishes it at the /blog the
+  // proxy hands over — no rewrite, and none wanted: a "/" → "/blog" rewrite here
+  // would shadow the homepage with the post listing.
   //
-  // While the homepage is unreleased, "/" hands the visitor to the blog archive.
-  // `permanent: false` (307) is load-bearing: browsers and search engines cache
-  // a 301 indefinitely, so shipping one here would keep sending people to /blog
-  // long after the homepage goes live — the one thing this staging must not do.
-  // No "/" → "/blog" redirect any more. Under basePath, "/" IS the public /blog,
-  // so that redirect would now send /blog to /blog/blog. The admin needs no rule
-  // either: basePath already publishes app "/admin" at /blog/admin, natively and
-  // without a redirect hop, so internal links stay client-side navigable.
+  // The archive keeps its own route, app/blog, which basePath publishes at
+  // /blog/blog. That is its one canonical address; nothing collapses it onto the
+  // mount root any more, or the homepage would be unreachable.
   //
-  // What remains is the archive's own address. The archive route is app/blog, so
-  // basePath alone would publish it at /blog/blog; this collapses that onto the
-  // clean /blog the proxy hands over.
+  // The admin needs no rule either: basePath already publishes app "/admin" at
+  // /blog/admin natively, without a redirect hop, so internal links stay
+  // client-side navigable.
   async redirects() {
     return [
-      // Public /blog/blog → /blog, so the archive has exactly one URL. Permanent
-      // is safe here: /blog/blog is a new address that has never been published.
-      { source: '/blog', destination: '/', permanent: true },
-      // Bare "/" — i.e. OUTSIDE basePath — hands over to the archive. `basePath:
-      // false` opts this rule out of the prefix, which redirects allow (rewrites to
-      // internal routes do not). In production the proxy never sends "/" here, so
-      // this is inert; in local dev it stops localhost:3100 being a dead 404.
+      // Bare "/" — i.e. OUTSIDE basePath — hands over to the mount root, which is
+      // now the homepage. `basePath: false` opts this rule out of the prefix, which
+      // redirects allow (rewrites to internal routes do not). In production the
+      // proxy never sends "/" here, so this is inert; in local dev it stops
+      // localhost:3100 being a dead 404. `permanent: false` (307) is load-bearing:
+      // browsers and search engines cache a 301 indefinitely.
       { source: '/', destination: BASE_PATH, permanent: false, basePath: false },
     ];
-  },
-  async rewrites() {
-    return {
-      beforeFiles: [
-        // Public /blog (app "/") serves the archive. Rewritten rather than moved
-        // so app/(marketing) can keep owning "/" for a future root deployment.
-        { source: '/', destination: '/blog' },
-      ],
-      afterFiles: [],
-      fallback: [],
-    };
   },
 };
 
