@@ -135,3 +135,6 @@ Postgres over the compose network (its `DATABASE_URL` is overridden to use the `
 
 Self-hosted, single-tenant blog platform. See [SECURITY.md](SECURITY.md) for the hardening
 summary and [docs/API.md](docs/API.md) for the API.
+
+
+// Test changes
