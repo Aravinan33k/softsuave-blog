@@ -2,6 +2,7 @@
 
 import { brand } from "@/lib/home/content";
 import FadeUp from "@/components/home/fade-up";
+import SplitReveal from "@/components/home/split-reveal";
 import styles from "./landing.module.css";
 
 export interface FinalCtaContent {
@@ -46,7 +47,9 @@ export default function FinalCta({
       <FadeUp>
         <div className={styles.finalPanel}>
           <span className={styles.kicker}>Business Enquiry</span>
-          <h2 className={styles.finalTitle}>{content.title}</h2>
+          <SplitReveal as="h2" className={styles.finalTitle} type="words">
+            {content.title}
+          </SplitReveal>
           <p className={styles.finalBody}>{content.body}</p>
 
           <div className={styles.finalActions}>

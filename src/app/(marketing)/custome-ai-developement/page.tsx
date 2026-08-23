@@ -38,7 +38,7 @@ import Testimonials from '@/components/landing/testimonials';
 import Faq from '@/components/landing/faq';
 import FinalCta from '@/components/landing/final-cta';
 
-// Page-specific sections: the proof band with its logo rail, and the
+// Page-specific sections: the credibility proof band, and the
 // custom-vs-off-the-shelf comparison.
 import Clients from '@/components/custom-ai/clients';
 import Comparison from '@/components/custom-ai/comparison';
@@ -142,21 +142,39 @@ export default function CustomAiDevelopmentPage() {
       <JsonLd data={structuredData} />
       <Nav links={PAGE_NAV} cta={PAGE_CTA} logoHref={HOME_HREF} />
 
+      {/*
+       * Dark/light alternates every section (the `home.light` wrapper
+       * re-points the same --bg/--surface/--text tokens every component
+       * already reads — see the "light band" comment in landing.module.css),
+       * same technique the homepage uses for its own light bands. Hero opens
+       * dark and FinalCta closes dark, matching the homepage's Hero → …→
+       * Contact bookends; everything between strictly alternates so no run of
+       * dark sections gets longer than one.
+       */}
       <main id="main">
         <Hero content={caHero} idPrefix="custom-ai" />
-        <Clients />
 
         <div className={home.light}>
-          <Overview content={caOverview} />
+          <Clients />
         </div>
 
-        <Services content={caOfferings} />
+        <Overview content={caOverview} />
+
+        <div className={home.light}>
+          <Services content={caOfferings} />
+        </div>
+
         <Comparison />
 
-        <CtaBand content={caApproachCta} />
+        <div className={home.light}>
+          <CtaBand content={caApproachCta} />
+        </div>
 
         <WhyUs content={caWhyUs} />
-        <Process content={caProcess} />
+
+        <div className={home.light}>
+          <Process content={caProcess} />
+        </div>
 
         <CtaBand content={caEstimateCta} />
 
@@ -165,13 +183,17 @@ export default function CustomAiDevelopmentPage() {
         </div>
 
         <CaseStudies content={caCaseStudies} />
-        <TechStack content={caTech} />
 
         <div className={home.light}>
-          <Testimonials content={caTestimonials} />
+          <TechStack content={caTech} />
         </div>
 
-        <Faq content={caFaqs} idPrefix="custom-ai-faq" />
+        <Testimonials content={caTestimonials} />
+
+        <div className={home.light}>
+          <Faq content={caFaqs} idPrefix="custom-ai-faq" />
+        </div>
+
         <FinalCta content={caFinalCta} />
       </main>
 
