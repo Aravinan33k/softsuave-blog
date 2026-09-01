@@ -36,5 +36,10 @@ export const homepageEnabled = process.env.NEXT_PUBLIC_HOMEPAGE_ENABLED === 'tru
  * does NOT touch URLs we store or build ourselves — media URLs in the database and
  * in post HTML are root-relative ("/uploads/…"), so they need this applied
  * explicitly. See `lib/media-url.ts`.
+ *
+ * Empty outside production: there's no reverse proxy in local dev, so the app
+ * serves from the true root there. MUST track `next.config.ts`'s `basePath` —
+ * `media-url.ts`'s prefixing and `seo/metadata.ts`'s canonical URLs both degrade
+ * to a no-op when this is '', which only holds if the two stay in sync.
  */
-export const BASE_PATH = '/blog';
+export const BASE_PATH = process.env.NODE_ENV === 'production' ? '/blog' : '';
