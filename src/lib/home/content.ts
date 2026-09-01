@@ -15,7 +15,7 @@ export const hero = {
   eyebrow: "AI-Enabled Engineering",
   title: "Empowering Businesses with Scalable AI, Automation & Integrations",
   // words for the rotating-word treatment on /three
-  rotatingWords: ["Scalable", "Intelligent", "Integrated", "Automated"],
+  rotatingWords: ["Scalable", "Intelligent"],
   subtitle:
     "Build scalable AI solutions, intelligent automation systems, and seamless integrations with AI-enabled engineering teams focused on real business outcomes.",
   primaryCta: { label: "Book AI Strategy Call", href: "#contact" },
@@ -25,35 +25,57 @@ export const hero = {
 export const why = {
   eyebrow: "Why Soft Suave",
   title: "Your AI Growth Partner, From Idea to Launch",
-  body: "With years of AI and software engineering experience, Soft Suave helps startups, SMBs, and enterprises build practical AI solutions backed by proven delivery strength.",
+  body: "Building reliable software and production-ready AI solutions across industries.",
   stats: [
     { value: 400, suffix: "+", label: "AI & Engineering Specialists" },
-    { value: 13, suffix: "+", label: "Years of Experience" },
+    { value: 13, suffix: "+", label: "Proven Delivery" },
     { value: 150, suffix: "+", label: "Global Clients" },
-    { value: 21, suffix: "+", label: "Countries" },
+    { value: 20, suffix: "+", label: "Countries" },
   ],
 } as const;
 
-export const valueProps = [
-  {
-    title: "Preferred AI-Enabled Technology Partner for Startups and SMBs",
-    body: "We combine AI-enabled engineering with 13+ years of product development expertise to help clients build scalable AI solutions, automate complex workflows, and integrate systems for measurable business outcomes.",
-  },
-  {
-    title: "AI-Driven Efficiency and Growth Across Industries",
-    body: "Our AI-driven solutions help industries improve efficiency, scale operations, and accelerate transformation. By making business systems smarter and more connected, we help organizations modernize faster and stay competitive in a digital-first world.",
-  },
-] as const;
+// The two value props that used to live here now own their sections outright:
+// the partner statement heads `clients`, the efficiency statement heads
+// `industries`. Keeping a third copy here only invited them to drift apart.
+
+/**
+ * A client mark in the proof band. Give it a `src` (a file dropped under
+ * `/public/brand/clients/`) and the real logo renders; leave `src` null and it
+ * falls back to a typographic wordmark, so the strip is never broken while
+ * artwork is still being collected.
+ */
+export type ClientLogo = { name: string; src: string | null };
+
+/**
+ * Client proof band — sits directly under "Why Soft Suave". Seeded with the
+ * clients already named on the page (see `testimonials`); only add names we
+ * are actually cleared to display.
+ */
+export const clients: {
+  eyebrow: string;
+  title: string;
+  body: string;
+  logos: ClientLogo[];
+} = {
+  eyebrow: "Clients",
+  title: "Preferred AI-Enabled Technology Partner for Startups and SMBs",
+  body: "We combine AI-enabled engineering with 13+ years of product development expertise to help clients build scalable AI solutions, automate complex workflows, and integrate systems for measurable business outcomes.",
+  logos: [
+    { name: "Phoenix Technologies", src: null },
+    { name: "AMD Telecom", src: null },
+    { name: "Perkypet", src: null },
+  ],
+};
 
 export const industries = {
   eyebrow: "Industries",
   title: "AI-Driven Efficiency and Growth Across Industries",
-  body: "Our AI-driven solutions help industries improve efficiency, scale operations, and accelerate transformation.",
+  body: "Our AI-driven solutions help industries improve efficiency, scale operations, and accelerate transformation. By making business systems smarter and more connected, we help organizations modernize faster and stay competitive in a digital-first world.",
   items: [
     {
-      key: "ecommerce",
-      name: "Ecommerce",
-      body: "Transforming e-commerce with AI-driven solutions for smarter selling, faster operations, and better customer experiences. From personalized recommendations to inventory automation and real-time analytics, we help businesses grow efficiently.",
+      key: "fintech",
+      name: "FinTech",
+      body: "Redefining FinTech with AI-powered intelligence by enhancing security, automating decisions, and unlocking new financial possibilities. From real-time fraud detection to hyper-personalized banking, we drive the future of digital finance.",
     },
     {
       key: "healthtech",
@@ -61,19 +83,24 @@ export const industries = {
       body: "Elevate healthcare with next-gen advanced AI solutions that refine patient outcomes, optimize clinical workflows, and streamline operations. We deliver intelligent automation and data-driven insights for transformative health tech innovation.",
     },
     {
-      key: "logistics",
-      name: "Logistics",
-      body: "Optimizing logistics with AI-powered solutions for smarter supply chains, real-time tracking, and operational efficiency. From demand forecasting to automated route optimization, we drive seamless and cost-effective logistics management.",
-    },
-    {
       key: "edtech",
       name: "EdTech",
       body: "Reimagining education with next-gen AI solutions, creating personalized learning experiences, and smart content curation. From adaptive learning support to insightful analytics, we're pioneering the evolution of education.",
     },
     {
-      key: "fintech",
-      name: "FinTech",
-      body: "Redefining FinTech with AI-powered intelligence by enhancing security, automating decisions, and unlocking new financial possibilities. From real-time fraud detection to hyper-personalized banking, we drive the future of digital finance.",
+      key: "ecommerce",
+      name: "Ecommerce",
+      body: "Transforming e-commerce with AI-driven solutions for smarter selling, faster operations, and better customer experiences. From personalized recommendations to inventory automation and real-time analytics, we help businesses grow efficiently.",
+    },
+    {
+      key: "logistics",
+      name: "Logistics",
+      body: "Optimizing logistics with AI-powered solutions for smarter supply chains, real-time tracking, and operational efficiency. From demand forecasting to automated route optimization, we drive seamless and cost-effective logistics management.",
+    },
+    {
+      key: "telecom",
+      name: "Telecom",
+      body: "Advancing telecom with AI-driven solutions for smarter networks, automated operations, and better customer experiences. From predictive maintenance to intelligent network optimization, we help providers improve reliability and efficiency.",
     },
   ],
 } as const;

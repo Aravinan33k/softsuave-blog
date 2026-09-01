@@ -57,8 +57,8 @@ services:
       # what `npm run dev` serves.
       args:
         NEXT_PUBLIC_HOMEPAGE_ENABLED: ${NEXT_PUBLIC_HOMEPAGE_ENABLED:-false}
-        # Must carry the /blog mount subpath, or prerendered canonical/OG/sitemap
-        # URLs are baked pointing one level too high.
+        # The bare origin. A wrong value bakes prerendered canonical/OG/sitemap
+        # URLs that point somewhere this app does not serve.
         NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
     restart: unless-stopped
     depends_on:

@@ -137,11 +137,17 @@ export const NAV: NavItem[] = [
 ];
 
 /**
- * Paths this app serves itself. The blog archive always; the marketing homepage
- * only once it is released — until then `/` belongs to the live site, so "home"
- * links go straight there rather than bouncing off our redirect to /blog.
+ * Paths this app serves itself. Everything else on this list of nav hrefs still
+ * belongs to the live marketing site, so it renders as an absolute link out.
+ *
+ * The blog archive is always ours. The marketing homepage and the service pages
+ * that live in `app/(marketing)` are ours only once the homepage is released:
+ * they share its route group, its theme and its release flag, so while `/`
+ * redirects to `/blog` these links go to the live site rather than to pages that
+ * are built but deliberately unreachable.
  */
-const LOCAL_PATHS = new Set(homepageEnabled ? ['/', '/blog'] : ['/blog']);
+const MARKETING_PATHS = ['/', '/ai-development-service'];
+const LOCAL_PATHS = new Set(homepageEnabled ? ['/blog', ...MARKETING_PATHS] : ['/blog']);
 
 /** Absolute URL: local for our own routes, otherwise the marketing site. */
 export function navHref(href: string): string {
@@ -156,12 +162,13 @@ export function isExternalHref(href: string): boolean {
 /**
  * App-internal route for a nav path, for use with `next/link`.
  *
- * `navHref` deliberately returns a PUBLIC url, which is what a plain `<a>`
- * needs. `next/link` applies `basePath` itself, though, so handing it the public
- * "/blog" produces "/blog/blog" — which only works via the 301 in next.config
- * and breaks client-side RSC navigation into a full page reload. The archive's
- * app-internal route is "/", which `basePath` renders back as "/blog".
+ * The app owns the domain root, so every local path is already its own route and
+ * this is `navHref`. It stays a separate function because the two diverge under a
+ * subpath mount: `navHref` returns a PUBLIC url, which is what a plain `<a>`
+ * needs, while `next/link` applies `basePath` itself — under the old /blog mount,
+ * handing it the public "/blog" produced "/blog/blog", which only resolved via a
+ * 301 and downgraded client-side RSC navigation to a full page reload.
  */
 export function navRoute(href: string): string {
-  return href === '/blog' ? '/' : navHref(href);
+  return navHref(href);
 }

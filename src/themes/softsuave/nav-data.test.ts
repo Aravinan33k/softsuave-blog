@@ -37,6 +37,24 @@ describe('navHref', () => {
     expect(isExternalHref('/')).toBe(false);
   });
 
+  // The service pages in app/(marketing) ship with the homepage behind the same
+  // flag, so they follow "/" in both directions. next.config.ts redirects them to
+  // /blog while the flag is off, which is exactly why an unreleased one must link
+  // out to the live site rather than at our own redirect.
+  it('keeps marketing service pages local once the homepage is released', async () => {
+    const { navHref, isExternalHref } = await loadNav('true');
+    expect(navHref('/ai-development-service')).toBe('/ai-development-service');
+    expect(isExternalHref('/ai-development-service')).toBe(false);
+  });
+
+  it('sends marketing service pages to the live site while unreleased', async () => {
+    for (const flag of ['false', undefined]) {
+      const { navHref, isExternalHref } = await loadNav(flag);
+      expect(navHref('/ai-development-service')).toBe(`${SITE}/ai-development-service`);
+      expect(isExternalHref('/ai-development-service')).toBe(true);
+    }
+  });
+
   it('sends "/" to the live site while the homepage is unreleased', async () => {
     const { navHref, isExternalHref } = await loadNav('false');
     expect(navHref('/')).toBe(`${SITE}/`);
@@ -59,15 +77,27 @@ describe('navHref', () => {
   });
 });
 
-// `navRoute` is the next/link counterpart of `navHref`. next/link applies
-// `basePath` itself, so it needs the app-internal route where an anchor needs the
-// public url — handing it navHref's "/blog" produced "/blog/blog", which only
-// resolved via a 301 and downgraded client navigation to a full page reload.
+// `navRoute` is the next/link counterpart of `navHref`. With the app served from
+// the domain root the two agree — every local path IS its own route — so what
+// these cases pin is that a <Link> href is never sent through the marketing site
+// or left needing a redirect hop.
 describe('navRoute', () => {
-  it('maps the public archive url onto its app-internal route', async () => {
+  it('routes the archive to itself — no redirect hop for next/link', async () => {
     for (const flag of ['true', 'false', undefined]) {
       const { navRoute } = await loadNav(flag);
-      expect(navRoute('/blog')).toBe('/');
+      expect(navRoute('/blog')).toBe('/blog');
+    }
+  });
+
+  it('routes "/" locally once the homepage is released', async () => {
+    const { navRoute } = await loadNav('true');
+    expect(navRoute('/')).toBe('/');
+  });
+
+  it('sends "/" to the live site while the homepage is unreleased', async () => {
+    for (const flag of ['false', undefined]) {
+      const { navRoute } = await loadNav(flag);
+      expect(navRoute('/')).toBe(`${SITE}/`);
     }
   });
 
@@ -75,13 +105,6 @@ describe('navRoute', () => {
     for (const flag of ['true', 'false']) {
       const { navRoute } = await loadNav(flag);
       expect(navRoute('/contact')).toBe(`${SITE}/contact`);
-    }
-  });
-
-  it('never returns a path next/link would prefix into /blog/blog', async () => {
-    for (const flag of ['true', 'false', undefined]) {
-      const { navRoute } = await loadNav(flag);
-      expect(navRoute('/blog').startsWith('/blog')).toBe(false);
     }
   });
 });

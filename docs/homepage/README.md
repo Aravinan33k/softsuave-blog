@@ -5,12 +5,47 @@ The Soft Suave marketing homepage served at `/`. It began life as a standalone N
 cinematic/award-show evolution of `DESIGN-THREE.md` — was merged into this application. There is
 no second app, package.json or build: it is one route group inside the blog.
 
-## Release state: not served yet
+## Where it sits in the URL space
 
-The blog and the homepage share one codebase but ship on different dates — the blog goes out
-first, the homepage a release later. `NEXT_PUBLIC_HOMEPAGE_ENABLED` decides which of the two the
-deployment actually serves. **Nothing here is deleted or excluded from the build**: the homepage
-compiles, typechecks and tests on every commit either way. It is only reachable when the flag is on.
+The app owns the domain root, so the homepage is simply `/`:
+
+| Path | Serves |
+|---|---|
+| `/` | the marketing homepage (`app/(marketing)`) |
+| `/ai-development-service` | service landing page (`app/(marketing)`) |
+| `/blog` | the post archive (`app/blog`) |
+| `/<slug>` | posts and pages |
+| `/category/<slug>`, `/tag/<slug>`, `/search` | filtered archives |
+| `/admin` | the dashboard |
+
+There is no `basePath`. The app was briefly mounted at `basePath: '/blog'`, which pushed the
+archive onto app-`/` and left the homepage with nowhere to live; `next.config.ts` now redirects
+those `/blog/*` URLs back to their root equivalents.
+
+### Service landing pages
+
+The service pages live in the same route group as the homepage, so they inherit its fonts,
+`.theme-four` tokens and Lenis scroll provider — which is what lets one reuse the homepage's own
+`Clients`, `Testimonials` and `Contact` components verbatim instead of copying them. Page-specific
+copy lives in `src/lib/services/<page>.ts`; the layout patterns the homepage has no equivalent for
+(hero + enquiry card, comparison table, numbered card grid, CTA band, FAQ) are in
+`src/components/services/`.
+
+**Adding one is four edits**, and three of them are the same list of paths — miss one and the page
+either goes live ahead of the homepage or never appears in search:
+
+1. `src/app/(marketing)/<path>/page.tsx` — the route.
+2. `MARKETING_ROUTES` in `next.config.ts` — gates it behind the release flag.
+3. `MARKETING_PATHS` in `src/themes/softsuave/nav-data.ts` — makes the nav link to it locally
+   rather than out to the live site (covered by `nav-data.test.ts`).
+4. `MARKETING_ROUTES` in `src/lib/seo/entries.ts` — puts it in `sitemap.xml`.
+
+## Release state: flag-gated
+
+The blog and the homepage share one codebase but shipped on different dates — the blog first, the
+homepage a release later. `NEXT_PUBLIC_HOMEPAGE_ENABLED` decides whether `/` is the homepage or a
+307 to the archive. **Nothing here is deleted or excluded from the build**: the homepage compiles,
+typechecks and tests on every commit either way. It is only reachable when the flag is on.
 
 | | `NEXT_PUBLIC_HOMEPAGE_ENABLED` unset / `false` | `=true` |
 |---|---|---|
@@ -19,7 +54,7 @@ compiles, typechecks and tests on every commit either way. It is only reachable 
 | `/` in `sitemap.xml` | omitted | listed |
 | "Home" breadcrumb (visible + JSON-LD) | dropped, or points at `www.softsuave.com` | points at `/` |
 | Header logo, footer links | `www.softsuave.com` | `/` |
-| Admin "View site" | `/blog` | `/` |
+| Admin "View site" | 307s on to `/blog` | the homepage |
 
 Two things to keep in mind:
 
@@ -31,7 +66,8 @@ Two things to keep in mind:
   `--build-arg NEXT_PUBLIC_HOMEPAGE_ENABLED=true` (see `Dockerfile` / `docker-compose.yml`).
 
 Going live is therefore a one-variable change plus a rebuild, with no code moved back. The flag
-lives in `src/lib/flags.ts`; `src/themes/softsuave/nav-data.test.ts` covers both states.
+lives in `src/lib/flags.ts`; `src/themes/softsuave/nav-data.test.ts` covers both states. It is on
+in `.env` and in `.env.production.example`.
 
 ## Where the code lives
 

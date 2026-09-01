@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // The public read API is consumed by the browser (LoadMore feeds coverImage.url
 // straight into next/image), so the mount subpath has to be applied here rather
-// than left to each caller — an unprefixed "/uploads/…" 404s under basePath.
+// than left to each caller — an unprefixed "/uploads/…" would 404 under a subpath mount.
 
 const { findMany, count } = vi.hoisted(() => ({ findMany: vi.fn(), count: vi.fn() }));
 vi.mock('../db', () => ({ prisma: { post: { findMany, count } } }));

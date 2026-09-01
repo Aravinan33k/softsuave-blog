@@ -3492,8 +3492,9 @@
   color: var(--text-bright);
   max-width: 15ch;
 }
-/* the "13+ years / est. / body" block — stacked below the title on mobile,
-   moved to sit beside it (own column, vertical divider) from tablet up. */
+/* the supporting-paragraph block — stacked below the title on mobile, moved to
+   sit beside it (own column, vertical divider) from tablet up. The years/est.
+   figures deliberately live only in the stat cards below. */
 .whyIntroFoot {
   margin-top: clamp(18px, 2.6vw, 30px);
   display: flex;
@@ -3501,19 +3502,6 @@
   gap: clamp(12px, 1.8vw, 20px);
   border-top: 1px solid var(--line);
   padding-top: clamp(14px, 2vw, 22px);
-}
-.whyEst {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-family: var(--font-eyebrow);
-  font-size: clamp(13px, 1.2vw, 16px);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.whyEstSub {
-  color: var(--muted);
 }
 .whyIntroBody p {
   margin: 0;
@@ -3597,9 +3585,13 @@
 .stackTilt:nth-child(4) {
   rotate: 0deg;
 }
+/* Lift only — deliberately NO scale() here. Scaling a composited card
+   re-samples its already-rasterized text instead of re-rendering it, which is
+   what made every figure and caption go soft on hover. A whole-pixel translate
+   plus a bigger shadow gives the same "pop" with type that stays crisp. */
 .stackTilt:hover {
   rotate: 0deg;
-  transform: translateY(-10px) scale(1.045);
+  transform: translateY(-12px);
   z-index: 2;
 }
 
@@ -3612,8 +3604,6 @@
   border: 1px solid var(--line);
   background: var(--bg);
   box-shadow: 0 26px 60px -34px rgba(0, 0, 0, 0.6);
-  transform-style: preserve-3d;
-  will-change: transform, opacity;
   transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 .stackTilt:hover .stackCard {
@@ -3708,6 +3698,105 @@
 }
 
 /* ============================================================
+   CLIENTS — partner statement + logo strip
+   Sits in the light band right below "Why Soft Suave". Mirrors the why-intro's
+   title/aside split so the two read as one continuous opening chapter, then
+   hands off to a full-width hairline-ruled logo row.
+   ============================================================ */
+.clients {
+  padding-top: clamp(40px, 5vw, 76px);
+  padding-bottom: clamp(40px, 5vw, 76px);
+}
+.clientsHead {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(18px, 2.6vw, 32px);
+}
+.clientsHeadMain {
+  min-width: 0;
+}
+.clientsHead .h2 {
+  max-width: 18ch;
+}
+.clientsBody {
+  margin: 0;
+  max-width: 56ch;
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  line-height: 1.65;
+  color: var(--muted);
+}
+@media (min-width: 900px) {
+  .clientsHead {
+    grid-template-columns: 1.5fr 1fr;
+    align-items: end;
+  }
+  .clientsHeadAside {
+    padding-left: clamp(28px, 3vw, 44px);
+    border-left: 1px solid var(--line);
+  }
+  .clientsBody {
+    max-width: 34ch;
+  }
+}
+
+/* logo strip — wraps to as many rows as the list needs, so adding marks never
+   forces a layout decision. */
+.clientsRow {
+  max-width: 1400px;
+  margin: clamp(32px, 4.5vw, 64px) auto 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.clientsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.4vw, 20px) clamp(24px, 5vw, 76px);
+  padding: clamp(22px, 3vw, 40px) clamp(8px, 2vw, 24px);
+}
+.clientsItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(36px, 4vw, 52px);
+}
+/* real artwork: a fixed box the logo is contained inside, so wildly different
+   aspect ratios still sit on one optical baseline. */
+.clientLogo {
+  position: relative;
+  display: block;
+  width: clamp(110px, 12vw, 168px);
+  height: clamp(36px, 4vw, 52px);
+  opacity: 0.62;
+  filter: grayscale(1);
+  transition: opacity 0.35s ease, filter 0.35s ease;
+}
+.clientsItem:hover .clientLogo {
+  opacity: 1;
+  filter: grayscale(0);
+}
+/* fallback while a mark has no artwork yet */
+.clientWordmark {
+  font-family: var(--font-eyebrow);
+  font-size: clamp(13px, 1.25vw, 17px);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: color 0.35s ease;
+}
+.clientsItem:hover .clientWordmark {
+  color: var(--text-bright);
+}
+
+/* ============================================================
    MOBILE REFINEMENTS — Services + Industries
    ============================================================ */
 @media (max-width: 999px) {
@@ -3741,6 +3830,40 @@
   justify-content: center;
   overflow: hidden;
   padding: clamp(40px, 5vw, 84px) var(--gutter);
+}
+
+/* desktop section header (eyebrow + heading + standfirst). Two columns from
+   1000px so a full heading and its supporting line cost the carousel only a
+   few lines of height instead of a stacked block. */
+.carHead {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.6vw, 22px);
+  margin-bottom: clamp(16px, 2.4vh, 32px);
+}
+.carHeadTitle {
+  margin: 0.4em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.8rem, 2.9vw, 2.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+  max-width: 20ch;
+}
+.carHeadLead {
+  margin: 0;
+  max-width: 46ch;
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--muted);
+}
+@media (min-width: 1200px) {
+  .carHead {
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: end;
+    column-gap: clamp(32px, 4vw, 80px);
+  }
 }
 
 /* shared text bits (desktop + mobile) */
@@ -3825,8 +3948,11 @@
 @media (min-width: 1000px) {
   .servicesCarousel {
     height: 100vh;
-    min-height: 640px;
-    padding: clamp(84px, 11vh, 122px) var(--gutter) clamp(40px, 6vh, 64px);
+    min-height: 720px;
+    /* top padding trimmed from the old 84–122px: the section header that now
+       sits inside .carDesktop needs that vertical budget more than the gutter
+       does, and the stage still has to finish inside one screen. */
+    padding: clamp(56px, 7vh, 84px) var(--gutter) clamp(40px, 6vh, 64px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -3840,7 +3966,7 @@
     height: 100%;
     position: relative;
   }
-  .carDesktop > .eyebrow {
+  .carDesktop > .carHead {
     flex: 0 0 auto;
   }
 
@@ -3861,10 +3987,11 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* stage holds the stacked cards */
+  /* stage holds the stacked cards — sized to what's left of the screen once
+     the section header above it has taken its share. */
   .carStage {
     position: relative;
-    height: min(66vh, 640px);
+    height: min(54vh, 560px);
   }
   .carCard {
     position: absolute;

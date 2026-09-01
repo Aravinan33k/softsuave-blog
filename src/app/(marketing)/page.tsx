@@ -9,11 +9,11 @@ import ChapterNav from '@/components/home/chapter-nav';
 import Hero from '@/components/home/hero';
 import Manifesto from '@/components/home/manifesto';
 import Stats from '@/components/home/stats';
+import Clients from '@/components/home/clients';
 import WorkGrid from '@/components/home/work-grid';
 import Services from '@/components/home/services';
 import Journey from '@/components/home/journey';
 import Industries from '@/components/home/industries';
-import StoryBlock from '@/components/home/story-block';
 import Awards from '@/components/home/awards';
 import TechStack from '@/components/home/tech-stack';
 import Testimonials from '@/components/home/testimonials';
@@ -33,13 +33,17 @@ export default function HomePage() {
           <Manifesto />
           <Stats />
         </div>
-        <WorkGrid />
+        {/* Clients continues the light band opened by "Why Soft Suave" — the
+            proof numbers and the names behind them read as one chapter. */}
+        <div className={styles.light}>
+          <Clients />
+        </div>
+        <Industries />
         <div className={styles.light}>
           <Services />
         </div>
         <Journey />
-        <Industries />
-        <StoryBlock />
+        <WorkGrid />
         <Awards />
         <TechStack />
         <div className={styles.light}>

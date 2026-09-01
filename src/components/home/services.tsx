@@ -147,7 +147,19 @@ export default function Services() {
     <section ref={sectionRef} className={cx(styles.section, styles.servicesCarousel)} id="services">
       {/* ---------- Desktop: free-scrolling, self-playing carousel ---------- */}
       <div className={styles.carDesktop}>
-        <span className={styles.eyebrow}>{services.eyebrow}</span>
+        {/* Section header — the carousel used to open on a bare eyebrow, which
+            left the desktop view with no heading or standfirst at all. Split
+            across two columns so it stays short enough for the carousel to keep
+            its full-viewport stage. */}
+        <div className={styles.carHead}>
+          <div>
+            <span className={styles.eyebrow}>{services.eyebrow}</span>
+            <SplitReveal as="h2" className={styles.carHeadTitle} type="words">
+              {services.title}
+            </SplitReveal>
+          </div>
+          <p className={styles.carHeadLead}>{services.body}</p>
+        </div>
 
         <div className={styles.carGrid}>
           <div key={active} className={styles.carText} aria-live="polite">
@@ -213,6 +225,7 @@ export default function Services() {
           <SplitReveal as="h2" className={styles.h2} type="words">
             {services.title}
           </SplitReveal>
+          <p className={styles.lead}>{services.body}</p>
         </div>
 
         {items.map((s, i) => (

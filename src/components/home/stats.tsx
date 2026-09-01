@@ -17,7 +17,7 @@ const META = [
   },
   {
     icon: "years",
-    line: "Over a decade shipping software — and now production AI — across industries.",
+    line: "Years of delivering reliable software and production-ready AI solutions.",
   },
   {
     icon: "clients",
@@ -25,7 +25,7 @@ const META = [
   },
   {
     icon: "countries",
-    line: "Delivering across time zones with teams and clients around the world.",
+    line: "Countries served through successful client partnerships.",
   },
 ] as const;
 

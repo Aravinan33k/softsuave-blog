@@ -840,6 +840,21 @@
         "banking finance app",
         "finance money"
       ]
+    },
+    {
+      "id": "ind-telecom",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Telecom industry",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "telecom network tower antenna connectivity vertical",
+        "telecommunications fiber optic network infrastructure",
+        "mobile network signal tower",
+        "network connectivity"
+      ]
     }
   ]
 }

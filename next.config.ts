@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next';
+import { homepageEnabled } from './src/lib/flags';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -33,19 +34,23 @@ const securityHeaders = [
     : []),
 ];
 
-// This app is mounted as a SUBPATH of the existing softsuave.com site: the
-// reverse proxy sends /blog/* here and everything else to the current website.
-// basePath makes Next prefix every route, asset and internal <Link> with it, so
-// the app keeps using root-relative paths internally ("/", "/my-post", "/admin")
-// while the browser only ever sees /blog/... — no per-link rewriting needed.
+// This app owns the whole site, not a subpath of it: "/" is the marketing
+// homepage (app/(marketing)), "/blog" the post archive, "/<slug>" every post and
+// page, "/admin" the dashboard. There is no `basePath` — the reverse proxy hands
+// over the domain root (see deploy/nginx.example.conf), so routes, assets and
+// stored media URLs are all served from where they are written.
 //
-// Because of this the marketing homepage in app/(marketing) is NOT reachable in
-// this deployment: /blog is the deepest the proxy hands over, so there is no way
-// for this app to own the site root. The existing homepage keeps serving it.
-const BASE_PATH = '/blog';
+// It was briefly mounted at basePath '/blog' instead, with the archive on "/".
+// The redirects below retire the URLs that mount published.
+
+// Routes in app/(marketing): the homepage plus the service landing pages. They
+// ship together behind NEXT_PUBLIC_HOMEPAGE_ENABLED — add a new service page's
+// path here when you add the route, or it goes live ahead of the homepage.
+// Mirrored by MARKETING_PATHS in src/themes/softsuave/nav-data.ts, which decides
+// whether the nav links to them locally or out to the live site.
+const MARKETING_ROUTES = ['/', '/ai-development-service'];
 
 const nextConfig: NextConfig = {
-  basePath: BASE_PATH,
   reactStrictMode: true,
   poweredByHeader: false,
   // Pin the workspace root. Turbopack otherwise walks up looking for one and
@@ -64,54 +69,51 @@ const nextConfig: NextConfig = {
       { pathname: '/uploads/**', search: '' },
       { pathname: '/images/**', search: '' },
       { pathname: '/brand/**', search: '' },
-      // Under basePath these assets are served prefixed. Both forms are allowed so
-      // the optimizer accepts stored URLs whether or not they carry the subpath.
-      { pathname: `${BASE_PATH}/uploads/**`, search: '' },
-      { pathname: `${BASE_PATH}/images/**`, search: '' },
-      { pathname: `${BASE_PATH}/brand/**`, search: '' },
     ],
     remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com', pathname: '/**' }],
   },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },
-  // Redirects are matched before the filesystem, so this wins over
+  // Redirects are matched before the filesystem, so the "/" rule below wins over
   // app/(marketing)/page.tsx without that route having to know about the flag.
-  //
-  // While the homepage is unreleased, "/" hands the visitor to the blog archive.
-  // `permanent: false` (307) is load-bearing: browsers and search engines cache
-  // a 301 indefinitely, so shipping one here would keep sending people to /blog
-  // long after the homepage goes live — the one thing this staging must not do.
-  // No "/" → "/blog" redirect any more. Under basePath, "/" IS the public /blog,
-  // so that redirect would now send /blog to /blog/blog. The admin needs no rule
-  // either: basePath already publishes app "/admin" at /blog/admin, natively and
-  // without a redirect hop, so internal links stay client-side navigable.
-  //
-  // What remains is the archive's own address. The archive route is app/blog, so
-  // basePath alone would publish it at /blog/blog; this collapses that onto the
-  // clean /blog the proxy hands over.
   async redirects() {
     return [
-      // Public /blog/blog → /blog, so the archive has exactly one URL. Permanent
-      // is safe here: /blog/blog is a new address that has never been published.
-      { source: '/blog', destination: '/', permanent: true },
-      // Bare "/" — i.e. OUTSIDE basePath — hands over to the archive. `basePath:
-      // false` opts this rule out of the prefix, which redirects allow (rewrites to
-      // internal routes do not). In production the proxy never sends "/" here, so
-      // this is inert; in local dev it stops localhost:3100 being a dead 404.
-      { source: '/', destination: BASE_PATH, permanent: false, basePath: false },
+      // While the homepage is unreleased the whole marketing surface hands the
+      // visitor to the archive — "/" and every service page in app/(marketing),
+      // which share its route group, theme and release flag. Listing them here is
+      // what makes `navHref` in themes/softsuave/nav-data.ts honest: it sends
+      // those links to the live site precisely because these routes are built but
+      // not served yet.
+      //
+      // `permanent: false` (307) is load-bearing: browsers and search engines
+      // cache a 301 indefinitely, so shipping one here would keep sending people
+      // to /blog long after the homepage goes live — the one thing this staging
+      // must not do. With the flag on there are no rules and the pages render.
+      ...(homepageEnabled
+        ? []
+        : MARKETING_ROUTES.map((source) => ({ source, destination: '/blog', permanent: false }))),
+
+      // Retire the subpath mount's URLs. Under basePath '/blog' every post,
+      // taxonomy and asset answered one level deeper than it does now, and those
+      // URLs were live long enough to be linked and indexed.
+      //
+      // Order matters — Next matches top-down, so the specific paths must come
+      // before the catch-all slug rule. None of these can match bare "/blog":
+      // every source requires at least one segment after it, so the archive
+      // itself is never redirected onto itself.
+      //
+      // 302 for /blog/admin, deliberately: unlike content URLs it carries no SEO
+      // weight, and a cached 301 on an admin entry point is unrevokable.
+      { source: '/blog/admin/:path*', destination: '/admin/:path*', permanent: false },
+      { source: '/blog/uploads/:path*', destination: '/uploads/:path*', permanent: true },
+      { source: '/blog/category/:slug', destination: '/category/:slug', permanent: true },
+      { source: '/blog/tag/:slug', destination: '/tag/:slug', permanent: true },
+      { source: '/blog/search', destination: '/search', permanent: true },
+      // Posts and pages. Single-segment only: a deeper path was never a valid
+      // route under the mount either, so it should 404 rather than redirect.
+      { source: '/blog/:slug', destination: '/:slug', permanent: true },
     ];
-  },
-  async rewrites() {
-    return {
-      beforeFiles: [
-        // Public /blog (app "/") serves the archive. Rewritten rather than moved
-        // so app/(marketing) can keep owning "/" for a future root deployment.
-        { source: '/', destination: '/blog' },
-      ],
-      afterFiles: [],
-      fallback: [],
-    };
   },
 };
 

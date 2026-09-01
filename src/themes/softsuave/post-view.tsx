@@ -32,7 +32,7 @@ export function SoftSuavePostView({ post, relatedPosts }: PostViewProps) {
               </li>
               <li className="flex items-center">
                 <span aria-hidden className="mx-2">›</span>
-                <Link href="/" className="hover:text-white">Blog</Link>
+                <Link href="/blog" className="hover:text-white">Blog</Link>
               </li>
               {/* Hidden on phones: the category level plus a long post title left
                   no room for the title itself. Kept in the DOM so it still shows

@@ -14,10 +14,10 @@ export function SiteLink({
   children,
   ...rest
 }: Omit<React.ComponentProps<'a'>, 'href'> & { href: string }) {
-  // The two branches need different forms of the same destination: an anchor
-  // takes the public url, while next/link applies `basePath` itself and so needs
-  // the app-internal route. Handing `navHref`'s public "/blog" to <Link> would
-  // yield "/blog/blog".
+  // The two branches take different forms of the same destination: an anchor gets
+  // the public url, <Link> the app-internal route. They coincide while the app is
+  // served from the domain root, and diverge under a subpath mount — see
+  // `navRoute`, which is where that difference is kept.
   return isExternalHref(href) ? (
     <a href={navHref(href)} {...rest}>
       {children}
