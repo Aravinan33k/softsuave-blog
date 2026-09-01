@@ -23,6 +23,6 @@ export interface LandingPage {
 
 export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/custome-ai-developement', title: 'Custom AI Development Services' },
-  // The generative-AI page lands here when feature/generative-ai-development-company
-  // merges — see components/landing/README notes in landing.module.css.
+  { path: '/generative-ai-development-company', title: 'Generative AI Development Company' },
+  { path: '/agentic-ai-development-services', title: 'Agentic AI Development Services' },
 ] as const;

@@ -72,6 +72,15 @@ export default function TechLogo({ name }: { name: string }) {
           <circle cx="12" cy="12" r="4" fill="white" />
         </svg>
       );
+    case "crewai":
+      // Overlapping "crew" of agent circles in CrewAI's red/orange brand color
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="8" cy="9" r="5" fill="#FF5A1F" fillOpacity="0.85" />
+          <circle cx="15" cy="9" r="5" fill="#FF5A1F" fillOpacity="0.85" />
+          <circle cx="11.5" cy="15" r="5" fill="#EA580C" />
+        </svg>
+      );
     case "llamaindex":
       // Meta llama badge
       return (

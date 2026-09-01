@@ -95,6 +95,13 @@
   justify-content: center;
 }
 
+/* Lets a page outside the homepage reuse `TechStack` without inheriting its
+   full-viewport height — the homepage's own sections are each near one
+   screen tall, but a landing page's bands are sized to their content. */
+.techCompact #tech {
+  min-height: 0;
+}
+
 .sectionHead {
   max-width: 60rem;
   margin-bottom: clamp(26px, 4vw, 56px);
