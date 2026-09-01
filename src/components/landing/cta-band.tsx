@@ -2,6 +2,7 @@
 
 import { brand } from "@/lib/home/content";
 import FadeUp from "@/components/home/fade-up";
+import SplitReveal from "@/components/home/split-reveal";
 import styles from "./landing.module.css";
 
 export interface CtaBandContent {
@@ -29,7 +30,9 @@ export default function CtaBand({
       <FadeUp className={styles.ctaInner}>
         <div>
           {content.eyebrow && <span className={styles.kicker}>{content.eyebrow}</span>}
-          <h2 className={styles.ctaTitle}>{content.title}</h2>
+          <SplitReveal as="h2" className={styles.ctaTitle} type="words">
+            {content.title}
+          </SplitReveal>
           <p className={styles.ctaBody}>{content.body}</p>
         </div>
 

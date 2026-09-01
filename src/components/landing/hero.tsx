@@ -1,7 +1,9 @@
 "use client";
 
 import { Fragment, useRef, useState } from "react";
+import Image from "next/image";
 import { brand } from "@/lib/home/content";
+import { publicMediaUrl } from "@/lib/media-url";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import styles from "./landing.module.css";
 
@@ -28,6 +30,27 @@ export interface HeroContent {
     requirementPlaceholder: string;
     /** Subject line of the composed mailto. */
     subject: string;
+  };
+  /**
+   * Optional full-bleed background image behind the *whole* hero section —
+   * veiled for contrast, the same "image behind the text" treatment as the
+   * homepage hero (`components/home/hero.tsx`'s `.videoHeroFrame`/
+   * `.videoHeroVeil`). The copy column sits directly on it, no card/border
+   * around the text (matching the marketing site's older AI pages); the
+   * enquiry form stays its own bordered, opaque card floating on top, same as
+   * always. Omitted on pages whose hero stands on a flat surface (the
+   * default) — that keeps the decorative `.heroGlow` blob instead.
+   *
+   * `src` is stored root-relative and resolved through `publicMediaUrl` (see
+   * `overview.tsx`'s `image` for the same convention) — this is a hand-placed
+   * asset, not a Pexels-pipeline slot, so it is not routed through
+   * `BrandImage`/the image manifest.
+   */
+  image?: {
+    src: string;
+    width: number;
+    height: number;
+    alt: string;
   };
 }
 
@@ -103,9 +126,40 @@ export default function Hero({
 
   const lastLine = content.titleLines.length - 1;
 
+  /** One shared stroke style for every field icon below — keeps them a
+   *  matched set without repeating the same five attributes four times. */
+  const iconProps = {
+    className: styles.labelIcon,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.8,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    "aria-hidden": true,
+  };
+
   return (
-    <section ref={root} className={styles.hero} id="top">
-      <div className={styles.heroGlow} aria-hidden />
+    <section
+      ref={root}
+      className={content.image ? `${styles.hero} ${styles.heroWithBg}` : styles.hero}
+      id="top"
+    >
+      {content.image ? (
+        <>
+          <Image
+            src={publicMediaUrl(content.image.src)}
+            alt={content.image.alt}
+            fill
+            sizes="100vw"
+            className={styles.heroBg}
+            priority
+          />
+          <div className={styles.heroBgVeil} aria-hidden />
+        </>
+      ) : (
+        <div className={styles.heroGlow} aria-hidden />
+      )}
 
       <div className={styles.heroGrid}>
         <div>
@@ -165,13 +219,23 @@ export default function Hero({
         </div>
 
         <div className={styles.form} id="enquiry">
-          <span className={styles.kicker}>{content.form.eyebrow}</span>
-          <p className={styles.formTitle}>{content.form.title}</p>
+          <div className={styles.formHeader}>
+            <span className={styles.kicker}>{content.form.eyebrow}</span>
+            <p className={styles.formTitle}>{content.form.title}</p>
+            <span className={styles.formAccent} aria-hidden />
+          </div>
 
           <form className={styles.formFields} onSubmit={onSubmit}>
             <div className={styles.field}>
               <label className={styles.label} htmlFor={`${idPrefix}-name`}>
+                <svg {...iconProps}>
+                  <circle cx="12" cy="8" r="3.6" />
+                  <path d="M4.5 20c0-4.3 3.4-6.8 7.5-6.8s7.5 2.5 7.5 6.8" />
+                </svg>
                 Full name
+                <span className={styles.required} aria-hidden>
+                  *
+                </span>
               </label>
               <input
                 id={`${idPrefix}-name`}
@@ -188,7 +252,14 @@ export default function Hero({
 
             <div className={styles.field}>
               <label className={styles.label} htmlFor={`${idPrefix}-email`}>
+                <svg {...iconProps}>
+                  <rect x="3.5" y="5.5" width="17" height="13" rx="2" />
+                  <path d="M4.5 7l7.5 5.5L19.5 7" />
+                </svg>
                 Work email
+                <span className={styles.required} aria-hidden>
+                  *
+                </span>
               </label>
               <input
                 id={`${idPrefix}-email`}
@@ -205,6 +276,9 @@ export default function Hero({
 
             <div className={styles.field}>
               <label className={styles.label} htmlFor={`${idPrefix}-phone`}>
+                <svg {...iconProps}>
+                  <path d="M5.5 4h3l1.6 4.4-2.1 2.1a11 11 0 005.5 5.5l2.1-2.1L20 15.5v3a1.5 1.5 0 01-1.6 1.5C10.7 19.6 4.4 13.3 4 5.6A1.5 1.5 0 015.5 4z" />
+                </svg>
                 Phone <span aria-hidden>(optional)</span>
               </label>
               <input
@@ -221,7 +295,14 @@ export default function Hero({
 
             <div className={styles.field}>
               <label className={styles.label} htmlFor={`${idPrefix}-requirement`}>
+                <svg {...iconProps}>
+                  <rect x="5" y="3.5" width="14" height="17" rx="2" />
+                  <path d="M8.5 9h7M8.5 12.5h7M8.5 16h4.5" />
+                </svg>
                 {content.form.requirementLabel}
+                <span className={styles.required} aria-hidden>
+                  *
+                </span>
               </label>
               <textarea
                 id={`${idPrefix}-requirement`}

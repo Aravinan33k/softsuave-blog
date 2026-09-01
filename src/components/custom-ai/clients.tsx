@@ -2,18 +2,21 @@
 
 import { caClients } from "@/lib/home/custom-ai-content";
 import FadeUp from "@/components/home/fade-up";
+import CountUp from "@/components/home/count-up";
 import SectionHead from "@/components/landing/section-head";
 import styles from "@/components/landing/landing.module.css";
 
 /**
  * "Our Clients" proof band — the closed-grid trust panel from the shared
- * landing language, filled with this page's credibility numbers, followed by a
- * logo rail.
+ * landing language, filled with this page's credibility numbers.
  *
- * The rail holds `logoSlots` cells open at the final 16:6 ratio rather than
- * shipping invented logos. Dropping the real art in later is one line per cell:
- * put an <Image>/<BrandImage fill> inside the `.logoSlot` and remove its
- * `opacity`. The grid, gaps and reflow are already final, so nothing moves.
+ * A logo rail used to follow as empty reserved slots (`.logoRail`/`.logoSlot`
+ * in `landing.module.css`, sized via `caClients.logoSlots`) waiting for real
+ * client logos. Blank bordered boxes read as a broken/unfinished page rather
+ * than "coming soon", so it's dropped until there's real logo art to put in
+ * it — at that point, reintroduce a `<ul className={styles.logoRail}>` of
+ * `<li className={styles.logoSlot}>` cells, each holding an <Image>/
+ * <BrandImage fill>; the CSS and slot count are still there, untouched.
  */
 export default function Clients() {
   return (
@@ -25,22 +28,12 @@ export default function Clients() {
           <div className={styles.trustStats}>
             {caClients.proof.map((stat) => (
               <div key={stat.label} className={styles.trustStat}>
-                <span className={styles.trustFigure}>{stat.value}</span>
+                <CountUp value={stat.value} className={styles.trustFigure} />
                 <span className={styles.trustLabel}>{stat.label}</span>
               </div>
             ))}
           </div>
         </div>
-
-        {/* Reserved logo rail — real client logos drop straight into these cells. */}
-        <ul className={styles.logoRail} aria-label="Client logos">
-          {Array.from({ length: caClients.logoSlots }, (_, i) => (
-            <li key={i} className={styles.logoSlot} aria-hidden />
-          ))}
-        </ul>
-        <span className={styles.srOnly}>
-          Client logos are added as they are approved for publication.
-        </span>
       </FadeUp>
     </section>
   );

@@ -55,6 +55,15 @@ export const caHero: HeroContent = {
       "The problem, the data you have, the systems it needs to touch, and what a good outcome looks like.",
     subject: "Custom AI Development enquiry",
   },
+  // Hand-placed asset (not a Pexels-pipeline slot) — full-bleed behind the
+  // whole hero section, veiled for contrast. See `Hero`'s `image` prop in
+  // components/landing/hero.tsx.
+  image: {
+    src: "/images/four/work-7.png",
+    width: 1536,
+    height: 1024,
+    alt: "Holographic AI brain networked to automation, security, analytics, and cloud icons",
+  },
 };
 
 /** Proof band. `logoSlots` cells are held open for real client logos. */
@@ -78,6 +87,14 @@ export const caOverview: OverviewContent = {
     "Custom AI development services help businesses create tailored AI applications around their data, workflows, systems, and operational goals. These solutions include Generative AI tools, AI agents, RAG and Document AI systems, computer vision applications, and predictive models.",
     "Development can cover initial strategy, proof of concept, full product engineering, model integration and data pipeline development, secure deployment, and ongoing optimization. Unlike off-the-shelf tools, custom AI solutions are designed to fit specific business requirements and existing technology environments.",
   ],
+  // Hand-placed asset (not a Pexels-pipeline slot), same family as the hero's
+  // work-7 — its 3:2 crop matches `.overviewMedia`'s frame exactly.
+  image: {
+    src: "/images/four/work-8.png",
+    width: 1536,
+    height: 1024,
+    alt: "Isometric AI processor networked to analytics, documents, cloud storage, and workflow icons",
+  },
 };
 
 export const caOfferings: ServicesContent = {
@@ -88,22 +105,54 @@ export const caOfferings: ServicesContent = {
     {
       name: "Generative AI Development",
       body: "Build custom Generative AI solutions using LLMs to create and transform content, code, and images, supporting copilots, automation, and enterprise applications tailored to specific business needs and workflows at scale.",
+      // Hand-placed assets (not the Pexels pipeline) — filenames name the card
+      // they belong to.
+      image: {
+        src: "/images/four/gentrative.png",
+        width: 1536,
+        height: 1024,
+        alt: "Generative AI turning a prompt into text, code, image, chat, and video outputs",
+      },
     },
     {
       name: "Agentic AI Development",
       body: "Develop Agentic AI solutions that enable autonomous, multi-step workflows with tool use, helping systems plan, reason, act, and coordinate tasks across business applications while maintaining human oversight and operational control.",
+      image: {
+        src: "/images/four/ajentic.jpg",
+        width: 853,
+        height: 480,
+        alt: "A robotic hand and a human hand reaching toward each other over a connected AI network",
+      },
     },
     {
       name: "RAG and Document AI Solutions",
       body: "Create RAG and Document AI solutions for retrieval, knowledge access, and document extraction, helping teams find trusted answers, process information, and automate document-heavy workflows securely across enterprise systems and applications.",
+      image: {
+        src: "/images/four/rag.png",
+        width: 750,
+        height: 429,
+        alt: "An AI figure retrieving answers from a stack of documents, linked to search and analysis icons",
+      },
     },
     {
       name: "Computer Vision Development",
       body: "Build Computer Vision solutions for detection, OCR, video analysis, and visual inspection, helping businesses recognize patterns, monitor operations, identify anomalies, and improve quality across real-world environments and workflows at scale.",
+      image: {
+        src: "/images/four/vision.webp",
+        width: 780,
+        height: 496,
+        alt: "A glowing digital eye representing computer vision and image recognition",
+      },
     },
     {
       name: "Predictive Intelligence Solutions",
       body: "Develop Predictive Intelligence solutions for forecasting, anomaly detection, and recommendations, using historical and real-time data to anticipate outcomes, identify risks, optimize planning, and support smarter decisions across business operations effectively.",
+      image: {
+        src: "/images/four/predective.jpg",
+        width: 1536,
+        height: 896,
+        alt: "Analytics overlay of ratings, growth, and engagement metrics used for predictive intelligence",
+      },
     },
   ],
 };
@@ -204,26 +253,51 @@ export const caProcess: ProcessContent = {
   eyebrow: "How We Deliver",
   title: "Our AI-Accelerated Delivery Process",
   body: "We use AI across our own development pipeline, not only in the solutions we build, enabling 25× faster delivery while maintaining quality, security, and engineering control.",
+  // Hand-placed assets (not the Pexels pipeline), one per step.
   steps: [
     {
       n: "01",
       name: "AI Pair Programming",
       body: "Developers work alongside AI coding assistants to write, refactor, and debug code faster, speeding up development while maintaining code quality and consistency.",
+      image: {
+        src: "/images/four/work-10.png",
+        width: 1536,
+        height: 1024,
+        alt: "A developer at a dual-monitor setup with an AI pair-programming assistant suggesting code",
+      },
     },
     {
       n: "02",
       name: "Automated Test Generation",
       body: "AI generates and maintains test cases alongside development, increasing test coverage and catching issues earlier so manual QA time drops without sacrificing reliability.",
+      image: {
+        src: "/images/four/automated.png",
+        width: 1536,
+        height: 1024,
+        alt: "An AI test engine generating test cases from code, with a 98% pass-rate results panel",
+      },
     },
     {
       n: "03",
       name: "LLM-Assisted Code Review",
       body: "Every code change is reviewed with LLM-assisted analysis alongside human reviewers, catching bugs, security issues, and inconsistencies before they reach production.",
+      image: {
+        src: "/images/four/LLM.png",
+        width: 1536,
+        height: 1024,
+        alt: "An AI brain reviewing code through a magnifying glass, flagging bugs and security issues",
+      },
     },
     {
       n: "04",
       name: "AI-Monitored CI/CD",
       body: "Our CI/CD pipeline uses AI-driven monitoring to catch deployment issues early, flag anomalies, and keep releases stable so your team ships faster and safer.",
+      image: {
+        src: "/images/four/Cicd.png",
+        width: 1536,
+        height: 1024,
+        alt: "A CI/CD pipeline with an infinity loop connecting build, test, package, and deploy stages",
+      },
     },
   ],
 };
@@ -418,6 +492,7 @@ export const caTestimonials: TestimonialsContent = {
       name: "Tim Maliyil",
       role: "COO, Phoenix Technologies",
       rating: "5.0",
+      avatarId: "avatar-2",
     },
     {
       quote:
@@ -425,6 +500,7 @@ export const caTestimonials: TestimonialsContent = {
       name: "Dimitris Rokos",
       role: "Founder & CEO, AMD Telecom",
       rating: "5.0",
+      avatarId: "avatar-1",
     },
     {
       quote:
@@ -432,6 +508,7 @@ export const caTestimonials: TestimonialsContent = {
       name: "Dr. Dara Huang",
       role: "Co-Founder, Perkypet",
       rating: "5.0",
+      avatarId: "avatar-3",
     },
   ],
 };

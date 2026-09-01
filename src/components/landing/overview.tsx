@@ -56,14 +56,24 @@ export default function Overview({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} />
+      {/* With an image, the heading moves inside the left grid column so both
+          columns start at the same top edge — the image can then be stretched
+          (see `.overviewMedia` at 1000px in landing.module.css) to match the
+          full heading+prose block's height, top to bottom, instead of just
+          the prose. Without an image this is unchanged: the heading sits above
+          as this surface's normal full-width masthead. */}
+      {!image && <SectionHead kicker={content.eyebrow} title={content.title} />}
 
       <FadeUp>
         <div className={image ? styles.overviewGrid : undefined}>
-          <div className={styles.prose}>
-            {content.paragraphs.map((p) => (
-              <p key={p.slice(0, 24)}>{p}</p>
-            ))}
+          <div>
+            {image && <SectionHead kicker={content.eyebrow} title={content.title} />}
+
+            <div className={styles.prose}>
+              {content.paragraphs.map((p) => (
+                <p key={p.slice(0, 24)}>{p}</p>
+              ))}
+            </div>
           </div>
 
           {image && (
