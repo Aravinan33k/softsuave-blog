@@ -27,8 +27,8 @@ const AUTOPLAY_MS = 4200;
 // (`npm run images` with PEXELS_API_KEY set) — then flip this to false.
 const USE_PLACEHOLDER = false;
 const PLACEHOLDER = ["work-1", "work-2", "work-3", "work-4", "work-5", "work-6", "work-1", "work-2"];
-const imgId = (i: number, key: string) =>
-  USE_PLACEHOLDER ? PLACEHOLDER[i % PLACEHOLDER.length] : `svc-${key}`;
+const imgId = (i: number, img: string) =>
+  USE_PLACEHOLDER ? PLACEHOLDER[i % PLACEHOLDER.length] : `svc-${img}`;
 
 const pad = (n: number) => String(n).padStart(2, "0");
 const cx = (...c: (string | false | undefined)[]) => c.filter(Boolean).join(" ");
@@ -179,7 +179,7 @@ export default function Services() {
                 style={cardStyle(i - active)}
                 aria-hidden={i !== active}
               >
-                <BrandImage page="four" id={imgId(i, s.key)} fill sizes="55vw" className="object-cover" />
+                <BrandImage page="four" id={imgId(i, s.img)} fill sizes="55vw" className="object-cover" />
                 <span className={styles.carCardVeil} aria-hidden />
                 <span className={styles.carCardTag}>{s.name}</span>
               </div>
@@ -231,7 +231,7 @@ export default function Services() {
         {items.map((s, i) => (
           <article key={s.key} className={styles.carMobRow}>
             <div className={styles.carMobCard}>
-              <BrandImage page="four" id={imgId(i, s.key)} fill sizes="100vw" className="object-cover" />
+              <BrandImage page="four" id={imgId(i, s.img)} fill sizes="100vw" className="object-cover" />
             </div>
             <div className={styles.carMobText}>
               <span className={styles.carNum}>/{pad(i + 1)}</span>

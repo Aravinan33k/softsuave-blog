@@ -16,10 +16,36 @@ afterEach(() => {
 });
 
 describe('navHref', () => {
-  it('sends marketing paths to the live site in either release state', async () => {
+  // `/about` is the stand-in for a path this app does not serve at all — it has
+  // no route in app/(marketing), so it belongs to the live site whatever the
+  // release flag says. It replaced `/contact` here once this app grew its own
+  // contact page; a path we DO serve can never demonstrate this.
+  it('sends paths this app does not serve to the live site in either release state', async () => {
     for (const flag of ['true', 'false']) {
-      const { navHref } = await loadNav(flag);
-      expect(navHref('/contact')).toBe(`${SITE}/contact`);
+      const { navHref, isExternalHref } = await loadNav(flag);
+      expect(navHref('/about')).toBe(`${SITE}/about`);
+      expect(isExternalHref('/about')).toBe(true);
+    }
+  });
+
+  // /contact and /awards-recognition are real routes in app/(marketing), so they
+  // follow "/" behind the same flag: ours once released, the live site's until
+  // then — the same contract as the service pages.
+  it('keeps this app own contact and awards pages local once released', async () => {
+    const { navHref, isExternalHref } = await loadNav('true');
+    for (const path of ['/contact', '/awards-recognition']) {
+      expect(navHref(path)).toBe(path);
+      expect(isExternalHref(path)).toBe(false);
+    }
+  });
+
+  it('sends contact and awards to the live site while unreleased', async () => {
+    for (const flag of ['false', undefined]) {
+      const { navHref, isExternalHref } = await loadNav(flag);
+      for (const path of ['/contact', '/awards-recognition']) {
+        expect(navHref(path)).toBe(`${SITE}${path}`);
+        expect(isExternalHref(path)).toBe(true);
+      }
     }
   });
 
@@ -101,10 +127,10 @@ describe('navRoute', () => {
     }
   });
 
-  it('leaves marketing paths to navHref, absolute and unprefixed', async () => {
+  it('leaves paths this app does not serve to navHref, absolute and unprefixed', async () => {
     for (const flag of ['true', 'false']) {
       const { navRoute } = await loadNav(flag);
-      expect(navRoute('/contact')).toBe(`${SITE}/contact`);
+      expect(navRoute('/about')).toBe(`${SITE}/about`);
     }
   });
 });

@@ -15,6 +15,7 @@ import Services from '@/components/home/services';
 import Journey from '@/components/home/journey';
 import Industries from '@/components/home/industries';
 import Awards from '@/components/home/awards';
+import Recognitions from '@/components/home/recognitions';
 import TechStack from '@/components/home/tech-stack';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
@@ -43,9 +44,27 @@ export default function HomePage() {
           <Services />
         </div>
         <Journey />
-        <WorkGrid />
+        {/* Case studies invert to the warm-white band — the photography and the
+            outcome numbers carry more weight on light, and it breaks up the run
+            of dark sections between Journey and Awards. */}
+        <div className={styles.light}>
+          <WorkGrid />
+        </div>
         <Awards />
+        {/* Warm-white band. The badges are real directory artwork with white
+            grounds baked in, so each sits on a light plaque; the existing
+            `.light .recogBadge` rule trades that plaque's dark drop shadow
+            for a hairline, which is what keeps it separated from the band. */}
+        <div className={styles.light}>
+          <Recognitions />
+        </div>
         <TechStack />
+        {/* Client stories invert to the warm-white band, so the run reads
+            TechStack(dark) → stories(light) → Contact(dark). The archive's own
+            styles are token-driven, so the wrapper is the whole switch — the
+            one exception is each photograph's hover veil, which stays
+            near-black on purpose because it sits on the picture, not the page
+            (see `.rImageVeilLabel`). */}
         <div className={styles.light}>
           <Testimonials />
         </div>

@@ -147,6 +147,13 @@
   transform: translateY(-2px);
 }
 
+/* the hover brighten above goes the wrong way inside an inversion band —
+   white-on-cream is unreadable — so it darkens to the band's ink instead. */
+.light .pill:hover,
+.cream .pill:hover {
+  color: var(--text-bright);
+}
+
 .pillFilled {
   background: var(--accent);
   border-color: var(--accent);
@@ -332,25 +339,79 @@
   gap: 24px;
   padding: 20px var(--gutter);
   color: var(--text-bright);
-  transition: background 0.5s ease, backdrop-filter 0.5s ease, border-color 0.5s ease,
-    padding 0.5s ease;
-  border-bottom: 1px solid transparent;
+  /* link hover/active colour, re-pointed per tone: hero and dark bars take the
+     hot coral, the light bar the band's deeper red so 12px caps stay legible */
+  --nav-link-accent: var(--accent);
+  transition: background 0.5s ease, backdrop-filter 0.5s ease, padding 0.5s ease,
+    color 0.45s ease;
+  /* no bottom rule in any tone — the blurred bar separates itself from the
+     band under it, and a hairline read as a hard black seam on both surfaces */
+  border-bottom: 0;
 }
 
-.navScrolled {
-  background: rgba(4, 5, 8, 0.72);
+/* ---- surface syncing ----
+   No class = hero-locked: transparent bar, white lockup, inherited dark-theme
+   text. Past the hero the bar takes the tone of the band under it (see
+   `useSurfaceTone`). Both states re-point the same semantic vars the burger,
+   pill and links already read, so only the bar's own paint is declared here. */
+.navDark,
+.navLight {
   backdrop-filter: blur(14px);
-  border-bottom-color: rgba(67, 67, 67, 0.6);
   padding-top: 14px;
   padding-bottom: 14px;
 }
 
+.navDark {
+  background: rgba(10, 10, 10, 0.78);
+}
+
+/* Warm white to sit flush with the .light band's #f8f6f3 — a cool #fff bar
+   would show a visible seam against the cream. */
+.navLight {
+  --text: #4a4842;
+  --text-bright: #1a1a1a;
+  --muted: #6b6862;
+  --line: rgba(23, 20, 15, 0.2);
+  --nav-link-accent: #b8341a;
+  /* the mega panel's rail and item card paint with these, and the bar sits
+     outside any .light band, so the surface ramp is re-pointed here too */
+  --surface: #eeebe5;
+  --surface-2: #e6e2da;
+  --surface-3: #dcd7cd;
+  background: rgba(248, 246, 243, 0.86);
+  color: var(--text-bright);
+}
+
+/* Both lockups ship stacked and cross-fade, so the light↔dark swap has no
+   flash of the wrong variant while the second image decodes. */
 .navLogo {
+  position: relative;
   display: inline-flex;
+}
+
+.navLogoOnDark,
+.navLogoOnLight {
+  transition: opacity 0.45s ease;
+}
+
+.navLogoOnLight {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.navLight .navLogoOnDark {
+  opacity: 0;
+}
+
+.navLight .navLogoOnLight {
+  opacity: 1;
 }
 
 .navLinks {
   display: none;
+  align-items: center;
   gap: clamp(14px, 1.6vw, 30px);
   font-family: var(--font-eyebrow);
   font-size: 12px;
@@ -364,8 +425,9 @@
   transition: color 0.3s ease;
 }
 
-.navLinks a:hover {
-  color: var(--accent);
+.navLinks a:hover,
+.navLinks a:focus-visible {
+  color: var(--nav-link-accent);
 }
 
 /* "you are here" — the current section's link is coral and underlined, so the
@@ -378,14 +440,14 @@
   bottom: -6px;
   height: 1.5px;
   border-radius: 2px;
-  background: var(--accent);
+  background: var(--nav-link-accent);
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .navLinks a.navLinkActive {
-  color: var(--accent);
+  color: var(--nav-link-accent);
 }
 
 .navLinks a.navLinkActive::after {
@@ -845,36 +907,46 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  gap: 20px;
-  margin-top: 20px;
-  padding-bottom: 16px;
+  gap: 16px;
+  margin-top: 14px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--line);
 }
 
 .tileTag {
   font-family: var(--font-eyebrow);
-  font-size: 11px;
-  letter-spacing: 0.2em;
+  font-size: clamp(10px, 0.72vw, 11px);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
 }
 
 .tileTitle {
-  margin: 8px 0 0;
+  margin: 7px 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.125rem, 2vw, 1.75rem);
-  line-height: 1.2;
+  font-size: clamp(1.0625rem, 1.5vw, 1.375rem);
+  line-height: 1.24;
   letter-spacing: -0.02em;
   color: var(--text-bright);
-  max-width: 16ch;
+  max-width: 18ch;
 }
 
 .tileMetric {
-  font-size: 0.86rem;
+  font-size: clamp(0.75rem, 0.85vw, 0.8125rem);
   color: var(--muted);
   text-align: right;
   white-space: nowrap;
+}
+
+/* Case-study summary, under the foot rule. Shown in full — a truncated
+   outcome is the one line of a case study that has to land. Tiles are
+   top-aligned in the lane instead of matched in height (see .hTrack). */
+.tileBody {
+  margin: 12px 0 0;
+  font-size: clamp(0.8125rem, 0.92vw, 0.875rem);
+  line-height: 1.5;
+  color: var(--muted);
 }
 
 .tileNum {
@@ -895,6 +967,9 @@
 .workH {
   position: relative;
   padding: clamp(40px, 5vw, 84px) var(--gutter);
+  /* on top of the section's own padding — the pair only has to read as a break
+     between two dark sections, not as an empty screen. */
+  margin-top: clamp(32px, 4vw, 64px);
 }
 
 .hInner {
@@ -911,6 +986,11 @@
   max-width: 40rem;
 }
 
+/* "View Case Study" — links out to the full case-study index. */
+.hIntroCta {
+  margin-top: clamp(20px, 3vw, 32px);
+}
+
 .hTile {
   position: relative;
   display: block;
@@ -924,7 +1004,9 @@
 .hMedia {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  /* landscape rather than portrait: the stacked (mobile / reduced-motion) tile
+     also carries a case-study summary, so the image takes less of the card. */
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   background: var(--surface);
   will-change: clip-path, transform;
@@ -1212,7 +1294,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(44px, 6vw, 88px) 0;
+  padding: clamp(32px, 4vw, 60px) 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
@@ -1220,20 +1302,20 @@
 .awardsHead {
   padding: 0 var(--gutter);
   max-width: 60rem;
-  margin-bottom: clamp(44px, 6vw, 80px);
+  margin-bottom: clamp(28px, 3.4vw, 48px);
 }
 
 .awardsMarquees {
   display: flex;
   flex-direction: column;
-  gap: clamp(18px, 2.4vw, 34px);
+  gap: clamp(10px, 1.4vw, 20px);
 }
 
 .awardChip,
 .awardChipGhost {
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2rem, 5.4vw, 5rem);
+  font-size: clamp(1.5rem, 3.2vw, 3rem);
   letter-spacing: -0.03em;
   line-height: 1;
   color: var(--text-bright);
@@ -1278,17 +1360,20 @@
 /* ============================================================
    TECH STACK
    ============================================================ */
+/* Rows are separated by their own bottom rule, so there is no grid gap on top
+   of the row padding — with eight groups that double spacing added ~200px of
+   dead height to a section that wants to stay near one viewport. */
 .techGroups {
   display: grid;
-  gap: clamp(14px, 2vw, 26px);
+  gap: 0;
   border-top: 1px solid var(--line);
 }
 
 .techGroup {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 14px;
-  padding: clamp(22px, 2.6vw, 34px) 0;
+  gap: 10px;
+  padding: clamp(12px, 1.5vw, 18px) 0;
   border-bottom: 1px solid var(--line);
   align-items: center;
 }
@@ -1321,9 +1406,9 @@
 .techChip {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  height: 52px;
-  padding: 0 20px;
+  gap: 9px;
+  height: 44px;
+  padding: 0 16px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
@@ -1340,346 +1425,968 @@
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
+}
+.chipLogo svg {
+  width: 20px;
+  height: 20px;
 }
 .chipName {
   font-family: var(--font-eyebrow);
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 0.05em;
   color: var(--text-bright);
   white-space: nowrap;
 }
 
 /* ============================================================
-   TESTIMONIALS
+   CLIENT STORIES — dark editorial review archive
+   Modelled on an archive-catalogue page, and the scale is the whole
+   point: a modest serif masthead, micro-set mono labels, body copy in
+   two narrow columns, and a lot of quiet dark space around a CENTRED
+   column — not a full-bleed layout. An earlier pass ran this at roughly
+   double these sizes; every element then filled its own viewport, which
+   read as a slideshow rather than a page. Nothing here should exceed
+   about half the viewport height.
+
+   Composition, in order: masthead (.rHero — labels in a left margin
+   column, heading and abstract beside them) · the story run (.rArchive /
+   .rStory), photograph side alternating. Every story takes the same
+   template, the first one included — the featured card that used to open
+   the section, with its own scale and a filled coral identity plate, is
+   gone along with all of its rules.
+
+   The section is static. A category filter line and a reading index used
+   to sit in the masthead; both were removed, along with the state and the
+   scroll listener that fed them.
+
+   Three rules hold it together. (1) The masthead is ruleless: alignment
+   against the margin column separates its zones, not hairlines. The only
+   horizontal rules left in the section are the top chapter break and the
+   one at each story's foot, above the attribution. (2) The single filled
+   surface is the featured story's coral identity plate — nothing else is a
+   card. (3) Every desktop offset and tilt lives inside
+   `@media (min-width: 1000px)`, so the base rules ARE the mobile
+   layout: one column, no rotation, nothing outside the gutter.
    ============================================================ */
-.testimonialsSection {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: clamp(40px, 5vw, 80px) !important;
-  padding-bottom: clamp(48px, 6vw, 96px) !important;
-}
-
-/* ---- testimonial card grid (all breakpoints) ---- */
-.tGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(18px, 2vw, 28px);
-  margin-top: clamp(40px, 5vw, 72px);
-}
-@media (min-width: 800px) {
-  .tGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-.tCard {
+.reviewsSection {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: clamp(24px, 2.4vw, 36px);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: #fff;
-  overflow: hidden;
   isolation: isolate;
-  box-shadow: 0 24px 50px -34px rgba(20, 12, 10, 0.28);
-  transition: border-color 0.4s ease, box-shadow 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  /* !important for the same reason the old card section needed it: `.section`
+     is the same specificity, so its padding would otherwise be a coin toss. */
+  padding-top: clamp(28px, 3vw, 44px) !important;
+  padding-bottom: clamp(28px, 3vw, 48px) !important;
 }
 
-/* soft brand-gradient glow tucked in the corner */
-.tCard::after {
-  content: "";
-  position: absolute;
-  top: -60px;
-  right: -60px;
-  width: 200px;
-  height: 200px;
-  z-index: -1;
-  background: var(--brand-gradient);
-  opacity: 0.14;
-  filter: blur(46px);
-  border-radius: 50%;
-}
-.tCard:hover {
-  border-color: var(--accent-border);
-  transform: translateY(-6px);
-  box-shadow: 0 30px 70px -34px rgba(255, 84, 54, 0.38);
-}
-.tCard:hover::after {
-  opacity: 0.22;
-}
-.tCardHead {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.tAvatar {
-  flex: 0 0 auto;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 1px solid var(--accent);
-  background: var(--surface-2);
-}
-.tMeta {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-}
-.tName {
-  font-family: var(--font-heading);
-  font-weight: 500;
-  font-size: 1rem;
-  color: var(--text-bright);
-}
-.tRole {
-  font-family: var(--font-eyebrow);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.tQuote {
-  position: relative;
-  margin: 0;
-  flex: 1 1 auto;
-  font-size: clamp(0.95rem, 1.05vw, 1.08rem);
-  line-height: 1.6;
-  color: var(--text);
-}
-.tQuote::before {
-  content: "\201C";
-  display: block;
-  font-family: var(--font-heading);
-  font-size: 2.4rem;
-  line-height: 0.4;
-  color: var(--accent);
-  margin-bottom: 12px;
-}
-.tRating {
-  font-family: var(--font-eyebrow);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: #22c55e;
+/* Scoped tighter than the page-wide `.sectionHead` (26-56px): this section runs
+   a long list of stories under its head, so it earns less of a gap than a
+   section with one block of content below it. Scoped, not global, so every
+   other section head on the page keeps its own rhythm. */
+.reviewsInner .sectionHead {
+  margin-bottom: clamp(16px, 2vw, 26px);
 }
 
-.testimonialContainer {
-  display: none;
-  grid-template-columns: 1fr 1.2fr;
-  grid-template-rows: auto 1fr;
-  row-gap: 24px;
-  column-gap: clamp(40px, 6vw, 96px);
-  max-width: 1200px;
-  margin: clamp(10px, 2vw, 20px) auto 0;
-  align-items: flex-start;
-  position: relative;
-  min-height: 340px;
+/* The section carried two decorations that existed only to relieve a near-black
+   canvas: a top hairline standing in for a chapter break, and a blurred coral
+   wash behind the masthead. Both went when the section moved into the `.light`
+   band — the band change IS the chapter break, and none of the other light
+   sections (Clients, Services, Case Studies) rule their own top edge either. */
+
+/* The centred measure. The archive is a page in a publication, so it sits in
+   a column with real margins either side rather than running to the gutters —
+   which is what makes the surrounding ground read as deliberate space. */
+.reviewsInner {
+  max-width: 1180px;
+  margin-inline: auto;
 }
 
-@media (min-width: 1000px) {
-  .testimonialContainer {
-    display: grid;
+/* ---- masthead ----
+   A marginal-label layout: every small label sits in a narrow LEFT column with
+   the content it names beside it, so the section reads as two columns rather
+   than a stack of centred-left blocks.
+
+   Deliberately ruleless. Hairlines above and below each zone boxed the content
+   in and pushed it left, leaving the right half of the measure empty; the
+   margin column does the same separating work with alignment alone.
+
+   Auto grid placement does the pairing: label, title, label, abstract fall into
+   (1,1) (1,2) (2,1) (2,2) with no explicit placement to keep in sync. */
+.rHero {
+  display: grid;
+  gap: clamp(22px, 3vw, 34px);
+}
+
+@media (min-width: 900px) {
+  .rHero {
+    grid-template-columns: minmax(0, 150px) minmax(0, 1fr);
+    column-gap: clamp(28px, 4vw, 64px);
+    row-gap: clamp(26px, 3.4vw, 52px);
   }
 }
 
-.reviewsHeaderContainer {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-  margin-bottom: 0;
+/* Carries `.eyebrow` as well, for the mono/uppercase/coral-rule treatment —
+   this class only places it and aligns it optically to the first line of the
+   type beside it, which sits lower than its own box because of the serif's
+   cap height. */
+.rHeroLabel {
+  align-self: start;
 }
 
-.reviewsH2 {
+@media (min-width: 900px) {
+  .rHeroLabel {
+    padding-top: 0.45em;
+  }
+}
+
+.rHeroTitle {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.85rem, 3.3vw, 2.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
   color: var(--text-bright);
 }
 
-.reviewsLead {
-  margin: 12px 0 0;
-  font-size: 0.95rem;
-  line-height: 1.5;
+.rHeroLine {
+  display: block;
+}
+
+/* The closing line takes the accent — the same convention the landing-page
+   heroes use for the last line of a display stack. */
+.rHeroLine:last-child {
+  color: var(--accent);
+}
+
+/* Two columns of small type in the main column, the way a catalogue sets an
+   abstract — but with a plain gutter instead of a column rule. The copy
+   arrives already split one sentence per column, so no column breaks
+   mid-clause, which is what CSS `columns` was doing here. */
+.rHeroAbstract {
+  display: grid;
+  gap: clamp(10px, 1.4vw, 18px);
+}
+
+@media (min-width: 700px) {
+  .rHeroAbstract {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(24px, 3.4vw, 56px);
+    align-items: start;
+  }
+}
+
+.rHeroAbstractText {
+  margin: 0;
+  max-width: 46ch;
+  font-size: clamp(0.8125rem, 0.95vw, 0.875rem);
+  line-height: 1.72;
   color: var(--muted);
-  max-width: 44ch;
 }
 
-.mobileSectionHead {
-  margin-bottom: 24px;
+/* ---- the stories ---- */
+.reviewsBody {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3vw, 36px);
+  margin-top: clamp(12px, 1.6vw, 20px);
 }
 
-.arcWrapper {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
+/* ---- images ----
+   One slot for every photograph in the section. The frame's proportion is set
+   per composition by the component; the crop, the hover and the veil are
+   constant, and that constancy is what lets a collage of different-sized
+   pictures read as one page.
+
+   `object-position` sits above centre because the sources are ~16:9 stills
+   from the video reviews; a centred crop of those cuts through the chin. */
+.rImage {
   position: relative;
-  height: 320px;
-  width: 250px;
-  margin-top: 10px;
+  margin: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--surface-2);
 }
 
-.arcSvg {
+.rImageImg {
+  object-fit: cover;
+  object-position: center 26%;
+  /* A touch of desaturation to hold the archive together, cleared on hover so
+     the client's own photograph is what you end up looking at. */
+  filter: grayscale(0.16) contrast(1.02);
+  transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1), filter 0.7s ease;
+}
+
+.rImage:hover .rImageImg {
+  transform: scale(1.05);
+  filter: none;
+}
+
+.rImageVeil {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: clamp(11px, 1.3vw, 16px);
+  background: linear-gradient(to top, rgba(4, 5, 8, 0.88), rgba(4, 5, 8, 0));
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rImage:hover .rImageVeil {
+  opacity: 1;
+  transform: none;
+}
+
+/* The veil's ground is always near-black, whatever band the section sits in,
+   so its ink is the cream token rather than `--text-bright`. */
+.rImageVeilLabel {
+  font-family: var(--font-eyebrow);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+
+/* ---- the linked frame ----
+   Only reviews that carry a source link on softsuave.com (today, the two video
+   reviews) get this. It covers the whole picture so the photograph itself is
+   the anchor, exactly as on the source site, and it is the LAST child of the
+   frame so it sits over both the image and the veil. */
+.rImageLink {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.avatarCard {
-  position: absolute;
-  left: 0;
-  top: 0;
   display: flex;
   align-items: center;
-  gap: 16px;
-  transform-origin: left center;
-  will-change: transform, opacity;
+  justify-content: center;
+  /* No ground of its own — the play badge is the whole of the affordance, and
+     a scrim here would fight the veil's gradient at the foot. */
+  text-decoration: none;
 }
 
-.avatarImgWrap {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 1px solid var(--accent);
-  background: var(--surface);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+.rImageBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(38px, 4.4vw, 52px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(247, 244, 237, 0.4);
+  border-radius: 999px;
+  /* Near-black on purpose: this badge sits on the photograph, not on the page,
+     so it holds against either band the section is placed in. */
+  background: rgba(4, 5, 8, 0.52);
+  backdrop-filter: blur(2px);
+  color: var(--cream);
+  /* Visible at rest — on touch there is no hover to reveal it — and firming up
+     under the pointer. */
+  opacity: 0.88;
+  transform: scale(0.96);
+  transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.4s ease;
 }
 
-.avatarImg {
-  width: 100% !important;
-  height: 100% !important;
+.rImageBadge svg {
+  width: 42%;
+  height: 42%;
+  /* The glyph's optical centre sits left of its bounding box. */
+  margin-left: 6%;
+}
+
+.rImage[data-linked]:hover .rImageBadge,
+.rImageLink:focus-visible .rImageBadge,
+.rVideoStart:focus-visible .rImageBadge {
+  opacity: 1;
+  transform: none;
+  background: rgba(4, 5, 8, 0.72);
+}
+
+.rImageLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+}
+
+/* ---- in-place video ----
+   The facade's button. Same footprint and same badge as `.rImageLink` above —
+   the difference is only where the press goes, so it must not look like a
+   different control. */
+.rVideoStart {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  /* Buttons don't inherit the page's ink; the badge's colour is set on itself,
+     but this keeps any future child honest. */
+  color: inherit;
+}
+
+.rVideoStart:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+}
+
+/* Once playing, the player fills the frame the portrait was in — the story's
+   layout never reflows, whatever the video's own aspect ratio is. Before the
+   first press it is only holding the start button, so it must not paint over
+   the photograph it sits on. */
+.rVideoPlayer {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+
+.rVideoPlayer[data-idle] {
+  background: none;
+}
+
+/* One rule for both players — the `<video>` element and the YouTube iframe.
+   `object-fit: cover` matters only to the former: the frames are 4:5, 1:1 and
+   16:10 while the films are 16:9, and a letterboxed picture inside a square
+   would break the archive's rhythm. The iframe letterboxes itself. */
+.rVideoFrame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
   object-fit: cover;
 }
 
-.avatarTextGroup {
+/* The dead end: no file, no embed. Reads as a message on the black frame, not
+   as a broken player. */
+.rVideoFallback {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  transition: opacity 0.3s ease;
-  min-width: 180px;
-}
-
-.avatarName {
-  font-family: var(--font-heading);
-  font-weight: 500;
-  font-size: 16px;
-  color: var(--text-bright);
-}
-
-.avatarRating {
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: clamp(16px, 2.4vw, 28px);
   font-family: var(--font-eyebrow);
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  color: #22c55e;
-  /* green star rating matching the screenshots */
+  font-size: 9px;
+  line-height: 1.9;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  color: var(--cream);
 }
 
-.quotesRight {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-  position: relative;
-  height: 320px;
-  width: 100%;
-}
-
-.quotePane {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  will-change: transform, opacity;
-}
-
-.quoteIcon {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 3.4vw, 3.6rem);
-  line-height: 0.6;
+.rVideoFallback:hover {
   color: var(--accent);
-  margin-right: clamp(6px, 1.2vw, 12px);
-  vertical-align: text-top;
-  display: inline-block;
 }
 
-.quoteBodyText {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-weight: 300;
-  font-size: clamp(1.3rem, 2vw, 1.8rem);
-  line-height: 1.4;
-  letter-spacing: -0.02em;
-  color: var(--text-bright);
-}
-
-/* Mobile Fallback styles */
-.mobileTestimonials {
+/* Our transport, at the TOP of the frame: YouTube's own bar owns the bottom
+   edge, and stacking two of them there would put a pause button on a pause
+   button. Hidden until the pointer is over the picture — except while paused,
+   when it is the only way back into the video and so always stands. */
+.rVideoBar {
+  position: absolute;
+  inset: 0 auto auto 0;
   display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-top: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: clamp(8px, 1vw, 12px);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@media (min-width: 1000px) {
-  .mobileTestimonials {
-    display: none;
+.rImage:hover .rVideoBar,
+.rVideoBar[data-paused],
+.rVideoBar:focus-within {
+  opacity: 1;
+  transform: none;
+}
+
+/* Both controls sit on the video, so they carry their own near-black ground
+   rather than any page token — the frame behind them is whatever the film is
+   showing at that instant. */
+.rVideoToggle,
+.rVideoOut {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border: 1px solid rgba(247, 244, 237, 0.3);
+  border-radius: 999px;
+  background: rgba(4, 5, 8, 0.62);
+  backdrop-filter: blur(3px);
+  font-family: var(--font-eyebrow);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--cream);
+  cursor: pointer;
+  transition: background-color 0.35s ease, border-color 0.35s ease;
+}
+
+.rVideoToggle:hover,
+.rVideoOut:hover {
+  background: rgba(4, 5, 8, 0.82);
+  border-color: rgba(247, 244, 237, 0.6);
+}
+
+.rVideoToggle:focus-visible,
+.rVideoOut:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.rVideoToggle svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* The word beside the glyph. It goes on narrow frames, where the picture is
+   small enough that a bare glyph reads better than a cramped label — the
+   accessible name lives on the button either way, so nothing is lost. */
+.rVideoToggleLabel {
+  display: none;
+}
+
+@media (min-width: 700px) {
+  .rVideoToggleLabel {
+    display: inline;
   }
 }
 
-.mobileCard {
-  border: 1px solid var(--line);
-  background: var(--surface);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.mobileCardHead {
+/* Stand-in for a review we hold no headshot for. Fills the whole frame, so a
+   story without a photo keeps the composition's rhythm. */
+.rMonogram {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-eyebrow);
+  font-size: clamp(24px, 3.4vw, 44px);
+  letter-spacing: 0.06em;
+  color: var(--accent);
 }
 
-.mobileAvatarWrap {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 1px solid var(--accent);
+.rVerified {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
 }
 
-.mobileMeta {
+/* ---- the story slot ----
+   One story showing at a time. Every story is rendered and stacked on the same
+   grid cell, hidden except the active one, so the slot is as tall as the
+   LONGEST story and never changes height as they swap. The swap itself
+   (opacity / lift) is GSAP's, driven from `review-archive.tsx`; the visibility
+   flip below is what keeps the hidden stories out of the tab order and the
+   accessibility tree. */
+.rArchive {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: clamp(22px, 2.6vw, 34px);
 }
 
-.mobileName {
-  font-family: var(--font-heading);
-  font-size: 15px;
-  font-weight: 500;
+.rRotor {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2.2vw, 28px);
+}
+
+.rSlot {
+  display: grid;
+}
+
+.rSlotItem {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+.rSlotItem:not([data-active]) {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ---- controls ----
+   Counter and pause on the left, dots and arrows on the right: the same mono
+   vocabulary as the section's kickers, and the same hairline pills as the
+   badge strip's arrow. */
+.rControls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px clamp(16px, 2vw, 28px);
+  padding-top: clamp(12px, 1.4vw, 18px);
+  border-top: 1px solid var(--line);
+}
+
+.rControlsGroup {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.8vw, 24px);
+}
+
+.rCount {
+  font-family: var(--font-eyebrow);
+  font-size: clamp(10px, 0.78vw, 12px);
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.rCountOn {
   color: var(--text-bright);
 }
 
-.mobileRating {
+.rPlayToggle {
+  padding: 0;
+  border: 0;
+  background: none;
   font-family: var(--font-eyebrow);
-  font-size: 10px;
-  color: #22c55e;
+  font-size: clamp(10px, 0.78vw, 12px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.mobileQuote {
+.rPlayToggle:hover,
+.rPlayToggle:focus-visible {
+  color: var(--accent);
+  outline: none;
+}
+
+.rDots {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rDot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--line);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.rDot:hover,
+.rDot:focus-visible {
+  background: var(--muted);
+  outline: none;
+}
+
+.rDotOn,
+.rDotOn:hover {
+  background: var(--accent);
+  transform: scale(1.25);
+}
+
+.rArrows {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rArrowBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: none;
+  color: var(--text-bright);
+  cursor: pointer;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.rArrowBtn:hover,
+.rArrowBtn:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  outline: none;
+}
+
+.rArrow {
+  width: 30px;
+  height: 8px;
+  transition: transform 0.35s ease;
+}
+
+.rArrowBtn:last-child:hover .rArrow {
+  transform: translateX(3px);
+}
+
+.rArrowBtn:first-child:hover .rArrow {
+  transform: translateX(-3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Nothing rotates on its own under reduced motion, so a pause control would
+     be a control over nothing. */
+  .rPlayToggle {
+    display: none;
+  }
+  .rDot,
+  .rArrowBtn,
+  .rArrow,
+  .rPlayToggle {
+    transition: none;
+  }
+  .rDotOn,
+  .rArrowBtn:hover .rArrow {
+    transform: none;
+  }
+}
+
+/* `FadeUp`'s wrapper. It exists so the reveal tween owns an element of its
+   own: the story below it carries the tilts and hover transforms, and two
+   `transform`s on one element would fight. */
+.rStoryWrap {
+  position: relative;
+  min-width: 0;
+}
+
+.rStory {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(16px, 2.4vw, 26px);
+}
+
+.rStoryImage {
+  width: 100%;
+  max-width: 340px;
+}
+
+.rStoryBody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1vw, 13px);
+  min-width: 0;
+}
+
+/* ---- the three-beat desktop rhythm ----
+   a: tall photo left, text right
+   b: text left, square photo right, dropped down the column
+   c: one wide plate left, text right, tilted the other way
+   The archive cycles a→b→c, so the pattern repeats over any number of
+   reviews without a rule per position, and no two neighbours sit alike.
+   Photo widths are capped in px, not vw, so a 2560px monitor gets more
+   margin rather than a bigger picture. */
+@media (min-width: 1000px) {
+  .rStory {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(28px, 3.5vw, 56px);
+    align-items: center;
+  }
+
+  /* ---- zig-zag ----
+     Two independent dimensions, so the run never settles into a pattern:
+
+       data-side   alternates every story, left / right / left / right
+       data-frame  cycles the picture's SIZE — tall / square / wide
+
+     The featured story above sits photograph-left, and the archive starts on
+     the right, so no two consecutive rows share a side anywhere on the page.
+     Body copy stays flush-left in both directions; centring it on the
+     right-hand rows would fight the archive's left margin. */
+  .rStory[data-side] .rStoryImage,
+  .rStory[data-side] .rStoryBody {
+    grid-row: 1;
+  }
+
+  .rStory[data-side="left"] .rStoryImage {
+    justify-self: start;
+  }
+  .rStory[data-side="right"] .rStoryImage {
+    justify-self: end;
+  }
+
+  /* Column placement is the side crossed with the frame's width: the two
+     narrow frames share a 4-column slot, the wide one takes 5. */
+  .rStory[data-side="left"][data-frame="tall"] .rStoryImage,
+  .rStory[data-side="left"][data-frame="square"] .rStoryImage {
+    grid-column: 1 / span 4;
+  }
+  .rStory[data-side="left"][data-frame="tall"] .rStoryBody,
+  .rStory[data-side="left"][data-frame="square"] .rStoryBody {
+    grid-column: 6 / -1;
+  }
+  .rStory[data-side="left"][data-frame="wide"] .rStoryImage {
+    grid-column: 1 / span 5;
+  }
+  .rStory[data-side="left"][data-frame="wide"] .rStoryBody {
+    grid-column: 7 / -1;
+  }
+
+  .rStory[data-side="right"][data-frame="tall"] .rStoryImage,
+  .rStory[data-side="right"][data-frame="square"] .rStoryImage {
+    grid-column: 9 / -1;
+  }
+  .rStory[data-side="right"][data-frame="tall"] .rStoryBody,
+  .rStory[data-side="right"][data-frame="square"] .rStoryBody {
+    grid-column: 1 / span 7;
+  }
+  .rStory[data-side="right"][data-frame="wide"] .rStoryImage {
+    grid-column: 8 / -1;
+  }
+  .rStory[data-side="right"][data-frame="wide"] .rStoryBody {
+    grid-column: 1 / span 6;
+  }
+
+  /* Width and tilt belong to the frame alone, so they hold whichever side the
+     picture lands on. Capped in px, not vw: a wide monitor gets more margin
+     rather than a bigger picture. */
+  .rStory[data-frame="tall"] .rStoryImage {
+    max-width: 240px;
+    transform: rotate(-1deg);
+  }
+  .rStory[data-frame="square"] .rStoryImage {
+    max-width: 225px;
+    transform: rotate(1.1deg);
+  }
+  .rStory[data-frame="wide"] .rStoryImage {
+    max-width: 340px;
+  }
+
+  /* Hovering settles a tilted photograph flat and lifts the story slightly —
+     the "selected story shifts" beat. Behind `hover: hover` so a touch
+     device never gets a stuck hover state. */
+  @media (hover: hover) {
+    .rStoryImage {
+      transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .rStory:hover .rStoryImage {
+      transform: rotate(0deg) translateY(-4px);
+    }
+    .rStoryBody {
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .rStory:hover .rStoryBody {
+      transform: translateY(-3px);
+    }
+  }
+}
+
+.rStoryKicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.rStoryKicker::before {
+  content: "";
+  width: 20px;
+  height: 1px;
+  flex: 0 0 auto;
+  background: var(--accent);
+}
+
+.rStoryName {
+  display: flex;
+  align-items: center;
+  gap: 7px;
   margin: 0;
-  font-size: 15px;
-  line-height: 1.5;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--text-bright);
+}
+
+/* On the section's own dark ground the tick is knocked out in `--bg`, so the
+   seal reads the same way it did on white. */
+.rStoryVerified {
+  color: var(--accent);
+  --tick-ink: var(--bg);
+}
+
+.rStoryQuoteWrap {
+  margin: 0;
+}
+
+/* Clamped so the run of stories keeps an even rhythm; no SplitType here, so a
+   real line clamp is available and gives a clean last line. */
+.rStoryQuote {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+  margin: 0;
+  max-width: 58ch;
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  line-height: 1.72;
   color: var(--text);
+}
+
+.rStoryQuote[data-expanded] {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
+}
+
+/* Holds the expander and the "watch the video review" link on one line. Either
+   may be absent — a story with a short quote has no expander, and only a review
+   with a source link on softsuave.com has the link — so the row is only
+   rendered when at least one of them is there. */
+.rStoryActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 22px);
+}
+
+.rStoryMore {
+  align-self: flex-start;
+  padding: 2px 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-eyebrow);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transition: border-color 0.35s ease;
+}
+
+.rStoryMore:hover {
+  border-bottom-color: var(--accent);
+}
+
+.rStoryMore:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* The named twin of the frame-wide link. Set in the same eyebrow type as the
+   expander beside it so the row reads as one pair of controls, but in the
+   body's ink rather than the accent — the expander is the primary move on a
+   story, and two accent controls side by side would compete. */
+.rStoryWatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 2px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-eyebrow);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-bright);
+  transition: color 0.35s ease, border-color 0.35s ease;
+}
+
+.rStoryWatch:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.rStoryWatch:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.rStoryWatchArrow {
+  width: 11px;
+  height: 11px;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rStoryWatch:hover .rStoryWatchArrow {
+  transform: translate(2px, -2px);
+}
+
+.rStoryFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: clamp(4px, 0.8vw, 9px);
+  padding-top: clamp(10px, 1.2vw, 15px);
+  border-top: 1px solid var(--line);
+  max-width: 58ch;
+}
+
+.rStoryRole {
+  font-family: var(--font-eyebrow);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.rStoryTag {
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--font-eyebrow);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+}
+
+/* ---- reduced motion ----
+   `home.css` already zeroes CSS animations globally and every GSAP effect
+   opts itself out, but the rules above are transitions and static tilts,
+   which that does not reach. Everything below stays fully visible and
+   readable — only the movement goes. The reading index keeps working: it is
+   driven by a plain scroll listener, not by motion. */
+@media (prefers-reduced-motion: reduce) {
+  .rImageImg,
+  .rImageVeil,
+  .rImageBadge,
+  .rStoryWatchArrow,
+  .rStoryImage,
+  .rStoryBody {
+    transition: none;
+  }
+  .rStoryImage,
+  .rStory:hover .rStoryImage,
+  .rStory:hover .rStoryBody,
+  .rStoryWatch:hover .rStoryWatchArrow,
+  .rImage:hover .rImageImg {
+    transform: none;
+  }
+  /* The badge is an affordance, not decoration: it stays at full strength
+     rather than waiting on a hover it will never animate into. */
+  .rImageBadge {
+    opacity: 1;
+    transform: none;
+  }
+  .rImageVeil {
+    /* No slide-in to reveal it, so it stays legible from the start. */
+    opacity: 1;
+    transform: none;
+  }
+  /* Same reasoning as the badge, and stronger: the transport is how you stop a
+     moving picture, so it is never the thing that has to be uncovered first. */
+  .rVideoBar {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ============================================================
@@ -1687,12 +2394,15 @@
    ============================================================ */
 .contact {
   position: relative;
-  min-height: 100vh;
+  /* Not a full viewport: with the brand crystal gone the section is a headline,
+     a line of copy and one button, and 100vh left most of the band empty. */
+  min-height: 64vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(16px, 3.5vh, 40px);
-  padding: clamp(72px, 12vh, 150px) var(--gutter);
+  justify-content: center;
+  gap: clamp(12px, 2vh, 24px);
+  padding: clamp(56px, 8vh, 104px) var(--gutter);
   overflow: hidden;
   isolation: isolate;
 }
@@ -1718,7 +2428,7 @@
 /* the brand "crystal" — the S-cube mark as glossy coral glass */
 .contactCrystal {
   position: relative;
-  width: clamp(140px, 20vw, 280px);
+  width: clamp(80px, 11vw, 160px);
   will-change: transform, filter, opacity;
 }
 .contactCrystalSvg {
@@ -1745,7 +2455,7 @@
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text-bright);
-  margin: 0.4em 0 0;
+  margin: 0.2em 0 0;
   max-width: 18ch;
 }
 
@@ -1770,7 +2480,7 @@
 }
 
 .contactBody {
-  margin-top: 1.4em;
+  margin-top: 0.85em;
   max-width: 52ch;
   font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   line-height: 1.6;
@@ -1778,11 +2488,11 @@
 }
 
 .contactActions {
-  margin-top: clamp(30px, 4vw, 48px);
+  margin-top: clamp(20px, 2.4vw, 30px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 22px;
+  gap: 16px;
 }
 
 .contactMail {
@@ -1806,7 +2516,6 @@
   font-size: 0.95rem;
   color: var(--accent);
 }
-
 
 /* ---- prominent enquiry CTA — solid coral by default, sheen sweep on hover ---- */
 .holdBtn {
@@ -1898,10 +2607,26 @@
   padding: 0 var(--gutter);
 }
 
+/* Two stages, because there are now FOUR sitemap columns (Services,
+   Industries, Company, Resources) and brand + 4 does not fit a tablet. The
+   middle stage drops the brand block onto its own full-width row and pairs the
+   columns two-up; the wide stage is the intended one-row arrangement. */
 @media (min-width: 700px) {
   .footerGrid {
-    grid-template-columns: 1.6fr repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     align-items: start;
+  }
+  .footerBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1100px) {
+  .footerGrid {
+    grid-template-columns: 1.4fr repeat(4, 1fr);
+  }
+  .footerBrand {
+    grid-column: auto;
   }
 }
 
@@ -2034,6 +2759,141 @@
   color: var(--text-bright);
 }
 
+/* ---- social marks, in the brand block ---- */
+.footerSocial {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 0;
+  padding: 0;
+}
+
+.footerSocial a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.footerSocial a:hover {
+  color: var(--accent);
+  border-color: var(--accent-border);
+  transform: translateY(-2px);
+}
+
+.footerSocialIcon {
+  width: 15px;
+  height: 15px;
+}
+
+/* ---- certification / offices / phones band ---- */
+.footerMeta {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(26px, 3vw, 44px);
+  margin-top: clamp(32px, 4vw, 56px);
+  padding: clamp(26px, 3vw, 40px) var(--gutter) 0;
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 700px) {
+  .footerMeta {
+    grid-template-columns: auto 1fr auto;
+    align-items: start;
+  }
+}
+
+/* The badge artwork is a JPEG on white, so it sits on an explicit light plate
+   rather than bleeding a white rectangle into the near-black footer. */
+.footerCertBadge {
+  display: block;
+  width: fit-content;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.footerCertImg {
+  display: block;
+  width: clamp(140px, 15vw, 180px);
+  height: auto;
+}
+
+.footerOfficeList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 2vw, 28px);
+}
+
+@media (min-width: 520px) {
+  .footerOfficeList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.footerOffice {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.88rem;
+  font-style: normal;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.footerOfficeRegion {
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.footerOfficeName {
+  color: var(--text-bright);
+}
+
+.footerPhoneList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footerPhoneList li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.footerPhoneRegion {
+  min-width: 2.2em;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.footerPhoneList a {
+  font-size: 0.92rem;
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+.footerPhoneList a:hover {
+  color: var(--accent);
+}
+
 .footerBottom {
   display: flex;
   flex-wrap: wrap;
@@ -2046,6 +2906,19 @@
   font-size: 11px;
   letter-spacing: 0.1em;
   color: var(--muted);
+}
+
+/* The legal line reads as one sentence of small print, so its links inherit the
+   muted ink and only separate themselves from the labels beside them on hover
+   — not with a permanent underline that would break the line up. */
+.footerLegal a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footerLegal a:hover {
+  color: var(--text-bright);
 }
 
 /* ============================================================
@@ -2104,6 +2977,10 @@
   /* horizontal scroll-snap gallery on desktop — native overflow-x, no pin */
   .workH {
     padding: 0;
+    /* breaks the seam with the pinned Journey scene above. The section centres
+       its own content inside 100vh, so this only has to separate the two — a
+       larger gap just reads as a dead band of canvas. */
+    margin-top: clamp(56px, 6vw, 96px);
   }
 
   .hInner {
@@ -2122,13 +2999,29 @@
     align-self: center;
   }
 
+  /* This column is ~460px wide, where the global .h2 (up to 4rem) breaks a
+     seven-word title into a six-line wall that overruns the viewport and
+     dwarfs the lane beside it. Same family, weight and tracking — one step
+     down the display scale, so the hierarchy still reads as display type.
+     Only on desktop: below 1000px the intro is full width and the global
+     scale is correct there. */
+  .hIntro .h2 {
+    font-size: clamp(1.75rem, 2.5vw, 2.75rem);
+  }
+  .hIntro .lead {
+    font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
+  }
+
   /* the scrollable lane: native horizontal scroll + snap, so drag/swipe/
      trackpad/shift-wheel and the arrow buttons all just work with no JS
      driving the motion. Scrollbar hidden — the tick + arrows are the UI. */
   .hLane {
     flex: 1 1 auto;
     min-width: 0;
-    height: 100%;
+    /* sized by its tallest tile, not the 100vh shell: overflow-y computes to
+       `auto` next to overflow-x, so a fixed height would clip the unclamped
+       summaries instead of growing. .hInner still centres it in the viewport. */
+    height: auto;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
@@ -2156,14 +3049,15 @@
     flex-wrap: nowrap;
     grid-template-columns: none;
     gap: clamp(32px, 4vw, 84px);
-    align-items: center;
+    /* tops line up so a longer summary just runs further down its own tile */
+    align-items: flex-start;
     padding: 0 12vw 0 clamp(24px, 3vw, 60px);
     user-select: none;
   }
 
   .hTile {
     flex: 0 0 auto;
-    width: min(40vw, 540px);
+    width: clamp(300px, 32vw, 440px);
     scroll-snap-align: start;
     user-select: none;
   }
@@ -2172,14 +3066,20 @@
     user-drag: none;
   }
 
+  /* The tile carries a case-study summary under the foot, so the image gives
+     up the room for it. Bounded in px as well as vh: a short laptop window
+     made a bare 32vh collapse to ~190px, and a tall monitor stretched it back
+     into dominating the tile. */
   .hMedia {
     aspect-ratio: auto;
-    height: 60vh;
+    height: clamp(230px, 34vh, 340px);
   }
 
   .hOutro {
     flex: 0 0 auto;
     width: min(34vw, 460px);
+    /* the closing panel is short — keep it centred against the tile tops */
+    align-self: center;
     scroll-snap-align: start;
   }
 
@@ -2252,7 +3152,7 @@
   }
 
   .hMedia {
-    aspect-ratio: 4 / 5 !important;
+    aspect-ratio: 4 / 3 !important;
     height: auto !important;
   }
 
@@ -2495,16 +3395,23 @@
 /* ============================================================
    JOURNEY (AI TRANSFORMATION JOURNEY)
    ============================================================ */
+/* No margin here on desktop: this section is GSAP-pinned (`journeyPin`, start
+   "top top") and sized to exactly 100vh for that pin, so a margin lands on the
+   pin-spacer and shows up as a dead band before a scene that already carries
+   its own vignette. The seam with the section AFTER it is spaced from that
+   section's own margin-top instead — see .workH. */
 .journeySection {
   position: relative;
   overflow: hidden;
   width: 100%;
+  margin-top: clamp(48px, 6vw, 80px);
 }
 @media (min-width: 1000px) {
   .journeySection {
     height: 100vh;
     min-height: 100vh;
     padding: 0 !important;
+    margin-top: 0;
   }
 }
 
@@ -2540,7 +3447,7 @@
   opacity: 0.7;
 }
 .journeyDecor {
-  opacity: 0.4;
+  opacity: 0.22;
 }
 .journeyNeb {
   animation: journeyNebPulse 9s ease-in-out infinite;
@@ -2573,22 +3480,24 @@
 .beamTrack {
   fill: none;
   stroke: var(--line);
-  stroke-width: 2;
-  opacity: 0.45;
+  stroke-width: 1.5;
+  opacity: 0.26;
 }
+/* Halved and faded: at 12px wide and .55 opacity the beam was the brightest
+   thing on screen, which is the opposite of what a connector should be. */
 .beamGlow {
   fill: none;
   stroke: url(#j-beam);
-  stroke-width: 12;
+  stroke-width: 6;
   stroke-linecap: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  opacity: 0.55;
+  opacity: 0.28;
 }
 .beamCore {
   fill: none;
   stroke: url(#j-beam);
-  stroke-width: 3.5;
+  stroke-width: 2.25;
   stroke-linecap: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
@@ -2604,16 +3513,25 @@
 
 /* ---- hubs (installations along the route) ---- */
 .hub {
-  opacity: 0.42;
-  transition: opacity 0.6s ease, filter 0.6s ease;
+  opacity: 0.3;
+  color: var(--muted);
+  transition: opacity 0.6s ease, filter 0.6s ease, color 0.6s ease;
 }
 .hubVisited {
-  opacity: 0.62;
+  opacity: 0.5;
+  color: var(--text);
 }
 .hubActive {
   opacity: 1;
-  filter: drop-shadow(0 0 22px rgba(255, 84, 54, 0.35));
+  color: var(--accent);
+  filter: drop-shadow(0 0 26px rgba(255, 84, 54, 0.45));
 }
+/* The single accent mark inside a phase icon. It rides `currentColor` with
+   the rest of the drawing, so the whole icon lights as one. */
+.glyphAccent {
+  opacity: 0.9;
+}
+
 .hubAura {
   opacity: 0.18;
   transition: opacity 0.6s ease, transform 0.6s ease;
@@ -2623,6 +3541,17 @@
 .hubActive .hubAura {
   opacity: 0.95;
 }
+.hubIndex,
+.hubTitle {
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.hubActive .hubIndex,
+.hubActive .hubTitle {
+  opacity: 1;
+}
+
 .hubIndex {
   font-family: var(--font-eyebrow);
   font-size: 12px;
@@ -2654,13 +3583,30 @@
 .journeyRail {
   position: absolute;
   left: clamp(40px, 6vw, 120px);
-  bottom: clamp(64px, 12vh, 140px);
+  top: clamp(60px, 6vh, 80px);
   z-index: 10;
   width: min(46vw, 560px);
   pointer-events: none;
 }
 .journeyRail .eyebrow {
-  margin-bottom: 22px;
+  margin-bottom: 18px;
+}
+.journeyTitle {
+  margin: 0 0 14px;
+  max-width: 480px;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 2.6vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+.journeyLead {
+  margin: 0 0 26px;
+  max-width: 42ch;
+  font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.6;
+  color: var(--muted);
 }
 .railList {
   list-style: none;
@@ -3569,10 +4515,13 @@
    `.stackCard`'s own `transform` for the fan-in entrance and normalizes away
    any standalone `rotate`/`scale` it finds on that element, so a persistent
    tilt has to live one level up on an element GSAP never touches. */
+/* A 4:3-ish plate rather than a square: with the figure sized as the card's
+   hero there is nothing left to fill a square with, and the shorter card
+   gives the band back about a third of a screen. */
 .stackTilt {
   width: 100%;
   max-width: min(320px, 34vh);
-  min-height: min(320px, 34vh);
+  min-height: min(250px, 30vh);
   /* passes .stackWrap's perspective through to .stackCard's GSAP-driven
      rotateX/rotateY entrance, since that 3D context only reaches direct
      children by default and this wrapper now sits between them. */
@@ -3618,38 +4567,45 @@
   box-shadow: 0 40px 84px -26px rgba(255, 84, 54, 0.45);
 }
 
-/* card header tab — grows to fit its label (wraps to a 2nd line rather than
-   ellipsizing) so nothing like "AI & Engineering Specialists" gets clipped.
-   Hardcoded to #ff5436 so the tab matches the "Book AI Strategy Call" button
-   regardless of whether a .light band overrides --accent. */
+/* card header — a mono kicker between two coral points over a hairline, in the
+   page's eyebrow vocabulary. It used to be a solid coral block; four of those
+   in a row out-shouted the figures they were labelling, on a page that spends
+   its one accent sparingly. The coral now lives in the points, the icon and
+   the figure's suffix instead. Labels are kept to one line at source. */
 .stackTab {
   flex: 0 0 auto;
-  min-height: clamp(54px, 5.8vh, 66px);
+  min-height: clamp(46px, 5vh, 56px);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(8px, 1.2vw, 16px);
+  gap: clamp(8px, 1.2vw, 14px);
   padding: clamp(6px, 0.9vh, 10px) clamp(12px, 2vw, 20px);
-  background: #ff5436;
+  border-bottom: 1px solid var(--line);
   border-radius: 18px 18px 0 0;
 }
 .stackTabTitle {
   font-family: var(--font-eyebrow);
-  font-size: clamp(10.5px, 1.1vw, 13px);
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-size: clamp(10px, 0.78vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #140b08;
+  color: var(--muted);
   text-align: center;
   line-height: 1.28;
 }
+/* One line on desktop, where the cards are wide enough for it; below that the
+   four-up grid is too narrow and a label may wrap rather than overflow. */
+@media (min-width: 1000px) {
+  .stackTabTitle {
+    white-space: nowrap;
+  }
+}
 .stackTabDot {
   flex: 0 0 auto;
-  width: 7px;
-  height: 7px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: #140b08;
-  opacity: 0.85;
+  background: var(--accent);
 }
 
 @media (min-width: 1000px) {
@@ -3661,20 +4617,20 @@
   }
   .stackTilt {
     max-width: min(370px, 38vh);
-    min-height: min(370px, 38vh);
+    min-height: min(290px, 34vh);
   }
 }
-/* dark body: icon + rolling figure + supporting line — sized to fill the rest
-   of the square below the tab, so there's no dead air between the content
-   and the card edges. */
+/* body: icon + rolling figure + supporting line. Top-aligned, not centred, so
+   the icons and figures of all four cards sit on one line across the row
+   whatever the caption under each of them wraps to. */
 .stackBody {
   flex: 1 1 auto;
   min-height: 0;
-  padding: clamp(12px, 1.6vw, 20px) clamp(12px, 1.6vw, 18px);
+  padding: clamp(18px, 2.4vh, 28px) clamp(12px, 1.6vw, 18px) clamp(14px, 1.8vw, 20px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
   gap: clamp(10px, 1.3vw, 16px);
   background: var(--bg);
@@ -3688,13 +4644,18 @@
   width: clamp(28px, 3vw, 36px);
   height: auto;
 }
+/* The figure is the card's hero — the page's oversized ultralight serif at
+   display size, with the suffix in the accent. */
 .stackNum {
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+  font-size: clamp(2.6rem, 4.6vw, 4rem);
   line-height: 1;
   letter-spacing: -0.04em;
   color: var(--text-bright);
+}
+.stackNum .odoSuffix {
+  color: var(--accent);
 }
 .stackLine {
   margin: 0;
@@ -3756,16 +4717,18 @@
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
-.clientsList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(8px, 1.4vw, 20px) clamp(24px, 5vw, 76px);
-  padding: clamp(22px, 3vw, 40px) clamp(8px, 2vw, 24px);
+/* `Marquee` renders its own track — this only sizes the strip and fades its
+   edges into the section background so marks appear to scroll in/out of the
+   canvas rather than getting cut off mid-logo. */
+.clientsMarquee {
+  padding: clamp(22px, 3vw, 40px) 0;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 clamp(24px, 6vw, 96px),
+    #000 calc(100% - clamp(24px, 6vw, 96px)),
+    transparent 100%
+  );
 }
 .clientsItem {
   display: flex;
@@ -3984,6 +4947,11 @@
     grid-template-columns: 0.82fr 1.18fr;
     gap: clamp(40px, 5vw, 90px);
     align-items: center;
+    /* Reserves the control row. `.carControls` is absolutely positioned at the
+       bottom of `.carDesktop`, so it takes no flow space of its own — without
+       this the stage centres into the full height and the active card (inline
+       `z-index: 30` from `cardStyle`) paints straight over the arrows. */
+    padding-bottom: clamp(64px, 8vh, 88px);
   }
   .carText {
     max-width: 32rem;
@@ -3994,11 +4962,19 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* stage holds the stacked cards — sized to what's left of the screen once
-     the section header above it has taken its share. */
+  /* Stage holds the stacked cards — sized to what's left of the screen once the
+     section header above it and the control row below it have taken their
+     share.
+     `max-height` is what actually guarantees no overlap, and it is the reason
+     the preferred height can be generous: the grid's content box already
+     excludes the control row (its `padding-bottom`), so capping the stage at
+     100% of it means the card cannot reach the arrows at ANY viewport height.
+     The old `min(54vh, 560px)` had no such cap, so on a short screen it simply
+     overflowed the row and painted over the controls. */
   .carStage {
     position: relative;
-    height: min(54vh, 560px);
+    height: min(52vh, 540px);
+    max-height: 100%;
   }
   .carCard {
     position: absolute;
@@ -4032,6 +5008,10 @@
     position: absolute;
     right: 0;
     bottom: 0;
+    /* Above the cards, which stack up to `z-index: 30` inline from `cardStyle`.
+       The padding on `.carGrid` already keeps the stage clear of this row; this
+       is what stops the arrows being buried again if the stage ever grows. */
+    z-index: 40;
     display: inline-flex;
     align-items: center;
     gap: 22px;
@@ -4167,6 +5147,8 @@
   inset: 0;
   z-index: 1;
   padding: clamp(10px, 6cqi, 22px);
+  /* extra bottom clearance so the body text never runs under the title strip */
+  padding-bottom: calc(clamp(10px, 6cqi, 22px) + 46px);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -4186,7 +5168,7 @@
   color: var(--card);
 }
 .indFanCardBody {
-  margin: 0 0 clamp(15px, 10cqi, 44px);
+  margin: 0;
   font-size: clamp(0.6rem, 5cqi, 0.86rem);
   line-height: clamp(1.2, 7cqi, 1.5);
   color: #eaeaea;
@@ -4471,4 +5453,723 @@
 .industriesFan.gridMode .indFanCard:hover {
   transform: translateY(-8px) !important;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* ============================================================
+   INDUSTRY RECOGNITIONS (awards wall)
+   ============================================================ */
+.recog {
+  border-top: 1px solid var(--line);
+}
+
+/* Two columns in the arrangement softsuave.com's own awards band uses: the
+   section's copy on the left, the badge strip and its dots on the right. Below
+   900px they simply stack, copy first. */
+.recogLayout {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+}
+
+.recogIntro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(12px, 1.6vw, 18px);
+}
+
+.recogIntro .h2 {
+  max-width: 14ch;
+}
+
+.recogIntro .lead {
+  max-width: 42ch;
+}
+
+/* Link out to the full wall at /awards-recognition. */
+.recogViewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(4px, 0.8vw, 10px);
+  font-family: var(--font-eyebrow);
+  font-size: clamp(10px, 0.72vw, 11px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.35s ease;
+}
+
+.recogViewAll:hover {
+  color: var(--text-bright);
+}
+
+.recogViewAll:hover .recogArrow {
+  transform: translateX(6px);
+}
+
+.recogShowcase {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.4vw, 30px);
+  min-width: 0;
+}
+
+/* A real scroller, so a swipe or trackpad gesture moves the strip and every
+   badge stays reachable with the dots idle. Snap points make a manual drag
+   settle where the dots step to. */
+.recogStrip {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  display: flex;
+  gap: clamp(18px, 2.4vw, 36px);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  /* Badges fade out at an edge they continue past, instead of being sliced
+     down the middle by the viewport. The two widths are separate custom
+     properties so each edge can be switched off independently below. */
+  --recog-fade-l: clamp(16px, 3vw, 48px);
+  --recog-fade-r: clamp(16px, 3vw, 48px);
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 var(--recog-fade-l),
+    #000 calc(100% - var(--recog-fade-r)),
+    transparent 100%
+  );
+}
+
+/* An edge with nothing behind it is a real end, not a continuation, so it
+   holds a hard edge — otherwise the first and last badge would sit half-faded
+   with no more strip to explain why. The component sets these from its
+   measured scroll position. */
+.recogStrip[data-at-start] {
+  --recog-fade-l: 0px;
+}
+
+.recogStrip[data-at-end] {
+  --recog-fade-r: 0px;
+}
+
+.recogStrip::-webkit-scrollbar {
+  display: none;
+}
+
+.recogStrip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 8px;
+  border-radius: 14px;
+}
+
+.recogStripItem {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  display: flex;
+}
+
+/* Dots: one per resting position, the active one filled coral. */
+.recogDots {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  align-self: center;
+}
+
+.recogDot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--line);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.recogDot:hover {
+  background: var(--muted);
+}
+
+.recogDotOn {
+  background: var(--accent);
+  transform: scale(1.25);
+}
+
+@media (min-width: 900px) {
+  .recogLayout {
+    grid-template-columns: 0.82fr 1.18fr;
+  }
+}
+
+/* disclosure trigger — the wall below starts collapsed */
+
+/* GSAP tweens this between height 0 and auto, so no padding here — padding
+   would keep rendering while the panel is closed. */
+
+/* footer link out to the full awards page */
+
+.recogArrow {
+  width: 34px;
+  height: 8px;
+  color: var(--accent);
+  transition: transform 0.35s ease;
+}
+
+/* the wall: hairline cells that reflow from four columns to one without a
+   layout decision, so adding a recognition is a content-only change. */
+/* Standalone /awards-recognition page: clears the fixed nav, which the homepage
+   band never has to do because sections above it provide the runway. */
+.awardsPageSection {
+  padding-top: clamp(120px, 16vh, 190px) !important;
+  padding-bottom: clamp(56px, 8vh, 100px) !important;
+}
+
+.recogWall {
+  list-style: none;
+  max-width: 1400px;
+  margin: clamp(32px, 4.5vw, 64px) auto 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.recogCell {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.recogCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  height: 100%;
+  padding: clamp(22px, 2.4vw, 32px);
+  transition: background 0.4s ease;
+}
+
+.recogCell:hover .recogCard {
+  background: var(--surface);
+}
+
+/* Directory badge artwork (public/brand/awards). These badges are drawn for
+   white backgrounds — several bake one in, and the rest are navy ink that would
+   sink into the canvas — so each sits on a light plaque rather than being
+   recoloured. Padding + object-fit keeps twelve different aspect ratios
+   (382x57 to 1634x1177) optically the same size. */
+.recogBadge {
+  position: relative;
+  width: clamp(112px, 9.5vw, 136px);
+  height: clamp(62px, 5.2vw, 76px);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 10px 24px -18px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.recogBadgeImg {
+  padding: 9px;
+  object-fit: contain;
+}
+
+/* In the homepage strip the badge is the whole of the card, so it runs bigger
+   and square — the shield and hexagon artwork is roughly as tall as it is wide,
+   and the wall's wide plaque cropped it to a letterbox. `contain` means the
+   square is a frame, not a crop: every badge keeps its own proportions inside
+   it. */
+.recogStripItem .recogBadge {
+  width: clamp(112px, 10vw, 148px);
+  height: clamp(112px, 10vw, 148px);
+  border-radius: 16px;
+}
+
+.recogStripItem .recogBadgeImg {
+  padding: clamp(10px, 1vw, 16px);
+}
+
+.recogStripItem:hover .recogBadge {
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 1px var(--accent-border), 0 18px 34px -18px rgba(0, 0, 0, 0.95);
+}
+
+.recogCell:hover .recogBadge {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px var(--accent-border), 0 16px 30px -18px rgba(0, 0, 0, 0.95);
+}
+
+/* inside an inversion band the plaque's white no longer separates itself from
+   the surface, so it trades the dark drop shadow for a real hairline. */
+.light .recogBadge {
+  box-shadow: 0 0 0 1px rgba(23, 20, 15, 0.14), 0 10px 22px -18px rgba(23, 20, 15, 0.5);
+}
+
+.light .recogCell:hover .recogBadge {
+  box-shadow: 0 0 0 1px var(--accent-border), 0 16px 28px -18px rgba(23, 20, 15, 0.55);
+}
+
+/* Same reason as the cell above: on the warm-white band the strip's hover
+   lift kept a near-black drop shadow, which read as a smudge. */
+.light .recogStripItem:hover .recogBadge {
+  box-shadow: 0 0 0 1px var(--accent-border), 0 18px 32px -18px rgba(23, 20, 15, 0.55);
+}
+.recogSeal {
+  display: block;
+  width: clamp(38px, 3.4vw, 46px);
+  height: clamp(38px, 3.4vw, 46px);
+}
+
+.recogSeal svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* the ring draws itself in on hover — the only motion in the cell */
+.recogRing {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.2;
+  opacity: 0.45;
+  transform-origin: 22px 19px;
+  transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.recogCell:hover .recogRing {
+  opacity: 1;
+  transform: rotate(180deg);
+}
+
+.recogTitle {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.0625rem, 1.5vw, 1.375rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.recogMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: auto 0 0;
+  padding-top: 6px;
+  font-family: var(--font-eyebrow);
+  font-size: clamp(10px, 0.72vw, 11px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.recogYear {
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+}
+
+/* ============================================================
+   NAV MEGA MENU
+   Full-bleed drawer under the bar: lede / category rail / item grid.
+   It lives inside <header>, so `.navLight`'s re-pointed vars cascade into it
+   and the whole panel inverts with the bar over a light band.
+   ============================================================ */
+.navChev {
+  width: 5px;
+  height: 5px;
+  margin-left: 7px;
+  border-right: 1.2px solid currentColor;
+  border-bottom: 1.2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  opacity: 0.65;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.navLinks a[aria-expanded="true"] .navChev {
+  transform: translateY(0) rotate(-135deg);
+  opacity: 1;
+}
+
+/* while a panel is open the bar can't stay transparent over the hero — the
+   drawer would float off nothing. Two classes so `.navLight` still wins. */
+.nav.navPanelOpen:not(.navLight) {
+  background: rgba(10, 10, 10, 0.97);
+  backdrop-filter: blur(18px);
+}
+
+.nav.navPanelOpen.navLight {
+  background: rgba(248, 246, 243, 0.98);
+}
+
+.megaPanel {
+  display: none;
+  position: absolute;
+  top: 100%;
+  /* the header's containing block is its padding box, so pull back out to the
+     viewport edges by exactly the gutter it pads with */
+  inset-inline: calc(-1 * var(--gutter));
+  background: rgba(10, 10, 10, 0.97);
+  backdrop-filter: blur(18px);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--nav-link-accent);
+  box-shadow: 0 40px 80px -50px rgba(0, 0, 0, 0.95);
+  cursor: default;
+}
+
+.navLight .megaPanel {
+  background: rgba(248, 246, 243, 0.98);
+  box-shadow: 0 40px 70px -50px rgba(23, 20, 15, 0.55);
+}
+
+.megaInner {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.85fr) minmax(230px, 0.85fr) minmax(0, 1.9fr);
+  gap: clamp(20px, 2.6vw, 52px);
+  padding: clamp(26px, 2.6vw, 42px) var(--gutter) clamp(30px, 3vw, 48px);
+  max-height: calc(100vh - 84px);
+  overflow-y: auto;
+}
+
+.megaTitle {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.35rem, 1.8vw, 1.9rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+  margin: 0.7em 0 0;
+  max-width: 22ch;
+}
+
+.megaBody {
+  margin-top: 0.9em;
+  max-width: 34ch;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.megaLedeCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  margin-top: 1.5em;
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--nav-link-accent);
+  transition: gap 0.3s ease;
+}
+
+.megaLedeCta:hover {
+  gap: 1em;
+}
+
+.megaRail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-right: 1px solid var(--line);
+  padding-right: clamp(10px, 1.2vw, 22px);
+}
+
+.megaRailItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.3;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.megaRailItem:hover {
+  color: var(--text-bright);
+}
+
+.megaRailItemOn {
+  background: var(--surface);
+  color: var(--text-bright);
+}
+
+.megaRailItemOn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--nav-link-accent);
+}
+
+.megaRailNum {
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.megaItems {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 8px;
+  align-content: start;
+  padding: clamp(10px, 1vw, 16px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+/* name-only lists (roles, skills) read better three-up and compact */
+.megaItemsDense {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.megaItem {
+  display: flex;
+  gap: 11px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.megaItem:hover {
+  background: var(--surface-3);
+}
+
+.megaItemNum {
+  padding-top: 2px;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--nav-link-accent);
+}
+
+.megaItemText {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.megaItemName {
+  font-size: 0.9rem;
+  line-height: 1.3;
+  color: var(--text-bright);
+}
+
+.megaItemBlurb {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* ---- burger overlay: the same four divisions as accordions ---- */
+.overlayNav {
+  width: min(560px, 92vw);
+  max-height: 86vh;
+  overflow-y: auto;
+}
+
+.mobDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobDivHead {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(2rem, 8vw, 3.4rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+  transition: color 0.3s ease;
+}
+
+.mobDivHead[aria-expanded="true"] {
+  color: var(--accent);
+}
+
+.mobChev {
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-3px) rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+.mobDivHead[aria-expanded="true"] .mobChev {
+  transform: translateY(0) rotate(-135deg);
+}
+
+.mobPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 14px 0 22px;
+  text-align: center;
+}
+
+.mobGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobGroupName {
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+}
+
+/* two classes, so this beats `.overlayNav a`'s display serif */
+.overlayNav .mobItem {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--text);
+}
+
+.overlayNav .mobItem:hover {
+  color: var(--text-bright);
+}
+
+.overlayNav .mobItemCta {
+  margin-top: 4px;
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+@media (min-width: 1000px) {
+  .megaPanel {
+    display: block;
+  }
+}
+
+/* ---- three-level groups ----
+   A category holding an item with children lays out as columns: each item is a
+   heading with its own list under a hairline, so the third level reads as part
+   of the same grid rather than a popup off a popup. */
+.megaItemsNested {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 24px);
+}
+
+.megaBlock {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px;
+}
+
+.megaBlockHead {
+  display: flex;
+  gap: 11px;
+}
+
+.megaBlockHead:hover .megaItemName {
+  color: var(--nav-link-accent);
+}
+
+.megaBlockBlurb {
+  margin-top: 4px;
+  padding-left: 21px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.megaSubList {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 0 5px;
+  padding-left: 15px;
+  border-left: 1px solid var(--line);
+}
+
+.megaSubItem {
+  padding: 5px 0;
+  font-size: 0.83rem;
+  line-height: 1.35;
+  color: var(--text);
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.megaSubItem:hover {
+  color: var(--nav-link-accent);
+  transform: translateX(2px);
+}
+
+/* mobile: the third level indents under its parent */
+.mobEntry {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.overlayNav .mobSubItem {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+.overlayNav .mobSubItem:hover {
+  color: var(--text-bright);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CONTACT PAGE MASTHEAD (/contact)
+   Sits above the shared `.contact` finale on the standalone contact page. Its
+   height is not only nav clearance: it is also the scroll runway `.contact`'s
+   scrubbed focus-pull needs, which it always had as the homepage's last section.
+   ──────────────────────────────────────────────────────────────────────────── */
+.contactLead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: clamp(128px, 17vh, 210px) var(--gutter) clamp(48px, 7vh, 90px);
+}
+
+.contactLead .lead {
+  max-width: 54ch;
 }

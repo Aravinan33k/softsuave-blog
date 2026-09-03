@@ -25,4 +25,6 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/custome-ai-developement', title: 'Custom AI Development Services' },
   { path: '/generative-ai-development-company', title: 'Generative AI Development Company' },
   { path: '/agentic-ai-development-services', title: 'Agentic AI Development Services' },
+  { path: '/contact', title: 'Contact Us' },
+  { path: '/awards-recognition', title: 'Awards and Recognition' },
 ] as const;

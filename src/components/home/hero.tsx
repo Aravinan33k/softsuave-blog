@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { hero } from "@/lib/home/content";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import Magnetic from "./magnetic";
@@ -49,7 +50,6 @@ export default function Hero() {
       // Load reveal (hands off from preloader).
       const tl = gsap.timeline({ delay: startDelay });
       tl.from(frame.current, { opacity: 0, duration: 1.4, ease: "power2.out" })
-        .from(`.${styles.heroEyebrow}`, { opacity: 0, y: 16, duration: 0.7, ease: "power2.out" }, 0.2)
         .from(
           lines,
           { yPercent: 118, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.08 },
@@ -108,8 +108,6 @@ export default function Hero() {
       </div>
 
       <div ref={content} className={styles.heroContent}>
-        <span className={styles.heroEyebrow}>✦ From idea to outcome.</span>
-
         <h1 className={styles.heroTitle}>
           <span className={styles.heroLine}>
             <span className={styles.heroLineInner}>Empowering businesses</span>
@@ -138,9 +136,9 @@ export default function Hero() {
 
         <div className={styles.heroCtaRow}>
           <Magnetic>
-            <a href={hero.primaryCta.href} className={styles.pillFilled} data-cursor="Book">
+            <Link href={hero.primaryCta.href} className={styles.pillFilled} data-cursor="Book">
               {hero.primaryCta.label}
-            </a>
+            </Link>
           </Magnetic>
           <Magnetic>
             <a href={hero.secondaryCta.href} className={styles.pill} data-cursor="Explore">

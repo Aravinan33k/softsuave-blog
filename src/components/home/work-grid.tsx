@@ -5,37 +5,27 @@ import BrandImage from "./brand-image";
 import { caseStudies } from "@/lib/home/content";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import SplitReveal from "./split-reveal";
+import Magnetic from "./magnetic";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./home.module.css";
 
-type Tile = { img: string; tag: string; title: string; metric: string; year: string };
+type Tile = {
+  img: string;
+  tag: string;
+  title: string;
+  body: string;
+  metric: string;
+  year: string;
+};
 
-const extra: Tile[] = [
-  {
-    img: "work-5",
-    tag: "EdTech",
-    title: "Adaptive Learning & Smart Content Curation",
-    metric: "Personalized at scale",
-    year: "2025",
-  },
-  {
-    img: "work-6",
-    tag: "Enterprise",
-    title: "Legacy Modernization with Cloud & AI",
-    metric: "Faster, resilient systems",
-    year: "2024",
-  },
-];
-
-const tiles: Tile[] = [
-  ...caseStudies.items.map((c, i) => ({
-    img: `work-${i + 1}`,
-    tag: c.tag,
-    title: c.title,
-    metric: `${c.metricValue} ${c.metricLabel}`,
-    year: c.year,
-  })),
-  ...extra,
-];
+const tiles: Tile[] = caseStudies.items.map((c) => ({
+  img: c.img,
+  tag: c.tag,
+  title: c.title,
+  body: c.body,
+  metric: `${c.metricValue} ${c.metricLabel}`,
+  year: c.year,
+}));
 
 /**
  * Selected work — a horizontal scroll-snap gallery. On desktop the lane is a
@@ -336,11 +326,23 @@ export default function WorkGrid() {
     <section ref={sectionRef} className={styles.workH} id="work">
       <div ref={root} className={styles.hInner}>
         <div className={styles.hIntro}>
-          <span className={styles.eyebrow}>{caseStudies.eyebrow} · Case Studies</span>
+          <span className={styles.eyebrow}>{caseStudies.eyebrow}</span>
           <SplitReveal as="h2" className={styles.h2} type="words">
             {caseStudies.title}
           </SplitReveal>
           <p className={styles.lead}>{caseStudies.body}</p>
+
+          <div className={styles.hIntroCta}>
+            <Magnetic>
+              <SiteLink
+                href={caseStudies.cta.href}
+                className={styles.pill}
+                data-cursor="View"
+              >
+                {caseStudies.cta.label}
+              </SiteLink>
+            </Magnetic>
+          </div>
 
           <div className={styles.hControls}>
             <span className={styles.carCounter}>{String(tiles.length).padStart(2, "0")} projects</span>
@@ -405,6 +407,7 @@ export default function WorkGrid() {
                   </div>
                   <span className={styles.tileMetric}>{t.metric}</span>
                 </div>
+                <p className={styles.tileBody}>{t.body}</p>
               </article>
             ))}
 

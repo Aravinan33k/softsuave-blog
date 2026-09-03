@@ -14,6 +14,7 @@ const SECTIONS: Section[] = [
   { id: "journey", label: "Journey" },
   { id: "work", label: "Case Studies" },
   { id: "integrations", label: "Integrations" },
+  { id: "awards", label: "Awards" },
   { id: "tech", label: "Tech Stack" },
   { id: "testimonials", label: "Reviews" },
   { id: "contact", label: "Contact" },

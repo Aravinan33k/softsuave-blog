@@ -31,7 +31,9 @@ const rand = (i: number, s: number) => {
   const v = Math.sin(i * 127.1 + s * 311.7) * 43758.5453;
   return v - Math.floor(v);
 };
-const DECOR_COLORS = ["var(--line)", "var(--line)", "var(--brand-coral)", "#22d3ee", "var(--line)"];
+/* The theme has ONE accent. The cyan that used to sit in here was off-palette
+   and made the scene read as two competing colour systems. */
+const DECOR_COLORS = ["var(--line)", "var(--line)", "var(--brand-coral)", "var(--line)", "var(--line)"];
 
 /** Faint tech artifact (circuit / hexagon / node-net / chip / code) scattered in the world. */
 function techDecorGlyph(type: number, color: string) {
@@ -152,8 +154,11 @@ export default function Journey() {
   // Values are rounded to 4 decimal places so SSR (Node) and client (browser)
   // produce identical transform strings — Math.sin minor differences at high
   // precision otherwise cause hydration mismatches.
-  const decor = Array.from({ length: 18 }, (_, i) => {
-    const t = i / 17;
+  /* Six, down from eighteen. The scattered artifacts were the bulk of the
+     clutter the phases were competing with; enough remain to populate the world
+     without reading as content. */
+  const decor = Array.from({ length: 6 }, (_, i) => {
+    const t = i / 5;
     const x = +(160 + t * (spanX + 500) + (rand(i, 5) - 0.5) * 320).toFixed(4);
     const y = +(rand(i, 1) < 0.5 ? 90 + rand(i, 4) * 200 : 620 + rand(i, 4) * 230).toFixed(4);
     return {
@@ -296,25 +301,7 @@ export default function Journey() {
             >
               <circle cx="2" cy="2" r="1.5" fill="var(--line)" />
             </pattern>
-            {/* sparse brighter star field for depth/density */}
-            <pattern id="j-stars" width="150" height="150" patternUnits="userSpaceOnUse">
-              <circle cx="24" cy="36" r="1.3" fill="#ffffff" opacity="0.55" />
-              <circle cx="108" cy="96" r="1" fill="var(--brand-coral)" opacity="0.5" />
-              <circle cx="70" cy="18" r="0.8" fill="#ffffff" opacity="0.35" />
-              <circle cx="132" cy="132" r="0.9" fill="#22d3ee" opacity="0.4" />
-              <circle cx="12" cy="120" r="0.8" fill="#ffffff" opacity="0.3" />
-            </pattern>
-            {/* ambient nebula blobs to fill the space between phases */}
-            <radialGradient id="j-neb-coral" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="var(--brand-coral)" stopOpacity="0.18" />
-              <stop offset="55%" stopColor="var(--brand-red)" stopOpacity="0.06" />
-              <stop offset="100%" stopColor="var(--brand-coral)" stopOpacity="0" />
-            </radialGradient>
-            <radialGradient id="j-neb-cyan" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.14" />
-              <stop offset="100%" stopColor="#22d3ee" stopOpacity="0" />
-            </radialGradient>
-          </defs>
+            </defs>
 
           <g ref={cameraRef} className={styles.journeyCamera}>
             {/* abstract tactical iso field */}
@@ -326,32 +313,6 @@ export default function Journey() {
               height={VIEW_H + 1200}
               fill="url(#j-dots)"
             />
-            {/* sparse star field over the grid for depth */}
-            <rect
-              className={styles.journeyStars}
-              x={-600}
-              y={-600}
-              width={spanX + 1800}
-              height={VIEW_H + 1200}
-              fill="url(#j-stars)"
-            />
-            {/* ambient nebula blobs filling the gaps between phases */}
-            {hubs.map((h, i) => {
-              const next = hubs[i + 1];
-              if (!next) return null;
-              const bx = (h.x + next.x) / 2;
-              const by = (h.y + next.y) / 2 + (i % 2 ? 150 : -150);
-              return (
-                <circle
-                  key={`neb-${i}`}
-                  className={styles.journeyNeb}
-                  cx={bx}
-                  cy={by}
-                  r={400}
-                  fill={`url(#${i % 2 ? "j-neb-cyan" : "j-neb-coral"})`}
-                />
-              );
-            })}
 
             {/* scattered tech artifacts along the world */}
             {decor.map((d) => (
@@ -405,6 +366,10 @@ export default function Journey() {
         {/* left rail */}
         <div className={styles.journeyRail}>
           <span className={styles.eyebrow}>{journey.eyebrow}</span>
+          <SplitReveal as="h2" className={styles.journeyTitle} type="words">
+            {journey.title}
+          </SplitReveal>
+          <p className={styles.journeyLead}>{journey.body}</p>
           <ol className={styles.railList}>
             {steps.map((s, i) => (
               <li
@@ -466,111 +431,111 @@ export default function Journey() {
 }
 
 /** Inner shapes for each phase glyph (wrapped by a <svg> at the call site). */
+/**
+ * The six phase icons.
+ *
+ * One system, not six drawings. Every icon obeys the same spec so the set reads
+ * as a family rather than as clip art gathered from different places:
+ *
+ *   box            200x200, with all geometry inside 45-155 so nothing can clip
+ *   stroke         2.5, round caps and joins, no fills
+ *   colour         `currentColor` throughout, so the HUB decides it — a muted
+ *                  line when the phase is idle, coral when it is active. That is
+ *                  what makes the active phase read as active; the icons carry
+ *                  no colour of their own.
+ *   accent         exactly one `.glyphAccent` mark per icon, the focal point
+ *
+ * Each is a literal reading of its phase rather than an abstract pattern:
+ *
+ *   01 Challenge    a target with the marker off centre — the problem to hit
+ *   02 Assessment   a magnifier over data bars — examining what is there
+ *   03 Prototype    a dashed draft frame around a solid core — a first build
+ *   04 Integration  two brackets interlocking — joining to what exists
+ *   05 Deployment   a stack shipping upward — into production
+ *   06 Optimization a cycle around a rising trend — measure, tune, repeat
+ *
+ * NO `<defs>` in here, deliberately. Each icon used to carry its own
+ * `<radialGradient id="glowN">`, and `stepGlyph` is called once per hub in the
+ * desktop scene AND once per row in the mobile list — so every one of those ids
+ * appeared twice in the document. Duplicate ids are invalid, and `url(#glowN)`
+ * resolves to whichever came first, which is why the icons rendered
+ * inconsistently between the two layouts.
+ */
 function stepGlyph(num: string) {
+  const common = {
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2.5,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+  };
+
   switch (num) {
+    // 01 — Business Challenge: a target whose marker sits off centre.
     case "01":
       return (
-        <>
-          <defs>
-            <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          <circle cx="100" cy="100" r="85" fill="url(#glow1)" />
-          <circle cx="100" cy="100" r="75" stroke="var(--line)" strokeWidth="1" strokeDasharray="4 4" />
-          <circle cx="100" cy="100" r="45" stroke="var(--line)" strokeWidth="1" />
-          <line x1="20" y1="100" x2="180" y2="100" stroke="var(--line)" strokeWidth="1" />
-          <line x1="100" y1="20" x2="100" y2="180" stroke="var(--line)" strokeWidth="1" />
-          <circle cx="100" cy="100" r="8" fill="var(--accent)" className={styles.pulseDot} />
-        </>
+        <g {...common}>
+          <circle cx="100" cy="100" r="52" />
+          <circle cx="100" cy="100" r="30" />
+          <path d="M100 34v14M100 152v14M34 100h14M152 100h14" />
+          <circle className={styles.glyphAccent} cx="116" cy="86" r="7" fill="currentColor" stroke="none" />
+        </g>
       );
+
+    // 02 — AI Assessment: a magnifier reading a set of bars.
     case "02":
       return (
-        <>
-          <defs>
-            <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          <circle cx="100" cy="100" r="85" fill="url(#glow2)" />
-          <circle cx="100" cy="100" r="70" stroke="var(--line)" strokeWidth="1" />
-          <path d="M100 30 A 70 70 0 0 1 170 100" stroke="var(--accent)" strokeWidth="3" strokeLinecap="round" />
-          <circle cx="100" cy="100" r="30" stroke="var(--line)" strokeWidth="1" />
-          <circle cx="170" cy="100" r="5" fill="var(--accent)" />
-        </>
+        <g {...common}>
+          <circle cx="92" cy="92" r="42" />
+          <path d="M122 122l30 30" />
+          <path d="M76 104V88M92 104V76M108 104V94" />
+          <circle className={styles.glyphAccent} cx="92" cy="66" r="6" fill="currentColor" stroke="none" />
+        </g>
       );
+
+    // 03 — Prototype: a dashed draft frame around a solid core.
     case "03":
       return (
-        <>
-          <defs>
-            <radialGradient id="glow3" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          <circle cx="100" cy="100" r="85" fill="url(#glow3)" />
-          <rect x="50" y="50" width="80" height="80" stroke="var(--line)" strokeWidth="1.5" />
-          <rect x="70" y="70" width="80" height="80" stroke="var(--accent)" strokeWidth="1.5" strokeDasharray="3 3" />
-          <line x1="50" y1="50" x2="70" y2="70" stroke="var(--line)" strokeWidth="1.5" />
-          <line x1="130" y1="50" x2="150" y2="70" stroke="var(--line)" strokeWidth="1.5" />
-          <line x1="50" y1="130" x2="70" y2="150" stroke="var(--line)" strokeWidth="1.5" />
-          <line x1="130" y1="130" x2="150" y2="150" stroke="var(--line)" strokeWidth="1.5" />
-        </>
+        <g {...common}>
+          <rect x="48" y="48" width="104" height="104" rx="8" strokeDasharray="10 9" />
+          <rect x="78" y="78" width="44" height="44" rx="4" />
+          <path d="M48 70h104" strokeDasharray="10 9" />
+          <circle className={styles.glyphAccent} cx="62" cy="59" r="5" fill="currentColor" stroke="none" />
+        </g>
       );
+
+    // 04 — Integration: two brackets interlocking.
     case "04":
       return (
-        <>
-          <defs>
-            <radialGradient id="glow4" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          <circle cx="100" cy="100" r="85" fill="url(#glow4)" />
-          <circle cx="50" cy="100" r="10" fill="var(--surface)" stroke="var(--line)" strokeWidth="1.5" />
-          <circle cx="100" cy="50" r="10" fill="var(--surface)" stroke="var(--accent)" strokeWidth="2" />
-          <circle cx="100" cy="150" r="10" fill="var(--surface)" stroke="var(--line)" strokeWidth="1.5" />
-          <circle cx="150" cy="100" r="10" fill="var(--surface)" stroke="var(--accent)" strokeWidth="2" />
-          <line x1="60" y1="100" x2="90" y2="55" stroke="var(--line)" strokeWidth="1.5" />
-          <line x1="60" y1="100" x2="90" y2="145" stroke="var(--line)" strokeWidth="1.5" />
-          <line x1="110" y1="55" x2="140" y2="95" stroke="var(--line)" strokeWidth="1.5" />
-          <line x1="110" y1="145" x2="140" y2="95" stroke="var(--line)" strokeWidth="1.5" />
-        </>
+        <g {...common}>
+          <path d="M92 54H68a14 14 0 00-14 14v64a14 14 0 0014 14h24" />
+          <path d="M108 54h24a14 14 0 0114 14v64a14 14 0 01-14 14h-24" />
+          <path d="M74 100h22M104 100h22" />
+          <circle className={styles.glyphAccent} cx="100" cy="100" r="7" fill="currentColor" stroke="none" />
+        </g>
       );
+
+    // 05 — Deployment: a stack shipping upward.
     case "05":
       return (
-        <>
-          <defs>
-            <radialGradient id="glow5" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          <circle cx="100" cy="100" r="85" fill="url(#glow5)" />
-          <path d="M100 40 L160 70 L100 100 L40 70 Z" fill="var(--surface)" stroke="var(--line)" strokeWidth="1.5" />
-          <path d="M100 90 L160 120 L100 150 L40 120 Z" fill="var(--surface)" stroke="var(--accent)" strokeWidth="1.5" />
-          <path d="M100 140 L160 170 L100 200 L40 170 Z" fill="var(--surface)" stroke="var(--line)" strokeWidth="1.5" />
-          <line x1="100" y1="70" x2="100" y2="120" stroke="var(--accent)" strokeWidth="2" strokeDasharray="3 3" />
-        </>
+        <g {...common}>
+          <rect x="52" y="112" width="96" height="30" rx="6" />
+          <rect x="52" y="70" width="96" height="30" rx="6" />
+          <path d="M100 58V26M86 40l14-14 14 14" />
+          <circle className={styles.glyphAccent} cx="68" cy="127" r="5" fill="currentColor" stroke="none" />
+        </g>
       );
+
+    // 06 — Optimization: a cycle around a rising trend.
     case "06":
     default:
       return (
-        <>
-          <defs>
-            <radialGradient id="glow6" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          <circle cx="100" cy="100" r="85" fill="url(#glow6)" />
-          <path d="M30 150 L60 120 L90 130 L120 80 L150 90 L180 30" stroke="var(--accent)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx="180" cy="30" r="6" fill="var(--accent)" />
-          <line x1="30" y1="160" x2="180" y2="160" stroke="var(--line)" strokeWidth="1.5" />
-          <line x1="30" y1="30" x2="30" y2="160" stroke="var(--line)" strokeWidth="1.5" />
-        </>
+        <g {...common}>
+          <path d="M150 100a50 50 0 11-16-37" />
+          <path d="M136 32v32h-32" />
+          <path d="M74 118l18-20 16 13 22-27" />
+          <circle className={styles.glyphAccent} cx="130" cy="84" r="6" fill="currentColor" stroke="none" />
+        </g>
       );
   }
 }

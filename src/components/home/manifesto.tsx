@@ -48,9 +48,10 @@ export default function Manifesto() {
     <section ref={section} className={styles.whyIntro}>
       <div className={styles.whyIntroInner}>
         <div className={styles.whyIntroMain}>
-          <span className={styles.eyebrow}>{why.eyebrow}</span>
+          {/* light-band variant: the section sits in the page's `.light` wrapper */}
+          <span className={styles.eyebrowDark}>{why.eyebrow}</span>
           <h2 ref={stmt} className={styles.whyStatement}>
-            {why.title}.
+            {why.title}
           </h2>
         </div>
         <div className={styles.whyIntroFoot}>

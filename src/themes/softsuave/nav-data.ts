@@ -146,7 +146,20 @@ export const NAV: NavItem[] = [
  * redirects to `/blog` these links go to the live site rather than to pages that
  * are built but deliberately unreachable.
  */
-const MARKETING_PATHS = ['/', '/ai-development-service'];
+const MARKETING_PATHS = [
+  '/',
+  '/ai-development-service',
+  '/contact',
+  '/awards-recognition',
+  // These three have no counterpart on softsuave.com — they exist only here.
+  // Leaving them off this list sent every link to them out to the live site,
+  // where they 404: the failure is silent, because `navHref` has no way to know
+  // a path is ours unless it is named here. Any new folder under
+  // app/(marketing) belongs on this list the day it is created.
+  '/custome-ai-developement',
+  '/generative-ai-development-company',
+  '/agentic-ai-development-services',
+];
 const LOCAL_PATHS = new Set(homepageEnabled ? ['/blog', ...MARKETING_PATHS] : ['/blog']);
 
 /** Absolute URL: local for our own routes, otherwise the marketing site. */

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { clients } from "@/lib/home/content";
 import SplitReveal from "./split-reveal";
 import FadeUp from "./fade-up";
+import Marquee from "./marquee";
 import styles from "./home.module.css";
 
 /**
@@ -11,10 +12,16 @@ import styles from "./home.module.css";
  * directly under "Why Soft Suave" so the numbers are immediately backed by who
  * they were earned with.
  *
+ * The strip is `Marquee` (the same infinite-scroll primitive as Awards and the
+ * footer), not a static wrapped grid: with two dozen marks a wrap reads as a
+ * dense wall, while a slow, hover-pausing carousel keeps every mark legible
+ * and scales to any list length without a layout change. Reduced motion
+ * renders `Marquee`'s static fallback row, so nothing here depends on motion
+ * to be readable.
+ *
  * Each mark renders as its real logo when `clients.logos[].src` points at a
  * file, and as a typographic wordmark until then, so the strip reads as
- * finished either way. The hairline-ruled row scales from three names to a
- * couple of dozen without a layout change.
+ * finished either way.
  */
 export default function Clients() {
   return (
@@ -32,25 +39,25 @@ export default function Clients() {
       </div>
 
       <FadeUp className={styles.clientsRow} delay={0.08}>
-        <ul className={styles.clientsList}>
+        <Marquee speed={30} className={styles.clientsMarquee} separator={<span aria-hidden />}>
           {clients.logos.map((logo) => (
-            <li key={logo.name} className={styles.clientsItem}>
+            <span key={logo.name} className={styles.clientsItem}>
               {logo.src ? (
                 <span className={styles.clientLogo}>
                   <Image
                     src={logo.src}
                     alt={logo.name}
                     fill
-                    sizes="200px"
+                    sizes="170px"
                     className="object-contain"
                   />
                 </span>
               ) : (
                 <span className={styles.clientWordmark}>{logo.name}</span>
               )}
-            </li>
+            </span>
           ))}
-        </ul>
+        </Marquee>
       </FadeUp>
     </section>
   );

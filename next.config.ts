@@ -48,7 +48,15 @@ const securityHeaders = [
 // path here when you add the route, or it goes live ahead of the homepage.
 // Mirrored by MARKETING_PATHS in src/themes/softsuave/nav-data.ts, which decides
 // whether the nav links to them locally or out to the live site.
-const MARKETING_ROUTES = ['/', '/ai-development-service'];
+const MARKETING_ROUTES = [
+  '/',
+  '/ai-development-service',
+  '/contact',
+  '/awards-recognition',
+  '/custome-ai-developement',
+  '/generative-ai-development-company',
+  '/agentic-ai-development-services',
+];
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
