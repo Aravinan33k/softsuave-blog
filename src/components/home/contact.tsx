@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import BrandImage from "./brand-image";
-import { finalCta, brand } from "@/lib/home/content";
+import { finalCta } from "@/lib/home/content";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import HoldButton from "./hold-button";
 import styles from "./home.module.css";
@@ -13,9 +13,16 @@ import styles from "./home.module.css";
  * Enquiry" copy resolves in with a self-drawing coral underline under the
  * keyword, and the CTA + email fade up. Reduced motion renders it static.
  */
-export default function Contact() {
+export default function Contact({
+  ctaHref = finalCta.cta.href,
+}: {
+  /** Where the primary CTA goes. Defaults to the content's own href — the
+   *  dedicated `/contact` route. The `/contact` page itself overrides this
+   *  with `#contact`, because this band is the destination there and a CTA
+   *  that reloads the page you are already on is a dead control. */
+  ctaHref?: string;
+} = {}) {
   const root = useRef<HTMLElement | null>(null);
-  const [confirmed, setConfirmed] = useState(false);
 
   // Split the headline so the last keyword can carry the drawn underline.
   const m = finalCta.title.match(/^([\s\S]*?)([A-Za-z0-9]+)(\W*)$/);
@@ -82,13 +89,6 @@ export default function Contact() {
     { scope: root },
   );
 
-  const confirm = () => {
-    setConfirmed(true);
-    if (typeof window !== "undefined") {
-      window.location.href = `mailto:${brand.email}?subject=AI%20Strategy%20Call`;
-    }
-  };
-
   return (
     <section ref={root} className={styles.contact} id="contact">
       <div className={styles.contactBg}>
@@ -124,18 +124,12 @@ export default function Contact() {
         <p className={styles.contactBody}>{finalCta.body}</p>
 
         <div className={styles.contactActions}>
-          <HoldButton
-            label={finalCta.cta.label}
-            doneLabel="Opening your mail…"
-            onConfirm={confirm}
-          />
+          {/* A real link, not a button firing `location.href` — see
+              HoldButton, which renders a genuine <a> so middle-click,
+              cmd-click and link semantics all survive. */}
+          <HoldButton label={finalCta.cta.label} href={ctaHref} />
         </div>
 
-        {confirmed && (
-          <p className={styles.contactConfirm} role="status">
-            Thanks — a draft to {brand.email} is opening. We&apos;ll reply within one business day.
-          </p>
-        )}
       </div>
     </section>
   );

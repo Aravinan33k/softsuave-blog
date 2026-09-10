@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Logo from "./logo";
+import Flag from "./flag";
 import { footer, brand } from "@/lib/home/content";
 import { publicMediaUrl } from "@/lib/media-url";
 import { SiteLink } from "@/themes/softsuave/site-link";
@@ -120,9 +121,12 @@ export default function Footer() {
           <ul className={styles.footerPhoneList}>
             {footer.contact.phones.map((p) => (
               <li key={p.href}>
-                <span className={styles.footerPhoneRegion}>{p.region}</span>
+                <Flag code={p.country} className={styles.footerPhoneFlag} />
                 <a href={p.href} data-cursor="Call">
                   {p.display}
+                  {"note" in p && p.note ? (
+                    <span className={styles.footerPhoneNote}> ({p.note})</span>
+                  ) : null}
                 </a>
               </li>
             ))}

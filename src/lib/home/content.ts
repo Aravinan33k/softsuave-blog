@@ -46,9 +46,9 @@ export const why = {
     {
       value: 13,
       suffix: "+",
-      label: "Years Delivering",
+      label: "Proven Delivery",
       icon: "years",
-      line: "Years of reliable software and production-ready AI solutions.",
+      line: "Years of delivering reliable software and production-ready AI solutions.",
     },
     {
       value: 150,
@@ -420,7 +420,18 @@ export const engagementModels = {
 export const finalCta = {
   title: "Ready to Transform Your Business with AI?",
   body: "Book a free AI strategy session with our experts and discover where AI can create the biggest impact in your organization.",
-  cta: { label: "Book a Free Consultation", href: "#contact" },
+  /**
+   * This app's OWN `/contact` route, which is the whole reason that route
+   * exists — both "Book" CTAs were asked to lead to a dedicated contact page
+   * here rather than to softsuave.com. `hero.primaryCta` and `nav.cta` point
+   * at the same place.
+   *
+   * The `/contact` page renders this very band at its foot, so it would
+   * otherwise link to itself. It doesn't: that page passes `ctaHref` to
+   * `<Contact>` and gets `#contact` instead, the same in-page destination its
+   * own masthead nav already uses.
+   */
+  cta: { label: "Book a Free Consultation", href: "/contact" },
   altCta: { label: "Talk With AI Experts", href: "#contact" },
 } as const;
 
@@ -691,13 +702,25 @@ export const footer = {
     },
   ],
 
-  /** `display` is the human form; `href` the dialable/mailable one. */
+  /**
+   * `display` is the human form; `href` the dialable/mailable one.
+   *
+   * `country` is an ISO 3166-1 alpha-2 code and picks the inline SVG flag in
+   * `components/home/flag.tsx` — it replaces the old two-letter text label, so
+   * the row reads as a flag and a number rather than "US +1 …". The flag also
+   * carries the country as its accessible name, which is why nothing here
+   * repeats it.
+   *
+   * `note` is an optional suffix shown in parentheses after the number. Only
+   * the Indian line uses it: that number is the HR desk, not the sales line
+   * the other two are, and dropping the label would have lost that.
+   */
   contact: {
     email: "contact@softsuave.com",
     phones: [
-      { region: "US", display: "+1 (410) 220-6301", href: "tel:+14102206301" },
-      { region: "UK", display: "+44 7403 646450", href: "tel:+447403646450" },
-      { region: "HR", display: "+91 80151 59981", href: "tel:+918015159981" },
+      { country: "us", display: "+1 (410) 220-6301", href: "tel:+14102206301" },
+      { country: "gb", display: "+44 7403 646450", href: "tel:+447403646450" },
+      { country: "in", display: "+91 8015159981", note: "HR", href: "tel:+918015159981" },
     ],
   },
 

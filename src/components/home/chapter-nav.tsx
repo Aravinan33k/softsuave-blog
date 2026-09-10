@@ -33,6 +33,8 @@ export default function ChapterNav() {
   const [idx, setIdx] = useState(0);
   const [progress, setProgress] = useState(0);
   const [footerOffset, setFooterOffset] = useState(0);
+  /** Footer is in view far enough that lifting can no longer clear it. */
+  const [retired, setRetired] = useState(false);
   const root = useRef<HTMLDivElement | null>(null);
   const list = useRef<HTMLDivElement | null>(null);
 
@@ -53,15 +55,30 @@ export default function ChapterNav() {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0);
 
-      // Avoid overlapping the footer: translate the nav upward when the
-      // footer scrolls into the viewport so the legal links stay visible.
+      // Avoid overlapping the footer: step the readout up off the footer's top
+      // edge as it arrives, then retire it once it can no longer clear it.
+      //
+      // Lifting alone used to be the whole strategy, capped at the readout's own
+      // height + GAP. That cap is why the chip ended up parked squarely over the
+      // "Talk to us" phone numbers at the bottom of the page: the footer is
+      // ~700px on desktop and ~1000px on mobile, so `overlap` runs far past the
+      // ~63px the cap allows and the lift stops well inside the footer. Raising
+      // the cap cannot fix it either — a fixed element cannot dodge a footer
+      // taller than the viewport; it would just fly off the top instead.
+      //
+      // So past that point it fades out, which is also what it means: this is a
+      // SECTION counter, the footer is not a section, and there is nothing left
+      // to report once the reader is in it. That restores the promise in this
+      // component's own docstring — no text ever sits over content.
       const footer = document.querySelector("footer");
       if (footer && root.current) {
         const footerTop = footer.getBoundingClientRect().top;
         const viewH = window.innerHeight;
         const navH = root.current.offsetHeight;
         const overlap = viewH - footerTop + GAP;
-        setFooterOffset(overlap > 0 ? Math.min(overlap, navH + GAP) : 0);
+        const liftable = navH + GAP;
+        setFooterOffset(overlap > 0 ? Math.min(overlap, liftable) : 0);
+        setRetired(overlap > liftable);
       }
     };
     const onScroll = () => {
@@ -109,13 +126,14 @@ export default function ChapterNav() {
   return (
     <div
       ref={root}
-      className={styles.chapNav}
+      className={`${styles.chapNav} ${retired ? styles.chapNavRetired : ""}`}
       style={{ transform: `translateY(${-footerOffset}px)` }}
+      aria-hidden={retired || undefined}
       // hovering the readout reveals the section names; clicking one jumps there
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      {open && (
+      {open && !retired && (
         <div ref={list} className={styles.chapList} role="menu" aria-label="Sections">
           {SECTIONS.map((s, i) => (
             <a

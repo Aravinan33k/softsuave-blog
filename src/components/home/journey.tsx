@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { journey } from "@/lib/home/content";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import SplitReveal from "./split-reveal";
@@ -14,15 +14,79 @@ import styles from "./home.module.css";
  * left syncs the active step. Mobile falls back to a readable vertical list.
  */
 
-// --- world layout (SVG user space; viewBox is 1440 x 900) --------------------
+// --- world layout (SVG user space) ------------------------------------------
+// The viewBox is the WINDOW onto the world, not the world itself, and its
+// HEIGHT is what sets the zoom. The stage is tall and narrow next to this
+// aspect, so `xMidYMid slice` always fills on height and the on-screen scale is
+// `stageHeight / VIEW_H`. Shortening VIEW_H from 900 to 760 is therefore an
+// ~18% zoom in — the nodes, the glow and the beam all come up by that much,
+// which is what brings the scene back to reading as a major element now that it
+// lives in the right-hand column rather than across the whole page.
 const VIEW_W = 1440;
-const VIEW_H = 900;
+const VIEW_H = 760;
 const HUB_X0 = 480; // x of first hub
-const HUB_GAP = 720; // horizontal distance between hubs
-const SCREEN_CX = 900; // where the active hub should sit on screen (x)
-const SCREEN_CY = 430; // where the active hub should sit on screen (y)
-// vertical wander so the route reads as a diagonal/meandering path, not a filmstrip
-const WANDER = [-90, 120, -50, 110, -80, 70];
+// Horizontal distance between hubs, in user units — ~520px on screen in a
+// ~900px stage. The neighbouring phases therefore sit just past the stage
+// edges with their auras still bleeding in, so the route reads as continuing
+// past what you can see rather than as a filmstrip of six.
+const HUB_GAP = 440;
+// The active node's horizontal resting place, in user space. VIEW_W / 2 ON
+// PURPOSE: with `xMidYMid slice` the viewBox centre is the one x that maps to
+// the middle of the stage however much width the crop takes off at a given
+// viewport. Anything else drifts toward an edge as the stage narrows.
+const SCREEN_CX = VIEW_W / 2;
+// The route's vertical midline. Nothing depends on this being the middle of the
+// window: the camera's vertical position comes from the RAIL (see `railLevel`),
+// not from here. It is only the axis the route wanders about.
+const BASE_Y = VIEW_H / 2;
+
+/**
+ * The route's vertical offset at `u` — 0 at the first hub, 1 at the last.
+ *
+ * ONE function, sampled densely, IS the curve. That is what makes it a single
+ * wide sweep instead of the five alternating swoops it used to be: a full sine
+ * period across the route gives one crest and one trough, and the amplitude
+ * itself swells toward the middle of the journey (148 at the ends, 230 at the
+ * centre) so the arcs differ in height rather than repeating. The 0.08 phase
+ * shift starts the first hub off the midline, so the scene opens on a curve
+ * rather than on a flat line.
+ *
+ * Because every hub sits at a whole `u = i / (N - 1)`, the hubs are ON this
+ * curve by construction — they cannot drift off the path they are threaded
+ * onto, however the numbers here are retuned.
+ */
+const routeOffset = (u: number) =>
+  -(148 + 82 * Math.sin(Math.PI * u)) * Math.sin(2 * Math.PI * (u + 0.08));
+
+/** Samples used to draw the route. A multiple of N - 1 so every hub lands
+ *  exactly on a sample. */
+const ROUTE_SAMPLES = 40;
+
+/* A node is not a point, and these are how far its ink reaches from the anchor:
+   the glyph's own geometry ~73 above, the PHASE and name labels ~150 below.
+   They define the band a WHOLE node can occupy without leaving the stage, which
+   is what `railLevel` clamps into. */
+const NODE_ABOVE = 95;
+const NODE_BELOW = 160;
+
+/* How far a NON-ACTIVE hub's ink reaches from its anchor. Only its glyph
+   counts — the PHASE/name labels are opacity-gated to the active hub, so they
+   are not there to be clipped. The glyph box sits at y = -118 with its
+   geometry confined to 45-155 of a 200-unit viewBox, which puts the ink 73
+   above the anchor and 37 below it.
+
+   Only the ACTIVE hub is clamped into the safe band. The others are placed by
+   the world, wherever the camera happens to put them — including past an edge
+   with half a glyph still on screen, which is what sliced a Deployment glyph
+   across the bottom of the frame on the last step. These two numbers are how
+   far beyond the band that starts, i.e. where the fade has to reach zero. */
+const HUB_INK_ABOVE = 73;
+const HUB_INK_BELOW = 37;
+
+/** Emitted SVG coordinates are rounded so the server and the browser produce
+ *  byte-identical path strings. `Math.sin` is implementation-defined in its
+ *  last bits, and a mismatch here is a hydration error, not a rounding error. */
+const r2 = (n: number) => Math.round(n * 100) / 100;
 
 const cx = (...c: (string | false | undefined)[]) => c.filter(Boolean).join(" ");
 
@@ -98,7 +162,7 @@ function techDecorGlyph(type: number, color: string) {
 /** Smooth cubic path through points (Catmull-Rom → Bezier). */
 function buildPath(pts: { x: number; y: number }[]): string {
   if (pts.length < 2) return "";
-  let d = `M ${pts[0].x} ${pts[0].y}`;
+  let d = `M ${r2(pts[0].x)} ${r2(pts[0].y)}`;
   for (let i = 0; i < pts.length - 1; i++) {
     const p0 = pts[i - 1] ?? pts[i];
     const p1 = pts[i];
@@ -108,13 +172,14 @@ function buildPath(pts: { x: number; y: number }[]): string {
     const c1y = p1.y + (p2.y - p0.y) / 6;
     const c2x = p2.x - (p3.x - p1.x) / 6;
     const c2y = p2.y - (p3.y - p1.y) / 6;
-    d += ` C ${c1x} ${c1y}, ${c2x} ${c2y}, ${p2.x} ${p2.y}`;
+    d += ` C ${r2(c1x)} ${r2(c1y)}, ${r2(c2x)} ${r2(c2y)}, ${r2(p2.x)} ${r2(p2.y)}`;
   }
   return d;
 }
 
 export default function Journey() {
   const containerRef = useRef<HTMLElement | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
   const cameraRef = useRef<SVGGElement | null>(null);
   const beamCoreRef = useRef<SVGPathElement | null>(null);
   const beamGlowRef = useRef<SVGPathElement | null>(null);
@@ -123,32 +188,39 @@ export default function Journey() {
   const cometGlowRef = useRef<SVGCircleElement | null>(null);
   const beamLenRef = useRef(0);
   const lastIdxRef = useRef(0);
+  /** The rail's step badges — the elements the nodes align themselves to. */
+  const badgeRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  /** The hub groups. Their opacity is driven per frame — see `render`. */
+  const hubRefs = useRef<(SVGGElement | null)[]>([]);
+  /** Arc length along the route at each hub. */
+  const hubLenRef = useRef<number[]>([]);
+  /* The pinned scene's draw function and the progress it was last drawn at,
+     lifted out of the matchMedia closure so the settle pass below can drive
+     another frame without owning any of the scene's state. */
+  const renderRef = useRef<((p: number) => void) | null>(null);
+  const progressRef = useRef(0);
 
   const [active, setActive] = useState(0);
 
   const steps = journey.steps;
   const N = steps.length;
 
-  // hub anchor points + the winding beam route (with a swooping midpoint per gap)
-  const hubs = steps.map((_, i) => ({
-    x: HUB_X0 + i * HUB_GAP,
-    y: VIEW_H / 2 + (WANDER[i % WANDER.length] ?? 0) - 40,
-  }));
-  const pathPts: { x: number; y: number }[] = [];
-  hubs.forEach((h, i) => {
-    pathPts.push(h);
-    const n = hubs[i + 1];
-    if (n) {
-      pathPts.push({
-        x: (h.x + n.x) / 2,
-        y: (h.y + n.y) / 2 + (i % 2 ? 170 : -170),
-      });
-    }
+  const spanX = (N - 1) * HUB_GAP;
+
+  // Hubs and route come off the SAME function, so the six phases are threaded
+  // onto one continuous curve instead of being joined by five separate arcs.
+  // x is linear in u, which is also what lets `lengthAtX` bisect for a hub.
+  const hubs = steps.map((_, i) => {
+    const u = N > 1 ? i / (N - 1) : 0;
+    return { x: r2(HUB_X0 + u * spanX), y: r2(BASE_Y + routeOffset(u)) };
+  });
+  const pathPts = Array.from({ length: ROUTE_SAMPLES + 1 }, (_, k) => {
+    const u = k / ROUTE_SAMPLES;
+    return { x: HUB_X0 + u * spanX, y: BASE_Y + routeOffset(u) };
   });
   const beamD = buildPath(pathPts);
   const first = hubs[0];
   const last = hubs[N - 1];
-  const spanX = last.x - first.x;
 
   // scattered tech artifacts filling the world (top + bottom bands, off the beam)
   // Values are rounded to 4 decimal places so SSR (Node) and client (browser)
@@ -160,7 +232,7 @@ export default function Journey() {
   const decor = Array.from({ length: 6 }, (_, i) => {
     const t = i / 5;
     const x = +(160 + t * (spanX + 500) + (rand(i, 5) - 0.5) * 320).toFixed(4);
-    const y = +(rand(i, 1) < 0.5 ? 90 + rand(i, 4) * 200 : 620 + rand(i, 4) * 230).toFixed(4);
+    const y = +(rand(i, 1) < 0.5 ? 76 + rand(i, 4) * 170 : 524 + rand(i, 4) * 194).toFixed(4);
     return {
       key: `dec-${i}`,
       x,
@@ -182,20 +254,149 @@ export default function Journey() {
         const camera = cameraRef.current;
         const core = beamCoreRef.current;
         const glow = beamGlowRef.current;
-        if (!camera || !core) return;
+        const svg = svgRef.current;
+        if (!camera || !core || !svg) return;
+
+        /** Arc length at which the route reaches `x`. x increases monotonically
+         *  along it, so a bisection is exact enough in 24 steps, and this only
+         *  runs on measure. It is needed because arc length is NOT linear in x
+         *  on a curve this deep: driving the head by `progress * totalLength`
+         *  would have it reach each phase early or late, which is precisely the
+         *  beam-vs-node disagreement this pass is here to fix. */
+        const lengthAtX = (x: number, total: number) => {
+          let lo = 0;
+          let hi = total;
+          for (let i = 0; i < 24; i++) {
+            const mid = (lo + hi) / 2;
+            if (core.getPointAtLength(mid).x < x) lo = mid;
+            else hi = mid;
+          }
+          return (lo + hi) / 2;
+        };
+
+        /**
+         * The vertical level, in user space, that the node for the interpolated
+         * step should sit at: level with the RAIL BADGE of the same phase, so
+         * the eye reads the left step and the right node as one thing.
+         *
+         * Measured live, every frame, on purpose. The rail is not a static list
+         * — the active row grows (a bigger name, and the body opening from 0fr
+         * to 1fr over 0.55s), which moves every row beneath it. A one-off
+         * measurement would be right for one step and wrong for the other five.
+         *
+         * Reads only. Every write in this scene happens after it, because a rect
+         * read that follows a style write in the same frame is what turns this
+         * into layout thrash.
+         */
+        const railLevel = (i0: number, i1: number, f: number) => {
+          const a = badgeRefs.current[i0];
+          const b = badgeRefs.current[i1];
+          const box = svg.getBoundingClientRect();
+          const fallback = { y: BASE_Y, top: 0, bottom: VIEW_H };
+          if (!a || !b || !box.height || !box.width) return fallback;
+
+          /* px -> user space for `xMidYMid slice`, done by hand rather than via
+             getScreenCTM: whether the root svg's CTM includes the viewBox
+             transform is a long-standing ambiguity between engines, and this
+             has to be right on all of them. */
+          const scale = Math.max(box.width / VIEW_W, box.height / VIEW_H);
+          const offY = box.top + (box.height - VIEW_H * scale) / 2;
+          const toUser = (clientY: number) => (clientY - offY) / scale;
+
+          const ra = a.getBoundingClientRect();
+          const rb = b.getBoundingClientRect();
+          const ya = ra.top + ra.height / 2;
+          const yb = rb.top + rb.height / 2;
+          const wanted = toUser(ya + (yb - ya) * f);
+
+          /* The band a whole node fits in. Where the rail runs lower than that
+             — a short window puts the last rows near the fold — the node stops
+             at the edge of the band instead of walking its labels off the
+             canvas. On a window tall enough for the rail (~950px and up) the
+             clamp never binds and all six line up exactly. */
+          const top = toUser(box.top) + NODE_ABOVE;
+          const bottom = toUser(box.bottom) - NODE_BELOW;
+          if (bottom <= top) return fallback;
+          return { y: gsap.utils.clamp(top, bottom, wanted), top, bottom };
+        };
 
         const measure = () => {
-          beamLenRef.current = core.getTotalLength();
+          const total = core.getTotalLength();
+          beamLenRef.current = total;
+          hubLenRef.current = hubs.map((h) => lengthAtX(h.x, total));
         };
-        measure();
 
-        // starting state: beam hidden, comet parked at the first hub
-        gsap.set([core, glow], { strokeDashoffset: 1 });
-        const start = core.getPointAtLength(0);
-        gsap.set([cometRef.current, cometGlowRef.current], {
-          attr: { cx: start.x, cy: start.y },
-        });
-        gsap.set(camera, { x: SCREEN_CX - first.x, y: SCREEN_CY - first.y });
+        /**
+         * Draw the scene at scroll progress `p`.
+         *
+         * The head, the drawn length and the camera all come off the SAME
+         * interpolation, which is what keeps the beam's tip, the glowing node
+         * and the highlighted rail row from ever disagreeing. At a whole step
+         * the head sits exactly ON that phase's hub, and the camera puts that
+         * hub at the stage's horizontal centre and at its rail row's level.
+         */
+        const render = (p: number) => {
+          progressRef.current = p;
+          const t = p * (N - 1);
+          const i0 = Math.min(N - 1, Math.max(0, Math.floor(t)));
+          const i1 = Math.min(N - 1, i0 + 1);
+          const f = t - i0;
+
+          // --- reads
+          const { y: targetY, top, bottom } = railLevel(i0, i1, f);
+          const total = beamLenRef.current;
+          const lens = hubLenRef.current;
+          const drawn =
+            lens.length === N ? lens[i0] + (lens[i1] - lens[i0]) * f : p * total;
+          const head = core.getPointAtLength(Math.min(Math.max(drawn, 0), total));
+
+          // --- writes
+          const camY = targetY - head.y;
+          gsap.set(camera, { x: SCREEN_CX - head.x, y: camY });
+
+          /* Hub opacity is owned here rather than by the class ladder, because
+             it is the product of two independent things:
+
+               state  how close this hub is to being the active one. Driven off
+                      the CONTINUOUS `t` rather than the discrete `active`, so a
+                      hub brightens as the scene scrubs toward it instead of
+                      snapping when the index flips. The classes still carry the
+                      active hub's colour and drop-shadow; only opacity moved.
+
+               edge   how much of the hub still fits on the stage. A hub outside
+                      the safe band is on its way off, and the ramp ends exactly
+                      where its glyph's ink would first touch the viewport — so
+                      a hub is never both visible and cut.
+
+             `.hub`'s opacity transition is dropped in the CSS to match: a
+             per-frame write and a 0.6s transition on the same property only
+             ever produces lag. */
+          const upRamp = Math.max(1, NODE_ABOVE - HUB_INK_ABOVE);
+          const downRamp = Math.max(1, NODE_BELOW - HUB_INK_BELOW);
+          gsap.set(hubRefs.current.filter(Boolean) as SVGGElement[], {
+            opacity: (i: number) => {
+              const base = i < t ? 0.5 : 0.3;
+              const near = 1 - Math.min(1, Math.abs(i - t));
+              const state = base + (1 - base) * near;
+
+              const y = hubs[i].y + camY;
+              const over =
+                y < top ? (top - y) / upRamp : y > bottom ? (y - bottom) / downRamp : 0;
+
+              return state * Math.max(0, 1 - over);
+            },
+          });
+          gsap.set([core, glow], {
+            strokeDashoffset: total ? 1 - drawn / total : 1,
+          });
+          gsap.set([cometRef.current, cometGlowRef.current], {
+            attr: { cx: head.x, cy: head.y },
+          });
+        };
+
+        measure();
+        render(0);
+        renderRef.current = render;
 
         const st = ScrollTrigger.create({
           id: "journeyPin",
@@ -206,7 +407,10 @@ export default function Journey() {
           scrub: 0.8,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-          onRefresh: measure,
+          onRefresh: (self) => {
+            measure();
+            render(self.progress);
+          },
           onUpdate: (self) => {
             const p = self.progress;
 
@@ -216,28 +420,11 @@ export default function Journey() {
               gsap.set(hintRef.current, { autoAlpha: 1 - Math.min(1, p / 0.07) });
             }
 
-            // camera: pan so the active hub stays centred, drifting diagonally
-            const t = p * (N - 1);
-            const i0 = Math.floor(t);
-            const i1 = Math.min(N - 1, i0 + 1);
-            const f = t - i0;
-            const curX = first.x + p * spanX;
-            const curY = hubs[i0].y + (hubs[i1].y - hubs[i0].y) * f;
-            gsap.set(camera, { x: SCREEN_CX - curX, y: SCREEN_CY - curY });
-
-            // beam draws itself + comet rides the tip
-            gsap.set([core, glow], { strokeDashoffset: 1 - p });
-            const L = beamLenRef.current;
-            if (L) {
-              const pt = core.getPointAtLength(p * L);
-              gsap.set([cometRef.current, cometGlowRef.current], {
-                attr: { cx: pt.x, cy: pt.y },
-              });
-            }
+            render(p);
 
             // discrete active step → drives the rail + hub ignition (React state,
             // only fires on step change so there is no per-frame re-render)
-            const idx = Math.round(t);
+            const idx = Math.round(p * (N - 1));
             if (idx !== lastIdxRef.current) {
               lastIdxRef.current = idx;
               setActive(idx);
@@ -245,13 +432,33 @@ export default function Journey() {
           },
         });
 
-        return () => st.kill();
+        return () => {
+          renderRef.current = null;
+          st.kill();
+        };
       });
 
       return () => mm.revert();
     },
     { scope: containerRef }
   );
+
+  /* The rail keeps moving for ~0.55s after the active step changes — the
+     name grows, the body opens from 0fr to 1fr — and by then the scroll that
+     caused it has usually stopped, taking with it the only thing driving
+     `render`. The node would settle level with where the row USED to be. So
+     for as long as that transition runs, keep redrawing at the progress the
+     scene is already at: the node follows the row down and stops with it. */
+  useEffect(() => {
+    const render = renderRef.current;
+    if (!render || prefersReducedMotion()) return;
+    const until = performance.now() + 750;
+    let raf = requestAnimationFrame(function tick() {
+      render(progressRef.current);
+      if (performance.now() < until) raf = requestAnimationFrame(tick);
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [active]);
 
   return (
     <section
@@ -263,6 +470,7 @@ export default function Journey() {
       {/* ---------- Desktop: pinned cinematic scene ---------- */}
       <div className={styles.journeyDesktopContainer}>
         <svg
+          ref={svgRef}
           className={styles.journeyCanvas}
           viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
           preserveAspectRatio="xMidYMid slice"
@@ -307,10 +515,10 @@ export default function Journey() {
             {/* abstract tactical iso field */}
             <rect
               className={styles.journeyField}
-              x={-600}
-              y={-600}
-              width={spanX + 1800}
-              height={VIEW_H + 1200}
+              x={-900}
+              y={-900}
+              width={spanX + 2800}
+              height={VIEW_H + 2200}
               fill="url(#j-dots)"
             />
 
@@ -325,8 +533,11 @@ export default function Journey() {
               </g>
             ))}
 
-            {/* beam: faint track + blurred glow + crisp core */}
-            <path d={beamD} className={styles.beamTrack} pathLength={1} />
+            {/* beam: the whole route as a dashed track, then the travelled part
+                over it as a blurred glow + crisp core. Only those two get
+                `pathLength={1}`, so their dashoffset is driven in 0-1 progress
+                space; the track's dasharray stays in user units. */}
+            <path d={beamD} className={styles.beamTrack} />
             <path ref={beamGlowRef} d={beamD} className={styles.beamGlow} pathLength={1} filter="url(#j-glow)" />
             <path ref={beamCoreRef} d={beamD} className={styles.beamCore} pathLength={1} />
 
@@ -334,6 +545,9 @@ export default function Journey() {
             {hubs.map((h, i) => (
               <g
                 key={steps[i].name}
+                ref={(el) => {
+                  hubRefs.current[i] = el;
+                }}
                 className={cx(
                   styles.hub,
                   i < active && styles.hubVisited,
@@ -380,7 +594,14 @@ export default function Journey() {
                   i < active && styles.railRowDone
                 )}
               >
-                <span className={styles.railBadge}>{s.n}</span>
+                <span
+                  className={styles.railBadge}
+                  ref={(el) => {
+                    badgeRefs.current[i] = el;
+                  }}
+                >
+                  {s.n}
+                </span>
                 <div className={styles.railText}>
                   <h3 className={styles.railName}>{s.name}</h3>
                   <div className={styles.railBodyWrap}>

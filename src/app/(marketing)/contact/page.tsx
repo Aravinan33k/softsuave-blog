@@ -65,7 +65,10 @@ export default function ContactPage() {
           <h1 className={styles.h2}>{contactPage.title}</h1>
           <p className={styles.lead}>{contactPage.body}</p>
         </section>
-        <Contact />
+        {/* `#contact` rather than the default `/contact`: this band IS the
+            enquiry section, so the CTA scrolls to it instead of reloading the
+            page. Same destination `PAGE_CTA` above uses. */}
+        <Contact ctaHref="#contact" />
       </main>
       <Footer />
     </div>

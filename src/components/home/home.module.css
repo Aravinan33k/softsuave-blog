@@ -2113,35 +2113,50 @@
   }
 
   /* Column placement is the side crossed with the frame's width: the two
-     narrow frames share a 4-column slot, the wide one takes 5. */
+     narrow frames share a 3-column slot, the wide one takes 4, and the body
+     starts in the very next column.
+
+     These spans have to stay in step with the px caps further down. They were
+     sized for larger pictures, and when the caps came down to 240/225/340 the
+     slots did not: at a 1180px measure a 4-column slot is 356px, so a 240px
+     photo sat flush-left in it with 116px of empty slot to its right, and the
+     skipped gutter column put the body 275px clear of the picture. The photo
+     read as stranded on the left of the row rather than paired with its text.
+
+     Now the slot is 253px against a 240px cap, and the body opens in the next
+     column — a ~70px gutter, the same on both sides and for every frame. The
+     picture stays flush with the section's left margin, which is what keeps it
+     aligned with the heading above; only the dead space moved. The body's own
+     measure is unaffected either way, because `.rStoryQuote` caps itself at
+     58ch — the column is free to be wider than the reading measure. */
   .rStory[data-side="left"][data-frame="tall"] .rStoryImage,
   .rStory[data-side="left"][data-frame="square"] .rStoryImage {
-    grid-column: 1 / span 4;
+    grid-column: 1 / span 3;
   }
   .rStory[data-side="left"][data-frame="tall"] .rStoryBody,
   .rStory[data-side="left"][data-frame="square"] .rStoryBody {
-    grid-column: 6 / -1;
+    grid-column: 4 / -1;
   }
   .rStory[data-side="left"][data-frame="wide"] .rStoryImage {
-    grid-column: 1 / span 5;
+    grid-column: 1 / span 4;
   }
   .rStory[data-side="left"][data-frame="wide"] .rStoryBody {
-    grid-column: 7 / -1;
+    grid-column: 5 / -1;
   }
 
   .rStory[data-side="right"][data-frame="tall"] .rStoryImage,
   .rStory[data-side="right"][data-frame="square"] .rStoryImage {
-    grid-column: 9 / -1;
+    grid-column: 10 / -1;
   }
   .rStory[data-side="right"][data-frame="tall"] .rStoryBody,
   .rStory[data-side="right"][data-frame="square"] .rStoryBody {
-    grid-column: 1 / span 7;
+    grid-column: 1 / span 9;
   }
   .rStory[data-side="right"][data-frame="wide"] .rStoryImage {
-    grid-column: 8 / -1;
+    grid-column: 9 / -1;
   }
   .rStory[data-side="right"][data-frame="wide"] .rStoryBody {
-    grid-column: 1 / span 6;
+    grid-column: 1 / span 8;
   }
 
   /* Width and tilt belong to the frame alone, so they hold whichever side the
@@ -2328,21 +2343,33 @@
   max-width: 58ch;
 }
 
+/* The attribution line — job title and company. Both of these were 9px, which
+   made them the smallest type anywhere on the page and put them under the
+   10px floor the mono micro-label scale sets for itself (`.eyebrow` is
+   `clamp(10px, .78vw, 12px)`). At uppercase with 0.14em tracking that is fine
+   print, and fine print is the wrong register for the one line that says WHO
+   is vouching for the work — the quote above it is 16px and the name 25px.
+   Contrast was never the problem (5.1:1 on the warm-white band); the size was.
+
+   The role also steps up from `--muted` to `--text`, the same ink the quote
+   itself uses, so the pair reads as part of the testimonial rather than as a
+   caption hung off the bottom of it. */
 .rStoryRole {
   font-family: var(--font-eyebrow);
-  font-size: 9px;
-  letter-spacing: 0.14em;
+  font-size: clamp(11px, 0.8vw, 12px);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--text);
 }
 
 .rStoryTag {
-  padding: 3px 9px;
+  /* padding tracks the larger type so the pill keeps its proportions */
+  padding: 4px 11px;
   border: 1px solid var(--line);
   border-radius: 999px;
   font-family: var(--font-eyebrow);
-  font-size: 9px;
-  letter-spacing: 0.14em;
+  font-size: clamp(11px, 0.8vw, 12px);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-bright);
 }
@@ -2870,17 +2897,48 @@
 
 .footerPhoneList li {
   display: flex;
-  align-items: baseline;
+  /* `baseline` was right for the two-letter text label this row used to open
+     with; a flag badge has no baseline to share, so it aligned by its bottom
+     edge and sat low against the number. */
+  align-items: center;
   gap: 10px;
   white-space: nowrap;
 }
 
-.footerPhoneRegion {
-  min-width: 2.2em;
+/* The round crop for `flag.tsx`. Done here rather than with an SVG
+   `<clipPath>` so the markup carries no ids — see the note in that file. The
+   inset hairline keeps a light flag (the white stripe of the Indian tricolour,
+   the white ground of the US stripes) from bleeding into the dark footer. */
+.flag {
+  display: block;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+.flag svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.footerPhoneFlag {
+  width: 22px;
+  height: 22px;
+}
+
+/* "(HR)" after the Indian number — the desk that line actually reaches. Set in
+   the mono micro-label face so it reads as an annotation on the number rather
+   than as part of it, but kept inside the <a> so it stays with the number it
+   qualifies. */
+.footerPhoneNote {
   font-family: var(--font-eyebrow);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  /* 0.8em of the 0.92rem number — ~11.8px, which keeps it on the right side of
+     the same 11px floor the story attribution was just raised to. Any smaller
+     and it becomes the fine print this label exists to avoid being. */
+  font-size: 0.8em;
+  letter-spacing: 0.12em;
   color: var(--muted);
 }
 
@@ -3417,6 +3475,21 @@
 
 .journeyDesktopContainer {
   display: none;
+
+  /* ONE source of truth for where the text column ends and the animated stage
+     begins. The rail's own left/width read from these too, so the stage edge
+     can never drift out of step with the column it exists to clear. */
+  --journey-rail-x: clamp(40px, 6vw, 120px);
+  --journey-rail-w: min(46vw, 560px);
+  /* Clearing the rail is the hard floor; 42% is the ceiling on how far right
+     the stage may start. Without the 42% the rail's px cap stops growing past
+     ~1700px while the page keeps widening, and the stage creeps to 70%+ of a
+     very wide screen — the scene drifts off toward the right edge and the gap
+     turns into a void. With it the stage holds at 55-58% from ~1500px up. */
+  --journey-stage-x: max(
+    calc(var(--journey-rail-x) + var(--journey-rail-w) + clamp(24px, 3vw, 64px)),
+    42%
+  );
 }
 
 @media (min-width: 1000px) {
@@ -3432,10 +3505,25 @@
 /* ---- the travelling world canvas ---- */
 .journeyCanvas {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+
+  /* NOT `inset: 0`. The scene is boxed into the right-hand stage, starting
+     after the text column, so the beam, the hubs and the comet cannot reach
+     the heading, the lead or the step list. An SVG clips to its own viewport,
+     so this box IS the guarantee — at every viewport width, because it is
+     expressed in the same units the rail is. Doing it in world coordinates
+     instead could not hold: `slice` crops a different amount of the viewBox
+     at every aspect ratio, so a "safe" user-space x is safe at one size only. */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: var(--journey-stage-x);
   display: block;
+
+  /* The clip alone would cut the beam off at a hard vertical edge. This fades
+     the world out across the first slice of the stage instead, so the route
+     arrives out of the dark rather than out of a seam. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 15%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 15%);
 }
 .journeyCamera {
   will-change: transform;
@@ -3476,12 +3564,40 @@
     radial-gradient(120% 90% at 70% 40%, rgba(4, 5, 8, 0) 55%, rgba(4, 5, 8, 0.55) 100%);
 }
 
-/* ---- beam ---- */
+/* ---- beam ----
+   Three paths over the same route: the TRACK is the whole journey, always
+   visible; the GLOW and the CORE are the part already travelled, drawn in
+   behind the comet as the scene advances.
+
+   The track is dashed and coral-tinted, which is the only reason the early
+   phases read at all. It used to be `--line` at 0.26 opacity, which composites
+   to ~#151516 over this canvas — 1.12:1 against the background, i.e. invisible.
+   Since the coral core only ever exists BEHIND the comet, phases 01-03 were
+   almost entirely un-travelled route, so the connector simply wasn't there
+   until enough beam had accumulated by phase 04. At 0.4 the track sits at
+   ~2:1 — legible as the road ahead, and still far below the travelled core
+   (~7.8:1), so progress still reads as progress.
+
+   Dashed vs. solid is also the semantic split: dashed is ahead, solid is done.
+   NOTE the track carries no `pathLength` (the core and glow do, so their
+   dashoffset can be driven in 0-1 progress space). Adding one here would
+   rescale this dasharray into that same 0-1 space and the first dash would
+   swallow the whole route.
+
+   It is deliberately the SAME line as the core — same width, same colour, same
+   cap, no dash — only dimmer. It was briefly dashed, on the theory that dashed
+   should read as "ahead" and solid as "travelled". On screen that split was too
+   strong: an early phase looked like a different scene rather than an earlier
+   moment in the same one, because a thin dashed thread and a glowing solid beam
+   have nothing in common. One continuous route that brightens and picks up its
+   glow as the comet passes is the whole effect; the travelled part earns its
+   energy from `.beamGlow` and full opacity, not from a change of species. */
 .beamTrack {
   fill: none;
-  stroke: var(--line);
-  stroke-width: 1.5;
-  opacity: 0.26;
+  stroke: var(--brand-coral);
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  opacity: 0.38;
 }
 /* Halved and faded: at 12px wide and .55 opacity the beam was the brightest
    thing on screen, which is the opposite of what a connector should be. */
@@ -3512,17 +3628,24 @@
 }
 
 /* ---- hubs (installations along the route) ---- */
+/* NOTE opacity is NOT set here. `journey.tsx` drives it per frame, because it
+   is the product of how near the hub is to being active AND how much of it
+   still fits on the stage — see the `hubRefs` write in `render`. A 0.6s
+   transition on a property something else writes every frame only ever lags,
+   so opacity is off the transition list too; colour and the glow still
+   cross-fade on the state classes below. */
 .hub {
+  /* A floor for the case where the per-frame write never happens — no JS, or
+     the scene never initialising. GSAP sets opacity inline, which outranks this
+     whenever the scene IS running, so this is only ever the fallback. */
   opacity: 0.3;
   color: var(--muted);
-  transition: opacity 0.6s ease, filter 0.6s ease, color 0.6s ease;
+  transition: filter 0.6s ease, color 0.6s ease;
 }
 .hubVisited {
-  opacity: 0.5;
   color: var(--text);
 }
 .hubActive {
-  opacity: 1;
   color: var(--accent);
   filter: drop-shadow(0 0 26px rgba(255, 84, 54, 0.45));
 }
@@ -3582,10 +3705,12 @@
 /* ---- left rail (numbered stepper overlay) ---- */
 .journeyRail {
   position: absolute;
-  left: clamp(40px, 6vw, 120px);
+  /* Unchanged values, now named — the canvas derives its left edge from these,
+     so moving the rail moves the stage with it. */
+  left: var(--journey-rail-x);
   top: clamp(60px, 6vh, 80px);
   z-index: 10;
-  width: min(46vw, 560px);
+  width: var(--journey-rail-w);
   pointer-events: none;
 }
 .journeyRail .eyebrow {
@@ -5382,6 +5507,15 @@
   }
 }
 
+/* Retired: the reader is in the footer, past the last section this readout
+   counts. Opacity only — `.chapNav` carries an inline `translateY` for its
+   footer step-up, and a transform here would be overridden by it anyway. */
+.chapNavRetired {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
 /* ---- Journey scroll hint (pinned scene advances on scroll) ---- */
 .journeyScrollHint {
   position: absolute;
@@ -6172,4 +6306,291 @@
 
 .contactLead .lead {
   max-width: 54ch;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE PASS  ( <= 999px )
+   ═════════════════════════════════════════════════════════════════════════════
+   Everything below this banner is scoped to `max-width: 999px` (or tighter), so
+   the desktop scenes above are provably untouched — 1000px is this file's real
+   breakpoint (desktop scene vs. mobile stack) and nothing here reaches past it.
+   Verified by rendering at 320 / 375 / 390 / 414.
+
+   Four classes of defect are addressed, in this order:
+
+   1. GRID TRACKS THAT CANNOT SHRINK. `grid-template-columns: 1fr` is really
+      `minmax(auto, 1fr)`, so a track floors at its content's min-content width
+      and blows the column out past the gutter. `.page` has `overflow-x: clip`,
+      so the result was never a scrollbar — it was silently CLIPPED content.
+   2. `min-height: 100vh` SHELLS. A section that centres a heading and two
+      marquees inside a full viewport reads as designed at 1440px and as a
+      half-empty screen at 375px.
+   3. FIXED-PX DECORATION. Circles and cards sized in px rather than relative
+      units are what push the stacked sections to several screens each.
+   4. TOUCH ERGONOMICS. Sub-11px type and sub-34px hit areas.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 999px) {
+  /* ---- 1. shrinkable grid tracks -------------------------------------------
+     `minmax(0, 1fr)` lets the track ignore its content's min-content floor and
+     take the width it is actually given. Without it the work tile measured
+     305px inside a 280px column at 320px wide and lost its outcome metric off
+     the right edge. Same failure mode, three grids. */
+  .hTrack {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stackWrap {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .recogLayout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* The tile foot is the specific thing that could not shrink: an uppercase
+     wide-tracked tag and a `white-space: nowrap` metric, side by side on one
+     line. The tag is a single word and cannot break, so the metric is the one
+     that has to give — it wraps here and keeps the pair on one row. Desktop
+     keeps `nowrap`, where the tile is 300-440px and the pair always fits. */
+  .tileFoot {
+    flex-wrap: wrap;
+    gap: 6px 14px;
+  }
+
+  .tileMetric {
+    white-space: normal;
+    text-align: left;
+  }
+
+  /* ---- 2. viewport-height shells ------------------------------------------
+     These three centre their content inside `100vh`. On a phone that is a
+     screen of canvas above and below a heading — 487px of the integrations
+     band's 844px was empty at 375px. Height comes from content here; the
+     padding still keeps them reading as distinct bands. */
+  .awards {
+    min-height: 0;
+    padding: clamp(40px, 9vw, 64px) 0;
+  }
+
+  .techSection {
+    min-height: 0;
+  }
+
+  .servicesCarousel {
+    min-height: 0;
+  }
+
+  /* ---- 3. stacked-section height budget -----------------------------------
+     Services is eleven rows of image + copy + CTA and Industries eight portrait
+     cards; at desktop proportions they came to 6336px and 3173px on a 375px
+     screen. The trims are per-row, so they compound over the stack without
+     changing what a row contains. */
+  .carMobRow {
+    padding: clamp(20px, 4.5vw, 32px) 0;
+    gap: 16px;
+  }
+
+  .carMobCard {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* `.carName` is `clamp(1.9rem, 3.4vw, 3.2rem)`, and 3.4vw is only 12.75px at
+     375 — so every phone got the 1.9rem floor, a 30px display serif for a
+     service name that is one line of a ten-row stack. The middle term governs
+     across phone widths here (24px at 320/375, 25px at 414); the desktop
+     carousel, which shows one name at a time and has the room for 3.2rem,
+     keeps its own scale above 1000px. */
+  .carName {
+    margin: 10px 0 12px;
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .carPill {
+    margin-top: 18px;
+  }
+
+  /* Journey's mobile list: the phase glyph sat in a hard 200px circle, which is
+     most of a 320px screen's content width and 200px of the ~470px each phase
+     cost. Relative now, and centred in the column it actually has. */
+  .mobileJourneyVisual {
+    width: clamp(112px, 42vw, 168px);
+    height: clamp(112px, 42vw, 168px);
+    max-width: 100%;
+  }
+
+  .mobileJourneyList {
+    gap: 26px;
+  }
+
+  .mobileJourneyRow {
+    gap: 14px;
+    padding-bottom: 26px;
+  }
+
+  /* ---- 4. touch ergonomics ------------------------------------------------
+     9px is below the floor the mono micro-label scale should reach even at its
+     smallest; 10px is the token scale's own minimum (`clamp(10px, ...)`).
+
+     `.rStoryRole` and `.rStoryTag` used to be listed here too. They are not any
+     more: their base rule now sets `clamp(11px, 0.8vw, 12px)` at every width,
+     so repeating a flat 10px here would have made them SMALLER on a phone than
+     on a desktop — the opposite of the point. This label is a hover veil over a
+     photograph, a different case, and keeps its own bump. */
+  .rImageVeilLabel {
+    font-size: 10px;
+  }
+
+  /* Text-only links measured 15px tall. The padding is vertical only, so the
+     underline/arrow alignment the design relies on does not move. */
+  .recogViewAll {
+    padding: 9px 0;
+  }
+
+  .rPlayToggle {
+    padding: 9px 12px;
+  }
+
+  .footerCol a,
+  .footerEmail {
+    padding: 5px 0;
+  }
+
+  /* The scroll counter is fixed to the bottom-right corner, where it sat on top
+     of the footer's link columns. Tucked tighter into the corner and held clear
+     of the home-indicator inset. */
+  .chapNav {
+    right: 10px;
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    gap: 8px;
+  }
+
+  .chapBar {
+    padding: 7px 11px;
+    gap: 8px;
+  }
+
+  .chapTick {
+    width: 22px;
+  }
+
+  /* Clear of the home-indicator / gesture bar, so the legal line is not the
+     thing sitting under it. (The scroll readout that used to land here is
+     handled properly now — `.chapNavRetired` fades it out once the footer is
+     in view — so this is only about the device inset.) */
+  .footer {
+    padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ---- the burger overlay ----------------------------------------------------
+   `.overlay` is `display: grid; place-items: center`, so the menu is centred in
+   the viewport — correct while it is four words tall, wrong the moment a
+   division is expanded into its accordion. At 320x568 the expanded Services
+   panel is 488px tall, which centred its first rows underneath the fixed header
+   and put the word "Services" straight through the logo lockup.
+
+   Grid centring happens inside the PADDING box, so reserving the header's own
+   height as padding-top fixes the collision without giving up the centring: a
+   short menu still reads as centred, a tall one starts below the bar and
+   scrolls. The nav keeps `overflow-y: auto`; it just gets a real budget now
+   (`max-height: 100%` of the padded box) instead of 86vh of the whole screen.
+   The overlay is only ever the mobile menu — from 1000px up `.burger` is
+   `display: none` — but the query keeps it symmetrical with the rest. */
+@media (max-width: 999px) {
+  .overlay {
+    /* header = 20px padding + 48px lockup + 20px padding, then breathing room */
+    padding: 104px clamp(16px, 5vw, 28px)
+      calc(clamp(20px, 5vh, 40px) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .overlayNav {
+    width: 100%;
+    max-height: 100%;
+    /* momentum scroll for the long Services panel, and no rubber-banding of the
+       page behind it */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* The division headings are the overlay's display type, at up to 8vw. With an
+     accordion open they compete with the panel under them for the same screen,
+     so they step down a size here. */
+  .mobDivHead {
+    font-size: clamp(1.65rem, 6.6vw, 2.4rem);
+  }
+
+  .mobPanel {
+    padding: 10px 0 18px;
+    gap: 14px;
+  }
+}
+
+/* ---- hero -------------------------------------------------------------------
+   `clamp(2.75rem, 6.5vw, 6rem)` never leaves its 44px floor below a 677px
+   viewport, so every phone got the same 44px display serif: "Empowering
+   businesses with Intelligent AI, Automation & Integrations" ran to six lines
+   and pushed the hero to 714px inside a 568px screen. Re-floored so the middle
+   term actually governs across phone widths — 30px at 320, 32px at 375, 36px at
+   414 — which is three or four lines and a hero that fits its own viewport.
+   The 6rem desktop ceiling is untouched above 1000px. */
+@media (max-width: 999px) {
+  .heroTitle {
+    font-size: clamp(1.9rem, 8.6vw, 2.6rem);
+    letter-spacing: -0.035em;
+  }
+
+  .hero {
+    padding-top: clamp(104px, 15vh, 150px);
+  }
+
+  .heroCtaRow {
+    gap: 12px;
+  }
+}
+
+/* Both hero CTAs are mono uppercase pills with wide tracking. Side by side they
+   need ~330px, so on the narrow phones they wrapped to two rows of unequal
+   width. One per line, each full-width, so neither can be clipped and both are
+   a comfortable tap target. */
+@media (max-width: 420px) {
+  .heroCtaRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .heroCtaRow > * {
+    width: 100%;
+  }
+
+  .heroCtaRow .pill,
+  .heroCtaRow .pillFilled {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ---- one-card-per-row band ( <= 499px ) ------------------------------------
+   The industry cards are full-bleed once the fan has collapsed to one per row,
+   and a 4/5 portrait crop at full width is then the tallest element on the
+   page — six of them came to 2633px of the section's 3173px at 375px. Landscape
+   while one card owns the row; portrait again the moment two share it, because
+   a paired 4/3 card is only ~213x160 and reads as a squat thumbnail.
+
+   Two things about this rule are load-bearing:
+
+   - The selector must be `.industriesFan.gridMode .indFanCard` WITH
+     `!important`. The grid-mode block above sets every box property that way
+     (it is undoing the absolutely-positioned desktop fan), so a plain
+     `.indFanCard` later in the file still loses to it.
+   - 499px is measured, not the 520px two-up step further up this file. In grid
+     mode the stage is `display: flex; flex-wrap: wrap` and the cards are
+     `flex-basis: clamp(210px, 22%, 380px)` — so flex decides when they pair,
+     not that media query, and the real threshold is 500px (1 per row at 480,
+     2 at 500). */
+@media (max-width: 499px) {
+  .industriesFan.gridMode .indFanCard {
+    aspect-ratio: 4 / 3 !important;
+  }
 }

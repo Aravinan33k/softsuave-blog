@@ -167,11 +167,11 @@ export default function Nav({
         }}
       >
         <a href={logoHref} className={styles.navLogo} data-cursor="Home">
-          <Logo tone="light" size={40} className={styles.navLogoOnDark} />
+          <Logo tone="light" size={48} className={styles.navLogoOnDark} />
           {/* the second lockup is the same brand name — hidden from AT so the
               link keeps a single accessible name */}
           <span aria-hidden>
-            <Logo tone="dark" size={40} className={styles.navLogoOnLight} />
+            <Logo tone="dark" size={48} className={styles.navLogoOnLight} />
           </span>
         </a>
 
