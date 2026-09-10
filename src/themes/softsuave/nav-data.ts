@@ -159,17 +159,48 @@ const MARKETING_PATHS = [
   '/custome-ai-developement',
   '/generative-ai-development-company',
   '/agentic-ai-development-services',
+  // The sector index. This one DOES have a counterpart on softsuave.com at the
+  // same path, which is why the nav's Industries item has always pointed here —
+  // listing it flips that link from the live site to our own page the day the
+  // homepage ships.
+  '/industries',
+  // The eight sector pages. These are the hrefs INDUSTRIES already carries at
+  // the top of this file, and the ones the index's cards use: listing them here
+  // is what turns every one of those links from an outbound trip to
+  // softsuave.com into a route of ours. Hard-coded rather than imported from
+  // lib/home/sectors, which would pull all eight content modules into the
+  // client bundle of every page that renders the nav.
+  '/fintech-ai-solutions',
+  '/ai-solutions-in-healthtech',
+  '/ai-solutions-in-edutech',
+  '/ai-solutions-for-ecommerce',
+  '/ai-in-logistics',
+  '/ai-solutions-for-telecom',
+  '/ai-solutions-for-construction',
+  '/ai-in-aviation',
 ];
 const LOCAL_PATHS = new Set(homepageEnabled ? ['/blog', ...MARKETING_PATHS] : ['/blog']);
 
+/**
+ * Whether we serve the page a nav href points at.
+ *
+ * A fragment is part of the link, not part of the route: the mega menu's sector
+ * items are "/industries#sector-fintech", and judging those by the whole string
+ * would miss the set and send every one of them out to softsuave.com — a page
+ * we serve ourselves. So the lookup is on the path alone.
+ */
+function isLocal(href: string): boolean {
+  return LOCAL_PATHS.has(href.split('#')[0]);
+}
+
 /** Absolute URL: local for our own routes, otherwise the marketing site. */
 export function navHref(href: string): string {
-  return LOCAL_PATHS.has(href) ? href : `${SITE}${href}`;
+  return isLocal(href) ? href : `${SITE}${href}`;
 }
 
 /** True when `navHref` sent this path off to the marketing site. */
 export function isExternalHref(href: string): boolean {
-  return !LOCAL_PATHS.has(href);
+  return !isLocal(href);
 }
 
 /**

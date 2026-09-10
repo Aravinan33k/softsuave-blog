@@ -1,6 +1,7 @@
 import 'server-only';
 import { prisma } from '../db';
 import { homepageEnabled } from '../flags';
+import { SECTOR_SLUGS } from '../home/sectors';
 import { absoluteUrl } from './metadata';
 
 // Shared data for sitemap + feeds. Only indexable, published, live content.
@@ -14,7 +15,15 @@ import { absoluteUrl } from './metadata';
  * flag is off they are 307s to the archive, and a sitemap must never advertise a
  * redirect. Keep this list in step with MARKETING_ROUTES in next.config.ts.
  */
-const MARKETING_ROUTES = ['/', '/ai-development-service'];
+const MARKETING_ROUTES = [
+  '/',
+  '/ai-development-service',
+  '/industries',
+  // The sector pages, from the registry itself: adding a sector should put it
+  // in the sitemap without anyone remembering this file. Safe to import here —
+  // this module is server-only, so the content never reaches a client bundle.
+  ...SECTOR_SLUGS,
+];
 
 function landingEntries(now: Date): SitemapEntry[] {
   return [

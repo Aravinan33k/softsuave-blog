@@ -602,7 +602,14 @@ export const testimonials: {
 export const nav = {
   links: [
     { label: "Services", href: "#services" },
-    { label: "Industries", href: "#industries" },
+    // The sector index, not this page's industries band: it is the canonical
+    // page for the eight sectors, and the two the band omits (Construction,
+    // Aviation) exist only there. Every page that renders the default nav has
+    // its own `#industries` section still — the band stays, the nav bar just
+    // stops treating it as the destination. Being a route rather than an
+    // anchor, this link also drops out of the bar's "you are here" highlight,
+    // which only tracks `#` links.
+    { label: "Industries", href: "/industries" },
     { label: "Company", href: "#why" },
     { label: "Resources", href: "/blog" },
   ],

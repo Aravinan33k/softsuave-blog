@@ -30,8 +30,8 @@
  * describes them properly. Swap in the real path as each page ships.
  *
  * Two divisions are deliberately NOT mirrored, because they already have their
- * own "view all" navigation into the live site: the whole `Industries` panel,
- * and `Company`'s "Proof & recognition" group.
+ * own "view all" navigation: the whole `Industries` panel, whose CTA is now our
+ * own `/industries` sector index, and `Company`'s "Proof & recognition" group.
  *
  * ## groups
  * `dense` groups (roles, skills) drop the blurb and lay out as a compact
@@ -66,6 +66,20 @@ export type NavMenuPanel = {
   readonly cta: { readonly label: string; readonly href: string };
   readonly groups: readonly NavMenuGroup[];
 };
+
+/**
+ * Resolve a nav href for the page it is rendered on.
+ *
+ * The bar and its panels are the homepage's, and two dozen of their
+ * destinations are bare `#section` anchors — the homepage owns those sections.
+ * Rendered anywhere else, such an href scrolls nowhere and fails silently.
+ * Prefixing it with "/" turns it into what the reader meant: go to the
+ * homepage, land on that section. On the homepage nothing is rewritten, so its
+ * own Lenis in-page scrolling is untouched.
+ */
+export function navHrefForPage(href: string, onHome: boolean): string {
+  return !onHome && href.startsWith("#") ? `/${href}` : href;
+}
 
 const SERVICES: NavMenuPanel = {
   eyebrow: "Services",
@@ -226,18 +240,25 @@ const INDUSTRIES: NavMenuPanel = {
   eyebrow: "Industries",
   title: "AI-driven efficiency across industries",
   body: "We make business systems smarter and more connected, so organisations modernise faster in a digital-first market.",
-  cta: { label: "All industries", href: "#industries" },
+  // Our own sector index, which is also the path softsuave.com publishes its
+  // industries page at. The whole panel now leads there: the items to their own
+  // card, this to all eight — including the two no homepage band covers.
+  cta: { label: "All industries", href: "/industries" },
   groups: [
     {
       key: "sectors",
       name: "Sectors we serve",
       items: [
-        { name: "FinTech", href: "#industries", blurb: "Fraud detection and personalised banking" },
-        { name: "HealthTech", href: "#industries", blurb: "Patient outcomes and clinical workflows" },
-        { name: "EdTech", href: "#industries", blurb: "Personalised learning and analytics" },
-        { name: "Ecommerce", href: "#industries", blurb: "Recommendations and inventory automation" },
-        { name: "Logistics", href: "#industries", blurb: "Forecasting and route optimisation" },
-        { name: "Telecom", href: "#industries", blurb: "Predictive maintenance and network AI" },
+        // Each item deep-links to its own card on the sector index. The ids are
+        // `sector-<key>` on the cards in components/industries/sectors.tsx, and
+        // the keys are the ones in lib/home/industries-content.ts — renaming a
+        // key there breaks the link here.
+        { name: "FinTech", href: "/industries#sector-fintech", blurb: "Fraud detection and personalised banking" },
+        { name: "HealthTech", href: "/industries#sector-healthtech", blurb: "Patient outcomes and clinical workflows" },
+        { name: "EdTech", href: "/industries#sector-edtech", blurb: "Personalised learning and analytics" },
+        { name: "Ecommerce", href: "/industries#sector-ecommerce", blurb: "Recommendations and inventory automation" },
+        { name: "Logistics", href: "/industries#sector-logistics", blurb: "Forecasting and route optimisation" },
+        { name: "Telecom", href: "/industries#sector-telecom", blurb: "Predictive maintenance and network AI" },
       ],
     },
     {

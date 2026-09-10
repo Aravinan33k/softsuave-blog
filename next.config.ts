@@ -56,6 +56,19 @@ const MARKETING_ROUTES = [
   '/custome-ai-developement',
   '/generative-ai-development-company',
   '/agentic-ai-development-services',
+  '/industries',
+  // The eight sector pages under the index. Their slugs are softsuave.com's
+  // own, so while the flag is off each one must keep redirecting to the archive
+  // rather than answering — otherwise this staging serves a page at a URL the
+  // live site also owns. Mirrors SECTOR_PAGES in lib/home/sectors.
+  '/fintech-ai-solutions',
+  '/ai-solutions-in-healthtech',
+  '/ai-solutions-in-edutech',
+  '/ai-solutions-for-ecommerce',
+  '/ai-in-logistics',
+  '/ai-solutions-for-telecom',
+  '/ai-solutions-for-construction',
+  '/ai-in-aviation',
 ];
 
 const nextConfig: NextConfig = {

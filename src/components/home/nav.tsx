@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logo from "./logo";
 import { nav } from "@/lib/home/content";
-import { navPanels } from "@/lib/home/nav-menu";
+import { navPanels, navHrefForPage } from "@/lib/home/nav-menu";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import Magnetic from "./magnetic";
 import MegaPanel, { MenuLink } from "./mega-menu";
@@ -73,19 +74,31 @@ function useActiveAnchor(ids: string): string | null {
  * full-screen burger overlay, where each expands into the same content as an
  * accordion.
  *
- * `links`, `cta` and `logoHref` default to the homepage's own content, so the
- * homepage renders unchanged. Other pages in the (marketing) group pass their
- * own set — the defaults are all same-page anchors (#services, #why, …) which
- * would be dead links anywhere but the homepage.
+ * `links`, `cta` and `logoHref` default to the homepage's own content, and
+ * every page in the (marketing) group renders that same bar: one set of
+ * divisions and one set of panels across the surface, so the nav never changes
+ * shape as the reader moves between pages. The defaults include same-page
+ * anchors (#services, #why, …); off the homepage `navHrefForPage` resolves
+ * those against it, so they lead to the section instead of nowhere. A page with
+ * a genuine reason to differ can still pass its own set.
+ *
+ * `ownsAnchors` opts out of that resolution, for a page that has the bar's
+ * anchor sections itself — `/ai-development-service` has both #services and
+ * #why, and there the bar should scroll in-page as it always has. It is a prop
+ * rather than a DOM probe because the server renders these links: a link that
+ * points at the homepage's copy of a section is right for a crawler and right
+ * without JS, and only the page itself knows better.
  */
 export default function Nav({
   links = nav.links,
   cta = nav.cta,
   logoHref = "#top",
+  ownsAnchors = false,
 }: {
   links?: readonly NavLink[];
   cta?: NavLink;
   logoHref?: string;
+  ownsAnchors?: boolean;
 } = {}) {
   const bar = useRef<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
@@ -100,6 +113,24 @@ export default function Nav({
       .map((l) => l.href.slice(1))
       .join(","),
   );
+
+  // The default `links` are the homepage's, so its in-page anchors have to
+  // become links back to it when this bar renders on a page that doesn't have
+  // those sections. `ownsAnchors` is the exception, and the homepage is always
+  // one.
+  const pathname = usePathname();
+  const keepAnchors = ownsAnchors || pathname === "/";
+  const resolve = (href: string) => navHrefForPage(href, keepAnchors);
+
+  // `id` keeps the original anchor for the active-section highlight — where the
+  // page doesn't have the section, that id isn't in the DOM and nothing
+  // highlights, which is correct.
+  const items = links.map((l) => ({
+    label: l.label,
+    href: resolve(l.href),
+    id: l.href.startsWith("#") ? l.href.slice(1) : null,
+  }));
+  const ctaHref = resolve(cta.href);
 
   useGSAP(
     () => {
@@ -166,7 +197,7 @@ export default function Nav({
           if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setMenu(null);
         }}
       >
-        <a href={logoHref} className={styles.navLogo} data-cursor="Home">
+        <a href={resolve(logoHref)} className={styles.navLogo} data-cursor="Home">
           <Logo tone="light" size={48} className={styles.navLogoOnDark} />
           {/* the second lockup is the same brand name — hidden from AT so the
               link keeps a single accessible name */}
@@ -178,8 +209,8 @@ export default function Nav({
         {/* The four top-level divisions. Inline from 1000px up; below that they
             live in the burger overlay instead (same `links` array). */}
         <nav className={styles.navLinks} aria-label="Main">
-          {links.map((l) => {
-            const id = l.href.slice(1);
+          {items.map((l) => {
+            const id = l.id;
             const hasPanel = Boolean(navPanels[l.label]);
             const shared = {
               onMouseEnter: () => setMenu(hasPanel ? l.label : null),
@@ -212,12 +243,12 @@ export default function Nav({
 
         <div className={styles.navRight}>
           <Magnetic>
-            {cta.href.startsWith("/") ? (
-              <Link href={cta.href} {...ctaShared}>
-                {cta.label}
+            {ctaHref.startsWith("/") ? (
+              <Link href={ctaHref} {...ctaShared}>
+
               </Link>
             ) : (
-              <a href={cta.href} {...ctaShared}>
+              <a href={ctaHref} {...ctaShared}>
                 {cta.label}
               </a>
             )}
@@ -236,7 +267,7 @@ export default function Nav({
 
       <div className={`${styles.overlay} ${open ? styles.overlayOpen : ""}`} aria-hidden={!open}>
         <nav className={styles.overlayNav}>
-          {links.map((l) => {
+          {items.map((l) => {
             const menuPanel = navPanels[l.label];
             // A division with a panel becomes an accordion rather than a link;
             // its own destination stays reachable as the panel's CTA.

@@ -855,6 +855,36 @@
         "mobile network signal tower",
         "network connectivity"
       ]
+    },
+    {
+      "id": "ind-construction",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Construction industry",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "construction site engineer blueprint crane vertical",
+        "building construction technology worker",
+        "construction site building",
+        "construction"
+      ]
+    },
+    {
+      "id": "ind-aviation",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Aviation industry",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "aviation aircraft maintenance airport engineer vertical",
+        "airplane airport ground operations",
+        "aircraft aviation technology",
+        "aviation"
+      ]
     }
   ]
 }

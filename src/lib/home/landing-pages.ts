@@ -27,4 +27,15 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/agentic-ai-development-services', title: 'Agentic AI Development Services' },
   { path: '/contact', title: 'Contact Us' },
   { path: '/awards-recognition', title: 'Awards and Recognition' },
+  { path: '/industries', title: 'Industries We Serve' },
+  // The eight sector pages under the index. Their content lives in
+  // lib/home/sectors, which is the list to edit when a sector is added.
+  { path: '/fintech-ai-solutions', title: 'AI Solutions for FinTech' },
+  { path: '/ai-solutions-in-healthtech', title: 'AI Solutions for HealthTech' },
+  { path: '/ai-solutions-in-edutech', title: 'AI Solutions for EdTech' },
+  { path: '/ai-solutions-for-ecommerce', title: 'AI Solutions for eCommerce' },
+  { path: '/ai-in-logistics', title: 'AI Solutions for Logistics' },
+  { path: '/ai-solutions-for-telecom', title: 'AI Solutions for Telecom' },
+  { path: '/ai-solutions-for-construction', title: 'AI Solutions for Construction' },
+  { path: '/ai-in-aviation', title: 'AI Solutions for Aviation' },
 ] as const;
