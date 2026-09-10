@@ -12,11 +12,29 @@ const schema = z
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
     NEXT_PUBLIC_SITE_URL: z.string().min(1).default('http://localhost:3000'),
 
-    DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
+    // Must be a mysql:// URL. The protocol is checked rather than accepted as any
+    // non-empty string because this app was ported from Postgres: a leftover
+    // postgresql:// URL is the single most likely misconfiguration, and without
+    // this it would boot fine and then fail on the first query inside a request.
+    // A stale `?schema=public` query param (Postgres-only) is harmless — the
+    // driver ignores it — so it is not rejected.
+    DATABASE_URL: z
+      .string()
+      .min(1, 'DATABASE_URL is required')
+      .refine((v) => /^mysql:\/\//i.test(v), 'DATABASE_URL must be a mysql:// connection string'),
     // Connection-pool ceiling per process. Unset lets lib/db.ts choose a default
-    // per phase; set it explicitly when several app instances share one Postgres,
-    // so the total stays under the server's max_connections.
+    // per phase; set it explicitly when several app instances share one MySQL, so
+    // the total stays under the server's max_connections (default 151).
     DATABASE_POOL_MAX: z.coerce.number().int().positive().optional(),
+    // TLS to MySQL. `verify` (default) encrypts AND authenticates the server;
+    // `no-verify` encrypts only, accepting any certificate, so it does not stop a
+    // MITM; `disable` sends credentials in plaintext and is for a loopback socket
+    // in local development only. See sslConfig() in lib/db.ts.
+    DATABASE_SSL: z.enum(['verify', 'no-verify', 'disable']).default('verify'),
+    // PEM contents (not a path) of the CA that signed the MySQL server
+    // certificate. Needed with DATABASE_SSL=verify against a self-signed cert,
+    // which is the norm for a self-hosted server.
+    DATABASE_SSL_CA: z.string().optional(),
 
     JWT_ACCESS_SECRET: z.string().min(16, 'JWT_ACCESS_SECRET must be at least 16 chars'),
     JWT_REFRESH_SECRET: z.string().min(16, 'JWT_REFRESH_SECRET must be at least 16 chars'),
@@ -43,6 +61,13 @@ const schema = z
     CLOUDINARY_API_SECRET: z.string().default(''),
     // Optional key prefix for all uploaded objects, e.g. "blog". No slashes.
     CLOUDINARY_FOLDER: z.string().default(''),
+
+    // Must match MySQL's `innodb_ft_min_token_size`. InnoDB never indexes tokens
+    // below it, so lib/search/fulltext.ts drops shorter terms rather than sending
+    // a query that silently matches nothing. Lowering it here without also
+    // lowering it on the server (and rebuilding the FULLTEXT indexes) just moves
+    // the empty results one layer down.
+    SEARCH_MIN_TOKEN_SIZE: z.coerce.number().int().min(1).max(10).default(3),
 
     RATE_LIMIT_DRIVER: z.enum(['memory', 'upstash']).default('memory'),
     UPSTASH_REDIS_REST_URL: z.string().default(''),

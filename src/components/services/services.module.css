@@ -1,0 +1,602 @@
+/* ============================================================
+   Service landing pages (/ai-development-service and siblings).
+
+   Reads the same `.theme-four` variables as the homepage and reuses its
+   primitives (.section/.sectionHead/.eyebrow/.h2/.lead/.pill) from
+   home.module.css — only the patterns the homepage has no equivalent for live
+   here: the hero + enquiry form, the comparison table, the numbered card grids,
+   the CTA bands and the FAQ list.
+
+   Every colour is a token, so a section dropped inside `.light` re-themes with
+   no markup change, exactly like the homepage bands.
+   ============================================================ */
+
+/* ---- hero ---- */
+.hero {
+  padding: clamp(104px, 12vw, 168px) var(--gutter) clamp(48px, 6vw, 88px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+
+.heroTitle {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(2.5rem, 5.4vw, 4.75rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--text-bright);
+  margin: 0.4em 0 0;
+}
+
+.heroBody {
+  max-width: 54ch;
+  margin-top: 1.5em;
+  font-size: clamp(1.0625rem, 1.35vw, 1.1875rem);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: clamp(24px, 3vw, 36px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.6em 1.05em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--font-eyebrow);
+  font-size: clamp(10px, 0.74vw, 11.5px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+}
+
+.badge::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+
+/* ---- enquiry form (UI only — submit scrolls to the final CTA) ---- */
+.form {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: clamp(22px, 2.4vw, 32px);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.formTitle {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.375rem, 2vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+  margin: 0;
+}
+
+.formBody {
+  margin: 0.7em 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.formGrid {
+  display: grid;
+  gap: 14px;
+  margin-top: clamp(18px, 2vw, 24px);
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+}
+
+.label {
+  font-family: var(--font-eyebrow);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.85em 1em;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text-bright);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  transition: border-color 0.3s ease;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 92px;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: color-mix(in srgb, var(--muted) 75%, transparent);
+}
+
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: none;
+  border-color: var(--accent-border);
+}
+
+.formSubmit {
+  margin-top: 4px;
+  justify-content: center;
+  cursor: pointer;
+  border: 0;
+  width: 100%;
+}
+
+.formNote {
+  margin: 12px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ---- prose block (the "what is it" answer) ---- */
+.prose {
+  max-width: 68ch;
+}
+
+.prose p {
+  margin: 0 0 1.1em;
+  font-size: clamp(1rem, 1.25vw, 1.125rem);
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- numbered card grid (offerings, why-choose, industries) ---- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.card {
+  background: var(--bg);
+  padding: clamp(24px, 2.6vw, 38px);
+  transition: background 0.4s ease;
+}
+
+.card:hover {
+  background: var(--surface);
+}
+
+.cardNum {
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+.cardName {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.7vw, 1.5rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+  margin: 0.55em 0 0;
+}
+
+.cardBody {
+  margin: 0.75em 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.68;
+  color: var(--muted);
+}
+
+/* ---- comparison table ---- */
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.table th,
+.table td {
+  padding: clamp(14px, 1.5vw, 20px) clamp(16px, 1.8vw, 26px);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.6;
+}
+
+.table tbody tr:last-child th,
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.table thead th {
+  font-family: var(--font-eyebrow);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--muted);
+  background: var(--surface);
+  white-space: nowrap;
+}
+
+/* The row label column, and the "custom" column the page argues for. */
+.table tbody th {
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--text-bright);
+  width: 22%;
+}
+
+.tableLead {
+  color: var(--text-bright);
+}
+
+.tableAlt {
+  color: var(--muted);
+}
+
+/* ---- CTA band ---- */
+.ctaBand {
+  margin: 0 var(--gutter);
+  padding: clamp(34px, 4.5vw, 64px) clamp(24px, 4vw, 60px);
+  border: 1px solid var(--accent-border);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(20px, 3vw, 48px);
+  align-items: center;
+}
+
+.ctaTitle {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.625rem, 2.9vw, 2.5rem);
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+  margin: 0;
+}
+
+.ctaBody {
+  margin: 0.8em 0 0;
+  max-width: 62ch;
+  font-size: 0.9375rem;
+  line-height: 1.68;
+  color: var(--muted);
+}
+
+/* ---- delivery process ---- */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: clamp(20px, 2.4vw, 34px);
+}
+
+.step {
+  border-top: 1px solid var(--line);
+  padding-top: clamp(16px, 1.8vw, 22px);
+}
+
+.stepNum {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(2.25rem, 3.6vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: color-mix(in srgb, var(--accent) 70%, var(--text-bright));
+}
+
+.stepName {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  color: var(--text-bright);
+  margin: 0.9em 0 0;
+}
+
+.stepBody {
+  margin: 0.6em 0 0;
+  font-size: 0.9125rem;
+  line-height: 1.68;
+  color: var(--muted);
+}
+
+/* ---- case studies ---- */
+.caseGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  gap: clamp(18px, 2.2vw, 28px);
+}
+
+.caseCard {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: clamp(24px, 2.6vw, 36px);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.4s ease, transform 0.4s ease;
+}
+
+.caseCard:hover {
+  border-color: var(--accent-border);
+  transform: translateY(-3px);
+}
+
+.caseTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.caseIndustry {
+  font-family: var(--font-eyebrow);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.caseMetric {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.3vw, 2rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.caseMetricLabel {
+  display: block;
+  font-family: var(--font-eyebrow);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 6px;
+  text-align: right;
+}
+
+.caseName {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.1875rem, 1.6vw, 1.4375rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+  margin: 1em 0 0;
+}
+
+.caseBody {
+  margin: 0.75em 0 0;
+  font-size: 0.9125rem;
+  line-height: 1.68;
+  color: var(--muted);
+}
+
+.caseFoot {
+  margin-top: clamp(26px, 3vw, 40px);
+}
+
+/* ---- tech stack ---- */
+.stackGroups {
+  display: grid;
+  gap: clamp(22px, 2.6vw, 38px);
+}
+
+.stackGroup {
+  border-top: 1px solid var(--line);
+  padding-top: clamp(14px, 1.6vw, 20px);
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  gap: clamp(12px, 2vw, 32px);
+  align-items: start;
+}
+
+.stackGroupName {
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+}
+
+.stackChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stackChip {
+  padding: 0.5em 0.95em;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: var(--text-bright);
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+}
+
+/* ---- FAQ ----
+   Native <details>/<summary>: keyboard accessible and open-by-default for
+   crawlers, with no hydration cost and no JS to go wrong. */
+.faqList {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.faqItem {
+  border-bottom: 1px solid var(--line);
+}
+
+.faqQ {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding: clamp(18px, 2vw, 26px) 0;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.0625rem, 1.5vw, 1.3125rem);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+  list-style: none;
+  transition: color 0.3s ease;
+}
+
+/* Hide the native disclosure triangle in both engines. */
+.faqQ::-webkit-details-marker {
+  display: none;
+}
+
+.faqQ:hover {
+  color: var(--accent);
+}
+
+.faqQ:focus-visible {
+  outline: 2px solid var(--accent-border);
+  outline-offset: 4px;
+}
+
+.faqMark {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  position: relative;
+  align-self: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+}
+
+.faqMark::before,
+.faqMark::after {
+  content: "";
+  position: absolute;
+  inset: 50% 5px auto 5px;
+  height: 1px;
+  background: var(--accent);
+  transform: translateY(-50%);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.faqMark::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.faqItem[open] .faqMark::after {
+  transform: translateY(-50%) rotate(0deg);
+  opacity: 0;
+}
+
+.faqA {
+  padding: 0 0 clamp(20px, 2.2vw, 28px);
+  max-width: 76ch;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.faqCta {
+  display: inline-block;
+  margin-top: 1em;
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color 0.3s ease;
+}
+
+.faqCta:hover {
+  border-color: var(--accent);
+}
+
+/* ---- responsive ---- */
+@media (max-width: 1024px) {
+  .hero,
+  .ctaBand,
+  .stackGroup {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ctaBand {
+    align-items: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .caseCard,
+  .faqQ,
+  .input,
+  .textarea,
+  .faqMark::before,
+  .faqMark::after {
+    transition: none;
+  }
+
+  .caseCard:hover {
+    transform: none;
+  }
+}
+
+/* The question is a real <h3> inside <summary> (valid: summary takes one
+   heading), so it has to shed the heading's own type scale and margins and
+   inherit the summary's instead. */
+.faqQ h3 {
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+.faqA p {
+  margin: 0;
+}

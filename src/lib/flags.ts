@@ -31,10 +31,19 @@ export const homepageEnabled = process.env.NEXT_PUBLIC_HOMEPAGE_ENABLED === 'tru
 /**
  * Subpath this app is mounted at, mirroring `basePath` in `next.config.ts`.
  *
- * Lives here so next.config, server code and client components share one source
- * of truth. `basePath` prefixes routes and framework assets automatically, but it
- * does NOT touch URLs we store or build ourselves — media URLs in the database and
- * in post HTML are root-relative ("/uploads/…"), so they need this applied
- * explicitly. See `lib/media-url.ts`.
+ * Empty: the app owns the domain root, so `/` is the marketing homepage, `/blog`
+ * the archive and `/uploads/…` media — every URL is served exactly where it is
+ * written, and the helpers in `lib/media-url.ts` pass paths through untouched.
+ *
+ * It is kept as a named constant rather than deleted because it is the single
+ * seam for mounting the app under a subpath again (it was briefly at `/blog`).
+ * `basePath` prefixes routes and framework assets automatically, but it does NOT
+ * touch URLs we store or build ourselves — media URLs in the database and in post
+ * HTML are root-relative ("/uploads/…"), and `fetch()` is not basePath-aware — so
+ * those go through `lib/media-url.ts`, which applies this. Setting it here and in
+ * `next.config.ts` is all a re-mount takes.
  */
-export const BASE_PATH = '/blog';
+// Typed as `string` rather than the literal `''`: the helpers compare paths
+// against it, and a literal type would narrow those comparisons into type errors
+// here and dead branches the moment the value changes.
+export const BASE_PATH: string = '';

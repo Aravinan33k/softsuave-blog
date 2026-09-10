@@ -72,7 +72,7 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
     // "/" is a real page only once the marketing homepage ships; until then the
     // trail starts at the archive rather than pointing Google at a redirect.
     ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: 'Blog', path: '/' },
+    { name: 'Blog', path: '/blog' },
     ...(content.categories[0] ? [{ name: content.categories[0].name, path: `/category/${content.categories[0].slug}` }] : []),
     { name: content.title, path: `/${slug}` },
   ]);

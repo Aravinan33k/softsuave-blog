@@ -726,5 +726,18 @@
     "photographer": "Atlantic Ambience",
     "pexelsUrl": "https://www.pexels.com/photo/coins-bank-cards-and-a-miniature-eiffel-tower-on-paper-documents-12969397/",
     "matchedTier": "fintech banking finance payment vertical"
+  },
+  "four/ind-telecom": {
+    "page": "four",
+    "id": "ind-telecom",
+    "src": "/images/four/ind-telecom.webp",
+    "width": 800,
+    "height": 1000,
+    "alt": "Telecom industry",
+    "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAQCdASoQAAsAA4BaJbACdAD5dxYf7aAA/qFuFyBCbxON5M30LB/KKFuzZgkzCX5X08HtUXvsKJKXNDsGfm3yu27Yy8hm1LG5OuWj/vDG4TRMbcAAAA==",
+    "pexelsId": 2881228,
+    "photographer": "Brett Sayles",
+    "pexelsUrl": "https://www.pexels.com/photo/close-up-photo-of-ethernet-port-2881228/",
+    "matchedTier": "telecom network infrastructure vertical (derived from one/integrations)"
   }
 }

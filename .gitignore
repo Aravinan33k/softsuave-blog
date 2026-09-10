@@ -50,3 +50,8 @@ migrate-media.log
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Playwright MCP browser-automation tool: page snapshots + console logs it
+# writes to the repo root on every navigate/click, purely for the assistant's
+# own use while verifying pages in a live browser. Not app code.
+/.playwright-mcp/

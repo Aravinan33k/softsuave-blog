@@ -3,7 +3,10 @@ import { Inter, Fraunces, JetBrains_Mono } from 'next/font/google';
 import ScrollProvider from '@/components/home/scroll-provider';
 import './home.css';
 
-// Layout for the public marketing surface (currently just the homepage at "/").
+// Layout for the public marketing surface: the homepage at "/" and the service
+// landing pages beside it (e.g. /ai-development-service). They share these fonts,
+// the `.theme-four` tokens and the Lenis scroll provider, which is what makes a
+// service page able to reuse the homepage's own sections verbatim.
 //
 // The three display fonts and the homepage stylesheet are declared here rather
 // than in the root layout on purpose: fonts declared at the root are preloaded

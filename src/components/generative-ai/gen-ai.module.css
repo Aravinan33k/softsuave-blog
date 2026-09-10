@@ -1,0 +1,1984 @@
+/* ============================================================
+   AI landing pages — own design language.
+
+   These pages share the marketing surface's TOKENS (the `.theme-four` custom
+   properties from app/(marketing)/home.css: --bg/--surface/--line/--accent/
+   --muted/--font-body/--font-heading/--font-eyebrow) and its motion
+   primitives, so they read as the same brand. Everything structural is their
+   own, deliberately NOT the homepage's:
+
+   TYPOGRAPHY IS THE HOMEPAGE'S, verbatim: Fraunces ultralight serif headings
+   (--font-heading) at the homepage's own scales, JetBrains Mono eyebrows at
+   0.28em (--font-eyebrow), Inter body copy (--font-body), and 999px capsule
+   pills. The values below are lifted from `home.module.css` .h2 / .lead /
+   .eyebrow / .pill / .bentoName / .svcName / .techGroupName so a heading here
+   is the same object as a heading there.
+
+   What stays specific to these pages is LAYOUT, not style: static bordered
+   panels and grids instead of the homepage's display-type marquees, image
+   galleries and pinned scenes.
+
+   Breakpoints: 520 / 700 / 800 / 900 / 1000, matching home.module.css.
+   ============================================================ */
+
+/* ============================================================
+   SECTION SHELL + MASTHEAD
+   This surface's answer to home.module.css `.section` / `.sectionHead` /
+   `.eyebrow` / `.h2` / `.lead`.
+   ============================================================ */
+.sectionShell {
+  padding: clamp(34px, 4vw, 64px) var(--gutter);
+  position: relative;
+}
+
+/* Rule-topped masthead: kicker, title, then the intro paragraph beneath them.
+   The intro used to sit in a second column from 1000px up, which put the lead
+   on the same optical line as the title and made the two compete for the first
+   read. Stacked, the eye lands on the title first and falls into the intro. */
+.head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.4vw, 20px);
+  padding-top: clamp(14px, 1.8vw, 24px);
+  border-top: 1px solid var(--line);
+  margin-bottom: clamp(20px, 2.6vw, 38px);
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-family: var(--font-eyebrow);
+  font-size: clamp(10px, 0.78vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--muted);
+}
+
+/* The homepage eyebrow's own accent rule. */
+.kicker::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.title {
+  margin: 0.5em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 2.9vw, 2.5rem);
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+  max-width: 26ch;
+}
+
+.intro {
+  margin: 0;
+  /* The masthead is stacked and full-width, so a narrow measure left the lead
+     wrapping into four short lines against a lot of empty space. */
+  max-width: 76ch;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.62;
+  color: var(--muted);
+}
+
+/* ============================================================
+   BUTTONS — squared, mono-labelled. The homepage's `.pill` is a 999px
+   capsule; these are deliberately not.
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding: 0.85em 1.6em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  font-family: var(--font-eyebrow);
+  font-size: clamp(10px, 0.8vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-bright);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease,
+    transform 0.4s ease;
+}
+
+/* Token-driven, not hardcoded white: these buttons have to survive an inverted
+   band, where white-on-cream would erase the label. */
+.btn:hover {
+  border-color: var(--accent-border);
+  color: var(--text-bright);
+  transform: translateY(-2px);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.btnPrimary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #140b08;
+}
+
+/* Inverts to the surface's own extreme — near-white on the dark ground, near-
+   black on an inverted band — so the hover reads as an inversion either way. */
+.btnPrimary:hover {
+  background: var(--text-bright);
+  border-color: var(--text-bright);
+  color: var(--bg);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  padding: clamp(78px, 6.6vw, 98px) var(--gutter) clamp(32px, 3.4vw, 52px);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.heroGlow {
+  position: absolute;
+  inset: -30% -10% auto -10%;
+  height: 90%;
+  background: radial-gradient(
+    55% 55% at 22% 30%,
+    rgba(255, 84, 54, 0.14) 0%,
+    rgba(255, 84, 54, 0) 70%
+  );
+  pointer-events: none;
+}
+
+/* Full-bleed hero backdrop — the landing-page counterpart to the homepage's
+   intro-video frame (`.videoHeroFrame` / `.videoHeroVeil`), and it earns its
+   place the same way: the image must be legibly THERE, not a rumour under a
+   veil. The current frame is already near-black with cool blue key light, so
+   unlike a high-key stock photo it needs no darkening of its own — it runs at
+   near-full opacity under two light veil passes. The vertical pass weights the
+   fold into the section below; the horizontal one sits over the headline
+   column, which is the only place white type crosses the lit part of the
+   figure. The coral `.heroGlow` still layers over both.
+
+   `cover` + a slightly high `object-position` is what makes it fill any
+   viewport edge to edge: the frame is 16:9, wide viewports crop top and bottom,
+   and biasing upward keeps the figure's head in shot rather than centring the
+   crop on the empty lower half. */
+.heroMedia {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--bg);
+  pointer-events: none;
+}
+
+.heroMediaImg {
+  object-fit: cover;
+  /* Phone-shaped viewports crop a 16:9 frame down to a narrow vertical slice,
+     so the crop is biased left of centre there to keep the figure in shot; the
+     desktop override below recentres it once the hero is wider than it is
+     tall. */
+  object-position: 34% 28%;
+  opacity: 0.92;
+}
+
+.heroMediaVeil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 5, 8, 0.6) 0%,
+      rgba(4, 5, 8, 0.2) 55%,
+      rgba(4, 5, 8, 0.4) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4, 5, 8, 0.35) 0%,
+      rgba(4, 5, 8, 0.16) 40%,
+      rgba(4, 5, 8, 0.9) 100%
+    );
+}
+
+.heroGrid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(34px, 4vw, 64px);
+  align-items: start;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+/* The homepage's display headline — same face, weight and tracking. Only the
+   clamp is scaled down: the homepage caps at 6rem for a full-bleed headline,
+   while this hero gives ~45% of the row to the enquiry form. */
+.heroTitle {
+  margin: 0.5em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.85rem, 3.4vw, 2.9rem);
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+  color: var(--text-bright);
+  max-width: 24ch;
+}
+
+.heroTitleLine {
+  display: block;
+}
+
+.heroTitleAccent {
+  color: var(--accent);
+}
+
+.heroBody {
+  margin: clamp(16px, 2vw, 24px) 0 0;
+  max-width: 72ch;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.62;
+  color: var(--muted);
+}
+
+.heroBody + .heroBody {
+  margin-top: 1em;
+}
+
+/* --- supporting points: hairline-separated rows, not a bulleted list --- */
+.heroPoints {
+  list-style: none;
+  margin: clamp(20px, 2.4vw, 30px) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.heroPoint {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(0.9rem, 0.98vw, 1rem);
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.heroPointMark {
+  width: 15px;
+  height: 15px;
+  color: var(--accent);
+}
+
+/* ============================================================
+   HERO ENQUIRY FORM
+   ============================================================ */
+/* The enquiry card is a WHITE panel on the dark hero — the treatment the live
+   softsuave.com hero already uses, and the strongest thing on the page after
+   the headline.
+ *
+ * It is done the way the marketing surface does every inversion: re-point the
+ * semantic tokens on the container and let the cascade carry them. Every rule
+ * below (`.kicker`, `.label`, `.input`, `.btnPrimary`, `.formNote`) already
+ * reads these vars, so none of them needs a light-mode twin. Values are the
+ * homepage `.light` band's, with `--surface` taken to pure white and `--bg`
+ * (the input fill) to a hair off it so the fields still read as inset.
+ *
+ * `--accent` stays the page's coral so the submit button matches the nav CTA,
+ * but coral TEXT on white is only ~2.9:1, so accent-as-text gets its own
+ * `--accent-ink` — the light band's deeper brick red. */
+.form {
+  --bg: #fdfcfb;
+  --surface: #ffffff;
+  --surface-2: #f3f0ea;
+  --surface-3: #e6e2da;
+  --text: #4a4842;
+  --text-bright: #17140f;
+  --muted: #6b6862;
+  --line: #ddd8cf;
+  --accent: var(--brand-500);
+  --accent-border: var(--brand-600);
+  --accent-ink: #b8341a;
+
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  padding: clamp(22px, 2.4vw, 32px);
+  box-shadow: 0 34px 80px -40px rgba(0, 0, 0, 0.85);
+}
+
+/* `.btnPrimary:hover` inverts to white, which on a white card would erase the
+   button. Inside the form it deepens instead, keeping the ink label. */
+.form .btnPrimary:hover {
+  background: var(--brand-600);
+  border-color: var(--brand-600);
+  color: #140b08;
+}
+
+.formTitle {
+  margin: 0.6em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.2rem, 1.6vw, 1.55rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.formFields {
+  display: grid;
+  gap: 13px;
+  margin-top: clamp(20px, 2.2vw, 26px);
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.label {
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.78em 0.9em;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-bright);
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  line-height: 1.45;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: color-mix(in srgb, var(--muted) 72%, transparent);
+}
+
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+
+.formSubmit {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.formNote {
+  margin: 12px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.formStatus {
+  margin: 12px 0 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  /* On the white card this resolves to the deeper brick red; everywhere else
+     `--accent-ink` is unset and it falls back to the coral accent. */
+  color: var(--accent-ink, var(--accent));
+}
+
+/* ============================================================
+   OVERVIEW (editorial prose)
+   ============================================================ */
+.prose {
+  display: grid;
+  gap: 0.95em;
+  max-width: 76ch;
+}
+
+.prose p {
+  margin: 0;
+  font-size: clamp(0.98rem, 1.1vw, 1.08rem);
+  /* 1.68 rather than the airier 1.75 this started at: the section has to fit
+     one screen. Still comfortably above the 1.5 floor for body copy. */
+  line-height: 1.68;
+  color: var(--muted);
+}
+
+/* Prose beside the section illustration. Both columns sit inside the section's
+   normal `var(--gutter)` padding, so the copy's left edge and the image's right
+   edge line up with every other band on the page. */
+.overviewGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 3vw, 44px);
+}
+
+/* Fluid frame, capped rather than filling the column. `aspect-ratio` (not a
+   fixed height) means the box tracks its own width at every viewport size, and
+   `next/image fill` paints into it — no layout shift, no size to go stale. The
+   ratio is the asset's own 4:3, so nothing is cropped.
+ *
+   `max-width` is the size fix: left to fill the whole 0.75fr column the image
+   ran noticeably larger than the text beside it. Capped and right-aligned, it
+   now sits closer to the height of the title + two paragraphs it shares a row
+   with, instead of overshooting them. */
+.overviewMedia {
+  position: relative;
+  margin: 0 0 0 auto;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.overviewMedia img {
+  object-fit: cover;
+}
+
+/* Compact enough to clear the fold with the prose and the illustration above
+   it — this panel is the third block of the overview, and all three are meant
+   to be readable in one screen. */
+.pullQuote {
+  margin: clamp(18px, 2.2vw, 30px) 0 0;
+  padding: clamp(16px, 1.8vw, 24px) clamp(18px, 2vw, 28px);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: var(--surface);
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+/* ============================================================
+   PROBLEM / SOLUTION SELECTOR
+   Replaces the old static table: the problems are a vertical tablist and the
+   matching solution animates into the panel beside them. `align-items:
+   stretch` (the grid default) makes the panel take the list's height, so
+   switching between solutions of different lengths moves nothing on the page.
+   ============================================================ */
+.psGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.psList {
+  border-top: 1px solid var(--line);
+}
+
+.psTab {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  align-items: baseline;
+  gap: clamp(10px, 1.4vw, 18px);
+  width: 100%;
+  padding: clamp(14px, 1.8vw, 20px) 0 clamp(14px, 1.8vw, 20px) clamp(10px, 1.2vw, 16px);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: background 0.35s ease, padding-left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Accent rule on the active problem, drawn from the top down. */
+.psTab::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.psTab[aria-selected="true"]::before {
+  transform: scaleY(1);
+}
+
+.psTab[aria-selected="true"] {
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  padding-left: clamp(16px, 1.8vw, 24px);
+}
+
+.psTab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.psTabNum {
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  transition: color 0.35s ease;
+}
+
+.psTab[aria-selected="true"] .psTabNum {
+  color: var(--accent);
+}
+
+.psTabLabel {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.02rem, 1.35vw, 1.25rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+  transition: color 0.35s ease;
+}
+
+.psTab:hover .psTabLabel,
+.psTab[aria-selected="true"] .psTabLabel {
+  color: var(--accent);
+}
+
+/* The solution panel is a dark plate carrying the selected problem's artwork —
+   the one inverted element inside the light band, which is what lets a
+   photograph show at all: a scrim pale enough to keep dark type readable would
+   have washed the image out to nothing.
+ *
+   It re-points its own tokens the way `.form` and the `.light` band do, so the
+   label / title / body rules underneath need no dark-mode twin. `--accent` goes
+   back to the coral: the light band's brick red is for ink on cream and goes
+   muddy on black. */
+.psPanel {
+  --bg: #08090c;
+  --surface: #101114;
+  --text: #d2d2d2;
+  --text-bright: #f4f3f1;
+  --muted: #c4c2be;
+  --line: rgba(255, 255, 255, 0.16);
+  --accent: var(--brand-coral);
+  --accent-border: var(--brand-500);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 2.4vw, 32px);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Every row's artwork is mounted at once and crossfaded, so hovering down the
+   list never blanks the panel between images. */
+.psPanelMedia {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+.psPanelMediaOn {
+  opacity: 1;
+}
+
+.psPanelMedia img {
+  object-fit: cover;
+}
+
+/* Fixed scrim rather than a per-image one: contrast then does not depend on
+   which photograph happens to be selected. Lightened to .55/.28/.72 from an
+   initial .88/.76/.92 — that first pass was dark enough that the artwork
+   barely read as a photograph at all. The label/title carry a text-shadow
+   rather than a heavier scrim, since the five source photos vary in
+   brightness and a fixed shadow protects all of them without re-darkening
+   the ones that were already fine. */
+.psPanelScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 9, 12, 0.55) 0%,
+    rgba(8, 9, 12, 0.28) 45%,
+    rgba(8, 9, 12, 0.72) 100%
+  );
+}
+
+.psPanelBody {
+  position: relative;
+  z-index: 2;
+}
+
+.psPanel:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.psPanelLabel {
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
+
+.psPanelTitle {
+  margin: 14px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
+
+.psPanelText {
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: clamp(0.92rem, 1.02vw, 1.02rem);
+  line-height: 1.68;
+  color: var(--muted);
+}
+
+/* Autoplay progress: a hairline that fills across the active problem's row. */
+.psTicker {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--accent);
+  opacity: 0.55;
+}
+
+/* ============================================================
+   COMPARISON TABLE (multi-column)
+   ============================================================ */
+.cmpWrap {
+  /* Four columns need real width before they stay legible; below 900px the
+     stacked cards underneath take over. */
+  display: none;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.cmpTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  table-layout: fixed;
+}
+
+.cmpTable th,
+.cmpTable td {
+  padding: clamp(14px, 1.6vw, 20px) clamp(14px, 1.6vw, 22px);
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+
+.cmpTable tbody tr:last-child th,
+.cmpTable tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.cmpTable thead th {
+  background: var(--surface);
+  font-family: var(--font-eyebrow);
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.cmpTable tbody th {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+}
+
+.cmpTable tbody td {
+  font-size: clamp(0.84rem, 0.94vw, 0.94rem);
+  line-height: 1.58;
+  color: var(--muted);
+}
+
+/* The column this page is about, given the accent the rest of the surface uses
+   for emphasis. Purely presentational — the text is unchanged. */
+.cmpLead {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.cmpTable thead th.cmpLead {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+}
+
+.cmpCards {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cmpCard {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: var(--surface);
+  padding: clamp(18px, 4vw, 24px);
+}
+
+.cmpCardLabel {
+  display: block;
+  font-family: var(--font-eyebrow);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cmpCardTitle {
+  margin: 10px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 1.15rem;
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+}
+
+.cmpDl {
+  margin: 14px 0 0;
+  padding-top: 4px;
+  display: grid;
+  gap: 12px;
+}
+
+.cmpDlRow {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.cmpDt {
+  font-family: var(--font-eyebrow);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.cmpDd {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ============================================================
+   SERVICES — centre-focused carousel.
+
+   Three cards are on screen at once: the active one sits high and full-size,
+   its two neighbours drop slightly and scale back, so the eye is told which
+   card is the subject. Advancing moves content right-to-left (the new card
+   enters from the right), matching reading direction.
+
+   Cards are absolutely positioned in a fixed-height stage and placed purely by
+   `transform`, so moving between them animates on the compositor and the stage
+   never changes height — a grid of ten panels of unequal length cannot do that.
+   ============================================================ */
+.svcStage {
+  position: relative;
+  /* Tall enough for the image band plus the longest service body at this width.
+     Fixed, so advancing never changes the section's height. */
+  height: 545px;
+  margin-top: clamp(4px, 0.8vw, 10px);
+  /* The slides are the only positioned children; nothing here should catch
+     pointer events between them. */
+  touch-action: pan-y;
+}
+
+.svcSlide {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 82%;
+  margin-left: -41%;
+  /* Leaves room for the neighbours' downward offset inside the stage. */
+  height: calc(100% - 36px);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.62s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s ease, border-color 0.4s ease, box-shadow 0.5s ease;
+  will-change: transform;
+}
+
+/* Slot geometry. The neighbours drop and scale back so the active card reads as
+   the subject; anything beyond them is parked off-stage and faded out. */
+.svcSlide[data-pos="active"] {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+  z-index: 30;
+}
+
+.svcSlide[data-pos="prev"] {
+  transform: translate3d(-104%, 26px, 0) scale(0.93);
+  opacity: 0.5;
+  z-index: 20;
+}
+
+.svcSlide[data-pos="next"] {
+  transform: translate3d(104%, 26px, 0) scale(0.93);
+  opacity: 0.5;
+  z-index: 20;
+}
+
+.svcSlide[data-pos="far-prev"],
+.svcSlide[data-pos="far-next"] {
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.svcSlide[data-pos="far-prev"] {
+  transform: translate3d(-170%, 40px, 0) scale(0.88);
+}
+
+.svcSlide[data-pos="far-next"] {
+  transform: translate3d(170%, 40px, 0) scale(0.88);
+}
+
+/* The artwork covers the whole card. The copy then sits over its lower part
+   with a gradient that is fully transparent across the top — so the picture is
+   untouched where there is no text — and deepens only under the words.
+
+   That gradient is not decoration and cannot be dropped: white-ish text over an
+   untreated photograph fails contrast outright, and several of these images are
+   bright. It is confined to the text band so the image stays fully visible
+   everywhere else.
+
+   Because the copy now sits on imagery rather than the card surface, the title
+   and body are lightened from the section's greys to near-white. */
+.svcSlideFigure {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.svcSlideFigure img {
+  object-fit: cover;
+}
+
+.svcSlideMain {
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  display: grid;
+  align-content: end;
+  padding: clamp(46px, 5vw, 64px) clamp(18px, 2vw, 26px) clamp(18px, 2vw, 26px);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, #05070b 46%, transparent) 26%,
+    color-mix(in srgb, #05070b 84%, transparent) 58%,
+    color-mix(in srgb, #05070b 95%, transparent) 100%
+  );
+}
+
+/* Cards with no artwork keep the plain surface — no gradient over nothing. */
+.svcSlideMain[data-plain="true"] {
+  background: none;
+  padding-top: clamp(18px, 2vw, 26px);
+  align-self: start;
+}
+
+/* The subject card: lifted, full contrast, and the only one that reads as "on". */
+.svcSlideActive {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: 0 30px 70px -46px rgba(0, 0, 0, 0.85);
+}
+
+/* Neighbours are a preview, so clicking one brings it forward. */
+.svcSlideNear {
+  cursor: pointer;
+}
+
+.svcSlideNear:hover {
+  border-color: var(--accent);
+}
+
+.svcDots {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.svcDot {
+  display: block;
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+}
+
+.svcDot:hover {
+  border-color: var(--accent);
+}
+
+.svcDot[aria-current="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.35);
+}
+
+.svcDot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.svcNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 2vw, 28px);
+  margin-top: clamp(18px, 2.2vw, 28px);
+}
+
+/* Card internals — unchanged from the panel treatment. */
+.svcTitle {
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.05rem, 1.35vw, 1.3rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.svcText {
+  margin: 10px 0 0;
+  font-size: clamp(0.88rem, 0.96vw, 0.96rem);
+  line-height: 1.62;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* Someone who has asked for less motion gets the position change with no
+   travel — the carousel still works, it just cuts. */
+@media (prefers-reduced-motion: reduce) {
+  .svcSlide {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   MID-PAGE CTA BAND
+   ============================================================ */
+.ctaBand {
+  padding: clamp(44px, 5.2vw, 80px) var(--gutter);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(
+    110deg,
+    color-mix(in srgb, var(--accent) 11%, var(--bg)) 0%,
+    var(--bg) 60%
+  );
+}
+
+.ctaInner {
+  display: grid;
+  gap: clamp(22px, 2.8vw, 40px);
+  align-items: center;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  margin: 0.45em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.4rem, 2.4vw, 2.05rem);
+  line-height: 1.16;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+  max-width: 24ch;
+}
+
+.ctaBody {
+  margin: 0.9em 0 0;
+  max-width: 56ch;
+  font-size: clamp(0.94rem, 1.08vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ============================================================
+   INTEGRATION & DEPLOYMENT
+   ============================================================ */
+.integrationGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.4vw, 18px);
+}
+
+.integrationCard {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: clamp(20px, 2.4vw, 32px);
+}
+
+.integrationLabel {
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.integrationBody {
+  margin: 14px 0 0;
+  font-size: clamp(0.92rem, 1.02vw, 1.02rem);
+  line-height: 1.68;
+  color: var(--muted);
+}
+
+/* ============================================================
+   PROCESS ORBIT — five steps rotating on an ellipse, the active one at
+   12 o'clock, with that step's copy inside the SAME card, in the ellipse's
+   own lower half. Two nested boxes, not two cards: `.processOrbit` is the
+   one visible panel (border, radius, background, padding); `.orbitStage` is
+   just a coordinate box for the ring — sized on its own so the trig in
+   `applyPositions` keeps sizing nodes off ITS height, unaffected by how tall
+   the copy underneath happens to be. See process.tsx for the rotation
+   mechanics; this block is layout and chrome only. Node position/size is
+   written inline per frame (--s / --o custom properties plus left/top), so
+   nothing here sets them. */
+.processOrbit {
+  margin-top: clamp(8px, 1vw, 16px);
+  /* Top padding clears the active node: at its largest it sits half outside
+     `.orbitStage`'s own box, breaching upward into this padding rather than
+     into the card's rounded top edge. Kept tight (rather than the ~65px the
+     node's max size would otherwise call for) so the whole card — heading,
+     ring, and the active step's copy — fits inside a single laptop-height
+     viewport without the page needing a second scroll just to read one step. */
+  padding: clamp(26px, 3vw, 38px) clamp(20px, 3vw, 40px) clamp(14px, 1.8vw, 22px);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.orbitStage {
+  position: relative;
+  isolation: isolate;
+  height: clamp(140px, 15vw, 180px);
+}
+
+/* Contained accent wash, not a full-bleed one — this is the one place the
+   reference video's black-and-orange treatment is allowed in, and only as a
+   soft glow behind the ring, sized well inside the stage. */
+.orbitGlow {
+  position: absolute;
+  inset: -10%;
+  z-index: 0;
+  background: radial-gradient(
+    46% 46% at 50% 46%,
+    color-mix(in srgb, var(--accent) 20%, transparent) 0%,
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+.orbitRing {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(2 * 42%);
+  height: calc(2 * 33%);
+  transform: translate(-50%, -50%);
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, var(--line));
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.orbitNode {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: clamp(40px, 4vw, 52px);
+  height: clamp(40px, 4vw, 52px);
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  /* Position/size come from JS every frame via these two custom properties
+     and inline left/top — left as the un-set default (centre, scale 1) so
+     the very first paint before useGSAP runs isn't a pile-up at the corner. */
+  --s: 1;
+  --o: 1;
+  transform: translate(-50%, -50%) scale(var(--s));
+  opacity: var(--o);
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+}
+
+.orbitNode:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.orbitNodeNum {
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.orbitNodeActive {
+  width: clamp(72px, 7.2vw, 92px);
+  height: clamp(72px, 7.2vw, 92px);
+  border: 1px solid var(--accent);
+  background: var(--bg);
+  color: var(--accent);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 12%, transparent),
+    0 16px 40px -18px rgba(0, 0, 0, 0.6);
+}
+
+.orbitIcon {
+  display: grid;
+  place-items: center;
+  width: 55%;
+  height: 55%;
+}
+
+.orbitIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Dwell-time hairline under the active node, same device as `.psTicker`. */
+.orbitTicker {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 10%;
+  height: 2px;
+  background: var(--accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+/* Centered, unlike every other text block on this page: it reads as the
+   caption for a radial composition (ring above, copy below, both on one
+   axis), the way the reference video frames it — not a paragraph in the
+   page's left-aligned column. The hairline is what actually separates it
+   from the ring above, now that both live in one card. */
+.orbitPanel {
+  margin-top: clamp(8px, 1vw, 12px);
+  padding-top: clamp(8px, 1vw, 12px);
+  border-top: 1px solid var(--line);
+  max-width: 62ch;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.orbitPanel .processBody {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.processStepLabel {
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.processName {
+  margin: 0.4em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--text-bright);
+}
+
+.processBody {
+  margin: 10px 0 0;
+  max-width: 68ch;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ============================================================
+   CARD GRID (industries / applications)
+   Own chrome: an accent top rule that widens on hover, and an inline mono
+   index — not the homepage's `.statCard` with its absolute corner figure.
+   ============================================================ */
+.indGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+/* Reveal-on-hover image card: photo + icon + name at rest, description and a
+   "Know More" link surface over a darkened scrim on hover/focus. `overflow:
+   hidden` on the card clips both the image's hover zoom and the rounded
+   corners; every other layer stacks above it by z-index, not paint order,
+   since the image is an absolutely-positioned `next/image` fill. */
+.indCard {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  min-height: 280px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface);
+  transition: border-color 0.4s ease;
+}
+
+.indCard:hover,
+.indCard:focus-within {
+  border-color: var(--accent);
+}
+
+.indCardImg {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.indCard:hover .indCardImg,
+.indCard:focus-within .indCardImg {
+  transform: scale(1.06);
+}
+
+.indCardIndex {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 2;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Bottom-weighted at rest (just enough to keep the name legible on any photo),
+   deepening to a fuller scrim on hover so the revealed body copy stays
+   readable over the same backdrop. */
+.indCardScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(6, 6, 8, 0.92) 0%,
+    rgba(6, 6, 8, 0.55) 32%,
+    rgba(6, 6, 8, 0) 62%
+  );
+  transition: background 0.4s ease;
+}
+
+.indCard:hover .indCardScrim,
+.indCard:focus-within .indCardScrim {
+  background: linear-gradient(
+    to top,
+    rgba(6, 6, 8, 0.95) 0%,
+    rgba(6, 6, 8, 0.86) 55%,
+    rgba(6, 6, 8, 0.35) 100%
+  );
+}
+
+/* Rest-state face: icon + name pinned to the bottom of the photo. Fades out
+   (not removed) when `.indCardOverlay` takes over on hover/focus, so the name
+   never renders twice at once. */
+.indCardFace {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: clamp(14px, 1.8vw, 20px);
+  transition: opacity 0.3s ease;
+}
+
+.indCard:hover .indCardFace,
+.indCard:focus-within .indCardFace {
+  opacity: 0;
+}
+
+.indCardIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  color: #fff;
+}
+
+.indCardIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.indCardName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.1rem, 1.4vw, 1.35rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+/* The hover/focus reveal: a full inverted rectangle laid over the whole card
+   — not a strip growing from the bottom edge. Growing a block from the
+   bottom made its final height a function of how long each industry's body
+   copy happened to be, and on the narrower 4-up cards several ran taller
+   than the card itself, overflowing past its top edge. Cross-fading a
+   rectangle that already spans the card's own bounds (`inset: 0`) can't
+   overflow: whatever doesn't fit is a text-layout problem to fix with size,
+   not a box that can grow past its container. */
+.indCardOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: clamp(16px, 2vw, 22px);
+  /* A scrim, not a solid fill: the photo stays visible through the top of
+     the card, darkening only enough toward the bottom — where the copy
+     lives — to keep it legible over any of these backdrops. */
+  background: linear-gradient(
+    to top,
+    rgba(6, 5, 5, 0.96) 0%,
+    rgba(6, 5, 5, 0.82) 34%,
+    rgba(6, 5, 5, 0.32) 68%,
+    rgba(6, 5, 5, 0.05) 100%
+  );
+  opacity: 0;
+  transform: scale(1.02);
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.indCard:hover .indCardOverlay,
+.indCard:focus-within .indCardOverlay {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.indCardOverlay .indCardIcon {
+  margin-bottom: 2px;
+}
+
+.indCardBody {
+  margin: 0;
+  font-size: clamp(0.8rem, 0.88vw, 0.88rem);
+  line-height: 1.52;
+  color: rgba(255, 255, 255, 0.85);
+  /* A guard, not a crop: at the card sizes this grid actually renders, no
+     industry's body copy reaches six lines. If a much longer string ever
+     lands here, this clips it with an ellipsis instead of pushing the
+     rectangle's own bounds — the failure mode `.indCardOverlay` was
+     rewritten to rule out. */
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.indCardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+}
+
+.indCardLink svg {
+  transition: transform 0.3s ease;
+}
+
+.indCardLink:hover svg,
+.indCardLink:focus-visible svg {
+  transform: translateX(3px);
+}
+
+/* ============================================================
+   PROOF GRID (why choose us)
+   Deliberately a different form from the card grid above so the page does not
+   repeat itself: hairline-separated cells led by a large serif figure.
+   ============================================================ */
+.proofGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--line);
+}
+
+.proofItem {
+  padding: clamp(22px, 2.6vw, 34px) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.proofFigure {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.proofName {
+  margin: 14px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.proofBody {
+  margin: 10px 0 0;
+  max-width: 44ch;
+  font-size: clamp(0.86rem, 0.95vw, 0.95rem);
+  line-height: 1.62;
+  color: var(--muted);
+}
+
+/* ============================================================
+   CASE STUDIES — outcome cards led by the metric.
+   (The homepage's WorkGrid is a horizontal image scroll-snap gallery.)
+   ============================================================ */
+.caseGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+/* ============================================================
+   TECHNOLOGY STACK — static bordered group panels.
+   (The homepage's version is alternating auto-running marquees.)
+   ============================================================ */
+.stackList {
+  display: grid;
+  gap: clamp(12px, 1.4vw, 18px);
+}
+
+.stackGroup {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.stackGroupHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: clamp(14px, 1.6vw, 18px) clamp(16px, 1.9vw, 24px);
+  border-bottom: 1px solid var(--line);
+}
+
+.stackGroupIndex {
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+.stackGroupName {
+  font-family: var(--font-eyebrow);
+  font-weight: 400;
+  font-size: clamp(13px, 1.3vw, 16px);
+  letter-spacing: 0.12em;
+  color: var(--text-bright);
+}
+
+.stackItems {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  background: var(--bg);
+  /* Closed-grid borders live on the cells (right + bottom); the trailing column
+     and final row spill 1px past the group so `.stackGroup`'s overflow:hidden
+     clips them instead of doubling its border. */
+  margin: 0 -1px -1px 0;
+}
+
+.stackItem {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: clamp(12px, 1.4vw, 15px) clamp(14px, 1.7vw, 20px);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  min-width: 0;
+}
+
+.stackItemLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+}
+
+.stackItemName {
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   FINAL CTA — a bordered enquiry panel.
+   (The homepage's Contact is a scroll-scrubbed cinematic focus pull.)
+   ============================================================ */
+.finalCta {
+  padding: clamp(48px, 6vw, 96px) var(--gutter);
+  border-top: 1px solid var(--line);
+}
+
+.finalPanel {
+  position: relative;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: clamp(28px, 3.4vw, 56px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      70% 120% at 88% 8%,
+      color-mix(in srgb, var(--accent) 16%, transparent) 0%,
+      transparent 62%
+    ),
+    var(--surface);
+}
+
+.finalTitle {
+  margin: 0.45em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: var(--text-bright);
+  max-width: 22ch;
+}
+
+.finalBody {
+  margin: 1em 0 0;
+  max-width: 56ch;
+  font-size: clamp(0.96rem, 1.1vw, 1.08rem);
+  line-height: 1.68;
+  color: var(--muted);
+}
+
+.finalActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(24px, 2.8vw, 36px);
+}
+
+.finalAssurance {
+  list-style: none;
+  margin: clamp(28px, 3.2vw, 44px) 0 0;
+  padding: clamp(20px, 2.4vw, 28px) 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.finalAssuranceItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 10px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.finalAssuranceItem::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  margin-top: 0.5em;
+  background: var(--accent);
+}
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+.faqList {
+  border-top: 1px solid var(--line);
+  max-width: 62rem;
+}
+
+.faqItem {
+  border-bottom: 1px solid var(--line);
+}
+
+/* The trigger lives inside its heading (ARIA accordion pattern); the heading
+   itself must not contribute any box of its own. */
+.faqItem h3 {
+  margin: 0;
+  font: inherit;
+}
+
+.faqTrigger {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 22px);
+  width: 100%;
+  padding: clamp(18px, 2.2vw, 26px) 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+.faqTrigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.faqNum {
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.faqQuestion {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+  transition: color 0.4s ease;
+}
+
+.faqTrigger[aria-expanded="true"] .faqQuestion,
+.faqTrigger:hover .faqQuestion {
+  color: var(--accent);
+}
+
+/* Squared +/− box rather than the homepage's bare glyph. */
+.faqIcon {
+  position: relative;
+  display: block;
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--muted);
+  transition: border-color 0.4s ease, color 0.4s ease;
+}
+
+.faqIcon::before,
+.faqIcon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 1.5px;
+  margin: -0.75px 0 0 -5px;
+  background: currentColor;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faqIcon::after {
+  transform: rotate(90deg);
+}
+
+.faqTrigger[aria-expanded="true"] .faqIcon {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.faqTrigger[aria-expanded="true"] .faqIcon::after {
+  transform: rotate(0deg);
+}
+
+.faqPanelWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faqPanelWrap[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.faqPanel {
+  overflow: hidden;
+  /* Hidden from assistive tech and in-page find while collapsed, but unlike
+     `display: none` this still lets the wrapper's row transition animate. The
+     delay holds visibility until the close animation has finished. */
+  visibility: hidden;
+  transition: visibility 0s linear 0.5s;
+}
+
+.faqPanelWrap[data-open="true"] .faqPanel {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.faqAnswer {
+  margin: 0;
+  padding: 0 0 clamp(20px, 2.4vw, 28px) calc(2.5rem + clamp(12px, 1.6vw, 22px));
+  max-width: 78ch;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  line-height: 1.68;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.4s ease 0.08s;
+}
+
+.faqPanelWrap[data-open="true"] .faqAnswer {
+  opacity: 1;
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (min-width: 520px) {
+  .finalAssurance {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 700px) {
+  .svcStage {
+    height: 492px;
+  }
+
+  .svcSlide {
+    width: 52%;
+    margin-left: -26%;
+  }
+
+  .indGrid,
+  .caseGrid,
+  .integrationGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .proofGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(24px, 3vw, 48px);
+  }
+
+  .stackItems {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .psGrid {
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: clamp(24px, 3vw, 48px);
+  }
+
+  .cmpWrap {
+    display: block;
+  }
+
+  .cmpCards {
+    display: none;
+  }
+}
+
+@media (min-width: 1000px) {
+  .svcStage {
+    height: 452px;
+  }
+
+  /* 30% each keeps all three cards inside the content width with a real gap
+     between them; at 34% the neighbours ran past the gutter and were clipped by
+     the page's horizontal overflow. */
+  .svcSlide {
+    width: 30%;
+    margin-left: -15%;
+  }
+
+  .svcSlide[data-pos="prev"] {
+    transform: translate3d(-106%, 26px, 0) scale(0.93);
+  }
+
+  .svcSlide[data-pos="next"] {
+    transform: translate3d(106%, 26px, 0) scale(0.93);
+  }
+
+  .heroMediaImg {
+    object-position: center 38%;
+  }
+
+  .heroGrid {
+    grid-template-columns: 1.12fr 0.88fr;
+    gap: clamp(48px, 5vw, 88px);
+  }
+
+  /* Prose + masthead lead, illustration supports. `end`, not `start` or
+     `center`: the image is capped by `max-width` and so is shorter than the
+     title + two paragraphs beside it. `start` left the whole difference as
+     dead space under the image; `center` split it evenly but then neither
+     edge lined up with the text, which read as misaligned rather than
+     centered. `end` gives the row one shared bottom edge — the image's
+     bottom sits flush with the last line of the second paragraph, right
+     where the pull quote begins below. */
+  .overviewGrid {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+    column-gap: clamp(28px, 3.2vw, 52px);
+    align-items: end;
+  }
+
+  .ctaInner {
+    grid-template-columns: 1.3fr auto;
+  }
+
+  .ctaActions {
+    justify-content: flex-end;
+  }
+
+  /* Industries: 8 cards read as three per row (the last row runs short). */
+  .indGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Why us: 6 proof points read as two rows of three. */
+  .proofGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .caseGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .stackItems {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
