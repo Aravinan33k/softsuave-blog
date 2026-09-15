@@ -10,10 +10,8 @@ import home from '@/components/home/home.module.css';
 import ServiceHero from '@/components/services/hero';
 import Definition from '@/components/services/definition';
 import CardSection from '@/components/services/card-section';
-import Comparison from '@/components/services/comparison';
 import CtaBand from '@/components/services/cta-band';
 import Process from '@/components/services/process';
-import CaseStudies from '@/components/services/case-studies';
 import TechStack from '@/components/services/tech-stack';
 import Faq from '@/components/services/faq';
 
@@ -88,28 +86,30 @@ export default function AiDevelopmentServicePage() {
           <CardSection id="services" {...copy.offerings} />
         </div>
 
-        <Comparison {...copy.comparison} />
-        <CtaBand {...copy.ctaBands.approach} />
+        <CardSection id="why" {...copy.whyChoose} />
 
         <div className={home.light}>
-          <CardSection id="why" {...copy.whyChoose} />
+          <CtaBand {...copy.ctaBands.approach} />
         </div>
 
         <Process {...copy.process} />
-        <CtaBand {...copy.ctaBands.estimate} />
 
         <div className={home.light}>
           <CardSection id="industries" {...copy.industries} />
         </div>
 
-        <CaseStudies {...copy.caseStudies} />
-        <TechStack {...copy.techStack} />
+        <CtaBand {...copy.ctaBands.estimate} />
 
         <div className={home.light}>
-          <Testimonials />
+          <TechStack {...copy.techStack} />
         </div>
 
-        <Faq {...copy.faq} />
+        <Testimonials />
+
+        <div className={home.light}>
+          <Faq {...copy.faq} />
+        </div>
+
         <Contact />
       </main>
 
