@@ -16,15 +16,16 @@ afterEach(() => {
 });
 
 describe('navHref', () => {
-  // `/about` is the stand-in for a path this app does not serve at all — it has
-  // no route in app/(marketing), so it belongs to the live site whatever the
-  // release flag says. It replaced `/contact` here once this app grew its own
-  // contact page; a path we DO serve can never demonstrate this.
+  // `/case-studies` is the stand-in for a path this app does not serve at all —
+  // it is linked from the nav but has no route in app/(marketing), so it belongs
+  // to the live site whatever the release flag says. It replaced `/about` here
+  // once this app grew its own about page, which had itself replaced `/contact`
+  // for the same reason; a path we DO serve can never demonstrate this.
   it('sends paths this app does not serve to the live site in either release state', async () => {
     for (const flag of ['true', 'false']) {
       const { navHref, isExternalHref } = await loadNav(flag);
-      expect(navHref('/about')).toBe(`${SITE}/about`);
-      expect(isExternalHref('/about')).toBe(true);
+      expect(navHref('/case-studies')).toBe(`${SITE}/case-studies`);
+      expect(isExternalHref('/case-studies')).toBe(true);
     }
   });
 
@@ -130,7 +131,7 @@ describe('navRoute', () => {
   it('leaves paths this app does not serve to navHref, absolute and unprefixed', async () => {
     for (const flag of ['true', 'false']) {
       const { navRoute } = await loadNav(flag);
-      expect(navRoute('/about')).toBe(`${SITE}/about`);
+      expect(navRoute('/case-studies')).toBe(`${SITE}/case-studies`);
     }
   });
 });
