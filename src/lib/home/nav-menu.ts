@@ -131,7 +131,9 @@ const SERVICES: NavMenuPanel = {
       items: [
         { name: "Global Capability Center", href: "/global-capability-center", blurb: "Your own offshore engineering centre" },
         { name: "Offshore Development", href: "/offshore-software-development-company", blurb: "Cost-effective delivery at scale" },
-        { name: "IT Outsourcing", href: "/it-outsourcing-services", blurb: "Whole functions, managed for you" },
+        // Slug matches the live page this replaces (`/it-outsourcing-company-india`)
+        // and the route now serving it; `/it-outsourcing-services` was never a page.
+        { name: "IT Outsourcing", href: "/it-outsourcing-company-india", blurb: "Whole functions, managed for you" },
         { name: "IT Staff Augmentation", href: "/it-staff-augmentation-services", blurb: "Add proven engineers to your team" },
         { name: "Dedicated Development Teams", href: "/hire-dedicated-developers", blurb: "A long-running team that learns your domain" },
         { name: "On-Demand Teams", href: "/on-demand-teams", blurb: "Scale a squad up and down as the work moves" },
@@ -232,12 +234,18 @@ const INDUSTRIES: NavMenuPanel = {
       key: "sectors",
       name: "Sectors we serve",
       items: [
-        { name: "FinTech", href: "#industries", blurb: "Fraud detection and personalised banking" },
-        { name: "HealthTech", href: "#industries", blurb: "Patient outcomes and clinical workflows" },
-        { name: "EdTech", href: "#industries", blurb: "Personalised learning and analytics" },
-        { name: "Ecommerce", href: "#industries", blurb: "Recommendations and inventory automation" },
-        { name: "Logistics", href: "#industries", blurb: "Forecasting and route optimisation" },
-        { name: "Telecom", href: "#industries", blurb: "Predictive maintenance and network AI" },
+        // These pointed at the in-page `#industries` anchor until each sector
+        // had a page of its own. Now that they do, the group links to the real
+        // routes — `navHref` sends them to the live site until `homepageEnabled`
+        // is on, and to ours once it is (see MARKETING_PATHS in
+        // themes/softsuave/nav-data.ts).
+        { name: "FinTech", href: "/fintech-ai-solutions", blurb: "Fraud detection and personalised banking" },
+        { name: "HealthTech", href: "/ai-solutions-in-healthtech", blurb: "Patient outcomes and clinical workflows" },
+        { name: "EdTech", href: "/ai-solutions-in-edutech", blurb: "Personalised learning and analytics" },
+        { name: "Ecommerce", href: "/ai-solutions-for-ecommerce", blurb: "Recommendations and inventory automation" },
+        { name: "Logistics", href: "/ai-in-logistics", blurb: "Forecasting and route optimisation" },
+        { name: "Telecom", href: "/ai-solutions-for-telecom", blurb: "Predictive maintenance and network AI" },
+        { name: "Construction", href: "/ai-solutions-for-construction", blurb: "Site safety and delay forecasting" },
       ],
     },
     {

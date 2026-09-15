@@ -1,6 +1,7 @@
 // Full Soft Suave navigation, mirroring the live mega-menu. Relative hrefs point
 // at the main marketing site; the Blog link is local.
 import { homepageEnabled } from '@/lib/flags';
+import { HIRE_PATHS } from '@/lib/home/hire-skills';
 
 export const SITE = 'https://www.softsuave.com';
 
@@ -159,6 +160,36 @@ const MARKETING_PATHS = [
   '/custome-ai-developement',
   '/generative-ai-development-company',
   '/agentic-ai-development-services',
+  // Delivery-model and engineering-service pages. Unlike the three above, these
+  // DO have counterparts on softsuave.com, so while the homepage flag is off the
+  // nav correctly links out to the live versions — `LOCAL_PATHS` only adopts this
+  // list once the flag is on, which is exactly when our own routes start serving.
+  '/global-capability-center',
+  '/offshore-software-development-company',
+  '/it-staff-augmentation-services',
+  '/it-outsourcing-company-india',
+  '/legacy-modernization-services',
+  '/product-engineering-services',
+  '/cloud-computing',
+  // Industry AI pages. Like the delivery pages above, these have counterparts on
+  // softsuave.com, so the nav links out to the live versions while the homepage
+  // flag is off and adopts our own routes the moment it is on.
+  '/fintech-ai-solutions',
+  '/ai-solutions-in-healthtech',
+  '/ai-solutions-in-edutech',
+  '/ai-solutions-for-ecommerce',
+  '/ai-in-logistics',
+  '/ai-solutions-for-telecom',
+  '/ai-solutions-for-construction',
+  // Company pages. Like the delivery and industry pages above, /about exists on
+  // softsuave.com, so the nav links out to the live version until the homepage
+  // flag is on and our own route starts serving.
+  '/about',
+  // The 24 hire-by-skill pages. The nav's `hire-skill` group already lists
+  // every one of these paths (see `lib/home/nav-menu.ts`); adding them here is
+  // what switches those links from the live site to our own routes, and only
+  // once `homepageEnabled` is on — which is when the routes start serving.
+  ...HIRE_PATHS,
 ];
 const LOCAL_PATHS = new Set(homepageEnabled ? ['/blog', ...MARKETING_PATHS] : ['/blog']);
 

@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import { homepageEnabled } from './src/lib/flags';
+import { HIRE_PATHS } from './src/lib/home/hire-skills';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -56,6 +57,35 @@ const MARKETING_ROUTES = [
   '/custome-ai-developement',
   '/generative-ai-development-company',
   '/agentic-ai-development-services',
+  // Delivery-model and engineering-service pages. Their slugs match live pages
+  // on softsuave.com, so while the flag is off these routes hand the visitor to
+  // /blog here and the nav points at the live equivalents (see MARKETING_PATHS
+  // in src/themes/softsuave/nav-data.ts) — which is the whole point of the gate:
+  // the new versions ship with the homepage, not ahead of it.
+  '/global-capability-center',
+  '/offshore-software-development-company',
+  '/it-staff-augmentation-services',
+  '/it-outsourcing-company-india',
+  '/legacy-modernization-services',
+  '/product-engineering-services',
+  '/cloud-computing',
+  // Industry AI pages. Same reasoning as the delivery pages above: their slugs
+  // match live softsuave.com URLs, so while the flag is off these routes hand
+  // the visitor to /blog and the nav points at the live equivalents.
+  '/fintech-ai-solutions',
+  '/ai-solutions-in-healthtech',
+  '/ai-solutions-in-edutech',
+  '/ai-solutions-for-ecommerce',
+  '/ai-in-logistics',
+  '/ai-solutions-for-telecom',
+  '/ai-solutions-for-construction',
+  // Company pages.
+  '/about',
+  // The 24 hire-by-skill pages, from their own registry. Same reasoning as the
+  // delivery pages above: their slugs match live softsuave.com URLs, so while
+  // the flag is off these routes hand the visitor to /blog and the nav points
+  // at the live equivalents.
+  ...HIRE_PATHS,
 ];
 
 // How many workers `next build` may use to prerender pages in parallel.
