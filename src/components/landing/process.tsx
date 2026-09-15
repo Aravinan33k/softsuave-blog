@@ -39,19 +39,51 @@ export interface ProcessContent {
  * (No click-to-pop on the image any more — it read as a flicker rather than
  * a deliberate flourish, so it's gone from here and from the Services cards.)
  */
+/**
+ * Column spans for the mosaic variant, as a 12-column composition.
+ *
+ * Steps are walked in pairs, and the pair alternates 7+5 / 5+7 so consecutive
+ * rows do not mirror each other — that alternation is the whole reason the
+ * layout reads as a composition rather than a table. A leftover odd step takes
+ * the full 12 instead of sitting at 7 beside a gap, which is exactly the
+ * stranded-card problem the even grid had at five steps.
+ */
+function mosaicSpansFor(n: number): number[] {
+  const out: number[] = [];
+  for (let i = 0; i + 1 < n; i += 2) {
+    if ((i / 2) % 2 === 0) out.push(7, 5);
+    else out.push(5, 7);
+  }
+  if (n % 2 === 1) out.push(12);
+  return out;
+}
+
 export default function Process({
   content,
   id = "journey",
+  variant = "grid",
 }: {
   content: ProcessContent;
   id?: string;
+  /**
+   * "grid" is the even bordered-card row every other landing page uses.
+   * "mosaic" is the editorial composition: alternating wide/tall cards, a step
+   * pill, and a full-bleed image per card — wide cards set the image beside the
+   * copy, tall ones above it.
+   */
+  variant?: "grid" | "mosaic";
 }) {
   const root = useRef<HTMLOListElement | null>(null);
+  const mosaic = variant === "mosaic";
+  const spans = mosaic ? mosaicSpansFor(content.steps.length) : [];
 
   useGSAP(
     () => {
       if (prefersReducedMotion() || !root.current) return;
-      const cards = gsap.utils.toArray<HTMLElement>(`.${styles.processCard}`, root.current);
+      const cards = gsap.utils.toArray<HTMLElement>(
+        `.${styles.processCard}, .${styles.pmCard}`,
+        root.current,
+      );
       gsap.from(cards, {
         opacity: 0,
         y: 28,
@@ -68,7 +100,42 @@ export default function Process({
     <section className={styles.sectionShell} id={id}>
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
-      <ol ref={root} className={styles.processGrid}>
+      {mosaic ? (
+        <ol ref={root} className={styles.pmGrid}>
+          {content.steps.map((step, i) => (
+            <li
+              key={step.n}
+              className={`${styles.pmCard} ${
+                spans[i] >= 7 ? styles.pmCardWide : styles.pmCardTall
+              }`}
+              data-span={spans[i]}
+            >
+              {step.image && (
+                <div className={styles.pmMedia}>
+                  <Image
+                    src={publicMediaUrl(step.image.src)}
+                    alt={step.image.alt}
+                    fill
+                    sizes={
+                      spans[i] >= 7
+                        ? "(max-width: 999px) 92vw, 34vw"
+                        : "(max-width: 999px) 92vw, 42vw"
+                    }
+                    className={styles.pmImg}
+                  />
+                </div>
+              )}
+
+              <div className={styles.pmBody}>
+                <span className={styles.pmPill}>Step {step.n}</span>
+                <h3 className={styles.pmName}>{step.name}</h3>
+                <p className={styles.pmText}>{step.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <ol ref={root} className={styles.processGrid}>
         {content.steps.map((step) => (
           <li key={step.n} className={styles.processCard}>
             {step.image && (
@@ -94,7 +161,8 @@ export default function Process({
             </div>
           </li>
         ))}
-      </ol>
+        </ol>
+      )}
     </section>
   );
 }
