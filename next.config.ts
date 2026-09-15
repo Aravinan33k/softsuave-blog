@@ -58,7 +58,24 @@ const MARKETING_ROUTES = [
   '/agentic-ai-development-services',
 ];
 
+// How many workers `next build` may use to prerender pages in parallel.
+//
+// Next defaults this to the machine's CPU count. That became a problem when the
+// seven service pages started rendering the homepage's own section components:
+// each of those scenes (the industries fan, the pinned case-study lane, the
+// stats odometer) is heavy to prerender, and eight such pages building at once
+// across eleven workers exhausted the heap — the build died with
+// "Zone Allocation failed - process out of memory" partway through static
+// generation. Raising --max-old-space-size does not help, because the limit is
+// total machine memory divided across workers, not any single worker's ceiling.
+//
+// Two is what reliably completes here. Set NEXT_BUILD_CPUS higher on a CI
+// machine with more memory to get the parallelism back — this is a resource
+// cap, not a correctness requirement, so nothing breaks by changing it.
+const buildCpus = Number(process.env.NEXT_BUILD_CPUS) || 2;
+
 const nextConfig: NextConfig = {
+  experimental: { cpus: buildCpus },
   reactStrictMode: true,
   poweredByHeader: false,
   // Pin the workspace root. Turbopack otherwise walks up looking for one and
