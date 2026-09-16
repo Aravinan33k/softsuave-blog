@@ -62,9 +62,10 @@ describe('sector pages', () => {
     }
   });
 
-  // `BrandImage` throws on an unknown id at build time, and the manifest holds
-  // slots for Construction and Aviation that were declared but never rendered —
-  // which is why those two pages carry `img: null` and the typographic panel.
+  // `BrandImage` throws on an unknown id at build time, so a hero pointing at
+  // an unregistered slot takes the page down rather than degrading. Covers the
+  // hand-placed `sec-hero-*` frames too: those are registered in
+  // images.generated.json by hand, so nothing but this test catches a typo.
   it('only points at image slots the pipeline has rendered', () => {
     for (const page of SECTOR_PAGES) {
       if (page.hero.img === null) continue;

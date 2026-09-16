@@ -15,7 +15,7 @@ export const construction: SectorPageContent = {
     titleLines: ['AI-driven innovation', 'for the future of construction'],
     body:
       'Redefine on-site efficiency with AI that anticipates risks, optimizes workflows, and supports safer, faster, and cost-efficient execution.',
-    img: null,
+    img: 'sec-hero-construction',
   },
   solutions: {
     eyebrow: 'Solutions',

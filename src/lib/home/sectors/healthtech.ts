@@ -15,6 +15,13 @@ export const healthtech: SectorPageContent = {
     titleLines: ['AI solutions shaping', 'the future of healthcare'],
     body:
       'Unlock the power of AI to automate processes, generate insights, and revolutionize HealthTech. Powered by AI to accelerate digital transformation.',
+    /**
+     * The one sector still on its index card's portrait slot: the hand-placed
+     * `sec-hero-healthtech` frame has not been made yet, and the other seven
+     * switched to theirs. So this hero cover-crops an 800x1000 portrait into a
+     * 4:3 frame and loses the sides — visibly tighter than its neighbours.
+     * Swap to 'sec-hero-healthtech' the moment that frame lands.
+     */
     img: 'ind-healthtech',
   },
   solutions: {

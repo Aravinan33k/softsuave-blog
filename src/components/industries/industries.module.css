@@ -1052,7 +1052,7 @@
   }
 }
 
-/* Construction and Aviation have no generated frame. Rather than borrow another
+/* Fallback for a sector with no frame at all. Rather than borrow another
    sector's photograph, their hero holds a typographic panel: the sector's own
    line from the index, over the names of what we build for it. */
 .heroBrief {

@@ -15,7 +15,7 @@ export const ecommerce: SectorPageContent = {
     titleLines: ['AI solutions for ecommerce:', 'boost sales, automate growth'],
     body:
       'Maximize profits with our AI e-commerce solution. Predict intent, personalize journeys, and automate operations to boost conversions and scale globally, ensuring secure growth, reduced costs, and lasting customer loyalty.',
-    img: 'ind-ecommerce',
+    img: 'sec-hero-ecommerce',
   },
   solutions: {
     eyebrow: 'Solutions',

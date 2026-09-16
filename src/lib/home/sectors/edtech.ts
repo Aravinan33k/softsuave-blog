@@ -15,7 +15,7 @@ export const edtech: SectorPageContent = {
     titleLines: ['AI-driven EdTech', 'for the digital era'],
     body:
       'Explore AI solutions that adapt to learner needs, enhance teaching efficiency, and automate administrative workflows. Build future-ready learning experiences with AI.',
-    img: 'ind-edtech',
+    img: 'sec-hero-edtech',
   },
   solutions: {
     eyebrow: 'Solutions',

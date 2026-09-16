@@ -37,9 +37,15 @@ export interface SectorPageContent {
     readonly titleLines: readonly string[];
     readonly body: string;
     /**
-     * Generated portrait slot (`four/ind-<key>`), or null where the pipeline
-     * has no frame for this sector — Construction and Aviation, which take the
-     * hero's typographic treatment instead of another industry's photograph.
+     * Image slot for the hero frame, or null to take the typographic
+     * treatment instead of a photograph.
+     *
+     * These are the hand-placed `four/sec-hero-<key>` frames: landscape 4:3,
+     * which is the aspect `.heroFramesSolo .heroFrame` actually renders. The
+     * portrait `ind-*` slots that used to fill this are the sector index's
+     * card art — 800x1000, so a lone hero cover-cropped them hard down the
+     * middle. One sector still points at its `ind-*` slot and crops that way;
+     * see the note on that sector's own `img`.
      */
     readonly img: string | null;
   };

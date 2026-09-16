@@ -15,7 +15,7 @@ export const fintech: SectorPageContent = {
     titleLines: ['Fintech AI development solutions', 'to power digital innovation'],
     body:
       'Unlock smarter financial solutions through AI-driven innovation. Transform your operations, enhance security, and boost efficiency with our expert Fintech AI development services tailored for success.',
-    img: 'ind-fintech',
+    img: 'sec-hero-fintech',
   },
   solutions: {
     eyebrow: 'Solutions',

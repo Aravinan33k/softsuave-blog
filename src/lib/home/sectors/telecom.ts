@@ -15,7 +15,7 @@ export const telecom: SectorPageContent = {
     titleLines: ['Enhancing telecom', 'efficiency with AI'],
     body:
       'From network optimization and predictive maintenance to fraud detection and customer service, AI streamlines telecom operations for unmatched efficiency and peak performance.',
-    img: 'ind-telecom',
+    img: 'sec-hero-telecom',
   },
   solutions: {
     eyebrow: 'Solutions',

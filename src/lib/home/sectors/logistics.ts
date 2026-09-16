@@ -15,7 +15,7 @@ export const logistics: SectorPageContent = {
     titleLines: ['AI in logistics:', 'transforming supply chain efficiency'],
     body:
       'Optimize supply chains, reduce delays, and enhance real-time decision-making with AI-powered logistics solutions. Leverage AI to boost efficiency, cut costs, and enhance operations.',
-    img: 'ind-logistics',
+    img: 'sec-hero-logistics',
   },
   solutions: {
     eyebrow: 'Solutions',
