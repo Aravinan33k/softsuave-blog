@@ -21,6 +21,8 @@ export interface LandingPage {
   readonly title: string;
 }
 
+import { HIRE_ROLE_ROUTES } from './hire-roles/slugs';
+
 export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/custome-ai-developement', title: 'Custom AI Development Services' },
   { path: '/generative-ai-development-company', title: 'Generative AI Development Company' },
@@ -38,4 +40,10 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/ai-solutions-for-telecom', title: 'AI Solutions for Telecom' },
   { path: '/ai-solutions-for-construction', title: 'AI Solutions for Construction' },
   { path: '/ai-in-aviation', title: 'AI Solutions for Aviation' },
+  // The nine hire-by-role pages, from their own slug list — adding a role
+  // should put it in the sitemap without anyone remembering this file. Imported
+  // from `hire-roles/slugs` rather than `hire-roles/index` on purpose: this
+  // module is read by the nav-adjacent code, and the index pulls in all nine
+  // content modules (and the section prop types they are written against).
+  ...HIRE_ROLE_ROUTES,
 ] as const;

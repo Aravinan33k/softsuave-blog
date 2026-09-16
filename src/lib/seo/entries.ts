@@ -2,6 +2,7 @@ import 'server-only';
 import { prisma } from '../db';
 import { homepageEnabled } from '../flags';
 import { SECTOR_SLUGS } from '../home/sectors';
+import { HIRE_ROLE_SLUGS } from '../home/hire-roles/slugs';
 import { absoluteUrl } from './metadata';
 
 // Shared data for sitemap + feeds. Only indexable, published, live content.
@@ -23,6 +24,8 @@ const MARKETING_ROUTES = [
   // in the sitemap without anyone remembering this file. Safe to import here —
   // this module is server-only, so the content never reaches a client bundle.
   ...SECTOR_SLUGS,
+  // The nine hire-by-role pages, likewise from their own registry.
+  ...HIRE_ROLE_SLUGS,
 ];
 
 function landingEntries(now: Date): SitemapEntry[] {

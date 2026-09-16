@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import { homepageEnabled } from './src/lib/flags';
+import { HIRE_ROLE_SLUGS } from './src/lib/home/hire-roles/slugs';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -69,6 +70,11 @@ const MARKETING_ROUTES = [
   '/ai-solutions-for-telecom',
   '/ai-solutions-for-construction',
   '/ai-in-aviation',
+  // The nine hire-by-role pages, from the registry's dependency-free slug list.
+  // Their slugs are softsuave.com's own too, so while the flag is off each one
+  // must keep redirecting to the archive rather than answering — otherwise this
+  // staging serves a page at a URL the live site also owns.
+  ...HIRE_ROLE_SLUGS,
 ];
 
 const nextConfig: NextConfig = {
