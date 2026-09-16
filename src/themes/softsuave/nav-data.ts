@@ -2,6 +2,7 @@
 // at the main marketing site; the Blog link is local.
 import { homepageEnabled } from '@/lib/flags';
 import { HIRE_PATHS } from '@/lib/home/hire-skills';
+import { HIRE_ROLE_SLUGS } from '@/lib/home/hire-roles/slugs';
 
 export const SITE = 'https://www.softsuave.com';
 
@@ -196,6 +197,15 @@ const MARKETING_PATHS = [
   // what switches those links from the live site to our own routes, and only
   // once `homepageEnabled` is on — which is when the routes start serving.
   ...HIRE_PATHS,
+  // The nine hire-by-role pages, which the "Hire by Role" group at the top of
+  // this file and the mega menu's `hire-role` group both already link to.
+  // Listing them is what turns those links from an outbound trip to
+  // softsuave.com into routes of ours the day the homepage ships.
+  //
+  // Imported rather than hard-coded, unlike the sectors above: `hire-roles/slugs`
+  // is deliberately dependency-free (it is also what `next.config.ts` reads), so
+  // this adds nine strings to the client bundle rather than nine content modules.
+  ...HIRE_ROLE_SLUGS,
 ];
 const LOCAL_PATHS = new Set(homepageEnabled ? ['/blog', ...MARKETING_PATHS] : ['/blog']);
 

@@ -22,6 +22,7 @@ export interface LandingPage {
 }
 
 import { HIRE_SKILLS } from './hire-skills';
+import { HIRE_ROLE_ROUTES } from './hire-roles/slugs';
 
 /**
  * The 24 hire-by-skill pages, derived from their own registry rather than
@@ -81,4 +82,11 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   // so it joins the registry here.
   { path: '/industries', title: 'Industries We Serve' },
   { path: '/ai-in-aviation', title: 'AI Solutions for Aviation' },
+
+  // The nine hire-by-role pages, from their own slug list — adding a role
+  // should put it in the sitemap without anyone remembering this file. Imported
+  // from `hire-roles/slugs` rather than `hire-roles/index` on purpose: this
+  // module is read by the nav-adjacent code, and the index pulls in all nine
+  // content modules (and the section prop types they are written against).
+  ...HIRE_ROLE_ROUTES,
 ];
