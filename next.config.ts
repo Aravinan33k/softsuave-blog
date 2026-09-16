@@ -79,6 +79,10 @@ const MARKETING_ROUTES = [
   '/ai-in-logistics',
   '/ai-solutions-for-telecom',
   '/ai-solutions-for-construction',
+  '/ai-in-aviation',
+  // The sector index that lists the eight above. Its slug is softsuave.com's
+  // own too, so it stays behind the same gate as every page here.
+  '/industries',
   // Company pages.
   '/about',
   // The 24 hire-by-skill pages, from their own registry. Same reasoning as the

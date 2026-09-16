@@ -69,7 +69,9 @@ export default function AiDevelopmentServicePage() {
         ]}
       />
 
-      <Nav />
+      {/* This page has the bar's own #services and #why sections, so its
+          anchors stay in-page instead of resolving to the homepage's copies. */}
+      <Nav ownsAnchors />
 
       <main id="main">
         <ServiceHero {...copy.hero} />

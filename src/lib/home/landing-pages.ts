@@ -75,4 +75,10 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/about', title: 'About Us' },
   { path: '/contact', title: 'Contact Us' },
   { path: '/awards-recognition', title: 'Awards and Recognition' },
+
+  // The sector index, and the eighth sector. The other seven sector pages are
+  // listed above with the industry AI group; aviation has no counterpart there,
+  // so it joins the registry here.
+  { path: '/industries', title: 'Industries We Serve' },
+  { path: '/ai-in-aviation', title: 'AI Solutions for Aviation' },
 ];

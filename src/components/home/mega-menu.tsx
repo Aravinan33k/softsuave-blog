@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
-import type { NavMenuPanel } from "@/lib/home/nav-menu";
+import { navHrefForPage, type NavMenuPanel } from "@/lib/home/nav-menu";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./home.module.css";
 
@@ -36,12 +37,18 @@ export function MenuLink({
   onNavigate: () => void;
   children: React.ReactNode;
 }) {
-  return href.startsWith("/") ? (
-    <SiteLink href={href} className={className} onClick={onNavigate}>
+  // The `#anchor` case above is only the page we're on if that page is the
+  // homepage, which owns every section this menu names. Anywhere else the
+  // anchor is resolved against the homepage instead, so the same menu works on
+  // every page rather than dead-ending on two dozen items.
+  const resolved = navHrefForPage(href, usePathname() === "/");
+
+  return resolved.startsWith("/") ? (
+    <SiteLink href={resolved} className={className} onClick={onNavigate}>
       {children}
     </SiteLink>
   ) : (
-    <a href={href} className={className} onClick={onNavigate}>
+    <a href={resolved} className={className} onClick={onNavigate}>
       {children}
     </a>
   );
