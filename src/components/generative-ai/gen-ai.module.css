@@ -1982,3 +1982,143 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+/* ============================================================
+   INTEGRATION GRID — THREE-PANEL VARIANT
+   `.integrationGrid` tops out at two columns, which is right for the two
+   deployment panels the Generative AI page carries. The hire-by-role pages put
+   three engagement models through the same block, and 2 + 1 leaves the third
+   model sitting alone beside a gap. This modifier — applied by
+   `integration.tsx` only when there are exactly three panels, so the two-panel
+   pages are untouched — gives them one even row from 1000px up, where there is
+   room for three columns of prose.
+   ============================================================ */
+@media (min-width: 1000px) {
+  .integrationGridTrio {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ============================================================
+   CARD GRID — COMPACT (TEXT-ONLY) VARIANT
+   `.indCard` is a photograph: a 1:1 frame whose icon and name sit on a scrim
+   at the bottom edge, with the description revealed over the picture on hover.
+   The hire-by-role pages' specialisation grids name engineering disciplines,
+   which have no photography and should not pretend to — in that card the top
+   two-thirds is empty dark space and the description is behind a hover the
+   reader has no reason to expect.
+   This variant is what a text card wants instead: content-height bordered
+   panel, everything legible at rest, the index as a quiet mono ordinal rather
+   than white-on-photo. Opt-in via `variant="compact"`, so every existing
+   caller keeps the photographic card unchanged.
+   ============================================================ */
+.indGridCompact {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+.compactCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: clamp(20px, 2.2vw, 30px);
+  transition: border-color 0.35s ease, background 0.35s ease;
+}
+
+.compactCard:hover,
+.compactCard:focus-within {
+  border-color: var(--accent);
+}
+
+.compactIndex {
+  position: absolute;
+  top: clamp(16px, 1.8vw, 22px);
+  right: clamp(18px, 2vw, 26px);
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  opacity: 0.65;
+}
+
+.compactIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--accent);
+  transition: border-color 0.35s ease;
+}
+
+.compactCard:hover .compactIcon,
+.compactCard:focus-within .compactIcon {
+  border-color: var(--accent-border);
+}
+
+.compactIcon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.compactName {
+  margin: 0;
+  /* Matches `.indCardName`: the display serif at card scale, so the two card
+     variants read as the same family. */
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  /* Room for the ordinal in the corner. */
+  padding-right: 2.2em;
+  color: var(--text-bright);
+}
+
+.compactBody {
+  margin: 0;
+  font-size: clamp(0.88rem, 0.98vw, 0.97rem);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.compactLink {
+  margin-top: auto;
+  padding-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.compactLink:hover,
+.compactLink:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (min-width: 700px) {
+  .indGridCompact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  /* Nine disciplines read as three rows of three. */
+  .indGridCompact {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
