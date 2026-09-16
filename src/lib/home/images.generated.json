@@ -739,5 +739,75 @@
     "photographer": "Brett Sayles",
     "pexelsUrl": "https://www.pexels.com/photo/close-up-photo-of-ethernet-port-2881228/",
     "matchedTier": "telecom network infrastructure vertical (derived from one/integrations)"
+  },
+  "four/sec-hero-fintech": {
+    "page": "four",
+    "id": "sec-hero-fintech",
+    "src": "/images/four/sec-hero-fintech.webp",
+    "width": 1448,
+    "height": 1086,
+    "alt": "Trading floor analyst reviewing live market and payment data across multiple screens",
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQAgCdASoQAAwAA4BaJaACdAEKTT5sbtCgAPy0k9OxIJ59vLhXMjFcs4T+JhPqGFNTEFkxeRIRm5at93U2ABOI/7HrFMUFZI+3SaY/7QOVryZ16stqttUyCZZTg9gAAAA=",
+    "source": "hand-placed"
+  },
+  "four/sec-hero-edtech": {
+    "page": "four",
+    "id": "sec-hero-edtech",
+    "src": "/images/four/sec-hero-edtech.webp",
+    "width": 1448,
+    "height": 1086,
+    "alt": "Students working on laptops in a modern classroom while an instructor presents a lesson",
+    "blurDataURL": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAAAwAgCdASoQAAwAA4BaJbACdAYvXYnaP9z/wAD+6KFwEcX2tZU0Wo/MiG8JfY180pf9c3slObmgKAZ9+UpLnQcGB7SofTYBx8TrdjIxYSR0WIgG01pC6s8atDa17eXmcK4ZTZ9aRi497rxwQdi6KgLDuqycFh7yFr7gAA==",
+    "source": "hand-placed"
+  },
+  "four/sec-hero-ecommerce": {
+    "page": "four",
+    "id": "sec-hero-ecommerce",
+    "src": "/images/four/sec-hero-ecommerce.webp",
+    "width": 1448,
+    "height": 1086,
+    "alt": "Warehouse operator scanning a parcel beside a screen tracking an order through fulfilment",
+    "blurDataURL": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABwAgCdASoQAAwAA4BaJYwCdIDZFeD0NysW6ufAAP7SfFYFi2grUpQ3ED5DArqtTEubLX/UKWX1DY6s6QWBTPJV5w+H5tpYYW6vrazLc3Pn+DPMoel9ygrDT263LtK6WhotrfoahNj+ZIk1gAA=",
+    "source": "hand-placed"
+  },
+  "four/sec-hero-logistics": {
+    "page": "four",
+    "id": "sec-hero-logistics",
+    "src": "/images/four/sec-hero-logistics.webp",
+    "width": 1448,
+    "height": 1086,
+    "alt": "Port supervisor with a tablet watching container cranes load a ship at dusk",
+    "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAABQAgCdASoQAAwAA4BaJbACdAYwTa6qti86KIAA3kuzzh9p3Cwhu7LCcO/H98ZORuLEOjKdwSpUUAb30vKPGyu7b0s+KMCIh2FEO0Xl9dbx2xPR0TcS5eLzBgMITjM6HMLQEp26TbcAAA==",
+    "source": "hand-placed"
+  },
+  "four/sec-hero-telecom": {
+    "page": "four",
+    "id": "sec-hero-telecom",
+    "src": "/images/four/sec-hero-telecom.webp",
+    "width": 1448,
+    "height": 1086,
+    "alt": "Network operations engineer monitoring live network status with a transmission mast beyond",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAQAgCdASoQAAwAA4BaJbACdAEO7lVF5lJgAP70nO9KnpZPOAMFVidl4hWjpaD+dVl+27saR4JUc04sn/3c503nxuB0vmTIpK/LfGu/xSwfuu1zK3v20AAA",
+    "source": "hand-placed"
+  },
+  "four/sec-hero-construction": {
+    "page": "four",
+    "id": "sec-hero-construction",
+    "src": "/images/four/sec-hero-construction.webp",
+    "width": 1448,
+    "height": 1086,
+    "alt": "Site engineer reviewing a building model on a tablet with the structure rising behind",
+    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAQAgCdASoQAAwAA4BaJbACdADpMsm3b8gAAP7oKFqmVE4pB/E9E+wlWl37pGG1aO88TVieEiKuYSxSLW2i8MLFN/4aJpJjB+MZLdvEhE6W24wm/+Mjwi0zd4AAAA==",
+    "source": "hand-placed"
+  },
+  "four/sec-hero-aviation": {
+    "page": "four",
+    "id": "sec-hero-aviation",
+    "src": "/images/four/sec-hero-aviation.webp",
+    "width": 1448,
+    "height": 1086,
+    "alt": "Ground crew coordinating aircraft turnaround at the gate at blue hour",
+    "blurDataURL": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAABwAgCdASoQAAwAA4BaJbACdH8IwABaIbUjGwdgAMs6hRZlCiPBEfyhbY5wt6KUVY9z6K669EkSbdHBm6iCRxbCaYl2M5I1jouQnV3wXF/oTuFaiGrbCS/5swcxXtP0tLHFBHdDUkloAAAA",
+    "source": "hand-placed"
   }
 }
