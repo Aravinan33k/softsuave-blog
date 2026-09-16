@@ -16,6 +16,7 @@ import TechStack from '@/components/services/tech-stack';
 import Faq from '@/components/services/faq';
 
 import { JsonLd } from '@/components/seo/json-ld';
+import { BASE_PATH } from '@/lib/flags';
 import { breadcrumbLd, faqPageLd, serviceLd } from '@/lib/seo/jsonld';
 import * as copy from '@/lib/services/ai-development';
 
@@ -49,6 +50,10 @@ export const metadata: Metadata = {
   },
 };
 
+/** The nav logo is a plain <a>, which Next does NOT prefix with basePath, so
+ *  it needs the already-public path. */
+const HOME_HREF = BASE_PATH || '/';
+
 export default function AiDevelopmentServicePage() {
   return (
     <div className={home.page}>
@@ -70,8 +75,10 @@ export default function AiDevelopmentServicePage() {
       />
 
       {/* This page has the bar's own #services and #why sections, so its
-          anchors stay in-page instead of resolving to the homepage's copies. */}
-      <Nav ownsAnchors />
+          anchors stay in-page instead of resolving to the homepage's copies.
+          `logoHref` is stated because `ownsAnchors` keeps the logo's default
+          `#top` in-page too, and the lockup must go HOME from a sub-page. */}
+      <Nav ownsAnchors logoHref={HOME_HREF} />
 
       <main id="main">
         <ServiceHero {...copy.hero} />
