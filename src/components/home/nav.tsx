@@ -245,7 +245,7 @@ export default function Nav({
           <Magnetic>
             {ctaHref.startsWith("/") ? (
               <Link href={ctaHref} {...ctaShared}>
-
+                {cta.label}
               </Link>
             ) : (
               <a href={ctaHref} {...ctaShared}>
