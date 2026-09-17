@@ -2,7 +2,8 @@
  * Copy for the "Custom AI Development Services" landing page
  * (`/custome-ai-developement`).
  *
- * Shapes match the prop types exported by `components/landing/*` — the shared
+ * Shapes match the prop types exported by the shared landing sections in
+ * `components/landing/*` and `components/common/*` — the shared
  * landing-page components — so each section is `<Component content={…} />` with
  * no adapter in between. Kept out of `content.ts` because that file is the
  * homepage's source and is imported by Nav, Footer and every homepage section.

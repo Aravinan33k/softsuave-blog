@@ -19,16 +19,24 @@ export default function SectionHead({
   kicker,
   title,
   intro,
-}: {
+  level = 2,
+}: Readonly<{
   kicker?: string;
   title: string;
   intro?: string;
-}) {
+  /**
+   * Heading level. `3` is for a sub-section that belongs under the section
+   * above it — a comparison table introduced by its own H3 inside a wider
+   * Overview, say — so the document outline stays correct instead of
+   * emitting a second H2 for something the copy marks as a sub-heading.
+   */
+  level?: 2 | 3;
+}>) {
   return (
-    <div className={styles.head}>
+    <div className={level === 3 ? `${styles.head} ${styles.headSub}` : styles.head}>
       <div>
         {kicker && <span className={styles.kicker}>{kicker}</span>}
-        <SplitReveal as="h2" className={styles.title} type="words">
+        <SplitReveal as={level === 3 ? "h3" : "h2"} className={styles.title} type="words">
           {title}
         </SplitReveal>
       </div>

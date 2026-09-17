@@ -24,10 +24,11 @@
  * The panel below mirrors the live site's own menu: every page softsuave.com's
  * homepage reaches is reachable from ours. The exceptions are deliberate — the
  * items that hold an `#anchor` are practices this page argues for that the live
- * site publishes no page for (the FDE model, Data Engineering, Data Science,
- * QA & Test Automation, full-stack and architect roles, Next.js). Pointing them
- * at a near-miss page would misdescribe them, so they go to the section that
- * describes them properly. Swap in the real path as each page ships.
+ * site publishes no page for (the FDE model, QA & Test Automation, full-stack
+ * and architect roles, Next.js). Pointing them at a near-miss page would
+ * misdescribe them, so they go to the section that describes them properly.
+ * Swap in the real path as each page ships — Data Engineering and Data Science
+ * already have theirs.
  *
  * Two divisions are deliberately NOT mirrored, because they already have their
  * own "view all" navigation into the live site: the whole `Industries` panel,
@@ -84,9 +85,9 @@ const SERVICES: NavMenuPanel = {
           items: [
             { name: "Generative AI", href: "/generative-ai-development-company" },
             { name: "Agentic AI", href: "/agentic-ai-development-services" },
-            { name: "RAG & Document AI", href: "/custome-ai-developement#services" },
-            { name: "Computer Vision", href: "/custome-ai-developement#services" },
-            { name: "Predictive Intelligence", href: "/custome-ai-developement#services" },
+            { name: "RAG & Document AI", href: "/rag-development-services" },
+            { name: "Computer Vision", href: "/computer-vision-development-services" },
+            { name: "Predictive Intelligence", href: "/predictive-intelligence-services" },
           ],
         },
         {
@@ -94,8 +95,8 @@ const SERVICES: NavMenuPanel = {
           href: "/ai-development-service",
           blurb: "The whole AI practice, assessment through production",
         },
-        { name: "Data Engineering", href: "#services", blurb: "ETL/ELT pipelines, streaming, data quality" },
-        { name: "Data Science", href: "#services", blurb: "Modelling, experimentation and MLOps" },
+        { name: "Data Engineering", href: "/data-engineering-services", blurb: "ETL/ELT pipelines, streaming, data quality" },
+        { name: "Data Science", href: "/data-science-services", blurb: "Modelling, experimentation and MLOps" },
       ],
     },
     {

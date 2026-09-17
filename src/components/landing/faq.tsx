@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import FadeUp from "@/components/home/fade-up";
 import SectionHead from "./section-head";
 import styles from "./landing.module.css";
@@ -18,6 +18,13 @@ export interface FaqItem {
   readonly q: string;
   /** One string, or several for a multi-paragraph answer. */
   readonly a: string | readonly string[];
+  /**
+   * A bulleted list inside the answer, for copy that introduces one and then
+   * enumerates. It renders after the FIRST paragraph, because the line that
+   * opens such an answer is always the one introducing the list; any further
+   * paragraphs follow underneath as the closing remark.
+   */
+  readonly points?: readonly string[];
   /** Closes the last paragraph with a link, for answers that point somewhere. */
   readonly link?: FaqAnswerLink;
 }
@@ -91,23 +98,36 @@ export default function Faq({
                     aria-labelledby={`${idPrefix}-trigger-${i}`}
                   >
                     {(typeof item.a === "string" ? [item.a] : item.a).map((para, pi, all) => (
-                      <p key={pi} className={styles.faqAnswer}>
-                        {para}
-                        {pi === all.length - 1 && item.link ? (
-                          <>
-                            {" "}
-                            <a
-                              className={styles.faqAnswerLink}
-                              href={item.link.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {item.link.label}
-                            </a>
-                            {item.link.tail ? ` ${item.link.tail}` : "."}
-                          </>
-                        ) : null}
-                      </p>
+                      <Fragment key={pi}>
+                        <p className={styles.faqAnswer}>
+                          {para}
+                          {pi === all.length - 1 && item.link ? (
+                            <>
+                              {" "}
+                              <a
+                                className={styles.faqAnswerLink}
+                                href={item.link.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {item.link.label}
+                              </a>
+                              {item.link.tail ? ` ${item.link.tail}` : "."}
+                            </>
+                          ) : null}
+                        </p>
+                        {/* Slots in after the opening line, which is the one
+                            that introduces the list. */}
+                        {pi === 0 && item.points && item.points.length > 0 && (
+                          <ul className={styles.tickList}>
+                            {item.points.map((point) => (
+                              <li key={point} className={styles.tickItem}>
+                                {point}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </Fragment>
                     ))}
                   </div>
                 </div>

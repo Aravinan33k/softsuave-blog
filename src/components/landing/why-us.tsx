@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import SectionHead from "./section-head";
 import styles from "./landing.module.css";
 import type { CardGridContent } from "./industries";
@@ -30,15 +30,34 @@ export default function WhyUs({
     () => {
       if (prefersReducedMotion() || !root.current) return;
       const cards = gsap.utils.toArray<HTMLElement>(`.${styles.proofItem}`, root.current);
-      gsap.from(cards, {
-        opacity: 0,
-        y: 36,
-        scale: 0.9,
-        duration: 0.75,
-        ease: "back.out(1.7)",
-        stagger: 0.09,
-        scrollTrigger: { trigger: root.current, start: "top 82%", once: true },
+
+      // The entrance is deliberately NOT a `gsap.from({ scrollTrigger })`.
+      // A tween owned by a ScrollTrigger is reverted and re-applied on every
+      // `ScrollTrigger.refresh()` (late `load`, fonts, resize, a layout
+      // change above) — and a refresh that lands mid-play restores the tween
+      // at its interrupted progress, paused. With a stagger that left cards
+      // 4–6 frozen part-way in: each a little smaller and lower than the
+      // last. So the cards start hidden, and a bare trigger just fires a
+      // free-running tween once, which no refresh can touch.
+      gsap.set(cards, { opacity: 0, y: 36, scale: 0.9 });
+      const st = ScrollTrigger.create({
+        trigger: root.current,
+        start: "top 82%",
+        once: true,
+        onEnter: () => {
+          gsap.to(cards, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.75,
+            ease: "back.out(1.7)",
+            stagger: 0.09,
+            // Leave no inline transform behind, so the CSS hover lift works.
+            clearProps: "transform,opacity",
+          });
+        },
       });
+      return () => st.kill();
     },
     { scope: root },
   );
@@ -51,7 +70,7 @@ export default function WhyUs({
     gsap.fromTo(
       e.currentTarget,
       { scale: 0.94 },
-      { scale: 1, duration: 0.7, ease: "elastic.out(1, 0.4)", overwrite: true },
+      { scale: 1, duration: 0.7, ease: "elastic.out(1, 0.4)", overwrite: "auto", clearProps: "transform" },
     );
   };
 

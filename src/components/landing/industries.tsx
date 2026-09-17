@@ -11,6 +11,11 @@ export interface CardGridContent {
   eyebrow: string;
   title: string;
   body: string;
+  /**
+   * Optional bullets between the intro and the grid, for a section whose copy
+   * carries a short claim list of its own before the cards start.
+   */
+  points?: readonly string[];
   items: readonly { readonly name: string; readonly body: string }[];
 }
 
@@ -30,16 +35,50 @@ export interface CardGridContent {
 export default function Industries({
   content,
   id = "industries",
+  columns = 4,
+  variant = "cards",
 }: {
   content: CardGridContent;
   id?: string;
+  /**
+   * Desktop column count, chosen to fill the rows the list actually has.
+   * Four is the default (eight cards read as two rows of four); three suits
+   * a multiple of three; five puts an awkward five-item list in one row
+   * instead of four plus a lone card.
+   */
+  columns?: 3 | 4 | 5;
+  /**
+   * `watermark` swaps the small mono index for a large translucent serif
+   * numeral behind the card's text. Use it when a page carries two of these
+   * grids, so the second does not read as a repeat of the first.
+   */
+  variant?: "cards" | "watermark";
 }) {
+  const grid = [
+    styles.cardGrid,
+    columns === 3 ? styles.cardGrid3 : "",
+    columns === 5 ? styles.cardGrid5 : "",
+    variant === "watermark" ? styles.cardGridMark : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <section className={styles.sectionShell} id={id}>
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
+      {content.points && content.points.length > 0 && (
+        <ul className={styles.gridPoints}>
+          {content.points.map((point) => (
+            <li key={point} className={styles.gridPoint}>
+              {point}
+            </li>
+          ))}
+        </ul>
+      )}
+
       <FadeUp>
-        <div className={styles.cardGrid}>
+        <div className={grid}>
           {content.items.map((item, i) => (
             <article key={item.name} className={styles.card}>
               <span className={styles.cardIndex} aria-hidden>

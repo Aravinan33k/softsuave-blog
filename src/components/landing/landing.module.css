@@ -1376,10 +1376,39 @@
 }
 
 .stackGroup {
+  position: relative;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--surface);
   overflow: hidden;
+  transition: border-color 0.4s ease;
+}
+
+.stackGroup:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+}
+
+/* Accent rule along the panel's top edge — the same card chrome as
+   `.proofItem` and `.capCard`. `--rule` is the reveal (tech-stack.tsx tweens
+   it 0 → 1 to draw the rule in); `width` is the hover. They are separate
+   properties so neither fights the other, and the default of 1 means the
+   rule is fully drawn when the reveal never runs. */
+.stackGroup::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(var(--rule, 1));
+  transform-origin: left center;
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stackGroup:hover::before {
+  width: 100%;
 }
 
 .stackGroupHead {
@@ -1425,6 +1454,11 @@
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   min-width: 0;
+  transition: background 0.35s ease;
+}
+
+.stackItem:hover {
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
 }
 
 .stackItemLogo {
@@ -1434,6 +1468,481 @@
   flex: 0 0 auto;
   width: 20px;
   height: 20px;
+  /* The reveal tweens `filter` (marks develop from grey into colour) and
+     clears it afterwards, so this transition owns the hover alone. */
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+}
+
+.stackItem:hover .stackItemLogo {
+  transform: scale(1.18);
+}
+
+/* Stands in for the brand mark when a stack renders without logos
+   (`logos={false}`), so the names keep the same left rhythm as a logo row. */
+.stackItemBullet {
+  flex: 0 0 auto;
+  width: 5px;
+  height: 5px;
+  margin: 0 7px 0 1px;
+  border-radius: 50%;
+  background: var(--accent);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stackItem:hover .stackItemBullet {
+  transform: scale(1.6);
+}
+
+/* ============================================================
+   CARD GRID — "WATERMARK" VARIANT (`variant="watermark"` on Industries)
+   The index becomes a large translucent serif numeral sitting behind the
+   card's text instead of a small mono label, so a page carrying two of
+   these grids does not read as the same section twice.
+   ============================================================ */
+.cardGridMark .card {
+  position: relative;
+  overflow: hidden;
+}
+
+.cardGridMark .cardIndex {
+  position: absolute;
+  top: -0.18em;
+  right: 0.06em;
+  z-index: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(4.5rem, 7vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: color-mix(in srgb, var(--accent) 13%, transparent);
+  pointer-events: none;
+  transition: color 0.5s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cardGridMark .card:hover .cardIndex {
+  color: color-mix(in srgb, var(--accent) 24%, transparent);
+  transform: translateY(-4px);
+}
+
+.cardGridMark .cardName,
+.cardGridMark .cardBody {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   SHOWCASE (landing/showcase.tsx)
+   A numbered index on the left with a pinned media panel on the right
+   whose artwork follows whichever entry is crossing the middle of the
+   viewport. The panel is CSS `sticky`, not a GSAP pin, so this stays
+   within the surface's reveals-and-staggers rule. Below 1000px the panel
+   is dropped and the list stands alone.
+   ============================================================ */
+.showGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 3vw, 44px);
+  align-items: start;
+}
+
+.showList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.showRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(14px, 1.8vw, 26px);
+  padding: clamp(20px, 2.4vw, 30px) 0;
+  border-top: 1px solid var(--line);
+  transition: opacity 0.45s ease;
+  /* The inactive entries recede rather than disappear — every one stays
+     readable, which is the whole reason this is a list and not a carousel. */
+  opacity: 0.62;
+}
+
+.showList .showRow:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.showRowActive {
+  opacity: 1;
+}
+
+.showIndex {
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  line-height: 2.4;
+  color: var(--muted);
+  transition: color 0.45s ease;
+}
+
+.showRowActive .showIndex {
+  color: var(--accent);
+}
+
+.showName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  color: var(--text-bright);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.showRowActive .showName {
+  transform: translateX(6px);
+}
+
+.showBody {
+  margin: 10px 0 0;
+  max-width: 54ch;
+  font-size: clamp(0.88rem, 0.98vw, 0.98rem);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* Coral rule that draws across the active entry's foot. */
+.showRule {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.showRowActive .showRule {
+  transform: scaleX(1);
+}
+
+/* Media panel — hidden until there is room for it beside the list. */
+.showMedia {
+  display: none;
+}
+
+.showMediaFrame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  aspect-ratio: 4 / 3;
+}
+
+.showMediaShot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 0.7s ease, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.showMediaShot img {
+  object-fit: cover;
+}
+
+.showMediaShotOn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Keeps light artwork from fighting the counter sitting on it. */
+.showMediaVeil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(4, 5, 8, 0.1) 0%,
+    rgba(4, 5, 8, 0.05) 45%,
+    rgba(4, 5, 8, 0.72) 100%
+  );
+}
+
+.showMediaCount {
+  position: absolute;
+  left: clamp(16px, 1.8vw, 22px);
+  bottom: clamp(14px, 1.6vw, 20px);
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.showMediaCountTotal {
+  font-size: 0.42em;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+/* ============================================================
+   PROCESS RAIL (landing/process-rail.tsx)
+   Steps hung off a single drawn spine rather than laid out as a grid.
+   ============================================================ */
+.rail {
+  position: relative;
+  list-style: none;
+  margin: clamp(22px, 2.8vw, 36px) 0 0;
+  padding: 0;
+}
+
+/* The spine. Inset top and bottom so it starts and ends at the first and
+   last markers rather than floating past them. */
+.railLine {
+  position: absolute;
+  left: 17px;
+  top: clamp(30px, 3.4vw, 40px);
+  bottom: clamp(30px, 3.4vw, 40px);
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    var(--accent) 0%,
+    color-mix(in srgb, var(--accent) 45%, var(--line)) 100%
+  );
+}
+
+.railRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: clamp(16px, 2vw, 28px);
+  padding: clamp(16px, 1.9vw, 24px) 0;
+}
+
+.railMarker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--bg);
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+
+.railRow:hover .railMarker {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #140b08;
+}
+
+.railMain {
+  position: relative;
+  display: grid;
+  gap: 8px;
+}
+
+/* Short coral tick that reaches from the spine to the row on hover. */
+.railTick {
+  position: absolute;
+  left: calc(-1 * clamp(16px, 2vw, 28px));
+  top: 0.72em;
+  width: clamp(16px, 2vw, 28px);
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.railRow:hover .railTick {
+  transform: scaleX(1);
+}
+
+.railName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.2rem, 1.9vw, 1.6rem);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: var(--text-bright);
+  transition: color 0.4s ease;
+}
+
+.railBody {
+  margin: 0;
+  max-width: 68ch;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  line-height: 1.66;
+  color: var(--muted);
+}
+
+/* ============================================================
+   VERSUS LEDGER (landing/versus-ledger.tsx)
+   Two options either side of a shared spine of consideration labels.
+   ============================================================ */
+.ledger {
+  margin-top: clamp(22px, 2.8vw, 36px);
+}
+
+.ledHead {
+  display: none;
+}
+
+.ledHeadCell {
+  padding: clamp(12px, 1.4vw, 16px) clamp(14px, 1.8vw, 22px);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+}
+
+.ledHeadLeft {
+  text-align: right;
+}
+
+.ledHeadRight {
+  text-align: left;
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+}
+
+.ledHeadMid {
+  align-self: center;
+  text-align: center;
+  font-family: var(--font-eyebrow);
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ledRows {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(12px, 1.5vw, 18px);
+}
+
+/* Stacked by default: label, then the two answers as a labelled pair. */
+.ledRow {
+  display: grid;
+  gap: 12px;
+  padding: clamp(18px, 2.2vw, 24px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  transition: border-color 0.4s ease;
+}
+
+.ledRow:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+}
+
+.ledSpine {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ledLabel {
+  font-family: var(--font-eyebrow);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* The hairlines that draw outward from the centre as the row assembles. */
+.ledLine {
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--line);
+}
+
+.ledLineL {
+  display: none;
+}
+
+.ledCell {
+  margin: 0;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.ledCellTag {
+  display: block;
+  margin-bottom: 5px;
+  font-family: var(--font-eyebrow);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@media (min-width: 900px) {
+  /* Three columns: answers either side of the centred label spine. The
+     column heads carry the option names, so the per-cell tags are dropped. */
+  .ledHead {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: clamp(18px, 2.4vw, 36px);
+    margin-bottom: clamp(14px, 1.8vw, 22px);
+  }
+
+  .ledRow {
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: clamp(18px, 2.4vw, 36px);
+  }
+
+  .ledCellTag {
+    display: none;
+  }
+
+  .ledLeft {
+    text-align: right;
+  }
+
+  .ledRight {
+    text-align: left;
+  }
+
+  .ledSpine {
+    min-width: clamp(180px, 18vw, 260px);
+  }
+
+  .ledLineL {
+    display: block;
+  }
+}
+
+@media (min-width: 1000px) {
+  .showGrid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    gap: clamp(32px, 4vw, 64px);
+  }
+
+  .showMedia {
+    display: block;
+    position: sticky;
+    /* Clears the fixed nav and centres the frame against the list. */
+    top: 16vh;
+  }
 }
 
 .stackItemName {
@@ -1444,6 +1953,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: color 0.35s ease;
+}
+
+.stackItem:hover .stackItemName {
+  color: var(--text-bright);
 }
 
 /* ============================================================
@@ -1772,6 +2286,29 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  /* Opt-in 3-up, for a list whose length is a multiple of three — six cards
+     read as two full rows instead of four then a two-card remainder. */
+  .cardGrid.cardGrid3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Opt-in 5-up. Held at three columns here and widened to five at 1240px
+     below, because five prose cards need real room before they stop
+     reading as a squeeze. */
+  .cardGrid.cardGrid5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Opt-in 3-up process, for a run of six steps. */
+  .processGrid.processGrid3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Integration: three panels fill one row. */
+  .integrationGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   /* Why us: 6 proof points read as two rows of three. */
   .proofGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1937,4 +2474,3012 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+/* ============================================================
+   COMPARISON NOTES
+   Closing guidance under the comparison rows ("when to pick which") — a
+   short prose block in the section's measure, ruled off from the rows.
+   ============================================================ */
+.cmpNotes {
+  max-width: 68ch;
+  margin-top: clamp(24px, 3vw, 40px);
+  padding-top: clamp(18px, 2vw, 26px);
+  border-top: 1px solid var(--line);
+}
+
+.cmpNotes p {
+  margin: 0;
+  font-size: clamp(0.94rem, 1.08vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.cmpNotes p + p {
+  margin-top: 0.9em;
+}
+
+/* Sub-section masthead (`level={3}` on SectionHead) — a heading that belongs
+   under the section above it rather than opening a new one, so it sits a
+   step down in scale and keeps a tighter gap to its own content. */
+.headSub .title {
+  font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+  line-height: 1.14;
+}
+
+.headSub {
+  margin-bottom: clamp(18px, 2.4vw, 32px);
+}
+
+/* ============================================================
+   HERO — COMPACT VARIANT (`variant="compact"` on landing/hero.tsx)
+   The generative-AI page's hero, value for value (gen-ai.module.css's
+   `.hero*` block), expressed as overrides on the shared hero so a page can
+   sit alongside /generative-ai-development-company without importing across
+   component sets. Everything not listed here is shared with the display
+   look already.
+   ============================================================ */
+.heroCompact {
+  padding: clamp(78px, 6.6vw, 98px) var(--gutter) clamp(32px, 3.4vw, 52px);
+}
+
+/* Backdrop: near-full opacity, no drift, and the gen-ai two-pass veil — a
+   horizontal pass over the headline column plus a vertical pass weighting
+   the fold into the section below. The coral `.heroGlow` layers over both
+   (hero.tsx renders it for this variant even with an image). */
+.heroCompact .heroBg {
+  opacity: 0.92;
+  filter: none;
+  animation: none;
+  transform: none;
+  will-change: auto;
+  /* Phone-shaped viewports crop a wide frame to a narrow slice, so bias the
+     crop left of centre to keep the subject in shot; recentred at 1000px. */
+  object-position: 34% 28%;
+}
+
+.heroCompact .heroBgVeil {
+  background:
+    linear-gradient(90deg, rgba(4, 5, 8, 0.6) 0%, rgba(4, 5, 8, 0.2) 55%, rgba(4, 5, 8, 0.4) 100%),
+    linear-gradient(180deg, rgba(4, 5, 8, 0.35) 0%, rgba(4, 5, 8, 0.16) 40%, rgba(4, 5, 8, 0.9) 100%);
+}
+
+.heroCompact .heroGlow {
+  z-index: 1;
+}
+
+/* The gen-ai hero carries no text-shadow and keeps its body muted; the veil
+   does the legibility work there. */
+.heroCompact.heroWithBg .kicker,
+.heroCompact.heroWithBg .heroTitle,
+.heroCompact.heroWithBg .heroBody,
+.heroCompact.heroWithBg .heroPoint,
+.heroCompact.heroWithBg .badge {
+  text-shadow: none;
+}
+
+.heroCompact.heroWithBg .heroBody {
+  color: var(--muted);
+}
+
+.heroCompact .heroTitle {
+  font-size: clamp(1.85rem, 3.4vw, 2.9rem);
+  line-height: 1.1;
+}
+
+.heroCompact .heroBody {
+  margin-top: clamp(16px, 2vw, 24px);
+  max-width: 72ch;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.62;
+}
+
+.heroCompact .heroBody + .heroBody {
+  margin-top: 1em;
+}
+
+/* Supporting points as hairline-separated rows. */
+.heroCompact .heroPoints {
+  margin-top: clamp(20px, 2.4vw, 30px);
+  border-top: 1px solid var(--line);
+}
+
+.heroCompact .heroPoint {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 1000px) {
+  .heroCompact .heroBg {
+    object-position: center 38%;
+  }
+
+  /* Form pinned to the copy column's top edge rather than centred in the row. */
+  .heroCompact .heroGrid {
+    align-items: start;
+  }
+}
+
+/* ============================================================
+   OVERVIEW — COMPACT VARIANT (`variant="compact"` on landing/overview.tsx)
+   The generative-AI page's overview, value for value (gen-ai.module.css's
+   `.sectionShell` / `.head` / `.prose` / `.overview*` / `.pullQuote`),
+   expressed as overrides on the shared overview so it can sit beside the
+   compact hero. The masthead scale is scoped to this section only.
+   ============================================================ */
+.overviewCompact {
+  padding: clamp(34px, 4vw, 64px) var(--gutter);
+}
+
+.overviewCompact .head {
+  padding-top: clamp(14px, 1.8vw, 24px);
+  margin-bottom: clamp(20px, 2.6vw, 38px);
+}
+
+.overviewCompact .title {
+  font-size: clamp(1.6rem, 2.9vw, 2.5rem);
+  line-height: 1.14;
+}
+
+.overviewCompact .intro {
+  max-width: 76ch;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.62;
+}
+
+.overviewCompact .prose {
+  gap: 0.95em;
+}
+
+/* 1.68 rather than the airier 1.75: the section has to fit one screen. */
+.overviewCompact .prose p {
+  line-height: 1.68;
+}
+
+/* Capped, right-aligned, bordered 4:3 frame rather than a flush 3:2 image
+   filling its column — left to fill the column the image ran noticeably
+   larger than the text beside it. The ratio is the asset's own, so nothing
+   is cropped. */
+.overviewCompact .overviewMedia {
+  margin: 0 0 0 auto;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+/* Compact enough to clear the fold with the prose and the illustration above
+   it — all three blocks are meant to be readable in one screen. */
+.overviewCompact .pullQuote {
+  margin-top: clamp(18px, 2.2vw, 30px);
+  padding: clamp(16px, 1.8vw, 24px) clamp(18px, 2vw, 28px);
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.45;
+}
+
+@media (min-width: 1000px) {
+  /* Prose + masthead lead, illustration supports. `end`, not `start`: the
+     image is capped by `max-width` and so is shorter than the title + prose
+     beside it; `end` gives the row one shared bottom edge, the image's
+     bottom flush with the last line of prose, right where the pull quote
+     begins below. */
+  .overviewCompact .overviewGrid {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+    column-gap: clamp(28px, 3.2vw, 52px);
+    align-items: end;
+  }
+
+  /* Keep the capped 4:3 frame — the display look's stretch-to-row rule
+     (`aspect-ratio: unset; align-self: stretch`) is undone here. */
+  .overviewCompact .overviewMedia {
+    aspect-ratio: 4 / 3;
+    align-self: auto;
+  }
+}
+
+/* ============================================================
+   OVERVIEW — "VIEW MORE" CLAMP (`clampLines` on landing/overview.tsx)
+   The prose is clipped to N total lines with an ellipsis until the toggle
+   expands it. `-webkit-line-clamp` needs the legacy `-webkit-box` display,
+   which drops the grid gap between paragraphs, so the paragraph spacing is
+   restored as a margin while clamped.
+   ============================================================ */
+.proseClamped {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.proseClamped p + p {
+  margin-top: 1.1em;
+}
+
+.overviewCompact .proseClamped p + p {
+  margin-top: 0.95em;
+}
+
+/* Text button in the surface's mono micro-label voice, accent-coloured,
+   with a chevron that flips when the prose is open. */
+.proseMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  margin-top: clamp(14px, 1.6vw, 20px);
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-eyebrow);
+  font-size: clamp(10px, 0.78vw, 12px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.proseMore:hover {
+  color: var(--text-bright);
+}
+
+.proseMore:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.proseMoreIcon {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 auto;
+  transition: transform 0.3s ease;
+}
+
+.proseMore[aria-expanded="true"] .proseMoreIcon {
+  transform: rotate(180deg);
+}
+
+/* ============================================================
+   FLOW DIAGRAM (landing/flow.tsx)
+   Numbered stage cards joined by hairline connectors — stacked by default,
+   one row from 1000px. Stage chrome is the landing card language: hairline
+   border, surface fill, an accent top rule, mono index, serif name. The
+   connector holds the hairline, an arrowhead, and the travelling packet
+   that flow.tsx animates along it (`left` in a row, `top` when stacked).
+   ============================================================ */
+.flow {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: clamp(26px, 3vw, 40px);
+}
+
+.flowStep {
+  position: relative;
+  padding: clamp(16px, 1.8vw, 22px) clamp(16px, 1.8vw, 24px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.45s ease, box-shadow 0.45s ease;
+}
+
+/* Accent top rule; widens across the card while the stage is lit. */
+.flowStep::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.flowStepActive {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent),
+    0 18px 40px -24px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.flowStepActive::before {
+  width: 100%;
+}
+
+.flowIndex {
+  display: block;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+.flowName {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.02rem, 1.15vw, 1.15rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+}
+
+.flowDetail {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Connector between two stages. Stacked: a short vertical run, centred. */
+.flowLink {
+  position: relative;
+  flex: 0 0 auto;
+  height: clamp(30px, 4.5vw, 40px);
+  width: 100%;
+}
+
+.flowLine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+  transform: translateX(-50%);
+}
+
+.flowArrow {
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  width: 12px;
+  height: 12px;
+  color: var(--muted);
+  transform: translate(-50%, 0) rotate(90deg);
+}
+
+/* The travelling packet: hidden until flow.tsx moves it. */
+.flowDot {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent),
+    0 0 14px var(--accent);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (min-width: 1000px) {
+  .flow {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .flowStep {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  /* Row: a short horizontal run, vertically centred on the cards. */
+  .flowLink {
+    width: clamp(26px, 3.2vw, 48px);
+    height: auto;
+    align-self: stretch;
+  }
+
+  .flowLine {
+    left: 0;
+    right: 0;
+    top: 50%;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+    transform: translateY(-50%);
+  }
+
+  .flowArrow {
+    left: auto;
+    right: -1px;
+    top: 50%;
+    bottom: auto;
+    transform: translate(0, -50%);
+  }
+
+  .flowDot {
+    left: 0;
+    top: 50%;
+  }
+}
+
+/* ============================================================
+   SERVICES CAROUSEL (landing/services-carousel.tsx)
+   Centre-focused carousel, ported from the generative-AI page. Three cards
+   on screen: the active one high and full-size, its neighbours dropped and
+   scaled back. Cards are absolutely positioned in a fixed-height stage and
+   placed purely by `transform`, so travel runs on the compositor and the
+   stage never changes height. Artwork covers the card; the copy sits over
+   its lower part under a gradient confined to the text band.
+   ============================================================ */
+.carouselStage {
+  position: relative;
+  /* Tall enough for the artwork band plus the longest body at this width.
+     Fixed, so advancing never changes the section's height. */
+  height: 545px;
+  margin-top: clamp(4px, 0.8vw, 10px);
+  touch-action: pan-y;
+}
+
+.carouselSlide {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 82%;
+  margin-left: -41%;
+  /* Leaves room for the neighbours' downward offset inside the stage. */
+  height: calc(100% - 36px);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.62s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s ease, border-color 0.4s ease, box-shadow 0.5s ease;
+  will-change: transform;
+}
+
+/* Slot geometry. Neighbours drop and scale back so the active card reads as
+   the subject; anything beyond them is parked off-stage and faded out. */
+.carouselSlide[data-pos="active"] {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+  z-index: 30;
+}
+
+.carouselSlide[data-pos="prev"] {
+  transform: translate3d(-104%, 26px, 0) scale(0.93);
+  opacity: 0.5;
+  z-index: 20;
+}
+
+.carouselSlide[data-pos="next"] {
+  transform: translate3d(104%, 26px, 0) scale(0.93);
+  opacity: 0.5;
+  z-index: 20;
+}
+
+.carouselSlide[data-pos="far-prev"],
+.carouselSlide[data-pos="far-next"] {
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.carouselSlide[data-pos="far-prev"] {
+  transform: translate3d(-170%, 40px, 0) scale(0.88);
+}
+
+.carouselSlide[data-pos="far-next"] {
+  transform: translate3d(170%, 40px, 0) scale(0.88);
+}
+
+.carouselFigure {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.carouselFigure img {
+  object-fit: cover;
+}
+
+/* The gradient is confined to the text band: fully transparent across the
+   top so the picture is untouched where there is no text, deepening only
+   under the words. Not decoration — light text over an untreated photo
+   fails contrast outright. Literal near-black on purpose: it sits on the
+   picture, not the page, so it must not flip with the `.light` band. */
+.carouselMain {
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  display: grid;
+  align-content: end;
+  padding: clamp(46px, 5vw, 64px) clamp(18px, 2vw, 26px) clamp(18px, 2vw, 26px);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, #05070b 46%, transparent) 26%,
+    color-mix(in srgb, #05070b 84%, transparent) 58%,
+    color-mix(in srgb, #05070b 95%, transparent) 100%
+  );
+}
+
+/* Cards with no artwork keep the plain surface — no gradient over nothing. */
+.carouselMain[data-plain="true"] {
+  background: none;
+  padding-top: clamp(18px, 2vw, 26px);
+  align-self: start;
+}
+
+.carouselIndex {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--brand-coral);
+}
+
+/* Copy sits on imagery rather than the card surface, so it is near-white
+   on either band. */
+.carouselTitle {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.05rem, 1.35vw, 1.3rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.carouselText {
+  margin: 10px 0 0;
+  font-size: clamp(0.88rem, 0.96vw, 0.96rem);
+  line-height: 1.62;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* The subject card: lifted, full contrast, the only one that reads as "on". */
+.carouselSlideActive {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: 0 30px 70px -46px rgba(0, 0, 0, 0.85);
+}
+
+/* Neighbours are a preview, so clicking one brings it forward. */
+.carouselSlideNear {
+  cursor: pointer;
+}
+
+.carouselSlideNear:hover {
+  border-color: var(--accent);
+}
+
+.carouselNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 2vw, 28px);
+  margin-top: clamp(18px, 2.2vw, 28px);
+}
+
+.carouselArrow {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-bright);
+  cursor: pointer;
+  transition: border-color 0.35s ease, color 0.35s ease, background 0.35s ease;
+}
+
+.carouselArrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.carouselArrow:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.carouselArrow:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.carouselDots {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carouselDot {
+  display: block;
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+}
+
+.carouselDot:hover {
+  border-color: var(--accent);
+}
+
+.carouselDot[aria-current="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.35);
+}
+
+.carouselDot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Less motion: the position change with no travel — it still works, it cuts. */
+@media (prefers-reduced-motion: reduce) {
+  .carouselSlide {
+    transition: none;
+  }
+}
+
+@media (min-width: 700px) {
+  .carouselStage {
+    height: 492px;
+  }
+
+  .carouselSlide {
+    width: 52%;
+    margin-left: -26%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .carouselStage {
+    height: 452px;
+  }
+
+  /* 30% each keeps all three cards inside the content width with a real gap
+     between them; wider and the neighbours run past the gutter. */
+  .carouselSlide {
+    width: 30%;
+    margin-left: -15%;
+  }
+
+  .carouselSlide[data-pos="prev"] {
+    transform: translate3d(-106%, 26px, 0) scale(0.93);
+  }
+
+  .carouselSlide[data-pos="next"] {
+    transform: translate3d(106%, 26px, 0) scale(0.93);
+  }
+}
+
+/* ============================================================
+   COMPARISON BOARD (landing/comparison-board.tsx)
+   One row card per decision factor, each with a "lean" track: a hairline
+   with the lead option at the left end and the other at the right, and a
+   coral marker resting toward the side the factor favours. Under it the two
+   answers, the winner lit (via the `--lit` custom property the reveal
+   tweens 0 → 1), the other dimmed. A tally panel closes the board.
+   ============================================================ */
+.boardLegend {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 0 clamp(20px, 2.8vw, 30px) 12px;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.boardLegendEnd {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: end;
+}
+
+.boardLegendLead {
+  justify-self: start;
+  color: var(--accent);
+}
+
+.boardLegendMid {
+  color: var(--muted);
+}
+
+.boardLegendDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.boardRows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(12px, 1.4vw, 16px);
+}
+
+.boardRow {
+  position: relative;
+  padding: clamp(18px, 2.4vw, 26px) clamp(20px, 2.8vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.4s ease, transform 0.35s ease;
+}
+
+.boardRow:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  transform: translateY(-2px);
+}
+
+.boardRowHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.boardIndex {
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+.boardArea {
+  margin: 0;
+  flex: 1 1 auto;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  letter-spacing: -0.01em;
+  color: var(--text-bright);
+}
+
+/* Verdict chip: names the winner in words. */
+.boardVerdict {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45em 0.8em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--font-eyebrow);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text);
+  background: color-mix(in srgb, var(--surface-2) 70%, transparent);
+}
+
+.boardVerdictLead {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+/* The lean track. */
+.boardTrack {
+  position: relative;
+  height: 22px;
+  margin: clamp(14px, 1.8vw, 20px) 0 clamp(10px, 1.4vw, 14px);
+}
+
+.boardTrackLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 60%, var(--line)) 0%,
+    var(--line) 50%,
+    var(--line) 100%
+  );
+  transform: translateY(-50%);
+}
+
+.boardTrackTick {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1px;
+  height: 10px;
+  background: var(--line);
+  transform: translate(-50%, -50%);
+}
+
+.boardMarker {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent),
+    0 0 16px color-mix(in srgb, var(--accent) 70%, transparent);
+  transform: translate(-50%, -50%);
+}
+
+.boardCells {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.boardCell {
+  --lit: 1;
+  display: grid;
+  gap: 5px;
+}
+
+.boardCellLabel {
+  font-family: var(--font-eyebrow);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.boardCellValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.boardCellIcon {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  color: var(--muted);
+}
+
+/* Winner: bright value, accent check, the glow fading in as `--lit` rises. */
+.boardCellWin .boardCellLabel {
+  color: var(--accent);
+}
+
+.boardCellWin .boardCellValue {
+  color: color-mix(in srgb, var(--text-bright) calc(var(--lit) * 100%), var(--text));
+  font-weight: 500;
+}
+
+.boardCellWin .boardCellIcon {
+  color: var(--accent);
+  opacity: var(--lit);
+}
+
+.boardCellLose .boardCellValue {
+  color: var(--muted);
+}
+
+@media (min-width: 640px) {
+  .boardCells {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(24px, 3vw, 48px);
+  }
+
+  .boardCellOther {
+    text-align: right;
+    justify-items: end;
+  }
+
+  .boardCellOther .boardCellValue {
+    flex-direction: row-reverse;
+  }
+}
+
+/* ============================================================
+   CAPABILITY GUIDE (landing/capability-guide.tsx)
+   A five-column lookup table as one card per business problem: the problem
+   is the card's heading, its four attributes are labelled fields beneath —
+   stacked on mobile, four across from 1000px. A `<table>` of five prose
+   columns cannot stay legible at 360px, and a horizontal scroller hides
+   most of the row.
+   ============================================================ */
+.capRows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(12px, 1.6vw, 18px);
+}
+
+.capCard {
+  position: relative;
+  padding: clamp(20px, 2.6vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.4s ease, transform 0.35s ease;
+}
+
+.capCard:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  transform: translateY(-2px);
+}
+
+/* Accent rule along the card's top edge, widening on hover — the same
+   card chrome as `.proofItem` and `.flowStep`. */
+.capCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.capCard:hover::before {
+  width: 100%;
+}
+
+.capHead {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding-bottom: clamp(14px, 1.8vw, 20px);
+  margin-bottom: clamp(14px, 1.8vw, 20px);
+  border-bottom: 1px solid var(--line);
+}
+
+.capIndex {
+  grid-row: span 2;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+.capProblemLabel {
+  font-family: var(--font-eyebrow);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.capProblem {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+}
+
+.capFields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 1.8vw, 20px);
+}
+
+.capField {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+}
+
+.capFieldLabel {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-eyebrow);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.capFieldIcon {
+  flex: 0 0 auto;
+  width: 13px;
+  height: 13px;
+}
+
+.capFieldValue {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* The capability is what the reader is shopping for, so it carries the
+   accent; the outcome is what they get, so it closes the row on a tinted
+   panel rather than a fourth identical column of grey. */
+.capFieldKey .capFieldLabel {
+  color: var(--accent);
+}
+
+.capFieldKey .capFieldValue {
+  color: var(--text-bright);
+  font-weight: 500;
+}
+
+.capFieldOutcome {
+  padding: clamp(12px, 1.4vw, 16px);
+  margin: -4px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+
+@media (min-width: 700px) {
+  .capFields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .capFields {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(18px, 2.2vw, 30px);
+  }
+}
+
+/* ============================================================
+   PROCESS — "EVEN" AND "STAGES" VARIANTS (landing/process.tsx)
+   The base grid sizes each card to its own content, which leaves the
+   bottoms of a row ragged when headings wrap to different line counts, and
+   justifies the body, which rivers badly in a card column. `even` fixes
+   both while keeping the four-column layout. `stages` adds one row of five
+   for a run of short pipeline stages, which the four-column base would
+   otherwise leave orphaned on a second row.
+   ============================================================ */
+.processEven {
+  /* Cards in a row share a height, so the bottoms line up whether or not a
+     heading wraps to a second line. */
+  align-items: stretch;
+}
+
+.processEven .processCard {
+  height: 100%;
+}
+
+.processEven .processCardBody {
+  /* Body sits against the card's bottom edge, so a one-line and a two-line
+     heading still leave the card evenly filled. */
+  flex: 1 1 auto;
+}
+
+.processEven .processBody {
+  text-align: left;
+}
+
+.processStages .processMarker {
+  width: 28px;
+  height: 28px;
+  font-size: 10px;
+}
+
+.processStages .processName {
+  font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.processStages .processBody {
+  font-size: clamp(0.86rem, 0.95vw, 0.94rem);
+  line-height: 1.6;
+}
+
+@media (min-width: 700px) {
+  .processStages {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .processStages {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Five across: one clean row, no orphan. */
+@media (min-width: 1240px) {
+  .processStages {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  /* Same reasoning for a five-item card grid (`columns={5}` on Industries):
+     one clean row rather than four cards plus a lone fifth. */
+  .cardGrid.cardGrid5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+/* ============================================================
+   FIT GUIDE (landing/fit-guide.tsx)
+   A four-column triage table as one routed row per business problem. The
+   first three columns are a path — this problem, with this data, starts
+   here — so they run left to right joined by chevrons, with the starting
+   point lit on an accent panel. The fourth is the branch you take when the
+   answer is "not this", so it sits below a dashed rule behind a fork glyph
+   rather than in line as a fourth peer. `--lit` is the reveal
+   (fit-guide.tsx tweens it 0 → 1 to bring the accent panel up).
+   ============================================================ */
+.fitRows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(12px, 1.6vw, 18px);
+}
+
+.fitRow {
+  position: relative;
+  padding: clamp(20px, 2.6vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.4s ease, transform 0.35s ease;
+}
+
+.fitRow:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  transform: translateY(-2px);
+}
+
+/* Accent rule along the row's top edge, widening on hover — the same card
+   chrome as `.capCard` and `.stackGroup`. */
+.fitRow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fitRow:hover::before {
+  width: 100%;
+}
+
+.fitTrack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.6vw, 18px);
+  align-items: start;
+}
+
+.fitCell {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.fitLabel {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: var(--font-eyebrow);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.fitIndex {
+  color: var(--accent);
+  letter-spacing: 0.18em;
+}
+
+.fitProblemName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+}
+
+.fitValue {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* Connector between stages. Rotation lives on the glyph, not the span: the
+   reveal writes an inline transform on the span, which would replace any
+   transform set here. */
+.fitLink {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: color-mix(in srgb, var(--accent) 60%, var(--muted));
+}
+
+.fitLink svg {
+  width: 18px;
+  height: 18px;
+  transform: rotate(90deg);
+}
+
+/* The starting point is the answer the reader came for, so it closes the
+   track on a tinted panel rather than a third identical column of grey. */
+.fitStart {
+  --lit: 1;
+  padding: clamp(12px, 1.4vw, 16px);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) calc(var(--lit) * 7%), transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) calc(var(--lit) * 24%), transparent);
+}
+
+.fitStart .fitLabel {
+  color: var(--accent);
+}
+
+.fitStart .fitValue {
+  color: color-mix(in srgb, var(--text-bright) calc(var(--lit) * 100%), var(--text));
+  font-weight: 500;
+}
+
+/* The fallback branch: what to do when Data Science alone is not the
+   answer. Demoted below a dashed rule so it never reads as a fourth peer. */
+.fitBranch {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 12px;
+  margin-top: clamp(14px, 1.8vw, 20px);
+  padding-top: clamp(14px, 1.8vw, 20px);
+  border-top: 1px dashed var(--line);
+}
+
+.fitFork {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  margin-top: 1px;
+  color: var(--muted);
+}
+
+.fitFork svg {
+  width: 17px;
+  height: 17px;
+}
+
+.fitBranch .fitValue {
+  color: var(--muted);
+}
+
+@media (min-width: 1000px) {
+  .fitTrack {
+    grid-template-columns: minmax(0, 1.05fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: clamp(14px, 1.8vw, 24px);
+    align-items: center;
+  }
+
+  .fitLink {
+    justify-content: center;
+  }
+
+  .fitLink svg {
+    transform: none;
+  }
+
+  .fitBranch {
+    /* One line at this width, so the fork centres against it instead of
+       hanging from the label. */
+    align-items: center;
+  }
+}
+
+/* ============================================================
+   TECH CLUSTER (landing/tech-cluster.tsx)
+   The stack as clusters resolving out of scatter, for a page whose stack is
+   small enough to show whole. The plot is a dot field that clips: the
+   reveal throws each chip out onto it by `transform` only, so a point can
+   start off the field and arrive from outside without ever changing the
+   page's width.
+   ============================================================ */
+.clusPlot {
+  position: relative;
+  padding: clamp(22px, 3vw, 44px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background-color: var(--surface);
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
+  overflow: hidden;
+}
+
+/* Vignette, so the field fades out at the edges instead of ending on a
+   hard crop — a point arriving from off-plot passes through it. */
+.clusPlot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 100% at 50% 50%, transparent 48%, var(--surface) 100%);
+}
+
+.clusGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(22px, 2.8vw, 36px);
+}
+
+.clusGroup {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.clusHead {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+/* The cluster's centroid. It pops once the last of its points has landed. */
+.clusDot {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.clusName {
+  font-family: var(--font-eyebrow);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+}
+
+.clusRule {
+  display: block;
+  height: 1px;
+  margin-top: -4px;
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--accent) 55%, transparent),
+    var(--line) 65%,
+    transparent
+  );
+}
+
+.clusChips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.clusChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  white-space: nowrap;
+  transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s ease;
+}
+
+.clusChip:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg));
+  transform: translateY(-2px);
+}
+
+.clusChipLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+}
+
+.clusChipLogo svg {
+  width: 18px;
+  height: 18px;
+}
+
+.clusChipName {
+  font-family: var(--font-eyebrow);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--text-bright);
+}
+
+@media (min-width: 700px) {
+  .clusGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .clusGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(26px, 3vw, 42px);
+  }
+}
+
+/* ============================================================
+   CAPABILITY LATTICE (landing/capability-lattice.tsx)
+   Why Soft Suave as a wired mesh: every card carries a port and every port
+   is wired to every other, because this section's argument is that the six
+   capabilities connect. The cards are opaque, so the wiring reads in the
+   gutters between them — which is why the grid gap here is wider than the
+   card grids elsewhere on this surface. Pointing at a card drops the mesh
+   away and lights only its own five edges.
+   ============================================================ */
+.lattice {
+  position: relative;
+}
+
+.latLinks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.latLink {
+  stroke: var(--line);
+  stroke-width: 1;
+  transition: stroke-dashoffset 0.95s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease,
+    stroke 0.35s ease;
+}
+
+/* Focus one card and the rest of the mesh recedes, so its five connections
+   are the only thing left on the field. */
+.latLinks[data-focused="true"] .latLink {
+  opacity: 0.12;
+}
+
+.latLinks[data-focused="true"] .latLinkOn {
+  opacity: 1;
+  stroke: var(--accent);
+  stroke-width: 1.4;
+}
+
+/* Reduced motion: the mesh is simply there. */
+.latStill .latLink {
+  transition: none;
+}
+
+.latGrid {
+  position: relative;
+  z-index: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(22px, 3vw, 40px);
+}
+
+.latNode {
+  position: relative;
+  padding: clamp(22px, 2.6vw, 30px);
+  padding-top: clamp(28px, 3vw, 36px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  /* Opaque on purpose: the wiring passes behind the cards and shows only
+     between them. */
+  background: var(--surface);
+  transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.latNode[data-lit="true"] {
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -28px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+/* The port the wiring actually attaches to — measured, not assumed. */
+.latPort {
+  position: absolute;
+  top: clamp(13px, 1.5vw, 17px);
+  left: clamp(13px, 1.5vw, 17px);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
+  transition: box-shadow 0.4s ease;
+}
+
+.latNode[data-lit="true"] .latPort {
+  box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.latIndex {
+  display: block;
+  margin-left: 22px;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.latName {
+  margin: 8px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.08rem, 1.35vw, 1.32rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+}
+
+.latBody {
+  margin: 10px 0 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+@media (min-width: 700px) {
+  .latGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1080px) {
+  .latGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(30px, 3.4vw, 52px);
+  }
+}
+
+/* ============================================================
+   PLATFORM TABS (landing/platform-tabs.tsx)
+   The section's own copy says "choose", so the four stacks are a chooser:
+   a rail of tabs with a coral pill that travels between them, and the
+   chosen stack open beside it. The pill is placed from the active tab's
+   measured box, so one rule serves the vertical rail and the horizontal
+   strip both.
+   ============================================================ */
+.ptWrap {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(18px, 2.4vw, 30px);
+}
+
+.ptRail {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.ptRail::-webkit-scrollbar {
+  display: none;
+}
+
+.ptPill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), width 0.45s ease,
+    height 0.45s ease;
+}
+
+.ptTab {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: 0 0 auto;
+  padding: 13px 18px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.ptTab:hover {
+  color: var(--text-bright);
+}
+
+.ptTab[aria-selected="true"] {
+  color: var(--text-bright);
+}
+
+.ptTabIndex {
+  font-family: var(--font-eyebrow);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  transition: color 0.3s ease;
+}
+
+.ptTab[aria-selected="true"] .ptTabIndex {
+  color: var(--accent);
+}
+
+.ptTabName {
+  font-family: var(--font-eyebrow);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ptPanel {
+  min-width: 0;
+  padding: clamp(22px, 2.8vw, 34px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+.ptPanel:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Every panel is in the DOM so its copy reaches the served HTML; only the
+   chosen one is laid out. Explicit, so no later `display` rule can revive a
+   hidden panel into the grid. */
+.ptPanel[hidden] {
+  display: none;
+}
+
+.ptPanelName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.2rem, 1.7vw, 1.6rem);
+  line-height: 1.2;
+  letter-spacing: -0.018em;
+  color: var(--text-bright);
+}
+
+.ptPanelText {
+  margin: 12px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.ptChips {
+  list-style: none;
+  margin: clamp(18px, 2.2vw, 26px) 0 0;
+  padding: clamp(16px, 2vw, 22px) 0 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ptChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  white-space: nowrap;
+  transition: border-color 0.35s ease, transform 0.35s ease;
+}
+
+.ptChip:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  transform: translateY(-2px);
+}
+
+.ptChipLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+}
+
+.ptChipLogo svg {
+  width: 17px;
+  height: 17px;
+}
+
+.ptChipName {
+  font-family: var(--font-eyebrow);
+  font-size: 11.5px;
+  letter-spacing: 0.05em;
+  color: var(--text-bright);
+}
+
+@media (min-width: 1000px) {
+  .ptWrap {
+    grid-template-columns: minmax(220px, 0.32fr) minmax(0, 1fr);
+    gap: clamp(24px, 3vw, 44px);
+    align-items: start;
+  }
+
+  .ptRail {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .ptTab {
+    justify-content: flex-start;
+  }
+}
+
+/* ============================================================
+   RELEASE TRACK (landing/release-track.tsx)
+   The process as one horizontal rail with the phases alternating above and
+   below it. The two card rows are `1fr 1fr`, so their shared edge is
+   exactly the 50% line the rail overlays, and the row gap is the clearance
+   either side. Each card spans two of seven columns starting at its own,
+   which puts the six stations at even sevenths with no card off either end.
+   Below 1080px the rail goes and the phases become a plain column — six
+   cards zigzagging needs width that is not there.
+   ============================================================ */
+.trkGrid {
+  position: relative;
+  margin-top: clamp(20px, 2.6vw, 32px);
+}
+
+.trkRail {
+  display: none;
+}
+
+.trkList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.6vw, 18px);
+}
+
+.trkCard {
+  position: relative;
+  padding: clamp(20px, 2.4vw, 26px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  transition: border-color 0.4s ease, transform 0.35s ease;
+}
+
+.trkCard:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  transform: translateY(-2px);
+}
+
+.trkNum {
+  display: block;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+.trkName {
+  margin: 8px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+}
+
+.trkBody {
+  margin: 9px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.62;
+  color: var(--text);
+}
+
+.trkCta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(22px, 2.6vw, 32px);
+}
+
+@media (min-width: 1080px) {
+  .trkList {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-rows: 1fr 1fr;
+    column-gap: clamp(14px, 1.6vw, 22px);
+    row-gap: clamp(56px, 6vw, 84px);
+  }
+
+  .trkCard {
+    /* Two columns from its own, so the station lands on the card's centre. */
+    grid-column: var(--col) / span 2;
+  }
+
+  .trkCard[data-side="up"] {
+    grid-row: 1;
+  }
+
+  .trkCard[data-side="down"] {
+    grid-row: 2;
+  }
+
+  .trkRail {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 0;
+    pointer-events: none;
+  }
+
+  .trkLine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--accent) 45%, var(--line)) 12%,
+      color-mix(in srgb, var(--accent) 45%, var(--line)) 88%,
+      transparent
+    );
+  }
+
+  .trkMark {
+    position: absolute;
+    top: 0;
+    width: 11px;
+    height: 11px;
+    margin: -5px 0 0 -5.5px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+
+  /* The stem out of the line toward the card it belongs to. */
+  .trkStem {
+    position: absolute;
+    left: 50%;
+    width: 1px;
+    height: clamp(28px, 3vw, 42px);
+    margin-left: -0.5px;
+    background: color-mix(in srgb, var(--accent) 45%, var(--line));
+  }
+
+  .trkMark[data-side="up"] .trkStem {
+    bottom: 100%;
+    transform-origin: center bottom;
+  }
+
+  .trkMark[data-side="down"] .trkStem {
+    top: 100%;
+    transform-origin: center top;
+  }
+}
+
+/* ============================================================
+   ENGAGEMENT MODELS (landing/engagement-models.tsx)
+   Options to be picked, so each card is framed like a selection: coral
+   viewfinder brackets at opposite corners that run out along the edges on
+   hover. Brackets rather than a traced outline — an outline following a
+   rounded corner needs the card measured in pixels not to distort.
+   ============================================================ */
+.engGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 1.8vw, 22px);
+}
+
+.engCard {
+  position: relative;
+  padding: clamp(24px, 2.8vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  transition: border-color 0.4s ease, transform 0.4s ease;
+}
+
+.engCard:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  transform: translateY(-3px);
+}
+
+.engCard::before,
+.engCard::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: var(--accent);
+  border-style: solid;
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.engCard::before {
+  top: 9px;
+  left: 9px;
+  border-width: 1px 0 0 1px;
+  border-top-left-radius: 8px;
+}
+
+.engCard::after {
+  right: 9px;
+  bottom: 9px;
+  border-width: 0 1px 1px 0;
+  border-bottom-right-radius: 8px;
+}
+
+.engCard:hover::before,
+.engCard:hover::after {
+  width: calc(100% - 18px);
+  height: calc(100% - 18px);
+}
+
+.engIndex {
+  display: block;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+.engName {
+  margin: 10px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+}
+
+.engBody {
+  margin: 10px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.62;
+  color: var(--text);
+}
+
+
+
+@media (min-width: 700px) {
+  .engGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .engGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ============================================================
+   SERVICE SLATS (landing/service-slats.tsx)
+   Services as slats that open: all seven on screen, one of them wide. A
+   carousel would show one and hide six, which is the wrong trade for a
+   section whose argument is the range itself. Below 1000px the accordion
+   is dropped and the slats become ordinary stacked cards — seven columns
+   on a phone is six unreadable spines and one cramped panel.
+   ============================================================ */
+.slatRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.6vw, 18px);
+  margin-top: clamp(22px, 3vw, 34px);
+}
+
+.slat {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  transition: border-color 0.4s ease;
+}
+
+.slat[data-open="true"] {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+}
+
+.slatFigure {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.slatFigure img {
+  object-fit: cover;
+}
+
+.slatFigure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(4, 5, 8, 0.15), rgba(4, 5, 8, 0.72));
+}
+
+.slatHead {
+  margin: 0;
+}
+
+.slatTrigger {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  width: 100%;
+  padding: clamp(18px, 2.2vw, 24px) clamp(18px, 2.2vw, 26px) 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.slatTrigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+  border-radius: 12px;
+}
+
+.slatIndex {
+  flex: 0 0 auto;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+.slatName {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.35vw, 1.28rem);
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+}
+
+.slatPanel {
+  padding: 10px clamp(18px, 2.2vw, 26px) clamp(20px, 2.4vw, 26px);
+}
+
+.slatText {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.62;
+  color: var(--text);
+}
+
+.slatCta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(20px, 2.4vw, 30px);
+}
+
+/* The section-level CTA button, shared by the three sections on this page
+   that carry one of their own. */
+.slatCtaLink,
+.trkCtaLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  font-family: var(--font-eyebrow);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  transition: background 0.35s ease, color 0.35s ease, transform 0.35s ease;
+}
+
+.slatCtaLink:hover,
+.trkCtaLink:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+@media (min-width: 1000px) {
+  .slatRow {
+    display: flex;
+    gap: 10px;
+    height: clamp(420px, 44vw, 520px);
+  }
+
+  /* One open slat takes roughly five neighbours' worth of width. The
+     transition is on flex-grow alone, so the row's total width never
+     changes and nothing outside it reflows. */
+  .slat {
+    flex: 1 1 0;
+    min-width: 0;
+    transition: flex-grow 0.62s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease;
+  }
+
+  .slat[data-open="true"] {
+    flex-grow: 5.2;
+  }
+
+  /* The artwork fills the whole slat and is only worth seeing once the slat
+     is wide enough to show it. */
+  .slatFigure {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+    opacity: 0.25;
+    transition: opacity 0.55s ease;
+  }
+
+  .slat[data-open="true"] .slatFigure {
+    opacity: 1;
+  }
+
+  .slatFigure::after {
+    background: linear-gradient(to bottom, rgba(4, 5, 8, 0.2), rgba(4, 5, 8, 0.88));
+  }
+
+  .slatHead {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+  }
+
+  .slatTrigger {
+    align-items: flex-start;
+    height: 100%;
+    padding: clamp(20px, 2.2vw, 26px);
+  }
+
+  /* Closed: the name runs up the slat's spine, so all seven stay readable
+     at roughly 60px wide. */
+  .slat[data-open="false"] .slatTrigger {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .slat[data-open="false"] .slatName {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 100%;
+  }
+
+  .slat[data-open="true"] .slatName {
+    font-size: clamp(1.2rem, 1.7vw, 1.6rem);
+  }
+
+  /* The copy sits over the artwork at the slat's foot. Closed, it is
+     clipped to nothing — still in the DOM, still read by a crawler and a
+     screen reader, just not taking space it does not have. */
+  .slatPanel {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0 clamp(20px, 2.2vw, 28px) clamp(22px, 2.4vw, 30px);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .slat[data-open="true"] .slatPanel {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.12s;
+  }
+
+  .slatText {
+    max-width: 52ch;
+    color: color-mix(in srgb, #ffffff 86%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slat,
+  .slatFigure,
+  .slatPanel {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   STACK LAYERS (landing/stack-layers.tsx)
+   The technology stack drawn as an actual stack: four slabs laid one on
+   another, each carrying its tier's technologies. Numbered from the base,
+   because that is the end it is built from.
+   ============================================================ */
+.layerStack {
+  list-style: none;
+  margin: clamp(24px, 3vw, 38px) 0 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(10px, 1.2vw, 14px);
+}
+
+.layer {
+  padding: clamp(20px, 2.4vw, 28px) clamp(20px, 2.6vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  transition: border-color 0.4s ease;
+}
+
+.layer:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+}
+
+.layerHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: clamp(16px, 2vw, 22px);
+}
+
+.layerIndex {
+  flex: 0 0 auto;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+.layerName {
+  flex: 0 0 auto;
+  margin: 0;
+  font-family: var(--font-eyebrow);
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+}
+
+/* Runs the tier label out to the slab's edge, so each layer reads as a
+   full course rather than a left-aligned label. */
+.layerRule {
+  flex: 1 1 auto;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--accent) 45%, var(--line)),
+    transparent
+  );
+}
+
+.layerItems {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 1.8vw, 22px);
+}
+
+.layerItem {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.layerItemHead {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.layerItemLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+}
+
+.layerItemLogo svg {
+  width: 22px;
+  height: 22px;
+}
+
+.layerItemName {
+  font-family: var(--font-eyebrow);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-bright);
+}
+
+.layerItemBody {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.62;
+  color: var(--text);
+}
+
+@media (min-width: 760px) {
+  .layerItems {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1080px) {
+  .layerItems {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(20px, 2.4vw, 34px);
+  }
+}
+
+/* ============================================================
+   SERVICE BOARD (landing/service-board.tsx)
+   Pick from the grid, read on the stage below. Six services with two
+   paragraphs each is ~4000 characters: a row per service is a 3000px wall,
+   and a card grid is six walls of grey side by side. Taking the copy off
+   the cards makes the whole set scannable in two rows and puts the reading
+   on one stage — the section lands under 700px instead.
+   ============================================================ */
+.sbWrap {
+  display: grid;
+  gap: clamp(14px, 1.8vw, 22px);
+  margin-top: clamp(22px, 3vw, 34px);
+}
+
+.sbGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(10px, 1.2vw, 14px);
+}
+
+.sbCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: clamp(15px, 1.8vw, 19px) clamp(16px, 1.8vw, 20px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s ease;
+}
+
+.sbCard:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  transform: translateY(-2px);
+}
+
+.sbCard:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.sbCard[aria-selected="true"] {
+  border-color: color-mix(in srgb, var(--accent) 70%, var(--line));
+  background: color-mix(in srgb, var(--accent) 9%, var(--surface));
+}
+
+.sbCardIndex {
+  flex: 0 0 auto;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  transition: color 0.3s ease;
+}
+
+.sbCard[aria-selected="true"] .sbCardIndex {
+  color: var(--accent);
+}
+
+.sbCardName {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(0.98rem, 1.15vw, 1.1rem);
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+  color: var(--text-bright);
+}
+
+/* The arrow only commits once the card is the chosen one — at rest it is a
+   hint, not an instruction. */
+.sbCardMark {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+  opacity: 0.45;
+  transform: translateX(-4px);
+  transition: opacity 0.35s ease, transform 0.35s ease, color 0.35s ease;
+}
+
+.sbCardMark svg {
+  width: 18px;
+  height: 18px;
+}
+
+.sbCard:hover .sbCardMark,
+.sbCard[aria-selected="true"] .sbCardMark {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--accent);
+}
+
+.sbStage {
+  position: relative;
+  padding: clamp(20px, 2.6vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+/* Only the chosen panel is laid out; the rest stay in the HTML. Explicit,
+   so no later `display` rule can revive a hidden panel into the grid. */
+.sbPanel[hidden] {
+  display: none;
+}
+
+.sbPanel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(18px, 2.4vw, 30px);
+  align-items: center;
+}
+
+.sbPanel:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
+.sbFigure {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  aspect-ratio: 16 / 11;
+}
+
+.sbFigure img {
+  object-fit: cover;
+}
+
+.sbCopy {
+  display: grid;
+  align-content: start;
+  gap: clamp(9px, 1.1vw, 13px);
+  min-width: 0;
+}
+
+.sbPanelIndex {
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+.sbPanelName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.22rem, 1.9vw, 1.7rem);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.sbText {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 0.9rem;
+  line-height: 1.68;
+  color: var(--text);
+}
+
+@media (min-width: 700px) {
+  .sbGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .sbGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sbPanel {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+    gap: clamp(26px, 3vw, 44px);
+  }
+}
+
+/* ============================================================
+   SPRINGBOARD (landing/springboard.tsx)
+   Services on rounded square tiles, laid out the way apps sit on an iOS
+   home screen — the one interface the iPhone, Watch and TV work all
+   share. The tile carries a photograph cropped 1:1 and masked into the
+   rounded square, with the index in the corner where a badge would sit.
+   ============================================================ */
+.sbdGrid {
+  list-style: none;
+  margin: clamp(24px, 3vw, 38px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.sbdItem {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(16px, 2vw, 24px);
+}
+
+.sbdTile {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: clamp(84px, 12vw, 116px);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  /* The platform's rounded square: a large radius on a square box, not a
+     circle and not a plain card corner. */
+  border-radius: 24%;
+  background: var(--surface);
+  box-shadow: 0 16px 34px -22px rgba(0, 0, 0, 0.95);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+}
+
+.sbdTile img {
+  object-fit: cover;
+}
+
+/* Hairline inside the mask, so the tile reads as a pressed key rather than
+   a floating crop. */
+.sbdTile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #ffffff 14%, transparent);
+}
+
+.sbdItem:hover .sbdTile {
+  /* The tap feedback the same interface gives: press down, not lift up. */
+  transform: scale(0.97);
+  box-shadow: 0 10px 24px -18px rgba(0, 0, 0, 0.95);
+}
+
+.sbdBadge {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  z-index: 1;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  font-family: var(--font-eyebrow);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: #fff;
+}
+
+.sbdCopy {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.sbdName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.35vw, 1.28rem);
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+}
+
+.sbdText {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+@media (min-width: 760px) {
+  .sbdGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1180px) {
+  .sbdGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ============================================================
+   STORY CARDS (landing/story-cards.tsx)
+   The page's own case studies, each led by the sector it came from —
+   the part a reader scans for, so it leads rather than trails.
+   ============================================================ */
+.stcGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 1.8vw, 22px);
+  margin-top: clamp(22px, 2.8vw, 32px);
+}
+
+.stcCard {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: clamp(22px, 2.6vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  transition: border-color 0.4s ease, transform 0.35s ease;
+}
+
+.stcCard:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+  transform: translateY(-3px);
+}
+
+.stcTag {
+  justify-self: start;
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  border-radius: 999px;
+  font-family: var(--font-eyebrow);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.stcName {
+  margin: 4px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.3vw, 1.24rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+}
+
+.stcBody {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+@media (min-width: 860px) {
+  .stcGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ============================================================
+   CARD GRID POINTS (landing/industries.tsx `content.points`)
+   A short claim list some sections carry between the intro and the cards.
+   ============================================================ */
+.gridPoints {
+  list-style: none;
+  margin: clamp(-6px, -0.5vw, 0px) 0 clamp(22px, 2.6vw, 30px);
+  padding: 0;
+  display: grid;
+  gap: 9px;
+}
+
+.gridPoint {
+  position: relative;
+  padding-left: 22px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.gridPoint::before {
+  content: "";
+  position: absolute;
+  top: 0.62em;
+  left: 0;
+  width: 10px;
+  height: 1px;
+  background: var(--accent);
+}
+
+@media (min-width: 900px) {
+  .gridPoints {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(14px, 1.8vw, 26px);
+  }
+}
+
+/* ============================================================
+   CTA BAND STATS (landing/cta-band.tsx `content.stats`)
+   Counters under a CTA the page backs with numbers.
+   ============================================================ */
+.ctaStats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 30px);
+  margin: clamp(26px, 3.4vw, 44px) 0 0;
+  padding-top: clamp(22px, 2.8vw, 34px);
+  border-top: 1px solid var(--line);
+}
+
+.ctaStat {
+  display: grid;
+  gap: 4px;
+  text-align: center;
+}
+
+.ctaStatFigure {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.ctaStatLabel {
+  margin: 0;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Shared tick list — an FAQ answer's `points`, and an overview's. Coral tick
+   markers rather than browser discs, matching `.heroPoint` in the hero. */
+.tickList {
+  list-style: none;
+  margin: 0.9em 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5em;
+}
+
+.tickItem {
+  position: relative;
+  padding-left: 1.5em;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.tickItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 8px;
+  border-left: 1.5px solid var(--accent);
+  border-bottom: 1.5px solid var(--accent);
+  transform: rotate(-45deg);
+}
+
+/* Story-card header image (`StoryCardsContent.items[].image`). Same 16/9
+   frame and cover crop as `.svcImageFrame`, so a card with artwork and one
+   without still line up in the grid. */
+.stcImageFrame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin: calc(-1 * clamp(20px, 2.2vw, 28px)) calc(-1 * clamp(20px, 2.2vw, 28px))
+    clamp(16px, 1.8vw, 22px);
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.stcImage {
+  object-fit: cover;
+}
+
+/* Proof counters under an overview's copy (`OverviewContent.stats`). The panel
+   and cell chrome are `.trustPanel`/`.trustStats`/`.trustStat` above, shared
+   with the Custom AI page's clients band; these two rules only give it room
+   and let each cell stack its figure over its label. */
+.overviewStats {
+  margin-top: clamp(24px, 3vw, 40px);
+}
+
+.trustStatValue {
+  margin: 0;
+}
+
+/* Technology tiles inside an integration block (`IntegrationContent.items[].tools`).
+   A closed two-up grid under the paragraph: hairline cells, a brand mark and
+   the tool's name, matching the live page's front end / back end panels. A tile
+   with a link lifts its accent on hover; one without stays inert. */
+.integrationTools {
+  list-style: none;
+  margin: clamp(18px, 2.2vw, 26px) 0 0;
+  padding: clamp(16px, 2vw, 22px) 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Closed-grid hairlines: every cell rules its own right and bottom edge, and
+   the trailing column and final row drop theirs so the block keeps a clean
+   outer edge without a wrapper. */
+.integrationTool {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.integrationTool:nth-child(2n) {
+  border-right: 0;
+}
+
+.integrationTool:nth-last-child(-n + 2):nth-child(odd),
+.integrationTool:nth-last-child(-n + 2):nth-child(odd) ~ .integrationTool {
+  border-bottom: 0;
+}
+
+.integrationToolLink {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: clamp(12px, 1.4vw, 16px);
+  font-family: var(--font-body);
+  font-size: clamp(0.86rem, 0.95vw, 0.95rem);
+  line-height: 1.3;
+  color: var(--text-bright);
+  text-decoration: none;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+.integrationToolLink:not([data-static]):hover,
+.integrationToolLink:not([data-static]):focus-visible {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+
+/* A tool with no page of its own reads as a label, not a dead link. */
+.integrationToolLink[data-static] {
+  color: var(--muted);
+  cursor: default;
+}
+
+.integrationToolMark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+}
+
+/* Link appended to the hero form's note (`HeroContent.form.noteLink`), for a
+   disclaimer that ends on a real destination. Inherits the note's own colour
+   and size, underlined to read as a link within the sentence rather than as
+   a separate control. */
+.formNoteLink {
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.formNoteLink:hover,
+.formNoteLink:focus-visible {
+  color: var(--accent);
+}
+
+/* CTA button appended to an overview's claim list (`OverviewContent.cta`). */
+.overviewCta {
+  margin-top: clamp(18px, 2.2vw, 26px);
+}
+
+/* Card variant of an overview's claim list (`OverviewContent.pointsVariant:
+   "cards"`), for copy naming a short set of concrete things rather than
+   abstract claims — a flat tick list under-sells the distinction between
+   them. Same bordered chrome as the shared `.card`, just centred and
+   list-item-native rather than an article grid, so a single point still
+   fits comfortably at 1-3 across. */
+.pointCards {
+  list-style: none;
+  margin: clamp(18px, 2.2vw, 26px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+.pointCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 84px;
+  padding: clamp(14px, 1.6vw, 20px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.3;
+  color: var(--text-bright);
+  transition: border-color 0.4s ease, transform 0.3s ease;
+}
+
+.pointCard:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
 }

@@ -1,6 +1,7 @@
 import 'server-only';
 import { prisma } from '../db';
 import { homepageEnabled } from '../flags';
+import { MARKETING_ROUTES } from '../home/landing-pages';
 import { absoluteUrl } from './metadata';
 
 // Shared data for sitemap + feeds. Only indexable, published, live content.
@@ -12,9 +13,9 @@ import { absoluteUrl } from './metadata';
  *
  * The marketing routes are listed only once the homepage is released. While the
  * flag is off they are 307s to the archive, and a sitemap must never advertise a
- * redirect. Keep this list in step with MARKETING_ROUTES in next.config.ts.
+ * redirect. The list is the registry in lib/home/landing-pages.ts, the same one
+ * next.config.ts gates on.
  */
-const MARKETING_ROUTES = ['/', '/ai-development-service'];
 
 function landingEntries(now: Date): SitemapEntry[] {
   return [

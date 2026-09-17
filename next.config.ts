@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import { homepageEnabled } from './src/lib/flags';
+import { MARKETING_ROUTES } from './src/lib/home/landing-pages';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -43,20 +44,11 @@ const securityHeaders = [
 // It was briefly mounted at basePath '/blog' instead, with the archive on "/".
 // The redirects below retire the URLs that mount published.
 
-// Routes in app/(marketing): the homepage plus the service landing pages. They
-// ship together behind NEXT_PUBLIC_HOMEPAGE_ENABLED — add a new service page's
-// path here when you add the route, or it goes live ahead of the homepage.
-// Mirrored by MARKETING_PATHS in src/themes/softsuave/nav-data.ts, which decides
-// whether the nav links to them locally or out to the live site.
-const MARKETING_ROUTES = [
-  '/',
-  '/ai-development-service',
-  '/contact',
-  '/awards-recognition',
-  '/custome-ai-developement',
-  '/generative-ai-development-company',
-  '/agentic-ai-development-services',
-];
+// Routes in app/(marketing): the homepage plus every landing page registered in
+// src/lib/home/landing-pages.ts (imported above as MARKETING_ROUTES). They ship
+// together behind NEXT_PUBLIC_HOMEPAGE_ENABLED. Registering a route there is
+// what gates it here, lists it in the sitemap (src/lib/seo/entries.ts) and keeps
+// its nav links local (src/themes/softsuave/nav-data.ts) — one list, not three.
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,

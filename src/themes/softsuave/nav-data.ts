@@ -1,6 +1,7 @@
 // Full Soft Suave navigation, mirroring the live mega-menu. Relative hrefs point
 // at the main marketing site; the Blog link is local.
 import { homepageEnabled } from '@/lib/flags';
+import { MARKETING_ROUTES } from '@/lib/home/landing-pages';
 
 export const SITE = 'https://www.softsuave.com';
 
@@ -140,27 +141,20 @@ export const NAV: NavItem[] = [
  * Paths this app serves itself. Everything else on this list of nav hrefs still
  * belongs to the live marketing site, so it renders as an absolute link out.
  *
- * The blog archive is always ours. The marketing homepage and the service pages
- * that live in `app/(marketing)` are ours only once the homepage is released:
- * they share its route group, its theme and its release flag, so while `/`
- * redirects to `/blog` these links go to the live site rather than to pages that
- * are built but deliberately unreachable.
+ * The blog archive is always ours. The marketing homepage and the landing pages
+ * that live in `app/(marketing)` (the registry in `lib/home/landing-pages.ts`)
+ * are ours only once the homepage is released: they share its route group, its
+ * theme and its release flag, so while `/` redirects to `/blog` these links go
+ * to the live site rather than to pages that are built but deliberately
+ * unreachable.
  */
-const MARKETING_PATHS = [
-  '/',
-  '/ai-development-service',
-  '/contact',
-  '/awards-recognition',
-  // These three have no counterpart on softsuave.com — they exist only here.
-  // Leaving them off this list sent every link to them out to the live site,
-  // where they 404: the failure is silent, because `navHref` has no way to know
-  // a path is ours unless it is named here. Any new folder under
-  // app/(marketing) belongs on this list the day it is created.
-  '/custome-ai-developement',
-  '/generative-ai-development-company',
-  '/agentic-ai-development-services',
-];
-const LOCAL_PATHS = new Set(homepageEnabled ? ['/blog', ...MARKETING_PATHS] : ['/blog']);
+// The list is the registry itself, not a copy of it: a landing page left off a
+// hand-kept list here had every link to it sent out to the live site, where
+// pages that exist only in this app 404 — silently, because `navHref` has no
+// way to know a path is ours unless it is named. Registering a route once in
+// `lib/home/landing-pages.ts` now covers the release gate, the sitemap and
+// these links together.
+const LOCAL_PATHS = new Set(homepageEnabled ? ['/blog', ...MARKETING_ROUTES] : ['/blog']);
 
 /** Absolute URL: local for our own routes, otherwise the marketing site. */
 export function navHref(href: string): string {

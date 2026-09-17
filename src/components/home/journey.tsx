@@ -12,7 +12,36 @@ import styles from "./home.module.css";
  * tactical iso-dot field while a coral→red beam draws itself between glowing hubs.
  * Each hub ignites as the beam head (comet) reaches it, and a numbered rail on the
  * left syncs the active step. Mobile falls back to a readable vertical list.
+ *
+ * `content` defaults to the homepage's six-phase journey; a landing page whose
+ * process is also a sequence of phases passes its own. The scene is built
+ * around a handful of them — the camera frames one hub at a time and the pin
+ * runs `(N - 1) * 62%` of scroll — so it suits roughly four to seven steps and
+ * nothing longer.
+ *
+ * The section renders on the dark ground it was designed for: the beam, the
+ * aura gradients and the scrim all assume it, so it must NOT be wrapped in
+ * `.light`.
  */
+
+/** The shape `content.ts`'s `journey` has; landing pages supply their own. */
+export interface JourneyContent {
+  readonly eyebrow: string;
+  readonly title: string;
+  readonly body: string;
+  readonly steps: readonly {
+    readonly n: string;
+    readonly name: string;
+    readonly body: string;
+    /**
+     * Which phase icon to draw. Defaults to `n`, which is what the homepage's
+     * own six phases are keyed by. A page whose phases are different work
+     * names one of the icons in `stepGlyph` instead, so the drawing still
+     * reads as the step it sits on.
+     */
+    readonly glyph?: string;
+  }[];
+}
 
 // --- world layout (SVG user space) ------------------------------------------
 // The viewBox is the WINDOW onto the world, not the world itself, and its
@@ -177,7 +206,9 @@ function buildPath(pts: { x: number; y: number }[]): string {
   return d;
 }
 
-export default function Journey() {
+export default function Journey({
+  content = journey,
+}: { content?: JourneyContent } = {}) {
   const containerRef = useRef<HTMLElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const cameraRef = useRef<SVGGElement | null>(null);
@@ -202,7 +233,7 @@ export default function Journey() {
 
   const [active, setActive] = useState(0);
 
-  const steps = journey.steps;
+  const steps = content.steps;
   const N = steps.length;
 
   const spanX = (N - 1) * HUB_GAP;
@@ -557,7 +588,7 @@ export default function Journey() {
               >
                 <circle className={styles.hubAura} r={150} fill="url(#j-aura)" />
                 <svg x={-100} y={-118} width={200} height={200} viewBox="0 0 200 200">
-                  {stepGlyph(steps[i].n)}
+                  {stepGlyph(steps[i].glyph ?? steps[i].n)}
                 </svg>
                 <text className={styles.hubIndex} textAnchor="middle" y={112}>
                   PHASE {steps[i].n}
@@ -579,11 +610,11 @@ export default function Journey() {
 
         {/* left rail */}
         <div className={styles.journeyRail}>
-          <span className={styles.eyebrow}>{journey.eyebrow}</span>
+          <span className={styles.eyebrow}>{content.eyebrow}</span>
           <SplitReveal as="h2" className={styles.journeyTitle} type="words">
-            {journey.title}
+            {content.title}
           </SplitReveal>
-          <p className={styles.journeyLead}>{journey.body}</p>
+          <p className={styles.journeyLead}>{content.body}</p>
           <ol className={styles.railList}>
             {steps.map((s, i) => (
               <li
@@ -623,11 +654,11 @@ export default function Journey() {
       {/* ---------- Mobile: readable vertical list ---------- */}
       <div className={styles.journeyMobileContainer}>
         <div className={styles.sectionHead}>
-          <span className={styles.eyebrow}>{journey.eyebrow}</span>
+          <span className={styles.eyebrow}>{content.eyebrow}</span>
           <SplitReveal as="h2" className={styles.h2} type="words">
-            {journey.title}
+            {content.title}
           </SplitReveal>
-          <p className={styles.lead}>{journey.body}</p>
+          <p className={styles.lead}>{content.body}</p>
         </div>
 
         <div className={styles.mobileJourneyList}>
@@ -639,7 +670,7 @@ export default function Journey() {
                 <p className={styles.mobileJourneyBody}>{s.body}</p>
                 <div className={styles.mobileJourneyVisual}>
                   <svg viewBox="0 0 200 200" fill="none" className={styles.stepSvg}>
-                    {stepGlyph(s.n)}
+                    {stepGlyph(s.glyph ?? s.n)}
                   </svg>
                 </div>
               </div>
@@ -653,7 +684,7 @@ export default function Journey() {
 
 /** Inner shapes for each phase glyph (wrapped by a <svg> at the call site). */
 /**
- * The six phase icons.
+ * The phase icons.
  *
  * One system, not six drawings. Every icon obeys the same spec so the set reads
  * as a family rather than as clip art gathered from different places:
@@ -666,7 +697,10 @@ export default function Journey() {
  *                  no colour of their own.
  *   accent         exactly one `.glyphAccent` mark per icon, the focal point
  *
- * Each is a literal reading of its phase rather than an abstract pattern:
+ * Each is a literal reading of its phase rather than an abstract pattern. The
+ * numbered six are the homepage's own journey; the named ones below them are
+ * for pages whose phases are different work and would otherwise be drawn as
+ * something they are not (see `JourneyContent`'s `glyph`):
  *
  *   01 Challenge    a target with the marker off centre — the problem to hit
  *   02 Assessment   a magnifier over data bars — examining what is there
@@ -674,6 +708,11 @@ export default function Journey() {
  *   04 Integration  two brackets interlocking — joining to what exists
  *   05 Deployment   a stack shipping upward — into production
  *   06 Optimization a cycle around a rising trend — measure, tune, repeat
+ *
+ *   explore        a distribution over its axis, points marked on it
+ *   experiment     a flask under test
+ *   validate       two results compared, then checked
+ *   handoff        one path forking into the two it can continue as
  *
  * NO `<defs>` in here, deliberately. Each icon used to carry its own
  * `<radialGradient id="glowN">`, and `stepGlyph` is called once per hub in the
@@ -744,6 +783,55 @@ function stepGlyph(num: string) {
           <rect x="52" y="70" width="96" height="30" rx="6" />
           <path d="M100 58V26M86 40l14-14 14 14" />
           <circle className={styles.glyphAccent} cx="68" cy="127" r="5" fill="currentColor" stroke="none" />
+        </g>
+      );
+
+    // explore — a distribution over its axis, points marked on it.
+    case "explore":
+      return (
+        <g {...common}>
+          <path d="M52 50v100h100" />
+          <path d="M66 134c16 0 14-52 34-52s20 52 36 52" />
+          <circle cx="86" cy="106" r="5" fill="currentColor" stroke="none" />
+          <circle cx="120" cy="114" r="5" fill="currentColor" stroke="none" />
+          <circle className={styles.glyphAccent} cx="100" cy="82" r="7" fill="currentColor" stroke="none" />
+        </g>
+      );
+
+    // experiment — a flask under test.
+    case "experiment":
+      return (
+        <g {...common}>
+          <path d="M84 48v36l-32 54a10 10 0 009 16h78a10 10 0 009-16l-32-54V48" />
+          <path d="M78 48h44" />
+          <path d="M66 116h68" />
+          <circle className={styles.glyphAccent} cx="100" cy="132" r="7" fill="currentColor" stroke="none" />
+        </g>
+      );
+
+    // validate — two results compared, then checked.
+    case "validate":
+      return (
+        <g {...common}>
+          <path d="M46 150h60" />
+          <rect x="52" y="104" width="22" height="46" rx="4" />
+          <rect x="82" y="80" width="22" height="70" rx="4" />
+          <circle cx="128" cy="100" r="26" />
+          <path d="M117 100l8 9 16-19" />
+          <circle className={styles.glyphAccent} cx="63" cy="94" r="5" fill="currentColor" stroke="none" />
+        </g>
+      );
+
+    // handoff — one path forking into the two it can continue as.
+    case "handoff":
+      return (
+        <g {...common}>
+          <path d="M48 100h34" />
+          <path d="M82 100c20 0 20-38 40-38h26" />
+          <path d="M82 100c20 0 20 38 40 38h26" />
+          <path d="M136 50l14 12-14 12" />
+          <path d="M136 126l14 12-14 12" />
+          <circle className={styles.glyphAccent} cx="82" cy="100" r="7" fill="currentColor" stroke="none" />
         </g>
       );
 

@@ -11,6 +11,12 @@ export interface CtaBandContent {
   title: string;
   body: string;
   cta: { readonly label: string; readonly href: string };
+  /**
+   * Optional counters under the band, for a CTA the page backs with numbers.
+   * Figures are strings, not numbers: they arrive already written ("1250+",
+   * "13+") and are not ours to reformat.
+   */
+  stats?: readonly { readonly figure: string; readonly label: string }[];
 }
 
 /**
@@ -45,6 +51,19 @@ export default function CtaBand({
           </a>
         </div>
       </FadeUp>
+
+      {content.stats && content.stats.length > 0 && (
+        <FadeUp>
+          <dl className={styles.ctaStats}>
+            {content.stats.map((stat) => (
+              <div key={stat.label} className={styles.ctaStat}>
+                <dt className={styles.ctaStatFigure}>{stat.figure}</dt>
+                <dd className={styles.ctaStatLabel}>{stat.label}</dd>
+              </div>
+            ))}
+          </dl>
+        </FadeUp>
+      )}
     </section>
   );
 }

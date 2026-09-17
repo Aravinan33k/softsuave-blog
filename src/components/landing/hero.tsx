@@ -4,6 +4,7 @@ import { Fragment, useRef, useState } from "react";
 import Image from "next/image";
 import { brand } from "@/lib/home/content";
 import { publicMediaUrl } from "@/lib/media-url";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import styles from "./landing.module.css";
 
@@ -19,11 +20,19 @@ export interface HeroContent {
   titleLines: readonly string[];
   body: readonly string[];
   points: readonly string[];
-  badges: readonly string[];
+  /** Trust badges under the points. Optional — omit for a badge-less hero. */
+  badges?: readonly string[];
   form: {
     eyebrow: string;
     title: string;
     note: string;
+    /**
+     * Optional trailing link appended to the note, for a disclaimer that ends
+     * on a real destination ("...To apply for jobs, click here."). Omitted
+     * everywhere else, which is why every existing page's note still renders
+     * as plain text — nothing changes for a page that doesn't set this.
+     */
+    noteLink?: { readonly label: string; readonly href: string };
     submit: string;
     sending: string;
     requirementLabel: string;
@@ -51,8 +60,23 @@ export interface HeroContent {
     width: number;
     height: number;
     alt: string;
+    /** 16px placeholder of the same frame, as the overview illustration has. */
+    blurDataURL?: string;
   };
 }
+
+/**
+ * Two looks over the same markup and tokens:
+ *
+ *   display   the default — oversized serif headline, generous section
+ *             padding, slow drift on the backdrop, icon-labelled form fields.
+ *   compact   the generative-AI page's hero, verbatim: a tighter headline
+ *             clamp, hairline-ruled points, the backdrop held near-full
+ *             opacity under a two-pass veil with the coral glow over it, and
+ *             plain mono field labels. Pick it when a page should sit
+ *             alongside `/generative-ai-development-company`.
+ */
+export type HeroVariant = "display" | "compact";
 
 /**
  * Page hero: the H1 + positioning copy and supporting points on the left, the
@@ -76,11 +100,14 @@ export interface HeroContent {
 export default function Hero({
   content,
   idPrefix = "landing",
+  variant = "display",
 }: {
   content: HeroContent;
   idPrefix?: string;
+  variant?: HeroVariant;
 }) {
   const root = useRef<HTMLElement | null>(null);
+  const compact = variant === "compact";
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", requirement: "" });
 
@@ -99,9 +126,18 @@ export default function Hero({
         stagger: 0.09,
       })
         .from(`.${styles.heroBody}`, { opacity: 0, y: 20, duration: 0.7, ease: "power2.out", stagger: 0.08 }, "-=0.5")
-        .from(`.${styles.heroPoint}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.05 }, "-=0.4")
-        .from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3")
-        .from(`.${styles.form}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
+        .from(`.${styles.heroPoint}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.05 }, "-=0.4");
+      if (content.badges?.length) {
+        tl.from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3");
+      }
+      tl.from(`.${styles.form}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
+
+      // Backdrop lifts out of black underneath all of that — the same hand-off
+      // the homepage hero gives its video frame. Added last, at an absolute
+      // position, so the relative offsets above keep their original timing.
+      if (content.image) {
+        tl.from(`.${styles.heroBg}`, { opacity: 0, duration: 1.3, ease: "power2.out" }, 0);
+      }
     },
     { scope: root },
   );
@@ -142,7 +178,13 @@ export default function Hero({
   return (
     <section
       ref={root}
-      className={content.image ? `${styles.hero} ${styles.heroWithBg}` : styles.hero}
+      className={[
+        styles.hero,
+        content.image ? styles.heroWithBg : "",
+        compact ? styles.heroCompact : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
       id="top"
     >
       {content.image ? (
@@ -154,8 +196,15 @@ export default function Hero({
             sizes="100vw"
             className={styles.heroBg}
             priority
+            {...(content.image.blurDataURL
+              ? { placeholder: "blur" as const, blurDataURL: content.image.blurDataURL }
+              : {})}
           />
           <div className={styles.heroBgVeil} aria-hidden />
+          {/* The compact look layers the coral glow over the photo as well,
+              the way the generative-AI hero does; the display look drops it
+              (the photo is the accent there). */}
+          {compact && <div className={styles.heroGlow} aria-hidden />}
         </>
       ) : (
         <div className={styles.heroGlow} aria-hidden />
@@ -208,14 +257,16 @@ export default function Hero({
             ))}
           </ul>
 
-          <ul className={styles.badges} aria-label="Credentials">
-            {content.badges.map((b) => (
-              <li key={b} className={styles.badge}>
-                <span className={styles.badgeDot} aria-hidden />
-                {b}
-              </li>
-            ))}
-          </ul>
+          {content.badges && content.badges.length > 0 && (
+            <ul className={styles.badges} aria-label="Credentials">
+              {content.badges.map((b) => (
+                <li key={b} className={styles.badge}>
+                  <span className={styles.badgeDot} aria-hidden />
+                  {b}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className={styles.form} id="enquiry">
@@ -320,7 +371,17 @@ export default function Hero({
             </button>
           </form>
 
-          <p className={styles.formNote}>{content.form.note}</p>
+          <p className={styles.formNote}>
+            {content.form.note}
+            {content.form.noteLink && (
+              <>
+                {" "}
+                <SiteLink href={content.form.noteLink.href} className={styles.formNoteLink}>
+                  {content.form.noteLink.label}
+                </SiteLink>
+              </>
+            )}
+          </p>
 
           {sent && (
             <p className={styles.formStatus} role="status">
