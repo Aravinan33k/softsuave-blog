@@ -156,14 +156,26 @@ export const NAV: NavItem[] = [
 // these links together.
 const LOCAL_PATHS = new Set(homepageEnabled ? ['/blog', ...MARKETING_ROUTES] : ['/blog']);
 
+/**
+ * Whether we serve the page a nav href points at.
+ *
+ * A fragment is part of the link, not part of the route: the mega menu's sector
+ * items are "/industries#sector-fintech", and judging those by the whole string
+ * would miss the set and send every one of them out to softsuave.com — a page
+ * we serve ourselves. So the lookup is on the path alone.
+ */
+function isLocal(href: string): boolean {
+  return LOCAL_PATHS.has(href.split('#')[0]);
+}
+
 /** Absolute URL: local for our own routes, otherwise the marketing site. */
 export function navHref(href: string): string {
-  return LOCAL_PATHS.has(href) ? href : `${SITE}${href}`;
+  return isLocal(href) ? href : `${SITE}${href}`;
 }
 
 /** True when `navHref` sent this path off to the marketing site. */
 export function isExternalHref(href: string): boolean {
-  return !LOCAL_PATHS.has(href);
+  return !isLocal(href);
 }
 
 /**

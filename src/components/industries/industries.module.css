@@ -1,0 +1,1105 @@
+/* ============================================================
+   /industries — the sector index.
+
+   Shares the marketing surface's TOKENS (`.theme-four` in
+   app/(marketing)/home.css) and its motion primitives, so it reads as the same
+   brand as the homepage and the AI landing pages. Type values below are lifted
+   from `home/home.module.css` (.h2 / .lead / .eyebrow / .pill) verbatim — a
+   heading here is the same object as a heading there.
+
+   What is this page's own is LAYOUT: an asymmetric hero with a stacked image
+   column, a bordered proof rail, a twelve-column sector bento, a capability
+   ledger and a closing panel over a photographic ground. None of it repeats a
+   set piece the homepage owns (no pinned scenes, no display marquees, no fan
+   carousel), and none of it is the landing surface's bordered-panel stack.
+
+   Bands: the page-level `.light` wrapper (home.module.css) re-points the
+   surface tokens, so every rule below inverts with the band it sits in.
+
+   Breakpoints: 1000px is the real one (desktop composition vs. stack);
+   520 / 700 / 860 handle minor reflow. Matches home.module.css.
+   ============================================================ */
+
+/* ============================================================
+   SECTION SHELL + MASTHEAD
+   ============================================================ */
+
+.shell {
+  padding: clamp(52px, 6vw, 104px) var(--gutter);
+  position: relative;
+}
+
+/* Asymmetric masthead: the title holds the left column and the intro sits in
+   the right one from 860px up, which is what keeps this page's sections from
+   reading like the landing pages' stacked, rule-topped heads. */
+.head {
+  display: grid;
+  gap: clamp(14px, 2vw, 28px);
+  padding-top: clamp(16px, 2vw, 26px);
+  border-top: 1px solid var(--line);
+  margin-bottom: clamp(30px, 4vw, 60px);
+}
+
+@media (min-width: 860px) {
+  .head {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: end;
+    column-gap: clamp(28px, 4vw, 72px);
+  }
+}
+
+.kicker,
+.kickerDark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--font-eyebrow);
+  font-size: clamp(10px, 0.78vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--muted);
+}
+
+.kicker::before,
+.kickerDark::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* Light/cream bands need the darker label colour — the homepage's
+   `.eyebrowDark` contract. */
+.kickerDark {
+  color: #54524f;
+}
+
+.title {
+  margin: 0.5em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(2.25rem, 4.6vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+  max-width: 24ch;
+}
+
+.intro {
+  margin: 0;
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 46ch;
+}
+
+/* ============================================================
+   HERO
+   Text column left, stacked image column right — the headline and both CTAs
+   keep the left half at every width above 1000px, so nothing important ever
+   sits over a photograph.
+   ============================================================ */
+
+.hero {
+  position: relative;
+  padding: calc(clamp(96px, 13vh, 168px) + 40px) var(--gutter) clamp(48px, 6vw, 96px);
+  display: grid;
+  gap: clamp(36px, 5vw, 72px);
+}
+
+@media (min-width: 1000px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    align-items: center;
+    min-height: 88vh;
+  }
+}
+
+.heroCopy {
+  max-width: 40rem;
+}
+
+.heroTitle {
+  margin: 0.35em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(2.6rem, 6.2vw, 5.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: var(--text-bright);
+}
+
+/* Second line carries the accent, the way the landing heroes' last title line
+   does — one coral word group per page, in the H1. */
+.heroTitleAccent {
+  display: block;
+  color: var(--accent);
+}
+
+.heroBody {
+  margin-top: clamp(20px, 2.4vw, 32px);
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  line-height: 1.62;
+  color: var(--text);
+  max-width: 44ch;
+}
+
+/* A rule-led note under the body: the page's promise in one line, set small so
+   it reads as an annotation rather than a second paragraph. */
+.heroAside {
+  margin-top: clamp(20px, 2.4vw, 30px);
+  padding-left: clamp(14px, 1.4vw, 20px);
+  border-left: 1px solid var(--accent);
+  font-size: clamp(0.875rem, 1vw, 0.9375rem);
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 42ch;
+}
+
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 1.2vw, 16px);
+  margin-top: clamp(28px, 3.4vw, 44px);
+}
+
+/* ---- pills (home.module.css `.pill` / `.pillFilled`, same values) ---- */
+
+.pill,
+.pillFilled {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.85em 1.6em;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-family: var(--font-eyebrow);
+  font-size: clamp(10px, 0.8vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-bright);
+  white-space: nowrap;
+  transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+}
+
+.pillFilled {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #140b08;
+}
+
+.pill:hover {
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+
+.pillFilled:hover {
+  background: var(--brand-600);
+  border-color: var(--brand-600);
+}
+
+.pill:focus-visible,
+.pillFilled:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---- the hero's image column ----
+   Three portrait frames (800×1000 generated crops, subjects centred) in a
+   two-column composition: one tall frame beside two stacked ones, each nudged
+   on a different axis so the group reads as a composed stack rather than a
+   grid of thumbnails. Below 1000px it becomes a three-up strip, which keeps
+   all three subjects legible instead of shrinking the desktop stack. */
+
+.heroFrames {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(8px, 1vw, 14px);
+}
+
+@media (min-width: 1000px) {
+  .heroFrames {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: clamp(12px, 1.4vw, 20px);
+    align-items: stretch;
+  }
+}
+
+.heroFrame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  aspect-ratio: 3 / 4;
+}
+
+.heroFrame img {
+  object-fit: cover;
+}
+
+/* The tall frame owns both rows of the right-hand column on desktop. */
+@media (min-width: 1000px) {
+  .heroFrame:first-child {
+    grid-row: span 2;
+    aspect-ratio: 4 / 5;
+    transform: translateY(clamp(-24px, -2vw, -12px));
+  }
+
+  .heroFrame:nth-child(2) {
+    aspect-ratio: 5 / 4;
+  }
+
+  .heroFrame:nth-child(3) {
+    aspect-ratio: 5 / 4;
+    transform: translateY(clamp(12px, 2vw, 24px));
+  }
+}
+
+/* A caption plate on the stack: it names what the reader is looking at, and
+   gives the composition a foreground layer. Text-safe by construction — it
+   paints its own ground rather than sitting on the photograph. */
+.heroPlate {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6em clamp(14px, 1.6vw, 22px);
+  padding: clamp(12px, 1.4vw, 18px) clamp(14px, 1.6vw, 22px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  font-family: var(--font-eyebrow);
+  font-size: clamp(9px, 0.72vw, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.heroPlateFigure {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+  text-transform: none;
+}
+
+/* ============================================================
+   PROOF RAIL
+   The homepage's own four figures (`why.stats`), set as a bordered rail rather
+   than the homepage's odometer cards.
+   ============================================================ */
+
+.proof {
+  padding: 0 var(--gutter) clamp(30px, 4vw, 56px);
+}
+
+.proofRail {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+@media (min-width: 860px) {
+  .proofRail {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.proofItem {
+  padding: clamp(18px, 2.2vw, 30px) clamp(14px, 1.8vw, 26px);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.proofFigure {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(2.25rem, 4vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+}
+
+.proofLabel {
+  display: block;
+  margin-top: 0.9em;
+  font-family: var(--font-eyebrow);
+  font-size: clamp(9px, 0.7vw, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+.proofLine {
+  margin: 0.7em 0 0;
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* ============================================================
+   SECTOR BENTO
+   Eight sectors in a twelve-column grid of unequal cards. Six carry a
+   generated portrait frame behind a scrim; Construction and Aviation have no
+   frame in the manifest yet and take the flat treatment, which is why the last
+   row is deliberately the wide pair — the difference reads as composition
+   rather than as missing art.
+   ============================================================ */
+
+.sectorGrid {
+  display: grid;
+  gap: clamp(12px, 1.4vw, 20px);
+}
+
+@media (min-width: 700px) {
+  .sectorGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .sectorGrid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  /* Row 1: 5 / 4 / 3 — a lead card, a mid card, a narrow one. */
+  .sectorCard:nth-child(1) {
+    grid-column: span 5;
+  }
+  .sectorCard:nth-child(2) {
+    grid-column: span 4;
+  }
+  .sectorCard:nth-child(3) {
+    grid-column: span 3;
+  }
+
+  /* Row 2: three equal quarters, stepped down half a gutter so the grid never
+     settles into a flat table. */
+  .sectorCard:nth-child(4),
+  .sectorCard:nth-child(5),
+  .sectorCard:nth-child(6) {
+    grid-column: span 4;
+  }
+
+  /* Row 3: the two flat cards, each half the row. */
+  .sectorCard:nth-child(7),
+  .sectorCard:nth-child(8) {
+    grid-column: span 6;
+  }
+}
+
+.sectorCard {
+  position: relative;
+  /* Own stacking context, so the media layers can sit at z-index -1 and the
+     card copy can stay in normal flow — which is what lets the "Explore" link
+     stretch its hit area over the whole card (`.sectorGo::after`) instead of
+     over a positioned inner wrapper. */
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: clamp(8px, 0.9vw, 12px);
+  min-height: clamp(320px, 42vw, 460px);
+  padding: clamp(18px, 2vw, 28px);
+  /* Each card is a hash target for the nav's Industries panel
+     (`/industries#sector-<key>`). Without this the native hash scroll puts the
+     card's top edge at the viewport top, under the fixed bar. */
+  scroll-margin-top: clamp(104px, 12vh, 136px);
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: border-color 0.4s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The flat pair sits shorter than the photographic cards and leads with its
+   copy instead of an image. The body clears the index, which is positioned
+   against the card in both treatments. */
+.sectorFlat {
+  justify-content: flex-start;
+  min-height: clamp(220px, 20vw, 268px);
+  background: var(--surface-2);
+}
+
+.sectorFlat .sectorBody {
+  padding-top: clamp(20px, 2vw, 28px);
+}
+
+.sectorCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-border);
+}
+
+/* The stretched link makes the whole card a target while keeping one
+   accessible name; the focus ring lands on the card, not the text. */
+.sectorCard:focus-within {
+  border-color: var(--accent-border);
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.sectorMedia {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.sectorMedia img {
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sectorCard:hover .sectorMedia img {
+  transform: scale(1.04);
+}
+
+/* The scrim is what makes the always-visible card copy legible over a
+   photograph — the text does not depend on hover to be readable. */
+.sectorScrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to top,
+    rgba(4, 5, 8, 0.95) 0%,
+    rgba(4, 5, 8, 0.86) 40%,
+    rgba(4, 5, 8, 0.6) 72%,
+    rgba(4, 5, 8, 0.5) 100%
+  );
+}
+
+/* Card contents stay in normal flow — the media layers are behind them at
+   z-index -1, so nothing here needs positioning. */
+.sectorBody {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 0.7vw, 10px);
+}
+
+.sectorIndex {
+  position: absolute;
+  top: clamp(18px, 2vw, 28px);
+  left: clamp(18px, 2vw, 28px);
+  font-family: var(--font-eyebrow);
+  font-size: clamp(9px, 0.7vw, 11px);
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+/* Over a photograph the ordinal sits in its own ink chip: the scrim is at its
+   weakest at the top of the card, and coral on a bright frame was unreadable. */
+.sectorMediaCard .sectorIndex {
+  padding: 0.35em 0.7em;
+  border-radius: 999px;
+  background: rgba(4, 5, 8, 0.7);
+  color: var(--brand-coral);
+}
+
+.sectorName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+.sectorTagline {
+  font-family: var(--font-eyebrow);
+  font-size: clamp(9px, 0.7vw, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.sectorText {
+  margin: 0;
+  font-size: clamp(0.875rem, 1.05vw, 1rem);
+  line-height: 1.58;
+}
+
+.sectorChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: clamp(4px, 0.6vw, 8px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sectorChip {
+  padding: 0.4em 0.75em;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-family: var(--font-eyebrow);
+  font-size: clamp(8.5px, 0.66vw, 10px);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.sectorGo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: clamp(6px, 0.8vw, 12px);
+  font-family: var(--font-eyebrow);
+  font-size: clamp(9px, 0.72vw, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+/* The card-wide hit area. */
+.sectorGo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+}
+
+.sectorGo:focus-visible {
+  outline: none;
+}
+
+.sectorArrow {
+  transition: transform 0.4s ease;
+}
+
+.sectorCard:hover .sectorArrow {
+  transform: translateX(4px);
+}
+
+/* Photographic cards paint their own copy colours: the scrim under them is
+   dark in every band, so these must not follow the surface tokens. */
+.sectorMediaCard .sectorName {
+  color: #f4f2f0;
+}
+
+.sectorMediaCard .sectorTagline {
+  color: #ff8a63;
+}
+
+.sectorMediaCard .sectorText {
+  color: rgba(232, 232, 232, 0.86);
+}
+
+.sectorMediaCard .sectorChip {
+  color: rgba(232, 232, 232, 0.82);
+}
+
+/* Flat cards follow the band. */
+.sectorFlat .sectorName {
+  color: var(--text-bright);
+}
+
+.sectorFlat .sectorTagline {
+  color: var(--accent);
+}
+
+.sectorFlat .sectorText {
+  color: var(--muted);
+}
+
+.sectorFlat .sectorChip {
+  border-color: var(--line);
+  color: var(--text);
+}
+
+/* ============================================================
+   CAPABILITY LEDGER
+   A ruled ledger, not cards: number, name, description, then the sectors that
+   lean on it. Reads top-to-bottom like an index, which is the point.
+   ============================================================ */
+
+.ledger {
+  border-top: 1px solid var(--line);
+}
+
+.ledgerRow {
+  display: grid;
+  gap: clamp(8px, 1vw, 14px);
+  padding: clamp(20px, 2.6vw, 34px) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 860px) {
+  .ledgerRow {
+    grid-template-columns: 4rem minmax(0, 0.9fr) minmax(0, 1.3fr) minmax(0, 0.7fr);
+    align-items: start;
+    column-gap: clamp(20px, 3vw, 48px);
+  }
+}
+
+.ledgerN {
+  font-family: var(--font-eyebrow);
+  font-size: clamp(10px, 0.78vw, 12px);
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  padding-top: 0.5em;
+}
+
+.ledgerName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.375rem, 2vw, 1.875rem);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.ledgerText {
+  margin: 0;
+  font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.ledgerTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ledgerTag {
+  padding: 0.4em 0.75em;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-family: var(--font-eyebrow);
+  font-size: clamp(8.5px, 0.66vw, 10px);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text);
+}
+
+/* ============================================================
+   SECTOR WORK
+   The homepage's case studies, re-cut as an alternating image/metric row so the
+   number leads and the photograph supports it.
+   ============================================================ */
+
+.work {
+  display: grid;
+  gap: clamp(14px, 1.8vw, 26px);
+}
+
+@media (min-width: 1000px) {
+  /* 1 + 3: the lead study takes the whole row as an image/copy split, the other
+     three sit beneath it as equal thirds. Four studies in a two-column grid
+     would leave the fourth alone beside a hole. */
+  .work {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .workCard:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .workCard:first-child .workInner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: center;
+  }
+
+  .workCard:first-child .workFrame {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+.workCard {
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.workInner {
+  display: grid;
+  height: 100%;
+}
+
+.workFrame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+
+.workFrame img {
+  object-fit: cover;
+}
+
+.workCopy {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1vw, 12px);
+  padding: clamp(18px, 2.2vw, 32px);
+}
+
+.workTagRow {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  font-family: var(--font-eyebrow);
+  font-size: clamp(9px, 0.7vw, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+.workYear {
+  color: var(--muted);
+}
+
+.workMetric {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  flex-wrap: wrap;
+}
+
+.workMetricValue {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+}
+
+.workMetricLabel {
+  font-family: var(--font-eyebrow);
+  font-size: clamp(9px, 0.7vw, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+
+.workTitle {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.25rem, 1.8vw, 1.625rem);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.workText {
+  margin: 0;
+  font-size: clamp(0.875rem, 1vw, 0.9375rem);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.workCta {
+  margin-top: clamp(14px, 2vw, 24px);
+}
+
+/* ============================================================
+   DELIVERY MODELS
+   Closed-border columns: the three engagement shapes, then the real service
+   routes each of them lives at.
+   ============================================================ */
+
+.models {
+  display: grid;
+  gap: clamp(12px, 1.4vw, 18px);
+}
+
+@media (min-width: 860px) {
+  .models {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.model {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.2vw, 16px);
+  padding: clamp(20px, 2.4vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+/* The recommended shape gets the accent border — one emphasis per row. */
+.modelLead {
+  border-color: var(--accent-border);
+}
+
+.modelFor {
+  font-family: var(--font-eyebrow);
+  font-size: clamp(9px, 0.7vw, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+.modelName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.375rem, 1.9vw, 1.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.modelList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.7em;
+}
+
+.modelList li {
+  position: relative;
+  padding-left: 1.4em;
+  font-size: clamp(0.875rem, 1vw, 0.9375rem);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.modelList li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 12px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ---- the service routes rail ---- */
+
+.routes {
+  margin-top: clamp(26px, 3.4vw, 46px);
+  padding-top: clamp(18px, 2.2vw, 28px);
+  border-top: 1px solid var(--line);
+}
+
+.routesLabel {
+  font-family: var(--font-eyebrow);
+  font-size: clamp(9px, 0.7vw, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.routeList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: clamp(12px, 1.6vw, 18px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.routeLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.7em 1.15em;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-family: var(--font-eyebrow);
+  font-size: clamp(9px, 0.72vw, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-bright);
+  transition: border-color 0.35s ease, color 0.35s ease;
+}
+
+.routeLink:hover {
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+
+.routeLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   CLOSING PANEL
+   The one photographic full-bleed moment on the page: a dark ground with the
+   contact frame behind it at low opacity, so the type stays the subject.
+   ============================================================ */
+
+.closing {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(64px, 9vw, 140px) var(--gutter);
+  isolation: isolate;
+  /* Literal rather than `var(--bg)`: this panel stays dark whichever band
+     precedes it, so it must not follow the surface tokens. Same reason the
+     scrim above is written in rgba. */
+  background: #040508;
+}
+
+.closingBg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.closingBg img {
+  object-fit: cover;
+  opacity: 0.34;
+}
+
+.closingBg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(4, 5, 8, 0.94) 0%,
+    rgba(4, 5, 8, 0.82) 46%,
+    rgba(4, 5, 8, 0.6) 100%
+  );
+}
+
+.closingInner {
+  max-width: 52rem;
+}
+
+.closingTitle {
+  margin: 0.4em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(2rem, 4.4vw, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: #f2f0ee;
+}
+
+.closingText {
+  margin-top: clamp(16px, 2vw, 26px);
+  font-size: clamp(1rem, 1.3vw, 1.1875rem);
+  line-height: 1.6;
+  color: rgba(216, 216, 216, 0.88);
+  max-width: 46ch;
+}
+
+.closingCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 1.2vw, 16px);
+  margin-top: clamp(26px, 3.2vw, 40px);
+}
+
+/* The panel keeps the dark treatment even when the band above it is light, so
+   its outline pill cannot inherit a light-band colour. `:not(.pillFilled)` is
+   load-bearing: this selector outranks `.pillFilled`, and without it the coral
+   button would be handed near-white text. */
+.closing .pill:not(.pillFilled) {
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #f2f0ee;
+}
+
+.closing .pill:not(.pillFilled):hover {
+  border-color: var(--brand-red);
+  color: var(--brand-coral);
+}
+
+/* Both CTA rows wrap rather than shrink: the pills keep their mono label at
+   full size and drop onto a second line on a narrow phone. */
+@media (max-width: 520px) {
+  .heroCtas,
+  .closingCtas {
+    gap: 10px;
+  }
+}
+
+/* ============================================================================
+   Sector pages
+   The eight pages under the index. They reuse this file's shells, ledger and
+   panels wholesale; only what genuinely differs is below.
+   ========================================================================== */
+
+/* One frame instead of the index's three. The stack collapses to a single
+   column and the portrait keeps a landscape crop, so a lone frame doesn't read
+   as a leftover from the staggered set. */
+.heroFramesSolo {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.heroFramesSolo .heroFrame {
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 1000px) {
+  .heroFramesSolo {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+  }
+
+  /* Undo the index's tall first frame: with nothing beside it there is no
+     second column to span, and the lift would just drift it off the baseline. */
+  .heroFramesSolo .heroFrame:first-child {
+    grid-row: auto;
+    aspect-ratio: 4 / 3;
+    transform: none;
+  }
+}
+
+/* Fallback for a sector with no frame at all. Rather than borrow another
+   sector's photograph, their hero holds a typographic panel: the sector's own
+   line from the index, over the names of what we build for it. */
+.heroBrief {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(20px, 2.4vw, 32px);
+  min-height: clamp(240px, 28vw, 360px);
+  padding: clamp(22px, 2.6vw, 36px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.heroBriefLine {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.heroBriefList {
+  display: grid;
+  gap: clamp(8px, 0.9vw, 12px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.heroBriefList li {
+  padding-top: clamp(8px, 0.9vw, 12px);
+  border-top: 1px solid var(--line);
+  font-family: var(--font-eyebrow);
+  font-size: clamp(9px, 0.72vw, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+
+/* The solutions ledger carries no tag column, so its description takes the
+   width the tags would have had. Must stay after the .ledgerRow rule it
+   overrides — same specificity, so source order decides. */
+@media (min-width: 860px) {
+  .ledgerRowWide {
+    grid-template-columns: 4rem minmax(0, 0.95fr) minmax(0, 1.5fr);
+  }
+}

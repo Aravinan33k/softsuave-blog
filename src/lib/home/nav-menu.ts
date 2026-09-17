@@ -31,8 +31,8 @@
  * already have theirs.
  *
  * Two divisions are deliberately NOT mirrored, because they already have their
- * own "view all" navigation into the live site: the whole `Industries` panel,
- * and `Company`'s "Proof & recognition" group.
+ * own "view all" navigation: the whole `Industries` panel, whose CTA is now our
+ * own `/industries` sector index, and `Company`'s "Proof & recognition" group.
  *
  * ## groups
  * `dense` groups (roles, skills) drop the blurb and lay out as a compact
@@ -67,6 +67,20 @@ export type NavMenuPanel = {
   readonly cta: { readonly label: string; readonly href: string };
   readonly groups: readonly NavMenuGroup[];
 };
+
+/**
+ * Resolve a nav href for the page it is rendered on.
+ *
+ * The bar and its panels are the homepage's, and two dozen of their
+ * destinations are bare `#section` anchors — the homepage owns those sections.
+ * Rendered anywhere else, such an href scrolls nowhere and fails silently.
+ * Prefixing it with "/" turns it into what the reader meant: go to the
+ * homepage, land on that section. On the homepage nothing is rewritten, so its
+ * own Lenis in-page scrolling is untouched.
+ */
+export function navHrefForPage(href: string, onHome: boolean): string {
+  return !onHome && href.startsWith("#") ? `/${href}` : href;
+}
 
 const SERVICES: NavMenuPanel = {
   eyebrow: "Services",
@@ -132,7 +146,9 @@ const SERVICES: NavMenuPanel = {
       items: [
         { name: "Global Capability Center", href: "/global-capability-center", blurb: "Your own offshore engineering centre" },
         { name: "Offshore Development", href: "/offshore-software-development-company", blurb: "Cost-effective delivery at scale" },
-        { name: "IT Outsourcing", href: "/it-outsourcing-services", blurb: "Whole functions, managed for you" },
+        // Slug matches the live page this replaces (`/it-outsourcing-company-india`)
+        // and the route now serving it; `/it-outsourcing-services` was never a page.
+        { name: "IT Outsourcing", href: "/it-outsourcing-company-india", blurb: "Whole functions, managed for you" },
         { name: "IT Staff Augmentation", href: "/it-staff-augmentation-services", blurb: "Add proven engineers to your team" },
         { name: "Dedicated Development Teams", href: "/hire-dedicated-developers", blurb: "A long-running team that learns your domain" },
         { name: "On-Demand Teams", href: "/on-demand-teams", blurb: "Scale a squad up and down as the work moves" },
@@ -227,18 +243,29 @@ const INDUSTRIES: NavMenuPanel = {
   eyebrow: "Industries",
   title: "AI-driven efficiency across industries",
   body: "We make business systems smarter and more connected, so organisations modernise faster in a digital-first market.",
-  cta: { label: "All industries", href: "#industries" },
+  // Our own sector index, which is also the path softsuave.com publishes its
+  // industries page at. The whole panel now leads there: the items to their own
+  // card, this to all eight — including the two no homepage band covers.
+  cta: { label: "All industries", href: "/industries" },
   groups: [
     {
       key: "sectors",
       name: "Sectors we serve",
       items: [
-        { name: "FinTech", href: "#industries", blurb: "Fraud detection and personalised banking" },
-        { name: "HealthTech", href: "#industries", blurb: "Patient outcomes and clinical workflows" },
-        { name: "EdTech", href: "#industries", blurb: "Personalised learning and analytics" },
-        { name: "Ecommerce", href: "#industries", blurb: "Recommendations and inventory automation" },
-        { name: "Logistics", href: "#industries", blurb: "Forecasting and route optimisation" },
-        { name: "Telecom", href: "#industries", blurb: "Predictive maintenance and network AI" },
+        // These pointed at the in-page `#industries` anchor until each sector
+        // had a page of its own. Now that they do, the group links to the real
+        // routes — `navHref` sends them to the live site until `homepageEnabled`
+        // is on, and to ours once it is (see MARKETING_PATHS in
+        // themes/softsuave/nav-data.ts). Aviation is the one sector with no
+        // homepage band of its own, so the panel is the only way to reach it.
+        { name: "FinTech", href: "/fintech-ai-solutions", blurb: "Fraud detection and personalised banking" },
+        { name: "HealthTech", href: "/ai-solutions-in-healthtech", blurb: "Patient outcomes and clinical workflows" },
+        { name: "EdTech", href: "/ai-solutions-in-edutech", blurb: "Personalised learning and analytics" },
+        { name: "Ecommerce", href: "/ai-solutions-for-ecommerce", blurb: "Recommendations and inventory automation" },
+        { name: "Logistics", href: "/ai-in-logistics", blurb: "Forecasting and route optimisation" },
+        { name: "Telecom", href: "/ai-solutions-for-telecom", blurb: "Predictive maintenance and network AI" },
+        { name: "Construction", href: "/ai-solutions-for-construction", blurb: "Site safety and delay forecasting" },
+        { name: "Aviation", href: "/ai-in-aviation", blurb: "Fleet uptime and ground-operations AI" },
       ],
     },
     {

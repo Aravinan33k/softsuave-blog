@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import Logo from "./logo";
 import Flag from "./flag";
 import { footer, brand } from "@/lib/home/content";
+import { navHrefForPage } from "@/lib/home/nav-menu";
 import { publicMediaUrl } from "@/lib/media-url";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import { LinkedinIcon, InstagramIcon, YoutubeIcon } from "@/themes/softsuave/icons";
@@ -19,6 +21,15 @@ import styles from "./home.module.css";
  * between <Link> and a plain anchor depending on whether this app serves that
  * route yet (see `navHref` in themes/softsuave/nav-data).
  *
+ * But an anchor is only in-page ON the homepage. The Services column falls back
+ * to `#services` for the services that have no page of their own, and off the
+ * homepage no such section exists — those links used to resolve to nothing on
+ * every other page of the surface (the nine industries routes included). So the
+ * href goes through `navHrefForPage` first, exactly as the nav bar and the mega
+ * panels do, which rewrites it to `/#services` anywhere but `/`. The plain-<a>
+ * vs `SiteLink` choice is then made on the RESOLVED href, so a rewritten
+ * anchor becomes a real route link rather than a dead same-page jump.
+ *
  * Social icons come from the blog theme's icon set rather than new artwork —
  * one set of brand marks for the whole app, and inline SVG keeps them inside
  * the CSP (no external icon CDN).
@@ -32,6 +43,9 @@ const SOCIAL_ICONS = {
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  // Same rule the nav uses: anchors stay in-page on the homepage and become
+  // links back to it everywhere else.
+  const onHome = usePathname() === "/";
 
   return (
     <footer className={styles.footer}>
@@ -70,18 +84,20 @@ export default function Footer() {
         {footer.columns.map((col) => (
           <nav key={col.title} className={styles.footerCol} aria-label={col.title}>
             <div className={styles.footerColTitle}>{col.title}</div>
-            {col.links.map((l) =>
-              // In-page anchors must be plain <a> for the Lenis scroll handler.
-              l.href.startsWith("#") ? (
-                <a key={l.label} href={l.href}>
+            {col.links.map((l) => {
+              const href = navHrefForPage(l.href, onHome);
+              // A still-in-page anchor must be a plain <a> for the Lenis scroll
+              // handler; anything resolved to a route goes through SiteLink.
+              return href.startsWith("#") ? (
+                <a key={l.label} href={href}>
                   {l.label}
                 </a>
               ) : (
-                <SiteLink key={l.label} href={l.href}>
+                <SiteLink key={l.label} href={href}>
                   {l.label}
                 </SiteLink>
-              ),
-            )}
+              );
+            })}
           </nav>
         ))}
       </div>

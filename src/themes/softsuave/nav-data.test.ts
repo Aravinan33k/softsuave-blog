@@ -16,15 +16,16 @@ afterEach(() => {
 });
 
 describe('navHref', () => {
-  // `/about` is the stand-in for a path this app does not serve at all — it has
-  // no route in app/(marketing), so it belongs to the live site whatever the
-  // release flag says. It replaced `/contact` here once this app grew its own
-  // contact page; a path we DO serve can never demonstrate this.
+  // `/case-studies` is the stand-in for a path this app does not serve at all —
+  // it is linked from the nav but has no route in app/(marketing), so it belongs
+  // to the live site whatever the release flag says. It replaced `/about` here
+  // once this app grew its own about page, which had itself replaced `/contact`
+  // for the same reason; a path we DO serve can never demonstrate this.
   it('sends paths this app does not serve to the live site in either release state', async () => {
     for (const flag of ['true', 'false']) {
       const { navHref, isExternalHref } = await loadNav(flag);
-      expect(navHref('/about')).toBe(`${SITE}/about`);
-      expect(isExternalHref('/about')).toBe(true);
+      expect(navHref('/case-studies')).toBe(`${SITE}/case-studies`);
+      expect(isExternalHref('/case-studies')).toBe(true);
     }
   });
 
@@ -47,6 +48,39 @@ describe('navHref', () => {
         expect(isExternalHref(path)).toBe(true);
       }
     }
+  });
+
+  // The sector index is the one marketing route whose path also exists on
+  // softsuave.com, and the nav's Industries item has pointed at it since before
+  // we served it. Both directions matter: unreleased it must reach the live
+  // site's page, released it must reach ours rather than the live one.
+  it('follows the release flag for the sector index, which exists on both sites', async () => {
+    const released = await loadNav('true');
+    expect(released.navHref('/industries')).toBe('/industries');
+    expect(released.isExternalHref('/industries')).toBe(false);
+
+    for (const flag of ['false', undefined]) {
+      const { navHref, isExternalHref } = await loadNav(flag);
+      expect(navHref('/industries')).toBe(`${SITE}/industries`);
+      expect(isExternalHref('/industries')).toBe(true);
+    }
+  });
+
+  // The mega menu's sector items are "/industries#sector-<key>". A fragment is
+  // part of the link, not the route, so it must not decide where the link goes:
+  // matching the whole string would miss the local set and hand every sector
+  // item to softsuave.com, for a page we serve ourselves.
+  it('judges a href carrying a fragment by its path', async () => {
+    const released = await loadNav('true');
+    expect(released.isExternalHref('/industries#sector-fintech')).toBe(false);
+    expect(released.navHref('/industries#sector-fintech')).toBe('/industries#sector-fintech');
+    expect(released.navRoute('/industries#sector-fintech')).toBe('/industries#sector-fintech');
+
+    // Unreleased it still belongs to the live site — fragment carried along.
+    const unreleased = await loadNav('false');
+    expect(unreleased.navHref('/industries#sector-fintech')).toBe(
+      `${SITE}/industries#sector-fintech`,
+    );
   });
 
   it('always keeps the blog archive local — it is what this app ships', async () => {
@@ -130,7 +164,7 @@ describe('navRoute', () => {
   it('leaves paths this app does not serve to navHref, absolute and unprefixed', async () => {
     for (const flag of ['true', 'false']) {
       const { navRoute } = await loadNav(flag);
-      expect(navRoute('/about')).toBe(`${SITE}/about`);
+      expect(navRoute('/case-studies')).toBe(`${SITE}/case-studies`);
     }
   });
 });

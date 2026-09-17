@@ -10,14 +10,13 @@ import home from '@/components/home/home.module.css';
 import ServiceHero from '@/components/services/hero';
 import Definition from '@/components/services/definition';
 import CardSection from '@/components/services/card-section';
-import Comparison from '@/components/services/comparison';
 import CtaBand from '@/components/services/cta-band';
 import Process from '@/components/services/process';
-import CaseStudies from '@/components/services/case-studies';
 import TechStack from '@/components/services/tech-stack';
 import Faq from '@/components/services/faq';
 
 import { JsonLd } from '@/components/seo/json-ld';
+import { BASE_PATH } from '@/lib/flags';
 import { breadcrumbLd, faqPageLd, serviceLd } from '@/lib/seo/jsonld';
 import * as copy from '@/lib/services/ai-development';
 
@@ -51,6 +50,10 @@ export const metadata: Metadata = {
   },
 };
 
+/** The nav logo is a plain <a>, which Next does NOT prefix with basePath, so
+ *  it needs the already-public path. */
+const HOME_HREF = BASE_PATH || '/';
+
 export default function AiDevelopmentServicePage() {
   return (
     <div className={home.page}>
@@ -71,7 +74,11 @@ export default function AiDevelopmentServicePage() {
         ]}
       />
 
-      <Nav />
+      {/* This page has the bar's own #services and #why sections, so its
+          anchors stay in-page instead of resolving to the homepage's copies.
+          `logoHref` is stated because `ownsAnchors` keeps the logo's default
+          `#top` in-page too, and the lockup must go HOME from a sub-page. */}
+      <Nav ownsAnchors logoHref={HOME_HREF} />
 
       <main id="main">
         <ServiceHero {...copy.hero} />
@@ -88,28 +95,30 @@ export default function AiDevelopmentServicePage() {
           <CardSection id="services" {...copy.offerings} />
         </div>
 
-        <Comparison {...copy.comparison} />
-        <CtaBand {...copy.ctaBands.approach} />
+        <CardSection id="why" {...copy.whyChoose} />
 
         <div className={home.light}>
-          <CardSection id="why" {...copy.whyChoose} />
+          <CtaBand {...copy.ctaBands.approach} />
         </div>
 
         <Process {...copy.process} />
-        <CtaBand {...copy.ctaBands.estimate} />
 
         <div className={home.light}>
           <CardSection id="industries" {...copy.industries} />
         </div>
 
-        <CaseStudies {...copy.caseStudies} />
-        <TechStack {...copy.techStack} />
+        <CtaBand {...copy.ctaBands.estimate} />
 
         <div className={home.light}>
-          <Testimonials />
+          <TechStack {...copy.techStack} />
         </div>
 
-        <Faq {...copy.faq} />
+        <Testimonials />
+
+        <div className={home.light}>
+          <Faq {...copy.faq} />
+        </div>
+
         <Contact />
       </main>
 

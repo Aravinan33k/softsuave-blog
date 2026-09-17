@@ -26,6 +26,20 @@
   --line: #ddd8cf;
   --accent: #b8341a;
   --accent-border: #c94327;
+
+  /* Darkened twins of the `--card-accent-*` ramp declared on `.theme-four`
+     (app/(marketing)/home.css). Same family and same order — the dark-band
+     values are tuned to glow on near-black and would wash out on this warm
+     white, where the accent also has to carry small uppercase label text.
+     Step 3 is this band's own `--accent`, so a card's accent and the band's
+     agree at the middle of the ramp. */
+  --card-accent-1: #a86f12;
+  --card-accent-2: #bf4f27;
+  --card-accent-3: #b8341a;
+  --card-accent-4: #b02742;
+  --card-accent-5: #96305a;
+  --card-lift: 0 1px 2px rgb(60 50 40 / 8%), 0 18px 34px -22px rgb(60 50 40 / 28%);
+
   background: var(--bg);
   color: var(--text);
 }

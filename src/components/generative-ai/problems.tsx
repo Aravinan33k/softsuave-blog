@@ -79,6 +79,13 @@ export default function Problems({
   /** Set once the visitor drives the selector themselves; autoplay never resumes. */
   const takenOver = useRef(false);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+  /**
+   * Whether the dwell timer is currently running. State rather than a ref
+   * because the ticker tween is driven by an effect, and only a render can
+   * re-run it: the ticker span is mounted by the *selected* tab, so every
+   * advance destroys the element the previous tween was scrubbing.
+   */
+  const [running, setRunning] = useState(false);
 
   const rows = content.rows;
   const panelLabel = content.columns[1] ?? "";
@@ -88,7 +95,7 @@ export default function Problems({
       clearInterval(timer.current);
       timer.current = null;
     }
-    if (tickerRef.current) gsap.killTweensOf(tickerRef.current);
+    setRunning(false);
   }, []);
 
   const go = useCallback((i: number) => {
@@ -102,13 +109,7 @@ export default function Problems({
     stop();
     if (takenOver.current || prefersReducedMotion()) return;
     timer.current = setInterval(() => go(activeRef.current + 1), DWELL_MS);
-    if (tickerRef.current) {
-      gsap.fromTo(
-        tickerRef.current,
-        { scaleX: 0 },
-        { scaleX: 1, duration: DWELL_MS / 1000, ease: "none", repeat: -1 },
-      );
-    }
+    setRunning(true);
   }, [go, stop]);
 
   /** Any deliberate interaction hands control over for good. */
@@ -166,6 +167,30 @@ export default function Problems({
       tween.kill();
     };
   }, [active]);
+
+  /**
+   * One sweep of the ticker hairline per dwell, re-armed on every advance.
+   *
+   * It has to live here rather than in `play`: `tickerRef` points at a span the
+   * selected tab renders, so each advance unmounts it and mounts a fresh one.
+   * A single `repeat: -1` tween started in `play` kept scrubbing the detached
+   * node, so the hairline animated for the first dwell only. Keying the effect
+   * on `active` as well as `running` re-targets it, and one finite sweep per
+   * dwell also can't drift out of step with the interval the way a
+   * self-repeating tween does.
+   */
+  useEffect(() => {
+    const el = tickerRef.current;
+    if (!running || !el || prefersReducedMotion()) return;
+    const tween = gsap.fromTo(
+      el,
+      { scaleX: 0 },
+      { scaleX: 1, duration: DWELL_MS / 1000, ease: "none" },
+    );
+    return () => {
+      tween.kill();
+    };
+  }, [running, active]);
 
   useEffect(() => stop, [stop]);
 

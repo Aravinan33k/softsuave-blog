@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { breadcrumbLd } from '@/lib/seo/jsonld';
-import { homepageEnabled } from '@/lib/flags';
+import { BASE_PATH, homepageEnabled } from '@/lib/flags';
 import { faq, meta } from '@/lib/home/generative-ai';
 
 import Nav from '@/components/home/nav';
@@ -94,6 +94,10 @@ const serviceLd = {
   areaServed: 'Worldwide',
 };
 
+/** The nav logo is a plain <a>, which Next does NOT prefix with basePath, so
+ *  it needs the already-public path. */
+const HOME_HREF = BASE_PATH || '/';
+
 export default function GenerativeAiDevelopmentCompanyPage() {
   // "/" is only a page this app serves once the marketing homepage ships; until
   // then the trail must not point Google at a redirect — which leaves a
@@ -107,7 +111,16 @@ export default function GenerativeAiDevelopmentCompanyPage() {
   return (
     <div className={styles.page}>
       <JsonLd data={[serviceLd, faqLd, ...(breadcrumb ? [breadcrumb] : [])]} />
-      <Nav />
+      {/* This page owns both of the bar's anchor sections itself — `Services`
+          renders #services and `WhyUs` renders #why — so the bar scrolls in-page
+          instead of sending the reader to the homepage's copies. Without this
+          those two links leave the page, and both also drop out of the bar's
+          active-section highlight, which only tracks `#` hrefs.
+
+          `logoHref` is stated because `ownsAnchors` also keeps the logo's
+          default `#top` in-page, and the lockup must go HOME from a sub-page
+          rather than scroll to the top of this one. */}
+      <Nav ownsAnchors logoHref={HOME_HREF} />
       <main id="main">
         <Hero />
 

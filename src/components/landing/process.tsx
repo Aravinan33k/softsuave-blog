@@ -45,6 +45,25 @@ export interface ProcessContent {
  * (No click-to-pop on the image any more — it read as a flicker rather than
  * a deliberate flourish, so it's gone from here and from the Services cards.)
  */
+/**
+ * Column spans for the mosaic variant, as a 12-column composition.
+ *
+ * Steps are walked in pairs, and the pair alternates 7+5 / 5+7 so consecutive
+ * rows do not mirror each other — that alternation is the whole reason the
+ * layout reads as a composition rather than a table. A leftover odd step takes
+ * the full 12 instead of sitting at 7 beside a gap, which is exactly the
+ * stranded-card problem the even grid had at five steps.
+ */
+function mosaicSpansFor(n: number): number[] {
+  const out: number[] = [];
+  for (let i = 0; i + 1 < n; i += 2) {
+    if ((i / 2) % 2 === 0) out.push(7, 5);
+    else out.push(5, 7);
+  }
+  if (n % 2 === 1) out.push(12);
+  return out;
+}
+
 export default function Process({
   content,
   id = "journey",
@@ -64,22 +83,32 @@ export default function Process({
    * `stages` is `even` plus one row of five on a wide desktop and a smaller
    * heading to suit it, for a run of short pipeline stages that would
    * otherwise leave a fifth card orphaned on its own row.
+   *
+   * `mosaic` is the editorial composition: alternating wide/tall cards, a step
+   * pill, and a full-bleed image per card — wide cards set the image beside
+   * the copy, tall ones above it.
    */
-  variant?: "cards" | "even" | "stages";
+  variant?: "cards" | "even" | "stages" | "mosaic";
   /**
    * Desktop column count for the `cards` and `even` variants, chosen to fill
    * the rows the list actually has. Four is the base; three suits a run of
-   * six steps, which four would leave as a four-then-two remainder.
-   * Ignored by `stages`, which sets its own five-across rhythm.
+   * six steps, which four would leave as a four-then-two remainder. Ignored
+   * by `stages` (sets its own five-across rhythm) and `mosaic` (sets its own
+   * span composition).
    */
   columns?: 3 | 4;
 }>) {
   const root = useRef<HTMLOListElement | null>(null);
+  const mosaic = variant === "mosaic";
+  const spans = mosaic ? mosaicSpansFor(content.steps.length) : [];
 
   useGSAP(
     () => {
       if (prefersReducedMotion() || !root.current) return;
-      const cards = gsap.utils.toArray<HTMLElement>(`.${styles.processCard}`, root.current);
+      const cards = gsap.utils.toArray<HTMLElement>(
+        `.${styles.processCard}, .${styles.pmCard}`,
+        root.current,
+      );
       if (!cards.length) return;
 
       // Cards start hidden and a bare trigger fires a free-running tween
@@ -114,43 +143,79 @@ export default function Process({
         <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
       )}
 
-      <ol
-        ref={root}
-        className={[
-          styles.processGrid,
-          variant !== "cards" ? styles.processEven : "",
-          variant === "stages" ? styles.processStages : "",
-          variant !== "stages" && columns === 3 ? styles.processGrid3 : "",
-        ]
-          .filter(Boolean)
-          .join(" ")}
-      >
-        {content.steps.map((step) => (
-          <li key={step.n} className={styles.processCard}>
-            {step.image && (
-              <div className={styles.processImageFrame}>
-                <Image
-                  src={publicMediaUrl(step.image.src)}
-                  alt={step.image.alt}
-                  fill
-                  sizes="(max-width: 699px) 92vw, (max-width: 999px) 46vw, 23vw"
-                  className={styles.processImage}
-                />
-              </div>
-            )}
+      {mosaic ? (
+        <ol ref={root} className={styles.pmGrid}>
+          {content.steps.map((step, i) => (
+            <li
+              key={step.n}
+              className={`${styles.pmCard} ${
+                spans[i] >= 7 ? styles.pmCardWide : styles.pmCardTall
+              }`}
+              data-span={spans[i]}
+            >
+              {step.image && (
+                <div className={styles.pmMedia}>
+                  <Image
+                    src={publicMediaUrl(step.image.src)}
+                    alt={step.image.alt}
+                    fill
+                    sizes={
+                      spans[i] >= 7
+                        ? "(max-width: 999px) 92vw, 34vw"
+                        : "(max-width: 999px) 92vw, 42vw"
+                    }
+                    className={styles.pmImg}
+                  />
+                </div>
+              )}
 
-            <div className={styles.processCardBody}>
-              <div className={styles.processCardHead}>
-                <span className={styles.processMarker} aria-hidden>
-                  {step.n}
-                </span>
-                <h3 className={styles.processName}>{step.name}</h3>
+              <div className={styles.pmBody}>
+                <span className={styles.pmPill}>Step {step.n}</span>
+                <h3 className={styles.pmName}>{step.name}</h3>
+                <p className={styles.pmText}>{step.body}</p>
               </div>
-              <p className={styles.processBody}>{step.body}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <ol
+          ref={root}
+          className={[
+            styles.processGrid,
+            variant !== "cards" ? styles.processEven : "",
+            variant === "stages" ? styles.processStages : "",
+            variant !== "stages" && columns === 3 ? styles.processGrid3 : "",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        >
+          {content.steps.map((step) => (
+            <li key={step.n} className={styles.processCard}>
+              {step.image && (
+                <div className={styles.processImageFrame}>
+                  <Image
+                    src={publicMediaUrl(step.image.src)}
+                    alt={step.image.alt}
+                    fill
+                    sizes="(max-width: 699px) 92vw, (max-width: 999px) 46vw, 23vw"
+                    className={styles.processImage}
+                  />
+                </div>
+              )}
+
+              <div className={styles.processCardBody}>
+                <div className={styles.processCardHead}>
+                  <span className={styles.processMarker} aria-hidden>
+                    {step.n}
+                  </span>
+                  <h3 className={styles.processName}>{step.name}</h3>
+                </div>
+                <p className={styles.processBody}>{step.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
     </section>
   );
 }

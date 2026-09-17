@@ -75,23 +75,6 @@ export const offerings = {
   ],
 } as const;
 
-export const comparison = {
-  eyebrow: 'Choosing An Approach',
-  title: 'Custom AI Solutions vs. Off-the-Shelf AI Tools',
-  body: 'Off-the-shelf AI tools suit standard needs and quick deployment, while custom AI solutions support tailored workflows, proprietary data, deeper integrations, control, and scalability. The table below compares both options.',
-  columns: ['Comparison Area', 'Custom AI Solutions', 'Off-the-Shelf AI Tools'],
-  rows: [
-    ['Customization', 'Built around specific business requirements', 'Limited to available features and settings'],
-    ['Data usage', 'Can work with proprietary business data', 'Often depends on predefined data structures'],
-    ['Integration', 'Connects with existing systems and workflows', 'Integration options may be limited'],
-    ['Ownership and control', 'Greater control over features, data, and deployment', 'Controlled mainly by the software provider'],
-    ['Scalability', 'Can evolve with changing business needs', "Scaling depends on the provider's platform"],
-    ['Security', 'Security controls can be adapted to project needs', "Uses the provider's standard security model"],
-    ['Implementation', 'Requires discovery, development, and testing', 'Usually faster to deploy'],
-    ['Best suited for', 'Unique, complex, or strategic AI requirements', 'Common use cases with limited customization'],
-  ],
-} as const;
-
 /** The two mid-page conversion bands, in the order they appear. */
 export const ctaBands = {
   approach: {
@@ -190,43 +173,6 @@ export const industries = {
     {
       name: 'Telecom',
       body: 'Strengthen network performance with network AI and churn prediction that identify service risks, improve reliability, retain customers, optimize resources, and enable proactive operational decisions daily.',
-    },
-  ],
-} as const;
-
-export const caseStudies = {
-  eyebrow: 'Proven Results',
-  title: 'Case Studies & Proven Results',
-  body: 'Explore how our custom AI development projects have helped businesses solve complex challenges, improve operations, and achieve measurable results across real-world use cases.',
-  cta: { label: 'View all Case Studies', href: '/case-studies' },
-  items: [
-    {
-      industry: 'Logistics',
-      name: 'Vision AI: Vehicle Detection and Axle Counting',
-      body: 'Built a real-time Vision AI solution to detect vehicles, classify multiple lanes, and recognize floating axles, achieving 95%+ accuracy while improving congestion monitoring and toll inspection decisions across transportation networks.',
-      metric: '95%+',
-      metricLabel: 'detection accuracy',
-    },
-    {
-      industry: 'E-commerce',
-      name: 'Unified Revenue for Subscription Commerce',
-      body: 'Modernized a unified subscription commerce platform with scalable architecture, faster merchant onboarding, secure payments, enhanced subscriptions, and AI-assisted engineering, contributing to improved reliability, continuous innovation, and $10M+ ARR business growth.',
-      metric: '$10M+',
-      metricLabel: 'ARR growth',
-    },
-    {
-      industry: 'HealthTech',
-      name: 'Healthcare AI: Pet Care',
-      body: 'Developed a centralized pet-care AI platform that unified health records, enabled early assessments and reminders, reduced manual record management by 90%, accelerated processing by 60%, and improved preventive care tracking by 50%.',
-      metric: '90%',
-      metricLabel: 'less manual record work',
-    },
-    {
-      industry: 'EdTech',
-      name: 'AI-Powered Learning and Classroom Management',
-      body: 'Developed an AI-powered education platform with interactive assignments, personalized study tools, real-time feedback, teacher dashboards, role-based monitoring, and guest access, enhancing student engagement, writing, critical thinking, and classroom management efficiency.',
-      metric: 'K-12',
-      metricLabel: 'classroom scale',
     },
   ],
 } as const;

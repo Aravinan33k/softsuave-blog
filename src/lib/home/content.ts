@@ -4,6 +4,8 @@
  * /one, /two, /three — each page maps it into its own inspiration's structure.
  */
 
+import { meta as industriesMeta, sectors as sectorIndex } from "./industries-content";
+
 export const brand = {
   name: "Soft Suave",
   tagline: "A KiwiTech Affiliate Company",
@@ -124,8 +126,9 @@ export const clients: {
 /**
  * `href` on each item is where that industry LIVES — the page softsuave.com
  * publishes for it. Every one of the six has a real page, so nothing here is an
- * anchor. It is what the footer's Industries column links to; the section on
- * this page keeps its own "view all" navigation and does not use it.
+ * anchor. The section on this page keeps its own "view all" navigation and does
+ * not use it, and the footer's Industries column is built from the
+ * `/industries` index's eight rather than these six.
  */
 export const industries = {
   eyebrow: "Industries",
@@ -602,7 +605,14 @@ export const testimonials: {
 export const nav = {
   links: [
     { label: "Services", href: "#services" },
-    { label: "Industries", href: "#industries" },
+    // The sector index, not this page's industries band: it is the canonical
+    // page for the eight sectors, and the two the band omits (Construction,
+    // Aviation) exist only there. Every page that renders the default nav has
+    // its own `#industries` section still — the band stays, the nav bar just
+    // stops treating it as the destination. Being a route rather than an
+    // anchor, this link also drops out of the bar's "you are here" highlight,
+    // which only tracks `#` links.
+    { label: "Industries", href: "/industries" },
     { label: "Company", href: "#why" },
     { label: "Resources", href: "/blog" },
   ],
@@ -618,14 +628,16 @@ export const footer = {
   /**
    * Sitemap columns.
    *
-   * Services and Industries are DERIVED from the page's own `services` and
-   * `industries` content rather than retyped, so the footer can never list a
-   * service the page above it no longer offers.
+   * Services is DERIVED from the page's own `services` content rather than
+   * retyped, so the footer can never list a service the page above it no longer
+   * offers. Industries is derived from the `/industries` index's sector list —
+   * the canonical eight — for the reason given on that column below.
    *
    * Each entry carries its own `href`, so the column links to the real page
    * where one exists and falls back to the in-page section where it doesn't —
-   * see the note on `services.items`. All six industries have a page; six of
-   * the ten services do not.
+   * see the note on `services.items`. Every sector has a page; six of the ten
+   * services do not, and `Footer` resolves those `#services` fallbacks against
+   * the homepage when it renders anywhere else.
    */
   columns: [
     {
@@ -634,7 +646,19 @@ export const footer = {
     },
     {
       title: "Industries",
-      links: industries.items.map((i) => ({ label: i.name, href: i.href })),
+      /**
+       * The canonical eight, taken from the `/industries` index rather than
+       * the band on this page. The band shows six — Construction and Aviation
+       * have no generated art yet, so it omits them — but both have real
+       * pages, and a sitemap that hides two live sectors is just wrong.
+       *
+       * "All Industries" heads the column so the index itself is reachable
+       * from the footer of every page, which is the only place it was not.
+       */
+      links: [
+        { label: "All Industries", href: industriesMeta.path },
+        ...sectorIndex.items.map((s) => ({ label: s.name, href: s.href })),
+      ],
     },
     {
       title: "Company",

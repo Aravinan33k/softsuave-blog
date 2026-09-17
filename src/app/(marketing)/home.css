@@ -43,6 +43,31 @@
   --accent-border: var(--brand-red);
   --cream: #e6e4e2;
   --cream-line: #d8d8d8;
+
+  /* Card accent ramp — five steps of ONE warm family, for sections that give
+     each card its own accent (the services "bold" variant, so far).
+
+     Steps 2, 3 and 4 are the brand tokens themselves; the amber below and the
+     rose above open the range just enough that adjacent cards read as
+     distinct. Deliberately not a multi-hue palette: teal or periwinkle would
+     separate the cards better but would stop reading as Soft Suave.
+
+     These live here, on the global theme scope, rather than in a CSS module
+     because the `.light` band has to override them — and `.light` is a hashed
+     class in home.module.css, so a module could never select across to it.
+     Overriding a custom property cascades without any cross-module selector,
+     which is the only mechanism that works in both bands. */
+  --card-accent-1: #f0a93c;
+  --card-accent-2: var(--brand-coral);
+  --card-accent-3: var(--brand-500);
+  --card-accent-4: var(--brand-red);
+  --card-accent-5: #e0557f;
+
+  /* Lift shadow for raised cards. Split from the card rules because it has to
+     differ per band: this one is tuned to read against the near-black canvas,
+     where only a dense shadow separates a card from the ground at all. */
+  --card-lift: 0 1px 2px rgb(0 0 0 / 30%), 0 20px 40px -20px rgb(0 0 0 / 65%);
+
   --font-heading: var(--font-display-serif);
   --font-eyebrow: var(--font-mono-label);
 

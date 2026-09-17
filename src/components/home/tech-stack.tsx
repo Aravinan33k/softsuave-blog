@@ -1,6 +1,6 @@
 "use client";
 
-import { techStack } from "@/lib/home/content";
+import { techStack as homeTechStack } from "@/lib/home/content";
 import Marquee from "./marquee";
 import SplitReveal from "./split-reveal";
 import TechLogo from "./tech-logo";
@@ -18,11 +18,18 @@ export interface TechStackContent {
  * TechStack: Alternating auto-running marquee rows that stop on hover,
  * with chips that transition from their SVG logo to their text name on hover.
  *
- * `content` defaults to the homepage's stack; a landing page that wants this
- * same section over its own groups passes its own (wrap it in
- * `home.techCompact` there to drop the homepage's full-viewport min-height).
+ * `content` lets a page state its own stack while keeping this treatment —
+ * which is what a role page needs: "the technologies a backend developer works
+ * with" is that page's own content, but it should look like the homepage's
+ * technology band, not a second design for the same idea. Omitting the prop
+ * renders the homepage's stack exactly as before (wrap it in `home.techCompact`
+ * there to drop the homepage's full-viewport min-height).
  */
-export default function TechStack({ content = techStack }: { content?: TechStackContent } = {}) {
+export default function TechStack({
+  content = homeTechStack,
+}: {
+  content?: TechStackContent;
+} = {}) {
   return (
     <section className={`${styles.section} ${styles.techSection}`} id="tech">
       <div className={styles.sectionHead}>

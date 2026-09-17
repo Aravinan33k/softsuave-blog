@@ -30,16 +30,34 @@ export interface LandingPage {
   readonly title: string;
 }
 
+import { HIRE_SKILLS } from './hire-skills';
+import { HIRE_ROLE_ROUTES } from './hire-roles/slugs';
+
+/**
+ * The 24 hire-by-skill pages, derived from their own registry rather than
+ * listed again here. They are generated from one template
+ * (`components/landing/hire-page.tsx`), so a hand-maintained copy of the list
+ * would be a second place to forget when a skill is added.
+ */
+const HIRE_LANDING_PAGES: readonly LandingPage[] = HIRE_SKILLS.map((s) => ({
+  path: `/${s.slug}`,
+  title: s.metaTitle,
+}));
+
 export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/ai-development-service', title: 'Custom AI Development Services' },
   { path: '/custome-ai-developement', title: 'Custom AI Development Services' },
   { path: '/generative-ai-development-company', title: 'Generative AI Development Company' },
   { path: '/agentic-ai-development-services', title: 'Agentic AI Development Services' },
+
+  // Custom-AI sub-pages.
   { path: '/rag-development-services', title: 'RAG & Document AI' },
   { path: '/computer-vision-development-services', title: 'Computer Vision Development Services' },
   { path: '/predictive-intelligence-services', title: 'Predictive Intelligence Services' },
   { path: '/data-engineering-services', title: 'Data Engineering Services' },
   { path: '/data-science-services', title: 'Data Science Services' },
+
+  // Mobile & web engineering-service pages.
   { path: '/mobile-application-development-company', title: 'Mobile App Development Company' },
   { path: '/android-application-development-company', title: 'Android App Development Company' },
   { path: '/ios-application-development-company', title: 'iOS App Development Company' },
@@ -57,9 +75,53 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/graphql-development-company', title: 'GraphQL Development Company for Modern APIs' },
   { path: '/reactjs-app-development-company', title: 'ReactJS Development Company in India' },
   { path: '/nodejs-development-company', title: 'NodeJS Development Company in India' },
+
+  // Delivery-model and engineering-service pages. Slugs match the pages these
+  // replace on the live marketing site, so existing search equity and inbound
+  // links resolve rather than 404.
+  { path: '/global-capability-center', title: 'Global Capability Center Services' },
+  { path: '/offshore-software-development-company', title: 'Offshore Software Development Company' },
+  { path: '/it-staff-augmentation-services', title: 'IT Staff Augmentation Services' },
+  { path: '/it-outsourcing-company-india', title: 'IT Outsourcing Company in India' },
+  { path: '/legacy-modernization-services', title: 'Legacy Application Modernization Services' },
+  { path: '/product-engineering-services', title: 'Product Engineering Services' },
+  { path: '/cloud-computing', title: 'Cloud Computing Services' },
+
+  // Industry AI pages. Slugs match the live marketing site's existing URLs, so
+  // search equity and inbound links resolve to our routes rather than 404 once
+  // `homepageEnabled` is on.
+  { path: '/fintech-ai-solutions', title: 'Fintech AI Development Services' },
+  { path: '/ai-solutions-in-healthtech', title: 'AI Solutions in HealthTech' },
+  { path: '/ai-solutions-in-edutech', title: 'AI Solutions in EdTech' },
+  { path: '/ai-solutions-for-ecommerce', title: 'AI Solutions for eCommerce' },
+  { path: '/ai-in-logistics', title: 'AI in Logistics & Supply Chain' },
+  { path: '/ai-solutions-for-telecom', title: 'AI Solutions for Telecom' },
+  { path: '/ai-solutions-for-construction', title: 'AI Solutions for Construction' },
+
+  // Hire-by-skill pages. Slugs match the live site's existing URLs, so the
+  // nav's `hire-skill` group (see `nav-menu.ts`) starts resolving locally the
+  // moment these paths are covered by MARKETING_ROUTES below.
+  ...HIRE_LANDING_PAGES,
+
+  // Company pages. Slugs match the live marketing site's existing URLs, so
+  // search equity and inbound links resolve to our routes rather than 404.
+  { path: '/about', title: 'About Us' },
   { path: '/contact', title: 'Contact Us' },
   { path: '/awards-recognition', title: 'Awards and Recognition' },
-] as const;
+
+  // The sector index, and the eighth sector. The other seven sector pages are
+  // listed above with the industry AI group; aviation has no counterpart there,
+  // so it joins the registry here.
+  { path: '/industries', title: 'Industries We Serve' },
+  { path: '/ai-in-aviation', title: 'AI Solutions for Aviation' },
+
+  // The nine hire-by-role pages, from their own slug list — adding a role
+  // should put it in the sitemap without anyone remembering this file. Imported
+  // from `hire-roles/slugs` rather than `hire-roles/index` on purpose: this
+  // module is read by the nav-adjacent code, and the index pulls in all nine
+  // content modules (and the section prop types they are written against).
+  ...HIRE_ROLE_ROUTES,
+];
 
 /**
  * Every route in app/(marketing): the homepage plus each landing page. These
