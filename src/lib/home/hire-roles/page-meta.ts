@@ -74,7 +74,14 @@ export function hireRoleJsonLd(content: HireRolePageContent): object[] {
       description: content.meta.description,
       path: content.slug,
       providerName: brand.name,
-      offers: content.capabilities.items.map((i) => ({ name: i.name, body: i.body })),
+      // The offer catalogue is whichever section the page actually uses to list
+      // what you can hire: the capability carousel where a page has one, and
+      // otherwise the specialisations grid that carries that list alone. Either
+      // way the schema describes a section the reader can see.
+      offers: (content.capabilities ?? content.specialisations)?.items.map((i) => ({
+        name: i.name,
+        body: i.body,
+      })),
     }),
     faqPageLd(content.faq.items),
     ...(trail.length > 1 ? [breadcrumbLd(trail)] : []),

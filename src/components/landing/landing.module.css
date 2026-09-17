@@ -132,7 +132,7 @@
 .btnPrimary {
   background: var(--accent);
   border-color: var(--accent);
-  color: #140b08;
+  color: var(--on-accent, #140b08);
 }
 
 .btnPrimary:hover {
@@ -1466,6 +1466,7 @@
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
+
   width: 20px;
   height: 20px;
   /* The reveal tweens `filter` (marks develop from grey into colour) and
@@ -1493,7 +1494,7 @@
   transform: scale(1.6);
 }
 
-/* ============================================================
+/* ====================================================
    CARD GRID — "WATERMARK" VARIANT (`variant="watermark"` on Industries)
    The index becomes a large translucent serif numeral sitting behind the
    card's text instead of a small mono label, so a page carrying two of
@@ -2286,6 +2287,7 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+
   /* Opt-in 3-up, for a list whose length is a multiple of three — six cards
      read as two full rows instead of four then a two-card remainder. */
   .cardGrid.cardGrid3 {
@@ -2306,6 +2308,7 @@
 
   /* Integration: three panels fill one row. */
   .integrationGrid {
+
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
@@ -6456,3 +6459,29 @@
     transform: none;
   }
 }
+
+/* Keeps recruitment traffic out of the sales inbox: the enquiry form is a
+   business channel, so the note under it points job applicants at careers. */
+.formAlert {
+  margin: 12px 0 0;
+  padding: 9px 11px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #4a4a4a;
+  text-align: center;
+}
+
+.formAlertLabel {
+  font-weight: 700;
+  color: color-mix(in srgb, var(--accent) 75%, black);
+}
+
+.formAlertLink {
+  color: color-mix(in srgb, var(--accent) 80%, black);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+

@@ -31,8 +31,9 @@ import styles from "./home.module.css";
  * on the picture rather than the page — see `.rImageVeilLabel`.
  */
 export default function Testimonials() {
-  /** The ordinal is part of a story's identity here: it is printed in each
-   *  story's kicker ("Client story 01"). */
+  /** The ordinal is still a story's identity here — the archive's counter and
+   *  dots read it, and it drives the zig-zag rhythm — but it is no longer
+   *  printed above the client's name. */
   const stories: NumberedReview[] = testimonials.items.map((review, i) => ({
     ...review,
     ordinal: i + 1,

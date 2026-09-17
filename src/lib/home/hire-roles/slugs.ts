@@ -20,16 +20,25 @@ export interface HireRoleRoute {
   readonly title: string;
 }
 
+/**
+ * The thirteen routes, in the order softsuave.com's "Hire By Role" menu lists
+ * them. That order is the one thing here that is not arbitrary: the nav group,
+ * the sitemap and the cross-links between these pages all read it.
+ */
 export const HIRE_ROLE_ROUTES: readonly HireRoleRoute[] = [
-  { path: '/hire-software-developers', title: 'Hire Software Developers' },
-  { path: '/hire-web-app-developers', title: 'Hire Web App Developers' },
-  { path: '/hire-mobile-app-developers', title: 'Hire Mobile App Developers' },
-  { path: '/hire-frontend-application-developer', title: 'Hire Frontend Developers' },
-  { path: '/hire-backend-application-developer', title: 'Hire Backend Developers' },
-  { path: '/hire-ai-developer', title: 'Hire AI Developers' },
-  { path: '/hire-qa-testers-india', title: 'Hire QA Engineers' },
-  { path: '/hire-devops-developers', title: 'Hire DevOps Engineers' },
-  { path: '/hire-dedicated-developers', title: 'Hire Dedicated Developers' },
+  { path: '/hire-software-developers', title: 'Hire Software Developer' },
+  { path: '/hire-web-app-developers', title: 'Hire Web App Developer' },
+  { path: '/hire-mobile-app-developers', title: 'Hire Mobile App Developer' },
+  { path: '/hire-frontend-application-developer', title: 'Hire Frontend Developer' },
+  { path: '/hire-backend-application-developer', title: 'Hire Backend Developer' },
+  { path: '/hire-dedicated-developers', title: 'Hire Dedicated Developer' },
+  { path: '/hire-ai-developer', title: 'Hire AI Developer' },
+  { path: '/hire-qa-testers-india', title: 'Hire QA Engineer' },
+  { path: '/hire-android-developers', title: 'Hire Android Developer' },
+  { path: '/hire-ios-developers', title: 'Hire iOS Developer' },
+  { path: '/hire-devops-developers', title: 'Hire DevOps Developer' },
+  { path: '/hire-salesforce-developer', title: 'Hire Salesforce Developer' },
+  { path: '/hire-blockchain-developer', title: 'Hire Blockchain Developer' },
 ] as const;
 
 /** Just the paths, for the redirect list and the sitemap. */

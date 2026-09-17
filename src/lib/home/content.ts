@@ -57,7 +57,7 @@ export const why = {
       suffix: "+",
       label: "Global Clients",
       icon: "clients",
-      line: "Startups, SMBs and enterprises, from first idea to launch and beyond.",
+      line: "Startups, SMBs, and enterprises supported from concept to launch.",
     },
     {
       value: 20,
@@ -98,9 +98,13 @@ export const clients: {
   title: "Preferred AI-Enabled Technology Partner for Startups and SMBs",
   body: "We combine AI-enabled engineering with 13+ years of product development expertise to help clients build scalable AI solutions, automate complex workflows, and integrate systems for measurable business outcomes.",
   logos: [
-    { name: "Phoenix Technologies", src: null },
-    { name: "AMD Telecom", src: null },
-    { name: "Perkypet", src: null },
+    // The three testimonial clients. Their marks are not in softsuave.com's own
+    // homepage carousel — they are published on its /clients index instead,
+    // which is where these came from, at the same 150x60 the rest of the strip
+    // uses.
+    { name: "Phoenix Technologies", src: "/brand/clients/phoenix-technologies.webp" },
+    { name: "AMD Telecom", src: "/brand/clients/amd-telecom.webp" },
+    { name: "Perkypet", src: "/brand/clients/perkypet.webp" },
     { name: "Atomise", src: "/brand/clients/atomise.webp" },
     { name: "CloudBankin", src: "/brand/clients/cloudbankin.webp" },
     { name: "Enigma", src: "/brand/clients/enigma.webp" },
@@ -190,8 +194,8 @@ export const services = {
   // does describe them. Swap in the real path as each page ships.
   items: [
     {
-      key: "custom-ai-development",
-      href: "/custome-ai-developement",
+      key: "custom-ai-development-services",
+      href: "/custom-ai-development-services",
       img: "custom-ai",
       name: "Custom AI Development",
       body: "Create tailored solutions using generative AI, agentic AI, RAG, and more to automate workflows and solve complex business challenges.",
@@ -199,21 +203,21 @@ export const services = {
     {
       key: "data-engineering",
       href: "#services",
-      img: "ai-integrations",
+      img: "data-engineering",
       name: "Data Engineering",
       body: "Build reliable data foundations with ETL and ELT pipelines, orchestration, data quality controls, and real-time streaming.",
     },
     {
       key: "data-science",
       href: "#services",
-      img: "modernization",
+      img: "data-science",
       name: "Data Science",
       body: "Turn data into actionable insights through model training, feature engineering, experimentation, and MLOps for scalable AI outcomes.",
     },
     {
       key: "generative-ai",
       href: "/generative-ai-development-company",
-      img: "custom-software",
+      img: "generative-ai",
       name: "Generative AI",
       body: "Build tailored generative AI solutions using LLMs to create content, code, images, and intelligent experiences aligned with diverse business needs.",
     },
@@ -227,35 +231,35 @@ export const services = {
     {
       key: "rag-document-ai",
       href: "#services",
-      img: "web",
+      img: "rag",
       name: "RAG and Document AI",
       body: "Create RAG and Document AI solutions that retrieve trusted knowledge, extract information, and deliver accurate, context-aware responses from enterprise data.",
     },
     {
       key: "computer-vision",
       href: "#services",
-      img: "mobile",
+      img: "computer-vision",
       name: "Computer Vision",
       body: "Build computer vision solutions for detection, OCR, video analytics, and inspection, enabling faster analysis, improved accuracy, and smarter operational decisions.",
     },
     {
       key: "predictive-intelligence",
       href: "#services",
-      img: "modernization",
+      img: "predictive",
       name: "Predictive Intelligence",
       body: "Turn historical and real-time data into forecasts, anomaly detection, and recommendations that help businesses anticipate outcomes and make informed decisions.",
     },
     {
       key: "mlops",
       href: "#services",
-      img: "custom-software",
+      img: "mlops",
       name: "MLOps",
       body: "Streamline model deployment, monitoring, CI/CD, and lifecycle management to keep AI systems scalable, reliable, secure, and consistently performing in production.",
     },
     {
       key: "forward-deployed-engineers",
       href: "#services",
-      img: "gcc",
+      img: "fde",
       name: "Forward Deployed Engineers",
       body: "Hire forward-deployed engineers who work with customers to understand requirements, develop integrations, solve challenges, and deploy production-ready solutions efficiently.",
     },
@@ -675,16 +679,20 @@ export const footer = {
     {
       /**
        * The pages the live site reaches from its footer and nowhere else —
-       * FAQs, How to Hire, the India delivery page — plus the proof archives.
-       * They have no section on this page to anchor to, so the footer is where
-       * they live, exactly as on softsuave.com.
+       * FAQs, the India delivery page — plus the proof archives. They have no
+       * section on this page to anchor to, so the footer is where they live,
+       * exactly as on softsuave.com.
+       *
+       * "How to Hire" (`/how-to-hire`) used to sit here too. It is retired:
+       * softsuave.com 301s it to /hire-software-developers, which the Hire
+       * panel already lists, so the link promised the engagement models and
+       * delivered one hire page. The mega menu dropped it for the same reason.
        */
       title: "Resources",
       links: [
         { label: "Blog", href: "/blog" },
         { label: "Case Studies", href: "/case-studies" },
         { label: "Success Stories", href: "/success-stories" },
-        { label: "How to Hire", href: "/how-to-hire" },
         { label: "Free Cost Estimation", href: "/free-cost-estimation" },
         { label: "FAQs", href: "/faqs" },
         { label: "Software Development India", href: "/software-development-company-india" },
@@ -693,11 +701,18 @@ export const footer = {
   ] as { title: string; links: FooterLink[] }[],
 
   /** Certification badge — artwork bundled from softsuave.com. */
+  /**
+   * The badge softsuave.com itself now shows (`/assets/images/iso_certification.jpg`).
+   * It differs from the one this footer shipped in the standard's full name —
+   * "ISO/IEC 27001:2022", not "ISO 27001:2022" — which is why the review asked
+   * for it. Trimmed of its white margin and stored as webp, so the ratio here
+   * is the artwork's own and not the old file's.
+   */
   certification: {
-    name: "ISO 27001:2022",
-    src: "/brand/iso-27001-2022.jpg",
-    width: 752,
-    height: 267,
+    name: "ISO/IEC 27001:2022",
+    src: "/brand/iso-iec-27001-2022.webp",
+    width: 1128,
+    height: 329,
   },
 
   social: [
@@ -736,14 +751,22 @@ export const footer = {
    * repeats it.
    *
    * `note` is an optional suffix shown in parentheses after the number. Only
-   * the Indian line uses it: that number is the HR desk, not the sales line
-   * the other two are, and dropping the label would have lost that.
+   * the two Indian lines use it, and they need it: the flag alone would leave
+   * a reader looking at one country listed twice with nothing to choose
+   * between. The US and UK lines are unlabelled because each is the only
+   * number for its country.
    */
   contact: {
     email: "contact@softsuave.com",
     phones: [
       { country: "us", display: "+1 (410) 220-6301", href: "tel:+14102206301" },
       { country: "gb", display: "+44 7403 646450", href: "tel:+447403646450" },
+      // India has two published lines, and the live site splits them across the
+      // page: this one heads softsuave.com's masthead beside the US and UK
+      // sales numbers and is marked there as reachable on WhatsApp too, while
+      // the HR desk below is the one its footer carries. The review asked for
+      // the second Indian number, so both are here.
+      { country: "in", display: "+91 99527 32708", note: "Sales & WhatsApp", href: "tel:+919952732708" },
       { country: "in", display: "+91 8015159981", note: "HR", href: "tel:+918015159981" },
     ],
   },

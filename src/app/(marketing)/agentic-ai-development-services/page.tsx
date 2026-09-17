@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { breadcrumbLd } from '@/lib/seo/jsonld';
+import { aiPageJsonLd } from '@/lib/seo/ai-page-schema';
 import { homepageEnabled } from '@/lib/flags';
 import {
   meta,
@@ -34,10 +35,12 @@ import CtaBand from '@/components/generative-ai/cta-band';
 import Process from '@/components/generative-ai/process';
 import Industries from '@/components/generative-ai/industries';
 import WhyUs from '@/components/generative-ai/why-us';
-import CaseStudies from '@/components/generative-ai/case-studies';
+import CaseStudies from '@/components/home/work-grid';
 import TechStack from '@/components/generative-ai/tech-stack';
 import Faq from '@/components/generative-ai/faq';
-import FinalCta from '@/components/generative-ai/final-cta';
+import Contact from '@/components/home/contact';
+import Clients from '@/components/home/clients';
+import Testimonials from '@/components/home/testimonials';
 
 import styles from '@/components/home/home.module.css';
 
@@ -80,30 +83,8 @@ export const metadata: Metadata = {
 };
 
 /** FAQPage schema, built from the same data the accordion renders. */
-const faqLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqContent.items.map((item) => ({
-    '@type': 'Question',
-    name: item.q,
-    acceptedAnswer: { '@type': 'Answer', text: item.a },
-  })),
-};
-
-const serviceLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Agentic AI Development Services',
-  serviceType: 'Agentic AI development',
-  description: meta.description,
-  url: absoluteUrl(meta.path),
-  provider: {
-    '@type': 'Organization',
-    name: 'Soft Suave',
-    url: 'https://www.softsuave.com',
-  },
-  areaServed: 'Worldwide',
-};
+/** Organization + Service + WebPage + FAQPage, from the approved SEO spec. */
+const pageLd = aiPageJsonLd('agenticAi');
 
 export default function AgenticAiDevelopmentServicesPage() {
   // "/" is only a page this app serves once the marketing homepage ships; until
@@ -117,10 +98,15 @@ export default function AgenticAiDevelopmentServicesPage() {
 
   return (
     <div className={styles.page}>
-      <JsonLd data={[serviceLd, faqLd, ...(breadcrumb ? [breadcrumb] : [])]} />
+      <JsonLd data={[...pageLd, ...(breadcrumb ? [breadcrumb] : [])]} />
       <Nav />
       <main id="main">
         <Hero content={heroContent} idPrefix="agentic" />
+
+        {/* Review: "Our Clients missing" — the homepage's logo carousel. */}
+        <div className={styles.light}>
+          <Clients />
+        </div>
 
 
         {/* One inverted band, mirroring the homepage's single light section —
@@ -133,16 +119,28 @@ export default function AgenticAiDevelopmentServicesPage() {
         <Services content={servicesContent} />
         <Industries content={applicationsContent} id="applications" />
         <CtaBand content={midCtaContent} />
-        <Process content={processContent} />
-        <Industries content={industriesContent} id="industries" />
+
+        <div className={styles.light}>
+          <Process content={processContent} />
+          <Industries content={industriesContent} id="industries" />
+        </div>
+
         <WhyUs content={whyUsContent} />
 
-        <CaseStudies />
+        <div className={styles.light}>
+          <CaseStudies />
+        </div>
+
         <TechStack content={techStackContent} />
 
-        <Faq content={faqContent} />
+        {/* Client stories and the FAQ close on the warm-white band, the same
+            bookend as the homepage and the sibling landing pages. */}
+        <div className={styles.light}>
+          <Testimonials />
+          <Faq content={faqContent} />
+        </div>
 
-        <FinalCta />
+        <Contact />
       </main>
       <Footer />
     </div>

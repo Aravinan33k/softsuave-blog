@@ -1,4 +1,5 @@
-'use client';
+import { JsonLd } from '@/components/seo/json-ld';
+import { homeMetadata, homeJsonLd } from '@/lib/home/home-seo';
 
 import styles from '@/components/home/home.module.css';
 import Preloader from '@/components/home/preloader';
@@ -21,9 +22,22 @@ import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
 import Footer from '@/components/home/footer';
 
+/**
+ * The homepage.
+ *
+ * A SERVER component, which is what lets it own the two things the 11 Sep
+ * review found missing: its own `metadata` (the group layout's is the fallback
+ * for the pages that declare none, and carried no Open Graph tags) and a
+ * JSON-LD block. Every section below is a client component and behaves exactly
+ * as before — nothing here uses state, effects or handlers, so there was never
+ * anything for `'use client'` to buy.
+ */
+export const metadata = homeMetadata;
+
 export default function HomePage() {
   return (
     <div className={styles.page}>
+      <JsonLd data={homeJsonLd()} />
       <Preloader />
       {/* <Cursor /> */}
       <Nav />

@@ -26,6 +26,9 @@
   --line: #ddd8cf;
   --accent: #b8341a;
   --accent-border: #c94327;
+  /* This band's accent is a deep brick red — near-black on it fails contrast,
+     so filled buttons take white here. */
+  --on-accent: #ffffff;
 
   /* Darkened twins of the `--card-accent-*` ramp declared on `.theme-four`
      (app/(marketing)/home.css). Same family and same order — the dark-band
@@ -361,6 +364,32 @@
   /* no bottom rule in any tone — the blurred bar separates itself from the
      band under it, and a hairline read as a hard black seam on both surfaces */
   border-bottom: 0;
+}
+
+/* Legibility scrim. The bar paints no background while it is hero-locked, and
+   the hero is a moving photographic video — the white lockup and the 12px mono
+   links were washing out over its brighter frames (review: "the top part with
+   the logo and menu is not visible properly"). A short top-down gradient sits
+   behind the bar contents in EVERY tone: it is what carries the hero state on
+   its own, and under the two painted tones it only deepens the top edge. It
+   cannot intercept the pointer, so hover targets are unchanged. */
+.nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(4, 5, 8, 0.72) 0%, rgba(4, 5, 8, 0.34) 58%, rgba(4, 5, 8, 0) 100%);
+  /* the gradient extends past the bar so it fades out rather than ending on a
+     visible edge */
+  bottom: -34px;
+  transition: opacity 0.5s ease;
+}
+
+/* Over the warm-white band the bar has its own near-opaque ground and a dark
+   lockup, so a black scrim would only dirty the seam. */
+.navLight::before {
+  opacity: 0;
 }
 
 /* ---- surface syncing ----
@@ -982,8 +1011,10 @@
   position: relative;
   padding: clamp(40px, 5vw, 84px) var(--gutter);
   /* on top of the section's own padding — the pair only has to read as a break
-     between two dark sections, not as an empty screen. */
-  margin-top: clamp(32px, 4vw, 64px);
+     between two dark sections, not as an empty screen. Kept small: stacked on
+     the padding above, the old value left a screen of dead ground over the
+     eyebrow (review: "large gap before the heading"). */
+  margin-top: clamp(8px, 1.5vw, 24px);
 }
 
 .hInner {
@@ -1401,6 +1432,30 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-bright);
+}
+
+/* The label cell of a `.techGroup` row: its name, and on the pages whose live
+   version captions each group, that caption under it. One element so the row
+   stays a two-cell grid — label, then marquee. */
+.techGroupHead {
+  min-width: 0;
+}
+
+/* The caption itself. Indented to the name's text, past the 00 index. */
+.techGroupBody {
+  margin: 6px 0 0;
+  padding-left: calc(2ch + 12px);
+  font-size: clamp(12px, 1.05vw, 14px);
+  line-height: 1.45;
+  text-wrap: pretty;
+  color: var(--text-dim, rgba(255, 255, 255, 0.58));
+}
+
+/* A row with no label cell — the chips run the full width. Two classes, so it
+   also wins against the two-column `.techGroup` rules in the media queries. */
+.techGroup.techGroupFull {
+  grid-template-columns: 1fr;
+  gap: 0;
 }
 
 .techGroupIndex {
@@ -2207,25 +2262,6 @@
   }
 }
 
-.rStoryKicker {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-eyebrow);
-  font-size: 10px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.rStoryKicker::before {
-  content: "";
-  width: 20px;
-  height: 1px;
-  flex: 0 0 auto;
-  background: var(--accent);
-}
-
 .rStoryName {
   display: flex;
   align-items: center;
@@ -2374,18 +2410,6 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text);
-}
-
-.rStoryTag {
-  /* padding tracks the larger type so the pill keeps its proportions */
-  padding: 4px 11px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  font-family: var(--font-eyebrow);
-  font-size: clamp(11px, 0.8vw, 12px);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-bright);
 }
 
 /* ---- reduced motion ----
@@ -2676,6 +2700,17 @@
   flex-direction: column;
   gap: 16px;
   align-items: flex-start;
+}
+
+/* The brand lockup opens the footer, and review asked for it bigger than the
+   28px it shipped at. `Logo` sets the lockup HEIGHT inline (width follows the
+   aspect ratio), so all this adds is a guard for a very narrow gutter:
+   `object-fit` letterboxes the mark inside the capped box rather than
+   squashing it, which a bare max-width on a fixed-height <img> would do. */
+.footerLogo {
+  max-width: min(200px, 60vw);
+  object-fit: contain;
+  object-position: left center;
 }
 
 .footerTag {
@@ -6446,10 +6481,10 @@
      9px is below the floor the mono micro-label scale should reach even at its
      smallest; 10px is the token scale's own minimum (`clamp(10px, ...)`).
 
-     `.rStoryRole` and `.rStoryTag` used to be listed here too. They are not any
-     more: their base rule now sets `clamp(11px, 0.8vw, 12px)` at every width,
-     so repeating a flat 10px here would have made them SMALLER on a phone than
-     on a desktop — the opposite of the point. This label is a hover veil over a
+     `.rStoryRole` used to be listed here too. It is not any more: its base rule
+     now sets `clamp(11px, 0.8vw, 12px)` at every width, so repeating a flat
+     10px here would have made it SMALLER on a phone than on a desktop — the
+     opposite of the point. This label is a hover veil over a
      photograph, a different case, and keeps its own bump. */
   .rImageVeilLabel {
     font-size: 10px;

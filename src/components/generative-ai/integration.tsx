@@ -1,6 +1,7 @@
 "use client";
 
 import { integration as generativeAiIntegration } from "@/lib/home/generative-ai";
+import { gridSpansFor } from "@/components/landing/card-spans";
 import FadeUp from "@/components/home/fade-up";
 import SectionHead from "./section-head";
 import styles from "./gen-ai.module.css";
@@ -29,10 +30,46 @@ export interface IntegrationContent {
 export default function Integration({
   content = generativeAiIntegration,
   id = "integrations",
+  variant = "panels",
 }: {
   content?: IntegrationContent;
   id?: string;
+  /**
+   * `panels` (default) is the plain bordered block the AI pages use. `bold` is
+   * the hire pages' card — the Global Capability Center "Who It Fits"
+   * treatment, shared with the specialisations grid through the CARD GRID —
+   * BOLD VARIANT block in gen-ai.module.css — so a hire page's engagement
+   * models and its specialisations are the same card rather than two.
+   */
+  variant?: "panels" | "bold";
 } = {}) {
+  if (variant === "bold") {
+    /* Two blocks compose 6 + 6, three compose 4 + 4 + 4 — the same function the
+       reference section and the specialisations grid call, so all three
+       compose their rows identically. */
+    const spans = gridSpansFor(content.blocks.length);
+
+    return (
+      <section className={styles.sectionShell} id={id}>
+        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+
+        <FadeUp>
+          <div className={styles.indGridBold}>
+            {content.blocks.map((b, i) => (
+              <article key={b.label} className={styles.indBoldCard} data-span={spans[i]}>
+                {/* No glyph and no ordinal: an engagement model is a named
+                    choice, not one of a numbered set, and the reference band's
+                    own cards carry neither. */}
+                <h3 className={styles.indBoldName}>{b.label}</h3>
+                <p className={styles.indBoldBody}>{b.body}</p>
+              </article>
+            ))}
+          </div>
+        </FadeUp>
+      </section>
+    );
+  }
+
   return (
     <section className={styles.sectionShell} id={id}>
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />

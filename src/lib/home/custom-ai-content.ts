@@ -1,6 +1,6 @@
 /**
  * Copy for the "Custom AI Development Services" landing page
- * (`/custome-ai-developement`).
+ * (`/custom-ai-development-services`).
  *
  * Shapes match the prop types exported by the shared landing sections in
  * `components/landing/*` and `components/common/*` — the shared
@@ -10,6 +10,7 @@
  */
 
 import type { HeroContent } from "@/components/landing/hero";
+import { sharedHeroAlert } from "./delivery-shared";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
@@ -22,15 +23,14 @@ import type { FinalCtaContent } from "@/components/landing/final-cta";
 import type { TestimonialsContent } from "@/components/landing/testimonials";
 
 export const caMeta = {
-  slug: "custome-ai-developement",
-  path: "/custome-ai-developement",
-  title: "Custom AI Development Services",
+  slug: "custom-ai-development-services",
+  path: "/custom-ai-development-services",
+  title: "Custom AI Development Services & Solutions",
   description:
-    "Build custom AI solutions around your business data, workflows, and goals — from proof of concept to secure, production-ready deployment.",
+    "Custom AI development services from strategy to production. Build GenAI, agentic AI, RAG, and computer vision solutions around your data and workflows.",
 } as const;
 
 export const caHero: HeroContent = {
-  eyebrow: "Custom AI Development",
   // The last line takes the coral accent.
   titleLines: ["Custom AI Development", "Services"],
   body: [
@@ -55,6 +55,7 @@ export const caHero: HeroContent = {
     requirementPlaceholder:
       "The problem, the data you have, the systems it needs to touch, and what a good outcome looks like.",
     subject: "Custom AI Development enquiry",
+    alert: sharedHeroAlert,
   },
   // Hand-placed asset (not a Pexels-pipeline slot) — full-bleed behind the
   // whole hero section, veiled for contrast. See `Hero`'s `image` prop in
@@ -212,10 +213,9 @@ export const caComparison = {
 } as const;
 
 export const caApproachCta: CtaBandContent = {
-  eyebrow: "Talk It Through",
   title: "Not Sure Which AI Approach Is Right for Your Business?",
   body: "Every business has different data, workflows, and goals. Our team will help identify the most suitable AI solution for your needs.",
-  cta: { label: "Book a Free Consultation", href: "#enquiry" },
+  cta: { label: "Book a Free Consultation", href: "/contact" },
 };
 
 export const caWhyUs: CardGridContent = {
@@ -304,10 +304,9 @@ export const caProcess: ProcessContent = {
 };
 
 export const caEstimateCta: CtaBandContent = {
-  eyebrow: "Scope & Estimate",
   title: "Get a Custom AI Project Estimate",
   body: "Custom AI development costs and timelines vary based on project scope, data readiness, integrations, security needs, and expected outcomes. Share your requirements to receive a tailored development approach, timeline, and estimate.",
-  cta: { label: "Book a Free Consultation", href: "#enquiry" },
+  cta: { label: "Book a Free Consultation", href: "/contact" },
 };
 
 export const caIndustries: CardGridContent = {
@@ -374,15 +373,6 @@ export const caCaseStudies: CaseStudiesContent = {
       metricLabel: "less manual record management, with 60% faster processing",
       body:
         "Developed a centralized pet-care AI platform that unified health records, enabled early assessments and reminders, accelerated processing by 60%, and improved preventive care tracking by 50%.",
-    },
-    {
-      key: "classroom-ai",
-      tag: "EdTech",
-      title: "AI-Powered Learning and Classroom Management",
-      metricValue: "Live",
-      metricLabel: "teacher dashboards, role-based monitoring and guest access",
-      body:
-        "Developed an AI-powered education platform with interactive assignments, personalized study tools, real-time feedback, teacher dashboards, role-based monitoring, and guest access, enhancing student engagement and classroom management efficiency.",
     },
   ],
 };

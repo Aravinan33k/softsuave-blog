@@ -50,16 +50,13 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerGrid}>
+        {/* Brand block order is load-bearing and was called out in review:
+            lockup first, then the tagline, then the social marks. The email
+            used to sit between the tagline and the marks, which split the
+            brand's own three-part stack — it now follows them. */}
         <div className={styles.footerBrand}>
-          <Logo tone="light" size={28} />
+          <Logo tone="light" size={44} className={styles.footerLogo} />
           <p className={styles.footerTag}>{footer.tagline}</p>
-          <a
-            href={`mailto:${footer.contact.email}`}
-            className={styles.footerEmail}
-            data-cursor="Email"
-          >
-            {footer.contact.email}
-          </a>
 
           <ul className={styles.footerSocial}>
             {footer.social.map((s) => {
@@ -79,6 +76,14 @@ export default function Footer() {
               );
             })}
           </ul>
+
+          <a
+            href={`mailto:${footer.contact.email}`}
+            className={styles.footerEmail}
+            data-cursor="Email"
+          >
+            {footer.contact.email}
+          </a>
         </div>
 
         {footer.columns.map((col) => (

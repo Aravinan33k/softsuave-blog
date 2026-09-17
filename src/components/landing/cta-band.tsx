@@ -1,6 +1,5 @@
 "use client";
 
-import { brand } from "@/lib/home/content";
 import FadeUp from "@/components/home/fade-up";
 import SplitReveal from "@/components/home/split-reveal";
 import styles from "./landing.module.css";
@@ -20,11 +19,15 @@ export interface CtaBandContent {
 }
 
 /**
- * Mid-page conversion band. Primary action scrolls to the hero enquiry form
- * (Lenis picks up the in-page anchor from ScrollProvider); the secondary action
- * is a mailto. Both use this surface's squared buttons rather than the homepage's
- * capsule pills, and the magnetic hover wrapper is dropped — a button that slides
- * away from the cursor belongs on a showreel, not on a conversion band.
+ * Mid-page conversion band. One action only — the band's own CTA, which
+ * either scrolls to the hero enquiry form (Lenis picks up the in-page anchor
+ * from ScrollProvider) or goes to /contact. The mailto that used to sit beside
+ * it was removed on review: a raw address next to the button split the
+ * conversion path and exposed the sales inbox to scrapers.
+ *
+ * Uses this surface's squared buttons rather than the homepage's capsule
+ * pills, and the magnetic hover wrapper is dropped — a button that slides away
+ * from the cursor belongs on a showreel, not on a conversion band.
  */
 export default function CtaBand({
   content,
@@ -45,9 +48,6 @@ export default function CtaBand({
         <div className={styles.ctaActions}>
           <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
             {content.cta.label}
-          </a>
-          <a href={`mailto:${brand.email}`} className={styles.btn}>
-            {brand.email}
           </a>
         </div>
       </FadeUp>

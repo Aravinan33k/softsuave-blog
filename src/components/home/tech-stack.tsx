@@ -11,7 +11,22 @@ export interface TechStackContent {
   readonly eyebrow: string;
   readonly title: string;
   readonly body: string;
-  readonly groups: readonly { readonly name: string; readonly items: readonly string[] }[];
+  readonly groups: readonly {
+    /**
+     * Empty for a band that is one flat list: the QA page's "Types of QA
+     * Testing", "Domains" and "Approach" sections each print their labels under
+     * the section heading with no group name above them, so the row drops its
+     * label cell and runs the chips full width rather than inventing one.
+     */
+    readonly name: string;
+    /**
+     * One line on what this group is for, shown under its name. Optional: the
+     * homepage's own band names its groups and nothing more, while the hire
+     * pages' live versions caption each one.
+     */
+    readonly body?: string;
+    readonly items: readonly string[];
+  }[];
 }
 
 /**
@@ -42,10 +57,23 @@ export default function TechStack({
 
       <div className={styles.techGroups} data-skew>
         {content.groups.map((g, i) => (
-          <div key={g.name} className={styles.techGroup}>
-            <span className={styles.techGroupName}>
-              <span className={styles.techGroupIndex}>{String(i + 1).padStart(2, "0")}</span> {g.name}
-            </span>
+          <div
+            key={g.name || i}
+            className={`${styles.techGroup}${g.name ? "" : ` ${styles.techGroupFull}`}`}
+          >
+            {/* Name and caption are one grid cell: `.techGroup` is a two-column
+                grid (label | marquee), so a caption added as a third child
+                would take the marquee's cell and push the chips onto a second
+                row at label width. */}
+            {g.name && (
+              <div className={styles.techGroupHead}>
+                <span className={styles.techGroupName}>
+                  <span className={styles.techGroupIndex}>{String(i + 1).padStart(2, "0")}</span>{" "}
+                  {g.name}
+                </span>
+                {g.body && <p className={styles.techGroupBody}>{g.body}</p>}
+              </div>
+            )}
             <div className={styles.techMarqueeHost}>
               <Marquee speed={16 + i * 3} reverse={i % 2 === 1}>
                 {g.items.map((it) => (

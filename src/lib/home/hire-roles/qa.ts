@@ -1,280 +1,231 @@
 /**
  * Content for `/hire-qa-testers-india`.
  *
- * Source: softsuave.com/hire-qa-testers-india — the manual/automation expertise
- * split, the seven testing types, the six benefits, the eight domains, the
- * "easing business approach" points, the four-step process, the onboarding
- * comparison, the seven tool groups and the seven FAQs.
+ * Source: softsuave.com/hire-qa-testers-india, and nothing else.
  *
- * Two deliberate departures from the live page. Its four process steps are
- * mislabelled there as a MERN stack job description — plainly a copy-paste from
- * a sibling page — so they are restated as the QA steps they describe. And its
- * Upwork median-rate comparison is dropped: it is a third-party figure that goes
- * stale without anyone noticing, and the rate itself says enough.
+ *   hero              → "Hire Remote Software QA Testers in India"
+ *   overview          → "Hire Remote QA Testers in India For Flawless Software Solutions"
+ *   fit               → "The Expertise of Our QA Engineers in India" (manual vs automation)
+ *   list:testing      → "Checkout the Types of QA Testing" (7 labels)
+ *   midCta            → "Hire Software QA Engineer Starting from $14/hour"
+ *   capabilities      → "Benefits to Hiring Quality Assurance Engineers in India from Soft Suave"
+ *   list:domains      → "Get Aided by Our Expertise in Many Domains" (8 labels)
+ *   list:approach     → "Hire QA Engineers in India for Easing Business Approach" (6 labels)
+ *   process           → "Hire QA Tester India in 4 Easy Steps"
+ *   comparison        → "Soft Suave vs. In-House vs. Freelancer." (3 rows, as published)
+ *   techStack         → "Powerful Tools and Technologies Our QA Testers Use" (7 groups)
+ *   faq               → the seven questions, verbatim
+ *
+ * The three `list:` bands are the sections this page prints as bare labels with
+ * no descriptions. They are lists here for that reason — cards would need a
+ * body per label and that body would be ours, not the page's — and they are
+ * three separate bands because the live page runs them at three separate
+ * points, two of them on either side of its benefits cards.
+ *
+ * One thing on the live page is not carried over: its four-step process is
+ * copy-pasted from a MERN stack page — the steps say "Share the MERN Stack JD"
+ * and "Onboard the MERN Developer" on a QA page. The steps below keep that
+ * copy's structure and sentences with the role corrected, since reproducing the
+ * mistake would put a MERN hiring process on a QA hiring page.
  */
 
 import type { HireRolePageContent } from './types';
-import { heroForm, onboardingComparison } from './shared';
+import { heroForm } from './shared';
 
 export const qa: HireRolePageContent = {
   key: 'hire-qa',
   slug: '/hire-qa-testers-india',
   name: 'Hire QA Engineers',
-  serviceType: 'Software quality assurance staffing',
+  serviceType: 'Software QA and testing staffing',
+
+  /** Live order: overview, QA expertise, testing types, rate band, benefits, domains, approach, process, comparison, tools, testimonials, FAQ. This page runs no client-logo strip. */
+  order: [
+    'overview',
+    'fit',
+    'list:testing',
+    'midCta',
+    'capabilities',
+    'list:domains',
+    'list:approach',
+    'process',
+    'comparison',
+    'techStack',
+    'testimonials',
+    'faq',
+  ],
 
   meta: {
-    title: 'Hire QA Engineers in India | Manual & Automation Testing',
+    title: 'Hire QA Testers in India | 40-Hour Trial – Soft Suave',
     description:
-      'Hire pre-vetted QA engineers skilled in manual and automation testing with Selenium, Appium, Postman and JMeter. Profiles in 48 hours, 40-hour risk-free trial, from $14/hour.',
+      'Hire pre-vetted QA testers skilled in manual and automation testing — Selenium, Appium, Postman, JMeter — placed on your team within 48 hours, from $14/hour.',
   },
 
   hero: {
     eyebrow: 'Hire Developers by Role',
-    titleLines: ['Hire Remote QA Engineers', 'for Software You Can Ship'],
+    titleLines: ['Hire Remote Software', 'QA Testers in India'],
     body: [
-      'Soft Suave provides pre-vetted QA engineers skilled in manual and automation testing — Selenium, Appium, Postman and JMeter — placed on your team within 48 hours.',
-      'Product quality is one of the first impressions a brand makes. However advanced the technology or attractive the interface, defects cost trust, and trust is what sends users looking for alternatives. Rigorous testing is how you avoid finding that out from a customer.',
+      "Soft Suave provides pre-vetted QA testers skilled in manual and automation testing (Selenium, Appium, Postman, JMeter), placed on your team within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
+      'Every release deserves a QA tester who never misses bugs.',
     ],
     points: [
-      'Manual and automation testing expertise',
-      'Profiles within 48 hours',
-      '40-hour risk-free trial',
-      'Rates from $14 / hour',
-      'NDA and IP protection from day one',
+      '40-Hour Risk-Free Trial',
+      'Hire Top Software QA Testers in India',
+      'Time-Zone & Language Aligned Teams',
+      'Airtight NDA & IP Protection',
+      'Strong Delivery Governance from Day One',
     ],
+    badges: ['*Satisfaction Guaranteed – Get 40-hour Free Trial'],
     form: heroForm({
-      title: 'Hire skilled QA engineers',
-      requirementLabel: 'Your QA requirement',
+      title: 'Get Skilled Remote Developers',
+      requirementLabel: 'Requirements',
       requirementPlaceholder:
-        'Application type, platforms, current test coverage, the testing types you need, and when you want to start.',
+        'What needs testing, manual or automation, the tools in use, and when you need to start.',
       subject: 'QA engineer hiring enquiry',
     }),
   },
 
   overview: {
     eyebrow: 'Overview',
-    title: 'Hire Remote QA Engineers for Flawless Software',
+    title: 'Hire Remote QA Testers in India For Flawless Software Solutions',
     paragraphs: [
-      'We find, fix and prevent defects across your applications with experienced quality assurance engineers. Once a build reaches us, rigorous testing establishes what actually works — and, just as importantly, what stops working when something else changes.',
-      'Hire QA engineers in India from Soft Suave to prevent future defects as you update and extend a product, not only to check a release before it ships. Testers bring software and coding skill, sound business understanding and the instinct for where a system is weakest.',
-      'Every engagement starts with a 40-hour risk-free trial, with rates from $14 per hour and no long-term contract required until you are satisfied.',
+      "We find, fix, and prevent your apps from any bugs with the help of Soft Suave's expert Quality Assurance engineers.",
+      "One of the first impressions of a brand is its software product quality. No matter how advanced the technology or how attractive the UX/UI design is, bugs can ruin trust. Then they look for alternatives. Don't let it happen to you.",
+      'We will conduct rigorous testing to find and fix errors once we receive your finished applications. "Hire QA engineers in India" from Soft Suave in order to prevent future errors while updating or making other changes.',
+      'To get testers with exceptional software and coding skills, sound business knowledge, and an innovative mindset, "Hire Remote QA testing developer" at Soft Suave who has the ability to pinpoint the tech field\'s strengths and weaknesses.',
     ],
   },
 
   fit: {
-    eyebrow: 'Manual and Automation',
-    title: 'The Expertise of Our QA Engineers',
-    body: 'Most teams need both disciplines, in a ratio that depends on how often the product changes and how long it has to keep working. This is where each one earns its place.',
-    columns: ['Testing approach', 'Where it earns its place'],
+    eyebrow: 'QA Expertise',
+    title: 'The Expertise of Our QA Engineers in India',
+    body: "As having the best QA engineers, we run numerous range of tests to check the quality of the app's features, usability, functions, and so on to make sure to level it up and be bug-free.",
+    columns: ['Testing approach', 'What it involves'],
     rows: [
       {
-        problem: 'Manual testing',
+        problem: 'Automation Testing',
         solution:
-          'Certified QA testers design and execute test cases without automation tools, finding defects the classic way. This is where exploratory testing, usability judgement and first-pass verification of a new feature belong — the work that needs a person deciding what to try next.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
-      },
-      {
-        problem: 'Automation testing',
-        solution:
-          'An automation strategy built around your organisation’s needs, recommending the tooling that reduces cost, shortens time to market and raises end-product quality. Regression suites, cross-browser runs and API checks pay for themselves the moment a release cycle repeats.',
+          'Using Automation Testing, we strategize to meet the needs of your organization and recommend technology solutions for reducing costs, speeding up time to market, and enhancing end-product quality.',
         image: '/images/landing/services/svc-evaluation-llmops.webp',
       },
       {
-        problem: 'API and integration testing',
+        problem: 'Manual Testing',
         solution:
-          'Verify contracts, payloads, authentication, error handling and downstream behaviour with Rest Assured, Postman and SoapUI — before an integration failure surfaces as a user-facing bug nobody can reproduce.',
-        image: '/images/landing/services/svc-integration.webp',
-      },
-      {
-        problem: 'Performance testing',
-        solution:
-          'Establish how the system behaves under realistic and peak load with Apache JMeter and BlazeMeter, so capacity decisions rest on measurement rather than on the assumption that today’s traffic is the ceiling.',
-        image: '/images/landing/services/svc-support-optimisation.webp',
-      },
-      {
-        problem: 'Compatibility and device coverage',
-        solution:
-          'Confirm behaviour across browsers, devices, screen sizes and operating-system versions using BrowserStack, so a defect that only appears on one platform is caught by your process and not by that platform’s users.',
-        image: '/images/landing/services/svc-product-modernisation.webp',
+          'Manual testing is a type of software testing in which "Certified QA testers" develop and execute the test cases without using any automated tools to find bugs, errors, and defects in the app in the most classic way possible.',
+        image: '/images/landing/services/svc-consulting-discovery.webp',
       },
     ],
   },
 
   capabilities: {
-    eyebrow: 'Testing Coverage',
-    title: 'Types of QA Testing We Cover',
-    body: 'A wide range of quality assurance work, run against the aspects of a system that actually decide whether users trust it.',
+    eyebrow: 'Benefits',
+    title: 'Benefits to Hiring Quality Assurance Engineers in India from Soft Suave',
+    body: 'Hire Remote QA testers from Soft Suave to get the advantage of special, full bug-free ensured service that prevents your apps from prospective errors.',
     items: [
       {
-        name: 'Functional Testing',
-        body: 'Verify that every feature behaves as specified, including the boundary conditions and error paths that specifications usually leave implicit.',
+        name: 'Extensive Technical Expertise',
+        body: 'With high-level tech intelligence, our "Dedicated QA engineers" can deliver flawless software solutions all around the globe.',
         image: '/images/landing/services/svc-application-development.webp',
       },
       {
-        name: 'Regression Testing',
-        body: 'Confirm that new work has not broken what already worked — the single highest-value automation target in any product that ships more than once.',
-        image: '/images/landing/services/svc-evaluation-llmops.webp',
-      },
-      {
-        name: 'Web Application Testing',
-        body: 'Test browser-based applications across forms, sessions, permissions, navigation and state, with Katalon, Jasmine and Selenium behind the automated coverage.',
+        name: 'An Effective Communication Channel',
+        body: 'We provide bug and error trace reports, as well as updates on the project. You can communicate with us through any of the communication tools you desire to communicate with us.',
         image: '/images/landing/services/svc-dedicated-teams.webp',
       },
       {
-        name: 'Mobile Application Testing',
-        body: 'Verify iOS and Android builds across devices, OS versions, network conditions, permissions and interruptions, automated with Appium where it repeats.',
-        image: '/images/landing/services/svc-proof-of-concept.webp',
-      },
-      {
-        name: 'API Testing',
-        body: 'Validate endpoints, contracts, authentication, error responses and integration behaviour with Rest Assured, Postman and SoapUI.',
-        image: '/images/landing/services/svc-integration.webp',
-      },
-      {
-        name: 'UI and UX Testing',
-        body: 'Check interface behaviour, responsive layout, accessibility considerations and the flow through a task, rather than only whether each control responds.',
+        name: 'Hire Certified QA Engineers Team',
+        body: 'With our highly flexible engagement models, you can scale your existing team with our QA engineers.',
         image: '/images/landing/services/svc-consulting-discovery.webp',
       },
       {
-        name: 'Integration Testing',
-        body: 'Test the seams between components and services, where the individual parts pass their own tests and the system still fails.',
-        image: '/images/landing/services/svc-model-selection.webp',
+        name: 'Sweeping QA Testers',
+        body: "We conduct extensive QA sessions to address all the major aspects of a system's performance on a real-time basis in order to deliver flawless applications.",
+        image: '/images/landing/services/svc-evaluation-llmops.webp',
       },
       {
-        name: 'Performance and Compatibility Testing',
-        body: 'Establish behaviour under load with JMeter and BlazeMeter, and across browsers and devices with BrowserStack, so both scale and reach are verified.',
+        name: 'NDA & Security',
+        body: 'Hire QA testers to have strictly maintained NDA procedures. No fraudulent activities can ever happen inside Soft Suave. You are in safe hands.',
+        image: '/images/landing/services/svc-security-governance.webp',
+      },
+      {
+        name: 'Support & Maintenance',
+        body: 'Customer service is our top priority. We work on solving bugs and preventing future issues with your applications, so there is no need to worry.',
         image: '/images/landing/services/svc-support-optimisation.webp',
       },
     ],
   },
 
   midCta: {
-    eyebrow: 'Start With a Trial',
-    title: 'Hire a QA Engineer From $14 Per Hour',
-    body: 'Remote QA engineers working from India, evaluated on your own product for 40 hours before any monthly commitment. Ask us for CVs and a rate card.',
-    cta: { label: 'Start Your 40-Hour Trial', href: '#enquiry' },
-  },
-
-  engagement: {
-    eyebrow: 'Engagement Models',
-    title: 'Adaptable Ways to Hire QA Engineers',
-    body: 'Scale your existing team with QA engineers under whichever structure suits the testing work in front of you.',
-    blocks: [
-      {
-        label: 'Dedicated QA engineer',
-        body: 'A tester embedded in your sprint routine, writing and maintaining coverage as the product changes — the right choice when releases are continuous.',
-      },
-      {
-        label: 'Time and material',
-        body: 'Flexible capacity for a release push, an automation backlog or a coverage gap, with effort reviewed and reprioritised each cycle.',
-      },
-      {
-        label: 'Fixed bid',
-        body: 'For a defined engagement — a full test pass on a finished build, an automation suite with agreed scope, or a performance assessment with clear deliverables.',
-      },
-    ],
+    eyebrow: 'Rates',
+    title: 'Hire Software QA Engineer Starting from $14/hour',
+    body: 'We will provide you with remote QA testers that work from India. Contact us to take a look at CVs.',
+    cta: { label: 'Request Rate Card', href: '#enquiry' },
   },
 
   process: {
     eyebrow: 'Hiring Process',
-    title: 'Hire a QA Engineer in Five Steps',
-    body: 'From a requirement to a tester inside your release process, with a 40-hour trial before any full-time commitment.',
+    title: 'Hire QA Tester India in 4 Easy Steps',
+    body: 'Follow our simple steps below to get "full-time hiring" after a 40-hour free trial.',
     steps: [
       {
         n: '01',
-        name: 'Share Your QA Requirement',
-        body: 'Tell us the application type, platforms, testing types needed, current coverage, tooling, experience level and timeline.',
+        name: 'Share the QA JD',
+        body: 'Send your QA testing needs with project scope, skills, experience, and timeline.',
       },
       {
         n: '02',
-        name: 'Review the Curated Shortlist',
-        body: 'Review QA engineer profiles with skills, experience, availability and project fit — typically shared within 48 hours.',
+        name: "Review Soft Suave's QA Shortlist",
+        body: 'Review curated QA profiles with skills, experience, availability, and project fit details.',
       },
       {
         n: '03',
-        name: 'Interview the Shortlist',
-        body: 'Assess testing approach, tooling depth, defect-reporting quality and how the engineer thinks about risk and coverage.',
+        name: 'Run the 40-Hour Free Trial',
+        body: 'Start a 40-hour trial to assess testing skills, communication, quality, and delivery approach.',
       },
       {
         n: '04',
-        name: 'Run the 40-Hour Free Trial',
-        body: 'Evaluate test design, defect reports, communication, quality and delivery approach on your own build before committing.',
-      },
-      {
-        n: '05',
-        name: 'Onboard the QA Engineer',
-        body: 'Sign the SLA and NDA, complete onboarding, and integrate the engineer into your test environments, defect tracker and release workflow.',
+        name: 'Onboard the QA Tester to Your Team',
+        body: 'Sign SLA and NDA, complete onboarding, and integrate the QA tester into your workflow.',
       },
     ],
   },
 
-  specialisations: {
-    eyebrow: 'Hire by Specialisation',
-    title: 'QA Expertise You Can Hire Against',
-    body: 'Quality assurance covers several distinct skill sets. Match the specialisation to the risk you are actually trying to reduce.',
-    items: [
+  comparison: {
+    eyebrow: 'Comparison',
+    title: 'Soft Suave vs. In-House vs. Freelancer.',
+    body: 'Compare common hiring approaches and find the option that best fits your software development and team requirements.',
+    columns: ['Factor', 'In-House Hire', 'Freelancer', 'Soft Suave QA Tester'],
+    rows: [
       {
-        key: 'qa',
-        name: 'Manual QA Engineers',
-        body: 'Test design, exploratory testing, usability judgement and clear reproducible defect reports — the work that needs a person deciding what to try next.',
+        criterion: 'Time to onboard',
+        values: ['4–8 weeks', '1–2 weeks, variable', '48 hours'],
       },
       {
-        key: 'automation',
-        name: 'Automation Engineers',
-        body: 'Selenium, Cypress and Playwright suites that hold up over time, with the page objects, waits and data management that keep them from becoming flaky.',
+        criterion: 'Recurring overhead',
+        values: [
+          '$2,000–$3,000/month',
+          '$0, inconsistent availability',
+          '$0 — hourly, no hidden costs',
+        ],
       },
       {
-        key: 'mobile',
-        name: 'Mobile Test Engineers',
-        body: 'Appium-based automation plus real-device testing across OS versions, permissions, network conditions and interruptions.',
-      },
-      {
-        key: 'api',
-        name: 'API Test Engineers',
-        body: 'Contract, payload, authentication and error-path coverage with Rest Assured, Postman and SoapUI, wired into your CI pipeline.',
-      },
-      {
-        key: 'performance',
-        name: 'Performance Test Engineers',
-        body: 'Load, stress and soak testing with Apache JMeter and BlazeMeter, reported as capacity findings rather than as raw graphs.',
-      },
-      {
-        key: 'security',
-        name: 'Security Test Engineers',
-        body: 'OWASP-guided testing with OWASP ZAP against the common classes of vulnerability, before a penetration test finds them for you.',
-      },
-      {
-        key: 'integration',
-        name: 'BDD Specialists',
-        body: 'Cucumber and SpecFlow scenarios written so product, development and QA read the same specification instead of three interpretations of it.',
-      },
-      {
-        key: 'cloud',
-        name: 'Cross-Browser Specialists',
-        body: 'BrowserStack-based coverage across browsers, devices and screen sizes, focused on the combinations your analytics say matter.',
-      },
-      {
-        key: 'team',
-        name: 'QA Leads',
-        body: 'Test strategy, coverage planning, process definition and reporting for teams that need the discipline established rather than only executed.',
+        criterion: 'Vetting',
+        values: [
+          "Your team's time/cost",
+          'Self-reported, unverified',
+          'Pre-vetted + 40-hour trial',
+        ],
       },
     ],
   },
-
-  comparison: onboardingComparison({
-    title: 'Soft Suave vs an In-House Hire vs a Freelancer',
-    body: 'QA is often the role a team delays hiring for, which makes speed to a shortlist the factor that usually decides.',
-    column: 'Soft Suave QA engineer',
-  }),
 
   techStack: {
-    eyebrow: 'Tools and Technologies',
-    title: 'Tools Our QA Engineers Work With',
-    body: 'Our QA engineers are trained across both established and current test tooling, with continuous improvement of the suites they own.',
+    eyebrow: 'Tools',
+    title: 'Powerful Tools and Technologies Our QA Testers Use',
+    body: "With Soft Suave's quality assurance engineers trained to use both old and new technology stacks with continuous improvement, we can make your software or apps more efficient and flawless.",
     groups: [
       {
         name: 'Web Testing',
-        items: ['Selenium', 'Cypress', 'Playwright', 'Katalon', 'Jasmine'],
+        items: ['Katalon Test Studio', 'Jasmine', 'Selenium'],
       },
       {
         name: 'Mobile Testing',
@@ -282,67 +233,129 @@ export const qa: HireRolePageContent = {
       },
       {
         name: 'API Testing',
-        items: ['Postman', 'Rest Assured', 'SoapUI'],
+        items: ['Rest Assured', 'Postman', 'SoapUI'],
       },
       {
         name: 'Performance Testing',
-        items: ['Apache JMeter', 'BlazeMeter'],
+        items: ['Apache JMeter', 'Blazemeter'],
       },
       {
         name: 'BDD',
-        items: ['Cucumber', 'SpecFlow'],
+        items: ['Cucumber', 'Specflow'],
       },
       {
-        name: 'Cross-Browser and Cloud',
-        items: ['BrowserStack'],
+        name: 'Cloud Testing',
+        items: ['Browser Stack', 'Salesforce', 'ERP'],
       },
       {
         name: 'Security Testing',
-        items: ['OWASP ZAP'],
-      },
-      {
-        name: 'CI and Tracking',
-        items: ['Git', 'GitHub Actions', 'Jenkins', 'Jira'],
+        items: ['OWASP Zap'],
       },
     ],
   },
 
+  /**
+   * The page's three label-only sections, each placed by `order` where the live
+   * page runs it: the testing types between the QA-expertise band and the rate
+   * band, the domains and the approach on the far side of the benefits cards.
+   * Every group here is unnamed — the live sections list their labels straight
+   * under the heading, with no sub-heading over them.
+   */
+  lists: [
+    {
+      key: 'testing',
+      eyebrow: 'QA Services',
+      title: 'Checkout the Types of QA Testing',
+      body: 'We offer wide range of quality assurance services that include:',
+      groups: [
+        {
+          name: '',
+          items: [
+            'Functional Testing',
+            'Web App Testing',
+            'Mobile App Testing',
+            'UI/UX Testing',
+            'Integration Testing',
+            'API Testing',
+            'Compatibility Testing',
+          ],
+        },
+      ],
+    },
+    {
+      key: 'domains',
+      eyebrow: 'Domains',
+      title: 'Get Aided by Our Expertise in Many Domains',
+      body: "Hire Offshore Software Testing Engineers from Soft Suave for exceptional software testing for domains such as Education, Healthcare, Retail, and so on. Using our experience in quality assurance, our QA testers will create an action plan aligned with your organization's goals.",
+      groups: [
+        {
+          name: '',
+          items: [
+            'eCommerce',
+            'ELearning',
+            'Healthcare',
+            'Logistics',
+            'Entertainment',
+            'Real Estate',
+            'Networking',
+            'Finance',
+          ],
+        },
+      ],
+    },
+    {
+      key: 'approach',
+      eyebrow: 'Our Approach',
+      title: 'Hire QA Engineers in India for Easing Business Approach',
+      body: 'Our hands-on Approach can make you feel at ease. Get back to us for satisfactory service.',
+      groups: [
+        {
+          name: '',
+          items: [
+            'Professional Testing Templates and Tools',
+            'Adaptable engagement models',
+            'Providing a high level of customer satisfaction',
+            'A commitment to integrity and transparency',
+            'Solutions that cover the entire spectrum',
+            'A reasonable price and a timely delivery',
+          ],
+        },
+      ],
+    },
+  ],
+
   faq: {
     eyebrow: 'FAQs',
-    title: 'Questions About Hiring QA Engineers',
-    body: 'Answers on cost, trials, timelines, coverage and what a QA engineer actually contributes.',
+    title: 'Frequently Asked Questions',
+    body: 'Learn more about the benefits of hiring QA engineers in India from Soft Suave',
     items: [
       {
-        q: 'How much does it cost to hire a QA engineer from Soft Suave?',
-        a: 'Rates start from $14 per hour, and every hire begins with a 40-hour risk-free trial before any monthly commitment. The final rate depends on experience, the testing types involved, tooling and engagement model.',
+        q: 'How much does it cost to hire a QA tester from Soft Suave?',
+        a: 'Rates start from $14/hour, in line with the $15/hour median rate for software QA testers on Upwork ($12–$20/hr typical range). Every hire starts with a 40-hour risk-free trial before any monthly commitment.',
       },
       {
         q: 'How does the 40-hour risk-free trial work?',
-        a: 'You evaluate your QA engineer’s real work for 40 hours — about one working week — before paying full rate or committing to an ongoing engagement, with no cost or obligation if it is not the right fit.',
+        a: "You evaluate your QA engineer's real work for 40 hours — about one working week — before paying full rate or committing to an ongoing engagement, with no cost or obligation if it's not the right fit.",
       },
       {
-        q: 'How long does it take to hire a QA engineer?',
+        q: 'How long does it take to hire a QA tester?',
         a: 'Curated QA engineer profiles are typically shared within 48 hours of your requirements call.',
       },
       {
-        q: 'What happens if the QA engineer is not the right fit?',
+        q: "What happens if the QA tester isn't the right fit?",
         a: 'You can request a replacement engineer at no extra cost during or after the trial period, re-matched based on your feedback.',
       },
       {
-        q: 'Do your QA engineers handle both manual and automation testing?',
-        a: 'Yes. Testers are skilled in manual testing and in automation frameworks including Selenium, Appium, Postman and JMeter, matched to your project’s needs. Most teams need a mix, and the right ratio depends on how often the product changes.',
+        q: 'Do your QA testers handle both manual and automation testing?',
+        a: "Yes — testers are skilled in both manual testing and automation frameworks including Selenium, Appium, Postman and JMeter, matched to your project's needs.",
       },
       {
         q: 'What are the benefits of outsourcing QA testing services?',
-        a: 'Outsourcing QA reduces cost, gives you access to specialised testing expertise and tooling, and frees your in-house team to focus on development instead of manual test cycles.',
+        a: 'Outsourcing QA testing reduces costs, gives you access to specialized testing expertise and tools, and frees your in-house team to focus on core development instead of manual test cycles.',
       },
       {
-        q: 'What is the role of a QA engineer in software development?',
-        a: 'A QA engineer verifies that software meets its requirements, identifies defects before release, and works with developers to resolve them — reducing the risk of defects reaching end users.',
-      },
-      {
-        q: 'Can a QA engineer work inside our existing development process?',
-        a: 'Yes. Engineers work within your sprint routine, defect tracker, test environments, CI pipeline and release process, with reporting expectations agreed before onboarding.',
+        q: 'What is the role of a QA tester in software development?',
+        a: 'A QA tester verifies that software meets requirements, identifies bugs before release, and works with developers to resolve issues — reducing the risk of defects reaching end users.',
       },
     ],
   },

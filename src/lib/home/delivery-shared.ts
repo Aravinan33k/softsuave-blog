@@ -23,3 +23,15 @@ export const sharedHeroBadges = [
   "400+ AI & engineering specialists",
   "Reply in 1 business day",
 ] as const;
+
+/**
+ * Notice under every hero enquiry form. The form composes a mailto to the
+ * sales inbox, so job applicants are pointed at the careers route instead —
+ * `href` goes through next/link, which applies the basePath.
+ */
+export const sharedHeroAlert = {
+  label: "Alert:",
+  text: "This form is for business, not candidates. To apply for jobs,",
+  linkLabel: "click here.",
+  href: "/career-overview",
+} as const;

@@ -58,8 +58,9 @@ export interface ServicesContent {
  *  - off-screen cards are `aria-hidden`, so only the three on screen are
  *    reachable; the two neighbours are pointer affordances, and every action
  *    they offer is also on the arrows and dots.
- *  - Arrow keys move the carousel, and the dots are real buttons carrying
- *    `aria-current`, so it is fully operable without a pointer.
+ *  - Arrow keys move the carousel, and the arrow buttons and dots either side
+ *    of the stage are real buttons (the dots carrying `aria-current`), so it is
+ *    fully operable without a pointer.
  *  - it advances on its own, but only while the section is on screen, and it
  *    pauses whenever the pointer is over it or focus is inside it — so it never
  *    moves under someone reading or operating it. Interacting does not cancel
@@ -279,6 +280,24 @@ export default function Services({
       </div>
 
       <div className={styles.svcNav}>
+        <button
+          type="button"
+          className={styles.svcArrow}
+          aria-label="Previous service"
+          onClick={() => pick(active - 1)}
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden>
+            <path
+              d="M19 12H5M5 12L11 6M5 12L11 18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
         <ul className={styles.svcDots}>
           {items.map((s, i) => (
             <li key={s.name}>
@@ -292,6 +311,24 @@ export default function Services({
             </li>
           ))}
         </ul>
+
+        <button
+          type="button"
+          className={styles.svcArrow}
+          aria-label="Next service"
+          onClick={() => pick(active + 1)}
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden>
+            <path
+              d="M5 12H19M19 12L13 6M19 12L13 18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
       </div>
     </section>
   );

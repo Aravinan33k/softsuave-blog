@@ -1,21 +1,32 @@
 import type { Metadata } from 'next';
-import HirePage, { hireMetadata } from '@/components/landing/hire-page';
-import { hireSkill } from '@/lib/home/hire-skills';
+
+import { JsonLd } from '@/components/seo/json-ld';
+import HireRolePage from '@/components/hire/hire-role-page';
+import { android as content } from '@/lib/home/hire-roles';
+import { hireRoleJsonLd, hireRoleMetadata } from '@/lib/home/hire-roles/page-meta';
 
 /**
- * "hire-android-developers" — one of the 24 hire-by-skill landing pages.
+ * Hire Android Developers — one of the thirteen "Hire Developers by Role" pages.
  *
- * The whole page is `components/landing/hire-page.tsx` rendered with this
- * skill's record; see `lib/home/hire-skills.ts` for the registry and
- * `lib/home/hire-skill.ts` for what a record holds.
+ * Was a hire-by-skill page rendered from `lib/home/hire-skills`. softsuave.com
+ * files it under "Hire By Role", and its live page runs the role sections —
+ * why-hire cards, the four-step process, services and the FAQ — so it is a role
+ * page here too, sharing `HireRolePage` with the other twelve.
+ *
+ * A server component so the route can own its `metadata` and emit JSON-LD; the
+ * animated sections underneath are the client components.
  */
 
-const skill = hireSkill('hire-android-developers');
-
+// Matches the homepage/marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
-export const metadata: Metadata = hireMetadata(skill);
+export const metadata: Metadata = hireRoleMetadata(content);
 
 export default function HireAndroidDevelopersPage() {
-  return <HirePage skill={skill} />;
+  return (
+    <>
+      <JsonLd data={hireRoleJsonLd(content)} />
+      <HireRolePage content={content} />
+    </>
+  );
 }

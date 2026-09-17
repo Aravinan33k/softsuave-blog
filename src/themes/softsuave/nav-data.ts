@@ -85,6 +85,8 @@ const SERVICE_GROUPS: NavGroup[] = [
       { label: 'Android Developer', href: '/hire-android-developers' },
       { label: 'iOS Developer', href: '/hire-ios-developers' },
       { label: 'DevOps Developer', href: '/hire-devops-developers' },
+      { label: 'Salesforce Developer', href: '/hire-salesforce-developer' },
+      { label: 'Blockchain Developer', href: '/hire-blockchain-developer' },
     ],
   },
   {
@@ -148,13 +150,21 @@ export const NAV: NavItem[] = [
  * to the live site rather than to pages that are built but deliberately
  * unreachable.
  */
+
 // The list is the registry itself, not a copy of it: a landing page left off a
 // hand-kept list here had every link to it sent out to the live site, where
 // pages that exist only in this app 404 — silently, because `navHref` has no
 // way to know a path is ours unless it is named. Registering a route once in
 // `lib/home/landing-pages.ts` now covers the release gate, the sitemap and
 // these links together.
-const LOCAL_PATHS = new Set(homepageEnabled ? ['/blog', ...MARKETING_ROUTES] : ['/blog']);
+// '/search' rides with '/blog' rather than the registry: the archive search at
+// `app/search` is ours in both flag states, and softsuave.com has no /search to
+// link out to — left off this set, every link to it became an outbound 404.
+// It is not a landing page, so it has no business in MARKETING_ROUTES.
+const LOCAL_PATHS = new Set(
+  homepageEnabled ? ['/blog', '/search', ...MARKETING_ROUTES] : ['/blog', '/search'],
+);
+
 
 /**
  * Whether we serve the page a nav href points at.

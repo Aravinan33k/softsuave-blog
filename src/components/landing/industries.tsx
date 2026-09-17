@@ -138,6 +138,7 @@ export interface CardGridContent {
 export default function Industries({
   content,
   id = "industries",
+
   columns = 4,
   variant = "cards",
 }: {
@@ -159,6 +160,7 @@ export default function Industries({
    * `bold` and `feature` are documented on the component itself, above.
    */
   variant?: "cards" | "watermark" | "bold" | "feature";
+
 }) {
   const grid = [
     styles.cardGrid,
@@ -242,7 +244,9 @@ export default function Industries({
       )}
 
       <FadeUp>
+
         <div className={bold ? styles.boldGrid : grid}>
+
           {content.items.map((item, i) => (
             <article
               key={item.name}

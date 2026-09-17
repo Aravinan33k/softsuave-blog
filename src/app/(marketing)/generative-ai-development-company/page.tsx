@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { breadcrumbLd } from '@/lib/seo/jsonld';
+import { aiPageJsonLd } from '@/lib/seo/ai-page-schema';
 import { BASE_PATH, homepageEnabled } from '@/lib/flags';
-import { faq, meta } from '@/lib/home/generative-ai';
+import { meta } from '@/lib/home/generative-ai';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
@@ -16,7 +17,9 @@ import Footer from '@/components/home/footer';
 // same section.
 import CaseStudies from '@/components/home/work-grid';
 import TechStack from '@/components/home/tech-stack';
-import FinalCta from '@/components/generative-ai/final-cta';
+import Contact from '@/components/home/contact';
+import Clients from '@/components/home/clients';
+import Testimonials from '@/components/home/testimonials';
 
 import Hero from '@/components/generative-ai/hero';
 import Overview from '@/components/generative-ai/overview';
@@ -69,30 +72,14 @@ export const metadata: Metadata = {
 };
 
 /** FAQPage schema, built from the same data the accordion renders. */
-const faqLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faq.items.map((item) => ({
-    '@type': 'Question',
-    name: item.q,
-    acceptedAnswer: { '@type': 'Answer', text: item.a },
-  })),
-};
-
-const serviceLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Generative AI Development Services',
-  serviceType: 'Generative AI development',
-  description: meta.description,
-  url: absoluteUrl(meta.path),
-  provider: {
-    '@type': 'Organization',
-    name: 'Soft Suave',
-    url: 'https://www.softsuave.com',
-  },
-  areaServed: 'Worldwide',
-};
+/**
+ * Organization + Service + WebPage + FAQPage, from the approved SEO spec
+ * (`lib/seo/ai-page-schema.ts`). It replaces the hand-rolled Service and
+ * FAQPage this page used to build from its own content: the approved set is
+ * richer (offer catalogue, audience, primary image, publisher `@id`) and its
+ * nodes cross-reference each other, which a per-page literal cannot do.
+ */
+const pageLd = aiPageJsonLd('generativeAi');
 
 /** The nav logo is a plain <a>, which Next does NOT prefix with basePath, so
  *  it needs the already-public path. */
@@ -110,7 +97,7 @@ export default function GenerativeAiDevelopmentCompanyPage() {
 
   return (
     <div className={styles.page}>
-      <JsonLd data={[serviceLd, faqLd, ...(breadcrumb ? [breadcrumb] : [])]} />
+      <JsonLd data={[...pageLd, ...(breadcrumb ? [breadcrumb] : [])]} />
       {/* This page owns both of the bar's anchor sections itself — `Services`
           renders #services and `WhyUs` renders #why — so the bar scrolls in-page
           instead of sending the reader to the homepage's copies. Without this
@@ -123,6 +110,12 @@ export default function GenerativeAiDevelopmentCompanyPage() {
       <Nav ownsAnchors logoHref={HOME_HREF} />
       <main id="main">
         <Hero />
+
+        {/* The homepage's client logo carousel — this page had no proof band
+            between the hero and the overview at all. */}
+        <div className={styles.light}>
+          <Clients />
+        </div>
 
         {/* Band rhythm. The marketing surface alternates dark and inverted
             sections so a long page breathes; with a single light band up top,
@@ -162,11 +155,14 @@ export default function GenerativeAiDevelopmentCompanyPage() {
           <TechStack />
         </div>
 
+        {/* Client stories and the FAQ close the page on the warm-white
+            band, mirroring the homepage's stories → Contact bookend. */}
         <div className={styles.light}>
+          <Testimonials />
           <Faq />
         </div>
 
-        <FinalCta />
+        <Contact />
       </main>
       <Footer />
     </div>

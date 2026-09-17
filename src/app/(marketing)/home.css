@@ -41,6 +41,8 @@
   --line: #434343;
   --accent: var(--brand-500);
   --accent-border: var(--brand-red);
+  /* Ink for text/icons painted on an --accent fill. */
+  --on-accent: #140b08;
   --cream: #e6e4e2;
   --cream-line: #d8d8d8;
 

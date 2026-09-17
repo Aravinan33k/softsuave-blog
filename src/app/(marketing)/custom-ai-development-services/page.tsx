@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
+import { aiPageJsonLd } from '@/lib/seo/ai-page-schema';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import {
   caApproachCta,
   caCaseStudies,
   caEstimateCta,
   caFaqs,
-  caFinalCta,
   caHero,
   caIndustries,
   caMeta,
@@ -15,7 +15,6 @@ import {
   caOverview,
   caProcess,
   caTech,
-  caTestimonials,
   caWhyUs,
 } from '@/lib/home/custom-ai-content';
 
@@ -34,13 +33,15 @@ import Process from '@/components/landing/process';
 import Industries from '@/components/landing/industries';
 import CaseStudies from '@/components/landing/case-studies';
 import TechStack from '@/components/landing/tech-stack';
-import Testimonials from '@/components/landing/testimonials';
+import Testimonials from '@/components/home/testimonials';
 import Faq from '@/components/landing/faq';
-import FinalCta from '@/components/landing/final-cta';
+import Contact from '@/components/home/contact';
 
-// Page-specific sections: the credibility proof band, and the
-// custom-vs-off-the-shelf comparison.
-import Clients from '@/components/custom-ai/clients';
+// The homepage's own client logo carousel — this page used to show a
+// stats-only panel with no logos in it.
+import Clients from '@/components/home/clients';
+
+// Page-specific section: the custom-vs-off-the-shelf comparison.
 import Comparison from '@/components/custom-ai/comparison';
 
 import home from '@/components/home/home.module.css';
@@ -50,8 +51,8 @@ import home from '@/components/home/home.module.css';
  *
  * Public URL depends on the mount: `basePath` is '/blog' in production and ''
  * in local dev (next.config.ts / lib/flags.ts), so this route serves at
- * `https://www.softsuave.com/blog/custome-ai-developement` in production and at
- * `http://localhost:3100/custome-ai-developement` locally.
+ * `https://www.softsuave.com/blog/custom-ai-development-services` in production and at
+ * `http://localhost:3100/custom-ai-development-services` locally.
  *
  * A SERVER component on purpose: only a server component may export `metadata`
  * (node_modules/next/dist/docs/.../generate-metadata.md), and the (marketing)
@@ -105,36 +106,18 @@ const PAGE_NAV = [
 
 const PAGE_CTA = { label: 'Book AI Strategy Call', href: '#enquiry' } as const;
 
-/** FAQPage + Service structured data — this page's answers are its SEO surface. */
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: caFaqs.items.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: typeof f.a === 'string' ? f.a : f.a.join(' '),
-      },
-    })),
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: caMeta.title,
-    description: caMeta.description,
-    provider: { '@type': 'Organization', name: 'Soft Suave' },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: caOfferings.title,
-      itemListElement: caOfferings.items.map((i) => ({
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: i.name, description: i.body },
-      })),
-    },
-  },
-];
+/**
+ * Organization + Service + WebPage + FAQPage, from the approved SEO spec
+ * (`lib/seo/ai-page-schema.ts`).
+ *
+ * This replaces the FAQPage and Service this page used to derive from its own
+ * content objects. The approved Service carries an offer catalogue whose
+ * entries link out to the sibling service pages by `@id` — Generative AI,
+ * Agentic AI, RAG & Document AI, Computer Vision, Predictive Intelligence —
+ * which is the hub relationship this page is meant to express and which a
+ * catalogue built from `caOfferings` could not state.
+ */
+const structuredData = aiPageJsonLd('customAi');
 
 export default function CustomAiDevelopmentPage() {
   return (
@@ -179,7 +162,7 @@ export default function CustomAiDevelopmentPage() {
         <CtaBand content={caEstimateCta} />
 
         <div className={home.light}>
-          <Industries content={caIndustries} />
+          <Industries content={caIndustries} columns={3} />
         </div>
 
         <CaseStudies content={caCaseStudies} />
@@ -188,13 +171,15 @@ export default function CustomAiDevelopmentPage() {
           <TechStack content={caTech} />
         </div>
 
-        <Testimonials content={caTestimonials} />
-
+        {/* Client stories and the FAQ share the closing warm-white band, so
+            the run reads CaseStudies(dark) → stories + FAQ(light) →
+            Contact(dark), the same bookend the homepage uses. */}
         <div className={home.light}>
+          <Testimonials />
           <Faq content={caFaqs} idPrefix="custom-ai-faq" />
         </div>
 
-        <FinalCta content={caFinalCta} />
+        <Contact />
       </main>
 
       <Footer />

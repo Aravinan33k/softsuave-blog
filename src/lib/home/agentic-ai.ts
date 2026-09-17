@@ -12,6 +12,8 @@
  * The copy below is approved marketing content, reproduced verbatim.
  */
 
+import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+
 export const meta = {
   title: "Agentic AI Development Services | Soft Suave",
   description:
@@ -25,7 +27,7 @@ export const hero = {
    * `display: block`, so the joined text content — the only thing crawlers and
    * screen readers see — is the approved headline, unchanged.
    */
-  titleLines: ["Custom Agentic AI Development Services", "for Complex Workflows"],
+  titleLines: ["Custom Agentic AI Development", "Services for Complex Workflows"],
   body: [
     "Soft Suave designs and builds custom agentic AI systems that plan multi-step work, use your business tools, and complete tasks under human oversight. From architecture and orchestration to enterprise integration, we take agentic workflows from proof of concept into daily operations.",
     "Tell us which workflow is slowing your team down, and we will map a practical agentic AI approach around it.",
@@ -37,10 +39,19 @@ export const hero = {
     "API, CRM, and ERP integration",
     "Evaluation before deployment",
   ],
+  badges: sharedHeroBadges,
+  /**
+   * Full-bleed hero backdrop — the page read as a flat black panel without
+   * one. Same treatment as the Generative AI hero: low opacity under a dark
+   * gradient veil, so the headline keeps its contrast.
+   */
+  background: {
+    src: "/images/four/svc-ai-agents.webp",
+  },
   /** Requirement form, reused from the existing AI landing pages. */
   form: {
-    eyebrow: "Free Consultation",
-    title: "Book a 30-minute technical consultation",
+    eyebrow: "Business Enquiry",
+    title: "Get Your FREE Quote Now!",
     note: "Covered by NDA. No sales pitch — an engineer reviews your use case.",
     submit: "Request Consultation",
     sending: "Opening your mail…",
@@ -48,6 +59,7 @@ export const hero = {
     requirementPlaceholder:
       "What should the system do, and which data or systems does it need to reach?",
     subject: "Agentic AI consultation request",
+    alert: sharedHeroAlert,
   },
 } as const;
 
@@ -155,31 +167,45 @@ export const applications = {
   body: "Agentic AI coordinates multi-step workflows across enterprise systems by gathering information, making decisions within defined limits, taking approved actions, and involving people when human judgment or oversight is required.",
   items: [
     {
+      key: "team",
       name: "Customer Operations",
+      image: "/images/landing/problems/support-capacity.webp",
       body: "Agents handle requests, fetch data, draft responses, and resolve routine issues, escalating complex cases with full context.",
     },
     {
+      key: "performance",
       name: "Sales and Revenue Operations",
+      image: "/images/landing/services/svc-consulting-discovery.webp",
       body: "Agents research accounts, update CRM data, prepare briefs, and track opportunities, ensuring timely follow-ups and deal visibility.",
     },
     {
+      key: "fintech",
       name: "Finance and Back-Office Operations",
+      image: "/images/landing/problems/document-processing.webp",
       body: "Agents process documents, match invoices, reconcile data, detect anomalies, and support workflows under human approval for sensitive actions.",
     },
     {
+      key: "devops",
       name: "IT and Engineering Support",
+      image: "/images/landing/services/svc-application-development.webp",
       body: "Agents manage tickets, analyze logs, monitor systems, run approved tasks, and escalate high-risk or production issues quickly.",
     },
     {
+      key: "logistics",
       name: "Supply Chain and Logistics",
+      image: "/images/landing/services/svc-integration.webp",
       body: "Agents track demand, inventory, orders, and suppliers, recommend actions, and alert planners when conditions change significantly.",
     },
     {
+      key: "data",
       name: "Data, Reporting, and Research",
+      image: "/images/landing/problems/analyst-research.webp",
       body: "Agents gather data, compare sources, generate reports, and support analysis with transparent, verifiable, and well-cited outputs.",
     },
     {
+      key: "team",
       name: "HR and Employee Services",
+      image: "/images/landing/services/svc-dedicated-teams.webp",
       body: "Agents assist with onboarding, answer policy questions, manage access requests, and escalate sensitive employee matters to HR teams.",
     },
   ],
@@ -188,7 +214,7 @@ export const applications = {
 export const midCta = {
   title: "Is Agentic AI Right for Your Business?",
   body: "Complex workflows need more than basic automation. We help you assess whether Agentic AI can improve coordination, decision-making, and execution across your business.",
-  cta: { label: "Discuss Your Use Case", href: "#enquiry" },
+  cta: { label: "Discuss Your Use Case", href: "/contact" },
 } as const;
 
 export const process = {
@@ -230,36 +256,40 @@ export const industries = {
   body: "We develop agentic AI solutions for industries where complex workflows, disconnected systems, and frequent exceptions require intelligent coordination, controlled decision-making, and human oversight.",
   items: [
     {
+      key: "ecommerce",
       name: "eCommerce",
+      image: "/images/landing/industries/ind-ecommerce.webp",
       body: "Streamline order exceptions, returns, supplier inquiries, and catalog enrichment across storefront, inventory, product data, and customer support systems.",
     },
     {
+      key: "healthtech",
       name: "HealthTech",
+      image: "/images/landing/industries/ind-healthtech.webp",
       body: "Support records requests, prior authorization follow-ups, and appointment coordination while keeping sensitive actions under clinical or administrative review.",
     },
     {
+      key: "edtech",
       name: "EdTech",
+      image: "/images/landing/industries/ind-edtech.webp",
       body: "Streamline learner support, enrollment, content organization, and progress tracking by accessing relevant information across connected learning systems.",
     },
     {
-      name: "Real Estate",
-      body: "Coordinate listing updates, tenant requests, document collection, and property maintenance across management systems, shared inboxes, and online portals.",
-    },
-    {
+      key: "fintech",
       name: "FinTech",
+      image: "/images/landing/industries/ind-fintech.webp",
       body: "Accelerate onboarding checks, document reviews, dispute investigations, and internal reporting while retaining human approval for payments and customer-facing decisions.",
     },
     {
+      key: "logistics",
       name: "Logistics",
+      image: "/images/landing/industries/ind-logistics.webp",
       body: "Monitor shipment exceptions, carrier inquiries, documentation, and delays across connected systems before recommending or performing approved actions.",
     },
     {
+      key: "telecom",
       name: "Telecom",
+      image: "/images/landing/industries/ind-telecom.webp",
       body: "Resolve routine service tickets, provisioning requests, outage communications, and billing inquiries across network, CRM, and customer support systems.",
-    },
-    {
-      name: "Manufacturing",
-      body: "Connect shop-floor data with planning and procurement systems to improve maintenance triage, supplier communication, quality documentation, and production reporting.",
     },
   ],
 } as const;
@@ -286,8 +316,8 @@ export const whyUs = {
       body: "Guardrails, evaluations, logging, and escalation paths start from day one.",
     },
     {
-      name: "ISO-Certified Processes",
-      body: "Our ISO 9001:2015-certified processes support consistent quality, documentation, and reliable project delivery.",
+      name: "ISO-Certified Information Security",
+      body: "Our ISO/IEC 27001:2022-certified information security management system supports secure data handling throughout project delivery.",
     },
     {
       name: "Clear Documentation and Handover",

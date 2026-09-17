@@ -45,8 +45,15 @@ const HIRE_LANDING_PAGES: readonly LandingPage[] = HIRE_SKILLS.map((s) => ({
 }));
 
 export const LANDING_PAGES: readonly LandingPage[] = [
-  { path: '/ai-development-service', title: 'Custom AI Development Services' },
-  { path: '/custome-ai-developement', title: 'Custom AI Development Services' },
+  // Listed here because the sitemap now derives from this registry: it was in
+  // the old hand-written sitemap list and has a route in app/(marketing), so
+  // leaving it out would quietly drop an already-indexed page.
+  { path: '/ai-development-service', title: 'AI Development Services' },
+  // `/custome-ai-developement` (two typos) was this page's path until the route
+  // folder was renamed; next.config.ts 301s the misspelling and the intermediate
+  // `/custom-ai-development` here. Registering the old spelling instead would
+  // gate and sitemap a folder that no longer exists.
+  { path: '/custom-ai-development-services', title: 'Custom AI Development Services' },
   { path: '/generative-ai-development-company', title: 'Generative AI Development Company' },
   { path: '/agentic-ai-development-services', title: 'Agentic AI Development Services' },
 

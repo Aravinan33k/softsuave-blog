@@ -767,6 +767,126 @@
       ]
     },
     {
+      "id": "svc-data-engineering",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Data engineering pipelines",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "server rack lights dark data center abstract",
+        "data center servers glowing dark",
+        "abstract technology lines data dark",
+        "technology abstract dark"
+      ]
+    },
+    {
+      "id": "svc-data-science",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Data science and analytics",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "abstract data visualisation glowing dark",
+        "financial data screen numbers dark closeup",
+        "analytics graph glowing dark abstract",
+        "data abstract dark"
+      ]
+    },
+    {
+      "id": "svc-generative-ai",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Generative AI systems",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "abstract neural network glowing nodes dark",
+        "digital brain abstract technology dark",
+        "generative abstract light pattern dark",
+        "abstract ai technology dark"
+      ]
+    },
+    {
+      "id": "svc-rag",
+      "page": "four",
+      "purpose": "service",
+      "alt": "RAG and document AI",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "abstract glowing connected dots network dark",
+        "abstract digital particles light dark",
+        "abstract blue light data dark",
+        "abstract technology dark"
+      ]
+    },
+    {
+      "id": "svc-computer-vision",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Computer vision systems",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "human eye iris macro closeup dark",
+        "abstract light refraction prism dark",
+        "optical glass light abstract dark",
+        "abstract optics dark"
+      ]
+    },
+    {
+      "id": "svc-predictive",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Predictive intelligence and forecasting",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "abstract glowing graph line dark",
+        "trading chart screen dark closeup",
+        "light trails long exposure dark abstract",
+        "abstract forecast lines dark"
+      ]
+    },
+    {
+      "id": "svc-mlops",
+      "page": "four",
+      "purpose": "service",
+      "alt": "MLOps and model operations",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "code terminal screen dark closeup",
+        "server monitoring screen code dark",
+        "programming code monitor dark macro",
+        "code screen dark"
+      ]
+    },
+    {
+      "id": "svc-fde",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Forward deployed engineers with a client team",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "business team meeting office laptop dark",
+        "colleagues discussing work desk office dark",
+        "professionals collaborating meeting room dark",
+        "office teamwork dark"
+      ]
+    },
+    {
       "id": "ind-ecommerce",
       "page": "four",
       "purpose": "industry",

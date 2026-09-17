@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { industries as generativeAiIndustries } from "@/lib/home/generative-ai";
 import { publicMediaUrl } from "@/lib/media-url";
+import { gridSpansFor } from "@/components/landing/card-spans";
 import FadeUp from "@/components/home/fade-up";
 import SectionHead from "./section-head";
 import styles from "./gen-ai.module.css";
@@ -310,7 +311,16 @@ function IndustryIcon({ industryKey }: { industryKey?: string }) {
  * because a grid of nine identically-labelled "Know More" links tells a screen
  * reader nothing about where any of them lead.
  */
-function CardLink({ href, label }: { href: string; label: string }) {
+function CardLink({
+  href,
+  label,
+  className = styles.indCardLink,
+}: {
+  href: string;
+  label: string;
+  /** The card variant's own link class. Defaults to the picture card's. */
+  className?: string;
+}) {
   const inner = (
     <>
       Know More
@@ -329,11 +339,11 @@ function CardLink({ href, label }: { href: string; label: string }) {
   );
 
   return href.startsWith("/") ? (
-    <Link className={styles.indCardLink} href={href}>
+    <Link className={className} href={href}>
       {inner}
     </Link>
   ) : (
-    <a className={styles.indCardLink} href={href}>
+    <a className={className} href={href}>
       {inner}
     </a>
   );
@@ -365,9 +375,62 @@ export default function Industries({
    * when the items have no artwork — in the picture card an imageless item
    * leaves two-thirds of a square empty and hides its description behind a
    * hover the reader has no cue to try.
+   *
+   * `bold` is the same text card composed the way the Global Capability Center
+   * page's "Who It Fits" band composes its own: an asymmetric 12-column grid
+   * off `gridSpansFor()` and a per-card accent rule along the top edge. It is
+   * what every hire page uses, so the two families read as one design system.
+   * See the CARD GRID — BOLD VARIANT block in gen-ai.module.css.
    */
-  variant?: "photo" | "compact";
+  variant?: "photo" | "compact" | "bold";
 } = {}) {
+  if (variant === "bold") {
+    /* Derived from the item count alone, so a section that gains or loses a
+       card re-composes itself with no layout prop to keep in sync. */
+    const spans = gridSpansFor(content.items.length);
+
+    return (
+      <section className={styles.sectionShell} id={id}>
+        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+
+        <FadeUp>
+          <div className={styles.indGridBold}>
+            {content.items.map((item, i) => (
+              <article
+                key={item.name}
+                className={styles.indBoldCard}
+                /* A data attribute rather than an inline style: the span values
+                   are a small fixed set, so CSS can hold them and the markup
+                   stays free of style attributes. */
+                data-span={spans[i]}
+              >
+                <span className={styles.indBoldIndex} aria-hidden>
+                  {pad(i + 1)}
+                </span>
+                <span className={styles.indBoldIcon} aria-hidden>
+                  <IndustryIcon industryKey={item.key} />
+                </span>
+                <h3 className={styles.indBoldName}>{item.name}</h3>
+                <p className={styles.indBoldBody}>{item.body}</p>
+                {/* Only where the card names a page of ours — same rule as the
+                    compact card. This is what keeps the hire-by-role
+                    specialisation grids working as navigation between the nine
+                    role pages. */}
+                {item.href && (
+                  <CardLink
+                    href={item.href}
+                    label={item.name}
+                    className={`${styles.textCardLink} ${styles.indBoldLink}`}
+                  />
+                )}
+              </article>
+            ))}
+          </div>
+        </FadeUp>
+      </section>
+    );
+  }
+
   if (variant === "compact") {
     return (
       <section className={styles.sectionShell} id={id}>
@@ -389,20 +452,7 @@ export default function Industries({
                     that already says everything, a link back to the enquiry
                     form is noise — the section's own CTAs cover that. */}
                 {item.href && (
-                  <Link className={styles.compactLink} href={item.href}>
-                    Know More
-                    <span className={styles.srOnly}> about {item.name}</span>
-                    <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden>
-                      <path
-                        d="M5 12H19M19 12L13 6M19 12L13 18"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </Link>
+                  <CardLink href={item.href} label={item.name} className={styles.textCardLink} />
                 )}
               </article>
             ))}
@@ -449,9 +499,11 @@ export default function Industries({
                 <span className={styles.indCardIcon} aria-hidden>
                   <IndustryIcon industryKey={item.key} />
                 </span>
-                <h3 className={styles.indCardName}>{item.name}</h3>
+                <span className={styles.indCardName} aria-hidden>
+                  {item.name}
+                </span>
                 <p className={styles.indCardBody}>{item.body}</p>
-                <CardLink href={item.href ?? "#enquiry"} label={item.name} />
+                {item.href && <CardLink href={item.href} label={item.name} />}
               </div>
             </article>
           ))}

@@ -1,17 +1,23 @@
 /**
  * Content for `/hire-ai-developer`.
  *
- * Source: softsuave.com/hire-ai-developer — the six "why hire from Soft Suave"
- * cards, the four-step hiring process, the six AI service cards, the four-part
- * vetting block (which becomes the `fit` selector), the technical-expertise
- * technology list, the Soft Suave/in-house/freelancer comparison and the five
- * FAQs.
+ * Source: softsuave.com/hire-ai-developer, and nothing else. This is one of the
+ * older role pages, and it is shorter than the rest: no technology grid, no
+ * engagement-model band, no global-delivery section, and a single flat list of
+ * technologies rather than grouped ones. Those sections are left out instead of
+ * being written for it.
  *
- * The live page's own service list is generative AI, machine learning, NLP, LLM
- * fine-tuning, predictive analysis and computer vision. Where this page names
- * RAG and agentic systems it is naming what `/generative-ai-development-company`
- * and `/agentic-ai-development-services` already describe on this site, and it
- * links to both rather than restating them.
+ *   hero         → "Hire AI Developers in India On contract"
+ *   whyRole      → "Why Hire AI Developers from Soft Suave" (6 cards)
+ *   capabilities → "AI Development Services We Offer" (6 services)
+ *   fit          → "How We Vet and Onboard Top AI Developers" (4 stages)
+ *   process      → "Steps to Hire an AI Developer" (4 steps)
+ *   comparison   → "Choosing the Right AI Partner for Your Specific Needs"
+ *   techStack    → "Technical Expertise of Our AI Developers"
+ *   faq          → the five questions, verbatim
+ *
+ * It runs no overview prose block and no mid-page rate band either, so this
+ * module has neither.
  */
 
 import type { HireRolePageContent } from './types';
@@ -21,151 +27,155 @@ export const ai: HireRolePageContent = {
   key: 'hire-ai',
   slug: '/hire-ai-developer',
   name: 'Hire AI Developers',
-  serviceType: 'AI and machine learning development staffing',
+  serviceType: 'AI development staffing',
+
+  /** Live order: clients, why hire, hiring steps, technical expertise, services, vetting, comparison, testimonials, FAQ. No overview prose block. */
+  order: [
+    'clients',
+    'whyRole',
+    'process',
+    'techStack',
+    'capabilities',
+    'fit',
+    'comparison',
+    'testimonials',
+    'faq',
+  ],
 
   meta: {
-    title: 'Hire AI Developers in India | Generative AI, LLM & RAG Engineers',
+    title: 'Hire AI Developers India for Generative AI Development',
     description:
-      'Hire pre-vetted AI developers for generative AI, LLM applications, RAG, machine learning and computer vision. 40-hour risk-free trial, from $14/hour.',
+      'Hire pre-vetted AI developers in India for Generative AI, LLMs, NLP, machine learning, computer vision, chatbots, and automation. 40-hour risk-free trial.',
   },
 
   hero: {
     eyebrow: 'Hire Developers by Role',
-    titleLines: ['Hire AI Developers', 'Without the Long Hiring Cycle'],
+    titleLines: ['Hire AI Developers', 'in India On contract'],
     body: [
-      'Soft Suave connects you with pre-vetted AI engineers across generative AI, LLM applications, retrieval-augmented generation, NLP, machine learning, computer vision and automation — contract-ready and onboarded fast.',
-      'These are engineers who ship AI into production, not demo builders: evaluation before deployment, human review where it matters, and the integration work that decides whether a model ever reaches a user.',
+      'Soft Suave offers Indian AI developers without the long hiring cycles. We are a specialized agency that connects you with pre-vetted experts in Generative AI, LLMs, NLP, Machine Learning, computer vision, AI chatbots, and automation systems — contract-ready and onboarded fast.',
+      'See why businesses choose Soft Suave for their AI developers hiring.',
     ],
     points: [
-      'Generative AI, LLM and RAG expertise',
-      'Pre-vetted engineers, profiles within 48 hours',
-      '40-hour risk-free trial',
-      'Airtight NDA and IP protection',
-      '4–6 hours of time-zone overlap',
+      '40-Hour Risk-Free Trial',
+      'Hire Top AI Developers in India',
+      'Time-Zone & Language Aligned Teams',
+      'Airtight NDA & IP Protection',
+      'Strong Delivery Governance from Day One',
     ],
+    badges: ['*Satisfaction Guaranteed – Get 40-hour Free Trial'],
     form: heroForm({
-      title: 'Hire skilled AI developers',
-      requirementLabel: 'Your AI use case',
+      title: 'Get Skilled Remote Developers',
+      requirementLabel: 'Requirements',
       requirementPlaceholder:
-        'What should the system do, which data or systems does it need to reach, and what would success look like?',
+        'The AI work you need — models, data, integrations, responsibilities — and when you need to start.',
       subject: 'AI developer hiring enquiry',
     }),
   },
 
-  overview: {
-    eyebrow: 'Overview',
-    title: 'Hire AI Developers Who Take Models Into Production',
-    paragraphs: [
-      'AI hiring goes wrong in a predictable way: a strong notebook demo that never survives contact with real data, real permissions and real users. The engineer you need is one who can do the modelling and the unglamorous work around it — data access, retrieval quality, evaluation, guardrails, cost control and integration with the systems your business already runs.',
-      'Soft Suave is a specialized agency for exactly that hire. You get engineers vetted on live technical work rather than on self-reported skills, matched against your use case, your data situation and the stack you already operate. You interview them, then judge the work itself through a 40-hour risk-free trial.',
-      'Engagements are covered by an NDA before anything is shared, with defined IP protection. Rates start from $14 per hour and depend on experience, project scope and technology stack. For the delivery side of an AI programme rather than the hiring side, see our generative AI and agentic AI development services.',
-    ],
-  },
-
-  fit: {
-    eyebrow: 'How We Vet',
-    title: 'How We Vet and Onboard AI Developers',
-    body: 'We select engineers who are agile, dependable and experienced in delivering robust code under real deadlines and genuinely complex requirements. Four things decide whether someone reaches your shortlist.',
-    columns: ['What we assess', 'How we assess it'],
-    rows: [
+  whyRole: {
+    eyebrow: 'Why Us',
+    title: 'Why Hire AI Developers from Soft Suave',
+    body: "At Soft Suave, we deliver AI visionaries who collaborate as partners, not just coders. Here's why businesses around the world trust us to hire remote AI developers for their projects.",
+    items: [
       {
-        problem: 'Sourcing from competitive markets',
-        solution:
-          'We recruit continuously from competitive technology markets rather than waiting for a requirement to arrive and then advertising. That is what makes a 48-hour shortlist possible without lowering the bar to fill it.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        key: 'vetted',
+        name: 'Pre-vetted AI developers',
+        body: "Our developers undergo thorough vetting to guarantee exceptional skills, reliable delivery, and complete dedication to your project's success.",
       },
       {
-        problem: 'Depth of technical skill',
-        solution:
-          'Vetting includes challenging live coding tasks and deep technical evaluation — not a quiz. For AI roles that means reasoning about retrieval quality, evaluation design, prompt and model trade-offs, and where a system should defer to a human.',
-        image: '/images/landing/services/svc-evaluation-llmops.webp',
+        key: 'models',
+        name: 'Flexible hiring models',
+        body: 'Easily hire dedicated AI developers & scale your team with flexible hiring models that adapt to your needs and timeline.',
       },
       {
-        problem: 'Judgement, not just implementation',
-        solution:
-          'We hire engineers who think and collaborate rather than only code. In AI work that distinction is decisive: most of the value is in choosing what not to automate and recognising when a confident output is wrong.',
-        image: '/images/landing/services/svc-model-selection.webp',
+        key: 'standards',
+        name: 'Global delivery standards',
+        body: 'Our team embraces agile methodologies and adheres to global best practices to ensure top-quality results every time.',
       },
       {
-        problem: 'Working fit with your team',
-        solution:
-          'Candidates are adaptable, proactive and aligned with the way your team actually works — which you confirm yourself in the interview and during the trial, rather than taking on trust from us.',
-        image: '/images/landing/services/svc-dedicated-teams.webp',
+        key: 'nda',
+        name: 'Strict NDA & IP protection',
+        body: 'Your ideas remain secure. We enforce strict confidentiality agreements and safeguard your intellectual property.',
+      },
+      {
+        key: 'timezone',
+        name: 'Time Zone Flexibility',
+        body: 'With a 4-6 hour overlap with your time zone, our developers ensure smooth, real-time communication and collaboration, wherever you are.',
+      },
+      {
+        key: 'rates',
+        name: 'World-Class Developers at Budget-Friendly Rates',
+        body: 'Hire offshore AI developer talent at competitive rates & ensure you get exceptional skills while maximizing cost efficiency.',
       },
     ],
   },
 
   capabilities: {
-    eyebrow: 'AI Capabilities',
-    title: 'AI Development Work You Can Hand Over',
-    body: 'From generative AI and LLM applications through to machine learning and computer vision — end-to-end capability, with evaluation and integration treated as part of the build rather than an afterthought.',
+    eyebrow: 'Services',
+    title: 'AI Development Services We Offer',
+    body: 'From Generative AI development to fine-tuning LLMs, we provide comprehensive, end-to-end solutions that empower your business to unlock the full potential of AI, driving innovation and growth. As a leading offshore software development company, we help businesses worldwide hire offshore AI developer teams to scale quickly and cost-effectively.',
     items: [
       {
-        name: 'Generative AI Applications',
-        body: 'Build products on GPT, Claude, Gemini, Llama and Mistral that generate and transform content, draft responses and streamline processes, with human review designed into the workflow.',
+        name: 'Generative AI',
+        body: 'Harnessing the power of GPT-4, Midjourney, and DALL·E, we create groundbreaking solutions that generate creative content, streamline processes, and enhance customer experiences, making AI work smarter for your business.',
         image: '/images/landing/services/svc-application-development.webp',
       },
       {
-        name: 'LLM Application Engineering',
-        body: 'Prompt architecture, structured output, tool calling, context management, caching and cost control — the engineering that separates a reliable LLM feature from an expensive one.',
+        name: 'Machine Learning',
+        body: 'Through advanced techniques like supervised, unsupervised, and reinforcement learning, our systems optimize performance, automate decision-making, and enhance efficiency, enabling you to leverage data for smarter business outcomes and growth.',
         image: '/images/landing/services/svc-model-selection.webp',
       },
       {
-        name: 'RAG and Enterprise Knowledge',
-        body: 'Ground answers in your own documents, records and knowledge bases with retrieval-augmented generation, chunking and embedding strategy, and permission-aware access so nobody retrieves what they should not see.',
+        name: 'Natural Language Processing',
+        body: 'We power intelligent chatbots, voice assistants, and advanced text analytics, enabling machines to understand, interpret, and respond to human language, driving better user engagement and seamless interactions.',
         image: '/images/landing/services/svc-integration.webp',
       },
       {
-        name: 'LLM Fine-Tuning and Adaptation',
-        body: 'Tailor large language models to a specific industry or task where prompting alone is not enough, improving accuracy in narrow domains against a measured baseline.',
-        image: '/images/landing/services/svc-proof-of-concept.webp',
+        name: 'LLM Fine-Tuning',
+        body: 'We specialize in tailoring large language models (LLMs) to specific industries and tasks, enhancing performance in niche domains, ensuring better accuracy, and solving unique challenges for your business needs.',
+        image: '/images/landing/services/svc-evaluation-llmops.webp',
       },
       {
-        name: 'Machine Learning and Predictive Models',
-        body: 'Supervised, unsupervised and reinforcement learning applied to real business questions — forecasting, scoring, anomaly detection and automated decision support with the trade-offs made explicit.',
-        image: '/images/landing/services/svc-support-optimisation.webp',
-      },
-      {
-        name: 'Natural Language Processing',
-        body: 'Intelligent assistants, voice interfaces and text analytics that classify, extract and summarise, so systems can interpret and respond to language your users already use.',
-        image: '/images/landing/services/svc-dedicated-teams.webp',
+        name: 'Predictive Analysis',
+        body: 'By using robust machine learning models, we predict future trends with precision, helping businesses make data-driven decisions, mitigate risks, and seize opportunities, ensuring a competitive edge in fast-changing markets.',
+        image: '/images/landing/services/svc-consulting-discovery.webp',
       },
       {
         name: 'Computer Vision',
-        body: 'Analyse and interpret images and video for detection, classification, counting and inspection, with accuracy measured on your own footage rather than on a public benchmark.',
-        image: '/images/landing/services/svc-product-modernisation.webp',
-      },
-      {
-        name: 'AI Integration and Deployment',
-        body: 'Connect AI features to your APIs, CRM, ERP and internal services, then deploy with tracing, evaluation and monitoring so failures, latency and cost stay visible after launch.',
-        image: '/images/landing/services/svc-evaluation-llmops.webp',
+        body: 'At Soft Suave, we provide cutting-edge computer vision technology to analyze and interpret images and videos, unlocking insights for industries ranging from security to healthcare, enhancing automation, accuracy, and real-time decision-making.',
+        image: '/images/landing/services/svc-proof-of-concept.webp',
       },
     ],
   },
 
-  midCta: {
-    eyebrow: 'Start With a Trial',
-    title: 'Test an AI Engineer on Your Own Use Case',
-    body: 'Forty hours of real work on your data and your constraints tells you more than any interview. Risk-free, and no commitment until you are satisfied.',
-    cta: { label: 'Start Your 40-Hour Trial', href: '#enquiry' },
-  },
-
-  engagement: {
-    eyebrow: 'Engagement Models',
-    title: 'Flexible Ways to Hire AI Developers',
-    body: 'AI work rarely arrives fully specified, so pick the structure that matches how much is still unknown.',
-    blocks: [
+  fit: {
+    eyebrow: 'Vetting & Onboarding',
+    title: 'How We Vet and Onboard Top AI Developers',
+    body: 'We select only the finest AI developers for your project who are agile, dependable, and experienced in delivering robust, high-performance code under tight deadlines and complex project requirements.',
+    columns: ['Stage', 'What it involves'],
+    rows: [
       {
-        label: 'Dedicated AI engineer',
-        body: 'An engineer who stays with your product across discovery, build, evaluation and iteration — the right choice when the use case will keep developing after the first release.',
+        problem: 'Rigorous talent sourcing',
+        solution: "We don't wait - we recruit elite AI developers from competitive tech markets.",
+        image: '/images/landing/services/svc-consulting-discovery.webp',
       },
       {
-        label: 'Time and material',
-        body: 'For exploratory work where the scope depends on what the data turns out to support. Effort is reviewed and reprioritised each cycle rather than fixed in advance.',
+        problem: 'In-depth skill assessment',
+        solution:
+          'Our vetting includes challenging live coding tasks and deep technical evaluations to prove their expertise.',
+        image: '/images/landing/services/svc-evaluation-llmops.webp',
       },
       {
-        label: 'Fixed-cost or managed delivery',
-        body: 'For a bounded piece of work with agreed deliverables and acceptance criteria, or a fully managed engagement where Soft Suave carries delivery responsibility.',
+        problem: 'Thinkers & Innovators',
+        solution:
+          'We hire engineers who are thinkers as well as team collaborators, not just coders.',
+        image: '/images/landing/services/svc-dedicated-teams.webp',
+      },
+      {
+        problem: 'Cultural fit & adaptability',
+        solution:
+          'Our candidates are adaptable, proactive, and culturally aligned with your working environment.',
+        image: '/images/landing/services/svc-support-optimisation.webp',
       },
     ],
   },
@@ -173,171 +183,90 @@ export const ai: HireRolePageContent = {
   process: {
     eyebrow: 'Hiring Process',
     title: 'Steps to Hire an AI Developer',
-    body: 'Quick, streamlined and customised — from a use case to an engineer inside your team, with a real evaluation in the middle.',
+    body: 'Quick, streamlined, and customized: hire expert AI developers effortlessly with our proven 4-step method.',
     steps: [
       {
         n: '01',
-        name: 'Share the Requirement',
-        body: 'Tell us the use case, the data and systems involved, the AI expertise you need and the engagement model you have in mind.',
+        name: 'Share the JD',
+        body: 'Share the details regarding your project and the type of AI developers you wish to employ.',
       },
       {
         n: '02',
-        name: 'Review a Curated Shortlist',
-        body: 'Review pre-vetted AI engineer profiles matched to your use case — typically shared within 48 hours.',
+        name: 'Shortlist The Right Developers',
+        body: 'Review and shortlist from a curated list of top developers that fit your specific needs.',
       },
       {
         n: '03',
-        name: 'Interview the Shortlist',
-        body: 'Speak to the engineers directly about relevant work, modelling choices, evaluation approach and how they would handle your data constraints.',
+        name: 'Free 40-hour Trial',
+        body: "Test our developers' skills through a risk-free 40-hour trial period.",
       },
       {
         n: '04',
-        name: 'Run the Free 40-Hour Trial',
-        body: 'Test skills on real work, risk-free: execution, judgement, communication and whether the approach holds up against your actual data.',
-      },
-      {
-        n: '05',
-        name: 'Onboard and Manage',
-        body: 'Finalise the SLA and NDA, then integrate the engineer with your internal team, repositories, environments and review process.',
-      },
-    ],
-  },
-
-  specialisations: {
-    eyebrow: 'Hire by Specialisation',
-    title: 'AI Expertise You Can Hire Against',
-    body: 'AI is not one skill set. Match the specialisation to the problem you are solving rather than to the label on the job description.',
-    items: [
-      {
-        key: 'ai',
-        name: 'Generative AI Engineers',
-        body: 'Engineers who build products on foundation models — content generation, drafting, summarisation and transformation, with review workflows around them.',
-      },
-      {
-        key: 'api',
-        name: 'LLM Application Engineers',
-        body: 'Prompt architecture, structured outputs, tool calling, context and memory strategy, caching and the cost control that makes an LLM feature sustainable.',
-      },
-      {
-        key: 'data',
-        name: 'RAG and Retrieval Engineers',
-        body: 'Chunking, embedding and retrieval strategy over your own corpus, with permission-aware access and citation so answers can be verified.',
-      },
-      {
-        key: 'automation',
-        name: 'Agentic AI Engineers',
-        body: 'Multi-step systems that plan, use approved tools and complete work under human oversight — with guardrails and approval checkpoints designed in.',
-      },
-      {
-        key: 'performance',
-        name: 'Machine Learning Engineers',
-        body: 'Supervised, unsupervised and reinforcement learning for forecasting, scoring, recommendation and anomaly detection, evaluated against a measured baseline.',
-      },
-      {
-        key: 'design',
-        name: 'Computer Vision Engineers',
-        body: 'Detection, classification, counting and inspection from images and video, using OpenCV, PyTorch, TensorFlow, MediaPipe and OpenPose.',
-      },
-      {
-        key: 'integration',
-        name: 'NLP Engineers',
-        body: 'Classification, extraction, summarisation and conversational interfaces using spaCy, NLTK, BERT and transformer-based models.',
-      },
-      {
-        key: 'qa',
-        name: 'AI Evaluation Engineers',
-        body: 'Task sets, scoring, regression suites and tracing, so accuracy and failure modes are measurable before release rather than discovered by users.',
-      },
-      {
-        key: 'cloud',
-        name: 'MLOps Engineers',
-        body: 'Deployment, versioning, monitoring and retraining pipelines on Azure ML, AWS and Google Cloud so a model stays maintainable after launch.',
+        name: 'Onboard & Manage',
+        body: 'Finalize paperwork (SLA & NDA) & integrate your chosen developer with your internal team.',
       },
     ],
   },
 
   comparison: onboardingComparison({
-    title: 'Soft Suave vs an In-House Hire vs a Freelancer',
-    body: 'AI roles are among the slowest to fill internally and the hardest to assess from a CV. These are the factors that usually decide the route.',
-    column: 'Soft Suave AI engineer',
+    title: 'Choosing the Right AI Partner for Your Specific Needs',
+    body: 'Make an informed decision - compare hiring models like freelancers, in-house teams, or our vetted developers. Our comparison guide makes it easy.',
+    column: 'Soft Suave',
   }),
 
   techStack: {
-    eyebrow: 'Technology Stack',
-    title: 'Technologies Our AI Developers Work With',
-    body: 'Foundation models, frameworks, vector stores, cloud AI platforms and the evaluation tooling that keeps an AI system honest after release.',
+    eyebrow: 'Technical Expertise',
+    title: 'Technical Expertise of Our AI Developers',
+    body: 'Our AI developers excel in machine learning, deep learning, NLP, computer vision, and more, delivering innovative solutions tailored to your needs.',
     groups: [
       {
-        name: 'Foundation Models',
-        items: ['GPT', 'Claude', 'Gemini', 'Llama', 'Mistral', 'OpenAI API'],
-      },
-      {
-        name: 'AI and Retrieval Frameworks',
-        items: ['LangChain', 'LangGraph', 'LlamaIndex', 'CrewAI', 'AutoGen', 'Semantic Kernel'],
-      },
-      {
-        name: 'Machine Learning',
-        items: ['Python', 'PyTorch', 'TensorFlow', 'Keras', 'scikit-learn', 'Pandas', 'PySpark'],
-      },
-      {
-        name: 'NLP and Vision',
-        items: ['spaCy', 'NLTK', 'Hugging Face', 'BERT', 'OpenCV', 'MediaPipe', 'OpenPose'],
-      },
-      {
-        name: 'Vector Databases',
-        items: ['Pinecone', 'Weaviate', 'Qdrant', 'Milvus', 'FAISS', 'Chroma'],
-      },
-      {
-        name: 'Cloud AI Platforms',
-        items: ['Azure AI', 'Amazon Bedrock', 'Google Vertex AI', 'Azure ML', 'Google Cloud Vision'],
-      },
-      {
-        name: 'Deployment and Observability',
-        items: ['Docker', 'Kubernetes', 'MLflow', 'LangSmith', 'Langfuse'],
-      },
-      {
-        name: 'Evaluation and Guardrails',
-        items: ['Ragas', 'DeepEval', 'Guardrails AI'],
+        name: 'AI & Machine Learning',
+        items: [
+          'Python',
+          'SpaCy',
+          'PyTorch',
+          'PySpark',
+          'Pandas',
+          'MediaPipe',
+          'Keras',
+          'Google Cloud Vision',
+          'Azure ML',
+          'OpenCV',
+          'TensorFlow',
+          'OpenPose',
+          'NLTK',
+          'Scikit-learn',
+          'Google BERT',
+          'ChatGPT',
+        ],
       },
     ],
   },
 
   faq: {
     eyebrow: 'FAQs',
-    title: 'Questions About Hiring AI Developers',
-    body: 'Answers on cost, trials, engagement options and what happens after deployment.',
+    title: 'FAQs About Hiring AI Developers',
+    body: 'Learn more about our procedures & methods with the help of these FAQs.',
     items: [
       {
-        q: 'How much does it cost to hire an AI developer?',
-        a: 'Cost depends on the developer’s experience, project scope and technology stack. Soft Suave’s AI developer rates start from $14 per hour, with the final rate confirmed once your use case, responsibilities and engagement model are reviewed.',
+        q: 'How much does it cost to hire AI developer?',
+        a: "Costs depend on the developer's experience, project scope, tech stack, etc. At Soft Suave, we offer flexible pricing starting from $14/hour, ensuring top value for your investment.",
       },
       {
-        q: 'Is there a free trial period available?',
-        a: 'Yes. Every engagement can start with a 40-hour risk-free trial, so you evaluate the engineer on real work before any longer-term commitment.',
+        q: 'Is there any free trial period available?',
+        a: 'Absolutely! Try our developers with a 40-hour trial - 100% risk-free.',
       },
       {
-        q: 'What engagement options are available?',
-        a: 'A dedicated AI engineer, a time-and-material engagement, a fixed-cost scope, or a fully managed service where Soft Suave carries delivery responsibility. The right option usually depends on how much of the use case is still unknown.',
+        q: 'What are the hiring engagement options available at Soft Suave?',
+        a: 'Choose from time and material, fixed-cost, or fully managed service models.',
       },
       {
-        q: 'How quickly can I get AI developer profiles?',
-        a: 'Curated profiles are typically shared within 48 hours of your requirements discussion. Highly specialised requirements — an unusual modality, a narrow domain, a specific regulatory context — can take longer.',
+        q: 'Do you provide support and maintenance services after deployment?',
+        a: 'Yes, we ensure your app thrives with continuous support, maintenance, and optimization.',
       },
       {
-        q: 'How do you protect our data and intellectual property?',
-        a: 'Confidentiality agreements are signed before anything is shared, and intellectual-property responsibilities are documented in the engagement agreement. Data handling, system access and retrieval permissions follow the controls agreed for your organization.',
-      },
-      {
-        q: 'Can an AI developer work with our existing engineering team?',
-        a: 'Yes. AI engineers work inside your repositories, project-management tools, communication channels and review process, and coordinate with backend, data and DevOps engineers rather than running a separate track.',
-      },
-      {
-        q: 'Do you provide support after deployment?',
-        a: 'Yes. Continuous support, maintenance and optimization can continue after release — which matters more for AI than for conventional software, because model behaviour, data and cost all drift over time.',
-      },
-      {
-        q: 'What if the AI developer is not the right fit?',
-        a: 'You can request a replacement at no additional cost during or after the trial period, re-matched on your feedback, so an unsuitable profile does not cost you the engagement.',
+        q: 'Where can you find an AI Engineer?',
+        a: 'You can find top-tier talent and knowledgeable AI developers right here at Soft Suave.',
       },
     ],
   },

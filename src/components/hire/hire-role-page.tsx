@@ -1,20 +1,20 @@
+import type { ReactNode } from 'react';
+
 import { BASE_PATH } from '@/lib/flags';
-import type { HireRolePageContent } from '@/lib/home/hire-roles/types';
+import type { HireBand, HireRolePageContent } from '@/lib/home/hire-roles/types';
 
 // Company-level sections: the homepage's own components, rendering the
-// homepage's own copy from `lib/home/content.ts`. A role page's claim to 13+
-// years, 400+ specialists, these clients, these case studies, these awards and
-// these client stories is the same claim the homepage makes — so it is made
-// with the same component, the same layout and the same words, not a second
-// version that can drift out of step.
+// homepage's own copy from `lib/home/content.ts`. A role page's claim to these
+// clients, these figures, these case studies and these client stories is the
+// same claim the homepage makes — so it is made with the same component, the
+// same layout and the same words, not a second version that can drift out of
+// step. Only the bands the live role pages actually run are imported: the Why
+// Soft Suave manifesto, the industries fan and the awards strip are not among
+// them, so they are not here.
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import Manifesto from '@/components/home/manifesto';
-import Stats from '@/components/home/stats';
 import Clients from '@/components/home/clients';
-import Industries from '@/components/home/industries';
 import WorkGrid from '@/components/home/work-grid';
-import Recognitions from '@/components/home/recognitions';
 import TechStack from '@/components/home/tech-stack';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
@@ -38,107 +38,179 @@ import Faq from '@/components/generative-ai/faq';
 import styles from '@/components/home/home.module.css';
 
 /**
+ * Which bands sit on the warm-white ground and which stay dark.
+ *
+ * Presentation only — it decides nothing about what a page says. Consecutive
+ * light bands are merged into one wrapper below, so a run of them reads as a
+ * single chapter rather than as several stacked panels with doubled padding.
+ */
+const LIGHT_BANDS: ReadonlySet<HireBand> = new Set<HireBand>([
+  'clients',
+  'overview',
+  'fit',
+  'engagement',
+  'globalDelivery',
+  'process',
+  'caseStudies',
+  'testimonials',
+  'faq',
+]);
+
+/**
  * The one rendering of a "Hire Developers by Role" page.
  *
- * All nine routes are the same section stack over different copy, so they share
- * this component rather than each repeating the band order — a change to either
- * is then a change in one place.
+ * All thirteen routes share this component, but *not* one fixed band order:
+ * softsuave.com does not run these pages in a single sequence, and several of
+ * them differ substantially — the Salesforce and Blockchain pages open on their
+ * why-hire cards, the backend page puts its evaluation criteria after the
+ * delivery section, the dedicated page closes on its rate table and challenges.
+ * So the order is content, declared per page in `order` and rendered here in
+ * exactly that sequence. A page's module is therefore the single description of
+ * both what its live page says and the order it says it in.
  *
  * **The split that matters**: a section is either about Soft Suave or about the
  * role. Everything in the first group is the homepage's component *and* the
- * homepage's content — Why Soft Suave, the stats, the clients, the case
- * studies, the recognitions, the client stories and the closing enquiry band.
- * Only the second group is written per role, from that role's live page.
+ * homepage's content — the clients, the figures, the case studies, the client
+ * stories and the closing enquiry band. Only the second group is written per
+ * role, from that role's live page.
+ *
+ * **What is not rendered at all**: every band here corresponds to one the live
+ * role pages run. The homepage bands they do not run — the Why Soft Suave
+ * manifesto, the industries fan and the awards strip — are left off, so these
+ * pages carry nothing their source does not.
  *
  * A server component: it holds no state, so keeping it off the client boundary
  * means the copy for the static bands is serialised once into the HTML instead
  * of shipping as props. The interactive sections inside are the client ones.
- *
- * Band rhythm follows the homepage — dark hero, then sections grouped two or
- * three to an inverted band so a long page breathes without strobing, and the
- * proof chapter (work, recognitions, stories) carried as one long warm-white
- * run before the page closes dark on the FAQ and the enquiry.
  */
 export default function HireRolePage({ content }: { content: HireRolePageContent }) {
+  /**
+   * `ownsAnchors` on the nav promises this page has #services and #why. Which
+   * band carries each depends on what the live page runs: the services anchor
+   * goes to the capability carousel, or to the specialisations grid on a page
+   * whose only "what you can hire" band is that grid. The why anchor goes to
+   * the page's own why-hire cards, or — on the pages that publish none — to the
+   * client strip, and failing that to the overview.
+   */
+  const servicesBand: HireBand = content.capabilities ? 'capabilities' : 'specialisations';
+  const whyBand: HireBand = content.whyRole
+    ? 'whyRole'
+    : content.order.includes('clients')
+      ? 'clients'
+      : 'overview';
+
+  function render(band: HireBand): ReactNode {
+    const anchor = (own: HireBand, fallback: string) => (whyBand === own ? 'why' : fallback);
+
+    switch (band) {
+      case 'clients':
+        return (
+          <div key={band} id={whyBand === 'clients' ? 'why' : undefined}>
+            <Clients />
+          </div>
+        );
+      case 'overview':
+        return content.overview ? (
+          <Overview key={band} content={content.overview} id={anchor('overview', 'overview')} />
+        ) : null;
+      case 'capabilities':
+        return content.capabilities ? (
+          <Services
+            key={band}
+            content={content.capabilities}
+            id={servicesBand === 'capabilities' ? 'services' : 'capabilities'}
+          />
+        ) : null;
+      case 'specialisations':
+        return content.specialisations ? (
+          <CardGrid
+            key={band}
+            content={content.specialisations}
+            id={servicesBand === 'specialisations' ? 'services' : 'expertise'}
+            variant="bold"
+          />
+        ) : null;
+      case 'fit':
+        return content.fit ? <Problems key={band} content={content.fit} id="fit" /> : null;
+      case 'engagement':
+        return content.engagement ? (
+          <Integration key={band} content={content.engagement} id="engagement" variant="bold" />
+        ) : null;
+      case 'globalDelivery':
+        return content.globalDelivery ? (
+          <Overview key={band} content={content.globalDelivery} id="delivery" />
+        ) : null;
+      case 'process':
+        return <Process key={band} content={content.process} />;
+      case 'midCta':
+        return content.midCta ? <CtaBand key={band} content={content.midCta} /> : null;
+      case 'whyRole':
+        return content.whyRole ? (
+          <CardGrid key={band} content={content.whyRole} id="why" variant="bold" />
+        ) : null;
+      case 'comparison':
+        return content.comparison ? (
+          <Comparison key={band} content={content.comparison} id="compare" />
+        ) : null;
+      case 'rates':
+        return content.rates ? <Comparison key={band} content={content.rates} id="rates" /> : null;
+      case 'techStack':
+        return content.techStack ? <TechStack key={band} content={content.techStack} /> : null;
+      case 'caseStudies':
+        return <WorkGrid key={band} />;
+      case 'testimonials':
+        return <Testimonials key={band} />;
+      case 'faq':
+        return <Faq key={band} content={content.faq} idPrefix={`${content.key}-faq`} />;
+      default: {
+        // `list:<key>` — one of the page's own label-only bands, rendered
+        // through the technology band because that is what it is: a heading and
+        // a row of named things. Same treatment, its own place in the page.
+        const list = content.lists?.find((l) => `list:${l.key}` === band);
+        return list ? <TechStack key={band} content={list} /> : null;
+      }
+    }
+  }
+
+  // Render in the page's own order, dropping bands whose content is absent,
+  // then fold each run of light bands into one warm-white wrapper.
+  const bands = content.order
+    .map((band) => ({ band, node: render(band) }))
+    .filter((b): b is { band: HireBand; node: ReactNode } => b.node !== null);
+
+  const chapters: { light: boolean; nodes: ReactNode[] }[] = [];
+  for (const { band, node } of bands) {
+    const light = LIGHT_BANDS.has(band);
+    const last = chapters.at(-1);
+    if (last && last.light === light) last.nodes.push(node);
+    else chapters.push({ light, nodes: [node] });
+  }
+
   return (
     <div className={styles.page}>
-      {/* This page owns both of the nav bar's anchor sections — `Services`
-          renders #services and the Why band below renders #why — so
-          `ownsAnchors` keeps the bar scrolling in-page rather than sending the
-          reader to the homepage's copies. `logoHref` is stated because
-          `ownsAnchors` also keeps the logo's default `#top` in-page, and the
-          lockup must go HOME from a sub-page. */}
+      {/* `logoHref` is stated because `ownsAnchors` also keeps the logo's
+          default `#top` in-page, and the lockup must go HOME from a sub-page. */}
       <Nav ownsAnchors logoHref={BASE_PATH || '/'} />
 
       <main id="main">
-        {/* ── The role ─────────────────────────────────────────────── */}
         <Hero content={content.hero} idPrefix={content.key} />
 
-        <div className={styles.light}>
-          <Overview content={content.overview} />
-          {content.fit && <Problems content={content.fit} id="fit" />}
-        </div>
-
-        <Services content={content.capabilities} />
-        <CtaBand content={content.midCta} />
-
-        {/* ── Soft Suave ───────────────────────────────────────────────
-            The homepage's "Why Soft Suave" chapter, verbatim: the manifesto
-            and the odometer stat cards inside the same full-viewport
-            `.whySection` band, then the client proof band that follows it
-            there. `id="why"` sits on the wrapper exactly as it does on the
-            homepage, which is what the nav's Company link scrolls to. */}
-        <div id="why" className={`${styles.light} ${styles.whySection}`}>
-          <Manifesto />
-          <Stats />
-        </div>
-        <div className={styles.light}>
-          <Clients />
-        </div>
-
-        {/* The homepage's industries fan. Its cards already link to our eight
-            sector pages, so this is also the page's route into them — a
-            role-written industries list would have been a second, thinner
-            version of the same set. */}
-        <Industries />
-
-        {/* ── The role ─────────────────────────────────────────────── */}
-        <div className={styles.light}>
-          <Integration content={content.engagement} id="engagement" />
-          <Process content={content.process} />
-        </div>
-
-        {/* Specialisations name disciplines and technologies, which have no
-            photography — so they take the card grid's `compact` text card
-            rather than its picture card. */}
-        <CardGrid content={content.specialisations} id="expertise" variant="compact" />
-        <Comparison content={content.comparison} id="compare" />
-        {content.rates && <Comparison content={content.rates} id="rates" />}
-
-        {/* ── Soft Suave ───────────────────────────────────────────────
-            The proof chapter, as one warm-white run: the case-study gallery,
-            the recognition badges and the client stories, all three the
-            homepage's own components over the homepage's own facts. */}
-        <div className={styles.light}>
-          <WorkGrid />
-          <Recognitions />
-          <Testimonials />
-        </div>
-
-        {/* The homepage's technology band — its marquee rows and hover chips —
-            carrying this role's own stack. */}
-        <TechStack content={content.techStack} />
-
-        {/* ── Close ────────────────────────────────────────────────── */}
-        <div className={styles.light}>
-          <Faq content={content.faq} idPrefix={`${content.key}-faq`} />
-        </div>
+        {chapters.map((chapter, i) =>
+          chapter.light ? (
+            <div key={i} className={styles.light}>
+              {chapter.nodes}
+            </div>
+          ) : (
+            <div key={i}>{chapter.nodes}</div>
+          ),
+        )}
 
         {/* The homepage's closing band — the scrubbed focus pull and the
-            press-and-hold confirm. `ctaHref` points at this page's own hero
-            form rather than the content's default `/contact`: the form the
-            reader needs is already on the page, exactly as `/contact` itself
-            redirects the same band to its own section. */}
+            press-and-hold confirm, which is this surface's rendering of the
+            "Book Free Consultation" form every live role page ends on.
+            `ctaHref` points at this page's own hero form rather than the
+            content's default `/contact`: the form the reader needs is already
+            on the page. */}
         <Contact ctaHref="#enquiry" />
       </main>
 

@@ -2,6 +2,7 @@
 
 import { Fragment, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { brand } from "@/lib/home/content";
 import { publicMediaUrl } from "@/lib/media-url";
 import { SiteLink } from "@/themes/softsuave/site-link";
@@ -39,6 +40,11 @@ export interface HeroContent {
     requirementPlaceholder: string;
     /** Subject line of the composed mailto. */
     subject: string;
+    /**
+     * Notice under the form steering job applicants away from the sales
+     * inbox. `href` is passed to next/link, so it picks up the basePath.
+     */
+    alert?: { label: string; text: string; linkLabel: string; href: string };
   };
   /**
    * Optional full-bleed background image behind the *whole* hero section —
@@ -382,6 +388,16 @@ export default function Hero({
               </>
             )}
           </p>
+
+          {content.form.alert && (
+            <p className={styles.formAlert}>
+              <span className={styles.formAlertLabel}>{content.form.alert.label}</span>{" "}
+              {content.form.alert.text}{" "}
+              <Link className={styles.formAlertLink} href={content.form.alert.href}>
+                {content.form.alert.linkLabel}
+              </Link>
+            </p>
+          )}
 
           {sent && (
             <p className={styles.formStatus} role="status">

@@ -14,8 +14,12 @@ export interface ProcessContent {
   steps: readonly { readonly n: string; readonly name: string; readonly body: string }[];
 }
 
-const STEP_COUNT = 5;
-const ANGLE_STEP = 360 / STEP_COUNT;
+/**
+ * How many glyphs `StepIcon` cycles through. Independent of how many steps a
+ * page actually has: the ring sizes itself to `content.steps`, so a four-stage
+ * process draws four nodes evenly spaced rather than five slots with a gap.
+ */
+const ICON_COUNT = 5;
 /** The ellipse's 12-o'clock position — where the active step sits. */
 const TOP_ANGLE = -90;
 /** How far out each step sits, as a percentage of the ring box. */
@@ -24,10 +28,10 @@ const RY = 33;
 /** How long the ring holds a step before auto-advancing, in ms. */
 const DWELL_MS = 4600;
 
-/** Signed shortest distance from `a` to `b` around a 0–360 circle, in steps. */
-function shortestSteps(a: number, b: number) {
-  const raw = (((b - a) % STEP_COUNT) + STEP_COUNT) % STEP_COUNT;
-  return raw > STEP_COUNT / 2 ? raw - STEP_COUNT : raw;
+/** Signed shortest distance from `a` to `b` around a ring of `count` steps. */
+function shortestSteps(a: number, b: number, count: number) {
+  const raw = (((b - a) % count) + count) % count;
+  return raw > count / 2 ? raw - count : raw;
 }
 
 /**
@@ -45,7 +49,7 @@ function StepIcon({ index }: { index: number }) {
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
   };
-  switch (index % STEP_COUNT) {
+  switch (index % ICON_COUNT) {
     case 0:
       return (
         <svg {...common} aria-hidden>
@@ -138,7 +142,14 @@ export default function Process({
   const panelRef = useRef<HTMLDivElement | null>(null);
   const tickerRef = useRef<HTMLSpanElement | null>(null);
 
-  const steps = content.steps.slice(0, STEP_COUNT);
+  const steps = content.steps;
+  /**
+   * The ring is laid out from the copy, not the other way round: pages whose
+   * published process is four stages get four evenly spaced nodes. Guarded
+   * against an empty list so the angle maths can never divide by zero.
+   */
+  const stepCount = Math.max(steps.length, 1);
+  const angleStep = 360 / stepCount;
   const rotation = useRef({ r: 0 });
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
@@ -159,7 +170,7 @@ export default function Process({
     steps.forEach((_, i) => {
       const el = nodeRefs.current[i];
       if (!el) return;
-      const angleDeg = TOP_ANGLE + i * ANGLE_STEP - r;
+      const angleDeg = TOP_ANGLE + i * angleStep - r;
       const rad = (angleDeg * Math.PI) / 180;
       const x = 50 + RX * Math.cos(rad);
       const y = 50 + RY * Math.sin(rad);
@@ -176,7 +187,7 @@ export default function Process({
       el.style.setProperty("--o", String(opacity));
       el.style.zIndex = String(Math.round(t * 100));
     });
-  }, [steps]);
+  }, [steps, angleStep]);
 
   const stop = useCallback(() => {
     if (timer.current) {
@@ -192,7 +203,7 @@ export default function Process({
       activeRef.current = nextActive;
       setActive(nextActive);
       tween.current?.kill();
-      const target = rotation.current.r + deltaSteps * ANGLE_STEP;
+      const target = rotation.current.r + deltaSteps * angleStep;
       if (prefersReducedMotion()) {
         rotation.current.r = target;
         applyPositions();
@@ -210,15 +221,15 @@ export default function Process({
         },
       });
     },
-    [applyPositions],
+    [applyPositions, angleStep],
   );
 
   const advance = useCallback(
     (steps_: number) => {
-      const next = ((activeRef.current + steps_) % STEP_COUNT + STEP_COUNT) % STEP_COUNT;
+      const next = (((activeRef.current + steps_) % stepCount) + stepCount) % stepCount;
       spin(steps_, next);
     },
-    [spin],
+    [spin, stepCount],
   );
 
   const play = useCallback(() => {
@@ -232,16 +243,16 @@ export default function Process({
     (i: number) => {
       takenOver.current = true;
       stop();
-      spin(shortestSteps(activeRef.current, i), i);
+      spin(shortestSteps(activeRef.current, i, stepCount), i);
     },
-    [spin, stop],
+    [spin, stop, stepCount],
   );
 
   const preview = useCallback(
     (i: number) => {
-      if (i !== activeRef.current) spin(shortestSteps(activeRef.current, i), i);
+      if (i !== activeRef.current) spin(shortestSteps(activeRef.current, i, stepCount), i);
     },
-    [spin],
+    [spin, stepCount],
   );
 
   // Lay the ring out immediately (no tween) on mount and on resize, and drive
@@ -397,6 +408,50 @@ export default function Process({
               <h3 className={styles.processName}>{steps[active].name}</h3>
               <p className={styles.processBody}>{steps[active].body}</p>
             </div>
+          </div>
+
+          {/* Manual controls. `takeOver` is what the nodes themselves call, so
+              arrowing stops autoplay exactly as clicking a node does. */}
+          <div className={styles.orbitNav}>
+            <button
+              type="button"
+              className={styles.svcArrow}
+              aria-label="Previous step"
+              onClick={() => takeOver(active === 0 ? steps.length - 1 : active - 1)}
+            >
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden>
+                <path
+                  d="M19 12H5M5 12L11 6M5 12L11 18"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+
+            <span className={styles.orbitCount} aria-hidden>
+              {steps[active].n} / {String(steps.length).padStart(2, "0")}
+            </span>
+
+            <button
+              type="button"
+              className={styles.svcArrow}
+              aria-label="Next step"
+              onClick={() => takeOver(active === steps.length - 1 ? 0 : active + 1)}
+            >
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden>
+                <path
+                  d="M5 12H19M19 12L13 6M19 12L13 18"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </FadeUp>

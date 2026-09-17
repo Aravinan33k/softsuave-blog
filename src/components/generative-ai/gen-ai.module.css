@@ -124,7 +124,7 @@
 .btnPrimary {
   background: var(--accent);
   border-color: var(--accent);
-  color: #140b08;
+  color: var(--on-accent, #140b08);
 }
 
 /* Inverts to the surface's own extreme — near-white on the dark ground, near-
@@ -254,14 +254,13 @@
   margin-top: 1em;
 }
 
-/* --- supporting points: hairline-separated rows, not a bulleted list --- */
+/* --- supporting points: tick-marked rows, unruled --- */
 .heroPoints {
   list-style: none;
   margin: clamp(20px, 2.4vw, 30px) 0 0;
   padding: 0;
   display: grid;
-  gap: 0;
-  border-top: 1px solid var(--line);
+  gap: 2px;
 }
 
 .heroPoint {
@@ -269,8 +268,7 @@
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 12px;
-  padding: 9px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 7px 0;
   font-size: clamp(0.9rem, 0.98vw, 1rem);
   line-height: 1.4;
   color: var(--text);
@@ -441,15 +439,15 @@
    `next/image fill` paints into it — no layout shift, no size to go stale. The
    ratio is the asset's own 4:3, so nothing is cropped.
  *
-   `max-width` is the size fix: left to fill the whole 0.75fr column the image
-   ran noticeably larger than the text beside it. Capped and right-aligned, it
-   now sits closer to the height of the title + two paragraphs it shares a row
-   with, instead of overshooting them. */
+   `max-width` caps it so the picture cannot outgrow the prose beside it, but
+   the cap is a ceiling, not a target: at 380px the illustration read as a
+   thumbnail in its own column (review: "image is very small"), so it is set
+   just under the column's natural width at the widest breakpoint. */
 .overviewMedia {
   position: relative;
   margin: 0 0 0 auto;
   width: 100%;
-  max-width: 380px;
+  max-width: 560px;
   aspect-ratio: 4 / 3;
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -1003,13 +1001,37 @@
   margin-top: clamp(18px, 2.2vw, 28px);
 }
 
+/* Prev/next controls flanking the dots. Squared to match this surface's
+   buttons rather than the homepage's capsules. */
+.svcArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  color: var(--text-bright);
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.svcArrow:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent, #140b08);
+}
+
 /* Card internals — unchanged from the panel treatment. */
 .svcTitle {
   margin: 0;
   color: #fff;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.05rem, 1.35vw, 1.3rem);
+  font-size: clamp(1.35rem, 1.9vw, 1.75rem);
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -1017,9 +1039,9 @@
 
 .svcText {
   margin: 10px 0 0;
-  font-size: clamp(0.88rem, 0.96vw, 0.96rem);
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
   line-height: 1.62;
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 /* Someone who has asked for less motion gets the position change with no
@@ -1257,6 +1279,24 @@
   margin-right: auto;
 }
 
+/* Manual prev/next under the ring. The ring advances on its own and is
+   driveable by keyboard, but nothing on screen said so (review: "the design
+   is confusing - or just keep a manual arrow"). */
+.orbitNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 1.6vw, 20px);
+  margin-top: clamp(14px, 1.8vw, 22px);
+}
+
+.orbitCount {
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--text);
+}
+
 .processStepLabel {
   font-family: var(--font-eyebrow);
   font-size: 10px;
@@ -1269,7 +1309,7 @@
   margin: 0.4em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  font-size: clamp(1.45rem, 2.1vw, 1.95rem);
   line-height: 1.2;
   letter-spacing: -0.025em;
   color: var(--text-bright);
@@ -1278,9 +1318,9 @@
 .processBody {
   margin: 10px 0 0;
   max-width: 68ch;
-  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
   line-height: 1.65;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* ============================================================
@@ -1614,8 +1654,8 @@
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  width: 20px;
-  height: 20px;
+  width: 26px;
+  height: 26px;
 }
 
 .stackItemName {
@@ -1938,8 +1978,9 @@
   }
 
   .heroGrid {
-    grid-template-columns: 1.12fr 0.88fr;
+    grid-template-columns: 1.38fr 0.62fr;
     gap: clamp(48px, 5vw, 88px);
+    align-items: center;
   }
 
   /* Prose + masthead lead, illustration supports. `end`, not `start` or
@@ -1951,7 +1992,7 @@
      bottom sits flush with the last line of the second paragraph, right
      where the pull quote begins below. */
   .overviewGrid {
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
     column-gap: clamp(28px, 3.2vw, 52px);
     align-items: end;
   }
@@ -2090,7 +2131,7 @@
   color: var(--muted);
 }
 
-.compactLink {
+.textCardLink {
   margin-top: auto;
   padding-top: 4px;
   display: inline-flex;
@@ -2104,8 +2145,8 @@
   color: var(--accent);
 }
 
-.compactLink:hover,
-.compactLink:focus-visible {
+.textCardLink:hover,
+.textCardLink:focus-visible {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -2122,3 +2163,289 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+/* ============================================================
+   CARD GRID — BOLD VARIANT  (the hire pages' card design)
+
+   The treatment the Global Capability Center page's "Who It Fits" band
+   established, brought to the hire pages so both read as one design system.
+   It is the `bold` variant of `landing/industries` restated against this
+   module's tokens — the same composition rules, the same accent ramp, the
+   same restraint — because the hire-by-role pages render the generative-ai
+   section family and so cannot reach across to `landing.module.css`.
+
+   Three things define it, exactly as they do there:
+
+   - An asymmetric 12-column grid. Spans come from `gridSpansFor()` in
+     `landing/card-spans.ts` — the SAME function the reference section calls,
+     imported rather than re-derived — and arrive on the markup as
+     `data-span`. Rows go two-up then three-up, so a section composes full
+     rows at any card count and a card left alone on the last row takes the
+     full width rather than stranding itself beside a gap.
+   - A 3px accent rule across the card's top edge, from the five-step warm
+     brand ramp (`--card-accent-1..5`, declared on `.theme-four` in
+     `app/(marketing)/home.css` and re-declared darker on `.light`). It
+     cycles every five cards, so adjacent cards always read as distinct
+     without the page inventing a colour per item.
+   - Quiet everything else: a thin `--line` border, a large radius, generous
+     padding, one soft lift on hover. No gradient, no ordinal watermark, no
+     entrance animation of its own beyond the section's existing `FadeUp`.
+
+   The compact variant above stays exactly as it was: it is opt-in per
+   section, and nothing that calls it today is a hire page.
+   ============================================================ */
+.indGridBold {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.3vw, 18px);
+  /* Stretch, so every card in a row ends on the same line. With an accent
+     rule across each top edge, three different heights in one row read as
+     broken alignment rather than as economical spacing. */
+  align-items: stretch;
+}
+
+/* Per-card accent, cycling every five cards so any item count keeps the
+   sequence running rather than restarting mid-grid. */
+.indGridBold .indBoldCard:nth-child(5n + 1) { --card-accent: var(--card-accent-1); }
+.indGridBold .indBoldCard:nth-child(5n + 2) { --card-accent: var(--card-accent-2); }
+.indGridBold .indBoldCard:nth-child(5n + 3) { --card-accent: var(--card-accent-3); }
+.indGridBold .indBoldCard:nth-child(5n + 4) { --card-accent: var(--card-accent-4); }
+.indGridBold .indBoldCard:nth-child(5n + 5) { --card-accent: var(--card-accent-5); }
+
+.indBoldCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(9px, 0.95vw, 13px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--card-accent, var(--accent));
+  border-radius: 14px;
+  background: var(--surface);
+  /* Vertical padding runs ahead of horizontal: these cards are short, and the
+     room above the name and below the body is what keeps them from cramping. */
+  padding: clamp(22px, 2.4vw, 32px) clamp(20px, 2.1vw, 30px);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.35s ease,
+    background 0.35s ease;
+}
+
+/* `:focus-within` mirrors `:hover` so a card reached by keyboard gets the same
+   treatment as one under a pointer — the cards that carry a "Know More" are
+   the ones this matters for. */
+.indBoldCard:hover,
+.indBoldCard:focus-within {
+  transform: translateY(-4px);
+  background: color-mix(in srgb, var(--card-accent, var(--accent)) 6%, var(--surface));
+  box-shadow: 0 14px 34px -12px
+    color-mix(in srgb, var(--card-accent, var(--accent)) 55%, transparent);
+}
+
+/* The quiet mono ordinal, in the corner opposite the badge. Kept from the
+   compact card this replaces: at nine cards it is a real scanning aid, and it
+   stays far enough back not to compete with the name. */
+.indBoldIndex {
+  position: absolute;
+  top: clamp(18px, 2vw, 24px);
+  right: clamp(18px, 2vw, 26px);
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  opacity: 0.55;
+}
+
+/* The discipline glyph, tinted to the card's own accent rather than the one
+   site accent — which is what ties the badge to the rule above it. */
+.indBoldIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--card-accent, var(--accent));
+  background: color-mix(in srgb, var(--card-accent, var(--accent)) 9%, transparent);
+  transition: border-color 0.35s ease;
+}
+
+.indBoldCard:hover .indBoldIcon,
+.indBoldCard:focus-within .indBoldIcon {
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 55%, var(--line));
+}
+
+.indBoldIcon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.indBoldName {
+  margin: 0;
+  /* The display serif at card scale, matching `.compactName` and the
+     reference section's own card title, so every card on the site is set in
+     the same family at the same weight. */
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--text-bright);
+}
+
+/* Room for the ordinal, but only on the cards that have one — the index span
+   is rendered ahead of the name, so a sibling combinator can ask. Sections
+   without it (the engagement models) get the full measure back. */
+.indBoldIndex ~ .indBoldName {
+  padding-right: 2.2em;
+}
+
+.indBoldBody {
+  margin: 0;
+  font-size: clamp(0.88rem, 0.98vw, 0.97rem);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* Pushed to the bottom edge so the links line up across a row of cards whose
+   descriptions run to different lengths. `.textCardLink` carries the type; this
+   only places it. */
+.indBoldLink {
+  margin-top: auto;
+  padding-top: clamp(4px, 0.5vw, 8px);
+}
+
+/* Mobile first: one card per row. The spans below only apply once there is
+   width to divide. */
+.indGridBold .indBoldCard {
+  grid-column: 1 / -1;
+}
+
+/* The 12-column track applies at every width from here up; only the SPANS
+   differ between tablet and desktop. */
+@media (min-width: 700px) {
+  .indGridBold {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+/* Tablet only: two per row regardless of the desktop composition, since a
+   4-span card is far too narrow at this width.
+
+   Bounded with max-width rather than left open-ended, because
+   `:last-child:nth-child(odd)` scores (0,4,0) and would otherwise outrank the
+   desktop `[data-span]` rules at (0,3,0) — which would silently push the last
+   card of an odd-numbered grid to full width on desktop too. */
+@media (min-width: 700px) and (max-width: 999px) {
+  .indGridBold .indBoldCard {
+    grid-column: span 6;
+  }
+
+  /* An odd card out spans the full row rather than leaving a gap. */
+  .indGridBold .indBoldCard:last-child:nth-child(odd) {
+    grid-column: span 12;
+  }
+}
+
+@media (min-width: 1000px) {
+  /* The real composition. `data-span` is written by the component from
+     `gridSpansFor()`: 12 for a card alone on its row, 6 for a pair, 4 for a
+     trio. */
+  .indGridBold .indBoldCard[data-span="12"] { grid-column: span 12; }
+  .indGridBold .indBoldCard[data-span="6"] { grid-column: span 6; }
+  .indGridBold .indBoldCard[data-span="4"] { grid-column: span 4; }
+}
+
+/* The lift and the shadow are decorative; the accent rule carries the design
+   on its own. */
+@media (prefers-reduced-motion: reduce) {
+  .indBoldCard,
+  .indBoldCard:hover,
+  .indBoldCard:focus-within {
+    transform: none;
+    box-shadow: none;
+    transition: none;
+  }
+}
+
+/* ============================================================
+   HERO TRUST BADGES  +  FORM HEADER / ALERT
+   Ported from components/landing/landing.module.css so the
+   Generative AI and Agentic AI heroes carry the same credential
+   strip and the same form masthead as the Custom AI page.
+   ============================================================ */
+.badges {
+  list-style: none;
+  margin: clamp(24px, 2.8vw, 36px) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.5em 0.85em;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.badgeDot {
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+}
+
+.formHeader {
+  text-align: center;
+}
+
+/* `.kicker` is shared with every dark section on the site — its `--muted`
+   grey is too low-contrast on this card white, so it is darkened here only. */
+.formHeader .kicker {
+  color: #000;
+}
+
+/* The reference template short dashed rule under the title. */
+.formAccent {
+  display: block;
+  width: 64px;
+  height: 0;
+  margin: 10px auto 0;
+  border-bottom: 3px dashed var(--accent);
+}
+
+/* Keeps recruitment traffic out of the sales inbox: the enquiry form is a
+   business channel, so the note under it points job applicants at careers. */
+.formAlert {
+  margin: 12px 0 0;
+  padding: 9px 11px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #4a4a4a;
+  text-align: center;
+}
+
+.formAlertLabel {
+  font-weight: 700;
+  color: color-mix(in srgb, var(--accent) 75%, black);
+}
+
+.formAlertLink {
+  color: color-mix(in srgb, var(--accent) 80%, black);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+

@@ -3,7 +3,7 @@
 import { useRef, useState, type ReactNode } from "react";
 import FadeUp from "../fade-up";
 import ReviewImage from "./review-image";
-import { pad, splitRole, useIsClamped, VerifiedMark } from "./review-shared";
+import { splitRole, useIsClamped, VerifiedMark } from "./review-shared";
 import type { NumberedReview } from "./review-shared";
 import styles from "../home.module.css";
 
@@ -33,9 +33,9 @@ const FRAME: Record<StoryFrame, { ratio: string; sizes: string }> = {
 
 /**
  * One client story in the archive — a self-contained editorial unit, not a
- * card: no panel, no shadow, no border box. What holds it together is the mono
- * ordinal in its kicker, a hairline at its foot, and the relationship between
- * the photograph and the text beside it.
+ * card: no panel, no shadow, no border box. What holds it together is the
+ * client name that opens it, a hairline at its foot, and the relationship
+ * between the photograph and the text beside it.
  *
  * The quote clamps to a few lines so the run of stories keeps an even rhythm,
  * with an inline expander where clamping actually hides something. There is no
@@ -106,8 +106,9 @@ export default function ReviewStory({
         />
 
         <div className={styles.rStoryBody}>
-          <span className={styles.rStoryKicker}>Client story {pad(review.ordinal)}</span>
-
+          {/* No "Client story 01" kicker: the archive already carries the
+              reader's position in its own counter beneath the slot, and the
+              per-story label only repeated it above every name. */}
           <h3 className={styles.rStoryName}>
             {review.name}
             <VerifiedMark className={styles.rStoryVerified} />
@@ -180,9 +181,10 @@ export default function ReviewStory({
                  source. Rather than invent one, the foot says what it is. */
               <span className={styles.rStoryRole}>Client review</span>
             )}
-            {review.category ? (
-              <span className={styles.rStoryTag}>{review.category}</span>
-            ) : null}
+            {/* The category no longer prints beside the designation — a
+                "Technology" / "Mobile" chip next to a job title read as part of
+                the person's role. It still labels the photograph's hover veil,
+                which is where it belongs. */}
           </footer>
         </div>
       </article>

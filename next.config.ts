@@ -1,5 +1,5 @@
 import type { NextConfig } from 'next';
-import { homepageEnabled } from './src/lib/flags';
+import { gtmContainerId, homepageEnabled } from './src/lib/flags';
 import { MARKETING_ROUTES } from './src/lib/home/landing-pages';
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -8,18 +8,41 @@ const isProd = process.env.NODE_ENV === 'production';
 // nonces aren't viable — inline scripts/styles are allowed instead (Next
 // hydration + JSON-LD + inline analytics snippets). 'unsafe-eval' is dev-only
 // (Turbopack/React refresh). External analytics providers need their domains
-// added to script-src/connect-src.
+// added to script-src/connect-src — which is what the GTM block below does.
+
+// Google Tag Manager's origins, added ONLY when a container is configured
+// (`NEXT_PUBLIC_GTM_ID`, see src/lib/flags.ts). Tying the two together is the
+// point: a deployment that has not opted into tracking keeps a CSP that admits
+// no third-party script at all, so the header can never be looser than what the
+// app actually loads.
+//
+// `script-src` loads gtm.js and whatever tags the container injects;
+// `connect-src` is where GA4 sends its hits (it beacons to google-analytics.com
+// and to the regional *.analytics.google.com endpoints, so both wildcards are
+// needed); `frame-src` serves the snippet's own <noscript> iframe. `img-src`
+// already allows `https:`, which covers the legacy pixel fallbacks.
+const GTM_SCRIPT = ['https://www.googletagmanager.com', 'https://*.googletagmanager.com'];
+const GTM_CONNECT = [
+  'https://www.googletagmanager.com',
+  'https://*.google-analytics.com',
+  'https://*.analytics.google.com',
+  'https://*.g.doubleclick.net',
+];
+const gtmOn = Boolean(gtmContainerId);
+const extra = (on: boolean, origins: string[]) => (on ? ` ${origins.join(' ')}` : '');
+
 const csp = [
   "default-src 'self'",
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'self'", // allow same-origin theme-preview iframe
   "object-src 'none'",
-  `script-src 'self' 'unsafe-inline'${isProd ? '' : " 'unsafe-eval'"}`,
+  `script-src 'self' 'unsafe-inline'${isProd ? '' : " 'unsafe-eval'"}${extra(gtmOn, GTM_SCRIPT)}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self'",
+  `connect-src 'self'${extra(gtmOn, GTM_CONNECT)}`,
+  ...(gtmOn ? [`frame-src 'self' ${GTM_SCRIPT[0]}`] : []),
   'upgrade-insecure-requests',
 ].join('; ');
 
@@ -44,11 +67,13 @@ const securityHeaders = [
 // It was briefly mounted at basePath '/blog' instead, with the archive on "/".
 // The redirects below retire the URLs that mount published.
 
+
 // Routes in app/(marketing): the homepage plus every landing page registered in
 // src/lib/home/landing-pages.ts (imported above as MARKETING_ROUTES). They ship
 // together behind NEXT_PUBLIC_HOMEPAGE_ENABLED. Registering a route there is
 // what gates it here, lists it in the sitemap (src/lib/seo/entries.ts) and keeps
 // its nav links local (src/themes/softsuave/nav-data.ts) — one list, not three.
+
 
 // How many workers `next build` may use to prerender pages in parallel.
 //
@@ -110,6 +135,22 @@ const nextConfig: NextConfig = {
       ...(homepageEnabled
         ? []
         : MARKETING_ROUTES.map((source) => ({ source, destination: '/blog', permanent: false }))),
+
+      // The Custom AI page shipped under a misspelled slug ("custome",
+      // "developement"). The canonical URL is /custom-ai-development-services
+      // (the content spec's own slug); both the misspelling and the shortened
+      // form it was briefly corrected to are retired here, so anything already
+      // pointing at either still lands.
+      {
+        source: '/custome-ai-developement',
+        destination: '/custom-ai-development-services',
+        permanent: true,
+      },
+      {
+        source: '/custom-ai-development',
+        destination: '/custom-ai-development-services',
+        permanent: true,
+      },
 
       // Retire the subpath mount's URLs. Under basePath '/blog' every post,
       // taxonomy and asset answered one level deeper than it does now, and those

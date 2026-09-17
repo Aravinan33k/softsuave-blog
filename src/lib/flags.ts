@@ -29,6 +29,27 @@
 export const homepageEnabled = process.env.NEXT_PUBLIC_HOMEPAGE_ENABLED === 'true';
 
 /**
+ * Google Tag Manager container, which is how softsuave.com loads Analytics —
+ * the live site has no standalone `gtag.js`, only container `GTM-TWMFSDC`, and
+ * everything else is configured inside it. The 11 Sep review asked for the
+ * tracking codes to be present on these pages too.
+ *
+ * Empty by default, and that is deliberate: this is the variable that turns
+ * third-party tracking ON, so it is set per deployment rather than compiled in.
+ * An unset value means no GTM script, no `dataLayer`, and — because
+ * `next.config.ts` reads this same constant — a CSP that still admits no
+ * third-party script origin at all. Setting it is the whole switch:
+ *
+ *   NEXT_PUBLIC_GTM_ID=GTM-TWMFSDC
+ *
+ * Being a `NEXT_PUBLIC_*` value it is baked in at build time, so turning it on
+ * needs a rebuild. Note that GTM will fire for every visitor the moment it is
+ * set — if this deployment owes anyone a consent gate, that belongs in the
+ * container (or in front of this) before the variable goes into production.
+ */
+export const gtmContainerId: string = process.env.NEXT_PUBLIC_GTM_ID ?? '';
+
+/**
  * Subpath this app is mounted at, mirroring `basePath` in `next.config.ts`.
  *
  * Empty: the app owns the domain root, so `/` is the marketing homepage, `/blog`

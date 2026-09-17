@@ -8,9 +8,11 @@
  * language pages argue about fit and architecture.
  *
  * Every slug matches the URL the page already has on softsuave.com, so search
- * equity and inbound links resolve rather than 404 when these ship. They are
- * also already present in the nav's `hire-skill` group (`nav-menu.ts`), which
- * points at the live site until each path is added to `MARKETING_PATHS` in
+ * equity and inbound links resolve rather than 404 when these ship. The nav
+ * links all 24 of them, though not all from one group: twenty sit in its
+ * `hire-skill` group and four — Android, iOS, Salesforce and Blockchain — sit
+ * in `hire-role`, because that is how the live menu files them. Either way the
+ * link points at the live site until the path is added to `MARKETING_PATHS` in
  * `themes/softsuave/nav-data.ts`.
  */
 

@@ -17,8 +17,13 @@ import { hireSharedFaqs } from './hire-shared';
 const MARKETING_DIR = join(process.cwd(), 'src', 'app', '(marketing)');
 
 describe('hire skill registry', () => {
-  it('has all 24 skills', () => {
-    expect(HIRE_SKILLS).toHaveLength(24);
+  // Twenty of the original twenty-four. Android, iOS, Salesforce and Blockchain
+  // moved out to `lib/home/hire-roles/`: softsuave.com files all four under
+  // "Hire By Role", and their live pages run the role sections, so they are
+  // role pages now. A path can only belong to one registry — two would mean two
+  // entries in `LANDING_PAGES` for the same URL.
+  it('has all 20 skills', () => {
+    expect(HIRE_SKILLS).toHaveLength(20);
   });
 
   it('has unique slugs and keys', () => {
@@ -108,7 +113,9 @@ describe('hire content composition', () => {
     const hero = hireHero(skill);
     expect(hero.titleLines).toEqual(skill.titleLines);
     expect(hero.form.subject).toBe('React Developers enquiry');
-    expect(hero.badges.length).toBeGreaterThan(0);
+    // `badges` is optional on HeroContent — a hero may omit them. The hire
+    // template is not one of those: it always passes the shared trust row.
+    expect(hero.badges?.length ?? 0).toBeGreaterThan(0);
   });
 
   it('puts technology questions before the shared commercial ones', () => {
@@ -125,8 +132,8 @@ describe('hire content composition', () => {
   });
 
   it('produces a unique FAQ set per skill', () => {
-    const first = hireFaqs(hireSkill('hire-android-developers')).items.map((f) => f.q);
-    const second = hireFaqs(hireSkill('hire-ios-developers')).items.map((f) => f.q);
+    const first = hireFaqs(hireSkill('hire-kotlin-developer')).items.map((f) => f.q);
+    const second = hireFaqs(hireSkill('hire-swift-developers')).items.map((f) => f.q);
     expect(first).not.toEqual(second);
   });
 });

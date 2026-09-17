@@ -164,7 +164,11 @@ export default function Services() {
         <div className={styles.carGrid}>
           <div key={active} className={styles.carText} aria-live="polite">
             <span className={styles.carNum}>/{pad(active + 1)}</span>
-            <h2 className={styles.carName}>{items[active].name}</h2>
+            {/* h3, not h2: the section's own heading is `.carHeadTitle` above,
+                and a service NAME is subordinate to it. The mobile stack below
+                already had this right — the desktop stage was emitting a second
+                h2 inside the same section. */}
+            <h3 className={styles.carName}>{items[active].name}</h3>
             <p className={styles.carBody}>{items[active].body}</p>
             <a href="#contact" className={styles.carPill} data-cursor="Enquire">
               Enquire

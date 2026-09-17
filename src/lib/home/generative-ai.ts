@@ -10,6 +10,8 @@
  * not a copy per page.
  */
 
+import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+
 export const meta = {
   title: "Generative AI Development Company | Soft Suave",
   description:
@@ -18,7 +20,6 @@ export const meta = {
 } as const;
 
 export const hero = {
-  eyebrow: "Generative AI Development Company",
   /** Rendered as the page's single H1, split into lines for the masked reveal. */
   titleLines: ["Generative AI Development Company:", "From Pilot to Production"],
   body: [
@@ -32,6 +33,7 @@ export const hero = {
     "Strong Delivery Governance",
     "Continuous Quality Evaluation",
   ],
+  badges: sharedHeroBadges,
   /**
    * Full-bleed hero backdrop, treated the way the homepage treats its intro
    * video: the frame sits behind the content at low opacity under a dark
@@ -47,8 +49,8 @@ export const hero = {
       "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAABQAQCdASoQAAkAA4BaJQBOgC6gAP70ZSuMXAh7U5CLN/6R9Ag+TrLRBrkNmW0vWBn6rPX6AAA=",
   },
   form: {
-    eyebrow: "Free Consultation",
-    title: "Book a 30-minute technical consultation",
+    eyebrow: "Business Enquiry",
+    title: "Get Your FREE Quote Now!",
     note: "Covered by NDA. No sales pitch — an engineer reviews your use case.",
     submit: "Request Consultation",
     sending: "Opening your mail…",
@@ -56,6 +58,7 @@ export const hero = {
     requirementPlaceholder:
       "What should the system do, and which data or systems does it need to reach?",
     subject: "Generative AI consultation request",
+    alert: sharedHeroAlert,
   },
 } as const;
 
@@ -291,18 +294,6 @@ export const industries = {
       image: "/images/landing/industries/ind-telecom.webp",
       body: "Resolve repeat support queries from your own help content, summarise network incidents for faster handover, and make dense technical documentation searchable for field engineering teams.",
     },
-    {
-      key: "realestate",
-      name: "Real Estate",
-      image: "/images/landing/industries/ind-realestate.webp",
-      body: "Draft property listings from unit and specification data, extract terms from leases and sale agreements, and qualify inbound enquiries against live availability so agents follow up on the ones worth their time.",
-    },
-    {
-      key: "manufacturing",
-      name: "Manufacturing",
-      image: "/images/landing/industries/ind-manufacturing.webp",
-      body: "Make equipment manuals, SOPs, and maintenance histories searchable for floor engineers, extract data from supplier and quality documents, and summarise defect reports so recurring issues surface early.",
-    },
   ],
 } as const;
 
@@ -332,8 +323,8 @@ export const whyUs = {
       body: "Improve reliability through structured evaluation, performance testing, human review, and ongoing quality checks throughout the development process.",
     },
     {
-      name: "ISO 9001:2015-Certified Quality Processes",
-      body: "Protect your data and applications with ISO-certified processes, access controls, guardrails, audit logging, and security measures built into every stage.",
+      name: "ISO/IEC 27001:2022 Certified",
+      body: "Your data and applications are protected by access controls, audit logging, and encryption at every stage.",
     },
   ],
 } as const;

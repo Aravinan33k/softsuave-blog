@@ -24,15 +24,62 @@
  * The panel below mirrors the live site's own menu: every page softsuave.com's
  * homepage reaches is reachable from ours. The exceptions are deliberate — the
  * items that hold an `#anchor` are practices this page argues for that the live
- * site publishes no page for (the FDE model, QA & Test Automation, full-stack
- * and architect roles, Next.js). Pointing them at a near-miss page would
- * misdescribe them, so they go to the section that describes them properly.
- * Swap in the real path as each page ships — Data Engineering and Data Science
- * already have theirs.
+ * site publishes no page for — in the Services panel that is now the FDE model
+ * alone. Pointing one at a near-miss page would misdescribe it, so it goes to
+ * the section that describes it properly. Swap in the real path as each page
+ * ships.
  *
- * Two divisions are deliberately NOT mirrored, because they already have their
- * own "view all" navigation: the whole `Industries` panel, whose CTA is now our
- * own `/industries` sector index, and `Company`'s "Proof & recognition" group.
+ * ## what the menu may list (11 Sep review)
+ * The menu is scoped to the page list in the site-revamp sheet. An item earns a
+ * place only if it is a page we serve, a page softsuave.com serves, a section of
+ * this page, or a page the sheet has planned. Ten items met none of those and
+ * were removed: Embedded Product Pods, Integration Engineering, Solution
+ * Prototyping, QA & Test Automation, On-Demand Teams, Software Development
+ * India, and the Data Engineer / Full-Stack / Solution Architect / Next.js hire
+ * entries — every one of them a division's own `#section` or a path nothing
+ * serves, standing in for a page that was never planned. (On-Demand Teams has
+ * since turned out to be a 404 on softsuave.com too; see the 17 Sep check.)
+ *
+ * Four `#anchor` items stayed because the sheet DOES plan their page, and they
+ * take its path the day it ships. That day has come for all but one: Data
+ * Engineering and Data Science hold `/data-engineering-services` and
+ * `/data-science-services` (sheet rows 8-9), and the three Custom AI children
+ * have given up the near-miss `#services` anchor for `/rag-development-services`,
+ * `/computer-vision-development-services` and `/predictive-intelligence-services`
+ * (rows 5-7) — all five routes shipped on the custom-ai-sub-pages branch.
+ * Forward Deployed Engineers (row 10) is the one still waiting.
+ *
+ * The `Industries` panel is deliberately NOT mirrored, because it already has
+ * its own "view all" navigation: its CTA is our own `/industries` sector index.
+ *
+ * ## checked against the live menu (17 Sep)
+ * Every panel was diffed against softsuave.com's own menu and every outbound
+ * path probed. The live menu holds nothing we now leave out, and four things
+ * changed here as a result:
+ *
+ *   - `Search Articles` pointed at `/search`, which we serve and the live site
+ *     does not. Missing from `MARKETING_PATHS`, it resolved outbound to a 404 —
+ *     the one link in this file that did. Adding the path there fixed it.
+ *   - `Awards` and `Clients` gave up their `#awards`/`#clients` anchors for
+ *     `/awards-recognition` and `/clients`, the pages the live menu links.
+ *   - `How to Hire` is gone: `/how-to-hire` is retired, 301ing to a hire page.
+ *   - `Our Clients` is gone from Resources, now that Company links `/clients`.
+ *
+ * Labels were pulled back to the live menu's own wording in the process: the
+ * industries read "Fin Tech", "Health Tech", "Edu Tech" and "eCommerce", the
+ * AI practice page is "AI Solutions", `/cloud-computing` is "Cloud Computing",
+ * and the web technologies are "React", "ROR" and ".Net".
+ *
+ * Two live-menu entries are still deliberately not copied. `On-demand Teams`
+ * links `/on-demand-teams`, which 404s on softsuave.com — it is a broken link
+ * there, so mirroring it would import the break. And the live menu lists Ionic
+ * under both its mobile and web technologies; we keep the mobile one only.
+ *
+ * Left as they are, on purpose: `/offshore-software-development-company` keeps
+ * its slashless path, which is the one in `MARKETING_PATHS` and the route we
+ * serve — the live menu's trailing-slash form only matters pre-launch, and
+ * matching it would break the local match. The `Services` CTA keeps `#services`
+ * rather than the live `/services` index, which is a page we do not serve.
  *
  * ## groups
  * `dense` groups (roles, skills) drop the blurb and lay out as a compact
@@ -94,7 +141,7 @@ const SERVICES: NavMenuPanel = {
       items: [
         {
           name: "Custom AI Development",
-          href: "/custome-ai-developement",
+          href: "/custom-ai-development-services",
           blurb: "Generative, agentic and RAG systems built to fit",
           items: [
             { name: "Generative AI", href: "/generative-ai-development-company" },
@@ -105,7 +152,7 @@ const SERVICES: NavMenuPanel = {
           ],
         },
         {
-          name: "AI Development Services",
+          name: "AI Solutions",
           href: "/ai-development-service",
           blurb: "The whole AI practice, assessment through production",
         },
@@ -122,9 +169,6 @@ const SERVICES: NavMenuPanel = {
           href: "#services",
           blurb: "Engineers embedded with your team, shipping",
         },
-        { name: "Embedded Product Pods", href: "#services", blurb: "A standing squad owning an outcome" },
-        { name: "Integration Engineering", href: "#services", blurb: "AI wired into the systems you already run" },
-        { name: "Solution Prototyping", href: "#journey", blurb: "A working prototype before the big spend" },
       ],
     },
     {
@@ -136,8 +180,7 @@ const SERVICES: NavMenuPanel = {
         { name: "Mobile App Development", href: "/mobile-application-development-company", blurb: "Native and cross-platform apps" },
         { name: "Product Engineering", href: "/product-engineering-services", blurb: "Roadmap to release, end to end" },
         { name: "Legacy Modernization", href: "/legacy-modernization-services", blurb: "Re-platform without stopping the business" },
-        { name: "Cloud & DevOps", href: "/cloud-computing", blurb: "Scalable infrastructure and delivery pipelines" },
-        { name: "QA & Test Automation", href: "#services", blurb: "Coverage that keeps releases safe" },
+        { name: "Cloud Computing", href: "/cloud-computing", blurb: "Scalable infrastructure and delivery pipelines" },
       ],
     },
     {
@@ -151,8 +194,6 @@ const SERVICES: NavMenuPanel = {
         { name: "IT Outsourcing", href: "/it-outsourcing-company-india", blurb: "Whole functions, managed for you" },
         { name: "IT Staff Augmentation", href: "/it-staff-augmentation-services", blurb: "Add proven engineers to your team" },
         { name: "Dedicated Development Teams", href: "/hire-dedicated-developers", blurb: "A long-running team that learns your domain" },
-        { name: "On-Demand Teams", href: "/on-demand-teams", blurb: "Scale a squad up and down as the work moves" },
-        { name: "Software Development India", href: "/software-development-company-india", blurb: "Our Chennai delivery centre" },
       ],
     },
     {
@@ -175,65 +216,83 @@ const SERVICES: NavMenuPanel = {
       dense: true,
       items: [
         { name: "Web Apps", href: "/web-application-development-company" },
-        { name: "React.js", href: "/reactjs-app-development-company" },
+        { name: "React", href: "/reactjs-app-development-company" },
         { name: "Angular", href: "/angularjs-development-company" },
         { name: "Node.js", href: "/nodejs-development-company" },
         { name: "Java", href: "/java-application-development-company" },
         { name: "Python", href: "/python-application-development-company" },
         { name: "PHP", href: "/php-application-development-company" },
-        { name: ".NET", href: "/dot-net-application-development-company" },
-        { name: "Ruby on Rails", href: "/ruby-on-rails-development-company" },
+        { name: ".Net", href: "/dot-net-application-development-company" },
+        { name: "ROR", href: "/ruby-on-rails-development-company" },
       ],
     },
     {
       key: "hire-role",
-      name: "Hire Developers by Role",
+      /**
+       * softsuave.com's own "Hire By Role" panel, item for item and in its
+       * order — the labels, the thirteen roles, and which of the two hire
+       * groups each one belongs to all come from the live menu rather than
+       * being re-worded here. The names keep their "Hire " prefix because
+       * that is how the live panel reads; the group heading repeating it is
+       * the live design, not an accident.
+       *
+       * Four of these used to sit under "Hire By Skill" below — Android, iOS,
+       * Salesforce and Blockchain. The live site files them as roles, so they
+       * moved here and left the skill list to the languages and frameworks.
+       */
+      name: "Hire By Role",
       dense: true,
       items: [
-        { name: "AI/ML Engineers", href: "/hire-ai-developer" },
-        { name: "Software Developers", href: "/hire-software-developers" },
-        { name: "Web App Developers", href: "/hire-web-app-developers" },
-        { name: "Mobile Developers", href: "/hire-mobile-app-developers" },
-        { name: "Front-End Developers", href: "/hire-frontend-application-developer" },
-        { name: "Back-End Developers", href: "/hire-backend-application-developer" },
-        { name: "DevOps Engineers", href: "/hire-devops-developers" },
-        { name: "QA Engineers", href: "/hire-qa-testers-india" },
-        { name: "Dedicated Developers", href: "/hire-dedicated-developers" },
-        { name: "Data Engineers", href: "#contact" },
-        { name: "Full-Stack Developers", href: "#contact" },
-        { name: "Solution Architects", href: "#contact" },
+        { name: "Hire Software Developer", href: "/hire-software-developers" },
+        { name: "Hire Web App Developer", href: "/hire-web-app-developers" },
+        { name: "Hire Mobile App Developer", href: "/hire-mobile-app-developers" },
+        { name: "Hire Frontend Developer", href: "/hire-frontend-application-developer" },
+        { name: "Hire Backend Developer", href: "/hire-backend-application-developer" },
+        { name: "Hire Dedicated Developer", href: "/hire-dedicated-developers" },
+        { name: "Hire AI Developer", href: "/hire-ai-developer" },
+        { name: "Hire QA Engineer", href: "/hire-qa-testers-india" },
+        { name: "Hire Android Developer", href: "/hire-android-developers" },
+        { name: "Hire iOS Developer", href: "/hire-ios-developers" },
+        { name: "Hire DevOps Developer", href: "/hire-devops-developers" },
+        { name: "Hire Salesforce Developer", href: "/hire-salesforce-developer" },
+        { name: "Hire Blockchain Developer", href: "/hire-blockchain-developer" },
       ],
     },
     {
       key: "hire-skill",
-      name: "Hire Developers by Skill",
+      /**
+       * softsuave.com's own "Hire By Skill" panel, same rule as the roles
+       * above: its twenty entries, its labels ("ROR", ".Net", "MERN" — the
+       * live site's spellings, not expanded ones) and its order.
+       *
+       * Android, iOS, Salesforce and Blockchain are deliberately absent —
+       * the live menu files those as roles, and they are in the role group.
+       * Next.js is absent for a different reason: it is a sheet row with no
+       * page yet, and the live menu has no entry for it either.
+       */
+      name: "Hire By Skill",
       dense: true,
       items: [
-        { name: "Python", href: "/hire-python-developers" },
-        { name: "Node.js", href: "/hire-nodejs-developers" },
         { name: "React", href: "/hire-reactjs-developers" },
         { name: "Angular", href: "/hire-angularjs-developers" },
+        { name: "ROR", href: "/hire-ruby-on-rails-developer" },
+        { name: "Node.js", href: "/hire-nodejs-developers" },
         { name: "Java", href: "/hire-java-developers" },
-        { name: ".NET", href: "/hire-dot-net-developers" },
+        { name: "Python", href: "/hire-python-developers" },
         { name: "PHP", href: "/hire-php-developers" },
-        { name: "Ruby on Rails", href: "/hire-ruby-on-rails-developer" },
-        { name: "Django", href: "/hire-django-developer" },
-        { name: "Laravel", href: "/hire-laravel-developer" },
-        { name: "NestJS", href: "/hire-nestjs-developers" },
-        { name: "MEAN Stack", href: "/hire-mean-stack-developers-india" },
-        { name: "MERN Stack", href: "/hire-mern-stack-developers-india" },
-        { name: "Android", href: "/hire-android-developers" },
-        { name: "iOS", href: "/hire-ios-developers" },
-        { name: "Swift", href: "/hire-swift-developers" },
-        { name: "Kotlin", href: "/hire-kotlin-developer" },
+        { name: ".Net", href: "/hire-dot-net-developers" },
         { name: "Flutter", href: "/hire-flutter-developers" },
+        { name: "Laravel", href: "/hire-laravel-developer" },
         { name: "React Native", href: "/hire-react-native-developers" },
+        { name: "NestJS", href: "/hire-nestjs-developers" },
+        { name: "Django", href: "/hire-django-developer" },
         { name: "Ionic", href: "/hire-ionic-developers" },
-        { name: "Blockchain", href: "/hire-blockchain-developer" },
-        { name: "Salesforce", href: "/hire-salesforce-developer" },
+        { name: "Kotlin", href: "/hire-kotlin-developer" },
         { name: "Magento", href: "/hire-magento-developer" },
+        { name: "Swift", href: "/hire-swift-developers" },
+        { name: "MERN", href: "/hire-mern-stack-developers-india" },
         { name: "Drupal", href: "/hire-drupal-developer" },
-        { name: "Next.js", href: "#tech" },
+        { name: "MEAN", href: "/hire-mean-stack-developers-india" },
       ],
     },
   ],
@@ -258,10 +317,10 @@ const INDUSTRIES: NavMenuPanel = {
         // is on, and to ours once it is (see MARKETING_PATHS in
         // themes/softsuave/nav-data.ts). Aviation is the one sector with no
         // homepage band of its own, so the panel is the only way to reach it.
-        { name: "FinTech", href: "/fintech-ai-solutions", blurb: "Fraud detection and personalised banking" },
-        { name: "HealthTech", href: "/ai-solutions-in-healthtech", blurb: "Patient outcomes and clinical workflows" },
-        { name: "EdTech", href: "/ai-solutions-in-edutech", blurb: "Personalised learning and analytics" },
-        { name: "Ecommerce", href: "/ai-solutions-for-ecommerce", blurb: "Recommendations and inventory automation" },
+        { name: "Fin Tech", href: "/fintech-ai-solutions", blurb: "Fraud detection and personalised banking" },
+        { name: "Health Tech", href: "/ai-solutions-in-healthtech", blurb: "Patient outcomes and clinical workflows" },
+        { name: "Edu Tech", href: "/ai-solutions-in-edutech", blurb: "Personalised learning and analytics" },
+        { name: "eCommerce", href: "/ai-solutions-for-ecommerce", blurb: "Recommendations and inventory automation" },
         { name: "Logistics", href: "/ai-in-logistics", blurb: "Forecasting and route optimisation" },
         { name: "Telecom", href: "/ai-solutions-for-telecom", blurb: "Predictive maintenance and network AI" },
         { name: "Construction", href: "/ai-solutions-for-construction", blurb: "Site safety and delay forecasting" },
@@ -303,23 +362,31 @@ const COMPANY: NavMenuPanel = {
     {
       key: "engage",
       name: "Working with us",
+      /* "How to Hire" used to head this group, pointing at `/how-to-hire`. That
+         page is retired: softsuave.com 301s it to /hire-software-developers,
+         which the Hire panel already lists, and the live menu dropped it. A
+         label promising the engagement models that lands on a single hire page
+         misdescribes both, so it is gone rather than repointed. */
       items: [
-        { name: "How to Hire", href: "/how-to-hire", blurb: "The engagement models, step by step" },
         { name: "Free Cost Estimation", href: "/free-cost-estimation", blurb: "A costed plan before you commit" },
         { name: "FAQs", href: "/faqs", blurb: "Contracts, IP, notice periods, overlap hours" },
       ],
     },
     {
-      /* Untouched by the mirroring pass: this group already has its own "view
-         all" route into the live site from the Recognitions section, so its
-         items stay pointed at the sections of this page. */
+      /* Two of these have a page and two do not, so the group is deliberately
+         mixed. Awards and Clients take their real routes — the live menu links
+         both, `/awards-recognition` is a route of ours already, and sending a
+         reader to a homepage band instead of the page was just a worse link.
+         Recognitions and Testimonials keep their anchors: neither is a page on
+         any site, they are bands of this page, and the Awards entry above now
+         covers the page for anyone who wants the full list. */
       key: "recognition",
       name: "Proof & recognition",
       items: [
-        { name: "Awards", href: "#awards", blurb: "Clutch, UpFirms, SoftwareWorld and more" },
+        { name: "Awards", href: "/awards-recognition", blurb: "Clutch, UpFirms, SoftwareWorld and more" },
         { name: "Recognitions", href: "#awards", blurb: "Independent industry rankings" },
         { name: "Client Testimonials", href: "#testimonials", blurb: "What partners say after shipping" },
-        { name: "Clients", href: "#clients", blurb: "The names behind the numbers" },
+        { name: "Clients", href: "/clients", blurb: "The names behind the numbers" },
       ],
     },
   ],
@@ -338,7 +405,10 @@ const RESOURCES: NavMenuPanel = {
         { name: "Blog", href: "/blog", blurb: "Long-form engineering and delivery writing" },
         { name: "Case Studies", href: "/case-studies", blurb: "Problem, system, measured outcome" },
         { name: "Success Stories", href: "/success-stories", blurb: "The client's account of the same work" },
-        { name: "Our Clients", href: "/clients", blurb: "Who we have shipped for" },
+        // "Our Clients" sat here pointing at /clients, which the Company
+        // panel's "Clients" now links. One destination, two panels, two names
+        // was the weaker of the two links; Company is where the live menu
+        // files it.
         { name: "Search Articles", href: "/search", blurb: "Find a topic across the archive" },
       ],
     },

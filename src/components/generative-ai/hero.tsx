@@ -2,6 +2,7 @@
 
 import { Fragment, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { brand } from "@/lib/home/content";
 import { hero as generativeAiHero } from "@/lib/home/generative-ai";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
@@ -20,6 +21,8 @@ export interface HeroContent {
   titleLines: readonly string[];
   body: readonly string[];
   points: readonly string[];
+  /** Credential strip closing the hero copy column. Omitted renders nothing. */
+  badges?: readonly string[];
   /**
    * Optional full-bleed backdrop photograph, the landing-page counterpart to
    * the homepage hero's intro video: rendered with `fill` behind the content,
@@ -41,6 +44,11 @@ export interface HeroContent {
     requirementPlaceholder: string;
     /** Subject line of the composed mailto. */
     subject: string;
+    /**
+     * Notice under the form steering job applicants away from the sales
+     * inbox. `href` is passed to next/link, so it picks up the basePath.
+     */
+    alert?: { label: string; text: string; linkLabel: string; href: string };
   };
 }
 
@@ -89,6 +97,8 @@ export default function Hero({
       }, 0.1)
         .from(`.${styles.heroBody}`, { opacity: 0, y: 20, duration: 0.7, ease: "power2.out", stagger: 0.08 }, "-=0.5")
         .from(`.${styles.heroPoint}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.05 }, "-=0.4")
+        .from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3")
+        .from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3")
         .from(`.${styles.form}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
 
       // Backdrop lifts out of black underneath all of that — the same hand-off
@@ -187,11 +197,25 @@ export default function Hero({
               </li>
             ))}
           </ul>
+
+          {content.badges && content.badges.length > 0 && (
+            <ul className={styles.badges} aria-label="Credentials">
+              {content.badges.map((b) => (
+                <li key={b} className={styles.badge}>
+                  <span className={styles.badgeDot} aria-hidden />
+                  {b}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className={styles.form} id="enquiry">
-          <span className={styles.kicker}>{content.form.eyebrow}</span>
-          <p className={styles.formTitle}>{content.form.title}</p>
+          <div className={styles.formHeader}>
+            <span className={styles.kicker}>{content.form.eyebrow}</span>
+            <p className={styles.formTitle}>{content.form.title}</p>
+            <span className={styles.formAccent} aria-hidden />
+          </div>
 
           <form className={styles.formFields} onSubmit={onSubmit}>
             <div className={styles.field}>
@@ -265,6 +289,16 @@ export default function Hero({
           </form>
 
           <p className={styles.formNote}>{content.form.note}</p>
+
+          {content.form.alert && (
+            <p className={styles.formAlert}>
+              <span className={styles.formAlertLabel}>{content.form.alert.label}</span>{" "}
+              {content.form.alert.text}{" "}
+              <Link className={styles.formAlertLink} href={content.form.alert.href}>
+                {content.form.alert.linkLabel}
+              </Link>
+            </p>
+          )}
 
           {sent && (
             <p className={styles.formStatus} role="status">

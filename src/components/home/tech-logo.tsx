@@ -554,6 +554,7 @@ export default function TechLogo({ name }: { name: string }) {
           <path d="M18 3C18 8 15.5 12.5 11 15C9.5 15.8 8 16 6.7 15.6C8.6 10 12.9 5.2 18 3Z" fill="#D22128" />
         </svg>
       );
+
     case "pgvector":
       // Postgres elephant blue with a vector arrow
       return (
@@ -1565,6 +1566,54 @@ export default function TechLogo({ name }: { name: string }) {
           <path d="M4.4 6.6v10.8c0 1.3 3.4 2.4 7.6 2.4s7.6-1.1 7.6-2.4V6.6" fill="#0F80CC" />
           <ellipse cx="12" cy="6.6" rx="7.6" ry="2.4" fill="#62BAEA" />
           <path d="M18.6 4.4c-4 3.4-6.4 7.8-7.4 13.2l-1.8-3.2" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "kafka":
+      // Kafka's connected nodes
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="4.5" r="2.3" fill="#231F20" />
+          <circle cx="6.5" cy="12" r="2.3" fill="#231F20" />
+          <circle cx="17.5" cy="12" r="2.3" fill="#231F20" />
+          <circle cx="12" cy="19.5" r="2.3" fill="#231F20" />
+          <path d="M12 6.8V17.2M10 11L8.4 11.4M13.9 11L15.6 11.4" stroke="#231F20" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+      );
+    // "restapis" only: "restapi" and "rest" are handled above.
+    case "restapis":
+      // API braces
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#4B5563" />
+          <path d="M9.6 7.8C8 7.8 8.2 10.4 6.8 10.9C8.2 11.4 8 14.2 9.6 14.2M14.4 7.8C16 7.8 15.8 10.4 17.2 10.9C15.8 11.4 16 14.2 14.4 14.2" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M8 17.5H16" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+      );
+    // "enterprisedatabases" only: "postgresql" and "mysql" are handled above.
+    case "enterprisedatabases":
+      // Database cylinder
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="12" cy="6" rx="7.5" ry="3.2" fill="#336791" />
+          <path d="M4.5 6V18C4.5 19.8 7.9 21.2 12 21.2C16.1 21.2 19.5 19.8 19.5 18V6" fill="#336791" />
+          <path d="M4.5 12C4.5 13.8 7.9 15.2 12 15.2C16.1 15.2 19.5 13.8 19.5 12" stroke="white" strokeWidth="1.3" />
+        </svg>
+      );
+    case "deepeval":
+      // Evaluation checkmark in a scoring frame
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="#7C3AED" />
+          <path d="M7.5 12.4L10.6 15.5L16.5 8.8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "guardrailsai":
+    case "guardrails":
+      // Shield guardrail
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.6L20 5.8V12C20 16.5 16.6 20.2 12 21.4C7.4 20.2 4 16.5 4 12V5.8L12 2.6Z" fill="#059669" />
+          <path d="M8.3 12.2L11 14.9L15.9 9.6" stroke="white" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       );
     default:

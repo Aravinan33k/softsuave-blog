@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import BrandImage from "./brand-image";
 import { finalCta } from "@/lib/home/content";
-import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import HoldButton from "./hold-button";
 import styles from "./home.module.css";
 
@@ -64,9 +64,17 @@ export default function Contact({
 
       // Copy resolves in, then the underline draws itself — a plain once-through
       // reveal on enter, so it cannot be stranded mid-scrub.
-      const tl = gsap.timeline({
-        scrollTrigger: { trigger: root.current, start: "top 78%", once: true },
-      });
+      //
+      // The timeline is PAUSED and played by a trigger of its own rather than
+      // handed to `scrollTrigger:`, because this band is the last thing above
+      // the footer and its reveal had still been reported missing. A start that
+      // resolves past the document's maximum scroll — which is what happens when
+      // positions are measured before the pinned scenes above settle, or on a
+      // short viewport — never fires, and the copy stays at `autoAlpha: 0`
+      // forever. `onRefresh` below is the failsafe: every refresh re-asks
+      // whether the section is on screen, and if it is the reveal plays whether
+      // or not the start line was ever crossed.
+      const tl = gsap.timeline({ paused: true });
       tl.fromTo(
         `.${styles.contactInner}`,
         { autoAlpha: 0, y: 36, filter: "blur(10px)" },
@@ -79,10 +87,28 @@ export default function Contact({
         "-=0.35",
       );
 
+      const play = () => {
+        if (!tl.isActive() && tl.progress() === 0) tl.play();
+      };
+
+      const revealTrigger = ScrollTrigger.create({
+        trigger: root.current,
+        start: "top 78%",
+        once: true,
+        onEnter: play,
+        // The rescue asks the one question that still has an answer when the
+        // start line is unreachable: is any of the section actually on screen?
+        // `play` is idempotent, so this can only ever un-hide copy that the
+        // trigger alone would have left at zero opacity.
+        onRefresh: () => {
+          if (root.current && ScrollTrigger.isInViewport(root.current, 0.15)) play();
+        },
+      });
+
       return () => {
         bg.scrollTrigger?.kill();
         bg.kill();
-        tl.scrollTrigger?.kill();
+        revealTrigger.kill();
         tl.kill();
       };
     },
