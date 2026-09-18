@@ -1,0 +1,95 @@
+import type { Metadata } from 'next';
+import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { absoluteUrl } from '@/lib/seo/metadata';
+import { JsonLd } from '@/components/seo/json-ld';
+import { organizationLd } from '@/lib/seo/organization';
+import { breadcrumbLd } from '@/lib/seo/jsonld';
+import { contactPage } from '@/lib/home/content';
+
+import Nav from '@/components/home/nav';
+import Contact from '@/components/home/contact';
+import Footer from '@/components/home/footer';
+import styles from '@/components/home/home.module.css';
+
+/**
+ * Contact page — the destination for the "Book AI Strategy Call" CTAs in the
+ * hero and the nav, which previously only scrolled to the homepage's own
+ * enquiry section and so had nowhere to go from any other route.
+ *
+ * A SERVER component: only a server component may export `metadata`, and the
+ * (marketing) layout's metadata is the homepage's. Fonts, `.theme-four` tokens
+ * and Lenis smooth scroll all come from that layout.
+ */
+
+const TITLE = 'Contact Us';
+const DESCRIPTION =
+  'Book a free AI strategy session with Soft Suave and find where AI can create the biggest impact in your organization.';
+
+// Matches the marketing cadence; nothing here is request-dependent.
+export const revalidate = 300;
+
+export const metadata: Metadata = {
+  title: `${TITLE} | Soft Suave`,
+  description: DESCRIPTION,
+  alternates: { canonical: '/contact' },
+  openGraph: {
+    title: `${TITLE} | Soft Suave`,
+    description: DESCRIPTION,
+    url: absoluteUrl('/contact'),
+    siteName: 'Soft Suave',
+    type: 'website',
+  },
+};
+
+/**
+ * The nav logo is a plain <a>, which Next does NOT prefix with basePath, so it
+ * needs the already-public path; the links below go through next/link, which
+ * does.
+ */
+const HOME_HREF = BASE_PATH || '/';
+
+const PAGE_URL = absoluteUrl('/contact');
+
+/**
+ * ContactPage schema. `organizationLd` carries the real contact details (the
+ * addresses and points of contact), so this references it by `@id` rather than
+ * restating any of them here — the same split the service pages use.
+ */
+const contactPageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  '@id': `${PAGE_URL}#webpage`,
+  url: PAGE_URL,
+  name: `${TITLE} | Soft Suave`,
+  description: DESCRIPTION,
+  inLanguage: 'en',
+  about: { '@id': organizationLd['@id'] },
+  publisher: { '@id': organizationLd['@id'] },
+} as const;
+
+export default function ContactPage() {
+  // Single-item trails are omitted rather than emitted empty, as elsewhere.
+  const trail = [
+    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
+    { name: TITLE, path: '/contact' },
+  ];
+  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
+
+  return (
+    <div className={styles.page}>
+      <JsonLd data={[contactPageLd, ...(breadcrumb ? [breadcrumb] : [])]} />
+      <Nav logoHref={HOME_HREF} />
+      <main id="main">
+        <section className={styles.contactLead}>
+          <h1 className={styles.h2}>{contactPage.title}</h1>
+          <p className={styles.lead}>{contactPage.body}</p>
+        </section>
+        {/* `#contact` rather than the default `/contact`: this band IS the
+            enquiry section, so the CTA scrolls to it instead of reloading the
+            page. The nav bar's own CTA still points at `/contact`. */}
+        <Contact ctaHref="#contact" />
+      </main>
+      <Footer />
+    </div>
+  );
+}

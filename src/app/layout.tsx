@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lato, PT_Serif } from "next/font/google";
 import { env } from "@/lib/env";
+import GoogleTagManager from "@/components/analytics/google-tag-manager";
 import "./globals.css";
 
 // Only the two brand fonts are loaded. Fonts declared in the root layout are
@@ -45,6 +46,9 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        {/* Last in the body: the container is `afterInteractive`, so its
+            position here only decides where the noscript fallback lands. */}
+        <GoogleTagManager />
       </body>
     </html>
   );

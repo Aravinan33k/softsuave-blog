@@ -70,3 +70,56 @@ export function breadcrumbLd(items: { name: string; path: string }[]) {
     })),
   };
 }
+
+/**
+ * FAQPage from a plain question/answer list.
+ *
+ * `faq-ld.ts` builds the same schema by walking a TipTap document — that one is
+ * for CMS posts whose FAQ lives in the editor. This one is for pages whose FAQ is
+ * code, e.g. the service landing pages. Google requires the answer to be visible
+ * on the page, which is why those render every answer into the DOM (collapsed,
+ * not absent).
+ */
+export function faqPageLd(items: readonly { readonly q: string; readonly a: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((it) => ({
+      '@type': 'Question',
+      name: it.q,
+      acceptedAnswer: { '@type': 'Answer', text: it.a },
+    })),
+  };
+}
+
+/** A single named service offered by the organization, for a service page. */
+export function serviceLd(args: {
+  name: string;
+  description: string;
+  path: string;
+  providerName: string;
+  /** Sub-offerings listed on the page, e.g. the five capability areas. */
+  offers?: readonly { readonly name: string; readonly body: string }[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: args.name,
+    description: args.description,
+    url: absoluteUrl(args.path),
+    serviceType: args.name,
+    provider: { '@type': 'Organization', name: args.providerName, url: absoluteUrl('/') },
+    ...(args.offers?.length
+      ? {
+          hasOfferCatalog: {
+            '@type': 'OfferCatalog',
+            name: args.name,
+            itemListElement: args.offers.map((o) => ({
+              '@type': 'Offer',
+              itemOffered: { '@type': 'Service', name: o.name, description: o.body },
+            })),
+          },
+        }
+      : {}),
+  };
+}

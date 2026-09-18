@@ -91,7 +91,11 @@ export function SoftSuavePostView({ post, relatedPosts }: PostViewProps) {
 
           {post.tags.length > 0 && (
             <div className="mt-10 border-t pt-6">
-              <h4 className="ss-heading mb-2 font-bold">Tags:</h4>
+              {/* h2, not h4: this labels a section of the page that follows the
+                  article body, and the body's own headings are h2/h3 — an h4
+                  here skipped a level in the outline. The utility classes keep
+                  it at its existing size. */}
+              <h2 className="ss-heading mb-2 text-base font-bold">Tags:</h2>
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((t) => (
                   <Link key={t.slug} href={`/tag/${t.slug}`} className="rounded-full bg-neutral-100 px-3 py-1 text-sm text-neutral-700 hover:bg-neutral-200">

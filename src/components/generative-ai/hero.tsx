@@ -1,0 +1,322 @@
+"use client";
+
+import { Fragment, useRef, useState } from "react";
+import Image from "next/image";
+import { SiteLink } from "@/themes/softsuave/site-link";
+import { brand } from "@/lib/home/content";
+import { hero as generativeAiHero } from "@/lib/home/generative-ai";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { publicMediaUrl } from "@/lib/media-url";
+import styles from "./gen-ai.module.css";
+import fx from "@/components/common/enquiry-form.module.css";
+import FieldIcon, { RequiredMark } from "@/components/common/field-icon";
+
+/**
+ * Shape of the copy this hero renders. Every AI landing page supplies its own
+ * object of this shape; the Generative AI page's is the default, so existing
+ * usage (`<Hero />`) is unchanged.
+ */
+export interface HeroContent {
+  /** The H1, split into lines. The last line takes the accent. */
+  titleLines: readonly string[];
+  body: readonly string[];
+  points: readonly string[];
+  /** Credential strip closing the hero copy column. Omitted renders nothing. */
+  badges?: readonly string[];
+  /**
+   * Optional full-bleed backdrop photograph, the landing-page counterpart to
+   * the homepage hero's intro video: rendered with `fill` behind the content,
+   * held at low opacity under a dark gradient veil so the headline keeps its
+   * contrast. Purely atmospheric, so it is rendered `alt=""` inside an
+   * `aria-hidden` frame. Pages without one keep the plain gradient hero.
+   */
+  background?: {
+    src: string;
+    blurDataURL?: string;
+  };
+  form: {
+    eyebrow: string;
+    title: string;
+    note: string;
+    submit: string;
+    sending: string;
+    requirementLabel: string;
+    requirementPlaceholder: string;
+    /** Subject line of the composed mailto. */
+    subject: string;
+    /**
+     * Notice under the form steering job applicants away from the sales
+     * inbox. `href` is passed to next/link, so it picks up the basePath.
+     */
+    alert?: { label: string; text: string; linkLabel: string; href: string };
+  };
+}
+
+/**
+ * Page hero: the H1 + positioning copy and supporting points on the left, the
+ * consultation enquiry form on the right.
+ *
+ * Typographically this is the landing-page voice, not the homepage's: a tight
+ * semibold Inter headline instead of the ultralight Fraunces display, squared
+ * tags and buttons instead of capsules, and hairline-ruled supporting points
+ * instead of a bulleted list.
+ *
+ * The form posts nowhere: this deployment has no lead endpoint, and the
+ * marketing surface's established convention for enquiries is a composed
+ * `mailto:` (see `components/home/contact.tsx`). Submitting therefore opens the
+ * visitor's mail client pre-filled with what they typed, so no requirement is
+ * silently dropped. Swap `onSubmit` for a POST once a leads API exists.
+ *
+ * `idPrefix` namespaces the field ids so each landing page's form owns its own
+ * label/control pairs.
+ */
+export default function Hero({
+  content = generativeAiHero,
+  idPrefix = "genai",
+}: {
+  content?: HeroContent;
+  idPrefix?: string;
+} = {}) {
+  const root = useRef<HTMLElement | null>(null);
+  const [sent, setSent] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", phone: "", requirement: "" });
+
+  const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  useGSAP(
+    () => {
+      if (prefersReducedMotion() || !root.current) return;
+      const tl = gsap.timeline({ delay: 0.15 });
+      tl.from(`.${styles.heroTitleLine}`, {
+        yPercent: 40,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+        stagger: 0.09,
+      }, 0.1)
+        .from(`.${styles.heroBody}`, { opacity: 0, y: 20, duration: 0.7, ease: "power2.out", stagger: 0.08 }, "-=0.5")
+        .from(`.${styles.heroPoint}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.05 }, "-=0.4")
+        .from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3")
+        .from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3")
+        .from(`.${fx.card}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
+
+      // Backdrop lifts out of black underneath all of that — the same hand-off
+      // the homepage hero gives its video frame. Added last, at an absolute
+      // position, so the relative offsets above keep their original timing;
+      // a no-op on pages that supply no background.
+      tl.from(`.${styles.heroMedia}`, { opacity: 0, duration: 1.3, ease: "power2.out" }, 0);
+    },
+    { scope: root },
+  );
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const body = [
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      form.phone ? `Phone: ${form.phone}` : null,
+      "",
+      "Requirement:",
+      form.requirement,
+    ]
+      .filter((l) => l !== null)
+      .join("\n");
+    setSent(true);
+    window.location.href = `mailto:${brand.email}?subject=${encodeURIComponent(
+      content.form.subject,
+    )}&body=${encodeURIComponent(body)}`;
+  };
+
+  const lastLine = content.titleLines.length - 1;
+
+  return (
+    <section ref={root} className={styles.hero} id="top">
+      {content.background && (
+        <div className={styles.heroMedia} aria-hidden>
+          <Image
+            src={publicMediaUrl(content.background.src)}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className={styles.heroMediaImg}
+            {...(content.background.blurDataURL
+              ? { placeholder: "blur" as const, blurDataURL: content.background.blurDataURL }
+              : {})}
+          />
+          <div className={styles.heroMediaVeil} />
+        </div>
+      )}
+
+      <div className={styles.heroGlow} aria-hidden />
+
+      <div className={styles.heroGrid}>
+        <div>
+          <h1 className={styles.heroTitle}>
+            {/* The spans are display:block, so the spaces between them only
+                matter to the text content crawlers and screen readers see. */}
+            {content.titleLines.map((line, i) => (
+              <Fragment key={line}>
+                {i > 0 ? " " : null}
+                <span
+                  className={`${styles.heroTitleLine}${
+                    i === lastLine ? ` ${styles.heroTitleAccent}` : ""
+                  }`}
+                >
+                  {line}
+                </span>
+              </Fragment>
+            ))}
+          </h1>
+
+          {content.body.map((p) => (
+            <p key={p.slice(0, 24)} className={styles.heroBody}>
+              {p}
+            </p>
+          ))}
+
+          <ul className={styles.heroPoints}>
+            {content.points.map((point) => (
+              <li key={point} className={styles.heroPoint}>
+                <svg
+                  className={styles.heroPointMark}
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <path d="M4 10.6l4 3.8 8-8.8" />
+                </svg>
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+
+          {content.badges && content.badges.length > 0 && (
+            <ul className={styles.badges} aria-label="Credentials">
+              {content.badges.map((b) => (
+                <li key={b} className={styles.badge}>
+                  <span className={styles.badgeDot} aria-hidden />
+                  {b}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div className={fx.card} id="enquiry">
+          <div className={fx.header}>
+            <span className={fx.eyebrow}>{content.form.eyebrow}</span>
+            <p className={fx.title}>{content.form.title}</p>
+            <span className={fx.accent} aria-hidden />
+          </div>
+
+          <form className={fx.fields} onSubmit={onSubmit}>
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor={`${idPrefix}-name`}>
+                <FieldIcon name="person" />
+                Full name
+                <RequiredMark />
+              </label>
+              <input
+                id={`${idPrefix}-name`}
+                className={fx.input}
+                type="text"
+                name="name"
+                autoComplete="name"
+                required
+                value={form.name}
+                onChange={set("name")}
+                placeholder="Jane Doe"
+              />
+            </div>
+
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor={`${idPrefix}-email`}>
+                <FieldIcon name="mail" />
+                Work email
+                <RequiredMark />
+              </label>
+              <input
+                id={`${idPrefix}-email`}
+                className={fx.input}
+                type="email"
+                name="email"
+                autoComplete="email"
+                required
+                value={form.email}
+                onChange={set("email")}
+                placeholder="jane@company.com"
+              />
+            </div>
+
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor={`${idPrefix}-phone`}>
+                <FieldIcon name="phone" />
+                Phone <span className={fx.optional} aria-hidden>(optional)</span>
+              </label>
+              <input
+                id={`${idPrefix}-phone`}
+                className={fx.input}
+                type="tel"
+                name="phone"
+                autoComplete="tel"
+                value={form.phone}
+                onChange={set("phone")}
+                placeholder="+1 555 000 1234"
+              />
+            </div>
+
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor={`${idPrefix}-requirement`}>
+                <FieldIcon name="doc" />
+                {content.form.requirementLabel}
+                <RequiredMark />
+              </label>
+              <textarea
+                id={`${idPrefix}-requirement`}
+                className={fx.textarea}
+                name="requirement"
+                required
+                value={form.requirement}
+                onChange={set("requirement")}
+                placeholder={content.form.requirementPlaceholder}
+              />
+            </div>
+
+            <button type="submit" className={fx.submit}>
+              {sent ? content.form.sending : content.form.submit}
+            </button>
+          </form>
+
+          <p className={fx.note}>{content.form.note}</p>
+
+          {content.form.alert && (
+            <p className={fx.alert}>
+              <span className={fx.alertLabel}>{content.form.alert.label}</span>{" "}
+              {content.form.alert.text}{" "}
+              {/* `SiteLink`, not `next/link`: this href is a live-site path
+                  (/career-overview) that this app does not serve, so a plain
+                  Link resolved it app-internally and 404'd. `SiteLink` sends
+                  paths we don't own to the marketing site — the same choice the
+                  landing hero's `noteLink` already makes for this exact link. */}
+              <SiteLink className={fx.alertLink} href={content.form.alert.href}>
+                {content.form.alert.linkLabel}
+              </SiteLink>
+            </p>
+          )}
+
+          {sent && (
+            <p className={fx.status} role="status">
+              Thanks — a draft to {brand.email} is opening with your details. We reply within one business day.
+            </p>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}

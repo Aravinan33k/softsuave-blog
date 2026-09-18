@@ -1,6 +1,7 @@
 // Full Soft Suave navigation, mirroring the live mega-menu. Relative hrefs point
 // at the main marketing site; the Blog link is local.
 import { homepageEnabled } from '@/lib/flags';
+import { MARKETING_ROUTES } from '@/lib/home/landing-pages';
 
 export const SITE = 'https://www.softsuave.com';
 
@@ -84,6 +85,8 @@ const SERVICE_GROUPS: NavGroup[] = [
       { label: 'Android Developer', href: '/hire-android-developers' },
       { label: 'iOS Developer', href: '/hire-ios-developers' },
       { label: 'DevOps Developer', href: '/hire-devops-developers' },
+      { label: 'Salesforce Developer', href: '/hire-salesforce-developer' },
+      { label: 'Blockchain Developer', href: '/hire-blockchain-developer' },
     ],
   },
   {
@@ -137,18 +140,58 @@ export const NAV: NavItem[] = [
 ];
 
 /**
- * Paths this app serves itself. The blog archive always; the marketing homepage
- * only once it is released — until then `/` belongs to the live site, so "home"
- * links go straight there rather than bouncing off our redirect to /blog.
+ * Paths this app serves itself. Everything else on this list of nav hrefs still
+ * belongs to the live marketing site, so it renders as an absolute link out.
+ *
+ * The blog archive is always ours. The marketing homepage and the landing pages
+ * that live in `app/(marketing)` (the registry in `lib/home/landing-pages.ts`)
+ * are ours only once the homepage is released: they share its route group, its
+ * theme and its release flag, so while `/` redirects to `/blog` these links go
+ * to the live site rather than to pages that are built but deliberately
+ * unreachable.
  */
-const LOCAL_PATHS = new Set(homepageEnabled ? ['/', '/blog'] : ['/blog']);
+
+// The list is the registry itself, not a copy of it: a landing page left off a
+// hand-kept list here had every link to it sent out to the live site, where
+// pages that exist only in this app 404 — silently, because `navHref` has no
+// way to know a path is ours unless it is named. Registering a route once in
+// `lib/home/landing-pages.ts` now covers the release gate, the sitemap and
+// these links together.
+const LOCAL_PATHS = new Set(homepageEnabled ? ['/blog', ...MARKETING_ROUTES] : ['/blog']);
+
+
+/**
+ * Whether we serve the page a nav href points at.
+ *
+ * A fragment is part of the link, not part of the route: the mega menu's sector
+ * items are "/industries#sector-fintech", and judging those by the whole string
+ * would miss the set and send every one of them out to softsuave.com — a page
+ * we serve ourselves. So the lookup is on the path alone.
+ */
+function isLocal(href: string): boolean {
+  return LOCAL_PATHS.has(href.split('#')[0]);
+}
 
 /** Absolute URL: local for our own routes, otherwise the marketing site. */
 export function navHref(href: string): string {
-  return LOCAL_PATHS.has(href) ? href : `${SITE}${href}`;
+  return isLocal(href) ? href : `${SITE}${href}`;
 }
 
 /** True when `navHref` sent this path off to the marketing site. */
 export function isExternalHref(href: string): boolean {
-  return !LOCAL_PATHS.has(href);
+  return !isLocal(href);
+}
+
+/**
+ * App-internal route for a nav path, for use with `next/link`.
+ *
+ * The app owns the domain root, so every local path is already its own route and
+ * this is `navHref`. It stays a separate function because the two diverge under a
+ * subpath mount: `navHref` returns a PUBLIC url, which is what a plain `<a>`
+ * needs, while `next/link` applies `basePath` itself — under the old /blog mount,
+ * handing it the public "/blog" produced "/blog/blog", which only resolved via a
+ * 301 and downgraded client-side RSC navigation to a full page reload.
+ */
+export function navRoute(href: string): string {
+  return navHref(href);
 }

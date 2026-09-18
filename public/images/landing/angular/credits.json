@@ -1,0 +1,65 @@
+[
+  {
+    "file": "/images/landing/angular/hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A workspace with interface sketches on a tablet beside code on a monitor",
+    "pexelsId": "34212988",
+    "source": "https://www.pexels.com/photo/34212988/",
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAABQAgCdASoQAAkAA4BaJagCdH8CkAA5P0B+6lAA/nyogFA7i+XPLFEz2Qx9gx6GbBtOheaept90lJFpo/9WNkn+MvbLup10HjI5FkC3xirdX8+iTDYNICIwOkTDk9TVlnpDQ/gAAAA="
+  },
+  {
+    "file": "/images/landing/angular/svc-spa.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Front-end JavaScript on screen during a single-page build",
+    "pexelsId": "29445974",
+    "source": "https://www.pexels.com/photo/29445974/",
+    "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoQAAwAA4BaJZACdAD0gHEfUAD+9r/ohQsDkNSwPl8aXa8Escj2HQcI/pgjskwm9dHzdiYZJO5dltGYU6AAAA=="
+  },
+  {
+    "file": "/images/landing/angular/svc-plugin.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A code editor open on a laptop, the kind of work a plugin build lives in",
+    "pexelsId": "34803985",
+    "source": "https://www.pexels.com/photo/34803985/",
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAwAgCdASoQAAwAA4BaJbACdB3gBOAcTd9OrAD+9MAE1VXc9zTy6kq8F4aEKuZ/KuZDJxkd1bfe3dFU3EG1zPwztBlZKefv7zvLcOA837BwR5YUWKOxKVLwbfhjn7mLwfxsR+EAAAA="
+  },
+  {
+    "file": "/images/landing/angular/svc-widget.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Markup on screen showing the structure a reusable widget is built from",
+    "pexelsId": "16023919",
+    "source": "https://www.pexels.com/photo/16023919/",
+    "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADQAQCdASoQAAwAA4BaJZQC7AEO/uKpMAD+8ZrGR5/FoJKfO18GPU0NMfu+D4zBuzSyIunmpyurRUaeRah8tICEgBb0N6AA"
+  },
+  {
+    "file": "/images/landing/angular/svc-uiux.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Interface plans, pencils and a phone laid out on a designer's desk",
+    "pexelsId": "273230",
+    "source": "https://www.pexels.com/photo/273230/",
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAABQAgCdASoQAAwAA4BaJZwAD40vPMA5ixVwYAAAzjt6jOsURKDiX+vu4R36xmSTE9FCKSMq9RMGnwJcTdOywhFCAdXHOjJll2aNZ9P97NxMX5a1VvDnUdiDKJkImYg4AAA="
+  },
+  {
+    "file": "/images/landing/angular/svc-enterprise.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Two people working through technical drawings for a large system",
+    "pexelsId": "8000537",
+    "source": "https://www.pexels.com/photo/8000537/",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAwAgCdASoQAAwAA4BaJZQAD42QZ7PjlBzmgAD+83Rs1EJYV9iX7PaLM9O64D+aPX2gdRwO9JfVWZ0lWTtZxfJWXWitQZdlwU3oKl+lA94ciraBOZWG4AAA"
+  },
+  {
+    "file": "/images/landing/angular/svc-api.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Code on a dark screen, the kind that wires one service to another",
+    "pexelsId": "6308163",
+    "source": "https://www.pexels.com/photo/6308163/",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAABQAQCdASoQAAwAA4BaJZQABAAAAP7yfAt8Ep4ZKAZpdwHVue4yCIEXNLwzAAAA"
+  }
+]

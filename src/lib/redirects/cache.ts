@@ -43,8 +43,14 @@ export async function lookupRedirect(path: string): Promise<Entry | null> {
       // staleness; a blocked response on the hot path is worse.
       void refresh().catch(() => {});
     } else {
-      // Cold start — nothing to serve from, so this one waits.
-      await refresh();
+      // Cold start — nothing to serve from, so this one waits. It must not
+      // rethrow, though: this runs in `proxy` on every public GET, so letting a
+      // DB error escape turns an unreachable Redirect table into a 500 for the
+      // entire public site. Redirects are an enhancement — failing open serves
+      // the page unredirected, which is what the stale path above already does.
+      await refresh().catch((err) => {
+        console.warn('[redirects] lookup failed, serving unredirected:', (err as Error).message);
+      });
     }
   }
   return cache?.map.get(normalizePath(path)) ?? null;

@@ -7,22 +7,24 @@ import type { SiteInfo } from '@/themes/_contract';
 // Central metadata builder for public pages: canonical URLs, Open Graph, Twitter
 // cards, and robots directives, all from a single call.
 
-// Includes the mount subpath, because the app is served under one: NEXT_PUBLIC_SITE_URL
-// is "https://www.softsuave.com/blog", not the bare origin. `basePath` in
-// next.config prefixes routes and assets but does NOT reach this helper, so without
-// the subpath here every canonical, sitemap and feed URL would point one level too
-// high — at the existing website, which does not serve them.
+// The app owns the domain root, so NEXT_PUBLIC_SITE_URL is the bare origin
+// ("https://www.softsuave.com"). It must carry BASE_PATH if the app is ever mounted
+// under a subpath again: `basePath` in next.config prefixes routes and assets but
+// does NOT reach this helper, so without the subpath there every canonical, sitemap
+// and feed URL would point one level too high — at whatever serves the root instead.
 const SITE_URL = env.NEXT_PUBLIC_SITE_URL.replace(/\/+$/, '');
 
 export function absoluteUrl(path: string): string {
   if (/^https?:\/\//.test(path)) return path; // already absolute (e.g. S3/R2 URL)
   let p = path.startsWith('/') ? path : `/${path}`;
-  // Idempotent in the mount subpath. SITE_URL already ends with it, so a path that
-  // also carries it — anything through publicMediaUrl, e.g. post.coverImageUrl —
-  // must have it stripped or the result doubles to …/blog/blog/uploads/x.webp.
-  if (p === BASE_PATH) return SITE_URL;
-  if (p.startsWith(`${BASE_PATH}/`)) p = p.slice(BASE_PATH.length);
-  // The mount root is SITE_URL itself; appending "/" would emit a trailing slash
+  // Idempotent in the mount subpath. SITE_URL would already end with it, so a path
+  // that also carries it — anything through publicMediaUrl, e.g. post.coverImageUrl
+  // — must have it stripped or the result doubles to …/blog/blog/uploads/x.webp.
+  if (BASE_PATH) {
+    if (p === BASE_PATH) return SITE_URL;
+    if (p.startsWith(`${BASE_PATH}/`)) p = p.slice(BASE_PATH.length);
+  }
+  // The site root is SITE_URL itself; appending "/" would emit a trailing slash
   // that redirects, and a canonical must never point at a redirect.
   return p === '/' ? SITE_URL : `${SITE_URL}${p}`;
 }

@@ -47,6 +47,10 @@ type LayoutResult =
  *   y = 120 + off² * 6
  *   rotation = off * 8
  *   spread = Math.min(270, containerWidth * 0.155)
+ *
+ * Every width/height budget below is derived from `N` rather than hardcoded to
+ * the original five cards, so adding an industry re-fits the fan instead of
+ * quietly overflowing the stage.
  */
 function computeLayout(
   width: number,
@@ -65,8 +69,10 @@ function computeLayout(
   // Calculate dynamic size factor based on available height (from 0.50 at height = 500px up to 1.0 at height >= 800px)
   const hScale = Math.max(0.5, Math.min(1, 0.5 + ((height - 500) / 300) * 0.5));
 
-  // 1. Calculate optimal card width based on width and height constraints
-  const cardW_widthBased = (width - safetyX * 2) / 4.3;
+  // 1. Calculate optimal card width based on width and height constraints.
+  //    The divisor tracks the card count (N - 0.7 → 4.3 at the original N = 5)
+  //    so a wider fan shrinks its cards instead of running off the stage.
+  const cardW_widthBased = (width - safetyX * 2) / (N - 0.7);
   const safetyY = height < 700 ? 180 : 280;
   const cardW_heightBased = (height - safetyY) / 1.35;
 
@@ -90,7 +96,7 @@ function computeLayout(
   const fanHeight = cardH + maxTranslateY + cornerDrop;
 
   const totalHeightNeeded = safetyY + fanHeight; // header + safety buffer
-  const totalWidthNeeded = 4 * idealSpread + cardW + safetyX * 2;
+  const totalWidthNeeded = (N - 1) * idealSpread + cardW + safetyX * 2;
 
   // Fit verification (enable fan above 768px width, and switch to grid only when cannot fit)
   const canFan = width >= 768 && width >= totalWidthNeeded && height >= 520 && idealSpread >= minSpread;
@@ -131,7 +137,9 @@ export default function Industries() {
 
   const items = industries.items;
   const N = items.length;
-  const center = Math.floor(N / 2);
+  // Fractional midpoint (2.5 for six cards) so the fan stays symmetric about
+  // the stage centre for an even count as well as an odd one.
+  const center = (N - 1) / 2;
 
   const cardEls = useRef<(HTMLElement | null)[]>([]);
   const baseTargets = useRef<LayoutTarget[]>([]);

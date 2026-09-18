@@ -1,6 +1,7 @@
 // scripts/generate-home-images.mjs
 // Fills every image slot in content/images.manifest.json with a real Pexels photo.
 // - orientation + min-resolution filtering
+// - a slot may pin `pexelsId` to use a CHOSEN photo instead of searching
 // - fallback keyword tiers (broad -> broader -> generic on-brand)
 // - dedupe by Pexels photo id across ALL slots (no photo repeats site-wide)
 // - crops to exact slot dimensions with sharp, writes /public/images/<page>/<id>.webp
@@ -76,6 +77,40 @@ async function pexelsSearch(query, orientation) {
   return data;
 }
 
+/**
+ * Fetch one specific photo by id — the escape hatch from keyword roulette.
+ *
+ * A slot may pin `pexelsId` when the photo was CHOSEN rather than matched:
+ * the search tiers rank by orientation and resolution, which says nothing
+ * about whether a picture is any good. A pinned slot skips the search
+ * entirely, so a human decision cannot be silently overridden by a
+ * better-scoring match later.
+ */
+async function pexelsPhoto(id) {
+  ensureDir(CACHE_DIR);
+  const cacheFile = path.join(CACHE_DIR, `photo-${id}.json`);
+  if (fs.existsSync(cacheFile)) {
+    try {
+      return JSON.parse(fs.readFileSync(cacheFile, "utf8"));
+    } catch {
+      /* fall through to live fetch */
+    }
+  }
+  await sleep(THROTTLE_MS);
+  const res = await fetch(`https://api.pexels.com/v1/photos/${id}`, {
+    headers: { Authorization: API_KEY },
+  });
+  if (res.status === 429) {
+    throw new Error("Pexels rate limit hit (429). Wait and re-run; cached results are kept.");
+  }
+  if (!res.ok) {
+    throw new Error(`Pexels API error ${res.status} for pinned photo ${id}`);
+  }
+  const data = await res.json();
+  fs.writeFileSync(cacheFile, JSON.stringify(data));
+  return data;
+}
+
 function matchesOrientation(photo, orientation) {
   const r = photo.width / photo.height;
   if (orientation === "landscape") return r >= 1.2;
@@ -141,7 +176,11 @@ async function makeBlur(buffer) {
 
 async function main() {
   const manifest = JSON.parse(fs.readFileSync(MANIFEST, "utf8"));
-  const entries = manifest.images.filter((e) => e.id && e.page);
+  // Pexels owns only the slots that claim no other source. A slot marked
+  // "gemini" belongs to generate-ai-images.mjs and "hand-placed" to neither —
+  // without this filter those slots read as permanently unfilled here, and the
+  // run would fail on images that are in fact already present.
+  const entries = manifest.images.filter((e) => e.id && e.page && !e.source);
 
   // Load prior generated results so we keep dedupe stable and skip existing files.
   let generated = {};
@@ -171,10 +210,10 @@ async function main() {
   if (!API_KEY) {
     console.error(
       `\n[images] ERROR: ${pending.length} image slot(s) are missing and PEXELS_API_KEY is not set.\n` +
-        "Set PEXELS_API_KEY (see .env.example) locally or in your host's env, then re-run.\n" +
-        "Missing: " +
-        pending.map((e) => `${e.page}/${e.id}`).join(", ") +
-        "\n"
+      "Set PEXELS_API_KEY (see .env.example) locally or in your host's env, then re-run.\n" +
+      "Missing: " +
+      pending.map((e) => `${e.page}/${e.id}`).join(", ") +
+      "\n"
     );
     process.exit(1);
   }
@@ -204,7 +243,18 @@ async function main() {
     ensureDir(outPageDir);
 
     let chosen = null;
-    for (const tier of entry.keywords) {
+
+    // A pinned photo was chosen on purpose; it wins over any search.
+    if (entry.pexelsId) {
+      try {
+        const photo = await pexelsPhoto(entry.pexelsId);
+        if (photo?.id) chosen = { photo, tier: `pinned:${entry.pexelsId}` };
+      } catch (e) {
+        log(`  ! pinned photo ${entry.pexelsId} failed: ${e.message}`);
+      }
+    }
+
+    for (const tier of chosen ? [] : entry.keywords || []) {
       let data;
       try {
         data = await pexelsSearch(tier, entry.orientation);
@@ -266,7 +316,8 @@ async function main() {
   if (unfilled.length) {
     console.error("\n[images] FAILED — the following slots could not be filled (fix keywords and re-run):");
     for (const e of unfilled) {
-      console.error(`  - ${e.page}/${e.id}  [${e.orientation} ${e.width}x${e.height}]  keywords: ${JSON.stringify(e.keywords)}`);
+      const how = e.pexelsId ? `pinned pexels#${e.pexelsId}` : `keywords: ${JSON.stringify(e.keywords || [])}`;
+      console.error(`  - ${e.page}/${e.id}  [${e.orientation} ${e.width}x${e.height}]  ${how}`);
     }
     console.error("\nNo placeholders were written. Re-run `npm run images:home` after adjusting keywords.\n");
     process.exit(1);

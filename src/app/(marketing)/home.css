@@ -41,8 +41,35 @@
   --line: #434343;
   --accent: var(--brand-500);
   --accent-border: var(--brand-red);
+  /* Ink for text/icons painted on an --accent fill. */
+  --on-accent: #140b08;
   --cream: #e6e4e2;
   --cream-line: #d8d8d8;
+
+  /* Card accent ramp — five steps of ONE warm family, for sections that give
+     each card its own accent (the services "bold" variant, so far).
+
+     Steps 2, 3 and 4 are the brand tokens themselves; the amber below and the
+     rose above open the range just enough that adjacent cards read as
+     distinct. Deliberately not a multi-hue palette: teal or periwinkle would
+     separate the cards better but would stop reading as Soft Suave.
+
+     These live here, on the global theme scope, rather than in a CSS module
+     because the `.light` band has to override them — and `.light` is a hashed
+     class in home.module.css, so a module could never select across to it.
+     Overriding a custom property cascades without any cross-module selector,
+     which is the only mechanism that works in both bands. */
+  --card-accent-1: #f0a93c;
+  --card-accent-2: var(--brand-coral);
+  --card-accent-3: var(--brand-500);
+  --card-accent-4: var(--brand-red);
+  --card-accent-5: #e0557f;
+
+  /* Lift shadow for raised cards. Split from the card rules because it has to
+     differ per band: this one is tuned to read against the near-black canvas,
+     where only a dense shadow separates a card from the ground at all. */
+  --card-lift: 0 1px 2px rgb(0 0 0 / 30%), 0 20px 40px -20px rgb(0 0 0 / 65%);
+
   --font-heading: var(--font-display-serif);
   --font-eyebrow: var(--font-mono-label);
 
@@ -60,7 +87,26 @@ body:has(.theme-four) {
   background: #040508;
 }
 
-.theme-four a {
+/* Kill the UA stylesheet's link blue and underline, WITHOUT outranking the
+   components.
+ *
+ * `:where()` contributes nothing to specificity, so this whole rule scores
+ * (0,0,0). It still beats the UA sheet — author rules always do, whatever their
+ * specificity — so an unclassed link still inherits its surrounding colour. But
+ * it no longer beats a component.
+ *
+ * It was written as `.theme-four a`, which scores (0,1,1) and therefore
+ * outranked every single-class rule that sets a colour on a link: `.pillFilled`
+ * (#140b08), `.holdBtn` (#140b08) and `.btnPrimary` (var(--on-accent)) all lost
+ * to it. Each one paints ITS OWN accent fill and then had the band's body text
+ * inherited on top, so every filled button rendered as a link — the nav CTA, the
+ * mid-page CTA, the closing "Book a Free Consultation" — came out pale-on-coral:
+ * 2.61:1, 2.24:1, and 1.54:1 in a `.light` band. A `<button>` with the same
+ * class was unaffected, which is why the hero's submit measured 6.08:1 while the
+ * CTA beside it measured 2.24:1.
+ *
+ * Restoring the declared colours puts them at 6.08:1 (dark) and 5.93:1 (light). */
+:where(.theme-four a) {
   color: inherit;
   text-decoration: none;
 }

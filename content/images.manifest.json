@@ -767,6 +767,126 @@
       ]
     },
     {
+      "id": "svc-data-engineering",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Data engineering pipelines",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "server rack lights dark data center abstract",
+        "data center servers glowing dark",
+        "abstract technology lines data dark",
+        "technology abstract dark"
+      ]
+    },
+    {
+      "id": "svc-data-science",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Data science and analytics",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "abstract data visualisation glowing dark",
+        "financial data screen numbers dark closeup",
+        "analytics graph glowing dark abstract",
+        "data abstract dark"
+      ]
+    },
+    {
+      "id": "svc-generative-ai",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Generative AI systems",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "abstract neural network glowing nodes dark",
+        "digital brain abstract technology dark",
+        "generative abstract light pattern dark",
+        "abstract ai technology dark"
+      ]
+    },
+    {
+      "id": "svc-rag",
+      "page": "four",
+      "purpose": "service",
+      "alt": "RAG and document AI",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "abstract glowing connected dots network dark",
+        "abstract digital particles light dark",
+        "abstract blue light data dark",
+        "abstract technology dark"
+      ]
+    },
+    {
+      "id": "svc-computer-vision",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Computer vision systems",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "human eye iris macro closeup dark",
+        "abstract light refraction prism dark",
+        "optical glass light abstract dark",
+        "abstract optics dark"
+      ]
+    },
+    {
+      "id": "svc-predictive",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Predictive intelligence and forecasting",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "abstract glowing graph line dark",
+        "trading chart screen dark closeup",
+        "light trails long exposure dark abstract",
+        "abstract forecast lines dark"
+      ]
+    },
+    {
+      "id": "svc-mlops",
+      "page": "four",
+      "purpose": "service",
+      "alt": "MLOps and model operations",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "code terminal screen dark closeup",
+        "server monitoring screen code dark",
+        "programming code monitor dark macro",
+        "code screen dark"
+      ]
+    },
+    {
+      "id": "svc-fde",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Forward deployed engineers with a client team",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "business team meeting office laptop dark",
+        "colleagues discussing work desk office dark",
+        "professionals collaborating meeting room dark",
+        "office teamwork dark"
+      ]
+    },
+    {
       "id": "ind-ecommerce",
       "page": "four",
       "purpose": "industry",
@@ -840,6 +960,968 @@
         "banking finance app",
         "finance money"
       ]
+    },
+    {
+      "id": "ind-telecom",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Telecom industry",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "telecom network tower antenna connectivity vertical",
+        "telecommunications fiber optic network infrastructure",
+        "mobile network signal tower",
+        "network connectivity"
+      ]
+    },
+    {
+      "id": "gcc-benefit-1",
+      "page": "four",
+      "purpose": "benefit",
+      "alt": "Cost structure that scales with headcount",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "coins stacked growth plant financial investment",
+        "money coins growth chart finance",
+        "business finance growth investment",
+        "finance money business"
+      ],
+      "prompt": "Stacks of gold coins on a soft cream surface with a small green seedling growing from the tallest stack, pale pink studio backdrop."
+    },
+    {
+      "id": "gcc-benefit-2",
+      "page": "four",
+      "purpose": "benefit",
+      "alt": "A team shaped around your roadmap",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "software team collaborating laptops office meeting",
+        "developers working together office desk",
+        "business team meeting laptops",
+        "team office collaboration"
+      ],
+      "prompt": "Four software engineers collaborating around laptops at a bright modern office desk, floor-to-ceiling windows behind them, candid daylight."
+    },
+    {
+      "id": "gcc-benefit-3",
+      "page": "four",
+      "purpose": "benefit",
+      "alt": "Teams deployed and shipping sooner",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "rocket launch sky clouds lift off",
+        "rocket launching speed motion sky",
+        "speed motion launch technology",
+        "launch speed technology"
+      ],
+      "prompt": "A rocket climbing steeply through soft white clouds into clear sky, golden hour light, cinematic wide shot."
+    },
+    {
+      "id": "gcc-benefit-4",
+      "page": "four",
+      "purpose": "benefit",
+      "alt": "Access to India engineering talent",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "group software engineers standing together office team",
+        "engineers whiteboard brainstorming team discussion",
+        "diverse professionals group standing office",
+        "team people office"
+      ],
+      "prompt": "A glowing dark-blue digital globe wrapped in a network of connected light nodes and arcing trails across continents, teal and warm amber accents."
+    },
+    {
+      "id": "gcc-benefit-5",
+      "page": "four",
+      "purpose": "benefit",
+      "alt": "Domain knowledge that stays in-house",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "laptop code editor desk developer workspace",
+        "programming code screen laptop desk",
+        "software developer workspace laptop",
+        "laptop code workspace"
+      ],
+      "prompt": "An open laptop on a clean desk showing a dark code editor with colourful syntax, a small potted plant beside it, soft window light."
+    },
+    {
+      "id": "gcc-benefit-6",
+      "page": "four",
+      "purpose": "benefit",
+      "alt": "Your leadership sets priorities directly",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "chess board strategy hand moving piece",
+        "chess strategy game board pieces",
+        "strategy decision business chess",
+        "chess strategy board"
+      ],
+      "prompt": "A hand moving a single chess piece on a polished board, dramatic low-key lighting against a dark background, shallow depth of field."
+    },
+    {
+      "id": "gcc-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Mapping which functions move offshore",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "business team planning session whiteboard strategy meeting",
+        "people planning workshop office whiteboard",
+        "business meeting discussion office",
+        "team meeting office"
+      ]
+    },
+    {
+      "id": "gcc-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Company registration and statutory compliance",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "legal documents contract signing pen desk office",
+        "business contract paperwork signing desk",
+        "legal paperwork documents office",
+        "documents desk office"
+      ]
+    },
+    {
+      "id": "gcc-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Infrastructure and security commissioned",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "server room data centre network racks blue light",
+        "data center servers network technology",
+        "server technology infrastructure racks",
+        "servers technology dark"
+      ]
+    },
+    {
+      "id": "gcc-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Sourcing and onboarding engineers",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "job interview handshake office candidate meeting",
+        "recruitment interview business people office",
+        "handshake business meeting office",
+        "handshake office business"
+      ]
+    },
+    {
+      "id": "gcc-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Running the centre against agreed SLAs",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "analytics dashboard charts laptop screen desk",
+        "business analytics data dashboard screen",
+        "data dashboard reporting laptop",
+        "dashboard analytics laptop"
+      ]
+    },
+    {
+      "id": "ind-fintech-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "AI-driven financial technology and digital banking operations",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "fintech banking dashboard dark screens",
+        "financial trading data screens dark",
+        "digital banking payment technology",
+        "finance technology dark"
+      ]
+    },
+    {
+      "id": "ind-healthtech-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Clinical teams using AI-assisted healthcare technology",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "hospital medical technology monitors dark",
+        "healthcare data clinical screens",
+        "medical imaging diagnostic technology",
+        "healthcare technology"
+      ]
+    },
+    {
+      "id": "ind-edtech-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Digital learning platform powered by adaptive AI",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "online learning classroom technology dark",
+        "student digital education screens",
+        "e-learning platform laptop study",
+        "education technology"
+      ]
+    },
+    {
+      "id": "ind-ecommerce-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Online retail operations driven by AI personalisation",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "ecommerce online shopping technology dark",
+        "retail warehouse fulfilment packages",
+        "online store checkout mobile commerce",
+        "ecommerce retail technology"
+      ]
+    },
+    {
+      "id": "ind-logistics-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Supply chain and fleet operations optimised with AI",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "logistics warehouse freight operations dark",
+        "supply chain shipping containers port",
+        "delivery fleet trucks logistics night",
+        "logistics transport technology"
+      ]
+    },
+    {
+      "id": "ind-telecom-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Telecom network operations monitored by AI systems",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "telecom network operations center dark",
+        "fiber optic network infrastructure",
+        "mobile network tower connectivity",
+        "telecommunications technology"
+      ]
+    },
+    {
+      "id": "ind-construction-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Construction site planning supported by AI monitoring",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "construction site engineering technology dark",
+        "building construction crane site",
+        "architecture blueprint construction planning",
+        "construction industry"
+      ]
+    },
+    {
+      "id": "fintech-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Discovery & Use-Case Definition",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "finance team strategy meeting dark",
+        "business planning workshop discussion",
+        "office meeting whiteboard",
+        "business meeting"
+      ]
+    },
+    {
+      "id": "fintech-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Data Assessment & Preparation",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "data analysis screens spreadsheet dark",
+        "database server data engineering",
+        "analyst reviewing data monitor",
+        "data analytics"
+      ]
+    },
+    {
+      "id": "fintech-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Model Development & Training",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "developer coding machine learning dark",
+        "programmer writing code screens",
+        "software engineer laptop code",
+        "coding development"
+      ]
+    },
+    {
+      "id": "fintech-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Validation & Explainability",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "analyst reviewing charts audit dark",
+        "financial report review documents",
+        "business analytics validation",
+        "report review"
+      ]
+    },
+    {
+      "id": "fintech-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Integration & Secure Deployment",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "server room security infrastructure dark",
+        "network security data centre",
+        "cybersecurity lock technology",
+        "security technology"
+      ]
+    },
+    {
+      "id": "fintech-step-6",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Monitoring & Continuous Improvement",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "monitoring dashboard screens dark",
+        "operations control room displays",
+        "live analytics dashboard",
+        "monitoring dashboard"
+      ]
+    },
+    {
+      "id": "ecommerce-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Goal Definition",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "retail strategy planning meeting dark",
+        "ecommerce business planning team",
+        "marketing strategy discussion",
+        "business planning"
+      ]
+    },
+    {
+      "id": "ecommerce-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Readiness Assessment",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "ecommerce analytics audit screens",
+        "online store data review laptop",
+        "retail performance analysis",
+        "analytics review"
+      ]
+    },
+    {
+      "id": "ecommerce-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Solution Design & Measurement Plan",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "design wireframe planning desk",
+        "ux design sketching workflow",
+        "product design planning board",
+        "design planning"
+      ]
+    },
+    {
+      "id": "ecommerce-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Model Development & Integration",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "developer building ecommerce platform",
+        "programmer integration api code",
+        "software development workstation",
+        "software development"
+      ]
+    },
+    {
+      "id": "ecommerce-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Testing & Validation",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "ab testing analytics comparison screen",
+        "quality testing software review",
+        "data testing charts laptop",
+        "software testing"
+      ]
+    },
+    {
+      "id": "ecommerce-step-6",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Optimisation & Scale",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "ecommerce growth chart rising analytics",
+        "online retail scale warehouse dispatch",
+        "business growth performance graph",
+        "growth analytics"
+      ]
+    },
+    {
+      "id": "off-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Requirements & Engagement Planning",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "client requirements meeting remote dark",
+        "offshore team video call planning",
+        "business requirements discussion",
+        "team planning"
+      ]
+    },
+    {
+      "id": "off-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Architecture & Delivery Preparation",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "software architecture diagram planning",
+        "technical design whiteboard system",
+        "engineering blueprint planning",
+        "system architecture"
+      ]
+    },
+    {
+      "id": "off-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Iterative Development",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "agile development team sprint board",
+        "developers collaborating code office",
+        "scrum standup team software",
+        "agile development"
+      ]
+    },
+    {
+      "id": "off-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Testing & Review",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "code review quality assurance screens",
+        "software testing engineer monitor",
+        "peer review programming pair",
+        "code review"
+      ]
+    },
+    {
+      "id": "off-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Release & Continuing Improvement",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "software release deployment pipeline",
+        "devops continuous delivery screens",
+        "product launch team celebration",
+        "software release"
+      ]
+    },
+    {
+      "id": "staff-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Requirement Analysis",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "hiring manager requirements meeting",
+        "recruitment planning discussion office",
+        "job role planning team",
+        "recruitment planning"
+      ]
+    },
+    {
+      "id": "staff-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Candidate Shortlisting",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "recruiter reviewing cv resumes laptop",
+        "hiring shortlist candidate profiles",
+        "recruitment screening desk",
+        "recruitment screening"
+      ]
+    },
+    {
+      "id": "staff-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Interviews & Skill Assessment",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "technical interview developer video call",
+        "job interview candidate office",
+        "coding assessment interview screen",
+        "job interview"
+      ]
+    },
+    {
+      "id": "staff-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Rapid Onboarding",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "new employee onboarding first day",
+        "team welcoming new developer office",
+        "onboarding laptop setup workspace",
+        "employee onboarding"
+      ]
+    },
+    {
+      "id": "staff-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Continuous Support & Monitoring",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "team performance review meeting",
+        "manager one to one discussion office",
+        "distributed team collaboration call",
+        "team management"
+      ]
+    },
+    {
+      "id": "ito-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Discuss the Requirements",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "business consultation client meeting dark",
+        "outsourcing discussion boardroom",
+        "stakeholder requirements workshop",
+        "business consultation"
+      ]
+    },
+    {
+      "id": "ito-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Select the Engagement Model",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "contract negotiation business documents",
+        "engagement model planning meeting",
+        "business agreement signing desk",
+        "business agreement"
+      ]
+    },
+    {
+      "id": "ito-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Confirm Scope and Responsibilities",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "project scope planning documents team",
+        "responsibility matrix planning board",
+        "project governance meeting",
+        "project planning"
+      ]
+    },
+    {
+      "id": "ito-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Begin Delivery",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "offshore delivery team working office",
+        "software team delivery workstations",
+        "engineering team collaboration",
+        "delivery team"
+      ]
+    },
+    {
+      "id": "ito-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Review and Improve",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "performance review dashboard meeting",
+        "service review business metrics",
+        "continuous improvement discussion",
+        "business review"
+      ]
+    },
+    {
+      "id": "prod-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Planning",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "product roadmap planning sticky notes",
+        "product team discovery workshop",
+        "product strategy planning board",
+        "product planning"
+      ]
+    },
+    {
+      "id": "prod-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Development",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "product engineering team building software",
+        "developers working product code",
+        "engineering team workstation",
+        "product development"
+      ]
+    },
+    {
+      "id": "prod-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Deployment",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "software deployment release pipeline screens",
+        "cloud deployment engineer monitor",
+        "devops release automation",
+        "software deployment"
+      ]
+    },
+    {
+      "id": "prod-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Performance",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "application performance monitoring charts",
+        "product metrics dashboard analysis",
+        "performance testing analytics",
+        "performance monitoring"
+      ]
+    },
+    {
+      "id": "prod-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Evolution",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "product iteration roadmap evolution",
+        "feature planning product growth",
+        "product team retrospective planning",
+        "product iteration"
+      ]
+    },
+    {
+      "id": "cloud-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Assessment & Discovery",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "cloud assessment infrastructure audit dark",
+        "it infrastructure review server",
+        "cloud consulting discussion technical",
+        "cloud assessment"
+      ]
+    },
+    {
+      "id": "cloud-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Cloud Model & Technology Selection",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "cloud platform selection architecture",
+        "cloud technology comparison planning",
+        "engineer choosing cloud services",
+        "cloud technology"
+      ]
+    },
+    {
+      "id": "cloud-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Architecture & Budget Planning",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "cloud architecture diagram planning",
+        "infrastructure cost planning spreadsheet",
+        "technical architecture whiteboard",
+        "cloud architecture"
+      ]
+    },
+    {
+      "id": "cloud-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Migration & Deployment",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "data centre migration servers dark",
+        "cloud migration engineer racks",
+        "server infrastructure deployment",
+        "cloud migration"
+      ]
+    },
+    {
+      "id": "cloud-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Optimisation & Managed Security",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "cloud security monitoring dashboard dark",
+        "cybersecurity operations centre",
+        "cloud cost optimisation analytics",
+        "cloud security"
+      ]
+    },
+    {
+      "id": "hire-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Share the Requirement",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "client requirements briefing meeting dark",
+        "hiring manager writing role brief",
+        "business requirements discussion desk",
+        "requirements meeting"
+      ]
+    },
+    {
+      "id": "hire-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Receive a Shortlist",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "recruiter shortlist developer profiles laptop",
+        "cv screening candidate selection",
+        "hiring shortlist review desk",
+        "candidate shortlist"
+      ]
+    },
+    {
+      "id": "hire-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Interview the Candidates",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "technical interview developer video call",
+        "remote job interview laptop screen",
+        "coding interview assessment desk",
+        "technical interview"
+      ]
+    },
+    {
+      "id": "hire-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Trial Period",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "developer working trial project code",
+        "programmer focused coding workstation",
+        "software engineer evaluating work",
+        "developer working"
+      ]
+    },
+    {
+      "id": "hire-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Onboard and Deliver",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "new developer onboarding team welcome",
+        "distributed team collaboration delivery",
+        "engineer joining team office",
+        "developer onboarding"
+      ]
+    },
+    {
+      "id": "ind-construction",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Construction industry",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "construction site engineer blueprint crane vertical",
+        "building construction technology worker",
+        "construction site building",
+        "construction"
+      ]
+    },
+    {
+      "id": "ind-aviation",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Aviation industry",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "aviation aircraft maintenance airport engineer vertical",
+        "airplane airport ground operations",
+        "aircraft aviation technology",
+        "aviation"
+      ]
+    },
+    {
+      "id": "hire-dotnet-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "source": "gemini",
+      "alt": "A darkened open-plan engineering workspace at night, monitors glowing warm against deep shadow",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "prompt": "A darkened open-plan engineering workspace at night, seen from a low wide angle. Monitors and desk lamps glow warm amber in the mid-right of the frame; the left half of the frame falls away into deep unlit shadow and empty space, calm and almost featureless. Graphite, charcoal and warm neutral tones only. Unoccupied desks, no people."
     }
   ]
 }
