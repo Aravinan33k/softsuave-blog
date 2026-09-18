@@ -3,8 +3,18 @@
 import { Fragment, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { brand } from "@/lib/home/content";
-import { publicMediaUrl } from "@/lib/media-url";
+import { usePathname } from "next/navigation";
+import { appPath, publicMediaUrl } from "@/lib/media-url";
+import {
+  NAME_HINT,
+  NAME_MESSAGE,
+  NAME_PATTERN,
+  PHONE_HINT,
+  PHONE_MESSAGE,
+  PHONE_PATTERN,
+  isValidName,
+  isValidPhone,
+} from "@/lib/forms/enquiry-rules";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import styles from "./landing.module.css";
@@ -44,7 +54,12 @@ export interface HeroContent {
     sending: string;
     requirementLabel: string;
     requirementPlaceholder: string;
-    /** Subject line of the composed mailto. */
+    /**
+     * The lead's subject line, written per page ("Hire ReactJS Developers
+     * enquiry"). It was the subject of the composed `mailto:`; now it is POSTed
+     * with the lead and stored on the `Enquiry` row, where it is the most human
+     * label a triage view can lead with. Still per-page copy, so it stays here.
+     */
     subject: string;
     /**
      * Notice under the form steering job applicants away from the sales
@@ -100,14 +115,21 @@ export type HeroVariant = "display" | "compact";
  * tags and buttons instead of capsules, and hairline-ruled supporting points
  * instead of a bulleted list.
  *
- * The form posts nowhere: this deployment has no lead endpoint, and the
- * marketing surface's established convention for enquiries is a composed
- * `mailto:` (see `components/home/contact.tsx`). Submitting therefore opens the
- * visitor's mail client pre-filled with what they typed, so no requirement is
- * silently dropped. Swap `onSubmit` for a POST once a leads API exists.
+ * The form POSTs to `/api/v1/enquiry`, which validates it and writes an
+ * `Enquiry` row. It previously composed a `mailto:` and set
+ * `window.location.href`, which lost every submission from a visitor without a
+ * configured desktop mail client — on pages where this form is the only
+ * conversion path — and left the button reading "Sending..." for ever, because
+ * nothing ever resolved.
+ *
+ * Four states, because a form that takes a real request has four: `idle`,
+ * `sending` (submit disabled, so a double click cannot write two rows),
+ * `ok` (the fields are replaced by the confirmation — there is nothing left to
+ * do on this card) and `error` (the message appears above the submit button and
+ * everything the reader typed is still there to retry with).
  *
  * `idPrefix` namespaces the field ids so each landing page's form owns its own
- * label/control pairs.
+ * label/control pairs, and doubles as the lead's `sourceKey`.
  */
 export default function Hero({
   content,
@@ -120,8 +142,13 @@ export default function Hero({
 }) {
   const root = useRef<HTMLElement | null>(null);
   const compact = variant === "compact";
-  const [sent, setSent] = useState(false);
+  const pathname = usePathname();
+  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", email: "", phone: "", requirement: "" });
+  /* Honeypot. Held in state like any other field so React owns the input, but
+     never shown and never sent as part of `form` — see the markup below. */
+  const [website, setWebsite] = useState("");
 
   const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [key]: e.target.value }));
@@ -154,22 +181,69 @@ export default function Hero({
     { scope: root },
   );
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const body = [
-      `Name: ${form.name}`,
-      `Email: ${form.email}`,
-      form.phone ? `Phone: ${form.phone}` : null,
-      "",
-      "Requirement:",
-      form.requirement,
-    ]
-      .filter((l) => l !== null)
-      .join("\n");
-    setSent(true);
-    window.location.href = `mailto:${brand.email}?subject=${encodeURIComponent(
-      content.form.subject,
-    )}&body=${encodeURIComponent(body)}`;
+    // Guard the in-flight window as well as the button's `disabled`: Enter in a
+    // text field submits the form without going through the button at all.
+    if (status === "sending") return;
+
+    // Shape checks before the request. `pattern` on the inputs already stops
+    // most of this at the browser's own bubble, but it cannot count digits, and
+    // a submit can reach here from a programmatic path that never ran it. The
+    // server enforces the same two rules from the same module — this is the
+    // fast, quiet half of that pair, not the authority (BUG-008).
+    if (!isValidName(form.name)) {
+      setStatus("error");
+      setError(NAME_MESSAGE);
+      return;
+    }
+    if (!isValidPhone(form.phone)) {
+      setStatus("error");
+      setError(PHONE_MESSAGE);
+      return;
+    }
+
+    setStatus("sending");
+    setError(null);
+
+    try {
+      // `appPath`, not a bare "/api/…": the app is mounted under `basePath`
+      // ('/blog' in production), and `fetch` is one of the things Next does NOT
+      // prefix — see the routing note in the marketing docs.
+      const res = await fetch(appPath("/api/v1/enquiry"), {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          website,
+          subject: content.form.subject,
+          sourcePath: pathname,
+          sourceKey: idPrefix,
+        }),
+      });
+
+      if (!res.ok) {
+        // The route's own message where it sent one — it is written for the
+        // reader ("Please enter a valid email address.") and is more use than a
+        // status code. The 429 is the one worth naming, since "try again" is
+        // exactly the wrong advice there.
+        const detail = await res.json().catch(() => null);
+        throw new Error(
+          detail?.error?.message ??
+            (res.status === 429
+              ? "Too many attempts. Please wait a minute and try again."
+              : "Something went wrong. Please try again."),
+        );
+      }
+
+      setStatus("ok");
+    } catch (err) {
+      // Includes the offline/DNS case, where `fetch` rejects before any
+      // response exists — so the reader is told the send failed rather than
+      // being left on a button that never resolves.
+      setStatus("error");
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    }
   };
 
   const lastLine = content.titleLines.length - 1;
@@ -288,7 +362,49 @@ export default function Hero({
             <span className={styles.formAccent} aria-hidden />
           </div>
 
+          {/* On success the fields are gone: the reader has nothing left to do
+              here, and leaving a filled form beside a confirmation invites a
+              second submission of the same lead. `role="status"` announces it
+              without stealing focus. */}
+          {status === "ok" ? (
+            <div className={styles.formDone} role="status">
+              <svg
+                className={styles.formDoneMark}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <circle cx="12" cy="12" r="9.2" />
+                <path d="M7.8 12.4l3 2.9 5.4-6" />
+              </svg>
+              <p className={styles.formDoneTitle}>Thanks — we&rsquo;ve got your details.</p>
+              <p className={styles.formDoneBody}>
+                One of our team will contact you within one business day.
+              </p>
+            </div>
+          ) : (
           <form className={styles.formFields} onSubmit={onSubmit}>
+            {/* Honeypot: off-screen rather than display:none, which some bots
+                skip. Hidden from the accessibility tree and from the tab order,
+                so no real user can reach it — anything that fills it is
+                automated, and the route drops the submission. */}
+            <div className={styles.honeypot} aria-hidden>
+              <label htmlFor={`${idPrefix}-website`}>Website</label>
+              <input
+                id={`${idPrefix}-website`}
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+              />
+            </div>
+
             <div className={styles.field}>
               <label className={styles.label} htmlFor={`${idPrefix}-name`}>
                 <svg {...iconProps}>
@@ -307,6 +423,9 @@ export default function Hero({
                 name="name"
                 autoComplete="name"
                 required
+                minLength={2}
+                pattern={NAME_PATTERN}
+                title={NAME_HINT}
                 value={form.name}
                 onChange={set("name")}
                 placeholder="Jane Doe"
@@ -350,6 +469,9 @@ export default function Hero({
                 type="tel"
                 name="phone"
                 autoComplete="tel"
+                inputMode="tel"
+                pattern={PHONE_PATTERN}
+                title={PHONE_HINT}
                 value={form.phone}
                 onChange={set("phone")}
                 placeholder="+1 555 000 1234"
@@ -378,10 +500,24 @@ export default function Hero({
               />
             </div>
 
-            <button type="submit" className={`${styles.btn} ${styles.btnPrimary} ${styles.formSubmit}`}>
-              {sent ? content.form.sending : content.form.submit}
+            {/* `role="alert"` so a failure is announced the moment it lands —
+                the reader's attention is on the button they just pressed, and
+                the message sits directly above it. */}
+            {status === "error" && error && (
+              <p className={styles.formError} role="alert">
+                {error}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              className={`${styles.btn} ${styles.btnPrimary} ${styles.formSubmit}`}
+              disabled={status === "sending"}
+            >
+              {status === "sending" ? content.form.sending : content.form.submit}
             </button>
           </form>
+          )}
 
           {(content.form.note || content.form.noteLink) && (
             <p className={styles.formNote}>
@@ -407,11 +543,6 @@ export default function Hero({
             </p>
           )}
 
-          {sent && (
-            <p className={styles.formStatus} role="status">
-              Thanks — a draft to {brand.email} is opening with your details. We reply within one business day.
-            </p>
-          )}
         </div>
       </div>
     </section>

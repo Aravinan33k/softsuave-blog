@@ -31,6 +31,9 @@ import Contact from '@/components/home/contact';
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import CardGrid from '@/components/landing/industries';
+// The homepage's horizontal scroll-snap lane, reused for the expertise band.
+import WorkCarousel from '@/components/home/work-grid';
+import ExploreMarquee from '@/components/landing/explore-marquee';
 import TechStack from '@/components/landing/tech-stack';
 import CtaBand from '@/components/landing/cta-band';
 import Process from '@/components/landing/process';
@@ -199,8 +202,39 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
       case 'techStack':
         return skill.techStack ? <TechStack key={band} content={skill.techStack} /> : null;
       case 'expertise':
+        /*
+         * The horizontal scroll-snap lane from the homepage's case-study
+         * section, not the bold card grid the other bands use — a deliberate
+         * break, so the one band on the page that lists deep technical ground
+         * does not read as a fourth stack of identical cards.
+         *
+         * Content is passed through untouched: `name` becomes the tile title
+         * because that is what this template calls the same field, and nothing
+         * in `lib/home/hire-skills-*.ts` changed. These items carry no artwork,
+         * so the lane renders its text-only tiles (see WorkCarousel).
+         *
+         * It stays off LIGHT_BANDS, so the ground is the dark one it already
+         * had.
+         */
         return skill.expertise ? (
-          <CardGrid key={band} content={skill.expertise} id="expertise" variant="bold" />
+          <WorkCarousel
+            key={band}
+            id="expertise"
+            countLabel="capabilities"
+            /* Slower than the 4.6s the old services carousel used: these tiles
+               carry a full paragraph, and advancing before it can be read is
+               worse than not advancing at all. Pauses on hover and focus. */
+            autoplayMs={6000}
+            content={{
+              eyebrow: skill.expertise.eyebrow,
+              title: skill.expertise.title,
+              body: skill.expertise.body,
+              items: skill.expertise.items.map((item) => ({
+                title: item.name,
+                body: item.body ?? '',
+              })),
+            }}
+          />
         ) : null;
       case 'midCta':
         return skill.midCta ? <CtaBand key={band} content={skill.midCta} /> : null;
@@ -219,8 +253,11 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
           <Process key={band} content={skill.vetting} id="vetting" variant="even" />
         ) : null;
       case 'exploreMore':
+        // The display-type marquee, not a card grid: these cards were a label
+        // in a box with no body copy under it, because the live pages give
+        // these links none. See components/landing/explore-marquee.tsx.
         return skill.exploreMore ? (
-          <CardGrid key={band} content={skill.exploreMore} id="explore" columns={4} />
+          <ExploreMarquee key={band} content={skill.exploreMore} id="explore" />
         ) : null;
       case 'testimonials':
         return <Testimonials key={band} />;

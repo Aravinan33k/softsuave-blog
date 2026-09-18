@@ -836,12 +836,22 @@ function stepGlyph(num: string) {
       );
 
     // 06 — Optimization: a cycle around a rising trend.
+    //
+    // The cycle's arrowhead used to be drawn `M136 32v32h-32`, whose tip sat at
+    // y=32 — 13 units above the 45-155 box every glyph here is built inside.
+    // Two places read that box as a contract and both got it wrong for this one
+    // icon: the desktop hub fades a non-active glyph out over `HUB_INK_ABOVE`
+    // (73 = 118 - 45), so the tip survived past the fade and clipped at the
+    // stage edge; and the mobile list centres the glyph in a round plate, which
+    // the overhanging tip pushed the drawing off-centre inside. Same arrowhead,
+    // arms shortened to 19 so the corner still lands on the arc's open end
+    // (~134,63) and nothing leaves the box. QA BUG-006.
     case "06":
     default:
       return (
         <g {...common}>
           <path d="M150 100a50 50 0 11-16-37" />
-          <path d="M136 32v32h-32" />
+          <path d="M136 45v19h-19" />
           <path d="M74 118l18-20 16 13 22-27" />
           <circle className={styles.glyphAccent} cx="130" cy="84" r="6" fill="currentColor" stroke="none" />
         </g>

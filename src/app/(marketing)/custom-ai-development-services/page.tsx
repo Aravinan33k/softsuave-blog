@@ -104,7 +104,7 @@ const PAGE_NAV = [
   { label: 'Blog', href: '/blog' },
 ] as const;
 
-const PAGE_CTA = { label: 'Book AI Strategy Call', href: '#enquiry' } as const;
+const PAGE_CTA = { label: 'Book AI Strategy Call', href: '/contact' } as const;
 
 /**
  * Organization + Service + WebPage + FAQPage, from the approved SEO spec

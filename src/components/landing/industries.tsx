@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import BrandImage from "@/components/home/brand-image";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import { publicMediaUrl } from "@/lib/media-url";
 import FadeUp from "@/components/home/fade-up";
 import { gridSpansFor } from "./card-spans";
@@ -69,6 +70,188 @@ const ICONS = {
       <path d="M9 12.1l2 2 4-4.4" />
     </>
   ),
+
+  /* ----------------------------------------------------------------
+     The six above were the whole set while this variant only served
+     benefit grids, where a glyph is decoration and a warm generic shape
+     will do. It now also carries the services sections on the AI pages,
+     where the glyph has to say what the service IS — a card headed
+     "Optical Character Recognition" wants a document, not a globe.
+     Everything below is drawn for that: one shape per recurring service
+     concept in `lib/home/*-content.ts`, in the same 24x24 / 1.6-stroke
+     geometry as the originals so the set still reads as one hand.
+     Nothing here is an icon-font or a package — these are paths, so they
+     cost no request and inherit `currentColor` from the badge.
+     ---------------------------------------------------------------- */
+
+  /** Consulting, strategy, discovery, readiness assessment. */
+  compass: (
+    <>
+      <circle cx="12" cy="12" r="8.4" />
+      <path d="M15.2 8.8l-1.8 4.6-4.6 1.8 1.8-4.6z" />
+    </>
+  ),
+  /** Proof of concept, experimentation, statistical testing. */
+  flask: (
+    <>
+      <path d="M9.6 3.4h4.8" />
+      <path d="M10.6 3.4v5.4L6 17.1a1.9 1.9 0 001.7 2.9h8.6a1.9 1.9 0 001.7-2.9l-4.6-8.3V3.4" />
+      <path d="M8.3 14.6h7.4" />
+    </>
+  ),
+  /** Application development, custom builds. */
+  code: (
+    <>
+      <path d="M8.6 8.4L4.8 12l3.8 3.6" />
+      <path d="M15.4 8.4L19.2 12l-3.8 3.6" />
+      <path d="M13.4 5.4l-2.8 13.2" />
+    </>
+  ),
+  /** Summarisation — long source reduced to a short read. */
+  list: (
+    <>
+      <path d="M4.6 6.2h14.8" />
+      <path d="M4.6 10.4h14.8" />
+      <path d="M4.6 14.6h9.6" />
+      <path d="M4.6 18.8h6.2" />
+    </>
+  ),
+  /** Model development, training, selection — the model itself. */
+  cpu: (
+    <>
+      <rect x="7.4" y="7.4" width="9.2" height="9.2" rx="1.6" />
+      <path d="M10.4 3.6v3.8M13.6 3.6v3.8M10.4 16.6v3.8M13.6 16.6v3.8" />
+      <path d="M3.6 10.4h3.8M3.6 13.6h3.8M16.6 10.4h3.8M16.6 13.6h3.8" />
+    </>
+  ),
+  /** Detection — finding a thing in a visual feed. */
+  eye: (
+    <>
+      <path d="M2.8 12S6.3 5.9 12 5.9 21.2 12 21.2 12 17.7 18.1 12 18.1 2.8 12 2.8 12z" />
+      <circle cx="12" cy="12" r="2.8" />
+    </>
+  ),
+  /** Inspection — checking an item against criteria. */
+  scan: (
+    <>
+      <path d="M3.8 8.4V5.6a1.8 1.8 0 011.8-1.8h2.8" />
+      <path d="M15.6 3.8h2.8a1.8 1.8 0 011.8 1.8v2.8" />
+      <path d="M20.2 15.6v2.8a1.8 1.8 0 01-1.8 1.8h-2.8" />
+      <path d="M8.4 20.2H5.6a1.8 1.8 0 01-1.8-1.8v-2.8" />
+      <path d="M7.4 12h9.2" />
+    </>
+  ),
+  /** Video analytics — a continuous feed rather than a still. */
+  video: (
+    <>
+      <rect x="3.6" y="5.6" width="11.2" height="12.8" rx="2" />
+      <path d="M14.8 10.6l5.6-3.2v9.2l-5.6-3.2z" />
+    </>
+  ),
+  /** Anomaly detection — the spike that does not belong. */
+  pulse: <path d="M2.8 12.6h4.1l2.2-6.2 3.4 11.4 2.4-7.6 1.6 2.4h4.7" />,
+  /** Recommendation — ranking the one that fits. */
+  target: (
+    <>
+      <circle cx="12" cy="12" r="8.2" />
+      <circle cx="12" cy="12" r="4.3" />
+      <circle cx="12" cy="12" r="1.1" />
+    </>
+  ),
+  /** Multi-agent orchestration — work split across coordinated nodes. */
+  network: (
+    <>
+      <circle cx="12" cy="4.9" r="2.2" />
+      <circle cx="5.4" cy="18" r="2.2" />
+      <circle cx="18.6" cy="18" r="2.2" />
+      <path d="M10.7 6.5L6.6 15.9M13.3 6.5l4.1 9.4M7.6 18h8.8" />
+    </>
+  ),
+  /** Lifecycle, ongoing optimisation, MLOps — work that repeats. */
+  cycle: (
+    <>
+      <path d="M19.8 11.2A8 8 0 006.3 6.6L3.5 9.2" />
+      <path d="M3.4 5.1v4.3h4.3" />
+      <path d="M4.2 12.8a8 8 0 0013.5 4.6l2.8-2.6" />
+      <path d="M20.6 18.9v-4.3h-4.3" />
+    </>
+  ),
+  /** Modernisation — an existing product carried up a level. */
+  upgrade: (
+    <>
+      <path d="M12 20.4V7" />
+      <path d="M6.8 12.2L12 7l5.2 5.2" />
+      <path d="M5 3.8h14" />
+    </>
+  ),
+  /** Deployment, launch, going to production. */
+  rocket: (
+    <>
+      <path d="M12 3.2c2.7 2 4.3 5.2 4.3 8.6 0 1.4-.3 2.7-.8 4H8.5a11 11 0 01-.8-4c0-3.4 1.6-6.6 4.3-8.6z" />
+      <circle cx="12" cy="9.8" r="1.7" />
+      <path d="M8.5 15.8L6.2 18.3l2.9-.4M15.5 15.8l2.3 2.5-2.9-.4" />
+      <path d="M10.7 19.2l1.3 1.8 1.3-1.8" />
+    </>
+  ),
+  /** Data pipeline — information routed from source to destination. */
+  flow: (
+    <>
+      <circle cx="4.6" cy="6" r="1.8" />
+      <path d="M6.4 6h4a3 3 0 013 3v3a3 3 0 003 3h2.6" />
+      <path d="M16.6 12l3 3-3 3" />
+    </>
+  ),
+  /** A store: a database, or an agent's retained memory. */
+  database: (
+    <>
+      <ellipse cx="12" cy="6" rx="7" ry="2.8" />
+      <path d="M5 6v12c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8V6" />
+      <path d="M5 12c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8" />
+    </>
+  ),
+  /** Cloud data engineering. */
+  cloud: <path d="M7 18.4h9.6a4 4 0 00.6-7.9 5.6 5.6 0 00-10.8-1.3A3.9 3.9 0 007 18.4z" />,
+
+  /* Added with the first pass of this work, before the per-service map
+     below existed. They still carry their own concepts. */
+  spark: (
+    <>
+      <path d="M11 3.4l1.7 4.5 4.5 1.7-4.5 1.7-1.7 4.5-1.7-4.5L4.8 9.6l4.5-1.7z" />
+      <path d="M17.8 15.2l.8 2.1 2.1.8-2.1.8-.8 2.1-.8-2.1-2.1-.8 2.1-.8z" />
+    </>
+  ),
+  layers: (
+    <>
+      <path d="M12 3.6l8 4.2-8 4.2-8-4.2z" />
+      <path d="M4 12l8 4.2 8-4.2" />
+      <path d="M4 16.2l8 4.2 8-4.2" />
+    </>
+  ),
+  search: (
+    <>
+      <circle cx="10.8" cy="10.8" r="6.2" />
+      <path d="M15.4 15.4l4.8 4.8" />
+    </>
+  ),
+  chart: (
+    <>
+      <path d="M4 20h16" />
+      <path d="M7.5 20v-6.4M12 20V7.6M16.5 20v-9.6" />
+    </>
+  ),
+  plug: (
+    <>
+      <path d="M10.2 13.8a3.4 3.4 0 010-4.8l2.6-2.6a3.4 3.4 0 014.8 4.8l-1.1 1.1" />
+      <path d="M13.8 10.2a3.4 3.4 0 010 4.8l-2.6 2.6a3.4 3.4 0 01-4.8-4.8l1.1-1.1" />
+    </>
+  ),
+  doc: (
+    <>
+      <path d="M6.6 3.6h6.8l4 4v12.8H6.6z" />
+      <path d="M13.4 3.6v4h4" />
+      <path d="M9.2 12.4h5.6M9.2 15.8h3.8" />
+    </>
+  ),
 } as const;
 
 export type CardIcon = keyof typeof ICONS;
@@ -129,8 +312,16 @@ export interface CardGridContent {
      */
     readonly image?: {
       readonly src: string;
-      readonly width: number;
-      readonly height: number;
+      /**
+       * Intrinsic size, optional. The thumbnail renders through next/image's
+       * `fill` inside a slot that already reserves its own aspect ratio, so
+       * neither dimension reaches the DOM. They stay on the type because most
+       * callers have them to hand — but the services lists ported over from the
+       * carousel only ever carried `src` and `alt`, and must not have to
+       * invent a size to use this grid.
+       */
+      readonly width?: number;
+      readonly height?: number;
       readonly alt: string;
     };
   }[];
@@ -212,18 +403,28 @@ export default function Industries({
 
         <FadeUp>
           <div className={styles.featGrid}>
-            {content.items.map((item) => (
+            {content.items.map((item) => {
+              /* Resolved before the badge is drawn, not inside it. The disc used
+                 to render whether or not a glyph came back, so an item with no
+                 `icon` — `javaTechniques`, among others — got a hollow circle
+                 above its title, and an `icon` naming a glyph this build does
+                 not have (a stale module after a hot reload, say) produced the
+                 same thing. No glyph now means no badge, and the card simply
+                 opens on its title. */
+              const glyph = item.icon ? ICONS[item.icon] : null;
+
+              return (
               <article key={item.name} className={styles.featCard}>
                 <div className={styles.featBody}>
-                  <div className={styles.featTop}>
-                    <span className={styles.featBadge} aria-hidden>
-                      {item.icon ? (
+                  {glyph ? (
+                    <div className={styles.featTop}>
+                      <span className={styles.featBadge} aria-hidden>
                         <svg {...iconProps} className={styles.featBadgeIcon}>
-                          {ICONS[item.icon]}
+                          {glyph}
                         </svg>
-                      ) : null}
-                    </span>
-                  </div>
+                      </span>
+                    </div>
+                  ) : null}
 
                   <h3 className={styles.featName}>{item.name}</h3>
                   <span className={styles.featRule} aria-hidden />
@@ -263,7 +464,8 @@ export default function Industries({
                   </div>
                 ) : null}
               </article>
-            ))}
+              );
+            })}
           </div>
         </FadeUp>
       </section>
@@ -304,7 +506,32 @@ export default function Industries({
                   {pad(i + 1)}
                 </span>
               )}
-              <h3 className={styles.cardName}>{item.name}</h3>
+              {/* `href` is honoured here, not only in the `feature` variant.
+                  The "Explore More <Web|Mobile> Technologies" band on the 20
+                  hire-by-skill pages is this variant, and every one of its
+                  items carries a link to a sibling hire route — 270 of them
+                  across the set, all of which rendered as dead boxes while
+                  this path ignored the field.
+
+                  A stretched link (`.cardLink::after`, inset over the card)
+                  rather than an anchor wrapping the whole article: the card
+                  stays one click target, but the link's accessible name is the
+                  technology alone instead of the name and the body read as one
+                  run-on label.
+
+                  `SiteLink`, not a bare `next/link` — these paths are release
+                  gated. Until `NEXT_PUBLIC_HOMEPAGE_ENABLED` is set they are
+                  not routes in this app, and `navHref` sends them to the live
+                  marketing site rather than to a local 404. */}
+              <h3 className={styles.cardName}>
+                {item.href ? (
+                  <SiteLink href={item.href} className={styles.cardLink}>
+                    {item.name}
+                  </SiteLink>
+                ) : (
+                  item.name
+                )}
+              </h3>
               {item.body ? <p className={styles.cardBody}>{item.body}</p> : null}
             </article>
           ))}

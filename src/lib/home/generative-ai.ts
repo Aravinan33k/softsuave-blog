@@ -193,10 +193,9 @@ export const services = {
 } as const;
 
 export const midCta = {
-  eyebrow: "Next Step",
   title: "Have a Generative AI Use Case in Mind?",
   body: "Discuss your requirements with our experts and get a clear path from initial idea to a secure, production-ready solution.",
-  cta: { label: "Discuss Your Project", href: "#enquiry" },
+  cta: { label: "Discuss Your Project", href: "/contact" },
 } as const;
 
 export const integration = {

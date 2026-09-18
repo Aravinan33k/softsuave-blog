@@ -23,6 +23,8 @@ import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 
+import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+
 export const cvMeta = {
   slug: "computer-vision-development-services",
   path: "/computer-vision-development-services",
@@ -34,7 +36,6 @@ export const cvMeta = {
 } as const;
 
 export const cvHero: HeroContent = {
-  eyebrow: "Computer Vision Development",
   // The last line takes the coral accent.
   titleLines: ["Computer Vision Development Services", "for Smarter Workflows"],
   body: [
@@ -44,22 +45,22 @@ export const cvHero: HeroContent = {
   points: [
     "13+ Years of Technology Expertise",
     "400+ AI & Engineering Specialists",
-    "ISO 9001:2015-Certified Processes",
+    "ISO/IEC 27001:2022 Certified",
     "Operational Computer Vision Experience",
     "End-to-End CV Development",
   ],
-  // Trust badges carried over from the older service landing pages.
-  badges: ["ISO 9001:2015 certified", "NDA on request", "150+ global clients", "Reply in 1 business day"],
+  badges: sharedHeroBadges,
   form: {
     eyebrow: "Business Enquiry",
     title: "Assess your Computer Vision use case",
     note: "Tell us what your cameras capture and what the workflow must deliver, and we come back with a feasibility view, approach, and estimate. Everything stays under NDA.",
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What do you want the workflow to do?",
     requirementPlaceholder:
       "The visual input you have, what needs to be detected, how the result should be validated, and which system or team acts on it.",
     subject: "Computer Vision Development enquiry",
+    alert: sharedHeroAlert,
   },
   // Hand-placed asset (not a Pexels-pipeline slot) — full-bleed behind the
   // whole hero section, veiled for contrast. See `Hero`'s `image` prop.
@@ -275,10 +276,9 @@ export const cvIndustries: CardGridContent = {
 };
 
 export const cvSetupCta: CtaBandContent = {
-  eyebrow: "Feasibility Check",
   title: "Will Computer Vision Work With Your Existing Setup?",
   body: "Tell us what your cameras capture today and what the workflow must deliver. We’ll assess whether your existing setup can support the required Computer Vision use case before development starts.",
-  cta: { label: "Schedule a Consultation", href: "#enquiry" },
+  cta: { label: "Schedule a Consultation", href: "/contact" },
 };
 
 export const cvProcess: ProcessContent = {
@@ -342,8 +342,8 @@ export const cvWhyUs: CardGridContent = {
       body: "Experience delivering Computer Vision from visual input to operational action.",
     },
     {
-      name: "Quality-Focused Delivery",
-      body: "ISO 9001:2015-certified processes support structured quality management throughout project delivery.",
+      name: "Security-Focused Delivery",
+      body: "ISO/IEC 27001:2022 Certified processes support structured information security management throughout project delivery.",
     },
     {
       name: "Delivery Support Across Target Markets",

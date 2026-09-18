@@ -35,12 +35,12 @@
    The intro used to sit in a second column from 1000px up, which put the lead
    on the same optical line as the title and made the two compete for the first
    read. Stacked, the eye lands on the title first and falls into the intro. */
+/* No rule above the section head — see the note on `.head` in
+   landing/landing.module.css; the two surfaces stay in step. */
 .head {
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(12px, 1.4vw, 20px);
-  padding-top: clamp(14px, 1.8vw, 24px);
-  border-top: 1px solid var(--line);
   margin-bottom: clamp(20px, 2.6vw, 38px);
 }
 
@@ -1025,16 +1025,22 @@
   color: var(--on-accent, #140b08);
 }
 
-/* Card internals — unchanged from the panel treatment. */
+/* Card internals.
+
+   These colours answer to the CARD, not to the band the section sits in. An
+   artwork card is a dark photo panel under the `.svcSlideMain` gradient on
+   either ground, so both lines are near-white and must NOT read `--text-bright`
+   or `--muted`: inside a `.light` band those resolve to near-black ink over a
+   near-black gradient, which measured 1.10:1. The ground-aware pair lives on
+   `[data-plain="true"]` below, which is the only card that shows the surface. */
 .svcTitle {
   margin: 0;
-  color: #fff;
   font-family: var(--font-heading);
   font-weight: 300;
   font-size: clamp(1.35rem, 1.9vw, 1.75rem);
   line-height: 1.2;
   letter-spacing: -0.02em;
-  color: var(--text-bright);
+  color: #fff;
 }
 
 .svcText {
@@ -1042,6 +1048,22 @@
   font-size: clamp(0.95rem, 1.05vw, 1.05rem);
   line-height: 1.62;
   color: rgba(255, 255, 255, 0.95);
+}
+
+/* The imageless card has no gradient, so its copy sits on `--surface` and takes
+   the band's own ink — the mirror of the rule above, and the reason the two are
+   split by card rather than left to one ground-aware value.
+
+   `--text` rather than `--muted` for the body: on the dark ground it is #d8d8d8,
+   which is where these cards already were, so the eight plain cards on the
+   Agentic AI page do not grey down; on warm white it is #4a4842, which the
+   near-white above never could be. */
+.svcSlideMain[data-plain="true"] .svcTitle {
+  color: var(--text-bright);
+}
+
+.svcSlideMain[data-plain="true"] .svcText {
+  color: var(--text);
 }
 
 /* Someone who has asked for less motion gets the position change with no
@@ -1754,6 +1776,10 @@
 .faqList {
   border-top: 1px solid var(--line);
   max-width: 62rem;
+  /* Question numbers come from CSS, not from a span inside the `<h3>` —
+     generated content is not in the DOM, so the heading text a crawler reads
+     is the question alone. Mirrors `landing.module.css`. */
+  counter-reset: faq;
 }
 
 .faqItem {
@@ -1787,7 +1813,9 @@
   outline-offset: 4px;
 }
 
-.faqNum {
+.faqTrigger::before {
+  content: counter(faq, decimal-leading-zero);
+  counter-increment: faq;
   font-family: var(--font-eyebrow);
   font-size: 11px;
   letter-spacing: 0.14em;
@@ -2278,6 +2306,32 @@
 .indBoldIcon svg {
   width: 19px;
   height: 19px;
+}
+
+/* A brand mark carries its own colours — Java's cup is red over blue, PHP's
+   ellipse is purple with white lettering — so the accent wash and the accent
+   ink behind it read as a stain rather than a tint. The ring goes to the plain
+   card line and the fill to the card surface, which lets the logo sit on a
+   neutral disc at any point in the accent ramp and on either ground.
+
+   Only the badge changes. The rule across the card's top edge still cycles the
+   ramp, so a grid mixing brand marks and drawn glyphs keeps one rhythm. */
+.indBoldIcon[data-brand="true"] {
+  border-color: var(--line);
+  background: color-mix(in srgb, var(--text-bright) 6%, transparent);
+}
+
+.indBoldCard:hover .indBoldIcon[data-brand="true"],
+.indBoldCard:focus-within .indBoldIcon[data-brand="true"] {
+  border-color: color-mix(in srgb, var(--text-bright) 28%, var(--line));
+}
+
+/* The marks are authored at 22px on a 24 viewBox with their own `width`/`height`
+   attributes, so they need the same sizing the drawn glyphs get — and a touch
+   more room, since a logo reads smaller than a line glyph at equal box. */
+.indBoldIcon[data-brand="true"] svg {
+  width: 21px;
+  height: 21px;
 }
 
 .indBoldName {

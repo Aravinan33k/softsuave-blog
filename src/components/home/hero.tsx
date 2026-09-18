@@ -141,9 +141,12 @@ export default function Hero() {
             </Link>
           </Magnetic>
           <Magnetic>
-            <a href={hero.secondaryCta.href} className={styles.pill} data-cursor="Explore">
+            {/* A real route now (see `hero.secondaryCta`), so it goes through
+                next/link and picks up `basePath` — a plain <a> would resolve
+                outside the /blog mount in production. */}
+            <Link href={hero.secondaryCta.href} className={styles.pill} data-cursor="Explore">
               {hero.secondaryCta.label}
-            </a>
+            </Link>
           </Magnetic>
         </div>
       </div>

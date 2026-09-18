@@ -3,6 +3,7 @@
 import { useRef, type ReactNode } from "react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import SectionHead from "@/components/landing/section-head";
+import FadeUp from "@/components/home/fade-up";
 import styles from "@/components/landing/landing.module.css";
 
 /**
@@ -97,11 +98,21 @@ const iconProps = {
 };
 
 /**
- * Side-by-side comparison as a list of bordered row cards — each row holds
- * its pair of values (stacked below 640px). A `<table>` of prose columns
- * cannot stay legible at 360px, and each row here is really one dimension
- * described by two values rather than a grid of independently sortable
- * cells.
+ * Side-by-side comparison, in one of two layouts.
+ *
+ *   cards   the default. A list of bordered row cards, each holding its pair
+ *           of values (stacked below 640px), with a decorative icon per row.
+ *   table   a real `<table>`: one header row, then one `<tr>` per dimension
+ *           with the factor as a row header. The review sheet asked for this
+ *           on the pages where the comparison is a lookup the reader scans
+ *           rather than an argument the page is making ("use a simple table
+ *           for the comparison"). It also drops the per-row `<h3>`, which is
+ *           what made those pages read as a stack of repeated headings.
+ *
+ * The cards layout is still the default because a `<table>` of prose columns
+ * cannot stay legible at 360px unaided; the table layout handles that by
+ * restacking each row into a labelled block below 720px, so it never scrolls
+ * sideways and never squeezes three prose columns into a phone.
  *
  * `tone` decides whether the comparison takes a side:
  *
@@ -122,14 +133,17 @@ export default function Comparison({
   id = "comparison",
   tone = "verdict",
   level = 2,
+  layout = "cards",
 }: {
   content: ComparisonContent;
   id?: string;
   tone?: "verdict" | "neutral";
   level?: 2 | 3;
+  layout?: "cards" | "table";
 }) {
   const { columns, rows, notes } = content;
   const root = useRef<HTMLOListElement | null>(null);
+  const asTable = layout === "table";
   const neutral = tone === "neutral";
 
   const bounce = (e: React.MouseEvent<HTMLLIElement>) => {
@@ -201,6 +215,47 @@ export default function Comparison({
         level={level}
       />
 
+      {asTable ? (
+        <FadeUp>
+          {/* `cmpTableWrap` owns the horizontal scroll that only ever engages
+              between the restack breakpoint and the width at which three
+              columns fit — on a phone the rows are already stacked blocks. */}
+          <div className={styles.cmpTableWrap}>
+            <table className={styles.cmpTable}>
+              <thead>
+                <tr>
+                  <th scope="col">{columns.area}</th>
+                  <th scope="col">{columns.lead}</th>
+                  <th scope="col">{columns.other}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((r) => (
+                  <tr key={r.area}>
+                    <th scope="row">{r.area}</th>
+                    {/* `data-label` is what the stacked phone layout prints
+                        in front of each value, since the header row is out of
+                        view there. `data-favored` only marks a side when the
+                        comparison takes one. */}
+                    <td
+                      data-label={columns.lead}
+                      data-favored={!neutral && r.favors === "lead" ? "true" : undefined}
+                    >
+                      {r.lead}
+                    </td>
+                    <td
+                      data-label={columns.other}
+                      data-favored={!neutral && r.favors === "other" ? "true" : undefined}
+                    >
+                      {r.other}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </FadeUp>
+      ) : (
       <ol ref={root} className={styles.cmpRows} aria-label={columns.area}>
         {rows.map((r, i) => (
           <li key={r.area} className={styles.cmpRow} onClick={bounce}>
@@ -235,6 +290,7 @@ export default function Comparison({
           </li>
         ))}
       </ol>
+      )}
 
       {notes && notes.length > 0 && (
         <div className={styles.cmpNotes}>

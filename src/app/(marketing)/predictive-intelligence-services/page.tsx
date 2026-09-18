@@ -14,6 +14,7 @@ import {
   piMeta,
   piOverview,
   piProcess,
+  piTech,
   piWhyUs,
 } from '@/lib/home/predictive-intelligence-content';
 
@@ -25,7 +26,7 @@ import Footer from '@/components/home/footer';
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import Comparison from '@/components/common/comparison';
-import ServicesCarousel from '@/components/common/services-carousel';
+import ServicesGrid from '@/components/common/services-grid';
 import Industries from '@/components/landing/industries';
 import Process from '@/components/landing/process';
 import Integration from '@/components/common/integration';
@@ -36,6 +37,9 @@ import Faq from '@/components/landing/faq';
 // own (`lib/home/content.ts`), so they render with the homepage's actual
 // components rather than a second implementation of the same section.
 import Clients from '@/components/home/clients';
+import CaseStudies from '@/components/home/work-grid';
+import TechStack from '@/components/home/tech-stack';
+import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
 
 import home from '@/components/home/home.module.css';
@@ -98,11 +102,12 @@ const PAGE_NAV = [
   { label: 'Integration', href: '#integration' },
   { label: 'Industries', href: '#industries' },
   { label: 'Why Us', href: '#why' },
+  { label: 'Tech Stack', href: '#tech' },
   { label: 'FAQs', href: '#faq' },
   { label: 'Blog', href: '/blog' },
 ] as const;
 
-const PAGE_CTA = { label: 'Book AI Strategy Call', href: '#enquiry' } as const;
+const PAGE_CTA = { label: 'Book AI Strategy Call', href: '/contact' } as const;
 
 /** FAQPage + Service structured data — this page's answers are its SEO surface. */
 const faqLd = {
@@ -178,12 +183,18 @@ export default function PredictiveIntelligenceServicesPage() {
             because the table distinguishes two approaches rather than
             recommending one. */}
         <Overview content={piOverview} variant="compact" />
-        <Comparison content={piComparison} id="vs-analytics" tone="neutral" level={3} />
+        <Comparison
+          content={piComparison}
+          id="vs-analytics"
+          tone="neutral"
+          level={3}
+          layout="table"
+        />
 
-        {/* Centre-focused carousel — one capability in focus with its
-            neighbours as context, each card wearing its own artwork. */}
+        {/* Every capability on screen at once, each card wearing its own
+            artwork in its top corner — the GCC page's feature card. */}
         <div className={home.light}>
-          <ServicesCarousel content={piCapabilities} />
+          <ServicesGrid content={piCapabilities} />
         </div>
 
         <Industries content={piApplications} id="use-cases" />
@@ -202,14 +213,31 @@ export default function PredictiveIntelligenceServicesPage() {
 
         <WhyUs content={piWhyUs} />
 
+        {/* Homepage case-study gallery, on the warm-white band as it is there. */}
+        <div className={home.light}>
+          <CaseStudies />
+        </div>
+
+        {/* The review sheet's tech-stack table, rendered as the homepage's
+            marquee rows (one per category) like /data-engineering-services.
+            `techCompact` only clears the band's full-viewport min-height. */}
+        <div className={home.techCompact}>
+          <TechStack content={piTech} />
+        </div>
+
+        {/* Homepage client stories, on the warm-white band as they are there. */}
+        <div className={home.light}>
+          <Testimonials />
+        </div>
+
         <div className={home.light}>
           <Faq content={piFaqs} idPrefix="pi-faq" />
         </div>
 
-        {/* The homepage's closing CTA, pointed at this page's own enquiry
-            form rather than the /contact route — the same close as the other
-            new service pages. */}
-        <Contact ctaHref="#enquiry" />
+        {/* The homepage's closing CTA, on its default /contact destination —
+            the review sheet asked for the CTA buttons to lead to the contact
+            page rather than back up to the hero's enquiry form. */}
+        <Contact />
       </main>
 
       <Footer />

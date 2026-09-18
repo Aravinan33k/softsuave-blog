@@ -21,7 +21,10 @@ export const hero = {
   subtitle:
     "Build scalable AI solutions, intelligent automation systems, and seamless integrations with AI-enabled engineering teams focused on real business outcomes.",
   primaryCta: { label: "Book AI Strategy Call", href: "/contact" },
-  secondaryCta: { label: "Explore AI Solutions", href: "#services" },
+  // The hub page for the eight AI service pages, not the homepage's own
+  // services band: the label promises the AI catalogue, and `#services` only
+  // scrolled a reader who clicked it to a section already on screen.
+  secondaryCta: { label: "Explore AI Solutions", href: "/custom-ai-development-services" },
 } as const;
 
 export const why = {

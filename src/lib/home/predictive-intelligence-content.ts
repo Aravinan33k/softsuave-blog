@@ -21,6 +21,9 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { ProcessContent } from "@/components/landing/process";
 import type { IntegrationContent } from "@/components/common/integration";
 import type { FaqContent } from "@/components/landing/faq";
+import type { TechStackContent } from "@/components/landing/tech-stack";
+
+import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 
 export const piMeta = {
   slug: "predictive-intelligence-services",
@@ -33,7 +36,6 @@ export const piMeta = {
 } as const;
 
 export const piHero: HeroContent = {
-  eyebrow: "Predictive Intelligence",
   // The last line takes the coral accent.
   titleLines: ["Predictive Intelligence Services:", "From Prediction to Action"],
   body: [
@@ -47,18 +49,18 @@ export const piHero: HeroContent = {
     "Anomaly Detection & Risk Signals",
     "Recommendations & Workflow Actions",
   ],
-  // Trust badges carried over from the older service landing pages.
-  badges: ["ISO 27001:2022 certified", "NDA on request", "150+ global clients", "Reply in 1 business day"],
+  badges: sharedHeroBadges,
   form: {
     eyebrow: "Business Enquiry",
     title: "Scope your predictive intelligence project",
     note: "Tell us the decision you want to support and the data behind it, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What decision should the prediction support?",
     requirementPlaceholder:
       "The outcome you want to anticipate, the data you hold, who acts on the result, and the system or workflow it needs to reach.",
     subject: "Predictive Intelligence enquiry",
+    alert: sharedHeroAlert,
   },
   // Hand-placed asset (not a Pexels-pipeline slot) — full-bleed behind the
   // whole hero section, veiled for contrast. See `Hero`'s `image` prop.
@@ -303,6 +305,49 @@ export const piWhyUs: CardGridContent = {
     {
       name: "Structured Global Delivery",
       body: "Delivery presence across Chennai, Bengaluru, and the United States supports collaboration across global project teams.",
+    },
+  ],
+};
+
+/**
+ * Technology stack, rendered after the Why-Us band by the homepage's marquee
+ * tech section. The eight groups are the review sheet's two-column table
+ * (Category / Tools & Technologies) verbatim, so each row becomes one marquee
+ * row and the table reads as a table without being one.
+ */
+export const piTech: TechStackContent = {
+  eyebrow: "Technology Stack",
+  title: "Technologies Behind Our Predictive Intelligence Solutions",
+  body: "We select tools for data preparation, predictive modeling, integration, and monitoring based on your business goals, existing systems, and deployment requirements.",
+  groups: [
+    {
+      name: "Programming & Data Processing",
+      items: ["Python", "SQL", "R", "pandas", "NumPy", "Apache Spark"],
+    },
+    {
+      name: "Forecasting & Predictive Modeling",
+      items: ["statsmodels", "Prophet", "scikit-learn", "XGBoost", "LightGBM"],
+    },
+    {
+      name: "Anomaly Detection & Recommendations",
+      items: ["PyOD", "River", "TensorFlow Recommenders", "implicit"],
+    },
+    { name: "Deep Learning Frameworks", items: ["PyTorch", "TensorFlow", "Keras"] },
+    {
+      name: "Data Storage & Pipelines",
+      items: ["PostgreSQL", "Snowflake", "Google BigQuery", "Apache Airflow", "Apache Kafka"],
+    },
+    {
+      name: "APIs, Workflows & Dashboards",
+      items: ["FastAPI", "REST APIs", "Microsoft Power Automate", "Power BI", "React"],
+    },
+    {
+      name: "Cloud & Deployment",
+      items: ["AWS", "Microsoft Azure", "Google Cloud", "Docker", "Kubernetes", "GitHub Actions"],
+    },
+    {
+      name: "Model Operations & Monitoring",
+      items: ["MLflow", "DVC", "SHAP", "Evidently", "Prometheus", "Grafana"],
     },
   ],
 };

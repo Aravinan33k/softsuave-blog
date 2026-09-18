@@ -21,6 +21,8 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
 
+import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+
 export const dsMeta = {
   slug: "data-science-services",
   path: "/data-science-services",
@@ -32,7 +34,6 @@ export const dsMeta = {
 } as const;
 
 export const dsHero: HeroContent = {
-  eyebrow: "Data Science",
   // The last line takes the coral accent.
   titleLines: ["Data Science Services", "for Smarter Business Decisions"],
   body: [
@@ -46,18 +47,18 @@ export const dsHero: HeroContent = {
     "Analysis, Modeling & Validation Expertise",
     "ISO/IEC 27001:2022 Information Security",
   ],
-  // Trust badges carried over from the older service landing pages.
-  badges: ["ISO 27001:2022 certified", "NDA on request", "150+ global clients", "Reply in 1 business day"],
+  badges: sharedHeroBadges,
   form: {
     eyebrow: "Business Enquiry",
     title: "Start with your business question",
     note: "Tell us the question you need answered and what data you hold, and we come back with a feasible approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What question should the data answer?",
     requirementPlaceholder:
       "The decision or assumption you want tested, the datasets you already hold, and how the result would be used once it is validated.",
     subject: "Data Science Services enquiry",
+    alert: sharedHeroAlert,
   },
   // Hand-placed asset (not a Pexels-pipeline slot) — full-bleed behind the
   // whole hero section, veiled for contrast. See `Hero`'s `image` prop.

@@ -342,3 +342,55 @@ model AuditLog {
   @@index([createdAt])
   @@index([action])
 }
+
+// ─────────────────────────── Enquiries ───────────────────────────
+// Leads from the marketing surface's hero enquiry form (landing/hero.tsx, via
+// POST /api/v1/enquiry). Before this table the form built a `mailto:` and set
+// window.location.href, so every submission from a visitor without a configured
+// desktop mail client was lost silently — on pages whose only conversion path
+// that form is.
+//
+// Deliberately NOT related to User: an enquiry is from a stranger, and nothing
+// here may imply an account exists.
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  ARCHIVED
+}
+
+model Enquiry {
+  id          String  @id @default(cuid())
+  name        String  @db.VarChar(191)
+  email       String  @db.VarChar(191)
+  // Free-form and optional: the form takes international numbers in whatever
+  // shape the reader writes them, so this is stored as typed.
+  phone       String? @db.VarChar(64)
+  requirement String  @db.Text
+  // The page's own subject line ("Hire ReactJS Developers enquiry"), written
+  // per page in the hero content. Kept because it is the most human label a
+  // triage view — or a future notification email — can lead with.
+  subject     String? @db.VarChar(255)
+
+  // Which page produced the lead. `sourcePath` is the route
+  // ("/hire-java-developers") and `sourceKey` the page key the form's idPrefix
+  // carries, so leads can be attributed per landing page without parsing paths.
+  // 512 chars keeps the index at 2048 bytes, inside InnoDB's 3072 limit.
+  sourcePath String? @db.VarChar(512)
+  sourceKey  String? @db.VarChar(191)
+
+  status EnquiryStatus @default(NEW)
+
+  // Captured for abuse triage only — same fields, same reason, as AuditLog.
+  ipAddress String? @db.VarChar(45)
+  userAgent String? @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([createdAt])
+  @@index([status])
+  @@index([email])
+  @@index([sourcePath])
+}

@@ -78,10 +78,15 @@
   background: var(--accent);
 }
 
+/* Section H2. Held at the same scale as `.title` in
+   landing/landing.module.css — the tech-stack, case-study and clients bands
+   render on the AI service pages beside the landing sections, so if only one
+   of the two came down the pages would carry two different H2 scales. Was
+   clamp(2.25rem, 4.6vw, 4rem); see the note there. */
 .h2 {
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2.25rem, 4.6vw, 4rem);
+  font-size: clamp(1.875rem, 3.2vw, 2.75rem);
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -359,11 +364,14 @@
   /* link hover/active colour, re-pointed per tone: hero and dark bars take the
      hot coral, the light bar the band's deeper red so 12px caps stay legible */
   --nav-link-accent: var(--accent);
-  transition: background 0.5s ease, backdrop-filter 0.5s ease, padding 0.5s ease,
-    color 0.45s ease;
-  /* no bottom rule in any tone — the blurred bar separates itself from the
-     band under it, and a hairline read as a hard black seam on both surfaces */
-  border-bottom: 0;
+  transition: background 0.5s ease, padding 0.5s ease, color 0.45s ease,
+    border-color 0.5s ease, box-shadow 0.5s ease;
+  /* Hero-locked default: no rule and no shadow, so the bar is invisible over
+     the video. `.navDark`/`.navLight` add both once it is over content — a
+     transparent colour rather than `0` width so the two states can cross-fade
+     instead of the bar jumping 1px taller. */
+  border-bottom: 1px solid transparent;
+  box-shadow: none;
 }
 
 /* Legibility scrim. The bar paints no background while it is hero-locked, and
@@ -396,16 +404,27 @@
    No class = hero-locked: transparent bar, white lockup, inherited dark-theme
    text. Past the hero the bar takes the tone of the band under it (see
    `useSurfaceTone`). Both states re-point the same semantic vars the burger,
-   pill and links already read, so only the bar's own paint is declared here. */
+   pill and links already read, so only the bar's own paint is declared here.
+
+   Past the hero the bar is OPAQUE, with a hairline and a soft shadow under it
+   (BUG-001). It used to be glass — 0.78/0.86 alpha over a 14px backdrop blur —
+   and the page scrolling beneath it stayed legible through the bar, so headline
+   type read as if it were merging with the nav. The hero state is untouched:
+   there the bar still paints nothing and rides on its gradient scrim alone.
+   The blur goes with it; behind an opaque ground it only cost a GPU pass. */
 .navDark,
 .navLight {
-  backdrop-filter: blur(14px);
   padding-top: 14px;
   padding-bottom: 14px;
 }
 
 .navDark {
-  background: rgba(10, 10, 10, 0.78);
+  background: #0a0a0a;
+  /* Not `var(--line)` (#434343): at full width that reads as a drawn border on
+     a bar that is meant to end in a seam, which is why the rule came off in the
+     first place. This is the same edge at a tenth of the weight. */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.9);
 }
 
 /* Warm white to sit flush with the .light band's #f8f6f3 — a cool #fff bar
@@ -421,7 +440,9 @@
   --surface: #eeebe5;
   --surface-2: #e6e2da;
   --surface-3: #dcd7cd;
-  background: rgba(248, 246, 243, 0.86);
+  background: #f8f6f3;
+  border-bottom: 1px solid rgba(23, 20, 15, 0.12);
+  box-shadow: 0 10px 30px -20px rgba(23, 20, 15, 0.45);
   color: var(--text-bright);
 }
 
@@ -3112,6 +3133,16 @@
     align-items: center;
   }
 
+  /* A lane whose tiles carry no artwork — see `WorkCarousel`, which drops the
+     media block when no item has an `imageId` or `image`. Those tiles are about
+     a third the height of a case-study tile, so holding the full viewport
+     opened the section on most of a screen of dead ground above the eyebrow.
+     Declared after `.hInner` on purpose: same specificity, so source order is
+     what lets the modifier win. */
+  .hInnerFlat {
+    min-height: 0;
+  }
+
   /* intro is a fixed left column — it stays put while the lane scrolls past */
   .hIntro {
     flex: 0 0 auto;
@@ -4719,6 +4750,13 @@
   rotate: 0deg;
   transition: rotate 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+/* Added by `stats.tsx` once the fan-in has landed (and immediately under
+   reduced motion). The perspective above only ever served that entrance; past
+   it the 3D context just costs the cards a projected rasterization, which the
+   outer two resolved their border in differently from the middle two. */
+.stackSettled .stackTilt {
+  transform-style: flat;
+}
 .stackTilt:nth-child(1) {
   rotate: 0deg;
 }
@@ -4762,16 +4800,31 @@
    in a row out-shouted the figures they were labelling, on a page that spends
    its one accent sparingly. The coral now lives in the points, the icon and
    the figure's suffix instead. Labels are kept to one line at source. */
+/* The two coral points are PINNED to the header's ends rather than laid out
+   in the flex row with the label between them (BUG-004). In the row their
+   position was a function of the label's width: "Engineering Specialists" is
+   the longest of the four and, with `white-space: nowrap` below, it overflowed
+   the header on any short window — the max card width is capped by viewport
+   HEIGHT (`min(370px, 38vh)`) — and shoved its points outward, so that one card
+   read as misaligned beside the other three. Pinned, all four cards put their
+   points in the same place whatever the label does, which is what "consistent"
+   means here. The label can then wrap again, and the header takes a fixed
+   height so a two-line label on one card cannot push that card's figure off the
+   baseline the other three share. */
 .stackTab {
+  position: relative;
   flex: 0 0 auto;
-  min-height: clamp(46px, 5vh, 56px);
+  height: clamp(50px, 5.4vh, 60px);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(8px, 1.2vw, 14px);
-  padding: clamp(6px, 0.9vh, 10px) clamp(12px, 2vw, 20px);
+  /* keeps the label clear of the points' lane at both ends */
+  padding: 6px clamp(30px, 4.4vw, 44px);
   border-bottom: 1px solid var(--line);
-  border-radius: 18px 18px 0 0;
+  /* 17, not 18: this sits INSIDE the card's 1px border, and a child arc drawn
+     at the parent's own radius paints over the outer corner of that border
+     (BUG-005). Same correction on `.stackBody` below. */
+  border-radius: 17px 17px 0 0;
 }
 .stackTabTitle {
   font-family: var(--font-eyebrow);
@@ -4781,21 +4834,24 @@
   text-transform: uppercase;
   color: var(--muted);
   text-align: center;
-  line-height: 1.28;
-}
-/* One line on desktop, where the cards are wide enough for it; below that the
-   four-up grid is too narrow and a label may wrap rather than overflow. */
-@media (min-width: 1000px) {
-  .stackTabTitle {
-    white-space: nowrap;
-  }
+  /* Tighter than 1.28 so the longest label's second line still sits inside the
+     header's fixed height at the small end of the clamp. */
+  line-height: 1.18;
 }
 .stackTabDot {
-  flex: 0 0 auto;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   width: 5px;
   height: 5px;
   border-radius: 50%;
   background: var(--accent);
+}
+.stackTabDot:first-child {
+  left: clamp(14px, 2.2vw, 20px);
+}
+.stackTabDot:last-child {
+  right: clamp(14px, 2.2vw, 20px);
 }
 
 @media (min-width: 1000px) {
@@ -4823,8 +4879,11 @@
   justify-content: flex-start;
   text-align: center;
   gap: clamp(10px, 1.3vw, 16px);
-  background: var(--bg);
-  border-radius: 0 0 18px 18px;
+  /* No background and a radius one pixel inside the card's: `.stackCard`
+     already paints `var(--bg)`, and repeating it on a child whose 18px arcs
+     match the parent's exactly meant the child's fill covered the outer edge of
+     the card's 1px border at the two bottom corners (BUG-005). */
+  border-radius: 0 0 17px 17px;
 }
 .stackIcon {
   color: var(--accent);

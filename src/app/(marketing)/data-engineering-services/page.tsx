@@ -25,9 +25,9 @@ import Footer from '@/components/home/footer';
 // typography and `.theme-four` tokens.
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
-import Showcase from '@/components/data-engineering/showcase';
+import Comparison from '@/components/common/comparison';
+import ServicesGrid from '@/components/common/services-grid';
 import ProcessRail from '@/components/common/process-rail';
-import VersusLedger from '@/components/data-engineering/versus-ledger';
 import Industries from '@/components/landing/industries';
 import WhyUs from '@/components/landing/why-us';
 import CtaBand from '@/components/landing/cta-band';
@@ -107,7 +107,7 @@ const PAGE_NAV = [
   { label: 'Blog', href: '/blog' },
 ] as const;
 
-const PAGE_CTA = { label: 'Discuss Your Project Scope', href: '#enquiry' } as const;
+const PAGE_CTA = { label: 'Discuss Your Project Scope', href: '/contact' } as const;
 
 /** FAQPage + Service structured data — this page's answers are its SEO surface. */
 const faqLd = {
@@ -180,10 +180,10 @@ export default function DataEngineeringServicesPage() {
 
         <Overview content={deOverview} variant="compact" />
 
-        {/* Showcase index — the artwork follows whichever solution you are
-            reading, rather than a carousel hiding five behind a timer. */}
+        {/* Every solution on screen at once, each card wearing its own
+            artwork in its top corner — the GCC page's feature card. */}
         <div className={home.light}>
-          <Showcase content={deSolutions} />
+          <ServicesGrid content={deSolutions} />
         </div>
 
         {/* The six steps hang off one drawn spine. */}
@@ -192,7 +192,7 @@ export default function DataEngineeringServicesPage() {
         {/* A true ledger: considerations down the middle, each option's
             answers in its own column. */}
         <div className={home.light}>
-          <VersusLedger content={deEngagement} id="engagement" />
+          <Comparison content={deEngagement} id="engagement" tone="neutral" layout="table" />
         </div>
 
         {/* Five cards fill one row on a wide desktop. The watermark index
@@ -227,10 +227,10 @@ export default function DataEngineeringServicesPage() {
 
         <Faq content={deFaqs} idPrefix="de-faq" />
 
-        {/* The homepage's closing CTA, pointed at this page's own enquiry
-            form rather than the /contact route — the same close as the other
-            new service pages. */}
-        <Contact ctaHref="#enquiry" />
+        {/* The homepage's closing CTA, on its default /contact destination —
+            the review sheet asked for the CTA buttons to lead to the contact
+            page rather than back up to the hero's enquiry form. */}
+        <Contact />
       </main>
 
       <Footer />

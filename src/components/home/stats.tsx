@@ -82,12 +82,26 @@ export default function Stats() {
       const landing = (t: Element) => -(Number((t as HTMLElement).dataset.digit) + 10) * 5;
       const cards = gsap.utils.toArray<HTMLElement>(`.${styles.stackCard}`, root.current);
 
+      /* The fan-in entrance is the only reason these cards live in a 3D
+         context: `.stackWrap` sets the perspective and `.stackTilt` passes it
+         through with `transform-style: preserve-3d`. Once the cards have
+         landed, that context is pure cost — a perspective-projected layer is
+         rasterized against the wrap's centre, which is why the two OUTER cards,
+         furthest from that origin, resolved their 1px border differently from
+         the middle two (BUG-005). Settling drops the 3D and hands the borders
+         back to plain 2D painting. */
+      const settle = () => {
+        gsap.set(cards, { clearProps: "transform" });
+        root.current?.classList.add(styles.stackSettled);
+      };
+
       if (reduce) {
         cards.forEach((card) => {
           gsap.utils
             .toArray<HTMLElement>(`.${styles.odoStrip}`, card)
             .forEach((s) => gsap.set(s, { yPercent: landing(s) }));
         });
+        settle();
         return;
       }
 
@@ -131,6 +145,7 @@ export default function Stats() {
           duration: 0.9,
           ease: "back.out(1.5)",
           stagger: 0.09,
+          onComplete: settle,
         },
         0,
       );

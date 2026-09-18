@@ -6,8 +6,6 @@ import FadeUp from "@/components/home/fade-up";
 import SectionHead from "./section-head";
 import styles from "./gen-ai.module.css";
 
-const pad = (n: number) => String(n).padStart(2, "0");
-
 export interface FaqContent {
   eyebrow: string;
   title: string;
@@ -61,9 +59,6 @@ export default function Faq({
                     id={`${idPrefix}-trigger-${i}`}
                     onClick={() => setOpen(isOpen ? null : i)}
                   >
-                    <span className={styles.faqNum} aria-hidden>
-                      {pad(i + 1)}
-                    </span>
                     <span className={styles.faqQuestion}>{item.q}</span>
                     <span className={styles.faqIcon} aria-hidden />
                   </button>

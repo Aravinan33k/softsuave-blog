@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { HIRE_ROLE_PAGES, HIRE_ROLE_ROUTES } from './index';
 import { assignGrounds } from './band-grounds';
 import { LANDING_PAGES } from '../landing-pages';
+import { CARD_ICON_KEYS, isBrandIcon } from '@/components/generative-ai/card-icon';
 
 /**
  * The nine role pages are wired to three things that live elsewhere — the
@@ -277,6 +278,62 @@ describe('hire-by-role pages', () => {
       }
       for (const item of page.faq.items) {
         expect(item.a.length, `${page.key}: "${item.q}" has no answer`).toBeGreaterThan(60);
+      }
+    }
+  });
+
+  it('gives every card a glyph of its own rather than the fallback', () => {
+    // The bug this replaces: `IndustryIcon` knew 28 keys, the cards used 70 it
+    // did not, and an unknown key is a valid string — so 109 of the 129 cards
+    // here fell through to `default` and drew the same clock. On eight of the
+    // thirteen pages every card in the grid was that clock, and nothing failed:
+    // the build was clean and every test passed, because none of them asked
+    // what the key resolved to.
+    //
+    // `CARD_ICON_KEYS` is the vocabulary `CardIcon` actually implements, so
+    // asserting the content against it is the check that was missing. A card
+    // added with a key nobody drew fails here instead of shipping a clock.
+    const used = new Map<string, string[]>();
+
+    for (const page of HIRE_ROLE_PAGES) {
+      for (const field of ['specialisations', 'whyRole'] as const) {
+        for (const item of page[field]?.items ?? []) {
+          const where = `${page.key}/${field}/"${item.name}"`;
+          expect(item.key, `${where}: no key, so it cannot have a glyph`).toBeDefined();
+          used.set(item.key!, [...(used.get(item.key!) ?? []), where]);
+        }
+      }
+    }
+
+    const orphans = [...used].filter(([key]) => !CARD_ICON_KEYS.has(key));
+    expect(
+      orphans.map(([key, where]) => `${key} (${where.length}x, e.g. ${where[0]})`),
+      'card keys with no glyph — they would all render the fallback clock',
+    ).toEqual([]);
+  });
+
+  it('claims a brand mark only where TechLogo actually has one', () => {
+    // `isBrandIcon` promises a real logo and makes the badge drop its accent
+    // tint to make room for one. A key listed there that `TechLogo` does not
+    // carry gets its fallback instead — a neutral, untinted badge holding a
+    // generic mark, which is worse than the drawn glyph it displaced.
+    const logos = readFileSync(
+      join(process.cwd(), 'src/components/home/tech-logo.tsx'),
+      'utf8',
+    );
+    const marks = new Set([...logos.matchAll(/case "([a-z0-9]+)":/g)].map((m) => m[1]));
+    // `TechLogo` normalises the name the same way before it switches.
+    const norm = (k: string) => k.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    for (const page of HIRE_ROLE_PAGES) {
+      for (const field of ['specialisations', 'whyRole'] as const) {
+        for (const item of page[field]?.items ?? []) {
+          if (!isBrandIcon(item.key)) continue;
+          expect(
+            marks.has(norm(item.key!)),
+            `${page.key}: "${item.key}" is treated as a brand mark but TechLogo has none`,
+          ).toBe(true);
+        }
       }
     }
   });

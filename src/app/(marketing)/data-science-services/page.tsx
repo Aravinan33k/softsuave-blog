@@ -24,7 +24,7 @@ import Footer from '@/components/home/footer';
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import FitGuide from '@/components/data-science/fit-guide';
-import ServicesCarousel from '@/components/common/services-carousel';
+import ServicesGrid from '@/components/common/services-grid';
 import TechCluster from '@/components/data-science/tech-cluster';
 import Industries from '@/components/landing/industries';
 import CapabilityLattice from '@/components/data-science/capability-lattice';
@@ -103,7 +103,7 @@ const PAGE_NAV = [
   { label: 'Blog', href: '/blog' },
 ] as const;
 
-const PAGE_CTA = { label: 'Discuss Your Project', href: '#enquiry' } as const;
+const PAGE_CTA = { label: 'Discuss Your Project', href: '/contact' } as const;
 
 /** FAQPage + Service structured data — this page's answers are its SEO surface. */
 const faqLd = {
@@ -182,7 +182,7 @@ export default function DataScienceServicesPage() {
           <FitGuide content={dsFit} />
         </div>
 
-        <ServicesCarousel content={dsServices} />
+        <ServicesGrid content={dsServices} />
 
         {/* The homepage's pinned journey scene over this page's six phases —
             the process is a route walked once, in order, which is what that
@@ -217,10 +217,10 @@ export default function DataScienceServicesPage() {
 
         <Faq content={dsFaqs} idPrefix="ds-faq" />
 
-        {/* The homepage's closing CTA, pointed at this page's own enquiry
-            form rather than the /contact route — the same close as the other
-            new service pages. */}
-        <Contact ctaHref="#enquiry" />
+        {/* The homepage's closing CTA, on its default /contact destination —
+            the review sheet asked for the CTA buttons to lead to the contact
+            page rather than back up to the hero's enquiry form. */}
+        <Contact />
       </main>
 
       <Footer />

@@ -23,6 +23,8 @@ import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 
+import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+
 export const deMeta = {
   slug: "data-engineering-services",
   path: "/data-engineering-services",
@@ -34,7 +36,6 @@ export const deMeta = {
 } as const;
 
 export const deHero: HeroContent = {
-  eyebrow: "Data Engineering",
   // The last line takes the coral accent.
   titleLines: ["Data Engineering Services", "for Analytics and AI"],
   body: [
@@ -48,18 +49,18 @@ export const deHero: HeroContent = {
     "400+ AI & Engineering Specialists",
     "ISO/IEC 27001:2022 Certified",
   ],
-  // Trust badges carried over from the older service landing pages.
-  badges: ["ISO 27001:2022 certified", "NDA on request", "150+ global clients", "Reply in 1 business day"],
+  badges: sharedHeroBadges,
   form: {
     eyebrow: "Business Enquiry",
     title: "Plan your data engineering project",
     note: "Tell us which systems hold your data and where it needs to reach, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What should your data flows support?",
     requirementPlaceholder:
       "The source systems and databases involved, the reporting, analytics, or AI use case, and the cloud environment you run on.",
     subject: "Data Engineering Services enquiry",
+    alert: sharedHeroAlert,
   },
   // Hand-placed asset (not a Pexels-pipeline slot) — full-bleed behind the
   // whole hero section, veiled for contrast. See `Hero`'s `image` prop.
@@ -176,11 +177,13 @@ export const deProcess: ProcessContent = {
 };
 
 /**
- * In-house vs outsourced, rendered as the ledger (landing/versus-ledger.tsx):
- * a shared spine of considerations with each option's answers in its own
- * column, so the eye can take one option in whole before crossing to the
- * other. The closing note is explicitly even-handed, which is why this is a
- * true ledger rather than the row cards that mark a preferred side.
+ * In-house vs outsourced, rendered by `common/comparison` in its `table`
+ * layout: a plain three-column table with each consideration as a row header
+ * (review: "use a simple table, and the text is very small"). It ran as the
+ * versus-ledger before that.
+ *
+ * `tone="neutral"` — no row carries `favors`, and the closing note is
+ * explicitly even-handed, so neither column is marked as the answer.
  */
 export const deEngagement: ComparisonContent = {
   eyebrow: "Engagement Options",
@@ -317,10 +320,9 @@ export const deWhyUs: CardGridContent = {
 };
 
 export const dePlanCta: CtaBandContent = {
-  eyebrow: "Next Step",
   title: "Plan Your Data Engineering Project",
   body: "Discuss your data engineering requirements with our team. We’ll review your project scope, clarify your needs, and confirm pricing based on the required services, complexity, timeline, and deliverables.",
-  cta: { label: "Discuss Your Project Scope", href: "#enquiry" },
+  cta: { label: "Discuss Your Project Scope", href: "/contact" },
 };
 
 /**
@@ -330,19 +332,38 @@ export const dePlanCta: CtaBandContent = {
  * add one there before adding a tool here, or the chip falls back to the
  * generic dot.
  */
+/**
+ * Technology stack. The nine categories are the review sheet's replacement
+ * table (Category / Tech Names) verbatim — it consolidated the previous
+ * fifteen narrower groups, so a reader scanning the marquee rows sees one row
+ * per capability area rather than one per tool family.
+ */
 export const deTech: TechStackContent = {
   eyebrow: "Technology Stack",
   title: "Technology Stack for Data Engineering Services",
   body: "Our data engineering services use modern cloud, backend, database, and engineering technologies to support reliable, scalable, and connected data environments.",
   groups: [
-    { name: "Cloud Platforms", items: ["AWS", "Microsoft Azure", "Google Cloud"] },
     {
-      name: "Data Warehousing",
-      items: ["Snowflake", "Google BigQuery", "Amazon Redshift", "Azure Synapse", "Databricks"],
+      name: "Cloud & Infrastructure",
+      items: [
+        "AWS",
+        "Microsoft Azure",
+        "Google Cloud",
+        "Docker",
+        "Kubernetes",
+        "Terraform",
+        "Git",
+        "CI/CD pipelines",
+      ],
     },
     {
-      name: "Data Storage & Lakes",
+      name: "Data Warehouses & Lakes",
       items: [
+        "Snowflake",
+        "Google BigQuery",
+        "Amazon Redshift",
+        "Azure Synapse",
+        "Databricks",
         "Amazon S3",
         "Azure Data Lake Storage",
         "Google Cloud Storage",
@@ -351,7 +372,7 @@ export const deTech: TechStackContent = {
       ],
     },
     {
-      name: "Pipeline Orchestration",
+      name: "Data Pipelines & Integration",
       items: [
         "Apache Airflow",
         "AWS Glue",
@@ -359,39 +380,58 @@ export const deTech: TechStackContent = {
         "Google Cloud Composer",
         "Dagster",
         "Prefect",
+        "Fivetran",
+        "Airbyte",
+        "Apache NiFi",
+        "REST APIs",
+        "GraphQL",
       ],
     },
-    { name: "Data Processing", items: ["Apache Spark", "PySpark", "Databricks", "AWS EMR", "Pandas"] },
     {
-      name: "Streaming & Real-Time",
+      name: "Languages, Processing & Transformation",
+      items: [
+        "Python",
+        "SQL",
+        "Scala",
+        "Java",
+        "Apache Spark",
+        "PySpark",
+        "AWS EMR",
+        "pandas",
+        "dbt",
+        "Apache Beam",
+      ],
+    },
+    {
+      name: "Streaming & Real-Time Processing",
       items: ["Apache Kafka", "AWS Kinesis", "Google Pub/Sub", "Azure Event Hubs", "Apache Flink"],
     },
-    { name: "Data Transformation", items: ["dbt", "SQL", "Python", "Apache Beam"] },
     {
-      name: "Relational Databases",
-      items: ["PostgreSQL", "MySQL", "Microsoft SQL Server", "Oracle", "Amazon RDS"],
+      name: "Databases & Search",
+      items: [
+        "PostgreSQL",
+        "MySQL",
+        "Microsoft SQL Server",
+        "Oracle",
+        "Amazon RDS",
+        "MongoDB",
+        "Amazon DynamoDB",
+        "Cassandra",
+        "Redis",
+        "Elasticsearch",
+      ],
     },
     {
-      name: "NoSQL & Document Stores",
-      items: ["MongoDB", "Amazon DynamoDB", "Cassandra", "Redis", "Elasticsearch"],
-    },
-    {
-      name: "Integration & APIs",
-      items: ["REST APIs", "GraphQL", "Fivetran", "Airbyte", "Apache NiFi"],
-    },
-    {
-      name: "BI & Analytics Targets",
+      name: "BI & Analytics",
       items: ["Power BI", "Tableau", "Looker", "Amazon QuickSight", "Metabase"],
     },
-    { name: "AI & Vector Data", items: ["Pinecone", "Weaviate", "pgvector", "Chroma", "LangChain"] },
+    {
+      name: "AI & Vector Data",
+      items: ["Pinecone", "Weaviate", "pgvector", "Chroma", "LangChain"],
+    },
     {
       name: "Data Quality & Governance",
       items: ["Great Expectations", "Apache Atlas", "AWS Glue Data Catalog", "Monte Carlo"],
-    },
-    { name: "Languages", items: ["Python", "SQL", "Scala", "Java"] },
-    {
-      name: "DevOps & Infrastructure",
-      items: ["Docker", "Kubernetes", "Terraform", "Git", "CI/CD pipelines"],
     },
   ],
 };

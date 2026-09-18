@@ -27,7 +27,7 @@ import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import Process from '@/components/landing/process';
 import CapabilityGuide from '@/components/computer-vision/capability-guide';
-import ServicesCarousel from '@/components/common/services-carousel';
+import ServicesGrid from '@/components/common/services-grid';
 import Industries from '@/components/landing/industries';
 import CtaBand from '@/components/landing/cta-band';
 import WhyUs from '@/components/landing/why-us';
@@ -106,7 +106,7 @@ const PAGE_NAV = [
   { label: 'Blog', href: '/blog' },
 ] as const;
 
-const PAGE_CTA = { label: 'Schedule a Consultation', href: '#enquiry' } as const;
+const PAGE_CTA = { label: 'Schedule a Consultation', href: '/contact' } as const;
 
 /** FAQPage + Service structured data — this page's answers are its SEO surface. */
 const faqLd = {
@@ -186,9 +186,9 @@ export default function ComputerVisionDevelopmentServicesPage() {
           <CapabilityGuide content={cvCapabilities} />
         </div>
 
-        {/* Centre-focused carousel — one service in focus with its
-            neighbours as context, each card wearing its own artwork. */}
-        <ServicesCarousel content={cvServices} />
+        {/* Every service on screen at once, each card wearing its own
+            artwork in its top corner — the GCC page's feature card. */}
+        <ServicesGrid content={cvServices} />
 
         <div className={home.light}>
           <Industries content={cvIndustries} />
@@ -222,9 +222,10 @@ export default function ComputerVisionDevelopmentServicesPage() {
 
         <Faq content={cvFaqs} idPrefix="cv-faq" />
 
-        {/* The homepage's closing CTA, pointed at this page's own enquiry
-            form rather than the /contact route. */}
-        <Contact ctaHref="#enquiry" />
+        {/* The homepage's closing CTA, on its default /contact destination —
+            the review sheet asked for the CTA buttons to lead to the contact
+            page rather than back up to the hero's enquiry form. */}
+        <Contact />
       </main>
 
       <Footer />

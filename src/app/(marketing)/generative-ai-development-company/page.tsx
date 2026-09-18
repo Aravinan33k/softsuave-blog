@@ -4,7 +4,7 @@ import { absoluteUrl } from '@/lib/seo/metadata';
 import { breadcrumbLd } from '@/lib/seo/jsonld';
 import { aiPageJsonLd } from '@/lib/seo/ai-page-schema';
 import { BASE_PATH, homepageEnabled } from '@/lib/flags';
-import { meta } from '@/lib/home/generative-ai';
+import { meta, services as servicesContent } from '@/lib/home/generative-ai';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
@@ -24,7 +24,7 @@ import Testimonials from '@/components/home/testimonials';
 import Hero from '@/components/generative-ai/hero';
 import Overview from '@/components/generative-ai/overview';
 import Problems from '@/components/generative-ai/problems';
-import Services from '@/components/generative-ai/services';
+import ServicesGrid from '@/components/common/services-grid';
 import CtaBand from '@/components/generative-ai/cta-band';
 import Integration from '@/components/generative-ai/integration';
 import Process from '@/components/generative-ai/process';
@@ -128,7 +128,11 @@ export default function GenerativeAiDevelopmentCompanyPage() {
           <Problems />
         </div>
 
-        <Services />
+        {/* Every service on screen at once, each card wearing its own
+            artwork in its top corner — the GCC page's feature card. The
+            centre-focused carousel this replaces showed three of ten behind a
+            timer, which put the page's actual offering behind an interaction. */}
+        <ServicesGrid content={servicesContent} />
         <CtaBand />
 
         <div className={styles.light}>

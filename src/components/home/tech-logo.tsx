@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useId } from "react";
 
 /**
  * Returns a high-quality inline SVG logo/icon for the given technology name.
@@ -63,6 +65,21 @@ const ALIASES: Record<string, string> = {
 };
 
 export default function TechLogo({ name }: { name: string }) {
+  /**
+   * Three of the marks below paint from a `<linearGradient>`, which SVG can
+   * only reach by id — and an id is document-global. A page rendering the same
+   * mark twice therefore emitted the id twice: invalid HTML, and every
+   * reference resolves to whichever copy the parser saw first.
+   *
+   * Latent for as long as each mark appeared once per page, and real the moment
+   * the hire-by-role card grids started drawing brand marks beside a technology
+   * band that already carried them — Kotlin, on /hire-mobile-app-developers.
+   *
+   * `useId` is per instance, so the copies no longer collide. The colons React
+   * brackets the value with are stripped: they are legal in a URL fragment, but
+   * not worth betting a logo on.
+   */
+  const uid = useId().replace(/:/g, "");
   const norm = name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
   switch (ALIASES[norm] ?? norm) {
@@ -103,9 +120,9 @@ export default function TechLogo({ name }: { name: string }) {
       // Google Gemini blue/purple sparkle star
       return (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z" fill="url(#geminiGrad)" />
+          <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z" fill={`url(#geminiGrad-${uid})`} />
           <defs>
-            <linearGradient id="geminiGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+            <linearGradient id={`geminiGrad-${uid}`} x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
               <stop stopColor="#93C5FD" />
               <stop offset="0.5" stopColor="#3B82F6" />
               <stop offset="1" stopColor="#8B5CF6" />
@@ -643,10 +660,10 @@ export default function TechLogo({ name }: { name: string }) {
       // Ragas — evaluation tick over a gradient disc
       return (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="12" r="10" fill="url(#ragasGrad)" />
+          <circle cx="12" cy="12" r="10" fill={`url(#ragasGrad-${uid})`} />
           <path d="M7 12.5L10.5 16L17 8.5" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
           <defs>
-            <linearGradient id="ragasGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+            <linearGradient id={`ragasGrad-${uid}`} x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
               <stop stopColor="#F97316" />
               <stop offset="1" stopColor="#EC4899" />
             </linearGradient>
@@ -1439,10 +1456,10 @@ export default function TechLogo({ name }: { name: string }) {
       // Kotlin — the folded gradient square
       return (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 3h18L12 12l9 9H3V3z" fill="url(#kotlinGrad)" />
+          <path d="M3 3h18L12 12l9 9H3V3z" fill={`url(#kotlinGrad-${uid})`} />
           <path d="M3 3h9l-9 9V3z" fill="#7F52FF" />
           <defs>
-            <linearGradient id="kotlinGrad" x1="21" y1="3" x2="3" y2="21" gradientUnits="userSpaceOnUse">
+            <linearGradient id={`kotlinGrad-${uid}`} x1="21" y1="3" x2="3" y2="21" gradientUnits="userSpaceOnUse">
               <stop stopColor="#E44857" />
               <stop offset="0.5" stopColor="#C711E1" />
               <stop offset="1" stopColor="#7F52FF" />

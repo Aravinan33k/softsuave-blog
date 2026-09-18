@@ -21,6 +21,8 @@ import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 
+import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+
 export const ragMeta = {
   slug: "rag-development-services",
   path: "/rag-development-services",
@@ -32,7 +34,6 @@ export const ragMeta = {
 } as const;
 
 export const ragHero: HeroContent = {
-  eyebrow: "RAG & Document AI",
   // The last line takes the coral accent.
   titleLines: ["RAG Development Services", "for Knowledge Retrieval"],
   body: [
@@ -46,18 +47,18 @@ export const ragHero: HeroContent = {
     "Enterprise RAG & Knowledge Retrieval",
     "Vector Database & LLM Expertise",
   ],
-  // Trust badges carried over from the older service landing pages.
-  badges: ["ISO 27001 processes", "NDA on request", "150+ global clients", "Reply in 1 business day"],
+  badges: sharedHeroBadges,
   form: {
     eyebrow: "Business Enquiry",
     title: "Discuss your RAG project",
     note: "Share your knowledge sources and what users need to ask, and we come back with a retrieval approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What do you want to build?",
     requirementPlaceholder:
       "The documents or knowledge bases involved, the questions users ask, the systems it needs to sit inside, and who should have access.",
     subject: "RAG & Document AI enquiry",
+    alert: sharedHeroAlert,
   },
   // Hand-placed asset (not a Pexels-pipeline slot) — full-bleed behind the
   // whole hero section, veiled for contrast. See `Hero`'s `image` prop.
@@ -181,10 +182,9 @@ export const ragUseCases: CardGridContent = {
 };
 
 export const ragProjectCta: CtaBandContent = {
-  eyebrow: "Start Building",
   title: "Turn Your Business Knowledge Into a RAG-Ready AI System",
   body: "Transform documents, knowledge bases, and internal data into searchable, AI-ready knowledge with a RAG and Document AI solution designed around your application and business requirements.",
-  cta: { label: "Discuss Your RAG Project", href: "#enquiry" },
+  cta: { label: "Discuss Your RAG Project", href: "/contact" },
 };
 
 export const ragComparison: ComparisonContent = {

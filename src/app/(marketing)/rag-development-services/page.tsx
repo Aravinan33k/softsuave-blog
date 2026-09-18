@@ -24,7 +24,7 @@ import Footer from '@/components/home/footer';
 // typography and `.theme-four` tokens.
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
-import ServicesCarousel from '@/components/common/services-carousel';
+import ServicesGrid from '@/components/common/services-grid';
 import Industries from '@/components/landing/industries';
 import CtaBand from '@/components/landing/cta-band';
 import ComparisonBoard from '@/components/rag/comparison-board';
@@ -106,7 +106,7 @@ const PAGE_NAV = [
   { label: 'Blog', href: '/blog' },
 ] as const;
 
-const PAGE_CTA = { label: 'Discuss Your RAG Project', href: '#enquiry' } as const;
+const PAGE_CTA = { label: 'Discuss Your RAG Project', href: '/contact' } as const;
 
 /** FAQPage + Service structured data — this page's answers are its SEO surface. */
 const faqLd = {
@@ -182,9 +182,9 @@ export default function RagDocumentAiServicePage() {
         <Overview content={ragOverview} variant="compact" clampLines={6} />
 
         <div className={home.light}>
-          {/* Centre-focused carousel — one service in focus with its
-              neighbours as context, each card wearing its own artwork. */}
-          <ServicesCarousel content={ragServices} />
+          {/* Every service on screen at once, each card wearing its own
+              artwork in its top corner — the GCC page's feature card. */}
+          <ServicesGrid content={ragServices} />
         </div>
 
         {/* Same bordered card grid as Industries, filled with use cases. */}
@@ -222,9 +222,10 @@ export default function RagDocumentAiServicePage() {
 
         <Faq content={ragFaqs} idPrefix="rag-faq" />
 
-        {/* The homepage's closing CTA, pointed at this page's own enquiry
-            form rather than the /contact route. */}
-        <Contact ctaHref="#enquiry" />
+        {/* The homepage's closing CTA, on its default /contact destination —
+            the review sheet asked for the CTA buttons to lead to the contact
+            page rather than back up to the hero's enquiry form. */}
+        <Contact />
       </main>
 
       <Footer />

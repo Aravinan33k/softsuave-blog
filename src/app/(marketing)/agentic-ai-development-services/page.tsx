@@ -30,7 +30,7 @@ import Footer from '@/components/home/footer';
 import Hero from '@/components/generative-ai/hero';
 import Overview from '@/components/generative-ai/overview';
 import Comparison from '@/components/generative-ai/comparison';
-import Services from '@/components/generative-ai/services';
+import ServicesGrid from '@/components/common/services-grid';
 import CtaBand from '@/components/generative-ai/cta-band';
 import Process from '@/components/generative-ai/process';
 import Industries from '@/components/generative-ai/industries';
@@ -116,7 +116,9 @@ export default function AgenticAiDevelopmentServicesPage() {
           <Comparison content={comparisonContent} />
         </div>
 
-        <Services content={servicesContent} />
+        {/* Every service on screen at once, each card wearing its own
+            artwork in its top corner — the GCC page's feature card. */}
+        <ServicesGrid content={servicesContent} />
         <Industries content={applicationsContent} id="applications" />
         <CtaBand content={midCtaContent} />
 
