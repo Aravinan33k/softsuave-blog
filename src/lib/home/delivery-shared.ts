@@ -18,10 +18,10 @@
  * than a claim invented for a page.
  */
 export const sharedHeroBadges = [
-  "ISO/IEC 27001:2022 certified",
-  "NDA before anything is shared",
-  "400+ AI & engineering specialists",
-  "Reply in 1 business day",
+  "Upwork Top Rated",
+  "Clutch verified",
+  "Microsoft Silver Partner",
+  "AWS Partner",
 ] as const;
 
 /**
