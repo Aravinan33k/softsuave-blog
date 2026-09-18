@@ -26,7 +26,7 @@ export const edtechMeta = {
   path: "/ai-solutions-in-edutech",
   title: "AI Solutions in EdTech",
   description:
-    "Custom EdTech AI development from Soft Suave — adaptive assignments, auto-grading, student progress analytics, and learning assistants, integrated with Moodle, Canvas, Google Classroom or your own LMS.",
+    "Custom EdTech AI from Soft Suave — adaptive assignments, auto-grading, student progress analytics and learning assistants, integrated with your LMS.",
 } as const;
 
 export const edtechHero: HeroContent = {

@@ -21,7 +21,7 @@
 export const meta = {
   title: 'Industries We Serve — Industry-Specific AI Solutions | Soft Suave',
   description:
-    'Industry-specific AI solutions for FinTech, HealthTech, eCommerce, Logistics, EdTech, Telecom, Construction and Aviation, built by AI-enabled engineering teams focused on measurable outcomes.',
+    'Industry-specific AI solutions for FinTech, HealthTech, eCommerce, Logistics, EdTech, Telecom, Construction and Aviation, built for measurable outcomes.',
   path: '/industries',
 } as const;
 

@@ -23,7 +23,7 @@ export const offMeta = {
   path: "/offshore-software-development-company",
   title: "Offshore Software Development Company",
   description:
-    "Soft Suave builds and modernizes software for startups, scaling businesses, and enterprises worldwide — experienced offshore engineering teams, flexible engagement models, and ISO/IEC 27001:2022-certified delivery.",
+    "Soft Suave builds and modernizes software worldwide — experienced offshore engineering teams, flexible engagement models, ISO/IEC 27001:2022-certified delivery.",
 } as const;
 
 export const offHero: HeroContent = {

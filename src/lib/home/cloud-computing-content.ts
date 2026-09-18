@@ -27,7 +27,7 @@ export const cloudMeta = {
   path: "/cloud-computing",
   title: "Cloud Computing Services",
   description:
-    "Cloud strategy, migration, application development, and security from Soft Suave. Lower IT costs, scale on demand, and modernize infrastructure across AWS, Azure, Google Cloud, and hybrid environments.",
+    "Cloud strategy, migration, application development and security from Soft Suave. Lower IT costs and modernize infrastructure across AWS, Azure and Google Cloud.",
 } as const;
 
 export const cloudHero: HeroContent = {

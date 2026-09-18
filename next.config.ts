@@ -152,6 +152,16 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
+      // The hire-by-skill page for Ionic is registered and served under the
+      // plural slug, matching every other page in that set. The singular was
+      // linked externally (it is the URL the page tracker carries) and 404'd,
+      // so it is retired onto the real route rather than left dead.
+      {
+        source: '/hire-ionic-developer',
+        destination: '/hire-ionic-developers',
+        permanent: true,
+      },
+
       // Retire the subpath mount's URLs. Under basePath '/blog' every post,
       // taxonomy and asset answered one level deeper than it does now, and those
       // URLs were live long enough to be linked and indexed.

@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import BrandImage from "@/components/home/brand-image";
+import { publicMediaUrl } from "@/lib/media-url";
 import FadeUp from "@/components/home/fade-up";
 import { gridSpansFor } from "./card-spans";
 import SectionHead from "./section-head";
@@ -83,7 +85,13 @@ export interface CardGridContent {
   points?: readonly string[];
   items: readonly {
     readonly name: string;
-    readonly body: string;
+    /**
+     * Optional: a link-only card carries no prose. The hire pages' "Explore
+     * More Technologies" band is a grid of sibling-page links whose live cards
+     * are a logo and a label with no description, and a sentence written to
+     * fill this field would be copy those pages do not have.
+     */
+    readonly body?: string;
     /**
      * Optional short category label, shown above the name in the `bold`
      * variant only. A grouping word for the card's own subject — not a claim.
@@ -104,6 +112,27 @@ export interface CardGridContent {
      * slot by design, so a speculative id takes the whole page down.
      */
     readonly imageId?: string;
+    /**
+     * Hand-placed card thumbnail, `feature` variant only — the alternative to
+     * `imageId` for a page whose art is committed beside it rather than
+     * generated into the Pexels manifest. That is the case for any page ported
+     * from the live site, whose own illustrations live under
+     * `public/images/landing/<page>/`; the Next.js page established the same
+     * convention for its hero and service cards.
+     *
+     * `src` is root-relative and resolved through `publicMediaUrl`, exactly as
+     * `overview.tsx`'s `image` is, because the app can be served under a
+     * `basePath` and next/image rejects an unprefixed local source.
+     *
+     * `imageId` wins if both are set — the manifest slot carries a generated
+     * blurDataURL that a hand-placed file has no equivalent for.
+     */
+    readonly image?: {
+      readonly src: string;
+      readonly width: number;
+      readonly height: number;
+      readonly alt: string;
+    };
   }[];
 }
 
@@ -198,7 +227,7 @@ export default function Industries({
 
                   <h3 className={styles.featName}>{item.name}</h3>
                   <span className={styles.featRule} aria-hidden />
-                  <p className={styles.featText}>{item.body}</p>
+                  {item.body ? <p className={styles.featText}>{item.body}</p> : null}
 
                   {item.href ? (
                     <Link href={item.href} className={styles.featLink}>
@@ -210,11 +239,23 @@ export default function Industries({
                   ) : null}
                 </div>
 
+                {/* Pexels slot first, then hand-placed art — see `imageId` and
+                    `image` on the item type for why a card may carry either. */}
                 {item.imageId ? (
                   <div className={styles.featMedia}>
                     <BrandImage
                       page="four"
                       id={item.imageId}
+                      fill
+                      sizes="(max-width: 700px) 100vw, (max-width: 1100px) 45vw, 30vw"
+                      className={styles.featImg}
+                    />
+                  </div>
+                ) : item.image ? (
+                  <div className={styles.featMedia}>
+                    <Image
+                      src={publicMediaUrl(item.image.src)}
+                      alt={item.image.alt}
                       fill
                       sizes="(max-width: 700px) 100vw, (max-width: 1100px) 45vw, 30vw"
                       className={styles.featImg}
@@ -264,7 +305,7 @@ export default function Industries({
                 </span>
               )}
               <h3 className={styles.cardName}>{item.name}</h3>
-              <p className={styles.cardBody}>{item.body}</p>
+              {item.body ? <p className={styles.cardBody}>{item.body}</p> : null}
             </article>
           ))}
         </div>

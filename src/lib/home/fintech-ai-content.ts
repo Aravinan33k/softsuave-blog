@@ -32,7 +32,7 @@ export const fintechMeta = {
   path: "/fintech-ai-solutions",
   title: "Fintech AI Development Services",
   description:
-    "Custom fintech AI solutions from Soft Suave — credit risk and underwriting models, real-time fraud detection, conversational banking assistants, and RegTech automation, built to integrate with the core systems you already run.",
+    "Custom fintech AI from Soft Suave — credit risk and underwriting models, real-time fraud detection, conversational banking assistants and RegTech automation.",
 } as const;
 
 export const fintechHero: HeroContent = {

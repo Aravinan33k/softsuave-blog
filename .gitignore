@@ -55,3 +55,10 @@ next-env.d.ts
 # writes to the repo root on every navigate/click, purely for the assistant's
 # own use while verifying pages in a live browser. Not app code.
 /.playwright-mcp/
+
+# Playwright profile for scripts/gemini-image.mjs. Holds a live, logged-in
+# Google session — as sensitive as a password. Never commit it.
+/.gemini-profile/
+
+# Images pulled down by scripts/gemini-image.mjs before import.
+/.gemini-downloads/

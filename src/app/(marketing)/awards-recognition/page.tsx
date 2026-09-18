@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { BASE_PATH } from '@/lib/flags';
+import { BASE_PATH, homepageEnabled } from '@/lib/flags';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { publicMediaUrl } from '@/lib/media-url';
+import { JsonLd } from '@/components/seo/json-ld';
+import { organizationLd } from '@/lib/seo/organization';
+import { breadcrumbLd } from '@/lib/seo/jsonld';
 import { awardsPage, recognitions } from '@/lib/home/content';
 
 import Nav from '@/components/home/nav';
@@ -29,13 +32,16 @@ import styles from '@/components/home/home.module.css';
  * and inventing it would put claims under a real directory's name.
  */
 
+// Matches the marketing cadence; nothing here is request-dependent.
+export const revalidate = 300;
+
 export const metadata: Metadata = {
   title: `${awardsPage.title} | Soft Suave`,
-  description: awardsPage.body,
+  description: awardsPage.metaDescription,
   alternates: { canonical: '/awards-recognition' },
   openGraph: {
     title: `${awardsPage.title} | Soft Suave`,
-    description: awardsPage.body,
+    description: awardsPage.metaDescription,
     url: absoluteUrl('/awards-recognition'),
     siteName: 'Soft Suave',
     type: 'website',
@@ -59,9 +65,56 @@ const PAGE_NAV = [
 
 const PAGE_CTA = { label: 'Book AI Strategy Call', href: '/contact' } as const;
 
+const PAGE_URL = absoluteUrl('/awards-recognition');
+
+/**
+ * CollectionPage + ItemList for the award wall.
+ *
+ * Built from `recognitions.items` — the same list the page renders — so the
+ * structured data cannot drift from what a visitor sees. Each entry is the
+ * award as its issuer states it; `organizationLd` is referenced by `@id` for
+ * the publisher rather than repeated, the pattern the service pages use.
+ */
+const awardsPageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${PAGE_URL}#webpage`,
+  url: PAGE_URL,
+  name: `${awardsPage.title} | Soft Suave`,
+  description: awardsPage.metaDescription,
+  inLanguage: 'en',
+  publisher: { '@id': organizationLd['@id'] },
+  mainEntity: {
+    '@type': 'ItemList',
+    name: recognitions.title,
+    numberOfItems: recognitions.items.length,
+    itemListElement: recognitions.items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'CreativeWork',
+        name: item.title,
+        ...(item.year ? { dateCreated: item.year } : {}),
+        award: item.title,
+        provider: { '@type': 'Organization', name: item.org },
+      },
+    })),
+  },
+} as const;
+
 export default function AwardsRecognitionPage() {
+  // "/" is only a page this app serves once the marketing homepage ships; until
+  // then a single-item trail is omitted rather than emitted empty — the same
+  // rule every other route in this group follows.
+  const trail = [
+    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
+    { name: awardsPage.title, path: '/awards-recognition' },
+  ];
+  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
+
   return (
     <div className={styles.page}>
+      <JsonLd data={[organizationLd, awardsPageLd, ...(breadcrumb ? [breadcrumb] : [])]} />
       <Nav links={PAGE_NAV} cta={PAGE_CTA} logoHref={HOME_HREF} />
 
       {/* The whole page content sits in the warm-white `.light` band: it

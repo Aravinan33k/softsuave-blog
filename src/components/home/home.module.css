@@ -1387,10 +1387,26 @@
   will-change: transform;
 }
 
+/* The loop's trailing copy. Inline-flex like the track itself, so wrapping the
+   second row in it changes nothing about how the items lay out — the two copies
+   have to measure identically or the -50% loop would not meet itself. */
+.marqueeCopy {
+  display: inline-flex;
+  align-items: center;
+}
+
 .marqueeItem {
   display: inline-flex;
   align-items: center;
   padding: 0 clamp(18px, 2vw, 34px);
+}
+
+/* That padding is the gap between items, and in a loop the leading one is a gap
+   too — it separates the row from the copy ahead of it. A static row has
+   nothing in front of it, so the indent would just push the first chip off the
+   left edge its neighbours line up on. */
+.marquee[data-loop="off"] .marqueeItem:first-child {
+  padding-left: 0;
 }
 
 .marqueeDot {

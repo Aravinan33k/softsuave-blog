@@ -82,6 +82,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/graphql-development-company', title: 'GraphQL Development Company for Modern APIs' },
   { path: '/reactjs-app-development-company', title: 'ReactJS Development Company in India' },
   { path: '/nodejs-development-company', title: 'NodeJS Development Company in India' },
+  { path: '/java-application-development-company', title: 'Top Java Development Company in India' },
 
   // Delivery-model and engineering-service pages. Slugs match the pages these
   // replace on the live marketing site, so existing search equity and inbound

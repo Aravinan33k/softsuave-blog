@@ -24,9 +24,15 @@ export interface HeroContent {
   /** Trust badges under the points. Optional — omit for a badge-less hero. */
   badges?: readonly string[];
   form: {
-    eyebrow: string;
+    /** Optional — omitted where the live form card carries no kicker above its title. */
+    eyebrow?: string;
     title: string;
-    note: string;
+    /**
+     * Optional — omitted where the live form card carries no descriptive note.
+     * The hire-by-skill pages are the case: their form runs a heading, the
+     * fields and the applicant alert, and nothing between.
+     */
+    note?: string;
     /**
      * Optional trailing link appended to the note, for a disclaimer that ends
      * on a real destination ("...To apply for jobs, click here."). Omitted
@@ -277,7 +283,7 @@ export default function Hero({
 
         <div className={styles.form} id="enquiry">
           <div className={styles.formHeader}>
-            <span className={styles.kicker}>{content.form.eyebrow}</span>
+            {content.form.eyebrow ? <span className={styles.kicker}>{content.form.eyebrow}</span> : null}
             <p className={styles.formTitle}>{content.form.title}</p>
             <span className={styles.formAccent} aria-hidden />
           </div>
@@ -377,17 +383,19 @@ export default function Hero({
             </button>
           </form>
 
-          <p className={styles.formNote}>
-            {content.form.note}
-            {content.form.noteLink && (
-              <>
-                {" "}
-                <SiteLink href={content.form.noteLink.href} className={styles.formNoteLink}>
-                  {content.form.noteLink.label}
-                </SiteLink>
-              </>
-            )}
-          </p>
+          {(content.form.note || content.form.noteLink) && (
+            <p className={styles.formNote}>
+              {content.form.note}
+              {content.form.noteLink && (
+                <>
+                  {" "}
+                  <SiteLink href={content.form.noteLink.href} className={styles.formNoteLink}>
+                    {content.form.noteLink.label}
+                  </SiteLink>
+                </>
+              )}
+            </p>
+          )}
 
           {content.form.alert && (
             <p className={styles.formAlert}>

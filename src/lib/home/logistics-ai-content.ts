@@ -20,7 +20,7 @@ export const logisticsMeta = {
   path: "/ai-in-logistics",
   title: "AI in Logistics & Supply Chain",
   description:
-    "Custom logistics AI development from Soft Suave — route and delivery optimisation, freight cost control, predictive tracking, warehouse automation, and demand forecasting, integrated with your WMS, TMS and ERP.",
+    "Custom logistics AI from Soft Suave — route and delivery optimisation, freight cost control, predictive tracking, warehouse automation and demand forecasting.",
 } as const;
 
 export const logisticsHero: HeroContent = {

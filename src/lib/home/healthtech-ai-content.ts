@@ -24,7 +24,7 @@ export const healthtechMeta = {
   path: "/ai-solutions-in-healthtech",
   title: "AI Solutions in HealthTech",
   description:
-    "Custom HealthTech AI development from Soft Suave — patient intake and risk assessment, clinical analysis and reporting, decision support, and virtual patient assistants, built to HIPAA-aligned data handling and integrated with your EHR.",
+    "Custom HealthTech AI from Soft Suave — patient intake, risk assessment, clinical analysis, decision support and virtual assistants. HIPAA-aligned, EHR-integrated.",
 } as const;
 
 export const healthtechHero: HeroContent = {

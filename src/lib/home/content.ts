@@ -379,6 +379,17 @@ export const awardsPage = {
   eyebrow: "Awards",
   title: "Awards and Recognition",
   body: "Thirteen years of building software has been accompanied by recognition from the industry's own directories and review platforms. Each of the marks below was issued by the organisation named beside it, on the strength of verified client reviews and independent assessment.",
+  /**
+   * Meta description, stated separately from `body`.
+   *
+   * `body` is the page's visible lead paragraph and reads at that length; as a
+   * meta description it ran to 272 characters, well past the ~165 a result
+   * snippet shows. This is the same claim written to that budget, so the
+   * snippet is a sentence rather than a truncated one — and the copy on the
+   * page is left exactly as approved.
+   */
+  metaDescription:
+    "Thirteen years of building software, recognised by industry directories and review platforms. Each mark reflects verified client reviews and independent assessment.",
 } as const;
 
 export const techStack = {
@@ -679,20 +690,16 @@ export const footer = {
     {
       /**
        * The pages the live site reaches from its footer and nowhere else —
-       * FAQs, the India delivery page — plus the proof archives. They have no
-       * section on this page to anchor to, so the footer is where they live,
-       * exactly as on softsuave.com.
-       *
-       * "How to Hire" (`/how-to-hire`) used to sit here too. It is retired:
-       * softsuave.com 301s it to /hire-software-developers, which the Hire
-       * panel already lists, so the link promised the engagement models and
-       * delivered one hire page. The mega menu dropped it for the same reason.
+       * FAQs, How to Hire, the India delivery page — plus the proof archives.
+       * They have no section on this page to anchor to, so the footer is where
+       * they live, exactly as on softsuave.com.
        */
       title: "Resources",
       links: [
         { label: "Blog", href: "/blog" },
         { label: "Case Studies", href: "/case-studies" },
         { label: "Success Stories", href: "/success-stories" },
+        { label: "How to Hire", href: "/how-to-hire" },
         { label: "Free Cost Estimation", href: "/free-cost-estimation" },
         { label: "FAQs", href: "/faqs" },
         { label: "Software Development India", href: "/software-development-company-india" },

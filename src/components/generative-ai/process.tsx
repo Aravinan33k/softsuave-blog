@@ -373,6 +373,11 @@ export default function Process({
                 id={`${id}-tab-${i}`}
                 aria-controls={`${id}-panel`}
                 aria-selected={active === i}
+                /* The tab's only content is an icon, or an `aria-hidden`
+                   ordinal when it is not the active one — so without this the
+                   button had no accessible name at all and screen readers
+                   announced a row of unlabelled tabs. */
+                aria-label={step.name}
                 tabIndex={active === i ? 0 : -1}
                 className={`${styles.orbitNode}${active === i ? ` ${styles.orbitNodeActive}` : ""}`}
                 onClick={() => takeOver(i)}

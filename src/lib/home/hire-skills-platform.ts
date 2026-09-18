@@ -1,125 +1,295 @@
 /**
- * Platform and CMS hire-by-skill pages: Magento and Drupal.
+ * Platform hire pages: Magento and Drupal.
  *
- * Both differ from the language pages in `hire-skills-web.ts` and
- * `hire-skills-backend.ts`: the buyer is usually hiring for a platform they
- * already run and cannot easily leave, so the questions are about version
- * support, upgrade cost, and certification rather than about language choice.
- * The copy reflects that. Salesforce and Blockchain used to sit here too;
- * softsuave.com files both under "Hire By Role", so they are role pages now,
- * in `lib/home/hire-roles/`.
+ * Both run the newer softsuave.com layout — a client band, why-hire cards, the
+ * hiring steps second, then technical expertise, services, a vetting sequence
+ * and a comparison table. Where they differ from their Django/Laravel/Rails
+ * siblings is the expertise band: those pages list grouped tool names, while
+ * these two publish ten described capabilities, so it renders through
+ * `expertise` rather than `techStack`.
+ *
+ * Every string is the live page's own copy.
  */
 
 import type { HireSkill } from "./hire-skill";
+import { sharedHeroAlert } from "./delivery-shared";
+import { webExplore } from "./hire-explore";
+import { partnerTable } from "./hire-comparison";
+
+/** The newer pages' running order, with the prose expertise band. */
+const PLATFORM_ORDER = [
+  "clients",
+  "whyUs",
+  "process",
+  "expertise",
+  "services",
+  "vetting",
+  "comparison",
+  "exploreMore",
+  "testimonials",
+  "faq",
+] as const;
 
 const magento: HireSkill = {
   slug: "hire-magento-developer",
   key: "magento",
   name: "Magento",
   role: "Magento Developers",
-  metaTitle: "Hire Magento Developers",
+  metaTitle: "Hire Magento Developer in India with Soft Suave",
   metaDescription:
-    "Hire Magento developers from Soft Suave for Adobe Commerce builds, Magento 2 upgrades, and store performance work. You interview, two-week trial, full IP ownership.",
+    "Hire Magento developers from India for custom eCommerce growth. Experts in Magento 2, Adobe Commerce, payment gateway integration, custom modules and migrations.",
   serviceType: "Magento development staffing",
-  eyebrow: "Hire Magento Developers",
   ctaLabel: "Hire Magento developers",
-  titleLines: ["Hire Magento Developers", "For Stores That Cannot Afford Downtime"],
-  heroBody: [
-    "Magento and Adobe Commerce run complex catalogues, multi-store setups, and B2B pricing rules that simpler platforms cannot express. That power comes with genuine operational weight — a large codebase, a demanding upgrade cycle, and performance that has to be engineered rather than assumed.",
-    "Our Magento engineers work on live revenue-generating stores, where a bad deployment is measured in lost orders rather than a rolled-back branch.",
-  ],
-  heroPoints: [
-    "Magento 2 and Adobe Commerce, including B2B",
-    "Custom modules built to survive upgrades",
-    "Magento 1 and legacy version migration",
-    "Performance: caching, indexing and Core Web Vitals",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/svc-web.webp",
-    width: 1200,
-    height: 860,
-    alt: "A Magento commerce storefront with catalogue, checkout, and admin views",
+
+  order: [...PLATFORM_ORDER],
+
+  hero: {
+    titleLines: ["Hire Magento Developers", "in India on Contract"],
+    body: [
+      "Soft Suave helps companies hire Magento developers from India for custom eCommerce growth. Our experts work in Magento 2, Adobe Commerce, payment gateway integration, custom modules, migrations, and high-performance online stores. Scale teams quickly with flexible hiring models.",
+      "See why businesses choose Soft Suave for their Magento developer hiring.",
+    ],
+    /* Four points, not five — the Magento hero omits the delivery-governance one. */
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top Magento Developers in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your Magento requirement.",
+      subject: "Magento Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/svc-web.webp",
+      width: 1200,
+      height: 860,
+      alt: "A Magento commerce storefront with catalogue, checkout, and admin views",
+    },
   },
-  requirementLabel: "What do you need Magento developers for?",
-  requirementPlaceholder:
-    "Your Magento or Adobe Commerce version, catalogue size and traffic, integrations, and whether an upgrade is involved.",
-  overviewTitle: "What Magento Developers Actually Do for You",
-  overviewParagraphs: [
-    "Magento Open Source and Adobe Commerce are built for merchants whose requirements exceed what a hosted platform can express: large catalogues with complex attributes, multiple stores and currencies from one admin, customer-group pricing, B2B quoting and company accounts, and deep ERP integration. Where those apply, the platform earns its complexity.",
-    "A Magento engagement covers theme and storefront work, custom modules, third-party extension integration and the conflicts between them, ERP and payment integration, indexing and cache configuration, and upgrades — which are not optional, because Adobe's security patches only apply to supported versions.",
-    "The single thing that most determines whether a Magento store is maintainable is whether customisation was done through the platform's extension points or by overriding core behaviour. The second approach works immediately and makes every subsequent upgrade progressively more expensive, which is how stores end up stranded on an unsupported version.",
-  ],
-  pullQuote:
-    "Every Magento store that cannot be upgraded got there the same way: core overridden instead of extended, one deadline at a time.",
-  capabilities: [
-    {
-      name: "Store Development",
-      tag: "Build",
-      body: "Full Magento 2 and Adobe Commerce builds — catalogue structure, storefront, checkout, and payment and shipping configuration — for merchants whose requirements have outgrown a hosted platform.",
-    },
-    {
-      name: "Custom Modules",
-      tag: "Extend",
-      body: "Modules written against Magento's plugin and observer interfaces rather than overriding core classes, so the store remains upgradable and each security release does not become a project.",
-    },
-    {
-      name: "Version Migration",
-      tag: "Migration",
-      body: "Magento 1 to 2 migration, and moving stranded Magento 2 stores onto a supported version, with the data migration and extension-replacement work scoped before anything is committed to.",
-    },
-    {
-      name: "Performance Engineering",
-      tag: "Performance",
-      body: "Full-page cache and Varnish configuration, Redis session and cache backends, indexer strategy, Elasticsearch tuning, and the front-end work that gets Core Web Vitals into an acceptable range.",
-    },
-    {
-      name: "ERP and Systems Integration",
-      tag: "Integration",
-      body: "Connecting the store to ERP, PIM, WMS, and accounting systems for stock, pricing, and order flow, with the reconciliation and failure handling that integration at transaction volume requires.",
-    },
-    {
-      name: "B2B Commerce",
-      tag: "B2B",
-      body: "Company accounts, negotiable quotes, customer-specific catalogues and pricing, purchase-order workflows, and approval hierarchies — the Adobe Commerce features that justify the platform for wholesale.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Platform",
-      items: ["Magento 2.4", "Adobe Commerce", "PHP 8.3", "Magento B2B", "PWA Studio", "Hyvä"],
-    },
-    {
-      name: "Infrastructure",
-      items: ["MySQL / MariaDB", "Elasticsearch", "Redis", "Varnish", "RabbitMQ", "Adobe Commerce Cloud"],
-    },
-    {
-      name: "Integration",
-      items: ["REST / GraphQL API", "ERP connectors", "Payment gateways", "Shipping carriers", "PIM", "Tax services"],
-    },
-    {
-      name: "Delivery",
-      items: ["Composer", "PHPUnit", "Docker / Warden", "Git", "Blackfire", "New Relic"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Should we migrate from Magento 1?",
-      a: "Yes, and the question is only which platform you land on. Magento 1 reached end of life in June 2020 and receives no security patches, which is increasingly a PCI compliance problem as well as a risk one. Magento 2 is the natural path if your requirements still genuinely need Magento's complexity. If they do not — and for a fair number of Magento 1 merchants they no longer do — Shopify Plus or another platform may be a better landing point, and we will say so rather than selling the bigger migration.",
-    },
-    {
-      q: "Why is our Magento store slow?",
-      a: "Almost always one of a short list. Full-page cache misconfigured or being invalidated constantly; indexers set to update-on-save instead of by schedule; a poorly-written third-party extension running queries in a loop on category pages; Elasticsearch under-resourced; or an unoptimised front end with large images and blocking JavaScript. It is diagnosable — profiling with Blackfire or New Relic on the real store usually identifies the cause within a day or two, and we start there rather than guessing.",
-    },
-    {
-      q: "Can you work with our existing extensions?",
-      a: "Yes, and auditing them is usually the first task. Third-party extensions are the most common source of both performance problems and upgrade blockers, particularly where two of them patch the same core behaviour. We assess what is installed, what is actually used, what is unmaintained, and what conflicts — and quite often the recommendation is to remove several rather than upgrade them, because unused extensions still carry their performance and security cost.",
-    },
-    {
-      q: "How do you handle Magento upgrades safely?",
-      a: "On a staging environment cloned from production, with the extension compatibility matrix checked before any date is agreed, and a rehearsed deployment with a tested rollback. Upgrades are sequenced rather than jumped, and security-only patches are applied promptly between larger version steps. The goal is that the store is never more than one supported version behind, because that is the state from which an upgrade is routine rather than a project.",
-    },
-  ],
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "Why Hire Magento Developers from Soft Suave",
+    body: "At Soft Suave, we don't just offer developers - we deliver Magento masters. When you hire from us, you get flexibility, quality, and dedication. These are the additional characteristics that distinguish our professionals.",
+    items: [
+      {
+        name: "Pre-vetted Magento developers",
+        body: "Every developer is handpicked through a stringent screening process to ensure exceptional technical abilities, consistent performance, and complete commitment.",
+        icon: "users",
+      },
+      {
+        name: "Flexible hiring models",
+        body: "Our flexible hiring options make it easy for you to hire dedicated Magento developers and scale up or down according to your project's evolving needs and pace.",
+        icon: "gauge",
+      },
+      {
+        name: "Global delivery standards",
+        body: "We embrace global best practices and agile methodologies to ensure high-quality delivery, meeting all your requirements with precision.",
+        icon: "globe",
+      },
+      {
+        name: "Strict NDA & IP protection",
+        body: "Protect your intellectual property. We offer robust NDA agreements to guarantee complete confidentiality for your project.",
+        icon: "shield",
+      },
+      {
+        name: "Time Zone Flexibility",
+        body: "Our developers overlap 4-6 hours in your time zone, ensuring seamless communication and collaboration, regardless of your location.",
+        icon: "book",
+      },
+      {
+        name: "World-Class Developers at Budget-Friendly Rates",
+        body: "Hire offshore Magento developer talent at competitive rates, maximizing your project's value without compromising on quality.",
+        icon: "coins",
+      },
+    ],
+  },
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Steps to Hire a Magento Developer",
+    body: "Hire expert Magento developers and onboard them quickly with our proven, fast, straightforward, and customized process.",
+    steps: [
+      {
+        n: "01",
+        name: "Share the JD",
+        body: "Brief us about your requirements and the type of Magento developers you are looking for.",
+      },
+      {
+        n: "02",
+        name: "Shortlist The Right Developers",
+        body: "Choose top developers aligned to your project requirements from a curated list.",
+      },
+      {
+        n: "03",
+        name: "Free 40-hour Trial",
+        body: "Test our developer's expertise at no cost for 40 hours before making a final decision.",
+      },
+      {
+        n: "04",
+        name: "Onboard & Manage",
+        body: "Complete the SLA & NDA, then smoothly integrate the developer into your team.",
+      },
+    ],
+  },
+
+  expertise: {
+    eyebrow: "Technical Expertise",
+    title: "Technical Expertise of Our Magento Developers",
+    body: "When you hire remote Magento developers from Soft Suave, you get deep technical skills, proven eCommerce expertise, reliable delivery, and a partner ready to help your store thrive and scale fast.",
+    items: [
+      {
+        name: "Magento Custom Extension Development",
+        body: "Our developers craft robust, reusable Magento extensions tailored to unique business needs, enhancing store functionality, streamlining workflows, and integrating cleanly into your existing Magento architecture without disrupting core code.",
+      },
+      {
+        name: "Magento Backend Architecture",
+        body: "We specialize in building scalable, maintainable Magento backends using modular code, EAV modeling, dependency injection, and optimized database strategies, ensuring speed, flexibility, and clean business logic handling.",
+      },
+      {
+        name: "Magento Frontend Development (Luma & Hyvä)",
+        body: "From customizing Luma to building lightning-fast Hyvä storefronts, our developers create mobile-first, pixel-perfect experiences with smooth checkout flows and responsive design that elevates both performance and UX.",
+      },
+      {
+        name: "Magento API Mastery (REST & GraphQL)",
+        body: "Whether integrating with third-party tools or building headless commerce, our Magento experts use REST and GraphQL APIs to deliver flexible, real-time data exchange with robust authentication and efficient query design.",
+      },
+      {
+        name: "Magento Performance Optimization",
+        body: "We fine-tune every layer, codebase, caching, indexing, and server configuration to eliminate bottlenecks, reduce page load times, and boost Google Core Web Vitals for a snappy, high-converting store experience.",
+      },
+      {
+        name: "Magento Multi-store Architecture",
+        body: "Our developers design Magento setups that power multiple storefronts from one backend, perfect for global brands managing multiple languages, currencies, or regional catalogs under a unified admin.",
+      },
+      {
+        name: "Magento Security Expertise",
+        body: "We apply deep technical know-how to secure your Magento store, patching vulnerabilities, writing secure code, and implementing best practices like two-factor authentication, HTTPS enforcement, and role-based permissions.",
+      },
+      {
+        name: "Magento Checkout Customization",
+        body: "We optimize and customize Magento's complex checkout process, whether through one-step solutions, integrating custom payment gateways, or refining the flow to minimize cart abandonment and boost conversion rates.",
+      },
+      {
+        name: "Magento PWA Development",
+        body: "Our developers build Progressive Web Apps with Magento PWA Studio, delivering app-like speed, offline capabilities, and seamless mobile UX, ideal for future-proofing your eCommerce presence.",
+      },
+      {
+        name: "Magento Data Modeling & EAV Mastery",
+        body: "We master Magento's Entity-Attribute-Value model to structure data efficiently, enabling flexible product catalogs, custom attributes, and dynamic content without sacrificing performance or searchability.",
+      },
+    ],
+  },
+
+  services: {
+    eyebrow: "Services",
+    title: "Magento Development Services We Offer",
+    body: "We craft, optimize, and scale powerful Magento stores - delivering seamless user experiences, lightning-fast performance, secure integrations, and flexible solutions tailored to your business needs, so your eCommerce thrives globally.",
+    items: [
+      {
+        name: "Customized Magento Web Development",
+        body: "Soft Suave crafts powerful Magento web apps with custom extensions, smart design, and flawless performance, delivering engaging, scalable B2B and B2C solutions trusted by clients for over 12 years.",
+      },
+      {
+        name: "Dedicated Magento Developers Team",
+        body: "Our expert Magento team builds responsive, customer-focused stores with smart customization and seamless integration, transforming ideas into success through an efficient, flexible process trusted by businesses of all sizes.",
+      },
+      {
+        name: "Magento eCommerce Development",
+        body: "Hire remote Magento developers who can develop powerful, feature-rich Magento platforms - from mobile optimization to AI and chatbots - delivering custom, high-performance eCommerce solutions that drive engagement, efficiency, and a seamless shopping experience.",
+      },
+      {
+        name: "Front-End Magento Development",
+        body: "Our Magento front-end developers craft fast, SEO-friendly eCommerce stores with stunning design, custom themes, smooth UI, and interactive features, ensuring an engaging user experience that drives retention and growth",
+      },
+      {
+        name: "Magento Migration & Upgradation",
+        body: "Upgrade seamlessly with Soft Suave's Magento team — we migrate your store to Magento 2 securely, preserving data while boosting performance, adding one-click checkout, touch-friendly design, and modern features.",
+      },
+      {
+        name: "Magento Consulting Service",
+        body: "Our Magento experts guide you in building scalable, secure, high-performing stores with smooth navigation, third-party integrations, fast payments, and a seamless user experience, ensuring you make the right decisions.",
+      },
+      {
+        name: "Magento Support & Maintenance",
+        body: "Keep your Magento store fast, fresh, and flawless with 24/7 support, regular updates, audits, and optimization — all designed to boost performance, fix issues, and enhance customer experience.",
+      },
+      {
+        name: "Offshore Magento development",
+        body: "Our offshore software development service for Magento delivers complete solutions — from design and development to optimization and maintenance — combining skilled expertise, flexible engagement, and cost-effective delivery for fast, scalable, global eCommerce success.",
+      },
+    ],
+  },
+
+  vetting: {
+    eyebrow: "Vetting",
+    title: "How We Vet and Onboard Top Magento Developers",
+    body: "We rigorously vet every Magento developer - from technical skills to cultural fit - so you get experts you can trust, ready to jump in and get things done fast.",
+    steps: [
+      {
+        n: "01",
+        name: "Rigorous talent sourcing",
+        body: "We do not just post ads and wait for results. We actively search for top-tier Magento talent.",
+      },
+      {
+        n: "02",
+        name: "In-depth skill assessment",
+        body: "Our rigorous selection process includes technical assessments and live coding challenges.",
+      },
+      {
+        n: "03",
+        name: "Thinkers & Innovators",
+        body: "We give preference to engineers who are excellent at addressing problems and work well in team settings.",
+      },
+      {
+        n: "04",
+        name: "Cultural fit & adaptability",
+        body: "We focus on finding developers who adapt quickly and fit seamlessly into your team culture.",
+      },
+    ],
+  },
+
+  comparison: partnerTable(
+    "Choosing the Right Magento Partner for Your Specific Needs",
+    "Our comparison guide will help you decide the right fit for your business by comparing an in-house team, freelancers, & our experts.",
+  ),
+
+  exploreMore: webExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "FAQs About Hiring Magento Developers",
+    body: "Learn more about our procedures & methods with the help of these FAQs.",
+    items: [
+      {
+        q: "How much does it cost to hire Magento developers?",
+        a: "The price of Magento developers depends on the experience, project complexity, and work engagement model. At Soft Suave, we provide cost-efficient pricing solutions that start from $14/hour.",
+      },
+      {
+        q: "Is there any free trial period available?",
+        a: "Yes, we offer a risk-free 40-hour trial to evaluate our developers' skills before committing.",
+      },
+      {
+        q: "What are the hiring engagement options available at Soft Suave?",
+        a: "Fixed price, time and material, or managed services model are the engagement options available at Soft Suave.",
+      },
+      {
+        q: "Do you provide support and maintenance services after deployment?",
+        a: "Indeed, we provide post-deployment support and maintenance services.",
+      },
+      {
+        q: "Where can you find a Magento Engineer?",
+        a: "You can hire experienced Magento developers from reliable development firms such as Soft Suave, where we offer you pre-screened and experienced experts for your e-commerce store.",
+      },
+    ],
+  },
 };
 
 const drupal: HireSkill = {
@@ -127,109 +297,265 @@ const drupal: HireSkill = {
   key: "drupal",
   name: "Drupal",
   role: "Drupal Developers",
-  metaTitle: "Hire Drupal Developers",
+  metaTitle: "Hire Drupal Developers India | 40-Hour Trial",
   metaDescription:
-    "Hire Drupal developers from Soft Suave for Drupal 10 and 11 builds, Drupal 7 migration, and headless architectures. You interview, two-week trial, full IP ownership.",
+    "Hire dedicated Drupal developers from India who build secure, scalable, content-rich platforms. Experts in Drupal CMS, custom modules, migrations and multisite.",
   serviceType: "Drupal development staffing",
-  eyebrow: "Hire Drupal Developers",
   ctaLabel: "Hire Drupal developers",
-  titleLines: ["Hire Drupal Developers", "For Content Estates With Real Governance"],
-  heroBody: [
-    "Drupal is chosen where content modelling, editorial workflow, multilingual publishing, and access control genuinely matter — government, universities, healthcare, and large multi-site organisations. It is a content framework more than a CMS.",
-    "That flexibility is also the failure mode: a badly-modelled Drupal site is very hard to fix later. Our Drupal engineers get the entity model and configuration management right at the start.",
-  ],
-  heroPoints: [
-    "Drupal 10 and 11 with modern PHP and Symfony",
-    "Drupal 7 and 8 migration, done with real data mapping",
-    "Headless and decoupled architectures via JSON:API",
-    "Multi-site, multilingual and accessibility compliance",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/work-3.webp",
-    width: 800,
-    height: 1000,
-    alt: "A Drupal content platform showing structured content types and editorial workflow",
+
+  order: [...PLATFORM_ORDER],
+
+  hero: {
+    titleLines: ["Hire Drupal Developers", "in India on Contract"],
+    body: [
+      "Soft Suave helps businesses hire dedicated Drupal developers from India who build secure, scalable, and content-rich digital platforms. Access pre-vetted experts in Drupal CMS, custom module development, migrations, API integrations, multisite setups, and enterprise web solutions with fast onboarding.",
+      "See why businesses choose Soft Suave for their Drupal developer hiring.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top Drupal Developers in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your Drupal requirement.",
+      subject: "Drupal Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/work-3.webp",
+      width: 1200,
+      height: 860,
+      alt: "A Drupal content platform showing structured content types and editorial workflow",
+    },
   },
-  requirementLabel: "What do you need Drupal developers for?",
-  requirementPlaceholder:
-    "Your Drupal version, the size of the content estate, whether a migration or headless build is involved, and the seniority you need.",
-  overviewTitle: "What Drupal Developers Actually Do for You",
-  overviewParagraphs: [
-    "Drupal's strength is structured content. Entities, fields, taxonomies, and view modes let you model a genuinely complex content domain and then generate listings, feeds, and APIs from that model rather than hand-building each one. Combined with granular permissions, editorial workflow, and mature multilingual support, it is why Drupal keeps its position in the public sector and higher education.",
-    "A Drupal engagement covers content architecture, custom modules against Drupal's plugin and service APIs, theming with Twig, configuration management so environments stay in step, migration, and increasingly a decoupled front end consuming JSON:API or GraphQL.",
-    "The recurring crisis is version support. Drupal 7 reached end of life in January 2025 after several extensions, and a large number of organisations are still on it — with no security coverage and a migration that is a genuine rebuild of the content model rather than an upgrade, because Drupal 8 changed the architecture fundamentally.",
-  ],
-  pullQuote:
-    "A Drupal 7 to 10 move is not an upgrade. It is a rebuild with a data migration attached, and pretending otherwise is how it overruns.",
-  capabilities: [
-    {
-      name: "Content Architecture",
-      tag: "Modelling",
-      body: "Entity types, fields, taxonomies, and view modes modelled around how content is actually authored and reused — the decision that determines whether the site is maintainable in three years.",
-    },
-    {
-      name: "Drupal 7 Migration",
-      tag: "Migration",
-      body: "Migration to Drupal 10 or 11 using the Migrate API, with field-level mapping, media and URL alias preservation, and redirects — treated as a rebuild with data migration, which is what it is.",
-    },
-    {
-      name: "Custom Modules",
-      tag: "Extend",
-      body: "Modules written against Drupal's service container, plugin system, and event subscribers, following the standards that keep a site upgradable across minor and major releases.",
-    },
-    {
-      name: "Headless Drupal",
-      tag: "Decoupled",
-      body: "Drupal as a content back end serving JSON:API or GraphQL to a Next.js or other front end, keeping the editorial experience while the presentation layer becomes a modern application.",
-    },
-    {
-      name: "Multi-Site and Multilingual",
-      tag: "Scale",
-      body: "Shared codebases across many sites with per-site configuration, and full multilingual content with translation workflow — both areas where Drupal is genuinely stronger than its alternatives.",
-    },
-    {
-      name: "Accessibility and Compliance",
-      tag: "Compliance",
-      body: "WCAG 2.2 conformance in themes and editorial output, plus the auditing and remediation public-sector and education clients are required to evidence rather than merely assert.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Platform",
-      items: ["Drupal 10 / 11", "PHP 8.3", "Symfony", "Twig", "Drush", "Composer"],
-    },
-    {
-      name: "Core Systems",
-      items: ["Migrate API", "JSON:API", "GraphQL", "Views", "Config Management", "Paragraphs"],
-    },
-    {
-      name: "Infrastructure",
-      items: ["MySQL / MariaDB", "PostgreSQL", "Redis", "Varnish", "Solr", "Acquia / Pantheon"],
-    },
-    {
-      name: "Delivery",
-      items: ["PHPUnit", "Behat", "Docker / DDEV", "GitHub Actions", "PHPStan", "Lighthouse"],
-    },
-  ],
-  faqs: [
-    {
-      q: "We are still on Drupal 7. What are our options?",
-      a: "Drupal 7 reached end of life in January 2025, so it receives no security coverage from the community and you are relying on a commercial vendor or accepting the risk. The realistic options are migrating to Drupal 10 or 11, or moving to a different platform entirely. Either is a rebuild rather than an upgrade, because Drupal 8 replaced the architecture — so it is worth asking honestly whether Drupal is still the right fit before committing to the larger of the two paths.",
-    },
-    {
-      q: "Is Drupal 7 to Drupal 10 really a rebuild?",
-      a: "Yes, and it is better to plan for that than to be surprised by it. Drupal 8 moved to Symfony, object-oriented APIs, Twig templating, and configuration management, so Drupal 7 modules and themes do not carry over and custom code is rewritten. What does migrate is the content, through the Migrate API, with field-level mapping you define. Sites that treated it as a version bump are the ones that overran, often badly.",
-    },
-    {
-      q: "Should we go headless with Drupal?",
-      a: "It is a good fit when you need one content source feeding several channels — website, mobile app, digital signage, partner feeds — or when your front-end team wants to work in React or Next.js. It costs you some of Drupal's own strengths: in-place editing, preview, and layout tooling all need deliberate work to reproduce. For a conventional single-website project, Drupal's own theming is often the better answer, and we will say so.",
-    },
-    {
-      q: "Drupal or WordPress?",
-      a: "WordPress for content-marketing sites, blogs, and brochure sites where editorial simplicity and a vast plugin ecosystem matter most. Drupal when content is genuinely structured and reused across contexts, when you need granular permissions and editorial workflow, when multilingual is a first-class requirement, or when you are running many sites from one codebase. Drupal costs more to build and is more capable; choosing it for a site that does not need that capability is a common and expensive mistake.",
-    },
-  ],
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "Why Hire Drupal Developers from Soft Suave",
+    body: "Increase your online presence by working with Soft Suave's talented Drupal developers. We offer a strategic partnership ensuring project success. Discover the distinct advantages that set our pre-vetted, high-performing developers apart.",
+    items: [
+      {
+        name: "Pre-vetted Drupal developers",
+        body: "Only the best can join our team. We carefully vet each developer for their exceptional skills, reliability, and dedication to success.",
+        icon: "users",
+      },
+      {
+        name: "Flexible hiring models",
+        body: "From rapid scaling to adjusting your team, our flexible hiring models allow you to adjust according to your project's rhythm.",
+        icon: "gauge",
+      },
+      {
+        name: "Global delivery standards",
+        body: "Using agile methodologies and global best practices, we ensure top-quality deliverables every time.",
+        icon: "globe",
+      },
+      {
+        name: "Strict NDA & IP protection",
+        body: "We guarantee your confidentiality. Strict NDA agreements and comprehensive intellectual property protection keep your ideas secure.",
+        icon: "shield",
+      },
+      {
+        name: "Time Zone Flexibility",
+        body: "Our developers work 4-6 hours within your time zone, ensuring seamless real-time collaboration, no matter where you are.",
+        icon: "book",
+      },
+      {
+        name: "World-Class Developers at Budget-Friendly Rates",
+        body: "Leverage Soft Suave's offshore software development services to hire skilled Drupal developers and gain access to top-tier talent at competitive rates.",
+        icon: "coins",
+      },
+    ],
+  },
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Steps to Hire a Drupal Developer",
+    body: "Hire expert Drupal developers fast with our easy 4-step approach: Efficient, straightforward, and customized.",
+    steps: [
+      {
+        n: "01",
+        name: "Share the JD",
+        body: "Provide details about your project and the ideal skill set for your Drupal developer.",
+      },
+      {
+        n: "02",
+        name: "Shortlist The Right Developers",
+        body: "We present the top developers who match your project requirements and goals.",
+      },
+      {
+        n: "03",
+        name: "Free 40-hour Trial",
+        body: "Experience our developer's abilities firsthand with a 40-hour free trial, no strings attached.",
+      },
+      {
+        n: "04",
+        name: "Onboard & Manage",
+        body: "Complete the required paperwork (SLA & NDA), & smoothly onboard the developer into your team.",
+      },
+    ],
+  },
+
+  expertise: {
+    eyebrow: "Technical Expertise",
+    title: "Technical Expertise of Our Drupal Developers",
+    body: "Our Drupal developers are more than just coders; they are architects of robust, scalable, and secure web solutions. They possess deep expertise across the entire Drupal ecosystem and more.",
+    items: [
+      {
+        name: "Drupal Theme Development",
+        body: "Our team builds visually stunning, responsive Drupal themes from scratch—ensuring lightning-fast performance, brand consistency, and a memorable user experience on every screen.",
+      },
+      {
+        name: "Headless Drupal Architecture",
+        body: "Embrace modern front-end freedom with decoupled Drupal solutions. We connect Drupal to React, Vue, or your preferred framework for fast, interactive digital experiences.",
+      },
+      {
+        name: "Drupal Security Hardening",
+        body: "Your Drupal site deserves fortress-level protection. We implement best-in-class security protocols, patch vulnerabilities fast, and proactively monitor to keep your data safe.",
+      },
+      {
+        name: "Multilingual & Localization Setup",
+        body: "Reach global audiences with a flawlessly localized Drupal experience. From RTL support to translation workflows, we make your content speak every language natively.",
+      },
+      {
+        name: "Advanced Views & Entity Management",
+        body: "We craft dynamic content displays using Views and Entities, enabling fast, flexible, and relational data layouts tailored to your business's unique content structure.",
+      },
+      {
+        name: "Configuration Management & Deployment",
+        body: "Our team uses Drupal's Configuration Management for consistent, version-controlled deployments, ensuring changes move cleanly across environments with zero guesswork or manual rework.",
+      },
+      {
+        name: "Custom Form API & Workflows",
+        body: "We build smart, multi-step forms with Drupal's Form API and automated workflows for content approvals, notifications, and structured data collection that suit enterprise needs.",
+      },
+      {
+        name: "Twig Templating & Theming Expertise",
+        body: "Our developers write clean Twig templates and preprocess logic to create flexible, pixel-perfect themes that are fast, maintainable, and built to Drupal standards.",
+      },
+      {
+        name: "Search Customization & Solr Integration",
+        body: "We configure powerful search experiences using Apache Solr, enabling blazing-fast results, faceted filtering, multilingual indexing, and relevance tuning for complex content structures.",
+      },
+      {
+        name: "Drupal Caching & Scalability Architecture",
+        body: "We architect high-performance Drupal setups using caching layers, Varnish, CDNs, and database tuning, ensuring your site scales effortlessly under heavy traffic.",
+      },
+    ],
+  },
+
+  services: {
+    eyebrow: "Services",
+    title: "Drupal Development Services We Offer",
+    body: "Whatever your Drupal needs, Soft Suave has you covered. From concept to deployment and beyond, our comprehensive suite of services ensures your project thrives, delivering innovation and reliability.",
+    items: [
+      {
+        name: "API Integration",
+        body: "Connect your Drupal site to the world. We implement seamless API integrations with CRMs, ERPs, payment processors, and third-party tools, automating workflows and supercharging your digital ecosystem with secure, real-time data exchange.",
+      },
+      {
+        name: "Migration & Upgrades",
+        body: "Ready to level up? We handle migrations from older Drupal versions or other platforms with zero data loss, full SEO retention, and minimal downtime, keeping your site fast, secure, and future-ready.",
+      },
+      {
+        name: "Maintenance & Support",
+        body: "We don't disappear after launch. Our proactive maintenance plans cover updates, backups, monitoring, and bug fixes, keeping your Drupal site running smoothly 24/7 with guaranteed peace of mind.",
+      },
+      {
+        name: "Module Development",
+        body: "Have a unique feature in mind? We build powerful, custom Drupal modules that extend core functionality and integrate perfectly into your workflows, built to scale, secure, and tailored to your business.",
+      },
+      {
+        name: "Website Redesign",
+        body: "Time for a refresh? We revamp outdated Drupal sites into stunning, high-converting experiences with intuitive UX, modern visuals, and lightning-fast performance, turning your digital presence into a growth engine.",
+      },
+      {
+        name: "Drupal E-commerce Development",
+        body: "Sell smarter with custom Drupal Commerce setups. We build online stores with frictionless checkouts, mobile optimization, and robust inventory integration, designed to convert clicks into customers effortlessly.",
+      },
+      {
+        name: "Enterprise Drupal Web Apps",
+        body: "We architect enterprise-grade Drupal solutions that power portals, intranets, knowledge bases, and SaaS apps, backed by robust security, API connectivity, and custom workflows tailored to your enterprise needs.",
+      },
+      {
+        name: "Custom Drupal Solutions",
+        body: "When off-the-shelf won't cut it, we build powerful, tailor-made Drupal websites and applications from the ground up—aligned with your goals. From sleek, branded designs to advanced functionality, we deliver end-to-end solutions built to grow with your business.",
+      },
+      {
+        name: "Drupal Performance Optimization",
+        body: "Speed matters. We optimize every layer of your Drupal stack, caching, database queries, assets, and server tuning, for faster load times, higher engagement, and better SEO rankings.",
+      },
+    ],
+  },
+
+  vetting: {
+    eyebrow: "Vetting",
+    title: "How We Vet and Onboard Top Drupal Developers",
+    body: "Our rigorous process ensures that only elite Drupal talent joins your team. From deep technical assessments to seamless integration, we deliver pre-vetted experts ready to excel from day one.",
+    steps: [
+      {
+        n: "01",
+        name: "Rigorous talent sourcing",
+        body: "We don't wait for talent to come to us; we go directly to the best Drupal developers available",
+      },
+      {
+        n: "02",
+        name: "In-depth skill assessment",
+        body: "Every developer completes rigorous coding challenges and technical assessments to prove their skills.",
+      },
+      {
+        n: "03",
+        name: "Thinkers & Innovators",
+        body: "We seek developers who excel in teamwork, problem-solving, and finding creative solutions in fast-paced projects.",
+      },
+      {
+        n: "04",
+        name: "Cultural fit & adaptability",
+        body: "We select Drupal experts who integrate smoothly into your existing team culture, ensuring smooth collaboration from day one.",
+      },
+    ],
+  },
+
+  comparison: partnerTable(
+    "Choosing the Right Drupal Partner for Your Specific Needs",
+    "Make a well-informed decision by comparing your options - freelancers, in-house teams, or our expertly vetted developers. Use our comparison guide for valuable insights.",
+  ),
+
+  exploreMore: webExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "FAQs About Hiring Drupal Developers",
+    body: "Learn more about our procedures & methods with the help of these FAQs.",
+    items: [
+      {
+        q: "How much does it cost to hire Drupal developer?",
+        a: "Our transparent pricing starts from just $14/hour, varying by experience and engagement model. Request a custom quote today and discover the exceptional value we offer.",
+      },
+      {
+        q: "Is there any free trial period available?",
+        a: "Yes, we provide a free 40-hour trial. With this, you can assess our developers before committing.",
+      },
+      {
+        q: "What are the hiring engagement options available at Soft Suave?",
+        a: "We provide flexible models—fixed price, time-based, or fully managed services.",
+      },
+      {
+        q: "Do you provide support and maintenance services after deployment?",
+        a: "Yes, after the project goes live, we provide continuing support, optimization, and maintenance.",
+      },
+      {
+        q: "Where can you find a Drupal Engineer?",
+        a: "At Soft Suave. By providing pre-screened, highly skilled Drupal experts who are available for immediate engagement, we save you time.",
+      },
+    ],
+  },
 };
 
 export const platformHireSkills: readonly HireSkill[] = [magento, drupal];

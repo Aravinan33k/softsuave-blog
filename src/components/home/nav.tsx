@@ -118,8 +118,16 @@ export default function Nav({
   // become links back to it when this bar renders on a page that doesn't have
   // those sections. `ownsAnchors` is the exception, and the homepage is always
   // one.
+  //
+  // So is a page that passes its OWN `links`: those anchors name that page's
+  // own sections by definition — a page does not list `#enquiry` in its bar
+  // unless it has the enquiry form — so rewriting them to `/#enquiry` sent the
+  // reader to the homepage instead of to the section under their cursor. Every
+  // page that supplies a `cta` supplies `links` too, so testing `links` alone
+  // covers the CTA as well.
   const pathname = usePathname();
-  const keepAnchors = ownsAnchors || pathname === "/";
+  const ownsGiven = links !== nav.links;
+  const keepAnchors = ownsAnchors || ownsGiven || pathname === "/";
   const resolve = (href: string) => navHrefForPage(href, keepAnchors);
 
   // `id` keeps the original anchor for the active-section highlight — where the
@@ -330,9 +338,21 @@ export default function Nav({
               </div>
             );
           })}
-          <MenuLink href={cta.href} className={styles.overlayCta} onNavigate={close}>
-            {cta.label}
-          </MenuLink>
+          {/* `ctaHref`, not `MenuLink`: this is the PAGE's own CTA, and
+              `MenuLink` resolves anchors against the homepage on purpose —
+              right for the mega-menu items it was written for, wrong here,
+              where `#enquiry` is a section of the page the reader is on.
+              Same two branches as the desktop CTA above, over the same
+              already-resolved href. */}
+          {ctaHref.startsWith("/") ? (
+            <Link href={ctaHref} className={styles.overlayCta} onClick={close}>
+              {cta.label}
+            </Link>
+          ) : (
+            <a href={ctaHref} className={styles.overlayCta} onClick={close}>
+              {cta.label}
+            </a>
+          )}
         </nav>
       </div>
     </>

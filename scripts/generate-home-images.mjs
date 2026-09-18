@@ -176,7 +176,11 @@ async function makeBlur(buffer) {
 
 async function main() {
   const manifest = JSON.parse(fs.readFileSync(MANIFEST, "utf8"));
-  const entries = manifest.images.filter((e) => e.id && e.page);
+  // Pexels owns only the slots that claim no other source. A slot marked
+  // "gemini" belongs to generate-ai-images.mjs and "hand-placed" to neither —
+  // without this filter those slots read as permanently unfilled here, and the
+  // run would fail on images that are in fact already present.
+  const entries = manifest.images.filter((e) => e.id && e.page && !e.source);
 
   // Load prior generated results so we keep dedupe stable and skip existing files.
   let generated = {};

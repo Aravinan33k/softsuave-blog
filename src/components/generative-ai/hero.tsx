@@ -2,7 +2,7 @@
 
 import { Fragment, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import { brand } from "@/lib/home/content";
 import { hero as generativeAiHero } from "@/lib/home/generative-ai";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
@@ -294,9 +294,14 @@ export default function Hero({
             <p className={styles.formAlert}>
               <span className={styles.formAlertLabel}>{content.form.alert.label}</span>{" "}
               {content.form.alert.text}{" "}
-              <Link className={styles.formAlertLink} href={content.form.alert.href}>
+              {/* `SiteLink`, not `next/link`: this href is a live-site path
+                  (/career-overview) that this app does not serve, so a plain
+                  Link resolved it app-internally and 404'd. `SiteLink` sends
+                  paths we don't own to the marketing site — the same choice the
+                  landing hero's `noteLink` already makes for this exact link. */}
+              <SiteLink className={styles.formAlertLink} href={content.form.alert.href}>
                 {content.form.alert.linkLabel}
-              </Link>
+              </SiteLink>
             </p>
           )}
 

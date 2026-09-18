@@ -23,7 +23,7 @@ export const prodMeta = {
   path: "/product-engineering-services",
   title: "Product Engineering Services",
   description:
-    "Take a product from idea to market and keep it improving. Soft Suave provides end-to-end product engineering — consulting, architecture, UI/UX, development, QA, deployment, and continuing enhancement.",
+    "Take a product from idea to market and keep it improving. End-to-end product engineering — consulting, architecture, UI/UX, development, QA and deployment.",
 } as const;
 
 export const prodHero: HeroContent = {

@@ -38,7 +38,7 @@ export const madMeta = {
   path: "/mobile-application-development-company",
   // The live page's own <title> and meta description. The route appends
   // " | Soft Suave" to the title, as every page on this surface does.
-  title: "Mobile App Development Company in India: Scalable & Secure",
+  title: "Mobile App Development Company in India",
   description:
     "Soft Suave is a top mobile app development company in India, building scalable Android, iOS, and cross-platform apps for global clients.",
 } as const;

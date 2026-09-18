@@ -3,6 +3,7 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { HIRE_ROLE_PAGES, HIRE_ROLE_ROUTES } from './index';
+import { assignGrounds } from './band-grounds';
 import { LANDING_PAGES } from '../landing-pages';
 
 /**
@@ -148,6 +149,56 @@ describe('hire-by-role pages', () => {
         page.order.includes('capabilities') || page.order.includes('specialisations'),
         `${page.key}: no #services band`,
       ).toBe(true);
+    }
+  });
+
+  it('alternates its grounds in even chapters, whatever order it runs', () => {
+    // The pages looked arbitrary before this: a fixed light/dark mapping per
+    // band met thirteen different orders and produced five dark sections in a
+    // row on one page and single-band stripes on another. The rhythm is a
+    // property of the sequence, so it is asserted over the sequence — and it
+    // has to keep holding as the orders follow their live pages.
+    for (const page of HIRE_ROLE_PAGES) {
+      const grounds = assignGrounds(page.order);
+      expect(grounds).toHaveLength(page.order.length);
+
+      // Bookends: the hero above and the enquiry band below are both dark.
+      expect(grounds[0], `${page.key}: opens dark under the dark hero`).toBe('light');
+      expect(grounds.at(-1), `${page.key}: closes dark above the dark CTA`).toBe('light');
+
+      const runs: number[] = [];
+      grounds.forEach((g, i) => {
+        if (i > 0 && g === grounds[i - 1]) runs[runs.length - 1] += 1;
+        else runs.push(1);
+      });
+      expect(Math.max(...runs), `${page.key}: a chapter runs ${Math.max(...runs)} bands`)
+        .toBeLessThanOrEqual(3);
+      // A lone band between two chapters of the other ground reads as a stripe.
+      // One is punctuation — the mid-page CTA is meant to be exactly that — but
+      // a page made mostly of them is the striping this replaced.
+      const stripes = runs.filter((r) => r === 1).length;
+      expect(stripes, `${page.key}: ${stripes} of ${runs.length} chapters are single bands`)
+        .toBeLessThanOrEqual(Math.ceil(runs.length / 3));
+    }
+  });
+
+  it('keeps the anchored bands on their own ground', () => {
+    // The opening strip, the stories and the FAQ are warm white on every page,
+    // and the mid-page CTA and technology bands are dark on every page. That
+    // consistency is what makes thirteen pages read as one set.
+    const ANCHORS: Record<string, string> = {
+      clients: 'light',
+      testimonials: 'light',
+      faq: 'light',
+      midCta: 'dark',
+      techStack: 'dark',
+    };
+    for (const page of HIRE_ROLE_PAGES) {
+      const grounds = assignGrounds(page.order);
+      page.order.forEach((band, i) => {
+        const want = band.startsWith('list:') ? 'dark' : ANCHORS[band];
+        if (want) expect(grounds[i], `${page.key}/${band}`).toBe(want);
+      });
     }
   });
 

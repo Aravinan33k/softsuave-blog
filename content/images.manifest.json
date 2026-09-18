@@ -1911,6 +1911,17 @@
         "aircraft aviation technology",
         "aviation"
       ]
+    },
+    {
+      "id": "hire-dotnet-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "source": "gemini",
+      "alt": "A darkened open-plan engineering workspace at night, monitors glowing warm against deep shadow",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "prompt": "A darkened open-plan engineering workspace at night, seen from a low wide angle. Monitors and desk lamps glow warm amber in the mid-right of the frame; the left half of the frame falls away into deep unlit shadow and empty space, calm and almost featureless. Graphite, charcoal and warm neutral tones only. Unoccupied desks, no people."
     }
   ]
 }

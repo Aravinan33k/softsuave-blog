@@ -23,7 +23,7 @@ export const legacyMeta = {
   path: "/legacy-modernization-services",
   title: "Legacy Application Modernization Services",
   description:
-    "Modernize legacy applications without stopping the business. Soft Suave assesses, re-platforms, re-architects, and re-engineers aging systems — with a staged roadmap that keeps critical workflows running throughout.",
+    "Modernize legacy applications without stopping the business. Soft Suave assesses, re-platforms, re-architects and re-engineers aging systems on a staged roadmap.",
 } as const;
 
 export const legacyHero: HeroContent = {

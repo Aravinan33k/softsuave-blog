@@ -1,122 +1,344 @@
 /**
- * Back-end and server-side hire pages: Node.js, NestJS, Java, Python, Django,
- * PHP, Laravel, .NET, Ruby on Rails.
+ * Server-side and language hire pages: Node.js, NestJS, Java, Python, Django,
+ * PHP, Laravel, .NET and Ruby on Rails.
  *
- * One entry per `/hire-*` route. See `hire-skill.ts` for the shape and for why
- * each entry argues about its own technology rather than sharing one templated
- * paragraph with the other twenty-three.
+ * Every string is its live softsuave.com page's own copy, and `order` is the
+ * sequence that page's `<section>` elements run in. Three distinct sequences
+ * live in this one file, which is exactly why `order` is per page:
+ *
+ * - Java, Python, PHP and .NET run the older layout — prose, services, a rate
+ *   band, four steps, why-hire cards, then the link grid.
+ * - Node opens on the applications it builds and reaches its steps last, after
+ *   a comparison table; NestJS runs a similar shape and publishes no FAQ at all.
+ * - Django, Laravel and Rails run the newer layout — a client band, why-hire
+ *   cards, the hiring steps *second*, then technical expertise, services and a
+ *   vetting sequence.
+ *
+ * Live authoring slips are reproduced, not corrected (see `hire-blocks.ts`).
+ * Two are worth knowing about: the Laravel page's technical-expertise band
+ * opens on mobile groups (Flutter, Swift, Xcode), and the Rails page's why-hire
+ * cards and hiring steps mention Drupal. Both are on the live pages today.
  */
 
 import type { HireSkill } from "./hire-skill";
+import { sharedHeroAlert } from "./delivery-shared";
+import { webExplore } from "./hire-explore";
+import { partnerTable } from "./hire-comparison";
+import { MERN_STEPS, MERN_WHY, CURATED_STEPS } from "./hire-blocks";
 
-const node: HireSkill = {
+/** The older pages' shared running order, oldest layout first. */
+const CLASSIC_ORDER = [
+  "overview",
+  "services",
+  "midCta",
+  "process",
+  "whyUs",
+  "exploreMore",
+  "testimonials",
+  "faq",
+] as const;
+
+/** The newer pages' running order — client band first, steps second. */
+const MODERN_ORDER = [
+  "clients",
+  "whyUs",
+  "process",
+  "techStack",
+  "services",
+  "vetting",
+  "comparison",
+  "exploreMore",
+  "testimonials",
+  "faq",
+] as const;
+
+/** The vetting band's four stages, as each newer page words them. */
+const VETTING_NAMES = [
+  "Rigorous talent sourcing",
+  "In-depth skill assessment",
+  "Thinkers & Innovators",
+  "Cultural fit & adaptability",
+] as const;
+
+const vetting = (bodies: readonly [string, string, string, string]) =>
+  VETTING_NAMES.map((name, i) => ({ n: `0${i + 1}`, name, body: bodies[i] }));
+
+const nodejs: HireSkill = {
   slug: "hire-nodejs-developers",
-  key: "node",
+  key: "nodejs",
   name: "Node.js",
   role: "Node.js Developers",
-  metaTitle: "Hire Node.js Developers",
+  metaTitle: "Hire NodeJS Developers India | 150+ Clients",
   metaDescription:
-    "Hire Node.js developers from Soft Suave for APIs, real-time systems, and microservices built to be operated. You interview every candidate, two-week trial, full IP ownership.",
+    "Hire dedicated Node.js developers for scalable APIs and backend systems. Onboard in 48 hours with a 40-hour risk-free trial. Rates from $14/hr.",
   serviceType: "Node.js development staffing",
-  eyebrow: "Hire Node.js Developers",
   ctaLabel: "Hire Node.js developers",
-  titleLines: ["Hire Node.js Developers", "Who Have Run What They Built"],
-  heroBody: [
-    "Node.js is the default for I/O-bound services: APIs that spend their time waiting on databases and other services, real-time transports, and the BFF layer in front of a JavaScript front end. Its event loop makes that work cheap, and makes CPU-bound work expensive.",
-    "Knowing which side of that line a feature falls on is the difference between a service that scales quietly and one that stalls under load. Our Node engineers have operated production systems, not only written them.",
+
+  order: [
+    "applications",
+    "combinations",
+    "services",
+    "midCta",
+    "techStack",
+    "whyUs",
+    "comparison",
+    "process",
+    "exploreMore",
+    "testimonials",
+    "faq",
   ],
-  heroPoints: [
-    "REST and GraphQL APIs designed for versioning and change",
-    "Real-time systems over WebSockets at genuine concurrency",
-    "Microservices, queues and event-driven architectures",
-    "Observability, profiling and event-loop diagnosis",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/svc-custom-software.webp",
-    width: 1200,
-    height: 860,
-    alt: "A Node.js service architecture showing APIs, queues, and connected data stores",
+
+  hero: {
+    titleLines: ["Hire Node.js Developers", "In India"],
+    body: [
+      "Soft Suave provides pre-vetted Node.js developers experienced in Express.js, NestJS, MongoDB, and scalable backend systems, matched to your project within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
+      "Here is how Soft Suave engineers your Node.js success.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top Node.js Developers in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your Node.js requirement.",
+      subject: "Node.js Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/svc-custom-software.webp",
+      width: 1200,
+      height: 860,
+      alt: "A Node.js service architecture showing APIs, queues, and connected data stores",
+    },
   },
-  requirementLabel: "What are you building on Node.js?",
-  requirementPlaceholder:
-    "The services involved, expected throughput, what they integrate with, and whether this is a new build or existing code.",
-  overviewTitle: "What Node.js Developers Actually Do for You",
-  overviewParagraphs: [
-    "Node.js runs JavaScript on the server with a single-threaded, non-blocking event loop. That design is exceptional for workloads dominated by waiting — database queries, HTTP calls to other services, streaming responses — and poor for workloads dominated by computation, because a long synchronous operation blocks every other request in the process.",
-    "A Node engagement usually covers API design and implementation, authentication and authorisation, database access and query performance, background jobs and queues, real-time transport, and the operational layer: structured logging, metrics, tracing, graceful shutdown, and containerised deployment.",
-    "The failure mode we are most often called in to fix is not a framework problem. It is an unbounded query, a synchronous loop over a large array, or a missing backpressure strategy on a stream — all of which present as a mysteriously unresponsive service. Engineers who have been on call for a Node system recognise these quickly.",
-  ],
-  pullQuote:
-    "Node does not get slow gradually under CPU load. One blocking call stops every request in the process at once.",
-  capabilities: [
-    {
-      name: "REST and GraphQL APIs",
-      tag: "API",
-      body: "Services designed around a versioning strategy, validated at the boundary, with consistent error semantics and documentation generated from the schema rather than maintained separately and left to drift.",
-    },
-    {
-      name: "Real-Time Systems",
-      tag: "Realtime",
-      body: "WebSocket and Server-Sent Events transports for chat, presence, live dashboards, and collaboration — including the horizontal-scaling problem, which is where most real-time implementations first fail.",
-    },
-    {
-      name: "Microservices and Events",
-      tag: "Architecture",
-      body: "Service decomposition along genuine ownership boundaries, message-driven communication over Kafka, RabbitMQ, or SQS, and the idempotency and retry discipline distributed systems require to be correct.",
-    },
-    {
-      name: "Background Processing",
-      tag: "Jobs",
-      body: "Queue-backed workers for email, reporting, imports, and anything slow enough to be pushed out of the request path, with retries, dead-letter handling, and visibility into what failed and why.",
-    },
-    {
-      name: "Performance and Profiling",
-      tag: "Performance",
-      body: "Diagnosing event-loop blocking, memory leaks, and connection-pool exhaustion using flame graphs and heap snapshots — the problems that look like infrastructure faults and are not.",
-    },
-    {
-      name: "Observability",
-      tag: "Operations",
-      body: "Structured logging with correlation IDs, OpenTelemetry tracing across service boundaries, health checks, and metrics chosen so an incident can be diagnosed from the dashboards rather than by reading code.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Core",
-      items: ["Node.js 20+", "TypeScript", "Express", "Fastify", "NestJS", "tRPC"],
-    },
-    {
-      name: "Data",
-      items: ["PostgreSQL", "MongoDB", "Redis", "Prisma", "Drizzle", "TypeORM"],
-    },
-    {
-      name: "Messaging & Realtime",
-      items: ["Kafka", "RabbitMQ", "AWS SQS", "BullMQ", "Socket.IO", "GraphQL Subscriptions"],
-    },
-    {
-      name: "Delivery",
-      items: ["Docker", "Kubernetes", "AWS", "OpenTelemetry", "Vitest", "GitHub Actions"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Is Node.js fast enough for our workload?",
-      a: "For I/O-bound work — which is most web APIs — yes, comfortably, and it handles high concurrency on modest hardware. For CPU-bound work it is the wrong tool by design: a single long computation blocks the event loop and every concurrent request with it. The usual answer is to move that work to a queue and a worker process, or to a service written in Go, Rust, or Java. We will say which of those applies to your workload during the first call, rather than discovering it in a load test.",
-    },
-    {
-      q: "Express, Fastify, or NestJS?",
-      a: "Express is ubiquitous and unopinionated, which makes it fine for small services and a liability for large ones, since every team invents its own structure. Fastify is meaningfully faster and has better built-in schema validation. NestJS imposes a modular, dependency-injected architecture that pays off on larger teams and longer-lived codebases at the cost of more ceremony up front. For a service expected to live for years with several engineers on it, we usually recommend NestJS.",
-    },
-    {
-      q: "Can Node.js developers also write the front end?",
-      a: "Many can, and for a JavaScript product that is a real advantage — shared types across the API boundary, no handoff on a full-stack feature. But back-end and front-end work reward different instincts, and an engineer who is genuinely strong at both is less common than job titles suggest. We tell you where each shortlisted engineer actually sits rather than describing everyone as full-stack.",
-    },
-    {
-      q: "How do you handle security in Node applications?",
-      a: "Dependency auditing in CI, since the npm supply chain is the most common real attack surface; validation of every input at the boundary with a schema rather than ad-hoc checks; parameterised database access; secrets from a managed store rather than environment files in the repo; rate limiting and sensible security headers; and authentication built on a maintained library rather than hand-rolled token handling. It is reviewed as part of code review, not deferred to a pre-launch audit.",
-    },
-  ],
+
+  applications: {
+    eyebrow: "What We Build",
+    title: "Applications That Our Developers Build Using NodeJS",
+    body: "Build and utilize various high-performance web applications with our developer's expertise",
+    items: [
+      {
+        name: "Web Applications",
+        body: "We develop web apps with NodeJS, ensuring smooth experiences across devices. From e-commerce sites to social networks, our developers use NodeJS for high-performance web solutions tailored to your needs.",
+      },
+      {
+        name: "API Development",
+        body: "You can hire our NodeJS developer to build scalable APIs with NodeJS for seamless application integration and communication. Whether it's connecting services or enabling real-time interactions, our API development ensures smooth connectivity.",
+      },
+      {
+        name: "Real-time Applications",
+        body: "We specialize in real-time apps using NodeJS for instant user communication. From chat apps to live streaming, our developers create high-performance solutions that meet user demands.",
+      },
+      {
+        name: "Network Applications",
+        body: "Our developers use NodeJS for efficient data transmission in network apps. From file sharing to multiplayer games, we utilize NodeJS and its event-driven architecture to create scalable apps.",
+      },
+      {
+        name: "Data Streaming Applications",
+        body: "As one of the top NodeJS development companies, we develop data streaming apps with NodeJS for real-time data processing. Whether it's video streaming or financial analysis, our developers ensure seamless data streaming and processing.",
+      },
+      {
+        name: "IoT Applications",
+        body: "We enable IoT connectivity with NodeJS. From smart homes to industrial monitoring, our developers utilize NodeJS and its lightweight nature to create scalable IoT solutions.",
+      },
+      {
+        name: "Single-page Applications (SPAs)",
+        body: "We build fast SPAs using NodeJS for quick loading times. From portfolios to dashboards, our developers utilize NodeJS and its asynchronous programming functionality to ensure smooth user experiences.",
+      },
+      {
+        name: "Social & Interactive Apps",
+        body: "We create engaging social apps with NodeJS for real-time interactions. Whether it's social networks or multiplayer games, our developers use NodeJS to build interactive experiences.",
+      },
+      {
+        name: "Multimedia Apps",
+        body: "We develop multimedia apps with NodeJS for efficient processing. From media streaming to video editing, our developers ensure high-performance solutions with NodeJS.",
+      },
+      {
+        name: "Real-time Collaboration Tools",
+        body: "We build collaboration tools with NodeJS for seamless teamwork. Whether it's project management or document editing, our developers use NodeJS to enable real-time collaboration.",
+      },
+    ],
+  },
+
+  combinations: {
+    eyebrow: "Tech Combinations",
+    title: "Tech Combinations Our Developers Use",
+    body: "Technology Combinations our developers use to develop high-performing and scalable NodeJS apps",
+    items: [
+      {
+        name: "NodeJS + ReactJS",
+        body: "We combine NodeJS's powerful backend for scalability with ReactJS's dynamic and user-friendly front-end development. This duo ensures a seamless user experience and efficient data handling.",
+      },
+      {
+        name: "NodeJS + AngularJS",
+        body: "Our developers can leverage NodeJS on the backend for security and scalability while utilizing AngularJS's well-defined framework for building feature-rich web applications.",
+      },
+      {
+        name: "NodeJS + VueJS",
+        body: "NodeJS provides a robust backend, while VueJS's versatility and ease of use allow for the rapid development of interactive web interfaces within a NodeJS environment.",
+      },
+      {
+        name: "NodeJS + ExpressJS",
+        body: "Our developers utilize this combination to build fast APIs, and they use NodeJS for scalability and ExpressJS for simplified development.",
+      },
+      {
+        name: "NodeJS + Koa",
+        body: "Koa's lightweight nature allows for detailed control over the application logic, perfect for building complex and tailored APIs alongside the scalability of NodeJS.",
+      },
+      {
+        name: "NodeJS + NestJS",
+        body: "NestJS is a framework for building efficient and scalable server-side applications. Together with NodeJS, it utilizes JavaScript's versatility to create robust backend solutions.",
+      },
+    ],
+  },
+
+  services: {
+    eyebrow: "Why NodeJS",
+    title: "Why We Recommend NodeJS for Building Web Applications?",
+    body: "With a diverse set of tools out there for building web applications, why should you choose NodeJS?",
+    items: [
+      {
+        name: "Handles Traffic Spikes",
+        body: "NodeJS lets your web app handle massive user surges without crashing. It scales smoothly, keeping things fast and responsive as your user base grows.",
+      },
+      {
+        name: "Real-Time Features",
+        body: "Want instant chat or live editing? NodeJS lets us build them! This keeps users engaged and productive.",
+      },
+      {
+        name: "Streams Data Smoothly",
+        body: "Apps usually deal with constant data flow, like in live video. NodeJS excels at handling this data for uninterrupted processing, so hire a NodeJS developer and procure quality solutions.",
+      },
+      {
+        name: "Easy API Creation",
+        body: "NodeJS simplifies building APIs, the messengers between different parts of your app. This allows for seamless data exchange.",
+      },
+      {
+        name: "Faster Development",
+        body: "NodeJS allows for quicker development by handling multiple requests at once. Get your app launched faster!",
+      },
+      {
+        name: "Perfect for SPAs",
+        body: "NodeJS is great for building Single-Page Applications (SPAs), web apps that load everything on one page. We handle the backend for a smooth user experience.",
+      },
+    ],
+  },
+
+  midCta: {
+    title: "Looking for offshore NodeJS developers?",
+    body: "Soft Suave offers a team of experts to fit your needs. Get a free 7-day trial today!",
+    cta: { label: "Request Rate Card", href: "#enquiry" },
+  },
+
+  techStack: {
+    eyebrow: "Technology",
+    title: "Tech Stack - Our Developer's Skillset",
+    body: "Discover our developers' proficiency across a wide range of frameworks, libraries, databases, and tools, ensuring top-notch solutions for your projects",
+    groups: [
+      {
+        name: "Frameworks",
+        items: ["Express.js", "Hapi.js", "Nest.js", "Total.js", "Koa.js", "Loopback.js"],
+      },
+      {
+        name: "Libraries",
+        items: [
+          "Node cron",
+          "Passport",
+          "Lodash",
+          "PM2",
+          "Nodemailer",
+          "Babel",
+          "Unload",
+          "Webpack",
+          "Feathers.io",
+          "Axios",
+        ],
+      },
+      { name: "Databases", items: ["Redis", "Firebase", "MongoDB", "PostgreSQL", "MySQL"] },
+      { name: "ORM", items: ["Typeform", "Mongoose", "Sequelize"] },
+    ],
+  },
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "Why Hire NodeJS Developer From Soft Suave?",
+    body: "Using the skills of dedicated NodeJS developers in India can be highly beneficial for your web application needs. Let us tell you why",
+    items: [
+      {
+        name: "13+ Years of Average Experience",
+        body: "Our seasoned NodeJS developers make use of their in-depth knowledge to deliver exceptional applications, on time, every time.",
+        icon: "book",
+      },
+      {
+        name: "Defined Talent Screening",
+        body: "We thoroughly vet candidates and select only the most skilled NodeJS developers to ensure your project's success.",
+        icon: "users",
+      },
+      {
+        name: "NodeJS Development",
+        body: "Our agile approach keeps you informed throughout the NodeJS development process, with flexible engagement models and time zone adjustments for a smooth experience.",
+        icon: "gauge",
+      },
+    ],
+  },
+
+  comparison: partnerTable("Choose the Right NodeJS Development Partner"),
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "The 4-step NodeJS Developer Hiring Process",
+    body: "Onboarding developers has never been easier. With this simple 4-step process, find the resource who is the perfect fit for your team!",
+    steps: CURATED_STEPS,
+  },
+
+  exploreMore: webExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "Frequently Asked Questions",
+    body: "Know more about our processes and how we work, with the help of the following FAQs.",
+    items: [
+      {
+        q: "How much does it cost to hire a Node.js developer from Soft Suave?",
+        a: "Rates start from $14/hour, below the $25/hour median rate for Node.js developers on Upwork ($18–$38/hr typical range). Every engagement starts with a 40-hour risk-free trial before any monthly commitment.",
+      },
+      {
+        q: "Is there a free trial period available?",
+        a: "Yes — every engagement starts with a 40-hour risk-free trial so you can evaluate real work before committing.",
+      },
+      {
+        q: "How do I test your Node.js developer's expertise?",
+        a: "Through technical interviews on core Node.js concepts, code review of past work, and portfolio analysis of relevant experience.",
+      },
+      {
+        q: "Do you provide an NDA for my project?",
+        a: "Absolutely. Soft Suave prioritizes confidentiality — we sign a standard non-disclosure agreement (NDA) before starting any project to protect your intellectual property.",
+      },
+      {
+        q: "Will I have full ownership of my source code?",
+        a: "Yes, absolutely. The intellectual property rights, including the source code, belong entirely to you upon project completion.",
+      },
+      {
+        q: "What happens if I want to change developers mid-project?",
+        a: "You can request a replacement developer at no extra cost during or after the trial period, re-matched based on your feedback.",
+      },
+      {
+        q: "How long do you offer post-launch support and maintenance?",
+        a: "We provide ongoing post-launch support and maintenance to keep your application running smoothly, with terms scoped to your specific project.",
+      },
+      {
+        q: "How do I track the development progress of my Node.js project?",
+        a: "Soft Suave prioritizes transparency — we use project management tools to give you real-time visibility into progress.",
+      },
+    ],
+  },
 };
 
 const nestjs: HireSkill = {
@@ -124,109 +346,111 @@ const nestjs: HireSkill = {
   key: "nestjs",
   name: "NestJS",
   role: "NestJS Developers",
-  metaTitle: "Hire NestJS Developers",
+  metaTitle: "Hire NestJS Developers | 7-Day Risk-Free Trial",
   metaDescription:
-    "Hire NestJS developers from Soft Suave for structured, testable TypeScript back ends — modular architecture, DI, microservices. You interview, two-week trial.",
+    "Hire NestJS developers from Soft Suave without long hiring cycles. Vetted experts from $14/hr, ready to build scalable applications with flexible engagement.",
   serviceType: "NestJS development staffing",
-  eyebrow: "Hire NestJS Developers",
   ctaLabel: "Hire NestJS developers",
-  titleLines: ["Hire NestJS Developers", "For Back Ends That Stay Legible"],
-  heroBody: [
-    "NestJS exists because Express codebases stop being readable at a certain size. It brings modules, dependency injection, and decorator-driven structure to Node — the conventions that let a new engineer find things without being told where they are.",
-    "That structure only pays off if it is used properly rather than treated as ornamentation. Our NestJS engineers build the module boundaries, providers, and testing seams the framework is actually designed around.",
+
+  /** No `faq`: the live NestJS page publishes none, and closes on its stories. */
+  order: [
+    "overview",
+    "services",
+    "midCta",
+    "comparison",
+    "process",
+    "exploreMore",
+    "testimonials",
   ],
-  heroPoints: [
-    "Modular architecture with real dependency injection",
-    "REST, GraphQL and microservice transports",
-    "TypeORM and Prisma with migration discipline",
-    "Testable by construction — unit and e2e suites",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/work-5.webp",
-    width: 800,
-    height: 1000,
-    alt: "A modular TypeScript service architecture with clearly separated layers",
+
+  hero: {
+    titleLines: ["Hire Remote NestJS Developers", "in India on Contract"],
+    body: [
+      "Hire NestJS developers from Soft Suave without long hiring cycles. As a specialized development agency, we deliver vetted experts starting at $14/hr, ready to build scalable applications fast while ensuring flexibility, strong quality standards, and complete project control.",
+      "Skip hiring delays. Start building with NestJS experts today.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top NestJS Developers in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your NestJS requirement.",
+      subject: "NestJS Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/work-5.webp",
+      width: 1200,
+      height: 860,
+      alt: "A modular TypeScript service architecture with clearly separated layers",
+    },
   },
-  requirementLabel: "What are you building on NestJS?",
-  requirementPlaceholder:
-    "The services involved, your database and transport choices, team size, and whether this is greenfield or an Express migration.",
-  overviewTitle: "What NestJS Developers Actually Do for You",
-  overviewParagraphs: [
-    "NestJS is an opinionated Node framework that borrows Angular's architecture: applications are composed of modules, dependencies are injected rather than imported directly, and cross-cutting concerns are expressed as guards, interceptors, and pipes. The result is a codebase where routing, validation, authorisation, and business logic each live somewhere predictable.",
-    "A NestJS engagement covers module and provider design, DTOs with validation at the boundary, database access through TypeORM or Prisma with proper migrations, authentication and role-based guards, and the transport layer — HTTP, GraphQL, WebSockets, or a message broker, all of which Nest abstracts behind the same programming model.",
-    "The framework's real payoff is testability. Because dependencies are injected, any provider can be tested with its collaborators replaced, and Nest ships a testing module that makes that straightforward. Teams that use it get high coverage almost incidentally; teams that bypass DI and instantiate directly end up with the ceremony and none of the benefit.",
-  ],
-  pullQuote:
-    "NestJS is only worth its ceremony if you use the dependency injection. Bypassed, it is Express with extra decorators.",
-  capabilities: [
-    {
-      name: "Modular Back Ends",
-      tag: "Architecture",
-      body: "Feature modules with explicit boundaries and injected dependencies, so a new engineer can locate any piece of behaviour from the module graph rather than by searching the repository.",
-    },
-    {
-      name: "REST and GraphQL APIs",
-      tag: "API",
-      body: "Controllers and resolvers with DTO validation, serialisation, and OpenAPI or schema generation kept automatically in step with the code rather than maintained as a separate document.",
-    },
-    {
-      name: "Microservices",
-      tag: "Distributed",
-      body: "Nest's transport abstraction over Kafka, RabbitMQ, NATS, gRPC, or Redis, so a service can change its communication mechanism without the business logic inside it being rewritten.",
-    },
-    {
-      name: "Database and Migrations",
-      tag: "Data",
-      body: "TypeORM or Prisma with reviewed, reversible migrations, transaction boundaries drawn deliberately, and repository patterns that keep query logic out of controllers.",
-    },
-    {
-      name: "Auth and Authorisation",
-      tag: "Security",
-      body: "Passport strategies, JWT with refresh rotation, OAuth and SSO, and guard-based role or attribute permissions enforced consistently at the server rather than assumed from the interface.",
-    },
-    {
-      name: "Express Migration",
-      tag: "Migration",
-      body: "Moving an Express codebase that has outgrown its structure onto Nest incrementally, module by module, with both running side by side rather than a freeze for a rewrite.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Core",
-      items: ["NestJS 10+", "TypeScript", "Node.js 20+", "Fastify adapter", "RxJS", "class-validator"],
-    },
-    {
-      name: "Data",
-      items: ["PostgreSQL", "TypeORM", "Prisma", "MongoDB / Mongoose", "Redis", "MikroORM"],
-    },
-    {
-      name: "Transport & Messaging",
-      items: ["GraphQL", "gRPC", "Kafka", "RabbitMQ", "NATS", "BullMQ"],
-    },
-    {
-      name: "Delivery",
-      items: ["Jest", "Supertest", "Docker", "Kubernetes", "AWS", "GitHub Actions"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Why NestJS instead of plain Express?",
-      a: "Because Express gives you no structure, and on a team of more than two or three that becomes the problem. Every Express codebase invents its own conventions for where validation lives, how services are wired, and what a module even is — and those conventions diverge as people come and go. Nest supplies one answer to all of that. For a small service with a single owner and a short life, plain Express or Fastify is still less overhead, and we will say so.",
-    },
-    {
-      q: "Can you migrate our Express application to NestJS?",
-      a: "Yes, and incrementally rather than as a rewrite. Nest can mount an existing Express application, which lets new features be built the Nest way while old routes continue serving untouched, then migrated module by module as they are next worked on. That sequencing means the migration is funded by feature work rather than needing its own freeze, and it can be stopped partway without leaving the codebase broken.",
-    },
-    {
-      q: "TypeORM or Prisma?",
-      a: "Prisma has the better developer experience and much stronger type safety — the generated client knows your schema exactly — and it is our default for new projects. TypeORM integrates more naturally with Nest's dependency injection, handles some complex relational mapping and raw-SQL cases more gracefully, and is what most existing Nest codebases already use. If you have TypeORM in place and it is working, we will not propose swapping it as a project in its own right.",
-    },
-    {
-      q: "Is NestJS overkill for a small service?",
-      a: "Sometimes, and it is worth being honest about that. For a service with a handful of endpoints, one owner, and a short expected life, the module and provider ceremony costs more than the structure returns. The threshold in our experience is roughly three engineers or two years of expected life — past either, the structure starts paying for itself, and below both a lighter framework is the better call.",
-    },
-  ],
+
+  overview: {
+    eyebrow: "Overview",
+    title: "What Nest.js Developers do and How they can benefit a project",
+    paragraphs: [
+      "Nest.js developers focus on building secure and scalable server-side applications, utilizing the Nest.js framework to enhance the capabilities of Node.js.",
+      "Nest.js is a highly scalable and strong JavaScript framework built on Node.js to create efficient server-side applications. It's an open-source platform designed for future-ready enterprise projects. Hiring Nest.js developers can free you from the challenges of handling coding structure, dependency management, testing, microservices, web sockets, routing, and other important parts of your application.",
+    ],
+  },
+
+  services: {
+    eyebrow: "Services",
+    title: "NestJS Development Services We Provide",
+    body: "Our team of experts excels in building reliable, efficient, and scalable web applications with NestJS. We prioritize delivering high-quality results and a seamless user experience, backed by exceptional development services.",
+    items: [
+      {
+        name: "NestJS Web Development",
+        body: "Soft Suave's NodeJS developers utilize a variety of tools and plugins from the NodeJS ecosystem to create scalable and efficient server-side applications.",
+      },
+      {
+        name: "NestJS eCommerce",
+        body: "Elevate the backend of your online store by hiring NestJS developers who excel at leveraging its powerful architecture.",
+      },
+      {
+        name: "NestJS Backend Development",
+        body: "By combining the progressive NestJS server-side framework with TypeScript expertise, our development team delivers clean, efficient, and bug-free backend APIs.",
+      },
+      {
+        name: "NestJS Custom Development",
+        body: "Leveraging the strengths of JavaScript, TypeScript, Node, and Express, we deliver customized solutions that are both efficient and reliable, tailored to meet your specific needs.",
+      },
+      {
+        name: "App Architecture Development",
+        body: "Looking to build innovative application architecture with the versatile NestJS? Let us show you how we can deliver testable, scalable, and efficient solutions tailored to your needs.",
+      },
+      {
+        name: "NestJS Maintenance & Support",
+        body: "We understand common modification patterns in the framework, allowing us to support you with reliable technical maintenance solutions.",
+      },
+    ],
+  },
+
+  midCta: {
+    title: "Are you ready to take your backend development to the next level?",
+    body: "Partner with Soft Suave to hire dedicated NestJS developers and gain scalable, secure, and high-performing applications tailored to your needs.",
+    cta: { label: "Request Rate Card", href: "#enquiry" },
+  },
+
+  comparison: partnerTable("Choose the Right NestJS Development Partner"),
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "How to Hire NestJS Developers from Soft Suave",
+    body: "Onboarding developers has never been easier. With this simple 4-step process, find the resource who is the perfect fit for your team!",
+    steps: CURATED_STEPS,
+  },
+
+  exploreMore: webExplore,
 };
 
 const java: HireSkill = {
@@ -234,109 +458,142 @@ const java: HireSkill = {
   key: "java",
   name: "Java",
   role: "Java Developers",
-  metaTitle: "Hire Java Developers",
+  metaTitle: "Hire Java Developers India | 40-Hour Trial",
   metaDescription:
-    "Hire Java developers from Soft Suave for Spring Boot services, microservices, and enterprise modernization. You interview every candidate, two-week trial, full IP ownership.",
+    "Hire pre-vetted Java developers from India without long hiring delays. Experts in Spring Boot, Hibernate, microservices, REST APIs, AWS and enterprise apps.",
   serviceType: "Java development staffing",
-  eyebrow: "Hire Java Developers",
   ctaLabel: "Hire Java developers",
-  titleLines: ["Hire Java Developers", "For Systems That Cannot Fail Quietly"],
-  heroBody: [
-    "Java runs the systems where correctness and uptime are not negotiable — payments, core banking, order management, logistics. Its appeal is not novelty but the opposite: a mature runtime, exceptional observability, and libraries that have been load-bearing for two decades.",
-    "Our Java engineers work across both halves of that reality: Spring Boot services on Java 21 and containers, and the older estates that still run the business and need modernizing carefully.",
-  ],
-  heroPoints: [
-    "Spring Boot microservices and modular monoliths",
-    "Java 17 and 21, including virtual threads",
-    "JPA, Hibernate and genuine SQL performance work",
-    "Legacy modernization from J2EE and monoliths",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/work-3.webp",
-    width: 800,
-    height: 1000,
-    alt: "An enterprise Java service estate with layered architecture and integration points",
+
+  order: [...CLASSIC_ORDER],
+
+  hero: {
+    titleLines: ["Hire Java Developers", "in India on Contract"],
+    body: [
+      "Soft Suave provides pre-vetted Java developers from India without long hiring delays. Hire experts in Spring Boot, Hibernate, microservices, REST APIs, AWS, and enterprise application development – contract-ready and fast to onboard.",
+      "See why businesses choose Soft Suave for Java hiring.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top Java Developers in India",
+      "Time-Zone & Language-Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your Java requirement.",
+      subject: "Java Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/work-3.webp",
+      width: 1200,
+      height: 860,
+      alt: "An enterprise Java service estate with layered architecture and integration points",
+    },
   },
-  requirementLabel: "What are you building in Java?",
-  requirementPlaceholder:
-    "The systems involved, your Java and Spring versions, integration points, and whether this is new development or modernization.",
-  overviewTitle: "What Java Developers Actually Do for You",
-  overviewParagraphs: [
-    "Java's position in enterprise software rests on a strong static type system that catches whole classes of error at compile time, a JVM with mature garbage collection and excellent production tooling, and an ecosystem where the important libraries have been maintained for years rather than months. For systems that must be correct and observable, those matter more than language ergonomics.",
-    "A Java engagement typically covers Spring Boot service development, REST and event-driven integration, persistence through JPA and Hibernate with attention to the queries actually generated, transaction management, caching, and the build and deployment pipeline. On existing estates it usually also covers a version upgrade.",
-    "That upgrade work is more common than greenfield. A great many organisations run Java 8 or 11 with old Spring versions, and the jump to Java 17 or 21 unlocks real gains — virtual threads in particular change how throughput-bound services are written. It is also where the security patches are, which is usually the argument that finally funds it.",
-  ],
-  pullQuote:
-    "Most Java performance work is not JVM tuning. It is finding the N+1 query that Hibernate is generating on your behalf.",
-  capabilities: [
-    {
-      name: "Spring Boot Services",
-      tag: "Build",
-      body: "REST and event-driven services with dependency injection, configuration management, health and metrics endpoints, and the production concerns handled by the framework rather than reinvented per team.",
-    },
-    {
-      name: "Microservices",
-      tag: "Architecture",
-      body: "Service decomposition along domain boundaries, synchronous and asynchronous integration, distributed tracing, resilience patterns, and the transactional consistency problem addressed rather than assumed away.",
-    },
-    {
-      name: "Legacy Modernization",
-      tag: "Migration",
-      body: "Moving J2EE, Struts, and monolithic applications onto Spring Boot and current Java, incrementally — strangling functionality out of the monolith so the business keeps running throughout.",
-    },
-    {
-      name: "Persistence and Performance",
-      tag: "Data",
-      body: "JPA and Hibernate mapping done with awareness of the SQL it generates, index and query tuning, connection-pool sizing, and caching — where most real Java performance problems are found and fixed.",
-    },
-    {
-      name: "Version Upgrades",
-      tag: "Upgrade",
-      body: "Java 8 or 11 to 17 and 21, and the corresponding Spring Boot upgrades, including the Jakarta EE namespace change that makes the Spring Boot 2 to 3 step more than a version bump.",
-    },
-    {
-      name: "Batch and Integration",
-      tag: "Processing",
-      body: "Spring Batch pipelines, scheduled processing, file and message-based integration with external partners, and the restartability and idempotency that overnight processing actually requires.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Core",
-      items: ["Java 17 / 21", "Spring Boot 3", "Spring Cloud", "Jakarta EE", "Maven", "Gradle"],
-    },
-    {
-      name: "Data",
-      items: ["PostgreSQL", "Oracle", "MySQL", "Hibernate / JPA", "Flyway", "Redis"],
-    },
-    {
-      name: "Messaging & Integration",
-      items: ["Apache Kafka", "RabbitMQ", "Spring Batch", "gRPC", "Elasticsearch", "Camel"],
-    },
-    {
-      name: "Delivery",
-      items: ["Docker", "Kubernetes", "JUnit 5", "Testcontainers", "Jenkins", "Micrometer"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Can you upgrade our Java 8 application?",
-      a: "Yes, and it is worth doing for the security patches alone — Java 8 public updates ended years ago and commercial support is a cost with no upside. The path is usually Java 8 to 11 to 17, then 21, taken as steps rather than one jump. The genuinely disruptive part is rarely the language: it is the Jakarta EE namespace change in Spring Boot 3, which renames every javax import, and the dependencies that never released a compatible version. We scope both explicitly before starting.",
-    },
-    {
-      q: "Do your Java developers work with Spring Boot?",
-      a: "Effectively all of them — Spring Boot is the default for new Java work and has been for years. That includes Spring Data, Spring Security, Spring Cloud for distributed concerns, and Spring Batch for scheduled processing. Engineers with Quarkus and Micronaut experience are available where startup time and memory footprint matter enough to justify a less common framework, which is mainly serverless and edge deployment.",
-    },
-    {
-      q: "Should we break our Java monolith into microservices?",
-      a: "Often not, or at least not yet. Microservices trade a code-organisation problem for a distributed-systems problem, and the second is considerably harder: network failure, eventual consistency, distributed tracing, and deployment coordination all become your concern. A well-structured modular monolith gives most of the maintainability benefit with none of that. Where a genuine scaling or team-autonomy boundary exists we will extract that service specifically, rather than decomposing everything on principle.",
-    },
-    {
-      q: "How do you approach Java performance problems?",
-      a: "By profiling before changing anything — JFR, async-profiler, and the actual SQL log. In practice the great majority of what gets reported as a JVM problem is a database problem: an N+1 query from a lazy Hibernate association, a missing index, or a connection pool sized wrong. Genuine JVM tuning matters far less than it used to now that G1 and ZGC are good defaults, so it is where we look last rather than first.",
-    },
-  ],
+
+  overview: {
+    eyebrow: "Overview",
+    title: "Hire Top-notch Remote Java Developers from Soft Suave",
+    paragraphs: [
+      "Flexibility, scalability, and cost-effectiveness are guaranteed when you hire Java developers from us.",
+      "Soft Suave is the most trusted company to hire Java developers in India. We are reputed to deliver fast and streamlined web app development services at an economical cost. Hire Java programmers from us to stay up to date with trending frameworks, tools, technologies and to build robust applications at your desired budget. Our Java experts have in-depth knowledge and go beyond their duty to provide comprehensive Java solutions. Our developers are counted among the top Java developers in India that build high quality and successful apps for clients around the world.",
+      "Our Java developer's domain-specific experience help us to provide optimum programming solutions. Hire Java developers from us who are committed to the client's business goals and act as an extended development team that saves cost and time.",
+      "Full-stack Java developers from Soft Suave offer advanced Java solutions that allow clients to expand their business swiftly. When you hire Java developer from us, you get developers that can deal with any complex requirement. Moreover, they do not shy away from challenges but go the extra mile to deliver quality-focused Java solutions. The expertise and experience in various industry verticals is an added advantage when you hire the best Java experts in India from us.",
+    ],
+  },
+
+  services: {
+    eyebrow: "Services",
+    title: "Soft Suave's Java Development Services",
+    body: "Our highly skilled Java developers have a separate client base all around the world for their revolutionary solutions.",
+    items: [
+      {
+        name: "Java Web Development",
+        body: "Our dedicated Java experts are committed to offering secure and reliable Java web development with the latest tools and cutting-edge technologies. Our expert Java engineers are prompt in delivering innovative web solutions at an affordable cost.",
+      },
+      {
+        name: "API & Web Service Integration",
+        body: "Java experts at Soft Suave are capable of developing astounding APIs and integrating them into different software applications. They also build successful custom API for clients based on their business requirement.",
+      },
+      {
+        name: "Java-based eCommerce Development",
+        body: "Hire our Java developers to develop innovative Java-based eCommerce applications that steer your business towards success and growth. Moreover, our developers hold excellent domain expertise in developing eCommerce apps that are secure and user-friendly.",
+      },
+      {
+        name: "Java-based CMS Development",
+        body: "Our team of skilled Java developers build Java-based CMS swiftly without any data leaks. They elevate the development by making sure CMS is feature-packed with innovative and secure features.",
+      },
+      {
+        name: "Java Module Development",
+        body: "Hire dedicated Java developers for developing user-friendly modules that facilitate the quick development of enterprise-level applications. The developers have 10+ years on average of hands-on experience in Java that allows them to offer hassle-free module development.",
+      },
+      {
+        name: "Support & Maintenance",
+        body: "When you hire expert Java developers from Soft Suave, you get high-quality support services that enable app stability and assures bug-free application. Moreover, our developers are well-versed to offer full-maintenance service and optimize your business simultaneously at a competitive cost.",
+      },
+    ],
+  },
+
+  midCta: {
+    title: "Hire Java Developers Starting from $14/hour",
+    body: "We will provide you with remote Java developers that work from India. Contact us to take a look at CVs.",
+    cta: { label: "Request Rate Card", href: "#enquiry" },
+  },
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Hire Java Developers in 4 easy steps",
+    body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
+    steps: MERN_STEPS,
+  },
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "Why Are Our Java Developers Considered the Best?",
+    body: "We have dedicated Java developers with exceptional technical knowledge to deliver secure Java solutions.",
+    items: MERN_WHY,
+  },
+
+  exploreMore: webExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "Frequently Asked Questions",
+    body: "Know more about our processes and how we work, with the help of the following FAQs.",
+    items: [
+      {
+        q: "How to select an offshore development team for Java projects in India?",
+        a: "It is advisable to select a Java developer or a dedicated team from mid-scale app development companies that have 5-10 years of experience in app development and have an excellent client base worldwide. It is also necessary to check testimonials and portfolios to decide on the best offshore Java development team. Soft Suave is a mid-scale Java development company that assures quality Java development under your budget.",
+      },
+      {
+        q: "Why shall I hire Java Developers from Soft Suave?",
+        a: "When you hire Java app developers from us, you are assured of getting premium Java development services at your budget. Moreover, our developers have 5+ years on average experience to give you a competitive edge in the app development market.",
+      },
+      {
+        q: "How do I test your Java developer's expertise?",
+        a: "Hire on-demand Java developers from Soft Suave by testing their technology expertise and hands-on industry experience. Moreover, to understand the expertise of our team, our developers are open for one-to-one interviews and a week's man-hour of test project.",
+      },
+      {
+        q: "Can I hire a Java developer for an hourly or project-based task?",
+        a: "Our dedicated developers are committed to your business goals and stay proactive in offering successful Java app development solutions. Moreover, they are flexible to overlap time zones to receive tasks and feedback from you directly.",
+      },
+      {
+        q: "What are the various hiring models offered by you to hire Java developers?",
+        a: [
+          "Soft Suave has curated three client-friendly hiring models to help you hire dedicated Java developers from us. We also prefer customizing plans according to your budget",
+          "Full-time basis",
+          "Part-time basis",
+          "Milestone basis",
+        ],
+      },
+    ],
+  },
 };
 
 const python: HireSkill = {
@@ -344,109 +601,150 @@ const python: HireSkill = {
   key: "python",
   name: "Python",
   role: "Python Developers",
-  metaTitle: "Hire Python Developers",
+  metaTitle: "Hire Offshore Python Developers from India",
   metaDescription:
-    "Hire Python developers from Soft Suave for APIs, data pipelines, automation, and ML systems. FastAPI, Django, and pandas expertise. You interview, two-week trial.",
+    "Hire skilled Python developers from India, ready to join quickly. Experts in Django, Flask, FastAPI, AI/ML, automation and data engineering.",
   serviceType: "Python development staffing",
-  eyebrow: "Hire Python Developers",
   ctaLabel: "Hire Python developers",
-  titleLines: ["Hire Python Developers", "For Back Ends, Data and Everything Between"],
-  heroBody: [
-    "Python is the only mainstream language that is simultaneously a strong choice for web APIs, data engineering, automation, and machine learning. For teams whose work spans those, that breadth removes an entire category of integration problem.",
-    "It also means \"Python developer\" describes several different jobs. We match on the one you actually need — API engineering, data pipelines, or ML systems — rather than on the language alone.",
-  ],
-  heroPoints: [
-    "FastAPI and Django REST services with typed models",
-    "Data pipelines with pandas, Polars, Airflow and dbt",
-    "ML systems from training through to serving",
-    "Automation, integrations and scheduled processing",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/work-9.png",
-    width: 1536,
-    height: 1024,
-    alt: "A Python system spanning API services, data pipelines, and model serving",
+
+  order: [...CLASSIC_ORDER],
+
+  hero: {
+    titleLines: ["Hire Python Developers", "in India On Contract"],
+    body: [
+      "Soft Suave offers skilled Python developers from India ready to join quickly. Hire experts in Django, Flask, FastAPI, AI/ML, automation, data engineering, and backend development – pre-vetted and deployment-ready.",
+      "See why businesses choose Soft Suave for Python hiring.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top Python Developers in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your Python requirement.",
+      subject: "Python Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/work-9.png",
+      width: 1200,
+      height: 860,
+      alt: "A Python system spanning API services, data pipelines, and model serving",
+    },
   },
-  requirementLabel: "What do you need Python developers for?",
-  requirementPlaceholder:
-    "Whether the work is API development, data engineering, or ML — plus the frameworks in play and the seniority you need.",
-  overviewTitle: "What Python Developers Actually Do for You",
-  overviewParagraphs: [
-    "Python trades raw execution speed for readability and an enormous ecosystem, which is the right trade for most work that is not CPU-bound in its inner loop. Its position in data and machine learning is effectively unchallenged, and modern typed frameworks such as FastAPI have made it a serious choice for web APIs rather than merely a convenient one.",
-    "The breadth is real but it fragments the skill set. Someone excellent at building high-throughput FastAPI services may have never written an Airflow DAG; someone who has spent three years on ML pipelines may not have designed an authentication system. Hiring well means being specific about which of these you need.",
-    "A Python engagement therefore starts with that question. From there it covers the usual ground for its type — API design and async correctness, or pipeline orchestration and data quality, or model training, evaluation, and serving — plus the packaging and dependency discipline that Python projects need more than most.",
-  ],
-  pullQuote:
-    "\"Python developer\" covers at least three different jobs. Hiring for the language rather than the job is why the match so often fails.",
-  capabilities: [
-    {
-      name: "FastAPI Services",
-      tag: "API",
-      body: "Async APIs with Pydantic models providing validation and generated OpenAPI documentation, plus the async discipline that keeps a blocking call from stalling the entire event loop.",
-    },
-    {
-      name: "Django Applications",
-      tag: "Web",
-      body: "Full applications on Django and Django REST Framework where the admin, ORM, auth, and migrations remove months of work that would otherwise be rebuilt by hand.",
-    },
-    {
-      name: "Data Pipelines",
-      tag: "Data",
-      body: "Batch and streaming pipelines orchestrated with Airflow, Dagster, or Prefect, with transformations in pandas, Polars, or dbt and data-quality checks that fail loudly rather than silently.",
-    },
-    {
-      name: "Machine Learning Systems",
-      tag: "ML",
-      body: "Training pipelines, feature engineering, experiment tracking, model registries, and serving — the engineering around a model, which is where most ML projects stall short of production.",
-    },
-    {
-      name: "Automation and Integration",
-      tag: "Automation",
-      body: "Scheduled jobs, third-party API integrations, document and file processing, and the internal tooling that replaces recurring manual work — often the fastest measurable return in a Python engagement.",
-    },
-    {
-      name: "Performance and Packaging",
-      tag: "Engineering",
-      body: "Profiling hot paths, moving CPU-bound work into NumPy or a compiled extension, and dependency management with Poetry or uv so environments are reproducible across machines and CI.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Core",
-      items: ["Python 3.12", "FastAPI", "Django", "Flask", "Pydantic", "SQLAlchemy"],
-    },
-    {
-      name: "Data & ML",
-      items: ["pandas", "Polars", "Apache Airflow", "dbt", "PyTorch", "scikit-learn"],
-    },
-    {
-      name: "Infrastructure",
-      items: ["PostgreSQL", "Redis", "Celery", "Kafka", "Snowflake", "DuckDB"],
-    },
-    {
-      name: "Delivery",
-      items: ["pytest", "Docker", "uv / Poetry", "Ruff", "mypy", "GitHub Actions"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Django or FastAPI for our project?",
-      a: "Django when you need a full web application with an admin interface, user management, sessions, and server-rendered pages — it supplies all of that and the productivity gain is large. FastAPI when you are building an API consumed by a separate front end or other services, particularly one that is I/O-bound and benefits from async. A common and sensible arrangement is Django for the internal admin and FastAPI for the public API, sharing a database.",
-    },
-    {
-      q: "Is Python fast enough for production workloads?",
-      a: "For I/O-bound services — waiting on databases and other APIs, which is most web work — yes, and async frameworks handle high concurrency well. For CPU-bound work, pure Python is genuinely slow, but that is rarely the real constraint because the heavy numerical libraries are compiled C or Rust underneath. Where a hot path is genuinely Python-bound, the options are vectorising with NumPy, a native extension, or moving that component to another language, and we will recommend accordingly rather than defending the language.",
-    },
-    {
-      q: "Can your Python developers do machine learning work?",
-      a: "Some, and we match specifically rather than assuming the language implies the skill. ML engineering — training pipelines, feature stores, evaluation, serving, monitoring for drift — is a distinct discipline from API development, and conflating them is the most common reason a Python hire disappoints. Tell us which you need on the first call and the shortlist will reflect it.",
-    },
-    {
-      q: "How do you handle Python dependency management?",
-      a: "With a lockfile and a reproducible toolchain — uv or Poetry on new projects, pinned requirements with pip-tools on existing ones — so the environment in CI matches the environment on a developer's machine. Docker for anything with system-level dependencies. It is worth being deliberate about early: Python's packaging has improved considerably but it remains the most common source of works-on-my-machine failures.",
-    },
-  ],
+
+  overview: {
+    eyebrow: "Overview",
+    title: "Multiskilled Team of Dedicated Python Developers",
+    paragraphs: [
+      "Leverage the expertise of our experienced Python developers to build technology-rich Apps.",
+      "Do you need a skilled remote Python developer to develop a top-notch web application? or do you want to transform/improve your existing app effortlessly? Hire Python developers from us who have in-depth knowledge and expertise working with the programming language. Also, they have the capacity to work with any complex development projects and bring in desired results.",
+      "Our developers build intuitive applications as they are experts in development tools & frameworks including Django, Turbogears, Pylons, Web2py, Flask, and Pyramid. And, our Python web developer's unique specialty is building powerful apps with seamless & complex functionalities that improve client's business efficiency and offer engaging user experience.",
+      "Our developer's competency in working with Python language helps us to execute complicated tasks with a few lines of code. This will be greatly convenient to maintain the application effectively after successful deployment in the market. Develop feature-packed, scalable, customizable, and responsive web apps by partnering with our trusted Python app development team who has 13+ years of experience. Also, our simple yet efficient app constructing methods assist us to reduce up to 60% development cost which is loved by many start-ups and SMBs.",
+    ],
+  },
+
+  services: {
+    eyebrow: "Services",
+    title: "Our Top-grade Python Development Services",
+    body: "Soft Suave provides the most reliable Python app developers who can help businesses to accomplish 10X growth effortlessly.",
+    items: [
+      {
+        name: "Python Web Application",
+        body: "Our top dedicated python programmers have hands-on experience to build highly scalable, secure, and performing web apps. They analyze the client's business in and out to deliver custom apps that fit the business characteristics and increases brand reputation.",
+      },
+      {
+        name: "Dedicated Python Developers",
+        body: "Hiring offshore Python developers helps in building the best apps for global businesses. Also, our strong development process integrates the latest technology to deliver feature-rich and rewarding the solutions in the market.",
+      },
+      {
+        name: "Migration & Integration Services",
+        body: "Our offshore developers help you migrate your existing Apps to Python smoothly without losing any data. They also complete the integration process hassle-free in no time at an affordable cost. Also, you can expect a secure, smooth, and seamless integration and migration service.",
+      },
+      {
+        name: "API Development Services",
+        body: "When you hire dynamic Python programmers from us, you have the resource and skillset to build fully functional backend APIs seamlessly. We help you to access your app's platform data by our proficiency in using diverse APIs and internal packages to create more solid client solutions.",
+      },
+      {
+        name: "AI & Machine Learning Apps",
+        body: "Our skilled team of Python full-stack developers has expertise working with diverse Python libraries such as Caffe, DeepLearning4J, TensorFlow, Theano, Torch. This helps them to offer best-in-class Machine Learning and AI-based services.",
+      },
+      {
+        name: "Support & Maintenance",
+        body: "Highly-performing Apps need support and maintenance regularly. Our dedicated developers have extensive knowledge about Python's vast ecosystem which enables us to offer round-the-clock support and free maintenance for apps developed at Soft Suave.",
+      },
+    ],
+  },
+
+  midCta: {
+    title: "Hire Python Developers Starting from $14/hour",
+    body: "We will provide you with remote python developers that work from India. Contact us to take a look at CVs.",
+    cta: { label: "Request Rate Card", href: "#enquiry" },
+  },
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Hire Python Developers in 4 easy steps",
+    body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
+    steps: MERN_STEPS,
+  },
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "What Makes Our Python Developers Unique and Trustworthy?",
+    body: "Hire Python developers from us having 5+ years of average experience to build expressive, scalable, & visually appealing web applications.",
+    items: MERN_WHY,
+  },
+
+  exploreMore: webExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "Frequently Asked Questions",
+    body: "Know more about our processes and how we work, with the help of the following FAQs.",
+    items: [
+      {
+        q: "How can I hire Python developers in India who fit for my start-up?",
+        a: [
+          "To hire a Python developer who perfectly fits your start-up, you can get in touch with companies like us that offer proficient Python professionals at an affordable cost.",
+          "You should also check the below factors or parameters before you start the hiring process;",
+          "Level of experience",
+          "Expertise",
+          "Reviews from past clients & projects",
+          "Easy communication",
+          "Offering enterprise solutions for SMBs and Start-ups at affordable cost",
+          "Privacy and security measures",
+        ],
+      },
+      {
+        q: "How long does it take to build a web application with Python?",
+        a: "The duration of web app development with Python depends on the number and complexity of features. However, we follow the effective first-time-right coding methodology which allows us to complete projects before the agreed deadline.",
+      },
+      {
+        q: "Why should I work with Soft Suave for my Python project?",
+        a: "Our Python web developers leverage this high-level dynamic programming language to help clients get a competitive edge in the web app market. Moreover, we consistently developing multi-disciplinary, complex, and multi-technology projects with a convenient development process. You can communicate and assign tasks from your project directly to the team and conduct sprint meetings to understand the progress of your project.",
+      },
+      {
+        q: "How much does it cost to hire Python Developers?",
+        a: "Before quoting the price of your Python development, we carefully analyze every requirement of the project. Hence, our cost is competitive in the market that attracts many Startups and SMBs. Additionally, you can hire a developer from these cost-effective hiring models - part-time, full-time, or milestone.",
+      },
+      {
+        q: "How do I test your Python developer's expertise?",
+        a: "You can conduct a one-to-one interview via skype, slack, and Google Meet. Furthermore, you can also avail of their 1-week free trial to test the developer's expertise on your business.",
+      },
+      {
+        q: "What type of web applications can be developed using Python?",
+        a: "We build web applications in Blockchain, Audio & Video, System administration, Games, Machine learning, Data Science & Analytics, eCommerce, and Entertainment. However, when you hire Python developer from India, we help you to develop any type of app customized for your business goals and needs.",
+      },
+    ],
+  },
 };
 
 const django: HireSkill = {
@@ -454,109 +752,216 @@ const django: HireSkill = {
   key: "django",
   name: "Django",
   role: "Django Developers",
-  metaTitle: "Hire Django Developers",
+  metaTitle: "Hire Django Developers India | 40-Hour Trial",
   metaDescription:
-    "Hire Django developers from Soft Suave for secure, admin-driven web applications and REST APIs. Batteries-included delivery, you interview every candidate, two-week trial.",
+    "Hire pre-vetted Django developers from India for faster backend delivery and lower hiring costs. Experts in Django, DRF, Python, PostgreSQL, APIs and SaaS platforms.",
   serviceType: "Django development staffing",
-  eyebrow: "Hire Django Developers",
   ctaLabel: "Hire Django developers",
-  titleLines: ["Hire Django Developers", "Who Use What the Framework Gives You"],
-  heroBody: [
-    "Django's value is how much you do not have to build: authentication, permissions, an admin interface, an ORM with real migrations, and a security posture that defends against the common web vulnerabilities by default.",
-    "The waste we see most often is teams reimplementing those by hand. Our Django engineers know the framework deeply enough to use it as intended, which is usually the difference between a three-month build and a six-month one.",
-  ],
-  heroPoints: [
-    "Django 5 with Django REST Framework",
-    "The admin used properly as an internal tool",
-    "ORM query optimisation and safe migrations",
-    "Celery for background and scheduled work",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/work-6.webp",
-    width: 800,
-    height: 1000,
-    alt: "A Django application showing admin tooling, models, and API surface",
+
+  order: [...MODERN_ORDER],
+
+  hero: {
+    titleLines: ["Hire Django Developers", "On Contract"],
+    body: [
+      "Soft Suave helps businesses hire pre-vetted Django developers from India for faster backend delivery and lower hiring costs. Our developers specialize in Django, Django REST Framework, Python, PostgreSQL, APIs, SaaS platforms, and scalable web applications. Get contract-ready talent onboarded quickly with flexible engagement models.",
+      "See why businesses choose Soft Suave for their Django developer hiring.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top Django Developers in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your Django requirement.",
+      subject: "Django Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/work-6.webp",
+      width: 1200,
+      height: 860,
+      alt: "A Django application showing admin tooling, models, and API surface",
+    },
   },
-  requirementLabel: "What are you building in Django?",
-  requirementPlaceholder:
-    "The application, your Django version, whether there is a separate front end, and the seniority you need.",
-  overviewTitle: "What Django Developers Actually Do for You",
-  overviewParagraphs: [
-    "Django is a batteries-included web framework: an ORM with migrations, an authentication and permission system, an automatically-generated admin interface, form handling, and protection against CSRF, SQL injection, and XSS all ship with it. For applications with users, roles, and data to administer, that removes a very large amount of work that has no competitive value.",
-    "A Django engagement covers model design and migrations, views or DRF viewsets, the permission model, the admin configured as a genuine internal tool, background processing with Celery, caching, and deployment. Where a separate front end exists, Django serves as the API and the admin behind it.",
-    "The framework's characteristic performance problem is the ORM's convenience: an innocuous-looking template loop can issue a query per row. It is entirely avoidable with select_related, prefetch_related, and an eye on the query log, and it is the first thing our engineers check when a Django application is reported as slow.",
-  ],
-  pullQuote:
-    "The Django admin is the most under-used feature in web development. Configured properly it replaces months of internal tooling.",
-  capabilities: [
-    {
-      name: "Web Applications",
-      tag: "Product",
-      body: "Full applications with users, roles, and workflow built on Django's own auth and permission systems rather than a bespoke reimplementation that will need its own security review.",
-    },
-    {
-      name: "REST APIs",
-      tag: "API",
-      body: "Django REST Framework viewsets, serializers, and permission classes, with pagination, filtering, and throttling configured properly — plus generated schema documentation that stays current.",
-    },
-    {
-      name: "Admin as Internal Tooling",
-      tag: "Operations",
-      body: "The Django admin customised into a real operations interface — inline editing, bulk actions, filters, and scoped permissions — which usually removes an entire internal-tools project from the roadmap.",
-    },
-    {
-      name: "ORM Performance",
-      tag: "Performance",
-      body: "Finding and fixing N+1 queries with select_related and prefetch_related, adding the indexes the query plan actually wants, and using annotations to push aggregation into the database.",
-    },
-    {
-      name: "Background Processing",
-      tag: "Jobs",
-      body: "Celery workers for email, reporting, imports, and scheduled tasks, with retry policy, result handling, and monitoring so a silently failing nightly job is noticed the same day.",
-    },
-    {
-      name: "Upgrades and Security",
-      tag: "Maintenance",
-      body: "Moving applications forward across Django LTS releases, resolving the deprecations each one introduces, and keeping the dependency tree patched — routine work that becomes a project when deferred.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Core",
-      items: ["Django 5", "Django REST Framework", "Python 3.12", "Celery", "Channels", "django-allauth"],
-    },
-    {
-      name: "Data",
-      items: ["PostgreSQL", "Redis", "Elasticsearch", "django-filter", "pgBouncer", "S3 storage"],
-    },
-    {
-      name: "Front End",
-      items: ["HTMX", "Alpine.js", "React", "Tailwind CSS", "django-templates", "Vite"],
-    },
-    {
-      name: "Delivery",
-      items: ["pytest-django", "Docker", "Gunicorn", "Nginx", "AWS", "GitHub Actions"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Is Django a good fit if we already have a React front end?",
-      a: "Yes — Django REST Framework is a mature, well-understood way to serve an API, and you keep the admin, the auth system, and the migration tooling behind it. The main thing to decide early is where session versus token authentication sits and how CORS is handled, because retrofitting that later is more disruptive than it sounds. If the application is purely an API with no admin requirement and is heavily I/O-bound, FastAPI is worth considering instead.",
-    },
-    {
-      q: "Can Django handle high traffic?",
-      a: "Yes, with the usual caveats that apply to any framework: query optimisation, caching at the right layers, a properly sized connection pool, and horizontal scaling behind a load balancer. Instagram ran on Django at enormous scale, so the ceiling is not the framework. The practical limit is almost always the database and the ORM usage in front of it, which is where we look when a Django application is reported as slow.",
-    },
-    {
-      q: "Should we use the Django admin for our customers?",
-      a: "No. The admin is built for trusted internal staff, and its permission model, interface, and error handling all assume that. Exposing it to customers leads to both security and usability problems. Use it for your own operations team — where it is genuinely excellent — and build customer-facing interfaces as normal views or through the API.",
-    },
-    {
-      q: "How do you handle Django version upgrades?",
-      a: "LTS to LTS, one step at a time, with the deprecation warnings from the current version resolved before the jump rather than after. Django's release notes are unusually good about what breaks, so the work is predictable; the unpredictable part is third-party packages that have not kept pace, which we audit before committing to a date. Running the test suite with warnings turned into errors is what surfaces most of it early.",
-    },
-  ],
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "Why Hire Django Developers from Soft Suave",
+    body: "Hire expert Django developers from Soft Suave for superior expertise and cost-effective innovation. Our dedicated developers deliver high-quality, customized solutions rapidly, driving impactful results and guaranteed project success.",
+    items: [
+      {
+        name: "Pre-vetted Django Developers",
+        body: "Our developers are meticulously vetted to guarantee top-level skills, reliable performance, and total dedication to your project.",
+        icon: "users",
+      },
+      {
+        name: "Flexible hiring models",
+        body: "Hire dedicated Django developers on your terms and scale your team up or down as required with our adaptable hiring models that align perfectly with your project's demands.",
+        icon: "gauge",
+      },
+      {
+        name: "Global delivery standards",
+        body: "We implement agile techniques and global best practices to ensure quality that consistently meets or exceeds your expectations.",
+        icon: "globe",
+      },
+      {
+        name: "Strict NDA & IP protection",
+        body: "We keep your intellectual property safe. Our airtight NDA agreements and complete protection ensure confidentiality every step of the way.",
+        icon: "shield",
+      },
+      {
+        name: "Time Zone Flexibility",
+        body: "Our developers overlap 4-6 hours within your time zone, ensuring effortless real-time communication.",
+        icon: "book",
+      },
+      {
+        name: "World-Class Developers at Budget-Friendly Rates",
+        body: "Hire offshore Django developer talent from a leading offshore software development company at competitive rates with top-tier expertise.",
+        icon: "coins",
+      },
+    ],
+  },
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Steps to Hire a Django Developer",
+    body: "With our 4-step customized hiring process, you can hire expert Django developers swiftly and stress-free.",
+    steps: [
+      {
+        n: "01",
+        name: "Share the JD",
+        body: "Provide us with the details of your Django project and the skills you're looking for.",
+      },
+      {
+        n: "02",
+        name: "Shortlist The Right Developers",
+        body: "We handpick the top developers that perfectly match your project needs.",
+      },
+      {
+        n: "03",
+        name: "Free 40-hour Trial",
+        body: "Test our developers' capabilities for 40 hours with no commitment or cost.",
+      },
+      {
+        n: "04",
+        name: "Onboard & Manage",
+        body: "Complete the legal agreements and smoothly integrate the developer into your workflow.",
+      },
+    ],
+  },
+
+  techStack: {
+    eyebrow: "Technology",
+    title: "Technical Expertise of Our Django Developers",
+    body: "Our Django developers excel in Python, REST APIs, PostgreSQL, and scalable architecture. Hire remote Django developers and gain powerful solutions backed by robust technical expertise to enhance your digital capabilities.",
+    groups: [
+      { name: "Frameworks", items: ["Django", "Flask", "Pyramid"] },
+      { name: "Platforms", items: ["AWS", "Azure", "GoogleCloud"] },
+      {
+        name: "Database",
+        items: [
+          "Mysql",
+          "MongoDB",
+          "Postgresql",
+          "AWS dynomoDB",
+          "SQLite",
+          "Cloud Firestore",
+          "Oracle",
+          "MS SQL Server",
+        ],
+      },
+    ],
+  },
+
+  services: {
+    eyebrow: "Services",
+    title: "Django Development Services We Offer",
+    body: "Unlock your project's full potential - our tailored Django solutions empower your ideas with innovation and precision. Accelerate digital growth by partnering with Soft Suave's highly skilled Django development experts today!",
+    items: [
+      {
+        name: "Django API development",
+        body: "Power your apps with secure, scalable Django APIs. Hire dedicated Django developer to craft seamless integrations, enhance performance, and transform user experience - your data, delivered flawlessly across any platform.",
+      },
+      {
+        name: "Django e-commerce development",
+        body: "Accelerate online sales with dynamic Django-powered e-commerce solutions. Hire expert Django developer from Soft Suave for secure shopping experiences, smooth payments, and optimized user journeys driving profitable growth effortlessly.",
+      },
+      {
+        name: "Django migration and upgrades",
+        body: "Future-proof your legacy apps with seamless Django migration. Our developers ensure zero downtime, enhanced security, and improved functionality, transforming outdated systems into robust, modern digital experiences quickly.",
+      },
+      {
+        name: "Django web application development",
+        body: "Create dynamic, effective Django web applications that are suited to your company's objectives. Hire remote Django developers from Soft Suave, delivering customized, user-focused applications that boost your competitive advantage significantly.",
+      },
+      {
+        name: "Django maintenance and support",
+        body: "Keep your business thriving with comprehensive Django support and maintenance that never lets you down. Our dedicated Django experts proactively handle updates, security, and troubleshooting, maximizing app reliability while you focus on core growth.",
+      },
+      {
+        name: "Django dedicated teams",
+        body: "Hire dedicated Django developers who will only work on your project. Take advantage of immediate scalability, direct control, and individualized attention to effortlessly achieve superior project outcomes, greater quality, and faster delivery.",
+      },
+      {
+        name: "Django offshore teams",
+        body: "Extend your capabilities efficiently—hire offshore Django developer teams offering unmatched flexibility and cost advantages. Our offshore specialists deliver superior Django expertise, accelerating your project timelines without compromising quality standards.",
+      },
+    ],
+  },
+
+  vetting: {
+    eyebrow: "Vetting",
+    title: "How We Vet and Onboard Top Django Developers",
+    body: "We handpick top-tier Django talent with a rigorous selection process. Hire remote Django developers from Soft Suave, ensuring exceptional quality, reliability, and rapid onboarding for your projects every time.",
+    steps: vetting([
+      "We directly reach out to top Django developers to ensure we find the best talent.",
+      "Each developer undergoes a comprehensive assessment, including coding tests and live challenges.",
+      "We hire developers who thrive on collaboration and are adept at solving complex challenges.",
+      "We ensure our developers are a great fit for your team and can adapt to your work environment.",
+    ]),
+  },
+
+  comparison: partnerTable(
+    "Choosing the Right Django Partner for Your Specific Needs",
+    "Explore different hiring models like freelancers, in-house teams, or our expert Django developers. Our comparison chart helps you make an informed decision.",
+  ),
+
+  exploreMore: webExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "FAQs About Hiring Django Developers",
+    body: "Learn more about our procedures & methods with the help of these FAQs.",
+    items: [
+      {
+        q: "How much does it cost to hire Django developer?",
+        a: "Hire dedicated Django developer starting at just $14/hour. Pricing that is transparent and adaptable to your project's scope and budget.",
+      },
+      {
+        q: "Is there any free trial period available?",
+        a: "Yes, we provide a 40-hour trial to assess our developers' abilities before committing.",
+      },
+      {
+        q: "What are the hiring engagement options available at Soft Suave?",
+        a: "We offer flexible options: fixed price, time-based, and fully managed services.",
+      },
+      {
+        q: "Do you provide support and maintenance services after deployment?",
+        a: "Yes, we offer dedicated support and maintenance once the project goes live.",
+      },
+      {
+        q: "Where can you find a Django Engineer?",
+        a: "Hire Django developers effortlessly from Soft Suave. Our talent pool offers skilled, pre-vetted Django engineers, readily available for immediate onboarding, providing unmatched flexibility and expertise instantly.",
+      },
+    ],
+  },
 };
 
 const php: HireSkill = {
@@ -564,109 +969,142 @@ const php: HireSkill = {
   key: "php",
   name: "PHP",
   role: "PHP Developers",
-  metaTitle: "Hire PHP Developers",
+  metaTitle: "Hire PHP Developers in India from Soft Suave",
   metaDescription:
-    "Hire PHP developers from Soft Suave for modern PHP 8 applications, Laravel builds, and legacy modernization. You interview every candidate, two-week trial, full IP ownership.",
+    "Hire dedicated PHP developers from India who build secure, scalable web platforms. Pre-vetted experts in PHP, Laravel, CodeIgniter, MySQL, APIs and CMS.",
   serviceType: "PHP development staffing",
-  eyebrow: "Hire PHP Developers",
   ctaLabel: "Hire PHP developers",
-  titleLines: ["Hire PHP Developers", "Who Write Modern PHP, Not 2012 PHP"],
-  heroBody: [
-    "PHP 8 is a typed, fast, genuinely pleasant language, and it still runs a large share of the web. The problem is that a great deal of PHP in production was written before any of that was true, by people following advice that was already outdated.",
-    "Our PHP engineers work in the modern idiom — typed properties, Composer, PSR standards, real test suites — and are equally comfortable carrying an older codebase forward without stopping the business to do it.",
-  ],
-  heroPoints: [
-    "PHP 8.3 with strict types and modern tooling",
-    "Laravel and Symfony application development",
-    "Legacy PHP modernization, done incrementally",
-    "MySQL and PostgreSQL query performance work",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/story.webp",
-    width: 1400,
-    height: 900,
-    alt: "A PHP application being modernized, showing legacy and current code paths side by side",
+
+  order: [...CLASSIC_ORDER],
+
+  hero: {
+    titleLines: ["Hire PHP Developers", "in India on Contract"],
+    body: [
+      "Soft Suave helps businesses hire dedicated PHP developers from India who build secure and scalable web platforms. Access pre-vetted experts in PHP, Laravel, CodeIgniter, MySQL, APIs, CMS development, and custom web solutions with fast onboarding.",
+      "See why businesses choose Soft Suave for their PHP developer hiring.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top PHP Developers in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your PHP requirement.",
+      subject: "PHP Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/story.webp",
+      width: 1200,
+      height: 860,
+      alt: "A PHP application being modernized, showing legacy and current code paths side by side",
+    },
   },
-  requirementLabel: "What do you need PHP developers for?",
-  requirementPlaceholder:
-    "The application, your PHP version and framework, whether modernization is involved, and the seniority you need.",
-  overviewTitle: "What PHP Developers Actually Do for You",
-  overviewParagraphs: [
-    "PHP's reputation was earned by a version of the language that no longer exists. PHP 8 has union types, enums, readonly properties, attributes, and a JIT compiler, and performance improved several-fold from PHP 5 to PHP 8. The ecosystem standardised around Composer and the PSR specifications years ago, so modern PHP code looks much like modern code anywhere.",
-    "A PHP engagement is usually one of two things. Either new application work — typically Laravel or Symfony, where the framework supplies routing, ORM, queues, and testing — or modernization of an existing codebase that has been running the business for a decade and is now hard to change and harder to secure.",
-    "The modernization case is the more common of the two, and it is rarely a rewrite. It is version upgrades, introducing Composer and autoloading where includes were used, adding a test suite around the parts that must not break, and extracting logic into testable services one area at a time while the application keeps serving traffic.",
-  ],
-  pullQuote:
-    "Most legacy PHP does not need a rewrite. It needs a test suite, an upgrade path, and someone willing to do it incrementally.",
-  capabilities: [
-    {
-      name: "Laravel Applications",
-      tag: "Framework",
-      body: "Full applications on Laravel with Eloquent, queues, events, and the testing tools the framework provides — the fastest route to a maintainable PHP product for most teams.",
-    },
-    {
-      name: "Symfony Applications",
-      tag: "Framework",
-      body: "Symfony builds where explicit configuration and component-level control matter more than convention — common in larger enterprises and in applications with unusual architectural constraints.",
-    },
-    {
-      name: "Legacy Modernization",
-      tag: "Migration",
-      body: "PHP 5 and 7 codebases brought to PHP 8, procedural code refactored into testable services, Composer and autoloading introduced — delivered incrementally, never as a freeze for a rewrite.",
-    },
-    {
-      name: "API Development",
-      tag: "API",
-      body: "REST and GraphQL services with token authentication, rate limiting, versioning, and generated documentation, whether standalone or layered onto an existing monolithic application.",
-    },
-    {
-      name: "Database Performance",
-      tag: "Data",
-      body: "Query and index tuning on MySQL and PostgreSQL, fixing the N+1 patterns ORMs encourage, adding caching where it genuinely helps, and reviewing the schema behind a slow application.",
-    },
-    {
-      name: "Security Hardening",
-      tag: "Security",
-      body: "Closing SQL injection and XSS holes in older code, replacing hand-rolled authentication with maintained libraries, moving secrets out of the repository, and getting the dependency tree patched.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Core",
-      items: ["PHP 8.3", "Laravel", "Symfony", "Composer", "PSR standards", "CodeIgniter"],
-    },
-    {
-      name: "Data",
-      items: ["MySQL", "PostgreSQL", "Redis", "Eloquent", "Doctrine", "Elasticsearch"],
-    },
-    {
-      name: "Front End & API",
-      items: ["Livewire", "Inertia.js", "Blade", "Twig", "REST", "GraphQL"],
-    },
-    {
-      name: "Delivery",
-      items: ["PHPUnit", "Pest", "PHPStan", "Docker", "GitHub Actions", "Nginx / FPM"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Our PHP application is old. Do we need to rewrite it?",
-      a: "Usually not, and rewrites of working business systems fail far more often than they succeed — you spend a year rebuilding behaviour nobody documented, while the original keeps changing. The path we recommend is incremental: get onto a supported PHP version, add characterisation tests around the parts that must not break, introduce Composer and autoloading, and extract areas into testable services as you touch them for feature work. A rewrite is the right answer when the domain itself has fundamentally changed, and we will say so if that is what we find.",
-    },
-    {
-      q: "Which PHP versions do you work with?",
-      a: "PHP 8.1 through 8.3 for anything new. We work with 7.x codebases routinely because that is what a lot of production PHP still runs, and with 5.x where a migration is the point of the engagement. If you are on anything below 8.1 you are past end of security support, which is normally the argument that gets the upgrade funded — and the 7.4 to 8.x step is considerably smaller than most teams expect.",
-    },
-    {
-      q: "Laravel or Symfony?",
-      a: "Laravel for most product work: it is more productive, the ecosystem is larger, the documentation is better, and the hiring pool is deeper. Symfony when you need explicit control over configuration and component wiring, when you are in an enterprise with existing Symfony investment, or when the application's structure does not fit Laravel's conventions. Both are mature and well-maintained — this is a genuine choice rather than one being the correct answer.",
-    },
-    {
-      q: "Is PHP still a reasonable choice for a new project?",
-      a: "For content-driven sites, e-commerce, and conventional business applications, yes — PHP 8 with Laravel is fast to build in, cheap to host, and easy to hire for. Where we would point you elsewhere is real-time systems at high concurrency, heavy data or ML work, or anything needing long-lived in-process state, since PHP's request lifecycle is a poor fit for all three. The language is no longer a reason to rule it out; the workload might be.",
-    },
-  ],
+
+  overview: {
+    eyebrow: "Overview",
+    title: "Hire Remote PHP Developers 2X Faster",
+    paragraphs: [
+      "Join hands with our dedicated PHP developers who are flexible with modern development methodologies.",
+      "Soft Suave offers the dedicated PHP developers in India that support start-ups and SMBs to develop quality PHP programming solutions. Our PHP coders are expert in all PHP frameworks like Laravel, CodeIgniter, and CakePHP. When you hire PHP developers from Soft Suave, you get the roadmap to deliver PHP development projects 2X faster and 50% cheaper than your competitors do.",
+      "Our team of dedicated PHP developers work together to seamlessly transform your business requirements into thriving reality at your affordable cost. Our full-time PHP web developers are well-versed in handling enterprise-grade websites, eCommerce solutions, web applications, and content management sites.",
+      "Soft Suave handles simple and complex requirements of your business with the help of all the latest technologies and trends. Our expert PHP app programmers have an average of 5+ years of experience to handle high-quality development and save operational costs simultaneously. Moreover, you get a competitive edge in the market when you hire PHP developers from Soft Suave and even get the privilege to work with the top 2% of India's PHP developers.",
+    ],
+  },
+
+  services: {
+    eyebrow: "Tech Stack",
+    title: "Our Top-grade PHP Developers Tech Stack",
+    body: "Hire PHP developers from us who are technically sound and equipped to handle any complex project.",
+    items: [
+      {
+        name: "PHP Web Development",
+        body: "Our first-class PHP developers are sharp to transform your custom requirements into secure and engaging web solutions. Leveraging the fastest and most effective frameworks, our PHP web app developers bring dynamism and agility to web applications.",
+      },
+      {
+        name: "PHP-based CMS Development",
+        body: "We have a team of elite PHP developers that have hands-on experience in developing CMS for several tech giants across the globe. We leverage PHP to develop advanced CMS features that add value to your CMS system and make it user-friendly.",
+      },
+      {
+        name: "PHP eCommerce Application",
+        body: "Hire PHP developers from Soft Suave to have a competitive edge in the current eCommerce market. They build eCommerce applications with high-standard and make them versatile, user-friendly, and compatible with all devices.",
+      },
+      {
+        name: "PHP Integration & Upgradation",
+        body: "When you hire PHP developers in India from Soft Suave, you get seamless PHP integration at a less time compared to other app development companies. Our integration is smooth, and we guarantee smooth upgradation without any data leaks.",
+      },
+      {
+        name: "PHP Maintenance & Support",
+        body: "Maintenance of the application is not a challenge when you hire PHP programmers from Soft Suave. Our developers are well versed to handle any complicated bug fixes and offer 24/7 support to our clients for any PHP development services.",
+      },
+      {
+        name: "PHP Consulting Service",
+        body: "Soft Suave houses extraordinary PHP experts who are capable of infusing years of experience and expertise in PHP development to deliver customized and profitable consulting solutions to our clients.",
+      },
+    ],
+  },
+
+  /** The PHP page's mid band offers a profile download rather than a rate card. */
+  midCta: {
+    title: "Download PHP Developers Profile!",
+    body: "Download our PHP engineer's profile within a few seconds and try risk free 1-week trial to test their skills.",
+    cta: { label: "Download Now", href: "#enquiry" },
+  },
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Hire PHP Developers in 4 easy steps",
+    body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
+    steps: MERN_STEPS,
+  },
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "Why Are Our PHP Developers Considered the Best?",
+    body: "When you hire PHP developers, you can fulfill all your requirements effectively, be it e-commerce solutions or web Apps.",
+    items: MERN_WHY,
+  },
+
+  exploreMore: webExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "Frequently Asked Questions",
+    body: "Know more about our processes and how we work, with the help of the following FAQs.",
+    items: [
+      {
+        q: "What are the benefits if I hire PHP developers from Soft Suave?",
+        a: "Developing high-quality and feature-rich applications at a pocket-friendly cost is possible if you hire PHP developer from us. You will also get the opportunity to share your business goals with the top 2% of PHP developers in India.",
+      },
+      {
+        q: "How to select the best company in India to hire PHP programmers?",
+        a: "Suppose you are looking out to hire PHP programmer from the best PHP development company in India. In that case, you must check their app developing process and their experience in PHP app development. At Soft Suave, you will get 7 days of free trial to check the ability and expertise of our PHP programmers.",
+      },
+      {
+        q: "What type of software applications can be created with PHP?",
+        a: "PHP is a programming language that is versatile and robust. You can develop feature-rich and dynamic Content Management System, eCommerce apps, Web page applications, Graphical User Interface applications (GUI) and many more.",
+      },
+      {
+        q: "Will the hired remote PHP developer work dedicated only for me?",
+        a: "Absolutely! The dedicated PHP developers you hire will be committed to your business goals and work fulltime only for your projects.",
+      },
+      {
+        q: "Can I hire PHP developer for the hourly or project-based task?",
+        a: "There are three flexible models to hire PHP developer from us who would be the perfect fit for your project. Those models include Full time, Part-time and Milestone hiring. We even go the extra mile to personalize hiring models based on your requirement and budget.",
+      },
+      {
+        q: "Can I hire PHP developer as per my specific industry?",
+        a: "Yes, you can hire PHP developers as per your industry. Additionally, the developer you hire from us will have experience in working for many industries and hence you are rest assured to receive many innovative industry-specific solutions.",
+      },
+    ],
+  },
 };
 
 const laravel: HireSkill = {
@@ -674,109 +1112,270 @@ const laravel: HireSkill = {
   key: "laravel",
   name: "Laravel",
   role: "Laravel Developers",
-  metaTitle: "Hire Laravel Developers",
+  metaTitle: "Hire Laravel Developer India - Top 1% Programmers",
   metaDescription:
-    "Hire Laravel developers from Soft Suave for SaaS platforms, APIs, and e-commerce backends. Eloquent, queues, and Livewire expertise. You interview, two-week trial.",
+    "Hire experienced Laravel developers from India. Experts in Laravel, PHP, MySQL, REST APIs, SaaS platforms, eCommerce systems and custom web applications.",
   serviceType: "Laravel development staffing",
-  eyebrow: "Hire Laravel Developers",
   ctaLabel: "Hire Laravel developers",
-  titleLines: ["Hire Laravel Developers", "Who Know the Framework Past the Surface"],
-  heroBody: [
-    "Laravel is the most productive way to build a conventional web application in PHP, and the gap between someone who has read the documentation and someone who has run a Laravel application in production is wide.",
-    "It shows in the things that are not in a tutorial: queue reliability, Eloquent query behaviour under real data volumes, and the difference between a service container used properly and one used as a global registry.",
-  ],
-  heroPoints: [
-    "Laravel 11 with queues, events and broadcasting",
-    "Eloquent at volume, including the N+1 traps",
-    "Livewire, Inertia and API-first architectures",
-    "Multi-tenant SaaS and subscription billing",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/work-10.png",
-    width: 1536,
-    height: 1024,
-    alt: "A Laravel SaaS application showing queued jobs, billing, and tenant separation",
+
+  order: [...MODERN_ORDER],
+
+  hero: {
+    titleLines: ["Hire Laravel Developers", "in India within 48 hours"],
+    body: [
+      "Soft Suave provides experienced Laravel developers from India for rapid hiring needs. Hire experts in Laravel, PHP, MySQL, REST APIs, SaaS platforms, eCommerce systems, and custom web applications – contract-ready and onboarded fast.",
+      "See why businesses choose Soft Suave for Laravel hiring.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top Laravel Developers in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your Laravel requirement.",
+      subject: "Laravel Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/work-10.png",
+      width: 1200,
+      height: 860,
+      alt: "A Laravel SaaS application showing queued jobs, billing, and tenant separation",
+    },
   },
-  requirementLabel: "What are you building in Laravel?",
-  requirementPlaceholder:
-    "The application, your Laravel version, whether it is multi-tenant, the front-end approach, and the seniority you need.",
-  overviewTitle: "What Laravel Developers Actually Do for You",
-  overviewParagraphs: [
-    "Laravel supplies routing, an expressive ORM, queues, scheduling, events, broadcasting, authentication scaffolding, and a first-class testing layer, all with conventions that mean two Laravel codebases tend to look alike. For conventional web applications — SaaS products, marketplaces, internal platforms, e-commerce back ends — that is a very large productivity advantage.",
-    "A Laravel engagement covers model and migration design, request validation and authorisation policies, queued jobs for anything slow, the front-end approach (Blade, Livewire, Inertia, or a separate SPA), and deployment with queue workers and the scheduler running reliably.",
-    "The two things that separate experienced Laravel engineers are Eloquent behaviour at volume and queue reliability. Eloquent makes N+1 queries almost invisible until the data grows; queues look simple until a job fails halfway through and nothing is idempotent. Both are routine to get right and expensive to retrofit.",
-  ],
-  pullQuote:
-    "Eloquent is a pleasure to write and entirely willing to issue four hundred queries for one page. Someone has to be watching.",
-  capabilities: [
-    {
-      name: "SaaS Platforms",
-      tag: "Product",
-      body: "Multi-tenant applications with tenant isolation, subscription billing through Cashier and Stripe, usage metering, and the role and permission model these products need from the first release.",
-    },
-    {
-      name: "API Development",
-      tag: "API",
-      body: "API-first applications with Sanctum or Passport authentication, resource transformers, rate limiting, versioning, and generated documentation — whether serving a SPA, a mobile app, or partners.",
-    },
-    {
-      name: "Queues and Scheduling",
-      tag: "Jobs",
-      body: "Redis or SQS-backed queues with retry policy, idempotent handlers, dead-letter handling, and Horizon for visibility, so slow work leaves the request path without becoming invisible.",
-    },
-    {
-      name: "Livewire and Inertia",
-      tag: "Front end",
-      body: "Interactive interfaces without a separate front-end application and build pipeline, where that trade is right — plus honest advice about when the product has outgrown it and needs a real SPA.",
-    },
-    {
-      name: "Eloquent at Volume",
-      tag: "Performance",
-      body: "Eager loading, chunked processing, database-level aggregation, and indexing — the work that keeps a Laravel application responsive once the tables are measured in millions of rows.",
-    },
-    {
-      name: "Upgrades and Maintenance",
-      tag: "Maintenance",
-      body: "Carrying applications forward across Laravel major versions, keeping first-party packages in step, and resolving the breaking changes each release introduces before they accumulate.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Core",
-      items: ["Laravel 11", "PHP 8.3", "Eloquent", "Livewire", "Inertia.js", "Blade"],
-    },
-    {
-      name: "Data & Queues",
-      items: ["MySQL", "PostgreSQL", "Redis", "Horizon", "AWS SQS", "Meilisearch"],
-    },
-    {
-      name: "Ecosystem",
-      items: ["Sanctum", "Cashier / Stripe", "Nova", "Filament", "Scout", "Telescope"],
-    },
-    {
-      name: "Delivery",
-      items: ["Pest", "PHPUnit", "Laravel Forge", "Docker", "GitHub Actions", "Vite"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Can you build a multi-tenant SaaS on Laravel?",
-      a: "Yes, and it is one of the things Laravel is best suited to. The key decision is the isolation model — a shared database with a tenant column, a schema per tenant, or a database per tenant — and it should be made before the first migration, because changing it later is genuinely expensive. Shared-with-a-column is right for most products; database-per-tenant is for strict data-residency or enterprise-isolation requirements. Billing through Cashier and Stripe is straightforward once that is settled.",
-    },
-    {
-      q: "Livewire, Inertia, or a separate front end?",
-      a: "Livewire when the interactivity is moderate and you want to stay in PHP with no separate build and deployment — it is remarkably productive for admin panels and CRUD-heavy applications. Inertia when you want React or Vue components without building a separate API. A fully separate SPA when the front end is complex enough to warrant its own team, or when a mobile app needs the same API. Products do outgrow Livewire, and we will tell you when yours has.",
-    },
-    {
-      q: "How do you keep Laravel applications fast?",
-      a: "Mostly by watching Eloquent. Eager loading to eliminate N+1 queries, chunking on large result sets rather than loading everything into memory, pushing aggregation into the database instead of collections, and adding indexes the query plan actually wants. After that: caching at the query and response layers, moving slow work to queues, and config and route caching in production. Telescope locally and a query log in staging surface almost all of it before users do.",
-    },
-    {
-      q: "We are several Laravel versions behind. Is upgrading hard?",
-      a: "Less than you would expect, because Laravel's upgrade guides are precise and most breaking changes are mechanical. The work is one major version at a time, with the test suite run at each step — which is also why an application with no tests is the harder case, and why we usually add characterisation tests around the critical paths first. Third-party packages that have stopped being maintained are the usual real obstacle, and we audit those before agreeing a date.",
-    },
-  ],
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "Why Hire Laravel Developers from Soft Suave",
+    body: "At Soft Suave, we don't just provide developers - we deliver Laravel experts who think like partners, not just coders. Here's why businesses worldwide hire remote Laravel developers from us.",
+    items: [
+      {
+        name: "Pre-vetted Laravel developers",
+        body: "Every developer is rigorously screened to ensure top-tier skills, reliable performance, and a strong commitment to your project.",
+        icon: "users",
+      },
+      {
+        name: "Flexible hiring models",
+        body: "Scale up or down easily — hire dedicated Laravel developers on your terms with flexible models that adapt to your project's pace.",
+        icon: "gauge",
+      },
+      {
+        name: "Global delivery standards",
+        body: "Our teams work with agile precision and global best practices to deliver quality that speaks for itself.",
+        icon: "globe",
+      },
+      {
+        name: "Strict NDA & IP protection",
+        body: "Your ideas stay yours. We ensure confidentiality with airtight NDAs and complete intellectual property protection.",
+        icon: "shield",
+      },
+      {
+        name: "Time Zone Flexibility",
+        body: "We overlap with your time zone for 4 - 6 hours, ensuring seamless collaboration and real-time communication no matter where you are.",
+        icon: "book",
+      },
+      {
+        name: "World-Class Developers at Budget-Friendly Rates",
+        body: "As a leading offshore software development company, Soft Suave lets you hire offshore Laravel developer talent at budget-friendly rates without compromising on quality.",
+        icon: "coins",
+      },
+    ],
+  },
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Steps to Hire a Laravel Developer",
+    body: "Fast, easy, and tailored: Our 4-step hiring process lets you hire expert Laravel developers & onboard them in no time",
+    steps: [
+      {
+        n: "01",
+        name: "Share the JD",
+        body: "Tell us about your project and the type of Laravel developers you are looking for.",
+      },
+      {
+        n: "02",
+        name: "Shortlist The Right Developers",
+        body: "Select leading developers from a carefully chosen list that matches your project needs.",
+      },
+      {
+        n: "03",
+        name: "Free 40-hour Trial",
+        body: "Evaluate our developers' skills at no cost by utilizing a 40-hour trial.",
+      },
+      {
+        n: "04",
+        name: "Onboard & Manage",
+        body: "Sign the SLA & NDA agreements and integrate the resource into your team.",
+      },
+    ],
+  },
+
+  /**
+   * Carried across exactly as the live page publishes it — including the first
+   * four groups, which list a mobile stack (Flutter, Swift, Xcode, Swift Data)
+   * on a Laravel page. That is a content error on softsuave.com, not a porting
+   * one; correcting it is the site owners' call.
+   */
+  techStack: {
+    eyebrow: "Technology",
+    title: "Technical Expertise of Our Laravel Developers",
+    body: "Soft Suave makes it easy to hire Laravel developers with expertise in modern frameworks, API integrations, and building robust digital solutions.",
+    groups: [
+      { name: "Frameworks", items: ["Flutter", "Swift", "Ionic", "NativeScript", "jQuery Mobile"] },
+      { name: "Programming Languages", items: ["Java", "Kotlin", "JavaScript", "TypeScript"] },
+      { name: "Databases", items: ["SQLite", "Swift Data", "PostgreSQL"] },
+      { name: "IDE", items: ["Android Studio", "Eclipse, Xcode", "Visual Studio Code"] },
+      { name: "Technologies", items: ["PHP", "Javascript", "Typescript", "DBMS"] },
+      {
+        name: "Packages & Libraries",
+        items: ["Composer", "GuzzleHTTP", "PHP Mailer", "Tinker", "PHP Unit", "Swift Mailer", "Telescopet"],
+      },
+      { name: "Version Control", items: ["Git", "Github", "Gitlab", "Bitbucket", "AWS CodeCommit"] },
+      { name: "Testing Tools", items: ["PEST", "Selenium", "Cypress"] },
+      {
+        name: "Startup Kit/ CMS",
+        items: ["Filament", "Breez", "Nova", "Voyager", "Statamic", "October CMS", "Backpack"],
+      },
+      { name: "Cloud", items: ["AWS", "Azure", "GCP"] },
+      { name: "API", items: ["REST", "SOAP", "OpenAPI"] },
+      {
+        name: "Development Tools",
+        items: ["PHP Storm", "VS Code", "Sublime", "Postman", "Laragon", "Docker", "SQLyog", "Herd"],
+      },
+      {
+        name: "UI/UX Support",
+        items: ["Laravel Blade", "Twig", "Livewire", "Vue JS", "React JS", "Angular JS", "Tailwind CSS"],
+      },
+      { name: "Project Management Tools", items: ["Jira", "Asana", "Trello", "Basecamp"] },
+      {
+        name: "Deployment Tools",
+        items: ["Github Actions", "Jenkins", "Circle CI", "Laravel Forge", "Envoyer", "Vapor"],
+      },
+      { name: "Communication Tools", items: ["Slack", "MS Teams", "Zoom", "Google Meet and Chat"] },
+      { name: "AI Tools", items: ["Github CoPilot", "Tabnine", "Chat GPT"] },
+      {
+        name: "Authentication & Authorisations",
+        items: ["Laravel Passport", "Sanctum", "JWT", "Spatie Permissions", "Gates", "Policies"],
+      },
+      { name: "Real-time data communication", items: ["Pusher", "Socket.io"] },
+      {
+        name: "Design Patterns",
+        items: ["Simple MVC pattern", "Service pattern", "Repository pattern", "Factory pattern"],
+      },
+      {
+        name: "Other Services/Integrations",
+        items: ["Stripe", "Paypal", "Authorize.net", "Twilio", "Mailchimp", "Firebase", "GCP Services"],
+      },
+    ],
+  },
+
+  services: {
+    eyebrow: "Services",
+    title: "Laravel Development Services We Offer",
+    body: "From strategy to deployment, we deliver high-quality, tailored applications for diverse business needs. Our end-to-end Laravel development services empower businesses to build robust digital solutions",
+    items: [
+      {
+        name: "Custom Laravel Web Development",
+        body: "Bespoke Laravel websites tailored to your business goals — fast, scalable, secure, and ready to impress your users.",
+      },
+      {
+        name: "Laravel Application Development",
+        body: "We build robust Laravel applications that power digital transformation and deliver superior user experiences across platforms and industries.",
+      },
+      {
+        name: "Laravel Enterprise Application Development",
+        body: "Enterprise-grade Laravel apps built for performance, security, scalability, and seamless integration into your complex business ecosystems.",
+      },
+      {
+        name: "API & Module Development",
+        body: "Custom APIs and reusable Laravel modules that connect, extend, and supercharge your web or mobile application.",
+      },
+      {
+        name: "Support and Maintenance Services",
+        body: "We take care of your Laravel app with proactive updates and security patches, performance tuning, and 24/7 support.",
+      },
+      {
+        name: "Laravel Migration & Upgradation",
+        body: "Hire dedicated Laravel developers & future-proof your projects with smooth migrations & updates, ensuring peak performance and enhanced features.",
+      },
+      {
+        name: "Laravel Testing & QA",
+        body: "Hire expert Laravel developers and ensure flawless performance with thorough Laravel testing and QA to catch bugs before launch.",
+      },
+      {
+        name: "Laravel Cloud Deployment and Hosting",
+        body: "Launch seamlessly on the cloud with secure, scalable Laravel hosting. Hire dedicated Laravel developers for a smooth cloud setup!",
+      },
+      {
+        name: "Laravel Security Services",
+        body: "Fortify your app with top-tier Laravel security and protect your data, apps, and users. Hire expert Laravel developers for impenetrable security.",
+      },
+      {
+        name: "Laravel CMS Development",
+        body: "Create a CMS that adapts to your needs and scales with your business. Build something powerful, flexible, and effortless.",
+      },
+      {
+        name: "Laravel Consulting & Strategy",
+        body: "Unlock your business's potential with strategic Laravel consulting. We turn bold ideas into efficient, high-impact solutions that deliver results.",
+      },
+    ],
+  },
+
+  vetting: {
+    eyebrow: "Vetting",
+    title: "How We Vet and Onboard Top Laravel Developers",
+    body: "Our process ensures only the best Laravel developers join your project – skilled, adaptable, and reliable, with proven experience in delivering high-performance, maintainable code across complex, deadline-driven development environments.",
+    steps: vetting([
+      "We actively hunt for top-tier Laravel talent, not just post ads and wait.",
+      "Every developer proves their expertise through tough technical tests and live coding challenges.",
+      "We hire developers who think, collaborate, and innovate — perfect for complex, fast-moving projects.",
+      "We select Laravel experts who communicate well, adapt quickly, and thrive in your team culture.",
+    ]),
+  },
+
+  comparison: partnerTable("Choosing the Right Laravel Partner for Your Specific Needs"),
+
+  exploreMore: webExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "FAQs About Hiring Laravel Developers",
+    body: "Learn more about our procedures & methods with the help of these FAQs.",
+    items: [
+      {
+        q: "How much does it cost to hire a Laravel developer?",
+        a: "Our prices begin at $14/hour, and based on the level of experience of the developer, it may increase.",
+      },
+      {
+        q: "Is there any free trial period available?",
+        a: "Yes, we provide a risk-free 40-hour trial so you can assess our developers' abilities before committing.",
+      },
+      {
+        q: "What are the hiring engagement options available at Soft Suave?",
+        a: "We offer flexible hiring models: fixed price, time and material, or managed services model.",
+      },
+      {
+        q: "Do you provide support and maintenance services after deployment?",
+        a: [
+          "Yes, we offer dedicated support, maintenance, and performance enhancement services once the project goes live.",
+          "Full-time Basis",
+          "Part-time Basis",
+          "Milestone Basis",
+        ],
+      },
+      {
+        q: "Where can you find a Laravel Engineer?",
+        a: "At Soft Suave, you can hire expert Laravel developers quickly and easily.",
+      },
+    ],
+  },
 };
 
 const dotnet: HireSkill = {
@@ -784,109 +1383,141 @@ const dotnet: HireSkill = {
   key: "dotnet",
   name: ".NET",
   role: ".NET Developers",
-  metaTitle: "Hire .NET Developers",
+  metaTitle: "Hire Dot Net Developers India | 40-Hour Free Trial",
   metaDescription:
-    "Hire .NET developers from Soft Suave for ASP.NET Core services, Azure workloads, and .NET Framework migration. You interview, two-week trial, full IP ownership.",
+    "Hire skilled .NET developers from India for secure, scalable software. Experts in ASP.NET, .NET Core, C#, Azure, MVC, APIs and cloud applications.",
   serviceType: ".NET development staffing",
-  eyebrow: "Hire .NET Developers",
   ctaLabel: "Hire .NET developers",
-  titleLines: ["Hire .NET Developers", "For Enterprise Systems on Modern .NET"],
-  heroBody: [
-    "Modern .NET is cross-platform, genuinely fast, and one of the strongest choices available for enterprise back ends. It is also, in most organisations, running alongside .NET Framework applications that predate all of that.",
-    "Our .NET engineers work across both: ASP.NET Core services on .NET 8 in containers, and the careful migration work that gets a Framework application off Windows-only hosting without pausing the business.",
-  ],
-  heroPoints: [
-    ".NET 8 and ASP.NET Core, containerised",
-    "Entity Framework Core with real query awareness",
-    ".NET Framework to .NET migration",
-    "Azure-native services and deployment",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/svc-modernization.webp",
-    width: 1200,
-    height: 860,
-    alt: "An enterprise .NET estate showing modern services alongside legacy Framework applications",
+
+  order: [...CLASSIC_ORDER],
+
+  hero: {
+    titleLines: ["Hire .NET Developers", "in India on Contract"],
+    body: [
+      "Soft Suave provides skilled .NET developers from India for startups and enterprises needing secure, scalable software solutions. Hire experts in ASP.NET, .NET Core, C#, Azure, MVC, enterprise systems, APIs, and cloud applications. Fast onboarding with cost-effective engagement options.",
+      "See why businesses choose Soft Suave for their .NET developer hiring.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top .NET Developers in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your .NET requirement.",
+      subject: ".NET Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/svc-modernization.webp",
+      width: 1200,
+      height: 860,
+      alt: "An enterprise .NET estate showing modern services alongside legacy Framework applications",
+    },
   },
-  requirementLabel: "What are you building in .NET?",
-  requirementPlaceholder:
-    "The systems involved, your .NET version, whether migration from Framework is in scope, and the seniority you need.",
-  overviewTitle: "What .NET Developers Actually Do for You",
-  overviewParagraphs: [
-    "The .NET platform changed fundamentally with .NET Core and the unified .NET 5 onwards: it runs on Linux, deploys in containers, and performs at a level that puts it among the fastest managed runtimes available. C# has meanwhile absorbed records, pattern matching, and nullable reference types, which remove a significant class of runtime error at compile time.",
-    "A .NET engagement typically covers ASP.NET Core web APIs, Entity Framework Core data access, authentication and authorisation, background services, and deployment — usually to Azure, though nothing about modern .NET requires it. On existing estates it frequently also covers migration.",
-    "That migration is the defining .NET question in most organisations. .NET Framework is supported but no longer developed, and applications on it are tied to Windows hosting, cannot use current libraries, and are progressively harder to hire for. Moving them is real work, and it is incremental work — not a weekend port.",
-  ],
-  pullQuote:
-    ".NET Framework will keep running for years. It just will not get any faster, cheaper, or easier to hire for.",
-  capabilities: [
-    {
-      name: "ASP.NET Core APIs",
-      tag: "API",
-      body: "Web APIs and minimal APIs with dependency injection, middleware pipelines, validation, OpenAPI generation, and structured configuration — deployed in Linux containers rather than tied to IIS.",
-    },
-    {
-      name: "Framework Migration",
-      tag: "Migration",
-      body: "Moving .NET Framework applications to modern .NET, project by project, with the dependency analysis and the System.Web replacements planned before the work starts rather than discovered during it.",
-    },
-    {
-      name: "Entity Framework Core",
-      tag: "Data",
-      body: "Data access with attention to the SQL actually generated, tracking behaviour chosen deliberately, reviewed migrations, and raw SQL or Dapper where EF's abstraction costs more than it returns.",
-    },
-    {
-      name: "Azure Workloads",
-      tag: "Cloud",
-      body: "App Service, Functions, Service Bus, Cosmos DB, and Azure SQL, with infrastructure defined as code and identity handled through managed identities rather than connection strings in configuration.",
-    },
-    {
-      name: "Microservices",
-      tag: "Architecture",
-      body: "Service decomposition with gRPC or message-based integration, resilience through Polly, health checks, and distributed tracing — plus a frank view on whether decomposition is warranted at all.",
-    },
-    {
-      name: "Blazor Applications",
-      tag: "Front end",
-      body: "Server and WebAssembly Blazor for teams who would rather write C# than JavaScript across the stack, with honest advice about where that trade holds and where it does not.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Core",
-      items: [".NET 8", "C# 12", "ASP.NET Core", "Blazor", "Minimal APIs", ".NET Framework 4.8"],
-    },
-    {
-      name: "Data",
-      items: ["SQL Server", "PostgreSQL", "EF Core", "Dapper", "Azure SQL", "Cosmos DB"],
-    },
-    {
-      name: "Cloud & Messaging",
-      items: ["Azure", "AWS", "Service Bus", "RabbitMQ", "SignalR", "Redis"],
-    },
-    {
-      name: "Delivery",
-      items: ["xUnit", "Docker", "Kubernetes", "Azure DevOps", "GitHub Actions", "Serilog"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Can you migrate our .NET Framework application to .NET 8?",
-      a: "Yes, and it is a large share of the .NET work we do. The approach starts with the .NET Upgrade Assistant and a dependency analysis, because the blockers are almost always third-party libraries with no modern equivalent rather than your own code. Web Forms applications are the hard case — there is no direct path, so those become a rewrite of the presentation layer onto Razor Pages, MVC, or Blazor. Class libraries and MVC applications usually port with moderate effort, and we sequence it so the business keeps running.",
-    },
-    {
-      q: "Do your .NET developers work with Azure?",
-      a: "Most of them, day to day — App Service, Functions, Service Bus, Azure SQL, Key Vault, and Entra ID, with infrastructure defined in Bicep or Terraform. We also have engineers who run .NET on AWS and on Kubernetes, since modern .NET has no dependency on Azure at all. Tell us your target platform on the first call and the shortlist will reflect it rather than assuming Microsoft's own stack.",
-    },
-    {
-      q: "Entity Framework Core or Dapper?",
-      a: "EF Core for most application data access: the productivity gain is real, migrations are well handled, and the generated SQL is good enough in the overwhelming majority of cases. Dapper for hot paths where you want exact control over the query, and for reporting or bulk work where EF's change tracking is pure overhead. They coexist happily in one codebase, and using both deliberately is more common in our work than picking one exclusively.",
-    },
-    {
-      q: "Is Blazor ready for production?",
-      a: "Blazor Server is mature and works well for internal line-of-business applications, with the caveat that it needs a persistent connection and degrades noticeably over poor networks. Blazor WebAssembly has a meaningful initial download and slower startup, which matters for public-facing applications and matters much less for an internal tool behind a login. For a team that is strong in C# and has no front-end specialists, it is a reasonable trade; for a public consumer product, we would usually still recommend a JavaScript framework.",
-    },
-  ],
+
+  overview: {
+    eyebrow: "Overview",
+    title: "Hire Remote .NET Developer At The Right Place",
+    paragraphs: [
+      "Accelerate your business to a whole new level by connecting with our seasoned .NET developers.",
+      "Soft Suave is a reputed Web App Development Company that houses world-class remote ASP.NET developers. Our .NET web developers are proficient in building powerful and scalable Web Apps under your budget. When you hire our dedicated ASP.NET developer, you get to work alongside programmers who have experience working with start-ups and SMBs worldwide. Our certified .NET professionals have in-depth knowledge of .NET frameworks and will go beyond their duty to provide competitive web app development. Soft Suave assures you in delivering successful ASP.NET development services with the help of our developers who have technical expertise coupled with experience in the agile development methodology.",
+      "Hire .NET developers from Soft Suave to accelerate your business in a new direction and have a competitive edge in the market. Our dot net developer's exceptional experience in all the latest tools, technologies and systems assist us to build robust web apps. Whether you are building industry-specific desktop Apps or complex web Apps, our ASP.NET programmers can get it started for you and deliver tech-driven solutions. When you hire our 5+ years experienced .NET developer, you can tackle any tedious business or development challenges effortlessly.",
+    ],
+  },
+
+  services: {
+    eyebrow: "Expertise",
+    title: "Expertise Of Our .NET Developers",
+    body: "With in-depth technical expertise and agile methodology, our .NET developers offer top-class .NET solutions.",
+    items: [
+      {
+        name: "Dedicated .NET Developer",
+        body: "Our ASP.NET developers are committed to your business goals and offer reliable and secure .NET solutions with the latest tools and technologies in the ASP.NET framework. They do not shy away from complex requirements; instead, they face them and deliver future-ready .NET solutions.",
+      },
+      {
+        name: "IoT & Embedded Systems",
+        body: "IoT and embedded systems are the future. Hire .NET developers from Soft Suave if you want to leverage the expertise and experience to develop scalable and robust IoT and embedded systems.",
+      },
+      {
+        name: ".NET Core Database Management",
+        body: "Hire first-class ASP.NET developers from us to simplify your database development process. Our developers have the proficiency to explore and manage your existing or new database seamlessly.",
+      },
+      {
+        name: "Cloud Solutions & Integrations",
+        body: "Cloud solutions are crucial in this era. So, many businesses hire .NET developers India. Soft Suave's expert .NET web App developers have the competency to leverage cloud solutions and integrations to develop ground-breaking web Applications.",
+      },
+      {
+        name: "ASP.NET Migration",
+        body: "Our .NET experts guarantee smooth transition and migration to your remodeled Apps by analyzing your ASP.NET frameworks, dependencies, and class libraries. Legacy apps can now be safely transformed if you hire .NET developers from us.",
+      },
+      {
+        name: ".NET Desktop App Development",
+        body: "Desktop apps are still ruling the app market. Our ASP.NET developers focus on every particular aspect of desktop app development to make it functional and thriving in the market.",
+      },
+    ],
+  },
+
+  midCta: {
+    title: "Hire .Net Developers Starting from $14/hour",
+    body: "We will provide you with remote .Net developers that work from India. Contact us to take a look at CVs.",
+    cta: { label: "Request Rate Card", href: "#enquiry" },
+  },
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Hire .Net Developers in 4 easy steps",
+    body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
+    steps: MERN_STEPS,
+  },
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "Why Are Our .Net Programmers Considered the Best?",
+    body: "Clients all around the world trust our .NET developers to acquire industry-specific .NET solutions with quality.",
+    items: MERN_WHY,
+  },
+
+  exploreMore: webExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "Frequently Asked Questions",
+    body: "Know more about our processes and how we work, with the help of the following FAQs.",
+    items: [
+      {
+        q: "What are the various hiring models offered by you to hire .NET developers?",
+        a: [
+          "Soft Suave has designed three flexible hiring models to help you hire .NET developers who are experts in providing .NET solutions. We also offer customized plans fit that your budget and requirement.",
+          "Full-time Hiring",
+          "Part-time Hiring",
+          "Milestone Hiring",
+        ],
+      },
+      {
+        q: "What if I am not satisfied with the developed .NET solution?",
+        a: "Soft Suave is renowned for offering exceptional .NET solutions that accurately match clients' requirements. However, if you are not satisfied, you can report to our development team, and they will attempt to fix it without any extra cost.",
+      },
+      {
+        q: "Can you sign a Non-disclosure agreement (NDA) for my project?",
+        a: "Yes, we will sign the NDA agreement before we start the project with you. Confidentiality and security are our utmost priority, and hence we follow strict NDA after you hire .NET developers.",
+      },
+      {
+        q: "How to find a cost-effective full-stack .NET developer online?",
+        a: "If you are looking out to hire a full-stack ASP.NET developer online, you can prefer companies like us that have the experience and expertise in working with reputed start-ups and SMBs around the world.",
+      },
+      {
+        q: "What would be the estimated cost for hiring .NET developer?",
+        a: "The estimated cost to hire .NET developers depends on several factors like expertise, experience, and project size. However, we can assure you that our prices are competitive and pocket-friendly.",
+      },
+    ],
+  },
 };
 
 const rails: HireSkill = {
@@ -894,113 +1525,249 @@ const rails: HireSkill = {
   key: "rails",
   name: "Ruby on Rails",
   role: "Ruby on Rails Developers",
-  metaTitle: "Hire Ruby on Rails Developers",
+  metaTitle: "Hire Ruby on Rails Developers on Demand",
   metaDescription:
-    "Hire Ruby on Rails developers from Soft Suave for rapid product delivery, Rails upgrades, and legacy rescue work. You interview, two-week trial, full IP ownership.",
+    "Hire Ruby on Rails developers through Soft Suave — dedicated teams or individual developers, vetted, contract-ready, and built to deliver scalable web applications.",
   serviceType: "Ruby on Rails development staffing",
-  eyebrow: "Hire Rails Developers",
   ctaLabel: "Hire Rails developers",
-  titleLines: ["Hire Ruby on Rails Developers", "Who Still Get Products Shipped Fast"],
-  heroBody: [
-    "Rails remains one of the fastest routes from an idea to a working, revenue-generating product. Its conventions remove a very large number of decisions, and for a small team that is worth more than any individual framework feature.",
-    "Much of the Rails work we are asked to do now is on applications built years ago that need upgrading, untangling, or simply maintaining by people who know the framework properly. Our engineers do both.",
-  ],
-  heroPoints: [
-    "Rails 7 with Hotwire, Turbo and Stimulus",
-    "Rails upgrades from 4 and 5 onwards",
-    "Active Record performance at real data volumes",
-    "Sidekiq background processing and scheduling",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/work-7.png",
-    width: 1536,
-    height: 1024,
-    alt: "A Ruby on Rails application showing convention-driven structure and background processing",
+
+  order: [...MODERN_ORDER],
+
+  hero: {
+    titleLines: ["Hire Ruby on Rails Developers", "in India On Contract"],
+    body: [
+      "Faster builds. Cleaner code. Quicker launches. Hire Ruby on Rails developers through Soft Suave, a specialized staffing agency offering dedicated teams or individual developers - vetted, contract-ready, and built to deliver scalable web applications that move as fast as your business does.",
+      "Great Rails apps start with the right developer - find yours here.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top Ruby on Rails in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your Ruby on Rails requirement.",
+      subject: "Ruby on Rails Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/work-7.png",
+      width: 1200,
+      height: 860,
+      alt: "A Ruby on Rails application showing convention-driven structure and background processing",
+    },
   },
-  requirementLabel: "What are you building in Rails?",
-  requirementPlaceholder:
-    "The application, your Rails and Ruby versions, whether an upgrade is involved, and the seniority you need.",
-  overviewTitle: "What Ruby on Rails Developers Actually Do for You",
-  overviewParagraphs: [
-    "Rails is built on the premise that most web applications are more alike than different, so the framework should make the common decisions for you. Directory structure, naming, database access, migrations, background jobs, and testing all have one accepted answer, and a Rails developer joining a Rails codebase already knows where everything is.",
-    "That convention is why Rails is still exceptionally fast for product delivery, particularly for the first year of a product's life when the requirement is changing weekly. With Hotwire, a great deal of interactivity is also achievable without a separate front-end application at all.",
-    "The counterpart is that Rails applications age in a characteristic way: business logic accumulates in models and controllers, the test suite slows, and the gem dependencies fall behind until upgrading becomes daunting. Most of the Rails work we take on now is on applications in exactly that state, and it is very recoverable.",
-  ],
-  pullQuote:
-    "A Rails application rarely fails because of Rails. It fails because nobody upgraded it for four years.",
-  capabilities: [
-    {
-      name: "Product Development",
-      tag: "Build",
-      body: "Going from specification to a deployed product quickly, using Rails conventions rather than fighting them — the case the framework was designed for and is still very hard to beat at.",
-    },
-    {
-      name: "Rails Upgrades",
-      tag: "Upgrade",
-      body: "Moving applications forward one minor version at a time with a working test suite at each step, plus the gem audit that determines how much of the work is genuinely yours and how much is dependencies.",
-    },
-    {
-      name: "Hotwire Interfaces",
-      tag: "Front end",
-      body: "Turbo Drive, Turbo Frames, Turbo Streams, and Stimulus for interactive interfaces without a separate SPA — and a frank assessment of when the product has outgrown that approach.",
-    },
-    {
-      name: "Active Record Performance",
-      tag: "Performance",
-      body: "Eliminating N+1 queries with includes, adding the indexes the query plan wants, batching large operations, and moving aggregation into SQL rather than into Ruby memory.",
-    },
-    {
-      name: "Background Processing",
-      tag: "Jobs",
-      body: "Sidekiq and Active Job for email, imports, reporting, and scheduled work, with idempotent jobs, sensible retry policy, and monitoring so a failing nightly job is noticed the same day.",
-    },
-    {
-      name: "Legacy Rescue",
-      tag: "Recovery",
-      body: "Taking on applications with no active maintainer — restoring the build, getting the test suite green, upgrading Ruby and Rails, and documenting enough that the next engineer is not starting over.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Core",
-      items: ["Ruby 3.3", "Rails 7", "Hotwire / Turbo", "Stimulus", "Active Record", "Action Cable"],
-    },
-    {
-      name: "Data & Jobs",
-      items: ["PostgreSQL", "MySQL", "Redis", "Sidekiq", "Elasticsearch", "Active Storage"],
-    },
-    {
-      name: "Ecosystem",
-      items: ["Devise", "Pundit", "GraphQL Ruby", "Grape", "Kaminari", "Stripe"],
-    },
-    {
-      name: "Delivery",
-      items: ["RSpec", "Capybara", "FactoryBot", "Docker", "Heroku / AWS", "GitHub Actions"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Is Ruby on Rails still a good choice in 2026?",
-      a: "For conventional web applications — SaaS products, marketplaces, internal platforms — yes. Rails is actively developed, Ruby 3 is substantially faster than Ruby 2, and no framework has clearly displaced it for speed of delivery on a small team. The genuine reasons to look elsewhere are heavy computation, very high-concurrency real-time systems, and hiring depth in some markets. The reputational quiet around Rails is not the same as decline.",
-    },
-    {
-      q: "Can you upgrade our old Rails application?",
-      a: "Yes, and it is a large part of our Rails work. The sequence is one minor version at a time with the test suite green before each step — skipping versions turns a mechanical upgrade into an archaeology exercise. The first task is usually getting the existing suite running at all, and where coverage is thin we add characterisation tests around the critical paths first. Unmaintained gems are the usual real blocker, and we audit those before committing to a timeline.",
-    },
-    {
-      q: "Should we use Hotwire or a JavaScript front end?",
-      a: "Hotwire when the interactivity is form-driven and page-oriented, which covers a surprising amount of business software — you keep one application, one deployment, and one language. A separate React or Vue front end when the interface is genuinely application-like, when you need offline behaviour, or when a mobile app will consume the same API. Starting with Hotwire and extracting later is a reasonable strategy; starting with a SPA you do not yet need is a common and expensive mistake.",
-    },
-    {
-      q: "How do you handle Rails performance at scale?",
-      a: "Active Record first, because that is where the problems overwhelmingly are: N+1 queries, unbounded result sets loaded into memory, and missing indexes. Then caching — fragment and Russian-doll caching are genuinely effective in Rails and often under-used. Then background jobs for anything slow in the request path, and connection-pool and worker sizing. Puma configuration and Ruby GC tuning matter far less than the query log, so they come last rather than first.",
-    },
-  ],
+
+  /**
+   * The last card and the first hiring step both say "Drupal" on the live
+   * Rails page. Reproduced as published — see this file's header.
+   */
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "Why Hire Ruby on Rails Developers from Soft Suave",
+    body: "Why settle for average? Hire dedicated Ruby on Rails developers who thrive under pressure, adapt quickly, deliver exceptional results every time, and give your projects the expertise they truly deserve",
+    items: [
+      {
+        name: "Pre-vetted Ruby on Rails Developers",
+        body: "Our Ruby on Rails developers undergo strict screening to ensure they possess top-notch skills, reliability, and an unwavering commitment to your project's success.",
+        icon: "users",
+      },
+      {
+        name: "Flexible hiring models",
+        body: "From rapid scaling to adjusting your team, our flexible hiring models allow you to adjust according to your project's rhythm.",
+        icon: "gauge",
+      },
+      {
+        name: "Global delivery standards",
+        body: "Using agile methodologies and global best practices, we ensure top-quality deliverables every time.",
+        icon: "globe",
+      },
+      {
+        name: "Strict NDA & IP protection",
+        body: "We guarantee your confidentiality. Strict NDA agreements and comprehensive intellectual property protection keep your ideas secure.",
+        icon: "shield",
+      },
+      {
+        name: "Time Zone Flexibility",
+        body: "Our developers work 4-6 hours within your time zone, ensuring seamless real-time collaboration, no matter where you are.",
+        icon: "book",
+      },
+      {
+        name: "World-Class Developers at Budget-Friendly Rates",
+        body: "Hire offshore Drupal developers or use our offshore software development service to access top-tier talent at competitive rates with Soft Suave.",
+        icon: "coins",
+      },
+    ],
+  },
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Steps to Hire a Ruby on Rails Developer",
+    body: "Hire expert Ruby on Rails developers in just 4 easy steps & onboard them in no time!",
+    steps: [
+      {
+        n: "01",
+        name: "Share the JD",
+        body: "Provide details about your project and the ideal skill set for your Drupal developer.",
+      },
+      {
+        n: "02",
+        name: "Shortlist The Right Developers",
+        body: "We present the top developers who match your project requirements and goals.",
+      },
+      {
+        n: "03",
+        name: "Free 40-hour Trial",
+        body: "Experience our developer's abilities firsthand with a 40-hour free trial, no strings attached.",
+      },
+      {
+        n: "04",
+        name: "Onboard & Manage",
+        body: "Complete the required paperwork (SLA & NDA), & smoothly onboard the developer into your team.",
+      },
+    ],
+  },
+
+  techStack: {
+    eyebrow: "Technology",
+    title: "Technical Expertise of Our Ruby on Rails Developers",
+    body: "Unlock the power of your project with our Ruby on Rails experts, from stunning front-end designs to robust database solutions. Hire experts who craft modular architecture, boost performance, and engineer every line for stability, speed, and scale.",
+    groups: [
+      { name: "Frameworks", items: ["Rails", "Sinatra", "Hanami", "Cuba"] },
+      { name: "Programming Languages", items: ["Ruby"] },
+      { name: "Databases", items: ["AWS RDS", "Heroku Postgres", "Maria DB"] },
+      {
+        name: "IDE",
+        items: ["RubyMine", "Sublime", "VIM", "Visual Studio Code", "Atom Editor", "Aptana Studio"],
+      },
+      { name: "Web Server", items: ["Nginx", "Apache"] },
+      { name: "App Server", items: ["Puma", "Unicorn", "Passenger", "Thin", "Webrick"] },
+      { name: "Version Control", items: ["Git", "Github", "Gitlab", "Bitbucket"] },
+      {
+        name: "Testing Tools",
+        items: ["Rspec", "Capybara", "FactoryBot", "Faker", "Minitest", "Simplecov", "Database Cleaner"],
+      },
+      {
+        name: "Frontend",
+        items: ["ReactJS", "VueJS", "Angular", "Webpacker", "Hotwire", "Bootstrap", "Jquery"],
+      },
+      { name: "Cloud", items: ["AWS", "Azure", "Digital Ocean"] },
+      { name: "API Integration", items: ["Grape", "Rails API", "Swagger", "Apipie-rails"] },
+      { name: "Monitoring and Performance", items: ["New Relic", "Datadog", "PaperTrail"] },
+      { name: "CI/CD", items: ["CircleCI", "GitHub Actions", "Jenkins"] },
+      { name: "Code Quality", items: ["Rubocop", "Reek"] },
+      { name: "Deployment Tools", items: ["Heroku", "Capistrano", "Mina", "Docker"] },
+      { name: "Communication Tools", items: ["Slack", "MS Teams", "Google Meet and Chat"] },
+      { name: "AI Tools", items: ["Github CoPilot", "Google Gemini", "Chat GPT"] },
+      {
+        name: "Authentication & Authorizations",
+        items: ["Devise", "Omniauth", "Pundit", "CanCanCan"],
+      },
+      { name: "Background Jobs", items: ["Sidekiq", "Resque", "Delayed Jobs"] },
+      { name: "Caching", items: ["Redis"] },
+      { name: "Error Tracking and Logging", items: ["Sentry", "Rollbar", "Honeybadger"] },
+      { name: "Search", items: ["Elasticsearch", "Solr"] },
+      { name: "Localization", items: ["I18n"] },
+      { name: "Admin Interfaces", items: ["ActiveAdmin", "RailsAdmin"] },
+      { name: "Configuration Management", items: ["Figaro", "dotenv"] },
+      { name: "File Uploads", items: ["CarrierWave", "Active Storage"] },
+      { name: "Meeting", items: ["Microsoft Team", "Google Meet", "Zoom"] },
+      { name: "PMS", items: ["JIRA", "Trello"] },
+    ],
+  },
+
+  services: {
+    eyebrow: "Services",
+    title: "Ruby on Rails Development Services We Offer",
+    body: "From app development to performance tuning and long-term maintenance, we offer full-stack Ruby on Rails services that launch quickly, scale effortlessly, and address real-world business challenges with precision. All of this comes at affordable rates. Our offshore software development service connects you with expert Ruby on Rails developers, delivering high-quality solutions without compromising on cost.",
+    items: [
+      {
+        name: "ROR Application Development",
+        body: "Soft Suave delivers custom, cost-effective Ruby on Rails apps that are fast, secure, and tailored to outshine competitors. With expert developers and industry-specific solutions, they turn complex challenges into long-term business wins.",
+      },
+      {
+        name: "ROR Integration & Migration",
+        body: "Soft Suave simplifies RoR integration and migration with flawless execution and zero disruption. Our developers deliver flexible, scalable solutions and seamless third-party API integration, earning trust as a top RoR company globally.",
+      },
+      {
+        name: "Dedicated ROR Developer Team",
+        body: "Soft Suave empowers businesses to scale with dedicated RoR developers who blend seamlessly into your in-house team. Get full control, on-time delivery, and collaborative solutions tailored to your unique goals, regardless of time zone.",
+      },
+      {
+        name: "ROR Support & Maintenance",
+        body: "Soft Suave ensures peak RoR performance with 24/7 support and tailored maintenance, covering upgrades, bug fixes, security patches, and backups. A dedicated team handles client needs seamlessly, keeping applications efficient, reliable, and aligned with evolving business goals.",
+      },
+      {
+        name: "ROR eCommerce Solutions",
+        body: "Use Ruby on Rails to turn your e-commerce idea into a reality. We design and build feature-rich, secure, and scalable online stores that offer seamless user experiences, robust payment gateways, and effortless product management, driving business growth.",
+      },
+      {
+        name: "ROR Cloud Solutions & Deployment",
+        body: "Take your app to the cloud with confidence. Our ROR cloud deployment services provide secure, scalable solutions tailored to your infrastructure, ensuring smooth migrations, optimal performance, and full cloud integration for flexibility and growth.",
+      },
+      {
+        name: "ROR Custom Web App Development",
+        body: "Use Ruby on Rails to create dynamic, user-friendly web apps. Our custom development services are designed to turn complex business requirements into intuitive, scalable, and high-performing web solutions that engage users and drive results.",
+      },
+    ],
+  },
+
+  vetting: {
+    eyebrow: "Vetting",
+    title: "How We Vet and Onboard Top Ruby on Rails Developers",
+    body: "Each Ruby on Rails engineer is vetted for technical brilliance, communication, and reliability. Hire expert Ruby on Rails developers who deliver from day one.",
+    steps: vetting([
+      "We proactively source top Ruby on Rails developers, going beyond just posting ads.",
+      "We subject all developers to tough technical assessments and coding challenges.",
+      "We look for developers who excel in collaborative environments and solving complex problems.",
+      "We ensure our developers are adaptable and can integrate seamlessly with your team.",
+    ]),
+  },
+
+  comparison: partnerTable(
+    "Choosing the Right Ruby on Rails Partner for Your Specific Needs",
+    "Explore different hiring models: freelancers, in-house teams, or our expert Ruby on Rails developers. Our comparison chart helps you make an informed decision.",
+  ),
+
+  exploreMore: webExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "FAQs About Hiring Ruby on Rails Developers",
+    body: "Learn more about our procedures & methods with the help of these FAQs.",
+    items: [
+      {
+        q: "How much does it cost to hire Ruby on Rails developer?",
+        a: "Costs depend on skills and the engagement model. We offer affordable rates starting from $14/hour when you hire expert Ruby on Rails developer talent.",
+      },
+      {
+        q: "Is there any free trial period available?",
+        a: "Yes, we offer a 40-hour trial period to help you evaluate our developers' skills before committing.",
+      },
+      {
+        q: "What are the hiring engagement options available at Soft Suave?",
+        a: "We provide flexible engagement options, including fixed price, time-based, and fully managed services.",
+      },
+      {
+        q: "Do you provide support and maintenance services after deployment?",
+        a: "Yes, we provide ongoing support and maintenance services after your project is live.",
+      },
+      {
+        q: "Where can you find a Ruby on Rails Engineer?",
+        a: "Find top-tier talent right here. Hire Ruby on Rails developers from Soft Suave to build your next solution.",
+      },
+    ],
+  },
 };
 
 export const backendHireSkills: readonly HireSkill[] = [
-  node,
+  nodejs,
   nestjs,
   java,
   python,

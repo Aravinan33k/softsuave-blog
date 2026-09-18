@@ -15,18 +15,36 @@ import styles from "./home.module.css";
  */
 export default function Contact({
   ctaHref = finalCta.cta.href,
+  content = finalCta,
+  eyebrow = "Business Enquiry",
 }: {
   /** Where the primary CTA goes. Defaults to the content's own href — the
    *  dedicated `/contact` route. The `/contact` page itself overrides this
    *  with `#contact`, because this band is the destination there and a CTA
    *  that reloads the page you are already on is a dead control. */
   ctaHref?: string;
+  /**
+   * The band's own copy. Defaults to the homepage's `finalCta`, which is what
+   * the homepage and the delivery pages say here.
+   *
+   * The hire-by-skill pages override it: their live closing band is a "Book
+   * Free Consultation" invitation, not the homepage's AI-strategy pitch, and
+   * leaving the default in place put homepage copy at the foot of twenty pages
+   * whose source says something else.
+   */
+  content?: {
+    readonly title: string;
+    readonly body: string;
+    readonly cta: { readonly label: string; readonly href: string };
+  };
+  /** Kicker above the headline. Overridden where the live band names itself. */
+  eyebrow?: string;
 } = {}) {
   const root = useRef<HTMLElement | null>(null);
 
   // Split the headline so the last keyword can carry the drawn underline.
-  const m = finalCta.title.match(/^([\s\S]*?)([A-Za-z0-9]+)(\W*)$/);
-  const beforeKey = m ? m[1] : finalCta.title;
+  const m = content.title.match(/^([\s\S]*?)([A-Za-z0-9]+)(\W*)$/);
+  const beforeKey = m ? m[1] : content.title;
   const key = m ? m[2] : "";
   const afterKey = m ? m[3] : "";
 
@@ -123,7 +141,7 @@ export default function Contact({
       </div>
 
       <div className={styles.contactInner}>
-        <span className={styles.eyebrow}>Business Enquiry</span>
+        {eyebrow ? <span className={styles.eyebrow}>{eyebrow}</span> : null}
         <h2 className={styles.contactH}>
           {beforeKey}
           <span className={styles.contactKey}>
@@ -147,13 +165,13 @@ export default function Contact({
           </span>
           {afterKey}
         </h2>
-        <p className={styles.contactBody}>{finalCta.body}</p>
+        <p className={styles.contactBody}>{content.body}</p>
 
         <div className={styles.contactActions}>
           {/* A real link, not a button firing `location.href` — see
               HoldButton, which renders a genuine <a> so middle-click,
               cmd-click and link semantics all survive. */}
-          <HoldButton label={finalCta.cta.label} href={ctaHref} />
+          <HoldButton label={content.cta.label} href={ctaHref} />
         </div>
 
       </div>

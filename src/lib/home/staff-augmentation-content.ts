@@ -26,7 +26,7 @@ export const staffMeta = {
   path: "/it-staff-augmentation-services",
   title: "IT Staff Augmentation Services",
   description:
-    "Scale your engineering team with vetted developers, QA engineers, and cloud specialists. Flexible IT staff augmentation from Soft Suave — onboarding in as little as 48 hours, with 40–60% savings against full-time hiring.",
+    "Scale your team with vetted developers, QA engineers and cloud specialists. Onboarding in as little as 48 hours, with 40–60% savings against full-time hiring.",
 } as const;
 
 export const staffHero: HeroContent = {

@@ -42,11 +42,22 @@ export interface TechStackContent {
  */
 export default function TechStack({
   content = homeTechStack,
+  id = "tech",
 }: {
   content?: TechStackContent;
+  /**
+   * Section anchor. Defaults to `tech`, which is what the nav's Tech Stack link
+   * points at and what every caller rendering an actual technology band wants.
+   *
+   * It is a prop because this same band also renders a page's label-only lists
+   * (the QA role page runs three of them beside its real tech stack), and four
+   * sections sharing one id is invalid HTML — it also sent the nav's Tech Stack
+   * link to the first of them rather than to the technology section.
+   */
+  id?: string;
 } = {}) {
   return (
-    <section className={`${styles.section} ${styles.techSection}`} id="tech">
+    <section className={`${styles.section} ${styles.techSection}`} id={id}>
       <div className={styles.sectionHead}>
         <span className={styles.eyebrow}>{content.eyebrow}</span>
         <SplitReveal as="h2" className={styles.h2} type="words">

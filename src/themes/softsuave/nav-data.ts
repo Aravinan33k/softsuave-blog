@@ -157,13 +157,7 @@ export const NAV: NavItem[] = [
 // way to know a path is ours unless it is named. Registering a route once in
 // `lib/home/landing-pages.ts` now covers the release gate, the sitemap and
 // these links together.
-// '/search' rides with '/blog' rather than the registry: the archive search at
-// `app/search` is ours in both flag states, and softsuave.com has no /search to
-// link out to — left off this set, every link to it became an outbound 404.
-// It is not a landing page, so it has no business in MARKETING_ROUTES.
-const LOCAL_PATHS = new Set(
-  homepageEnabled ? ['/blog', '/search', ...MARKETING_ROUTES] : ['/blog', '/search'],
-);
+const LOCAL_PATHS = new Set(homepageEnabled ? ['/blog', ...MARKETING_ROUTES] : ['/blog']);
 
 
 /**

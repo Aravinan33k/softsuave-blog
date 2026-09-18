@@ -26,7 +26,7 @@ export const itoMeta = {
   path: "/it-outsourcing-company-india",
   title: "IT Outsourcing Company in India",
   description:
-    "Move technology initiatives forward with an experienced IT outsourcing company in India. Soft Suave combines software, AI, QA, cloud, and modernization expertise with flexible engagement models and a 4–6 hour global work overlap.",
+    "Move technology initiatives forward with an experienced IT outsourcing company in India. Software, AI, QA, cloud and modernization expertise with a 4–6 hour overlap.",
 } as const;
 
 export const itoHero: HeroContent = {

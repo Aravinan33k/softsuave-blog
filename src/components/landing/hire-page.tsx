@@ -1,80 +1,127 @@
+import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
+
 import { BASE_PATH, homepageEnabled } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { breadcrumbLd } from '@/lib/seo/jsonld';
-import type { HireSkill } from '@/lib/home/hire-skill';
-import {
-  hireCapabilities,
-  hireFaqs,
-  hireHero,
-  hireOverview,
-  hireTechStack,
-} from '@/lib/home/hire-content';
-import {
-  
-  hireEngagementModels,
-  hireMidCta,
-  hireProcess,
-  hireWhyUs,
-} from '@/lib/home/hire-shared';
+import type { HireBand, HireSkill } from '@/lib/home/hire-skill';
+import { HIRE_CLIENT_LOGOS, HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
+import type { CardGridContent } from '@/components/landing/industries';
+import type { ServicesContent } from '@/components/landing/services';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-// COMPANY-LEVEL SECTIONS — the homepage's own components and content.
-import Manifesto from '@/components/home/manifesto';
+// Company-level bands: the homepage's own components over the homepage's own
+// copy. A hire page's claim to these clients and these client stories is the
+// same claim the homepage makes, so it is made with the same component rather
+// than a second version free to drift out of step.
+//
+// Note what is NOT imported: `home/manifesto`. The homepage's "Why Soft Suave"
+// manifesto used to render on all twenty of these pages under an `#why` anchor,
+// and it appears on none of their live pages — it is homepage copy, and the
+// per-page "Why hire X from Soft Suave" cards in `whyUs` are what the live
+// pages actually run in its place.
+import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
 
-// PAGE-SPECIFIC SECTIONS — shared landing components taking this skill's copy.
+// Page-specific bands: the landing components, taking this skill's own copy.
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
-import Services from '@/components/landing/services';
 import CardGrid from '@/components/landing/industries';
-import Process from '@/components/landing/process';
-import CtaBand from '@/components/landing/cta-band';
 import TechStack from '@/components/landing/tech-stack';
+import CtaBand from '@/components/landing/cta-band';
+import Process from '@/components/landing/process';
+import Comparison from '@/components/landing/comparison';
 import Faq from '@/components/landing/faq';
 
 import home from '@/components/home/home.module.css';
 
 /**
- * The shared body of every "Hire <skill> Developers" page.
+ * Which bands sit on the warm-white ground and which stay dark.
  *
- * All 24 routes render this with a different `skill`. They exist as separate
- * route folders rather than one `[slug]` dynamic route because each needs its
- * own static `metadata` export and its own prerendered output — and because a
- * dynamic route would put all 24 behind one file that nobody would think to
- * look in when changing one page.
+ * Presentation only — it decides nothing about what a page says. Consecutive
+ * light bands are merged into one wrapper below, so a run of them reads as a
+ * single chapter rather than several stacked panels with doubled padding.
+ */
+const LIGHT_BANDS: ReadonlySet<HireBand> = new Set<HireBand>([
+  'clients',
+  'overview',
+  'services',
+  'process',
+  'vetting',
+  'exploreMore',
+  'testimonials',
+  'faq',
+]);
+
+/**
+ * A services band's content, as the card grid takes it.
+ *
+ * Every card section on these pages renders through `CardGrid` with
+ * `variant="bold"` — the same component and variant the Global Capability
+ * Center page's "Who It Fits" band uses, which is the structure these sections
+ * are meant to match: the 12-column `gridSpansFor` composition, the accent rule
+ * across the top of each card, the per-card accent from the warm ramp, and no
+ * ordinal.
+ *
+ * The services and applications bands are typed as `ServicesContent` because
+ * that is the shape their copy was written in, so they are converted here
+ * rather than being rendered by a different component that merely looks close.
+ * `image` is dropped — the bold card has no header-image slot, and no hire-page
+ * band sets one.
+ */
+function asCardGrid(content: ServicesContent): CardGridContent {
+  return {
+    eyebrow: content.eyebrow,
+    title: content.title,
+    body: content.body,
+    items: content.items.map((item) => ({
+      name: item.name,
+      tag: item.tag,
+      body: item.body,
+    })),
+  };
+}
+
+/**
+ * The one rendering of a "Hire <skill> Developers" page.
+ *
+ * All twenty routes share this component, but *not* one fixed band order.
+ * softsuave.com does not run these pages in a single sequence: the six newer
+ * pages (Django, Drupal, Kotlin, Laravel, Magento, Rails) open on a client band
+ * and reach their hiring steps second, the ten older ones put a rate band
+ * before the process, Node and Angular open on the applications they build,
+ * React Native runs its comparison before its rates, and NestJS publishes no
+ * FAQ. So the order is content, declared per page in `order` and rendered here
+ * in exactly that sequence.
  *
  * A SERVER component, so it can own JSON-LD and be rendered from a route that
- * exports `metadata`; every section below is a client component. Fonts,
+ * exports `metadata`; the section components inside are the client ones. Fonts,
  * `.theme-four` tokens and Lenis smooth scroll come from
  * `app/(marketing)/layout.tsx`.
- *
- * Section order differs from the delivery pages in two deliberate ways. The
- * homepage's `Industries` fan is dropped — on a page about hiring a React
- * engineer, the sectors we serve is the least relevant thing we could show, and
- * it is also one of the two heaviest scenes to prerender (see the `cpus` note
- * in `next.config.ts`, which 24 more pages would otherwise make considerably
- * worse). And the homepage's `TechStack` is replaced by the landing one carrying
- * this skill's own stack, which is strictly more useful here and avoids two
- * sections competing for `id="tech"`.
  */
 export default function HirePage({ skill }: { skill: HireSkill }) {
   const path = `/${skill.slug}`;
 
+  /**
+   * The nav only advertises anchors this page actually renders. It used to list
+   * a fixed seven for every page, several of which pointed at bands that no
+   * longer exist here (`#why` was the homepage manifesto, `#engagement` a
+   * hand-written models band), leaving dead links on pages whose live source
+   * runs neither.
+   */
+  const has = (band: HireBand) => skill.order.includes(band);
   const pageNav = [
     { label: 'Home', href: '/' },
-    { label: 'Why Soft Suave', href: '#why' },
-    { label: 'Capabilities', href: '#services' },
-    { label: 'Engagement', href: '#engagement' },
-    
-    { label: 'How Hiring Works', href: '#journey' },
-    { label: 'Tech Stack', href: '#tech' },
-    
-    { label: 'FAQs', href: '#faq' },
+    ...(has('overview') ? [{ label: 'Overview', href: '#overview' }] : []),
+    ...(has('services') ? [{ label: 'Services', href: '#services' }] : []),
+    ...(has('techStack') ? [{ label: 'Tech Stack', href: '#tech' }] : []),
+    ...(has('process') ? [{ label: 'How Hiring Works', href: '#journey' }] : []),
+    ...(has('whyUs') ? [{ label: 'Why Soft Suave', href: '#why' }] : []),
+    ...(has('faq') ? [{ label: 'FAQs', href: '#faq' }] : []),
     { label: 'Blog', href: '/blog' },
   ];
 
@@ -84,22 +131,7 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
   ];
   const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
 
-  const faqs = hireFaqs(skill);
-  const capabilities = hireCapabilities(skill);
-
-  const structuredData = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: faqs.items.map((f) => ({
-        '@type': 'Question',
-        name: f.q,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: typeof f.a === 'string' ? f.a : f.a.join(' '),
-        },
-      })),
-    },
+  const structuredData: Record<string, unknown>[] = [
     {
       '@context': 'https://schema.org',
       '@type': 'Service',
@@ -113,16 +145,104 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
         name: 'Soft Suave',
         url: 'https://www.softsuave.com',
       },
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: capabilities.title,
-        itemListElement: capabilities.items.map((i) => ({
-          '@type': 'Offer',
-          itemOffered: { '@type': 'Service', name: i.name, description: i.body },
-        })),
-      },
+      ...(skill.services
+        ? {
+            hasOfferCatalog: {
+              '@type': 'OfferCatalog',
+              name: skill.services.title,
+              itemListElement: skill.services.items.map((i) => ({
+                '@type': 'Offer',
+                itemOffered: { '@type': 'Service', name: i.name, description: i.body },
+              })),
+            },
+          }
+        : {}),
     },
   ];
+
+  // Only emit FAQ schema where the live page publishes an FAQ — NestJS does not.
+  if (skill.faq) {
+    structuredData.push({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: skill.faq.items.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: typeof f.a === 'string' ? f.a : f.a.join(' '),
+        },
+      })),
+    });
+  }
+
+  function render(band: HireBand): ReactNode {
+    switch (band) {
+      case 'clients':
+        return <Clients key={band} logos={HIRE_CLIENT_LOGOS} />;
+      case 'overview':
+        return skill.overview ? (
+          <Overview key={band} content={skill.overview} id="overview" variant="compact" />
+        ) : null;
+      case 'applications':
+        return skill.applications ? (
+          <CardGrid key={band} content={asCardGrid(skill.applications)} id="applications" variant="bold" />
+        ) : null;
+      case 'combinations':
+        return skill.combinations ? (
+          <CardGrid key={band} content={skill.combinations} id="combinations" variant="bold" />
+        ) : null;
+      case 'services':
+        return skill.services ? (
+          <CardGrid key={band} content={asCardGrid(skill.services)} id="services" variant="bold" />
+        ) : null;
+      case 'techStack':
+        return skill.techStack ? <TechStack key={band} content={skill.techStack} /> : null;
+      case 'expertise':
+        return skill.expertise ? (
+          <CardGrid key={band} content={skill.expertise} id="expertise" variant="bold" />
+        ) : null;
+      case 'midCta':
+        return skill.midCta ? <CtaBand key={band} content={skill.midCta} /> : null;
+      case 'process':
+        return skill.process ? (
+          <Process key={band} content={skill.process} variant="mosaic" />
+        ) : null;
+      case 'whyUs':
+        return skill.whyUs ? (
+          <CardGrid key={band} content={skill.whyUs} id="why" variant="bold" />
+        ) : null;
+      case 'comparison':
+        return skill.comparison ? <Comparison key={band} content={skill.comparison} /> : null;
+      case 'vetting':
+        return skill.vetting ? (
+          <Process key={band} content={skill.vetting} id="vetting" variant="even" />
+        ) : null;
+      case 'exploreMore':
+        return skill.exploreMore ? (
+          <CardGrid key={band} content={skill.exploreMore} id="explore" columns={4} />
+        ) : null;
+      case 'testimonials':
+        return <Testimonials key={band} />;
+      case 'faq':
+        return skill.faq ? (
+          <Faq key={band} content={skill.faq} idPrefix={`${skill.key}-faq`} />
+        ) : null;
+      default:
+        return null;
+    }
+  }
+
+  // Merge each run of consecutive light bands into a single wrapper.
+  const groups: { light: boolean; nodes: ReactNode[] }[] = [];
+  for (const band of skill.order) {
+    const node = render(band);
+    if (!node) continue;
+    const light = LIGHT_BANDS.has(band);
+    const last = groups[groups.length - 1];
+    if (last && last.light === light) last.nodes.push(node);
+    else groups.push({ light, nodes: [node] });
+  }
 
   return (
     <div className={home.page}>
@@ -130,51 +250,17 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
       <Nav links={pageNav} cta={{ label: skill.ctaLabel, href: '#enquiry' }} logoHref={BASE_PATH || '/'} />
 
       <main id="main">
-        {/* Section list follows the live hire pages (audited against
-            /hire-reactjs-developers and /hire-java-developers, which agree):
-            hero, positioning, overview, capabilities, rate/engagement models,
-            a four-step hiring sequence, what makes the developers unique, more
-            technologies, testimonials, FAQ, enquiry form.
-
-            NOT on either live page, so not rendered here: client logo strip,
-            company stats block, awards, recognitions band, case studies, and a
-            comparison table. */}
-        <Hero content={hireHero(skill)} idPrefix={skill.key} />
-
-        <div id="why" className={`${home.light} ${home.whySection}`}>
-          <Manifesto />
-        </div>
-
-        {/* Skill-specific middle. */}
-        <Overview content={hireOverview(skill)} />
-
-        <div className={home.light}>
-          <Services content={capabilities} id="services" variant="bold" />
-        </div>
-
-        <CardGrid content={hireEngagementModels} id="engagement" variant="bold" />
-
-        {/* The advantages read as short statements, so they take the badge
-            treatment rather than the asymmetric grid — same split the GCC page
-            uses between its benefits and its other card sections. */}
-        <div className={home.light}>
-          <CardGrid content={hireWhyUs} id="advantages" variant="feature" />
-        </div>
-
-        <Process content={hireProcess} variant="mosaic" />
-
-        <div className={home.light}>
-          <CtaBand content={hireMidCta} />
-        </div>
-
-        <TechStack content={hireTechStack(skill)} />
-
-        <div className={home.light}>
-          <Testimonials />
-          <Faq content={faqs} idPrefix={`${skill.key}-faq`} />
-        </div>
-
-        <Contact ctaHref="#enquiry" />
+        <Hero content={skill.hero} idPrefix={skill.key} />
+        {groups.map((g, i) =>
+          g.light ? (
+            <div key={i} className={home.light}>
+              {g.nodes}
+            </div>
+          ) : (
+            <div key={i}>{g.nodes}</div>
+          ),
+        )}
+        <Contact ctaHref="#enquiry" content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />
@@ -186,8 +272,8 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
  * The route's `metadata` export, built from the same skill record.
  *
  * Route files call this rather than assembling the object themselves, so the
- * title template, canonical, and OG image stay identical across all 24 — the
- * class of inconsistency that is invisible in review and obvious in Search
+ * title template, canonical, and OG image stay identical across all twenty —
+ * the class of inconsistency that is invisible in review and obvious in Search
  * Console.
  */
 export function hireMetadata(skill: HireSkill): Metadata {

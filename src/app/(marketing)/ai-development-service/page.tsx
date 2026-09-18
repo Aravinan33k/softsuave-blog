@@ -38,6 +38,9 @@ import * as copy from '@/lib/services/ai-development';
  * nav's anchors so the header links work here as they do on the homepage.
  */
 
+// Matches the marketing cadence; nothing here is request-dependent.
+export const revalidate = 300;
+
 export const metadata: Metadata = {
   title: `${copy.meta.title} | Soft Suave`,
   description: copy.meta.description,

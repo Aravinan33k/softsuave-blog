@@ -13,19 +13,28 @@ export type GeneratedImage = {
    * Where the frame came from. Absent means the Pexels pipeline, which
    * generated the original set; "hand-placed" is art dropped into
    * public/images/<page>/ by hand and registered here so that it renders
-   * through `BrandImage` like everything else.
+   * through `BrandImage` like everything else; "gemini" is generated from a
+   * prompt by `scripts/generate-ai-images.mjs`.
    *
-   * The four fields below are Pexels bookkeeping — the photo id feeds the
-   * pipeline's site-wide dedupe, and the photographer and URL are the
-   * attribution it owes. Hand-placed art has none of that, so they are
-   * optional rather than filled with placeholder values that would read as
-   * real credit to a real person.
+   * The Pexels fields below are that pipeline's bookkeeping — the photo id
+   * feeds its site-wide dedupe, and the photographer and URL are the
+   * attribution it owes. Hand-placed and generated art have none of that, so
+   * they are optional rather than filled with placeholder values that would
+   * read as real credit to a real person.
    */
-  source?: "hand-placed";
+  source?: "hand-placed" | "gemini";
   pexelsId?: number;
   photographer?: string;
   pexelsUrl?: string;
   matchedTier?: string;
+  /**
+   * Generation bookkeeping, `source: "gemini"` only — the model and the full
+   * prompt that produced the frame, so it can be reproduced or restyled
+   * without guessing what was asked for.
+   */
+  model?: string;
+  prompt?: string;
+  generatedAt?: string;
 };
 
 const map = generated as Record<string, GeneratedImage>;

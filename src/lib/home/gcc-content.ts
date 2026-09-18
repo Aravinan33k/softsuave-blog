@@ -24,7 +24,7 @@ export const gccMeta = {
   path: "/global-capability-center",
   title: "Global Capability Center (GCC) Services",
   description:
-    "Set up and run your own Global Capability Center in India with Soft Suave — entity setup, infrastructure, hiring, and day-to-day operations handled end to end, with your team under your control.",
+    "Set up and run your own Global Capability Center in India — entity setup, infrastructure, hiring and daily operations, with your team under your control.",
 } as const;
 
 export const gccHero: HeroContent = {

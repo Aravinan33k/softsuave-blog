@@ -1,123 +1,201 @@
 /**
- * Mobile hire-by-skill pages: Swift, Kotlin, Flutter, React Native, Ionic.
+ * Mobile hire pages: Swift, Kotlin, Flutter, React Native, Ionic.
  *
- * Kotlin and Swift argue about the language and where it now runs beyond one
- * platform: Kotlin Multiplatform and Ktor, Swift on macOS/watchOS and the
- * server. The platform pages they used to sit beside — Android and iOS — are
- * not hire-by-skill pages any more: softsuave.com files both under "Hire By
- * Role", so they are role pages now, in `lib/home/hire-roles/`.
+ * Every string is its live softsuave.com page's own copy, and `order` is the
+ * sequence that page's `<section>` elements run in. All five differ:
+ *
+ * - Swift and Flutter run the older layout, though Swift's hiring band has five
+ *   steps where every other page has four.
+ * - React Native puts its comparison table *before* the rate band, and that
+ *   table is its own — different columns and real rate figures, not the
+ *   shared one in `hire-comparison.ts`.
+ * - Ionic runs a technical-proficiency band between its rate band and its
+ *   why-hire cards, and reaches its hiring steps only after the comparison.
+ * - Kotlin runs the newer layout: a client band first, hiring steps second.
+ *
+ * These pages link the mobile roster in their "Explore More Technologies" band,
+ * not the web one — that is the only difference the live markup makes between
+ * the two groups there.
  */
 
 import type { HireSkill } from "./hire-skill";
+import { sharedHeroAlert } from "./delivery-shared";
+import { mobileExplore } from "./hire-explore";
+import { partnerTable } from "./hire-comparison";
+import { MERN_STEPS, MERN_WHY, CURATED_STEPS } from "./hire-blocks";
 
 const swift: HireSkill = {
   slug: "hire-swift-developers",
   key: "swift",
   name: "Swift",
   role: "Swift Developers",
-  metaTitle: "Hire Swift Developers",
+  metaTitle: "Hire Swift Developers India | 40-Hour Free Trial",
   metaDescription:
-    "Hire Swift developers from Soft Suave for iOS, iPadOS, macOS, watchOS, and server-side Swift. Modern concurrency and SwiftUI. You interview, two-week trial.",
+    "Hire skilled Swift developers through Soft Suave — pre-vetted experts in Swift, Xcode and API development, available within 24–48 hours.",
   serviceType: "Swift development staffing",
-  eyebrow: "Hire Swift Developers",
   ctaLabel: "Hire Swift developers",
-  titleLines: ["Hire Swift Developers", "For Every Apple Platform, Not Just iPhone"],
-  heroBody: [
-    "Swift is a fast, memory-safe, strongly typed language whose reach now extends well past the iPhone: macOS and watchOS apps, visionOS, command-line tooling, and server-side services with Vapor all share one codebase and one language.",
-    "Hiring for the language rather than the platform makes sense when your product spans several Apple surfaces, or when you want shared model and business logic across them instead of three separate implementations.",
+
+  order: [
+    "overview",
+    "services",
+    "midCta",
+    "process",
+    "whyUs",
+    "exploreMore",
+    "testimonials",
+    "faq",
   ],
-  heroPoints: [
-    "Swift 5.10 with strict concurrency and actors",
-    "iOS, iPadOS, macOS, watchOS and visionOS",
-    "SwiftUI shared across platforms with adaptive layouts",
-    "Swift Packages and server-side Swift with Vapor",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/work-1.webp",
-    width: 800,
-    height: 1000,
-    alt: "A Swift codebase shared across iPhone, iPad, Mac, and Watch applications",
+
+  hero: {
+    titleLines: ["Hire Swift Developers", "in India on Contract"],
+    body: [
+      "Top-tier Swift developers do not have to come with a top-tier price tag. Hire skilled Swift developers through Soft Suave, a specialized IT outsourcing agency offering pre-vetted experts in Swift, Xcode, and API development; within 24–48 hours, and up to 60% more cost-effective.",
+      "Lower hiring cost, more native iOS performance starting right now.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top Swift Developers in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your Swift requirement.",
+      subject: "Swift Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/work-1.webp",
+      width: 1200,
+      height: 860,
+      alt: "A Swift codebase shared across iPhone, iPad, Mac, and Watch applications",
+    },
   },
-  requirementLabel: "What are you building in Swift?",
-  requirementPlaceholder:
-    "The platforms involved — iOS, macOS, watchOS, server — what is shared between them, and the seniority you need.",
-  overviewTitle: "What Swift Developers Actually Do for You",
-  overviewParagraphs: [
-    "Swift replaced Objective-C as Apple's language and has since become considerably more than an app language. Its type system eliminates whole categories of runtime error, its concurrency model — async/await, actors, and strict data-race checking — makes correct concurrent code far more achievable than the callback-and-lock approach it replaced, and Swift Packages make sharing code across targets straightforward.",
-    "Hiring a Swift developer rather than an iOS developer is the right framing when the work spans platforms: a Mac companion to an iOS app, a watchOS extension, shared model and networking layers packaged for reuse, or a Vapor service written in the same language as the client that calls it.",
-    "The area where current Swift expertise matters most is concurrency. Swift 6's strict concurrency checking turns data races into compile-time errors, which is a genuine advance and also a migration that surfaces latent bugs in existing code. Engineers who have done that migration are meaningfully more useful than those who have only read about it.",
-  ],
-  pullQuote:
-    "Swift's strict concurrency checking does not create new bugs. It reveals the data races that were always there.",
-  capabilities: [
-    {
-      name: "Multi-Platform Apple Apps",
-      tag: "Platforms",
-      body: "One codebase serving iOS, iPadOS, macOS, and watchOS with shared logic and adaptive interfaces, rather than three independent implementations that drift apart within two releases.",
-    },
-    {
-      name: "Swift Concurrency",
-      tag: "Architecture",
-      body: "async/await, actors, structured task management, and migration to strict concurrency checking — replacing completion handlers and manual locking with code the compiler can verify.",
-    },
-    {
-      name: "Shared Swift Packages",
-      tag: "Reuse",
-      body: "Model, networking, and business logic extracted into versioned Swift Packages consumed by every target, so a change to a shared rule happens in one place rather than being reimplemented per app.",
-    },
-    {
-      name: "macOS Applications",
-      tag: "Desktop",
-      body: "Native Mac applications using AppKit or SwiftUI, including menu-bar utilities, document-based apps, and the sandboxing and notarisation requirements of distributing outside the Mac App Store.",
-    },
-    {
-      name: "Server-Side Swift",
-      tag: "Back end",
-      body: "Vapor services for teams who want one language across client and server, with the shared model types that removes an entire class of client-server contract mismatch.",
-    },
-    {
-      name: "Objective-C Interop",
-      tag: "Migration",
-      body: "Working inside mixed codebases and migrating Objective-C to Swift incrementally, with the bridging headers and nullability annotations that keep both halves usable throughout.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Language",
-      items: ["Swift 5.10", "Swift Concurrency", "Actors", "Swift Package Manager", "Combine", "Objective-C"],
-    },
-    {
-      name: "UI Frameworks",
-      items: ["SwiftUI", "UIKit", "AppKit", "WidgetKit", "watchOS", "visionOS"],
-    },
-    {
-      name: "Data & Services",
-      items: ["SwiftData", "Core Data", "CloudKit", "Vapor", "GRDB", "Core ML"],
-    },
-    {
-      name: "Quality & Tooling",
-      items: ["XCTest", "Swift Testing", "SwiftLint", "Instruments", "Fastlane", "Xcode Cloud"],
-    },
-  ],
-  faqs: [
-    {
-      q: "How much can we share between iOS and macOS?",
-      a: "Model layers, networking, business logic, and persistence share essentially completely through Swift Packages. SwiftUI shares a large amount of interface code too, but the honest answer is that the last stretch does not share and should not: a Mac application has menus, multiple windows, keyboard navigation, and a pointer, and an iOS layout transplanted unchanged onto macOS is immediately recognisable as a port. We aim for shared logic with platform-appropriate interfaces rather than one interface everywhere.",
-    },
-    {
-      q: "Should we adopt Swift 6 strict concurrency?",
-      a: "Yes, though incrementally. Strict concurrency checking turns data races into compile errors, which is a real safety gain — but enabling it on an established codebase surfaces a large number of warnings, most of which are genuine latent bugs rather than false positives. The workable approach is module by module, with the language mode raised per target as each is cleaned up, rather than flipping it on globally and facing several hundred errors at once.",
-    },
-    {
-      q: "Is server-side Swift a sensible choice?",
-      a: "In a specific case: when your team is already strong in Swift, when sharing model types between client and server has real value, and when the service is not doing anything exotic. Vapor is mature and performs well. The honest caveats are a smaller ecosystem than Node, Python, or Java, fewer engineers to hire, and less community material when something goes wrong. For a team without existing Swift depth we would usually recommend something more conventional on the server.",
-    },
-    {
-      q: "Can your Swift developers work on our Objective-C codebase?",
-      a: "Yes. Most substantial iOS codebases of any age are mixed, and our engineers are comfortable reading and writing Objective-C as well as bridging between the two. Migration is incremental — new code in Swift, existing classes converted when they are next being changed substantially — with attention to nullability annotations on the Objective-C side, since those determine whether the Swift half sees clean optionals or implicitly unwrapped ones.",
-    },
-  ],
+
+  overview: {
+    eyebrow: "Overview",
+    title: "Hire Remote Swift Developers from Soft Suave",
+    paragraphs: [
+      "Onboard Swift developers from us to build robust and reliable software solutions that meet your business objectives and exceed customer expectations.",
+      "Soft Suave has a team of experienced and talented Swift developers to help you build a custom iOS app tailored to your specific needs. In order to create a fast-turnaround app, hire swift programmers from us who will provide you with high-quality, reliable, and user-friendly apps. Our Swift expertise and knowledge enable us to create secure and safe apps. Swift's agility and flexibility allow us to develop apps quickly.",
+      "Outsource talented and reliable Swift developers who can develop sophisticated apps for different iOS devices, such as iPhones, iPads, and Apple Watches. It is the best choice to hire remote Swift developers rather than hiring in-house developers for project resources. The 40-hour free trial for developers allows you to see our developers' work before deciding. Hire swift app developers in India who can ramp up your project and accelerate the development process. We guarantee on-time delivery, quality assurance, and post-release support.",
+    ],
+  },
+
+  services: {
+    eyebrow: "Services",
+    title: "Outsource Swift App Developers for Exceptional Range of Service",
+    body: "Hire Dedicated Swift App Developers from Soft Suave whose Expertise is unparalleled, with years of experience and exceptionality in the field.",
+    items: [
+      {
+        name: "Swift UX and UI Development",
+        body: "Using SwiftUI, our developers can create engaging user experiences on Apple platforms with built-in animations, transitions, and state management.",
+      },
+      {
+        name: "Custom Swift App Development",
+        body: "With the help of Soft Suave's Swift developers, you will receive a tailor-made app that meets your specific business requirements",
+      },
+      {
+        name: "Swift App Testing",
+        body: "We test your Swift app for compatibility with different devices and OS versions to ensure a smooth user experience",
+      },
+      {
+        name: "Swift App Strategy & Consulting",
+        body: "We help startups and SMEs implement a profitable swift app development strategy that saves them time and adds value",
+      },
+      {
+        name: "Swift Apps Migration & Upgradations",
+        body: "Keeping your Swift application updated will allow you to migrate applications from other languages and platforms.",
+      },
+      {
+        name: "Swift Maintenance and Support",
+        body: "Keeping your app updated, and functional is our priority, and we offer swift maintenance and support services",
+      },
+    ],
+  },
+
+  midCta: {
+    title: "Hire Remote Swift Developers Starting from $14/hour",
+    body: "We will provide you with remote Swift developers that work from India. Contact us to look at the rate card.",
+    cta: { label: "Request Rate Card", href: "#enquiry" },
+  },
+
+  /** Five stages, not four — the Swift page is the only one that splits them. */
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Onboard Remote Swift Developers in 4 easy steps",
+    body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
+    steps: [
+      {
+        n: "01",
+        name: "Inquiry",
+        body: "Tell us in brief about your ideas and needs. Don't worry it's secure and confidential.",
+      },
+      {
+        n: "02",
+        name: "Select CV",
+        body: "Shortlist candidates which best fit in your needs by viewing their CVs.",
+      },
+      {
+        n: "03",
+        name: "Assessment",
+        body: "Optionally, assess candidates over a phone or video call.",
+      },
+      { n: "04", name: "Trial Run", body: "Take a 1-week free trial." },
+      {
+        n: "05",
+        name: "Add resource in your team",
+        body: "If you like the resource(s), pay for the trial time and onboard resource(s).",
+      },
+    ],
+  },
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "Why Hire Swift Developers from Soft Suave Most Reliable?",
+    body: "Our Swift app developers are renowned for their technical expertise, attention to detail, and focus on quality.",
+    items: MERN_WHY,
+  },
+
+  exploreMore: mobileExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "Frequently Asked Questions",
+    body: "Here are some questions you may have about hiring swift developers that are often asked",
+    items: [
+      {
+        q: "You sign NDAs, right?",
+        a: "We take the security of our client's information seriously, which is why we require all of our developers to sign NDAs.",
+      },
+      {
+        q: "How many platforms do your Swift developers support?",
+        a: "Our developers experienced in working with multiple platforms, including iOS, and macOS.",
+      },
+      {
+        q: "What is the cost of hiring a Swift app developer?",
+        a: "We can provide you with a custom quote based on your specific requirements based on the skill level, experience, and location of the Swift developer you choose.",
+      },
+      {
+        q: "How to Hire Swift App Developers?",
+        a: [
+          "Identify all the tasks the developer needs to complete",
+          "Choose your preferred developer and technology.",
+          "Finalize the agreement with the project manager or sales team.",
+          "If you are having trouble, just connect with our experts.",
+        ],
+      },
+      {
+        q: "Is it possible to hire swift developers based on needed timeliness?",
+        a: "Yes, absolutely. Our expert Swift developers are available for both hourly and project-based tasks. We can match you with the best-suited developer, with the right set of skills and experience to meet your needs.",
+      },
+    ],
+  },
 };
 
 const kotlin: HireSkill = {
@@ -125,109 +203,265 @@ const kotlin: HireSkill = {
   key: "kotlin",
   name: "Kotlin",
   role: "Kotlin Developers",
-  metaTitle: "Hire Kotlin Developers",
+  metaTitle: "Hire Kotlin Developers India - Top 1% Programmers",
   metaDescription:
-    "Hire Kotlin developers from Soft Suave for Android, Kotlin Multiplatform, and Ktor back-end services. Coroutines and cross-platform logic. You interview, two-week trial.",
+    "Hire vetted Kotlin developers from India for Android and backend development. Experts in Kotlin, Android Studio, Jetpack, APIs and enterprise mobility.",
   serviceType: "Kotlin development staffing",
-  eyebrow: "Hire Kotlin Developers",
   ctaLabel: "Hire Kotlin developers",
-  titleLines: ["Hire Kotlin Developers", "For Android, Server and Shared Code"],
-  heroBody: [
-    "Kotlin started as a better language for Android and became something broader: a concise, null-safe JVM language that also compiles for iOS, the web, and native targets, with coroutines that make concurrent code readable.",
-    "Hiring for Kotlin rather than for Android makes sense when you want shared business logic across platforms, or Kotlin on the server alongside your Android team, rather than a single app on a single platform.",
+
+  order: [
+    "clients",
+    "whyUs",
+    "process",
+    "techStack",
+    "services",
+    "vetting",
+    "comparison",
+    "exploreMore",
+    "testimonials",
+    "faq",
   ],
-  heroPoints: [
-    "Kotlin with coroutines, Flow and null safety",
-    "Kotlin Multiplatform for shared Android and iOS logic",
-    "Ktor and Spring Boot back-end services in Kotlin",
-    "Compose Multiplatform for shared interfaces",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/work-2.webp",
-    width: 800,
-    height: 1000,
-    alt: "A Kotlin codebase shared across Android, iOS, and server-side targets",
+
+  hero: {
+    titleLines: ["Hire Kotlin Developers", "in India on Contract"],
+    body: [
+      "Soft Suave connects businesses with vetted Kotlin developers from India for Android and backend development. Our developers specialize in Kotlin, Android Studio, Jetpack, APIs, enterprise mobility, and scalable mobile applications. Hire quickly with flexible contracts.",
+      "See why businesses choose Soft Suave for their Kotlin developer hiring.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top Kotlin Developers in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your Kotlin requirement.",
+      subject: "Kotlin Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/work-2.webp",
+      width: 1200,
+      height: 860,
+      alt: "A Kotlin codebase shared across Android, iOS, and server-side targets",
+    },
   },
-  requirementLabel: "What are you building in Kotlin?",
-  requirementPlaceholder:
-    "Whether this is Android, Multiplatform, or server-side Kotlin — what you want shared, and the seniority you need.",
-  overviewTitle: "What Kotlin Developers Actually Do for You",
-  overviewParagraphs: [
-    "Kotlin's immediate advantages over Java are null safety enforced by the type system, far less ceremony for the same behaviour, and coroutines — a concurrency model that reads sequentially while running asynchronously. On Android those have made it the default; on the server they make it a genuinely attractive alternative to Java with full interoperability, so it can be adopted file by file in an existing JVM codebase.",
-    "The more interesting case is Kotlin Multiplatform. Business logic, networking, validation, and persistence are written once and compiled for Android, iOS, desktop, and the server, while each platform keeps its own native interface. That is a materially different proposition from a cross-platform framework: the shared part is the logic, not the UI.",
-    "Compose Multiplatform extends that to the interface where you want it, and it is now production-ready on Android, desktop, and iOS. Whether to share UI as well as logic is a real decision with real trade-offs, and it deserves a specific answer rather than a default one.",
-  ],
-  pullQuote:
-    "Kotlin Multiplatform shares the logic and leaves the interface native. That is a different bet from React Native, and it fails differently too.",
-  capabilities: [
-    {
-      name: "Android Development",
-      tag: "Mobile",
-      body: "Modern Android applications in Kotlin with Jetpack Compose, coroutines, and Flow, using the language features — sealed classes, data classes, extension functions — that make state modelling considerably cleaner.",
-    },
-    {
-      name: "Kotlin Multiplatform",
-      tag: "Cross-platform",
-      body: "Shared business logic, networking, and persistence across Android and iOS with native interfaces on each, so platform behaviour stays native while the rules exist in exactly one place.",
-    },
-    {
-      name: "Server-Side Kotlin",
-      tag: "Back end",
-      body: "Ktor services and Spring Boot applications written in Kotlin, with coroutine-based concurrency and full interoperability with existing Java code and libraries in the same codebase.",
-    },
-    {
-      name: "Java to Kotlin Migration",
-      tag: "Migration",
-      body: "Incremental conversion of Java codebases, file by file, with the platform-type and nullability questions handled deliberately rather than left to the automated converter's defaults.",
-    },
-    {
-      name: "Coroutines and Flow",
-      tag: "Concurrency",
-      body: "Structured concurrency with proper scope and cancellation, and reactive streams with Flow — replacing callback chains and RxJava with code that is both shorter and easier to reason about.",
-    },
-    {
-      name: "Compose Multiplatform",
-      tag: "UI",
-      body: "Shared declarative interfaces across Android, desktop, and iOS where that trade genuinely fits, with a frank assessment of where platform-native UI is still the better answer.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Language",
-      items: ["Kotlin 2.0", "Coroutines", "Flow", "Serialization", "Gradle KTS", "Java interop"],
-    },
-    {
-      name: "Multiplatform",
-      items: ["Kotlin Multiplatform", "Compose Multiplatform", "Ktor Client", "SQLDelight", "Koin", "Native interop"],
-    },
-    {
-      name: "Android & Server",
-      items: ["Jetpack Compose", "Room", "Hilt", "Ktor Server", "Spring Boot", "Exposed"],
-    },
-    {
-      name: "Quality & Delivery",
-      items: ["JUnit 5", "Kotest", "MockK", "Detekt", "Gradle", "GitHub Actions"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Is Kotlin Multiplatform production-ready?",
-      a: "Yes for shared logic — it reached stable status and is used in production by a number of large consumer apps. Sharing networking, business rules, validation, and persistence across Android and iOS while keeping native interfaces is a well-trodden path now. Compose Multiplatform for shared UI is stable on Android and desktop and stable on iOS as of 2025, though the iOS side has a shorter production track record, so we would scope that part deliberately rather than assuming it.",
-    },
-    {
-      q: "How does Kotlin Multiplatform compare to Flutter or React Native?",
-      a: "It is a different bet. Flutter and React Native share the interface and render it themselves, so you get one UI everywhere and accept that it is not truly native. KMP shares only the logic and leaves each platform's interface entirely native, so the apps feel exactly right and you write two interfaces. KMP suits teams who already have native iOS and Android developers and want to stop duplicating business rules; Flutter suits teams who want one team building one app.",
-    },
-    {
-      q: "Should we use Kotlin on the server?",
-      a: "It is a strong option if your team already writes Kotlin for Android, since the language, tooling, and idioms carry over and coroutines suit service code well. Ktor is lightweight and coroutine-native; Spring Boot works with Kotlin very comfortably and brings the entire Spring ecosystem. The honest caveat is a smaller hiring pool than Java and less community material for unusual problems — real considerations, though rarely decisive for a team already invested in Kotlin.",
-    },
-    {
-      q: "Can you migrate our Java codebase to Kotlin?",
-      a: "Yes, incrementally, since the two interoperate completely and can coexist in one module indefinitely. The usual approach is new code in Kotlin and conversion of existing classes when they are next changed substantially, rather than a big-bang conversion with no functional benefit. The part needing real attention is nullability: the automated converter marks Java types as platform types, and accepting those defaults gives you Kotlin syntax without Kotlin's main safety advantage.",
-    },
-  ],
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "Why Hire Kotlin Developers from Soft Suave",
+    body: "Choose Soft Suave for Kotlin development! Our talented developers utilize the latest technology to produce cutting-edge results that will elevate your business and deliver the results you deserve. Whether you're looking for top-tier Kotlin developers or a cost-effective offshore software development service, we ensure you get the best talent for your needs.",
+    items: [
+      {
+        name: "Pre-vetted Kotlin developers",
+        body: "We carefully vet each Kotlin developer to ensure top-notch skills, reliable performance, and a strong dedication to your project's success.",
+        icon: "users",
+      },
+      {
+        name: "Flexible hiring models",
+        body: "Our flexible hiring options allow you to hire dedicated Kotlin developers and adjust your team's size based on project needs, ensuring seamless scaling.",
+        icon: "gauge",
+      },
+      {
+        name: "Global delivery standards",
+        body: "Utilizing agile practices and global standards, we guarantee high-quality deliverables and consistency in every phase.",
+        icon: "globe",
+      },
+      {
+        name: "Strict NDA & IP protection",
+        body: "Your intellectual property is safe with us. We provide indisputable NDAs and comprehensive protection of your ideas.",
+        icon: "shield",
+      },
+      {
+        name: "Time Zone Flexibility",
+        body: "Our developers overlap with your time zone for 4-6 hours, ensuring smooth, real-time collaboration.",
+        icon: "book",
+      },
+      {
+        name: "World-Class Developers at Budget-Friendly Rates",
+        body: "Hire offshore Kotlin developer talent at competitive offshore rates from Soft Suave, ensuring value and quality for your project.",
+        icon: "coins",
+      },
+    ],
+  },
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Steps to Hire a Kotlin Developer",
+    body: "Unlock your dream team fast! Our dynamic 4-step hiring process makes it a breeze to find and onboard top-notch Kotlin developers.",
+    steps: [
+      {
+        n: "01",
+        name: "Share the JD",
+        body: "Brief us about the kind of Kotlin developers you are looking to hire and your project requirements.",
+      },
+      {
+        n: "02",
+        name: "Shortlist The Right Developers",
+        body: "Choose top Kotlin developers from a hand-picked list, matched with your project requirements.",
+      },
+      {
+        n: "03",
+        name: "Free 40-hour Trial",
+        body: "Evaluate our developers' abilities with a 40-hour trial, risk-free.",
+      },
+      {
+        n: "04",
+        name: "Onboard & Manage",
+        body: "Onboard the resource to your team after signing the SLA and NDA.",
+      },
+    ],
+  },
+
+  techStack: {
+    eyebrow: "Technology",
+    title: "Technical Expertise of Our Kotlin Developers",
+    body: "Our Kotlin developers are technically proficient in mobile, web, server-side development, and more, which allows for the creation of high-quality code, smooth integrations, and optimised performance in every one of your projects.",
+    groups: [
+      { name: "Cross-Platform Development", items: ["Kotlin Multiplatform", "Ktor", "SQLite"] },
+      { name: "App Architecture", items: ["MVVM", "Jetpack", "Retrofit"] },
+      { name: "Asynchronous Programming", items: ["Coroutines"] },
+      { name: "Backend Development", items: ["Spring Boot", "Micronaut"] },
+      { name: "Android App Development", items: ["Android Studio", "Firebase"] },
+      { name: "Frontend Web Development", items: ["React", "Angular"] },
+      {
+        name: "Testing Frameworks",
+        items: ["JUnity", "Mockito", "Espresso", "Roboelectric", "TestNG"],
+      },
+      {
+        name: "Build Tools",
+        items: ["Gradle", "Maven", "Docker (Containerization)", "Postman (API Testing)"],
+      },
+      {
+        name: "Version Control and CI/CD",
+        items: ["Git", "Jenkins", "GitHub Actions", "Travis CI", "Circle CI"],
+      },
+      { name: "Dependency Injection", items: ["Koin", "Hilt", "Dagger"] },
+    ],
+  },
+
+  services: {
+    eyebrow: "Services",
+    title: "Kotlin Development Services We Offer",
+    body: "Explore our comprehensive Kotlin development services! From mobile apps to backend solutions, we provide tailored approaches to enhance user experience and scale business growth.",
+    items: [
+      {
+        name: "Kotlin Android App Development",
+        body: "Engage skilled Kotlin developers from Soft Suave to unleash efficient Android applications. With seamless integration, our team crafts tailored solutions that ensure optimized, scalable apps that elevate your user experience.",
+      },
+      {
+        name: "Kotlin Integration and Migration",
+        body: "Easily integrate Kotlin into your existing systems or migrate from other languages. Hire dedicated Kotlin developers to ensure smooth transitions and optimize your app's performance for better efficiency.",
+      },
+      {
+        name: "Wearable Application",
+        body: "Create wearable applications that are innovative and functional. Our team provides seamless integration for user-friendly interfaces and live data updates associated with wearables.",
+      },
+      {
+        name: "AI/ML App Development",
+        body: "Supercharge your app with AI/ML using Kotlin! Discover innovative technology and intelligent solutions today. Hire remote Kotlin developers to craft smarter, more personalized app experiences that stand out!",
+      },
+      {
+        name: "Kotlin Support and Maintenance",
+        body: "Enhance your Kotlin applications with ongoing support. Hire Kotlin developers remotely for timely bug fixes, updates, and enhancing operations for long-lasting experiences.",
+      },
+      {
+        name: "Server-Side Development",
+        body: "Optimize backend operations by using Kotlin for your server-side applications. We develop secure, scalable, and performance-oriented server-side solutions that match perfectly with your business processes.",
+      },
+      {
+        name: "Kotlin Multiplatform Development",
+        body: "Build cross-platform apps with Kotlin's multiplatform features. Hire expert Kotlin developers to create seamless cross-platform solutions and grow your app's audience without extra delay or spend.",
+      },
+      {
+        name: "Kotlin Enterprise App Development",
+        body: "Modernize your enterprise with bespoke Kotlin applications. Hire dedicated Kotlin developers to produce scalable, secure, and efficient solutions customized to your company's requirements.",
+      },
+      {
+        name: "AR/VR Mobile App",
+        body: "Boost user interaction with state-of-the-art AR/VR apps with Kotlin. We produce captivating applications that will take users to new worlds with dynamic and engaging experiences.",
+      },
+      {
+        name: "Kotlin Game Development",
+        body: "Create and publish your own mobile games with Kotlin. Hire Kotlin game developers to design interactive and visually spectacular gaming experiences with compelling graphics that will keep your users coming back for more.",
+      },
+      {
+        name: "Kotlin App Optimization",
+        body: "Leverage Kotlin to improve the performance and speed of your application. Our team is dedicated to fine-tuning your app to make sure it runs quickly and efficiently on any and all devices.",
+      },
+      {
+        name: "Consulting",
+        body: "Get expert advice on Kotlin development. Our consultants guide you through best practices, frameworks, and strategies to scale and optimize your app's success.",
+      },
+    ],
+  },
+
+  /** Kotlin's third stage is worded differently from the other newer pages'. */
+  vetting: {
+    eyebrow: "Vetting",
+    title: "How We Vet and Onboard Top Kotlin Developers",
+    body: "We ensure excellence in every hire! Our rigorous vetting process combines technical assessments, interviews, and portfolio reviews to onboard only the best Kotlin developers for your projects.",
+    steps: [
+      {
+        n: "01",
+        name: "Rigorous talent sourcing",
+        body: "Rather than just putting up job posts and waiting around, we find outstanding Kotlin professionals",
+      },
+      {
+        n: "02",
+        name: "In-depth skill assessment",
+        body: "Each developer undergoes complex coding challenges and skill assessments.",
+      },
+      {
+        n: "03",
+        name: "Collaboration & problem-solving focus",
+        body: "We look for developers who thrive in teams and have strong problem-solving abilities.",
+      },
+      {
+        n: "04",
+        name: "Cultural fit & adaptability",
+        body: "We ensure our developers can easily integrate into your team's culture.",
+      },
+    ],
+  },
+
+  comparison: partnerTable("Choosing the Right Kotlin Partner for Your Specific Needs"),
+
+  exploreMore: mobileExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "FAQs About Hiring Kotlin Developers",
+    body: "Learn more about our procedures & methods with the help of these FAQs.",
+    items: [
+      {
+        q: "How much does it cost to hire Kotlin developer?",
+        a: "Several factors influence the price of hiring a Kotlin developer, among them: the developer's experience, the project's complexity, and the hiring model are important ones. At Soft Suave, we provide Kotlin developers starting with an affordable $14/hour.",
+      },
+      {
+        q: "Is there any free trial period available?",
+        a: "Yes, we have a 40-hour trial period so you can test the skills of our developers.",
+      },
+      {
+        q: "What are the hiring engagement options available at Soft Suave?",
+        a: "Fixed price, time and material, or managed services are the hiring engagement options available at Soft Suave.",
+      },
+      {
+        q: "Do you provide support and maintenance services after deployment?",
+        a: "Yes, we offer ongoing maintenance, support, and optimization once the project is live.",
+      },
+      {
+        q: "Where can you find a Kotlin Engineer?",
+        a: "You can hire remote Kotlin developers through Soft Suave, where we provide access to top developers, ensuring a perfect fit for your needs.",
+      },
+    ],
+  },
 };
 
 const flutter: HireSkill = {
@@ -235,109 +469,150 @@ const flutter: HireSkill = {
   key: "flutter",
   name: "Flutter",
   role: "Flutter Developers",
-  metaTitle: "Hire Flutter Developers",
+  metaTitle: "Hire Dedicated Flutter Developers India",
   metaDescription:
-    "Hire Flutter developers from Soft Suave to ship one Dart codebase to iOS and Android. Custom UI, platform-channel work, release discipline. You interview, two-week trial.",
+    "Hire skilled Flutter developers from India for cross-platform mobile apps. Experts in Flutter, Dart, Firebase, custom UI and Android + iOS delivery.",
   serviceType: "Flutter development staffing",
-  eyebrow: "Hire Flutter Developers",
   ctaLabel: "Hire Flutter developers",
-  titleLines: ["Hire Flutter Developers", "For One Codebase That Ships to Both Stores"],
-  heroBody: [
-    "Flutter renders its own interface rather than wrapping native components, which is why a Flutter app looks identical on both platforms and why custom, brand-heavy design is genuinely easier here than anywhere else.",
-    "It still ships through both stores, still needs platform channels for anything the plugin ecosystem does not cover, and still needs someone who understands native release. Our Flutter engineers are not only Dart developers.",
+
+  order: [
+    "overview",
+    "services",
+    "midCta",
+    "process",
+    "whyUs",
+    "exploreMore",
+    "testimonials",
+    "faq",
   ],
-  heroPoints: [
-    "Flutter 3 and Dart, iOS and Android from one codebase",
-    "Custom design systems and brand-led interfaces",
-    "Platform channels into native Swift and Kotlin",
-    "Both store release pipelines, not just the build",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/work-4.webp",
-    width: 800,
-    height: 1000,
-    alt: "A Flutter application rendering an identical custom interface on iOS and Android",
+
+  hero: {
+    titleLines: ["Hire Flutter Developers", "in India on Contract"],
+    body: [
+      "Soft Suave provides skilled Flutter developers from India for startups and enterprises building cross-platform mobile apps. Hire experts in Flutter, Dart, Firebase, API integrations, custom UI, and scalable Android + iOS app development. Fast onboarding with cost-effective engagement options.",
+      "See why businesses choose Soft Suave for their Flutter developer hiring.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top Flutter Developers in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your Flutter requirement.",
+      subject: "Flutter Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/work-4.webp",
+      width: 1200,
+      height: 860,
+      alt: "A Flutter application rendering an identical custom interface on iOS and Android",
+    },
   },
-  requirementLabel: "What are you building in Flutter?",
-  requirementPlaceholder:
-    "The app, the platforms you need, any native capabilities involved, and whether this is a new build or existing code.",
-  overviewTitle: "What Flutter Developers Actually Do for You",
-  overviewParagraphs: [
-    "Flutter draws every pixel itself through its own rendering engine instead of delegating to platform widgets. The consequence is that an app looks and behaves identically on iOS and Android, that custom design is not fighting two different native widget sets, and that animation and visual polish are unusually accessible.",
-    "A Flutter engagement covers widget architecture and a design system, state management chosen deliberately from several mature options, navigation, local persistence, networking, platform channels where native capability is needed, and the release pipeline for both stores.",
-    "The trade-off is real and worth stating: because Flutter does not use native components, matching precise platform conventions takes deliberate effort, some new OS features arrive later than in native development, and app binaries are larger. For most products that is an acceptable price for halving the codebase; for a product whose value is deep platform integration it is not.",
-  ],
-  pullQuote:
-    "Flutter is one codebase, not one skill set. Someone still has to sign the iOS build and answer to App Review.",
-  capabilities: [
-    {
-      name: "Cross-Platform Apps",
-      tag: "Build",
-      body: "A single Dart codebase delivering to iOS and Android — and to web and desktop where it fits — with one team, one backlog, and features that land on both platforms simultaneously.",
-    },
-    {
-      name: "Custom Design Systems",
-      tag: "UI",
-      body: "Brand-led interfaces with bespoke components, transitions, and animation, which is where Flutter's own rendering engine is a genuine advantage rather than a compromise.",
-    },
-    {
-      name: "Platform Channels",
-      tag: "Native",
-      body: "Swift and Kotlin bridges for hardware access, SDKs with no Flutter plugin, and background behaviour — plus maintaining those bridges, which is where thin Flutter teams typically get stuck.",
-    },
-    {
-      name: "State Management",
-      tag: "Architecture",
-      body: "Riverpod, Bloc, or Provider chosen for the product's actual complexity rather than by preference, with a structure that survives the app growing past its first dozen screens.",
-    },
-    {
-      name: "Performance Tuning",
-      tag: "Performance",
-      body: "Diagnosing jank with the Flutter DevTools timeline, controlling rebuild scope, using const constructors and list virtualisation properly, and reducing app size through deferred loading.",
-    },
-    {
-      name: "Store Release",
-      tag: "Release",
-      body: "Signing, provisioning, App Review and Play policy compliance, staged rollout, and crash monitoring on both platforms — the native half of shipping a Flutter app.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Core",
-      items: ["Flutter 3", "Dart 3", "Material 3", "Cupertino", "go_router", "Impeller"],
-    },
-    {
-      name: "State & Data",
-      items: ["Riverpod", "Bloc", "Provider", "Drift", "Isar", "Dio"],
-    },
-    {
-      name: "Platform & Services",
-      items: ["Firebase", "Platform Channels", "FCM Push", "In-App Purchase", "Maps", "Camera"],
-    },
-    {
-      name: "Quality & Release",
-      items: ["flutter_test", "Integration Test", "Patrol", "Fastlane", "Codemagic", "Crashlytics"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Is Flutter a good choice for our app?",
-      a: "It is strong when you want the same app on both platforms with one team, when the interface is custom and brand-led rather than strictly platform-conventional, and when time to market matters. It is a weaker choice when the product's value is deep platform integration — complex widgets, extensive background processing, tight OS feature adoption — or when you need each platform to feel exactly like its own. We will tell you if we think your requirements point to native.",
-    },
-    {
-      q: "Do Flutter apps feel native?",
-      a: "They feel consistent, which is not the same thing. Flutter draws its own widgets, so an app looks identical on both platforms — excellent if your brand is the point, less so if users expect exact platform conventions. Flutter provides both Material and Cupertino component sets and a well-built app is indistinguishable to most users, but a discerning iOS user can often tell. Whether that matters depends entirely on your audience.",
-    },
-    {
-      q: "Can Flutter access native device features?",
-      a: "Yes. Most common capabilities — camera, location, biometrics, notifications, payments — have mature plugins. Anything beyond that is reached through platform channels, which means writing Swift and Kotlin on the other side of the bridge. That is normal and expected, and it is exactly where teams hiring only Dart developers come unstuck. Our Flutter engineers write both sides, and we say so on the shortlist.",
-    },
-    {
-      q: "How does Flutter compare to React Native?",
-      a: "Flutter renders its own widgets, giving pixel-identical output and smoother custom animation, with Dart as the language. React Native maps to actual native components and uses JavaScript, so it inherits platform look automatically and lets a React team reuse existing skills. Choose Flutter for design-led products and teams without React investment; choose React Native when you already have React engineers and web-mobile code sharing matters. Both are mature — this is a team and product question, not a technical winner.",
-    },
-  ],
+
+  overview: {
+    eyebrow: "Overview",
+    title: "Hire Flutter Developers Team At Your Flexibility",
+    paragraphs: [
+      "Right from App concept till its successful launch, you can count on our Flutter developers.",
+      "Soft Suave is the leading cross-platform app development company in India that offers top Flutter experts for hire. Our Flutter app developer's specialization in developing cost-effective apps is strengthened by leading-edge technologies and tools. Our development team comprises 400+ Success-driven & skilled programmers with more than 6+ years of experience. Our programmers have the expertise to understand the requirements and offer solutions to strengthen your business across several industry verticals. We focus on building enterprise-grade flutter development for start-ups and SMBs around the world. You can hire Flutter developer to build secure and reliable applications with next-gen features for your business.",
+      "Our certified Flutter engineers analyse your business needs and help you jump start your App development effortlessly. You can hire Flutter developer in India from us and utilize the wide range of libraries to develop engaging apps that support intuitive user interface. Our Flutter app developer's hands-on experience helps start-up and SMB owners to transform any business requirement into world-class apps. Hire Flutter developer from us to reduce 60% of your development cost and design robust cross-platform apps that run flawlessly on all devices and platforms.",
+    ],
+  },
+
+  services: {
+    eyebrow: "Expertise",
+    title: "The Expertise Of Our Flutter Developers",
+    body: "We offer highly-skilled Flutter App developers to obtain futuristic solutions that enhance your revenue and ROI.",
+    items: [
+      {
+        name: "Dedicated Flutter Team",
+        body: "We are renowned for housing committed and expert Flutter developers in India. When you partner with us and hire Flutter developer, you get to work with dedicated Flutter teams that provide end-to-end Flutter development services at a budget-friendly cost.",
+      },
+      {
+        name: "Flutter Consultation",
+        body: "Our Flutter experts are experienced in all the latest techs from different industry verticals. Hence when you hire Flutter developer, they have the capability and tech expertise to deliver feature-rich and successful apps for your business.",
+      },
+      {
+        name: "Flutter Enterprise Apps",
+        body: "Hire Flutter developer who provide top-notch services to satisfy your need for enterprise app development. Our developers have proficiency in managing enterprise-level requirements and delivering highly competitive solutions in the market.",
+      },
+      {
+        name: "Platform Migration to Flutter",
+        body: "Platform migration is crucial in this tech era. Hire Flutter developers who are well-versed in migrating your legacy solution to modern Flutter solutions safely without losing any data.",
+      },
+      {
+        name: "Blockchain Applications",
+        body: "Hire Flutter developer from us for a guaranteed hassle-free development of blockchain-based apps. We use all the latest tools and technologies to deploy visually attractive and robust blockchain-based mobile apps on iOS and Android.",
+      },
+      {
+        name: "App Maintenance & Support",
+        body: "Soft Suave's remote Flutter developers work round the clock to offer maintenance and support to your Flutter App. We do not stop our services after successful deployment; instead go above and beyond to satisfy the clients during post-deployment, maintenance and support.",
+      },
+    ],
+  },
+
+  midCta: {
+    title: "Hire Flutter Developers Starting from $14/hour",
+    body: "We will provide you with remote flutter developers that work from India. Contact us to take a look at CVs.",
+    cta: { label: "Request Rate Card", href: "#enquiry" },
+  },
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Hire Flutter Developers in 4 easy steps",
+    body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
+    steps: MERN_STEPS,
+  },
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "Why Are Our Flutter Developers Considered the Best?",
+    body: "Building intuitive and user-friendly Apps is easily achievable when you connect with our trained Flutter developers.",
+    items: MERN_WHY,
+  },
+
+  exploreMore: mobileExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "Frequently Asked Questions",
+    body: "Know more about our processes and how we work, with the help of the following FAQs.",
+    items: [
+      {
+        q: "Can I communicate directly with the developer hired for my app?",
+        a: "Yes, you have the right to communicate and assign tasks directly to your dedicated Flutter developer through Skype, Slack, Microsoft Teams and Google Meet.",
+      },
+      {
+        q: "What are the types of engagement models you offer?",
+        a: [
+          "When you hire Flutter developers from us, we offer three flexible engagement models to fit your need and budget.",
+          "Fixed-bid Model: - Small projects fall into this model where the budget and time is fixed before the project kick-off.",
+          "Time & material Model: - This model is used when clients have a lot of requirements. Clients are billed for the hours invested by the developers.",
+          "Dedicated Team: - A team of dedicated developers will be assigned to clients. The charges will be monthly-based.",
+        ],
+      },
+      {
+        q: "Do you use any project management tools or methodology while developing my app?",
+        a: "Yes, we use Trello and JIRA for project management. The development team follows Agile and SCRUM methodologies to develop reliable app solutions.",
+      },
+      {
+        q: "What are the advantages of hiring a dedicated team?",
+        a: "When you hire our dedicated development team, you can communicate and assign tasks directly to the team. Moreover, you can conduct sprint meetings and receive daily reports from the team to understand the progress of your project.",
+      },
+      {
+        q: "Can you sign a Non-disclosure agreement (NDA) for my project?",
+        a: "Definitely! Confidentiality and data security are our utmost priority. Thus, Soft Suave signs the NDA agreement before you hire Flutter developer and start the project with us.",
+      },
+    ],
+  },
 };
 
 const reactNative: HireSkill = {
@@ -345,109 +620,218 @@ const reactNative: HireSkill = {
   key: "react-native",
   name: "React Native",
   role: "React Native Developers",
-  metaTitle: "Hire React Native Developers",
+  metaTitle: "Hire React Native Developers India | $14/hr",
   metaDescription:
-    "Hire React Native developers from Soft Suave to reuse React skills across iOS and Android. Expo, the New Architecture, and native modules. You interview, two-week trial.",
+    "Hire pre-vetted React Native developers experienced in cross-platform iOS and Android development, UI/UX, plugins and legacy app migration. From $14/hour.",
   serviceType: "React Native development staffing",
-  eyebrow: "Hire React Native Developers",
   ctaLabel: "Hire React Native developers",
-  titleLines: ["Hire React Native Developers", "Who Are Comfortable Below the Bridge"],
-  heroBody: [
-    "React Native lets a team that already knows React ship to both app stores, sharing patterns, libraries, and often real code with an existing web product. For a company with React engineers, that is the cheapest route to a credible mobile app.",
-    "The distinction that matters when hiring is whether a candidate can work below the JavaScript layer. Native modules, build configuration, and upgrades are where React Native projects actually stall.",
+
+  /** The comparison table comes *before* the rate band on this page. */
+  order: [
+    "overview",
+    "services",
+    "comparison",
+    "midCta",
+    "process",
+    "whyUs",
+    "exploreMore",
+    "testimonials",
+    "faq",
   ],
-  heroPoints: [
-    "React Native with the New Architecture and Fabric",
-    "Expo and bare workflows, including the migration",
-    "Native modules in Swift and Kotlin when required",
-    "EAS, OTA updates and both store pipelines",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/work-5.webp",
-    width: 800,
-    height: 1000,
-    alt: "A React Native application sharing components and logic across iOS and Android",
+
+  hero: {
+    titleLines: ["Hire React Native Developers", "in India on Contract"],
+    body: [
+      "Soft Suave provides pre-vetted React Native developers experienced in cross-platform iOS and Android app development, UI/UX, plugin development, and legacy app migration. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
+      "All your React Native hiring problem ends right here.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top React Native in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your React Native requirement.",
+      subject: "React Native Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/work-5.webp",
+      width: 1200,
+      height: 860,
+      alt: "A React Native application sharing components and logic across iOS and Android",
+    },
   },
-  requirementLabel: "What are you building in React Native?",
-  requirementPlaceholder:
-    "The app, whether you use Expo, any native capabilities involved, existing web code to share, and the seniority you need.",
-  overviewTitle: "What React Native Developers Actually Do for You",
-  overviewParagraphs: [
-    "React Native runs JavaScript and maps your components onto genuine native views, so the interface uses real platform components rather than a re-implementation. For organisations with React expertise this is the decisive advantage: the mental model, much of the tooling, and often the state and business logic carry straight across from web.",
-    "A React Native engagement covers component and navigation architecture, state management, native module integration, performance work on lists and animation, and the release pipeline — which is genuinely two pipelines, because App Review and Play policy both apply exactly as they would to a native app.",
-    "Two things separate experienced React Native engineers from React engineers who have written some React Native. The first is comfort below the JavaScript layer: reading native build errors, writing a Swift or Kotlin module, and resolving a CocoaPods or Gradle conflict. The second is upgrades, which have historically been the framework's hardest recurring cost — much improved by the New Architecture and Expo's tooling, but still not trivial.",
-  ],
-  pullQuote:
-    "A React Native project rarely stalls in JavaScript. It stalls on a Gradle conflict nobody on the team can read.",
-  capabilities: [
-    {
-      name: "Cross-Platform Apps",
-      tag: "Build",
-      body: "iOS and Android from one TypeScript codebase using real native components, with the architecture and navigation structure to support an app that grows well past its first release.",
-    },
-    {
-      name: "Expo and EAS",
-      tag: "Tooling",
-      body: "Managed and bare workflows, EAS Build and Submit, over-the-air updates for JavaScript-only changes, and honest guidance on when a project should leave the managed workflow.",
-    },
-    {
-      name: "Native Modules",
-      tag: "Native",
-      body: "Swift and Kotlin modules for hardware access, third-party SDKs without a maintained wrapper, and background behaviour — the work that determines whether a requirement is possible at all.",
-    },
-    {
-      name: "New Architecture Migration",
-      tag: "Migration",
-      body: "Moving apps onto Fabric and TurboModules, including the dependency audit that decides whether your libraries are ready, and the interim bridge-mode path where they are not.",
-    },
-    {
-      name: "Performance Engineering",
-      tag: "Performance",
-      body: "List virtualisation with FlashList, Reanimated for animation that runs off the JavaScript thread, render profiling, and startup-time reduction — the recurring React Native complaints and their actual fixes.",
-    },
-    {
-      name: "Web and Mobile Sharing",
-      tag: "Reuse",
-      body: "Sharing types, API clients, validation, and business logic with an existing React web application in a monorepo, while keeping the interface layers separate as they should be.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Core",
-      items: ["React Native 0.7x", "TypeScript", "Expo", "New Architecture", "React Navigation", "Reanimated"],
-    },
-    {
-      name: "State & Data",
-      items: ["TanStack Query", "Redux Toolkit", "Zustand", "MMKV", "WatermelonDB", "AsyncStorage"],
-    },
-    {
-      name: "Native & Services",
-      items: ["Swift / Kotlin modules", "Firebase", "Push Notifications", "In-App Purchases", "Maps", "Camera"],
-    },
-    {
-      name: "Quality & Release",
-      items: ["Jest", "Detox", "Maestro", "EAS Build", "Fastlane", "Sentry"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Should we use Expo or bare React Native?",
-      a: "Expo for most projects now. The managed workflow removes a very large amount of native build configuration, EAS handles building and submission, and config plugins cover most native customisation that previously required ejecting. Bare workflow is still the answer when you need deep native customisation, have SDKs that will not work through a config plugin, or must control the native projects directly. Starting in Expo and moving out later is a supported path, and far less painful than it used to be.",
-    },
-    {
-      q: "Can we share code with our React web app?",
-      a: "Yes, and this is often the strongest argument for React Native. Types, API clients, validation schemas, and business logic share cleanly in a monorepo. Components mostly do not, and trying to force it usually produces abstractions that serve neither platform well — web uses div and CSS, React Native uses View and its own style system. Plan on sharing the layer beneath the interface, which is typically a substantial share of a product's actual complexity.",
-    },
-    {
-      q: "Is React Native performance good enough?",
-      a: "For the overwhelming majority of apps, yes — including large consumer products from major companies. The New Architecture removed the asynchronous bridge that caused the worst historical problems. Where care is still needed: long lists need FlashList or proper virtualisation, animation should run through Reanimated on the UI thread, and heavy computation belongs in a native module. A poorly-built React Native app is noticeably slow, which is true of a poorly-built native app too.",
-    },
-    {
-      q: "How difficult are React Native upgrades?",
-      a: "Historically this was the framework's worst recurring cost, and it has improved substantially. Expo-managed projects upgrade close to painlessly, since Expo pins a compatible dependency set per SDK version. Bare projects are harder — the React Native Upgrade Helper diffs the native project templates for you, but third-party libraries with native code are where the real work lands. We recommend upgrading regularly rather than in one large jump, because the cost compounds sharply with each version skipped.",
-    },
-  ],
+
+  overview: {
+    eyebrow: "Overview",
+    title: "Hire Dedicated Team Of React Native Developers",
+    paragraphs: [
+      "Soft Suave is a renowned web and mobile app development company that houses more than 300+ top-ranked developers in India. Besides, Soft Suave also employs top mobile app developers that are experts in all the latest technologies to deliver amazing cross-platform apps and robust native mobile apps according to business requirements.",
+      "Our premium React Native app developers use cutting-edge technology to deliver outstanding applications that are innovative and high-performing at the same time. You can expect quality results in no time if you hire our dedicated React Native developer.",
+      "The code reusability in React Native allows our React Native app developers to develop intuitive apps in both iOS and Android platforms in no time. They can easily raise the bar by competing with Native apps in the market and win with the same cross-platform application. Our testimonials and client reviews are a witness to the quality of work our expert React Native app programmers provide to our clients. Hire from Soft Suave and harness the top-tier React Native developers in India to accomplish your business goals at the most economical price.",
+    ],
+  },
+
+  services: {
+    eyebrow: "Expertise",
+    title: "Expertise of Our React Native Developers",
+    body: "You are 100% guaranteed to have a competitive edge in the market if you hire our React Native developer.",
+    items: [
+      {
+        name: "React Native UI/UX Development",
+        body: "Developers at Soft Suave leverage the React Native library to develop the most interactive and creative user experience for your business application. They concentrate on bringing real-time experience across various devices to make sure all the UI/UX gaps are filled.",
+      },
+      {
+        name: "React Native Android App Development",
+        body: "React Native is the powerhouse for Android application development. The expertise of our developers in React Native helps Soft Suave to deliver native, high-quality, and influential Android applications that win customers for your business.",
+      },
+      {
+        name: "React Native iOS App Development",
+        body: "Our developers are experts in developing fast loading and fully functional iOS apps with the help of React Native. When you hire React Native developers from Soft Suave, you can save time, cost, and be rest assured to get dynamic iOS apps.",
+      },
+      {
+        name: "Support & Maintenance",
+        body: "Soft Suave offers the best React Native support and maintenance service in India. Our React Native app developers focus equally on development services and support & maintenance services. Moreover, they offer cost-effective support & maintenance without compromising on the quality.",
+      },
+      {
+        name: "Plugin Development",
+        body: "Hire React Native developers if you want to create custom plugins in no time under your budget. Our best-in-class React Native developers help you in building custom plugins and make them available as npm packages so you can use it in multiple products without any hassles.",
+      },
+      {
+        name: "Integration & Migration",
+        body: "React Native integration is made simple if you hire React Native developers from Soft Suave. Our developers have hands-on experience in integrating React Native into popular apps. They are also skillful in migrating apps from any technologies to React Native without any data leakages and risks.",
+      },
+    ],
+  },
+
+  /** This page's own table — not the shared one. Its figures are published. */
+  comparison: {
+    eyebrow: "Compare",
+    title: "Choose the Right React Native Development Partner",
+    body: "",
+    columns: ["Soft Suave", "Freelance Marketplaces", "In-House Hiring"],
+    rows: [
+      {
+        area: "Starting rate",
+        values: ["$14/hour", "$24–$45/hour (Upwork median $30/hour)", "Full salary + benefits + overhead"],
+      },
+      {
+        area: "Vetting before you pay",
+        values: [
+          "40-hour risk-free trial",
+          "No structured trial — client vets manually",
+          "Weeks of interviews per candidate",
+        ],
+      },
+      {
+        area: "Time to onboard",
+        values: [
+          "Days, via curated shortlist",
+          "Hours to post, but vetting is on you",
+          "Typically 4–8+ weeks to hire",
+        ],
+      },
+      {
+        area: "IP & confidentiality",
+        values: [
+          "Standard NDA signed upfront",
+          "Varies by individual freelancer",
+          "Covered by employment contract",
+        ],
+      },
+      {
+        area: "Replacement if it's not a fit",
+        values: [
+          "Free replacement during/after trial",
+          "Re-hire and re-vet from scratch",
+          "Termination and re-recruitment process",
+        ],
+      },
+    ],
+  },
+
+  midCta: {
+    title: "Hire React Native Developers Starting from $14/hour",
+    body: "We will provide you with remote React Native developers that work from India. Contact us to take a look at CVs.",
+    cta: { label: "Request Rate Card", href: "#enquiry" },
+  },
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Hire React Native Developers in 4 easy steps",
+    body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
+    steps: MERN_STEPS,
+  },
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "What Makes Our React Native Developers Unique and Trustworthy?",
+    body: "We provide dedicated React Native developers in India who has exceptional knowledge in web app development.",
+    items: MERN_WHY,
+  },
+
+  exploreMore: mobileExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "Frequently Asked Questions",
+    body: "Know more about our processes and how we work, with the help of the following FAQs.",
+    items: [
+      {
+        q: "How much does it cost to hire a React Native developer from Soft Suave?",
+        a: "Hire our professional React Native developer at a competitive cost as low as $14/hour. You can select and hire from the pool of brilliant senior React Native app developers with expertise in all the latest development technologies and tools.",
+      },
+      {
+        q: "Is there a free trial period available?",
+        a: "Yes — every engagement starts with a 40-hour risk-free trial so you can evaluate real work before committing, with no long-term contract required until you're satisfied.",
+      },
+      {
+        q: "Is it possible to migrate an app from other technologies to React Native?",
+        a: "Yes, you can migrate it without a doubt. Our React Native developer's experience in other technologies works handy to migrate an app from any technology to React Native without any data leakage.",
+      },
+      {
+        q: "What do you need to know before you hire our React Native application developers?",
+        a: "Before you hire dedicated React Native application developers from Soft Suave, you need to understand if your app requires React Native for development. Moreover, you have to analyze and confirm what exactly you need from React Native that other technologies have missed. By understanding this, you can acquire a successful application that fits your business plans",
+      },
+      {
+        q: "What are the various hiring models offered by you to hire React Native developers?",
+        a: [
+          "Hiring our React Native developer is made easy with three flexible hiring models. These models are designed based on the clients' interest and affordability.",
+          "Full-time hiring",
+          "Part-time hiring",
+          "Milestone hiring",
+        ],
+      },
+      {
+        q: "Do you provide an NDA for my project?",
+        a: "Absolutely. Soft Suave prioritizes confidentiality — we sign a standard non-disclosure agreement (NDA) before starting any project to protect your intellectual property.",
+      },
+      {
+        q: "Will I have full ownership of my source code?",
+        a: "Yes, absolutely. The intellectual property rights, including the source code, belong entirely to you upon project completion.",
+      },
+      {
+        q: "What happens if I want to change developers mid-project?",
+        a: "You can request a replacement developer at no extra cost during or after the trial period, re-matched based on your feedback.",
+      },
+      {
+        q: "What are the industries that are served by your React Native app developers?",
+        a: "Our developers have vast experience in all the growing industries like eCommerce, Healthcare, Education, Telecom and Construction.",
+      },
+      {
+        q: "How do I test your React Native developer's expertise?",
+        a: "Soft Suave is open to test our React Native developer before you hire them. You can initiate a one-to-one interview in skype or can give test tasks to understand the technical, soft skill, and rational ability of our proficient React Native developers.",
+      },
+    ],
+  },
 };
 
 const ionic: HireSkill = {
@@ -455,109 +839,203 @@ const ionic: HireSkill = {
   key: "ionic",
   name: "Ionic",
   role: "Ionic Developers",
-  metaTitle: "Hire Ionic Developers",
+  metaTitle: "Hire Ionic App Developers India – Top 3% Talent",
   metaDescription:
-    "Hire Ionic developers from Soft Suave to ship web, iOS, and Android from one codebase using Angular, React, or Vue with Capacitor. You interview, two-week trial.",
+    "Hire experienced Ionic developers through Soft Suave — pre-vetted talent within 24–48 hours, skilled in cross-platform hybrid app development, from $14/hour.",
   serviceType: "Ionic development staffing",
-  eyebrow: "Hire Ionic Developers",
   ctaLabel: "Hire Ionic developers",
-  titleLines: ["Hire Ionic Developers", "For Web and Mobile From One Codebase"],
-  heroBody: [
-    "Ionic builds mobile apps from web technology: your existing Angular, React, or Vue skills, a component library that adapts to each platform's conventions, and Capacitor to reach native capability and the app stores.",
-    "It is the pragmatic choice when the same product must work as a website and as an app, and when your team are web developers. Our Ionic engineers also handle the Capacitor and native-release half.",
+
+  order: [
+    "overview",
+    "services",
+    "midCta",
+    "techStack",
+    "whyUs",
+    "comparison",
+    "process",
+    "exploreMore",
+    "testimonials",
+    "faq",
   ],
-  heroPoints: [
-    "Ionic 8 with Angular, React or Vue",
-    "Capacitor plugins and native project configuration",
-    "One codebase serving web, iOS and Android",
-    "Progressive Web Apps and offline behaviour",
-    "You interview every candidate — two-week trial",
-  ],
-  image: {
-    src: "/images/four/work-6.webp",
-    width: 800,
-    height: 1000,
-    alt: "An Ionic application running as a website and as installed mobile apps",
+
+  hero: {
+    titleLines: ["Hire Ionic Developers", "in India"],
+    body: [
+      "Why build three apps when one Ionic codebase does it all? Hire experienced Ionic developers through Soft Suave, a top agency delivering pre-vetted talent within 24–48 hours, skilled in cross-platform hybrid app development, starting from $14/hour on flexible engagement models.",
+      "Your next Ionic developer is one conversation away.",
+    ],
+    points: [
+      "40-Hour Risk-Free Trial",
+      "Hire Top Ionic Developers in India",
+      "Time-Zone & Language Aligned Teams",
+      "Airtight NDA & IP Protection",
+      "Strong Delivery Governance from Day One",
+    ],
+    form: {
+      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your Ionic requirement.",
+      subject: "Ionic Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+    image: {
+      src: "/images/four/work-6.webp",
+      width: 1200,
+      height: 860,
+      alt: "An Ionic application running as a website and as installed mobile apps",
+    },
   },
-  requirementLabel: "What are you building in Ionic?",
-  requirementPlaceholder:
-    "The app, your framework choice, whether web and mobile share one codebase, native features needed, and the seniority you need.",
-  overviewTitle: "What Ionic Developers Actually Do for You",
-  overviewParagraphs: [
-    "Ionic is a component library and toolchain that runs a web application inside a native container. The interface is HTML and CSS rendered in a web view, styled by components that adapt to iOS and Android conventions, and Capacitor provides the bridge to native APIs and the native projects that get submitted to the stores.",
-    "The strongest case for it is genuine web-and-mobile parity: one codebase serving a responsive website, an installable PWA, and two store apps, built by developers who already write Angular, React, or Vue. For content-driven apps, business tooling, and forms-heavy products that is an efficient arrangement and the web-view rendering is not a practical limitation.",
-    "Where it is the wrong choice is equally clear, and worth saying plainly: graphics-intensive interfaces, sustained heavy computation, and apps whose value depends on deep platform integration or very high-fidelity native feel. A web view has a ceiling, and pretending otherwise leads to a rebuild eighteen months in.",
-  ],
-  pullQuote:
-    "Ionic is excellent for forms, content, and business tooling. It is the wrong tool for anything that has to feel like a game.",
-  capabilities: [
-    {
-      name: "Web and Mobile Parity",
-      tag: "Build",
-      body: "One codebase producing a responsive website, an installable PWA, and iOS and Android store apps, so a feature is specified, built, and tested once rather than three times.",
-    },
-    {
-      name: "Framework Flexibility",
-      tag: "Choice",
-      body: "Ionic with Angular, React, or Vue depending on what your team already writes — the framework choice stays yours, and the component library and Capacitor layer are the same either way.",
-    },
-    {
-      name: "Capacitor Integration",
-      tag: "Native",
-      body: "Camera, geolocation, biometrics, push notifications, filesystem, and secure storage through Capacitor plugins, plus custom plugins in Swift and Kotlin where no maintained one exists.",
-    },
-    {
-      name: "Progressive Web Apps",
-      tag: "Web",
-      body: "Service workers, offline caching, installability, and background sync, for reaching users who will not install an app and for markets where store distribution is not the primary channel.",
-    },
-    {
-      name: "Cordova Migration",
-      tag: "Migration",
-      body: "Moving older Cordova and Ionic 3 or 4 applications onto Capacitor and current Ionic, replacing unmaintained plugins and modernising the build — common, and increasingly urgent as plugins go stale.",
-    },
-    {
-      name: "Store Release",
-      tag: "Release",
-      body: "Native project configuration, signing, App Review and Play policy compliance, and live updates for web-layer changes — the half of the work that is not web development at all.",
-    },
-  ],
-  techGroups: [
-    {
-      name: "Core",
-      items: ["Ionic 8", "Capacitor 6", "Angular", "React", "Vue", "Stencil"],
-    },
-    {
-      name: "Data & State",
-      items: ["SQLite", "Ionic Storage", "RxJS", "NgRx", "TanStack Query", "Preferences API"],
-    },
-    {
-      name: "Native Plugins",
-      items: ["Camera", "Geolocation", "Push Notifications", "Biometrics", "Filesystem", "Custom plugins"],
-    },
-    {
-      name: "Quality & Release",
-      items: ["Jest", "Cypress", "Playwright", "Fastlane", "Appflow", "Sentry"],
-    },
-  ],
-  faqs: [
-    {
-      q: "Is Ionic right for our app?",
-      a: "It fits well when the same product must exist as a website and as apps, when your team already writes web code, and when the app is content, forms, or workflow driven — business tooling, field-service apps, portals, and catalogues all work well. It is the wrong choice for graphics-intensive interfaces, sustained heavy computation, or products whose value is deep platform integration. We would rather tell you that at the shortlist stage than eighteen months into a build.",
-    },
-    {
-      q: "Capacitor or Cordova?",
-      a: "Capacitor for everything current. It is Ionic's own successor to Cordova, treats the native iOS and Android projects as source you own and can edit directly, has a better plugin model, and is actively developed. Cordova is effectively legacy and many of its plugins are unmaintained, which is a security and compatibility problem rather than only a tidiness one. Migrating an existing Cordova app to Capacitor is well-trodden work and usually worth doing.",
-    },
-    {
-      q: "How does Ionic performance compare to native?",
-      a: "For typical business and content applications it is perfectly acceptable — modern web views are fast, and users do not notice the difference on forms, lists, and navigation. The gap shows in sustained animation, very long complex lists, and anything graphics-heavy, and there is a startup cost as the web view initialises. Virtual scrolling, lazy-loaded routes, and keeping the initial bundle small address most of what people notice in practice.",
-    },
-    {
-      q: "Can we use our existing Angular team?",
-      a: "Yes, and that is a large part of Ionic's appeal. Ionic Angular uses the same components, services, routing, and RxJS patterns your team already writes, so the learning curve is the Ionic component library and Capacitor rather than a new framework. What still needs covering is the native half — signing, store submission, review policy, and the occasional native build error — which is what our engineers bring alongside the Angular work.",
-    },
-  ],
+
+  overview: {
+    eyebrow: "Overview",
+    title: "Hire Ionic Developers for Your Project's Needs",
+    paragraphs: [
+      "Hire our dedicated Ionic developers who have helped businesses accomplish their goals by building high-performance, natively-compiled mobile apps and progressive web apps",
+      "Soft Suave is the most renowned Ionic app development company in India and we offer top-notch cross-platform mobile app development services. Our mobile app developers have valuable experience in Ionic and are capable of delivering successful development solutions to clients across USA, UK, Australia, Europe, Canada, and the UAE. Likewise, our mobile app development team has expertise in all the latest technologies, making them the most preferred app development company in South Asia.",
+      "Our Ionic app developers are ranked top in India and have an average of 4+ years of experience in the field. Our offshore developers excel in communication, interpersonal skills, and deliver cross-platform apps within tight deadlines.",
+    ],
+  },
+
+  services: {
+    eyebrow: "Expertise",
+    title: "Expertise of Our Ionic App Developers",
+    body: "Our offshore Ionic developers support various businesses by building user-friendly and engaging cross-platform mobile apps.",
+    items: [
+      {
+        name: "Ionic Mobile App Consultation",
+        body: "Our offshore Ionic developers are highly experienced in maintaining apps and delivering expert cross-platform development consultations.",
+      },
+      {
+        name: "App UI/UX Design",
+        body: "Our Ionic developers prioritize user-centric design, creating intuitive interfaces that enhance usability and engagement in cross-platform apps.",
+      },
+      {
+        name: "App Migration to Ionic",
+        body: "Our Ionic developers enable seamless legacy app migration to the Ionic framework, keeping applications updated with the latest mobile app standards.",
+      },
+      {
+        name: "Ionic Enterprise Apps",
+        body: "Utilizing the most recent technologies, our offshore Ionic developers develop engaging, user-centric, and fluid enterprise-grade applications.",
+      },
+      {
+        name: "Cross-platform/Hybrid App Development",
+        body: "Our developers ensure a smooth user experience across iOS and Android platforms by crafting cross-platform apps using Ionic.",
+      },
+      {
+        name: "Support & Maintenance",
+        body: "Our dedicated Ionic development team provides on-demand support and maintenance, efficiently resolving any app-related issues.",
+      },
+    ],
+  },
+
+  midCta: {
+    title: "Searching for Dedicated Ionic App Developers?",
+    body: "Access offshore Ionic developers in india who work remotely with you. Contact us to view ratecard.",
+    cta: { label: "Request Rate Card", href: "#enquiry" },
+  },
+
+  techStack: {
+    eyebrow: "Technology",
+    title: "Make the Most of Our Ionic Developers' Technical Proficiency",
+    body: "Our Ionic developers are well-versed in the following technologies:",
+    groups: [
+      { name: "Web Technologies", items: ["Angular", "React.js", "Vue.js", "JQuery", "Javascript"] },
+      {
+        name: "Ionic UI Components",
+        items: [
+          "Alert",
+          "Badge",
+          "Button",
+          "Card",
+          "Chip",
+          "Content",
+          "Floating Action Button",
+          "Checkbox",
+        ],
+      },
+      { name: "Ionic Plugin", items: ["iOS UIWebView", "Android WebView"] },
+      {
+        name: "IDEs",
+        items: ["Android Studio", "XCode", "Visual Studio Code + Ionic Extension Pack", "Atom"],
+      },
+    ],
+  },
+
+  whyUs: {
+    eyebrow: "Why Soft Suave",
+    title: "Why Choose Soft Suave for Hiring Ionic Developers?",
+    body: "Get proactive mobile app development strategies with our Ionic experts. Get on-time delivery and guaranteed satisfaction.",
+    items: [
+      {
+        name: "13+ Years of Average Experience",
+        body: "Our Ionic developer's years of experience in the field help us deliver custom-made, quality solutions- on time, every time.",
+        icon: "book",
+      },
+      {
+        name: "Defined Talent Screening",
+        body: "Our developers are carefully selected through an extensive screening process, so we lend only the best talents for your requirements.",
+        icon: "users",
+      },
+      {
+        name: "Transparency & Integrity",
+        body: "Our agile approach allows for transparency in the development process, helping you to view your app status anytime.",
+        icon: "shield",
+      },
+      {
+        name: "Free No-Obligation Quote",
+        body: "Talk to us about your ideas, project details, and requirements, and get an immediate price quote for free.",
+        icon: "coins",
+      },
+      {
+        name: "Engagement Model Flexibility",
+        body: "We understand the need for flexible resource engagements and offer a three-part engagement model: full-time, part-time, and milestone.",
+        icon: "gauge",
+      },
+      {
+        name: "Time Zone Flexibility",
+        body: "As the time zone difference poses a great challenge, our developers adjust their working hours to work collaboratively with you on projects.",
+        icon: "globe",
+      },
+    ],
+  },
+
+  comparison: partnerTable("Choose the Right Ionic Development Partner"),
+
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Four Simple Steps to Hire an Ionic Developer",
+    body: "Onboarding developers has never been easier. With this simple 4-step process, find the resource who is the perfect fit for your team!",
+    steps: CURATED_STEPS,
+  },
+
+  exploreMore: mobileExplore,
+
+  faq: {
+    eyebrow: "FAQs",
+    title: "Frequently Asked Questions",
+    body: "Know more about our processes and how we work, with the help of the following FAQs.",
+    items: [
+      {
+        q: "What is the cost of hiring Ionic developers?",
+        a: "The cost of hiring an Ionic developer will vary depending on experience. Typical hourly rates range from $15 to $25, but these can vary depending on the specific needs of the business.",
+      },
+      {
+        q: "Do you offer flexible hiring options for Ionic developers?",
+        a: "Yes, we offer different hiring models based on your needs. You can choose to hire Ionic developers on a full-time, part-time, or project-based basis depending on the specifics of your project.",
+      },
+      {
+        q: "How do I get started with hiring Ionic developers from your agency?",
+        a: "Hiring our developers is pretty simple. Just fill out our form in the Ionic developer page or email us at contact@softsuave.com. Our team will arrange a consultation for your project requirements and offer a free trial to evaluate our developers.",
+      },
+      {
+        q: "What is the experience of your Ionic developers?",
+        a: "We have a team of Ionic developers with over 2 to 7 years of experience. Depending on the needs of your project, we will assign a senior or junior Ionic developer to work on your hybrid applications.",
+      },
+    ],
+  },
 };
 
 export const mobileHireSkills: readonly HireSkill[] = [

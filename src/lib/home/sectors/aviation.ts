@@ -8,7 +8,7 @@ export const aviation: SectorPageContent = {
   meta: {
     title: 'AI in Aviation | Aviation AI Development',
     description:
-      'AI for aviation: flight and crew management, predictive maintenance and MRO, delay management, passenger personalization and route optimization, engineered by Soft Suave.',
+      'AI for aviation: flight and crew management, predictive maintenance and MRO, delay management, passenger personalization and route optimization.',
   },
   hero: {
     eyebrow: 'Aviation',

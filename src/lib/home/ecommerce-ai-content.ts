@@ -24,7 +24,7 @@ export const ecommerceMeta = {
   path: "/ai-solutions-for-ecommerce",
   title: "AI Solutions for eCommerce",
   description:
-    "Custom eCommerce AI development from Soft Suave — recommendation engines, dynamic pricing, demand forecasting, visual search, and conversational commerce, integrated with Shopify, Magento, WooCommerce or a custom platform.",
+    "Custom eCommerce AI from Soft Suave — recommendation engines, dynamic pricing, demand forecasting, visual search and conversational commerce.",
 } as const;
 
 export const ecommerceHero: HeroContent = {

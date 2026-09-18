@@ -21,7 +21,7 @@ export const telecomMeta = {
   path: "/ai-solutions-for-telecom",
   title: "AI Solutions for Telecom",
   description:
-    "Custom telecom AI development from Soft Suave — network optimisation and predictive maintenance, automated fault detection, fraud and revenue assurance, and AI-powered customer support for operators and service providers.",
+    "Custom telecom AI from Soft Suave — network optimisation, predictive maintenance, fault detection, revenue assurance and AI-powered customer support.",
 } as const;
 
 export const telecomHero: HeroContent = {

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 
 import { BASE_PATH } from '@/lib/flags';
 import type { HireBand, HireRolePageContent } from '@/lib/home/hire-roles/types';
+import { assignGrounds } from '@/lib/home/hire-roles/band-grounds';
 
 // Company-level sections: the homepage's own components, rendering the
 // homepage's own copy from `lib/home/content.ts`. A role page's claim to these
@@ -36,25 +37,6 @@ import Comparison from '@/components/generative-ai/comparison';
 import Faq from '@/components/generative-ai/faq';
 
 import styles from '@/components/home/home.module.css';
-
-/**
- * Which bands sit on the warm-white ground and which stay dark.
- *
- * Presentation only — it decides nothing about what a page says. Consecutive
- * light bands are merged into one wrapper below, so a run of them reads as a
- * single chapter rather than as several stacked panels with doubled padding.
- */
-const LIGHT_BANDS: ReadonlySet<HireBand> = new Set<HireBand>([
-  'clients',
-  'overview',
-  'fit',
-  'engagement',
-  'globalDelivery',
-  'process',
-  'caseStudies',
-  'testimonials',
-  'faq',
-]);
 
 /**
  * The one rendering of a "Hire Developers by Role" page.
@@ -167,24 +149,30 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
         // through the technology band because that is what it is: a heading and
         // a row of named things. Same treatment, its own place in the page.
         const list = content.lists?.find((l) => `list:${l.key}` === band);
-        return list ? <TechStack key={band} content={list} /> : null;
+        // Its own anchor, not the band's default `tech`: a page may run several
+        // of these beside its real technology section, and they must not all
+        // answer to the same id — that is invalid HTML and it stole the nav's
+        // Tech Stack link, which belongs to the `techStack` band above.
+        return list ? <TechStack key={band} content={list} id={`list-${list.key}`} /> : null;
       }
     }
   }
 
   // Render in the page's own order, dropping bands whose content is absent,
-  // then fold each run of light bands into one warm-white wrapper.
+  // then fold each run of same-ground bands into one wrapper, so a chapter
+  // reads as one surface rather than as stacked panels with doubled padding.
   const bands = content.order
     .map((band) => ({ band, node: render(band) }))
     .filter((b): b is { band: HireBand; node: ReactNode } => b.node !== null);
 
+  const grounds = assignGrounds(bands.map((b) => b.band));
   const chapters: { light: boolean; nodes: ReactNode[] }[] = [];
-  for (const { band, node } of bands) {
-    const light = LIGHT_BANDS.has(band);
+  bands.forEach(({ node }, i) => {
+    const light = grounds[i] === 'light';
     const last = chapters.at(-1);
     if (last && last.light === light) last.nodes.push(node);
     else chapters.push({ light, nodes: [node] });
-  }
+  });
 
   return (
     <div className={styles.page}>

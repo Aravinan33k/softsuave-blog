@@ -14,13 +14,20 @@
 export const meta = {
   title: 'Custom AI Development Services',
   description:
-    'Build custom AI solutions around your business data, workflows, and goals — from proof of concept to secure, production-ready deployment. ISO-certified processes, 13+ years of engineering.',
+    'Build custom AI solutions around your business data, workflows and goals — from proof of concept to production-ready deployment. ISO-certified, 13+ years.',
   path: '/ai-development-service',
 } as const;
 
 export const hero = {
   eyebrow: 'AI Development',
-  title: 'Custom AI Development Services',
+  /*
+   * "AI Development Services", not "Custom AI Development Services": that exact
+   * H1 is /custom-ai-development-services' own, and the two pages were
+   * competing for it. That page is the canonical Custom AI one — next.config.ts
+   * 301s the retired spellings to it — so this broader catalogue page takes the
+   * wider heading, which also matches its slug and the eyebrow above.
+   */
+  title: 'AI Development Services',
   body: 'Build custom AI solutions around your business data, workflows, and goals, taking your idea from proof of concept to secure, production-ready deployment. From strategy to ongoing optimization, every step is built around how your business actually works.',
   /** Trust badges, carried over from the existing service landing pages. */
   badges: [

@@ -23,7 +23,20 @@ import styles from "./home.module.css";
  * file, and as a typographic wordmark until then, so the strip reads as
  * finished either way.
  */
-export default function Clients() {
+export default function Clients({
+  logos = clients.logos,
+}: {
+  /**
+   * The marks to run. Defaults to the homepage's full roster.
+   *
+   * The hire-by-skill pages override it: their live band publishes nineteen
+   * marks, and the homepage roster opens with three more (Phoenix Technologies,
+   * AMD Telecom, Perkypet) that were added here from softsuave.com's /clients
+   * index. Those three are not on the hire pages' own band, so rendering them
+   * there would put three clients on the page that its source does not claim.
+   */
+  logos?: typeof clients.logos;
+} = {}) {
   return (
     <section className={`${styles.section} ${styles.clients}`} id="clients">
       <div className={styles.clientsHead}>
@@ -40,7 +53,7 @@ export default function Clients() {
 
       <FadeUp className={styles.clientsRow} delay={0.08}>
         <Marquee speed={30} className={styles.clientsMarquee} separator={<span aria-hidden />}>
-          {clients.logos.map((logo) => (
+          {logos.map((logo) => (
             <span key={logo.name} className={styles.clientsItem}>
               {logo.src ? (
                 <span className={styles.clientLogo}>

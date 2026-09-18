@@ -26,7 +26,7 @@ export const constructionMeta = {
   path: "/ai-solutions-for-construction",
   title: "AI Solutions for Construction",
   description:
-    "Custom construction AI development from Soft Suave — project scheduling and delay forecasting, site safety monitoring, resource and procurement optimisation, document and contract automation, and predictive equipment maintenance.",
+    "Custom construction AI from Soft Suave — scheduling and delay forecasting, site safety monitoring, procurement optimisation and predictive equipment maintenance.",
 } as const;
 
 export const constructionHero: HeroContent = {
