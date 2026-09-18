@@ -28,7 +28,6 @@ export const ecommerceMeta = {
 } as const;
 
 export const ecommerceHero: HeroContent = {
-  eyebrow: "eCommerce",
   titleLines: ["AI Solutions for eCommerce", "to Boost Sales & Automate Growth"],
   body: [
     "Predict intent, personalise the journey, and automate the operations behind it. We build recommendation, pricing, search, and forecasting systems that run against your own catalogue and behavioural data, inside the platform you already sell on.",

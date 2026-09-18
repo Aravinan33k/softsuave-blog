@@ -2,8 +2,7 @@ import 'server-only';
 import type { Metadata } from 'next';
 
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { breadcrumbLd, faqPageLd, serviceLd } from '@/lib/seo/jsonld';
-import { homepageEnabled } from '@/lib/flags';
+import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import { brand } from '@/lib/home/content';
 import type { HireRolePageContent } from './types';
 
@@ -50,7 +49,7 @@ export function hireRoleMetadata(content: HireRolePageContent): Metadata {
 }
 
 /**
- * Service + FAQPage + BreadcrumbList for a role page.
+ * Service + WebPage + FAQPage + BreadcrumbList for a role page.
  *
  * The Service catalogue is the page's own capability list, so the schema can
  * never describe an offering the page does not show. The FAQ schema is built
@@ -58,32 +57,37 @@ export function hireRoleMetadata(content: HireRolePageContent): Metadata {
  * visible, and `Faq` renders every answer into the DOM, collapsed rather than
  * absent.
  *
- * The breadcrumb is omitted while `/` is not served: a trail whose first item
- * is a 307 to the archive is worse than no trail, and with Home dropped only
- * one item remains, which is not a trail at all.
+ * Built through `pageSchemaGraph` rather than the bare `serviceLd`/`faqPageLd`
+ * pair it used to call. Those emit no `@id`, so the Service and the FAQPage sat
+ * in one script with nothing joining them and no `WebPage` for either to belong
+ * to, and `providerName` inlined a fresh unidentified Organization on each of
+ * the nine pages instead of naming the canonical one. The breadcrumb gate moves
+ * into the builder unchanged: while `/` is not served, a trail whose first item
+ * is a 307 is worse than no trail, and with Home dropped only one item remains,
+ * which is not a trail at all.
  */
 export function hireRoleJsonLd(content: HireRolePageContent): object[] {
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: content.name, path: content.slug },
-  ];
-
-  return [
-    serviceLd({
-      name: content.serviceType,
-      description: content.meta.description,
-      path: content.slug,
-      providerName: brand.name,
-      // The offer catalogue is whichever section the page actually uses to list
-      // what you can hire: the capability carousel where a page has one, and
-      // otherwise the specialisations grid that carries that list alone. Either
-      // way the schema describes a section the reader can see.
-      offers: (content.capabilities ?? content.specialisations)?.items.map((i) => ({
-        name: i.name,
-        body: i.body,
-      })),
-    }),
-    faqPageLd(content.faq.items),
-    ...(trail.length > 1 ? [breadcrumbLd(trail)] : []),
-  ];
+  return pageSchemaGraph({
+    path: content.slug,
+    title: content.meta.title,
+    description: content.meta.description,
+    serviceType: content.serviceType,
+    // The role as a thing you can hire — "AI Developers" — rather than the
+    // page's `<title>`, which is written to win the click.
+    serviceName: content.name,
+    breadcrumbName: content.name,
+    caption: content.hero.titleLines.join(' '),
+    audience: `Startups, SMBs and enterprises hiring ${content.name}`,
+    // The offer catalogue is whichever section the page actually uses to list
+    // what you can hire: the capability carousel where a page has one, and
+    // otherwise the specialisations grid that carries that list alone. Either
+    // way the schema describes a section the reader can see.
+    offerCatalogName: (content.capabilities ?? content.specialisations)?.title,
+    offers: (content.capabilities ?? content.specialisations)?.items.map((i) => ({
+      name: i.name,
+      description: i.body,
+    })),
+    faqName: content.faq.title,
+    faqs: content.faq.items,
+  });
 }

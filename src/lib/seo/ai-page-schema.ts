@@ -1693,8 +1693,20 @@ export type AiPageKey = keyof typeof aiPageSchemas;
 export function aiPageJsonLd(key: AiPageKey): object[] {
   const page = aiPageSchemas[key];
   const ctx = { '@context': 'https://schema.org' };
+  /*
+   * The Organization is NOT returned here any more.
+   *
+   * `softSuaveOrganizationLd` below carries the same `@id` as
+   * `lib/seo/organization.ts` — the two are transcriptions of one approved
+   * block — and `app/(marketing)/layout.tsx` now emits that node once for every
+   * page on this surface. Returning it here as well put two nodes sharing one
+   * identifier into the same document, which is a collision rather than a
+   * duplicate: a consumer merging the graph by `@id` has to reconcile them.
+   *
+   * The `provider`/`publisher` references below are untouched and still resolve
+   * — to the layout's copy.
+   */
   return [
-    softSuaveOrganizationLd,
     { ...ctx, ...page.service },
     { ...ctx, ...page.webPage },
     { ...ctx, ...page.faqPage },

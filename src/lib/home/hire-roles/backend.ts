@@ -58,7 +58,6 @@ export const backend: HireRolePageContent = {
   },
 
   hero: {
-    eyebrow: 'Hire Developers by Role',
     titleLines: ['Hire Backend Developers', 'for Scalable Applications'],
     body: [
       'Hire backend developers matched to your technology stack, application requirements, and working model. Evaluate technical execution, communication, requirement understanding, and team compatibility through practical work before confidently making a longer-term commitment to your development team.',

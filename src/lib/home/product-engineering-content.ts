@@ -27,7 +27,6 @@ export const prodMeta = {
 } as const;
 
 export const prodHero: HeroContent = {
-  eyebrow: "Product Engineering",
   titleLines: ["Product Engineering", "From Idea to Market"],
   body: [
     "Building a product is not the same as building software to a specification. Scope moves as you learn, architecture has to survive decisions not yet made, and the work does not stop at launch — it starts compounding there.",

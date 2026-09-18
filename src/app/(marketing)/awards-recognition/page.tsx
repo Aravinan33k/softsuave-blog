@@ -53,18 +53,6 @@ export const metadata: Metadata = {
  *  does. */
 const HOME_HREF = BASE_PATH || '/';
 
-/** Labels deliberately differ from the homepage's, so no mega panel opens — its
- *  items are homepage anchors that would be dead here. */
-const PAGE_NAV = [
-  { label: 'Home', href: '/' },
-  { label: 'AI Services', href: '/#services' },
-  { label: 'Our Industries', href: '/#industries' },
-  { label: 'Case Studies', href: '/#work' },
-  { label: 'Blog', href: '/blog' },
-] as const;
-
-const PAGE_CTA = { label: 'Book AI Strategy Call', href: '/contact' } as const;
-
 const PAGE_URL = absoluteUrl('/awards-recognition');
 
 /**
@@ -114,8 +102,8 @@ export default function AwardsRecognitionPage() {
 
   return (
     <div className={styles.page}>
-      <JsonLd data={[organizationLd, awardsPageLd, ...(breadcrumb ? [breadcrumb] : [])]} />
-      <Nav links={PAGE_NAV} cta={PAGE_CTA} logoHref={HOME_HREF} />
+      <JsonLd data={[awardsPageLd, ...(breadcrumb ? [breadcrumb] : [])]} />
+      <Nav logoHref={HOME_HREF} />
 
       {/* The whole page content sits in the warm-white `.light` band: it
           re-points the surface tokens, so every `.recog*` rule below inverts
@@ -125,7 +113,6 @@ export default function AwardsRecognitionPage() {
         <section className={`${styles.section} ${styles.awardsPageSection}`} id="awards">
           <div className={styles.sectionHead}>
             {/* light-band variant, per the band's contract */}
-            <span className={styles.eyebrowDark}>{awardsPage.eyebrow}</span>
             <h1 className={styles.h2}>{awardsPage.title}</h1>
             <p className={styles.lead}>{awardsPage.body}</p>
           </div>

@@ -49,7 +49,6 @@ export const nxMeta = {
 } as const;
 
 export const nxHero: HeroContent = {
-  eyebrow: "Next.js Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["Next.js Development Company", "for Flexible Web Platforms"],
   body: [

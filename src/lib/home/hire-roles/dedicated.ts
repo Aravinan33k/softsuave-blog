@@ -68,7 +68,6 @@ export const dedicated: HireRolePageContent = {
   },
 
   hero: {
-    eyebrow: 'Hire Developers by Role',
     titleLines: ['Hire Dedicated Developers in India', 'Vetted Teams from $14/hour'],
     body: [
       'Soft Suave offers dedicated developers from India who can join your team within 48 hours and work as an extension of your in-house team. Hire experts in web, mobile, full-stack, DevOps, QA, and more with flexible models, hourly rates starting at $14/hour, and a 40-hour risk-free trial.',

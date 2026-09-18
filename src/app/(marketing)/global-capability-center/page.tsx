@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
+import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
   gccAudience,
   gccBenefits,
@@ -90,17 +90,6 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/** Nav for this page: its own section anchors, plus real routes out. */
-const PAGE_NAV = [
-  { label: 'Home', href: '/' },
-  { label: 'Why Soft Suave', href: '#why' },
-  { label: 'What We Handle', href: '#services' },
-  { label: 'Setup Process', href: '#journey' },
-  { label: 'Blog', href: '/blog' },
-] as const;
-
-const PAGE_CTA = { label: 'Plan your GCC', href: '#enquiry' } as const;
-
 /**
  * FAQPage + Service structured data.
  *
@@ -109,45 +98,34 @@ const PAGE_CTA = { label: 'Plan your GCC', href: '#enquiry' } as const;
  * shared content, so they are described by the homepage's schema rather than
  * re-asserted on every service page.
  */
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: gccMeta.title,
-    serviceType: 'Global Capability Center setup and operations',
-    description: gccMeta.description,
-    url: absoluteUrl(gccMeta.path),
-    areaServed: 'Worldwide',
-    provider: {
-      '@type': 'Organization',
-      name: 'Soft Suave',
-      url: 'https://www.softsuave.com',
-    },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: gccServices.title,
-      itemListElement: gccServices.items.map((i) => ({
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: i.name, description: i.body },
-      })),
-    },
-  },
-];
+/**
+ * This page's JSON-LD, from the shared builder.
+ *
+ * It replaces a hand-written `Service` whose `provider` was an inline
+ * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
+ * repeated on every page of this surface rather than the canonical one — with
+ * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
+ * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
+ * at the organization `app/(marketing)/layout.tsx` declares once.
+ */
+const LD = pageSchemaGraph({
+  path: gccMeta.path,
+  title: gccMeta.title,
+  description: gccMeta.description,
+  serviceType: 'Global Capability Center setup and operations',
+  offerCatalogName: gccServices.title,
+  offers: gccServices.items.map((i) => ({ name: i.name, description: i.body })),
+});
 
 export default function GlobalCapabilityCenterPage() {
   // "/" is only a route this app serves once the marketing homepage ships; until
   // then the trail must not point Google at a redirect — which leaves a
   // single-item trail, so the schema is omitted rather than emitted empty.
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: gccMeta.title, path: gccMeta.path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
 
   return (
     <div className={home.page}>
-      <JsonLd data={[...structuredData, ...(breadcrumb ? [breadcrumb] : [])]} />
-      <Nav links={PAGE_NAV} cta={PAGE_CTA} logoHref={HOME_HREF} />
+      <JsonLd data={LD} />
+      <Nav logoHref={HOME_HREF} />
 
       <main id="main">
         <Hero content={gccHero} idPrefix="gcc" />

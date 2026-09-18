@@ -222,13 +222,16 @@
 
 /* The homepage's display headline — same face, weight and tracking. Only the
    clamp is scaled down: the homepage caps at 6rem for a full-bleed headline,
-   while this hero gives ~45% of the row to the enquiry form. */
+   while this hero gives ~45% of the row to the enquiry form.
+   Held at the same 60px as `.heroCompact .heroTitle` in landing.module.css:
+   these two surfaces sit side by side across the service pages, and at the old
+   2.9rem cap the H1 came in under the section H2s beneath it. */
 .heroTitle {
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.85rem, 3.4vw, 2.9rem);
-  line-height: 1.1;
+  font-size: clamp(2.1rem, 4.2vw, 3.75rem);
+  line-height: 1.06;
   letter-spacing: -0.045em;
   color: var(--text-bright);
   max-width: 24ch;
@@ -286,93 +289,8 @@
 /* The enquiry card is a WHITE panel on the dark hero — the treatment the live
    softsuave.com hero already uses, and the strongest thing on the page after
    the headline.
- *
- * It is done the way the marketing surface does every inversion: re-point the
- * semantic tokens on the container and let the cascade carry them. Every rule
- * below (`.kicker`, `.label`, `.input`, `.btnPrimary`, `.formNote`) already
- * reads these vars, so none of them needs a light-mode twin. Values are the
- * homepage `.light` band's, with `--surface` taken to pure white and `--bg`
- * (the input fill) to a hair off it so the fields still read as inset.
- *
- * `--accent` stays the page's coral so the submit button matches the nav CTA,
- * but coral TEXT on white is only ~2.9:1, so accent-as-text gets its own
- * `--accent-ink` — the light band's deeper brick red. */
-.form {
-  --bg: #fdfcfb;
-  --surface: #ffffff;
-  --surface-2: #f3f0ea;
-  --surface-3: #e6e2da;
-  --text: #4a4842;
-  --text-bright: #17140f;
-  --muted: #6b6862;
-  --line: #ddd8cf;
-  --accent: var(--brand-500);
-  --accent-border: var(--brand-600);
-  --accent-ink: #b8341a;
-
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
-  color: var(--text);
-  padding: clamp(22px, 2.4vw, 32px);
-  box-shadow: 0 34px 80px -40px rgba(0, 0, 0, 0.85);
-}
-
-/* `.btnPrimary:hover` inverts to white, which on a white card would erase the
-   button. Inside the form it deepens instead, keeping the ink label. */
-.form .btnPrimary:hover {
-  background: var(--brand-600);
-  border-color: var(--brand-600);
-  color: #140b08;
-}
-
-.formTitle {
-  margin: 0.6em 0 0;
-  font-family: var(--font-heading);
-  font-weight: 300;
-  font-size: clamp(1.2rem, 1.6vw, 1.55rem);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: var(--text-bright);
-}
-
-.formFields {
-  display: grid;
-  gap: 13px;
-  margin-top: clamp(20px, 2.2vw, 26px);
-}
-
-.field {
-  display: grid;
-  gap: 6px;
-}
-
-.label {
-  font-family: var(--font-eyebrow);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
 
 .input,
-.textarea {
-  width: 100%;
-  padding: 0.78em 0.9em;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--bg);
-  color: var(--text-bright);
-  font-family: var(--font-body);
-  font-size: 0.94rem;
-  line-height: 1.45;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.textarea {
-  min-height: 100px;
-  resize: vertical;
-}
 
 .input::placeholder,
 .textarea::placeholder {
@@ -384,27 +302,6 @@
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent);
-}
-
-.formSubmit {
-  width: 100%;
-  margin-top: 6px;
-}
-
-.formNote {
-  margin: 12px 0 0;
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: var(--muted);
-}
-
-.formStatus {
-  margin: 12px 0 0;
-  font-size: 0.84rem;
-  line-height: 1.5;
-  /* On the white card this resolves to the deeper brick red; everywhere else
-     `--accent-ink` is unset and it falls back to the coral accent. */
-  color: var(--accent-ink, var(--accent));
 }
 
 /* ============================================================
@@ -2457,49 +2354,5 @@
   width: 4px;
   height: 4px;
   background: var(--accent);
-}
-
-.formHeader {
-  text-align: center;
-}
-
-/* `.kicker` is shared with every dark section on the site — its `--muted`
-   grey is too low-contrast on this card white, so it is darkened here only. */
-.formHeader .kicker {
-  color: #000;
-}
-
-/* The reference template short dashed rule under the title. */
-.formAccent {
-  display: block;
-  width: 64px;
-  height: 0;
-  margin: 10px auto 0;
-  border-bottom: 3px dashed var(--accent);
-}
-
-/* Keeps recruitment traffic out of the sales inbox: the enquiry form is a
-   business channel, so the note under it points job applicants at careers. */
-.formAlert {
-  margin: 12px 0 0;
-  padding: 9px 11px;
-  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--accent) 8%, transparent);
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: #4a4a4a;
-  text-align: center;
-}
-
-.formAlertLabel {
-  font-weight: 700;
-  color: color-mix(in srgb, var(--accent) 75%, black);
-}
-
-.formAlertLink {
-  color: color-mix(in srgb, var(--accent) 80%, black);
-  text-decoration: underline;
-  text-underline-offset: 2px;
 }
 

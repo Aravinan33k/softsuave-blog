@@ -11,7 +11,6 @@ export const telecom: SectorPageContent = {
       'AI for telecom: network optimization, predictive maintenance, automated fault resolution, fraud detection and revenue assurance, engineered by Soft Suave.',
   },
   hero: {
-    eyebrow: 'Telecom',
     titleLines: ['Enhancing telecom', 'efficiency with AI'],
     body:
       'From network optimization and predictive maintenance to fraud detection and customer service, AI streamlines telecom operations for unmatched efficiency and peak performance.',

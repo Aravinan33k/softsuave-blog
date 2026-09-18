@@ -28,7 +28,6 @@ export const gccMeta = {
 } as const;
 
 export const gccHero: HeroContent = {
-  eyebrow: "Global Capability Center",
   titleLines: ["Global Capability Center", "Services"],
   body: [
     "Build your own offshore engineering centre in India without standing up a legal entity, an office, and a hiring function from scratch. Soft Suave handles company registration, infrastructure, recruitment, and daily operations, while the team works to your roadmap and your standards.",

@@ -46,7 +46,6 @@ export const rnMeta = {
 } as const;
 
 export const rnHero: HeroContent = {
-  eyebrow: "React Native App Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["React Native App Development", "Company In India"],
   body: [

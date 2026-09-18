@@ -17,7 +17,7 @@ import Faq from '@/components/services/faq';
 
 import { JsonLd } from '@/components/seo/json-ld';
 import { BASE_PATH } from '@/lib/flags';
-import { breadcrumbLd, faqPageLd, serviceLd } from '@/lib/seo/jsonld';
+import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import * as copy from '@/lib/services/ai-development';
 
 /**
@@ -60,21 +60,28 @@ const HOME_HREF = BASE_PATH || '/';
 export default function AiDevelopmentServicePage() {
   return (
     <div className={home.page}>
+      {/*
+       * Through the shared builder, like the rest of the surface.
+       *
+       * Two things were wrong with the hand-assembled version. `serviceLd`'s
+       * `providerName` inlined an unidentified Organization rather than naming
+       * the canonical one, and it emitted no `WebPage`, so the Service, the FAQ
+       * and the trail had nothing joining them. And the trail hardcoded a Home
+       * crumb: every other page gates that on `homepageEnabled`, because while
+       * the flag is off "/" is a 307 and a breadcrumb must not point a crawler
+       * at a redirect. The builder applies that gate.
+       */}
       <JsonLd
-        data={[
-          serviceLd({
-            name: copy.meta.title,
-            description: copy.meta.description,
-            path: copy.meta.path,
-            providerName: 'Soft Suave',
-            offers: copy.offerings.items,
-          }),
-          faqPageLd(copy.faq.items),
-          breadcrumbLd([
-            { name: 'Home', path: '/' },
-            { name: copy.meta.title, path: copy.meta.path },
-          ]),
-        ]}
+        data={pageSchemaGraph({
+          path: copy.meta.path,
+          title: copy.meta.title,
+          description: copy.meta.description,
+          serviceType: copy.meta.title,
+          offerCatalogName: copy.offerings.title,
+          offers: copy.offerings.items.map((i) => ({ name: i.name, description: i.body })),
+          faqName: copy.faq.title,
+          faqs: copy.faq.items,
+        })}
       />
 
       {/* This page has the bar's own #services and #why sections, so its

@@ -27,7 +27,6 @@ export const offMeta = {
 } as const;
 
 export const offHero: HeroContent = {
-  eyebrow: "Offshore Software Development",
   titleLines: ["Offshore Software Development", "Company for Global Businesses"],
   body: [
     "Soft Suave is an offshore software development company that builds and modernizes software for startups, scaling businesses, and established organizations worldwide. We pair experienced engineering teams with flexible delivery models shaped around your actual project requirements.",

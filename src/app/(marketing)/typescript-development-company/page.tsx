@@ -3,7 +3,6 @@ import { BASE_PATH, homepageEnabled } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { breadcrumbLd } from '@/lib/seo/jsonld';
-import { organizationLd } from '@/lib/seo/organization';
 import { txFaqLd, txServiceLd, txWebPageLd } from '@/lib/seo/typescript-development-company';
 import {
   txFaqs,
@@ -103,21 +102,6 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/** Nav for this page: its own section anchors, plus real routes out. */
-const PAGE_NAV = [
-  // "/" goes through next/link, so it resolves to the marketing homepage
-  // under either mount.
-  { label: 'Home', href: '/' },
-  { label: 'Overview', href: '#overview' },
-  { label: 'Services', href: '#services' },
-  { label: 'Why Us', href: '#why' },
-  { label: 'Tech Stack', href: '#tech' },
-  { label: 'FAQs', href: '#faq' },
-  { label: 'Blog', href: '/blog' },
-] as const;
-
-const PAGE_CTA = { label: 'Plan Your TypeScript Project', href: '#enquiry' } as const;
-
 export default function TypeScriptDevelopmentCompanyPage() {
   // "/" is only a page this app serves once the marketing homepage ships; until
   // then the trail must not point Google at a redirect — which leaves a
@@ -131,9 +115,9 @@ export default function TypeScriptDevelopmentCompanyPage() {
   return (
     <div className={home.page}>
       <JsonLd
-        data={[organizationLd, txServiceLd, txWebPageLd, txFaqLd, ...(breadcrumb ? [breadcrumb] : [])]}
+        data={[txServiceLd, txWebPageLd, txFaqLd, ...(breadcrumb ? [breadcrumb] : [])]}
       />
-      <Nav links={PAGE_NAV} cta={PAGE_CTA} logoHref={HOME_HREF} />
+      <Nav logoHref={HOME_HREF} />
 
       {/*
        * Band rhythm. The `home.light` wrapper re-points the same

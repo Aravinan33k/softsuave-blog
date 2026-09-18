@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
+import { organizationLd } from '@/lib/seo/organization';
+import { marketingWebSiteLd, SCHEMA_DATE_MODIFIED } from '@/lib/seo/page-graph';
 import { breadcrumbLd } from '@/lib/seo/jsonld';
 import { BASE_PATH, homepageEnabled } from '@/lib/flags';
 import { meta, sectors } from '@/lib/home/industries-content';
@@ -74,6 +76,7 @@ export const metadata: Metadata = {
 const sectorListLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
+  '@id': `${absoluteUrl(meta.path)}#sectors`,
   name: 'Industries Soft Suave serves',
   itemListElement: sectors.items.map((sector, i) => ({
     '@type': 'ListItem',
@@ -84,17 +87,28 @@ const sectorListLd = {
   })),
 };
 
+/**
+ * The index itself. A `CollectionPage` rather than the `WebPage` the service
+ * pages carry, because what this page is for is the list.
+ *
+ * `isPartOf` used to inline its own `{'@type': 'WebSite', name: 'Soft Suave'}`,
+ * which is a second unidentified website beside the canonical one
+ * `app/(marketing)/layout.tsx` emits. It names that one by `@id` instead, and
+ * the list above is bound to this page as its `mainEntity` rather than floating
+ * beside it unattached.
+ */
 const collectionLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
+  '@id': `${absoluteUrl(meta.path)}#webpage`,
   name: meta.title,
   description: meta.description,
   url: absoluteUrl(meta.path),
-  isPartOf: {
-    '@type': 'WebSite',
-    name: 'Soft Suave',
-    url: 'https://www.softsuave.com',
-  },
+  inLanguage: 'en',
+  dateModified: SCHEMA_DATE_MODIFIED,
+  isPartOf: { '@id': marketingWebSiteLd['@id'] },
+  publisher: { '@id': organizationLd['@id'] },
+  mainEntity: { '@id': `${absoluteUrl(meta.path)}#sectors` },
 };
 
 /** The nav logo is a plain <a>, which Next does NOT prefix with basePath, so it

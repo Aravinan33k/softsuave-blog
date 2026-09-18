@@ -47,7 +47,6 @@ export const gqMeta = {
 } as const;
 
 export const gqHero: HeroContent = {
-  eyebrow: "GraphQL Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["GraphQL Development Company", "for Connected Data Systems"],
   body: [

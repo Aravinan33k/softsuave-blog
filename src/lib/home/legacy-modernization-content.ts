@@ -27,7 +27,6 @@ export const legacyMeta = {
 } as const;
 
 export const legacyHero: HeroContent = {
-  eyebrow: "Legacy Modernization",
   titleLines: ["Legacy Modernization", "Without Stopping the Business"],
   body: [
     "Aging applications rarely fail outright. They get expensive to maintain, hard to hire for, slow to change, and increasingly difficult to secure — until a system that still technically works becomes the main constraint on what the business can do next.",

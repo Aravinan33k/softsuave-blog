@@ -79,7 +79,6 @@ export const njMeta = {
 } as const;
 
 export const njHero: HeroContent = {
-  eyebrow: "NodeJS Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["Custom NodeJS Development", "Company In India"],
   body: [

@@ -47,7 +47,7 @@ function abs(href: string): string {
 function Column({ title, links }: { title: string; links: string[][] }) {
   return (
     <div>
-      <h3 className="ss-heading mb-3 text-sm font-bold uppercase tracking-wide text-white">{title}</h3>
+      <h2 className="ss-heading mb-3 text-sm font-bold uppercase tracking-wide text-white">{title}</h2>
       <ul className="space-y-2 text-sm text-neutral-400">
         {links.map(([label, href]) => (
           <li key={label}>
@@ -71,7 +71,7 @@ export function SoftSuaveFooter() {
           <Column title="Delivery Method" links={DELIVERY} />
           <Column title="Industries" links={INDUSTRIES} />
           <div>
-            <h3 className="ss-heading mb-3 text-sm font-bold uppercase tracking-wide text-white">Follow us</h3>
+            <h2 className="ss-heading mb-3 text-sm font-bold uppercase tracking-wide text-white">Follow us</h2>
             <div className="flex flex-wrap gap-3">
               {SOCIALS.map(([Icon, href, label]) => (
                 <a

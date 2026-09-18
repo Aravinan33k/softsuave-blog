@@ -377,100 +377,8 @@
    card treatment the marketing site used on its older AI pages. Literal
    colors on purpose rather than `--bg`/`--text`/`--surface` — inverting the
    theme's own tokens here would flip them everywhere else `.light` does too.
-   ============================================================ */
-.form {
-  border: none;
-  border-radius: 24px;
-  background: #fff;
-  padding: clamp(28px, 3.2vw, 44px);
-  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.55);
-  color: #1a1a1a;
-}
-
-.formHeader {
-  text-align: center;
-}
-
-/* `.kicker` is shared with every dark section on the site — its `--muted`
-   grey is too low-contrast on this card's white, so it's darkened here only. */
-.formHeader .kicker {
-  color: #000;
-}
-
-.formTitle {
-  margin: 0.6em 0 0;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  color: #111;
-}
-
-/* The reference template's short dashed rule under the title — a purely
-   decorative red accent, not a fourth eyebrow rule. */
-.formAccent {
-  display: block;
-  width: 64px;
-  height: 0;
-  margin: 10px auto 0;
-  border-bottom: 3px dashed var(--accent);
-}
-
-.formFields {
-  display: grid;
-  gap: 13px;
-  margin-top: clamp(20px, 2.2vw, 26px);
-}
-
-.field {
-  display: grid;
-  gap: 6px;
-}
-
-.label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #000;
-}
-
-.labelIcon {
-  flex: 0 0 auto;
-  width: 16px;
-  height: 16px;
-  color: #1a1a1a;
-}
-
-/* Required-field marker. Decorative — the real semantics are the `required`
-   attribute on the field itself, so this is `aria-hidden` in the markup. */
-.required {
-  color: var(--accent);
-  font-weight: 700;
-}
 
 .input,
-.textarea {
-  width: 100%;
-  padding: 0.6em 0 0.8em;
-  border: none;
-  border-bottom: 1px solid #e2e2e2;
-  border-radius: 0;
-  background: transparent;
-  color: #111;
-  font-family: var(--font-body);
-  font-size: 0.94rem;
-  line-height: 1.45;
-  transition: border-color 0.3s ease;
-}
-
-.textarea {
-  min-height: 100px;
-  resize: vertical;
-}
 
 .input::placeholder,
 .textarea::placeholder {
@@ -483,35 +391,9 @@
   border-color: var(--accent);
 }
 
-.formSubmit {
-  width: 100%;
-  margin-top: 6px;
-  /* Sentence-case, body-font override — `.btn`/`.btnPrimary`'s uppercase
-     mono eyebrow styling is the right voice for this surface's dark CTAs,
-     not for this white card's own, plainer submit button. */
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: normal;
-  text-transform: none;
-  padding: 0.9em 1.6em;
-}
-
 /* Honeypot wrapper. Off-screen rather than `display: none` or
    `visibility: hidden`, both of which some form bots know to skip — this stays
    a real, focusable-in-principle field that simply cannot be reached, since the
-   input carries tabindex="-1" and the wrapper is aria-hidden. */
-.honeypot {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
-}
 
 /* Submit, mid-request. The swap to "Sending..." is the state signal; this only
    suppresses the affordances that would still say "pressable" — the hover
@@ -520,84 +402,10 @@
    Deliberately no `opacity`: it composites the label along with the plate, and
    at 0.72 the "Sending..." text measures 3.35:1 against its own button, i.e. it
    goes sub-AA at exactly the moment the reader is watching it for news. The
-   fill therefore stays at full strength. */
-.formSubmit:disabled {
-  cursor: progress;
-  transform: none;
-}
-
-.formSubmit:disabled:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  transform: none;
-}
 
 /* Failure, above the submit button. 7.8:1 for the text on its own tint, and the
    3px rule is 5.4:1 on the card's white — but the state is not carried by
    colour alone either way: it is the only bordered block in the field stack,
-   and it is announced via role="alert". */
-.formError {
-  margin: 2px 0 0;
-  padding: 9px 11px;
-  border: 1px solid #c8321c;
-  border-left-width: 3px;
-  border-radius: 6px;
-  background: #fdf1ee;
-  font-size: 0.82rem;
-  line-height: 1.5;
-  color: #8f2412;
-}
-
-/* Success, in place of the fields. */
-.formDone {
-  display: grid;
-  justify-items: center;
-  gap: 6px;
-  padding: clamp(26px, 3vw, 40px) 0 clamp(14px, 1.6vw, 20px);
-  text-align: center;
-}
-
-.formDoneMark {
-  width: 46px;
-  height: 46px;
-  margin-bottom: 4px;
-  /* The accent's darker twin: #ff5436 is only 3.2:1 on white, and this glyph is
-     the confirmation's main signal. */
-  color: color-mix(in srgb, var(--accent) 82%, #000);
-}
-
-.formDoneTitle {
-  margin: 0;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
-  line-height: 1.3;
-  color: #111;
-}
-
-.formDoneBody {
-  margin: 0;
-  max-width: 34ch;
-  font-size: 0.86rem;
-  line-height: 1.55;
-  color: #4a4a4a;
-}
-
-.formNote {
-  margin: 12px 0 0;
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: #4a4a4a;
-  text-align: center;
-}
-
-.formStatus {
-  margin: 12px 0 0;
-  font-size: 0.84rem;
-  line-height: 1.5;
-  color: color-mix(in srgb, var(--accent) 75%, black);
-  text-align: center;
-}
 
 /* ============================================================
    TRUST BAR  ("Our Clients")
@@ -704,18 +512,18 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(24px, 3vw, 44px);
-  /* The masthead rule belongs to the SECTION, not to one column of it. With an
-     image the head moves inside this grid's left column (overview.tsx), and it
-     used to carry `.head`'s `border-top` in there with it — leaving a rule that
-     spanned only the prose column above "The Short Answer" while every other
-     section on the page was ruled edge to edge (BUG-009). The rule is drawn
-     here instead, and the head's own is suppressed below. */
-  border-top: 1px solid var(--line);
-  padding-top: clamp(18px, 2.2vw, 30px);
-}
-.overviewGrid .head {
-  border-top: 0;
-  padding-top: 0;
+  /* No rule above this grid, and no padding to clear one.
+     It used to draw `border-top: 1px solid var(--line)` — a copy of the rule
+     `.head` once carried, moved here because with an image the head sits inside
+     this grid's left column and its own rule then spanned only the prose column
+     instead of the section's full width (BUG-009).
+     When the masthead rule was dropped from `.head` (see the note there: a
+     hairline over every section head made the page read as a stack of ruled
+     boxes), this copy was missed. It was left drawing a hairline above the
+     Overview head on every page that renders this section, with nothing but
+     empty band above it — the last of the "unnecessary lines in between the
+     sections". Gone now, so Overview keeps the same rhythm as every other
+     band: `.sectionShell` padding, then the head's own margin. */
 }
 
 /* Fluid frame. `aspect-ratio` (not a fixed height) means the box tracks its
@@ -2504,7 +2312,6 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-
   /* Opt-in 3-up, for a list whose length is a multiple of three — six cards
      read as two full rows instead of four then a two-card remainder. */
   .cardGrid.cardGrid3 {
@@ -2912,9 +2719,14 @@
   color: var(--muted);
 }
 
+/* The compact hero still steps down from the full hero's 4.25rem, but not
+   below its own page. At clamp(1.85rem, 3.4vw, 2.9rem) this H1 capped at 46px
+   against 44px section H2s and a 70px closing H2, so on 38 pages the first
+   heading was the smallest one — the page had no hierarchy to read. 60px sits
+   clearly above the 44px H2 band and clearly below the 68px full hero. */
 .heroCompact .heroTitle {
-  font-size: clamp(1.85rem, 3.4vw, 2.9rem);
-  line-height: 1.1;
+  font-size: clamp(2.1rem, 4.2vw, 3.75rem);
+  line-height: 1.06;
 }
 
 .heroCompact .heroBody {
@@ -3367,6 +3179,28 @@
   background: none;
   padding-top: clamp(18px, 2vw, 26px);
   align-self: start;
+}
+
+/* ...and with the scrim gone, the copy has to come back to the band.
+ *
+ * `.carouselTitle` / `.carouselText` below are near-white because they normally
+ * sit on the gradient over a photograph. Dropping the gradient here without
+ * re-colouring the text left white copy directly on `--surface`: 1.19:1 for the
+ * title and 1.16:1 for the body on the `.light` band's warm white, i.e.
+ * invisible. The index had the same problem for a different reason — it is the
+ * fixed `--brand-coral`, which is 2.17:1 there.
+ *
+ * Scoped to the plain case, so a card that DOES carry artwork is untouched. */
+.carouselMain[data-plain="true"] .carouselTitle {
+  color: var(--text-bright);
+}
+
+.carouselMain[data-plain="true"] .carouselText {
+  color: var(--text);
+}
+
+.carouselMain[data-plain="true"] .carouselIndex {
+  color: var(--accent);
 }
 
 .carouselIndex {
@@ -4855,8 +4689,6 @@
   color: var(--text);
 }
 
-
-
 @media (min-width: 700px) {
   .engGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -5486,7 +5318,9 @@
   font-family: var(--font-eyebrow);
   font-size: 9px;
   letter-spacing: 0.14em;
-  color: #fff;
+  /* --on-accent, not #fff: this badge is filled with --accent, where white is
+     3.19:1 at 9px. The accent ink is 6.08:1. */
+  color: var(--on-accent, #140b08);
 }
 
 .sbdCopy {
@@ -5788,18 +5622,8 @@
 /* Link appended to the hero form's note (`HeroContent.form.noteLink`), for a
    disclaimer that ends on a real destination. Inherits the note's own colour
    and size, underlined to read as a link within the sentence rather than as
-   a separate control. */
-.formNoteLink {
-  color: inherit;
-  font: inherit;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
 
 .formNoteLink:hover,
-.formNoteLink:focus-visible {
-  color: var(--accent);
-}
 
 /* CTA button appended to an overview's claim list (`OverviewContent.cta`). */
 .overviewCta {
@@ -5876,7 +5700,6 @@
     border-left: 0;
   }
 }
-
 
 /* ============================================================
    BOLD CARD LAYOUT — shared by the services grid and the card grids.
@@ -6816,32 +6639,6 @@
     transform: none;
   }
 }
-
-/* Keeps recruitment traffic out of the sales inbox: the enquiry form is a
-   business channel, so the note under it points job applicants at careers. */
-.formAlert {
-  margin: 12px 0 0;
-  padding: 9px 11px;
-  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--accent) 8%, transparent);
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: #4a4a4a;
-  text-align: center;
-}
-
-.formAlertLabel {
-  font-weight: 700;
-  color: color-mix(in srgb, var(--accent) 75%, black);
-}
-
-.formAlertLink {
-  color: color-mix(in srgb, var(--accent) 80%, black);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
 
 /* ============================================================
    EXPLORE MORE TECHNOLOGIES — display-type marquee band

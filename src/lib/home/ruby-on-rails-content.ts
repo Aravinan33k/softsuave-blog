@@ -52,7 +52,6 @@ export const rorMeta = {
 } as const;
 
 export const rorHero: HeroContent = {
-  eyebrow: "Ruby on Rails Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["Result-Driven Ruby on Rails", "Development Company"],
   body: [

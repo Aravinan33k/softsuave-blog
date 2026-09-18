@@ -57,7 +57,6 @@ export const sdMeta = {
 } as const;
 
 export const sdHero: HeroContent = {
-  eyebrow: "Software Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["Software Development", "Company"],
   body: [

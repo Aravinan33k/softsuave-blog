@@ -44,7 +44,6 @@ export const txMeta = {
 } as const;
 
 export const txHero: HeroContent = {
-  eyebrow: "TypeScript Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["TypeScript Development Company", "for Business-Critical Applications"],
   body: [

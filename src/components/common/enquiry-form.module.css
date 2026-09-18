@@ -1,0 +1,459 @@
+/* ============================================================
+   ENQUIRY FORM — the single source of truth for every enquiry
+   card on the marketing surface.
+
+   There used to be three of these, and they had drifted into three
+   different designs:
+
+     landing.module.css   40 pages  white card, radius 24, fields were a
+                                    bare 1px underline with no fill
+     gen-ai.module.css     3 pages  cream card, radius 14, boxed fields
+     services.module.css   1 page   translucent DARK card, boxed fields,
+                                    mono uppercase labels
+
+   So the same form looked like three different products depending on which
+   page the reader landed on. This module is what all three now import, which
+   is what keeps them identical — the fix is structural, not a matter of
+   keeping three files in sync by hand.
+
+   Deliberately NOT built on the surface's own --bg/--text/--surface tokens:
+   this is a light card floating on a dark hero, and pointing those tokens at
+   light values here would flip them everywhere else the theme uses them. The
+   card declares its own --fx-* island instead, so it renders the same
+   whatever band it is dropped into.
+
+   --accent and --on-accent ARE read from the theme, because the submit
+   button has to stay the brand's button and those two already resolve to the
+   same pair on every page that carries a form.
+   ============================================================ */
+.card {
+  /* Card-local palette. Fixed values, so the card cannot pick up a
+     surrounding band's ink and change character from page to page. */
+  --fx-ink: #0f1115;
+  --fx-label: #3f434d;
+  --fx-muted: #656b76;
+  --fx-placeholder: #9aa0aa;
+  --fx-line: #dfe1e6;
+  --fx-line-hover: #c6cad2;
+  --fx-well: #f6f7f9;
+  --fx-danger: #c8321c;
+  --fx-danger-ink: #8f2412;
+  --fx-danger-tint: #fdf4f1;
+  --fx-radius: 12px;
+
+  border: 1px solid rgba(15, 17, 21, 0.07);
+  border-radius: 20px;
+  background: #fff;
+  color: var(--fx-ink);
+  padding: clamp(26px, 3vw, 40px);
+  /* Three layers rather than one: a hairline to seat the card on its own
+     edge, a mid shadow for shape, and a wide soft one for the float. A
+     single large blur reads as haze over a photographic hero. */
+  box-shadow:
+    0 1px 2px rgba(15, 17, 21, 0.06),
+    0 18px 40px -20px rgba(15, 17, 21, 0.32),
+    0 48px 96px -48px rgba(15, 17, 21, 0.45);
+}
+
+/* ---------- header ---------- */
+.header {
+  text-align: center;
+}
+
+/* The same mono eyebrow the dark sections use, re-inked for this white card —
+   the theme's --muted grey is far too low-contrast here. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-family: var(--font-eyebrow);
+  font-size: clamp(10px, 0.78vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: #16181d;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--accent, #ff5436);
+}
+
+/* Leads the header where the card carries no eyebrow above it
+   (/ai-development-service is the case), so it does not open on stray space. */
+.header .title:first-child {
+  margin-top: 0;
+}
+
+.title {
+  margin: 0.55em 0 0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  color: #0b0d11;
+}
+
+/* Supporting sentence under the title, where a page supplies one. */
+.body {
+  margin: 0.6em 0 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--fx-muted);
+}
+
+/* The short accent rule under the title. Was a 3px DASHED border, which at
+   this width renders as five stray ticks — it read as a rendering fault
+   rather than as an accent, and it was the one detail on the card that still
+   looked unfinished. Same motif, drawn solid, with the ends softened so it
+   sits under a centred title instead of underlining it. */
+.accent {
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin: 14px auto 0;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent, #ff5436) 35%, transparent),
+    var(--accent, #ff5436) 50%,
+    color-mix(in srgb, var(--accent, #ff5436) 35%, transparent)
+  );
+}
+
+/* ---------- fields ---------- */
+.fields {
+  display: grid;
+  gap: 16px;
+  margin-top: clamp(22px, 2.4vw, 28px);
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+}
+
+/* The label is support, the value is the content — so the label is SMALLER
+   and lighter than the text the reader types. It used to be 0.95rem/600
+   near-black against a 0.94rem input, which inverted that and made a stack of
+   empty fields read as a stack of headings. */
+.label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--fx-label);
+}
+
+/* Muted rather than inked: these are decorative field markers, and at full
+   strength they competed with the label text beside them. */
+.labelIcon {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  color: var(--fx-placeholder);
+}
+
+.optional {
+  font-weight: 500;
+  color: var(--fx-muted);
+}
+
+/* Required marker. Decorative — the real semantics are the `required`
+   attribute on the control, so this is aria-hidden in the markup. */
+/* See landing.module.css .required — flat --accent is 3.19:1 on this white
+   card; 80% of it over black is 4.77:1. */
+.required {
+  color: color-mix(in srgb, var(--accent, #ff5436) 80%, #000);
+  font-weight: 700;
+}
+
+/* A filled, bordered well instead of the old underline. An underline gives
+   the reader no target to aim at and no sense of how much room the answer
+   has; on the textarea it did not describe the box at all. */
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.8em 0.9em;
+  border: 1px solid var(--fx-line);
+  border-radius: var(--fx-radius);
+  background: var(--fx-well);
+  color: var(--fx-ink);
+  font-family: var(--font-body);
+  /* 16px exactly. Mobile Safari zooms the whole page in when a focused field
+     measures under 16px, which shoved the hero off-screen mid-form on every
+     one of these pages. */
+  font-size: 1rem;
+  line-height: 1.45;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.textarea {
+  min-height: 104px;
+  resize: vertical;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--fx-placeholder);
+}
+
+.input:hover:not(:focus),
+.textarea:hover:not(:focus) {
+  border-color: var(--fx-line-hover);
+}
+
+/* `:focus`, not `:focus-visible` — a text field should show focus however it
+   was reached, including a pointer click, since the caret alone is a thin
+   signal on a field this wide. The well also goes white, so the active row
+   lifts out of the stack. */
+.input:focus,
+.textarea:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--accent, #ff5436);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #ff5436) 22%, transparent);
+}
+
+/* `:user-invalid` rather than `:invalid`: `:invalid` matches every required
+   field the moment the page loads, so an untouched form would open painted
+   red. This fires only after the reader has actually left a bad value. */
+.input:user-invalid,
+.textarea:user-invalid {
+  border-color: var(--fx-danger);
+  background: var(--fx-danger-tint);
+}
+
+.input:user-invalid:focus,
+.textarea:user-invalid:focus {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--fx-danger) 20%, transparent);
+}
+
+/* Chrome paints autofilled fields its own pale yellow, which on this white
+   card looked like a rendering fault. An inset shadow is the only way to
+   repaint that fill. */
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--fx-ink);
+  -webkit-box-shadow: 0 0 0 40px var(--fx-well) inset;
+  caret-color: var(--fx-ink);
+}
+
+.input:-webkit-autofill:focus {
+  -webkit-box-shadow:
+    0 0 0 40px #fff inset,
+    0 0 0 3px color-mix(in srgb, var(--accent, #ff5436) 22%, transparent);
+}
+
+/* ---------- submit ---------- */
+/* Self-contained rather than composed from each surface's own .btn variants,
+   which is how the three cards ended up with three different buttons.
+   Sentence-case body type on purpose: the uppercase mono eyebrow voice
+   belongs to the dark sections' CTAs, not to this card. */
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 4px;
+  padding: 0.95em 1.6em;
+  border: 1px solid var(--accent, #ff5436);
+  border-radius: var(--fx-radius);
+  background: var(--accent, #ff5436);
+  color: var(--on-accent, #140b08);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: normal;
+  text-transform: none;
+  cursor: pointer;
+  box-shadow: 0 10px 20px -10px color-mix(in srgb, var(--accent, #ff5436) 75%, transparent);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Deepens its own accent rather than inverting to white: this button sits on
+   a white card, where a #fff fill measured 1.00:1 and the CTA vanished under
+   the cursor. */
+.submit:hover {
+  background: color-mix(in srgb, var(--accent, #ff5436) 88%, #000);
+  border-color: color-mix(in srgb, var(--accent, #ff5436) 88%, #000);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px -12px color-mix(in srgb, var(--accent, #ff5436) 75%, transparent);
+}
+
+.submit:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px -8px color-mix(in srgb, var(--accent, #ff5436) 75%, transparent);
+}
+
+.submit:focus-visible {
+  outline: 2px solid var(--accent, #ff5436);
+  outline-offset: 3px;
+}
+
+/* Mid-request. The label swapping to "Sending..." is the state signal; this
+   only drops the affordances that would still say "pressable".
+
+   Deliberately no `opacity`: it composites the label along with the plate,
+   and at 0.72 the "Sending..." text goes sub-AA against its own button — at
+   exactly the moment the reader is watching it for news. */
+.submit:disabled {
+  cursor: progress;
+  transform: none;
+  box-shadow: none;
+}
+
+.submit:disabled:hover {
+  background: var(--accent, #ff5436);
+  border-color: var(--accent, #ff5436);
+  transform: none;
+}
+
+/* ---------- states ---------- */
+/* Failure, directly above the submit button the reader just pressed. Not
+   carried by colour alone: it is the only bordered block in the stack, and it
+   is announced through role="alert". */
+.error {
+  margin: 2px 0 0;
+  padding: 10px 12px;
+  border: 1px solid var(--fx-danger);
+  border-left-width: 3px;
+  border-radius: 8px;
+  background: var(--fx-danger-tint);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--fx-danger-ink);
+}
+
+/* Success, in place of the fields. */
+.done {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: clamp(26px, 3vw, 40px) 0 clamp(14px, 1.6vw, 20px);
+  text-align: center;
+}
+
+.doneMark {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 4px;
+  /* The accent's darker twin: #ff5436 is only 3.2:1 on white, and this glyph
+     is the confirmation's main signal. */
+  color: color-mix(in srgb, var(--accent, #ff5436) 82%, #000);
+}
+
+.doneTitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  line-height: 1.3;
+  color: #0b0d11;
+}
+
+.doneBody {
+  margin: 0;
+  max-width: 34ch;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--fx-muted);
+}
+
+.note {
+  margin: 14px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--fx-muted);
+  text-align: center;
+}
+
+.noteLink {
+  color: color-mix(in srgb, var(--accent, #ff5436) 82%, #000);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.noteLink:hover,
+.noteLink:focus-visible {
+  color: color-mix(in srgb, var(--accent, #ff5436) 62%, #000);
+}
+
+.status {
+  margin: 12px 0 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--accent, #ff5436) 75%, #000);
+  text-align: center;
+}
+
+/* Notice under the form steering job applicants away from the sales inbox.
+   Tinted rather than bordered-red: it is guidance, not an error, and the two
+   must not read alike when they can appear on the same card. */
+.alert {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--accent, #ff5436) 32%, var(--fx-line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent, #ff5436) 7%, #fff);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--fx-muted);
+  text-align: center;
+}
+
+.alertLabel {
+  font-weight: 700;
+  color: color-mix(in srgb, var(--accent, #ff5436) 75%, #000);
+}
+
+.alertLink {
+  color: color-mix(in srgb, var(--accent, #ff5436) 80%, #000);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Honeypot. Off-screen rather than `display: none` or `visibility: hidden`,
+   both of which some form bots know to skip — this stays a real field that
+   simply cannot be reached, since the input carries tabindex="-1" and the
+   wrapper is aria-hidden. */
+.honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input,
+  .textarea,
+  .submit {
+    transition: none;
+  }
+
+  .submit:hover,
+  .submit:active {
+    transform: none;
+  }
+}

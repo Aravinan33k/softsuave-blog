@@ -24,7 +24,6 @@ export const logisticsMeta = {
 } as const;
 
 export const logisticsHero: HeroContent = {
-  eyebrow: "Logistics",
   titleLines: ["AI in Logistics:", "Transforming Supply Chain Efficiency"],
   body: [
     "Optimise routes, predict demand, and see where every shipment actually is. We build logistics AI that integrates with the WMS, TMS, and ERP systems already running your operation, rather than asking you to replace them.",

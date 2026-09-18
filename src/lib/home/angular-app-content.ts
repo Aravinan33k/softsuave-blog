@@ -58,7 +58,6 @@ export const ngMeta = {
 } as const;
 
 export const ngHero: HeroContent = {
-  eyebrow: "Angular Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["Angular Development", "Company In India"],
   body: [

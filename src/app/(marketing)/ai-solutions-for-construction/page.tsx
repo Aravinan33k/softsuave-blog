@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
+import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
   constructionBenefits,
   constructionFaqs,
@@ -76,68 +76,33 @@ export const metadata: Metadata = {
 
 const HOME_HREF = BASE_PATH || '/';
 
-const PAGE_NAV = [
-  { label: 'Home', href: '/' },
-  { label: 'Overview', href: '#overview' },
-  { label: 'Solutions', href: '#services' },
-  { label: 'Benefits', href: '#benefits' },
-  { label: 'Applications', href: '#applications' },
-  { label: 'Tech Stack', href: '#tech' },
-  { label: 'Case Studies', href: '#work' },
-  { label: 'FAQs', href: '#faq' },
-  { label: 'Blog', href: '/blog' },
-] as const;
-
-const PAGE_CTA = { label: 'Book a consultation', href: '#enquiry' } as const;
-
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: constructionFaqs.items.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: typeof f.a === 'string' ? f.a : f.a.join(' '),
-      },
-    })),
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: constructionMeta.title,
-    serviceType: 'Construction AI development services',
-    description: constructionMeta.description,
-    url: absoluteUrl(constructionMeta.path),
-    areaServed: 'Worldwide',
-    provider: {
-      '@type': 'Organization',
-      name: 'Soft Suave',
-      url: 'https://www.softsuave.com',
-    },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: constructionServices.title,
-      itemListElement: constructionServices.items.map((i) => ({
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: i.name, description: i.body },
-      })),
-    },
-  },
-];
+/**
+ * This page's JSON-LD, from the shared builder.
+ *
+ * It replaces a hand-written `Service` whose `provider` was an inline
+ * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
+ * repeated on every page of this surface rather than the canonical one — with
+ * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
+ * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
+ * at the organization `app/(marketing)/layout.tsx` declares once.
+ */
+const LD = pageSchemaGraph({
+  path: constructionMeta.path,
+  title: constructionMeta.title,
+  description: constructionMeta.description,
+  serviceType: 'Construction AI development services',
+  offerCatalogName: constructionServices.title,
+  offers: constructionServices.items.map((i) => ({ name: i.name, description: i.body })),
+  faqName: constructionFaqs.title,
+  faqs: constructionFaqs.items,
+});
 
 export default function ConstructionAiSolutionsPage() {
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: constructionMeta.title, path: constructionMeta.path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
 
   return (
     <div className={home.page}>
-      <JsonLd data={[...structuredData, ...(breadcrumb ? [breadcrumb] : [])]} />
-      <Nav links={PAGE_NAV} cta={PAGE_CTA} logoHref={HOME_HREF} />
+      <JsonLd data={LD} />
+      <Nav logoHref={HOME_HREF} />
 
       <main id="main">
         <Hero content={constructionHero} idPrefix="construction" />

@@ -65,7 +65,6 @@ export default function Hero() {
   return (
     <section ref={root} className={styles.hero} id="top">
       <div className={styles.heroCopy}>
-        <span className={styles.kicker}>{hero.eyebrow}</span>
         <h1 className={styles.heroTitle}>
           {hero.titleLines.map((line, i) => (
             <span

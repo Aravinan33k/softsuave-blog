@@ -51,7 +51,6 @@ export const netMeta = {
 } as const;
 
 export const netHero: HeroContent = {
-  eyebrow: ".NET Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: [".NET Development", "Services"],
   body: [

@@ -89,7 +89,6 @@ export const rjMeta = {
 } as const;
 
 export const rjHero: HeroContent = {
-  eyebrow: "ReactJS Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["React Js App", "Development Company"],
   body: [

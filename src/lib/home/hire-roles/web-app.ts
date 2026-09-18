@@ -54,7 +54,6 @@ export const webApp: HireRolePageContent = {
   },
 
   hero: {
-    eyebrow: 'Hire Developers by Role',
     titleLines: ['Hire Web App Developers', 'for Scalable Digital Products'],
     body: [
       'Hire web app developers matched to your technology stack, product requirements, and delivery process. Build new applications, modernize existing platforms, complete integrations, or add engineering capacity with specialists selected for the work your team needs to deliver.',

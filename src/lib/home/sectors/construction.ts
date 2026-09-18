@@ -11,7 +11,6 @@ export const construction: SectorPageContent = {
       'AI for construction: smart scheduling, site safety monitoring, inventory and procurement, design simulation and predictive project oversight, engineered by Soft Suave.',
   },
   hero: {
-    eyebrow: 'Construction',
     titleLines: ['AI-driven innovation', 'for the future of construction'],
     body:
       'Redefine on-site efficiency with AI that anticipates risks, optimizes workflows, and supports safer, faster, and cost-efficient execution.',

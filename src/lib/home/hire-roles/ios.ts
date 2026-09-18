@@ -48,7 +48,6 @@ export const ios: HireRolePageContent = {
   },
 
   hero: {
-    eyebrow: 'Hire Developers by Role',
     titleLines: ['Hire iOS Developers', 'in India on Contract'],
     body: [
       'Great iOS apps do not happen by accident; they are built by the right people. Hire skilled iOS developers through Soft Suave, a specialized agency with vetted talent starting from $14/hour and flexible engagement models that keep your project on track.',

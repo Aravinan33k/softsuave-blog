@@ -48,20 +48,6 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/** Labels deliberately differ from the homepage's, so no mega panel — its items
- *  are homepage anchors that would be dead here. */
-const PAGE_NAV = [
-  { label: 'Home', href: '/' },
-  { label: 'AI Services', href: '/#services' },
-  { label: 'Our Industries', href: '/#industries' },
-  { label: 'Case Studies', href: '/#work' },
-  { label: 'Blog', href: '/blog' },
-] as const;
-
-/** In-page: the enquiry section below is this page's only destination. */
-const PAGE_CTA = { label: 'Book AI Strategy Call', href: '#contact' } as const;
-
-
 const PAGE_URL = absoluteUrl('/contact');
 
 /**
@@ -91,17 +77,16 @@ export default function ContactPage() {
 
   return (
     <div className={styles.page}>
-      <JsonLd data={[organizationLd, contactPageLd, ...(breadcrumb ? [breadcrumb] : [])]} />
-      <Nav links={PAGE_NAV} cta={PAGE_CTA} logoHref={HOME_HREF} />
+      <JsonLd data={[contactPageLd, ...(breadcrumb ? [breadcrumb] : [])]} />
+      <Nav logoHref={HOME_HREF} />
       <main id="main">
         <section className={styles.contactLead}>
-          <span className={styles.eyebrow}>{contactPage.eyebrow}</span>
           <h1 className={styles.h2}>{contactPage.title}</h1>
           <p className={styles.lead}>{contactPage.body}</p>
         </section>
         {/* `#contact` rather than the default `/contact`: this band IS the
             enquiry section, so the CTA scrolls to it instead of reloading the
-            page. Same destination `PAGE_CTA` above uses. */}
+            page. The nav bar's own CTA still points at `/contact`. */}
         <Contact ctaHref="#contact" />
       </main>
       <Footer />

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, Fraunces, JetBrains_Mono } from 'next/font/google';
 import ScrollProvider from '@/components/home/scroll-provider';
+import { JsonLd } from '@/components/seo/json-ld';
+import { MARKETING_SITE_GRAPH } from '@/lib/seo/page-graph';
 import './home.css';
 
 // Layout for the public marketing surface: the homepage at "/" and the service
@@ -46,6 +48,18 @@ export const metadata: Metadata = {
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable} theme-four`}>
+      {/*
+       * Who publishes this surface, declared once for every page under it.
+       *
+       * Each page's own graph names the organization and the website by `@id`
+       * instead of describing them again — see `lib/seo/page-graph.ts`. That
+       * only resolves if the nodes are actually in the document, which is what
+       * this is. Emitting it here rather than per page is also the fix for the
+       * thing it replaces: every landing page used to inline its own
+       * `{'@type': 'Organization', name: 'Soft Suave'}` stub, so the surface
+       * described eighty unrelated companies that happened to share a name.
+       */}
+      <JsonLd data={MARKETING_SITE_GRAPH} />
       <ScrollProvider>{children}</ScrollProvider>
     </div>
   );

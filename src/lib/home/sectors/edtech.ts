@@ -11,7 +11,6 @@ export const edtech: SectorPageContent = {
       'AI for education: adaptive assignments, progress monitoring, auto-grading, student chatbots and content recommendations, engineered by Soft Suave.',
   },
   hero: {
-    eyebrow: 'EdTech',
     titleLines: ['AI-driven EdTech', 'for the digital era'],
     body:
       'Explore AI solutions that adapt to learner needs, enhance teaching efficiency, and automate administrative workflows. Build future-ready learning experiences with AI.',

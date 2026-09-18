@@ -11,7 +11,6 @@ export const healthtech: SectorPageContent = {
       'AI for healthcare: patient intake and risk assessment, clinical analysis and reporting, prescription safety and staff scheduling, engineered by Soft Suave.',
   },
   hero: {
-    eyebrow: 'HealthTech',
     titleLines: ['AI solutions shaping', 'the future of healthcare'],
     body:
       'Unlock the power of AI to automate processes, generate insights, and revolutionize HealthTech. Powered by AI to accelerate digital transformation.',

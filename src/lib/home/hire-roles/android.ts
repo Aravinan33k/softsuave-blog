@@ -47,7 +47,6 @@ export const android: HireRolePageContent = {
   },
 
   hero: {
-    eyebrow: 'Hire Developers by Role',
     titleLines: ['Hire Android Developers', 'in India On Contract'],
     body: [
       'Soft Suave offers Android developers from India skilled in Kotlin, Java, Android Studio, Jetpack, API integrations, enterprise mobility, and custom mobile app development.',

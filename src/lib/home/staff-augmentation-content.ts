@@ -30,7 +30,6 @@ export const staffMeta = {
 } as const;
 
 export const staffHero: HeroContent = {
-  eyebrow: "IT Staff Augmentation",
   titleLines: ["IT Staff Augmentation", "Services"],
   body: [
     "Add proven engineers to your team without running a hiring cycle for each one. Soft Suave gives you access to a vetted global talent pool so you can scale capacity up or down as your roadmap moves, while your managers keep full day-to-day control.",

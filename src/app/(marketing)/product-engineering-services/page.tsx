@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
+import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
   prodBenefits,
   prodEngagement,
@@ -64,54 +64,31 @@ export const metadata: Metadata = {
 
 const HOME_HREF = BASE_PATH || '/';
 
-const PAGE_NAV = [
-  { label: 'Home', href: '/' },
-  { label: 'Why Soft Suave', href: '#why' },
-  { label: 'Services', href: '#services' },
-  { label: 'Approach', href: '#journey' },
-  { label: 'Outcomes', href: '#benefits' },
-  { label: 'Models', href: '#models' },
-  { label: 'Blog', href: '/blog' },
-] as const;
-
-const PAGE_CTA = { label: "Let's discuss your product", href: '#enquiry' } as const;
-
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: prodMeta.title,
-    serviceType: 'Product engineering',
-    description: prodMeta.description,
-    url: absoluteUrl(prodMeta.path),
-    areaServed: 'Worldwide',
-    provider: {
-      '@type': 'Organization',
-      name: 'Soft Suave',
-      url: 'https://www.softsuave.com',
-    },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: prodServices.title,
-      itemListElement: prodServices.items.map((i) => ({
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: i.name, description: i.body },
-      })),
-    },
-  },
-];
+/**
+ * This page's JSON-LD, from the shared builder.
+ *
+ * It replaces a hand-written `Service` whose `provider` was an inline
+ * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
+ * repeated on every page of this surface rather than the canonical one — with
+ * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
+ * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
+ * at the organization `app/(marketing)/layout.tsx` declares once.
+ */
+const LD = pageSchemaGraph({
+  path: prodMeta.path,
+  title: prodMeta.title,
+  description: prodMeta.description,
+  serviceType: 'Product engineering',
+  offerCatalogName: prodServices.title,
+  offers: prodServices.items.map((i) => ({ name: i.name, description: i.body })),
+});
 
 export default function ProductEngineeringPage() {
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: prodMeta.title, path: prodMeta.path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
 
   return (
     <div className={home.page}>
-      <JsonLd data={[...structuredData, ...(breadcrumb ? [breadcrumb] : [])]} />
-      <Nav links={PAGE_NAV} cta={PAGE_CTA} logoHref={HOME_HREF} />
+      <JsonLd data={LD} />
+      <Nav logoHref={HOME_HREF} />
 
       <main id="main">
         <Hero content={prodHero} idPrefix="product-eng" />

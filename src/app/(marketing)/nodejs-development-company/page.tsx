@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
+import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
   njFaqs,
   njHero,
@@ -88,73 +88,44 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/** Nav for this page: its own section anchors, plus real routes out. */
-const PAGE_NAV = [
-  // "/" goes through next/link, so it resolves to the marketing homepage
-  // under either mount.
-  { label: 'Home', href: '/' },
-  { label: 'Overview', href: '#overview' },
-  { label: 'Services', href: '#services' },
-  { label: 'Tech Stack', href: '#tech' },
-  { label: 'FAQs', href: '#faq' },
-  { label: 'Blog', href: '/blog' },
-] as const;
-
-const PAGE_CTA = { label: 'Hire NodeJS Developer', href: '#enquiry' } as const;
-
 /** FAQPage + Service structured data — this page's answers are its SEO surface. */
-const faqLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: njFaqs.items.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      // The bulleted `points` are part of the visible answer, so the schema
-      // carries them too — Google requires the two to agree.
-      text: [...(typeof f.a === 'string' ? [f.a] : f.a), ...(f.points ?? [])].join(' '),
-    },
-  })),
-};
 
-const serviceLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: njMeta.title,
-  serviceType: 'NodeJS application development',
+/**
+ * This page's JSON-LD, from the shared builder.
+ *
+ * It replaces a hand-written `Service` whose `provider` was an inline
+ * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
+ * repeated on every page of this surface rather than the canonical one — with
+ * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
+ * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
+ * at the organization `app/(marketing)/layout.tsx` declares once.
+ */
+const LD = pageSchemaGraph({
+  path: njMeta.path,
+  title: njMeta.title,
   description: njMeta.description,
-  url: absoluteUrl(njMeta.path),
-  provider: {
-    '@type': 'Organization',
-    name: 'Soft Suave',
-    url: 'https://www.softsuave.com',
-  },
-  areaServed: 'Worldwide',
-  hasOfferCatalog: {
-    '@type': 'OfferCatalog',
-    name: njServices.title,
-    itemListElement: njServices.items.map((i) => ({
-      '@type': 'Offer',
-      itemOffered: { '@type': 'Service', name: i.name, description: i.paragraphs[0] },
-    })),
-  },
-};
+  serviceType: 'NodeJS application development',
+  // The page's own short name for what it sells, not its `<title>`, which is
+  // written to win the click.
+  serviceName: 'NodeJS Development',
+  breadcrumbName: 'NodeJS Development',
+  offerCatalogName: njServices.title,
+  offers: njServices.items.map((i) => ({ name: i.name, description: i.paragraphs[0] })),
+  faqName: njFaqs.title,
+  // The builder folds each answer's bulleted `points` into its text, as the
+  // hand-written block here did — the schema must say what the page shows.
+  faqs: njFaqs.items,
+});
 
 export default function NodejsDevelopmentPage() {
   // "/" is only a page this app serves once the marketing homepage ships; until
   // then the trail must not point Google at a redirect — which leaves a
   // single-item trail, so the schema is omitted rather than emitted empty.
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: 'NodeJS Development', path: njMeta.path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
 
   return (
     <div className={home.page}>
-      <JsonLd data={[serviceLd, faqLd, ...(breadcrumb ? [breadcrumb] : [])]} />
-      <Nav links={PAGE_NAV} cta={PAGE_CTA} logoHref={HOME_HREF} />
+      <JsonLd data={LD} />
+      <Nav logoHref={HOME_HREF} />
 
       {/*
        * Band rhythm. The `home.light` wrapper re-points the same

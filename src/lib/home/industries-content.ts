@@ -26,7 +26,6 @@ export const meta = {
 } as const;
 
 export const hero = {
-  eyebrow: 'Industries',
   /** The live page's H1, split for the masked line reveal. */
   titleLines: ['Industry-specific AI solutions', 'for strategic advancement'],
   body: 'We build AI around the way an industry actually runs — its data, its systems, its regulations and its people — so operations get leaner, costs come down, and performance compounds.',

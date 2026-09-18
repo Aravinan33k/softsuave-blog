@@ -56,7 +56,6 @@ export const xamMeta = {
 } as const;
 
 export const xamHero: HeroContent = {
-  eyebrow: "Xamarin Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["Xamarin Development", "Company in India"],
   body: [

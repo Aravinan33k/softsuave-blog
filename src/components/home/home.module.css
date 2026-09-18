@@ -36,8 +36,13 @@
      white, where the accent also has to carry small uppercase label text.
      Step 3 is this band's own `--accent`, so a card's accent and the band's
      agree at the middle of the ramp. */
-  --card-accent-1: #a86f12;
-  --card-accent-2: #bf4f27;
+  /* Steps 1 and 2 run darker than a straight tint of the dark-band ramp.
+     They also paint TEXT — the bold card's category label takes its card accent
+     — and at 9.5px uppercase the original #a86f12 and #bf4f27 measured 3.57:1
+     and 4.05:1 on this band's card surface, i.e. under AA. These are 4.67:1 and
+     4.80:1, and still over the 3:1 the 3px card rule needs. */
+  --card-accent-1: #8f5e0f;
+  --card-accent-2: #ac4723;
   --card-accent-3: #b8341a;
   --card-accent-4: #b02742;
   --card-accent-5: #96305a;
@@ -67,9 +72,11 @@
   background: var(--accent);
 }
 
-.eyebrowDark {
-  color: #54524f;
-}
+/* No hardcoded ink here any more. #54524f was chosen for a light ground, but
+   this variant also renders on the DARK band (the client-stories masthead on
+   ten routes), where it measured 2.62:1 on near-black. The --muted declared
+   above is band-aware and passes both ways: 5.15:1 light, 7.42:1 dark.
+   NOTE: this makes .eyebrowDark identical to .eyebrow - worth consolidating. */
 
 .eyebrowDark::before {
   content: "";
@@ -182,9 +189,14 @@
   color: #140b08;
 }
 
+/* Deepens its own accent rather than inverting to white — the same change
+   .btnPrimary:hover took, and for the same reason: a #fff plate is 1.08:1 on
+   the .light band and 1.00:1 on the hero form card, so the button vanished
+   under the cursor. --accent is re-pointed per band, so one rule is right on
+   both: dark #e04a30 (label 4.8:1), light #a22e17 (label 7.1:1). */
 .pillFilled:hover {
-  background: #fff;
-  border-color: #fff;
+  background: color-mix(in srgb, var(--accent) 88%, #000);
+  border-color: color-mix(in srgb, var(--accent) 88%, #000);
   transform: translateY(-2px);
 }
 
@@ -2550,10 +2562,14 @@
   will-change: transform, filter, opacity;
 }
 
+/* The closing band's H2. At clamp(2.25rem, 5vw, 4.4rem) it capped at 70px,
+   which made it the largest heading on all 77 pages that render this band —
+   bigger than every H1 on the site bar the homepage's own. It keeps a display
+   step above the 44px section H2s without outranking the page's H1. */
 .contactH {
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2.25rem, 5vw, 4.4rem);
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -5092,11 +5108,14 @@
   letter-spacing: 0.14em;
   color: var(--accent);
 }
+/* The carousel card's own h3. At 3.2rem it capped at 51px, above the 44px
+   section h2 heading the band — the deepest heading on the homepage was also
+   its second-largest. It stays the biggest thing inside the card. */
 .carName {
   margin: 12px 0 16px;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.9rem, 3.4vw, 3.2rem);
+  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
   line-height: 1.06;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -6426,6 +6445,14 @@
   align-items: center;
   text-align: center;
   padding: clamp(128px, 17vh, 210px) var(--gutter) clamp(48px, 7vh, 90px);
+}
+
+/* The page's h1 borrows `.h2` for its face, which also gave it the 44px
+   section size — under the 48px h2 of the closing band further down the same
+   page. Sized here instead, level with the compact hero's h1. */
+.contactLead h1 {
+  font-size: clamp(2.1rem, 4.2vw, 3.75rem);
+  line-height: 1.06;
 }
 
 .contactLead .lead {

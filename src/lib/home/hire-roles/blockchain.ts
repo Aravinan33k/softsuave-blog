@@ -53,7 +53,6 @@ export const blockchain: HireRolePageContent = {
   },
 
   hero: {
-    eyebrow: 'Hire Developers by Role',
     titleLines: ['Hire Blockchain Developers', 'from India'],
     body: [
       'Soft Suave provides pre-vetted blockchain developers skilled in Ethereum, Solidity, smart contracts, and DeFi/Web3 development, matched to your project within 48 hours.',

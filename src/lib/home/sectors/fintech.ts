@@ -11,7 +11,6 @@ export const fintech: SectorPageContent = {
       'AI for financial services: fraud detection, credit risk and underwriting, regulatory automation and conversational banking, built by Soft Suave’s engineering teams.',
   },
   hero: {
-    eyebrow: 'FinTech',
     titleLines: ['Fintech AI development solutions', 'to power digital innovation'],
     body:
       'Unlock smarter financial solutions through AI-driven innovation. Transform your operations, enhance security, and boost efficiency with our expert Fintech AI development services tailored for success.',

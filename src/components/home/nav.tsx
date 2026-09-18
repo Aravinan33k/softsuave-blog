@@ -12,8 +12,6 @@ import MegaPanel, { MenuLink } from "./mega-menu";
 import { useSurfaceTone } from "./use-surface-tone";
 import styles from "./home.module.css";
 
-type NavLink = { label: string; href: string };
-
 /**
  * Which of the nav's own anchor targets the reader is currently in, so the bar
  * doubles as section navigation (`.navLinkActive`). Takes the ids as a joined
@@ -74,13 +72,15 @@ function useActiveAnchor(ids: string): string | null {
  * full-screen burger overlay, where each expands into the same content as an
  * accordion.
  *
- * `links`, `cta` and `logoHref` default to the homepage's own content, and
- * every page in the (marketing) group renders that same bar: one set of
- * divisions and one set of panels across the surface, so the nav never changes
- * shape as the reader moves between pages. The defaults include same-page
- * anchors (#services, #why, …); off the homepage `navHrefForPage` resolves
- * those against it, so they lead to the section instead of nowhere. A page with
- * a genuine reason to differ can still pass its own set.
+ * The bar's content is fixed. It always renders the homepage's own divisions
+ * and CTA from `nav`, on every page in the (marketing) group, and there is
+ * deliberately no prop to override them — one set of divisions and one set of
+ * panels across the whole surface, so the nav never changes shape or wording as
+ * the reader moves between pages. Pages used to pass their own `links`/`cta`
+ * built from their own section anchors, which is exactly the drift this
+ * removes. Those links include same-page anchors (#services, #why, …); off the
+ * homepage `navHrefForPage` resolves them against it, so they lead to the
+ * section instead of nowhere.
  *
  * `ownsAnchors` opts out of that resolution, for a page that has the bar's
  * anchor sections itself — `/ai-development-service` has both #services and
@@ -90,13 +90,9 @@ function useActiveAnchor(ids: string): string | null {
  * without JS, and only the page itself knows better.
  */
 export default function Nav({
-  links = nav.links,
-  cta = nav.cta,
   logoHref = "#top",
   ownsAnchors = false,
 }: {
-  links?: readonly NavLink[];
-  cta?: NavLink;
   logoHref?: string;
   ownsAnchors?: boolean;
 } = {}) {
@@ -108,37 +104,28 @@ export default function Nav({
   const [expanded, setExpanded] = useState<string | null>(null);
   const tone = useSurfaceTone();
   const activeId = useActiveAnchor(
-    links
+    nav.links
       .filter((l) => l.href.startsWith("#"))
       .map((l) => l.href.slice(1))
       .join(","),
   );
 
-  // The default `links` are the homepage's, so its in-page anchors have to
-  // become links back to it when this bar renders on a page that doesn't have
-  // those sections. `ownsAnchors` is the exception, and the homepage is always
-  // one.
-  //
-  // So is a page that passes its OWN `links`: those anchors name that page's
-  // own sections by definition — a page does not list `#enquiry` in its bar
-  // unless it has the enquiry form — so rewriting them to `/#enquiry` sent the
-  // reader to the homepage instead of to the section under their cursor. Every
-  // page that supplies a `cta` supplies `links` too, so testing `links` alone
-  // covers the CTA as well.
+  // The bar's links are the homepage's, so its in-page anchors have to become
+  // links back to it when this bar renders on a page that doesn't have those
+  // sections. `ownsAnchors` is the exception, and the homepage is always one.
   const pathname = usePathname();
-  const ownsGiven = links !== nav.links;
-  const keepAnchors = ownsAnchors || ownsGiven || pathname === "/";
+  const keepAnchors = ownsAnchors || pathname === "/";
   const resolve = (href: string) => navHrefForPage(href, keepAnchors);
 
   // `id` keeps the original anchor for the active-section highlight — where the
   // page doesn't have the section, that id isn't in the DOM and nothing
   // highlights, which is correct.
-  const items = links.map((l) => ({
+  const items = nav.links.map((l) => ({
     label: l.label,
     href: resolve(l.href),
     id: l.href.startsWith("#") ? l.href.slice(1) : null,
   }));
-  const ctaHref = resolve(cta.href);
+  const ctaHref = resolve(nav.cta.href);
 
   useGSAP(
     () => {
@@ -253,11 +240,11 @@ export default function Nav({
           <Magnetic>
             {ctaHref.startsWith("/") ? (
               <Link href={ctaHref} {...ctaShared}>
-                {cta.label}
+                {nav.cta.label}
               </Link>
             ) : (
               <a href={ctaHref} {...ctaShared}>
-                {cta.label}
+                {nav.cta.label}
               </a>
             )}
           </Magnetic>
@@ -346,11 +333,11 @@ export default function Nav({
               already-resolved href. */}
           {ctaHref.startsWith("/") ? (
             <Link href={ctaHref} className={styles.overlayCta} onClick={close}>
-              {cta.label}
+              {nav.cta.label}
             </Link>
           ) : (
             <a href={ctaHref} className={styles.overlayCta} onClick={close}>
-              {cta.label}
+              {nav.cta.label}
             </a>
           )}
         </nav>

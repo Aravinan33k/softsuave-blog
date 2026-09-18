@@ -31,7 +31,6 @@ export const cloudMeta = {
 } as const;
 
 export const cloudHero: HeroContent = {
-  eyebrow: "Cloud Computing",
   titleLines: ["Cloud Computing Services", "That Lower the Cost of Running IT"],
   body: [
     "Cloud gives you flexible, low-cost access to IT resources without the upfront hardware investment — but only if the migration is planned around how your applications actually behave. Lifting the wrong workload can cost more than the infrastructure it replaced.",

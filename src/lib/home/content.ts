@@ -379,7 +379,6 @@ export const recognitions = {
  * won. Only the framing copy lives here.
  */
 export const awardsPage = {
-  eyebrow: "Awards",
   title: "Awards and Recognition",
   body: "Thirteen years of building software has been accompanied by recognition from the industry's own directories and review platforms. Each of the marks below was issued by the organisation named beside it, on the strength of verified client reviews and independent assessment.",
   /**
@@ -458,7 +457,6 @@ export const finalCta = {
 
 /** Masthead of the standalone /contact page, above the `finalCta` finale. */
 export const contactPage = {
-  eyebrow: "Contact",
   title: "Let's Talk About Your AI Roadmap",
   body: "Tell us where you are — an idea worth testing, a pilot that needs to scale, or systems that need to get smarter. We reply within one business day with a practical next step.",
 } as const;

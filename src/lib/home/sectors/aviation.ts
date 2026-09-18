@@ -11,7 +11,6 @@ export const aviation: SectorPageContent = {
       'AI for aviation: flight and crew management, predictive maintenance and MRO, delay management, passenger personalization and route optimization.',
   },
   hero: {
-    eyebrow: 'Aviation',
     titleLines: ['Smarter skies:', 'AI for the future of aviation'],
     body:
       'Smarter skies start with AI, boosting flight efficiency, elevating safety standards, and crafting seamless, personalized experiences from takeoff to touchdown.',

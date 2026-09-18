@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
-import { homepageEnabled } from '@/lib/flags';
+import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import { meta as indexMeta } from '@/lib/home/industries-content';
 import type { SectorPageContent } from './types';
 
@@ -45,44 +44,34 @@ export function sectorMetadata(content: SectorPageContent): Metadata {
  * figure: the only numbers on these pages come from `why.stats` and the case
  * studies, which have their own markup elsewhere.
  */
-export function sectorJsonLd(content: SectorPageContent): Record<string, unknown>[] {
+export function sectorJsonLd(content: SectorPageContent): object[] {
   const { name, slug, meta, solutions } = content;
 
-  const serviceLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: `AI solutions for ${name}`,
-    serviceType: `AI development for ${name}`,
+  /*
+   * Through the shared builder, so a sector page carries the same `@id`-linked
+   * Service + WebPage the rest of the surface does. What was here before was a
+   * `Service` with no `@id`, no `WebPage` to belong to, and an inline
+   * `{'@type': 'Organization', name: 'Soft Suave'}` as provider — one more
+   * unidentified company in the graph rather than the canonical one.
+   *
+   * `position` on each Offer is dropped: an OfferCatalog's `itemListElement` is
+   * unordered, and these solutions carry no rank the page states.
+   *
+   * The index crumb survives the homepage gate — "/" is only served once the
+   * marketing homepage ships, but `/industries` is ours either way, so this
+   * trail is never shorter than two items.
+   */
+  return pageSchemaGraph({
+    path: slug,
+    title: meta.title,
     description: meta.description,
-    url: absoluteUrl(slug),
-    provider: {
-      '@type': 'Organization',
-      name: 'Soft Suave',
-      url: 'https://www.softsuave.com',
-    },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: `${name} AI solutions`,
-      itemListElement: solutions.items.map((item, i) => ({
-        '@type': 'Offer',
-        position: i + 1,
-        itemOffered: {
-          '@type': 'Service',
-          name: item.name,
-          description: item.body,
-        },
-      })),
-    },
-  };
-
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect. The index is ours
-  // either way, so the trail is never shorter than two items.
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: 'Industries', path: indexMeta.path },
-    { name, path: slug },
-  ];
-
-  return [serviceLd, breadcrumbLd(trail) as Record<string, unknown>];
+    serviceName: `AI solutions for ${name}`,
+    serviceType: `AI development for ${name}`,
+    breadcrumbName: name,
+    caption: `AI solutions for ${name}`,
+    audience: `Organisations in ${name} adopting AI`,
+    parents: [{ name: 'Industries', path: indexMeta.path }],
+    offerCatalogName: `${name} AI solutions`,
+    offers: solutions.items.map((item) => ({ name: item.name, description: item.body })),
+  });
 }

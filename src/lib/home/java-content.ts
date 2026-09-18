@@ -62,7 +62,6 @@ export const javaMeta = {
 } as const;
 
 export const javaHero: HeroContent = {
-  eyebrow: "Java Development Services",
   // The live H1, split so the last line takes the coral accent.
   titleLines: ["Java Development", "Company in India"],
   body: [

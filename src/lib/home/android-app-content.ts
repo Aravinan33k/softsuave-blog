@@ -45,7 +45,6 @@ export const andMeta = {
 } as const;
 
 export const andHero: HeroContent = {
-  eyebrow: "Android App Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["Android Application", "Development Service"],
   body: [

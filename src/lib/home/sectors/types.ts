@@ -32,7 +32,6 @@ export interface SectorPageContent {
     readonly description: string;
   };
   readonly hero: {
-    readonly eyebrow: string;
     /** The H1, split into lines. The last line takes the accent. */
     readonly titleLines: readonly string[];
     readonly body: string;

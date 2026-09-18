@@ -46,7 +46,6 @@ export const flMeta = {
 } as const;
 
 export const flHero: HeroContent = {
-  eyebrow: "Flutter App Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["Flutter App", "Development Services"],
   body: [

@@ -3,11 +3,11 @@
 import { useRef, useState, type FormEvent } from 'react';
 import FadeUp from '@/components/home/fade-up';
 import SplitReveal from '@/components/home/split-reveal';
-import home from '@/components/home/home.module.css';
 import styles from './services.module.css';
+import fx from '@/components/common/enquiry-form.module.css';
+import FieldIcon, { RequiredMark } from '@/components/common/field-icon';
 
 export interface ServiceHeroProps {
-  eyebrow: string;
   title: string;
   body: string;
   badges: readonly string[];
@@ -25,7 +25,7 @@ export interface ServiceHeroProps {
  * endpoint from `onSubmit` and replace `handoff` with the response handling; the
  * markup below does not need to change.
  */
-export default function ServiceHero({ eyebrow, title, body, badges, form }: ServiceHeroProps) {
+export default function ServiceHero({ title, body, badges, form }: ServiceHeroProps) {
   const [handedOff, setHandedOff] = useState(false);
   const formRef = useRef<HTMLFormElement | null>(null);
 
@@ -47,7 +47,6 @@ export default function ServiceHero({ eyebrow, title, body, badges, form }: Serv
   return (
     <section className={styles.hero} id="top">
       <div>
-        <span className={home.eyebrow}>{eyebrow}</span>
         <SplitReveal as="h1" className={styles.heroTitle} type="words">
           {title}
         </SplitReveal>
@@ -64,42 +63,51 @@ export default function ServiceHero({ eyebrow, title, body, badges, form }: Serv
       </div>
 
       <FadeUp delay={0.18}>
-        <div className={styles.form}>
-          <h2 className={styles.formTitle}>{form.title}</h2>
-          <p className={styles.formBody}>{form.body}</p>
+        <div className={fx.card}>
+          <div className={fx.header}>
+            <p className={fx.title}>{form.title}</p>
+            <span className={fx.accent} aria-hidden />
+            <p className={fx.body}>{form.body}</p>
+          </div>
 
-          <form ref={formRef} className={styles.formGrid} onSubmit={onSubmit}>
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor="svc-name">
+          <form ref={formRef} className={fx.fields} onSubmit={onSubmit}>
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor="svc-name">
+                <FieldIcon name="person" />
                 Name
+                <RequiredMark />
               </label>
-              <input id="svc-name" name="name" className={styles.input} type="text" autoComplete="name" placeholder="Your name" required />
+              <input id="svc-name" name="name" className={fx.input} type="text" autoComplete="name" placeholder="Your name" required />
             </div>
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor="svc-email">
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor="svc-email">
+                <FieldIcon name="mail" />
                 Work email
+                <RequiredMark />
               </label>
-              <input id="svc-email" name="email" className={styles.input} type="email" autoComplete="email" placeholder="you@company.com" required />
+              <input id="svc-email" name="email" className={fx.input} type="email" autoComplete="email" placeholder="you@company.com" required />
             </div>
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor="svc-requirement">
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor="svc-requirement">
+                <FieldIcon name="doc" />
                 What do you want to build?
+                <RequiredMark />
               </label>
               <textarea
                 id="svc-requirement"
                 name="requirement"
-                className={styles.textarea}
+                className={fx.textarea}
                 rows={3}
                 placeholder="The problem, the data you have, and where it should run."
                 required
               />
             </div>
-            <button type="submit" className={`${home.pill} ${home.pillFilled} ${styles.formSubmit}`} data-cursor="Send">
+            <button type="submit" className={fx.submit} data-cursor="Send">
               {form.submit}
             </button>
           </form>
 
-          <p className={styles.formNote} aria-live="polite">
+          <p className={fx.note} aria-live="polite">
             {handedOff ? 'Nothing sent yet — book your slot in Business Enquiry below and we will pick it up from there.' : form.note}
           </p>
         </div>

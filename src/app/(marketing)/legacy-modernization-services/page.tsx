@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
+import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
   legacyDrivers,
   legacyHero,
@@ -61,52 +61,31 @@ export const metadata: Metadata = {
 
 const HOME_HREF = BASE_PATH || '/';
 
-const PAGE_NAV = [
-  { label: 'Home', href: '/' },
-  { label: 'Why Soft Suave', href: '#why' },
-  { label: 'Why Modernize', href: '#drivers' },
-  { label: 'Services', href: '#services' },
-  { label: 'Blog', href: '/blog' },
-] as const;
-
-const PAGE_CTA = { label: 'Get an assessment', href: '#enquiry' } as const;
-
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: legacyMeta.title,
-    serviceType: 'Legacy application modernization',
-    description: legacyMeta.description,
-    url: absoluteUrl(legacyMeta.path),
-    areaServed: 'Worldwide',
-    provider: {
-      '@type': 'Organization',
-      name: 'Soft Suave',
-      url: 'https://www.softsuave.com',
-    },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: legacyServices.title,
-      itemListElement: legacyServices.items.map((i) => ({
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: i.name, description: i.body },
-      })),
-    },
-  },
-];
+/**
+ * This page's JSON-LD, from the shared builder.
+ *
+ * It replaces a hand-written `Service` whose `provider` was an inline
+ * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
+ * repeated on every page of this surface rather than the canonical one — with
+ * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
+ * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
+ * at the organization `app/(marketing)/layout.tsx` declares once.
+ */
+const LD = pageSchemaGraph({
+  path: legacyMeta.path,
+  title: legacyMeta.title,
+  description: legacyMeta.description,
+  serviceType: 'Legacy application modernization',
+  offerCatalogName: legacyServices.title,
+  offers: legacyServices.items.map((i) => ({ name: i.name, description: i.body })),
+});
 
 export default function LegacyModernizationPage() {
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: legacyMeta.title, path: legacyMeta.path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
 
   return (
     <div className={home.page}>
-      <JsonLd data={[...structuredData, ...(breadcrumb ? [breadcrumb] : [])]} />
-      <Nav links={PAGE_NAV} cta={PAGE_CTA} logoHref={HOME_HREF} />
+      <JsonLd data={LD} />
+      <Nav logoHref={HOME_HREF} />
 
       <main id="main">
         <Hero content={legacyHero} idPrefix="legacy" />

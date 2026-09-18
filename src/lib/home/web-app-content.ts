@@ -67,7 +67,6 @@ export const webMeta = {
 } as const;
 
 export const webHero: HeroContent = {
-  eyebrow: "Web App Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["Custom Web App", "Development Services"],
   body: [

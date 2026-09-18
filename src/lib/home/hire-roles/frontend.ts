@@ -58,7 +58,6 @@ export const frontend: HireRolePageContent = {
   },
 
   hero: {
-    eyebrow: 'Hire Developers by Role',
     titleLines: ['Hire Frontend Developers', 'for Modern Web Applications'],
     body: [
       'Add experienced front end developers to your product team for new interface development, modernization, performance improvement, and ongoing feature delivery. Our developers work across React, Angular, Vue.js, Next.js, JavaScript, and TypeScript while fitting into your existing tools, standards, and sprint routines.',

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
+import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
   offFaqs,
   offGovernance,
@@ -75,69 +75,33 @@ export const metadata: Metadata = {
 
 const HOME_HREF = BASE_PATH || '/';
 
-const PAGE_NAV = [
-  { label: 'Home', href: '/' },
-  { label: 'Why Soft Suave', href: '#why' },
-  { label: 'Services', href: '#services' },
-  { label: 'Engagement Models', href: '#models' },
-  { label: 'Process', href: '#journey' },
-  { label: 'Industries', href: '#industries' },
-  { label: 'Case Studies', href: '#work' },
-  { label: 'Tech Stack', href: '#tech' },
-  { label: 'FAQs', href: '#faq' },
-  { label: 'Blog', href: '/blog' },
-] as const;
-
-const PAGE_CTA = { label: 'Get a free quote', href: '#enquiry' } as const;
-
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: offFaqs.items.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: typeof f.a === 'string' ? f.a : f.a.join(' '),
-      },
-    })),
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: offMeta.title,
-    serviceType: 'Offshore software development',
-    description: offMeta.description,
-    url: absoluteUrl(offMeta.path),
-    areaServed: 'Worldwide',
-    provider: {
-      '@type': 'Organization',
-      name: 'Soft Suave',
-      url: 'https://www.softsuave.com',
-    },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: offServices.title,
-      itemListElement: offServices.items.map((i) => ({
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: i.name, description: i.body },
-      })),
-    },
-  },
-];
+/**
+ * This page's JSON-LD, from the shared builder.
+ *
+ * It replaces a hand-written `Service` whose `provider` was an inline
+ * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
+ * repeated on every page of this surface rather than the canonical one — with
+ * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
+ * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
+ * at the organization `app/(marketing)/layout.tsx` declares once.
+ */
+const LD = pageSchemaGraph({
+  path: offMeta.path,
+  title: offMeta.title,
+  description: offMeta.description,
+  serviceType: 'Offshore software development',
+  offerCatalogName: offServices.title,
+  offers: offServices.items.map((i) => ({ name: i.name, description: i.body })),
+  faqName: offFaqs.title,
+  faqs: offFaqs.items,
+});
 
 export default function OffshoreSoftwareDevelopmentPage() {
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: offMeta.title, path: offMeta.path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
 
   return (
     <div className={home.page}>
-      <JsonLd data={[...structuredData, ...(breadcrumb ? [breadcrumb] : [])]} />
-      <Nav links={PAGE_NAV} cta={PAGE_CTA} logoHref={HOME_HREF} />
+      <JsonLd data={LD} />
+      <Nav logoHref={HOME_HREF} />
 
       <main id="main">
         <Hero content={offHero} idPrefix="offshore" />

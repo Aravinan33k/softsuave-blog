@@ -56,7 +56,6 @@ export const mobileApp: HireRolePageContent = {
   },
 
   hero: {
-    eyebrow: 'Hire Developers by Role',
     titleLines: ['Hire Mobile App Developers:', 'Build the Right Team'],
     body: [
       'Hire mobile app developers experienced in Android, iOS, Flutter, React Native, and other mobile technologies. Review relevant profiles, interview developers directly, and choose specialists who fit your product and existing codebase.',

@@ -28,7 +28,6 @@ export const healthtechMeta = {
 } as const;
 
 export const healthtechHero: HeroContent = {
-  eyebrow: "HealthTech",
   titleLines: ["AI Solutions Shaping", "The Future of Healthcare"],
   body: [
     "Automate the administrative load, surface what clinicians need at the point of decision, and give patients a way to get answers without waiting for a callback. We build HealthTech AI that works inside your EHR and your existing clinical workflow.",

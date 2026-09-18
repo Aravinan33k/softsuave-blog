@@ -8,6 +8,8 @@ import { hero as generativeAiHero } from "@/lib/home/generative-ai";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
 import styles from "./gen-ai.module.css";
+import fx from "@/components/common/enquiry-form.module.css";
+import FieldIcon, { RequiredMark } from "@/components/common/field-icon";
 
 /**
  * Shape of the copy this hero renders. Every AI landing page supplies its own
@@ -15,8 +17,6 @@ import styles from "./gen-ai.module.css";
  * usage (`<Hero />`) is unchanged.
  */
 export interface HeroContent {
-  /** Optional — omitted on pages whose headline stands on its own. */
-  eyebrow?: string;
   /** The H1, split into lines. The last line takes the accent. */
   titleLines: readonly string[];
   body: readonly string[];
@@ -99,7 +99,7 @@ export default function Hero({
         .from(`.${styles.heroPoint}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.05 }, "-=0.4")
         .from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3")
         .from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3")
-        .from(`.${styles.form}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
+        .from(`.${fx.card}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
 
       // Backdrop lifts out of black underneath all of that — the same hand-off
       // the homepage hero gives its video frame. Added last, at an absolute
@@ -153,8 +153,6 @@ export default function Hero({
 
       <div className={styles.heroGrid}>
         <div>
-          {content.eyebrow && <span className={styles.kicker}>{content.eyebrow}</span>}
-
           <h1 className={styles.heroTitle}>
             {/* The spans are display:block, so the spaces between them only
                 matter to the text content crawlers and screen readers see. */}
@@ -210,21 +208,23 @@ export default function Hero({
           )}
         </div>
 
-        <div className={styles.form} id="enquiry">
-          <div className={styles.formHeader}>
-            <span className={styles.kicker}>{content.form.eyebrow}</span>
-            <p className={styles.formTitle}>{content.form.title}</p>
-            <span className={styles.formAccent} aria-hidden />
+        <div className={fx.card} id="enquiry">
+          <div className={fx.header}>
+            <span className={fx.eyebrow}>{content.form.eyebrow}</span>
+            <p className={fx.title}>{content.form.title}</p>
+            <span className={fx.accent} aria-hidden />
           </div>
 
-          <form className={styles.formFields} onSubmit={onSubmit}>
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor={`${idPrefix}-name`}>
+          <form className={fx.fields} onSubmit={onSubmit}>
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor={`${idPrefix}-name`}>
+                <FieldIcon name="person" />
                 Full name
+                <RequiredMark />
               </label>
               <input
                 id={`${idPrefix}-name`}
-                className={styles.input}
+                className={fx.input}
                 type="text"
                 name="name"
                 autoComplete="name"
@@ -235,13 +235,15 @@ export default function Hero({
               />
             </div>
 
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor={`${idPrefix}-email`}>
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor={`${idPrefix}-email`}>
+                <FieldIcon name="mail" />
                 Work email
+                <RequiredMark />
               </label>
               <input
                 id={`${idPrefix}-email`}
-                className={styles.input}
+                className={fx.input}
                 type="email"
                 name="email"
                 autoComplete="email"
@@ -252,13 +254,14 @@ export default function Hero({
               />
             </div>
 
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor={`${idPrefix}-phone`}>
-                Phone <span aria-hidden>(optional)</span>
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor={`${idPrefix}-phone`}>
+                <FieldIcon name="phone" />
+                Phone <span className={fx.optional} aria-hidden>(optional)</span>
               </label>
               <input
                 id={`${idPrefix}-phone`}
-                className={styles.input}
+                className={fx.input}
                 type="tel"
                 name="phone"
                 autoComplete="tel"
@@ -268,13 +271,15 @@ export default function Hero({
               />
             </div>
 
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor={`${idPrefix}-requirement`}>
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor={`${idPrefix}-requirement`}>
+                <FieldIcon name="doc" />
                 {content.form.requirementLabel}
+                <RequiredMark />
               </label>
               <textarea
                 id={`${idPrefix}-requirement`}
-                className={styles.textarea}
+                className={fx.textarea}
                 name="requirement"
                 required
                 value={form.requirement}
@@ -283,30 +288,30 @@ export default function Hero({
               />
             </div>
 
-            <button type="submit" className={`${styles.btn} ${styles.btnPrimary} ${styles.formSubmit}`}>
+            <button type="submit" className={fx.submit}>
               {sent ? content.form.sending : content.form.submit}
             </button>
           </form>
 
-          <p className={styles.formNote}>{content.form.note}</p>
+          <p className={fx.note}>{content.form.note}</p>
 
           {content.form.alert && (
-            <p className={styles.formAlert}>
-              <span className={styles.formAlertLabel}>{content.form.alert.label}</span>{" "}
+            <p className={fx.alert}>
+              <span className={fx.alertLabel}>{content.form.alert.label}</span>{" "}
               {content.form.alert.text}{" "}
               {/* `SiteLink`, not `next/link`: this href is a live-site path
                   (/career-overview) that this app does not serve, so a plain
                   Link resolved it app-internally and 404'd. `SiteLink` sends
                   paths we don't own to the marketing site — the same choice the
                   landing hero's `noteLink` already makes for this exact link. */}
-              <SiteLink className={styles.formAlertLink} href={content.form.alert.href}>
+              <SiteLink className={fx.alertLink} href={content.form.alert.href}>
                 {content.form.alert.linkLabel}
               </SiteLink>
             </p>
           )}
 
           {sent && (
-            <p className={styles.formStatus} role="status">
+            <p className={fx.status} role="status">
               Thanks — a draft to {brand.email} is opening with your details. We reply within one business day.
             </p>
           )}

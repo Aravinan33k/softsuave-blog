@@ -52,7 +52,6 @@ export const software: HireRolePageContent = {
   },
 
   hero: {
-    eyebrow: 'Hire Developers by Role',
     titleLines: ['Hire Software Developers:', 'Get the Right Talent for Your Next Project'],
     body: [
       'Hire experienced software developers from India, matched to your technology stack, project requirements, and team needs. Add the right expertise to accelerate development, strengthen delivery, and support your business goals.',

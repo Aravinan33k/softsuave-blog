@@ -326,15 +326,20 @@ export default function WorkGrid({
         // scrolls into view (replaces the old per-tile scrub reveal, which
         // only made sense while the lane's position was scrub-driven by the
         // pin — now the lane moves on native scroll, not a GSAP tween).
+        // Guarded on length: a text-only lane renders no `.hMedia` at all (see
+        // `hasArt`), and `gsap.from([])` logs "GSAP target not found" on every
+        // mount rather than quietly doing nothing.
         const mediaEls = gsap.utils.toArray<HTMLElement>(`.${styles.hMedia}`, track.current);
-        gsap.from(mediaEls, {
-          clipPath: "inset(0% 0% 100% 0%)",
-          scale: 1.08,
-          duration: 0.9,
-          ease: "expo.out",
-          stagger: 0.08,
-          scrollTrigger: { trigger: sectionRef.current, start: "top 70%", once: true },
-        });
+        if (mediaEls.length) {
+          gsap.from(mediaEls, {
+            clipPath: "inset(0% 0% 100% 0%)",
+            scale: 1.08,
+            duration: 0.9,
+            ease: "expo.out",
+            stagger: 0.08,
+            scrollTrigger: { trigger: sectionRef.current, start: "top 70%", once: true },
+          });
+        }
 
         // Track in-view state (for the keyboard shortcut below) and drive
         // the progress tick off the lane's own native scroll position.

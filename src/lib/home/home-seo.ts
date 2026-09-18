@@ -1,7 +1,9 @@
 import 'server-only';
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { brand, footer, why } from './content';
+import { organizationLd } from '@/lib/seo/organization';
+import { marketingWebSiteLd, SCHEMA_DATE_MODIFIED } from '@/lib/seo/page-graph';
+import { brand, why } from './content';
 
 /**
  * Metadata and structured data for the homepage.
@@ -15,10 +17,15 @@ import { brand, footer, why } from './content';
  * It lives here rather than in the route so the page file stays a composition of
  * sections, and it is `server-only` because `absoluteUrl` is.
  *
- * Everything below is derived from `content.ts` — the same objects the footer
- * and the proof band render. Nothing is retyped, so the schema cannot come to
- * advertise an office, a phone number or a figure the page itself no longer
- * shows.
+ * What remains here is what is particular to this page: its metadata, its
+ * `WebPage` node and the proof band's figures. Those figures come from
+ * `content.ts` — the same object the band renders — so a number cannot be
+ * marked up here and shown differently above.
+ *
+ * The company's own facts (offices, phone desks, social profiles) are NOT here
+ * any more. They are `lib/seo/organization.ts`, emitted once for the surface by
+ * `app/(marketing)/layout.tsx` and referenced below by `@id`; see the note in
+ * `homeJsonLd`.
  */
 
 const TITLE = 'Soft Suave — Scalable AI, Automation & Integrations';
@@ -26,11 +33,6 @@ const TITLE = 'Soft Suave — Scalable AI, Automation & Integrations';
 const DESCRIPTION =
   'Build scalable AI solutions, intelligent automation systems, and seamless ' +
   'integrations with AI-enabled engineering teams focused on real business outcomes.';
-
-/** The organization's canonical id, so every block below refers to one node
- *  rather than describing three unrelated Organizations. */
-const ORG_ID = `${absoluteUrl('/')}#organization`;
-const SITE_ID = `${absoluteUrl('/')}#website`;
 
 const OG_IMAGE = dynamicOgImage(brand.name, 'Scalable AI, Automation & Integrations');
 
@@ -55,89 +57,37 @@ export const homeMetadata: Metadata = {
   },
 };
 
-/**
- * An office as a PostalAddress. `lines` is prose as the footer prints it — the
- * last line carries the town, region and postcode — so it is split on the final
- * comma rather than guessed at field by field, and anything that does not split
- * stays whole in `streetAddress`. Better a correct partial address than an
- * invented `postalCode`.
- */
-function addressLd(office: (typeof footer.offices)[number]) {
-  const lines = [...office.lines];
-  const tail = lines.pop() ?? '';
-  const at = tail.lastIndexOf(',');
-  const street = [...lines, at === -1 ? '' : tail.slice(0, at)]
-    .map((l) => l.trim().replace(/,$/, ''))
-    .filter(Boolean)
-    .join(', ');
-
-  return {
-    '@type': 'PostalAddress',
-    streetAddress: street || tail.trim(),
-    ...(at === -1 ? {} : { addressLocality: tail.slice(at + 1).trim() }),
-  };
-}
-
 export function homeJsonLd(): Record<string, unknown>[] {
-  const organization = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    '@id': ORG_ID,
-    name: 'Soft Suave Technologies',
-    alternateName: brand.name,
-    url: absoluteUrl('/'),
-    description: DESCRIPTION,
-    // Matches the About page's own Organization block, which is the one other
-    // place the founding year is stated.
-    foundingDate: '2012',
-    logo: {
-      '@type': 'ImageObject',
-      url: absoluteUrl('/brand/softsuave_logo_light.webp'),
-    },
-    email: footer.contact.email,
-    sameAs: footer.social.map((s) => s.href),
-    address: footer.offices.map(addressLd),
-    contactPoint: footer.contact.phones.map((p) => ({
-      '@type': 'ContactPoint',
-      telephone: p.href.replace(/^tel:/, ''),
-      // Read the label, not merely whether there is one: India publishes two
-      // numbers and both carry a note, so "has a note" would mark the sales
-      // line up as the HR desk.
-      contactType: 'note' in p && p.note === 'HR' ? 'human resources' : 'sales',
-      areaServed: p.country.toUpperCase(),
-      availableLanguage: 'English',
-    })),
-  };
-
-  const website = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': SITE_ID,
-    name: brand.name,
-    url: absoluteUrl('/'),
-    description: DESCRIPTION,
-    publisher: { '@id': ORG_ID },
-    // The app serves this route itself (`app/search/page.tsx`), reading `q`.
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${absoluteUrl('/search')}?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
-  };
-
+  /*
+   * The Organization and WebSite that used to be built here are gone.
+   *
+   * `app/(marketing)/layout.tsx` now emits the canonical pair for every page on
+   * this surface, and this page is on it — so describing the company and the
+   * site again here produced two of each in one document. Worse than redundant:
+   * the two Organization nodes carried DIFFERENT `@id`s (`organizationLd`
+   * spells its own with a trailing slash before the fragment, this file derived
+   * one without), so a consumer saw two companies; and the two WebSite nodes
+   * carried the SAME `@id`, which is a straight collision.
+   *
+   * Nothing is lost by deferring to them. `lib/seo/organization.ts` states
+   * everything this block did — offices, email, the phone desks, the social
+   * profiles — and adds the ISO 27001 credential and the KiwiTech parent that
+   * this one never had. The site search moved to `marketingWebSiteLd`, which is
+   * where a site-wide action belongs.
+   */
   const webPage = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    '@id': absoluteUrl('/'),
+    '@id': `${absoluteUrl('/')}#webpage`,
     url: absoluteUrl('/'),
     name: TITLE,
     description: DESCRIPTION,
-    isPartOf: { '@id': SITE_ID },
-    about: { '@id': ORG_ID },
+    isPartOf: { '@id': marketingWebSiteLd['@id'] },
+    about: { '@id': organizationLd['@id'] },
+    publisher: { '@id': organizationLd['@id'] },
+    mainEntity: { '@id': `${absoluteUrl('/')}#proof` },
     primaryImageOfPage: { '@type': 'ImageObject', url: OG_IMAGE },
+    dateModified: SCHEMA_DATE_MODIFIED,
     inLanguage: 'en',
   };
 
@@ -149,6 +99,7 @@ export function homeJsonLd(): Record<string, unknown>[] {
   const proof = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
+    '@id': `${absoluteUrl('/')}#proof`,
     name: 'Soft Suave at a glance',
     itemListElement: why.stats.map((s, i) => ({
       '@type': 'ListItem',
@@ -158,6 +109,6 @@ export function homeJsonLd(): Record<string, unknown>[] {
     })),
   };
 
-  return [organization, website, webPage, proof];
+  return [webPage, proof];
 }
 

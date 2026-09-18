@@ -11,7 +11,6 @@ export const logistics: SectorPageContent = {
       'AI for logistics: route and delivery optimization, freight cost control, shipment tracking, document automation and fleet management, engineered by Soft Suave.',
   },
   hero: {
-    eyebrow: 'Logistics',
     titleLines: ['AI in logistics:', 'transforming supply chain efficiency'],
     body:
       'Optimize supply chains, reduce delays, and enhance real-time decision-making with AI-powered logistics solutions. Leverage AI to boost efficiency, cut costs, and enhance operations.',

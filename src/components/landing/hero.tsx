@@ -18,6 +18,8 @@ import {
 import { SiteLink } from "@/themes/softsuave/site-link";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import styles from "./landing.module.css";
+import fx from "@/components/common/enquiry-form.module.css";
+import FieldIcon, { RequiredMark } from "@/components/common/field-icon";
 
 /**
  * Shape of the copy this hero renders. Every AI landing page supplies its own
@@ -25,8 +27,6 @@ import styles from "./landing.module.css";
  * usage (`<Hero />`) is unchanged.
  */
 export interface HeroContent {
-  /** Optional — omitted on pages whose headline stands on its own. */
-  eyebrow?: string;
   /** The H1, split into lines. The last line takes the accent. */
   titleLines: readonly string[];
   body: readonly string[];
@@ -169,7 +169,7 @@ export default function Hero({
       if (content.badges?.length) {
         tl.from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3");
       }
-      tl.from(`.${styles.form}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
+      tl.from(`.${fx.card}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
 
       // Backdrop lifts out of black underneath all of that — the same hand-off
       // the homepage hero gives its video frame. Added last, at an absolute
@@ -248,19 +248,6 @@ export default function Hero({
 
   const lastLine = content.titleLines.length - 1;
 
-  /** One shared stroke style for every field icon below — keeps them a
-   *  matched set without repeating the same five attributes four times. */
-  const iconProps = {
-    className: styles.labelIcon,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 1.8,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    "aria-hidden": true,
-  };
-
   return (
     <section
       ref={root}
@@ -298,8 +285,6 @@ export default function Hero({
 
       <div className={styles.heroGrid}>
         <div>
-          {content.eyebrow && <span className={styles.kicker}>{content.eyebrow}</span>}
-
           <h1 className={styles.heroTitle}>
             {/* The spans are display:block, so the spaces between them only
                 matter to the text content crawlers and screen readers see. */}
@@ -355,11 +340,11 @@ export default function Hero({
           )}
         </div>
 
-        <div className={styles.form} id="enquiry">
-          <div className={styles.formHeader}>
-            {content.form.eyebrow ? <span className={styles.kicker}>{content.form.eyebrow}</span> : null}
-            <p className={styles.formTitle}>{content.form.title}</p>
-            <span className={styles.formAccent} aria-hidden />
+        <div className={fx.card} id="enquiry">
+          <div className={fx.header}>
+            {content.form.eyebrow ? <span className={fx.eyebrow}>{content.form.eyebrow}</span> : null}
+            <p className={fx.title}>{content.form.title}</p>
+            <span className={fx.accent} aria-hidden />
           </div>
 
           {/* On success the fields are gone: the reader has nothing left to do
@@ -367,9 +352,9 @@ export default function Hero({
               second submission of the same lead. `role="status"` announces it
               without stealing focus. */}
           {status === "ok" ? (
-            <div className={styles.formDone} role="status">
+            <div className={fx.done} role="status">
               <svg
-                className={styles.formDoneMark}
+                className={fx.doneMark}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -381,18 +366,18 @@ export default function Hero({
                 <circle cx="12" cy="12" r="9.2" />
                 <path d="M7.8 12.4l3 2.9 5.4-6" />
               </svg>
-              <p className={styles.formDoneTitle}>Thanks — we&rsquo;ve got your details.</p>
-              <p className={styles.formDoneBody}>
+              <p className={fx.doneTitle}>Thanks — we&rsquo;ve got your details.</p>
+              <p className={fx.doneBody}>
                 One of our team will contact you within one business day.
               </p>
             </div>
           ) : (
-          <form className={styles.formFields} onSubmit={onSubmit}>
+          <form className={fx.fields} onSubmit={onSubmit}>
             {/* Honeypot: off-screen rather than display:none, which some bots
                 skip. Hidden from the accessibility tree and from the tab order,
                 so no real user can reach it — anything that fills it is
                 automated, and the route drops the submission. */}
-            <div className={styles.honeypot} aria-hidden>
+            <div className={fx.honeypot} aria-hidden>
               <label htmlFor={`${idPrefix}-website`}>Website</label>
               <input
                 id={`${idPrefix}-website`}
@@ -405,20 +390,15 @@ export default function Hero({
               />
             </div>
 
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor={`${idPrefix}-name`}>
-                <svg {...iconProps}>
-                  <circle cx="12" cy="8" r="3.6" />
-                  <path d="M4.5 20c0-4.3 3.4-6.8 7.5-6.8s7.5 2.5 7.5 6.8" />
-                </svg>
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor={`${idPrefix}-name`}>
+                <FieldIcon name="person" />
                 Full name
-                <span className={styles.required} aria-hidden>
-                  *
-                </span>
+                <RequiredMark />
               </label>
               <input
                 id={`${idPrefix}-name`}
-                className={styles.input}
+                className={fx.input}
                 type="text"
                 name="name"
                 autoComplete="name"
@@ -432,20 +412,15 @@ export default function Hero({
               />
             </div>
 
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor={`${idPrefix}-email`}>
-                <svg {...iconProps}>
-                  <rect x="3.5" y="5.5" width="17" height="13" rx="2" />
-                  <path d="M4.5 7l7.5 5.5L19.5 7" />
-                </svg>
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor={`${idPrefix}-email`}>
+                <FieldIcon name="mail" />
                 Work email
-                <span className={styles.required} aria-hidden>
-                  *
-                </span>
+                <RequiredMark />
               </label>
               <input
                 id={`${idPrefix}-email`}
-                className={styles.input}
+                className={fx.input}
                 type="email"
                 name="email"
                 autoComplete="email"
@@ -456,16 +431,14 @@ export default function Hero({
               />
             </div>
 
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor={`${idPrefix}-phone`}>
-                <svg {...iconProps}>
-                  <path d="M5.5 4h3l1.6 4.4-2.1 2.1a11 11 0 005.5 5.5l2.1-2.1L20 15.5v3a1.5 1.5 0 01-1.6 1.5C10.7 19.6 4.4 13.3 4 5.6A1.5 1.5 0 015.5 4z" />
-                </svg>
-                Phone <span aria-hidden>(optional)</span>
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor={`${idPrefix}-phone`}>
+                <FieldIcon name="phone" />
+                Phone <span className={fx.optional} aria-hidden>(optional)</span>
               </label>
               <input
                 id={`${idPrefix}-phone`}
-                className={styles.input}
+                className={fx.input}
                 type="tel"
                 name="phone"
                 autoComplete="tel"
@@ -478,20 +451,15 @@ export default function Hero({
               />
             </div>
 
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor={`${idPrefix}-requirement`}>
-                <svg {...iconProps}>
-                  <rect x="5" y="3.5" width="14" height="17" rx="2" />
-                  <path d="M8.5 9h7M8.5 12.5h7M8.5 16h4.5" />
-                </svg>
+            <div className={fx.field}>
+              <label className={fx.label} htmlFor={`${idPrefix}-requirement`}>
+                <FieldIcon name="doc" />
                 {content.form.requirementLabel}
-                <span className={styles.required} aria-hidden>
-                  *
-                </span>
+                <RequiredMark />
               </label>
               <textarea
                 id={`${idPrefix}-requirement`}
-                className={styles.textarea}
+                className={fx.textarea}
                 name="requirement"
                 required
                 value={form.requirement}
@@ -504,14 +472,14 @@ export default function Hero({
                 the reader's attention is on the button they just pressed, and
                 the message sits directly above it. */}
             {status === "error" && error && (
-              <p className={styles.formError} role="alert">
+              <p className={fx.error} role="alert">
                 {error}
               </p>
             )}
 
             <button
               type="submit"
-              className={`${styles.btn} ${styles.btnPrimary} ${styles.formSubmit}`}
+              className={fx.submit}
               disabled={status === "sending"}
             >
               {status === "sending" ? content.form.sending : content.form.submit}
@@ -520,12 +488,12 @@ export default function Hero({
           )}
 
           {(content.form.note || content.form.noteLink) && (
-            <p className={styles.formNote}>
+            <p className={fx.note}>
               {content.form.note}
               {content.form.noteLink && (
                 <>
                   {" "}
-                  <SiteLink href={content.form.noteLink.href} className={styles.formNoteLink}>
+                  <SiteLink href={content.form.noteLink.href} className={fx.noteLink}>
                     {content.form.noteLink.label}
                   </SiteLink>
                 </>
@@ -534,10 +502,10 @@ export default function Hero({
           )}
 
           {content.form.alert && (
-            <p className={styles.formAlert}>
-              <span className={styles.formAlertLabel}>{content.form.alert.label}</span>{" "}
+            <p className={fx.alert}>
+              <span className={fx.alertLabel}>{content.form.alert.label}</span>{" "}
               {content.form.alert.text}{" "}
-              <Link className={styles.formAlertLink} href={content.form.alert.href}>
+              <Link className={fx.alertLink} href={content.form.alert.href}>
                 {content.form.alert.linkLabel}
               </Link>
             </p>

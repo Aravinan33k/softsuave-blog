@@ -46,7 +46,6 @@ export const iosMeta = {
 } as const;
 
 export const iosHero: HeroContent = {
-  eyebrow: "iOS App Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["iOS App", "Development Services"],
   body: [

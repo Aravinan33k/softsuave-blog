@@ -88,24 +88,6 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/** Nav for this page: its own section anchors, plus real routes out. */
-const PAGE_NAV = [
-  // "/" goes through next/link, which DOES apply basePath, so it resolves to
-  // the marketing homepage under either mount.
-  { label: 'Home', href: '/' },
-  { label: 'AI Services', href: '#services' },
-  { label: 'Compare', href: '#comparison' },
-  { label: 'Why Soft Suave', href: '#why' },
-  { label: 'Process', href: '#journey' },
-  { label: 'Industries', href: '#industries' },
-  { label: 'Case Studies', href: '#work' },
-  { label: 'Tech Stack', href: '#tech' },
-  { label: 'FAQs', href: '#faq' },
-  { label: 'Blog', href: '/blog' },
-] as const;
-
-const PAGE_CTA = { label: 'Book AI Strategy Call', href: '/contact' } as const;
-
 /**
  * Organization + Service + WebPage + FAQPage, from the approved SEO spec
  * (`lib/seo/ai-page-schema.ts`).
@@ -123,7 +105,7 @@ export default function CustomAiDevelopmentPage() {
   return (
     <div className={home.page}>
       <JsonLd data={structuredData} />
-      <Nav links={PAGE_NAV} cta={PAGE_CTA} logoHref={HOME_HREF} />
+      <Nav logoHref={HOME_HREF} />
 
       {/*
        * Dark/light alternates every section (the `home.light` wrapper

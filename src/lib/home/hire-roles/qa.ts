@@ -61,7 +61,6 @@ export const qa: HireRolePageContent = {
   },
 
   hero: {
-    eyebrow: 'Hire Developers by Role',
     titleLines: ['Hire Remote Software', 'QA Testers in India'],
     body: [
       "Soft Suave provides pre-vetted QA testers skilled in manual and automation testing (Selenium, Appium, Postman, JMeter), placed on your team within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",

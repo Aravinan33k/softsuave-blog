@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
+import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
   edtechBenefits,
   edtechFaqs,
@@ -76,68 +76,33 @@ export const metadata: Metadata = {
 
 const HOME_HREF = BASE_PATH || '/';
 
-const PAGE_NAV = [
-  { label: 'Home', href: '/' },
-  { label: 'Overview', href: '#overview' },
-  { label: 'Solutions', href: '#services' },
-  { label: 'Benefits', href: '#benefits' },
-  { label: 'Applications', href: '#applications' },
-  { label: 'Tech Stack', href: '#tech' },
-  { label: 'Case Studies', href: '#work' },
-  { label: 'FAQs', href: '#faq' },
-  { label: 'Blog', href: '/blog' },
-] as const;
-
-const PAGE_CTA = { label: 'Book a consultation', href: '#enquiry' } as const;
-
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: edtechFaqs.items.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: typeof f.a === 'string' ? f.a : f.a.join(' '),
-      },
-    })),
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: edtechMeta.title,
-    serviceType: 'EdTech AI development services',
-    description: edtechMeta.description,
-    url: absoluteUrl(edtechMeta.path),
-    areaServed: 'Worldwide',
-    provider: {
-      '@type': 'Organization',
-      name: 'Soft Suave',
-      url: 'https://www.softsuave.com',
-    },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: edtechServices.title,
-      itemListElement: edtechServices.items.map((i) => ({
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: i.name, description: i.body },
-      })),
-    },
-  },
-];
+/**
+ * This page's JSON-LD, from the shared builder.
+ *
+ * It replaces a hand-written `Service` whose `provider` was an inline
+ * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
+ * repeated on every page of this surface rather than the canonical one — with
+ * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
+ * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
+ * at the organization `app/(marketing)/layout.tsx` declares once.
+ */
+const LD = pageSchemaGraph({
+  path: edtechMeta.path,
+  title: edtechMeta.title,
+  description: edtechMeta.description,
+  serviceType: 'EdTech AI development services',
+  offerCatalogName: edtechServices.title,
+  offers: edtechServices.items.map((i) => ({ name: i.name, description: i.body })),
+  faqName: edtechFaqs.title,
+  faqs: edtechFaqs.items,
+});
 
 export default function EdtechAiSolutionsPage() {
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: edtechMeta.title, path: edtechMeta.path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
 
   return (
     <div className={home.page}>
-      <JsonLd data={[...structuredData, ...(breadcrumb ? [breadcrumb] : [])]} />
-      <Nav links={PAGE_NAV} cta={PAGE_CTA} logoHref={HOME_HREF} />
+      <JsonLd data={LD} />
+      <Nav logoHref={HOME_HREF} />
 
       <main id="main">
         <Hero content={edtechHero} idPrefix="edtech" />

@@ -44,7 +44,6 @@ export const madMeta = {
 } as const;
 
 export const madHero: HeroContent = {
-  eyebrow: "Mobile App Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["Mobile App Development", "Company in India"],
   body: [

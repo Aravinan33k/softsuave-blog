@@ -30,7 +30,6 @@ export const edtechMeta = {
 } as const;
 
 export const edtechHero: HeroContent = {
-  eyebrow: "EdTech",
   titleLines: ["AI-Driven EdTech", "for the Digital Era"],
   body: [
     "Build learning experiences that adapt to the individual student, mark work the moment it is submitted, and give teachers back the hours currently spent on administration. We build EdTech AI that plugs into the LMS you already run.",

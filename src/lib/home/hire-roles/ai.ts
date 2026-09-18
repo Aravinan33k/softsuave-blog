@@ -49,7 +49,6 @@ export const ai: HireRolePageContent = {
   },
 
   hero: {
-    eyebrow: 'Hire Developers by Role',
     titleLines: ['Hire AI Developers', 'in India On contract'],
     body: [
       'Soft Suave offers Indian AI developers without the long hiring cycles. We are a specialized agency that connects you with pre-vetted experts in Generative AI, LLMs, NLP, Machine Learning, computer vision, AI chatbots, and automation systems — contract-ready and onboarded fast.',

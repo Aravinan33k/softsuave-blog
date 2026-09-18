@@ -87,7 +87,26 @@ body:has(.theme-four) {
   background: #040508;
 }
 
-.theme-four a {
+/* Kill the UA stylesheet's link blue and underline, WITHOUT outranking the
+   components.
+ *
+ * `:where()` contributes nothing to specificity, so this whole rule scores
+ * (0,0,0). It still beats the UA sheet — author rules always do, whatever their
+ * specificity — so an unclassed link still inherits its surrounding colour. But
+ * it no longer beats a component.
+ *
+ * It was written as `.theme-four a`, which scores (0,1,1) and therefore
+ * outranked every single-class rule that sets a colour on a link: `.pillFilled`
+ * (#140b08), `.holdBtn` (#140b08) and `.btnPrimary` (var(--on-accent)) all lost
+ * to it. Each one paints ITS OWN accent fill and then had the band's body text
+ * inherited on top, so every filled button rendered as a link — the nav CTA, the
+ * mid-page CTA, the closing "Book a Free Consultation" — came out pale-on-coral:
+ * 2.61:1, 2.24:1, and 1.54:1 in a `.light` band. A `<button>` with the same
+ * class was unaffected, which is why the hero's submit measured 6.08:1 while the
+ * CTA beside it measured 2.24:1.
+ *
+ * Restoring the declared colours puts them at 6.08:1 (dark) and 5.93:1 (light). */
+:where(.theme-four a) {
   color: inherit;
   text-decoration: none;
 }

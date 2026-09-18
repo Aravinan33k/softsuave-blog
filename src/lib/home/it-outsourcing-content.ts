@@ -30,7 +30,6 @@ export const itoMeta = {
 } as const;
 
 export const itoHero: HeroContent = {
-  eyebrow: "IT Outsourcing",
   titleLines: ["IT Outsourcing Company", "in India"],
   body: [
     "Move critical technology initiatives forward with an IT outsourcing partner that brings software, AI, QA, cloud, and modernization capability under one engagement — shaped around your roadmap, your systems, and your delivery priorities.",

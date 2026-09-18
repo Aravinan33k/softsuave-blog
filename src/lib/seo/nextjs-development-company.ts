@@ -9,9 +9,10 @@ import { nxFaqs, nxMeta, nxServices } from '@/lib/home/nextjs-content';
  * structured data can never drift from what a visitor actually sees.
  *
  * These reference `organizationLd`'s `@id` for `provider`/`publisher` rather
- * than repeating that object, which is why the route also emits
- * `organizationLd` itself alongside these three — one Organization node, three
- * schemas pointing at it, exactly as a linked JSON-LD graph is meant to work.
+ * than repeating that object. The node itself is emitted once for the whole
+ * surface by `app/(marketing)/layout.tsx`, so the reference resolves without
+ * this route carrying its own copy — one Organization node per document, every
+ * schema pointing at it, which is how a linked JSON-LD graph is meant to work.
  *
  * The page has no bundled Open Graph image of its own, so `dynamicOgImage`
  * generates one from the title through the existing `/og` route — the same

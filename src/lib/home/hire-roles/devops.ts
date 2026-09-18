@@ -51,7 +51,6 @@ export const devops: HireRolePageContent = {
   },
 
   hero: {
-    eyebrow: 'Hire Developers by Role',
     titleLines: ['Hire DevOps Developers', 'from India in 48 hours'],
     body: [
       "Soft Suave provides pre-vetted DevOps engineers experienced in CI/CD, Kubernetes, Docker, AWS and Azure, matched to your project within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",

@@ -25,7 +25,6 @@ export const telecomMeta = {
 } as const;
 
 export const telecomHero: HeroContent = {
-  eyebrow: "Telecom",
   titleLines: ["Enhancing Telecom Efficiency", "with AI"],
   body: [
     "From network optimisation and predictive maintenance to fraud detection and customer service, we build AI that keeps a telecom operation running closer to its capacity and further from its failure modes.",

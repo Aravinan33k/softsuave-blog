@@ -58,7 +58,6 @@ export const ionMeta = {
 } as const;
 
 export const ionHero: HeroContent = {
-  eyebrow: "Ionic App Development",
   // The H1, split so the last line takes the coral accent.
   titleLines: ["Custom Ionic App Development", "Company In India"],
   body: [

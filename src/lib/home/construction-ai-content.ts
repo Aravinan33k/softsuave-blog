@@ -30,7 +30,6 @@ export const constructionMeta = {
 } as const;
 
 export const constructionHero: HeroContent = {
-  eyebrow: "Construction",
   titleLines: ["AI-Driven Innovation", "for the Future of Construction"],
   body: [
     "Redefine on-site efficiency with AI that anticipates risk, optimises workflows, and supports safer, faster, more cost-predictable delivery. We build construction software that works from initial design through to final handover.",

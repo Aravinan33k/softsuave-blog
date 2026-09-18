@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
+import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import type { HireBand, HireSkill } from '@/lib/home/hire-skill';
 import { HIRE_CLIENT_LOGOS, HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 import type { CardGridContent } from '@/components/landing/industries';
@@ -109,75 +109,38 @@ function asCardGrid(content: ServicesContent): CardGridContent {
 export default function HirePage({ skill }: { skill: HireSkill }) {
   const path = `/${skill.slug}`;
 
-  /**
-   * The nav only advertises anchors this page actually renders. It used to list
-   * a fixed seven for every page, several of which pointed at bands that no
-   * longer exist here (`#why` was the homepage manifesto, `#engagement` a
-   * hand-written models band), leaving dead links on pages whose live source
-   * runs neither.
+  /*
+   * All twenty-four pages' JSON-LD, from this one call.
+   *
+   * What it replaces was a `Service` built here by hand whose `provider` was an
+   * inline `{'@type': 'Organization', name: 'Soft Suave'}` — not the canonical
+   * `organizationLd`, and a separate one per page — with no `WebPage` node and
+   * nothing joining the `Service`, the `FAQPage` and the breadcrumb to each
+   * other. `pageSchemaGraph` emits that set `@id`-linked and points provider
+   * and publisher at the organization the layout declares once.
+   *
+   * The empty cases stay handled: NestJS publishes no FAQ and gets no
+   * `FAQPage`, a page with no services band gets no `hasOfferCatalog`, and the
+   * breadcrumb is dropped while "/" is still a redirect.
    */
-  const has = (band: HireBand) => skill.order.includes(band);
-  const pageNav = [
-    { label: 'Home', href: '/' },
-    ...(has('overview') ? [{ label: 'Overview', href: '#overview' }] : []),
-    ...(has('services') ? [{ label: 'Services', href: '#services' }] : []),
-    ...(has('techStack') ? [{ label: 'Tech Stack', href: '#tech' }] : []),
-    ...(has('process') ? [{ label: 'How Hiring Works', href: '#journey' }] : []),
-    ...(has('whyUs') ? [{ label: 'Why Soft Suave', href: '#why' }] : []),
-    ...(has('faq') ? [{ label: 'FAQs', href: '#faq' }] : []),
-    { label: 'Blog', href: '/blog' },
-  ];
-
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: skill.metaTitle, path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
-
-  const structuredData: Record<string, unknown>[] = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: skill.metaTitle,
-      serviceType: skill.serviceType,
-      description: skill.metaDescription,
-      url: absoluteUrl(path),
-      areaServed: 'Worldwide',
-      provider: {
-        '@type': 'Organization',
-        name: 'Soft Suave',
-        url: 'https://www.softsuave.com',
-      },
-      ...(skill.services
-        ? {
-            hasOfferCatalog: {
-              '@type': 'OfferCatalog',
-              name: skill.services.title,
-              itemListElement: skill.services.items.map((i) => ({
-                '@type': 'Offer',
-                itemOffered: { '@type': 'Service', name: i.name, description: i.body },
-              })),
-            },
-          }
-        : {}),
-    },
-  ];
-
-  // Only emit FAQ schema where the live page publishes an FAQ — NestJS does not.
-  if (skill.faq) {
-    structuredData.push({
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: skill.faq.items.map((f) => ({
-        '@type': 'Question',
-        name: f.q,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: typeof f.a === 'string' ? f.a : f.a.join(' '),
-        },
-      })),
-    });
-  }
+  const structuredData = pageSchemaGraph({
+    path,
+    title: skill.metaTitle,
+    description: skill.metaDescription,
+    serviceType: skill.serviceType,
+    // The role, not the `<title>` — "ReactJS Developers", not "Hire ReactJS
+    // Developers | 14 Years' Experience". The title is the page's sales line;
+    // the service is what is actually offered.
+    serviceName: skill.role,
+    breadcrumbName: skill.metaTitle,
+    // The H1 as one line — the hero splits it for the accent on its last line.
+    caption: skill.hero.titleLines.join(' '),
+    audience: `Startups, SMBs and enterprises hiring ${skill.role}`,
+    offerCatalogName: skill.services?.title,
+    offers: skill.services?.items.map((i) => ({ name: i.name, description: i.body })),
+    faqName: skill.faq?.title,
+    faqs: skill.faq?.items,
+  });
 
   function render(band: HireBand): ReactNode {
     switch (band) {
@@ -283,8 +246,8 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
 
   return (
     <div className={home.page}>
-      <JsonLd data={[...structuredData, ...(breadcrumb ? [breadcrumb] : [])]} />
-      <Nav links={pageNav} cta={{ label: skill.ctaLabel, href: '#enquiry' }} logoHref={BASE_PATH || '/'} />
+      <JsonLd data={structuredData} />
+      <Nav logoHref={BASE_PATH || '/'} />
 
       <main id="main">
         <Hero content={skill.hero} idPrefix={skill.key} />

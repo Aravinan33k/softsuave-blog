@@ -44,7 +44,6 @@ export const aboutMeta = {
 } as const;
 
 export const aboutHero: HeroContent = {
-  eyebrow: "About Us",
   /* The live H1 verbatim, split so the accent lands on the noun phrase. */
   titleLines: ["AI-Enabled Product", "Engineering Partner"],
   body: [

@@ -36,7 +36,6 @@ export const fintechMeta = {
 } as const;
 
 export const fintechHero: HeroContent = {
-  eyebrow: "FinTech",
   titleLines: ["Fintech AI Development Services", "to Power Digital Innovation"],
   body: [
     "Unlock smarter financial products through AI that works on your own data. We build credit scoring, fraud detection, and customer-facing assistants that run inside your existing core banking, payments, and compliance stack rather than alongside it.",
