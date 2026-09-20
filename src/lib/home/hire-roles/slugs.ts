@@ -21,7 +21,7 @@ export interface HireRoleRoute {
 }
 
 /**
- * The thirteen routes, in the order softsuave.com's "Hire By Role" menu lists
+ * The fourteen routes, in the order softsuave.com's "Hire By Role" menu lists
  * them. That order is the one thing here that is not arbitrary: the nav group,
  * the sitemap and the cross-links between these pages all read it.
  */
@@ -39,6 +39,10 @@ export const HIRE_ROLE_ROUTES: readonly HireRoleRoute[] = [
   { path: '/hire-devops-developers', title: 'Hire DevOps Developer' },
   { path: '/hire-salesforce-developer', title: 'Hire Salesforce Developer' },
   { path: '/hire-blockchain-developer', title: 'Hire Blockchain Developer' },
+  // Not in the "Hire By Role" panel — softsuave.com files Forward Deployed
+  // Engineering under Services. Listed here because this set is what the
+  // sitemap and the release redirects read, not because the nav shows it.
+  { path: '/hire-forward-deployed-engineer', title: 'Hire Forward Deployed Engineers' },
 ] as const;
 
 /** Just the paths, for the redirect list and the sitemap. */

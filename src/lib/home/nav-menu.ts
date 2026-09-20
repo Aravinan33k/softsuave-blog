@@ -40,13 +40,15 @@
  * serves, standing in for a page that was never planned.
  *
  * Four `#anchor` items stayed because the sheet DOES plan their page, and they
- * take its path the day it ships. That day has come for all but one: Data
+ * take its path the day it ships. That day has now come for all of them: Data
  * Engineering and Data Science hold `/data-engineering-services` and
  * `/data-science-services` (sheet rows 8-9), and the three Custom AI children
  * have given up the near-miss `#services` anchor for `/rag-development-services`,
  * `/computer-vision-development-services` and `/predictive-intelligence-services`
  * (rows 5-7) — all five routes shipped on the custom-ai-sub-pages branch.
- * Forward Deployed Engineers (row 10) is the one still waiting.
+ * Forward Deployed Engineers (row 10) holds `/hire-forward-deployed-engineer`,
+ * which runs the hire-by-role template (`lib/home/hire-roles/forward-deployed`)
+ * even though this group, not "Hire By Role", is where the live menu files it.
  *
  * Two divisions are deliberately NOT mirrored, because they already have their
  * own "view all" navigation: the whole `Industries` panel, whose CTA is now our
@@ -137,7 +139,7 @@ const SERVICES: NavMenuPanel = {
       items: [
         {
           name: "Forward Deployed Engineers",
-          href: "#services",
+          href: "/hire-forward-deployed-engineer",
           blurb: "Engineers embedded with your team, shipping",
         },
       ],

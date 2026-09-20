@@ -1,7 +1,7 @@
 /**
  * Registry of the "Hire Developers by Role" pages.
  *
- * One list, so the things that must know about all thirteen — the sitemap, the
+ * One list, so the things that must know about all fourteen — the sitemap, the
  * release redirects, any future index — stay correct when a role is added
  * without anyone remembering to update them. `HIRE_ROLE_ROUTES` in `./slugs.ts`
  * is the dependency-free view of the same set, for `next.config.ts`; the test
@@ -27,6 +27,7 @@ import { ios } from './ios';
 import { devops } from './devops';
 import { salesforce } from './salesforce';
 import { blockchain } from './blockchain';
+import { forwardDeployed } from './forward-deployed';
 
 export type { HireRolePageContent } from './types';
 export { HIRE_ROLE_ROUTES, HIRE_ROLE_SLUGS } from './slugs';
@@ -46,6 +47,7 @@ export const HIRE_ROLE_PAGES: readonly HireRolePageContent[] = [
   devops,
   salesforce,
   blockchain,
+  forwardDeployed,
 ] as const;
 
 export {
@@ -62,4 +64,5 @@ export {
   devops,
   salesforce,
   blockchain,
+  forwardDeployed,
 };

@@ -261,7 +261,7 @@ export const services = {
     },
     {
       key: "forward-deployed-engineers",
-      href: "#services",
+      href: "/hire-forward-deployed-engineer",
       img: "fde",
       name: "Forward Deployed Engineers",
       body: "Hire forward-deployed engineers who work with customers to understand requirements, develop integrations, solve challenges, and deploy production-ready solutions efficiently.",

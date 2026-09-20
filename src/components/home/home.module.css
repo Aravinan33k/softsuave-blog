@@ -90,10 +90,26 @@
    render on the AI service pages beside the landing sections, so if only one
    of the two came down the pages would carry two different H2 scales. Was
    clamp(2.25rem, 4.6vw, 4rem); see the note there. */
+/*
+ * Heading scale. Five steps, one value per role — every section heading is
+ * `.h2` at the same size, so sections that are peers read as peers:
+ *
+ *   H1 hero            clamp(2.5rem, 6.5vw, 5.75rem)      40 -> 92px
+ *   H2 statement       clamp(2rem, 3.9vw, 3.5rem)         32 -> 56px
+ *   H2 section         clamp(1.75rem, 3.05vw, 2.75rem)    28 -> 44px
+ *   H3 card            clamp(1.375rem, 2vw, 1.875rem)     22 -> 30px
+ *   H3 tile / name     clamp(1.125rem, 1.45vw, 1.375rem)  18 -> 21px
+ *
+ * `statement` is the two full-bleed statement headings only (the Why Soft
+ * Suave manifesto and the closing band); everything else is the section step.
+ * Per-section font-size overrides are what produced five different h2 sizes
+ * between 36 and 57.6px, and a phone h1 the same size as an h2 — add a new
+ * one only with a measured reason.
+ */
 .h2 {
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.875rem, 3.2vw, 2.75rem);
+  font-size: clamp(1.75rem, 3.05vw, 2.75rem);
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -424,10 +440,26 @@
    type read as if it were merging with the nav. The hero state is untouched:
    there the bar still paints nothing and rides on its gradient scrim alone.
    The blur goes with it; behind an opaque ground it only cost a GPU pass. */
+.navHeroScrolled,
 .navDark,
 .navLight {
   padding-top: 14px;
   padding-bottom: 14px;
+}
+
+/* Over the hero, once the reader has moved. Semi-transparent rather than the
+   flat #0a0a0a below: the hero video should still read through the bar, it is
+   the hero's own headline scrolling up behind the links that had to stop
+   showing through. The scrim in `.nav::before` stays under this, so the two
+   compound into a ground the 12px mono links sit on cleanly. Take it to a
+   higher alpha (or straight to `.navDark`'s #0a0a0a) if the video still
+   fights the type. */
+.navHeroScrolled {
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -20px rgba(0, 0, 0, 0.85);
 }
 
 .navDark {
@@ -703,7 +735,7 @@
   margin: 0.4em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2.75rem, 6.5vw, 6rem);
+  font-size: clamp(2.5rem, 6.5vw, 5.75rem);
   line-height: 1.05;
   letter-spacing: -0.045em;
   color: var(--text-bright);
@@ -743,12 +775,15 @@
   will-change: transform, opacity;
 }
 
+/* Hero body copy is white site-wide: the muted greys these paragraphs used to
+   inherit were tuned for flat panels and washed out against the hero
+   backdrops. See the same treatment on every other hero. */
 .heroSub {
   margin-top: clamp(20px, 2.4vw, 34px);
   max-width: 46ch;
   font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   line-height: 1.6;
-  color: rgba(216, 216, 216, 0.86);
+  color: #ffffff;
 }
 
 .heroCtaRow {
@@ -1001,7 +1036,7 @@
   margin: 7px 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.0625rem, 1.5vw, 1.375rem);
+  font-size: clamp(1.125rem, 1.45vw, 1.375rem);
   line-height: 1.24;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -2318,7 +2353,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+  font-size: clamp(1.125rem, 1.45vw, 1.375rem);
   line-height: 1.12;
   letter-spacing: -0.025em;
   color: var(--text-bright);
@@ -2569,7 +2604,7 @@
 .contactH {
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  font-size: clamp(2rem, 3.9vw, 3.5rem);
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -3175,9 +3210,6 @@
      down the display scale, so the hierarchy still reads as display type.
      Only on desktop: below 1000px the intro is full width and the global
      scale is correct there. */
-  .hIntro .h2 {
-    font-size: clamp(1.75rem, 2.5vw, 2.75rem);
-  }
   .hIntro .lead {
     font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
   }
@@ -3833,7 +3865,7 @@
   max-width: 480px;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.75rem, 2.6vw, 2.75rem);
+  font-size: clamp(1.75rem, 3.05vw, 2.75rem);
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -3900,7 +3932,7 @@
   transition: font-size 0.5s ease;
 }
 .railRowActive .railName {
-  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+  font-size: clamp(1.375rem, 2vw, 1.875rem);
   line-height: 1.15;
   margin-top: 6px;
 }
@@ -3968,7 +4000,8 @@
 .mobileJourneyName {
   margin: 0 0 12px 0;
   font-family: var(--font-heading);
-  font-size: 22px;
+  font-weight: 300;
+  font-size: clamp(1.125rem, 1.45vw, 1.375rem);
   color: var(--text-bright);
 }
 .mobileJourneyBody {
@@ -4614,9 +4647,6 @@
   .industriesSection .sectionHead {
     margin-bottom: clamp(14px, 2.2vh, 30px);
   }
-  .industriesSection .h2 {
-    font-size: clamp(1.5rem, 2.8vw, 2.5rem);
-  }
   .indxDesktop {
     display: grid;
     grid-template-columns: 0.9fr 1.1fr;
@@ -4676,7 +4706,7 @@
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2rem, 4.6vw, 3.6rem);
+  font-size: clamp(2rem, 3.9vw, 3.5rem);
   line-height: 1.03;
   letter-spacing: -0.035em;
   color: var(--text-bright);
@@ -5080,7 +5110,7 @@
   margin: 0.4em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.8rem, 2.9vw, 2.9rem);
+  font-size: clamp(1.75rem, 3.05vw, 2.75rem);
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -5115,7 +5145,7 @@
   margin: 12px 0 16px;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+  font-size: clamp(1.375rem, 2vw, 1.875rem);
   line-height: 1.06;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -5496,7 +5526,6 @@
 /* Large screens: keep text comfortable next to the fan. */
 @media (min-width: 1000px) {
   .industriesFan .h2 {
-    font-size: clamp(1.5rem, 3vw, 2.6rem);
     line-height: 1.1;
   }
   .industriesFan .indFanHead .lead {
@@ -6554,7 +6583,6 @@
      keeps its own scale above 1000px. */
   .carName {
     margin: 10px 0 12px;
-    font-size: clamp(1.5rem, 6vw, 2rem);
   }
 
   .carPill {
@@ -6687,7 +6715,7 @@
    The 6rem desktop ceiling is untouched above 1000px. */
 @media (max-width: 999px) {
   .heroTitle {
-    font-size: clamp(1.9rem, 8.6vw, 2.6rem);
+    font-size: clamp(2.5rem, 8.6vw, 3.25rem);
     letter-spacing: -0.035em;
   }
 
