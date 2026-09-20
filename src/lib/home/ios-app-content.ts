@@ -25,6 +25,7 @@
  * source of each.
  */
 
+import { partnerHeroBadges } from "./hero-badges";
 import type { HeroContent } from "@/components/landing/hero";
 import type { SpringboardContent } from "@/components/ios-app/springboard";
 import type { CardGridContent } from "@/components/landing/industries";
@@ -57,7 +58,7 @@ export const iosHero: HeroContent = {
     "On-Time Project Delivery Commitment",
   ],
   // The four trust badges the live page shows beside its closing form.
-  badges: ["Upwork Top Rated", "Clutch verified", "Microsoft Silver Partner", "AWS Partner"],
+  badges: partnerHeroBadges,
   form: {
     // The live page's own form heading and sub-line.
     eyebrow: "Let’s Discuss Your Project",

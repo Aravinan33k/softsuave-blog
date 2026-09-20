@@ -16,16 +16,21 @@ afterEach(() => {
 });
 
 describe('navHref', () => {
-  // `/case-studies` is the stand-in for a path this app does not serve at all —
-  // it is linked from the nav but has no route in app/(marketing), so it belongs
-  // to the live site whatever the release flag says. It replaced `/about` here
-  // once this app grew its own about page, which had itself replaced `/contact`
-  // for the same reason; a path we DO serve can never demonstrate this.
+  // `/career-overview` is the stand-in for a path this app does not serve at
+  // all — it is linked from the nav (and from the applicant notice under every
+  // hero enquiry form) but has no route in app/(marketing), so it belongs to
+  // the live site whatever the release flag says. A path we DO serve can never
+  // demonstrate this.
+  //
+  // It replaced `/case-studies` here once this app grew its own case-study
+  // index, which had replaced `/about` for the same reason, which had replaced
+  // `/contact`. Each swap is this app absorbing one more page from the live
+  // site; careers is not on that path, which is what makes it a durable choice.
   it('sends paths this app does not serve to the live site in either release state', async () => {
     for (const flag of ['true', 'false']) {
       const { navHref, isExternalHref } = await loadNav(flag);
-      expect(navHref('/case-studies')).toBe(`${SITE}/case-studies`);
-      expect(isExternalHref('/case-studies')).toBe(true);
+      expect(navHref('/career-overview')).toBe(`${SITE}/career-overview`);
+      expect(isExternalHref('/career-overview')).toBe(true);
     }
   });
 
@@ -164,7 +169,7 @@ describe('navRoute', () => {
   it('leaves paths this app does not serve to navHref, absolute and unprefixed', async () => {
     for (const flag of ['true', 'false']) {
       const { navRoute } = await loadNav(flag);
-      expect(navRoute('/case-studies')).toBe(`${SITE}/case-studies`);
+      expect(navRoute('/career-overview')).toBe(`${SITE}/career-overview`);
     }
   });
 });

@@ -58,6 +58,7 @@
  * blur placeholders are in that folder's `credits.json`.
  */
 
+import { partnerHeroBadges } from "./hero-badges";
 import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServiceBoardContent } from "@/components/common/service-board";
@@ -88,7 +89,7 @@ export const njHero: HeroContent = {
   // The live page's hero carries no bullet list — its left column is the
   // headline and these two paragraphs alone.
   points: [],
-  badges: ["Upwork Top Rated", "Clutch verified", "Microsoft Silver Partner", "AWS Partner"],
+  badges: partnerHeroBadges,
   form: {
     eyebrow: "Let's Discuss Your Project",
     title: "Get free rough quote in 24 hrs",

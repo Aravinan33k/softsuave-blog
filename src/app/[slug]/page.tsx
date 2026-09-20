@@ -4,7 +4,8 @@ import { getSiteInfo, getPostBySlug, getPageBySlug, getPublishedPostSlugs, getPu
 import { getActiveTheme } from '@/lib/public/theme';
 import { homepageEnabled } from '@/lib/flags';
 import { buildMetadata, absoluteUrl } from '@/lib/seo/metadata';
-import { blogPostingLd, breadcrumbLd, organizationLd, websiteLd } from '@/lib/seo/jsonld';
+import { blogPostingLd, breadcrumbLd } from '@/lib/seo/jsonld';
+import { MARKETING_SITE_GRAPH } from '@/lib/seo/page-graph';
 import { faqLd } from '@/lib/seo/faq-ld';
 import { videoLd } from '@/lib/seo/video-ld';
 import { JsonLd } from '@/components/seo/json-ld';
@@ -88,8 +89,11 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
     breadcrumb,
     ...(faq ? [faq] : []),
     ...videos,
-    organizationLd(site),
-    websiteLd(site),
+    // The same two site-wide nodes the marketing layout emits — the canonical
+    // `Organization` and `WebSite`, each carrying the `@id` that this post's
+    // `publisher` and everything on the marketing surface points at. Built from
+    // `SiteInfo` before this, which produced a second, `@id`-less company.
+    ...MARKETING_SITE_GRAPH,
   ];
 
   return (

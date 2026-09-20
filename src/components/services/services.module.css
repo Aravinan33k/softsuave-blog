@@ -30,12 +30,15 @@
   margin: 0.4em 0 0;
 }
 
+/* Hero body copy is white site-wide: the muted greys these paragraphs used to
+   inherit were tuned for flat panels and washed out against the hero
+   backdrops. See the same treatment on every other hero. */
 .heroBody {
   max-width: 54ch;
   margin-top: 1.5em;
   font-size: clamp(1.0625rem, 1.35vw, 1.1875rem);
   line-height: 1.65;
-  color: var(--muted);
+  color: #ffffff;
 }
 
 .badges {

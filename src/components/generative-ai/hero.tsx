@@ -7,6 +7,7 @@ import { brand } from "@/lib/home/content";
 import { hero as generativeAiHero } from "@/lib/home/generative-ai";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
+import { isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import styles from "./gen-ai.module.css";
 import fx from "@/components/common/enquiry-form.module.css";
 import FieldIcon, { RequiredMark } from "@/components/common/field-icon";
@@ -21,8 +22,12 @@ export interface HeroContent {
   titleLines: readonly string[];
   body: readonly string[];
   points: readonly string[];
-  /** Credential strip closing the hero copy column. Omitted renders nothing. */
-  badges?: readonly string[];
+  /**
+   * Credential strip closing the hero copy column. Omitted renders nothing.
+   * A string renders as a dot-and-label tag; a `HeroBadge` renders the
+   * issuer's own lockup on a white plaque.
+   */
+  badges?: readonly (string | HeroBadge)[];
   /**
    * Optional full-bleed backdrop photograph, the landing-page counterpart to
    * the homepage hero's intro video: rendered with `fill` behind the content,
@@ -97,7 +102,6 @@ export default function Hero({
       }, 0.1)
         .from(`.${styles.heroBody}`, { opacity: 0, y: 20, duration: 0.7, ease: "power2.out", stagger: 0.08 }, "-=0.5")
         .from(`.${styles.heroPoint}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.05 }, "-=0.4")
-        .from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3")
         .from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3")
         .from(`.${fx.card}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
 
@@ -198,12 +202,24 @@ export default function Hero({
 
           {content.badges && content.badges.length > 0 && (
             <ul className={styles.badges} aria-label="Credentials">
-              {content.badges.map((b) => (
-                <li key={b} className={styles.badge}>
-                  <span className={styles.badgeDot} aria-hidden />
-                  {b}
-                </li>
-              ))}
+              {content.badges.map((b) =>
+                isHeroBadge(b) ? (
+                  <li key={b.src} className={`${styles.badge} ${styles.badgeLogo}`}>
+                    <Image
+                      src={publicMediaUrl(b.src)}
+                      alt={b.alt}
+                      width={b.width}
+                      height={b.height}
+                      className={styles.badgeLogoImg}
+                    />
+                  </li>
+                ) : (
+                  <li key={b} className={styles.badge}>
+                    <span className={styles.badgeDot} aria-hidden />
+                    {b}
+                  </li>
+                ),
+              )}
             </ul>
           )}
         </div>

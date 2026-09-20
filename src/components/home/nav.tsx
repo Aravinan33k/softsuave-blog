@@ -9,7 +9,7 @@ import { navPanels, navHrefForPage } from "@/lib/home/nav-menu";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import Magnetic from "./magnetic";
 import MegaPanel, { MenuLink } from "./mega-menu";
-import { useSurfaceTone } from "./use-surface-tone";
+import { useSurfaceTone, type SurfaceTone } from "./use-surface-tone";
 import styles from "./home.module.css";
 
 /**
@@ -57,13 +57,24 @@ function useActiveAnchor(ids: string): string | null {
   return active;
 }
 
+/** The bar's paint per surface tone. `hero` is the only state with no class:
+ *  at rest over the hero it paints nothing at all. */
+const TONE_CLASS: Record<SurfaceTone, string> = {
+  hero: "",
+  "hero-scrolled": styles.navHeroScrolled,
+  light: styles.navLight,
+  dark: styles.navDark,
+};
+
 /**
  * Fixed top nav: sticky logo + the site's four divisions + rounded-full pill
  * CTA. On mount it drops in from above.
  *
- * The bar is hero-locked: fully transparent with the white lockup for the
- * hero's whole height, then it syncs to whatever band scrolls under it — light
- * bar + dark lockup over `.light`/`.cream`, ink glass + white lockup over the
+ * The bar is fully transparent with the white lockup only while the hero is at
+ * rest. The first pixel of scroll gives it a semi-transparent ink ground, so
+ * the hero's headline stops reading through the links as it travels up behind
+ * them, and past the hero it syncs to whatever band scrolls under it — light
+ * bar + dark lockup over `.light`/`.cream`, flat ink + white lockup over the
  * dark canvas. Both lockups are rendered and cross-faded so the swap doesn't
  * pop (see `useSurfaceTone`).
  *
@@ -182,9 +193,7 @@ export default function Nav({
     <>
       <header
         ref={bar}
-        className={`${styles.nav} ${
-          tone === "light" ? styles.navLight : tone === "dark" ? styles.navDark : ""
-        } ${panel ? styles.navPanelOpen : ""}`}
+        className={`${styles.nav} ${TONE_CLASS[tone]} ${panel ? styles.navPanelOpen : ""}`}
         data-tone={tone}
         onMouseLeave={() => setMenu(null)}
         // focus leaving the header entirely (Tab past the last item) closes it

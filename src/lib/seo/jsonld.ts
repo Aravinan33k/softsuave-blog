@@ -1,18 +1,16 @@
 import { absoluteUrl } from './metadata';
+import { organizationLd } from './organization';
 import type { SiteInfo, PostFull } from '@/themes/_contract';
 
 // JSON-LD structured data builders.
-
-export function organizationLd(site: SiteInfo) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: site.title,
-    url: absoluteUrl('/'),
-    ...(site.logoUrl ? { logo: absoluteUrl(site.logoUrl) } : {}),
-    ...(site.socialLinks.length ? { sameAs: site.socialLinks.map((s) => s.url) } : {}),
-  };
-}
+//
+// The `Organization` and `WebSite` this file used to build from `SiteInfo` are
+// gone. They carried no `@id`, so nothing could reference them and they read as
+// a SECOND company alongside the canonical `organizationLd` that all 80-odd
+// marketing pages point their `provider`/`publisher` at — the blog surface was
+// the one surface never migrated to the shared graph in `page-graph.ts`.
+// The blog routes now emit `MARKETING_SITE_GRAPH` like every other surface, so
+// one identity is declared once per document and everything else links to it.
 
 export function blogPostingLd(site: SiteInfo, post: PostFull) {
   const url = absoluteUrl(`/${post.slug}`);
@@ -32,12 +30,10 @@ export function blogPostingLd(site: SiteInfo, post: PostFull) {
       ...(author?.title ? { jobTitle: author.title } : {}),
       ...(author?.socialLinks?.length ? { sameAs: author.socialLinks.map((s) => s.url) } : {}),
     },
-    publisher: {
-      '@type': 'Organization',
-      name: site.title,
-      url: absoluteUrl('/'),
-      ...(site.logoUrl ? { logo: { '@type': 'ImageObject', url: absoluteUrl(site.logoUrl) } } : {}),
-    },
+    // By `@id`, not repeated inline: the full node is emitted once per document
+    // by the surface's site graph, and an inline copy here was a third unnamed
+    // Organization in the same graph.
+    publisher: { '@id': organizationLd['@id'] },
     ...(post.categories[0] ? { articleSection: post.categories[0].name } : {}),
     ...(post.tags.length ? { keywords: post.tags.map((t) => t.name).join(', ') } : {}),
     ...(post.wordCount ? { wordCount: post.wordCount } : {}),
@@ -45,16 +41,6 @@ export function blogPostingLd(site: SiteInfo, post: PostFull) {
     inLanguage: 'en',
     isAccessibleForFree: true,
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-  };
-}
-
-export function websiteLd(site: SiteInfo) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: site.title,
-    url: absoluteUrl('/'),
-    ...(site.description ? { description: site.description } : {}),
   };
 }
 

@@ -27,6 +27,7 @@
  * Pexels-sourced photos if asked, the way the Next.js page's were.
  */
 
+import { partnerHeroBadges } from "./hero-badges";
 import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesCarouselContent } from "@/components/common/services-carousel";
@@ -57,7 +58,7 @@ export const txHero: HeroContent = {
     "React, Angular, Vue.js, and Node.js Expertise",
     "400+ AI & Engineering Specialists",
   ],
-  badges: ["Upwork Top Rated", "Clutch verified", "Microsoft Silver Partner", "AWS Partner"],
+  badges: partnerHeroBadges,
   form: {
     eyebrow: "Business Enquiry",
     title: "Let's Discuss Your Project",

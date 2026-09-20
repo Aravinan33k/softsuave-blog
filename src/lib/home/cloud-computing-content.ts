@@ -41,7 +41,6 @@ export const cloudHero: HeroContent = {
     "Public, private or hybrid — chosen on requirements",
     "Cloud-native development and legacy migration",
     "24/7-monitored cloud security services",
-    "AWS Partner · Microsoft Partner",
   ],
   badges: sharedHeroBadges,
   form: {

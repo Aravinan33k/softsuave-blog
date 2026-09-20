@@ -16,13 +16,11 @@
  * Trust badges reused across the delivery-page heroes. Each is a published
  * company fact (certification, scale, or a stated response commitment) rather
  * than a claim invented for a page.
+ *
+ * These four are partner standing, so they render as the issuers' own
+ * lockups rather than as our paraphrase of them — see `hero-badges.ts`.
  */
-export const sharedHeroBadges = [
-  "Upwork Top Rated",
-  "Clutch verified",
-  "Microsoft Silver Partner",
-  "AWS Partner",
-] as const;
+export { partnerHeroBadges as sharedHeroBadges } from "./hero-badges";
 
 /**
  * Notice under every hero enquiry form. The form composes a mailto to the

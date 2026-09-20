@@ -24,6 +24,7 @@
  * clients band carries the identical heading, so it is the same section.
  */
 
+import { partnerHeroBadges } from "./hero-badges";
 import type { HeroContent } from "@/components/landing/hero";
 import type { ServiceSlatsContent } from "@/components/mobile-app/service-slats";
 import type { PlatformTabsContent } from "@/components/mobile-app/platform-tabs";
@@ -58,7 +59,7 @@ export const madHero: HeroContent = {
   ],
   // Trust badges carried over from the older service landing pages — the live
   // page carries the same four as image badges beside its closing form.
-  badges: ["Upwork Top Rated", "Clutch verified", "Microsoft Silver Partner", "AWS Partner"],
+  badges: partnerHeroBadges,
   form: {
     // The live page's own form heading and sub-line.
     eyebrow: "Let’s Discuss Your Project",

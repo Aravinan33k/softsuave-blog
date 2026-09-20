@@ -29,14 +29,24 @@ export default function SectionHead({
    * above it — a comparison table introduced by its own H3 inside a wider
    * Overview, say — so the document outline stays correct instead of
    * emitting a second H2 for something the copy marks as a sub-heading.
+   *
+   * `1` is the masthead of an index page (/clients, /case-studies), which has
+   * no hero above it to carry the H1 the way a landing page's does. It also
+   * takes a larger type size, because on those pages this *is* the headline
+   * rather than a section label partway down.
    */
-  level?: 2 | 3;
+  level?: 1 | 2 | 3;
 }>) {
+  const tag = level === 1 ? "h1" : level === 3 ? "h3" : "h2";
+  const className = [styles.head, level === 3 && styles.headSub, level === 1 && styles.headPage]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div className={level === 3 ? `${styles.head} ${styles.headSub}` : styles.head}>
+    <div className={className}>
       <div>
         {kicker && <span className={styles.kicker}>{kicker}</span>}
-        <SplitReveal as={level === 3 ? "h3" : "h2"} className={styles.title} type="words">
+        <SplitReveal as={tag} className={styles.title} type="words">
           {title}
         </SplitReveal>
       </div>

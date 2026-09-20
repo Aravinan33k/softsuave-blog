@@ -116,6 +116,10 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/about', title: 'About Us' },
   { path: '/contact', title: 'Contact Us' },
   { path: '/awards-recognition', title: 'Awards and Recognition' },
+  { path: '/clients', title: 'Our Clients' },
+  { path: '/faqs', title: 'Frequently Asked Questions' },
+  { path: '/case-studies', title: 'Case Studies' },
+  { path: '/success-stories', title: 'Success Stories' },
 
   // The sector index, and the eighth sector. The other seven sector pages are
   // listed above with the industry AI group; aviation has no counterpart there,

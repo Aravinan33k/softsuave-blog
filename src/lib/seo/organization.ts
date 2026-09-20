@@ -8,9 +8,10 @@
  * schema's `provider`/`publisher` field, so an @id-linked graph never repeats
  * the full object — see `nextjs-development-company.ts` for that pattern.
  *
- * This is provided marketing/legal copy, reproduced verbatim; only currently
- * wired into `/nextjs-development-company` (see that route), not into any
- * other page's output.
+ * This is provided marketing/legal copy, reproduced verbatim. It is emitted
+ * once per document as half of `MARKETING_SITE_GRAPH` — by the marketing
+ * layout for that surface, and by the blog archive, post, category and tag
+ * routes for theirs — and referenced by `@id` from everything else.
  */
 export const organizationLd = {
   '@context': 'https://schema.org',

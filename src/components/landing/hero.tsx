@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { appPath, publicMediaUrl } from "@/lib/media-url";
+import { isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import {
   NAME_HINT,
   NAME_MESSAGE,
@@ -31,8 +32,13 @@ export interface HeroContent {
   titleLines: readonly string[];
   body: readonly string[];
   points: readonly string[];
-  /** Trust badges under the points. Optional — omit for a badge-less hero. */
-  badges?: readonly string[];
+  /**
+   * Trust badges under the points. Optional — omit for a badge-less hero.
+   * A string renders as a dot-and-label tag; a `HeroBadge` renders the
+   * issuer's own lockup on a white plaque. Mixing the two in one list is
+   * allowed, and reads fine — the plaques simply sit taller than the tags.
+   */
+  badges?: readonly (string | HeroBadge)[];
   form: {
     /** Optional — omitted where the live form card carries no kicker above its title. */
     eyebrow?: string;
@@ -330,12 +336,27 @@ export default function Hero({
 
           {content.badges && content.badges.length > 0 && (
             <ul className={styles.badges} aria-label="Credentials">
-              {content.badges.map((b) => (
-                <li key={b} className={styles.badge}>
-                  <span className={styles.badgeDot} aria-hidden />
-                  {b}
-                </li>
-              ))}
+              {content.badges.map((b) =>
+                isHeroBadge(b) ? (
+                  <li key={b.src} className={`${styles.badge} ${styles.badgeLogo}`}>
+                    {/* The mark is the whole point here, so unlike the awards
+                        strip it carries its own name — nothing else in the
+                        hero says "Clutch". */}
+                    <Image
+                      src={publicMediaUrl(b.src)}
+                      alt={b.alt}
+                      width={b.width}
+                      height={b.height}
+                      className={styles.badgeLogoImg}
+                    />
+                  </li>
+                ) : (
+                  <li key={b} className={styles.badge}>
+                    <span className={styles.badgeDot} aria-hidden />
+                    {b}
+                  </li>
+                ),
+              )}
             </ul>
           )}
         </div>

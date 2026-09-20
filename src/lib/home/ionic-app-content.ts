@@ -37,6 +37,7 @@
  * `public/images/landing/ionic/credits.json`, the same way the iOS page does it.
  */
 
+import { partnerHeroBadges } from "./hero-badges";
 import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServiceBoardContent } from "@/components/common/service-board";
@@ -68,7 +69,7 @@ export const ionHero: HeroContent = {
   // headline and these two paragraphs alone.
   points: [],
   // The four trust badges the live page shows beside its enquiry form.
-  badges: ["Upwork Top Rated", "Clutch verified", "Microsoft Silver Partner", "AWS Partner"],
+  badges: partnerHeroBadges,
   form: {
     // The live page's own form heading and sub-line.
     eyebrow: "Let’s Discuss Your Project",

@@ -273,7 +273,7 @@
    its own white card (not sitting directly on the image), so it needs its
    own black, not this dark-background brightening. */
 .heroWithBg .heroBody {
-  color: var(--text-bright);
+  color: #ffffff;
 }
 
 /* The homepage's display headline — same face, weight and tracking. Only the
@@ -298,12 +298,15 @@
   color: var(--accent);
 }
 
+/* Hero body copy is white site-wide: the muted greys these paragraphs used to
+   inherit were tuned for flat panels and washed out against the hero
+   backdrops. See the same treatment on every other hero. */
 .heroBody {
   margin: clamp(20px, 2.4vw, 30px) 0 0;
   max-width: 58ch;
   font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   line-height: 1.6;
-  color: var(--muted);
+  color: #ffffff;
 }
 
 .heroBody + .heroBody {
@@ -366,6 +369,31 @@
   width: 4px;
   height: 4px;
   background: var(--accent);
+}
+
+/* Partner standing (Upwork, Clutch, Microsoft, AWS) runs as the issuers' own
+   lockups rather than as our paraphrase of them — a reader recognises the
+   Clutch wordmark without reading it. Each file has a transparent ground and a
+   dark logo, so the plaque is white: the art is reproduced as issued, never
+   recoloured to this surface. softsuave.com shows them the same way, as white
+   cards over the hero photograph.
+
+   The four differ widely in aspect (2.15 → 3.66), so height is pinned and
+   width follows. A shared box would squash the Microsoft and AWS lockups. */
+.badgeLogo {
+  padding: 9px 13px;
+  background: #fff;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.badgeLogoImg {
+  display: block;
+  width: auto;
+  /* Big enough that the small print inside the lockups — Upwork's "Top Rated
+     Plus", Clutch's 4.9/5.0 and its stars — stays readable. Under about 20px
+     those turn to texture, and a trust mark nobody can read is decoration. */
+  height: clamp(20px, 2vw, 24px);
+  object-fit: contain;
 }
 
 /* ============================================================
@@ -2668,6 +2696,38 @@
   margin-bottom: clamp(18px, 2.4vw, 32px);
 }
 
+/* The opening SECTION of an index page (/clients, /faqs, /case-studies,
+   /success-stories).
+
+   A page whose first element is not a hero still has to clear the fixed nav,
+   and the ordinary section paddings do not: `.section` is 30–58px and
+   `.sectionShell` 44–84px, while the bar is taller than that at desktop width.
+   The masthead's kicker rendered on top of the logo. This is the hero's own top
+   clearance (`.hero`), applied to the one other thing that can open a page. */
+.indexHead {
+  padding: clamp(96px, 11vw, 150px) var(--gutter) clamp(20px, 2.4vw, 36px);
+  position: relative;
+}
+
+/* The masthead of an index page, where this head carries the H1 rather than
+   labelling a section partway down a page that already has one. It gets the
+   landing hero's type size, so an index opens with the same weight as any
+   other page on the surface instead of looking like a section that lost its
+   hero. Vertical clearance belongs to `.indexHead` above, not here — this
+   class also renders inside sections that set their own. */
+.headPage {
+  margin-bottom: clamp(34px, 4.6vw, 64px);
+}
+
+.headPage .title {
+  font-size: clamp(2.25rem, 4.6vw, 3.5rem);
+  max-width: 20ch;
+}
+
+.headPage .intro {
+  max-width: 54ch;
+}
+
 /* ============================================================
    HERO — COMPACT VARIANT (`variant="compact"` on landing/hero.tsx)
    The generative-AI page's hero, value for value (gen-ai.module.css's
@@ -2715,8 +2775,13 @@
   text-shadow: none;
 }
 
+/* The muted grey washed out over the photo — the body copy sat well under a
+   readable contrast ratio on the busiest backgrounds. Plain white plus a
+   tight shadow (the veil alone isn't enough behind a bright image) keeps it
+   legible without reintroducing the full hero's heavy glow. */
 .heroCompact.heroWithBg .heroBody {
-  color: var(--muted);
+  color: #ffffff;
+  text-shadow: 0 1px 12px rgba(4, 5, 8, 0.75), 0 1px 2px rgba(4, 5, 8, 0.6);
 }
 
 /* The compact hero still steps down from the full hero's 4.25rem, but not
@@ -6745,4 +6810,64 @@
   .exploreRows .exploreChipGhost {
     transition: none;
   }
+}
+
+/* ============================================================
+   INDEX LISTING (components/landing/listing.tsx)
+   The card grid above, given the two things an index needs that a landing
+   page's case-study shelf does not: a facet filter, and cards that link.
+   ============================================================ */
+
+.listFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: clamp(24px, 3vw, 40px);
+}
+
+/* Squared tag, like `.badge` — the filter reads as a row of labels you can
+   press, not as a row of buttons competing with the page's real CTAs. */
+.listChip {
+  padding: 0.55em 1em;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  font-family: var(--font-eyebrow);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+}
+
+.listChip:hover {
+  border-color: var(--accent);
+  color: var(--text-bright);
+}
+
+/* The pressed state is a real contrast change, not just a tint: `aria-pressed`
+   tells a screen reader which facet is on, and this is the sighted equivalent. */
+.listChipOn {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent, #fff);
+}
+
+.listChip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* A card that is a link. `.caseCard` already carries the hover lift; this adds
+   only what an anchor needs — the inherited colour and no underline, so the
+   tile does not read as a block of link text. */
+.caseCardLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.caseCardLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }

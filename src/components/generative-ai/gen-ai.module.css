@@ -245,12 +245,16 @@
   color: var(--accent);
 }
 
+/* Hero body copy is white site-wide: the muted greys these paragraphs used to
+   inherit were tuned for flat panels and washed out against the hero
+   backdrops. See the same treatment on every other hero. */
 .heroBody {
   margin: clamp(16px, 2vw, 24px) 0 0;
   max-width: 72ch;
   font-size: clamp(0.95rem, 1.05vw, 1.05rem);
   line-height: 1.62;
-  color: var(--muted);
+  color: #ffffff;
+  text-shadow: 0 1px 12px rgba(4, 5, 8, 0.75), 0 1px 2px rgba(4, 5, 8, 0.6);
 }
 
 .heroBody + .heroBody {
@@ -2356,3 +2360,28 @@
   background: var(--accent);
 }
 
+
+/* Partner standing (Upwork, Clutch, Microsoft, AWS) runs as the issuers' own
+   lockups rather than as our paraphrase of them — a reader recognises the
+   Clutch wordmark without reading it. Each file has a transparent ground and a
+   dark logo, so the plaque is white: the art is reproduced as issued, never
+   recoloured to this surface. softsuave.com shows them the same way, as white
+   cards over the hero photograph.
+
+   The four differ widely in aspect (2.15 → 3.66), so height is pinned and
+   width follows. A shared box would squash the Microsoft and AWS lockups. */
+.badgeLogo {
+  padding: 9px 13px;
+  background: #fff;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.badgeLogoImg {
+  display: block;
+  width: auto;
+  /* Big enough that the small print inside the lockups — Upwork's "Top Rated
+     Plus", Clutch's 4.9/5.0 and its stars — stays readable. Under about 20px
+     those turn to texture, and a trust mark nobody can read is decoration. */
+  height: clamp(20px, 2vw, 24px);
+  object-fit: contain;
+}

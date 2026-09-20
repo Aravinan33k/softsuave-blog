@@ -37,6 +37,7 @@
  * blur placeholders are in that folder's `credits.json`.
  */
 
+import { partnerHeroBadges } from "./hero-badges";
 import type { HeroContent } from "@/components/landing/hero";
 import type { ServicesCarouselContent } from "@/components/common/services-carousel";
 import type { CardGridContent } from "@/components/landing/industries";
@@ -71,7 +72,7 @@ export const ngHero: HeroContent = {
     "NDA & Flexible Engagement Models",
   ],
   // The four trust badges this surface shows beside every enquiry form.
-  badges: ["Upwork Top Rated", "Clutch verified", "Microsoft Silver Partner", "AWS Partner"],
+  badges: partnerHeroBadges,
   form: {
     // The live page's own form heading and sub-line.
     eyebrow: "Let’s Discuss Your Project",
