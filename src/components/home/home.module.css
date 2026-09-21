@@ -168,7 +168,20 @@
   border: 0;
 }
 
-/* ---- pill buttons ---- */
+/* ---- pill buttons ----
+
+   HOVER IS A COLOUR CHANGE, NOT A MOVEMENT. These used to lift 2px and, on
+   the pages that wrapped them in the magnetic hover component, also slide
+   toward the cursor. Two buttons side by side then drifted independently and
+   the row read as unstable — the homepage hero's pair was the worst of it.
+   A CTA that moves is also a CTA that is harder to click, so both are gone:
+   the whole plate changes colour instead, which is louder than the lift was
+   and costs the pointer nothing.
+
+   Every hover value is a token, never a literal, because --accent,
+   --accent-border and --on-accent are all re-pointed inside the .light and
+   .cream inversion bands — one rule then reads correctly on all three
+   grounds. */
 .pill,
 .pillFilled {
   display: inline-flex;
@@ -183,20 +196,18 @@
   letter-spacing: 0.12em;
   color: var(--text-bright);
   white-space: nowrap;
-  transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
+/* Outline pill: the whole plate takes the accent fill. --on-accent is the ink
+   chosen for that fill per band (near-black on the dark canvas' coral, white
+   on the .light band's brick red), so the label stays legible both ways —
+   which the old hard #fff did not, hence the .light/.cream patch that used to
+   sit under this rule. */
 .pill:hover {
-  border-color: var(--accent-border);
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-/* the hover brighten above goes the wrong way inside an inversion band —
-   white-on-cream is unreadable — so it darkens to the band's ink instead. */
-.light .pill:hover,
-.cream .pill:hover {
-  color: var(--text-bright);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent, #140b08);
 }
 
 .pillFilled {
@@ -209,26 +220,15 @@
   color: var(--on-accent, #140b08);
 }
 
-/* Deepens its own accent rather than inverting to white — the same change
-   .btnPrimary:hover took, and for the same reason: a #fff plate is 1.08:1 on
-   the .light band and 1.00:1 on the hero form card, so the button vanished
-   under the cursor. --accent is re-pointed per band, so one rule is right on
-   both: dark #e04a30 (label 4.8:1), light #a22e17 (label 7.1:1). */
+/* Already accent-filled at rest, so it highlights by SHIFTING hue rather than
+   by filling: to --accent-border, the deeper sibling red the band already
+   uses for its focus and hairline accents. The old 88%-black deepening was
+   nearly invisible once the lift went away. Contrast holds on both grounds —
+   dark #fb3b5c under #140b08 ink is 5.4:1, light #c94327 under white 4.8:1. */
 .pillFilled:hover {
-  background: color-mix(in srgb, var(--accent) 88%, #000);
-  border-color: color-mix(in srgb, var(--accent) 88%, #000);
-  transform: translateY(-2px);
-}
-
-/* magnetic wrapper (hover pull toward pointer) */
-.magnetic {
-  display: inline-flex;
-  will-change: transform;
-}
-
-.magneticInner {
-  display: inline-flex;
-  will-change: transform;
+  background: var(--accent-border);
+  border-color: var(--accent-border);
+  color: var(--on-accent, #140b08);
 }
 
 /* ============================================================
@@ -580,11 +580,12 @@
 .navCta {
   box-shadow: 0 6px 22px -6px rgba(255, 84, 54, 0.65);
 }
+/* Only the glow: the ink is `.pillFilled:hover`'s --on-accent now, which is
+   correct in both bands, and the literal #140b08 that used to sit here (a
+   patch for the old white hover fill) would have been wrong in the .light
+   one. The glow follows the plate to --accent-border. */
 .navCta:hover {
-  /* keep dark text on the white hover fill (the base .pill:hover turns it white,
-     which would vanish against .pillFilled's white hover background) */
-  color: #140b08;
-  box-shadow: 0 10px 30px -6px rgba(255, 84, 54, 0.8);
+  box-shadow: 0 10px 30px -6px color-mix(in srgb, var(--accent-border) 80%, transparent);
 }
 
 .burger {
@@ -3091,6 +3092,36 @@
 }
 
 .footerPhoneList a:hover {
+  color: var(--accent);
+}
+
+/* The channel marks after "Business Enquiry" — the two ways that one line is
+   reachable, shown rather than spelled out. */
+.footerPhoneChannels {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  /* Off the number's own baseline so the pair reads as a trailing annotation
+     on the row, the same footing `.footerPhoneNote` sits on. */
+  color: var(--muted);
+}
+
+.footerPhoneChannelIcon {
+  display: block;
+  width: 15px;
+  height: 15px;
+}
+
+/* Overrides the `.footerPhoneList a` size rule above, which is written for the
+   number's text and would otherwise set a font-size on a box holding only an
+   SVG. The colour transition is inherited from that same rule. */
+.footerPhoneChannelLink {
+  display: inline-flex;
+  font-size: 0;
+  color: inherit;
+}
+
+.footerPhoneChannelLink:hover {
   color: var(--accent);
 }
 
@@ -6491,6 +6522,26 @@
 
 .contactLead .lead {
   max-width: 54ch;
+}
+
+/* ---- /contact on the light band ----
+   Applied with `.light` to the page's <main>. `.light` alone flips the type
+   and the page ground, but the closing enquiry band paints its own backdrop:
+   a dark photo under a 93–98% black veil. Left in place that is a black
+   rectangle across the middle of a white page, and simply inverting the veil
+   to white still shows the dark photo through it as uneven grey. The backdrop
+   comes off instead, so the band is the same flat white as the masthead above
+   it and the page reads as one surface. The section's scroll-scrubbed focus
+   pull targets that image, so it becomes a no-op here — the copy's own reveal
+   is a separate timeline and still plays. */
+.contactLight .contactBg {
+  display: none;
+}
+
+/* The lead already carries the page's top padding; the band below it does not
+   need a second full-height stage on a page this short. */
+.contactLight .contact {
+  min-height: 0;
 }
 
 /* ═════════════════════════════════════════════════════════════════════════════

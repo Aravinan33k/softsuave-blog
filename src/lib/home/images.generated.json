@@ -1580,16 +1580,6 @@
     "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAQAgCdASoQAAwAA4BaJbACdADpMsm3b8gAAP7oKFqmVE4pB/E9E+wlWl37pGG1aO88TVieEiKuYSxSLW2i8MLFN/4aJpJjB+MZLdvEhE6W24wm/+Mjwi0zd4AAAA==",
     "source": "hand-placed"
   },
-  "four/sec-hero-aviation": {
-    "page": "four",
-    "id": "sec-hero-aviation",
-    "src": "/images/four/sec-hero-aviation.webp",
-    "width": 1448,
-    "height": 1086,
-    "alt": "Ground crew coordinating aircraft turnaround at the gate at blue hour",
-    "blurDataURL": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAABwAgCdASoQAAwAA4BaJbACdH8IwABaIbUjGwdgAMs6hRZlCiPBEfyhbY5wt6KUVY9z6K669EkSbdHBm6iCRxbCaYl2M5I1jouQnV3wXF/oTuFaiGrbCS/5swcxXtP0tLHFBHdDUkloAAAA",
-    "source": "hand-placed"
-  },
   "four/ind-construction": {
     "page": "four",
     "id": "ind-construction",
@@ -1602,19 +1592,6 @@
     "photographer": "Abdulvahap Demir",
     "pexelsUrl": "https://www.pexels.com/photo/low-angle-shot-of-cranes-17297091/",
     "matchedTier": "construction site engineer blueprint crane vertical"
-  },
-  "four/ind-aviation": {
-    "page": "four",
-    "id": "ind-aviation",
-    "src": "/images/four/ind-aviation.webp",
-    "width": 800,
-    "height": 1000,
-    "alt": "Aviation industry",
-    "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAACwAQCdASoLABAAA4BaJQBOgBtnaASAAP7vfTewj/vr2zf+QLp1wQTS2JRq9ZAQ7pXzcxG/3N3Tf392fNf1Kbiou0Epnw+YNdgEYmxN9oGgAA==",
-    "pexelsId": 17892631,
-    "photographer": "Csankovszki Tibor",
-    "pexelsUrl": "https://www.pexels.com/photo/scheibe-falke-in-hangar-17892631/",
-    "matchedTier": "aviation aircraft maintenance airport engineer vertical"
   },
   "four/svc-data-engineering": {
     "page": "four",

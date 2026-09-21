@@ -32,6 +32,14 @@ export interface ListingContent {
   readonly items: readonly ListingItem[];
   /** Label for the chip that clears the filter. */
   readonly allLabel?: string;
+  /**
+   * What the chips filter BY, lowercase and singular, for the filter group's
+   * accessible name ("Filter by industry"). Defaults to "industry", which is
+   * what the case-study and success-story indexes facet on. The careers index
+   * facets on office location, and a screen reader announcing that group as
+   * "filter by industry" would be describing a control that does not exist.
+   */
+  readonly filterLabel?: string;
 }
 
 /**
@@ -81,7 +89,11 @@ export default function Listing({
 
       {tags.length > 1 && (
         <FadeUp>
-          <div className={styles.listFilters} role="group" aria-label="Filter by industry">
+          <div
+            className={styles.listFilters}
+            role="group"
+            aria-label={`Filter by ${content.filterLabel ?? "industry"}`}
+          >
             <button
               type="button"
               className={`${styles.listChip}${active === null ? ` ${styles.listChipOn}` : ""}`}

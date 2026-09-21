@@ -7,7 +7,6 @@ import { caseStudies } from "@/lib/home/content";
 import { publicMediaUrl } from "@/lib/media-url";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import SplitReveal from "./split-reveal";
-import Magnetic from "./magnetic";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./home.module.css";
 
@@ -463,15 +462,13 @@ export default function WorkGrid({
 
           {content.cta ? (
             <div className={styles.hIntroCta}>
-              <Magnetic>
-                <SiteLink
-                  href={content.cta.href}
-                  className={styles.pill}
-                  data-cursor="View"
-                >
-                  {content.cta.label}
-                </SiteLink>
-              </Magnetic>
+              <SiteLink
+                href={content.cta.href}
+                className={styles.pill}
+                data-cursor="View"
+              >
+                {content.cta.label}
+              </SiteLink>
             </div>
           ) : null}
 

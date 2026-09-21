@@ -199,7 +199,6 @@ type. The real breakpoint is **1000px** (desktop scene vs. mobile stack);
 |---|---|---|
 | `SplitReveal` | masked word/char reveal for every heading | `as`, `type: "words"\|"chars"`, `stagger` (.045–.05), `duration` .62, `ease` `expo.out`, `scrub` |
 | `FadeUp` | fade + lift for paragraphs, cards, rows | `y` 32, `delay`, `start` `"top 88%"`, `duration` .8 |
-| `Magnetic` | cursor-attracting wrapper for pill CTAs / nav | `strength` .4, `innerStrength` .15 — auto-disabled on coarse pointer + reduced motion |
 | `Marquee` | infinite horizontal strip, pauses on hover | `speed`, `reverse`, `velocity`, `separator`; children must be an array |
 | `BrandImage` | every photographic slot | `page="four"`, `id`, `fill`, `sizes`, `priority` |
 | `HoldButton` | the prominent enquiry CTA | `label`, `doneLabel`, `onConfirm` |

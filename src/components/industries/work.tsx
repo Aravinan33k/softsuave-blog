@@ -2,7 +2,6 @@
 
 import BrandImage from "@/components/home/brand-image";
 import FadeUp from "@/components/home/fade-up";
-import Magnetic from "@/components/home/magnetic";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import { caseStudies } from "@/lib/home/content";
 import SectionHead from "./section-head";
@@ -60,11 +59,9 @@ export default function Work() {
       </div>
 
       <div className={styles.workCta}>
-        <Magnetic>
-          <SiteLink href={caseStudies.cta.href} className={styles.pill} data-cursor="Read">
-            {caseStudies.cta.label}
-          </SiteLink>
-        </Magnetic>
+        <SiteLink href={caseStudies.cta.href} className={styles.pill} data-cursor="Read">
+          {caseStudies.cta.label}
+        </SiteLink>
       </div>
     </section>
   );

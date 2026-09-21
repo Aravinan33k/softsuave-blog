@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { hero } from "@/lib/home/content";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
-import Magnetic from "./magnetic";
 import styles from "./home.module.css";
 
 /**
@@ -135,19 +134,15 @@ export default function Hero() {
         <p className={styles.heroSub}>{hero.subtitle}</p>
 
         <div className={styles.heroCtaRow}>
-          <Magnetic>
-            <Link href={hero.primaryCta.href} className={styles.pillFilled} data-cursor="Book">
-              {hero.primaryCta.label}
-            </Link>
-          </Magnetic>
-          <Magnetic>
-            {/* A real route now (see `hero.secondaryCta`), so it goes through
-                next/link and picks up `basePath` — a plain <a> would resolve
-                outside the /blog mount in production. */}
-            <Link href={hero.secondaryCta.href} className={styles.pill} data-cursor="Explore">
-              {hero.secondaryCta.label}
-            </Link>
-          </Magnetic>
+          <Link href={hero.primaryCta.href} className={styles.pillFilled} data-cursor="Book">
+            {hero.primaryCta.label}
+          </Link>
+          {/* A real route now (see `hero.secondaryCta`), so it goes through
+              next/link and picks up `basePath` — a plain <a> would resolve
+              outside the /blog mount in production. */}
+          <Link href={hero.secondaryCta.href} className={styles.pill} data-cursor="Explore">
+            {hero.secondaryCta.label}
+          </Link>
         </div>
       </div>
 

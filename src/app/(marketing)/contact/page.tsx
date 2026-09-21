@@ -80,14 +80,29 @@ export default function ContactPage() {
       <JsonLd data={[contactPageLd, ...(breadcrumb ? [breadcrumb] : [])]} />
       <Nav logoHref={HOME_HREF} />
       <main id="main">
+        {/* The masthead keeps the page's own near-black ground (the nav is
+            over it, and it is what the reader lands on). */}
         <section className={styles.contactLead}>
           <h1 className={styles.h2}>{contactPage.title}</h1>
           <p className={styles.lead}>{contactPage.body}</p>
         </section>
-        {/* `#contact` rather than the default `/contact`: this band IS the
+        {/* The enquiry band inverts to the light band instead: `.light`
+            re-points the same --bg/--text/--accent tokens the section already
+            reads, so it needs no light variant of its own. `data-nav-tone`
+            then overrides what the bar would infer from that: the nav flips
+            itself light over any `.light` band, and on a page this short that
+            meant the bar changing colour mid-scroll. It stays black over both
+            bands here. `.contactLight` drops the
+            section's own backdrop, which is a dark photo under a near-opaque
+            BLACK veil and would otherwise stay black on the white. The footer
+            sits outside this wrapper, so it is untouched.
+
+            `#contact` rather than the default `/contact`: this band IS the
             enquiry section, so the CTA scrolls to it instead of reloading the
             page. The nav bar's own CTA still points at `/contact`. */}
-        <Contact ctaHref="#contact" />
+        <div className={`${styles.light} ${styles.contactLight}`} data-nav-tone="dark">
+          <Contact ctaHref="#contact" />
+        </div>
       </main>
       <Footer />
     </div>

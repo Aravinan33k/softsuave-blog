@@ -355,23 +355,21 @@
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+    box-shadow 0.2s ease;
 }
 
-/* Deepens its own accent rather than inverting to white: this button sits on
-   a white card, where a #fff fill measured 1.00:1 and the CTA vanished under
-   the cursor. */
+/* Colour-only, like every other CTA on the site: the whole plate shifts to
+   --accent-border, the deeper sibling red. No lift — the button sits inside a
+   card whose own edge is 10px away, and a rising plate read as detaching from
+   it. The resting glow deepens with the fill so the press still has weight. */
 .submit:hover {
-  background: color-mix(in srgb, var(--accent, #ff5436) 88%, #000);
-  border-color: color-mix(in srgb, var(--accent, #ff5436) 88%, #000);
-  transform: translateY(-2px);
-  box-shadow: 0 16px 28px -12px color-mix(in srgb, var(--accent, #ff5436) 75%, transparent);
+  background: var(--accent-border, #fb3b5c);
+  border-color: var(--accent-border, #fb3b5c);
+  box-shadow: 0 16px 28px -12px color-mix(in srgb, var(--accent-border, #fb3b5c) 75%, transparent);
 }
 
 .submit:active {
-  transform: translateY(0);
-  box-shadow: 0 6px 14px -8px color-mix(in srgb, var(--accent, #ff5436) 75%, transparent);
+  box-shadow: 0 6px 14px -8px color-mix(in srgb, var(--accent-border, #fb3b5c) 75%, transparent);
 }
 
 .submit:focus-visible {
@@ -521,11 +519,6 @@
   .textarea,
   .submit {
     transition: none;
-  }
-
-  .submit:hover,
-  .submit:active {
-    transform: none;
   }
 }
 

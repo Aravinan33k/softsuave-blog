@@ -121,19 +121,17 @@
   color: var(--text-bright);
   white-space: nowrap;
   cursor: pointer;
-  transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease,
-    transform 0.4s ease;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Border and lift only. The label deliberately keeps `.btn`'s own
-   `--text-bright` rather than going to #fff: these buttons render on three
-   different grounds — the dark canvas, the `.light` band's warm white, and the
-   hero form's white card — and a hard #fff label is invisible on two of them
-   (1.08:1 over `.light`). --text-bright is 16.6:1 on the dark canvas and
-   17.0:1 on the light band, so one value covers both. */
+/* Colour-only hover — see the long note over home.module.css .pill. The
+   outline plate fills with the accent; the filled plate shifts to the deeper
+   --accent-border. Neither moves: the 2px lift is gone, as is the magnetic
+   pull that used to slide these toward the cursor. */
 .btn:hover {
-  border-color: var(--accent-border);
-  transform: translateY(-2px);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent, #140b08);
 }
 
 .btn:focus-visible {
@@ -147,23 +145,16 @@
   color: var(--on-accent, #140b08);
 }
 
-/* Deepens its own accent instead of inverting to white.
-   The white inversion read well on the dark canvas (20.4:1) but this button
-   also sits inside the hero's WHITE form card (`.form`), where a #fff fill on
-   a #fff card measured 1.00:1 — the primary CTA on every landing page
-   disappeared under the cursor. It would fail the same way anywhere in a
-   `.light` band (1.08:1).
-
-   Mixing the band's own --accent 88% with black keeps one rule correct on all
-   three grounds, because --accent is re-pointed per band:
-     dark  #e04a30 — label 4.8:1,  plate 5.0:1 on canvas, 4.0:1 on the form card
-     light #a22e17 — label 7.1:1,  plate 6.6:1 on the warm white
-   The lift and the accent-border still carry the hover; only the fill changed. */
+/* Already accent-filled at rest, so it highlights by shifting hue rather than
+   by filling: to --accent-border, the deeper sibling red. Never to white —
+   this button also sits inside the hero's WHITE form card (`.form`), where a
+   #fff fill measured 1.00:1 and the primary CTA disappeared under the cursor;
+   it would fail the same way in any `.light` band (1.08:1). --accent-border is
+   re-pointed per band, so one rule is correct on all three grounds. */
 .btnPrimary:hover {
-  background: color-mix(in srgb, var(--accent) 88%, #000);
-  border-color: color-mix(in srgb, var(--accent) 88%, #000);
+  background: var(--accent-border);
+  border-color: var(--accent-border);
   color: var(--on-accent, #140b08);
-  transform: translateY(-2px);
 }
 
 /* ============================================================
@@ -6042,8 +6033,9 @@
   color: var(--accent);
 }
 
-/* A 2px coral rule under the lead column only — the one place the table takes
-   a side, and enough of one that the checkmark icon does not have to shout. */
+/* A 2px coral rule under the lead column only — the one place a NEUTRAL table
+   takes a side, and enough of one that the checkmark icon does not have to
+   shout. A verdict table adds the column wash above on top of this. */
 .cmpHeadCellLead {
   box-shadow: inset 0 -2px 0 var(--accent);
 }
@@ -6063,8 +6055,11 @@
   border-top: 0;
 }
 
+/* Was 4%, which was invisible against the near-black canvas — the row simply
+   did not respond. 7% is legible without competing with the lead column's own
+   6% wash, which the row hover deliberately sits just above. */
 .cmpTr:hover {
-  background: color-mix(in srgb, var(--accent) 4%, transparent);
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
 }
 
 .cmpArea {
@@ -6080,10 +6075,17 @@
   gap: 9px;
 }
 
+/* A tinted chip around the glyph rather than a bare stroke floating beside
+   the serif label. Eight unboxed 17px icons down a column read as specks; the
+   chips line up into a rail, which is what gives the left edge structure. */
 .cmpAreaIcon {
-  width: 17px;
-  height: 17px;
+  width: 30px;
+  height: 30px;
   flex: 0 0 auto;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
   color: var(--accent);
 }
 
@@ -6101,10 +6103,13 @@
   border-left: 1px solid var(--line);
 }
 
+/* Up from clamp(0.88rem, 0.95vw, 0.95rem). The values are what the reader
+   came for, and at the old size they were the smallest type in the section —
+   smaller than the row labels naming them. */
 .cmpTdText {
   display: block;
-  font-size: clamp(0.88rem, 0.95vw, 0.95rem);
-  line-height: 1.6;
+  font-size: clamp(0.95rem, 1.02vw, 1.05rem);
+  line-height: 1.62;
   color: var(--text);
 }
 
@@ -6112,9 +6117,61 @@
   color: var(--text-bright);
 }
 
+/* ---- verdict treatment -------------------------------------------------
+   Only inside `.cmpTableWrapVerdict`, i.e. only where the content module set
+   `verdict: true` because the page is genuinely arguing for column one. The
+   even-handed destination matrix on /it-outsourcing-company-india keeps the
+   neutral table below and must never pick up any of this. */
+
+/* A continuous wash down the lead column rather than a per-cell tint, so the
+   eye tracks one unbroken band instead of eight stacked patches. 6% reads
+   clearly on the near-black canvas without fighting the row hairlines; the
+   .light band re-points --accent to a deeper brick red, where the same 6%
+   over a warm white lands at a comparable weight. */
+.cmpTableWrapVerdict .cmpTdLead,
+.cmpTableWrapVerdict .cmpHeadCellLead {
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+
+/* The alternatives step back one level. Not hidden, not greyed to
+   illegibility — this is still a comparison a reader is entitled to read —
+   just clearly the secondary side of it. */
+.cmpTableWrapVerdict .cmpTd:not(.cmpTdLead) .cmpTdText {
+  color: var(--muted);
+}
+
+/* The lead cell's tick. Floated out into the cell's left padding rather than
+   pushed inline, so every value in the column starts on the same x — a row
+   that ties (no tick) must not sit indented against the rows that win. */
+.cmpTableWrapVerdict .cmpTdLead {
+  position: relative;
+}
+
+.cmpTdTick {
+  position: absolute;
+  left: clamp(4px, 0.7vw, 9px);
+  top: clamp(19px, 2.3vw, 27px);
+  width: 13px;
+  height: 13px;
+  color: var(--accent);
+}
+
 /* Only ever visible in the reflowed card layout below. */
 .cmpTdLabel {
   display: none;
+}
+
+/* The "so what" under a verdict table. Reads as an editorial aside rather than
+   a ninth row: no border, indented to the table's own gutter, and carrying the
+   accent rule the eyebrows use so it is legibly part of this section. */
+.cmpVerdictNote {
+  margin: clamp(16px, 2vw, 22px) 0 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--accent);
+  max-width: 62ch;
+  font-size: clamp(0.95rem, 1.02vw, 1.05rem);
+  line-height: 1.6;
+  color: var(--text-bright);
 }
 
 @media (max-width: 759px) {
@@ -6186,6 +6243,33 @@
 
   .cmpTdLead .cmpTdLabel {
     color: var(--accent);
+  }
+
+  /* ---- verdict treatment, reflowed --------------------------------------
+     The desktop wash runs down a column. There is no column here — each row
+     is its own card — so the same tint marks the recommended ANSWER inside
+     each card instead, which is the same claim at this width. It needs its
+     own padding and radius: the desktop cell's padding comes from the table,
+     and without it the tint would butt against the card's edge. */
+  .cmpTableWrapVerdict .cmpTdLead {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-top: 0;
+    border-radius: 10px;
+  }
+
+  .cmpTableWrapVerdict .cmpTdLead .cmpTdLabel {
+    margin-top: 0;
+  }
+
+  /* Floated rather than absolute: the cell's own left padding is what the
+     desktop tick is positioned into, and the reflowed card has none to spare.
+     Floating drops it at the head of the value and lets the prose wrap
+     around it, which keeps the tick on the text's first line at any width. */
+  .cmpTdTick {
+    position: static;
+    float: left;
+    margin: 3px 7px 0 0;
   }
 }
 

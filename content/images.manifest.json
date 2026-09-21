@@ -1898,21 +1898,6 @@
       ]
     },
     {
-      "id": "ind-aviation",
-      "page": "four",
-      "purpose": "industry",
-      "alt": "Aviation industry",
-      "orientation": "portrait",
-      "width": 800,
-      "height": 1000,
-      "keywords": [
-        "aviation aircraft maintenance airport engineer vertical",
-        "airplane airport ground operations",
-        "aircraft aviation technology",
-        "aviation"
-      ]
-    },
-    {
       "id": "hire-dotnet-hero",
       "page": "four",
       "purpose": "hero-background",

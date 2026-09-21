@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import FadeUp from "@/components/home/fade-up";
-import Magnetic from "@/components/home/magnetic";
 import { capabilities } from "@/lib/home/industries-content";
 import type { SectorPageContent } from "@/lib/home/sectors/types";
 import SectionHead from "./section-head";
@@ -55,11 +54,9 @@ export default function SectorCapabilities({ content }: { content: SectorPageCon
       <div className={styles.routes}>
         <span className={styles.routesLabel}>Every sector we serve</span>
         <div className={styles.routeList}>
-          <Magnetic>
-            <Link href="/industries" className={styles.routeLink} data-cursor="Industries">
-              Back to all industries
-            </Link>
-          </Magnetic>
+          <Link href="/industries" className={styles.routeLink} data-cursor="Industries">
+            Back to all industries
+          </Link>
         </div>
       </div>
     </section>

@@ -18,6 +18,13 @@ const LIGHT_BANDS = [`.${styles.light}`, `.${styles.cream}`, '[data-nav-tone="li
   .filter((s) => !s.startsWith(".undefined"))
   .join(",");
 
+/** The mirror escape hatch: a section that wants the DARK bar even though it
+ *  is a light band (or sits inside one). `/contact` uses it — its enquiry
+ *  band is inverted to the light tokens, but the bar stays black there so it
+ *  does not change colour halfway down a two-band page. Probed before the
+ *  light bands, so the nearer intent wins over the band it is declared on. */
+const DARK_OVERRIDE = '[data-nav-tone="dark"]';
+
 /**
  * Tracks the tone of whatever is scrolling under a fixed top overlay, so the
  * overlay can match it. Probes a single point `probeOffset` px below the
@@ -55,6 +62,12 @@ export function useSurfaceTone(probeOffset = 72): SurfaceTone {
         // reader is actually seeing.
         setTone(window.scrollY > 0 ? "hero-scrolled" : "hero");
         return;
+      }
+      for (const el of Array.from(document.querySelectorAll(DARK_OVERRIDE))) {
+        if (covers(el)) {
+          setTone("dark");
+          return;
+        }
       }
       const bands = LIGHT_BANDS ? document.querySelectorAll(LIGHT_BANDS) : [];
       for (const band of Array.from(bands)) {

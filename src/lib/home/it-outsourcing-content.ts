@@ -164,6 +164,14 @@ export const itoDestinations: ComparisonContent = {
   eyebrow: "Destination Comparison",
   title: "How Does India Compare With Other Outsourcing Destinations?",
   body: "India is not automatically the right answer — it depends on whether you are optimising for cost, seniority, or real-time overlap. Here is an honest comparison across the destinations most often shortlisted against it.",
+  /* DELIBERATELY NO `verdict`. Every other comparison on this surface sets it
+     and paints column one as the recommended option; this one must not. The
+     body above says "India is not automatically the right answer" and the rows
+     mean it — Mexico wins the working-hour alignment row outright, and the
+     "Best suited for" row hands each destination a different job. Washing
+     India's column coral would contradict the section's own standfirst and
+     turn an honest matrix into a claim a reader can disprove by reading the
+     next cell along. */
   columns: ["India", "Poland", "Mexico", "Philippines", "Vietnam"],
   rows: [
     {

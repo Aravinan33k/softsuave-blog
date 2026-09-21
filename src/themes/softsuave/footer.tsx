@@ -15,7 +15,6 @@ const DELIVERY = [
   ['Hire Dedicated Developer Team', '/hire-dedicated-developers'],
 ];
 const INDUSTRIES = [
-  ['Aviation', '/ai-in-aviation'],
   ['Logistics', '/ai-in-logistics'],
   ['FinTech', '/fintech-ai-solutions'],
   ['HealthTech', '/ai-solutions-in-healthtech'],

@@ -7,12 +7,11 @@ import { ecommerce } from './ecommerce';
 import { logistics } from './logistics';
 import { telecom } from './telecom';
 import { construction } from './construction';
-import { aviation } from './aviation';
 
 export type { SectorPageContent } from './types';
 
 /**
- * The eight sector pages, in the order the index presents them.
+ * The seven sector pages, in the order the index presents them.
  *
  * One list, so everything that must know about all of them — the sitemap, the
  * release gate, the nav's local-path set — stays correct when a sector is added
@@ -31,7 +30,6 @@ export const SECTOR_PAGES: readonly SectorPageContent[] = [
   logistics,
   telecom,
   construction,
-  aviation,
 ] as const;
 
 /** Every sector route, for the sitemap and the release gate. */

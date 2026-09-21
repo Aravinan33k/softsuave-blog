@@ -21,7 +21,6 @@ export type NavItem =
   | { label: string; href: string; kind: 'groups'; groups: NavGroup[] };
 
 const INDUSTRIES: NavLink[] = [
-  { label: 'Aviation', href: '/ai-in-aviation', desc: 'Enhancing Aviation with Tech' },
   { label: 'EduTech', href: '/ai-solutions-in-edutech', desc: 'Transforming Education' },
   { label: 'FinTech', href: '/fintech-ai-solutions', desc: 'Shaping Financial Futures' },
   { label: 'Construction', href: '/ai-solutions-for-construction', desc: "Building Tomorrow's World" },
@@ -172,14 +171,33 @@ function isLocal(href: string): boolean {
   return LOCAL_PATHS.has(href.split('#')[0]);
 }
 
+/**
+ * An href that is already a complete destination: an absolute URL, a
+ * protocol-relative one, or a non-http scheme such as `mailto:` / `tel:`.
+ *
+ * These must never be treated as site paths. `navHref` below prefixes
+ * anything it does not recognise with `SITE`, which turned
+ * `mailto:careers@softsuave.com` into
+ * `https://www.softsuave.commailto:careers@softsuave.com` — a dead link that
+ * fails silently, because nothing here validates the result. Content has
+ * carried absolute hrefs for a while (the construction page's FAQ links one);
+ * it only escaped this because that particular consumer renders a plain
+ * anchor rather than going through `SiteLink`.
+ */
+function isCompleteUrl(href: string): boolean {
+  return /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(href);
+}
+
 /** Absolute URL: local for our own routes, otherwise the marketing site. */
 export function navHref(href: string): string {
+  if (isCompleteUrl(href)) return href;
   return isLocal(href) ? href : `${SITE}${href}`;
 }
 
-/** True when `navHref` sent this path off to the marketing site. */
+/** True when this href leaves the app — a complete URL, or a path `navHref`
+ *  sent off to the marketing site. Either way it needs a plain anchor. */
 export function isExternalHref(href: string): boolean {
-  return !isLocal(href);
+  return isCompleteUrl(href) || !isLocal(href);
 }
 
 /**

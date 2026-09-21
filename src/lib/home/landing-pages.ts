@@ -126,12 +126,17 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/faqs', title: 'Frequently Asked Questions' },
   { path: '/case-studies', title: 'Case Studies' },
   { path: '/success-stories', title: 'Success Stories' },
+  // The three Company-menu routes that had no page until now. Every hero
+  // enquiry form on the surface links to /career-overview (see
+  // `delivery-shared.ts`'s `sharedHeroAlert`), so leaving it unregistered sent
+  // seventeen "to apply for jobs, click here" links out to the live site.
+  { path: '/career-overview', title: 'Careers' },
+  { path: '/life-at-softsuave', title: 'Life at Soft Suave' },
+  { path: '/free-cost-estimation', title: 'Free Cost Estimation' },
 
-  // The sector index, and the eighth sector. The other seven sector pages are
-  // listed above with the industry AI group; aviation has no counterpart there,
-  // so it joins the registry here.
+  // The sector index. The seven sector pages themselves are listed above with
+  // the industry AI group.
   { path: '/industries', title: 'Industries We Serve' },
-  { path: '/ai-in-aviation', title: 'AI Solutions for Aviation' },
 
   // The nine hire-by-role pages, from their own slug list — adding a role
   // should put it in the sitemap without anyone remembering this file. Imported

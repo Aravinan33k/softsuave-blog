@@ -7,7 +7,6 @@ import Logo from "./logo";
 import { nav } from "@/lib/home/content";
 import { navPanels, navHrefForPage } from "@/lib/home/nav-menu";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
-import Magnetic from "./magnetic";
 import MegaPanel, { MenuLink } from "./mega-menu";
 import { useSurfaceTone, type SurfaceTone } from "./use-surface-tone";
 import styles from "./home.module.css";
@@ -246,17 +245,15 @@ export default function Nav({
         {panel && <MegaPanel panel={panel} onNavigate={close} />}
 
         <div className={styles.navRight}>
-          <Magnetic>
-            {ctaHref.startsWith("/") ? (
-              <Link href={ctaHref} {...ctaShared}>
-                {nav.cta.label}
-              </Link>
-            ) : (
-              <a href={ctaHref} {...ctaShared}>
-                {nav.cta.label}
-              </a>
-            )}
-          </Magnetic>
+          {ctaHref.startsWith("/") ? (
+            <Link href={ctaHref} {...ctaShared}>
+              {nav.cta.label}
+            </Link>
+          ) : (
+            <a href={ctaHref} {...ctaShared}>
+              {nav.cta.label}
+            </a>
+          )}
           <button
             className={`${styles.burger} ${open ? styles.burgerOpen : ""}`}
             aria-label={open ? "Close menu" : "Open menu"}

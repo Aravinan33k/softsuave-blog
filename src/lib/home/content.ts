@@ -622,8 +622,8 @@ export const nav = {
   links: [
     { label: "Services", href: "#services" },
     // The sector index, not this page's industries band: it is the canonical
-    // page for the eight sectors, and the two the band omits (Construction,
-    // Aviation) exist only there. Every page that renders the default nav has
+    // page for the seven sectors, and the one the band omits (Construction)
+    // exists only there. Every page that renders the default nav has
     // its own `#industries` section still — the band stays, the nav bar just
     // stops treating it as the destination. Being a route rather than an
     // anchor, this link also drops out of the bar's "you are here" highlight,
@@ -638,6 +638,11 @@ export const nav = {
 /** A footer sitemap entry. `href` is either an in-page `#anchor` or a site path. */
 export type FooterLink = { label: string; href: string };
 
+/**
+ * Service keys the footer's Services column leaves out. See that column.
+ */
+const FOOTER_SERVICE_EXCLUDE = new Set(["mlops"]);
+
 export const footer = {
   tagline: "Empowering businesses with scalable AI, automation & integrations.",
 
@@ -647,7 +652,7 @@ export const footer = {
    * Services is DERIVED from the page's own `services` content rather than
    * retyped, so the footer can never list a service the page above it no longer
    * offers. Industries is derived from the `/industries` index's sector list —
-   * the canonical eight — for the reason given on that column below.
+   * the canonical seven — for the reason given on that column below.
    *
    * Each entry carries its own `href`, so the column links to the real page
    * where one exists and falls back to the in-page section where it doesn't —
@@ -658,15 +663,28 @@ export const footer = {
   columns: [
     {
       title: "Services",
-      links: services.items.map((s) => ({ label: s.name, href: s.href })),
+      /**
+       * Derived, less the entries this column is not meant to advertise.
+       *
+       * `FOOTER_SERVICE_EXCLUDE` is the whole divergence from `services.items`
+       * and it is a deliberate one: MLOps stays a service the homepage band
+       * argues for, but it is not a door we want in the sitemap column, where
+       * every neighbour resolves to a real page and it would resolve to an
+       * anchor. Keeping it as an exclusion list rather than deleting the
+       * service means the band above is untouched and the reason is recorded
+       * in one place.
+       */
+      links: services.items
+        .filter((s) => !FOOTER_SERVICE_EXCLUDE.has(s.key))
+        .map((s) => ({ label: s.name, href: s.href })),
     },
     {
       title: "Industries",
       /**
-       * The canonical eight, taken from the `/industries` index rather than
-       * the band on this page. The band shows six — Construction and Aviation
-       * have no generated art yet, so it omits them — but both have real
-       * pages, and a sitemap that hides two live sectors is just wrong.
+       * The canonical seven, taken from the `/industries` index rather than
+       * the band on this page. The band shows six — Construction has no
+       * generated art yet, so it omits it — but it has a real page, and a
+       * sitemap that hides a live sector is just wrong.
        *
        * "All Industries" heads the column so the index itself is reachable
        * from the footer of every page, which is the only place it was not.
@@ -690,20 +708,22 @@ export const footer = {
     },
     {
       /**
-       * The pages the live site reaches from its footer and nowhere else —
-       * FAQs, How to Hire, the India delivery page — plus the proof archives.
-       * They have no section on this page to anchor to, so the footer is where
-       * they live, exactly as on softsuave.com.
+       * The proof archives plus the one commercial entry point, which have no
+       * section on this page to anchor to, so the footer is where they live.
+       *
+       * This column used to mirror softsuave.com's footer exactly, which meant
+       * it also carried How to Hire, FAQs and Software Development India.
+       * Those three are gone by review: each pointed at a page this app does
+       * not serve, so all three left for the live site from a column whose
+       * other entries stay on it, and none of them earned a place in the
+       * sitemap. Re-adding any of them is a matter of building its page first.
        */
       title: "Resources",
       links: [
         { label: "Blog", href: "/blog" },
         { label: "Case Studies", href: "/case-studies" },
         { label: "Success Stories", href: "/success-stories" },
-        { label: "How to Hire", href: "/how-to-hire" },
         { label: "Free Cost Estimation", href: "/free-cost-estimation" },
-        { label: "FAQs", href: "/faqs" },
-        { label: "Software Development India", href: "/software-development-company-india" },
       ],
     },
   ] as { title: string; links: FooterLink[] }[],
@@ -774,7 +794,18 @@ export const footer = {
       // sales numbers and is marked there as reachable on WhatsApp too, while
       // the HR desk below is the one its footer carries. The review asked for
       // the second Indian number, so both are here.
-      { country: "in", display: "+91 99527 32708", note: "Sales & WhatsApp", href: "tel:+919952732708" },
+      // `whatsapp` marks the one line that is reachable on both channels, and
+      // the footer renders the pair of marks for it. It is the link the icon
+      // actually opens, not a decoration: "Sales & WhatsApp" used to say this
+      // in words, and a reader still had to copy the number into WhatsApp by
+      // hand to act on it.
+      {
+        country: "in",
+        display: "+91 99527 32708",
+        note: "Business Enquiry",
+        href: "tel:+919952732708",
+        whatsapp: "https://wa.me/919952732708",
+      },
       { country: "in", display: "+91 8015159981", note: "HR", href: "tel:+918015159981" },
     ],
   },

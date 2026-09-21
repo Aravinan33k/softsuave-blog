@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import Link from "next/link";
 import BrandImage from "@/components/home/brand-image";
-import Magnetic from "@/components/home/magnetic";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { why } from "@/lib/home/content";
 import { sectors } from "@/lib/home/industries-content";
@@ -17,13 +16,12 @@ const years = why.stats.find((s) => s.icon === "years");
  * three: copy and both CTAs hold the left column, the sector's own portrait
  * frame the right.
  *
- * Construction and Aviation have no generated frame, so they get the
- * typographic panel instead — the sector's menu tagline set large, over the
- * names of what we build for it. Deliberately not a photograph of a different
- * industry.
+ * Construction has no generated frame, so it gets the typographic panel
+ * instead — the sector's menu tagline set large, over the names of what we
+ * build for it. Deliberately not a photograph of a different industry.
  *
  * The secondary CTA is the route back to the index, so no sector page is a dead
- * end and the reader can always get to the other seven.
+ * end and the reader can always get to the other six.
  */
 export default function SectorHero({ content }: { content: SectorPageContent }) {
   const root = useRef<HTMLElement | null>(null);
@@ -70,20 +68,16 @@ export default function SectorHero({ content }: { content: SectorPageContent }) 
         <p className={styles.heroBody}>{hero.body}</p>
 
         <div className={styles.heroCtas}>
-          <Magnetic>
-            <Link
-              href="/contact"
-              className={`${styles.pill} ${styles.pillFilled}`}
-              data-cursor="Book a call"
-            >
-              Book AI Strategy Call
-            </Link>
-          </Magnetic>
-          <Magnetic>
-            <Link href="/industries" className={styles.pill} data-cursor="Industries">
-              All industries
-            </Link>
-          </Magnetic>
+          <Link
+            href="/contact"
+            className={`${styles.pill} ${styles.pillFilled}`}
+            data-cursor="Book a call"
+          >
+            Book AI Strategy Call
+          </Link>
+          <Link href="/industries" className={styles.pill} data-cursor="Industries">
+            All industries
+          </Link>
         </div>
       </div>
 

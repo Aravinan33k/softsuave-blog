@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import Link from "next/link";
 import BrandImage from "@/components/home/brand-image";
-import Magnetic from "@/components/home/magnetic";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { why } from "@/lib/home/content";
 import { hero, sectors } from "@/lib/home/industries-content";
@@ -82,22 +81,18 @@ export default function Hero() {
         <p className={styles.heroAside}>{hero.aside}</p>
 
         <div className={styles.heroCtas}>
-          <Magnetic>
-            <Link
-              href={hero.primaryCta.href}
-              className={`${styles.pill} ${styles.pillFilled}`}
-              data-cursor="Book a call"
-            >
-              {hero.primaryCta.label}
-            </Link>
-          </Magnetic>
+          <Link
+            href={hero.primaryCta.href}
+            className={`${styles.pill} ${styles.pillFilled}`}
+            data-cursor="Book a call"
+          >
+            {hero.primaryCta.label}
+          </Link>
           {/* In-page anchor: a plain <a> so ScrollProvider's Lenis handler
               intercepts it instead of the router. */}
-          <Magnetic>
-            <a href={hero.secondaryCta.href} className={styles.pill} data-cursor="Scroll">
-              {hero.secondaryCta.label}
-            </a>
-          </Magnetic>
+          <a href={hero.secondaryCta.href} className={styles.pill} data-cursor="Scroll">
+            {hero.secondaryCta.label}
+          </a>
         </div>
       </div>
 

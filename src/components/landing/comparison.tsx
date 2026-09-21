@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import SectionHead from "./section-head";
 import styles from "./landing.module.css";
@@ -9,10 +9,13 @@ import styles from "./landing.module.css";
  * A comparison section: one "area" per row, each holding two or more labelled
  * values side by side.
  *
- * This is the content-driven generalisation of `components/custom-ai/comparison.tsx`,
- * which renders the earlier card-per-row version of this layout and still owns
- * the `.cmpRow*` classes this component no longer touches — do not delete those
- * when tidying the stylesheet. Several of the delivery-model landing pages need
+ * This is the content-driven generalisation of the earlier card-per-row
+ * version of this layout. `components/common/comparison.tsx` still renders
+ * that one and still owns the `.cmpRow*`/`.cmpCell*` classes this component
+ * does not touch — do not delete those when tidying the stylesheet.
+ * `components/custom-ai/comparison.tsx` used to be a second copy of it and is
+ * now a thin adapter over this component, passing its own row icons.
+ * Several of the delivery-model landing pages need
  * the same section with their own copy — staff augmentation vs. traditional
  * hiring, one engagement model against another, India against the other
  * outsourcing destinations — and the last of those needs four value columns,
@@ -42,6 +45,38 @@ export interface ComparisonContent {
    * the two arrays must be the same length.
    */
   rows: readonly { readonly area: string; readonly values: readonly string[] }[];
+  /**
+   * Row markers, positional against `rows`, for a page whose areas have real
+   * subjects worth drawing — a padlock on Security reads as the row's meaning,
+   * where `ROW_MARKS` can only cycle shapes that mean nothing in particular.
+   *
+   * Each entry is the *inside* of a 24×24 stroke `<svg>` (a `<path>`/`<g>`),
+   * not the element itself: the wrapper carries the shared `iconProps` and
+   * `.cmpAreaIcon`, so a caller cannot drift off the section's icon style.
+   * Omitted — the usual case — falls back to the generic marks, and a list
+   * shorter than `rows` falls back for the rows it does not cover.
+   */
+  icons?: readonly ReactNode[];
+  /**
+   * Paint the lead column as the option this section RECOMMENDS: a coral wash
+   * down its full height, the other columns' prose stepped back, and a tick
+   * against each lead cell that actually beats the alternatives.
+   *
+   * OFF BY DEFAULT, and that default is load-bearing. Not every table here is
+   * an argument. `it-outsourcing-content`'s destination matrix opens by saying
+   * "India is not automatically the right answer", and it means it — Mexico
+   * wins the working-hour row outright. Washing India's column coral would
+   * contradict the section's own standfirst and turn an honest comparison into
+   * a claim. Turn this on only where the page is genuinely arguing for column
+   * one.
+   */
+  verdict?: boolean;
+  /**
+   * One line closing a `verdict` table — the "so what" a reader should leave
+   * with. Optional, and never invented by this component: a table with no
+   * supplied note simply ends on its last row, as it does today.
+   */
+  verdictNote?: string;
 }
 
 const iconProps = {
@@ -90,6 +125,29 @@ const ROW_MARKS = [
   </g>,
 ] as const;
 
+/**
+ * Whether the lead cell in this row is actually better than the alternatives,
+ * for the purpose of drawing a tick on it.
+ *
+ * "Better" is approximated as "different from all of them", which sounds crude
+ * and is exactly right for what it guards against. The partner table on the 20
+ * hire pages (`hire-comparison.ts`) has two rows where Soft Suave and in-house
+ * give the SAME answer — "Dedicated resources: Yes / Yes / No" and
+ * "Communications: Seamless / Seamless / Uncertain". A tick against "Yes" when
+ * the column beside it also says "Yes" is a claim the row's own content
+ * contradicts, and a reader notices that immediately.
+ *
+ * So a row that ties is simply left unmarked: the wash still says which column
+ * the page recommends overall, and the tick is reserved for the rows that earn
+ * it. Nothing has to be hand-maintained, and a copy edit that turns a win into
+ * a tie drops the tick on its own.
+ */
+function leadWinsRow(values: readonly string[]): boolean {
+  const lead = values[0];
+  if (lead === undefined || values.length < 2) return false;
+  return values.slice(1).every((v) => v !== lead);
+}
+
 export default function Comparison({
   content,
   id = "comparison",
@@ -101,6 +159,7 @@ export default function Comparison({
 
   /** Four destination columns want to scroll sideways before they want to shrink. */
   const wide = content.columns.length > 2;
+  const verdict = content.verdict === true;
 
   useGSAP(
     () => {
@@ -143,9 +202,13 @@ export default function Comparison({
 
       <div
         ref={root}
-        className={
-          wide ? `${styles.cmpTableWrap} ${styles.cmpTableWrapWide}` : styles.cmpTableWrap
-        }
+        className={[
+          styles.cmpTableWrap,
+          wide ? styles.cmpTableWrapWide : "",
+          verdict ? styles.cmpTableWrapVerdict : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
         /* Drives the sideways-scroll floor below. The IT-outsourcing table runs
            five destination columns; a single fixed min-width wide enough for
            those would force a scrollbar onto every three-column table too. */
@@ -188,7 +251,7 @@ export default function Comparison({
                       table's column layout and misalign every row. */}
                   <span className={styles.cmpAreaInner}>
                     <svg {...iconProps} className={styles.cmpAreaIcon}>
-                      {ROW_MARKS[i % ROW_MARKS.length]}
+                      {content.icons?.[i] ?? ROW_MARKS[i % ROW_MARKS.length]}
                     </svg>
                     <span className={styles.cmpAreaName}>{row.area}</span>
                   </span>
@@ -207,6 +270,13 @@ export default function Comparison({
                     <span className={styles.cmpTdLabel} aria-hidden="true">
                       {column}
                     </span>
+                    {/* The tick marks the lead cell only where it genuinely
+                        differs from every alternative — see `leadWinsRow`. */}
+                    {verdict && c === 0 && leadWinsRow(row.values) && (
+                      <svg {...iconProps} className={styles.cmpTdTick}>
+                        <path d="M5 12.5l4 4 10-10" />
+                      </svg>
+                    )}
                     <span className={styles.cmpTdText}>{row.values[c] ?? "—"}</span>
                   </td>
                 ))}
@@ -215,6 +285,12 @@ export default function Comparison({
           </tbody>
         </table>
       </div>
+
+      {/* The "so what", where the page supplies one. Outside the scroll wrapper
+          on purpose: on a wide table the wrapper scrolls sideways, and a line
+          of prose that slides out of view with the columns is a line nobody
+          reads. */}
+      {content.verdictNote && <p className={styles.cmpVerdictNote}>{content.verdictNote}</p>}
     </section>
   );
 }

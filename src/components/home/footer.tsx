@@ -8,7 +8,7 @@ import { footer, brand } from "@/lib/home/content";
 import { navHrefForPage } from "@/lib/home/nav-menu";
 import { publicMediaUrl } from "@/lib/media-url";
 import { SiteLink } from "@/themes/softsuave/site-link";
-import { LinkedinIcon, InstagramIcon, YoutubeIcon } from "@/themes/softsuave/icons";
+import { LinkedinIcon, InstagramIcon, YoutubeIcon, PhoneIcon, WhatsappIcon } from "@/themes/softsuave/icons";
 import styles from "./home.module.css";
 
 /**
@@ -145,10 +145,38 @@ export default function Footer() {
                 <Flag code={p.country} className={styles.footerPhoneFlag} />
                 <a href={p.href} data-cursor="Call">
                   {p.display}
+                  {/* Bare on the row that ends in channel marks — "(Business
+                      Enquiry)" followed by two icons reads as though the
+                      brackets were meant to enclose them. The HR line below
+                      has nothing after it and keeps its brackets. */}
                   {"note" in p && p.note ? (
-                    <span className={styles.footerPhoneNote}> ({p.note})</span>
+                    <span className={styles.footerPhoneNote}>
+                      {"whatsapp" in p && p.whatsapp ? ` ${p.note}` : ` (${p.note})`}
+                    </span>
                   ) : null}
                 </a>
+                {/* Siblings of the tel: link, never nested inside it — an <a>
+                    may not contain another, and the WhatsApp mark opens a
+                    different destination from the one the number dials. The
+                    handset is decorative (the whole number beside it is
+                    already the call link, so a second one would just be two
+                    tab stops onto the same action); the WhatsApp mark is a
+                    real link and carries its own name. */}
+                {"whatsapp" in p && p.whatsapp ? (
+                  <span className={styles.footerPhoneChannels}>
+                    <PhoneIcon className={styles.footerPhoneChannelIcon} />
+                    <a
+                      href={p.whatsapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.footerPhoneChannelLink}
+                      aria-label={`Message ${p.display} on WhatsApp`}
+                      data-cursor="Chat"
+                    >
+                      <WhatsappIcon className={styles.footerPhoneChannelIcon} />
+                    </a>
+                  </span>
+                ) : null}
               </li>
             ))}
           </ul>

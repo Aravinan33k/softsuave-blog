@@ -21,7 +21,7 @@
 export const meta = {
   title: 'Industries We Serve — Industry-Specific AI Solutions | Soft Suave',
   description:
-    'Industry-specific AI solutions for FinTech, HealthTech, eCommerce, Logistics, EdTech, Telecom, Construction and Aviation, built for measurable outcomes.',
+    'Industry-specific AI solutions for FinTech, HealthTech, eCommerce, Logistics, EdTech, Telecom and Construction, built for measurable outcomes.',
   path: '/industries',
 } as const;
 
@@ -30,7 +30,7 @@ export const hero = {
   titleLines: ['Industry-specific AI solutions', 'for strategic advancement'],
   body: 'We build AI around the way an industry actually runs — its data, its systems, its regulations and its people — so operations get leaner, costs come down, and performance compounds.',
   aside:
-    'Eight sectors, one engineering bench. Every engagement starts with the business problem and ends in a production system your teams keep using.',
+    'Seven sectors, one engineering bench. Every engagement starts with the business problem and ends in a production system your teams keep using.',
   primaryCta: { label: 'Book AI Strategy Call', href: '/contact' },
   secondaryCta: { label: 'See all sectors', href: '#sectors' },
   /**
@@ -50,13 +50,13 @@ export const sectors = {
   title: 'Enhancing industries with custom AI solutions',
   body: 'Each sector has its own solution set, its own regulatory shape and its own page. Start where your business already is.',
   /**
-   * `img` names a generated portrait slot (`four/ind-<key>`). Construction and
-   * Aviation have none: the image pipeline has no `ind-construction` /
-   * `ind-aviation` frame yet, and `getImage` throws rather than ship an empty
-   * <img>. Both render in the grid's typographic treatment instead of borrowing
-   * a photograph of another industry — the two slots are declared in
-   * `content/images.manifest.json` for the next `npm run images:home` run, and
-   * adding the art is then a one-word change here.
+   * `img` names a generated portrait slot (`four/ind-<key>`). Construction has
+   * none: the image pipeline has no `ind-construction` frame yet, and
+   * `getImage` throws rather than ship an empty <img>. It renders in the grid's
+   * typographic treatment instead of borrowing a photograph of another
+   * industry — the slot is declared in `content/images.manifest.json` for the
+   * next `npm run images:home` run, and adding the art is then a one-word
+   * change here.
    */
   items: [
     {
@@ -122,15 +122,6 @@ export const sectors = {
       img: null,
       solutions: ['Smart scheduling', 'Site safety monitoring', 'Inventory and downtime control'],
     },
-    {
-      key: 'aviation',
-      name: 'Aviation',
-      tagline: 'Enhancing Aviation with Tech',
-      body: 'AI enhances flight safety, optimizes scheduling, and streamlines operations for the aviation industry.',
-      href: '/ai-in-aviation',
-      img: null,
-      solutions: ['Operational scheduling', 'Safety analytics', 'Maintenance forecasting'],
-    },
   ],
 } as const;
 
@@ -167,7 +158,7 @@ export const capabilities = {
       n: '05',
       name: 'Vision AI',
       body: 'Detection, classification and visual search running in production, from catalogue imagery to lane classification and axle counting.',
-      sectors: ['eCommerce', 'Logistics', 'Aviation'],
+      sectors: ['eCommerce', 'Logistics', 'Construction'],
     },
     {
       n: '06',

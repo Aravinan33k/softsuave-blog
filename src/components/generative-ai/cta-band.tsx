@@ -20,8 +20,7 @@ export interface CtaBandContent {
  * conversion path and exposed the sales inbox to scrapers.
  *
  * Uses this surface's squared buttons rather than the homepage's capsule
- * pills, and the magnetic hover wrapper is dropped — a button that slides away
- * from the cursor belongs on a showreel, not on a conversion band.
+ * pills.
  */
 export default function CtaBand({
   content = generativeAiMidCta,

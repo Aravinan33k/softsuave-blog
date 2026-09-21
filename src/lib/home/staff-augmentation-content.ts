@@ -217,6 +217,13 @@ export const staffComparison: ComparisonContent = {
   title: "Staff Augmentation vs. Traditional Hiring",
   body: "Permanent hiring is the right answer for roles at the centre of your business. For capacity, specialisms, and anything time-boxed, the trade-offs look like this.",
   columns: ["Staff Augmentation", "Traditional Hiring"],
+  /* The section argues for augmentation on these dimensions, so the table
+     leads with it — but the closing note keeps the concession the standfirst
+     already makes, that permanent hiring wins for roles at the centre of the
+     business. */
+  verdict: true,
+  verdictNote:
+    "Augmentation wins on speed, cost exposure, and access to specialists. Permanent hiring still wins for the roles that sit at the centre of your business and need to stay there.",
   rows: [
     {
       area: "Time to productive",

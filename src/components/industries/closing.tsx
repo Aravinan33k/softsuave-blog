@@ -3,7 +3,6 @@
 import Link from "next/link";
 import BrandImage from "@/components/home/brand-image";
 import FadeUp from "@/components/home/fade-up";
-import Magnetic from "@/components/home/magnetic";
 import SplitReveal from "@/components/home/split-reveal";
 import { closing as industriesClosing } from "@/lib/home/industries-content";
 import styles from "./industries.module.css";
@@ -46,20 +45,16 @@ export default function Closing({
         <FadeUp>
           <p className={styles.closingText}>{closing.body}</p>
           <div className={styles.closingCtas}>
-            <Magnetic>
-              <Link
-                href={closing.primaryCta.href}
-                className={`${styles.pill} ${styles.pillFilled}`}
-                data-cursor="Book a call"
-              >
-                {closing.primaryCta.label}
-              </Link>
-            </Magnetic>
-            <Magnetic>
-              <Link href={closing.secondaryCta.href} className={styles.pill} data-cursor="Explore">
-                {closing.secondaryCta.label}
-              </Link>
-            </Magnetic>
+            <Link
+              href={closing.primaryCta.href}
+              className={`${styles.pill} ${styles.pillFilled}`}
+              data-cursor="Book a call"
+            >
+              {closing.primaryCta.label}
+            </Link>
+            <Link href={closing.secondaryCta.href} className={styles.pill} data-cursor="Explore">
+              {closing.secondaryCta.label}
+            </Link>
           </div>
         </FadeUp>
       </div>

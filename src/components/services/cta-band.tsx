@@ -1,5 +1,4 @@
 import FadeUp from '@/components/home/fade-up';
-import Magnetic from '@/components/home/magnetic';
 import home from '@/components/home/home.module.css';
 import styles from './services.module.css';
 
@@ -26,11 +25,9 @@ export default function CtaBand({ title, body, cta, href = '#contact' }: CtaBand
           <h2 className={styles.ctaTitle}>{title}</h2>
           <p className={styles.ctaBody}>{body}</p>
         </div>
-        <Magnetic>
-          <a href={href} className={`${home.pill} ${home.pillFilled}`} data-cursor="Book">
-            {cta}
-          </a>
-        </Magnetic>
+        <a href={href} className={`${home.pill} ${home.pillFilled}`} data-cursor="Book">
+          {cta}
+        </a>
       </FadeUp>
     </section>
   );

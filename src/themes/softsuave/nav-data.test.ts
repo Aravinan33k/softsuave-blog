@@ -22,15 +22,43 @@ describe('navHref', () => {
   // the live site whatever the release flag says. A path we DO serve can never
   // demonstrate this.
   //
-  // It replaced `/case-studies` here once this app grew its own case-study
-  // index, which had replaced `/about` for the same reason, which had replaced
-  // `/contact`. Each swap is this app absorbing one more page from the live
-  // site; careers is not on that path, which is what makes it a durable choice.
+  // It replaced `/career-overview` here once this app grew its own careers
+  // index, which had replaced `/case-studies`, which had replaced `/about`,
+  // which had replaced `/contact`. Each swap is this app absorbing one more
+  // page from the live site.
+  //
+  // `/softsuave-career` should outlast them: it is HR's applicant intake form,
+  // not a marketing page, and this app has no reason to grow one. Our own
+  // careers page deliberately links out to it (see `careers-content.ts`), so
+  // this assertion is load-bearing rather than illustrative — if it ever goes
+  // local, every "Apply Now" on /career-overview breaks with it.
   it('sends paths this app does not serve to the live site in either release state', async () => {
     for (const flag of ['true', 'false']) {
       const { navHref, isExternalHref } = await loadNav(flag);
-      expect(navHref('/career-overview')).toBe(`${SITE}/career-overview`);
-      expect(isExternalHref('/career-overview')).toBe(true);
+      expect(navHref('/softsuave-career')).toBe(`${SITE}/softsuave-career`);
+      expect(isExternalHref('/softsuave-career')).toBe(true);
+    }
+  });
+
+  // An href that is already a complete destination must survive untouched.
+  // `navHref` prefixes anything it does not recognise with SITE, which turned
+  // `mailto:careers@softsuave.com` into
+  // `https://www.softsuave.commailto:careers@softsuave.com` — a dead link that
+  // failed silently. /career-overview's HR cards are mailto links, so this is
+  // the guard on them.
+  it('passes complete URLs and non-http schemes through untouched', async () => {
+    for (const flag of ['true', 'false']) {
+      const { navHref, isExternalHref } = await loadNav(flag);
+      for (const href of [
+        'https://www.softsuave.com/30-min-free-consultation',
+        'http://example.com/x',
+        '//cdn.example.com/y',
+        'mailto:careers@softsuave.com',
+        'tel:+918015159981',
+      ]) {
+        expect(navHref(href), href).toBe(href);
+        expect(isExternalHref(href), href).toBe(true);
+      }
     }
   });
 
@@ -169,7 +197,7 @@ describe('navRoute', () => {
   it('leaves paths this app does not serve to navHref, absolute and unprefixed', async () => {
     for (const flag of ['true', 'false']) {
       const { navRoute } = await loadNav(flag);
-      expect(navRoute('/career-overview')).toBe(`${SITE}/career-overview`);
+      expect(navRoute('/softsuave-career')).toBe(`${SITE}/softsuave-career`);
     }
   });
 });

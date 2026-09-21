@@ -288,7 +288,7 @@ const INDUSTRIES: NavMenuPanel = {
         // had a page of its own. Now that they do, the group links to the real
         // routes — `navHref` sends them to the live site until `homepageEnabled`
         // is on, and to ours once it is (see MARKETING_PATHS in
-        // themes/softsuave/nav-data.ts). Aviation is the one sector with no
+        // themes/softsuave/nav-data.ts). Construction is the one sector with no
         // homepage band of its own, so the panel is the only way to reach it.
         { name: "FinTech", href: "/fintech-ai-solutions", blurb: "Fraud detection and personalised banking" },
         { name: "HealthTech", href: "/ai-solutions-in-healthtech", blurb: "Patient outcomes and clinical workflows" },
@@ -297,7 +297,6 @@ const INDUSTRIES: NavMenuPanel = {
         { name: "Logistics", href: "/ai-in-logistics", blurb: "Forecasting and route optimisation" },
         { name: "Telecom", href: "/ai-solutions-for-telecom", blurb: "Predictive maintenance and network AI" },
         { name: "Construction", href: "/ai-solutions-for-construction", blurb: "Site safety and delay forecasting" },
-        { name: "Aviation", href: "/ai-in-aviation", blurb: "Fleet uptime and ground-operations AI" },
       ],
     },
     {
@@ -336,7 +335,15 @@ const COMPANY: NavMenuPanel = {
       key: "engage",
       name: "Working with us",
       items: [
-        { name: "How to Hire", href: "/how-to-hire", blurb: "The engagement models, step by step" },
+        /* Not "/how-to-hire": that path 301s on the live site to
+           /hire-software-developers, which we already serve. Pointing the menu
+           at the redirect target rather than building a duplicate page keeps
+           one canonical URL for the engagement models. */
+        {
+          name: "How to Hire",
+          href: "/hire-software-developers",
+          blurb: "The engagement models, step by step",
+        },
         { name: "Free Cost Estimation", href: "/free-cost-estimation", blurb: "A costed plan before you commit" },
         { name: "FAQs", href: "/faqs", blurb: "Contracts, IP, notice periods, overlap hours" },
       ],

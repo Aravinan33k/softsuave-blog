@@ -34,5 +34,13 @@ const ROWS: ComparisonContent["rows"] = [
  * copy we wrote.
  */
 export function partnerTable(title: string, body = ""): ComparisonContent {
-  return { eyebrow: "Compare", title, body, columns: [...COLUMNS], rows: ROWS };
+  /* `verdict` paints the Soft Suave column as the recommended option. The
+     per-row tick is NOT blanket: `leadWinsRow` in the table component drops it
+     on the two rows where in-house matches us ("Dedicated resources: Yes / Yes"
+     and "Communications: Seamless / Seamless"), so the table never claims a win
+     its own cells contradict.
+
+     No `verdictNote`: the live pages close this band on the table, and a line
+     here would be copy we wrote rather than copy they publish. */
+  return { eyebrow: "Compare", title, body, columns: [...COLUMNS], rows: ROWS, verdict: true };
 }

@@ -1,16 +1,19 @@
-"use client";
-
-import { useRef, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { caComparison } from "@/lib/home/custom-ai-content";
-import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
-import SectionHead from "@/components/landing/section-head";
-import styles from "@/components/landing/landing.module.css";
+import LandingComparison from "@/components/landing/comparison";
 
 /**
  * One icon per comparison area (`caComparison.rows`, in order) — purely
- * decorative (`aria-hidden`, the row's own heading already names the area),
- * just a visual anchor so eight rows of prose don't read as one grey block.
- * Same inline-`<svg>`/stroke convention as `Hero`'s field icons.
+ * decorative (`aria-hidden` on the wrapper, the row's own heading already
+ * names the area), just a visual anchor so eight rows of prose don't read as
+ * one grey block.
+ *
+ * These are the *insides* of the shared table's 24×24 stroke icon: the
+ * wrapper, its stroke props and `.cmpAreaIcon` all live in
+ * `landing/comparison.tsx`, so this list cannot drift off that section's icon
+ * style. They stay here rather than moving into the shared component because
+ * they are specific to what THIS page compares — a padlock means "Security"
+ * only on a page that has a Security row.
  */
 const ROW_ICONS: readonly ReactNode[] = [
   // Customization — adjustment sliders
@@ -56,115 +59,44 @@ const ROW_ICONS: readonly ReactNode[] = [
   </g>,
 ];
 
-const iconProps = {
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 1.7,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-  "aria-hidden": true,
-};
-
 /**
  * Custom vs. off-the-shelf comparison.
  *
- * Was a table-on-desktop/cards-on-mobile pair reusing the shared `cmp*`
- * classes; now one responsive layout at every width instead of two parallel
- * markups, no `<table>` needed since each row is really just two labelled
- * values, not a grid of independently-sortable cells: each "area" is its own
- * bordered card, holding its Custom vs. Off-the-shelf pair side by side
- * (stacked below 640px, with a hairline moving from between the pair to
- * under each label).
+ * A thin adapter over the shared `landing/comparison` table: this page used to
+ * carry its own card-per-row markup (one bordered panel per area, holding the
+ * two values side by side), which stated "Custom AI Solutions" and
+ * "Off-the-Shelf AI Tools" again on every one of the eight rows. Stating each
+ * heading ONCE at the top is what makes the section read as a comparison
+ * rather than a stack of boxes, and it is what a reader scanning for the
+ * difference actually needs.
  *
- * Reveals as one shared ScrollTrigger, staggered row by row: each row's
- * icon+heading fades up first, then its two value cells slide in from
- * opposite edges toward the middle — a small "converging" motion that
- * echoes the vs. framing. A click/tap on a card additionally gives it a
- * quick squash-and-spring — the same click-bounce language as `why-us.tsx`'s
- * proof cards, decorative only (no button role).
+ * Everything else comes free with the shared component: a real `<table>` (so a
+ * screen reader announces the column per cell), the reflow to one card per row
+ * below 760px, and the section's scroll-in. The only thing this page adds back
+ * is `ROW_ICONS` — the shared table's own marks are deliberately generic.
+ *
+ * `columns` is positional against each row's `values`, so the order here is
+ * the contract: custom first, which is the column the page is arguing for and
+ * the one the table paints as the lead.
  */
 export default function Comparison() {
   const { columns, rows } = caComparison;
-  const root = useRef<HTMLOListElement | null>(null);
-
-  const bounce = (e: React.MouseEvent<HTMLLIElement>) => {
-    if (prefersReducedMotion()) return;
-    gsap.fromTo(
-      e.currentTarget,
-      { scale: 0.97 },
-      { scale: 1, duration: 0.6, ease: "elastic.out(1, 0.5)", overwrite: true },
-    );
-  };
-
-  useGSAP(
-    () => {
-      if (prefersReducedMotion() || !root.current) return;
-      const items = gsap.utils.toArray<HTMLElement>(`.${styles.cmpRow}`, root.current);
-      if (!items.length) return;
-
-      const heads = items.map((row) => row.querySelector<HTMLElement>(`.${styles.cmpRowHead}`));
-      const leads = items.map((row) => row.querySelector<HTMLElement>(`.${styles.cmpCellLead}`));
-      const others = items.map((row) =>
-        row.querySelector<HTMLElement>(`.${styles.cmpCell}:not(.${styles.cmpCellLead})`),
-      );
-
-      gsap.set(heads.filter(Boolean), { opacity: 0, y: 10 });
-      gsap.set(leads.filter(Boolean), { opacity: 0, x: -24 });
-      gsap.set(others.filter(Boolean), { opacity: 0, x: 24 });
-
-      const tl = gsap.timeline({
-        scrollTrigger: { trigger: root.current, start: "top 85%", once: true },
-      });
-      tl.to(heads.filter(Boolean), { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", stagger: 0.12 }, 0)
-        .to(leads.filter(Boolean), { opacity: 1, x: 0, duration: 0.5, ease: "power2.out", stagger: 0.12 }, 0.1)
-        .to(others.filter(Boolean), { opacity: 1, x: 0, duration: 0.5, ease: "power2.out", stagger: 0.12 }, 0.1);
-    },
-    { scope: root },
-  );
 
   return (
-    <section className={styles.sectionShell} id="comparison">
-      <SectionHead
-        kicker={caComparison.eyebrow}
-        title={caComparison.title}
-        intro={caComparison.body}
-      />
-
-      <ol ref={root} className={styles.cmpRows}>
-        {rows.map((r, i) => (
-          <li key={r.area} className={styles.cmpRow} onClick={bounce}>
-            <div className={styles.cmpRowHead}>
-              <svg {...iconProps} className={styles.cmpRowIcon}>
-                {ROW_ICONS[i % ROW_ICONS.length]}
-              </svg>
-              <h3 className={styles.cmpRowArea}>{r.area}</h3>
-            </div>
-
-            <div className={styles.cmpRowGrid}>
-              <div className={`${styles.cmpCell} ${styles.cmpCellLead}`}>
-                <span className={styles.cmpCellLabel}>
-                  <svg {...iconProps} className={styles.cmpCellIcon}>
-                    <path d="M5 12.5l4 4 10-10" />
-                  </svg>
-                  {columns.custom}
-                </span>
-                <p className={styles.cmpCellText}>{r.custom}</p>
-              </div>
-
-              <div className={styles.cmpCell}>
-                <span className={styles.cmpCellLabel}>
-                  <svg {...iconProps} className={styles.cmpCellIcon}>
-                    <circle cx="12" cy="12" r="8" />
-                  </svg>
-                  {columns.offTheShelf}
-                </span>
-                <p className={styles.cmpCellText}>{r.offTheShelf}</p>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ol>
-    </section>
+    <LandingComparison
+      content={{
+        eyebrow: caComparison.eyebrow,
+        title: caComparison.title,
+        body: caComparison.body,
+        columns: [columns.custom, columns.offTheShelf],
+        rows: rows.map((r) => ({ area: r.area, values: [r.custom, r.offTheShelf] })),
+        icons: ROW_ICONS,
+        /* This page exists to argue for custom, and every row here favours it
+           — so the table says so rather than laying eight rows out neutrally
+           and leaving the reader to total them up. */
+        verdict: true,
+        verdictNote: caComparison.verdictNote,
+      }}
+    />
   );
 }
