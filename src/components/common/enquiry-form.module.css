@@ -45,7 +45,12 @@
   border-radius: 20px;
   background: #fff;
   color: var(--fx-ink);
-  padding: clamp(26px, 3vw, 40px);
+  /* Tightened from clamp(26px, 3vw, 40px). The card is the hero's conversion
+     path, so it has to be readable WITHOUT scrolling: at 1366x768 — still the
+     commonest laptop — the old card measured 730px against a 768px viewport
+     and pushed its own submit button under the fold. Generous padding that
+     hides the button is not generous. */
+  padding: clamp(22px, 2.4vw, 32px);
   /* Three layers rather than one: a hairline to seat the card on its own
      edge, a mid shadow for shape, and a wide soft one for the float. A
      single large blur reads as haze over a photographic hero. */
@@ -98,9 +103,9 @@
 
 /* Supporting sentence under the title, where a page supplies one. */
 .body {
-  margin: 0.6em 0 0;
-  font-size: 0.9rem;
-  line-height: 1.6;
+  margin: 0.5em 0 0;
+  font-size: 0.875rem;
+  line-height: 1.55;
   color: var(--fx-muted);
 }
 
@@ -113,7 +118,7 @@
   display: block;
   width: 56px;
   height: 3px;
-  margin: 14px auto 0;
+  margin: 11px auto 0;
   border: 0;
   border-radius: 999px;
   background: linear-gradient(
@@ -127,13 +132,38 @@
 /* ---------- fields ---------- */
 .fields {
   display: grid;
-  gap: 16px;
-  margin-top: clamp(22px, 2.4vw, 28px);
+  gap: 14px;
+  margin-top: clamp(18px, 2vw, 22px);
 }
 
 .field {
   display: grid;
-  gap: 7px;
+  gap: 6px;
+}
+
+/* Two fields sharing a row.
+   The form asks for four things, which as four stacked rows made the card
+   taller than a laptop viewport. Pairing the two short required fields — name
+   and work email — removes a whole row without removing a question, and it is
+   what a reader expects of a B2B enquiry form: identity on one line, then the
+   optional detail, then the brief.
+   Below 560px the card is narrow enough that two columns would leave each
+   field too cramped to read what you typed, so the pair stacks again. */
+.row {
+  display: grid;
+  gap: 14px;
+}
+
+/* Not 1fr 1fr: the two fields hold different-length values. A name is short
+   ("Jane Doe"); a work address is not, and at an even split the placeholder
+   and any real address clipped at the field edge. The email column takes the
+   larger share so what the reader types stays readable.
+   `minmax(0, …)` because a grid column's default `min-width: auto` refuses to
+   shrink below its content, which would push the row wider than the card. */
+@media (min-width: 560px) {
+  .row {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  }
 }
 
 /* The label is support, the value is the content — so the label is SMALLER
@@ -200,8 +230,108 @@
 }
 
 .textarea {
-  min-height: 104px;
+  /* Was 104px. Three lines is enough room to begin a brief, and the control
+     still takes any length: it scrolls, and `resize: vertical` lets the reader
+     pull it open. Idle height that pushes the submit button off-screen costs
+     more than it gives.
+
+     Sized to a WHOLE number of lines — 4 × 1.45em, plus the 0.8em padding on
+     each edge and the borders. Two reasons for the exact figure:
+
+       whole lines  at 84px the box ended mid-line and sliced the placeholder
+                    through the middle of a row, which reads as a rendering
+                    fault rather than as text continuing.
+       four of them the placeholder is guidance on what to write, and on the
+                    14 hire-role pages it runs to ~110 characters, which wraps
+                    to four lines here. At three, the last line of the
+                    instruction was cut off — the reader loses the end of the
+                    sentence telling them what to include. */
+  min-height: calc(4 * 1.45em + 1.6em + 2px);
   resize: vertical;
+}
+
+/* ---------- phone, with its country calling code ---------- */
+/* `auto 1fr` and not two flexed halves: the code sizes to its own text, from
+   "+1" to "+998", and the number takes every pixel that is left. */
+.phoneRow {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px;
+  align-items: start;
+}
+
+.dialWrap {
+  position: relative;
+  display: inline-flex;
+}
+
+/* The real control, laid transparently over the span that paints the code.
+   Native `<select>` renders the full option text ("India (+91)") when closed,
+   which is far too wide to sit beside the number — but replacing it with a
+   custom listbox would cost the keyboard handling, the screen-reader role and
+   the mobile picker that come free here. So the select keeps all of that and
+   gives up only its paint. 16px so mobile Safari does not zoom the page on
+   focus, same reason as `.input`. */
+.dialSelect {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+/* The dropdown list itself is painted by the platform, which inherits neither
+   the card's variables nor its colours — without this, a dark-UI browser
+   shows white-on-white options. */
+.dialSelect option {
+  color: #111;
+  background: #fff;
+}
+
+.dialValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.8em 0.9em;
+  border: 1px solid var(--fx-line);
+  border-radius: var(--fx-radius);
+  background: var(--fx-well);
+  color: var(--fx-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.45;
+  white-space: nowrap;
+  /* clicks belong to the select underneath */
+  pointer-events: none;
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.dialCaret {
+  width: 10px;
+  height: 6px;
+  opacity: 0.55;
+}
+
+/* The focus and hover states the select cannot show, carried to the span that
+   is actually visible. `:focus` rather than `:focus-visible`, matching
+   `.input` — the control is transparent, so there is no caret or highlight to
+   stand in for a ring. */
+.dialSelect:hover + .dialValue {
+  border-color: var(--fx-line-hover);
+}
+
+.dialSelect:focus + .dialValue {
+  background: #fff;
+  border-color: var(--accent, #ff5436);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #ff5436) 22%, transparent);
 }
 
 .input::placeholder,
@@ -377,7 +507,7 @@
 }
 
 .note {
-  margin: 14px 0 0;
+  margin: 12px 0 0;
   font-size: 0.78rem;
   line-height: 1.55;
   color: var(--fx-muted);
@@ -455,5 +585,37 @@
   .submit:hover,
   .submit:active {
     transform: none;
+  }
+}
+
+/* Short viewports — a 768px-tall laptop, or a tall desktop whose browser eats
+   200px in tabs, URL bar and bookmarks. These are where the card runs past the
+   fold and hides its own submit button, and they are common enough that the
+   comfortable desktop rhythm cannot be the only one.
+
+   This tightens the card's SPACING, never its content: every field, the
+   button, the alert and the full placeholder are all still there. The textarea
+   drops to three whole lines (still whole — see `.textarea`), which is the one
+   place the form can give back real height without losing a question.
+
+   Keyed on height, not width: the constraint is vertical, and a 1920x800
+   window has exactly the same problem as a 1366x768 one. */
+@media (max-height: 820px) {
+  .card {
+    padding: 20px clamp(20px, 2.4vw, 28px);
+  }
+
+  .fields {
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .textarea {
+    min-height: calc(3 * 1.45em + 1.6em + 2px);
+  }
+
+  .note,
+  .alert {
+    margin-top: 10px;
   }
 }

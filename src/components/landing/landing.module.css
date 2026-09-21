@@ -6871,3 +6871,29 @@
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+
+/* Short viewports — the display hero and the fold.
+   `.hero`'s 150px of top padding is right on a tall screen and is the reason
+   this variant's enquiry card runs past the fold on a 768px-tall laptop: the
+   card starts 202px down and has only 566px of fold left to live in, against a
+   ~583px card. The compact variant already sits at 90px here and fits, which
+   is where the replacement figure comes from — this brings display toward
+   compact rather than inventing a number.
+
+   `:not(.heroCompact)` because both classes are applied together (see
+   hero.tsx) and this rule is later in the file: without it, the compact hero
+   would inherit this padding too and lose its own tighter setting.
+
+   Keyed on height for the same reason `enquiry-form.module.css`'s rule is: the
+   constraint is vertical, and a 1920x800 window has the problem a 1366x768 one
+   has. */
+@media (max-height: 820px) {
+  .hero:not(.heroCompact) {
+    /* Deliberately `.heroCompact`'s own figures rather than a third set: on a
+       screen this short the display hero adopts the compact variant's vertical
+       rhythm, which is already proven to fit its card here. Keeping them
+       identical means one number to change if that rhythm is ever retuned. */
+    padding-top: clamp(78px, 6.6vw, 98px);
+    padding-bottom: clamp(32px, 3.4vw, 52px);
+  }
+}

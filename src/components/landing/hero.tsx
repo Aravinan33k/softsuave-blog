@@ -10,9 +10,7 @@ import {
   NAME_HINT,
   NAME_MESSAGE,
   NAME_PATTERN,
-  PHONE_HINT,
   PHONE_MESSAGE,
-  PHONE_PATTERN,
   isValidName,
   isValidPhone,
 } from "@/lib/forms/enquiry-rules";
@@ -21,6 +19,7 @@ import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import styles from "./landing.module.css";
 import fx from "@/components/common/enquiry-form.module.css";
 import FieldIcon, { RequiredMark } from "@/components/common/field-icon";
+import PhoneField from "@/components/common/phone-field";
 
 /**
  * Shape of the copy this hero renders. Every AI landing page supplies its own
@@ -411,45 +410,50 @@ export default function Hero({
               />
             </div>
 
-            <div className={fx.field}>
-              <label className={fx.label} htmlFor={`${idPrefix}-name`}>
-                <FieldIcon name="person" />
-                Full name
-                <RequiredMark />
-              </label>
-              <input
-                id={`${idPrefix}-name`}
-                className={fx.input}
-                type="text"
-                name="name"
-                autoComplete="name"
-                required
-                minLength={2}
-                pattern={NAME_PATTERN}
-                title={NAME_HINT}
-                value={form.name}
-                onChange={set("name")}
-                placeholder="Jane Doe"
-              />
-            </div>
+            {/* Name and email share a row from 560px up — see `.row`.
+                Four stacked fields made the card taller than a 768px
+                laptop viewport, hiding its own submit button. */}
+            <div className={fx.row}>
+              <div className={fx.field}>
+                <label className={fx.label} htmlFor={`${idPrefix}-name`}>
+                  <FieldIcon name="person" />
+                  Full name
+                  <RequiredMark />
+                </label>
+                <input
+                  id={`${idPrefix}-name`}
+                  className={fx.input}
+                  type="text"
+                  name="name"
+                  autoComplete="name"
+                  required
+                  minLength={2}
+                  pattern={NAME_PATTERN}
+                  title={NAME_HINT}
+                  value={form.name}
+                  onChange={set("name")}
+                  placeholder="Jane Doe"
+                />
+              </div>
 
-            <div className={fx.field}>
-              <label className={fx.label} htmlFor={`${idPrefix}-email`}>
-                <FieldIcon name="mail" />
-                Work email
-                <RequiredMark />
-              </label>
-              <input
-                id={`${idPrefix}-email`}
-                className={fx.input}
-                type="email"
-                name="email"
-                autoComplete="email"
-                required
-                value={form.email}
-                onChange={set("email")}
-                placeholder="jane@company.com"
-              />
+              <div className={fx.field}>
+                <label className={fx.label} htmlFor={`${idPrefix}-email`}>
+                  <FieldIcon name="mail" />
+                  Work email
+                  <RequiredMark />
+                </label>
+                <input
+                  id={`${idPrefix}-email`}
+                  className={fx.input}
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  required
+                  value={form.email}
+                  onChange={set("email")}
+                  placeholder="jane@company.com"
+                />
+              </div>
             </div>
 
             <div className={fx.field}>
@@ -457,18 +461,10 @@ export default function Hero({
                 <FieldIcon name="phone" />
                 Phone <span className={fx.optional} aria-hidden>(optional)</span>
               </label>
-              <input
+              <PhoneField
                 id={`${idPrefix}-phone`}
-                className={fx.input}
-                type="tel"
-                name="phone"
-                autoComplete="tel"
-                inputMode="tel"
-                pattern={PHONE_PATTERN}
-                title={PHONE_HINT}
                 value={form.phone}
-                onChange={set("phone")}
-                placeholder="+1 555 000 1234"
+                onChange={(phone) => setForm((f) => ({ ...f, phone }))}
               />
             </div>
 
