@@ -69,6 +69,15 @@ const schema = z
     // the empty results one layer down.
     SEARCH_MIN_TOKEN_SIZE: z.coerce.number().int().min(1).max(10).default(3),
 
+    // MaxMind GeoLite2-Country database, used to preselect the enquiry form's
+    // phone country code. Licensed and refreshed weekly upstream, so it is not
+    // committed — `npm run geo:update` downloads it. Optional: with no file
+    // present every form simply defaults to +91 (see lib/geo/country.ts).
+    GEOIP_DB_PATH: z.string().default('./data/GeoLite2-Country.mmdb'),
+    // Free MaxMind account → Manage License Keys. Read only by the download
+    // script; the running app never contacts MaxMind.
+    MAXMIND_LICENSE_KEY: z.string().default(''),
+
     RATE_LIMIT_DRIVER: z.enum(['memory', 'upstash']).default('memory'),
     UPSTASH_REDIS_REST_URL: z.string().default(''),
     UPSTASH_REDIS_REST_TOKEN: z.string().default(''),

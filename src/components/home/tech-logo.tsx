@@ -449,6 +449,107 @@ export default function TechLogo({ name }: { name: string }) {
           <circle cx="16.5" cy="5.4" r="1.2" fill="#44B78B" />
         </svg>
       );
+    case "flask":
+      // Flask's horn/drinking-vessel silhouette
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.4 2.6h3.4v5.1l5.4 9.1c1 1.7-.2 3.9-2.2 3.9H8c-2 0-3.2-2.2-2.2-3.9l3.6-6.1V2.6Z" fill="#111111" />
+          <path d="M7.5 14.4h8.8" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+          <path d="M8.4 2.6h5" stroke="#111111" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      );
+    case "pyramid":
+      // Pyramid — the framework's stepped triangle
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.8 21 20H3L12 2.8Z" fill="#E4A83C" />
+          <path d="M12 2.8V20" stroke="white" strokeWidth="1.1" strokeOpacity="0.75" />
+          <path d="M7.4 11.7h9.2M5.2 15.9h13.6" stroke="white" strokeWidth="1.1" strokeOpacity="0.75" />
+        </svg>
+      );
+    case "laravel":
+      // Laravel's red angular "L" mark
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.4 5.6 6.6 3.2l4.2 2.4-4.2 2.4-4.2-2.4Z" fill="#FF2D20" />
+          <path d="M2.4 5.6v8.1l4.2 2.4V8l-4.2-2.4Z" fill="#C21B0F" />
+          <path d="M10.8 10.4 15 8l4.2 2.4-4.2 2.4-4.2-2.4Z" fill="#FF2D20" />
+          <path d="M10.8 10.4v8.1l4.2 2.4v-8.1l-4.2-2.4Z" fill="#C21B0F" />
+          <path d="M19.2 10.4v5.7L15 18.5v-5.7l4.2-2.4Z" fill="#FF6154" />
+        </svg>
+      );
+    case "cakephp":
+      // CakePHP — a red slice of layered cake
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.4 11.6h17.2v6.2c0 1.2-3.9 2.2-8.6 2.2s-8.6-1-8.6-2.2v-6.2Z" fill="#D33C43" />
+          <ellipse cx="12" cy="11.6" rx="8.6" ry="2.3" fill="#EE5A5F" />
+          <path d="M12 4v4.4" stroke="#D33C43" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="12" cy="3.4" r="1.4" fill="#F5A623" />
+        </svg>
+      );
+    case "codeigniter":
+      // CodeIgniter's orange flame
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.6 1.8c.7 2.4-.4 3.6-1.9 4.9-1.6 1.4-3.6 3-3.6 6.2 0 4 3.1 6.9 6.6 6.9-2.6-1.6-3.4-3.6-2.5-5.6.7-1.6 2.4-2.6 3.6-4.1 1.9-2.3 1.4-5.6-2.2-8.3Z" fill="#DD4814" />
+          <path d="M9.6 12.4c-1.6 1.5-2.2 3.1-1.8 4.7.5 2.1 2.6 3.6 5.1 3.9-3.6.5-6.9-1.6-7.6-4.6-.5-2.2.6-4.4 2.6-5.7l1.7 1.7Z" fill="#EE6C2C" />
+        </svg>
+      );
+    case "zend":
+      // Zend — the framework's blue chevron block
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2.4" y="4.4" width="19.2" height="15.2" rx="2.6" fill="#0B7EC8" />
+          <path d="M7 9h10l-10 6h10" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "yii":
+      // Yii — the framework's bold blue/green wordmark initial
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2.4" y="2.4" width="19.2" height="19.2" rx="4" fill="#0073BB" />
+          <path d="M6.6 6.6 9.9 12v5.4" stroke="white" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M13.2 6.6 9.9 12" stroke="white" strokeWidth="1.9" strokeLinecap="round" />
+          <circle cx="16.4" cy="8" r="1.3" fill="#8DC63F" />
+          <path d="M16.4 11.2v6.2" stroke="#8DC63F" strokeWidth="1.9" strokeLinecap="round" />
+        </svg>
+      );
+    case "soap":
+      // SOAP — an XML envelope, which is what the protocol puts on the wire
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2.4" y="5" width="19.2" height="14" rx="2.4" fill="#4A6FA5" />
+          <path d="m2.9 6.6 9.1 6.2 9.1-6.2" stroke="white" strokeWidth="1.6" strokeLinejoin="round" />
+          <path d="M8.6 16.4 6.8 14.6l1.8-1.8M15.4 16.4l1.8-1.8-1.8-1.8" stroke="white" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "json":
+      // JSON — its two braces
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.6 3.4c-2.3 0-2.6 1.4-2.6 3.2 0 2-.5 3.3-2.2 3.4v2c1.7.1 2.2 1.4 2.2 3.4 0 1.8.3 3.2 2.6 3.2" stroke="#F5A623" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M14.4 3.4c2.3 0 2.6 1.4 2.6 3.2 0 2 .5 3.3 2.2 3.4v2c-1.7.1-2.2 1.4-2.2 3.4 0 1.8-.3 3.2-2.6 3.2" stroke="#F5A623" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="12" cy="12" r="1.5" fill="#F5A623" />
+        </svg>
+      );
+    case "ajax":
+      // AJAX — the asynchronous request/response round trip
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.4 9.6a8 8 0 0 1 13.3-3.1" stroke="#2F74C0" strokeWidth="1.9" strokeLinecap="round" />
+          <path d="M19.6 14.4a8 8 0 0 1-13.3 3.1" stroke="#2F74C0" strokeWidth="1.9" strokeLinecap="round" />
+          <path d="M17.9 2.9v3.8h-3.8M6.1 21.1v-3.8h3.8" stroke="#2F74C0" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "sass":
+      // Sass's pink ampersand-in-a-circle mark
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9.4" fill="#CD6799" />
+          <path d="M16.6 10.1c-.7-1.4-3-1.6-4.9-1-1.7.6-2.6 1.7-2.3 2.8.3 1.2 1.9 1.7 3.2 2.3 1 .5 1.7 1 1.5 1.7-.2.8-1.5 1.1-2.5.8-.8-.2-1.2-.8-1-1.3.1-.4.5-.6.8-.7" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
     case "nestjs":
     case "nest":
       // NestJS red cat-head hexagon

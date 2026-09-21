@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { appPath } from "@/lib/media-url";
 import { PHONE_HINT, PHONE_PATTERN } from "@/lib/forms/enquiry-rules";
 import { DEFAULT_DIAL, DIAL_CODES, detectDialCode, splitPhone } from "@/lib/forms/dial-codes";
 import fx from "./enquiry-form.module.css";
@@ -52,9 +53,54 @@ export default function PhoneField({
   // Detection runs after mount and never during render: these pages are
   // static/ISR, so the server has no timezone to read and guessing during
   // render would mean hydrating a bar the server could not have produced.
+  //
+  // Two passes, cheapest first. `detectDialCode` is synchronous and lands in
+  // the first commit, so the field is never wrong-then-right in front of the
+  // reader for longer than a frame. `/api/v1/geo` then refines it from the IP,
+  // which is the one signal the browser cannot produce itself — it catches the
+  // machine whose clock and locale were never changed from the factory. It is
+  // allowed to overrule the timezone guess, but never the reader.
   useEffect(() => {
     if (chosen.current) return;
     setDial(detectDialCode());
+
+    const CACHE_KEY = "ss:enquiry-dial";
+    let alive = true;
+
+    const apply = (next: string) => {
+      if (alive && !chosen.current) setDial(next);
+    };
+
+    try {
+      const cached = sessionStorage.getItem(CACHE_KEY);
+      if (cached) {
+        apply(cached);
+        return;
+      }
+    } catch {
+      // Private mode or blocked storage: skip the cache and just ask.
+    }
+
+    // Deliberately no error branch. Offline, rate-limited, or a deployment
+    // with no GeoLite2 database installed all leave the timezone guess
+    // standing, which is a working answer and not worth interrupting anyone
+    // over. `appPath` because `fetch` does not apply `basePath`.
+    fetch(appPath("/api/v1/geo"))
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { dial?: string } | null) => {
+        if (!d?.dial) return;
+        try {
+          sessionStorage.setItem(CACHE_KEY, d.dial);
+        } catch {
+          /* the answer is already in hand; caching it is the optional part */
+        }
+        apply(d.dial);
+      })
+      .catch(() => {});
+
+    return () => {
+      alive = false;
+    };
   }, []);
 
   /**

@@ -40,6 +40,10 @@ export const hero = {
     title: 'Tell us what you need',
     body: 'Share your requirement and we will come back with an approach, timeline, and estimate.',
     submit: 'Get My Project Estimate',
+    sending: 'Sending...',
+    requirementLabel: 'What do you want to build?',
+    requirementPlaceholder: 'The problem, the data you have, and where it should run.',
+    subject: 'AI Development Services enquiry',
     note: 'No obligation. We reply within one business day.',
   },
 } as const;

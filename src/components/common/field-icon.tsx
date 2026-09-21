@@ -40,7 +40,7 @@ const PATHS: Record<FieldIconName, React.ReactNode> = {
 export default function FieldIcon({ name }: { name: FieldIconName }) {
   return (
     <svg
-      className={fx.labelIcon}
+      className={fx.fieldIcon}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

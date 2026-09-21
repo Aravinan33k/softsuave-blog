@@ -1,17 +1,14 @@
 "use client";
 
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef } from "react";
 import Image from "next/image";
-import { SiteLink } from "@/themes/softsuave/site-link";
-import { brand } from "@/lib/home/content";
 import { hero as generativeAiHero } from "@/lib/home/generative-ai";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
 import { isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import styles from "./gen-ai.module.css";
 import fx from "@/components/common/enquiry-form.module.css";
-import FieldIcon, { RequiredMark } from "@/components/common/field-icon";
-import PhoneField from "@/components/common/phone-field";
+import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
 
 /**
  * Shape of the copy this hero renders. Every AI landing page supplies its own
@@ -40,22 +37,8 @@ export interface HeroContent {
     src: string;
     blurDataURL?: string;
   };
-  form: {
-    eyebrow: string;
-    title: string;
-    note: string;
-    submit: string;
-    sending: string;
-    requirementLabel: string;
-    requirementPlaceholder: string;
-    /** Subject line of the composed mailto. */
-    subject: string;
-    /**
-     * Notice under the form steering job applicants away from the sales
-     * inbox. `href` is passed to next/link, so it picks up the basePath.
-     */
-    alert?: { label: string; text: string; linkLabel: string; href: string };
-  };
+  /** Copy for the enquiry card; the card itself is `common/enquiry-form`. */
+  form: EnquiryFormContent;
 }
 
 /**
@@ -67,14 +50,8 @@ export interface HeroContent {
  * tags and buttons instead of capsules, and hairline-ruled supporting points
  * instead of a bulleted list.
  *
- * The form posts nowhere: this deployment has no lead endpoint, and the
- * marketing surface's established convention for enquiries is a composed
- * `mailto:` (see `components/home/contact.tsx`). Submitting therefore opens the
- * visitor's mail client pre-filled with what they typed, so no requirement is
- * silently dropped. Swap `onSubmit` for a POST once a leads API exists.
- *
- * `idPrefix` namespaces the field ids so each landing page's form owns its own
- * label/control pairs.
+ * The enquiry card is `common/enquiry-form`; `idPrefix` namespaces its field
+ * ids and doubles as the lead's `sourceKey`.
  */
 export default function Hero({
   content = generativeAiHero,
@@ -84,11 +61,6 @@ export default function Hero({
   idPrefix?: string;
 } = {}) {
   const root = useRef<HTMLElement | null>(null);
-  const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", requirement: "" });
-
-  const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm((f) => ({ ...f, [key]: e.target.value }));
 
   useGSAP(
     () => {
@@ -104,6 +76,7 @@ export default function Hero({
         .from(`.${styles.heroBody}`, { opacity: 0, y: 20, duration: 0.7, ease: "power2.out", stagger: 0.08 }, "-=0.5")
         .from(`.${styles.heroPoint}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.05 }, "-=0.4")
         .from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3")
+        .from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3")
         .from(`.${fx.card}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
 
       // Backdrop lifts out of black underneath all of that — the same hand-off
@@ -114,24 +87,6 @@ export default function Hero({
     },
     { scope: root },
   );
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const body = [
-      `Name: ${form.name}`,
-      `Email: ${form.email}`,
-      form.phone ? `Phone: ${form.phone}` : null,
-      "",
-      "Requirement:",
-      form.requirement,
-    ]
-      .filter((l) => l !== null)
-      .join("\n");
-    setSent(true);
-    window.location.href = `mailto:${brand.email}?subject=${encodeURIComponent(
-      content.form.subject,
-    )}&body=${encodeURIComponent(body)}`;
-  };
 
   const lastLine = content.titleLines.length - 1;
 
@@ -225,114 +180,7 @@ export default function Hero({
           )}
         </div>
 
-        <div className={fx.card} id="enquiry">
-          <div className={fx.header}>
-            <span className={fx.eyebrow}>{content.form.eyebrow}</span>
-            <p className={fx.title}>{content.form.title}</p>
-            <span className={fx.accent} aria-hidden />
-          </div>
-
-          <form className={fx.fields} onSubmit={onSubmit}>
-            {/* Name and email share a row from 560px up — see `.row`.
-                Four stacked fields made the card taller than a 768px
-                laptop viewport, hiding its own submit button. */}
-            <div className={fx.row}>
-              <div className={fx.field}>
-                <label className={fx.label} htmlFor={`${idPrefix}-name`}>
-                  <FieldIcon name="person" />
-                  Full name
-                  <RequiredMark />
-                </label>
-                <input
-                  id={`${idPrefix}-name`}
-                  className={fx.input}
-                  type="text"
-                  name="name"
-                  autoComplete="name"
-                  required
-                  value={form.name}
-                  onChange={set("name")}
-                  placeholder="Jane Doe"
-                />
-              </div>
-
-              <div className={fx.field}>
-                <label className={fx.label} htmlFor={`${idPrefix}-email`}>
-                  <FieldIcon name="mail" />
-                  Work email
-                  <RequiredMark />
-                </label>
-                <input
-                  id={`${idPrefix}-email`}
-                  className={fx.input}
-                  type="email"
-                  name="email"
-                  autoComplete="email"
-                  required
-                  value={form.email}
-                  onChange={set("email")}
-                  placeholder="jane@company.com"
-                />
-              </div>
-            </div>
-
-            <div className={fx.field}>
-              <label className={fx.label} htmlFor={`${idPrefix}-phone`}>
-                <FieldIcon name="phone" />
-                Phone <span className={fx.optional} aria-hidden>(optional)</span>
-              </label>
-              <PhoneField
-                id={`${idPrefix}-phone`}
-                value={form.phone}
-                onChange={(phone) => setForm((f) => ({ ...f, phone }))}
-              />
-            </div>
-
-            <div className={fx.field}>
-              <label className={fx.label} htmlFor={`${idPrefix}-requirement`}>
-                <FieldIcon name="doc" />
-                {content.form.requirementLabel}
-                <RequiredMark />
-              </label>
-              <textarea
-                id={`${idPrefix}-requirement`}
-                className={fx.textarea}
-                name="requirement"
-                required
-                value={form.requirement}
-                onChange={set("requirement")}
-                placeholder={content.form.requirementPlaceholder}
-              />
-            </div>
-
-            <button type="submit" className={fx.submit}>
-              {sent ? content.form.sending : content.form.submit}
-            </button>
-          </form>
-
-          <p className={fx.note}>{content.form.note}</p>
-
-          {content.form.alert && (
-            <p className={fx.alert}>
-              <span className={fx.alertLabel}>{content.form.alert.label}</span>{" "}
-              {content.form.alert.text}{" "}
-              {/* `SiteLink`, not `next/link`: this href is a live-site path
-                  (/career-overview) that this app does not serve, so a plain
-                  Link resolved it app-internally and 404'd. `SiteLink` sends
-                  paths we don't own to the marketing site — the same choice the
-                  landing hero's `noteLink` already makes for this exact link. */}
-              <SiteLink className={fx.alertLink} href={content.form.alert.href}>
-                {content.form.alert.linkLabel}
-              </SiteLink>
-            </p>
-          )}
-
-          {sent && (
-            <p className={fx.status} role="status">
-              Thanks — a draft to {brand.email} is opening with your details. We reply within one business day.
-            </p>
-          )}
-        </div>
+        <EnquiryForm content={content.form} idPrefix={idPrefix} />
       </div>
     </section>
   );

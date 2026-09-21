@@ -2297,7 +2297,12 @@
 
 @media (min-width: 1000px) {
   .heroGrid {
-    grid-template-columns: 1.12fr 0.88fr;
+    /* Was 1.12fr / 0.88fr — a proportional share, which on a wide laptop gave
+       the form over 600px and made the card, not the headline, the page's
+       main event. Capped at a fixed 420px instead: a single-column form reads
+       fine at that width and stops widening past it, so the copy column takes
+       every extra pixel a bigger viewport brings. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
     gap: clamp(48px, 5vw, 88px);
     /* The enquiry form is the shorter column — floats centered in the row
        instead of pinned to the copy column's top edge. */
@@ -2805,15 +2810,16 @@
   margin-top: 1em;
 }
 
-/* Supporting points as hairline-separated rows. */
+/* Supporting points as plain rows. The hairline rules that used to separate
+   them ran the full column width over the hero photo and read as strikes
+   through the copy, so the rows are spaced apart instead of ruled. */
 .heroCompact .heroPoints {
   margin-top: clamp(20px, 2.4vw, 30px);
-  border-top: 1px solid var(--line);
+  gap: 4px;
 }
 
 .heroCompact .heroPoint {
-  padding: 9px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 5px 0;
 }
 
 @media (min-width: 1000px) {

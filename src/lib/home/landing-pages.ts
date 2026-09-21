@@ -83,6 +83,12 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/reactjs-app-development-company', title: 'ReactJS Development Company in India' },
   { path: '/nodejs-development-company', title: 'NodeJS Development Company in India' },
   { path: '/java-application-development-company', title: 'Top Java Development Company in India' },
+  // The last two technology slugs the nav pointed at but this app did not
+  // serve: both were rewritten to softsuave.com by `navHref`, from the header
+  // mega menu (`lib/home/nav-menu.ts`), the nav data's technology list and —
+  // for Python — the web-app page's Django tile.
+  { path: '/python-application-development-company', title: 'Python Development Company in India' },
+  { path: '/php-application-development-company', title: 'PHP Development Company in India' },
 
   // Delivery-model and engineering-service pages. Slugs match the pages these
   // replace on the live marketing site, so existing search equity and inbound
