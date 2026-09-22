@@ -66,3 +66,5 @@ next-env.d.ts
 # MaxMind GeoLite2 country database (npm run geo:update). Licensed binary data,
 # refreshed weekly upstream — downloaded per deployment, never committed.
 /data/
+
+.idea/

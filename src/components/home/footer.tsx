@@ -125,12 +125,26 @@ export default function Footer() {
         <div className={styles.footerOffices}>
           <div className={styles.footerColTitle}>Offices</div>
           <div className={styles.footerOfficeList}>
+            {/* Each office is a schema.org PostalAddress in microdata. The
+                visible lines wrap for layout rather than by field, so the
+                fields ride along as <meta itemProp> — React leaves a <meta>
+                carrying itemProp where it is instead of hoisting it to <head>. */}
             {footer.offices.map((o) => (
-              <address key={o.region} className={styles.footerOffice}>
+              <address
+                key={o.region}
+                className={styles.footerOffice}
+                itemScope
+                itemType="https://schema.org/PostalAddress"
+              >
                 <span className={styles.footerOfficeRegion}>{o.region}</span>
-                <span className={styles.footerOfficeName}>{o.company}</span>
+                <span className={styles.footerOfficeName} itemProp="name">
+                  {o.company}
+                </span>
                 {o.lines.map((line) => (
                   <span key={line}>{line}</span>
+                ))}
+                {Object.entries(o.address).map(([prop, value]) => (
+                  <meta key={prop} itemProp={prop} content={value} />
                 ))}
               </address>
             ))}
