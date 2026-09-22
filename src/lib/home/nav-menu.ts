@@ -145,18 +145,6 @@ const SERVICES: NavMenuPanel = {
       ],
     },
     {
-      key: "software",
-      name: "Software & Application Development",
-      items: [
-        { name: "Software Development", href: "/software-development-company", blurb: "Custom builds, start to release" },
-        { name: "Web App Development", href: "/web-application-development-company", blurb: "Product-grade web platforms" },
-        { name: "Mobile App Development", href: "/mobile-application-development-company", blurb: "Native and cross-platform apps" },
-        { name: "Product Engineering", href: "/product-engineering-services", blurb: "Roadmap to release, end to end" },
-        { name: "Legacy Modernization", href: "/legacy-modernization-services", blurb: "Re-platform without stopping the business" },
-        { name: "Cloud & DevOps", href: "/cloud-computing", blurb: "Scalable infrastructure and delivery pipelines" },
-      ],
-    },
-    {
       key: "global-delivery",
       name: "Global Delivery & Engineering Services",
       items: [
@@ -170,8 +158,18 @@ const SERVICES: NavMenuPanel = {
       ],
     },
     {
+      key: "software",
+      name: "Software Development",
+      items: [
+        { name: "Software Development", href: "/software-development-company", blurb: "Custom builds, start to release" },
+        { name: "Product Engineering", href: "/product-engineering-services", blurb: "Roadmap to release, end to end" },
+        { name: "Legacy Modernization", href: "/legacy-modernization-services", blurb: "Re-platform without stopping the business" },
+        { name: "Cloud & DevOps", href: "/cloud-computing", blurb: "Scalable infrastructure and delivery pipelines" },
+      ],
+    },
+    {
       key: "tech-mobile",
-      name: "Mobile Technologies",
+      name: "Mobile App Development",
       dense: true,
       items: [
         { name: "Mobile Apps", href: "/mobile-application-development-company" },
@@ -185,7 +183,7 @@ const SERVICES: NavMenuPanel = {
     },
     {
       key: "tech-web",
-      name: "Web Technologies",
+      name: "Web App Development",
       dense: true,
       items: [
         { name: "Web Apps", href: "/web-application-development-company" },
