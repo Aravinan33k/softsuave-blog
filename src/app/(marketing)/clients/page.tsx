@@ -143,7 +143,7 @@ export default function ClientsPage() {
           <Testimonials />
         </div>
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

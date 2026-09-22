@@ -79,7 +79,7 @@ export default function Overview({
                 src={publicMediaUrl(image.src)}
                 alt={image.alt}
                 fill
-                sizes="(max-width: 999px) 92vw, 34vw"
+                sizes="(max-width: 999px) 92vw, 44vw"
                 {...(image.blurDataURL
                   ? { placeholder: "blur" as const, blurDataURL: image.blurDataURL }
                   : {})}

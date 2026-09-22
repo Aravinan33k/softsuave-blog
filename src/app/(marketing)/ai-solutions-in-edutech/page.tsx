@@ -141,7 +141,7 @@ export default function EdtechAiSolutionsPage() {
           <Faq content={edtechFaqs} idPrefix="edtech-faq" />
         </div>
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

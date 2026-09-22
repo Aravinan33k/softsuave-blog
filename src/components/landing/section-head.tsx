@@ -1,6 +1,7 @@
 "use client";
 
 import SplitReveal from "@/components/home/split-reveal";
+import Breadcrumb from "@/components/common/breadcrumb";
 import styles from "./landing.module.css";
 
 /**
@@ -45,7 +46,11 @@ export default function SectionHead({
   return (
     <div className={className}>
       <div>
-        {kicker && <span className={styles.kicker}>{kicker}</span>}
+        {/* An index page's masthead is its hero, so it carries the trail too. */}
+        {level === 1 && <Breadcrumb tone="band" />}
+        {/* No kicker above an H1: the Sep review dropped the eyebrow over every
+            page's headline, and on an index page this masthead is the hero. */}
+        {kicker && level !== 1 && <span className={styles.kicker}>{kicker}</span>}
         <SplitReveal as={tag} className={styles.title} type="words">
           {title}
         </SplitReveal>

@@ -4,10 +4,9 @@ import BrandImage from "@/components/home/brand-image";
 import FadeUp from "@/components/home/fade-up";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import { sectors } from "@/lib/home/industries-content";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "./section-head";
 import styles from "./industries.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 /**
  * The sector bento — the page's centrepiece.
@@ -41,7 +40,7 @@ export default function Sectors() {
 
       <FadeUp>
         <div className={styles.sectorGrid}>
-          {sectors.items.map((sector, i) => (
+          {sectors.items.map((sector) => (
             <article
               key={sector.key}
               // Deep-link target for the nav's Industries panel, which sends
@@ -66,9 +65,15 @@ export default function Sectors() {
                 </>
               ) : null}
 
-              <span className={styles.sectorIndex} aria-hidden>
-                {pad(i + 1)}
-              </span>
+              {/* An icon picked from the sector's own words, not a "01"
+                  ordinal: the Sep corrections review asked for icons in place
+                  of numbers. */}
+              <CardIconBadge
+                title={sector.name}
+                body={sector.tagline}
+                size="sm"
+                className={styles.sectorIndex}
+              />
 
               <div className={styles.sectorBody}>
                 <h3 className={styles.sectorName}>{sector.name}</h3>

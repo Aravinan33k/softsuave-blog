@@ -98,7 +98,7 @@ export default function CaseStudiesPage() {
 
         <CtaBand content={caseStudiesPageCta} />
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

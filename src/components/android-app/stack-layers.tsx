@@ -3,10 +3,9 @@
 import { useRef } from "react";
 import TechLogo from "@/components/home/tech-logo";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "@/components/landing/section-head";
 import styles from "@/components/landing/landing.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 export interface StackLayersContent {
   eyebrow: string;
@@ -96,21 +95,18 @@ export default function StackLayers({
     { scope: root },
   );
 
-  const total = content.layers.length;
-
   return (
     <section className={styles.sectionShell} id={id}>
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
       <ol ref={root} className={styles.layerStack}>
-        {content.layers.map((layer, i) => (
+        {content.layers.map((layer) => (
           <li key={layer.name} className={styles.layer}>
             <div className={styles.layerHead}>
-              <span className={styles.layerIndex} aria-hidden>
-                {/* Numbered from the base, because that is where it is built
-                    from — the bottom slab is 01. */}
-                {pad(total - i)}
-              </span>
+              {/* An icon picked from the layer's name, not the "01"-from-the-base
+                  ordinal it used to carry: the Sep corrections review asked for
+                  icons in place of numbers. The stack's order is the sequence. */}
+              <CardIconBadge title={layer.name} size="sm" className={styles.layerIndex} />
               <h3 className={styles.layerName}>{layer.name}</h3>
               <span className={styles.layerRule} aria-hidden />
             </div>

@@ -1,6 +1,4 @@
-"use client";
-
-import FadeUp from "@/components/home/fade-up";
+import SimpleTable from "@/components/common/simple-table";
 import SectionHead from "./section-head";
 import styles from "./gen-ai.module.css";
 
@@ -15,18 +13,17 @@ export interface ComparisonContent {
 }
 
 /**
- * Multi-column comparison table — the wide sibling of `problems.tsx`, which
- * carries the same idea at two columns.
+ * Multi-column comparison table — now the shared `SimpleTable`.
  *
- * Rendered twice, with CSS deciding which copy is visible: a real four-column
- * `<table>` from 900px up, and one stacked definition-list card per criterion
- * below it. Four columns cannot stay legible on a phone, and a horizontal
- * scroller would put most of every row off-screen. Both renderings carry
- * identical text and only one is ever in the layout, so assistive tech never
- * reads it twice.
+ * It used to render twice, a four-column `<table>` from 900px up and a
+ * stacked definition-list card per criterion below it, with CSS choosing one.
+ * The landing-page review asked for one simple table design on all pages, so
+ * it is a single bordered table that scrolls sideways on a phone instead.
  *
- * The last option column carries the accent, the same emphasis the rest of this
- * surface uses — presentation only, the text is unchanged.
+ * On a three-way vs. table (in-house / freelancer / us) the last option column
+ * keeps the accent it always had — the option the page recommends. A two-value
+ * lookup (the rates table: tier / rate / experience) is not an argument, so it
+ * gets no tint. Presentation only; the text is unchanged.
  */
 export default function Comparison({
   content,
@@ -35,62 +32,17 @@ export default function Comparison({
   content: ComparisonContent;
   id?: string;
 }) {
-  const [rowHeader, ...optionColumns] = content.columns;
-  const lastColumn = optionColumns.length - 1;
+  const optionCount = Math.max(0, content.columns.length - 1);
 
   return (
     <section className={styles.sectionShell} id={id}>
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
-
-      <FadeUp>
-        <div className={styles.cmpWrap}>
-          <table className={styles.cmpTable}>
-            <caption className={styles.srOnly}>{content.title}</caption>
-            <thead>
-              <tr>
-                <th scope="col">{rowHeader}</th>
-                {optionColumns.map((c, i) => (
-                  <th key={c} scope="col" className={i === lastColumn ? styles.cmpLead : undefined}>
-                    {c}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {content.rows.map((row) => (
-                <tr key={row.criterion}>
-                  <th scope="row">{row.criterion}</th>
-                  {row.values.map((value, i) => (
-                    <td
-                      key={optionColumns[i] ?? i}
-                      className={i === lastColumn ? styles.cmpLead : undefined}
-                    >
-                      {value}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <ul className={styles.cmpCards}>
-          {content.rows.map((row) => (
-            <li key={row.criterion} className={styles.cmpCard}>
-              <span className={styles.cmpCardLabel}>{rowHeader}</span>
-              <p className={styles.cmpCardTitle}>{row.criterion}</p>
-              <dl className={styles.cmpDl}>
-                {row.values.map((value, i) => (
-                  <div key={optionColumns[i] ?? i} className={styles.cmpDlRow}>
-                    <dt className={styles.cmpDt}>{optionColumns[i]}</dt>
-                    <dd className={styles.cmpDd}>{value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </li>
-          ))}
-        </ul>
-      </FadeUp>
+      <SimpleTable
+        caption={content.title}
+        columns={content.columns}
+        rows={content.rows.map((r) => ({ head: r.criterion, cells: r.values }))}
+        lead={optionCount >= 3 ? optionCount - 1 : undefined}
+      />
     </section>
   );
 }

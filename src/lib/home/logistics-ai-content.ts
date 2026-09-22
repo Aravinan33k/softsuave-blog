@@ -14,6 +14,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
+import { overviewImage } from "./overview-images";
 
 export const logisticsMeta = {
   slug: "ai-in-logistics",
@@ -54,6 +55,7 @@ export const logisticsHero: HeroContent = {
 };
 
 export const logisticsOverview: OverviewContent = {
+  image: overviewImage("ai-in-logistics"),
   eyebrow: "The Short Answer",
   title: "What AI Changes in Supply Chain Operations",
   paragraphs: [

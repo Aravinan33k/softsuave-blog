@@ -3,10 +3,9 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import TechLogo from "@/components/home/tech-logo";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "@/components/landing/section-head";
 import styles from "@/components/landing/landing.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 export interface PlatformTabsContent {
   eyebrow: string;
@@ -165,9 +164,10 @@ export default function PlatformTabs({
               className={styles.ptTab}
               onClick={() => setActive(i)}
             >
-              <span className={styles.ptTabIndex} aria-hidden>
-                {pad(i + 1)}
-              </span>
+              {/* An icon picked from the platform's name, not a "01" ordinal:
+                  the Sep corrections review asked for icons in place of
+                  numbers. The tab strip's own order still carries the sequence. */}
+              <CardIconBadge title={item.name} size="sm" className={styles.ptTabIndex} />
               <span className={styles.ptTabName}>{item.short}</span>
             </button>
           ))}

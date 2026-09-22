@@ -5,10 +5,9 @@ import Image from "next/image";
 import { problems as generativeAiProblems } from "@/lib/home/generative-ai";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "./section-head";
 import styles from "./gen-ai.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 /** How long each problem holds before the selector advances, in ms. */
 const DWELL_MS = 5200;
@@ -245,9 +244,15 @@ export default function Problems({
                 stop();
               }}
             >
-              <span className={styles.psTabNum} aria-hidden>
-                {pad(i + 1)}
-              </span>
+              {/* An icon picked from the problem's words, not a "01" ordinal —
+                  the Sep corrections review asked for icons in place of
+                  numbers. The tablist's own order still carries the sequence. */}
+              <CardIconBadge
+                title={row.problem}
+                body={row.solution}
+                size="sm"
+                className={styles.psTabNum}
+              />
               <span className={styles.psTabLabel}>{row.problem}</span>
               {active === i && <span ref={tickerRef} className={styles.psTicker} aria-hidden />}
             </button>

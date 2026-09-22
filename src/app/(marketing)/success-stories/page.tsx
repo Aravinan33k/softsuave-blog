@@ -124,7 +124,7 @@ export default function SuccessStoriesPage() {
           <Clients />
         </div>
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

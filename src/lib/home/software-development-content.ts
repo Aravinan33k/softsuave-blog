@@ -42,6 +42,7 @@ import type { JourneyContent } from "@/components/home/journey";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
+import { overviewImage } from "./overview-images";
 
 export const sdMeta = {
   slug: "software-development-company",
@@ -161,6 +162,7 @@ export const sdServices: ServicesCarouselContent = {
  * need a body per card we do not have.
  */
 export const sdWhyUs: OverviewContent = {
+  image: overviewImage("software-development-company"),
   eyebrow: "Why Choose Us",
   title: "Why Choose Soft Suave for Software Development",
   paragraphs: [

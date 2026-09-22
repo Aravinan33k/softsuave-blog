@@ -1,4 +1,6 @@
 import TechLogo from "@/components/home/tech-logo";
+import { ICON_COMPONENTS } from "@/components/common/card-icon-badge";
+import { iconFor } from "@/lib/home/icon-for";
 
 /**
  * The glyph a card grid puts in its top-left badge.
@@ -790,8 +792,17 @@ export const CARD_ICON_KEYS: ReadonlySet<string> = new Set([
  *
  * The caller decides how to dress the badge — see `isBrandIcon`, which the bold
  * card asks so it can drop the accent tint behind a full-colour logo.
+ *
+ * `text` (the card's title and body) is the fallback for a card with no key,
+ * or a key this vocabulary does not have: rather than the catch-all clock, the
+ * glyph is picked from the card's own words by `iconFor`
+ * (`lib/home/icon-for.ts`), the same picker the rest of the landing cards use.
  */
-export default function CardIcon({ iconKey }: { iconKey?: string }) {
+export default function CardIcon({ iconKey, text }: { iconKey?: string; text?: string }) {
   if (iconKey !== undefined && BRAND_KEYS.has(iconKey)) return <TechLogo name={iconKey} />;
+  if (text && (iconKey === undefined || !CARD_ICON_KEYS.has(iconKey))) {
+    const Icon = ICON_COMPONENTS[iconFor(text)];
+    return <Icon strokeWidth={1.6} aria-hidden focusable={false} />;
+  }
   return <DrawnGlyph iconKey={iconKey} />;
 }

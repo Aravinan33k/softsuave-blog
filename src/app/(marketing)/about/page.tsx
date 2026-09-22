@@ -165,7 +165,7 @@ export default function AboutPage() {
           <Testimonials />
         </div>
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

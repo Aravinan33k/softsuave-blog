@@ -146,7 +146,7 @@ export default function OffshoreSoftwareDevelopmentPage() {
           <Faq content={offFaqs} idPrefix="offshore-faq" />
         </div>
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

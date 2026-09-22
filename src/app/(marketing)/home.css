@@ -73,6 +73,19 @@
   --font-heading: var(--font-display-serif);
   --font-eyebrow: var(--font-mono-label);
 
+  /* One heading scale for every landing surface (landing kit, hire pages,
+     generative-AI pages). The Sep review found H1/H2/H3 sizes differing
+     between pages and within a page — an H3 sometimes as large as an H2 —
+     because each module set its own clamp(). Headings read these instead, so
+     a level is one size everywhere and each level stays visibly below the one
+     above it. */
+  --fs-h1: clamp(2.3rem, 4.5vw, 4rem);
+  --fs-h2: clamp(1.85rem, 3.1vw, 2.75rem);
+  --fs-h3: clamp(1.15rem, 1.45vw, 1.4rem);
+  /* Card body copy and the smallest readable label size. */
+  --fs-body-sm: clamp(0.9rem, 0.95vw, 1rem);
+  --fs-label: 0.75rem;
+
   min-height: 100vh;
   background: var(--bg);
   color: var(--text);

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { services as generativeAiServices } from "@/lib/home/generative-ai";
 import { ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
+import ServiceLink, { useServiceHref } from "@/components/common/service-link";
 import SectionHead from "./section-head";
 import styles from "./gen-ai.module.css";
 
@@ -23,6 +24,11 @@ export interface ServicesContent {
     readonly body: string;
     /** Decorative backdrop for this card; items without one show none. */
     readonly image?: string;
+    /**
+     * Optional destination page. Omitted, the card links to the page its name
+     * matches (see `lib/home/service-href.ts`), never the page it is on.
+     */
+    readonly href?: string;
   }[];
 }
 
@@ -50,6 +56,10 @@ export interface ServicesContent {
  * are mounted rather than swapped per slide: `sizes` keeps each optimised file
  * small, and mounting once means advancing never waits on a fetch or flashes an
  * empty card.
+ *
+ * A card whose service has a page of its own ends in a "Learn more" link —
+ * the review found almost no service card led anywhere. It is out of the tab
+ * order while its slide is off screen.
  *
  * Accessibility:
  *  - the stage is a labelled carousel (`aria-roledescription="carousel"`) and
@@ -79,6 +89,8 @@ export default function Services({
   const root = useRef<HTMLElement | null>(null);
   const items = content.items;
   const total = items.length;
+
+  const hrefFor = useServiceHref();
 
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
@@ -247,6 +259,7 @@ export default function Services({
           const off = offsetOf(i);
           const onScreen = Math.abs(off) <= 1;
           const isNear = Math.abs(off) === 1;
+          const href = hrefFor(s.name, s.href);
           return (
             <article
               key={s.name}
@@ -273,6 +286,9 @@ export default function Services({
               <div className={styles.svcSlideMain} data-plain={!s.image}>
                 <h3 className={styles.svcTitle}>{s.name}</h3>
                 <p className={styles.svcText}>{s.body}</p>
+                {href && (
+                  <ServiceLink href={href} label={s.name} tabIndex={onScreen ? undefined : -1} />
+                )}
               </div>
             </article>
           );

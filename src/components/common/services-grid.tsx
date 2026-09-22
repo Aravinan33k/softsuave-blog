@@ -29,6 +29,12 @@ export interface ServicesGridContent {
      * an empty alt — the card names the service in text right beside it.
      */
     readonly image?: string | { readonly src: string; readonly alt: string };
+    /**
+     * Optional destination page. Omitted, the grid links the card to the page
+     * its name matches (see `lib/home/service-href.ts`) — resolved client-side
+     * in `CardGrid`, which knows the current path and so never self-links.
+     */
+    readonly href?: string;
   }[];
 }
 
@@ -218,6 +224,7 @@ export default function ServicesGrid({
       name: item.name,
       body: item.body,
       icon: iconFor(item.name),
+      href: item.href,
       image:
         typeof item.image === "string"
           ? { src: item.image, alt: "" }

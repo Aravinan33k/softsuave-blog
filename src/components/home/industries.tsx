@@ -5,6 +5,7 @@ import { industries } from "@/lib/home/content";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/home/gsap";
 import SplitReveal from "./split-reveal";
 import BrandImage from "./brand-image";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import styles from "./home.module.css";
 
 /**
@@ -17,7 +18,6 @@ import styles from "./home.module.css";
  *   Click interaction is intentionally disabled; only hover reveals detail.
  */
 const CARD_COLOR = "#ff5436";
-const pad = (n: number) => String(n + 1).padStart(2, "0");
 
 type LayoutTarget = {
   x: number;
@@ -399,7 +399,9 @@ export default function Industries() {
               />
             </div>
             <div className={styles.indFanCardOverlay}>
-              <span className={styles.indFanCardNum}>/{pad(i)}</span>
+              {/* An icon for the sector, not a "/01" ordinal — the Sep review
+                  asked for icons in place of numbers across the pages. */}
+              <CardIconBadge title={it.name} body={it.body} size="sm" className={styles.indFanCardNum} />
               <p className={styles.indFanCardBody}>{it.body}</p>
             </div>
             <span className={styles.indFanCardTitle}>{it.name}</span>

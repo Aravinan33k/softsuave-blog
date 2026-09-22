@@ -8,6 +8,7 @@ import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import styles from "./landing.module.css";
 import fx from "@/components/common/enquiry-form.module.css";
 import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
+import Breadcrumb from "@/components/common/breadcrumb";
 
 /**
  * Shape of the copy this hero renders. Every AI landing page supplies its own
@@ -158,6 +159,8 @@ export default function Hero({
 
       <div className={styles.heroGrid}>
         <div>
+          {/* "Home › <page>", named from the route — see common/breadcrumb. */}
+          <Breadcrumb />
           <h1 className={styles.heroTitle}>
             {/* The spans are display:block, so the spaces between them only
                 matter to the text content crawlers and screen readers see. */}

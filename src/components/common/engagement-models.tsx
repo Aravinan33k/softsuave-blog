@@ -2,10 +2,9 @@
 
 import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "@/components/landing/section-head";
 import styles from "@/components/landing/landing.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 export interface EngagementContent {
   eyebrow: string;
@@ -75,11 +74,16 @@ export default function EngagementModels({
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
       <div ref={root} className={styles.engGrid}>
-        {content.items.map((item, i) => (
+        {content.items.map((item) => (
           <article key={item.name} className={styles.engCard}>
-            <span className={styles.engIndex} aria-hidden>
-              {pad(i + 1)}
-            </span>
+            {/* An icon picked from the model's own words, not a "01" ordinal:
+                the Sep corrections review asked for icons in place of numbers. */}
+            <CardIconBadge
+              title={item.name}
+              body={item.body}
+              size="sm"
+              className={styles.engIndex}
+            />
             <h3 className={styles.engName}>{item.name}</h3>
             <p className={styles.engBody}>{item.body}</p>
           </article>

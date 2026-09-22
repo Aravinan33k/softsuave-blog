@@ -2,6 +2,7 @@
 
 import FadeUp from "@/components/home/fade-up";
 import { capabilities } from "@/lib/home/industries-content";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "./section-head";
 import styles from "./industries.module.css";
 
@@ -30,9 +31,15 @@ export default function Capabilities() {
         {capabilities.items.map((item) => (
           <FadeUp key={item.n} y={20}>
             <div className={styles.ledgerRow}>
-              <span className={styles.ledgerN} aria-hidden>
-                {item.n}
-              </span>
+              {/* An icon picked from the capability's own words, not its "01"
+                  ordinal: the Sep corrections review asked for icons in place
+                  of numbers. (`item.n` stays in the content as the row key.) */}
+              <CardIconBadge
+                title={item.name}
+                body={item.body}
+                size="sm"
+                className={styles.ledgerN}
+              />
               <h3 className={styles.ledgerName}>{item.name}</h3>
               <p className={styles.ledgerText}>{item.body}</p>
               <ul className={styles.ledgerTags} aria-label={`Sectors using ${item.name}`}>

@@ -141,7 +141,7 @@ export default function HealthtechAiSolutionsPage() {
           <Faq content={healthtechFaqs} idPrefix="healthtech-faq" />
         </div>
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

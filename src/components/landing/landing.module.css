@@ -64,7 +64,7 @@
   align-items: center;
   gap: 0.7em;
   font-family: var(--font-eyebrow);
-  font-size: clamp(10px, 0.78vw, 12px);
+  font-size: var(--fs-label);
   text-transform: uppercase;
   letter-spacing: 0.28em;
   color: var(--muted);
@@ -84,24 +84,33 @@
    alongside the hero's own drop to 72px — the step below the hero has to move
    with it or the two close up and the page flattens. Still well ahead of the
    20px intro. Held at the same ceiling as `.h2` in home/home.module.css; see
-   the note there before changing either. */
+   the note there before changing either.
+
+   Every heading on these pages now reads its size from the shared scale on
+   `.theme-four` (--fs-h1/--fs-h2/--fs-h3 in app/(marketing)/home.css), so an
+   H2 is the same size on every landing page and in every variant (review:
+   "the heading size is different on all pages and within each page"). */
 .title {
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.875rem, 3.2vw, 2.75rem);
+  font-size: var(--fs-h2);
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text-bright);
   max-width: 26ch;
 }
 
+/* --text rather than --muted, here and on the section body copy (prose,
+   card bodies, answers): the grey passed AA on paper but read as washed out
+   across the bands (review: "the subtext is not visible"). --muted is kept
+   for labels, indices and other secondary furniture. */
 .intro {
   margin: 0;
   max-width: 800px;
   font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   line-height: 1.6;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* ============================================================
@@ -118,7 +127,7 @@
   border-radius: 999px;
   background: transparent;
   font-family: var(--font-eyebrow);
-  font-size: clamp(10px, 0.8vw, 12px);
+  font-size: var(--fs-label);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--text-bright);
@@ -277,7 +286,7 @@
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2.4rem, 4.8vw, 4.25rem);
+  font-size: var(--fs-h1);
   line-height: 1.05;
   letter-spacing: -0.045em;
   color: var(--text-bright);
@@ -355,7 +364,7 @@
   border-radius: 6px;
   background: color-mix(in srgb, var(--surface) 55%, transparent);
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text);
@@ -479,7 +488,7 @@
   display: block;
   margin-top: 8px;
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   line-height: 1.5;
@@ -501,7 +510,7 @@
   align-items: center;
   gap: 0.5em;
   font-family: var(--font-eyebrow);
-  font-size: 11px;
+  font-size: var(--fs-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text);
@@ -527,7 +536,7 @@
   margin: 0;
   font-size: clamp(0.98rem, 1.1vw, 1.08rem);
   line-height: 1.75;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* Prose beside the section illustration. Both columns sit inside the section's
@@ -619,7 +628,7 @@
   background: var(--surface);
   font-family: var(--font-eyebrow);
   font-weight: 400;
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
@@ -635,9 +644,9 @@
 }
 
 .table tbody td {
-  font-size: clamp(0.88rem, 0.98vw, 0.98rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.62;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* Mobile falls back to stacked cards — a two-column table of long prose cannot
@@ -661,7 +670,7 @@
 .problemCardLabel {
   display: block;
   font-family: var(--font-eyebrow);
-  font-size: 9.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
@@ -681,9 +690,9 @@
   margin: 12px 0 0;
   padding-top: 12px;
   border-top: 1px solid var(--line);
-  font-size: 0.92rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.62;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* ============================================================
@@ -737,7 +746,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  font-size: var(--fs-h3);
   letter-spacing: -0.01em;
   color: var(--text-bright);
 }
@@ -753,7 +762,7 @@
   align-items: center;
   gap: 7px;
   font-family: var(--font-eyebrow);
-  font-size: 9.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -771,7 +780,7 @@
 
 .cmpCellText {
   margin: 8px 0 0;
-  font-size: 0.92rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.6;
   color: var(--text);
 }
@@ -797,21 +806,37 @@
    all 5 side by side from 1000px, each just narrower rather than scrolling.
    (The homepage's `.svcRow` is a full-bleed giant-serif row list.)
    ============================================================ */
+/* Card edge shared by the bordered card families (services, process, card
+   grids, bold cards). The bare --line hairline all but vanished on the
+   warm-white `.light` band, where --surface and --bg sit a few shades apart,
+   so the cards stopped reading as boxes. Mixing in a little --text-bright
+   darkens it there and lifts it on the dark bands. Declared on the cards
+   themselves so it resolves against whichever band's tokens they sit in. */
+.svcPanel,
+.processCard,
+.card,
+.boldCard {
+  --card-line: color-mix(in srgb, var(--text-bright) 12%, var(--line));
+}
+
 .svcGrid {
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(12px, 1.4vw, 18px);
-  /* Each card sizes to its own content instead of stretching to match the
-     tallest one on its row — a short body no longer leaves empty space at
-     the card's bottom. */
-  align-items: start;
+  /* Stretch, so every panel in a row shares one height and the boxes line up
+     as a grid. Sizing each to its own body (the old `start`) left a ragged
+     row of bottoms that read as misalignment (review: "service box alignment
+     is missing"). `.svcBody` flexes to fill the extra height. */
+  align-items: stretch;
 }
 
 .svcPanel {
   position: relative;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--line);
+  /* A touch stronger than the bare hairline, so the panel reads as a box on
+     the warm-white `.light` band too, where --surface and --bg sit close. */
+  border: 1px solid var(--card-line);
   border-radius: 12px;
   background: var(--surface);
   overflow: hidden;
@@ -836,10 +861,11 @@
 }
 
 .svcBody {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  gap: clamp(10px, 1.2vw, 14px);
-  padding: clamp(20px, 2.2vw, 30px);
+  gap: clamp(12px, 1.3vw, 16px);
+  padding: clamp(22px, 2.4vw, 32px);
 }
 
 /* Badge sits beside the title, not stacked above it — same as `.processCardHead`. */
@@ -859,7 +885,7 @@
   border-radius: 8px;
   background: var(--bg);
   font-family: var(--font-eyebrow);
-  font-size: 11px;
+  font-size: var(--fs-label);
   letter-spacing: 0.04em;
   color: var(--accent);
   transition: border-color 0.4s ease;
@@ -872,20 +898,21 @@
 .svcTitle {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
-  font-size: clamp(1.25rem, 1.7vw, 1.7rem);
-  line-height: 1.12;
+  font-weight: 400;
+  font-size: var(--fs-h3);
+  line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--text-bright);
 }
 
+/* --text, not --muted, and left-aligned: the service copy is the section's
+   content, not a caption (review: "content visibility is low"), and justified
+   text in five narrow columns opened stretched word gaps. */
 .svcText {
   margin: 0;
-  font-size: clamp(0.88rem, 0.96vw, 0.96rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.62;
-  color: var(--muted);
-  text-align: justify;
-  text-justify: inter-word;
+  color: var(--text);
 }
 
 /* ============================================================
@@ -910,8 +937,9 @@
   overflow: hidden;
   isolation: isolate;
   padding: clamp(44px, 5.2vw, 80px) var(--gutter);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  /* No top/bottom rule. The band is its own dark surface, so the change of
+     ground already marks its edges; the full-width hairlines on top of that
+     read as stray divider lines (review: remove the section lines). */
   /* Base only — <LightFieldBackdrop> paints over this. It still matters: it is
      what shows if the poster fails to load, and it keeps the band dark. */
   background: #050609;
@@ -936,7 +964,7 @@
   margin: 0.45em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.75rem, 3.4vw, 3rem);
+  font-size: var(--fs-h2);
   line-height: 1.1;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -983,7 +1011,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+  font-size: var(--fs-h3);
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -993,7 +1021,7 @@
   margin: 14px 0 0;
   font-size: clamp(0.92rem, 1.02vw, 1.02rem);
   line-height: 1.68;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* Platform targets as a bordered cell grid, not the homepage's capsule chips. */
@@ -1029,7 +1057,7 @@
 
 .targetName {
   font-family: var(--font-eyebrow);
-  font-size: 11.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.05em;
   color: var(--text-bright);
   overflow: hidden;
@@ -1052,14 +1080,16 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(12px, 1.4vw, 18px);
-  align-items: start;
+  /* Stretch for the same reason as `.svcGrid`: cards in a row share a height
+     so the grid lines up, with `.processCardBody` flexing to fill it. */
+  align-items: stretch;
 }
 
 .processCard {
   position: relative;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--line);
+  border: 1px solid var(--card-line);
   border-radius: 12px;
   background: var(--surface);
   overflow: hidden;
@@ -1083,6 +1113,7 @@
 }
 
 .processCardBody {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   gap: clamp(10px, 1.2vw, 14px);
@@ -1106,7 +1137,7 @@
   border-radius: 8px;
   background: var(--bg);
   font-family: var(--font-eyebrow);
-  font-size: 11px;
+  font-size: var(--fs-label);
   letter-spacing: 0.04em;
   color: var(--accent);
   transition: border-color 0.4s ease;
@@ -1120,7 +1151,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.4rem, 2.1vw, 1.95rem);
+  font-size: var(--fs-h3);
   line-height: 1.12;
   letter-spacing: -0.025em;
   color: var(--text-bright);
@@ -1129,11 +1160,9 @@
 .processBody {
   margin: 0;
   max-width: 68ch;
-  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.65;
-  color: var(--muted);
-  text-align: justify;
-  text-justify: inter-word;
+  color: var(--text);
 }
 
 /* ============================================================
@@ -1151,8 +1180,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: clamp(20px, 2.2vw, 28px);
-  border: 1px solid var(--line);
+  padding: clamp(22px, 2.3vw, 30px);
+  border: 1px solid var(--card-line);
   border-radius: 12px;
   background: var(--surface);
   overflow: hidden;
@@ -1225,7 +1254,7 @@
 
 .cardIndex {
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   color: var(--muted);
 }
@@ -1234,7 +1263,7 @@
   margin: 8px 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.2rem, 1.6vw, 1.55rem);
+  font-size: var(--fs-h3);
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -1242,9 +1271,9 @@
 
 .cardBody {
   margin: 12px 0 0;
-  font-size: clamp(0.85rem, 0.94vw, 0.94rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.62;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* ============================================================
@@ -1302,14 +1331,16 @@
   font-size: clamp(1.7rem, 2.8vw, 2.4rem);
   line-height: 1;
   letter-spacing: -0.04em;
-  color: color-mix(in srgb, var(--accent) 70%, transparent);
+  /* Full accent: the figure is the proof point itself, and at 70% alpha it
+     dropped under 3:1 on the dark bands (review: "text visibility"). */
+  color: var(--accent);
 }
 
 .proofName {
   margin: 14px 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  font-size: var(--fs-h3);
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -1318,9 +1349,9 @@
 .proofBody {
   margin: 10px 0 0;
   max-width: 44ch;
-  font-size: clamp(0.86rem, 0.95vw, 0.95rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.62;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* ============================================================
@@ -1350,7 +1381,7 @@
 
 .caseTag {
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
@@ -1370,7 +1401,7 @@
 .caseMetricLabel {
   display: block;
   margin-top: 6px;
-  font-size: 0.85rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.45;
   color: var(--muted);
 }
@@ -1381,7 +1412,7 @@
   border-top: 1px solid var(--line);
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.05rem, 1.25vw, 1.2rem);
+  font-size: var(--fs-h3);
   line-height: 1.28;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -1390,7 +1421,7 @@
 .caseYear {
   margin-top: 10px;
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   color: var(--muted);
 }
@@ -1448,18 +1479,20 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* The group's icon badge (`CardIconBadge`, which replaced a "01" ordinal). */
 .stackGroupIndex {
-  font-family: var(--font-eyebrow);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  color: var(--accent);
+  flex: none;
 }
 
+/* An h3: the shared card-title face and size rather than the 13-16px mono
+   label it was, which made the tech-stack group the smallest H3 on the page. */
 .stackGroupName {
-  font-family: var(--font-eyebrow);
-  font-weight: 400;
-  font-size: clamp(13px, 1.3vw, 16px);
-  letter-spacing: 0.12em;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   color: var(--text-bright);
 }
 
@@ -1607,8 +1640,9 @@
   border-top: 1px solid var(--line);
   transition: opacity 0.45s ease;
   /* The inactive entries recede rather than disappear — every one stays
-     readable, which is the whole reason this is a list and not a carousel. */
-  opacity: 0.62;
+     readable, which is the whole reason this is a list and not a carousel.
+     0.8, not the 0.62 it was: at that the inactive body copy fell under AA. */
+  opacity: 0.8;
 }
 
 .showList .showRow:last-child {
@@ -1621,7 +1655,7 @@
 
 .showIndex {
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.2em;
   line-height: 2.4;
   color: var(--muted);
@@ -1636,7 +1670,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-size: var(--fs-h3);
   line-height: 1.16;
   letter-spacing: -0.025em;
   color: var(--text-bright);
@@ -1650,9 +1684,9 @@
 .showBody {
   margin: 10px 0 0;
   max-width: 54ch;
-  font-size: clamp(0.88rem, 0.98vw, 0.98rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.65;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* Coral rule that draws across the active entry's foot. */
@@ -1730,7 +1764,7 @@
 .showMediaCountTotal {
   font-size: 0.42em;
   letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.66);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* ============================================================
@@ -1778,7 +1812,7 @@
   border-radius: 50%;
   background: var(--bg);
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.1em;
   color: var(--muted);
   transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
@@ -1817,7 +1851,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.2rem, 1.9vw, 1.6rem);
+  font-size: var(--fs-h3);
   line-height: 1.18;
   letter-spacing: -0.025em;
   color: var(--text-bright);
@@ -1829,7 +1863,7 @@
   max-width: 68ch;
   font-size: clamp(0.9rem, 1vw, 1rem);
   line-height: 1.66;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* From 900px the stage name and its description sit side by side rather than
@@ -1869,7 +1903,7 @@
   border-radius: 10px;
   background: var(--surface);
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-bright);
@@ -1889,7 +1923,7 @@
   align-self: center;
   text-align: center;
   font-family: var(--font-eyebrow);
-  font-size: 9.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
@@ -1925,7 +1959,7 @@
 
 .ledLabel {
   font-family: var(--font-eyebrow);
-  font-size: 9.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
@@ -1954,7 +1988,7 @@
   display: block;
   margin-bottom: 5px;
   font-family: var(--font-eyebrow);
-  font-size: 9px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -2013,7 +2047,7 @@
 
 .stackItemName {
   font-family: var(--font-eyebrow);
-  font-size: 11px;
+  font-size: var(--fs-label);
   letter-spacing: 0.05em;
   color: var(--text);
   overflow: hidden;
@@ -2056,7 +2090,7 @@
   margin: 0.45em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.9rem, 3.4vw, 3.2rem);
+  font-size: var(--fs-h2);
   line-height: 1.06;
   letter-spacing: -0.035em;
   color: var(--text-bright);
@@ -2068,7 +2102,7 @@
   max-width: 56ch;
   font-size: clamp(0.96rem, 1.1vw, 1.08rem);
   line-height: 1.68;
-  color: var(--muted);
+  color: var(--text);
 }
 
 .finalActions {
@@ -2093,7 +2127,7 @@
   grid-template-columns: auto 1fr;
   align-items: start;
   gap: 10px;
-  font-size: 0.88rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.5;
   color: var(--muted);
 }
@@ -2158,7 +2192,7 @@
   content: counter(faq, decimal-leading-zero);
   counter-increment: faq;
   font-family: var(--font-eyebrow);
-  font-size: 11px;
+  font-size: var(--fs-label);
   letter-spacing: 0.14em;
   color: var(--muted);
 }
@@ -2166,7 +2200,7 @@
 .faqQuestion {
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+  font-size: var(--fs-h3);
   line-height: 1.22;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -2247,7 +2281,7 @@
   max-width: 78ch;
   font-size: clamp(0.9rem, 1vw, 1rem);
   line-height: 1.68;
-  color: var(--muted);
+  color: var(--text);
   opacity: 0;
   transition: opacity 0.4s ease 0.08s;
 }
@@ -2343,6 +2377,9 @@
   .overviewMedia {
     aspect-ratio: unset;
     align-self: stretch;
+    /* A floor for a short overview: with only a heading and one paragraph the
+       row is shallow, and stretching to it alone gave a wide sliver. */
+    min-height: 340px;
   }
 
   .ctaInner {
@@ -2455,7 +2492,6 @@
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
-  opacity: 0.55;
 }
 
 .logoSlot::after {
@@ -2476,9 +2512,9 @@
    that carry only a metric and a title simply omit it. */
 .caseBody {
   margin: 10px 0 0;
-  font-size: clamp(0.85rem, 0.94vw, 0.94rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.62;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* Link out to the full case-study index, below the grid. */
@@ -2549,7 +2585,7 @@
 
 .quoteRole {
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
@@ -2571,7 +2607,7 @@
   margin: 0;
   font-size: clamp(0.94rem, 1.08vw, 1.05rem);
   line-height: 1.65;
-  color: var(--muted);
+  color: var(--text);
 }
 
 .cmpNotes p + p {
@@ -2604,7 +2640,7 @@
   padding: clamp(12px, 1.3vw, 16px) clamp(12px, 1.4vw, 20px);
   border-bottom: 1px solid var(--line);
   font-family: var(--font-eyebrow);
-  font-size: clamp(10px, 0.8vw, 12px);
+  font-size: var(--fs-label);
   font-weight: 400;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -2697,7 +2733,7 @@
     display: block;
     margin-bottom: 4px;
     font-family: var(--font-eyebrow);
-    font-size: 10px;
+    font-size: var(--fs-label);
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--muted);
@@ -2712,7 +2748,7 @@
    under the section above it rather than opening a new one, so it sits a
    step down in scale and keeps a tighter gap to its own content. */
 .headSub .title {
-  font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+  font-size: var(--fs-h3);
   line-height: 1.14;
 }
 
@@ -2744,7 +2780,7 @@
 }
 
 .headPage .title {
-  font-size: clamp(2.25rem, 4.6vw, 3.5rem);
+  font-size: var(--fs-h1);
   max-width: 20ch;
 }
 
@@ -2815,7 +2851,7 @@
    are 50px, still clearly above the 40px H2 band, so the distinction the two
    sizes used to draw is now carried by the compact hero's spacing alone. */
 .heroCompact .heroTitle {
-  font-size: clamp(2.1rem, 4.2vw, 3.75rem);
+  font-size: var(--fs-h1);
   line-height: 1.06;
 }
 
@@ -2880,7 +2916,7 @@
 }
 
 .overviewCompact .title {
-  font-size: clamp(1.6rem, 2.9vw, 2.5rem);
+  font-size: var(--fs-h2);
   line-height: 1.14;
 }
 
@@ -2899,14 +2935,14 @@
   line-height: 1.68;
 }
 
-/* Capped, right-aligned, bordered 4:3 frame rather than a flush 3:2 image
-   filling its column — left to fill the column the image ran noticeably
-   larger than the text beside it. The ratio is the asset's own, so nothing
-   is cropped. */
+/* Bordered 4:3 frame that fills its column. It used to be capped at 380px in
+   a 0.65fr column, which left the illustration a thumbnail beside the prose
+   (review: "overview image too small"). Full width below 1000px, where it
+   stacks under the copy. The ratio is the asset's own, so nothing is
+   cropped. */
 .overviewCompact .overviewMedia {
-  margin: 0 0 0 auto;
+  margin: 0;
   width: 100%;
-  max-width: 380px;
   aspect-ratio: 4 / 3;
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -2922,21 +2958,24 @@
 }
 
 @media (min-width: 1000px) {
-  /* Prose + masthead lead, illustration supports. `end`, not `start`: the
-     image is capped by `max-width` and so is shorter than the title + prose
-     beside it; `end` gives the row one shared bottom edge, the image's
-     bottom flush with the last line of prose, right where the pull quote
-     begins below. */
+  /* Near-equal columns, so the illustration carries real weight beside the
+     masthead and prose instead of sitting in a sliver. Still `end`: the row
+     keeps one shared bottom edge, the image's bottom flush with the last line
+     of prose, right where the pull quote begins below. */
   .overviewCompact .overviewGrid {
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
-    column-gap: clamp(28px, 3.2vw, 52px);
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    column-gap: clamp(32px, 4vw, 64px);
     align-items: end;
   }
 
-  /* Keep the capped 4:3 frame — the display look's stretch-to-row rule
-     (`aspect-ratio: unset; align-self: stretch`) is undone here. */
+  /* Keep the 4:3 frame — the display look's stretch-to-row rule
+     (`aspect-ratio: unset; align-self: stretch`, and its min-height floor) is
+     undone here. The height cap only bites on very wide screens, where 4:3
+     of the column would outgrow the text block; `cover` crops evenly. */
   .overviewCompact .overviewMedia {
     aspect-ratio: 4 / 3;
+    min-height: 0;
+    max-height: 560px;
     align-self: auto;
   }
 }
@@ -2973,7 +3012,7 @@
   border: 0;
   background: none;
   font-family: var(--font-eyebrow);
-  font-size: clamp(10px, 0.78vw, 12px);
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
@@ -3048,12 +3087,11 @@
   width: 100%;
 }
 
+/* The stage's icon badge (`CardIconBadge`, which replaced a "01" ordinal):
+   on a line of its own above the name, as the numeral was. `grid` rather
+   than the numeral's `block`, so the glyph stays centred in its square. */
 .flowIndex {
-  display: block;
-  font-family: var(--font-eyebrow);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  color: var(--accent);
+  display: grid;
 }
 
 .flowName {
@@ -3070,9 +3108,9 @@
 .flowDetail {
   display: block;
   margin-top: 6px;
-  font-size: 0.82rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.5;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* Connector between two stages. Stacked: a short vertical run, centred. */
@@ -3200,7 +3238,9 @@
 }
 
 /* Slot geometry. Neighbours drop and scale back so the active card reads as
-   the subject; anything beyond them is parked off-stage and faded out. */
+   the subject; anything beyond them is parked off-stage and faded out. The
+   neighbours hold 0.8 rather than 0.5: at half opacity their copy fell below
+   AA, and the drop and scale already make the active card the subject. */
 .carouselSlide[data-pos="active"] {
   transform: translate3d(0, 0, 0) scale(1);
   opacity: 1;
@@ -3209,13 +3249,13 @@
 
 .carouselSlide[data-pos="prev"] {
   transform: translate3d(-104%, 26px, 0) scale(0.93);
-  opacity: 0.5;
+  opacity: 0.8;
   z-index: 20;
 }
 
 .carouselSlide[data-pos="next"] {
   transform: translate3d(104%, 26px, 0) scale(0.93);
-  opacity: 0.5;
+  opacity: 0.8;
   z-index: 20;
 }
 
@@ -3298,7 +3338,7 @@
   display: block;
   margin-bottom: 8px;
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   color: var(--brand-coral);
 }
@@ -3309,7 +3349,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.05rem, 1.35vw, 1.3rem);
+  font-size: var(--fs-h3);
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: #fff;
@@ -3317,7 +3357,7 @@
 
 .carouselText {
   margin: 10px 0 0;
-  font-size: clamp(0.88rem, 0.96vw, 0.96rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.62;
   color: rgba(255, 255, 255, 0.86);
 }
@@ -3466,7 +3506,7 @@
   gap: 12px;
   padding: 0 clamp(20px, 2.8vw, 30px) 12px;
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
@@ -3527,7 +3567,7 @@
 
 .boardIndex {
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   color: var(--accent);
 }
@@ -3537,7 +3577,7 @@
   flex: 1 1 auto;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  font-size: var(--fs-h3);
   letter-spacing: -0.01em;
   color: var(--text-bright);
 }
@@ -3550,7 +3590,7 @@
   border: 1px solid var(--line);
   border-radius: 999px;
   font-family: var(--font-eyebrow);
-  font-size: 9.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text);
@@ -3621,7 +3661,7 @@
 
 .boardCellLabel {
   font-family: var(--font-eyebrow);
-  font-size: 9.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -3736,17 +3776,16 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* The problem's icon badge (`CardIconBadge`, which replaced a "01" ordinal),
+   centred beside the two-line label + problem rather than on a baseline. */
 .capIndex {
   grid-row: span 2;
-  font-family: var(--font-eyebrow);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  color: var(--accent);
+  align-self: center;
 }
 
 .capProblemLabel {
   font-family: var(--font-eyebrow);
-  font-size: 9.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -3756,7 +3795,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  font-size: var(--fs-h3);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -3779,7 +3818,7 @@
   align-items: center;
   gap: 7px;
   font-family: var(--font-eyebrow);
-  font-size: 9.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -3793,7 +3832,7 @@
 
 .capFieldValue {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.6;
   color: var(--text);
 }
@@ -3862,17 +3901,17 @@
 .processStages .processMarker {
   width: 28px;
   height: 28px;
-  font-size: 10px;
+  font-size: var(--fs-label);
 }
 
 .processStages .processName {
-  font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+  font-size: var(--fs-h3);
   line-height: 1.2;
   letter-spacing: -0.015em;
 }
 
 .processStages .processBody {
-  font-size: clamp(0.86rem, 0.95vw, 0.94rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.6;
 }
 
@@ -3967,25 +4006,25 @@
 
 .fitLabel {
   display: flex;
-  align-items: baseline;
+  align-items: center; /* on the problem cell's icon badge; text-only labels are unaffected */
   gap: 8px;
   font-family: var(--font-eyebrow);
-  font-size: 9.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
+/* The problem's icon badge (`CardIconBadge`, which replaced a "01" ordinal). */
 .fitIndex {
-  color: var(--accent);
-  letter-spacing: 0.18em;
+  flex: none;
 }
 
 .fitProblemName {
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+  font-size: var(--fs-h3);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -3993,7 +4032,7 @@
 
 .fitValue {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.6;
   color: var(--text);
 }
@@ -4147,7 +4186,7 @@
 
 .clusName {
   font-family: var(--font-eyebrow);
-  font-size: 10.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-bright);
@@ -4319,20 +4358,19 @@
   box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
+/* The node's icon badge (`CardIconBadge`, which replaced a "01" ordinal):
+   still clear of the port dot, on its own line above the name. `grid`, not
+   the numeral's `block`, keeps the glyph centred in its square. */
 .latIndex {
-  display: block;
+  display: grid;
   margin-left: 22px;
-  font-family: var(--font-eyebrow);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: var(--muted);
 }
 
 .latName {
   margin: 8px 0 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.08rem, 1.35vw, 1.32rem);
+  font-size: var(--fs-h3);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -4340,7 +4378,7 @@
 
 .latBody {
   margin: 10px 0 0;
-  font-size: 0.92rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.65;
   color: var(--text);
 }
@@ -4423,10 +4461,10 @@
   color: var(--text-bright);
 }
 
-.ptTabIndex {
-  font-family: var(--font-eyebrow);
-  font-size: 9.5px;
-  letter-spacing: 0.18em;
+/* The tab's icon badge (`CardIconBadge`, which replaced a "01" ordinal). It
+   keeps the numeral's muted-until-selected tint; scoped under `.ptTab` so it
+   outranks the badge module's own accent colour whatever the load order. */
+.ptTab .ptTabIndex {
   color: var(--muted);
   transition: color 0.3s ease;
 }
@@ -4466,7 +4504,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.2rem, 1.7vw, 1.6rem);
+  font-size: var(--fs-h3);
   line-height: 1.2;
   letter-spacing: -0.018em;
   color: var(--text-bright);
@@ -4523,7 +4561,7 @@
 
 .ptChipName {
   font-family: var(--font-eyebrow);
-  font-size: 11.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.05em;
   color: var(--text-bright);
 }
@@ -4590,7 +4628,7 @@
 .trkNum {
   display: block;
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.2em;
   color: var(--accent);
 }
@@ -4599,7 +4637,7 @@
   margin: 8px 0 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+  font-size: var(--fs-h3);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -4607,7 +4645,7 @@
 
 .trkBody {
   margin: 9px 0 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.62;
   color: var(--text);
 }
@@ -4755,19 +4793,18 @@
   height: calc(100% - 18px);
 }
 
+/* The model's icon badge (`CardIconBadge`, which replaced a "01" ordinal),
+   on its own line above the name. `grid`, not the numeral's `block`, keeps
+   the glyph centred in its square. */
 .engIndex {
-  display: block;
-  font-family: var(--font-eyebrow);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: var(--accent);
+  display: grid;
 }
 
 .engName {
   margin: 10px 0 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  font-size: var(--fs-h3);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -4775,7 +4812,7 @@
 
 .engBody {
   margin: 10px 0 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.62;
   color: var(--text);
 }
@@ -4863,7 +4900,7 @@
 .slatIndex {
   flex: 0 0 auto;
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.2em;
   color: var(--accent);
 }
@@ -4871,7 +4908,7 @@
 .slatName {
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.05rem, 1.35vw, 1.28rem);
+  font-size: var(--fs-h3);
   line-height: 1.22;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -4883,7 +4920,7 @@
 
 .slatText {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.62;
   color: var(--text);
 }
@@ -4978,6 +5015,9 @@
     gap: 18px;
   }
 
+  /* Documented exception to the --fs-h3 scale: a closed slat is a narrow
+     vertical spine and its title runs rotated along it, so it stays at a
+     spine-sized 0.95rem and takes the full H3 size once the slat opens. */
   .slat[data-open="false"] .slatName {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
@@ -4989,7 +5029,7 @@
   }
 
   .slat[data-open="true"] .slatName {
-    font-size: clamp(1.2rem, 1.7vw, 1.6rem);
+    font-size: var(--fs-h3);
   }
 
   /* The copy sits over the artwork at the slat's foot. Closed, it is
@@ -5061,21 +5101,23 @@
   margin-bottom: clamp(16px, 2vw, 22px);
 }
 
+/* The layer's icon badge (`CardIconBadge`, which replaced a "01" ordinal). */
 .layerIndex {
   flex: 0 0 auto;
-  font-family: var(--font-eyebrow);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: var(--accent);
 }
 
+/* An h3, so it takes the shared card-title face and size. It used to be an
+   11.5px mono caps label, which left the one heading on the android pages at
+   less than a third of every other H3 (review: "the H3 is larger on some
+   pages"). */
 .layerName {
-  flex: 0 0 auto;
+  flex: 0 1 auto;
   margin: 0;
-  font-family: var(--font-eyebrow);
-  font-size: 11.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   color: var(--text-bright);
 }
 
@@ -5136,7 +5178,7 @@
 
 .layerItemBody {
   margin: 0;
-  font-size: 0.88rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.62;
   color: var(--text);
 }
@@ -5206,7 +5248,7 @@
 .sbCardIndex {
   flex: 0 0 auto;
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.2em;
   color: var(--muted);
   transition: color 0.3s ease;
@@ -5300,7 +5342,7 @@
 
 .sbPanelIndex {
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.2em;
   color: var(--accent);
 }
@@ -5309,7 +5351,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.22rem, 1.9vw, 1.7rem);
+  font-size: var(--fs-h3);
   line-height: 1.18;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -5318,7 +5360,7 @@
 .sbText {
   margin: 0;
   max-width: 62ch;
-  font-size: 0.9rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.68;
   color: var(--text);
 }
@@ -5398,20 +5440,15 @@
   box-shadow: 0 10px 24px -18px rgba(0, 0, 0, 0.95);
 }
 
+/* The tile's icon badge (`CardIconBadge`, which replaced a "01" ordinal
+   pill), pinned in the corner where a notification badge sits. The badge
+   brings its own opaque surface and accent glyph, so it reads over the
+   photograph without the pill's fill. */
 .sbdBadge {
   position: absolute;
   top: 7px;
   right: 7px;
   z-index: 1;
-  padding: 2px 6px;
-  border-radius: 999px;
-  background: var(--accent);
-  font-family: var(--font-eyebrow);
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  /* --on-accent, not #fff: this badge is filled with --accent, where white is
-     3.19:1 at 9px. The accent ink is 6.08:1. */
-  color: var(--on-accent, #140b08);
 }
 
 .sbdCopy {
@@ -5425,7 +5462,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.05rem, 1.35vw, 1.28rem);
+  font-size: var(--fs-h3);
   line-height: 1.22;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -5433,7 +5470,7 @@
 
 .sbdText {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.65;
   color: var(--text);
 }
@@ -5484,7 +5521,7 @@
   border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
   border-radius: 999px;
   font-family: var(--font-eyebrow);
-  font-size: 9.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
@@ -5494,7 +5531,7 @@
   margin: 4px 0 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.05rem, 1.3vw, 1.24rem);
+  font-size: var(--fs-h3);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -5502,7 +5539,7 @@
 
 .stcBody {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.65;
   color: var(--text);
 }
@@ -5582,7 +5619,7 @@
 .ctaStatLabel {
   margin: 0;
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -5603,7 +5640,7 @@
   padding-left: 1.5em;
   font-size: clamp(0.9rem, 1vw, 1rem);
   line-height: 1.65;
-  color: var(--muted);
+  color: var(--text);
 }
 
 .tickItem::before {
@@ -5682,7 +5719,7 @@
   gap: 0.7em;
   padding: clamp(12px, 1.4vw, 16px);
   font-family: var(--font-body);
-  font-size: clamp(0.86rem, 0.95vw, 0.95rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.3;
   color: var(--text-bright);
   text-decoration: none;
@@ -5800,7 +5837,7 @@
    images this treatment has no room for, and `.card` is also used by the
    testimonials grid.
 
-   Three things define it: an asymmetric 12-column grid (spans come from
+   Three things define it: a 12-column grid of equal-width rows (spans from
    `spansFor()` in card-spans.ts and arrive as `data-span`), an accent rule
    across the top of each card with an oversized serif ordinal watermarked into
    the corner, and a per-card accent colour.
@@ -5840,7 +5877,7 @@
 .boldCard {
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid var(--card-line);
   border-top: 3px solid var(--svc-accent);
   border-radius: 10px;
   background: var(--surface);
@@ -5850,7 +5887,7 @@
 
 .boldCard:hover {
   transform: translateY(-4px);
-  border-color: var(--line);
+  border-color: var(--card-line);
   border-top-color: var(--svc-accent);
   background: color-mix(in srgb, var(--svc-accent) 6%, var(--surface));
   box-shadow: 0 14px 34px -12px color-mix(in srgb, var(--svc-accent) 55%, transparent);
@@ -5868,6 +5905,8 @@
   font-size: clamp(38px, 3.1vw, 54px);
   line-height: 1;
   color: var(--svc-accent);
+  /* Deliberately faint: purely decorative and aria-hidden, and it sits behind
+     the copy, so any stronger and it would cut into the title's contrast. */
   opacity: 0.24;
   pointer-events: none;
   user-select: none;
@@ -5878,7 +5917,7 @@
   position: relative;
   z-index: 1;
   font-family: var(--font-eyebrow);
-  font-size: 9.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--svc-accent);
@@ -5938,21 +5977,28 @@
 }
 
 /* ---- Services in the bold layout ---- */
+/* A flex column, so the body fills the card's stretched row height and the
+   tag, title and copy always start at the same top edge in every card. */
+.svcBold {
+  display: flex;
+  flex-direction: column;
+}
+
 .svcBold .svcBody {
   position: relative;
   z-index: 1;
-  gap: clamp(5px, 0.6vw, 8px);
-  /* Tighter than the default panel's clamp(20px, 2.2vw, 30px): the accent rule
-     and the watermark already give the card presence, so the padding no longer
-     has to do that work. */
-  padding: clamp(15px, 1.5vw, 20px);
+  gap: clamp(8px, 0.9vw, 12px);
+  /* Back up from the cramped clamp(15px, 1.5vw, 20px) it once ran at: with the
+     title and copy now at the shared H3 / body sizes the card needs the room
+     (review: "make the design better — content visibility is low"). */
+  padding: clamp(22px, 2.3vw, 30px);
 }
 
 /* The title clears the watermark rather than running under it. */
 .svcBold .svcTitle {
   max-width: 78%;
-  font-size: clamp(0.98rem, 1.08vw, 1.12rem);
-  line-height: 1.24;
+  font-size: var(--fs-h3);
+  line-height: 1.22;
 }
 
 /* Left-aligned, not justified. Justification is what produced the stretched
@@ -5960,8 +6006,8 @@
    enough at the 3-span end for it to recur. */
 .svcBold .svcText {
   text-align: left;
-  font-size: clamp(0.8rem, 0.84vw, 0.86rem);
-  line-height: 1.5;
+  font-size: var(--fs-body-sm);
+  line-height: 1.6;
   color: var(--text);
 }
 
@@ -5970,10 +6016,10 @@
   /* Vertical padding runs deliberately ahead of horizontal: with the ordinal
      watermark gone these cards are shorter, and the extra breathing room above
      the name and below the body is what keeps them from reading as cramped. */
-  padding: clamp(20px, 2vw, 27px) clamp(15px, 1.5vw, 20px);
+  padding: clamp(22px, 2.3vw, 30px) clamp(20px, 2vw, 26px);
   display: flex;
   flex-direction: column;
-  gap: clamp(5px, 0.6vw, 8px);
+  gap: clamp(8px, 0.9vw, 12px);
 }
 
 /* The flex gap above owns the spacing, so the default rules' own top margins
@@ -5987,13 +6033,13 @@
 
 .cardBold .cardName {
   max-width: 78%;
-  font-size: clamp(0.98rem, 1.08vw, 1.12rem);
-  line-height: 1.24;
+  font-size: var(--fs-h3);
+  line-height: 1.22;
 }
 
 .cardBold .cardBody {
-  font-size: clamp(0.8rem, 0.84vw, 0.86rem);
-  line-height: 1.5;
+  font-size: var(--fs-body-sm);
+  line-height: 1.6;
 }
 
 /* ============================================================
@@ -6052,7 +6098,7 @@
   align-items: center;
   gap: 7px;
   font-family: var(--font-eyebrow);
-  font-size: clamp(9px, 0.72vw, 10.5px);
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
@@ -6264,7 +6310,7 @@
     gap: 7px;
     margin-bottom: 7px;
     font-family: var(--font-eyebrow);
-    font-size: 9.5px;
+    font-size: var(--fs-label);
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--muted);
@@ -6416,7 +6462,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.1rem, 1.35vw, 1.3rem);
+  font-size: var(--fs-h3);
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--feat-ink);
@@ -6433,7 +6479,7 @@
 
 .featText {
   margin: 0;
-  font-size: clamp(0.85rem, 0.92vw, 0.92rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.65;
   color: var(--feat-body);
 }
@@ -6447,7 +6493,7 @@
   margin-top: auto;
   padding-top: clamp(14px, 1.6vw, 18px);
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
@@ -6561,7 +6607,7 @@
   background: color-mix(in srgb, var(--accent) 14%, transparent);
   color: var(--accent);
   font-family: var(--font-eyebrow);
-  font-size: clamp(9px, 0.7vw, 10.5px);
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
@@ -6570,7 +6616,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.2rem, 1.7vw, 1.6rem);
+  font-size: var(--fs-h3);
   line-height: 1.2;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -6579,9 +6625,9 @@
 .pmText {
   margin: 0;
   max-width: 62ch;
-  font-size: clamp(0.88rem, 0.98vw, 0.98rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.65;
-  color: var(--muted);
+  color: var(--text);
 }
 
 .pmMedia {
@@ -6774,7 +6820,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+  font-size: var(--fs-h3);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -6782,7 +6828,7 @@
 
 .teamRole {
   margin: 0;
-  font-size: clamp(0.8rem, 0.9vw, 0.88rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.5;
   color: var(--muted);
 }
@@ -6793,7 +6839,7 @@
   gap: 6px;
   margin-top: 6px;
   font-family: var(--font-eyebrow);
-  font-size: clamp(9px, 0.7vw, 10.5px);
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
@@ -6952,7 +6998,7 @@
   border-radius: 6px;
   background: transparent;
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);

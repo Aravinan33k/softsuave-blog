@@ -15,6 +15,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
+import { overviewImage } from "./overview-images";
 
 export const telecomMeta = {
   slug: "ai-solutions-for-telecom",
@@ -55,6 +56,7 @@ export const telecomHero: HeroContent = {
 };
 
 export const telecomOverview: OverviewContent = {
+  image: overviewImage("ai-solutions-for-telecom"),
   eyebrow: "The Short Answer",
   title: "What AI Changes for a Network Operator",
   paragraphs: [

@@ -4,6 +4,7 @@ import { techStack as homeTechStack } from "@/lib/home/content";
 import Marquee from "./marquee";
 import SplitReveal from "./split-reveal";
 import TechLogo from "./tech-logo";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import styles from "./home.module.css";
 
 /** The shape `content.ts`'s `techStack` has; landing pages supply their own. */
@@ -79,7 +80,15 @@ export default function TechStack({
             {g.name && (
               <div className={styles.techGroupHead}>
                 <span className={styles.techGroupName}>
-                  <span className={styles.techGroupIndex}>{String(i + 1).padStart(2, "0")}</span>{" "}
+                  {/* An icon picked from the group's own words, not a "01"–"06"
+                      ordinal: the Sep corrections review asked for icons in
+                      place of numbers across the pages. */}
+                  <CardIconBadge
+                    title={g.name}
+                    body={g.body}
+                    size="sm"
+                    className={styles.techGroupIndex}
+                  />
                   {g.name}
                 </span>
                 {g.body && <p className={styles.techGroupBody}>{g.body}</p>}

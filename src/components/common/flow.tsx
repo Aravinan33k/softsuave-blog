@@ -2,9 +2,8 @@
 
 import { Fragment, useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import styles from "@/components/landing/landing.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 /**
  * A left-to-right pipeline: what goes in, what each stage does to it, what
@@ -165,9 +164,15 @@ export default function Flow({ content }: { content: FlowContent }) {
       {content.steps.map((step, i) => (
         <Fragment key={step.name}>
           <div className={styles.flowStep} role="listitem">
-            <span className={styles.flowIndex} aria-hidden>
-              {pad(i + 1)}
-            </span>
+            {/* An icon picked from the stage's words, not a "01" ordinal (the
+                Sep corrections review asked for icons in place of numbers);
+                the arrows between the cards still carry the order. */}
+            <CardIconBadge
+              title={step.name}
+              body={step.detail}
+              size="sm"
+              className={styles.flowIndex}
+            />
             <span className={styles.flowName}>{step.name}</span>
             {step.detail && <span className={styles.flowDetail}>{step.detail}</span>}
           </div>

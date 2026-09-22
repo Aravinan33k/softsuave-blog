@@ -98,7 +98,7 @@ export default function Overview({
   id?: string;
   /**
    * `compact` is the generative-AI page's overview, verbatim: a smaller
-   * masthead scale, tighter prose leading, the illustration capped at a
+   * masthead scale, tighter prose leading, the illustration in a
    * bordered 4:3 frame that bottom-aligns with the prose beside it, and a
    * more compact pull quote. Pair it with the hero's `compact` variant.
    */
@@ -191,7 +191,7 @@ export default function Overview({
                 src={publicMediaUrl(image.src)}
                 alt={image.alt}
                 fill
-                sizes={compact ? "(max-width: 999px) 92vw, 34vw" : "(max-width: 999px) 92vw, 46vw"}
+                sizes={compact ? "(max-width: 999px) 92vw, 44vw" : "(max-width: 999px) 92vw, 46vw"}
                 {...(image.blurDataURL
                   ? { placeholder: "blur" as const, blurDataURL: image.blurDataURL }
                   : {})}

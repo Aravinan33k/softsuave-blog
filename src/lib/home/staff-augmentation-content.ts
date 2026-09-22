@@ -20,6 +20,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { ComparisonContent } from "@/components/landing/comparison";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroBadges } from "./delivery-shared";
+import { overviewImage } from "./overview-images";
 
 export const staffMeta = {
   slug: "it-staff-augmentation-services",
@@ -63,6 +64,7 @@ export const staffHero: HeroContent = {
 };
 
 export const staffOverview: OverviewContent = {
+  image: overviewImage("it-staff-augmentation-services"),
   eyebrow: "The Short Answer",
   title: "What Is IT Staff Augmentation?",
   paragraphs: [

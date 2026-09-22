@@ -20,6 +20,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { ComparisonContent } from "@/components/landing/comparison";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroBadges } from "./delivery-shared";
+import { overviewImage } from "./overview-images";
 
 export const itoMeta = {
   slug: "it-outsourcing-company-india",
@@ -63,6 +64,7 @@ export const itoHero: HeroContent = {
 };
 
 export const itoOverview: OverviewContent = {
+  image: overviewImage("it-outsourcing-company-india"),
   eyebrow: "The Short Answer",
   title: "What Does an IT Outsourcing Company in India Do?",
   paragraphs: [

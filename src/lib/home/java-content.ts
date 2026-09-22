@@ -51,6 +51,7 @@ import type { ServicesCarouselContent } from "@/components/common/services-carou
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
+import { overviewImage } from "./overview-images";
 
 export const javaMeta = {
   slug: "java-application-development-company",
@@ -99,6 +100,7 @@ export const javaHero: HeroContent = {
  * surface that renders prose, points, a CTA and stats together.
  */
 export const javaOverview: OverviewContent = {
+  image: overviewImage("java-application-development-company"),
   eyebrow: "Overview",
   title: "Advanced Java Development Techniques for Your Solutions",
   paragraphs: [

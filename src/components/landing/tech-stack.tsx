@@ -3,10 +3,9 @@
 import { useRef } from "react";
 import TechLogo from "@/components/home/tech-logo";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "./section-head";
 import styles from "./landing.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 export interface TechStackContent {
   eyebrow: string;
@@ -139,12 +138,12 @@ export default function TechStack({
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
       <div ref={root} className={styles.stackList}>
-        {content.groups.map((group, i) => (
+        {content.groups.map((group) => (
           <div key={group.name} className={styles.stackGroup}>
             <div className={styles.stackGroupHead}>
-              <span className={styles.stackGroupIndex} aria-hidden>
-                {pad(i + 1)}
-              </span>
+              {/* An icon picked from the group's name, not a "01" ordinal: the
+                  Sep corrections review asked for icons in place of numbers. */}
+              <CardIconBadge title={group.name} size="sm" className={styles.stackGroupIndex} />
               <h3 className={styles.stackGroupName}>{group.name}</h3>
             </div>
 

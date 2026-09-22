@@ -116,9 +116,7 @@ export default function FreeCostEstimationPage() {
           <Testimonials />
         </div>
 
-        {/* Points back at this page's own hero form rather than the /contact
-            route — the same close as every other conversion page here. */}
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

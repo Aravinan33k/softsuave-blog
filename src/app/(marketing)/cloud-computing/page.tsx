@@ -115,7 +115,7 @@ export default function CloudComputingPage() {
 
         <CtaBand content={cloudMidCta} />
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

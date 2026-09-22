@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useCallback, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import BrandImage from "./brand-image";
 import { caseStudies } from "@/lib/home/content";
 import { publicMediaUrl } from "@/lib/media-url";
@@ -54,7 +55,7 @@ export interface WorkCarouselContent {
   cta?: { readonly label: string; readonly href: string };
   /**
    * The closing card after the last tile. This used to be hardcoded ("The next
-   * one is yours" / "Let's build your AI success story" / `#contact`), which is
+   * one is yours" / "Let's build your AI success story" / `/contact`), which is
    * fine for case studies and wrong for anything else — hence a prop, and
    * omitting it ends the lane on the last real card.
    */
@@ -80,7 +81,9 @@ const HOMEPAGE_WORK: WorkCarouselContent = {
   outro: {
     eyebrow: "The next one is yours",
     line: "Let's build your AI success story.",
-    cta: { label: "Start a project", href: "#contact" },
+    // The app's own /contact route. This was `#contact`, which only resolved
+    // on the homepage; everywhere else SiteLink sent it to softsuave.com.
+    cta: { label: "Start a project", href: "/contact" },
   },
   items: caseStudies.items.map((c) => ({
     title: c.title,
@@ -584,9 +587,13 @@ export default function WorkGrid({
               <div className={styles.hOutro}>
                 <span className={styles.eyebrow}>{content.outro.eyebrow}</span>
                 <p className={styles.hOutroLine}>{content.outro.line}</p>
-                <SiteLink href={content.outro.cta.href} className={styles.pill} data-cursor="Start">
+                {/* `next/link`, not SiteLink: the outro leads to one of this
+                    app's own routes, and SiteLink would still send it to
+                    softsuave.com whenever that route is outside its
+                    local-path set. */}
+                <Link href={content.outro.cta.href} className={styles.pill} data-cursor="Start">
                   {content.outro.cta.label}
-                </SiteLink>
+                </Link>
               </div>
             ) : null}
           </div>

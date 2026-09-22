@@ -2,6 +2,8 @@
 
 import FadeUp from '@/components/home/fade-up';
 import SplitReveal from '@/components/home/split-reveal';
+import Breadcrumb from '@/components/common/breadcrumb';
+import PartnerBadges from '@/components/common/partner-badges';
 import EnquiryForm, { type EnquiryFormContent } from '@/components/common/enquiry-form';
 import styles from './services.module.css';
 
@@ -20,6 +22,7 @@ export default function ServiceHero({ title, body, badges, form }: ServiceHeroPr
   return (
     <section className={styles.hero} id="top">
       <div>
+        <Breadcrumb />
         <SplitReveal as="h1" className={styles.heroTitle} type="words">
           {title}
         </SplitReveal>
@@ -32,6 +35,7 @@ export default function ServiceHero({ title, body, badges, form }: ServiceHeroPr
               </li>
             ))}
           </ul>
+          <PartnerBadges />
         </FadeUp>
       </div>
 

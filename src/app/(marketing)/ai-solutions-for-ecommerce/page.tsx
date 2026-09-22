@@ -137,7 +137,7 @@ export default function EcommerceAiSolutionsPage() {
 
         <Faq content={ecommerceFaqs} idPrefix="ecommerce-faq" />
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

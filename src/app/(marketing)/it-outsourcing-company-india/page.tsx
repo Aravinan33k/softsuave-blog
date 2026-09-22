@@ -163,7 +163,7 @@ export default function ItOutsourcingCompanyIndiaPage() {
           <Faq content={itoFaqs} idPrefix="it-outsourcing-faq" />
         </div>
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

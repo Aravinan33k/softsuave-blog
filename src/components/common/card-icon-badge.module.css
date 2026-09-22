@@ -1,0 +1,37 @@
+/* =====================================================================
+   CARD ICON BADGE — the accent-tinted glyph square that replaces the
+   ordinal numbers on landing-page cards and process steps.
+
+   Every colour is a band token (--accent, --surface, --line), so the badge
+   re-tints itself inside a `.light` section without a cross-module selector:
+   `.light` re-points the tokens and this module simply reads them.
+   ===================================================================== */
+
+.badge {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  justify-self: start;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--line));
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+  color: var(--accent);
+}
+
+.sm {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+}
+
+.glyph {
+  width: 55%;
+  height: 55%;
+}
+
+/* Stacked above a title (rather than inline beside it), with room below. */
+.stack {
+  margin-bottom: 2px;
+}

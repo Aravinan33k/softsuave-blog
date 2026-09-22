@@ -1,9 +1,5 @@
-"use client";
-
-import { useRef, type ReactNode } from "react";
-import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import SectionHead from "@/components/landing/section-head";
-import FadeUp from "@/components/home/fade-up";
+import SimpleTable from "@/components/common/simple-table";
 import styles from "@/components/landing/landing.module.css";
 
 /**
@@ -28,9 +24,9 @@ export interface ComparisonContent {
     readonly lead: string;
     readonly other: string;
     /**
-     * Which option this factor favours. Read by `comparison-board.tsx` to
-     * lean the row's marker and light the winning cell; ignored here.
-     * Omit for a factor with no clear winner.
+     * Which option this factor favours. Kept for content that already
+     * states it; the simple table does not render it (the RAG page's
+     * decision board that read it was retired for the one table design).
      */
     readonly favors?: "lead" | "other";
   }[];
@@ -38,173 +34,34 @@ export interface ComparisonContent {
 }
 
 /**
- * Decorative row icons, cycled by row index (`aria-hidden` — the row's own
- * heading already names the dimension). Same inline-`<svg>`/stroke convention
- * as `Hero`'s field icons.
- */
-const ROW_ICONS: readonly ReactNode[] = [
-  // Question mark in a circle — the primary question
-  <g key="question">
-    <circle cx="12" cy="12" r="8" />
-    <path d="M10 9.6a2 2 0 113.2 1.6c-.7.5-1.2.9-1.2 1.8" />
-    <path d="M12 16.2h.01" />
-  </g>,
-  // Document — typical output
-  <g key="output">
-    <rect x="5" y="3.5" width="14" height="17" rx="2" />
-    <path d="M8.5 9h7M8.5 12.5h7M8.5 16h4.5" />
-  </g>,
-  // Flag — natural endpoint
-  <g key="endpoint">
-    <path d="M6 21V4" />
-    <path d="M6 5h11l-2 3.5L17 12H6" />
-  </g>,
-  // Nodes — underlying methods
-  <g key="methods">
-    <circle cx="6" cy="8" r="2" />
-    <circle cx="6" cy="16" r="2" />
-    <circle cx="17" cy="12" r="2.4" />
-    <path d="M8 8.9l6.7 2.3M8 15.1l6.7-2.3" />
-  </g>,
-  // People — business role
-  <g key="role">
-    <circle cx="12" cy="8" r="3.2" />
-    <path d="M5.5 19.5c0-3.6 2.9-5.8 6.5-5.8s6.5 2.2 6.5 5.8" />
-  </g>,
-  // Refresh — knowledge that changes
-  <g key="refresh">
-    <path d="M20 12a8 8 0 01-14.2 5" />
-    <path d="M4 12a8 8 0 0114.2-5" />
-    <path d="M18.5 3.5V7H15" />
-    <path d="M5.5 20.5V17H9" />
-  </g>,
-  // Sliders — tone / format / behaviour
-  <path key="sliders" d="M4 6h6M14 6h6M4 12h10M18 12h2M4 18h2M10 18h10" />,
-  // Target — best suited for
-  <g key="target">
-    <circle cx="12" cy="12" r="8" />
-    <circle cx="12" cy="12" r="4" />
-  </g>,
-];
-
-const iconProps = {
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 1.7,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-  "aria-hidden": true,
-};
-
-/**
- * Side-by-side comparison, in one of two layouts.
+ * Side-by-side comparison — rendered as the shared `SimpleTable`.
  *
- *   cards   the default. A list of bordered row cards, each holding its pair
- *           of values (stacked below 640px), with a decorative icon per row.
- *   table   a real `<table>`: one header row, then one `<tr>` per dimension
- *           with the factor as a row header. The review sheet asked for this
- *           on the pages where the comparison is a lookup the reader scans
- *           rather than an argument the page is making ("use a simple table
- *           for the comparison"). It also drops the per-row `<h3>`, which is
- *           what made those pages read as a stack of repeated headings.
+ * This had two layouts: `cards` (the default — bordered row cards with a pair
+ * of values and a decorative icon each, plus a converging GSAP entrance) and
+ * `table`. The landing-page review asked for one simple table design on all
+ * pages, so both now render the same three-column table: the factor as a row
+ * header, then the lead and the other option. `layout` is still accepted so
+ * the pages that pass it need no edit; it no longer changes anything.
  *
- * The cards layout is still the default because a `<table>` of prose columns
- * cannot stay legible at 360px unaided; the table layout handles that by
- * restacking each row into a labelled block below 720px, so it never scrolls
- * sideways and never squeezes three prose columns into a phone.
- *
- * `tone` decides whether the comparison takes a side:
- *
- *   verdict   the default. The lead option is marked with an accent label
- *             and a check, the other with a plain circle — for a "which
- *             should you use" comparison the page has an answer to.
- *   neutral   both options styled identically — for a definitional table
- *             that distinguishes two things without preferring either.
- *
- * Reveals as one detached timeline played once on entry, staggered row by
- * row: each row's icon and heading fade up first, then its two value cells
- * slide in from opposite edges toward the middle, a small "converging"
- * motion that echoes the side-by-side framing. A click on a card gives it a
- * quick squash-and-spring, decorative only.
+ * `tone="verdict"` (the default) tints the lead column as the option the page
+ * recommends; `neutral` leaves both columns plain, for a definitional table
+ * that distinguishes two things without preferring either. `favors` on a row
+ * is accepted and ignored.
  */
 export default function Comparison({
   content,
   id = "comparison",
   tone = "verdict",
   level = 2,
-  layout = "cards",
 }: {
   content: ComparisonContent;
   id?: string;
   tone?: "verdict" | "neutral";
   level?: 2 | 3;
+  /** Ignored — kept for call-site compatibility. See the note above. */
   layout?: "cards" | "table";
 }) {
   const { columns, rows, notes } = content;
-  const root = useRef<HTMLOListElement | null>(null);
-  const asTable = layout === "table";
-  const neutral = tone === "neutral";
-
-  const bounce = (e: React.MouseEvent<HTMLLIElement>) => {
-    if (prefersReducedMotion()) return;
-    gsap.fromTo(
-      e.currentTarget,
-      { scale: 0.97 },
-      { scale: 1, duration: 0.6, ease: "elastic.out(1, 0.5)", overwrite: "auto", clearProps: "transform" },
-    );
-  };
-
-  useGSAP(
-    () => {
-      if (prefersReducedMotion() || !root.current) return;
-      const items = gsap.utils.toArray<HTMLElement>(`.${styles.cmpRow}`, root.current);
-      if (!items.length) return;
-
-      const heads = items
-        .map((row) => row.querySelector<HTMLElement>(`.${styles.cmpRowHead}`))
-        .filter(Boolean) as HTMLElement[];
-      const firsts = items
-        .map((row) => row.querySelector<HTMLElement>(`.${styles.cmpCell}`))
-        .filter(Boolean) as HTMLElement[];
-      const lasts = items
-        .map((row) => {
-          const cells = row.querySelectorAll<HTMLElement>(`.${styles.cmpCell}`);
-          return cells.length > 1 ? cells[cells.length - 1] : null;
-        })
-        .filter(Boolean) as HTMLElement[];
-
-      gsap.set(heads, { opacity: 0, y: 10 });
-      gsap.set(firsts, { opacity: 0, x: -24 });
-      gsap.set(lasts, { opacity: 0, x: 24 });
-
-      // Detached timeline played once by a bare trigger — a timeline owned by
-      // a ScrollTrigger is restored at its interrupted progress, paused, by
-      // any refresh that lands mid-play (see why-us.tsx).
-      const tl = gsap.timeline({ paused: true });
-      tl.to(heads, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", stagger: 0.12, clearProps: "transform,opacity" }, 0)
-        .to(firsts, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out", stagger: 0.12, clearProps: "transform,opacity" }, 0.1)
-        .to(lasts, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out", stagger: 0.12, clearProps: "transform,opacity" }, 0.1);
-
-      const st = ScrollTrigger.create({
-        trigger: root.current,
-        start: "top 85%",
-        once: true,
-        onEnter: () => tl.play(0),
-      });
-      return () => {
-        st.kill();
-        tl.kill();
-      };
-    },
-    { scope: root },
-  );
-
-  /** Verdict marks a preferred side; neutral gives both the same dot. */
-  const cellIcon = (isLead: boolean) => {
-    if (neutral) return <circle cx="12" cy="12" r="3.4" fill="currentColor" stroke="none" />;
-    return isLead ? <path d="M5 12.5l4 4 10-10" /> : <circle cx="12" cy="12" r="8" />;
-  };
 
   return (
     <section className={styles.sectionShell} id={id}>
@@ -215,82 +72,12 @@ export default function Comparison({
         level={level}
       />
 
-      {asTable ? (
-        <FadeUp>
-          {/* `cmpTableWrap` owns the horizontal scroll that only ever engages
-              between the restack breakpoint and the width at which three
-              columns fit — on a phone the rows are already stacked blocks. */}
-          <div className={styles.cmpTableWrap}>
-            <table className={styles.cmpTable}>
-              <thead>
-                <tr>
-                  <th scope="col">{columns.area}</th>
-                  <th scope="col">{columns.lead}</th>
-                  <th scope="col">{columns.other}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((r) => (
-                  <tr key={r.area}>
-                    <th scope="row">{r.area}</th>
-                    {/* `data-label` is what the stacked phone layout prints
-                        in front of each value, since the header row is out of
-                        view there. `data-favored` only marks a side when the
-                        comparison takes one. */}
-                    <td
-                      data-label={columns.lead}
-                      data-favored={!neutral && r.favors === "lead" ? "true" : undefined}
-                    >
-                      {r.lead}
-                    </td>
-                    <td
-                      data-label={columns.other}
-                      data-favored={!neutral && r.favors === "other" ? "true" : undefined}
-                    >
-                      {r.other}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </FadeUp>
-      ) : (
-      <ol ref={root} className={styles.cmpRows} aria-label={columns.area}>
-        {rows.map((r, i) => (
-          <li key={r.area} className={styles.cmpRow} onClick={bounce}>
-            <div className={styles.cmpRowHead}>
-              <svg {...iconProps} className={styles.cmpRowIcon}>
-                {ROW_ICONS[i % ROW_ICONS.length]}
-              </svg>
-              <h3 className={styles.cmpRowArea}>{r.area}</h3>
-            </div>
-
-            <div className={styles.cmpRowGrid}>
-              <div className={neutral ? styles.cmpCell : `${styles.cmpCell} ${styles.cmpCellLead}`}>
-                <span className={styles.cmpCellLabel}>
-                  <svg {...iconProps} className={styles.cmpCellIcon}>
-                    {cellIcon(true)}
-                  </svg>
-                  {columns.lead}
-                </span>
-                <p className={styles.cmpCellText}>{r.lead}</p>
-              </div>
-
-              <div className={styles.cmpCell}>
-                <span className={styles.cmpCellLabel}>
-                  <svg {...iconProps} className={styles.cmpCellIcon}>
-                    {cellIcon(false)}
-                  </svg>
-                  {columns.other}
-                </span>
-                <p className={styles.cmpCellText}>{r.other}</p>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ol>
-      )}
+      <SimpleTable
+        caption={content.title}
+        columns={[columns.area, columns.lead, columns.other]}
+        rows={rows.map((r) => ({ head: r.area, cells: [r.lead, r.other] }))}
+        lead={tone === "neutral" ? undefined : 0}
+      />
 
       {notes && notes.length > 0 && (
         <div className={styles.cmpNotes}>

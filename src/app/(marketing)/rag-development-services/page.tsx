@@ -27,7 +27,7 @@ import Overview from '@/components/landing/overview';
 import ServicesGrid from '@/components/common/services-grid';
 import Industries from '@/components/landing/industries';
 import CtaBand from '@/components/landing/cta-band';
-import ComparisonBoard from '@/components/rag/comparison-board';
+import Comparison from '@/components/common/comparison';
 import WhyUs from '@/components/landing/why-us';
 // The homepage's marquee tech stack over this page's own groups — the same
 // section the generative-AI page renders, so the two read as a pair.
@@ -163,7 +163,7 @@ export default function RagDocumentAiServicePage() {
 
         {/* Decision board — each factor leans a marker toward the approach
             that fits, with a tally of who takes how many. */}
-        <ComparisonBoard content={ragComparison} />
+        <Comparison content={ragComparison} />
 
         <div className={home.light}>
           <Industries content={ragIndustries} />

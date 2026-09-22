@@ -2,10 +2,9 @@
 
 import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "@/components/landing/section-head";
 import styles from "@/components/landing/landing.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 /**
  * A "does this fit?" routing table.
@@ -175,14 +174,14 @@ export default function FitGuide({
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
       <ol ref={root} className={styles.fitRows}>
-        {rows.map((r, i) => (
+        {rows.map((r) => (
           <li key={r.problem} className={styles.fitRow}>
             <div className={styles.fitTrack}>
               <div className={`${styles.fitCell} ${styles.fitProblem}`}>
                 <span className={styles.fitLabel}>
-                  <span className={styles.fitIndex} aria-hidden>
-                    {pad(i + 1)}
-                  </span>
+                  {/* An icon picked from the problem, not a "01" ordinal: the
+                      Sep corrections review asked for icons in place of numbers. */}
+                  <CardIconBadge title={r.problem} size="sm" className={styles.fitIndex} />
                   {columns.problem}
                 </span>
                 <h3 className={styles.fitProblemName}>{r.problem}</h3>

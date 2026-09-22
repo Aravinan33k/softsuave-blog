@@ -3,6 +3,8 @@ import type { ReactNode } from 'react';
 import { BASE_PATH } from '@/lib/flags';
 import type { HireBand, HireRolePageContent } from '@/lib/home/hire-roles/types';
 import { assignGrounds } from '@/lib/home/hire-roles/band-grounds';
+import { partnerHeroBadges } from '@/lib/home/hero-badges';
+import { overviewImage } from '@/lib/home/overview-images';
 
 // Company-level sections: the homepage's own components, rendering the
 // homepage's own copy from `lib/home/content.ts`. A role page's claim to these
@@ -81,6 +83,17 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
       ? 'clients'
       : 'overview';
 
+  /**
+   * The hero's credentials: the page's own text tags (the free-trial
+   * guarantee, the FDE figures) first, then the four partner lockups every
+   * other hero on the surface closes on. Added here, once, because they are
+   * the company's standing rather than the role's.
+   */
+  const hero = {
+    ...content.hero,
+    badges: [...(content.hero.badges ?? []), ...partnerHeroBadges],
+  };
+
   function render(band: HireBand): ReactNode {
     const anchor = (own: HireBand, fallback: string) => (whyBand === own ? 'why' : fallback);
 
@@ -93,7 +106,15 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
         );
       case 'overview':
         return content.overview ? (
-          <Overview key={band} content={content.overview} id={anchor('overview', 'overview')} />
+          <Overview
+            key={band}
+            // A page's own image wins; otherwise the pipeline's per-page photo.
+            content={{
+              ...content.overview,
+              image: content.overview.image ?? overviewImage(content.slug.replace(/^\//, '')),
+            }}
+            id={anchor('overview', 'overview')}
+          />
         ) : null;
       case 'capabilities':
         return content.capabilities ? (
@@ -181,7 +202,7 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
       <Nav ownsAnchors logoHref={BASE_PATH || '/'} />
 
       <main id="main">
-        <Hero content={content.hero} idPrefix={content.key} />
+        <Hero content={hero} idPrefix={content.key} />
 
         {chapters.map((chapter, i) =>
           chapter.light ? (
@@ -195,11 +216,10 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
 
         {/* The homepage's closing band — the scrubbed focus pull and the
             press-and-hold confirm, which is this surface's rendering of the
-            "Book Free Consultation" form every live role page ends on.
-            `ctaHref` points at this page's own hero form rather than the
-            content's default `/contact`: the form the reader needs is already
-            on the page. */}
-        <Contact ctaHref="#enquiry" />
+            "Book Free Consultation" form every live role page ends on. Its CTA
+            keeps the default `/contact` destination — the review asked for
+            every final CTA to lead to the contact page. */}
+        <Contact />
       </main>
 
       <Footer />

@@ -34,7 +34,7 @@ import Faq from '@/components/landing/faq';
 // own (`lib/home/content.ts`), so they render with the homepage's actual
 // components rather than a second implementation of the same section.
 import Clients from '@/components/home/clients';
-import Journey from '@/components/home/journey';
+import Process from '@/components/landing/process';
 import CaseStudies from '@/components/home/work-grid';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
@@ -151,11 +151,9 @@ export default function DataScienceServicesPage() {
 
         <ServicesGrid content={dsServices} />
 
-        {/* The homepage's pinned journey scene over this page's six phases —
-            the process is a route walked once, in order, which is what that
-            layout is for. Dark, and NOT wrapped in `.light`: the beam, the
-            hub auras and the scrim are all built for the deep ground. */}
-        <Journey content={dsProcess} />
+        {/* The six phases as the shared simple process row — one process
+            design on every landing page, per the Sep corrections review. */}
+        <Process content={dsProcess} />
 
         <div className={home.light}>
           <Industries content={dsIndustries} columns={3} />

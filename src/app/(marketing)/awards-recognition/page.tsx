@@ -9,6 +9,8 @@ import { awardsPage, recognitions } from '@/lib/home/content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
+import Contact from '@/components/home/contact';
+import Breadcrumb from '@/components/common/breadcrumb';
 import styles from '@/components/home/home.module.css';
 
 /**
@@ -95,45 +97,52 @@ export default function AwardsRecognitionPage() {
       <JsonLd data={[awardsPageLd]} />
       <Nav logoHref={HOME_HREF} />
 
-      {/* The whole page content sits in the warm-white `.light` band: it
-          re-points the surface tokens, so every `.recog*` rule below inverts
-          with it. The nav and footer stay on the dark canvas, exactly as they
-          do over the homepage's light bands. */}
-      <main id="main" className={styles.light}>
-        <section className={`${styles.section} ${styles.awardsPageSection}`} id="awards">
-          <div className={styles.sectionHead}>
-            {/* light-band variant, per the band's contract */}
-            <h1 className={styles.h2}>{awardsPage.title}</h1>
-            <p className={styles.lead}>{awardsPage.body}</p>
-          </div>
+      {/* The awards wall sits in the warm-white `.light` band: it re-points
+          the surface tokens, so every `.recog*` rule below inverts with it.
+          The nav, the closing band and the footer stay on the dark canvas,
+          exactly as they do around the homepage's light bands. */}
+      <main id="main">
+        <div className={styles.light}>
+          <section className={`${styles.section} ${styles.awardsPageSection}`} id="awards">
+            <div className={styles.sectionHead}>
+              {/* light-band variant, per the band's contract */}
+              <Breadcrumb tone="band" />
+              <h1 className={styles.h2}>{awardsPage.title}</h1>
+              <p className={styles.lead}>{awardsPage.body}</p>
+            </div>
 
-          <ul className={styles.recogWall}>
-            {recognitions.items.map((item) => (
-              <li key={item.key} className={styles.recogCell}>
-                <article className={styles.recogCard}>
-                  {item.src ? (
-                    <span className={styles.recogBadge}>
-                      {/* the wording and issuer sit right below, so the artwork
-                          adds nothing for a screen reader */}
-                      <Image
-                        src={publicMediaUrl(item.src)}
-                        alt=""
-                        fill
-                        sizes="160px"
-                        className={styles.recogBadgeImg}
-                      />
-                    </span>
-                  ) : null}
-                  <h2 className={styles.recogTitle}>{item.title}</h2>
-                  <p className={styles.recogMeta}>
-                    <span>{item.org}</span>
-                    {item.year ? <span className={styles.recogYear}>{item.year}</span> : null}
-                  </p>
-                </article>
-              </li>
-            ))}
-          </ul>
-        </section>
+            <ul className={styles.recogWall}>
+              {recognitions.items.map((item) => (
+                <li key={item.key} className={styles.recogCell}>
+                  <article className={styles.recogCard}>
+                    {item.src ? (
+                      <span className={styles.recogBadge}>
+                        {/* the wording and issuer sit right below, so the artwork
+                            adds nothing for a screen reader */}
+                        <Image
+                          src={publicMediaUrl(item.src)}
+                          alt=""
+                          fill
+                          sizes="160px"
+                          className={styles.recogBadgeImg}
+                        />
+                      </span>
+                    ) : null}
+                    <h2 className={styles.recogTitle}>{item.title}</h2>
+                    <p className={styles.recogMeta}>
+                      <span>{item.org}</span>
+                      {item.year ? <span className={styles.recogYear}>{item.year}</span> : null}
+                    </p>
+                  </article>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+
+        {/* The homepage's closing band, on its default /contact destination —
+            the same close every other marketing page ends on. */}
+        <Contact />
       </main>
 
       <Footer />

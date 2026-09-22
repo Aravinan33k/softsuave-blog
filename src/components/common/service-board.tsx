@@ -5,9 +5,9 @@ import Image from "next/image";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
 import SectionHead from "@/components/landing/section-head";
+import CardIconBadge from "@/components/common/card-icon-badge";
+import ServiceLink, { useServiceHref } from "@/components/common/service-link";
 import styles from "@/components/landing/landing.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 export interface ServiceBoardContent {
   eyebrow: string;
@@ -20,6 +20,12 @@ export interface ServiceBoardContent {
     /** Two or more paragraphs; they live on the stage, not on the cards. */
     readonly paragraphs: readonly string[];
     readonly image?: { readonly src: string; readonly alt: string };
+    /**
+     * Optional destination page. Omitted, the stage links to the page the
+     * service's name matches (see `lib/home/service-href.ts`), never the page
+     * it is on.
+     */
+    readonly href?: string;
   }[];
 }
 
@@ -30,7 +36,7 @@ export interface ServiceBoardContent {
  * characters of body copy. Laid out as a row per service that is a three-
  * thousand-pixel wall nobody scrolls to the end of; as a card grid it is six
  * walls of grey side by side. So the copy is taken off the cards entirely:
- * the grid holds only an index and a name, which makes the whole set
+ * the grid holds only an icon and a name, which makes the whole set
  * scannable in two rows, and the chosen service opens on one stage beneath it.
  * The section goes from roughly 3000px to under 700.
  *
@@ -43,6 +49,11 @@ export interface ServiceBoardContent {
  * relative to the last one: choose something to the right and it enters from
  * the right. That spatial link is the whole reason the stage sits under the
  * grid rather than beside it.
+ *
+ * Each card and the stage lead with an icon badge picked from the service's
+ * own words — they used to carry "01" / "01 / 06" ordinals, which the review
+ * asked to be icons — and the stage ends in a "Learn more" link when the
+ * service has a page of its own.
  *
  * Accessibility: a real `tablist`/`tab`/`tabpanel` set with roving tabindex —
  * arrows move between services, Home/End jump to the ends, and only the
@@ -64,6 +75,7 @@ export default function ServiceBoard({
   const [active, setActive] = useState(0);
 
   const items = content.items;
+  const hrefFor = useServiceHref();
 
   // Entrance: the cards deal in, then the stage arrives under them.
   useGSAP(
@@ -184,9 +196,7 @@ export default function ServiceBoard({
               className={styles.sbCard}
               onClick={() => setActive(i)}
             >
-              <span className={styles.sbCardIndex} aria-hidden>
-                {pad(i + 1)}
-              </span>
+              <CardIconBadge title={item.name} body={item.paragraphs[0]} size="sm" />
               <span className={styles.sbCardName}>{item.name}</span>
               <span className={styles.sbCardMark} aria-hidden>
                 <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
@@ -204,7 +214,9 @@ export default function ServiceBoard({
          * the page's text — is never withheld from a crawler.
          */}
         <div className={styles.sbStage}>
-          {items.map((item, i) => (
+          {items.map((item, i) => {
+            const href = hrefFor(item.name, item.href);
+            return (
             <div
               key={item.name}
               className={styles.sbPanel}
@@ -227,18 +239,18 @@ export default function ServiceBoard({
               )}
 
               <div className={styles.sbCopy}>
-                <span className={styles.sbPanelIndex} aria-hidden>
-                  {pad(i + 1)} / {pad(items.length)}
-                </span>
+                <CardIconBadge title={item.name} body={item.paragraphs[0]} />
                 <h3 className={styles.sbPanelName}>{item.name}</h3>
                 {item.paragraphs.map((p) => (
                   <p key={p.slice(0, 32)} className={styles.sbText}>
                     {p}
                   </p>
                 ))}
+                {href && <ServiceLink href={href} label={item.name} />}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

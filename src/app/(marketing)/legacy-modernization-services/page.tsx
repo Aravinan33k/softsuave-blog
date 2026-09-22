@@ -106,7 +106,7 @@ export default function LegacyModernizationPage() {
 
         <CtaBand content={legacyMidCta} />
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

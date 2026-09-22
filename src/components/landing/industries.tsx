@@ -6,11 +6,12 @@ import BrandImage from "@/components/home/brand-image";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import { publicMediaUrl } from "@/lib/media-url";
 import FadeUp from "@/components/home/fade-up";
+import CardIconBadge from "@/components/common/card-icon-badge";
+import { useServiceHref } from "@/components/common/service-link";
+import badgeStyles from "@/components/common/card-icon-badge.module.css";
 import { gridSpansFor } from "./card-spans";
 import SectionHead from "./section-head";
 import styles from "./landing.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 const iconProps = {
   viewBox: "0 0 24 24",
@@ -396,6 +397,17 @@ export default function Industries({
      re-composes itself with no layout prop to keep in sync. */
   const spans = bold ? gridSpansFor(content.items.length) : [];
 
+  /* Links. A card's own `href` wins; failing that, a grid that lists services
+     or sectors links each card to the page its name matches in the route
+     registry (see `lib/home/service-href.ts`) — the review found almost none
+     of these cards led anywhere. Other grids (benefits, "why us", engagement
+     models) are statements, not gateways, so they are never auto-linked.
+     Either way a card never links to the page it is on. */
+  const resolveHref = useServiceHref();
+  const autoLink = /service|industr|sector|offering|solution/i.test(id);
+  const hrefOf = (item: CardGridContent["items"][number]) =>
+    (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
+
   if (feature) {
     return (
       <section className={styles.sectionShell} id={id}>
@@ -412,6 +424,7 @@ export default function Industries({
                  same thing. No glyph now means no badge, and the card simply
                  opens on its title. */
               const glyph = item.icon ? ICONS[item.icon] : null;
+              const href = hrefOf(item);
 
               return (
               <article key={item.name} className={styles.featCard}>
@@ -430,8 +443,8 @@ export default function Industries({
                   <span className={styles.featRule} aria-hidden />
                   {item.body ? <p className={styles.featText}>{item.body}</p> : null}
 
-                  {item.href ? (
-                    <Link href={item.href} className={styles.featLink}>
+                  {href ? (
+                    <Link href={href} className={styles.featLink}>
                       Learn more
                       <svg {...iconProps} className={styles.featLinkIcon}>
                         <path d="M4 12h15M13 6l6 6-6 6" />
@@ -490,7 +503,9 @@ export default function Industries({
 
         <div className={bold ? styles.boldGrid : grid}>
 
-          {content.items.map((item, i) => (
+          {content.items.map((item, i) => {
+            const href = hrefOf(item);
+            return (
             <article
               key={item.name}
               className={bold ? `${styles.boldCard} ${styles.cardBold}` : styles.card}
@@ -502,9 +517,14 @@ export default function Industries({
               {bold ? (
                 item.tag && <span className={styles.boldTag}>{item.tag}</span>
               ) : (
-                <span className={styles.cardIndex} aria-hidden>
-                  {pad(i + 1)}
-                </span>
+                /* An icon picked from the card's own words, where the "01"
+                   ordinal used to be (review: icons instead of numbers). */
+                <CardIconBadge
+                  title={item.name}
+                  body={item.body}
+                  size="sm"
+                  className={badgeStyles.stack}
+                />
               )}
               {/* `href` is honoured here, not only in the `feature` variant.
                   The "Explore More <Web|Mobile> Technologies" band on the 20
@@ -524,8 +544,8 @@ export default function Industries({
                   not routes in this app, and `navHref` sends them to the live
                   marketing site rather than to a local 404. */}
               <h3 className={styles.cardName}>
-                {item.href ? (
-                  <SiteLink href={item.href} className={styles.cardLink}>
+                {href ? (
+                  <SiteLink href={href} className={styles.cardLink}>
                     {item.name}
                   </SiteLink>
                 ) : (
@@ -534,7 +554,8 @@ export default function Industries({
               </h3>
               {item.body ? <p className={styles.cardBody}>{item.body}</p> : null}
             </article>
-          ))}
+            );
+          })}
         </div>
       </FadeUp>
     </section>

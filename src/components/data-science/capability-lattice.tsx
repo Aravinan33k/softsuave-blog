@@ -2,11 +2,10 @@
 
 import { useCallback, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "@/components/landing/section-head";
 import styles from "@/components/landing/landing.module.css";
 import type { CardGridContent } from "@/components/landing/industries";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
 
@@ -229,9 +228,15 @@ export default function CapabilityLattice({
                 className={styles.latPort}
                 aria-hidden
               />
-              <span className={styles.latIndex} aria-hidden>
-                {pad(i + 1)}
-              </span>
+              {/* An icon picked from the capability's own words, not a "01"
+                  ordinal: the Sep corrections review asked for icons in place
+                  of numbers. */}
+              <CardIconBadge
+                title={item.name}
+                body={item.body}
+                size="sm"
+                className={styles.latIndex}
+              />
               <h3 className={styles.latName}>{item.name}</h3>
               <p className={styles.latBody}>{item.body}</p>
             </li>

@@ -6,6 +6,7 @@ import { organizationLd } from '@/lib/seo/organization';
 import { contactPage } from '@/lib/home/content';
 
 import Nav from '@/components/home/nav';
+import Breadcrumb from '@/components/common/breadcrumb';
 import Contact from '@/components/home/contact';
 import Footer from '@/components/home/footer';
 import styles from '@/components/home/home.module.css';
@@ -75,6 +76,7 @@ export default function ContactPage() {
         {/* The masthead keeps the page's own near-black ground (the nav is
             over it, and it is what the reader lands on). */}
         <section className={styles.contactLead}>
+          <Breadcrumb tone="band" />
           <h1 className={styles.h2}>{contactPage.title}</h1>
           <p className={styles.lead}>{contactPage.body}</p>
         </section>

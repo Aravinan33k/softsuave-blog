@@ -2,16 +2,16 @@
 
 import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "./section-head";
 import styles from "./landing.module.css";
 import type { CardGridContent } from "./industries";
 
-const pad = (n: number) => String(n).padStart(2, "0");
-
 /**
- * Why Soft Suave — the differentiators as six bordered cards, each led by a
- * large serif figure (the one place this surface still uses the brand
- * display serif). Cards spring in on a bounce rather than a plain fade, and
+ * Why Soft Suave — the differentiators as six bordered cards, each led by an
+ * icon badge picked from the card's own words (`CardIconBadge`). It used to
+ * be a large serif "01"–"06"; the review asked for icons in place of numbers,
+ * which say what a proof point is about rather than where it sits. Cards spring in on a bounce rather than a plain fade, and
  * a click/tap replays that same spring on just that card — a small tactile
  * reward for engaging with a proof point, in the homepage's motion vocabulary
  * (`back.out`/`elastic.out` overshoot eases, same family as `stats.tsx`'s
@@ -79,11 +79,9 @@ export default function WhyUs({
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
       <ul ref={root} className={styles.proofGrid}>
-        {content.items.map((item, i) => (
+        {content.items.map((item) => (
           <li key={item.name} className={styles.proofItem} onClick={bounce}>
-            <span className={styles.proofFigure} aria-hidden>
-              {pad(i + 1)}
-            </span>
+            <CardIconBadge title={item.name} body={item.body} />
             <h3 className={styles.proofName}>{item.name}</h3>
             <p className={styles.proofBody}>{item.body}</p>
           </li>
