@@ -87,6 +87,7 @@ export const organizationLd = {
   sameAs: [
     'https://in.linkedin.com/company/softsuave',
     'https://www.instagram.com/softsuavetech/',
+    'https://www.facebook.com/softsuave/',
     'https://www.youtube.com/@softsuave',
     'https://clutch.co/profile/soft-suave-technologies',
     'https://www.goodfirms.co/company/soft-suave',
