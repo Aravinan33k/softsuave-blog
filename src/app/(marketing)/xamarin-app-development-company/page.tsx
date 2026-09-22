@@ -108,7 +108,13 @@ const LD = pageSchemaGraph({
   // The page's own short name for what it sells, not its `<title>`, which is
   // written to win the click.
   serviceName: 'Xamarin App Development',
-  breadcrumbName: 'Xamarin App Development',
+  // Matches the live page's own breadcrumb trail, minus one level: live runs
+  // Home › Mobile App › Cross-platform › Xamarin Development, but we have no
+  // page at the "Cross-platform" URL live links to, so that level is dropped
+  // rather than pointing our own schema at a page this app doesn't serve.
+  showBreadcrumb: true,
+  parents: [{ name: 'Mobile App', path: '/mobile-application-development-company' }],
+  breadcrumbName: 'Xamarin Development',
   offerCatalogName: xamServices.title,
   offers: xamServices.items.map((i) => ({ name: i.name, description: i.paragraphs[0] })),
 });

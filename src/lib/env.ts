@@ -10,7 +10,12 @@ import { z } from 'zod';
 const schema = z
   .object({
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
-    NEXT_PUBLIC_SITE_URL: z.string().min(1).default('http://localhost:3000'),
+    // Canonical origin for every canonical tag, JSON-LD `@id`/`url`, OG image,
+    // sitemap and feed URL. The default is the live origin, not localhost: a
+    // deployment that forgets this variable should publish correct canonicals
+    // pointing at the real site, not ship a page telling crawlers its canonical
+    // is a loopback address. Local dev overrides it in `.env`.
+    NEXT_PUBLIC_SITE_URL: z.string().min(1).default('https://www.softsuave.com'),
 
     // Must be a mysql:// URL. The protocol is checked rather than accepted as any
     // non-empty string because this app was ported from Postgres: a leftover

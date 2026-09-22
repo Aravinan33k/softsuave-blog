@@ -3,8 +3,7 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/organization';
 import { marketingWebSiteLd, SCHEMA_DATE_MODIFIED } from '@/lib/seo/page-graph';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { meta, sectors } from '@/lib/home/industries-content';
 
 import Nav from '@/components/home/nav';
@@ -117,18 +116,9 @@ const collectionLd = {
 const HOME_HREF = BASE_PATH || '/';
 
 export default function IndustriesPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect — which leaves a
-  // single-item trail, so the schema is omitted rather than emitted empty.
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: 'Industries', path: meta.path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
-
   return (
     <div className={styles.page}>
-      <JsonLd data={[collectionLd, sectorListLd, ...(breadcrumb ? [breadcrumb] : [])]} />
+      <JsonLd data={[collectionLd, sectorListLd]} />
       {/* The homepage's own bar — same divisions, same mega panels, across the
           whole surface. Its in-page anchors resolve back to the homepage off
           it (see `navHrefForPage`). */}

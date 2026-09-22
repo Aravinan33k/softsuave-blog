@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { aiPageJsonLd } from '@/lib/seo/ai-page-schema';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import {
   caApproachCta,
@@ -105,21 +104,9 @@ const HOME_HREF = BASE_PATH || '/';
 const structuredData = aiPageJsonLd('customAi');
 
 export default function CustomAiDevelopmentPage() {
-  // The trail its two siblings on `aiPageJsonLd` already emit — Agentic AI and
-  // Generative AI both append one and this page did not, which left it the only
-  // marketing page without a BreadcrumbList. "/" is a page this app serves only
-  // once the marketing homepage ships; until then the trail must not point
-  // Google at a redirect, which leaves a single-item trail, so the schema is
-  // omitted rather than emitted with one crumb.
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: 'Custom AI Development Services', path: caMeta.path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
-
   return (
     <div className={home.page}>
-      <JsonLd data={[...structuredData, ...(breadcrumb ? [breadcrumb] : [])]} />
+      <JsonLd data={structuredData} />
       <Nav logoHref={HOME_HREF} />
 
       {/*

@@ -204,7 +204,7 @@ export const njHireCta: CtaBandContent = {
   eyebrow: "Hire A Team",
   title: "Need Dedicated NodeJS Developers?",
   body: "Soft Suave has a pool of certified and experienced NodeJS developers who deliver your app development project on time and under your budget.",
-  cta: { label: "Hire NodeJS Developer", href: "https://www.softsuave.com/hire-nodejs-developers" },
+  cta: { label: "Hire NodeJS Developer", href: "/hire-nodejs-developers" },
 };
 
 /**

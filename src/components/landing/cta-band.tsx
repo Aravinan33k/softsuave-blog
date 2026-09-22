@@ -3,6 +3,8 @@
 import FadeUp from "@/components/home/fade-up";
 import SplitReveal from "@/components/home/split-reveal";
 import styles from "./landing.module.css";
+import LightFieldBackdrop from "@/components/home/light-field-backdrop";
+import { SiteLink } from "@/themes/softsuave/site-link";
 
 export interface CtaBandContent {
   /** Optional — omitted on pages whose CTA heading stands on its own. */
@@ -35,6 +37,8 @@ export default function CtaBand({
 }) {
   return (
     <section className={styles.ctaBand}>
+      <LightFieldBackdrop />
+
       <FadeUp className={styles.ctaInner}>
         <div>
           {content.eyebrow && <span className={styles.kicker}>{content.eyebrow}</span>}
@@ -45,9 +49,21 @@ export default function CtaBand({
         </div>
 
         <div className={styles.ctaActions}>
-          <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
-            {content.cta.label}
-          </a>
+          {/* An in-page target stays a plain <a> so ScrollProvider's Lenis
+              handler intercepts it. A site path goes through SiteLink, which
+              decides between <Link> and an anchor depending on whether this app
+              serves that route yet — without it, a CTA naming a page we do not
+              serve (Xamarin hiring, say) would 404 here instead of resolving to
+              softsuave.com. */}
+          {content.cta.href.startsWith("#") ? (
+            <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
+              {content.cta.label}
+            </a>
+          ) : (
+            <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
+              {content.cta.label}
+            </SiteLink>
+          )}
         </div>
       </FadeUp>
 

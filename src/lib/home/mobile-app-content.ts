@@ -331,7 +331,7 @@ export const madEngagement: EngagementContent = {
 export const madHireCta: CtaBandContent = {
   title: "Turn Ideas into Impact with India’s Leading Mobile App Experts",
   body: "Whether you’re a startup or an SMB, we help bring your mobile app ideas to life with innovative solutions, ensuring seamless performance, scalability, and user-centric experiences every step of the way.",
-  cta: { label: "Hire Mobile App Developer →", href: "#enquiry" },
+  cta: { label: "Hire Mobile App Developer →", href: "/hire-mobile-app-developers" },
 };
 
 export const madFaqs: FaqContent = {

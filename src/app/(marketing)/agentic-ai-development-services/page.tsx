@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
 import { aiPageJsonLd } from '@/lib/seo/ai-page-schema';
-import { homepageEnabled } from '@/lib/flags';
 import {
   meta,
   hero as heroContent,
@@ -87,18 +85,9 @@ export const metadata: Metadata = {
 const pageLd = aiPageJsonLd('agenticAi');
 
 export default function AgenticAiDevelopmentServicesPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect — which leaves a
-  // single-item trail, so the schema is omitted rather than emitted empty.
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: 'Agentic AI Development Services', path: meta.path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
-
   return (
     <div className={styles.page}>
-      <JsonLd data={[...pageLd, ...(breadcrumb ? [breadcrumb] : [])]} />
+      <JsonLd data={pageLd} />
       <Nav />
       <main id="main">
         <Hero content={heroContent} idPrefix="agentic" />

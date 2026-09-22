@@ -27,7 +27,7 @@ ENV NEXT_PUBLIC_HOMEPAGE_ENABLED=${NEXT_PUBLIC_HOMEPAGE_ENABLED}
 # OG and sitemap URLs from it, and the schema default would ship localhost.
 # The bare origin — this app owns the whole site, so no mount subpath:
 #   --build-arg NEXT_PUBLIC_SITE_URL=https://www.softsuave.com
-ARG NEXT_PUBLIC_SITE_URL=http://localhost:3000
+ARG NEXT_PUBLIC_SITE_URL=https://www.softsuave.com
 ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
 ENV DATABASE_URL=mysql://placeholder:placeholder@localhost:3306/db
 ENV JWT_ACCESS_SECRET=build-placeholder-secret-000000000000

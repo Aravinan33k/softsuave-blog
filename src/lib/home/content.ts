@@ -189,12 +189,19 @@ export const services = {
   // separate from `key`: there are eight uploaded service shots and ten
   // services, so a couple of slots are shared until new art lands.
   //
-  // `href` is where the service lives. Three of the ten have a real page —
-  // Custom AI Development and its two children — and the rest deliberately hold
-  // "#services": they are practices this page argues for (Data Engineering, the
-  // FDE model, MLOps) that softsuave.com publishes no page for. Sending them to
-  // a near-miss page would misdescribe them, so they scroll to the section that
-  // does describe them. Swap in the real path as each page ships.
+  // `href` is where the service lives, and it is what the carousel's Enquire
+  // button points at — so this is the list that decides where that button goes
+  // for the card on screen, not a decoration.
+  //
+  // Nine of the ten now have a real page; five of those pages had already
+  // shipped while this list still sent them to "#services", so the button sat
+  // on the Data Science card and scrolled the reader back up the homepage
+  // instead of opening the Data Science page.
+  //
+  // MLOps is the one exception and deliberately keeps "#services": Soft Suave
+  // publishes no MLOps page, and pointing at a near-miss would misdescribe the
+  // practice, so it scrolls to the section that does describe it. Swap in the
+  // real path if that page ships.
   items: [
     {
       key: "custom-ai-development-services",
@@ -205,14 +212,14 @@ export const services = {
     },
     {
       key: "data-engineering",
-      href: "#services",
+      href: "/data-engineering-services",
       img: "data-engineering",
       name: "Data Engineering",
       body: "Build reliable data foundations with ETL and ELT pipelines, orchestration, data quality controls, and real-time streaming.",
     },
     {
       key: "data-science",
-      href: "#services",
+      href: "/data-science-services",
       img: "data-science",
       name: "Data Science",
       body: "Turn data into actionable insights through model training, feature engineering, experimentation, and MLOps for scalable AI outcomes.",
@@ -233,21 +240,21 @@ export const services = {
     },
     {
       key: "rag-document-ai",
-      href: "#services",
+      href: "/rag-development-services",
       img: "rag",
       name: "RAG and Document AI",
       body: "Create RAG and Document AI solutions that retrieve trusted knowledge, extract information, and deliver accurate, context-aware responses from enterprise data.",
     },
     {
       key: "computer-vision",
-      href: "#services",
+      href: "/computer-vision-development-services",
       img: "computer-vision",
       name: "Computer Vision",
       body: "Build computer vision solutions for detection, OCR, video analytics, and inspection, enabling faster analysis, improved accuracy, and smarter operational decisions.",
     },
     {
       key: "predictive-intelligence",
-      href: "#services",
+      href: "/predictive-intelligence-services",
       img: "predictive",
       name: "Predictive Intelligence",
       body: "Turn historical and real-time data into forecasts, anomaly detection, and recommendations that help businesses anticipate outcomes and make informed decisions.",

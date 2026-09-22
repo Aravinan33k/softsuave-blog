@@ -86,6 +86,14 @@ const LD = pageSchemaGraph({
   title: staffMeta.title,
   description: staffMeta.description,
   serviceType: 'IT staff augmentation',
+  // Matches the live page's own breadcrumb trail: Home › Software Development
+  // — the live trail stops at the parent and never names this page itself.
+  // Live's own parent link (`/software-development-company-india`) 404s on
+  // its own site; pointed at our real equivalent page instead of copying a
+  // dead link.
+  showBreadcrumb: true,
+  parents: [{ name: 'Software Development', path: '/software-development-company' }],
+  breadcrumbEndsAtParent: true,
   offerCatalogName: staffRoles.title,
   offers: staffRoles.items.map((i) => ({ name: i.name, description: i.body })),
   faqName: staffFaqs.title,

@@ -30,9 +30,20 @@ import { brand, why } from './content';
 
 const TITLE = 'Soft Suave — Scalable AI, Automation & Integrations';
 
+/*
+ * Kept under 160 characters, which is where Google truncates on desktop.
+ *
+ * The previous line described the work but never said who it is for or why
+ * this company — while the page's own client band leads on exactly that
+ * ("Preferred AI-Enabled Technology Partner for Startups and SMBs", backed by
+ * 13+ years). A description that omits the audience the page is written for
+ * loses the qualifier a searcher scans for, so both are stated here. The
+ * figure is the one `clients.body` already publishes above; it is not a new
+ * claim, and if that copy changes this has to change with it.
+ */
 const DESCRIPTION =
-  'Build scalable AI solutions, intelligent automation systems, and seamless ' +
-  'integrations with AI-enabled engineering teams focused on real business outcomes.';
+  'Scalable AI solutions, intelligent automation and system integrations for ' +
+  'startups and SMBs. 13+ years of product engineering, built for measurable outcomes.';
 
 const OG_IMAGE = dynamicOgImage(brand.name, 'Scalable AI, Automation & Integrations');
 

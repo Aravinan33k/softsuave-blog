@@ -112,7 +112,11 @@ const LD = pageSchemaGraph({
   // The page's own short name for what it sells, not its `<title>`, which is
   // written to win the click.
   serviceName: 'iOS App Development',
-  breadcrumbName: 'iOS App Development',
+  // Matches the live page's own breadcrumb trail exactly: Home › Mobile App —
+  // the live trail stops at the parent and never names this page itself.
+  showBreadcrumb: true,
+  parents: [{ name: 'Mobile App', path: '/mobile-application-development-company' }],
+  breadcrumbEndsAtParent: true,
   offerCatalogName: iosServices.title,
   offers: iosServices.items.map((i) => ({ name: i.name, description: i.body })),
   faqName: iosFaqs.title,

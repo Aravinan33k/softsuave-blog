@@ -117,6 +117,28 @@ export interface PageGraphInput {
    * than two items, so their breadcrumb survives the homepage gate below.
    */
   readonly parents?: readonly { readonly name: string; readonly path: string }[];
+  /**
+   * Emit a `BreadcrumbList` at all. Defaults to **off**.
+   *
+   * softsuave.com's own marketing pages mostly carry no breadcrumb — it is a
+   * minority pattern, present on a handful of tech-stack and hire pages and
+   * absent from the rest, including the homepage. A page opts in only when its
+   * live counterpart actually has one, so the schema here never states more
+   * than the live page does. Where it does, `parents` supplies the trail; see
+   * `angularjs-development-company/page.tsx` for a caller that sets both.
+   */
+  readonly showBreadcrumb?: boolean;
+  /**
+   * Stop the trail at the last `parents` entry instead of appending this page
+   * as its own final crumb.
+   *
+   * A handful of live pages' breadcrumb trails end one level short — e.g.
+   * `/hire-mobile-app-developers` traces to "Home › Hire Developers" and never
+   * names itself. That is the live page's own breadcrumb plugin output, not an
+   * omission on our side, so it is replicated rather than "corrected" into a
+   * trail the live page does not have. Requires `parents` to be non-empty.
+   */
+  readonly breadcrumbEndsAtParent?: boolean;
   /** `primaryImageOfPage` caption. Defaults to the page title. */
   readonly caption?: string;
   /** ISO date. Defaults to {@link SCHEMA_DATE_MODIFIED}. */
@@ -141,13 +163,13 @@ function answerText(item: GraphFaqItem): string {
 }
 
 /**
- * Build the page's graph: `Service`, `WebPage`, then `FAQPage` and
- * `BreadcrumbList` where the page has them.
+ * Build the page's graph: `Service`, `WebPage`, then `FAQPage` where the page
+ * has one, and `BreadcrumbList` only where `showBreadcrumb` opts in.
  *
- * The breadcrumb is dropped when the trail would be a single item — while the
- * homepage is behind its flag "/" is a 307, and a trail must not point a
- * crawler at a redirect. That gate is `homepageEnabled`, the same one the
- * pages used to apply themselves.
+ * Even opted in, the breadcrumb is dropped when the trail would be a single
+ * item — while the homepage is behind its flag "/" is a 307, and a trail must
+ * not point a crawler at a redirect. That gate is `homepageEnabled`, the same
+ * one the pages used to apply themselves.
  */
 export function pageSchemaGraph(input: PageGraphInput): object[] {
   const pageUrl = absoluteUrl(input.path);
@@ -232,12 +254,14 @@ export function pageSchemaGraph(input: PageGraphInput): object[] {
     });
   }
 
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    ...(input.parents ?? []),
-    { name: input.breadcrumbName ?? input.title, path: input.path },
-  ];
-  if (trail.length > 1) graph.push(breadcrumbLd(trail));
+  if (input.showBreadcrumb) {
+    const trail = [
+      ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
+      ...(input.parents ?? []),
+      ...(input.breadcrumbEndsAtParent ? [] : [{ name: input.breadcrumbName ?? input.title, path: input.path }]),
+    ];
+    if (trail.length > 1) graph.push(breadcrumbLd(trail));
+  }
 
   return graph;
 }

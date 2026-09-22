@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { publicMediaUrl } from '@/lib/media-url';
 import { JsonLd } from '@/components/seo/json-ld';
 import { organizationLd } from '@/lib/seo/organization';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
 import { awardsPage, recognitions } from '@/lib/home/content';
 
 import Nav from '@/components/home/nav';
@@ -91,18 +90,9 @@ const awardsPageLd = {
 } as const;
 
 export default function AwardsRecognitionPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then a single-item trail is omitted rather than emitted empty — the same
-  // rule every other route in this group follows.
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: awardsPage.title, path: '/awards-recognition' },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
-
   return (
     <div className={styles.page}>
-      <JsonLd data={[awardsPageLd, ...(breadcrumb ? [breadcrumb] : [])]} />
+      <JsonLd data={[awardsPageLd]} />
       <Nav logoHref={HOME_HREF} />
 
       {/* The whole page content sits in the warm-white `.light` band: it

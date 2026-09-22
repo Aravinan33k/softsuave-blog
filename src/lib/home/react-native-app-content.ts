@@ -153,7 +153,7 @@ export const rnOutsourceCta: CtaBandContent = {
   eyebrow: "Outsource With Us",
   title: "Want to Outsource React Native Development Company?",
   body: "Soft Suave has a pool of React Native Developers who deliver your app development project on time and under your budget.",
-  cta: { label: "Hire React Native Developer", href: "#enquiry" },
+  cta: { label: "Hire React Native Developer", href: "/hire-react-native-developers" },
 };
 
 /** Six benefits, three across on a wide desktop so neither row is orphaned. */

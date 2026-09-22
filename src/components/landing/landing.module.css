@@ -80,8 +80,11 @@
 
 /* Section H2. Was clamp(2.25rem, 4.6vw, 4rem) — 64px at desktop, which is
    the HERO's weight on a section heading and left every band shouting
-   (review: "H2 heading size is too big"). 44px keeps the hero clearly above
-   it while staying well ahead of the 20px intro. */
+   (review: "H2 heading size is too big"). Came down to 44px, and then to 38px
+   alongside the hero's own drop to 72px — the step below the hero has to move
+   with it or the two close up and the page flattens. Still well ahead of the
+   20px intro. Held at the same ceiling as `.h2` in home/home.module.css; see
+   the note there before changing either. */
 .title {
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
@@ -95,7 +98,7 @@
 
 .intro {
   margin: 0;
-  max-width: 46ch;
+  max-width: 800px;
   font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   line-height: 1.6;
   color: var(--muted);
@@ -294,7 +297,7 @@
    backdrops. See the same treatment on every other hero. */
 .heroBody {
   margin: clamp(20px, 2.4vw, 30px) 0 0;
-  max-width: 58ch;
+  max-width: 800px;
   font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   line-height: 1.6;
   color: #ffffff;
@@ -325,8 +328,11 @@
 }
 
 .heroPointMark {
-  width: 15px;
-  height: 15px;
+  /* 26px, per spec. The tick reads as a mark beside the line, not as
+     punctuation inside it. */
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
   color: var(--accent);
 }
 
@@ -886,14 +892,36 @@
    MID-PAGE CTA BAND
    ============================================================ */
 .ctaBand {
+  /* Self-contained dark surface. On 13 pages this band sits INSIDE a
+     `.light` wrapper, and the backdrop behind it is dark either way — so the
+     band re-points the semantic tokens to the dark set rather than inheriting
+     warm-white ones and rendering near-black copy on a near-black video. */
+  --bg: #050609;
+  --surface: #131415;
+  --text: #d8d8d8;
+  --text-bright: #e8e8e8;
+  --muted: #bdb3b0;
+  --line: #434343;
+  --accent: var(--brand-500);
+  --accent-border: var(--brand-red);
+  --on-accent: #140b08;
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   padding: clamp(44px, 5.2vw, 80px) var(--gutter);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(
-    110deg,
-    color-mix(in srgb, var(--accent) 11%, var(--bg)) 0%,
-    var(--bg) 60%
-  );
+  /* Base only — <LightFieldBackdrop> paints over this. It still matters: it is
+     what shows if the poster fails to load, and it keeps the band dark. */
+  background: #050609;
+}
+
+/* Above <LightFieldBackdrop>, which sits at z-index 0 inside the band. */
+.ctaInner,
+.ctaStats {
+  position: relative;
+  z-index: 1;
 }
 
 .ctaInner {
@@ -2780,11 +2808,12 @@
   text-shadow: 0 1px 12px rgba(4, 5, 8, 0.75), 0 1px 2px rgba(4, 5, 8, 0.6);
 }
 
-/* The compact hero still steps down from the full hero's 4.25rem, but not
-   below its own page. At clamp(1.85rem, 3.4vw, 2.9rem) this H1 capped at 46px
-   against 44px section H2s and a 70px closing H2, so on 38 pages the first
-   heading was the smallest one — the page had no hierarchy to read. 60px sits
-   clearly above the 44px H2 band and clearly below the 68px full hero. */
+/* The compact hero used to step down from the full hero (68px) to its own
+   60px, because an earlier 46px ceiling left this H1 SMALLER than the section
+   H2s below it on 38 pages — the page had no hierarchy to read.
+   With one H1 size across the surface there is no step to take: both heroes
+   are 50px, still clearly above the 40px H2 band, so the distinction the two
+   sizes used to draw is now carried by the compact hero's spacing alone. */
 .heroCompact .heroTitle {
   font-size: clamp(2.1rem, 4.2vw, 3.75rem);
   line-height: 1.06;

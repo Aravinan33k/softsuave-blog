@@ -38,6 +38,12 @@ export const dedicated: HireRolePageContent = {
   slug: '/hire-dedicated-developers',
   name: 'Hire Dedicated Developers',
   serviceType: 'Dedicated development team staffing',
+  // Matches the live page's own breadcrumb trail: Home › Hire Developers —
+  // this page IS the "Hire Developers" parent live's own trails point at, so
+  // its own trail stops there rather than naming itself a second time.
+  showBreadcrumb: true,
+  breadcrumbParents: [{ name: 'Hire Developers', path: '/hire-dedicated-developers' }],
+  breadcrumbEndsAtParent: true,
 
   /**
    * Live order: clients, why hire (with its figures), developer roles, CTA,

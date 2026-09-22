@@ -78,7 +78,7 @@
   margin: 0;
   /* The masthead is stacked and full-width, so a narrow measure left the lead
      wrapping into four short lines against a lot of empty space. */
-  max-width: 76ch;
+  max-width: 800px;
   font-size: clamp(0.95rem, 1.05vw, 1.05rem);
   line-height: 1.62;
   color: var(--muted);
@@ -248,7 +248,7 @@
    backdrops. See the same treatment on every other hero. */
 .heroBody {
   margin: clamp(16px, 2vw, 24px) 0 0;
-  max-width: 72ch;
+  max-width: 800px;
   font-size: clamp(0.95rem, 1.05vw, 1.05rem);
   line-height: 1.62;
   color: #ffffff;
@@ -280,8 +280,11 @@
 }
 
 .heroPointMark {
-  width: 15px;
-  height: 15px;
+  /* 26px, per spec. The tick reads as a mark beside the line, not as
+     punctuation inside it. */
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
   color: var(--accent);
 }
 
@@ -977,14 +980,36 @@
    MID-PAGE CTA BAND
    ============================================================ */
 .ctaBand {
+  /* Self-contained dark surface. On 13 pages this band sits INSIDE a
+     `.light` wrapper, and the backdrop behind it is dark either way — so the
+     band re-points the semantic tokens to the dark set rather than inheriting
+     warm-white ones and rendering near-black copy on a near-black video. */
+  --bg: #050609;
+  --surface: #131415;
+  --text: #d8d8d8;
+  --text-bright: #e8e8e8;
+  --muted: #bdb3b0;
+  --line: #434343;
+  --accent: var(--brand-500);
+  --accent-border: var(--brand-red);
+  --on-accent: #140b08;
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   padding: clamp(44px, 5.2vw, 80px) var(--gutter);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(
-    110deg,
-    color-mix(in srgb, var(--accent) 11%, var(--bg)) 0%,
-    var(--bg) 60%
-  );
+  /* Base only — <LightFieldBackdrop> paints over this. It still matters: it is
+     what shows if the poster fails to load, and it keeps the band dark. */
+  background: #050609;
+}
+
+/* Above <LightFieldBackdrop>, which sits at z-index 0 inside the band. */
+.ctaInner,
+.ctaStats {
+  position: relative;
+  z-index: 1;
 }
 
 .ctaInner {

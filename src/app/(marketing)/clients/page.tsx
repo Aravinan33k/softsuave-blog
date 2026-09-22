@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
 import { organizationLd } from '@/lib/seo/organization';
 import { clients as clientRoster } from '@/lib/home/content';
 import {
@@ -110,15 +109,9 @@ const structuredData = [
 ];
 
 export default function ClientsPage() {
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: clientsPageMeta.title, path: clientsPageMeta.path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
-
   return (
     <div className={home.page}>
-      <JsonLd data={[...structuredData, ...(breadcrumb ? [breadcrumb] : [])]} />
+      <JsonLd data={structuredData} />
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">

@@ -1,4 +1,5 @@
 import FadeUp from '@/components/home/fade-up';
+import LightFieldBackdrop from '@/components/home/light-field-backdrop';
 import home from '@/components/home/home.module.css';
 import styles from './services.module.css';
 
@@ -21,6 +22,7 @@ export default function CtaBand({ title, body, cta, href = '#contact' }: CtaBand
   return (
     <section className={home.section}>
       <FadeUp className={styles.ctaBand}>
+        <LightFieldBackdrop />
         <div>
           <h2 className={styles.ctaTitle}>{title}</h2>
           <p className={styles.ctaBody}>{body}</p>

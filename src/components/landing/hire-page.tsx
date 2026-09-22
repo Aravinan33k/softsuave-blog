@@ -121,7 +121,9 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
    *
    * The empty cases stay handled: NestJS publishes no FAQ and gets no
    * `FAQPage`, a page with no services band gets no `hasOfferCatalog`, and the
-   * breadcrumb is dropped while "/" is still a redirect.
+   * breadcrumb is off unless the skill opts in (see `HireSkill.showBreadcrumb`)
+   * — most of these twenty-four pages have none on their live page — and even
+   * then dropped while "/" is still a redirect.
    */
   const structuredData = pageSchemaGraph({
     path,
@@ -132,7 +134,11 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
     // Developers | 14 Years' Experience". The title is the page's sales line;
     // the service is what is actually offered.
     serviceName: skill.role,
-    breadcrumbName: skill.metaTitle,
+    // Off by default — see `HireSkill.showBreadcrumb`. Only a handful of these
+    // 24 pages have a breadcrumb on their live page.
+    showBreadcrumb: skill.showBreadcrumb ?? false,
+    parents: skill.breadcrumbParents,
+    breadcrumbName: skill.breadcrumbLabel ?? skill.role,
     // The H1 as one line — the hero splits it for the accent on its last line.
     caption: skill.hero.titleLines.join(' '),
     audience: `Startups, SMBs and enterprises hiring ${skill.role}`,

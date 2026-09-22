@@ -138,7 +138,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   // the industry AI group.
   { path: '/industries', title: 'Industries We Serve' },
 
-  // The nine hire-by-role pages, from their own slug list — adding a role
+  // The fourteen hire-by-role pages, from their own slug list — adding a role
   // should put it in the sitemap without anyone remembering this file. Imported
   // from `hire-roles/slugs` rather than `hire-roles/index` on purpose: this
   // module is read by the nav-adjacent code, and the index pulls in all nine

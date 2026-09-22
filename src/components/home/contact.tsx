@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import BrandImage from "./brand-image";
+import { useEffect, useRef, useState } from "react";
 import { finalCta } from "@/lib/home/content";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import HoldButton from "./hold-button";
@@ -42,6 +41,35 @@ export default function Contact({
 } = {}) {
   const root = useRef<HTMLElement | null>(null);
 
+  /**
+   * The moving backdrop mounts on the client, unconditionally.
+   *
+   * UNGATED ON PURPOSE, AND TEMPORARILY. This started behind three gates — an
+   * IntersectionObserver so the file only downloaded for the minority who
+   * scroll this far, a `prefers-reduced-motion` check, and a >=1000px check —
+   * and the result was that the band showed its still frame and the video was
+   * never seen. Any one of those gates can hide it, and from the outside a
+   * still frame of the loop is indistinguishable from a flat background.
+   *
+   * Before this ships, restore at least the reduced-motion gate: an autoplaying
+   * loop behind a headline is exactly what that setting exists to suppress. The
+   * lazy mount is worth restoring too — this is the LAST section on 53 pages,
+   * so most visits never reach it.
+   *
+   * `mounted` only defers to the client, matching how `hero.tsx` mounts its own
+   * video; it is not a capability gate.
+   */
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    let active = true;
+    requestAnimationFrame(() => {
+      if (active) setMounted(true);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
   // Split the headline so the last keyword can carry the drawn underline.
   const m = content.title.match(/^([\s\S]*?)([A-Za-z0-9]+)(\W*)$/);
   const beforeKey = m ? m[1] : content.title;
@@ -63,7 +91,7 @@ export default function Contact({
       // the headline and CTA silently vanished. Decorative motion may be left
       // half-played; content may not.
       const bg = gsap.fromTo(
-        `.${styles.contactBg} img`,
+        `.${styles.contactPoster}, .${styles.contactVideo}`,
         { filter: "blur(26px)", scale: 1.3 },
         {
           filter: "blur(0px)",
@@ -136,7 +164,24 @@ export default function Contact({
   return (
     <section ref={root} className={styles.contact} id="contact">
       <div className={styles.contactBg}>
-        <BrandImage page="four" id="contact-bg" fill sizes="100vw" className="object-cover" />
+        {/* The still is the base layer in every case — it is a frame of the
+            video, so the switch between the two is invisible. */}
+        <div className={styles.contactPoster} />
+        {mounted && (
+          <video
+            className={styles.contactVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden
+            onLoadedData={() => ScrollTrigger.refresh()}
+          >
+            <source src="/videos/contact-light.webm" type="video/webm" />
+            <source src="/videos/contact-light.mp4" type="video/mp4" />
+          </video>
+        )}
         <div className={styles.contactVeil} />
       </div>
 

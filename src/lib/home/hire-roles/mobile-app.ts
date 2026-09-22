@@ -31,6 +31,11 @@ export const mobileApp: HireRolePageContent = {
   slug: '/hire-mobile-app-developers',
   name: 'Hire Mobile App Developers',
   serviceType: 'Mobile application development staffing',
+  // Matches the live page's own breadcrumb trail: Home › Hire Developers —
+  // the live trail stops at the parent and never names this page itself.
+  showBreadcrumb: true,
+  breadcrumbParents: [{ name: 'Hire Developers', path: '/hire-dedicated-developers' }],
+  breadcrumbEndsAtParent: true,
 
   /** Live order: clients, overview, mobile expertise, developer selection, consultation CTA, global delivery, evaluation, why choose us, comparison, tech stack, success stories, testimonials, FAQ. */
   order: [

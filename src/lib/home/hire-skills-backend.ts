@@ -72,6 +72,10 @@ const nodejs: HireSkill = {
   metaDescription:
     "Hire dedicated Node.js developers for scalable APIs and backend systems. Onboard in 48 hours with a 40-hour risk-free trial. Rates from $14/hr.",
   serviceType: "Node.js development staffing",
+  // Matches the live page's own breadcrumb trail exactly: Home › Hire
+  // Developers › Node.js Developers.
+  showBreadcrumb: true,
+  breadcrumbParents: [{ name: "Hire Developers", path: "/hire-dedicated-developers" }],
   ctaLabel: "Hire Node.js developers",
 
   order: [

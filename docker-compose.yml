@@ -59,7 +59,7 @@ services:
         NEXT_PUBLIC_HOMEPAGE_ENABLED: ${NEXT_PUBLIC_HOMEPAGE_ENABLED:-false}
         # The bare origin. A wrong value bakes prerendered canonical/OG/sitemap
         # URLs that point somewhere this app does not serve.
-        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://www.softsuave.com}
     restart: unless-stopped
     depends_on:
       mysql:

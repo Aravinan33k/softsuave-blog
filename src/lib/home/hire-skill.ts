@@ -100,6 +100,22 @@ export interface HireSkill {
   /** JSON-LD `serviceType`. */
   readonly serviceType: string;
 
+  /**
+   * Opt this page into a `BreadcrumbList`. Defaults to **off** — most of these
+   * 24 pages have no breadcrumb on their live page, and the schema here must
+   * never state more than the live page does. Set alongside `breadcrumbParents`
+   * on the few pages whose live page does carry one.
+   */
+  readonly showBreadcrumb?: boolean;
+  /** Crumbs between Home and this page, matching the live page's own trail exactly. */
+  readonly breadcrumbParents?: readonly { readonly name: string; readonly path: string }[];
+  /**
+   * Trailing breadcrumb label, where it differs from `role` — e.g. the live
+   * trail names this page "Angular Developers", not "Hire Angular Developers".
+   * Defaults to `role`.
+   */
+  readonly breadcrumbLabel?: string;
+
   /** Nav CTA label. */
   readonly ctaLabel: string;
 

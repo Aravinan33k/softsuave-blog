@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
 import { txFaqLd, txServiceLd, txWebPageLd } from '@/lib/seo/typescript-development-company';
 import {
   txFaqs,
@@ -103,20 +102,9 @@ export const metadata: Metadata = {
 const HOME_HREF = BASE_PATH || '/';
 
 export default function TypeScriptDevelopmentCompanyPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect — which leaves a
-  // single-item trail, so the schema is omitted rather than emitted empty.
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: 'TypeScript Development', path: txMeta.path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
-
   return (
     <div className={home.page}>
-      <JsonLd
-        data={[txServiceLd, txWebPageLd, txFaqLd, ...(breadcrumb ? [breadcrumb] : [])]}
-      />
+      <JsonLd data={[txServiceLd, txWebPageLd, txFaqLd]} />
       <Nav logoHref={HOME_HREF} />
 
       {/*

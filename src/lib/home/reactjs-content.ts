@@ -210,7 +210,7 @@ export const rjHireCta: CtaBandContent = {
   eyebrow: "Hire A Team",
   title: "Want to Hire ReactJS Developers?",
   body: "Hire dedicated ReactJS developers that are handpicked for your specific project requirements.",
-  cta: { label: "Hire ReactJS Developers", href: "#enquiry" },
+  cta: { label: "Hire ReactJS Developers", href: "/hire-reactjs-developers" },
 };
 
 /**

@@ -189,8 +189,17 @@ const SERVICES: NavMenuPanel = {
       dense: true,
       items: [
         { name: "Web Apps", href: "/web-application-development-company" },
+        // Next.js, TypeScript and GraphQL are built pages
+        // (app/(marketing)/{nextjs,typescript,graphql}-development-company)
+        // registered in landing-pages.ts, but were never linked from any nav
+        // panel — the "Landing Page Structure" planning sheet lists all three
+        // as sub-items of Web App Development (its letters a, e, f), same
+        // group as everything else here.
+        { name: "Next.js", href: "/nextjs-development-company" },
         { name: "React.js", href: "/reactjs-app-development-company" },
         { name: "Angular", href: "/angularjs-development-company" },
+        { name: "TypeScript", href: "/typescript-development-company" },
+        { name: "GraphQL", href: "/graphql-development-company" },
         { name: "Node.js", href: "/nodejs-development-company" },
         { name: "Java", href: "/java-application-development-company" },
         { name: "Python", href: "/python-application-development-company" },
@@ -202,16 +211,16 @@ const SERVICES: NavMenuPanel = {
     {
       key: "hire-role",
       /**
-       * softsuave.com's own "Hire By Role" panel, item for item and in its
-       * order — the labels, the thirteen roles, and which of the two hire
-       * groups each one belongs to all come from the live menu rather than
-       * being re-worded here. The names keep their "Hire " prefix because
-       * that is how the live panel reads; the group heading repeating it is
-       * the live design, not an accident.
+       * "Hire Developers by Role" — nine entries, per the planning sheet's
+       * "Landing Page Structure" tab rather than the live softsuave.com menu.
        *
-       * Four of these used to sit under "Hire By Skill" below — Android, iOS,
-       * Salesforce and Blockchain. The live site files them as roles, so they
-       * moved here and left the skill list to the languages and frameworks.
+       * Android, iOS, Salesforce and Blockchain used to sit here (mirroring
+       * the LIVE site's own menu, which files those four as roles). The
+       * sheet — the spec for this rebuild — files them under "Hire by Skill"
+       * instead, as items 21–24 of its 24-item skill list, leaving exactly
+       * nine items here. Moved to match it. Every one of the thirteen pages
+       * this group used to list still exists and is still linked; only which
+       * menu links to which four changed.
        */
       name: "Hire By Role",
       dense: true,
@@ -221,27 +230,22 @@ const SERVICES: NavMenuPanel = {
         { name: "Hire Mobile App Developer", href: "/hire-mobile-app-developers" },
         { name: "Hire Frontend Developer", href: "/hire-frontend-application-developer" },
         { name: "Hire Backend Developer", href: "/hire-backend-application-developer" },
-        { name: "Hire Dedicated Developer", href: "/hire-dedicated-developers" },
         { name: "Hire AI Developer", href: "/hire-ai-developer" },
         { name: "Hire QA Engineer", href: "/hire-qa-testers-india" },
-        { name: "Hire Android Developer", href: "/hire-android-developers" },
-        { name: "Hire iOS Developer", href: "/hire-ios-developers" },
         { name: "Hire DevOps Developer", href: "/hire-devops-developers" },
-        { name: "Hire Salesforce Developer", href: "/hire-salesforce-developer" },
-        { name: "Hire Blockchain Developer", href: "/hire-blockchain-developer" },
+        { name: "Hire Dedicated Developer", href: "/hire-dedicated-developers" },
       ],
     },
     {
       key: "hire-skill",
       /**
-       * softsuave.com's own "Hire By Skill" panel, same rule as the roles
-       * above: its twenty entries, its labels ("ROR", ".Net", "MERN" — the
-       * live site's spellings, not expanded ones) and its order.
+       * "Hire Developers by Skill" — twenty-four entries, per the sheet
+       * (see the note on "hire-role" above). Its labels keep the live site's
+       * spellings ("ROR", ".Net", "MERN") since the sheet does not restate
+       * them; only the group membership follows the sheet.
        *
-       * Android, iOS, Salesforce and Blockchain are deliberately absent —
-       * the live menu files those as roles, and they are in the role group.
-       * Next.js is absent for a different reason: it is a sheet row with no
-       * page yet, and the live menu has no entry for it either.
+       * Android, iOS, Salesforce and Blockchain — items 21–24 — used to sit
+       * under "Hire By Role". Moved here to match the sheet's split.
        */
       name: "Hire By Skill",
       dense: true,
@@ -266,6 +270,10 @@ const SERVICES: NavMenuPanel = {
         { name: "MERN", href: "/hire-mern-stack-developers-india" },
         { name: "Drupal", href: "/hire-drupal-developer" },
         { name: "MEAN", href: "/hire-mean-stack-developers-india" },
+        { name: "Android", href: "/hire-android-developers" },
+        { name: "iOS", href: "/hire-ios-developers" },
+        { name: "Salesforce", href: "/hire-salesforce-developer" },
+        { name: "Blockchain", href: "/hire-blockchain-developer" },
       ],
     },
   ],
@@ -328,6 +336,12 @@ const COMPANY: NavMenuPanel = {
         { name: "Tech Stack", href: "#tech", blurb: "The tools we build production AI on" },
         { name: "Life at Soft Suave", href: "/life-at-softsuave", blurb: "The team behind the delivery" },
         { name: "Careers", href: "/career-overview", blurb: "Open roles across engineering and AI" },
+        // The sheet's Company list names this page here, alongside About Us —
+        // it already has its own entry under Resources too (its Insights
+        // group), and both stay: the sheet places it in Company, and pulling
+        // it out of Resources would remove working navigation nobody asked to
+        // lose.
+        { name: "Success Stories", href: "/success-stories", blurb: "The client's account of the same work" },
         { name: "Contact", href: "/contact", blurb: "Book an AI strategy call" },
       ],
     },
@@ -354,11 +368,27 @@ const COMPANY: NavMenuPanel = {
          items stay pointed at the sections of this page. */
       key: "recognition",
       name: "Proof & recognition",
+      /**
+       * Real routes now, not `#awards`/`#clients` in-page anchors — the
+       * planning sheet's Company list names "Awards & Recognition" and "Our
+       * Clients" as pages with their own URLs, and both are already built
+       * (`/awards-recognition`, `/clients`).
+       *
+       * "Awards" and "Recognitions" used to be two separate items that both
+       * pointed at the same `#awards` anchor — a leftover duplicate from
+       * before either had a page of its own. The sheet lists one "Awards &
+       * Recognition" entry, so this collapses to the one item that name
+       * describes rather than carrying the duplicate forward onto a real
+       * page.
+       *
+       * "Client Testimonials" is left on the homepage's own `#testimonials`
+       * anchor: the sheet does not list a standalone testimonials page, and
+       * this is supporting content rather than something it asks for.
+       */
       items: [
-        { name: "Awards", href: "#awards", blurb: "Clutch, UpFirms, SoftwareWorld and more" },
-        { name: "Recognitions", href: "#awards", blurb: "Independent industry rankings" },
+        { name: "Awards & Recognition", href: "/awards-recognition", blurb: "Clutch, UpFirms, SoftwareWorld and more" },
+        { name: "Our Clients", href: "/clients", blurb: "The names behind the numbers" },
         { name: "Client Testimonials", href: "#testimonials", blurb: "What partners say after shipping" },
-        { name: "Clients", href: "#clients", blurb: "The names behind the numbers" },
       ],
     },
   ],

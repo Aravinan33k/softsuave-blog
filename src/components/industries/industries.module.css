@@ -90,7 +90,7 @@
   font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   line-height: 1.6;
   color: var(--muted);
-  max-width: 46ch;
+  max-width: 800px;
 }
 
 /* ============================================================
@@ -144,7 +144,7 @@
   font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   line-height: 1.62;
   color: #ffffff;
-  max-width: 44ch;
+  max-width: 800px;
 }
 
 /* A rule-led note under the body: the page's promise in one line, set small so

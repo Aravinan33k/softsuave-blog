@@ -161,7 +161,7 @@ export const rorHireCta: CtaBandContent = {
   eyebrow: "Hire A Team",
   title: "Looking to Outsource Ruby on Rails Development Team?",
   body: "Soft Suave has a pool of ROR Developers who deliver your app development project on time and under your budget.",
-  cta: { label: "Hire ROR Developer", href: "#enquiry" },
+  cta: { label: "Hire ROR Developer", href: "/hire-ruby-on-rails-developer" },
 };
 
 /**

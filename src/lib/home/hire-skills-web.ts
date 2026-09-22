@@ -176,6 +176,10 @@ const angular: HireSkill = {
   metaDescription:
     "Hire Angular developers from India to build scalable, feature-rich web applications. Specialists in Angular, TypeScript, RxJS, dashboards and enterprise platforms.",
   serviceType: "Angular development staffing",
+  // Matches the live page's own breadcrumb trail exactly: Home › Hire
+  // Developers › Angular Developers.
+  showBreadcrumb: true,
+  breadcrumbParents: [{ name: "Hire Developers", path: "/hire-dedicated-developers" }],
   ctaLabel: "Hire Angular developers",
 
   order: [

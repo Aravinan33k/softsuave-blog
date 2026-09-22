@@ -351,7 +351,7 @@ export const caCaseStudies: CaseStudiesContent = {
   eyebrow: "Proven Results",
   title: "Case Studies & Proven Results",
   body: "Explore how our custom AI development projects have helped businesses solve complex challenges, improve operations, and achieve measurable results across real-world use cases.",
-  allCta: { label: "View all Case Studies", href: "https://www.softsuave.com/case-studies" },
+  allCta: { label: "View all Case Studies", href: "/case-studies" },
   items: [
     {
       key: "vision-ai",

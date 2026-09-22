@@ -161,7 +161,7 @@ export const xamHireCta: CtaBandContent = {
   eyebrow: "Hire A Team",
   title: "Need Xamarin Developers On Contract?",
   body: "Soft Suave has a pool of Dedicated Xamarin Developers who deliver your app development project on time and under your budget.",
-  cta: { label: "Hire Xamarin Developer", href: "#enquiry" },
+  cta: { label: "Hire Xamarin Developer", href: "/hire-xamarin-developer" },
 };
 
 /**

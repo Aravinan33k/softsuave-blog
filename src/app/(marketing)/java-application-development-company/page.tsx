@@ -110,12 +110,14 @@ export const metadata: Metadata = {
 const HOME_HREF = BASE_PATH || '/';
 
 export default function JavaApplicationDevelopmentCompanyPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
+  // Matches the live page's own breadcrumb trail exactly: Home › Web App —
+  // the live trail stops at the parent and never names this page itself. "/"
+  // is only a page this app serves once the marketing homepage ships; until
   // then the trail must not point Google at a redirect — which leaves a
   // single-item trail, so the schema is omitted rather than emitted empty.
   const trail = [
     ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: 'Java Development', path: javaMeta.path },
+    { name: 'Web App', path: '/web-application-development-company' },
   ];
   const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
 

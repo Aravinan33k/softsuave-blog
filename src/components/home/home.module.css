@@ -89,19 +89,28 @@
    landing/landing.module.css — the tech-stack, case-study and clients bands
    render on the AI service pages beside the landing sections, so if only one
    of the two came down the pages would carry two different H2 scales. Was
-   clamp(2.25rem, 4.6vw, 4rem); see the note there. */
+   clamp(2.25rem, 4.6vw, 4rem), then 2.75rem/44px; see the note there. */
 /*
- * Heading scale. Five steps, one value per role — every section heading is
- * `.h2` at the same size, so sections that are peers read as peers:
+ * Heading scale. THREE steps, one value per role — every section heading is
+ * `.h2` at the same size, so sections that are peers read as peers. These are
+ * the sizes the brief specifies, and they are the desktop ceiling of a range
+ * rather than flat values: a 50px H1 on a 390px phone fills the viewport
+ * before the copy starts.
  *
- *   H1 hero            clamp(2.5rem, 6.5vw, 5.75rem)      40 -> 92px
- *   H2 statement       clamp(2rem, 3.9vw, 3.5rem)         32 -> 56px
- *   H2 section         clamp(1.75rem, 3.05vw, 2.75rem)    28 -> 44px
- *   H3 card            clamp(1.375rem, 2vw, 1.875rem)     22 -> 30px
- *   H3 tile / name     clamp(1.125rem, 1.45vw, 1.375rem)  18 -> 21px
+ *   H1 hero      clamp(2rem, 4.5vw, 3.125rem)    32 -> 50px
+ *   H2 section   clamp(1.625rem, 3.2vw, 2.5rem)  26 -> 40px
+ *   H3 card      clamp(1.375rem, 2vw, 1.75rem)   22 -> 28px
+ *   lead / intro clamp(1rem, 1.25vw, 1.125rem)   16 -> 18px, max-width 800px
  *
- * `statement` is the two full-bleed statement headings only (the Why Soft
- * Suave manifesto and the closing band); everything else is the section step.
+ * It was five steps. The two that are gone were folded in on instruction:
+ * the 48px "statement" size (the Why Soft Suave manifesto and the closing
+ * band) is now the section step, and the 21px "tile / name" size (small card
+ * and list labels) is now the card step. That second fold is the one to watch
+ * — those labels went UP, 21px to 28px, so anything that looks crowded in a
+ * tile or a chip is this and not a layout bug.
+ *
+ * The same three ceilings are set in landing/, generative-ai/, industries/
+ * and services/ module CSS; change all five together or the surface splits.
  * Per-section font-size overrides are what produced five different h2 sizes
  * between 36 and 57.6px, and a phone h1 the same size as an h2 — add a new
  * one only with a measured reason.
@@ -117,7 +126,7 @@
 }
 
 .lead {
-  max-width: 46ch;
+  max-width: 800px;
   margin-top: 1.4em;
   font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   line-height: 1.6;
@@ -785,7 +794,7 @@
    backdrops. See the same treatment on every other hero. */
 .heroSub {
   margin-top: clamp(20px, 2.4vw, 34px);
-  max-width: 46ch;
+  max-width: 800px;
   font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   line-height: 1.6;
   color: #ffffff;
@@ -2546,7 +2555,34 @@
 /* ============================================================
    CONTACT — cinematic focus-pull enquiry (scroll-scrubbed)
    ============================================================ */
+/* ── CLOSING-BAND BACKDROP ──────────────────────────────────────
+   A generated light field, not a colour.
+
+   The band used to veil `contact-bg` in 93–98% #040508, which is the footer
+   colour: two near-identical blacks meeting at a 1px rule read as one dead
+   mass. Flat retints did not fix it, and the reason is positional rather than
+   chromatic — a light section sits above this band and a black footer below,
+   so any single fill has to butt against both.
+
+   The backdrop resolves that by carrying a gradient of its own: luminous
+   across the top where it meets the light band, falling to near-black at the
+   bottom where it hands off to the footer. Coral arrives as LIGHT rather than
+   as paint, which is what the flat fills could never do.
+
+   `public/videos/contact-light.{webm,mp4}` is procedurally generated, not
+   footage: four Gaussian blooms orbiting on integer harmonics of a 12s
+   period, so the loop closes exactly. 64 KB of WebM, 495 KB of MP4 for
+   Safari. Regenerate it rather than hand-editing if the brand colours move.
+
+   The lights sit at the left and right EDGES and the vertical ramp keeps the
+   lower half dark, which leaves the centre channel — where the headline, body
+   and CTA live — at the contrast the copy needs.
+   ────────────────────────────────────────────────────────── */
 .contact {
+  /* Warmed slightly so the copy sits with the coral light instead of reading
+     as neutral grey printed over it. */
+  --band-muted: #bdb3b0;
+
   position: relative;
   /* Not a full viewport: with the brand crystal gone the section is a headline,
      a line of copy and one button, and 100vh left most of the band empty. */
@@ -2566,17 +2602,88 @@
   inset: 0;
   z-index: -2;
 }
-.contactBg img {
+
+/* The still: a frame of the loop, so the video fading in over it is invisible.
+   16 KB, and it is what reduced motion and phones keep. */
+.contactPoster {
+  position: absolute;
+  inset: 0;
+  background: #050609 url("/brand/contact-light-poster.jpg") center / cover no-repeat;
+  will-change: filter, transform;
+}
+
+.contactVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   will-change: filter, transform;
 }
 
 .contactVeil {
   position: absolute;
   inset: 0;
-  /* no z-index: paints above the image via DOM order (a negative z-index would
-     drop it BELOW the Next <Image> and stop it darkening anything). Near-opaque
-     so the photo reads as only a faint dark texture behind the crystal. */
-  background: linear-gradient(180deg, rgba(4, 5, 8, 0.93), rgba(4, 5, 8, 0.98));
+  /* no z-index: paints above the backdrop via DOM order (a negative z-index
+     would drop it below and stop it grading anything).
+
+     Far lighter than the veil this replaced, because it is no longer hiding a
+     photograph — it is grading artwork that was authored for this slot. It
+     stays dark at the very top so the light band above does not bleed into the
+     eyebrow, opens up through the middle where the blooms live, and closes to
+     near-opaque at the bottom so the band arrives at the footer already black. */
+  background: linear-gradient(
+    180deg,
+    rgba(4, 5, 8, 0.42) 0%,
+    rgba(4, 5, 8, 0.18) 38%,
+    rgba(4, 5, 8, 0.42) 72%,
+    rgba(4, 5, 8, 0.9) 100%
+  );
+}
+
+/* ── SHARED LIGHT-FIELD BACKDROP ───────────────────────────────────────────
+   Used by <LightFieldBackdrop>, which the three mid-page CtaBand variants
+   render. Same artwork as the closing band, graded differently.
+
+   The closing band ramps to black at its foot because it hands off to the
+   footer. A mid-page band has a section above AND below it, so this veil is
+   symmetric instead: dark at both edges, open through the middle where the
+   blooms live.
+
+   Heavier overall than the closing band’s grade, because this band is short —
+   the copy sits right on top of the brightest part of the frame rather than
+   below it.
+   ───────────────────────────────────────────────────────────────────────── */
+.lfBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.lfPoster {
+  position: absolute;
+  inset: 0;
+  background: #050609 url("/brand/contact-light-poster.jpg") center / cover no-repeat;
+}
+
+.lfVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lfVeil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(4, 5, 8, 0.66) 0%,
+    rgba(4, 5, 8, 0.3) 45%,
+    rgba(4, 5, 8, 0.7) 100%
+  );
 }
 
 /* the brand "crystal" — the S-cube mark as glossy coral glass */
@@ -2642,7 +2749,13 @@
   max-width: 52ch;
   font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   line-height: 1.6;
-  color: var(--muted);
+  color: var(--band-muted, var(--muted));
+}
+
+/* The kicker takes the band tint too, so the trial reads as one temperature
+   rather than a cool paragraph under a neutral-grey label. */
+.contact .eyebrow {
+  color: var(--band-muted, var(--muted));
 }
 
 .contactActions {
@@ -4791,7 +4904,15 @@
 }
 
 .whyStackSection {
-  padding: clamp(6px, 1vw, 14px) var(--gutter) clamp(16px, 2.4vw, 32px);
+  /* Was clamp(6px, 1vw, 14px) top / clamp(16px, 2.4vw, 32px) bottom — the
+     cards sat almost flush under the "Why Soft Suave" copy, then `.whySection`
+     (min-height: 100vh, centered) dumped all its leftover vertical space below
+     them, since centering splits unused room around the WHOLE Manifesto+Stats
+     pair, not between them. Raising this block's own top padding eats into
+     that leftover from the section's centered midpoint, pulling the gap above
+     and below the cards back toward parity without touching `.whySection`
+     itself or any other section. */
+  padding: clamp(32px, 5.5vw, 88px) var(--gutter) clamp(4px, 0.6vw, 8px);
 }
 /* four square stat cards, uniform, one single row so the whole grid — title
    included — sits inside one screen, no scrolling needed to see it all and no
@@ -5016,8 +5137,14 @@
 .clientsHeadMain {
   min-width: 0;
 }
+/* No measure cap. 18ch here was sized for a short headline and this one is 61
+   characters, so it folded a heading that had 840px of column available into a
+   492px ribbon three lines deep — the column beside it stayed empty and the
+   band read as a tall narrow block rather than a statement. The grid column
+   (1.5fr of a 1400px container) is the only limit it needs; that tops out
+   around 40ch, which is still inside a comfortable measure for display type. */
 .clientsHead .h2 {
-  max-width: 18ch;
+  max-width: none;
 }
 .clientsBody {
   margin: 0;
@@ -5035,8 +5162,11 @@
     padding-left: clamp(28px, 3vw, 44px);
     border-left: 1px solid var(--line);
   }
+  /* Was 34ch, which left ~100px of this column unused and ran the paragraph to
+     five lines against the heading's three. Filling the column brings it to
+     four and squares the two sides of the band off against each other. */
   .clientsBody {
-    max-width: 34ch;
+    max-width: 46ch;
   }
 }
 
@@ -6542,6 +6672,10 @@
    need a second full-height stage on a page this short. */
 .contactLight .contact {
   min-height: 0;
+  /* The band trial is a dark-surface treatment. On the light page the veil is
+     gone with `.contactBg`, so the tint would only survive as body copy the
+     warm white cannot carry — hand it back to the light band's own muted. */
+  --band-muted: var(--muted);
 }
 
 /* ═════════════════════════════════════════════════════════════════════════════

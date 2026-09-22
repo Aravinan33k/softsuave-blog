@@ -189,7 +189,7 @@ export const ngHireCta: CtaBandContent = {
   eyebrow: "Hire A Team",
   title: "Lack Angular Resources for Your Development Project?",
   body: "Soft Suave provides pre-screened Angular developers and dedicated teams with a 1-week risk-free trial to enhance your project.",
-  cta: { label: "Hire Angular Developers", href: "#enquiry" },
+  cta: { label: "Hire Angular Developers", href: "/hire-angularjs-developers" },
   // "Year of Experience" is singular on the live page; kept as written.
   stats: [
     { figure: "1250+", label: "Projects" },

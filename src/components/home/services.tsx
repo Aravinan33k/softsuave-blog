@@ -5,6 +5,7 @@ import { services } from "@/lib/home/content";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import SplitReveal from "./split-reveal";
 import BrandImage from "./brand-image";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./home.module.css";
 
 /**
@@ -32,6 +33,35 @@ const imgId = (i: number, img: string) =>
 
 const pad = (n: number) => String(n).padStart(2, "0");
 const cx = (...c: (string | false | undefined)[]) => c.filter(Boolean).join(" ");
+
+/**
+ * The per-service Enquire button.
+ *
+ * `services.items[].href` mixes two kinds of destination and the element has to
+ * follow, which is the whole reason this is a component rather than an inline
+ * `<a>`:
+ *
+ *   a service page   nine of the ten. Goes through `SiteLink`, which picks
+ *                    next/link or a plain anchor depending on whether this app
+ *                    serves that path — a hand-written <a> would drop the
+ *                    `/blog` basePath in production and 404.
+ *   "#services"      MLOps only, which has no page. Must stay a plain <a> so
+ *                    ScrollProvider's Lenis handler intercepts it and eases to
+ *                    the section; routing an in-page hash through next/link
+ *                    fights the smooth scroller.
+ */
+function EnquireLink({ href }: { href: string }) {
+  const label = "Enquire";
+  return href.startsWith("#") ? (
+    <a href={href} className={styles.carPill} data-cursor={label}>
+      {label}
+    </a>
+  ) : (
+    <SiteLink href={href} className={styles.carPill} data-cursor={label}>
+      {label}
+    </SiteLink>
+  );
+}
 
 /** Position each card by its distance from the active slide. */
 function cardStyle(offset: number): React.CSSProperties {
@@ -170,9 +200,12 @@ export default function Services() {
                 h2 inside the same section. */}
             <h3 className={styles.carName}>{items[active].name}</h3>
             <p className={styles.carBody}>{items[active].body}</p>
-            <a href="#contact" className={styles.carPill} data-cursor="Enquire">
-              Enquire
-            </a>
+            {/* Follows the card on screen. This was a fixed "#contact", so
+                every one of the ten services sent the reader to the same
+                form — the button named a service and then did not take them
+                to it. `EnquireLink` picks the element from the href, because
+                the list mixes real pages with one in-page anchor. */}
+            <EnquireLink href={items[active].href} />
           </div>
 
           <div className={styles.carStage}>
@@ -241,9 +274,10 @@ export default function Services() {
               <span className={styles.carNum}>/{pad(i + 1)}</span>
               <h3 className={styles.carName}>{s.name}</h3>
               <p className={styles.carBody}>{s.body}</p>
-              <a href="#contact" className={styles.carPill}>
-                Enquire
-              </a>
+              {/* Same per-service destination as the desktop stage above —
+                  the mobile stack renders every card at once, so each row's
+                  button has to carry its own. */}
+              <EnquireLink href={s.href} />
             </div>
           </article>
         ))}

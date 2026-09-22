@@ -3,6 +3,7 @@
 import { midCta as generativeAiMidCta } from "@/lib/home/generative-ai";
 import FadeUp from "@/components/home/fade-up";
 import styles from "./gen-ai.module.css";
+import LightFieldBackdrop from "@/components/home/light-field-backdrop";
 
 export interface CtaBandContent {
   /** Optional — omitted on pages whose CTA heading stands on its own. */
@@ -29,6 +30,8 @@ export default function CtaBand({
 } = {}) {
   return (
     <section className={styles.ctaBand}>
+      <LightFieldBackdrop />
+
       <FadeUp className={styles.ctaInner}>
         <div>
           {content.eyebrow && <span className={styles.kicker}>{content.eyebrow}</span>}

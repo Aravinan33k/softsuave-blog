@@ -843,6 +843,10 @@ const ionic: HireSkill = {
   metaDescription:
     "Hire experienced Ionic developers through Soft Suave — pre-vetted talent within 24–48 hours, skilled in cross-platform hybrid app development, from $14/hour.",
   serviceType: "Ionic development staffing",
+  // Matches the live page's own breadcrumb trail exactly: Home › Hire
+  // Developers › Ionic Developers.
+  showBreadcrumb: true,
+  breadcrumbParents: [{ name: "Hire Developers", path: "/hire-dedicated-developers" }],
   ctaLabel: "Hire Ionic developers",
 
   order: [

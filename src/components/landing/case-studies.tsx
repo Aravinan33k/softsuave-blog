@@ -3,6 +3,7 @@
 import FadeUp from "@/components/home/fade-up";
 import SectionHead from "./section-head";
 import styles from "./landing.module.css";
+import { SiteLink } from "@/themes/softsuave/site-link";
 
 export interface CaseStudiesContent {
   eyebrow: string;
@@ -62,14 +63,24 @@ export default function CaseStudies({
       {content.allCta && (
         <FadeUp>
           <div className={styles.caseFoot}>
-            <a
-              href={content.allCta.href}
-              className={styles.btn}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {content.allCta.label}
-            </a>
+            {/* A new tab is right for a destination off this app, and wrong for
+                one of our own routes — this used to be hardcoded to
+                softsuave.com/case-studies and so always opened a tab, even now
+                that we serve /case-studies ourselves. */}
+            {/^https?:\/\//.test(content.allCta.href) ? (
+              <a
+                href={content.allCta.href}
+                className={styles.btn}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {content.allCta.label}
+              </a>
+            ) : (
+              <SiteLink href={content.allCta.href} className={styles.btn}>
+                {content.allCta.label}
+              </SiteLink>
+            )}
           </div>
         </FadeUp>
       )}

@@ -116,7 +116,11 @@ const LD = pageSchemaGraph({
   // The page's own short name for what it sells, not its `<title>`, which is
   // written to win the click.
   serviceName: 'Angular Development',
-  breadcrumbName: 'Angular Development',
+  // Matches the live page's own breadcrumb trail exactly: Home › Web
+  // Development › Angular Development Services.
+  showBreadcrumb: true,
+  parents: [{ name: 'Web Development', path: '/web-application-development-company' }],
+  breadcrumbName: 'Angular Development Services',
   offerCatalogName: ngServices.title,
   offers: ngServices.items.map((i) => ({ name: i.name, description: i.body })),
   faqName: ngFaqs.title,

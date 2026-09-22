@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
 import { aiPageJsonLd } from '@/lib/seo/ai-page-schema';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { meta, services as servicesContent } from '@/lib/home/generative-ai';
 
 import Nav from '@/components/home/nav';
@@ -86,18 +85,9 @@ const pageLd = aiPageJsonLd('generativeAi');
 const HOME_HREF = BASE_PATH || '/';
 
 export default function GenerativeAiDevelopmentCompanyPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect — which leaves a
-  // single-item trail, so the schema is omitted rather than emitted empty.
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: 'Generative AI Development Company', path: meta.path },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
-
   return (
     <div className={styles.page}>
-      <JsonLd data={[...pageLd, ...(breadcrumb ? [breadcrumb] : [])]} />
+      <JsonLd data={pageLd} />
       {/* This page owns both of the bar's anchor sections itself — `Services`
           renders #services and `WhyUs` renders #why — so the bar scrolls in-page
           instead of sending the reader to the homepage's copies. Without this

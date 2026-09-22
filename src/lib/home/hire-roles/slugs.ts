@@ -1,11 +1,11 @@
 /**
- * The nine "Hire Developers by Role" routes, as slug + title only.
+ * The fourteen "Hire Developers by Role" routes, as slug + title only.
  *
  * Deliberately dependency-free, like `lib/flags.ts`: `next.config.ts` reads it
  * to keep the release redirects in step with the routes, and that runs outside
  * the app's module graph, where a `@/` alias does not resolve and pulling in the
- * nine content modules (and through them the React section components they type
- * themselves against) would be wrong on both counts.
+ * fourteen content modules (and through them the React section components they
+ * type themselves against) would be wrong on both counts.
  *
  * `HIRE_ROLE_PAGES` in `./index.ts` is the full registry — it carries the copy —
  * and its own test asserts the two lists never drift apart.

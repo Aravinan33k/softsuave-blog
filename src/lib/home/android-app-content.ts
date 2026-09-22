@@ -158,7 +158,7 @@ export const andServices: ServiceBoardContent = {
 export const andHireCta: CtaBandContent = {
   title: "Want to hire an offshore Android app development team?",
   body: "Soft Suave has a pool of certified and experienced Android App Developers who deliver your app development project on time and under your budget.",
-  cta: { label: "Hire Android Developer", href: "#enquiry" },
+  cta: { label: "Hire Android Developer", href: "/hire-android-developers" },
 };
 
 /**

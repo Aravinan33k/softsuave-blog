@@ -224,7 +224,7 @@ export const iosWhyUs: CardGridContent = {
 export const iosDevelopersCta: CtaBandContent = {
   title: "Need Dedicated iOS Developers?",
   body: "Soft Suave has a pool of dedicated iOS Developers who deliver your app development project on time and under your budget.",
-  cta: { label: "Hire iOS Developer", href: "#enquiry" },
+  cta: { label: "Hire iOS Developer", href: "/hire-ios-developers" },
 };
 
 export const iosStories: StoryCardsContent = {

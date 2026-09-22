@@ -96,6 +96,11 @@ const LD = pageSchemaGraph({
   title: itoMeta.title,
   description: itoMeta.description,
   serviceType: 'IT outsourcing',
+  // Matches the live page's own breadcrumb trail exactly: Home › Software
+  // Development › IT Outsourcing Services.
+  showBreadcrumb: true,
+  parents: [{ name: 'Software Development', path: '/software-development-company' }],
+  breadcrumbName: 'IT Outsourcing Services',
   offerCatalogName: itoServices.title,
   offers: itoServices.items.map((i) => ({ name: i.name, description: i.body })),
   faqName: itoFaqs.title,

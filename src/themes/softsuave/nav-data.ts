@@ -38,7 +38,10 @@ const SERVICE_GROUPS: NavGroup[] = [
       { label: 'AI Solutions', href: '/ai-development-service' },
       { label: 'Offshore Development', href: '/offshore-software-development-company' },
       { label: 'IT Staff Augmentation', href: '/it-staff-augmentation-services' },
-      { label: 'IT Outsourcing', href: '/it-outsourcing-services' },
+      // Not '/it-outsourcing-services' — that route doesn't exist. The
+      // registered page is '/it-outsourcing-company-india' (see
+      // lib/home/landing-pages.ts); the old href 404'd.
+      { label: 'IT Outsourcing', href: '/it-outsourcing-company-india' },
       { label: 'Legacy Modernization', href: '/legacy-modernization-services' },
       { label: 'Product Engineering', href: '/product-engineering-services' },
       { label: 'Cloud Computing', href: '/cloud-computing' },
@@ -71,6 +74,17 @@ const SERVICE_GROUPS: NavGroup[] = [
     ],
   },
   {
+    /**
+     * Nine entries, not thirteen — this used to also carry Android, iOS,
+     * Salesforce and Blockchain, mirroring softsuave.com's own menu. The
+     * planning sheet's "Landing Page Structure" tab files those four under
+     * "Hire by Skill" instead (its items 21–24 of 24), so they moved there —
+     * see `lib/home/nav-menu.ts`, the marketing surface's mega-menu, which
+     * carries the same nine/twenty-four split for the same reason. This file
+     * is a second, independent nav data source (rendered by
+     * `themes/softsuave/header.tsx` for the blog/CMS theme) that had drifted
+     * from that fix until now; keep the two in step.
+     */
     title: 'Hire by Role',
     links: [
       { label: 'Software Developer', href: '/hire-software-developers' },
@@ -78,17 +92,14 @@ const SERVICE_GROUPS: NavGroup[] = [
       { label: 'Mobile App Developer', href: '/hire-mobile-app-developers' },
       { label: 'Frontend Developer', href: '/hire-frontend-application-developer' },
       { label: 'Backend Developer', href: '/hire-backend-application-developer' },
-      { label: 'Dedicated Developer', href: '/hire-dedicated-developers' },
       { label: 'AI Developer', href: '/hire-ai-developer' },
       { label: 'QA Engineer', href: '/hire-qa-testers-india' },
-      { label: 'Android Developer', href: '/hire-android-developers' },
-      { label: 'iOS Developer', href: '/hire-ios-developers' },
       { label: 'DevOps Developer', href: '/hire-devops-developers' },
-      { label: 'Salesforce Developer', href: '/hire-salesforce-developer' },
-      { label: 'Blockchain Developer', href: '/hire-blockchain-developer' },
+      { label: 'Dedicated Developer', href: '/hire-dedicated-developers' },
     ],
   },
   {
+    // Twenty-four entries — see the note on "Hire by Role" above.
     title: 'Hire by Skill',
     links: [
       { label: 'React', href: '/hire-reactjs-developers' },
@@ -111,6 +122,10 @@ const SERVICE_GROUPS: NavGroup[] = [
       { label: 'MERN', href: '/hire-mern-stack-developers-india' },
       { label: 'Drupal', href: '/hire-drupal-developer' },
       { label: 'MEAN', href: '/hire-mean-stack-developers-india' },
+      { label: 'Android', href: '/hire-android-developers' },
+      { label: 'iOS', href: '/hire-ios-developers' },
+      { label: 'Salesforce', href: '/hire-salesforce-developer' },
+      { label: 'Blockchain', href: '/hire-blockchain-developer' },
     ],
   },
 ];

@@ -33,6 +33,11 @@ export const backend: HireRolePageContent = {
   slug: '/hire-backend-application-developer',
   name: 'Hire Backend Developers',
   serviceType: 'Backend development staffing',
+  // Matches the live page's own breadcrumb trail: Home › Hire Developers —
+  // the live trail stops at the parent and never names this page itself.
+  showBreadcrumb: true,
+  breadcrumbParents: [{ name: 'Hire Developers', path: '/hire-dedicated-developers' }],
+  breadcrumbEndsAtParent: true,
 
   /** Live order: clients, overview, responsibilities, technologies, engagement options, next steps, hiring process, why Soft Suave, delivery presence, practical evaluation, technology stack, testimonials, FAQ. */
   order: [

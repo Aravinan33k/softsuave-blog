@@ -93,10 +93,27 @@ export interface HireRolePageContent {
   readonly key: string;
   /** App-internal route, leading slash. softsuave.com's own path. */
   readonly slug: string;
-  /** Role name, as the nav and the breadcrumb use it. */
+  /** Role name, as the nav uses it. */
   readonly name: string;
   /** `serviceType` for the Service schema, e.g. "Backend development staffing". */
   readonly serviceType: string;
+
+  /**
+   * Opt this page into a `BreadcrumbList`. Defaults to **off** — most of these
+   * 14 pages have no breadcrumb on their live page, and the schema here must
+   * never state more than the live page does. Set alongside `breadcrumbParents`
+   * on the few pages whose live page does carry one.
+   */
+  readonly showBreadcrumb?: boolean;
+  /** Crumbs between Home and this page, matching the live page's own trail exactly. */
+  readonly breadcrumbParents?: readonly { readonly name: string; readonly path: string }[];
+  /**
+   * Stop the trail at the last `breadcrumbParents` entry instead of naming this
+   * page as its own final crumb — matches the live pages whose own breadcrumb
+   * plugin does the same (e.g. `/hire-mobile-app-developers` traces to "Home ›
+   * Hire Developers" and never names itself).
+   */
+  readonly breadcrumbEndsAtParent?: boolean;
 
   /**
    * The bands this page runs, in the order its live page runs them — the hero

@@ -172,7 +172,7 @@ export const netHireCta: CtaBandContent = {
   eyebrow: "Hire A Team",
   title: "Hire an Offshore .NET Application Development Team",
   body: "Soft Suave has a pool of Dedicated .NET Developers who deliver your app development project on time and under your budget.",
-  cta: { label: "Hire .NET Developer", href: "#enquiry" },
+  cta: { label: "Hire .NET Developer", href: "/hire-dot-net-developers" },
 };
 
 /**

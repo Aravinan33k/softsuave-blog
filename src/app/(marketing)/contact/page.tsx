@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/json-ld';
 import { organizationLd } from '@/lib/seo/organization';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
 import { contactPage } from '@/lib/home/content';
 
 import Nav from '@/components/home/nav';
@@ -68,16 +67,9 @@ const contactPageLd = {
 } as const;
 
 export default function ContactPage() {
-  // Single-item trails are omitted rather than emitted empty, as elsewhere.
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: TITLE, path: '/contact' },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
-
   return (
     <div className={styles.page}>
-      <JsonLd data={[contactPageLd, ...(breadcrumb ? [breadcrumb] : [])]} />
+      <JsonLd data={[contactPageLd]} />
       <Nav logoHref={HOME_HREF} />
       <main id="main">
         {/* The masthead keeps the page's own near-black ground (the nav is

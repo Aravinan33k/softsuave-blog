@@ -49,7 +49,8 @@ export function hireRoleMetadata(content: HireRolePageContent): Metadata {
 }
 
 /**
- * Service + WebPage + FAQPage + BreadcrumbList for a role page.
+ * Service + WebPage + FAQPage for a role page, plus a `BreadcrumbList` on the
+ * few whose live page carries one.
  *
  * The Service catalogue is the page's own capability list, so the schema can
  * never describe an offering the page does not show. The FAQ schema is built
@@ -61,10 +62,12 @@ export function hireRoleMetadata(content: HireRolePageContent): Metadata {
  * pair it used to call. Those emit no `@id`, so the Service and the FAQPage sat
  * in one script with nothing joining them and no `WebPage` for either to belong
  * to, and `providerName` inlined a fresh unidentified Organization on each of
- * the nine pages instead of naming the canonical one. The breadcrumb gate moves
- * into the builder unchanged: while `/` is not served, a trail whose first item
- * is a 307 is worse than no trail, and with Home dropped only one item remains,
- * which is not a trail at all.
+ * the nine pages instead of naming the canonical one. The breadcrumb is off by
+ * default (see `HireRolePageContent.showBreadcrumb`) — most of these fourteen
+ * pages have none on their live page, and this must never state more than the
+ * live page does. Where a page opts in, `pageSchemaGraph` still drops it if the
+ * resulting trail is a single item: while `/` is not served, a trail whose
+ * first item is a 307 is worse than no trail at all.
  */
 export function hireRoleJsonLd(content: HireRolePageContent): object[] {
   return pageSchemaGraph({
@@ -75,6 +78,11 @@ export function hireRoleJsonLd(content: HireRolePageContent): object[] {
     // The role as a thing you can hire — "AI Developers" — rather than the
     // page's `<title>`, which is written to win the click.
     serviceName: content.name,
+    // Off by default — see `HireRolePageContent.showBreadcrumb`. Only a
+    // handful of these 14 pages have a breadcrumb on their live page.
+    showBreadcrumb: content.showBreadcrumb ?? false,
+    parents: content.breadcrumbParents,
+    breadcrumbEndsAtParent: content.breadcrumbEndsAtParent,
     breadcrumbName: content.name,
     caption: content.hero.titleLines.join(' '),
     audience: `Startups, SMBs and enterprises hiring ${content.name}`,
