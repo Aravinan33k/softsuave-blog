@@ -2642,6 +2642,66 @@
         "server racks network",
         "servers"
       ]
+    },
+    {
+      "id": "pi-svc-forecasting",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Forecast chart trending across a screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "forecast line chart screen analytics",
+        "business graph trend screen",
+        "stock chart screen",
+        "chart"
+      ]
+    },
+    {
+      "id": "pi-svc-modeling",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Data scientist building a predictive model on a laptop",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "data scientist machine learning laptop code",
+        "statistics model laptop analysis",
+        "programmer data analysis",
+        "data"
+      ]
+    },
+    {
+      "id": "pi-svc-anomaly",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Monitoring dashboard highlighting an unusual spike",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "monitoring dashboard alert spike screen",
+        "server monitoring graphs screen",
+        "security monitoring screen",
+        "monitor"
+      ]
+    },
+    {
+      "id": "pi-svc-recommendation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Personalised product recommendations on a shopping screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "online shopping recommendations phone screen",
+        "ecommerce product browsing laptop",
+        "online shopping cart laptop",
+        "shopping"
+      ]
     }
   ]
 }

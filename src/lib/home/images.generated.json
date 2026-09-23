@@ -2333,5 +2333,57 @@
     "photographer": "Christina Morillo",
     "pexelsUrl": "https://www.pexels.com/photo/engineer-holding-laptop-1181316/",
     "matchedTier": "network engineer server room laptop"
+  },
+  "landing/pi-svc-forecasting": {
+    "page": "landing",
+    "id": "pi-svc-forecasting",
+    "src": "/images/landing/pi-svc-forecasting.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Forecast chart trending across a screen",
+    "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoQAAsAA4BaJYwAAtx77r5PiAAA/NlxFM9aV5PCIyKnt1yXOr2F4RjeDs6xbsZYizlQyzkRq2wX5Kj9BIQAAA==",
+    "pexelsId": 9301831,
+    "photographer": "Mikhail Nilov",
+    "pexelsUrl": "https://www.pexels.com/photo/fingers-pointing-the-graph-on-the-screen-9301831/",
+    "matchedTier": "forecast line chart screen analytics"
+  },
+  "landing/pi-svc-modeling": {
+    "page": "landing",
+    "id": "pi-svc-modeling",
+    "src": "/images/landing/pi-svc-modeling.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Data scientist building a predictive model on a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAAAQAgCdASoQAAsAA4BaJZACsAEQNbEsMe/gAP73egsGYoA/jpQDKAH83Y4nBGXV9MMkBixsAAA=",
+    "pexelsId": 943096,
+    "photographer": "Danny Meneses",
+    "pexelsUrl": "https://www.pexels.com/photo/photo-of-turned-on-laptop-computer-943096/",
+    "matchedTier": "data scientist machine learning laptop code"
+  },
+  "landing/pi-svc-anomaly": {
+    "page": "landing",
+    "id": "pi-svc-anomaly",
+    "src": "/images/landing/pi-svc-anomaly.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Monitoring dashboard highlighting an unusual spike",
+    "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAADwAQCdASoQAAsAA4BaJZQAAu19u4IPW8AA/veZlo61BKCae+NiOlRJRHkdTb3WIpD+IAAA",
+    "pexelsId": 10653886,
+    "photographer": "Aedrian Salazar",
+    "pexelsUrl": "https://www.pexels.com/photo/business-data-graph-on-monitor-10653886/",
+    "matchedTier": "monitoring dashboard alert spike screen"
+  },
+  "landing/pi-svc-recommendation": {
+    "page": "landing",
+    "id": "pi-svc-recommendation",
+    "src": "/images/landing/pi-svc-recommendation.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Personalised product recommendations on a shopping screen",
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAABQAgCdASoQAAsAA4BaJYgCdAYq/qoPfKuVouAA/vV1V8YYhLumDkxhpao635+NBFJvZujwgDUFfvbT6gEsNuwNcCMdAJf0a3Cq9MxPjMg/7I+4SUGxyveLsn7qrHzqAAA=",
+    "pexelsId": 16052346,
+    "photographer": "Erik Mclean",
+    "pexelsUrl": "https://www.pexels.com/photo/photo-of-a-hand-holding-a-smartphone-with-a-delivery-app-on-screen-16052346/",
+    "matchedTier": "online shopping recommendations phone screen"
   }
 }
