@@ -20,6 +20,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
+import { overviewImage } from "./overview-images";
 
 export const constructionMeta = {
   slug: "ai-solutions-for-construction",
@@ -60,6 +61,7 @@ export const constructionHero: HeroContent = {
 };
 
 export const constructionOverview: OverviewContent = {
+  image: overviewImage("ai-solutions-for-construction"),
   eyebrow: "The Short Answer",
   title: "What AI Changes on a Construction Project",
   paragraphs: [

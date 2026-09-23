@@ -4,10 +4,9 @@ import { useRef } from "react";
 import Image from "next/image";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "@/components/landing/section-head";
 import styles from "@/components/landing/landing.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 export interface SpringboardContent {
   eyebrow: string;
@@ -32,8 +31,9 @@ export interface SpringboardContent {
  * This page sells work across iPhone, Watch and TV, so the section is built
  * from the one interface all three share. The tiles carry a photograph rather
  * than a glyph, cropped square and masked into the superellipse-ish rounded
- * square the platform uses, with the service's index in the corner where a
- * badge would sit.
+ * square the platform uses, with an icon badge picked from the service's own
+ * words in the corner where a notification badge would sit (it was a "01"
+ * ordinal until the Sep corrections review asked for icons over numbers).
  *
  * The reveal is the spring an icon grid arrives on: tiles scale up from
  * nothing with a `back.out` overshoot, staggered along the grid rather than
@@ -106,7 +106,7 @@ export default function Springboard({
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
       <ul ref={root} className={styles.sbdGrid}>
-        {content.items.map((item, i) => (
+        {content.items.map((item) => (
           <li key={item.name} className={styles.sbdItem}>
             <span className={styles.sbdTile}>
               {item.image && (
@@ -117,9 +117,12 @@ export default function Springboard({
                   sizes="(max-width: 699px) 40vw, (max-width: 1079px) 28vw, 18vw"
                 />
               )}
-              <span className={styles.sbdBadge} aria-hidden>
-                {pad(i + 1)}
-              </span>
+              <CardIconBadge
+                title={item.name}
+                body={item.body}
+                size="sm"
+                className={styles.sbdBadge}
+              />
             </span>
 
             <div className={styles.sbdCopy}>

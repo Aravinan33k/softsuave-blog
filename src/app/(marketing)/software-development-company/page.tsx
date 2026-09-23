@@ -33,7 +33,7 @@ import Faq from '@/components/landing/faq';
 // "Preferred AI-Enabled Technology Partner for Startups and SMBs" and its
 // reviews band "What Our Clients Say About Us", each with the same standfirst.
 import Clients from '@/components/home/clients';
-import Journey from '@/components/home/journey';
+import Process from '@/components/landing/process';
 import TechStack from '@/components/home/tech-stack';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
@@ -167,11 +167,9 @@ export default function SoftwareDevelopmentCompanyPage() {
           <Overview content={sdWhyUs} variant="compact" />
         </div>
 
-        {/* The homepage's pinned journey scene over this page's seven stages
-            — the approach is a route walked once, in order, which is what
-            that layout is for. Dark, and NOT wrapped in `.light`: the beam,
-            the hub auras and the scrim are all built for the deep ground. */}
-        <Journey content={sdProcess} />
+        {/* The seven stages as the shared simple process row — one process
+            design on every landing page, per the Sep corrections review. */}
+        <Process content={sdProcess} />
 
 {/* One inverted band carrying both grids: twelve sectors four across,
             then the four delivery models. They pair up rather than alternating
@@ -200,10 +198,7 @@ export default function SoftwareDevelopmentCompanyPage() {
           <Testimonials />
         </div>
 
-        {/* The homepage's closing CTA, pointed at this page's own enquiry
-            form rather than the /contact route — the same close as the other
-            service pages. */}
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

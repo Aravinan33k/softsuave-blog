@@ -1523,7 +1523,7 @@
 
 .techGroupName {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 12px;
   font-family: var(--font-eyebrow);
   font-size: clamp(13px, 1.3vw, 16px);
@@ -1556,9 +1556,10 @@
   gap: 0;
 }
 
+/* The group's icon badge (`CardIconBadge`) — it replaced a "01" ordinal, so
+   `.techGroupName` centres the row on it rather than on a text baseline. */
 .techGroupIndex {
-  color: var(--accent);
-  font-size: 12px;
+  flex: none;
 }
 
 @media (min-width: 1000px) {
@@ -5172,11 +5173,12 @@
 
 /* logo strip — wraps to as many rows as the list needs, so adding marks never
    forces a layout decision. */
+/* No hairlines above and below the strip: the review asked for the
+   full-width lines between sections to go. `.clientsMarquee` keeps its own
+   vertical padding, so the logos still sit in a band of their own. */
 .clientsRow {
   max-width: 1400px;
   margin: clamp(32px, 4.5vw, 64px) auto 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
 }
 /* `Marquee` renders its own track — this only sizes the strip and fades its
    edges into the section background so marks appear to scroll in/out of the
@@ -5625,11 +5627,9 @@
 .indFanCard:hover .indFanCardOverlay {
   opacity: 1;
 }
+/* Now an icon badge (CardIconBadge) rather than a "/01" label — layout only. */
 .indFanCardNum {
-  font-family: var(--font-eyebrow);
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  color: var(--card);
+  align-self: flex-start;
 }
 .indFanCardBody {
   margin: 0;
@@ -5930,8 +5930,11 @@
 /* ============================================================
    INDUSTRY RECOGNITIONS (awards wall)
    ============================================================ */
+/* Stated rather than deleted — recognitions.tsx still composes this class.
+   The hairline that sat on top of the section went with the review's
+   "no lines between sections"; the section padding separates it alone. */
 .recog {
-  border-top: 1px solid var(--line);
+  border-top: 0;
 }
 
 /* Two columns in the arrangement softsuave.com's own awards band uses: the

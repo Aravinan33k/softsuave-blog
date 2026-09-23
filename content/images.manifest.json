@@ -1907,6 +1907,576 @@
       "width": 1920,
       "height": 1080,
       "prompt": "A darkened open-plan engineering workspace at night, seen from a low wide angle. Monitors and desk lamps glow warm amber in the mid-right of the frame; the left half of the frame falls away into deep unlit shadow and empty space, calm and almost featureless. Graphite, charcoal and warm neutral tones only. Unoccupied desks, no people."
+    },
+    {
+      "id": "ov-about",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "A software team collaborating around laptops in a bright modern office",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "software company team collaborating office",
+        "tech team meeting laptops",
+        "office teamwork",
+        "team"
+      ]
+    },
+    {
+      "id": "ov-ai-in-logistics",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Automated warehouse with shelving and parcels ready for dispatch",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "logistics warehouse automation technology",
+        "warehouse logistics",
+        "shipping containers port",
+        "logistics"
+      ]
+    },
+    {
+      "id": "ov-ai-solutions-for-construction",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Engineer reviewing plans on a tablet at a construction site",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "construction engineer tablet site",
+        "construction technology",
+        "construction site",
+        "construction"
+      ]
+    },
+    {
+      "id": "ov-ai-solutions-for-ecommerce",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Online shopping on a laptop with a card and parcels on the desk",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "online shopping ecommerce laptop",
+        "ecommerce parcels",
+        "online shopping",
+        "shopping"
+      ]
+    },
+    {
+      "id": "ov-ai-solutions-for-telecom",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Telecommunication tower with antennas against the sky",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "telecommunication tower antenna",
+        "cell tower network",
+        "network server cables",
+        "telecommunication"
+      ]
+    },
+    {
+      "id": "ov-ai-solutions-in-edutech",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Student taking an online class on a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "online learning student laptop",
+        "e-learning",
+        "students technology classroom",
+        "education"
+      ]
+    },
+    {
+      "id": "ov-ai-solutions-in-healthtech",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Doctor using a digital tablet in a hospital",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "doctor using tablet hospital",
+        "healthcare technology",
+        "medical technology",
+        "healthcare"
+      ]
+    },
+    {
+      "id": "ov-android-application-development-company",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Developer testing an Android app on a smartphone",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "android smartphone app development",
+        "developer testing smartphone app",
+        "mobile app",
+        "smartphone"
+      ]
+    },
+    {
+      "id": "ov-cloud-computing",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Rows of servers in a cloud data center",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "cloud data center servers",
+        "server room",
+        "data center",
+        "technology"
+      ]
+    },
+    {
+      "id": "ov-fintech-ai-solutions",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Financial analytics dashboard on screens beside a mobile banking app",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "fintech financial data analytics screen",
+        "mobile banking",
+        "digital payment",
+        "finance"
+      ]
+    },
+    {
+      "id": "ov-global-capability-center",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Engineering team working together in a modern office",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "modern tech office team collaboration",
+        "corporate office team",
+        "office meeting",
+        "office"
+      ]
+    },
+    {
+      "id": "ov-it-outsourcing-company-india",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Distributed software team on a video call",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "remote software team video call",
+        "developers team office",
+        "team working laptops",
+        "team"
+      ]
+    },
+    {
+      "id": "ov-it-staff-augmentation-services",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Developers collaborating on laptops at a shared desk",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "developers collaborating laptops",
+        "software team meeting",
+        "team working",
+        "team"
+      ]
+    },
+    {
+      "id": "ov-java-application-development-company",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Java source code on a developer screen",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "java programming code screen",
+        "programming code monitor",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-offshore-software-development-company",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Software developers working together across laptops",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "software developers working laptops team",
+        "remote development team",
+        "software team",
+        "team"
+      ]
+    },
+    {
+      "id": "ov-product-engineering-services",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Product team planning a software release around a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "software product team planning laptop",
+        "ux designers wireframe app",
+        "product manager team meeting laptop",
+        "team laptop"
+      ]
+    },
+    {
+      "id": "ov-software-development-company",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Software developers writing code in an office",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "software developers coding office",
+        "programming team",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-android-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Android developer coding with a smartphone on the desk",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "android developer coding smartphone",
+        "mobile developer laptop",
+        "programmer laptop",
+        "developer"
+      ]
+    },
+    {
+      "id": "ov-hire-backend-application-developer",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Backend developer working with server code on multiple monitors",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "backend developer code monitors",
+        "programmer server code",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-dedicated-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Dedicated development team working at their desks",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "dedicated software developers team office",
+        "developers team",
+        "programmers office",
+        "team"
+      ]
+    },
+    {
+      "id": "ov-hire-devops-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "DevOps engineer monitoring systems in a server room",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "devops engineer server room laptop",
+        "it engineer servers",
+        "server room",
+        "technology"
+      ]
+    },
+    {
+      "id": "ov-hire-dot-net-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Developer writing C# code on a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "developer coding laptop csharp",
+        "software developer coding",
+        "programmer laptop",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-flutter-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Mobile app designer reviewing screens on a phone",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "mobile app developer smartphone design",
+        "app design smartphone",
+        "mobile app",
+        "smartphone"
+      ]
+    },
+    {
+      "id": "ov-hire-frontend-application-developer",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Frontend developer designing a web interface",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "frontend developer web design screen",
+        "web designer computer",
+        "web development",
+        "design"
+      ]
+    },
+    {
+      "id": "ov-hire-ionic-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Developer building a hybrid mobile app on laptop and phone",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "hybrid mobile app developer laptop phone",
+        "app developer smartphone laptop",
+        "mobile development",
+        "smartphone"
+      ]
+    },
+    {
+      "id": "ov-hire-ios-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "iOS developer working on an iPhone app with a MacBook",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "ios developer iphone macbook",
+        "iphone app development",
+        "macbook coding",
+        "developer"
+      ]
+    },
+    {
+      "id": "ov-hire-java-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Java developer focused on code at a workstation",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "java developer coding workstation",
+        "programmer focused code",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-mean-stack-developers-india",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Web developer writing JavaScript on a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "javascript web developer laptop",
+        "web developer code",
+        "programming laptop",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-mern-stack-developers-india",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Full stack developer working across two monitors",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "full stack developer two monitors",
+        "web developer desk",
+        "programmer monitors",
+        "developer"
+      ]
+    },
+    {
+      "id": "ov-hire-mobile-app-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Mobile app developers testing apps on phones",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "mobile app developers testing phones",
+        "app developers team",
+        "smartphones app",
+        "mobile"
+      ]
+    },
+    {
+      "id": "ov-hire-nestjs-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Backend developer building APIs on a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "backend api developer laptop code",
+        "nodejs developer",
+        "programmer coding night",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-php-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "PHP web developer coding a website",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "php web developer coding",
+        "website development code",
+        "web developer laptop",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-python-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Python programmer writing code on a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "python programmer code laptop",
+        "data programmer coding",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-react-native-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Developer building a cross-platform app on phone and laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "cross platform app developer phone laptop",
+        "mobile app development laptop",
+        "app developer",
+        "smartphone"
+      ]
+    },
+    {
+      "id": "ov-hire-reactjs-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "React code open in an editor on a MacBook",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "web developer interface monitor",
+        "frontend developer coding",
+        "web development",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-software-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Software developer at a tidy workspace with code on screen",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "software developer workspace code screen",
+        "programmer desk",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-swift-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Hand holding an iPhone showing its apps",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "iphone app icons screen hand",
+        "iphone apps",
+        "apple iphone",
+        "smartphone"
+      ]
+    },
+    {
+      "id": "ov-hire-web-app-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Web application developer working on a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "web application developer laptop",
+        "web developer working",
+        "web development",
+        "laptop"
+      ]
     }
   ]
 }

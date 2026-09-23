@@ -1,5 +1,6 @@
 import FadeUp from '@/components/home/fade-up';
 import SplitReveal from '@/components/home/split-reveal';
+import CardIconBadge from '@/components/common/card-icon-badge';
 import home from '@/components/home/home.module.css';
 import styles from './services.module.css';
 
@@ -14,7 +15,9 @@ export interface CardSectionProps {
 }
 
 /**
- * A numbered card grid under a section head. Three sections on the AI page share
+ * A card grid under a section head, each card led by an icon badge picked
+ * from its own words (`CardIconBadge`) — it was a "01"–"0n" ordinal until the
+ * Sep corrections review asked for icons in place of numbers. Three sections on the AI page share
  * this exact shape — the offerings, the reasons to choose Soft Suave, and the
  * industries — so they share one component rather than three near-identical
  * files. The grid is a single hairline-ruled surface (1px gaps over a `--line`
@@ -32,9 +35,9 @@ export default function CardSection({ id, eyebrow, title, body, items, as: Headi
       </div>
 
       <FadeUp className={styles.cards} delay={0.06}>
-        {items.map((item, i) => (
+        {items.map((item) => (
           <article key={item.name} className={styles.card}>
-            <span className={styles.cardNum}>{String(i + 1).padStart(2, '0')}</span>
+            <CardIconBadge title={item.name} body={item.body} size="sm" className={styles.cardNum} />
             <Heading className={styles.cardName}>{item.name}</Heading>
             <p className={styles.cardBody}>{item.body}</p>
           </article>

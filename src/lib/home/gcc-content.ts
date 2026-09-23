@@ -18,6 +18,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { ProcessContent } from "@/components/landing/process";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import { sharedHeroBadges } from "./delivery-shared";
+import { overviewImage } from "./overview-images";
 
 export const gccMeta = {
   slug: "global-capability-center",
@@ -61,6 +62,7 @@ export const gccHero: HeroContent = {
 };
 
 export const gccOverview: OverviewContent = {
+  image: overviewImage("global-capability-center"),
   eyebrow: "The Short Answer",
   title: "What Is a Global Capability Center?",
   paragraphs: [

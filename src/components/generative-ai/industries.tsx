@@ -7,11 +7,14 @@ import { publicMediaUrl } from "@/lib/media-url";
 import { gridSpansFor } from "@/components/landing/card-spans";
 import FadeUp from "@/components/home/fade-up";
 import SectionHead from "./section-head";
+import { useServiceHref } from "@/components/common/service-link";
 import CardIcon, { isBrandIcon } from "./card-icon";
 import styles from "./gen-ai.module.css";
 
 // `CardIcon` holds the glyph vocabulary; see that file for why it is not here.
-const pad = (n: number) => String(n).padStart(2, "0");
+// The "01"-style ordinals these cards used to carry are gone (review: icons
+// instead of numbers) — every variant already leads with a `CardIcon`, and a
+// card with no icon key now gets one picked from its own words.
 
 /** Shared by every card-grid section on the AI landing pages. */
 export interface CardGridContent {
@@ -118,6 +121,15 @@ export default function Industries({
    */
   variant?: "photo" | "compact" | "bold";
 } = {}) {
+  /* Links: a card's own `href` wins; a grid of services or sectors also links
+     cards whose name matches one of our pages (`lib/home/service-href.ts`).
+     Never to the page the card is on. */
+  const resolveHref = useServiceHref();
+  const autoLink = /service|industr|sector|offering|solution/i.test(id);
+  const hrefOf = (item: CardGridContent["items"][number]) =>
+    (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
+  const textOf = (item: CardGridContent["items"][number]) => `${item.name}. ${item.body}`;
+
   if (variant === "bold") {
     /* Derived from the item count alone, so a section that gains or loses a
        card re-composes itself with no layout prop to keep in sync. */
@@ -129,7 +141,9 @@ export default function Industries({
 
         <FadeUp>
           <div className={styles.indGridBold}>
-            {content.items.map((item, i) => (
+            {content.items.map((item, i) => {
+              const href = hrefOf(item);
+              return (
               <article
                 key={item.name}
                 className={styles.indBoldCard}
@@ -138,9 +152,6 @@ export default function Industries({
                    stays free of style attributes. */
                 data-span={spans[i]}
               >
-                <span className={styles.indBoldIndex} aria-hidden>
-                  {pad(i + 1)}
-                </span>
                 {/* `data-brand` drops the accent tint behind a full-colour
                     brand mark, which has its own palette and is fought by the
                     ring's accent wash. A drawn glyph is `currentColor` and
@@ -150,7 +161,7 @@ export default function Industries({
                   data-brand={isBrandIcon(item.key) ? "true" : undefined}
                   aria-hidden
                 >
-                  <CardIcon iconKey={item.key} />
+                  <CardIcon iconKey={item.key} text={textOf(item)} />
                 </span>
                 <h3 className={styles.indBoldName}>{item.name}</h3>
                 <p className={styles.indBoldBody}>{item.body}</p>
@@ -158,15 +169,16 @@ export default function Industries({
                     compact card. This is what keeps the hire-by-role
                     specialisation grids working as navigation between the nine
                     role pages. */}
-                {item.href && (
+                {href && (
                   <CardLink
-                    href={item.href}
+                    href={href}
                     label={item.name}
                     className={`${styles.textCardLink} ${styles.indBoldLink}`}
                   />
                 )}
               </article>
-            ))}
+              );
+            })}
           </div>
         </FadeUp>
       </section>
@@ -180,24 +192,24 @@ export default function Industries({
 
         <FadeUp>
           <div className={styles.indGridCompact}>
-            {content.items.map((item, i) => (
+            {content.items.map((item) => {
+              const href = hrefOf(item);
+              return (
               <article key={item.name} className={styles.compactCard}>
-                <span className={styles.compactIndex} aria-hidden>
-                  {pad(i + 1)}
-                </span>
                 <span className={styles.compactIcon} aria-hidden>
-                  <CardIcon iconKey={item.key} />
+                  <CardIcon iconKey={item.key} text={textOf(item)} />
                 </span>
                 <h3 className={styles.compactName}>{item.name}</h3>
                 <p className={styles.compactBody}>{item.body}</p>
                 {/* Only where the card names a page of ours. On a text card
                     that already says everything, a link back to the enquiry
                     form is noise — the section's own CTAs cover that. */}
-                {item.href && (
-                  <CardLink href={item.href} label={item.name} className={styles.textCardLink} />
+                {href && (
+                  <CardLink href={href} label={item.name} className={styles.textCardLink} />
                 )}
               </article>
-            ))}
+              );
+            })}
           </div>
         </FadeUp>
       </section>
@@ -210,7 +222,9 @@ export default function Industries({
 
       <FadeUp>
         <div className={styles.indGrid}>
-          {content.items.map((item, i) => (
+          {content.items.map((item) => {
+            const href = hrefOf(item);
+            return (
             <article key={item.name} className={styles.indCard}>
               {item.image && (
                 <Image
@@ -221,14 +235,11 @@ export default function Industries({
                   className={styles.indCardImg}
                 />
               )}
-              <span className={styles.indCardIndex} aria-hidden>
-                {pad(i + 1)}
-              </span>
               <div className={styles.indCardScrim} aria-hidden />
 
               <div className={styles.indCardFace}>
                 <span className={styles.indCardIcon} aria-hidden>
-                  <CardIcon iconKey={item.key} />
+                  <CardIcon iconKey={item.key} text={textOf(item)} />
                 </span>
                 <h3 className={styles.indCardName}>{item.name}</h3>
               </div>
@@ -239,16 +250,17 @@ export default function Industries({
                   when the description runs long on a short 4-up card. */}
               <div className={styles.indCardOverlay}>
                 <span className={styles.indCardIcon} aria-hidden>
-                  <CardIcon iconKey={item.key} />
+                  <CardIcon iconKey={item.key} text={textOf(item)} />
                 </span>
                 <span className={styles.indCardName} aria-hidden>
                   {item.name}
                 </span>
                 <p className={styles.indCardBody}>{item.body}</p>
-                {item.href && <CardLink href={item.href} label={item.name} />}
+                {href && <CardLink href={href} label={item.name} />}
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       </FadeUp>
     </section>

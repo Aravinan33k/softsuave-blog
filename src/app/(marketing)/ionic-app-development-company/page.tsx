@@ -169,10 +169,7 @@ export default function IonicAppDevelopmentPage() {
           <Testimonials />
         </div>
 
-        {/* The homepage's closing CTA, pointed at this page's own enquiry
-            form rather than the /contact route — the same close as the other
-            service pages. */}
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

@@ -4,11 +4,12 @@ import { useRef } from "react";
 import Image from "next/image";
 import { publicMediaUrl } from "@/lib/media-url";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import CardIconBadge from "@/components/common/card-icon-badge";
+import ServiceLink, { useServiceHref } from "@/components/common/service-link";
+import badgeStyles from "@/components/common/card-icon-badge.module.css";
 import { spansFor } from "./card-spans";
 import SectionHead from "./section-head";
 import styles from "./landing.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 export interface ServicesContent {
   eyebrow: string;
@@ -22,6 +23,12 @@ export interface ServicesContent {
      * variant only. A grouping word for the card's own subject — not a claim.
      */
     readonly tag?: string;
+    /**
+     * Optional destination page. Omitted, the card links to the page its name
+     * matches in the route registry, if any (see `lib/home/service-href.ts`),
+     * and never to the page it is on.
+     */
+    readonly href?: string;
     /** Optional — hand-placed asset, shown as the card's header image. */
     readonly image?: {
       readonly src: string;
@@ -37,14 +44,18 @@ export interface ServicesContent {
  *
  * Two layouts over the same content:
  *
- * - `default` — numbered bordered panels on an equal grid, optionally led by a
+ * - `default` — bordered panels on an equal grid, optionally led by a
  *   header illustration. This is what the custom-AI page uses, where each card
  *   carries its own image, so it is left exactly as it was.
- * - `bold` — the editorial treatment: an asymmetric 12-column grid (see
- *   `spansFor`), an accent rule across the top of each card, an oversized
- *   serif ordinal watermarked into the corner, and a per-card accent drawn
+ * - `bold` — the editorial treatment: a 12-column grid with equal-width cards
+ *   per row (see `spansFor`), an accent rule across the top of each card and a per-card accent drawn
  *   from a five-step warm ramp built on the brand tokens (see `.svcBold` in
  *   landing.module.css). Body text is left-aligned here rather than justified.
+ *
+ * Both lead with an icon badge picked from the card's own words
+ * (`CardIconBadge`) — the review asked for icons in place of the "01"/"02"
+ * ordinals these cards used to carry — and end in a "Learn more" link when
+ * the service has a page of its own (`useServiceHref`).
  *
  * Entrance is a staggered fade/lift on scroll-in — one ScrollTrigger for the
  * whole grid, not a `FadeUp` per card, so the stagger reads as one sequence.
@@ -61,6 +72,7 @@ export default function Services({
   const root = useRef<HTMLDivElement | null>(null);
   const bold = variant === "bold";
   const spans = bold ? spansFor(content.items.length) : [];
+  const hrefFor = useServiceHref();
 
   useGSAP(
     () => {
@@ -92,7 +104,9 @@ export default function Services({
         ref={root}
         className={bold ? styles.boldGrid : styles.svcGrid}
       >
-        {content.items.map((s, i) => (
+        {content.items.map((s, i) => {
+          const href = hrefFor(s.name, s.href);
+          return (
           <article
             key={s.name}
             className={bold ? `${styles.boldCard} ${styles.svcBold}` : styles.svcPanel}
@@ -101,12 +115,6 @@ export default function Services({
                of style attributes. */
             data-span={bold ? spans[i] : undefined}
           >
-            {bold && (
-              <span className={styles.boldWatermark} aria-hidden>
-                {pad(i + 1)}
-              </span>
-            )}
-
             {s.image && !bold && (
               <div className={styles.svcImageFrame}>
                 <Image
@@ -122,21 +130,22 @@ export default function Services({
             <div className={styles.svcBody}>
               {bold ? (
                 <>
+                  <CardIconBadge title={s.name} body={s.body} size="sm" className={badgeStyles.stack} />
                   {s.tag && <span className={styles.boldTag}>{s.tag}</span>}
                   <h3 className={styles.svcTitle}>{s.name}</h3>
                 </>
               ) : (
                 <div className={styles.svcCardHead}>
-                  <span className={styles.svcIndex} aria-hidden>
-                    {pad(i + 1)}
-                  </span>
+                  <CardIconBadge title={s.name} body={s.body} size="sm" />
                   <h3 className={styles.svcTitle}>{s.name}</h3>
                 </div>
               )}
               <p className={styles.svcText}>{s.body}</p>
+              {href && <ServiceLink href={href} label={s.name} />}
             </div>
           </article>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

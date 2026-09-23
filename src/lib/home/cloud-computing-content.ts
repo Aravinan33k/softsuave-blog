@@ -21,6 +21,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { ProcessContent } from "@/components/landing/process";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import { sharedHeroBadges } from "./delivery-shared";
+import { overviewImage } from "./overview-images";
 
 export const cloudMeta = {
   slug: "cloud-computing",
@@ -63,6 +64,7 @@ export const cloudHero: HeroContent = {
 };
 
 export const cloudOverview: OverviewContent = {
+  image: overviewImage("cloud-computing"),
   eyebrow: "The Short Answer",
   title: "What Cloud Computing Services Cover",
   paragraphs: [

@@ -20,6 +20,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
+import { overviewImage } from "./overview-images";
 
 export const edtechMeta = {
   slug: "ai-solutions-in-edutech",
@@ -60,6 +61,7 @@ export const edtechHero: HeroContent = {
 };
 
 export const edtechOverview: OverviewContent = {
+  image: overviewImage("ai-solutions-in-edutech"),
   eyebrow: "The Short Answer",
   title: "What AI Changes About How People Learn",
   paragraphs: [

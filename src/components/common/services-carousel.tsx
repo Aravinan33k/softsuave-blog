@@ -5,6 +5,8 @@ import Image from "next/image";
 import { ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
 import SectionHead from "@/components/landing/section-head";
+import CardIconBadge from "@/components/common/card-icon-badge";
+import ServiceLink, { useServiceHref } from "@/components/common/service-link";
 import styles from "@/components/landing/landing.module.css";
 
 /** Horizontal travel a pointer drag needs before it counts as a swipe, in px. */
@@ -12,8 +14,6 @@ const SWIPE_PX = 44;
 
 /** How long each card holds before the carousel advances, in ms. */
 const DWELL_MS = 4600;
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 export interface ServicesCarouselContent {
   eyebrow: string;
@@ -29,6 +29,11 @@ export interface ServicesCarouselContent {
      * decorative — the card already names the service in text.
      */
     readonly image?: { readonly src: string; readonly alt: string };
+    /**
+     * Optional destination page. Omitted, the card links to the page its name
+     * matches (see `lib/home/service-href.ts`), never the page it is on.
+     */
+    readonly href?: string;
   }[];
 }
 
@@ -47,6 +52,11 @@ export interface ServicesCarouselContent {
  * under a gradient confined to the text band. All images are mounted rather
  * than swapped per slide, so advancing never waits on a fetch.
  *
+ * Each slide leads with an icon badge picked from the service's own words (it
+ * used to be a "01" ordinal) and ends in a "Learn more" link when the service
+ * has a page of its own. The link is out of the tab order while its slide is
+ * off screen, like everything else in an `aria-hidden` slide.
+ *
  * Accessibility: a labelled carousel (`aria-roledescription="carousel"`) of
  * slides labelled "n of m"; off-screen cards are `aria-hidden`; arrow keys and
  * Home/End move it; the dots are real buttons carrying `aria-current`. It
@@ -64,6 +74,8 @@ export default function ServicesCarousel({
   const root = useRef<HTMLElement | null>(null);
   const items = content.items;
   const total = items.length;
+
+  const hrefFor = useServiceHref();
 
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
@@ -220,6 +232,7 @@ export default function ServicesCarousel({
           const off = offsetOf(i);
           const onScreen = Math.abs(off) <= 1;
           const isNear = Math.abs(off) === 1;
+          const href = hrefFor(s.name, s.href);
           return (
             <article
               key={s.name}
@@ -244,11 +257,12 @@ export default function ServicesCarousel({
                 </span>
               )}
               <div className={styles.carouselMain} data-plain={!s.image}>
-                <span className={styles.carouselIndex} aria-hidden>
-                  {pad(i + 1)}
-                </span>
+                <CardIconBadge title={s.name} body={s.body} size="sm" />
                 <h3 className={styles.carouselTitle}>{s.name}</h3>
                 <p className={styles.carouselText}>{s.body}</p>
+                {href && (
+                  <ServiceLink href={href} label={s.name} tabIndex={onScreen ? undefined : -1} />
+                )}
               </div>
             </article>
           );

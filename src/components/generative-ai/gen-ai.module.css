@@ -49,7 +49,7 @@
   align-items: center;
   gap: 0.7em;
   font-family: var(--font-eyebrow);
-  font-size: clamp(10px, 0.78vw, 12px);
+  font-size: var(--fs-label);
   text-transform: uppercase;
   letter-spacing: 0.28em;
   color: var(--muted);
@@ -67,13 +67,17 @@
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.6rem, 2.9vw, 2.5rem);
+  font-size: var(--fs-h2);
   line-height: 1.14;
   letter-spacing: -0.03em;
   color: var(--text-bright);
   max-width: 26ch;
 }
 
+/* --text rather than --muted, here and on the section body copy (prose,
+   card bodies, answers): the grey passed AA on paper but read as washed out
+   across the bands (review: "the subtext is not visible"). --muted is kept
+   for labels, indices and other secondary furniture. */
 .intro {
   margin: 0;
   /* The masthead is stacked and full-width, so a narrow measure left the lead
@@ -81,7 +85,7 @@
   max-width: 800px;
   font-size: clamp(0.95rem, 1.05vw, 1.05rem);
   line-height: 1.62;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* ============================================================
@@ -98,7 +102,7 @@
   border-radius: 999px;
   background: transparent;
   font-family: var(--font-eyebrow);
-  font-size: clamp(10px, 0.8vw, 12px);
+  font-size: var(--fs-label);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--text-bright);
@@ -228,7 +232,7 @@
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2.1rem, 4.2vw, 3.75rem);
+  font-size: var(--fs-h1);
   line-height: 1.06;
   letter-spacing: -0.045em;
   color: var(--text-bright);
@@ -299,7 +303,7 @@
 
 .input::placeholder,
 .textarea::placeholder {
-  color: color-mix(in srgb, var(--muted) 72%, transparent);
+  color: var(--muted);
 }
 
 .input:focus-visible,
@@ -324,7 +328,7 @@
   /* 1.68 rather than the airier 1.75 this started at: the section has to fit
      one screen. Still comfortably above the 1.5 floor for body copy. */
   line-height: 1.68;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* Prose beside the section illustration. Both columns sit inside the section's
@@ -341,15 +345,16 @@
    `next/image fill` paints into it — no layout shift, no size to go stale. The
    ratio is the asset's own 4:3, so nothing is cropped.
  *
-   `max-width` caps it so the picture cannot outgrow the prose beside it, but
-   the cap is a ceiling, not a target: at 380px the illustration read as a
-   thumbnail in its own column (review: "image is very small"), so it is set
-   just under the column's natural width at the widest breakpoint. */
+   It fills its column now. A `max-width` cap (380px, later 560px) kept the
+   picture from outgrowing the prose, but in a 0.85fr column it still read as
+   a thumbnail (review: "overview image too small"); the near-equal columns
+   below size it instead, and `max-height` stops it outgrowing the text on
+   very wide screens. Full width below 1000px, where it stacks. */
 .overviewMedia {
   position: relative;
-  margin: 0 0 0 auto;
+  margin: 0;
   width: 100%;
-  max-width: 560px;
+  max-height: 560px;
   aspect-ratio: 4 / 3;
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -400,7 +405,7 @@
   position: relative;
   display: grid;
   grid-template-columns: 2.5rem 1fr;
-  align-items: baseline;
+  align-items: center; /* on the icon badge, not a numeral baseline */
   gap: clamp(10px, 1.4vw, 18px);
   width: 100%;
   padding: clamp(14px, 1.8vw, 20px) 0 clamp(14px, 1.8vw, 20px) clamp(10px, 1.2vw, 16px);
@@ -442,10 +447,10 @@
   outline-offset: -2px;
 }
 
-.psTabNum {
-  font-family: var(--font-eyebrow);
-  font-size: 11px;
-  letter-spacing: 0.14em;
+/* The tab's icon badge (`CardIconBadge`, which replaced a "01" ordinal). It
+   keeps the numeral's muted-until-selected tint; scoped under `.psTab` so it
+   outranks the badge module's own accent colour whatever the load order. */
+.psTab .psTabNum {
   color: var(--muted);
   transition: color 0.35s ease;
 }
@@ -550,7 +555,7 @@
 
 .psPanelLabel {
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
@@ -574,7 +579,7 @@
   border-top: 1px solid var(--line);
   font-size: clamp(0.92rem, 1.02vw, 1.02rem);
   line-height: 1.68;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* Autoplay progress: a hairline that fills across the active problem's row. */
@@ -625,7 +630,7 @@
   background: var(--surface);
   font-family: var(--font-eyebrow);
   font-weight: 400;
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -642,9 +647,9 @@
 }
 
 .cmpTable tbody td {
-  font-size: clamp(0.84rem, 0.94vw, 0.94rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.58;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* The column this page is about, given the accent the rest of the surface uses
@@ -677,7 +682,7 @@
 .cmpCardLabel {
   display: block;
   font-family: var(--font-eyebrow);
-  font-size: 9.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
@@ -707,7 +712,7 @@
 
 .cmpDt {
   font-family: var(--font-eyebrow);
-  font-size: 9.5px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
@@ -715,9 +720,9 @@
 
 .cmpDd {
   margin: 6px 0 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.6;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* ============================================================
@@ -753,7 +758,10 @@
   height: calc(100% - 36px);
   display: grid;
   grid-template-rows: minmax(0, 1fr);
-  border: 1px solid var(--line);
+  /* A touch stronger than the bare hairline so a plain (imageless) card still
+     reads as a box on the warm-white `.light` band, where --surface and --bg
+     sit a few shades apart. */
+  border: 1px solid color-mix(in srgb, var(--text-bright) 12%, var(--line));
   border-radius: 14px;
   background: var(--surface);
   overflow: hidden;
@@ -773,13 +781,13 @@
 
 .svcSlide[data-pos="prev"] {
   transform: translate3d(-104%, 26px, 0) scale(0.93);
-  opacity: 0.5;
+  opacity: 0.8;
   z-index: 20;
 }
 
 .svcSlide[data-pos="next"] {
   transform: translate3d(104%, 26px, 0) scale(0.93);
-  opacity: 0.5;
+  opacity: 0.8;
   z-index: 20;
 }
 
@@ -825,7 +833,7 @@
   align-self: end;
   display: grid;
   align-content: end;
-  padding: clamp(46px, 5vw, 64px) clamp(18px, 2vw, 26px) clamp(18px, 2vw, 26px);
+  padding: clamp(46px, 5vw, 64px) clamp(22px, 2.4vw, 32px) clamp(22px, 2.4vw, 32px);
   background: linear-gradient(
     180deg,
     transparent 0%,
@@ -838,7 +846,7 @@
 /* Cards with no artwork keep the plain surface — no gradient over nothing. */
 .svcSlideMain[data-plain="true"] {
   background: none;
-  padding-top: clamp(18px, 2vw, 26px);
+  padding-top: clamp(22px, 2.4vw, 32px);
   align-self: start;
 }
 
@@ -938,8 +946,10 @@
 .svcTitle {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
-  font-size: clamp(1.35rem, 1.9vw, 1.75rem);
+  /* 400 over the surface's usual 300: the title sits on artwork, and the
+     hairline weight thinned out against it (review: "the heading is small"). */
+  font-weight: 400;
+  font-size: var(--fs-h3);
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: #fff;
@@ -998,8 +1008,9 @@
   overflow: hidden;
   isolation: isolate;
   padding: clamp(44px, 5.2vw, 80px) var(--gutter);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  /* No top/bottom rule. The band is its own dark surface, so the change of
+     ground already marks its edges; the full-width hairlines on top of that
+     read as stray divider lines (review: remove the section lines). */
   /* Base only — <LightFieldBackdrop> paints over this. It still matters: it is
      what shows if the poster fails to load, and it keeps the band dark. */
   background: #050609;
@@ -1024,7 +1035,7 @@
   margin: 0.45em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.4rem, 2.4vw, 2.05rem);
+  font-size: var(--fs-h2);
   line-height: 1.16;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -1063,7 +1074,7 @@
 
 .integrationLabel {
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
@@ -1073,7 +1084,7 @@
   margin: 14px 0 0;
   font-size: clamp(0.92rem, 1.02vw, 1.02rem);
   line-height: 1.68;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* ============================================================
@@ -1167,7 +1178,7 @@
 
 .orbitNodeNum {
   font-family: var(--font-eyebrow);
-  font-size: 11px;
+  font-size: var(--fs-label);
   letter-spacing: 0.06em;
 }
 
@@ -1238,14 +1249,14 @@
 
 .orbitCount {
   font-family: var(--font-eyebrow);
-  font-size: 11px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   color: var(--text);
 }
 
 .processStepLabel {
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
@@ -1255,7 +1266,7 @@
   margin: 0.4em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.45rem, 2.1vw, 1.95rem);
+  font-size: var(--fs-h3);
   line-height: 1.2;
   letter-spacing: -0.025em;
   color: var(--text-bright);
@@ -1317,9 +1328,9 @@
   right: 16px;
   z-index: 2;
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* Bottom-weighted at rest (just enough to keep the name legible on any photo),
@@ -1389,7 +1400,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.1rem, 1.4vw, 1.35rem);
+  font-size: var(--fs-h3);
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: #fff;
@@ -1441,7 +1452,7 @@
 
 .indCardBody {
   margin: 0;
-  font-size: clamp(0.8rem, 0.88vw, 0.88rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.52;
   color: rgba(255, 255, 255, 0.85);
   /* A guard, not a crop: at the card sizes this grid actually renders, no
@@ -1461,7 +1472,7 @@
   gap: 6px;
   margin-top: 2px;
   font-family: var(--font-eyebrow);
-  font-size: 11px;
+  font-size: var(--fs-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #fff;
@@ -1503,14 +1514,16 @@
   font-size: clamp(1.7rem, 2.8vw, 2.4rem);
   line-height: 1;
   letter-spacing: -0.04em;
-  color: color-mix(in srgb, var(--accent) 70%, transparent);
+  /* Full accent: the figure is the proof point itself, and at 70% alpha it
+     dropped under 3:1 on the dark bands (review: "text visibility"). */
+  color: var(--accent);
 }
 
 .proofName {
   margin: 14px 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  font-size: var(--fs-h3);
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -1519,9 +1532,9 @@
 .proofBody {
   margin: 10px 0 0;
   max-width: 44ch;
-  font-size: clamp(0.86rem, 0.95vw, 0.95rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.62;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* ============================================================
@@ -1558,18 +1571,20 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* The group's icon badge (`CardIconBadge`, which replaced a "01" ordinal). */
 .stackGroupIndex {
-  font-family: var(--font-eyebrow);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  color: var(--accent);
+  flex: none;
 }
 
+/* An h3: the shared card-title face and size rather than the 13-16px mono
+   label it was, which made the tech-stack group the smallest H3 on the page. */
 .stackGroupName {
-  font-family: var(--font-eyebrow);
-  font-weight: 400;
-  font-size: clamp(13px, 1.3vw, 16px);
-  letter-spacing: 0.12em;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   color: var(--text-bright);
 }
 
@@ -1606,7 +1621,7 @@
 
 .stackItemName {
   font-family: var(--font-eyebrow);
-  font-size: 11px;
+  font-size: var(--fs-label);
   letter-spacing: 0.05em;
   color: var(--text);
   overflow: hidden;
@@ -1644,7 +1659,7 @@
   margin: 0.45em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-size: var(--fs-h2);
   line-height: 1.12;
   letter-spacing: -0.035em;
   color: var(--text-bright);
@@ -1656,7 +1671,7 @@
   max-width: 56ch;
   font-size: clamp(0.96rem, 1.1vw, 1.08rem);
   line-height: 1.68;
-  color: var(--muted);
+  color: var(--text);
 }
 
 .finalActions {
@@ -1681,7 +1696,7 @@
   grid-template-columns: auto 1fr;
   align-items: start;
   gap: 10px;
-  font-size: 0.88rem;
+  font-size: var(--fs-body-sm);
   line-height: 1.5;
   color: var(--muted);
 }
@@ -1741,7 +1756,7 @@
   content: counter(faq, decimal-leading-zero);
   counter-increment: faq;
   font-family: var(--font-eyebrow);
-  font-size: 11px;
+  font-size: var(--fs-label);
   letter-spacing: 0.14em;
   color: var(--muted);
 }
@@ -1749,7 +1764,7 @@
 .faqQuestion {
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+  font-size: var(--fs-h3);
   line-height: 1.22;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -1830,7 +1845,7 @@
   max-width: 78ch;
   font-size: clamp(0.9rem, 1vw, 1rem);
   line-height: 1.68;
-  color: var(--muted);
+  color: var(--text);
   opacity: 0;
   transition: opacity 0.4s ease 0.08s;
 }
@@ -1944,8 +1959,8 @@
      bottom sits flush with the last line of the second paragraph, right
      where the pull quote begins below. */
   .overviewGrid {
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    column-gap: clamp(28px, 3.2vw, 52px);
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    column-gap: clamp(32px, 4vw, 64px);
     align-items: end;
   }
 
@@ -2033,10 +2048,9 @@
   top: clamp(16px, 1.8vw, 22px);
   right: clamp(18px, 2vw, 26px);
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   color: var(--muted);
-  opacity: 0.65;
 }
 
 .compactIcon {
@@ -2068,7 +2082,7 @@
      variants read as the same family. */
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+  font-size: var(--fs-h3);
   line-height: 1.25;
   letter-spacing: -0.01em;
   /* Room for the ordinal in the corner. */
@@ -2078,9 +2092,9 @@
 
 .compactBody {
   margin: 0;
-  font-size: clamp(0.88rem, 0.98vw, 0.97rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.65;
-  color: var(--muted);
+  color: var(--text);
 }
 
 .textCardLink {
@@ -2090,7 +2104,7 @@
   align-items: center;
   gap: 7px;
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
@@ -2200,10 +2214,9 @@
   top: clamp(18px, 2vw, 24px);
   right: clamp(18px, 2vw, 26px);
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.18em;
   color: var(--muted);
-  opacity: 0.55;
 }
 
 /* The discipline glyph, tinted to the card's own accent rather than the one
@@ -2265,7 +2278,7 @@
      the same family at the same weight. */
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+  font-size: var(--fs-h3);
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--text-bright);
@@ -2280,9 +2293,9 @@
 
 .indBoldBody {
   margin: 0;
-  font-size: clamp(0.88rem, 0.98vw, 0.97rem);
+  font-size: var(--fs-body-sm);
   line-height: 1.65;
-  color: var(--muted);
+  color: var(--text);
 }
 
 /* Pushed to the bottom edge so the links line up across a row of cards whose
@@ -2370,11 +2383,22 @@
   border-radius: 6px;
   background: color-mix(in srgb, var(--surface) 55%, transparent);
   font-family: var(--font-eyebrow);
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text);
   white-space: nowrap;
+}
+
+/* A long text tag ("*Satisfaction Guaranteed – Get 40-hour Free Trial" on the
+   hire-by-role pages) is wider than a phone. Kept on one line it sets the hero
+   column's min-content width, pushing the whole column past the viewport, so
+   below 1000px a tag may wrap instead. */
+@media (max-width: 999px) {
+  .badge {
+    white-space: normal;
+    max-width: 100%;
+  }
 }
 
 .badgeDot {

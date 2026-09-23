@@ -123,7 +123,7 @@ export default function FaqsPage() {
 
         <CtaBand content={faqsPageCta} />
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

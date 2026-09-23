@@ -7,6 +7,8 @@ import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import type { HireBand, HireSkill } from '@/lib/home/hire-skill';
 import { HIRE_CLIENT_LOGOS, HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
+import { partnerHeroBadges } from '@/lib/home/hero-badges';
+import { overviewImage } from '@/lib/home/overview-images';
 import type { CardGridContent } from '@/components/landing/industries';
 import type { ServicesContent } from '@/components/landing/services';
 
@@ -154,7 +156,13 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
         return <Clients key={band} logos={HIRE_CLIENT_LOGOS} />;
       case 'overview':
         return skill.overview ? (
-          <Overview key={band} content={skill.overview} id="overview" variant="compact" />
+          <Overview
+            key={band}
+            // A skill's own image wins; otherwise the pipeline's per-page photo.
+            content={{ ...skill.overview, image: skill.overview.image ?? overviewImage(skill.slug) }}
+            id="overview"
+            variant="compact"
+          />
         ) : null;
       case 'applications':
         return skill.applications ? (
@@ -256,7 +264,10 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
       <Nav logoHref={BASE_PATH || '/'} />
 
       <main id="main">
-        <Hero content={skill.hero} idPrefix={skill.key} />
+        {/* The partner lockups are stated here, once, rather than in twenty
+            skill records: they are the company's standing, not the skill's,
+            and every other hero on the surface closes on the same four. */}
+        <Hero content={{ ...skill.hero, badges: partnerHeroBadges }} idPrefix={skill.key} />
         {groups.map((g, i) =>
           g.light ? (
             <div key={i} className={home.light}>
@@ -266,7 +277,9 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
             <div key={i}>{g.nodes}</div>
           ),
         )}
-        <Contact ctaHref="#enquiry" content={HIRE_CLOSING_BAND} eyebrow="" />
+        {/* No `ctaHref`: the closing CTA takes its default, the /contact
+            route — the review asked for every final CTA to lead there. */}
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

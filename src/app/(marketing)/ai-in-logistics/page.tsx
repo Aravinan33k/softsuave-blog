@@ -141,7 +141,7 @@ export default function LogisticsAiSolutionsPage() {
           <Faq content={logisticsFaqs} idPrefix="logistics-faq" />
         </div>
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

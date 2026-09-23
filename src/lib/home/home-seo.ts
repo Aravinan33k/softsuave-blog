@@ -4,6 +4,7 @@ import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/organization';
 import { marketingWebSiteLd, SCHEMA_DATE_MODIFIED } from '@/lib/seo/page-graph';
 import { brand, why } from './content';
+import { HOME_SERVICE_CATALOG } from './home-service-catalog';
 
 /**
  * Metadata and structured data for the homepage.
@@ -18,7 +19,9 @@ import { brand, why } from './content';
  * sections, and it is `server-only` because `absoluteUrl` is.
  *
  * What remains here is what is particular to this page: its metadata, its
- * `WebPage` node and the proof band's figures. Those figures come from
+ * `WebPage` node, the proof band's figures, and the company-wide `Service`
+ * (with its catalogue of service pages) and US-office `LocalBusiness` that the
+ * SEO brief puts on the homepage alone. Those figures come from
  * `content.ts` — the same object the band renders — so a number cannot be
  * marked up here and shown differently above.
  *
@@ -120,6 +123,132 @@ export function homeJsonLd(): Record<string, unknown>[] {
     })),
   };
 
-  return [webPage, proof];
+  return [webPage, proof, homeServiceLd(), homeLocalBusinessLd()];
+}
+
+/**
+ * Markets the brief lists as served. ISO 3166-1 alpha-2, which is what
+ * `areaServed`/`eligibleRegion` expect — the brief wrote the UK as "UK", which
+ * is not a country code; it is "GB".
+ */
+const AREA_SERVED = ['US', 'CA', 'GB', 'AU', 'FR', 'IT', 'DE', 'ES'] as const;
+
+const SERVICE_DESCRIPTION =
+  'Soft Suave provides AI-powered IT services, custom software development, and digital ' +
+  'transformation solutions to businesses worldwide. Leveraging cutting-edge AI and automation ' +
+  'technologies, Soft Suave accelerates product development, optimizes operations, and drives ' +
+  'innovation across industries such as aviation, logistics, fintech, healthcare, education, and more.';
+
+/**
+ * The company's service offering as a whole, with the catalogue of service
+ * pages behind it.
+ *
+ * `provider` is the site-wide organization by `@id`, not the inline copy the
+ * brief carried: that copy is already on the page in full (the marketing layout
+ * emits it), and a second, differently-worded Organization is a second company
+ * to a consumer.
+ *
+ * The brief's top-level Offer is kept for its eligibility and pricing note but
+ * without `price: "Variable"` (price must be a number, so the whole offer is
+ * rejected) or `priceValidUntil: "2025-12-31"` (already past, which flags the
+ * offer as expired). Pricing is per project, so there is no honest number to
+ * put there — leaving the field out is the valid way to say so.
+ */
+export function homeServiceLd(): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${absoluteUrl('/')}#service`,
+    name: organizationLd.name,
+    url: absoluteUrl('/'),
+    description: SERVICE_DESCRIPTION,
+    serviceType: [
+      'AI Solutions',
+      'Offshore Software Development',
+      'IT Staff Augmentation',
+      'Hire Dedicated Developers',
+      'Legacy Modernization Services',
+      'Mobile App Development',
+      'Android App Development',
+      'iOS Application Development',
+      'Hire React Native Developers',
+      'Flutter Application Development',
+      'Ionic App Development',
+      'Xamarin App Development',
+      'Web App Development',
+      'AngularJS Development',
+      'Ruby on Rails Development',
+      'NodeJS Development',
+      'Java Development',
+      'Python Development',
+      'PHP Development',
+      'Dot NET Development',
+      'IT Outsourcing Services',
+      'Product Engineering Services',
+      'Cloud Computing Services',
+    ],
+    provider: { '@id': organizationLd['@id'] },
+    areaServed: AREA_SERVED,
+    offers: {
+      '@type': 'Offer',
+      url: absoluteUrl('/ai-development-service'),
+      priceCurrency: 'USD',
+      eligibleRegion: AREA_SERVED,
+      description: 'Flexible pricing based on project scope, technology stack, and service requirements.',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Soft Suave Service Catalog',
+      itemListElement: HOME_SERVICE_CATALOG.map((s) => ({
+        '@type': 'Offer',
+        url: absoluteUrl(s.path),
+        itemOffered: { '@type': 'Service', name: s.name, description: s.description },
+      })),
+    },
+  };
+}
+
+/** The US sales office the brief names — the same one `organizationLd` lists. */
+const US_SALES_OFFICE = organizationLd.address.find((a) => a.addressCountry === 'US')!;
+
+/**
+ * The US sales office as a LocalBusiness.
+ *
+ * Its address is read from `organizationLd` rather than retyped, so the two
+ * nodes cannot drift onto different streets. `parentOrganization` ties it back
+ * to the company by `@id`.
+ */
+export function homeLocalBusinessLd(): Record<string, unknown> {
+  // The office's own `name` label stays behind; the business carries the name.
+  const address = {
+    '@type': 'PostalAddress',
+    streetAddress: US_SALES_OFFICE.streetAddress,
+    addressLocality: US_SALES_OFFICE.addressLocality,
+    addressRegion: US_SALES_OFFICE.addressRegion,
+    postalCode: US_SALES_OFFICE.postalCode,
+    addressCountry: US_SALES_OFFICE.addressCountry,
+  };
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': `${absoluteUrl('/')}#localbusiness`,
+    name: organizationLd.name,
+    description:
+      'Soft Suave provides AI-powered IT services, custom software development, and digital transformation solutions to businesses worldwide.',
+    url: absoluteUrl('/'),
+    image: organizationLd.logo,
+    logo: organizationLd.logo,
+    telephone: '+1-410-220-6301',
+    email: organizationLd.email,
+    priceRange: '$$',
+    address,
+    geo: { '@type': 'GeoCoordinates', latitude: 39.2804, longitude: -76.8411 },
+    openingHours: 'Mo-Fr 09:00-18:00',
+    sameAs: ['https://www.linkedin.com/company/softsuave', 'https://www.facebook.com/softsuave/'],
+    areaServed: AREA_SERVED,
+    paymentAccepted: 'Credit Card, Bank Transfer',
+    currenciesAccepted: 'USD',
+    parentOrganization: { '@id': organizationLd['@id'] },
+  };
 }
 

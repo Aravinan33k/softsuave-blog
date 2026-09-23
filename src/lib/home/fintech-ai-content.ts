@@ -26,6 +26,7 @@ import type { ProcessContent } from "@/components/landing/process";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
+import { overviewImage } from "./overview-images";
 
 export const fintechMeta = {
   slug: "fintech-ai-solutions",
@@ -66,6 +67,7 @@ export const fintechHero: HeroContent = {
 };
 
 export const fintechOverview: OverviewContent = {
+  image: overviewImage("fintech-ai-solutions"),
   eyebrow: "The Short Answer",
   title: "What AI Actually Changes in Financial Services",
   paragraphs: [

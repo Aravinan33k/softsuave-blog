@@ -2,10 +2,9 @@
 
 import FadeUp from "@/components/home/fade-up";
 import type { SectorPageContent } from "@/lib/home/sectors/types";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "./section-head";
 import styles from "./industries.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 /**
  * What we build for this sector: the sector page's named solutions, as a ruled
@@ -28,12 +27,18 @@ export default function SectorSolutions({ content }: { content: SectorPageConten
       />
 
       <div className={styles.ledger}>
-        {solutions.items.map((item, i) => (
+        {solutions.items.map((item) => (
           <FadeUp key={item.name} y={20}>
             <div className={`${styles.ledgerRow} ${styles.ledgerRowWide}`}>
-              <span className={styles.ledgerN} aria-hidden>
-                {pad(i + 1)}
-              </span>
+              {/* An icon picked from the solution's own words, not a "01"
+                  ordinal: the Sep corrections review asked for icons in place
+                  of numbers. */}
+              <CardIconBadge
+                title={item.name}
+                body={item.body}
+                size="sm"
+                className={styles.ledgerN}
+              />
               <h3 className={styles.ledgerName}>{item.name}</h3>
               <p className={styles.ledgerText}>{item.body}</p>
             </div>

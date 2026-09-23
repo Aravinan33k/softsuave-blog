@@ -759,12 +759,24 @@ export const footer = {
   /**
    * Offices, as printed in softsuave.com's own footer. `region` drives nothing
    * but the label — no flag emoji, which render inconsistently on Windows.
+   *
+   * `lines` is what the reader sees; `address` is the same place split into
+   * schema.org PostalAddress fields, which the footer emits as microdata on the
+   * `<address>` element. They describe one address twice, so an edit to either
+   * has to be made to both.
    */
   offices: [
     {
       region: "USA",
       company: "Soft Suave LLC",
       lines: ["3030 K Street NW, Suite 102", "Washington, DC 20007, USA"],
+      address: {
+        streetAddress: "3030 K Street NW, Suite 102",
+        addressLocality: "Washington",
+        addressRegion: "DC",
+        postalCode: "20007",
+        addressCountry: "US",
+      },
     },
     {
       region: "India — Main Branch",
@@ -773,6 +785,13 @@ export const footer = {
         "SSPDL Building, Alpha City, Gamma Block,",
         "5th Floor, Navalur, Chennai 603103",
       ],
+      address: {
+        streetAddress: "SSPDL Building, Alpha City, Gamma Block, 5th Floor, Navalur",
+        addressLocality: "Chennai",
+        addressRegion: "Tamil Nadu",
+        postalCode: "603103",
+        addressCountry: "IN",
+      },
     },
   ],
 

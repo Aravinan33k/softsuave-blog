@@ -11,6 +11,7 @@
 
 import type { HeroContent } from "@/components/landing/hero";
 import { sharedHeroAlert } from "./delivery-shared";
+import { partnerHeroBadges } from "./hero-badges";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
@@ -44,7 +45,9 @@ export const caHero: HeroContent = {
     "Flexible Engagement Models",
     "13+ Years of Tech Expertise",
   ],
-  badges: ["ISO 27001 processes", "NDA on request", "150+ global clients", "Reply in 1 business day"],
+  // The four partner lockups as artwork, like every other hero on the
+  // surface — the review asked for the image badges here, not text tags.
+  badges: partnerHeroBadges,
   form: {
     eyebrow: "Business Enquiry",
     title: "Get a custom AI project estimate",

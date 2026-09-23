@@ -17,6 +17,7 @@ import type { ProcessContent } from "@/components/landing/process";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroBadges } from "./delivery-shared";
+import { overviewImage } from "./overview-images";
 
 export const offMeta = {
   slug: "offshore-software-development-company",
@@ -60,6 +61,7 @@ export const offHero: HeroContent = {
 };
 
 export const offOverview: OverviewContent = {
+  image: overviewImage("offshore-software-development-company"),
   eyebrow: "The Short Answer",
   title: "What an Offshore Software Development Company Does",
   paragraphs: [

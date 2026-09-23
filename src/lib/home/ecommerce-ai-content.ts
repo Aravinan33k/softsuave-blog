@@ -18,6 +18,7 @@ import type { ProcessContent } from "@/components/landing/process";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
+import { overviewImage } from "./overview-images";
 
 export const ecommerceMeta = {
   slug: "ai-solutions-for-ecommerce",
@@ -58,6 +59,7 @@ export const ecommerceHero: HeroContent = {
 };
 
 export const ecommerceOverview: OverviewContent = {
+  image: overviewImage("ai-solutions-for-ecommerce"),
   eyebrow: "The Short Answer",
   title: "Where AI Moves the Numbers in Retail",
   paragraphs: [

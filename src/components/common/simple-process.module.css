@@ -1,0 +1,168 @@
+/* =====================================================================
+   SIMPLE PROCESS — one equal-card step row for every landing page.
+
+   All colour comes from the band tokens (--surface, --line, --accent,
+   --text, --muted), so the same rules read correctly on a dark band and
+   inside a `.light` one, which re-points those tokens.
+   ===================================================================== */
+
+.list {
+  --sp-gap: clamp(14px, 1.6vw, 22px);
+  --sp-pad: clamp(18px, 1.8vw, 26px);
+  --sp-badge: 44px;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: var(--sp-pad);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  transition: border-color 0.3s ease;
+}
+
+.step:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.label {
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.name {
+  margin: 4px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.body {
+  margin: 0;
+  font-size: var(--fs-body-sm);
+  line-height: 1.62;
+  color: var(--text);
+}
+
+/* ---- Connectors -------------------------------------------------------
+   Stacked (below 1000px): a short vertical hairline from under each card's
+   badge down through the gap to the next card. */
+.step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: calc(var(--sp-pad) + var(--sp-badge) / 2);
+  width: 1px;
+  height: var(--sp-gap);
+  background: color-mix(in srgb, var(--accent) 60%, var(--line));
+}
+
+@media (min-width: 700px) and (max-width: 999px) {
+  .list:not([data-cols="1"]) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Two-up: the connector would cross into the wrong card, so drop it. */
+  .list:not([data-cols="1"]) .step::after {
+    display: none;
+  }
+}
+
+@media (min-width: 1000px) {
+  .list[data-cols="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .list[data-cols="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .list[data-cols="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .list[data-cols="5"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  /* Side by side: the hairline runs across the gap at badge height, ending
+     in a small arrowhead against the next card. */
+  .step:not(:last-child)::after {
+    top: calc(var(--sp-pad) + var(--sp-badge) / 2);
+    left: 100%;
+    width: var(--sp-gap);
+    height: 1px;
+  }
+
+  .step:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--sp-pad) + var(--sp-badge) / 2 - 3px);
+    left: calc(100% + var(--sp-gap) - 7px);
+    width: 6px;
+    height: 6px;
+    border-top: 1px solid color-mix(in srgb, var(--accent) 60%, var(--line));
+    border-right: 1px solid color-mix(in srgb, var(--accent) 60%, var(--line));
+    transform: rotate(45deg);
+  }
+
+  /* No connector off the end of a row. */
+  .list[data-cols="3"] .step:nth-child(3n)::after,
+  .list[data-cols="3"] .step:nth-child(3n)::before,
+  .list[data-cols="5"] .step:nth-child(3n)::after,
+  .list[data-cols="5"] .step:nth-child(3n)::before,
+  .list[data-cols="4"] .step:nth-child(4n)::after,
+  .list[data-cols="4"] .step:nth-child(4n)::before {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .list[data-cols="5"] { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+  .list[data-cols="5"] .step:nth-child(3n)::after,
+  .list[data-cols="5"] .step:nth-child(3n)::before {
+    display: block;
+  }
+
+  .list[data-cols="5"] .step:last-child::after,
+  .list[data-cols="5"] .step:last-child::before {
+    display: none;
+  }
+}
+
+/* ---- Entrance ---------------------------------------------------------
+   A light fade/lift as each card scrolls in, scroll-driven so it needs no
+   JavaScript. Only where supported and only without a reduced-motion
+   preference; everywhere else the cards are simply there. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .step {
+      animation: sp-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
+
+@keyframes sp-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

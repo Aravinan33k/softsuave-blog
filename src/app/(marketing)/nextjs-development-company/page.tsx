@@ -155,10 +155,7 @@ export default function NextjsDevelopmentCompanyPage() {
           <Testimonials />
         </div>
 
-        {/* The homepage's closing CTA, pointed at this page's own enquiry
-            form rather than the /contact route — the same close as every
-            other service page. */}
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

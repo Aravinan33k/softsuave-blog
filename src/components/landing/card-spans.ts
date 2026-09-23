@@ -4,16 +4,16 @@
  * Shared by the services grid and the card grids so both compose rows the same
  * way from one implementation.
  *
- * The equal-width grids this replaces put every card in the same narrow column
- * — at five across, each was about 230px wide, and with justified body text
- * that produced stretched word gaps. An asymmetric grid fixes both halves:
- * cards get genuinely different widths, and none is as narrow as an equal split
- * would force.
+ * The 12-column track replaced a plain equal-width grid that put every card in
+ * one narrow column; at five across each was about 230px wide. Breaking the
+ * count into rows of two and three keeps every card wider than that while the
+ * cards within a row stay the same width, so the boxes line up as a grid.
  *
  * The rule is "rows of three, or rows of two": the item count is decomposed
- * into 2s and 3s, then a row of two is laid out 7+5 and a row of three 5+4+3.
+ * into 2s and 3s, then a row of two is laid out 6+6 and a row of three 4+4+4.
  * Both sum to 12, so every row fills the width exactly and no count leaves a
- * stranded card. Five items therefore give 7-5 / 5-4-3.
+ * stranded card. Five items therefore give 6-6 / 4-4-4. (The rows were once
+ * weighted 7+5 / 5+4+3; see `spansFor` for why that was dropped.)
  */
 
 /** Decompose `n` into row sizes of 2 and 3. */
@@ -35,13 +35,23 @@ function rowSizes(n: number): number[] {
   return rows;
 }
 
-/** One span per card, in order, for `n` cards. */
+/**
+ * One span per card, in order, for `n` cards.
+ *
+ * Equal widths within a row — 6+6 for a pair, 4+4+4 for a trio. The rows used
+ * to be weighted 7+5 and 5+4+3, which meant no two rows shared a column edge:
+ * a 7+5 row over a 5+4+3 row put every box boundary in a different place, and
+ * the services section read as misaligned rather than composed (review: "the
+ * content alignment and service box alignment are missing"). Equal spans line
+ * the boxes up into a clean grid; the row decomposition above still keeps any
+ * count from stranding a lone card.
+ */
 export function spansFor(n: number): number[] {
   const out: number[] = [];
   for (const size of rowSizes(n)) {
     if (size === 1) out.push(12);
-    else if (size === 2) out.push(7, 5);
-    else out.push(5, 4, 3);
+    else if (size === 2) out.push(6, 6);
+    else out.push(4, 4, 4);
   }
   return out;
 }
@@ -68,9 +78,9 @@ function gridRowSizes(n: number): number[] {
 /**
  * One span per card for the card grids, in order, for `n` cards.
  *
- * Unlike `spansFor` — which the services grid still uses, and which weights
- * cards within a row (7+5, 5+4+3) — every card in a row here is the same width:
- * 12/2 for a pair, 12/3 for a trio, and the full 12 for a card that ends up
+ * Like `spansFor` (which the services grid uses), every card in a row is the
+ * same width, and the two differ only in how they break a count into rows.
+ * Spans are 12/2 for a pair, 12/3 for a trio, and the full 12 for a card that ends up
  * alone on the final row. Rows therefore always fill the width exactly, so no
  * count can leave a gap or a card of an odd size.
  */

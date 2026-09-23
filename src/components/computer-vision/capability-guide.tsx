@@ -2,10 +2,9 @@
 
 import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "@/components/landing/section-head";
 import styles from "@/components/landing/landing.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 /**
  * A "match the capability to the problem" guide.
@@ -105,12 +104,17 @@ export default function CapabilityGuide({
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
       <ol ref={root} className={styles.capRows}>
-        {rows.map((r, i) => (
+        {rows.map((r) => (
           <li key={r.problem} className={styles.capCard}>
             <div className={styles.capHead}>
-              <span className={styles.capIndex} aria-hidden>
-                {pad(i + 1)}
-              </span>
+              {/* An icon picked from the problem, not a "01" ordinal: the Sep
+                  corrections review asked for icons in place of numbers. */}
+              <CardIconBadge
+                title={r.problem}
+                body={r.input}
+                size="sm"
+                className={styles.capIndex}
+              />
               <span className={styles.capProblemLabel}>{columns.problem}</span>
               <h3 className={styles.capProblem}>{r.problem}</h3>
             </div>

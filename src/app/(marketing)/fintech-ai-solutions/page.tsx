@@ -145,7 +145,7 @@ export default function FintechAiSolutionsPage() {
 
         <Faq content={fintechFaqs} idPrefix="fintech-faq" />
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

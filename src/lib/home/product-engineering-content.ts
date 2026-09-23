@@ -17,6 +17,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { ProcessContent } from "@/components/landing/process";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import { sharedHeroBadges } from "./delivery-shared";
+import { overviewImage } from "./overview-images";
 
 export const prodMeta = {
   slug: "product-engineering-services",
@@ -60,6 +61,7 @@ export const prodHero: HeroContent = {
 };
 
 export const prodOverview: OverviewContent = {
+  image: overviewImage("product-engineering-services"),
   eyebrow: "The Short Answer",
   title: "What Product Engineering Services Cover",
   paragraphs: [

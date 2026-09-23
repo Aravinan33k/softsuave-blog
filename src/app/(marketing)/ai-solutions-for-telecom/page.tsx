@@ -141,7 +141,7 @@ export default function TelecomAiSolutionsPage() {
           <Faq content={telecomFaqs} idPrefix="telecom-faq" />
         </div>
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

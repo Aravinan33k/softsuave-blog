@@ -18,6 +18,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
+import { overviewImage } from "./overview-images";
 
 export const healthtechMeta = {
   slug: "ai-solutions-in-healthtech",
@@ -58,6 +59,7 @@ export const healthtechHero: HeroContent = {
 };
 
 export const healthtechOverview: OverviewContent = {
+  image: overviewImage("ai-solutions-in-healthtech"),
   eyebrow: "The Short Answer",
   title: "Where AI Earns Its Place in Healthcare",
   paragraphs: [

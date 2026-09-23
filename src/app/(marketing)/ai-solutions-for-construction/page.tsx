@@ -141,7 +141,7 @@ export default function ConstructionAiSolutionsPage() {
           <Faq content={constructionFaqs} idPrefix="construction-faq" />
         </div>
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

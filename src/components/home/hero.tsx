@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { hero } from "@/lib/home/content";
+import { publicMediaUrl } from "@/lib/media-url";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import styles from "./home.module.css";
 
@@ -99,8 +100,8 @@ export default function Hero() {
             preload="metadata"
             onLoadedData={() => ScrollTrigger.refresh()}
           >
-            <source src="/videos/intro.webm" type="video/webm" />
-            <source src="/videos/intro.mp4" type="video/mp4" />
+            <source src={publicMediaUrl("/videos/intro.webm")} type="video/webm" />
+            <source src={publicMediaUrl("/videos/intro.mp4")} type="video/mp4" />
           </video>
         )}
         <div ref={veil} className={styles.videoHeroVeil} />

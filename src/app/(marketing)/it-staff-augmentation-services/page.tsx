@@ -145,7 +145,7 @@ export default function ItStaffAugmentationPage() {
         <Testimonials />
         <Faq content={staffFaqs} idPrefix="staff-aug-faq" />
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

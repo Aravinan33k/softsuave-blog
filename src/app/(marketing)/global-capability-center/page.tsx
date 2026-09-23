@@ -152,7 +152,7 @@ export default function GlobalCapabilityCenterPage() {
 
         <CardGrid content={gccAudience} id="audience" variant="bold" />
 
-        <Contact ctaHref="#enquiry" />
+        <Contact />
       </main>
 
       <Footer />

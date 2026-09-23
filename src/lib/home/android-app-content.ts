@@ -31,6 +31,7 @@ import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { StackLayersContent } from "@/components/android-app/stack-layers";
 import type { FaqContent } from "@/components/landing/faq";
+import { overviewImage } from "./overview-images";
 
 export const andMeta = {
   slug: "android-application-development-company",
@@ -80,6 +81,7 @@ export const andHero: HeroContent = {
 };
 
 export const andOverview: OverviewContent = {
+  image: overviewImage("android-application-development-company"),
   eyebrow: "Android App Development Service",
   title: "Best Android App Development Service in India",
   paragraphs: [

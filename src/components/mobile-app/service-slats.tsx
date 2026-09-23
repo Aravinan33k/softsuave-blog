@@ -4,10 +4,9 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
+import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "@/components/landing/section-head";
 import styles from "@/components/landing/landing.module.css";
-
-const pad = (n: number) => String(n).padStart(2, "0");
 
 export interface ServiceSlatsContent {
   eyebrow: string;
@@ -121,9 +120,9 @@ export default function ServiceSlats({
                   onFocus={() => setActive(i)}
                   onClick={() => setActive(i)}
                 >
-                  <span className={styles.slatIndex} aria-hidden>
-                    {pad(i + 1)}
-                  </span>
+                  {/* An icon, not a "01"–"07" ordinal: the Sep corrections review
+                      asked for icons in place of numbers across the landing pages. */}
+                  <CardIconBadge title={item.name} body={item.body} size="sm" className={styles.slatIndex} />
                   <span className={styles.slatName}>{item.name}</span>
                 </button>
               </h3>

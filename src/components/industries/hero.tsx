@@ -3,6 +3,8 @@
 import { useRef } from "react";
 import Link from "next/link";
 import BrandImage from "@/components/home/brand-image";
+import Breadcrumb from "@/components/common/breadcrumb";
+import PartnerBadges from "@/components/common/partner-badges";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { why } from "@/lib/home/content";
 import { hero, sectors } from "@/lib/home/industries-content";
@@ -64,6 +66,7 @@ export default function Hero() {
   return (
     <section ref={root} className={styles.hero} id="top">
       <div className={styles.heroCopy}>
+        <Breadcrumb />
         <h1 className={styles.heroTitle}>
           {hero.titleLines.map((line, i) => (
             <span
@@ -94,6 +97,7 @@ export default function Hero() {
             {hero.secondaryCta.label}
           </a>
         </div>
+        <PartnerBadges />
       </div>
 
       <div className={styles.heroFrames}>

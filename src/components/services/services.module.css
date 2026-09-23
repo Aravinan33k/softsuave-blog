@@ -124,11 +124,10 @@
   background: var(--surface);
 }
 
+/* The card's icon badge (`CardIconBadge`, which replaced a "01" ordinal):
+   a block-level square so the name below starts on its own line. */
 .cardNum {
-  font-family: var(--font-eyebrow);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  color: var(--accent);
+  display: grid;
 }
 
 .cardName {

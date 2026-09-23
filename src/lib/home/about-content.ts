@@ -21,6 +21,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TeamContent } from "@/components/landing/team";
 
 import { sharedHeroBadges } from "./delivery-shared";
+import { overviewImage } from "./overview-images";
 
 export const aboutMeta = {
   slug: "about",
@@ -72,6 +73,7 @@ export const aboutHero: HeroContent = {
 };
 
 export const aboutOverview: OverviewContent = {
+  image: overviewImage("about"),
   eyebrow: "Our Mission And Vision",
   title: "Your Trusted AI-Enabled Product Engineering Partner",
   paragraphs: [

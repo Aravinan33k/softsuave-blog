@@ -435,8 +435,10 @@
   background: var(--surface-2);
 }
 
+/* Clears the 36px icon badge pinned in the corner (`.sectorIndex`), which is
+   taller than the numeral it replaced. */
 .sectorFlat .sectorBody {
-  padding-top: clamp(20px, 2vw, 28px);
+  padding-top: calc(36px + clamp(12px, 1.2vw, 16px));
 }
 
 .sectorCard:hover {
@@ -490,23 +492,14 @@
   gap: clamp(6px, 0.7vw, 10px);
 }
 
+/* The sector's icon badge (`CardIconBadge`, which replaced a "01" ordinal),
+   pinned to the card's top-left corner. The badge carries its own opaque
+   surface, so over a photograph it needs none of the ink chip the numeral
+   did (the scrim is at its weakest at the top of the card). */
 .sectorIndex {
   position: absolute;
   top: clamp(18px, 2vw, 28px);
   left: clamp(18px, 2vw, 28px);
-  font-family: var(--font-eyebrow);
-  font-size: clamp(9px, 0.7vw, 11px);
-  letter-spacing: 0.2em;
-  color: var(--accent);
-}
-
-/* Over a photograph the ordinal sits in its own ink chip: the scrim is at its
-   weakest at the top of the card, and coral on a bright frame was unreadable. */
-.sectorMediaCard .sectorIndex {
-  padding: 0.35em 0.7em;
-  border-radius: 999px;
-  background: rgba(4, 5, 8, 0.7);
-  color: var(--brand-coral);
 }
 
 .sectorName {
@@ -643,12 +636,10 @@
   }
 }
 
+/* The row's icon badge (`CardIconBadge`, which replaced a "01" ordinal),
+   in the ledger's narrow first column. */
 .ledgerN {
-  font-family: var(--font-eyebrow);
-  font-size: clamp(10px, 0.78vw, 12px);
-  letter-spacing: 0.2em;
-  color: var(--accent);
-  padding-top: 0.5em;
+  justify-self: start;
 }
 
 .ledgerName {

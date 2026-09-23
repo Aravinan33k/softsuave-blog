@@ -1,7 +1,6 @@
-import FadeUp from '@/components/home/fade-up';
+import SimpleProcess from '@/components/common/simple-process';
 import SplitReveal from '@/components/home/split-reveal';
 import home from '@/components/home/home.module.css';
-import styles from './services.module.css';
 
 export interface ProcessProps {
   eyebrow: string;
@@ -11,9 +10,9 @@ export interface ProcessProps {
 }
 
 /**
- * The delivery pipeline, as numbered rules rather than cards — the steps are a
- * sequence, and an open rule-topped column reads as one continuous progression
- * where boxes would read as four unrelated features.
+ * The delivery pipeline. It renders the shared `SimpleProcess` step row, the
+ * one process design every landing page uses since the Sep corrections review
+ * — the numbered-rule columns it used to draw were a design of their own.
  */
 export default function Process({ eyebrow, title, body, steps }: ProcessProps) {
   return (
@@ -26,17 +25,7 @@ export default function Process({ eyebrow, title, body, steps }: ProcessProps) {
         <p className={home.lead}>{body}</p>
       </div>
 
-      <FadeUp className={styles.steps} delay={0.06}>
-        {steps.map((step, i) => (
-          <div key={step.name} className={styles.step}>
-            <span className={styles.stepNum} aria-hidden>
-              {i + 1}
-            </span>
-            <h3 className={styles.stepName}>{step.name}</h3>
-            <p className={styles.stepBody}>{step.body}</p>
-          </div>
-        ))}
-      </FadeUp>
+      <SimpleProcess steps={steps} />
     </section>
   );
 }
