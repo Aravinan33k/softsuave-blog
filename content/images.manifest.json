@@ -3047,6 +3047,111 @@
         "server maintenance technician",
         "technician"
       ]
+    },
+    {
+      "id": "ov-data-science-services",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Data scientist working through charts and statistics on screen",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "data scientist analysing charts screen statistics",
+        "statistics analysis laptop charts",
+        "data analysis charts screen",
+        "data analysis"
+      ]
+    },
+    {
+      "id": "ds-svc-consulting",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Consultants framing a data question at a whiteboard",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "consultants whiteboard planning data strategy",
+        "business strategy meeting whiteboard",
+        "team planning meeting office",
+        "planning"
+      ]
+    },
+    {
+      "id": "ds-svc-exploration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Exploring a dataset of charts on a laptop",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "exploring dataset charts laptop analysis",
+        "data exploration screen graphs",
+        "charts on laptop screen",
+        "charts"
+      ]
+    },
+    {
+      "id": "ds-svc-statistics",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Statistical formulas worked out on a board",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "statistics formulas equations board math",
+        "mathematics equations blackboard",
+        "math formulas written",
+        "mathematics"
+      ]
+    },
+    {
+      "id": "ds-svc-modeling",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Machine learning code under development",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "machine learning model code screen python",
+        "ai model training code monitor",
+        "developer machine learning laptop",
+        "code"
+      ]
+    },
+    {
+      "id": "ds-svc-evaluation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Model results compared across printed charts and reports",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "analytics graphs report printed charts desk",
+        "business report charts paper analysis",
+        "graphs printed report",
+        "report charts"
+      ]
+    },
+    {
+      "id": "ds-svc-mlops",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Monitoring deployed models in production",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "server monitoring dashboards operations screens",
+        "devops monitoring screens room",
+        "system monitoring dashboard",
+        "monitoring"
+      ]
     }
   ]
 }

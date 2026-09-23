@@ -4224,7 +4224,9 @@
 
 .clusName {
   font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
+  /* One step up from the label size: at 12px the Sep 23 review read these
+     category names as too small beside the chips they head. */
+  font-size: clamp(0.875rem, 1vw, 1rem);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-bright);
