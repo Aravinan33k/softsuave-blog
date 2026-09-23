@@ -2477,6 +2477,171 @@
         "web development",
         "laptop"
       ]
+    },
+    {
+      "id": "ov-computer-vision-development-services",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Detection overlay on a screen analysing a live camera image",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "facial recognition detection screen technology",
+        "face detection scanning screen",
+        "camera lens macro technology",
+        "camera lens"
+      ]
+    },
+    {
+      "id": "cv-svc-consulting",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineers reviewing camera footage together on a laptop",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "engineers reviewing camera footage laptop",
+        "team reviewing screens technology meeting",
+        "business team laptop meeting",
+        "meeting"
+      ]
+    },
+    {
+      "id": "cv-svc-data",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Photo library being sorted on a computer screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "photo library sorting computer screen",
+        "photographer editing photos laptop",
+        "image files on screen",
+        "photos"
+      ]
+    },
+    {
+      "id": "cv-svc-model",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Neural network code on a developer screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "neural network machine learning code screen",
+        "ai code on monitor",
+        "programming code screen dark",
+        "code"
+      ]
+    },
+    {
+      "id": "cv-svc-detection",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Traffic camera view of vehicles on a road",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "traffic camera view vehicles road",
+        "highway traffic aerial cars",
+        "cars traffic street",
+        "traffic"
+      ]
+    },
+    {
+      "id": "cv-svc-ocr",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Printed document being scanned for text extraction",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "document scanning text closeup",
+        "scanner scanning paper document",
+        "printed text close up",
+        "documents"
+      ]
+    },
+    {
+      "id": "cv-svc-video",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Wall of monitors showing live video feeds",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "video wall monitors control room",
+        "security monitors screens room",
+        "cctv monitors",
+        "monitors"
+      ]
+    },
+    {
+      "id": "cv-svc-inspection",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Quality inspection of parts on a production line",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "quality inspection factory production line",
+        "factory worker inspecting product",
+        "manufacturing quality control",
+        "factory"
+      ]
+    },
+    {
+      "id": "cv-svc-validation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineer checking test results on screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "engineer testing software results screen",
+        "quality assurance testing computer",
+        "developer checking screen",
+        "testing"
+      ]
+    },
+    {
+      "id": "cv-svc-optimization",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Performance dashboard with charts on a screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "performance analytics dashboard screen charts",
+        "data dashboard monitor",
+        "analytics charts screen",
+        "dashboard"
+      ]
+    },
+    {
+      "id": "cv-svc-integration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Network engineer working in a server room",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "network engineer server room laptop",
+        "data center servers engineer",
+        "server racks network",
+        "servers"
+      ]
     }
   ]
 }

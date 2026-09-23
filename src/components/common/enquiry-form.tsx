@@ -229,7 +229,7 @@ export default function EnquiryForm({
             </label>
           </div>
 
-          <div className={fx.field}>
+          <div className={`${fx.field} ${fx.fieldArea}`}>
             <FieldIcon name="doc" />
             <textarea
               id={`${idPrefix}-requirement`}

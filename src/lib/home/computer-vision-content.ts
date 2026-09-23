@@ -24,6 +24,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+import { landingImage, overviewImage } from "./overview-images";
 
 export const cvMeta = {
   slug: "computer-vision-development-services",
@@ -37,7 +38,9 @@ export const cvMeta = {
 
 export const cvHero: HeroContent = {
   // The last line takes the coral accent.
-  titleLines: ["Computer Vision Development Services", "for Smarter Workflows"],
+  // Two balanced lines rather than three: the Sep 23 review asked for the H1
+  // to stop wrapping across the hero.
+  titleLines: ["Computer Vision", "Development Services"],
   body: [
     "Soft Suave provides custom computer vision development services that turn camera feeds, images, video, and visual documents into outputs your business can use. We develop workflows that detect relevant objects or information, validate the results, connect with existing systems, and support defined operational actions.",
     "Bring us your visual input, business problem, and required outcome. We will help you assess the use case and plan the right Computer Vision workflow.",
@@ -79,12 +82,7 @@ export const cvOverview: OverviewContent = {
     "Computer vision services convert visual information into validated outputs that software and operational teams can use.",
     "Computer vision development covers the full path from receiving an image, document, or video feed to identifying relevant information and sending the result into a defined business workflow.",
   ],
-  image: {
-    src: "/images/landing/problems/knowledge-search.webp",
-    width: 1200,
-    height: 800,
-    alt: "An operator working across a visual interface of linked image, document, data, and AI panels",
-  },
+  image: overviewImage("computer-vision-development-services"),
 };
 
 /**
@@ -177,6 +175,29 @@ export const cvCapabilities: CapabilityGuideContent = {
  * public/images/landing/. The images are decorative (the card names the
  * service in text), so `alt` is empty.
  */
+/**
+ * Service-card artwork for this page, from the image pipeline
+ * (`landing/cv-svc-*` slots in content/images.manifest.json).
+ *
+ * The cards used to borrow the generic service photographs every AI page
+ * shares — a team at a laptop stood in for "Visual Inspection". The Sep 23
+ * review asked for relevant images, so each card now carries a photograph of
+ * the thing it describes: a traffic view for detection, a control-room video
+ * wall for analytics, a production line for inspection.
+ */
+const CV_SVC = {
+  consulting: landingImage("cv-svc-consulting"),
+  data: landingImage("cv-svc-data"),
+  model: landingImage("cv-svc-model"),
+  detection: landingImage("cv-svc-detection"),
+  ocr: landingImage("cv-svc-ocr"),
+  video: landingImage("cv-svc-video"),
+  inspection: landingImage("cv-svc-inspection"),
+  validation: landingImage("cv-svc-validation"),
+  optimization: landingImage("cv-svc-optimization"),
+  integration: landingImage("cv-svc-integration"),
+};
+
 export const cvServices: ServicesCarouselContent = {
   eyebrow: "Services",
   title: "Computer Vision Software Development Services Across the Workflow",
@@ -185,52 +206,52 @@ export const cvServices: ServicesCarouselContent = {
     {
       name: "Computer Vision Consulting & Use-Case Assessment",
       body: "We assess whether Computer Vision suits your business problem, review visual inputs and operating conditions, and define the workflow, validation requirements, and operational outcome.",
-      image: { src: "/images/landing/services/svc-consulting-discovery.webp", alt: "" },
+      image: CV_SVC.consulting,
     },
     {
       name: "Data Preparation",
       body: "Assess, organize, and prepare visual data to represent expected operating conditions, then structure it for model development, validation, and representative testing across the intended workflow.",
-      image: { src: "/images/landing/services/svc-proof-of-concept.webp", alt: "" },
+      image: CV_SVC.data,
     },
     {
       name: "Custom Model Development & Training",
       body: "Build and train detection and classification logic around the specific use case, available visual inputs, and the conditions in which the operational workflow will run.",
-      image: { src: "/images/landing/services/svc-model-selection.webp", alt: "" },
+      image: CV_SVC.model,
     },
     {
       name: "Object & Vehicle Detection",
       body: "Identify defined objects and vehicles across image or video inputs, then produce structured outputs for classification, validation, and use within the wider operational workflow.",
-      image: { src: "/images/landing/services/svc-application-development.webp", alt: "" },
+      image: CV_SVC.detection,
     },
     {
       name: "Optical Character Recognition (OCR)",
       body: "Extract information from visual documents, validate it against document and workflow requirements, and make usable data available to the relevant downstream software systems and applications.",
-      image: { src: "/images/landing/problems/document-processing.webp", alt: "" },
+      image: CV_SVC.ocr,
     },
     {
       name: "Video Analytics",
       body: "Use computer vision video analytics to interpret continuous visual feeds, identify relevant events, and send defined outputs to operational systems for alerts, dashboards, or review.",
-      image: { src: "/images/landing/services/svc-dedicated-teams.webp", alt: "" },
+      image: CV_SVC.video,
     },
     {
       name: "Visual Inspection",
       body: "Assess images or video against defined criteria, helping determine whether an item should proceed, be flagged for attention, or move into a human review workflow.",
-      image: { src: "/images/landing/services/svc-security-governance.webp", alt: "" },
+      image: CV_SVC.inspection,
     },
     {
       name: "Validation & Acceptance Testing",
       body: "Define acceptance criteria and test the Computer Vision workflow against representative inputs and operating conditions to confirm that outputs meet requirements established for operational use.",
-      image: { src: "/images/landing/services/svc-evaluation-llmops.webp", alt: "" },
+      image: CV_SVC.validation,
     },
     {
       name: "Model Optimization",
       body: "Refine the Computer Vision workflow against its visual conditions and operational requirements, then retest changes using representative inputs to confirm acceptable performance within the intended use case.",
-      image: { src: "/images/landing/services/svc-support-optimisation.webp", alt: "" },
+      image: CV_SVC.optimization,
     },
     {
       name: "System Integration & Deployment Support",
       body: "Connect validated outputs to applications, dashboards, alerts, and review workflows that consume them, then refine the deployment against defined operational requirements, expected actions, and responsibilities.",
-      image: { src: "/images/landing/services/svc-integration.webp", alt: "" },
+      image: CV_SVC.integration,
     },
   ],
 };

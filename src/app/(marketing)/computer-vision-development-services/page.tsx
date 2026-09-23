@@ -106,7 +106,10 @@ const LD = pageSchemaGraph({
   path: cvMeta.path,
   title: cvMeta.title,
   description: cvMeta.description,
-  serviceType: 'Computer vision development',
+  // Both of these are the SEO sheet's own wording for this page (23 Sep).
+  serviceType: 'Custom Computer Vision Software Development and Integration',
+  audience:
+    'Businesses, operations leaders, product leaders, engineering teams, and enterprise technology teams',
   // The page's own short name for what it sells, not its `<title>`, which is
   // written to win the click.
   serviceName: 'Computer Vision Development Services',
@@ -172,15 +175,16 @@ export default function ComputerVisionDevelopmentServicesPage() {
 
         <WhyUs content={cvWhyUs} />
 
+        {/* Static bordered group panels, not the homepage's marquee rows:
+            thirteen categories of two or three tools each would leave every
+            marquee nearly empty. Ahead of the case studies, per the Sep 23
+            review: the stack answers "can you build it" before the proof. */}
+        <TechStack content={cvTech} />
+
         {/* Homepage case-study gallery, on the warm-white band as it is there. */}
         <div className={home.light}>
           <CaseStudies />
         </div>
-
-        {/* Static bordered group panels, not the homepage's marquee rows:
-            thirteen categories of two or three tools each would leave every
-            marquee nearly empty. */}
-        <TechStack content={cvTech} />
 
         {/* Homepage client stories, on the warm-white band as they are there. */}
         <div className={home.light}>

@@ -80,7 +80,9 @@
      a level is one size everywhere and each level stays visibly below the one
      above it. */
   --fs-h1: clamp(2.3rem, 4.5vw, 4rem);
-  --fs-h2: clamp(1.85rem, 3.1vw, 2.75rem);
+  /* Trimmed from a 2.75rem ceiling on the Sep 23 review ("H2 heading size is
+     too big"): a section title no longer competes with the page's own H1. */
+  --fs-h2: clamp(1.6rem, 2.5vw, 2.25rem);
   --fs-h3: clamp(1.15rem, 1.45vw, 1.4rem);
   /* Card body copy and the smallest readable label size. */
   --fs-body-sm: clamp(0.9rem, 0.95vw, 1rem);
