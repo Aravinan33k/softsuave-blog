@@ -580,7 +580,8 @@
 }
 .rendered-content a.cta-btn.cta-primary:hover,
 .ProseMirror a.cta-btn.cta-primary:hover {
-  box-shadow: 0 16px 32px -8px rgba(255, 0, 66, 0.7);
+  /* No glow on hover: the coral/rose haze round the plate read as fog. The fill change is the whole signal. */
+  box-shadow: none;
   filter: brightness(1.05);
 }
 .rendered-content a.cta-btn.cta-secondary,

@@ -225,10 +225,45 @@
   color: var(--on-accent, #140b08);
 }
 
-.pillFilled:hover {
-  background: var(--accent-border);
-  border-color: var(--accent-border);
-  color: var(--on-accent, #140b08);
+/* The filled plate's hover is home.module.css `.pillFilled`'s contrast wipe,
+   same values — see the note there. The --cta-hover-* pair is re-pointed on
+   the `.light` band, whose tokens reach this module through the cascade. */
+.pillFilled {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* background snaps (see the hover rule) rather than fading under the wipe */
+  transition: background 0s, color 0.3s ease, border-color 0.3s ease, box-shadow 0.35s ease;
+}
+
+.pillFilled::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--cta-hover-bg, #ffffff);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.pillFilled:hover,
+.pillFilled:focus-visible {
+  /* once the wipe has covered the plate, the plate itself takes the colour:
+     left coral, its anti-aliased rim showed as a pink hairline round the
+     white pill */
+  background: var(--cta-hover-bg, #ffffff);
+  transition: background 0s 0.4s, color 0.3s ease, border-color 0.3s ease, box-shadow 0.35s ease;
+  border-color: var(--cta-hover-bg, #ffffff);
+  color: var(--cta-hover-ink, #140b08);
+  /* No glow on hover: the coral/rose haze round the plate read as fog. The fill change is the whole signal. */
+  box-shadow: none;
+}
+
+.pillFilled:hover::before,
+.pillFilled:focus-visible::before {
+  transform: scaleX(1);
 }
 
 .pill:focus-visible,

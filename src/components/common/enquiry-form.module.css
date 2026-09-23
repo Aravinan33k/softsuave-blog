@@ -405,7 +405,8 @@
 .submit:hover {
   background: var(--accent-border, #fb3b5c);
   border-color: var(--accent-border, #fb3b5c);
-  box-shadow: 0 16px 28px -12px color-mix(in srgb, var(--accent-border, #fb3b5c) 75%, transparent);
+  /* No glow on hover: the coral/rose haze round the plate read as fog. The fill change is the whole signal. */
+  box-shadow: none;
 }
 
 .submit:active {
