@@ -2492,6 +2492,321 @@
         "web development",
         "laptop"
       ]
+    },
+    {
+      "id": "ov-computer-vision-development-services",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Detection overlay on a screen analysing a live camera image",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "facial recognition detection screen technology",
+        "face detection scanning screen",
+        "camera lens macro technology",
+        "camera lens"
+      ]
+    },
+    {
+      "id": "cv-svc-consulting",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineers reviewing camera footage together on a laptop",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "engineers reviewing camera footage laptop",
+        "team reviewing screens technology meeting",
+        "business team laptop meeting",
+        "meeting"
+      ]
+    },
+    {
+      "id": "cv-svc-data",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Photo library being sorted on a computer screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "photo library sorting computer screen",
+        "photographer editing photos laptop",
+        "image files on screen",
+        "photos"
+      ]
+    },
+    {
+      "id": "cv-svc-model",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Neural network code on a developer screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "neural network machine learning code screen",
+        "ai code on monitor",
+        "programming code screen dark",
+        "code"
+      ]
+    },
+    {
+      "id": "cv-svc-detection",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Traffic camera view of vehicles on a road",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "traffic camera view vehicles road",
+        "highway traffic aerial cars",
+        "cars traffic street",
+        "traffic"
+      ]
+    },
+    {
+      "id": "cv-svc-ocr",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Printed document being scanned for text extraction",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "document scanning text closeup",
+        "scanner scanning paper document",
+        "printed text close up",
+        "documents"
+      ]
+    },
+    {
+      "id": "cv-svc-video",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Wall of monitors showing live video feeds",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "video wall monitors control room",
+        "security monitors screens room",
+        "cctv monitors",
+        "monitors"
+      ]
+    },
+    {
+      "id": "cv-svc-inspection",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Quality inspection of parts on a production line",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "quality inspection factory production line",
+        "factory worker inspecting product",
+        "manufacturing quality control",
+        "factory"
+      ]
+    },
+    {
+      "id": "cv-svc-validation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineer checking test results on screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "engineer testing software results screen",
+        "quality assurance testing computer",
+        "developer checking screen",
+        "testing"
+      ]
+    },
+    {
+      "id": "cv-svc-optimization",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Performance dashboard with charts on a screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "performance analytics dashboard screen charts",
+        "data dashboard monitor",
+        "analytics charts screen",
+        "dashboard"
+      ]
+    },
+    {
+      "id": "cv-svc-integration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Network engineer working in a server room",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "network engineer server room laptop",
+        "data center servers engineer",
+        "server racks network",
+        "servers"
+      ]
+    },
+    {
+      "id": "pi-svc-forecasting",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Forecast chart trending across a screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "forecast line chart screen analytics",
+        "business graph trend screen",
+        "stock chart screen",
+        "chart"
+      ]
+    },
+    {
+      "id": "pi-svc-modeling",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Data scientist building a predictive model on a laptop",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "data scientist machine learning laptop code",
+        "statistics model laptop analysis",
+        "programmer data analysis",
+        "data"
+      ]
+    },
+    {
+      "id": "pi-svc-anomaly",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Monitoring dashboard highlighting an unusual spike",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "monitoring dashboard alert spike screen",
+        "server monitoring graphs screen",
+        "security monitoring screen",
+        "monitor"
+      ]
+    },
+    {
+      "id": "pi-svc-recommendation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Personalised product recommendations on a shopping screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "online shopping recommendations phone screen",
+        "ecommerce product browsing laptop",
+        "online shopping cart laptop",
+        "shopping"
+      ]
+    },
+    {
+      "id": "de-svc-pipeline",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Network cables carrying data between systems",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "network cables patch panel data center",
+        "ethernet cables server rack",
+        "network switch cables",
+        "cables"
+      ]
+    },
+    {
+      "id": "de-svc-foundation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Storage hardware holding structured business data",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "database server storage hardware",
+        "hard drives storage array",
+        "data storage disks",
+        "storage"
+      ]
+    },
+    {
+      "id": "de-svc-connectivity",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Server racks linked in a data centre",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "server racks data centre connected",
+        "data center corridor servers",
+        "server room racks",
+        "servers"
+      ]
+    },
+    {
+      "id": "de-svc-cloud",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Abstract network representing cloud data infrastructure",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "cloud technology network concept abstract",
+        "abstract network connections blue technology",
+        "technology abstract blue background",
+        "abstract technology"
+      ]
+    },
+    {
+      "id": "de-svc-analytics",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Business dashboard with charts ready for reporting",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "business analytics dashboard charts screen",
+        "reporting dashboard monitor",
+        "data charts screen",
+        "analytics"
+      ]
+    },
+    {
+      "id": "de-svc-ai",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Team preparing data foundations for AI work",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "team analysing data charts whiteboard",
+        "data scientists discussing charts screen",
+        "analysts reviewing data together",
+        "analysts"
+      ]
     }
   ]
 }

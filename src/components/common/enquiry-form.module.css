@@ -49,7 +49,10 @@
      card ran taller than the hero copy beside it and pushed the H1 off the
      first screen on a laptop. The type inside is unchanged where it carries
      meaning (inputs stay 16px); it is the padding and gaps that shrank. */
-  padding: clamp(20px, 2.2vw, 28px);
+  /* Trimmed again on the Sep 23 review ("the height of the form is too
+     long"): the card is the first screen's right half, so every band of
+     padding inside it costs hero height. */
+  padding: clamp(18px, 1.8vw, 22px);
   /* Three layers rather than one: a hairline to seat the card on its own
      edge, a mid shadow for shape, and a wide soft one for the float. A
      single large blur reads as haze over a photographic hero. */
@@ -138,8 +141,8 @@
    focus as a format hint under the risen label). */
 .fields {
   display: grid;
-  gap: 14px;
-  margin-top: clamp(18px, 2vw, 24px);
+  gap: 12px;
+  margin-top: clamp(14px, 1.5vw, 18px);
 }
 
 .field {
@@ -203,6 +206,39 @@
   color: color-mix(in srgb, var(--accent, #ff5436) 80%, #000);
 }
 
+/* Risen, a label is one line whatever its length: there is only 18px of
+   headroom above the control, so a second line would come back down over the
+   placeholder it just made way for. At 0.76 scale even the longest of these
+   labels fits the column on a desktop card; the ellipsis is the safety net if
+   a longer one is ever written. */
+.textarea:focus ~ .label,
+.textarea:not(:placeholder-shown) ~ .label {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* On a phone the card is narrow enough that the longest label would be cut
+   mid-word by that ellipsis, so there it wraps to two lines instead and the
+   row carries the headroom for them: the label rests 16px lower to stay on
+   the control's line, and rises by that much more. */
+@media (max-width: 620px) {
+  .fieldArea {
+    padding-top: 34px;
+  }
+
+  .fieldArea .label {
+    top: 37px;
+  }
+
+  .fieldArea .textarea:focus ~ .label,
+  .fieldArea .textarea:not(:placeholder-shown) ~ .label {
+    white-space: normal;
+    transform: translateY(-35px) scale(0.76);
+  }
+}
+
 .optional {
   font-weight: 400;
   color: var(--fx-placeholder);
@@ -251,7 +287,11 @@
    takes the room for a paragraph once the reader is actually in it — an
    empty four-line box is what made this card tall in the first place. */
 .textarea {
-  min-height: 34px;
+  /* Two lines of resting label, not one. The label stands in for the
+     placeholder here, and the longest of them ("What decision should the
+     prediction support?" on /predictive-intelligence-services) wraps — at
+     34px it ran past the row's own hairline and sat on the text below. */
+  min-height: 52px;
   resize: vertical;
   transition:
     border-color 0.18s ease,
@@ -447,9 +487,9 @@
 }
 
 .note {
-  margin: 10px 0 0;
-  font-size: 0.75rem;
-  line-height: 1.55;
+  margin: 8px 0 0;
+  font-size: 0.72rem;
+  line-height: 1.45;
   color: var(--fx-muted);
   text-align: center;
 }
@@ -480,9 +520,9 @@
   /* Plain centred small print, as the live card carries it — the tinted,
      bordered box this used to be read as a second card inside the card. The
      bold "Alert:" lead is what marks it as guidance rather than help text. */
-  margin: 12px 0 0;
-  font-size: 0.78rem;
-  line-height: 1.55;
+  margin: 9px 0 0;
+  font-size: 0.74rem;
+  line-height: 1.45;
   color: var(--fx-muted);
   text-align: center;
 }

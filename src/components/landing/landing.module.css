@@ -1529,8 +1529,10 @@
   justify-content: center;
   flex: 0 0 auto;
 
-  width: 20px;
-  height: 20px;
+  /* 20px on the Sep 23 review read as "very small" beside the chip's own
+     label; 28px matches the text it sits with. */
+  width: 28px;
+  height: 28px;
   /* The reveal tweens `filter` (marks develop from grey into colour) and
      clears it afterwards, so this transition owns the hover alone. */
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
@@ -2959,24 +2961,25 @@
 
 @media (min-width: 1000px) {
   /* Near-equal columns, so the illustration carries real weight beside the
-     masthead and prose instead of sitting in a sliver. Still `end`: the row
-     keeps one shared bottom edge, the image's bottom flush with the last line
-     of prose, right where the pull quote begins below. */
+     masthead and prose instead of sitting in a sliver. `stretch`, not `end`:
+     aligning the two columns on their bottom edge pushed a shorter text block
+     down the row, which on the Sep 23 review read as "too much gap" above the
+     heading. Both columns now open and close together. */
   .overviewCompact .overviewGrid {
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
     column-gap: clamp(32px, 4vw, 64px);
-    align-items: end;
+    align-items: stretch;
   }
 
-  /* Keep the 4:3 frame — the display look's stretch-to-row rule
-     (`aspect-ratio: unset; align-self: stretch`, and its min-height floor) is
-     undone here. The height cap only bites on very wide screens, where 4:3
-     of the column would outgrow the text block; `cover` crops evenly. */
+  /* The frame follows the row's height rather than its own 4:3, so there is no
+     leftover band beside the prose; `cover` crops the photograph evenly. The
+     floor keeps it from squashing beside a two-line overview, and the cap
+     stops a long one from stretching it on a wide screen. */
   .overviewCompact .overviewMedia {
-    aspect-ratio: 4 / 3;
-    min-height: 0;
+    aspect-ratio: auto;
+    min-height: 320px;
     max-height: 560px;
-    align-self: auto;
+    align-self: stretch;
   }
 }
 
@@ -6365,22 +6368,31 @@
    Thumbnail and "Learn more" are both optional per item; the grid is designed
    to look finished without either, because most sections have neither yet.
    ============================================================ */
+/* Wrapping flex rows, not grid tracks: a count that does not divide by the
+   column number (ten service cards three-up) then centres its last row rather
+   than leaving one card stranded beside two empty columns — the Sep 23
+   review's "move the lower boxes to the centre". */
 .featGrid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: clamp(14px, 1.6vw, 22px);
   align-items: stretch;
 }
 
+.featGrid > * {
+  flex: 1 1 100%;
+}
+
 @media (min-width: 700px) {
-  .featGrid {
-    grid-template-columns: repeat(2, 1fr);
+  .featGrid > * {
+    flex: 0 1 calc((100% - clamp(14px, 1.6vw, 22px)) / 2);
   }
 }
 
 @media (min-width: 1100px) {
-  .featGrid {
-    grid-template-columns: repeat(3, 1fr);
+  .featGrid > * {
+    flex: 0 1 calc((100% - 2 * clamp(14px, 1.6vw, 22px)) / 3);
   }
 }
 

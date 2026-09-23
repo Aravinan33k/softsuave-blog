@@ -24,6 +24,7 @@ import type { FaqContent } from "@/components/landing/faq";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+import { landingImage } from "./overview-images";
 
 export const piMeta = {
   slug: "predictive-intelligence-services",
@@ -140,6 +141,22 @@ export const piComparison: ComparisonContent = {
  * public/images/landing/. The images are decorative (the card names the
  * capability in text), so `alt` is empty.
  */
+/**
+ * Capability-card artwork for this page, from the image pipeline
+ * (`landing/pi-svc-*` slots in content/images.manifest.json).
+ *
+ * The cards used to borrow the generic service photographs every AI page
+ * shares. The Sep 23 review asked for relevant images, so each card now shows
+ * its own subject: a forecast chart, model development, an anomaly in a
+ * monitoring feed, and a recommendation in a shopping app.
+ */
+const PI_SVC = {
+  forecasting: landingImage("pi-svc-forecasting"),
+  modeling: landingImage("pi-svc-modeling"),
+  anomaly: landingImage("pi-svc-anomaly"),
+  recommendation: landingImage("pi-svc-recommendation"),
+};
+
 export const piCapabilities: ServicesCarouselContent = {
   eyebrow: "Capabilities",
   title: "Predictive Intelligence Solutions We Develop",
@@ -148,22 +165,22 @@ export const piCapabilities: ServicesCarouselContent = {
     {
       name: "AI Forecasting Services",
       body: "Forecast future metrics, events, and operational conditions using time-series models that support capacity planning, scenario evaluation, and informed business decisions.",
-      image: { src: "/images/landing/services/svc-consulting-discovery.webp", alt: "" },
+      image: PI_SVC.forecasting,
     },
     {
       name: "Predictive Modeling Services",
       body: "Build validated classification, regression, and ranking models that estimate risk, customer behavior, likelihood, priority, or expected outcomes from business data.",
-      image: { src: "/images/landing/services/svc-model-selection.webp", alt: "" },
+      image: PI_SVC.modeling,
     },
     {
       name: "Anomaly Detection Services",
       body: "Detect unusual behaviors, transactions, and operational signals using adaptive thresholds that prioritize meaningful exceptions while reducing false-positive alert noise effectively.",
-      image: { src: "/images/landing/services/svc-security-governance.webp", alt: "" },
+      image: PI_SVC.anomaly,
     },
     {
       name: "Recommendation System Development",
       body: "Develop recommendations that prioritize relevant content, products, features, or workflow actions using business rules, contextual models, and continuous feedback loops.",
-      image: { src: "/images/landing/services/svc-product-modernisation.webp", alt: "" },
+      image: PI_SVC.recommendation,
     },
   ],
 };

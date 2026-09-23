@@ -43,3 +43,13 @@ export function overviewImage(slug: string): OverviewImage | undefined {
   if (!img) return undefined;
   return { src: img.src, width: img.width, height: img.height, alt: img.alt, blurDataURL: img.blurDataURL };
 }
+
+/**
+ * The same record, for the smaller card artwork a page can carry (the computer
+ * vision page's service cards are the first). Returns the `{src, alt}` shape
+ * the card components take, or `undefined` when the pipeline has no such slot.
+ */
+export function landingImage(id: string): { src: string; alt: string } | undefined {
+  const img = images[`landing/${id}`];
+  return img ? { src: img.src, alt: img.alt } : undefined;
+}

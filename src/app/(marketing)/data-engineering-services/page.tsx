@@ -106,7 +106,10 @@ const LD = pageSchemaGraph({
   path: deMeta.path,
   title: deMeta.title,
   description: deMeta.description,
-  serviceType: 'Data engineering',
+  // Both of these are the SEO sheet's own wording for this page (23 Sep).
+  serviceType: 'Data Pipeline, Integration, and Cloud Data Engineering',
+  audience:
+    'Businesses, data leaders, analytics teams, product leaders, CTOs, and enterprise technology teams',
   // The page's own short name for what it sells, not its `<title>`, which is
   // written to win the click.
   serviceName: 'Data Engineering Services',
@@ -171,7 +174,9 @@ export default function DataEngineeringServicesPage() {
 
         <WhyUs content={deWhyUs} />
 
-        <CtaBand content={dePlanCta} />
+        {/* No light-field backdrop here: the review asked for this band to sit on
+            the page's own ground rather than a colour of its own. */}
+        <CtaBand content={dePlanCta} backdrop={false} />
 
         {/* Homepage case-study gallery, on the warm-white band as it is there. */}
         <div className={home.light}>

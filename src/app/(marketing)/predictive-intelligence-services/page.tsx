@@ -106,7 +106,9 @@ const LD = pageSchemaGraph({
   path: piMeta.path,
   title: piMeta.title,
   description: piMeta.description,
-  serviceType: 'Predictive intelligence development',
+  // Both of these are the SEO sheet's own wording for this page (23 Sep).
+  serviceType: 'Predictive Intelligence and Machine Learning Development',
+  audience: 'Product, operations, finance, customer, data, and enterprise technology teams',
   // The page's own short name for what it sells, not its `<title>`, which is
   // written to win the click.
   serviceName: 'Predictive Intelligence Services',
@@ -179,16 +181,18 @@ export default function PredictiveIntelligenceServicesPage() {
 
         <WhyUs content={piWhyUs} />
 
+        {/* The review sheet's tech-stack table, rendered as the homepage's
+            marquee rows (one per category) like /data-engineering-services.
+            `techCompact` only clears the band's full-viewport min-height.
+            Ahead of the case studies, in the order the Sep 23 sheet lists the
+            three sections that follow "Why choose us". */}
+        <div className={home.techCompact}>
+          <TechStack content={piTech} />
+        </div>
+
         {/* Homepage case-study gallery, on the warm-white band as it is there. */}
         <div className={home.light}>
           <CaseStudies />
-        </div>
-
-        {/* The review sheet's tech-stack table, rendered as the homepage's
-            marquee rows (one per category) like /data-engineering-services.
-            `techCompact` only clears the band's full-viewport min-height. */}
-        <div className={home.techCompact}>
-          <TechStack content={piTech} />
         </div>
 
         {/* Homepage client stories, on the warm-white band as they are there. */}

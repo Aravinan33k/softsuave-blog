@@ -24,6 +24,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+import { landingImage } from "./overview-images";
 
 export const deMeta = {
   slug: "data-engineering-services",
@@ -95,6 +96,25 @@ export const deOverview: OverviewContent = {
  * not four headline services to sell. Images are decorative (the row names
  * the solution in text), so `alt` is empty.
  */
+/**
+ * Solution-card artwork for this page, from the image pipeline
+ * (`landing/de-svc-*` slots in content/images.manifest.json).
+ *
+ * The cards used to borrow the generic service photographs every AI page
+ * shares. The Sep 23 review asked for relevant images, so each card now shows
+ * its own subject: patch cabling for pipelines, storage hardware for the data
+ * foundation, racks for connectivity, a connected network for cloud, a
+ * reporting dashboard for analytics, and a team working the data for AI.
+ */
+const DE_SVC = {
+  pipeline: landingImage("de-svc-pipeline"),
+  foundation: landingImage("de-svc-foundation"),
+  connectivity: landingImage("de-svc-connectivity"),
+  cloud: landingImage("de-svc-cloud"),
+  analytics: landingImage("de-svc-analytics"),
+  ai: landingImage("de-svc-ai"),
+};
+
 export const deSolutions: ShowcaseContent = {
   eyebrow: "Our Solutions",
   title: "Data Engineering Solutions We Deliver",
@@ -103,32 +123,32 @@ export const deSolutions: ShowcaseContent = {
     {
       name: "Data Pipeline Development Services",
       body: "Build data pipelines that move information across databases, applications, cloud environments, and internal systems while supporting analytics, AI, and reporting.",
-      image: { src: "/images/landing/services/svc-integration.webp", alt: "" },
+      image: DE_SVC.pipeline,
     },
     {
       name: "Data Foundation Engineering",
       body: "Build structured data foundations that organize how business information is connected, accessed, and made available across different technology environments.",
-      image: { src: "/images/landing/services/svc-application-development.webp", alt: "" },
+      image: DE_SVC.foundation,
     },
     {
       name: "Database and System Connectivity",
       body: "Connect databases, applications, and internal systems so required business data can move between the platforms and workflows that depend on it.",
-      image: { src: "/images/landing/services/svc-product-modernisation.webp", alt: "" },
+      image: DE_SVC.connectivity,
     },
     {
       name: "Cloud Data Engineering",
       body: "Build and support data flows across cloud-based environments while working with existing databases, applications, storage systems, and infrastructure requirements.",
-      image: { src: "/images/landing/services/svc-dedicated-teams.webp", alt: "" },
+      image: DE_SVC.cloud,
     },
     {
       name: "Analytics Data Preparation",
       body: "Structure and connect business data so reporting and analytics environments can access the information required for dashboards, analysis, and decision-making.",
-      image: { src: "/images/landing/problems/analyst-research.webp", alt: "" },
+      image: DE_SVC.analytics,
     },
     {
       name: "AI Data Foundation Engineering",
       body: "Prepare connected data foundations that make relevant business information available to AI applications, model workflows, RAG systems, and other intelligent solutions.",
-      image: { src: "/images/landing/services/svc-model-selection.webp", alt: "" },
+      image: DE_SVC.ai,
     },
   ],
 };
