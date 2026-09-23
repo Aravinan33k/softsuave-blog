@@ -103,7 +103,10 @@ const LD = pageSchemaGraph({
   path: dsMeta.path,
   title: dsMeta.title,
   description: dsMeta.description,
-  serviceType: 'Data science',
+  // Both of these are the SEO sheet's own wording for this page (23 Sep).
+  serviceType: 'Data Science Consulting, Analysis, and Model Development',
+  audience:
+    'Businesses, data leaders, product leaders, operations teams, CTOs, and enterprise technology teams',
   // The page's own short name for what it sells, not its `<title>`, which is
   // written to win the click.
   serviceName: 'Data Science Services',

@@ -22,6 +22,7 @@ import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+import { landingImage, overviewImage } from "./overview-images";
 
 export const dsMeta = {
   slug: "data-science-services",
@@ -78,12 +79,7 @@ export const dsOverview: OverviewContent = {
     "Soft Suave approaches Data Science around the business question first. We assess the available data, identify what can reasonably be learned from it, and determine whether analysis, experimentation, statistical modeling, or machine learning is suitable.",
     "Once the data and analytical approach are validated, the engagement can move toward the most suitable outcome. This may be a set of validated findings, a feasibility decision, an analytical model, or a foundation for a broader AI development initiative.",
   ],
-  image: {
-    src: "/images/landing/problems/analyst-research.webp",
-    width: 1100,
-    height: 733,
-    alt: "Two colleagues reviewing a laptop dashboard of charts and distribution plots across a meeting table",
-  },
+  image: overviewImage("data-science-services"),
 };
 
 /**
@@ -147,6 +143,25 @@ export const dsFit: FitGuideContent = {
  * (landing/services-carousel.tsx). Images are decorative — each card names its
  * service in text — so `alt` is empty.
  */
+/**
+ * Service-card artwork for this page, from the image pipeline
+ * (`landing/ds-svc-*` slots in content/images.manifest.json).
+ *
+ * The cards used to borrow the generic service photographs every AI page
+ * shares. The Sep 23 review asked for relevant images, so each card now shows
+ * its own subject: a strategy whiteboard, dataset exploration, statistics
+ * worked out on a board, model code, printed result comparisons, and a
+ * monitoring wall for MLOps.
+ */
+const DS_SVC = {
+  consulting: landingImage("ds-svc-consulting"),
+  exploration: landingImage("ds-svc-exploration"),
+  statistics: landingImage("ds-svc-statistics"),
+  modeling: landingImage("ds-svc-modeling"),
+  evaluation: landingImage("ds-svc-evaluation"),
+  mlops: landingImage("ds-svc-mlops"),
+};
+
 export const dsServices: ServicesCarouselContent = {
   eyebrow: "Our Services",
   title: "Our Data Science Services",
@@ -155,32 +170,32 @@ export const dsServices: ServicesCarouselContent = {
     {
       name: "Data Science Consulting & Strategy",
       body: "Define business questions, identify suitable use cases, assess data readiness, and create a practical roadmap for analysis, experimentation, or model development.",
-      image: { src: "/images/landing/services/svc-consulting-discovery.webp", alt: "" },
+      image: DS_SVC.consulting,
     },
     {
       name: "Exploratory Data Analysis",
       body: "Explore datasets to identify patterns, relationships, anomalies, missing information, and other characteristics that help determine what the available data can support.",
-      image: { src: "/images/landing/problems/knowledge-search.webp", alt: "" },
+      image: DS_SVC.exploration,
     },
     {
       name: "Statistical Analysis & Experimentation",
       body: "Apply statistical methods and structured experiments to test assumptions, evaluate relationships, compare outcomes, and provide stronger evidence for business decisions.",
-      image: { src: "/images/landing/services/svc-proof-of-concept.webp", alt: "" },
+      image: DS_SVC.statistics,
     },
     {
       name: "Data Science Development Services",
       body: "Develop statistical and machine learning models based on validated requirements, suitable datasets, and defined evaluation criteria for specific business or operational needs.",
-      image: { src: "/images/landing/services/svc-model-selection.webp", alt: "" },
+      image: DS_SVC.modeling,
     },
     {
       name: "Model Evaluation & Validation",
       body: "Compare and evaluate models using appropriate criteria and representative data to understand performance, limitations, trade-offs, and suitability for the intended use.",
-      image: { src: "/images/landing/services/svc-evaluation-llmops.webp", alt: "" },
+      image: DS_SVC.evaluation,
     },
     {
       name: "MLOps & Model Lifecycle Support",
       body: "Support model deployment, versioning, monitoring, and lifecycle management so validated models can operate reliably within approved applications, systems, and production environments.",
-      image: { src: "/images/landing/services/svc-support-optimisation.webp", alt: "" },
+      image: DS_SVC.mlops,
     },
   ],
 };
