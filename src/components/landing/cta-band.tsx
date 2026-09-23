@@ -32,12 +32,21 @@ export interface CtaBandContent {
  */
 export default function CtaBand({
   content,
+  backdrop = true,
 }: {
   content: CtaBandContent;
+  /**
+   * The coral light-field loop behind the band. `false` drops it, leaving the
+   * band on the page's own near-black ground — the Sep 23 review read the lit
+   * version on /data-engineering-services as "the CTA section is in a separate
+   * colour". Kept as a prop rather than removed outright because the same
+   * treatment ties the band to the closing enquiry section on every other page.
+   */
+  backdrop?: boolean;
 }) {
   return (
     <section className={styles.ctaBand}>
-      <LightFieldBackdrop />
+      {backdrop && <LightFieldBackdrop />}
 
       <FadeUp className={styles.ctaInner}>
         <div>

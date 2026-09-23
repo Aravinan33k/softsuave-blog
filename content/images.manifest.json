@@ -2702,6 +2702,96 @@
         "online shopping cart laptop",
         "shopping"
       ]
+    },
+    {
+      "id": "de-svc-pipeline",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Network cables carrying data between systems",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "network cables patch panel data center",
+        "ethernet cables server rack",
+        "network switch cables",
+        "cables"
+      ]
+    },
+    {
+      "id": "de-svc-foundation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Storage hardware holding structured business data",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "database server storage hardware",
+        "hard drives storage array",
+        "data storage disks",
+        "storage"
+      ]
+    },
+    {
+      "id": "de-svc-connectivity",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Server racks linked in a data centre",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "server racks data centre connected",
+        "data center corridor servers",
+        "server room racks",
+        "servers"
+      ]
+    },
+    {
+      "id": "de-svc-cloud",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Abstract network representing cloud data infrastructure",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "cloud technology network concept abstract",
+        "abstract network connections blue technology",
+        "technology abstract blue background",
+        "abstract technology"
+      ]
+    },
+    {
+      "id": "de-svc-analytics",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Business dashboard with charts ready for reporting",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "business analytics dashboard charts screen",
+        "reporting dashboard monitor",
+        "data charts screen",
+        "analytics"
+      ]
+    },
+    {
+      "id": "de-svc-ai",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Team preparing data foundations for AI work",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "team analysing data charts whiteboard",
+        "data scientists discussing charts screen",
+        "analysts reviewing data together",
+        "analysts"
+      ]
     }
   ]
 }

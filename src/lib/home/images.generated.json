@@ -2385,5 +2385,83 @@
     "photographer": "Erik Mclean",
     "pexelsUrl": "https://www.pexels.com/photo/photo-of-a-hand-holding-a-smartphone-with-a-delivery-app-on-screen-16052346/",
     "matchedTier": "online shopping recommendations phone screen"
+  },
+  "landing/de-svc-pipeline": {
+    "page": "landing",
+    "id": "de-svc-pipeline",
+    "src": "/images/landing/de-svc-pipeline.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Network cables carrying data between systems",
+    "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAADwAQCdASoQAAsAA4BaJbACdACzWoUZhswA/cCbtQAe+QcUq7/kOFquyO5W/7m7t7kdG7m8eA0D8EKo8FM+Fr5FNTjfqLyQLLwAcGxixNv4BZ4glDTXnBf8WePuDhHMCTYLOBkgI0oeLS5uCjqm+6kyAfwAAA==",
+    "pexelsId": 15559037,
+    "photographer": "cnrdmroglu",
+    "pexelsUrl": "https://www.pexels.com/photo/hanging-ethernet-cables-15559037/",
+    "matchedTier": "network cables patch panel data center"
+  },
+  "landing/de-svc-connectivity": {
+    "page": "landing",
+    "id": "de-svc-connectivity",
+    "src": "/images/landing/de-svc-connectivity.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Server racks linked in a data centre",
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAABQAgCdASoQAAsAA4BaJbACdLoAAq+u+iZ74wAA/ve997HyZiAcdA/TjaAOE8uPK2Dx3iyZEZ4pKCNg44znjcKaEoHjiJacqf2pAuSqpldc11PaqYdfdqvK+7xI+RT8d8H9QdvQAAA=",
+    "pexelsId": 17489155,
+    "photographer": "panumas nikhomkhai",
+    "pexelsUrl": "https://www.pexels.com/photo/monitor-and-wires-behind-17489155/",
+    "matchedTier": "server racks data centre connected"
+  },
+  "landing/de-svc-analytics": {
+    "page": "landing",
+    "id": "de-svc-analytics",
+    "src": "/images/landing/de-svc-analytics.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Business dashboard with charts ready for reporting",
+    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAwAgCdASoQAAsAA4BaJZQCw7YtLnlBRpweAAD+wp3Q1s4pkcXM8Ln3JbWambH4qXFqQv45begLans8kcG4o6r9q97MTb1j1L6k8WnnfMhjk6oT3lPugLilAQAAAA==",
+    "pexelsId": 3183126,
+    "photographer": "fauxels",
+    "pexelsUrl": "https://www.pexels.com/photo/man-pointing-at-computer-display-3183126/",
+    "matchedTier": "business analytics dashboard charts screen"
+  },
+  "landing/de-svc-foundation": {
+    "page": "landing",
+    "id": "de-svc-foundation",
+    "src": "/images/landing/de-svc-foundation.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Storage hardware holding structured business data",
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADwAQCdASoQAAsAA4BaJbACdLoAAqgjGgAA/onKMCSSjyFNuirWz47c7t2VGN9YpfW+CE2AlN7nYVRaWMDvIH42EUFYDgUbbPf8ubxfIuB+rhn/nZCID97bBmSAeAAA",
+    "pexelsId": 37605913,
+    "photographer": "panumas nikhomkhai",
+    "pexelsUrl": "https://www.pexels.com/photo/close-up-of-a-data-server-rack-for-it-infrastructure-37605913/",
+    "matchedTier": "database server storage hardware"
+  },
+  "landing/de-svc-ai": {
+    "page": "landing",
+    "id": "de-svc-ai",
+    "src": "/images/landing/de-svc-ai.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Team preparing data foundations for AI work",
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQAgCdASoQAAsAA4BaJZwAD4wQ9lRhkplQAP73vmKwdbcuf//icBa7MFVjnr1EcfG2GyOEKnxm8aB2102pHfGHR7EF+Leu7Acup9Enx8P/DkwAhJ4Rz7ChgyatPIBnAAA=",
+    "pexelsId": 7964147,
+    "photographer": "Felicity Tai",
+    "pexelsUrl": "https://www.pexels.com/photo/businesswoman-drawing-graph-7964147/",
+    "matchedTier": "team analysing data charts whiteboard"
+  },
+  "landing/de-svc-cloud": {
+    "page": "landing",
+    "id": "de-svc-cloud",
+    "src": "/images/landing/de-svc-cloud.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Abstract network representing cloud data infrastructure",
+    "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAwAgCdASoQAAsAA4BaJbACdLoAAubm5a30IAD+9doLXHnZAsSMkNU9rqmDjh8IGJNWHeJAf1JbPoOAYF4hH455rQmvxS3jtT7AnqmGgAA=",
+    "pexelsId": 8386440,
+    "photographer": "Tara Winstead",
+    "pexelsUrl": "https://www.pexels.com/photo/robot-pointing-on-a-wall-8386440/",
+    "matchedTier": "cloud technology network concept abstract"
   }
 }
