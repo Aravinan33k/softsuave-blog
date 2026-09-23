@@ -23,7 +23,7 @@
 .heroTitle {
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2.5rem, 5.4vw, 4.75rem);
+  font-size: var(--fs-h1);
   line-height: 1.04;
   letter-spacing: -0.035em;
   color: var(--text-bright);
@@ -36,7 +36,7 @@
 .heroBody {
   max-width: 800px;
   margin-top: 1.5em;
-  font-size: clamp(1.0625rem, 1.35vw, 1.1875rem);
+  font-size: var(--fs-body);
   line-height: 1.65;
   color: #ffffff;
 }
@@ -94,7 +94,7 @@
 
 .prose p {
   margin: 0 0 1.1em;
-  font-size: clamp(1rem, 1.25vw, 1.125rem);
+  font-size: var(--fs-body);
   line-height: 1.75;
   color: var(--muted);
 }
@@ -133,7 +133,7 @@
 .cardName {
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.25rem, 1.7vw, 1.5rem);
+  font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -142,7 +142,7 @@
 
 .cardBody {
   margin: 0.75em 0 0;
-  font-size: 0.9375rem;
+  font-size: var(--fs-body);
   line-height: 1.68;
   color: var(--muted);
 }
@@ -244,7 +244,7 @@
 .ctaTitle {
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.625rem, 2.9vw, 2.5rem);
+  font-size: var(--fs-h2);
   line-height: 1.14;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -254,7 +254,7 @@
 .ctaBody {
   margin: 0.8em 0 0;
   max-width: 62ch;
-  font-size: 0.9375rem;
+  font-size: var(--fs-body);
   line-height: 1.68;
   color: var(--muted);
 }
@@ -391,7 +391,7 @@
 
 .stackGroupName {
   font-family: var(--font-eyebrow);
-  font-size: 11px;
+  font-size: var(--fs-card-title);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-bright);
@@ -545,8 +545,10 @@
   font: inherit;
   letter-spacing: inherit;
   color: inherit;
+  font-size: var(--fs-h3);
 }
 
 .faqA p {
   margin: 0;
+  font-size: var(--fs-body);
 }

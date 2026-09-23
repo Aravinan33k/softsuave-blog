@@ -1,6 +1,6 @@
 "use client";
 
-import { testimonials } from "@/lib/home/content";
+import { testimonials, type Testimonial } from "@/lib/home/content";
 import ReviewsHero from "./reviews/reviews-hero";
 import ReviewArchive from "./reviews/review-archive";
 import type { NumberedReview } from "./reviews/review-shared";
@@ -30,11 +30,20 @@ import styles from "./home.module.css";
  * photograph's hover veil, which stays near-black on purpose because it sits
  * on the picture rather than the page — see `.rImageVeilLabel`.
  */
-export default function Testimonials() {
+export default function Testimonials({
+  content = testimonials,
+}: {
+  /**
+   * The section's copy. Defaults to the homepage's `testimonials`; /contact
+   * passes its own, because the live contact page words its reviews
+   * differently and that page mirrors the live copy verbatim.
+   */
+  content?: { eyebrow: string; title: string; body: string; items: readonly Testimonial[] };
+} = {}) {
   /** The ordinal is still a story's identity here — the archive's counter and
    *  dots read it, and it drives the zig-zag rhythm — but it is no longer
    *  printed above the client's name. */
-  const stories: NumberedReview[] = testimonials.items.map((review, i) => ({
+  const stories: NumberedReview[] = content.items.map((review, i) => ({
     ...review,
     ordinal: i + 1,
   }));
@@ -46,9 +55,9 @@ export default function Testimonials() {
           gutters — that is what makes the surrounding dark read as space. */}
       <div className={styles.reviewsInner}>
         <ReviewsHero
-          eyebrow={testimonials.eyebrow}
-          title={testimonials.title}
-          body={testimonials.body}
+          eyebrow={content.eyebrow}
+          title={content.title}
+          body={content.body}
         />
 
         <div className={styles.reviewsBody}>

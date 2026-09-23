@@ -78,7 +78,7 @@
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2.25rem, 4.6vw, 4rem);
+  font-size: var(--fs-h2);
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -87,7 +87,7 @@
 
 .intro {
   margin: 0;
-  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--muted);
   max-width: 800px;
@@ -123,7 +123,7 @@
   margin: 0.35em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2.6rem, 6.2vw, 5.2rem);
+  font-size: var(--fs-h1);
   line-height: 1.02;
   letter-spacing: -0.035em;
   color: var(--text-bright);
@@ -141,7 +141,7 @@
    backdrops. See the same treatment on every other hero. */
 .heroBody {
   margin-top: clamp(20px, 2.4vw, 32px);
-  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  font-size: var(--fs-body);
   line-height: 1.62;
   color: #ffffff;
   max-width: 800px;
@@ -153,7 +153,7 @@
   margin-top: clamp(20px, 2.4vw, 30px);
   padding-left: clamp(14px, 1.4vw, 20px);
   border-left: 1px solid var(--accent);
-  font-size: clamp(0.875rem, 1vw, 0.9375rem);
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--muted);
   max-width: 42ch;
@@ -506,7 +506,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+  font-size: var(--fs-card-title);
   line-height: 1.06;
   letter-spacing: -0.03em;
 }
@@ -520,7 +520,7 @@
 
 .sectorText {
   margin: 0;
-  font-size: clamp(0.875rem, 1.05vw, 1rem);
+  font-size: var(--fs-body);
   line-height: 1.58;
 }
 
@@ -646,7 +646,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.375rem, 2vw, 1.875rem);
+  font-size: var(--fs-card-title);
   line-height: 1.14;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -654,7 +654,7 @@
 
 .ledgerText {
   margin: 0;
-  font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--muted);
 }
@@ -785,7 +785,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.25rem, 1.8vw, 1.625rem);
+  font-size: var(--fs-card-title);
   line-height: 1.16;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -793,7 +793,7 @@
 
 .workText {
   margin: 0;
-  font-size: clamp(0.875rem, 1vw, 0.9375rem);
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--muted);
 }
@@ -846,7 +846,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.375rem, 1.9vw, 1.75rem);
+  font-size: var(--fs-card-title);
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -976,7 +976,7 @@
   margin: 0.4em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2rem, 4.4vw, 3.5rem);
+  font-size: var(--fs-h2);
   line-height: 1.06;
   letter-spacing: -0.03em;
   color: #f2f0ee;
@@ -984,7 +984,7 @@
 
 .closingText {
   margin-top: clamp(16px, 2vw, 26px);
-  font-size: clamp(1rem, 1.3vw, 1.1875rem);
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: rgba(216, 216, 216, 0.88);
   max-width: 46ch;

@@ -452,20 +452,9 @@ export const finalCta = {
    * exists — both "Book" CTAs were asked to lead to a dedicated contact page
    * here rather than to softsuave.com. `hero.primaryCta` and `nav.cta` point
    * at the same place.
-   *
-   * The `/contact` page renders this very band at its foot, so it would
-   * otherwise link to itself. It doesn't: that page passes `ctaHref` to
-   * `<Contact>` and gets `#contact` instead, the same in-page destination its
-   * own masthead nav already uses.
    */
   cta: { label: "Book a Free Consultation", href: "/contact" },
   altCta: { label: "Talk With AI Experts", href: "#contact" },
-} as const;
-
-/** Masthead of the standalone /contact page, above the `finalCta` finale. */
-export const contactPage = {
-  title: "Let's Talk About Your AI Roadmap",
-  body: "Tell us where you are — an idea worth testing, a pilot that needs to scale, or systems that need to get smarter. We reply within one business day with a practical next step.",
 } as const;
 
 /**
@@ -621,10 +610,13 @@ export const testimonials: {
   ],
 };
 
-/** The site's four top-level divisions, in order. Three are section anchors on
- *  this page (and on every landing page, which share those ids); Resources is
- *  the article archive route. Contact is deliberately absent — the CTA pill
- *  next to these links is the contact path. */
+/** The site's four top-level divisions, in order. Services and Company are
+ *  section anchors on this page (and on every landing page, which share those
+ *  ids); Industries is the sector index route. Resources has no destination of
+ *  its own (`href: null`) — its label only opens its panel, so the blog is
+ *  reached from the panel's Blog entry rather than by clicking the division.
+ *  Contact is deliberately absent — the CTA pill next to these links is the
+ *  contact path. */
 export const nav = {
   links: [
     { label: "Services", href: "#services" },
@@ -637,7 +629,7 @@ export const nav = {
     // which only tracks `#` links.
     { label: "Industries", href: "/industries" },
     { label: "Company", href: "#why" },
-    { label: "Resources", href: "/blog" },
+    { label: "Resources", href: null },
   ],
   cta: { label: "Book AI Strategy Call", href: "/contact" },
 } as const;

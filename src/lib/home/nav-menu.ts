@@ -406,7 +406,6 @@ const RESOURCES: NavMenuPanel = {
         { name: "Case Studies", href: "/case-studies", blurb: "Problem, system, measured outcome" },
         { name: "Success Stories", href: "/success-stories", blurb: "The client's account of the same work" },
         { name: "Our Clients", href: "/clients", blurb: "Who we have shipped for" },
-        { name: "Search Articles", href: "/search", blurb: "Find a topic across the archive" },
       ],
     },
   ],

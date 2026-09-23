@@ -1,51 +1,65 @@
 /**
  * Copy for the /case-studies index.
  *
- * The studies themselves are NOT redefined here. They come from
- * `content.ts`'s `caseStudies`, the same source the homepage shelf and the
- * service pages read, so the index cannot list an outcome the rest of the site
- * does not claim.
+ * Mirrors softsuave.com/case-studies: the same headline, the same studies in
+ * the same order, the same industry tabs, and the same buttons — "View Case
+ * Study" in the masthead and on every card, "Schedule a Call" at the close.
+ * The studies come from `case-studies-data.ts`, generated from the live page.
  *
- * Only the masthead and the closing band are this page's own copy.
+ * The detail pages are not rebuilt in this app. Each card's `href` is the
+ * live `/case-study-*` path, which `SiteLink` resolves to softsuave.com.
  *
- * Scope note: softsuave.com publishes 64 individual `case-study-*` pages. This
- * index lists the four written up in `content.ts` and links no detail pages,
- * because none are built here yet — see `PAGE-TEMPLATES.md`. When a
- * case-study detail template lands, give each item an `href` and the cards
- * start linking with no change to this file's shape.
+ * `content.ts`'s `caseStudies` is a different, shorter set — the outcome
+ * shelf the homepage and service pages show — and is left as it is.
  */
 
-import { caseStudies } from "./content";
+import { caseStudyEntries, caseStudyFacets } from "./case-studies-data";
 import type { ListingContent } from "@/components/landing/listing";
+
+/** The live cards' platform icons, mirrored and resized to 96px. */
+const PLATFORM_ICONS: Record<string, string> = {
+  Android: "/images/case-studies/platforms/android.webp",
+  iOS: "/images/case-studies/platforms/ios.webp",
+  Web: "/images/case-studies/platforms/web.webp",
+  Database: "/images/case-studies/platforms/database.webp",
+};
 
 export const caseStudiesPageMeta = {
   slug: "case-studies",
   path: "/case-studies",
-  title: "Case Studies",
+  title: "Soft Suave Case Study: Proven IT Solutions for Business",
   description:
-    "Engineering work Soft Suave has shipped, with the measured outcome in each: vision AI for logistics, subscription commerce, healthcare records and classroom platforms.",
+    "Explore Soft Suave case studies across healthcare, eCommerce, logistics, education, finance, telecom, oil & gas and on-demand platforms — AI, web and mobile solutions built and shipped for our clients.",
 } as const;
 
 export const caseStudiesListing: ListingContent = {
   eyebrow: "Case Studies",
-  title: "The work, and what it measurably changed",
-  intro:
-    "Each of these is a system that went to production and a number that moved because of it. Filter by industry, or read them all.",
-  allLabel: "All industries",
-  items: caseStudies.items.map((c) => ({
+  title: "Our happiness lies in the journey we travel with our customers",
+  intro: "",
+  allLabel: "All",
+  facets: caseStudyFacets,
+  headCta: { label: "View Case Study", href: "#work-items" },
+  headImage: { id: "case-studies-hero" },
+  itemCtaLabel: "View Case Study",
+  items: caseStudyEntries.map((c) => ({
     key: c.key,
     tag: c.tag,
+    filters: c.filters,
     title: c.title,
     body: c.body,
-    metricValue: c.metricValue,
-    metricLabel: c.metricLabel,
-    year: c.year,
+    image: c.image,
+    platforms: c.platforms.map((name) => ({ name, icon: PLATFORM_ICONS[name] })),
+    href: c.href,
   })),
 };
 
-export const caseStudiesPageCta = {
-  eyebrow: "Your Project",
-  title: "The next one of these could be yours",
-  body: "Tell us the outcome you need rather than the feature list, and we will come back with how we would get there, what it takes and how long.",
-  cta: { label: "Start a conversation", href: "#contact" },
+/**
+ * The live page's closing "Book Free Consultation" block, passed to the
+ * homepage's `Contact` band in place of its default AI-strategy copy — the
+ * same treatment /success-stories gives its identical live block.
+ */
+export const caseStudiesClosingBand = {
+  title: "Book Free Consultation",
+  body: "Get a 30-minute free consultation from a field expert. Validate your idea for free and get a rough quote once you complete this form.",
+  cta: { label: "Schedule a Call", href: "/30-min-free-consultation" },
 } as const;

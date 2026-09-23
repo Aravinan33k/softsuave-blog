@@ -1,0 +1,922 @@
+/* ============================================================
+   /contact — the live softsuave.com/contact content in theme four.
+   Page ground and type come from `.theme-four` / `.page`; everything here
+   reads the semantic tokens, so the `.light` band re-points it for free.
+   ============================================================ */
+
+.sectionShell {
+  padding: clamp(44px, 5.2vw, 84px) var(--gutter);
+  position: relative;
+}
+
+/* ---- Masthead ---- */
+
+.lead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: clamp(118px, 15vh, 180px) var(--gutter) clamp(28px, 4vw, 48px);
+  /* The same measure as `.channels`, so the breadcrumb's left edge lines up
+     with the first card's at every width. */
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Breadcrumb sits top-left, as on the About and Success Stories heroes; the
+   heading below stays centred. */
+.crumb {
+  align-self: flex-start;
+  margin-bottom: clamp(18px, 2.4vw, 32px);
+}
+
+.h1 {
+  margin: 0.45em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-h1);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+}
+
+/* White hero band. Doubled class so it outranks `.light`'s own ground
+   whichever module's CSS loads first. */
+.heroWhite.heroWhite {
+  --bg: #ffffff;
+  background: #ffffff;
+  padding-bottom: clamp(20px, 3vw, 40px);
+}
+
+/* On white, the white cards need an edge of their own: a hairline and a
+   softer, warmer shadow in place of the one tuned for the dark ground. */
+.heroWhite .channelCard {
+  border: 1px solid #ebe7e1;
+  box-shadow: 0 24px 50px -28px rgba(23, 20, 15, 0.22);
+}
+
+/* ---- Channel cards (form / schedule / quick contact) ---- */
+
+.channels {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 1.6vw, 22px);
+  padding: 0 var(--gutter) clamp(36px, 4vw, 64px);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.channels > div {
+  display: flex;
+}
+
+@media (min-width: 760px) {
+  .channels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .channels {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* White panels on the dark ground. The `--fx-*` palette is the enquiry
+   card's (enquiry-form.module.css), defined here so `PhoneField`, which
+   paints from it, sits correctly inside these cards too. */
+.channelCard {
+  --fx-ink: #0f1115;
+  --fx-label: #3f434d;
+  --fx-muted: #656b76;
+  --fx-placeholder: #9aa0aa;
+  --fx-line: #dfe1e6;
+  --fx-line-hover: #c6cad2;
+  --fx-danger: #c8321c;
+  --fx-danger-ink: #8f2412;
+  --fx-danger-tint: #fdf4f1;
+  --card-accent: color-mix(in srgb, var(--brand-500) 82%, #000);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  padding: clamp(22px, 2.2vw, 30px);
+  border-radius: 16px;
+  background: #fff;
+  color: var(--fx-ink);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.channelCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: clamp(22px, 2.2vw, 30px);
+  width: 34px;
+  height: 3px;
+  background: var(--brand-gradient);
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: clamp(16px, 1.6vw, 22px);
+  border-bottom: 1px solid var(--fx-line);
+}
+
+.cardIcon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: #fff4f0;
+}
+
+.cardIcon img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.cardTitle {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--fs-card-title);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--fx-ink);
+}
+
+.cardSub {
+  margin: 4px 0 0;
+  font-size: var(--fs-body-sm);
+  color: var(--fx-muted);
+}
+
+/* ---- Stepped form ---- */
+
+.formCard {
+  gap: 0;
+}
+
+.stepBody {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-top: clamp(18px, 1.8vw, 26px);
+}
+
+.stepMeter {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.stepDot,
+.stepDotOn {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--fx-line);
+  transition: background 0.3s ease;
+}
+
+.stepDotOn {
+  background: var(--brand-500);
+}
+
+.stepQuestion {
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: var(--fx-ink);
+}
+
+.stepField {
+  margin-top: 14px;
+}
+
+.textInput,
+.selectInput {
+  width: 100%;
+  padding: 4px 0 10px;
+  border: 0;
+  border-bottom: 1px solid var(--fx-line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--fx-ink);
+  font-family: var(--font-body);
+  /* 16px: mobile Safari zooms the page on a focused field under 16px. */
+  font-size: 1rem;
+  line-height: 1.45;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.selectInput {
+  appearance: none;
+  padding-right: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23656b76' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  background-size: 10px 6px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+}
+
+.selectInput option {
+  color: #111;
+  background: #fff;
+}
+
+.textInput::placeholder {
+  color: var(--fx-placeholder);
+}
+
+.textInput:hover:not(:focus),
+.selectInput:hover:not(:focus) {
+  border-color: var(--fx-line-hover);
+}
+
+.textInput:focus,
+.selectInput:focus {
+  outline: none;
+  border-color: var(--brand-500);
+  box-shadow: 0 1px 0 0 var(--brand-500);
+}
+
+.textInput[aria-invalid="true"],
+.selectInput[aria-invalid="true"] {
+  border-color: var(--fx-danger);
+}
+
+/* PhoneField hides its placeholder until focus (it sits under a floating
+   label on the hero card). Here the question above IS the label, so the
+   placeholder shows at rest, as on the live form. */
+.phoneWrap input::placeholder {
+  color: var(--fx-placeholder) !important;
+}
+
+.fieldError,
+.formError {
+  margin: 10px 0 0;
+  font-size: var(--fs-body-sm);
+  color: var(--fx-danger-ink);
+}
+
+.formError {
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--fx-danger) 45%, transparent);
+  border-radius: 8px;
+  background: var(--fx-danger-tint);
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.stepActions,
+.stepActionsEnd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 26px;
+}
+
+.stepActionsEnd {
+  justify-content: flex-end;
+}
+
+.stepBack,
+.stepNext {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.8em 1.5em;
+  border-radius: 999px;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.stepBack {
+  border: 1px solid var(--fx-line);
+  background: transparent;
+  color: var(--fx-label);
+}
+
+.stepBack:hover {
+  border-color: var(--fx-ink);
+  color: var(--fx-ink);
+}
+
+.stepNext {
+  border: 1px solid var(--brand-500);
+  background: var(--brand-500);
+  color: #140b08;
+}
+
+.stepNext:hover {
+  background: var(--brand-600);
+  border-color: var(--brand-600);
+}
+
+.stepNext:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.stepBack:focus-visible,
+.stepNext:focus-visible,
+.quickRow:focus-visible,
+.quickWhatsapp:focus-visible,
+.quickTeams:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 3px;
+}
+
+.formSuccess {
+  flex: 1;
+  margin: 0;
+  padding-top: 24px;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--fx-ink);
+}
+
+.formAlert {
+  margin: 20px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--fx-line);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  text-align: center;
+  color: var(--fx-label);
+}
+
+.formAlert a {
+  color: var(--card-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ---- Schedule meeting (live NeetoCal calendar) ---- */
+
+.scheduleBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: clamp(16px, 1.6vw, 22px);
+}
+
+.calState {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  color: var(--fx-muted);
+  text-align: center;
+}
+
+.calState p {
+  margin: 0;
+}
+
+/* Month header — the live card's tinted panel, prev/next either side. */
+.calMonth {
+  display: grid;
+  grid-template-columns: 36px 1fr 36px;
+  align-items: center;
+  padding: 14px 10px;
+  border-radius: 12px;
+  background: #fff1ee;
+}
+
+.calMonthLabel {
+  font-family: var(--font-heading);
+  font-size: var(--fs-card-title);
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--fx-ink);
+}
+
+.calMonthNav,
+.calDayNav {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--card-accent);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.calMonthNav:hover:not(:disabled),
+.calDayNav:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--brand-500) 40%, #fff);
+  background: #fff;
+}
+
+.calMonthNav:disabled,
+.calDayNav:disabled {
+  color: #c4c8cf;
+  cursor: default;
+}
+
+/* Three-day picker. */
+.calDays {
+  display: grid;
+  grid-template-columns: 32px 1fr 32px;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--fx-line);
+}
+
+.calDayRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.calDayChip,
+.calDayChipOn,
+.calDaySkeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-height: 52px;
+  padding: 7px 4px;
+  border: 1px solid var(--fx-line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--fx-label);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.calDayChip strong,
+.calDayChipOn strong {
+  font-size: 1rem;
+  color: var(--fx-ink);
+}
+
+.calDayChip:hover {
+  border-color: var(--fx-line-hover);
+}
+
+.calDayChipOn {
+  border-color: var(--brand-500);
+  background: #fff1ee;
+  box-shadow: inset 0 0 0 1px var(--brand-500);
+}
+
+.calDaySkeleton {
+  background: #f1f2f4;
+  border-color: transparent;
+  cursor: default;
+  animation: calPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes calPulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* Slot grid — three across, scrolling inside the card like the live one. */
+.calSlots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: start;
+  gap: 8px;
+  min-height: 118px;
+  max-height: 196px;
+  padding-right: 4px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-500) transparent;
+}
+
+.calSlot {
+  padding: 8px 4px;
+  border: 1px solid #cdeedd;
+  border-radius: 8px;
+  background: #ecfaf2;
+  color: #14532d;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.calSlot:hover,
+.calSlot:focus-visible {
+  outline: none;
+  border-color: var(--brand-500);
+  background: var(--brand-500);
+  color: #140b08;
+}
+
+.calLoading {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 24px 0;
+  font-size: var(--fs-body-sm);
+  text-align: center;
+  color: var(--fx-muted);
+}
+
+/* Time zone. */
+.calTz {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.calTzLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--fx-ink);
+}
+
+.calTzField {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border: 1px solid var(--fx-line);
+  border-radius: 8px;
+  color: var(--fx-muted);
+}
+
+.calTzField:focus-within {
+  border-color: var(--brand-500);
+}
+
+.calTzSelect {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 18px 8px 0;
+  border: 0;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23656b76' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right center / 10px 6px;
+  appearance: none;
+  color: var(--fx-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.calTzSelect:focus {
+  outline: none;
+}
+
+.calMonthNav:focus-visible,
+.calDayNav:focus-visible,
+.calDayChip:focus-visible,
+.calDayChipOn:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+}
+
+/* ---- Quick contact ---- */
+
+.quickPair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding-top: clamp(18px, 1.8vw, 26px);
+}
+
+.quickWhatsapp,
+.quickTeams {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 12px;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.quickWhatsapp {
+  background: #1f9d55;
+}
+
+.quickTeams {
+  background: #4b53bc;
+}
+
+.quickWhatsapp:hover,
+.quickTeams:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.teamsIcon {
+  border-radius: 3px;
+}
+
+.quickRow {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--fx-line);
+  border-radius: 12px;
+  color: var(--fx-ink);
+  text-decoration: none;
+  transition: border-color 0.2s ease;
+}
+
+.quickRow:hover {
+  border-color: var(--brand-500);
+}
+
+.mailIcon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #fff4f0;
+  color: var(--card-accent);
+}
+
+.quickRowImg {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+}
+
+.quickText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.quickTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.quickSub {
+  font-size: var(--fs-body-sm);
+  color: var(--fx-muted);
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.22);
+}
+
+.quickArrow {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--brand-500);
+  color: #140b08;
+}
+
+/* ---- Offices ---- */
+
+/* Full-width band carrying the live page's world map behind the cards. */
+.officesBand {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* The map image is only a MASK here: its transparent oceans cut away, and the
+   continents are painted with the brand gradient, faded so they read as
+   texture behind the cards rather than competing with them. */
+.worldMap {
+  position: absolute;
+  inset: 4% 0;
+  z-index: -1;
+  background: linear-gradient(100deg, var(--brand-coral) 0%, var(--brand-500) 48%, var(--brand-red) 100%);
+  opacity: 0.26;
+  -webkit-mask: url("/images/contact/world-map.webp") center / contain no-repeat;
+  mask: url("/images/contact/world-map.webp") center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* Stacked cards make the band tall and narrow, where `contain` shrinks the
+   map to a sliver and `cover` zooms it into blobs. It runs at 160% width
+   instead, repeated down the column, so the continents stay recognisable. */
+@media (max-width: 759px) {
+  .worldMap {
+    inset: 0;
+    -webkit-mask-size: 160% auto;
+    mask-size: 160% auto;
+    -webkit-mask-repeat: repeat-y;
+    mask-repeat: repeat-y;
+    -webkit-mask-position: 60% 0;
+    mask-position: 60% 0;
+    opacity: 0.22;
+  }
+}
+
+.offices {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 1.6vw, 22px);
+  padding: clamp(52px, 6vw, 96px) var(--gutter);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.offices > div {
+  display: flex;
+}
+
+@media (min-width: 760px) {
+  .offices {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.office {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  padding: clamp(22px, 2.2vw, 30px);
+  border: 1px solid color-mix(in srgb, var(--text-bright) 12%, var(--line));
+  border-radius: 14px;
+  /* Slightly see-through so the map carries on faintly behind each card. */
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(6px);
+  font-style: normal;
+  transition: border-color 0.4s ease;
+}
+
+.office:hover {
+  border-color: var(--accent);
+}
+
+.officeHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.officeFlag {
+  width: 30px;
+  height: 30px;
+}
+
+.officePlace {
+  font-family: var(--font-heading);
+  font-size: var(--fs-card-title);
+  font-weight: 400;
+  color: var(--text-bright);
+}
+
+.officeCompany {
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.officeLine {
+  font-size: var(--fs-body-sm);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.officePhone {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 14px;
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.officePhone:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---- Awards ---- */
+
+.awardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(10px, 1.2vw, 16px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 760px) {
+  .awardGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .awardGrid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.award {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: clamp(20px, 2vw, 28px) 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  text-align: center;
+  transition: border-color 0.4s ease, transform 0.4s ease;
+}
+
+.award:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.awardArt {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 92px;
+}
+
+.awardArt img {
+  width: auto;
+  max-width: 80%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.awardTitle {
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  /* Fixed ink: the tile is always white, whichever band it sits in. */
+  color: #17140f;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calDaySkeleton {
+    animation: none;
+  }
+
+  .award,
+  .quickWhatsapp,
+  .quickTeams {
+    transition: none;
+  }
+}

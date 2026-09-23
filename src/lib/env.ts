@@ -83,6 +83,14 @@ const schema = z
     // script; the running app never contacts MaxMind.
     MAXMIND_LICENSE_KEY: z.string().default(''),
 
+    // NeetoCal meeting scheduler behind /contact's "Schedule Meeting" card.
+    // Server-side only: /api/v1/meeting/* proxies NeetoCal so the key never
+    // reaches the browser. Empty disables the card's live calendar (it falls
+    // back to linking the NeetoCal booking page).
+    NEETOCAL_API_KEY: z.string().default(''),
+    NEETOCAL_BASE_URL: z.string().default('https://softsuave.neetocal.com'),
+    NEETOCAL_MEETING_SLUG: z.string().default('meeting-with-softsuave'),
+
     RATE_LIMIT_DRIVER: z.enum(['memory', 'upstash']).default('memory'),
     UPSTASH_REDIS_REST_URL: z.string().default(''),
     UPSTASH_REDIS_REST_TOKEN: z.string().default(''),

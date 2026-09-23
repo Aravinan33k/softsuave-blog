@@ -3,38 +3,40 @@ import { BASE_PATH } from '@/lib/flags';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/json-ld';
 import { organizationLd } from '@/lib/seo/organization';
-import { contactPage } from '@/lib/home/content';
+import { contactHeading, contactMeta, contactTestimonials } from '@/lib/home/contact-content';
 
 import Nav from '@/components/home/nav';
 import Breadcrumb from '@/components/common/breadcrumb';
-import Contact from '@/components/home/contact';
+import ContactChannels from '@/components/contact/contact-channels';
+import { ContactAwards, ContactOffices } from '@/components/contact/contact-sections';
+import Testimonials from '@/components/home/testimonials';
 import Footer from '@/components/home/footer';
 import styles from '@/components/home/home.module.css';
+import cx from '@/components/contact/contact.module.css';
 
 /**
- * Contact page — the destination for the "Book AI Strategy Call" CTAs in the
- * hero and the nav, which previously only scrolled to the homepage's own
- * enquiry section and so had nowhere to go from any other route.
+ * Contact page — the content of https://www.softsuave.com/contact in the
+ * marketing surface's own theme: the three contact channels (stepped form,
+ * meeting scheduler, quick contact), the office addresses, the award
+ * certificates and the client testimonials, in the live page's order. All copy
+ * lives in `src/lib/home/contact-content.ts`.
  *
  * A SERVER component: only a server component may export `metadata`, and the
  * (marketing) layout's metadata is the homepage's. Fonts, `.theme-four` tokens
  * and Lenis smooth scroll all come from that layout.
  */
 
-const TITLE = 'Contact Us';
-const DESCRIPTION =
-  'Book a free AI strategy session with Soft Suave and find where AI can create the biggest impact in your organization.';
-
 // Matches the marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: `${TITLE} | Soft Suave`,
-  description: DESCRIPTION,
+  // `absolute`: the live page's <title> carries no " | Soft Suave" suffix.
+  title: { absolute: contactMeta.title },
+  description: contactMeta.description,
   alternates: { canonical: '/contact' },
   openGraph: {
-    title: `${TITLE} | Soft Suave`,
-    description: DESCRIPTION,
+    title: contactMeta.title,
+    description: contactMeta.description,
     url: absoluteUrl('/contact'),
     siteName: 'Soft Suave',
     type: 'website',
@@ -60,8 +62,8 @@ const contactPageLd = {
   '@type': 'ContactPage',
   '@id': `${PAGE_URL}#webpage`,
   url: PAGE_URL,
-  name: `${TITLE} | Soft Suave`,
-  description: DESCRIPTION,
+  name: contactMeta.title,
+  description: contactMeta.description,
   inLanguage: 'en',
   about: { '@id': organizationLd['@id'] },
   publisher: { '@id': organizationLd['@id'] },
@@ -73,29 +75,24 @@ export default function ContactPage() {
       <JsonLd data={[contactPageLd]} />
       <Nav logoHref={HOME_HREF} />
       <main id="main">
-        {/* The masthead keeps the page's own near-black ground (the nav is
-            over it, and it is what the reader lands on). */}
-        <section className={styles.contactLead}>
-          <Breadcrumb tone="band" />
-          <h1 className={styles.h2}>{contactPage.title}</h1>
-          <p className={styles.lead}>{contactPage.body}</p>
-        </section>
-        {/* The enquiry band inverts to the light band instead: `.light`
-            re-points the same --bg/--text/--accent tokens the section already
-            reads, so it needs no light variant of its own. `data-nav-tone`
-            then overrides what the bar would infer from that: the nav flips
-            itself light over any `.light` band, and on a page this short that
-            meant the bar changing colour mid-scroll. It stays black over both
-            bands here. `.contactLight` drops the
-            section's own backdrop, which is a dark photo under a near-opaque
-            BLACK veil and would otherwise stay black on the white. The footer
-            sits outside this wrapper, so it is untouched.
+        {/* The hero — heading and the three channel cards — on white. `.light`
+            re-points the band tokens (so the breadcrumb and h1 turn dark);
+            `.heroWhite` takes its warm off-white ground to pure white. */}
+        <div className={`${styles.light} ${cx.heroWhite}`}>
+          <section className={cx.lead}>
+            <Breadcrumb tone="band" className={cx.crumb} />
+            <h1 className={cx.h1}>{contactHeading}</h1>
+          </section>
+          <ContactChannels />
+        </div>
+        <ContactOffices />
 
-            `#contact` rather than the default `/contact`: this band IS the
-            enquiry section, so the CTA scrolls to it instead of reloading the
-            page. The nav bar's own CTA still points at `/contact`. */}
-        <div className={`${styles.light} ${styles.contactLight}`} data-nav-tone="dark">
-          <Contact ctaHref="#contact" />
+        <ContactAwards />
+
+        {/* The homepage's own testimonials section, in the same warm-white band
+            the homepage gives it, fed the live contact page's wording. */}
+        <div className={styles.light}>
+          <Testimonials content={contactTestimonials} />
         </div>
       </main>
       <Footer />

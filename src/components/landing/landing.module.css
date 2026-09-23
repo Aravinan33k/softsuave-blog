@@ -108,7 +108,7 @@
 .intro {
   margin: 0;
   max-width: 800px;
-  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--text);
 }
@@ -307,7 +307,7 @@
 .heroBody {
   margin: clamp(20px, 2.4vw, 30px) 0 0;
   max-width: 800px;
-  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: #ffffff;
 }
@@ -331,7 +331,7 @@
   align-items: center;
   gap: 12px;
   padding: 11px 0;
-  font-size: clamp(0.9rem, 0.98vw, 1rem);
+  font-size: var(--fs-hero-point);
   line-height: 1.4;
   color: var(--text);
 }
@@ -534,7 +534,7 @@
 
 .prose p {
   margin: 0;
-  font-size: clamp(0.98rem, 1.1vw, 1.08rem);
+  font-size: var(--fs-body);
   line-height: 1.75;
   color: var(--text);
 }
@@ -899,7 +899,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -910,7 +910,7 @@
    text in five narrow columns opened stretched word gaps. */
 .svcText {
   margin: 0;
-  font-size: var(--fs-body-sm);
+  font-size: var(--fs-body);
   line-height: 1.62;
   color: var(--text);
 }
@@ -974,7 +974,7 @@
 .ctaBody {
   margin: 0.9em 0 0;
   max-width: 56ch;
-  font-size: clamp(0.94rem, 1.08vw, 1.05rem);
+  font-size: var(--fs-body);
   line-height: 1.65;
   color: var(--muted);
 }
@@ -1011,7 +1011,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -1263,7 +1263,7 @@
   margin: 8px 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -1340,7 +1340,7 @@
   margin: 14px 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -1349,7 +1349,7 @@
 .proofBody {
   margin: 10px 0 0;
   max-width: 44ch;
-  font-size: var(--fs-body-sm);
+  font-size: var(--fs-body);
   line-height: 1.62;
   color: var(--text);
 }
@@ -1412,7 +1412,7 @@
   border-top: 1px solid var(--line);
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.28;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -1490,7 +1490,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -1670,7 +1670,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.16;
   letter-spacing: -0.025em;
   color: var(--text-bright);
@@ -2100,7 +2100,7 @@
 .finalBody {
   margin: 1em 0 0;
   max-width: 56ch;
-  font-size: clamp(0.96rem, 1.1vw, 1.08rem);
+  font-size: var(--fs-body);
   line-height: 1.68;
   color: var(--text);
 }
@@ -2279,7 +2279,7 @@
   margin: 0;
   padding: 0 0 clamp(20px, 2.4vw, 28px) calc(2.5rem + clamp(12px, 1.6vw, 22px));
   max-width: 78ch;
-  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-size: var(--fs-body);
   line-height: 1.68;
   color: var(--text);
   opacity: 0;
@@ -2512,7 +2512,7 @@
    that carry only a metric and a title simply omit it. */
 .caseBody {
   margin: 10px 0 0;
-  font-size: var(--fs-body-sm);
+  font-size: var(--fs-body);
   line-height: 1.62;
   color: var(--text);
 }
@@ -2858,7 +2858,7 @@
 .heroCompact .heroBody {
   margin-top: clamp(16px, 2vw, 24px);
   max-width: 72ch;
-  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  font-size: var(--fs-body);
   line-height: 1.62;
 }
 
@@ -2922,7 +2922,7 @@
 
 .overviewCompact .intro {
   max-width: 76ch;
-  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  font-size: var(--fs-body);
   line-height: 1.62;
 }
 
@@ -3349,7 +3349,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: #fff;
@@ -3795,7 +3795,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -4024,7 +4024,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -4370,7 +4370,7 @@
   margin: 8px 0 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -4504,7 +4504,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.2;
   letter-spacing: -0.018em;
   color: var(--text-bright);
@@ -4804,7 +4804,7 @@
   margin: 10px 0 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -4877,6 +4877,7 @@
 
 .slatHead {
   margin: 0;
+  font-size: var(--fs-h3);
 }
 
 .slatTrigger {
@@ -5021,7 +5022,7 @@
   .slat[data-open="false"] .slatName {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
-    font-size: 0.95rem;
+    font-size: var(--fs-h3);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -5115,7 +5116,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -5351,7 +5352,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.18;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -5462,7 +5463,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.22;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -5531,7 +5532,7 @@
   margin: 4px 0 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -5997,7 +5998,7 @@
 /* The title clears the watermark rather than running under it. */
 .svcBold .svcTitle {
   max-width: 78%;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.22;
 }
 
@@ -6006,7 +6007,7 @@
    enough at the 3-span end for it to recur. */
 .svcBold .svcText {
   text-align: left;
-  font-size: var(--fs-body-sm);
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--text);
 }
@@ -6033,7 +6034,7 @@
 
 .cardBold .cardName {
   max-width: 78%;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.22;
 }
 
@@ -6462,7 +6463,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--feat-ink);
@@ -6820,7 +6821,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -6828,7 +6829,7 @@
 
 .teamRole {
   margin: 0;
-  font-size: var(--fs-body-sm);
+  font-size: var(--fs-body);
   line-height: 1.5;
   color: var(--muted);
 }
@@ -7035,6 +7036,380 @@
 .caseCardLink:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
+}
+
+/* ============================================================
+   CASE-STUDY INDEX CARD — the live index's card (image, category, title,
+   summary, platform, "View Case Study") on the `.caseCard` shell.
+   ============================================================ */
+/* Clears the fixed nav when the masthead button jumps here. */
+.listAnchor {
+  display: block;
+  scroll-margin-top: clamp(80px, 8vw, 110px);
+}
+
+.listHeadCta {
+  margin: calc(clamp(34px, 4.6vw, 64px) * -0.5) 0 clamp(28px, 3.6vw, 48px);
+}
+
+/* Links live inside, so the tile itself does not lift on hover — the image
+   and the title respond instead. */
+.caseCardRich {
+  padding: 0 0 clamp(20px, 2.2vw, 28px);
+  overflow: hidden;
+}
+
+.caseCardRich:hover {
+  transform: none;
+}
+
+.caseCardRich > :not(.caseMedia) {
+  margin-left: clamp(20px, 2.2vw, 28px);
+  margin-right: clamp(20px, 2.2vw, 28px);
+}
+
+.caseMedia {
+  display: block;
+  aspect-ratio: 4 / 3;
+  margin-bottom: clamp(18px, 2vw, 24px);
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.caseMediaImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.caseCardRich:hover .caseMediaImg {
+  transform: scale(1.04);
+}
+
+.caseTitleRich {
+  margin-top: clamp(12px, 1.4vw, 16px);
+  font-size: var(--fs-card-title);
+}
+
+.caseTitleLink {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.caseTitleLink:hover {
+  color: var(--accent);
+}
+
+.caseTitleLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.casePlatforms {
+  margin-top: clamp(14px, 1.6vw, 18px);
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+}
+
+.casePlatformsLabel {
+  margin-right: 0.8em;
+  color: var(--muted);
+}
+
+/* Pinned to the card's foot, so buttons line up across a row of cards whose
+   summaries run to different lengths. */
+.caseCta {
+  margin-top: auto;
+  padding-top: clamp(18px, 2vw, 24px);
+}
+
+@media (min-width: 700px) and (max-width: 999px) {
+  .caseGrid:has(.caseCardRich) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Row variant — /case-studies. The live index stacks one study per row, image
+   left and copy right; scoped under `.caseGridRows` so the shared rich card
+   above (also the /success-stories video card) keeps its stacked layout. */
+
+/* The list's own full-bleed band under a dark masthead (`listClassName`, e.g.
+   `home.light`). Content holds to one measure, so a summary reads at ~100
+   characters a line rather than running the width of a wide screen. */
+.indexHead:has(> .listBand) {
+  padding-bottom: 0;
+}
+
+.listBand {
+  --list-card: #ffffff;
+  margin: clamp(40px, 5vw, 72px) calc(var(--gutter) * -1) 0;
+  padding: clamp(40px, 5vw, 80px) var(--gutter);
+}
+
+.listBand > * {
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+/* Masthead photo (`headImage`). The layer bleeds past the masthead to the
+   section's top edge (behind the nav), both gutters, and down to the list
+   band, so the photo reads as the hero's own background. The two insets
+   repeat `.indexHead`'s top padding and the band gap below. */
+.indexHead:has(> .listMast) {
+  --mast-top: clamp(96px, 11vw, 150px);
+  --mast-gap: clamp(56px, 7vw, 104px);
+}
+
+.indexHead:has(> .listMast) > .listBand {
+  margin-top: var(--mast-gap);
+}
+
+.listMast {
+  position: relative;
+  isolation: isolate;
+}
+
+.listMastBg {
+  position: absolute;
+  inset: calc(var(--mast-top) * -1) calc(var(--gutter) * -1) calc(var(--mast-gap) * -1);
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* The desktop masthead is a ~3:1 strip over a 16:9 photo; a centred crop
+   keeps only the table. Anchored high so the people stay in frame. */
+.listMastBg .heroBg {
+  object-position: 60% 18%;
+}
+
+/* Darkest behind the copy on the left, opening up to the right where the
+   photo's subject sits; a floor fade so the band edge below stays clean. */
+.listMastVeil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(4, 5, 8, 0.55) 0%, rgba(4, 5, 8, 0) 30%, rgba(4, 5, 8, 0) 70%, rgba(4, 5, 8, 0.6) 100%),
+    linear-gradient(90deg, rgba(4, 5, 8, 0.94) 0%, rgba(4, 5, 8, 0.82) 38%, rgba(4, 5, 8, 0.42) 72%, rgba(4, 5, 8, 0.3) 100%);
+}
+
+/* Below 800px the copy spans the full width, so the veil does too. */
+@media (max-width: 799px) {
+  .listMastVeil {
+    background: rgba(4, 5, 8, 0.78);
+  }
+}
+
+.caseGrid.caseGridRows {
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 1.6vw, 20px);
+}
+
+.caseGridRows .caseCardRich {
+  padding: 0;
+}
+
+.caseGridRows .caseCardRich > :not(.caseMedia) {
+  margin: 0;
+}
+
+.listBand .caseGridRows .caseCardRich {
+  background: var(--list-card);
+  box-shadow: 0 1px 2px rgba(23, 20, 15, 0.04), 0 12px 32px -24px rgba(23, 20, 15, 0.28);
+}
+
+.caseGridRows .caseMedia {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 0;
+}
+
+/* Absolute, so the photo fills whatever height the copy gives the row and
+   never sets that height itself. */
+.caseGridRows .caseMediaImg {
+  position: absolute;
+  inset: 0;
+}
+
+.caseContent {
+  padding: clamp(18px, 2vw, 28px) clamp(18px, 2.2vw, 32px);
+}
+
+.caseGridRows .caseTitleRich {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.15rem, 1.5vw, 1.45rem);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+  text-align: left;
+}
+
+/* Left-aligned, as the review did for .svcText: justified, these summaries
+   opened stretched word gaps. */
+.caseGridRows .caseBody {
+  margin-top: 10px;
+  max-width: 75ch;
+  font-size: clamp(0.94rem, 1vw, 1rem);
+  line-height: 1.65;
+  text-align: left;
+}
+
+/* The same fix for this masthead: its long H1 justified into wide gaps. Scoped
+   to pages with a list band so other index mastheads are untouched. */
+.indexHead:has(> .listBand) .title {
+  text-align: left;
+}
+
+/* Platform and Category share a line when there is room. */
+.caseMeta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 14px clamp(20px, 2.4vw, 32px) 0 0;
+  vertical-align: middle;
+}
+
+.caseMetaLabel {
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.caseMetaValue {
+  font-size: var(--fs-body-sm);
+  color: var(--text-bright);
+}
+
+.casePlatforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The live icons are drawn for a white page — iOS is a solid black mark — so
+   each sits on a light tile, which also keeps them legible on a dark card. */
+.casePlatform {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 6px;
+  background: #f4f2ef;
+}
+
+.listBand .casePlatform {
+  background: var(--surface);
+}
+
+.casePlatform img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.caseGridRows .caseCta {
+  margin-top: 18px;
+  padding-top: 0;
+}
+
+.caseGridRows .caseCta .btn {
+  padding: 0.7em 1.3em;
+}
+
+@media (min-width: 800px) {
+  .caseGridRows .caseCardRich {
+    display: grid;
+    grid-template-columns: clamp(240px, 27vw, 330px) minmax(0, 1fr);
+  }
+
+  .caseGridRows .caseMedia {
+    aspect-ratio: auto;
+    min-height: 240px;
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+  }
+
+  .caseContent {
+    align-self: center;
+  }
+}
+
+/* ============================================================
+   VIDEO STORY CARD — /success-stories. The case-study index card with a
+   16:9 frame and a play badge; the whole tile is the link to YouTube.
+   ============================================================ */
+.videoStories {
+  padding: clamp(28px, 3.6vw, 56px) var(--gutter) clamp(56px, 7vw, 110px);
+}
+
+.videoCard {
+  color: inherit;
+  text-decoration: none;
+}
+
+.videoCard:hover {
+  border-color: var(--accent);
+}
+
+.videoCard:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.videoMedia {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+
+.videoPlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: clamp(48px, 4.4vw, 60px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.videoPlay svg {
+  margin-left: 3px;
+}
+
+.videoCard:hover .videoPlay {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.videoTitle {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+  transition: color 0.3s ease;
+  font-size: var(--fs-card-title);
+}
+
+.videoCard:hover .videoTitle {
+  color: var(--accent);
 }
 
 /* Short viewports — the display hero and the fold.

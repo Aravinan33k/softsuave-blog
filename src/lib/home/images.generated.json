@@ -2190,5 +2190,18 @@
     "photographer": "Tracy Le Blanc",
     "pexelsUrl": "https://www.pexels.com/photo/person-holding-iphone-showing-social-networks-folder-607812/",
     "matchedTier": "iphone app icons screen hand"
+  },
+  "four/case-studies-hero": {
+    "page": "four",
+    "id": "case-studies-hero",
+    "src": "/images/four/case-studies-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "Product team reviewing a delivered project together in a dim office",
+    "blurDataURL": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAwAgCdASoQAAsAA4BaJaACdH8AGC4WfV1SAADieZAQjDePeWo+puKHbXw+BTZj8VNmFunj64C+2csna06785dNs9P/aocgd/ZWuAac989p0wNk5+2w3dUPO45C6TjciNYi7CvCz1TqRtdwAAA=",
+    "pexelsId": 5428669,
+    "photographer": "Ivan S",
+    "pexelsUrl": "https://www.pexels.com/photo/happy-colleagues-working-together-5428669/",
+    "matchedTier": "team collaboration laptop office night"
   }
 }

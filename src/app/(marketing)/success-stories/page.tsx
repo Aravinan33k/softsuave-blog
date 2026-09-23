@@ -3,47 +3,45 @@ import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/organization';
-import { testimonials } from '@/lib/home/content';
 import {
-  successStoriesCrossLink,
+  clientStories,
+  employeeStories,
+  successStoriesClosingBand,
   successStoriesPageHero,
   successStoriesPageMeta,
 } from '@/lib/home/success-stories-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import Testimonials from '@/components/home/testimonials';
-import Clients from '@/components/home/clients';
 import Contact from '@/components/home/contact';
 
 import SectionHead from '@/components/landing/section-head';
-import CtaBand from '@/components/landing/cta-band';
+import VideoStories from '@/components/landing/video-stories';
 
 import home from '@/components/home/home.module.css';
 import landing from '@/components/landing/landing.module.css';
 
 /**
- * Success Stories — the client-account counterpart to /case-studies.
+ * Success Stories — mirrors softsuave.com/success-stories.
  *
  * Linked from the Resources mega panel. That link previously resolved to the
  * live site via `navHref`; registering this route in `landing-pages.ts` brings
  * it in-app.
  *
- * Reuses the homepage's testimonials grid rather than restating the quotes:
- * two copies of what a client said is exactly the drift this surface has
- * cleaned up elsewhere (see `delivery-shared.ts`). Only the masthead and the
- * cross-link to /case-studies are this page's own copy.
+ * Same sections, in the same order, as the live page: the "Success Stories"
+ * banner (our H1 masthead), Client Stories and Employee Stories — each a grid
+ * of YouTube video cards — and the "Book Free Consultation" enquiry band.
  */
 
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: `${successStoriesPageMeta.title} | Soft Suave`,
+  title: successStoriesPageMeta.title,
   description: successStoriesPageMeta.description,
   alternates: { canonical: successStoriesPageMeta.path },
   robots: { index: true, follow: true },
   openGraph: {
-    title: `${successStoriesPageMeta.title} | Soft Suave`,
+    title: successStoriesPageMeta.title,
     description: successStoriesPageMeta.description,
     url: absoluteUrl(successStoriesPageMeta.path),
     siteName: 'Soft Suave',
@@ -52,7 +50,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${successStoriesPageMeta.title} | Soft Suave`,
+    title: successStoriesPageMeta.title,
     description: successStoriesPageMeta.description,
     images: [dynamicOgImage(successStoriesPageMeta.title, 'Soft Suave')],
   },
@@ -61,40 +59,33 @@ export const metadata: Metadata = {
 const HOME_HREF = BASE_PATH || '/';
 
 /**
- * A `CollectionPage` whose parts are `Review` nodes — one per testimonial,
- * attributed to the person who gave it and about the organization.
+ * A `CollectionPage` whose parts are the videos, as `VideoObject` nodes.
  *
- * `itemReviewed` points at the canonical organization by `@id` rather than
- * describing the company again. `reviewRating` is emitted only where the
- * testimonial carries a rating, because a Review asserting a rating the source
- * does not state is a fabricated one.
+ * Only what the page itself states: name, thumbnail and the YouTube URL.
+ * `uploadDate` and `description`, which Google wants for a video rich result,
+ * are left out rather than invented — the page does not carry them.
  */
 const structuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     '@id': `${absoluteUrl(successStoriesPageMeta.path)}#webpage`,
-    name: `${successStoriesPageMeta.title} | Soft Suave`,
+    name: successStoriesPageMeta.title,
     description: successStoriesPageMeta.description,
     url: absoluteUrl(successStoriesPageMeta.path),
     inLanguage: 'en',
     about: { '@id': organizationLd['@id'] },
     publisher: { '@id': organizationLd['@id'] },
-    hasPart: testimonials.items.map((t) => ({
-      '@type': 'Review',
-      reviewBody: t.quote,
-      author: { '@type': 'Person', name: t.name, ...(t.role ? { jobTitle: t.role } : {}) },
-      itemReviewed: { '@id': organizationLd['@id'] },
-      ...(t.rating
-        ? {
-            reviewRating: {
-              '@type': 'Rating',
-              ratingValue: String(t.rating),
-              bestRating: '5',
-            },
-          }
-        : {}),
-    })),
+    hasPart: [clientStories, employeeStories].flatMap((group) =>
+      group.items.map((story) => ({
+        '@type': 'VideoObject',
+        name: story.title,
+        url: story.href,
+        thumbnailUrl: absoluteUrl(story.image.src),
+        genre: group.title,
+        publisher: { '@id': organizationLd['@id'] },
+      })),
+    ),
   },
 ];
 
@@ -106,25 +97,17 @@ export default function SuccessStoriesPage() {
 
       <main id="main">
         <section className={landing.indexHead} id="top">
-          <SectionHead
-            level={1}
-            kicker={successStoriesPageHero.eyebrow}
-            title={successStoriesPageHero.title}
-            intro={successStoriesPageHero.intro}
-          />
+          <SectionHead level={1} title={successStoriesPageHero.title} />
         </section>
 
+        {/* The story grids sit on the light band, so the page is not dark from
+            the masthead to the footer; the masthead and the enquiry band stay dark. */}
         <div className={home.light}>
-          <Testimonials />
+          <VideoStories group={clientStories} />
+          <VideoStories group={employeeStories} />
         </div>
 
-        <CtaBand content={successStoriesCrossLink} />
-
-        <div className={home.light}>
-          <Clients />
-        </div>
-
-        <Contact />
+        <Contact content={successStoriesClosingBand} eyebrow="" />
       </main>
 
       <Footer />

@@ -78,10 +78,27 @@
      between pages and within a page — an H3 sometimes as large as an H2 —
      because each module set its own clamp(). Headings read these instead, so
      a level is one size everywhere and each level stays visibly below the one
-     above it. */
-  --fs-h1: clamp(2.3rem, 4.5vw, 4rem);
-  --fs-h2: clamp(1.85rem, 3.1vw, 2.75rem);
-  --fs-h3: clamp(1.15rem, 1.45vw, 1.4rem);
+     above it.
+
+     Values are the Sep type spec: homepage H1 70px, every other page's H1
+     50px, H2 40px, H3 28px, paragraphs 18px, hero points 16px. Those are the
+     desktop sizes, reached at 1200px; each one eases down in a straight line
+     to its phone size at 700px (40 / 34 / 28 / 22 / 16 / 15px) and holds
+     there below it.
+
+     Headings read these everywhere. `--fs-body` is only for plain text
+     content (heroes, section intros, prose, FAQs, CTAs, simple cards); the
+     animated / interactive scenes keep their own paragraph sizes. */
+  --fs-h1-home: clamp(40px, 6vw - 2px, 70px);
+  --fs-h1: clamp(34px, 3.2vw + 11.6px, 50px);
+  --fs-h2: clamp(28px, 2.4vw + 11.2px, 40px);
+  --fs-h3: clamp(22px, 1.2vw + 13.6px, 28px);
+  /* An H3 that names an item inside a card, tile or panel. At 28px those
+     titles overran their cards, so they sit a step below the section-level
+     H3: 22px on desktop, 18px on phones. */
+  --fs-card-title: clamp(18px, 0.8vw + 12.4px, 22px);
+  --fs-body: clamp(16px, 0.4vw + 13.2px, 18px);
+  --fs-hero-point: clamp(15px, 0.2vw + 13.6px, 16px);
   /* Card body copy and the smallest readable label size. */
   --fs-body-sm: clamp(0.9rem, 0.95vw, 1rem);
   --fs-label: 0.75rem;

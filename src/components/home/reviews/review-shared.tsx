@@ -36,14 +36,20 @@ export const initials = (name: string) =>
  * halves on separate lines, so split on the FIRST comma only — a company name
  * may itself contain one — and hand back whatever is actually there. Two of the
  * five reviews state no role at all, so both halves are optional.
+ *
+ * The live contact page writes its roles as "Designation - Company" instead
+ * ("Founder, CEO - AMD telecom"), where the comma belongs to the designation,
+ * so a spaced " - " takes precedence over the comma when present.
  */
 export function splitRole(role?: string): { designation?: string; company?: string } {
   if (!role) return {};
-  const at = role.indexOf(",");
+  const dash = role.indexOf(" - ");
+  const at = dash !== -1 ? dash : role.indexOf(",");
   if (at === -1) return { designation: role.trim() };
+  const sep = dash !== -1 ? 3 : 1;
   return {
     designation: role.slice(0, at).trim() || undefined,
-    company: role.slice(at + 1).trim() || undefined,
+    company: role.slice(at + sep).trim() || undefined,
   };
 }
 

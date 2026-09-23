@@ -115,8 +115,7 @@ export default function Nav({
   const tone = useSurfaceTone();
   const activeId = useActiveAnchor(
     nav.links
-      .filter((l) => l.href.startsWith("#"))
-      .map((l) => l.href.slice(1))
+      .flatMap((l) => (l.href?.startsWith("#") ? [l.href.slice(1)] : []))
       .join(","),
   );
 
@@ -130,10 +129,12 @@ export default function Nav({
   // `id` keeps the original anchor for the active-section highlight — where the
   // page doesn't have the section, that id isn't in the DOM and nothing
   // highlights, which is correct.
+  // A null `href` is a division with no page of its own (Resources): its label
+  // only opens its panel, and it never navigates.
   const items = nav.links.map((l) => ({
     label: l.label,
-    href: resolve(l.href),
-    id: l.href.startsWith("#") ? l.href.slice(1) : null,
+    href: l.href === null ? null : resolve(l.href),
+    id: l.href?.startsWith("#") ? l.href.slice(1) : null,
   }));
   const ctaHref = resolve(nav.cta.href);
 
@@ -220,6 +221,16 @@ export default function Nav({
               onFocus: () => setMenu(hasPanel ? l.label : null),
               ...(hasPanel ? { "aria-haspopup": true, "aria-expanded": menu === l.label } : {}),
             };
+            // Clicking opens rather than toggles: hover/focus has already
+            // opened it by the time the click lands.
+            if (l.href === null) {
+              return (
+                <button key={l.label} type="button" onClick={() => setMenu(l.label)} {...shared}>
+                  {l.label}
+                  {hasPanel && <span className={styles.navChev} aria-hidden />}
+                </button>
+              );
+            }
             return l.href.startsWith("/") ? (
               <Link key={l.label} href={l.href} onClick={close} {...shared}>
                 {l.label}
@@ -273,6 +284,7 @@ export default function Nav({
             // A division with a panel becomes an accordion rather than a link;
             // its own destination stays reachable as the panel's CTA.
             if (!menuPanel) {
+              if (l.href === null) return null;
               return l.href.startsWith("/") ? (
                 <Link key={l.label} href={l.href} onClick={close}>
                   {l.label}

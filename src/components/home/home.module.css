@@ -118,17 +118,23 @@
 .h2 {
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.75rem, 3.05vw, 2.75rem);
+  font-size: var(--fs-h2);
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text-bright);
   margin: 0.5em 0 0;
 }
 
+/* The awards and contact pages set their H1 in this face: it takes the
+   sub-page H1 size, not the section H2's. */
+h1.h2 {
+  font-size: var(--fs-h1);
+}
+
 .lead {
   max-width: 800px;
   margin-top: 1.4em;
-  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--muted);
 }
@@ -540,20 +546,36 @@
   text-transform: uppercase;
 }
 
-.navLinks a {
+.navLinks a,
+.navLinks button {
   position: relative;
   color: var(--text-bright);
   transition: color 0.3s ease;
 }
 
+/* a division with no page of its own (Resources) is a button that only opens
+   its panel — reset it so it reads exactly like its link neighbours */
+.navLinks button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+
 .navLinks a:hover,
-.navLinks a:focus-visible {
+.navLinks a:focus-visible,
+.navLinks button:hover,
+.navLinks button:focus-visible {
   color: var(--nav-link-accent);
 }
 
 /* "you are here" — the current section's link is coral and underlined, so the
    nav itself reads as the section navigation without any explanation. */
-.navLinks a::after {
+.navLinks a::after,
+.navLinks button::after {
   content: "";
   position: absolute;
   left: 0;
@@ -749,7 +771,7 @@
   margin: 0.4em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2.5rem, 6.5vw, 5.75rem);
+  font-size: var(--fs-h1-home);
   line-height: 1.05;
   letter-spacing: -0.045em;
   color: var(--text-bright);
@@ -1050,7 +1072,7 @@
   margin: 7px 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.125rem, 1.45vw, 1.375rem);
+  font-size: var(--fs-card-title);
   line-height: 1.24;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -2368,7 +2390,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.125rem, 1.45vw, 1.375rem);
+  font-size: var(--fs-card-title);
   line-height: 1.12;
   letter-spacing: -0.025em;
   color: var(--text-bright);
@@ -2717,7 +2739,7 @@
 .contactH {
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2rem, 3.9vw, 3.5rem);
+  font-size: var(--fs-h2);
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -3361,7 +3383,7 @@
      Only on desktop: below 1000px the intro is full width and the global
      scale is correct there. */
   .hIntro .lead {
-    font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
+    font-size: var(--fs-body);
   }
 
   /* the scrollable lane: native horizontal scroll + snap, so drag/swipe/
@@ -4015,7 +4037,7 @@
   max-width: 480px;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.75rem, 3.05vw, 2.75rem);
+  font-size: var(--fs-h2);
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -4023,7 +4045,7 @@
 .journeyLead {
   margin: 0 0 26px;
   max-width: 42ch;
-  font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--muted);
 }
@@ -4075,14 +4097,14 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: 1.15rem;
+  font-size: var(--fs-h3);
   line-height: 1.5;
   letter-spacing: -0.01em;
   color: var(--text-bright);
   transition: font-size 0.5s ease;
 }
 .railRowActive .railName {
-  font-size: clamp(1.375rem, 2vw, 1.875rem);
+  font-size: var(--fs-h3);
   line-height: 1.15;
   margin-top: 6px;
 }
@@ -4151,7 +4173,7 @@
   margin: 0 0 12px 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.125rem, 1.45vw, 1.375rem);
+  font-size: var(--fs-h3);
   color: var(--text-bright);
 }
 .mobileJourneyBody {
@@ -4856,7 +4878,7 @@
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2rem, 3.9vw, 3.5rem);
+  font-size: var(--fs-h2);
   line-height: 1.03;
   letter-spacing: -0.035em;
   color: var(--text-bright);
@@ -5150,7 +5172,7 @@
 .clientsBody {
   margin: 0;
   max-width: 56ch;
-  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  font-size: var(--fs-body);
   line-height: 1.65;
   color: var(--muted);
 }
@@ -5278,7 +5300,7 @@
   margin: 0.4em 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.75rem, 3.05vw, 2.75rem);
+  font-size: var(--fs-h2);
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -5287,7 +5309,7 @@
 .carHeadLead {
   margin: 0;
   max-width: 46ch;
-  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--muted);
 }
@@ -5313,7 +5335,7 @@
   margin: 12px 0 16px;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.375rem, 2vw, 1.875rem);
+  font-size: var(--fs-card-title);
   line-height: 1.06;
   letter-spacing: -0.03em;
   color: var(--text-bright);
@@ -5696,7 +5718,7 @@
   }
   .industriesFan .indFanHead .lead {
     margin-top: 0.9em;
-    font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+    font-size: var(--fs-body);
   }
 }
 
@@ -6228,7 +6250,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(1.0625rem, 1.5vw, 1.375rem);
+  font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -6272,7 +6294,8 @@
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.navLinks a[aria-expanded="true"] .navChev {
+.navLinks a[aria-expanded="true"] .navChev,
+.navLinks button[aria-expanded="true"] .navChev {
   transform: translateY(0) rotate(-135deg);
   opacity: 1;
 }
@@ -6649,7 +6672,7 @@
    section size — under the 48px h2 of the closing band further down the same
    page. Sized here instead, level with the compact hero's h1. */
 .contactLead h1 {
-  font-size: clamp(2.1rem, 4.2vw, 3.75rem);
+  font-size: var(--fs-h1);
   line-height: 1.06;
 }
 
@@ -6908,7 +6931,7 @@
    The 6rem desktop ceiling is untouched above 1000px. */
 @media (max-width: 999px) {
   .heroTitle {
-    font-size: clamp(2.5rem, 8.6vw, 3.25rem);
+    font-size: var(--fs-h1-home);
     letter-spacing: -0.035em;
   }
 

@@ -36,7 +36,8 @@ describe('nav menu data', () => {
   // the reader happens to be on, so it must not exist in the first place.
   it('only holds hrefs that are a path or an anchor', () => {
     const hrefs = [
-      ...nav.links.map((l) => l.href),
+      // a null href is a division with no page of its own — nothing to resolve
+      ...nav.links.flatMap((l) => (l.href === null ? [] : [l.href])),
       nav.cta.href,
       ...Object.values(navPanels).flatMap((panel) => [
         panel.cta.href,

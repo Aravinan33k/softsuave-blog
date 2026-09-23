@@ -3,9 +3,10 @@ import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/organization';
+import { navHref } from '@/themes/softsuave/nav-data';
 import {
+  caseStudiesClosingBand,
   caseStudiesListing,
-  caseStudiesPageCta,
   caseStudiesPageMeta,
 } from '@/lib/home/case-studies-content';
 
@@ -14,7 +15,6 @@ import Footer from '@/components/home/footer';
 import Contact from '@/components/home/contact';
 
 import Listing from '@/components/landing/listing';
-import CtaBand from '@/components/landing/cta-band';
 
 import home from '@/components/home/home.module.css';
 
@@ -34,12 +34,12 @@ import home from '@/components/home/home.module.css';
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: `${caseStudiesPageMeta.title} | Soft Suave`,
+  title: caseStudiesPageMeta.title,
   description: caseStudiesPageMeta.description,
   alternates: { canonical: caseStudiesPageMeta.path },
   robots: { index: true, follow: true },
   openGraph: {
-    title: `${caseStudiesPageMeta.title} | Soft Suave`,
+    title: caseStudiesPageMeta.title,
     description: caseStudiesPageMeta.description,
     url: absoluteUrl(caseStudiesPageMeta.path),
     siteName: 'Soft Suave',
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${caseStudiesPageMeta.title} | Soft Suave`,
+    title: caseStudiesPageMeta.title,
     description: caseStudiesPageMeta.description,
     images: [dynamicOgImage(caseStudiesPageMeta.title, 'Soft Suave')],
   },
@@ -62,15 +62,16 @@ const HOME_HREF = BASE_PATH || '/';
  * WebPage's `mainEntity` at it, and this page offers nothing for sale — it
  * lists work already delivered.
  *
- * No `url` on the parts, because no detail pages exist yet. A `url` pointing
- * at a route that 404s is worse than none.
+ * Each part's `url` is its detail page on softsuave.com — those pages are not
+ * rebuilt here, so `navHref` resolves them to the live site, the same
+ * destination the card's "View Case Study" button takes.
  */
 const structuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     '@id': `${absoluteUrl(caseStudiesPageMeta.path)}#webpage`,
-    name: `${caseStudiesPageMeta.title} | Soft Suave`,
+    name: caseStudiesPageMeta.title,
     description: caseStudiesPageMeta.description,
     url: absoluteUrl(caseStudiesPageMeta.path),
     inLanguage: 'en',
@@ -79,6 +80,8 @@ const structuredData = [
     hasPart: caseStudiesListing.items.map((it) => ({
       '@type': 'Article',
       headline: it.title,
+      ...(it.href ? { url: navHref(it.href) } : {}),
+      ...(it.image ? { image: absoluteUrl(it.image.src) } : {}),
       ...(it.body ? { description: it.body } : {}),
       ...(it.tag ? { articleSection: it.tag } : {}),
       author: { '@id': organizationLd['@id'] },
@@ -94,11 +97,12 @@ export default function CaseStudiesPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <Listing content={caseStudiesListing} id="work" />
+        {/* Dark masthead, warm-white list, dark closing band — the surface's
+            band rhythm, and the live cards' photos and platform icons were
+            drawn for a light page. */}
+        <Listing content={caseStudiesListing} id="work" listClassName={home.light} />
 
-        <CtaBand content={caseStudiesPageCta} />
-
-        <Contact />
+        <Contact content={caseStudiesClosingBand} eyebrow="" />
       </main>
 
       <Footer />

@@ -2,6 +2,21 @@
   "$comment": "Every image slot across /one, /two, /three. keywords = tiers broad -> broader -> generic on-brand. Deduped by Pexels photo id across ALL slots (no photo repeats site-wide).",
   "images": [
     {
+      "id": "case-studies-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "Product team reviewing a delivered project together in a dim office",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "team collaboration laptop office night",
+        "business team meeting dark office",
+        "people working together laptop",
+        "office teamwork"
+      ]
+    },
+    {
       "id": "hero",
       "page": "one",
       "purpose": "hero-background",
