@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ElementType, type ReactNode } from "react";
+import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 import SplitType from "split-type";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 
@@ -41,6 +41,45 @@ export default function SplitReveal({
   scrub = false,
 }: Props) {
   const ref = useRef<HTMLElement | null>(null);
+
+  // Publish the width of the heading's longest line as `--fit-width`.
+  //
+  // A wrapped block is as wide as its container, not as its text, so a heading
+  // beside a divider (the split section heads) leaves the slack of its last
+  // wrap as extra space before the rule — the gap either side of it no longer
+  // matches. The split-head CSS caps the heading at this width so its column
+  // hugs the text. Capping at the widest line can never change where a line
+  // breaks, and the variable does nothing where no rule reads it.
+  //
+  // Re-measured on resize and once the web fonts land: the property comes off
+  // first so the heading wraps at its natural width, then goes back on in the
+  // same frame, so nothing paints in between. The root element is observed —
+  // not the heading's own column, whose width this changes.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    let frame = 0;
+    const measure = () => {
+      el.style.removeProperty("--fit-width");
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const left = el.getBoundingClientRect().left;
+      let right = left;
+      for (const rect of range.getClientRects()) right = Math.max(right, rect.right);
+      if (right > left) el.style.setProperty("--fit-width", `${Math.ceil(right - left) + 1}px`);
+    };
+    const schedule = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(measure);
+    };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(document.documentElement);
+    document.fonts?.ready.then(schedule);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, []);
 
   useGSAP(
     () => {

@@ -22,7 +22,7 @@ describe('breadcrumbLabel', () => {
   });
 
   it('prefers the mega menu label for service pages', () => {
-    expect(breadcrumbLabel('/software-development-company')).toBe('Software Development');
+    expect(breadcrumbLabel('/software-development-company')).toBe('Custom Software Development');
     expect(breadcrumbLabel('/fintech-ai-solutions')).toBe('FinTech');
   });
 
@@ -38,7 +38,7 @@ describe('breadcrumbLabel', () => {
   });
 
   it('tolerates a trailing slash and ignores unknown paths', () => {
-    expect(breadcrumbLabel('/faqs/')).toBe('FAQs');
+    expect(breadcrumbLabel('/clients/')).toBe('Our Clients');
     expect(breadcrumbLabel('/no-such-page')).toBeUndefined();
   });
 });

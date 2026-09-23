@@ -4,7 +4,7 @@
  * /one, /two, /three — each page maps it into its own inspiration's structure.
  */
 
-import { meta as industriesMeta, sectors as sectorIndex } from "./industries-content";
+import { navPanels, type NavMenuPanel } from "./nav-menu";
 
 export const brand = {
   name: "Soft Suave",
@@ -134,8 +134,8 @@ export const clients: {
  * `href` on each item is where that industry LIVES — the page softsuave.com
  * publishes for it. Every one of the six has a real page, so nothing here is an
  * anchor. The section on this page keeps its own "view all" navigation and does
- * not use it, and the footer's Industries column is built from the
- * `/industries` index's eight rather than these six.
+ * not use it, and the footer's Industries column is read off the nav's
+ * Industries panel rather than these six.
  */
 export const industries = {
   eyebrow: "Industries",
@@ -638,93 +638,42 @@ export const nav = {
 export type FooterLink = { label: string; href: string };
 
 /**
- * Service keys the footer's Services column leaves out. See that column.
+ * A footer column's links, read off the nav panel of the same name.
+ *
+ * `mainOnly` takes just the top-level page of each category and skips the
+ * long name-only (`dense`) hire lists — the Services panel holds ~70 links,
+ * far more than a sitemap column can carry. Otherwise every item of the panel
+ * is listed, in the panel's order.
  */
-const FOOTER_SERVICE_EXCLUDE = new Set(["mlops"]);
+function footerLinks(panel: NavMenuPanel, mainOnly = false): FooterLink[] {
+  return panel.groups
+    .filter((g) => !mainOnly || !g.dense)
+    .flatMap((g) => g.items)
+    .flatMap((i) => (i.href === undefined ? [] : [{ label: i.name, href: i.href }]));
+}
 
 export const footer = {
   tagline: "Empowering businesses with scalable AI, automation & integrations.",
 
   /**
-   * Sitemap columns.
+   * Sitemap columns — DERIVED from the nav's mega-menu panels
+   * (`lib/home/nav-menu.ts`), which follow the navigation tab of the
+   * site-revamp sheet. Retyping them here is how the footer drifted from the
+   * nav once already, so a nav edit now reaches the footer on its own.
    *
-   * Services is DERIVED from the page's own `services` content rather than
-   * retyped, so the footer can never list a service the page above it no longer
-   * offers. Industries is derived from the `/industries` index's sector list —
-   * the canonical seven — for the reason given on that column below.
-   *
-   * Each entry carries its own `href`, so the column links to the real page
-   * where one exists and falls back to the in-page section where it doesn't —
-   * see the note on `services.items`. Every sector has a page; six of the ten
-   * services do not, and `Footer` resolves those `#services` fallbacks against
-   * the homepage when it renders anywhere else.
+   *   Services     each category's main page (the sheet's "Main Page" column):
+   *                Custom AI, Data Engineering, Data Science, the FDE page, the
+   *                three Software & Application pages and the seven Global
+   *                Delivery pages. The hire-by-role/skill lists stay in the nav.
+   *   Industries   the nav's six sectors
+   *   Company      the nav's seven entries
+   *   Resources    the nav's two entries
    */
   columns: [
-    {
-      title: "Services",
-      /**
-       * Derived, less the entries this column is not meant to advertise.
-       *
-       * `FOOTER_SERVICE_EXCLUDE` is the whole divergence from `services.items`
-       * and it is a deliberate one: MLOps stays a service the homepage band
-       * argues for, but it is not a door we want in the sitemap column, where
-       * every neighbour resolves to a real page and it would resolve to an
-       * anchor. Keeping it as an exclusion list rather than deleting the
-       * service means the band above is untouched and the reason is recorded
-       * in one place.
-       */
-      links: services.items
-        .filter((s) => !FOOTER_SERVICE_EXCLUDE.has(s.key))
-        .map((s) => ({ label: s.name, href: s.href })),
-    },
-    {
-      title: "Industries",
-      /**
-       * The canonical seven, taken from the `/industries` index rather than
-       * the band on this page. The band shows six — Construction has no
-       * generated art yet, so it omits it — but it has a real page, and a
-       * sitemap that hides a live sector is just wrong.
-       *
-       * "All Industries" heads the column so the index itself is reachable
-       * from the footer of every page, which is the only place it was not.
-       */
-      links: [
-        { label: "All Industries", href: industriesMeta.path },
-        ...sectorIndex.items.map((s) => ({ label: s.name, href: s.href })),
-      ],
-    },
-    {
-      title: "Company",
-      // Paths served by the live marketing site; `SiteLink` resolves each one.
-      links: [
-        { label: "About Us", href: "/about" },
-        { label: "Awards & Recognition", href: "/awards-recognition" },
-        { label: "Our Clients", href: "/clients" },
-        { label: "Life at Soft Suave", href: "/life-at-softsuave" },
-        { label: "Careers", href: "/career-overview" },
-        { label: "Contact Us", href: "/contact" },
-      ],
-    },
-    {
-      /**
-       * The proof archives plus the one commercial entry point, which have no
-       * section on this page to anchor to, so the footer is where they live.
-       *
-       * This column used to mirror softsuave.com's footer exactly, which meant
-       * it also carried How to Hire, FAQs and Software Development India.
-       * Those three are gone by review: each pointed at a page this app does
-       * not serve, so all three left for the live site from a column whose
-       * other entries stay on it, and none of them earned a place in the
-       * sitemap. Re-adding any of them is a matter of building its page first.
-       */
-      title: "Resources",
-      links: [
-        { label: "Blog", href: "/blog" },
-        { label: "Case Studies", href: "/case-studies" },
-        { label: "Success Stories", href: "/success-stories" },
-        { label: "Free Cost Estimation", href: "/free-cost-estimation" },
-      ],
-    },
+    { title: "Services", links: footerLinks(navPanels.Services, true) },
+    { title: "Industries", links: footerLinks(navPanels.Industries) },
+    { title: "Company", links: footerLinks(navPanels.Company) },
+    { title: "Resources", links: footerLinks(navPanels.Resources) },
   ] as { title: string; links: FooterLink[] }[],
 
   /** Certification badge — artwork bundled from softsuave.com. */

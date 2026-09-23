@@ -167,6 +167,59 @@ h1.h2 {
   margin-bottom: clamp(26px, 4vw, 56px);
 }
 
+/* ---- split section head ----
+   From 900px an H2 head with an intro lays out the way the Clients band does:
+   eyebrow and heading on the left, a hairline rule, the intro on the right,
+   centred against the rule, which runs the full height of the head. The gap
+   is the same either side of the rule — the grid's column gap on the left, the
+   intro's padding on the right — and the heading's column hugs its longest
+   line (`--fit-width`, measured by SplitReveal), so the text-to-rule distance
+   matches on both sides instead of the left one carrying the slack of the
+   heading's last wrap.
+
+   The same rules are set in landing/, generative-ai/ and industries/ module
+   CSS for their own SectionHead; change them together. H2 heads only — the
+   awards masthead's h1 keeps its stacked layout. */
+@media (min-width: 900px) {
+  .sectionHead:has(> h2):has(> .lead) {
+    --split-gap: clamp(28px, 3vw, 44px);
+    max-width: 1400px;
+    display: grid;
+    grid-template-columns: fit-content(60%) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    column-gap: var(--split-gap);
+    align-items: end;
+  }
+
+  .sectionHead:has(> h2):has(> .lead) > h2 {
+    grid-column: 1;
+    grid-row: 2;
+    /* 20ch at 40px sets the Clients heading in the three lines it was designed
+       around (Preferred AI-Enabled / Technology Partner for / Startups and
+       SMBs: the breaks hold anywhere from 16.5ch to 22.8ch), and every split
+       head shares the measure. `--fit-width` then pulls the column in to the
+       longest line it actually sets. */
+    max-width: min(20ch, var(--fit-width, 20ch));
+  }
+
+  .sectionHead:has(> h2):has(> .lead) > :first-child:not(h2) {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+  }
+
+  .sectionHead:has(> h2):has(> .lead) > .lead {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding-left: var(--split-gap);
+    border-left: 1px solid var(--line);
+  }
+}
+
 .fadeReady {
   will-change: transform, opacity;
 }
@@ -4882,7 +4935,10 @@ h1.h2 {
   line-height: 1.03;
   letter-spacing: -0.035em;
   color: var(--text-bright);
-  max-width: 15ch;
+  /* No 15ch cap: it folded the title into three short lines and left a wide
+     empty gap before the divider. The grid column is the limit, the same fix
+     `.clientsHead .h2` got, so both heads sit evenly around their rule. */
+  max-width: none;
 }
 /* the supporting-paragraph block — stacked below the title on mobile, moved to
    sit beside it (own column, vertical divider) from tablet up. The years/est.
@@ -4898,14 +4954,23 @@ h1.h2 {
 .whyIntroBody p {
   margin: 0;
   max-width: 56ch;
-  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  /* The shared paragraph token (18px desktop / 16px phone) — this was its own
+     clamp that reached 20px, off the Sep type spec. */
+  font-size: var(--fs-body);
   line-height: 1.65;
   color: var(--muted);
 }
 @media (min-width: 900px) {
+  /* The divider sits evenly between the two columns: no grid gap, and the
+     title column pads its right side by the same amount the aside pads its
+     left, so the space either side of the rule matches. */
   .whyIntroInner {
     grid-template-columns: 1.5fr 1fr;
     align-items: end;
+    column-gap: 0;
+  }
+  .whyIntroMain {
+    padding-right: clamp(28px, 3vw, 44px);
   }
   .whyIntroFoot {
     margin-top: 0;
@@ -4914,8 +4979,10 @@ h1.h2 {
     border-top: none;
     border-left: 1px solid var(--line);
   }
+  /* 46ch, matching `.clientsBody` — at 34ch it ran to five lines beside a
+     one-line title. */
   .whyIntroBody p {
-    max-width: 34ch;
+    max-width: 46ch;
   }
 }
 
@@ -5177,19 +5244,32 @@ h1.h2 {
   color: var(--muted);
 }
 @media (min-width: 900px) {
+  /* The split section head (see `.sectionHead` near the top of this file),
+     restated here because the base `.clientsHead` rule above would otherwise
+     win on source order. */
   .clientsHead {
-    grid-template-columns: 1.5fr 1fr;
+    --split-gap: clamp(28px, 3vw, 44px);
+    grid-template-columns: fit-content(60%) minmax(0, 1fr);
+    column-gap: var(--split-gap);
     align-items: end;
   }
+  .clientsHead .h2 {
+    /* 20ch at 40px sets the Clients heading in the three lines it was designed
+       around (Preferred AI-Enabled / Technology Partner for / Startups and
+       SMBs: the breaks hold anywhere from 16.5ch to 22.8ch), and every split
+       head shares the measure. `--fit-width` then pulls the column in to the
+       longest line it actually sets. */
+    max-width: min(20ch, var(--fit-width, 20ch));
+  }
   .clientsHeadAside {
-    padding-left: clamp(28px, 3vw, 44px);
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    padding-left: var(--split-gap);
     border-left: 1px solid var(--line);
   }
-  /* Was 34ch, which left ~100px of this column unused and ran the paragraph to
-     five lines against the heading's three. Filling the column brings it to
-     four and squares the two sides of the band off against each other. */
   .clientsBody {
-    max-width: 46ch;
+    max-width: 800px;
   }
 }
 
@@ -6315,9 +6395,11 @@ h1.h2 {
   display: none;
   position: absolute;
   top: 100%;
-  /* the header's containing block is its padding box, so pull back out to the
-     viewport edges by exactly the gutter it pads with */
-  inset-inline: calc(-1 * var(--gutter));
+  /* The header is `position: fixed` at left/right 0, so its padding box — the
+     panel's containing block — already spans the viewport. Pulling out by the
+     gutter here pushed the panel a full gutter past both edges, which clipped
+     the lede and the items box off-screen. */
+  inset-inline: 0;
   background: rgba(10, 10, 10, 0.97);
   backdrop-filter: blur(18px);
   border-top: 1px solid var(--line);
@@ -6338,6 +6420,83 @@ h1.h2 {
   padding: clamp(26px, 2.6vw, 42px) var(--gutter) clamp(30px, 3vw, 48px);
   max-height: calc(100vh - 84px);
   overflow-y: auto;
+}
+
+/* A single-group panel has no rail: the items take its column as well. */
+.megaInnerNoRail {
+  grid-template-columns: minmax(200px, 0.85fr) minmax(0, 2.75fr);
+}
+
+/* ---- panel layout by width ----
+   The lists need the width: the longest skill name sets a 16rem column, and
+   three of them only fit beside a lede column from about 1600px. So:
+
+     1000–1439  the lede folds into a strip across the top (eyebrow, title,
+                CTA on one line; the blurb drops) and the rail and list share
+                the full width below it.
+     1280+      the rail sizes to its longest category, one line per entry.
+     1440+      the lede takes its own column again, kept narrow so the list
+                keeps the room. */
+@media (min-width: 1000px) and (max-width: 1439px) {
+  .megaInner {
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 18px clamp(20px, 2.2vw, 36px);
+  }
+
+  .megaInnerNoRail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .megaLede {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 20px;
+    row-gap: 6px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .megaLede .megaTitle {
+    margin: 0;
+    max-width: none;
+    font-size: 1.3rem;
+  }
+
+  .megaLede .megaBody {
+    display: none;
+  }
+
+  .megaLede .megaLedeCta {
+    margin: 0 0 0 auto;
+  }
+}
+
+@media (min-width: 1000px) {
+  .megaRailItem {
+    white-space: nowrap;
+  }
+}
+
+/* on the narrowest desktops the rail steps down a size, so one-line entries
+   still leave the list two columns */
+@media (min-width: 1000px) and (max-width: 1279px) {
+  .megaRailItem {
+    padding: 10px 12px;
+    font-size: 0.84rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .megaInner {
+    grid-template-columns: minmax(200px, 0.6fr) max-content minmax(0, 2.4fr);
+    gap: clamp(24px, 2.2vw, 44px);
+  }
+
+  .megaInnerNoRail {
+    grid-template-columns: minmax(200px, 0.6fr) minmax(0, 3fr);
+  }
 }
 
 .megaTitle {
@@ -6429,20 +6588,22 @@ h1.h2 {
   color: var(--muted);
 }
 
+/* Flat lists: as many columns as fit, each at least as wide as the longest
+   name (`Hire Ruby on Rails Developers`), and names never wrap — so every row
+   is one line tall and the spacing between links is the same everywhere. When
+   the box narrows, a column drops instead of a name breaking in two. */
 .megaItems {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
   gap: 2px 8px;
   align-content: start;
+  /* hug the list rather than stretching to the rail's height, which left a
+     band of empty box under short categories */
+  align-self: start;
   padding: clamp(10px, 1vw, 16px);
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--surface);
-}
-
-/* name-only lists (roles, skills) read better three-up and compact */
-.megaItemsDense {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .megaItem {
@@ -6477,10 +6638,8 @@ h1.h2 {
   color: var(--text-bright);
 }
 
-.megaItemBlurb {
-  font-size: 0.78rem;
-  line-height: 1.45;
-  color: var(--muted);
+.megaItem .megaItemName {
+  white-space: nowrap;
 }
 
 /* ---- burger overlay: the same four divisions as accordions ---- */
@@ -6585,14 +6744,22 @@ h1.h2 {
    A category holding an item with children lays out as columns: each item is a
    heading with its own list under a hairline, so the third level reads as part
    of the same grid rather than a popup off a popup. */
+/* Each block spans two shared rows — heading, then list — through subgrid, so
+   when one heading wraps to two lines ("Custom Software Development") every
+   column's list still starts on the same line. */
 .megaItemsNested {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px, 1.4vw, 24px);
+  /* sized by content, so the column with the longest heading ("Custom
+     Software Development") takes the width it needs before any column wraps */
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: auto auto;
+  gap: 0 clamp(12px, 1.4vw, 24px);
 }
 
 .megaBlock {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  align-content: start;
   padding: 10px 12px;
 }
 
@@ -6603,14 +6770,6 @@ h1.h2 {
 
 .megaBlockHead:hover .megaItemName {
   color: var(--nav-link-accent);
-}
-
-.megaBlockBlurb {
-  margin-top: 4px;
-  padding-left: 21px;
-  font-size: 0.78rem;
-  line-height: 1.45;
-  color: var(--muted);
 }
 
 .megaSubList {
@@ -6634,6 +6793,29 @@ h1.h2 {
   transform: translateX(2px);
 }
 
+/* Fourth level: a sub-item with its own children is a small heading over an
+   indented list (Mobile App → Native App Development → Android, iOS). */
+.megaSubGroup {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0;
+}
+
+.megaSubGroup + .megaSubGroup {
+  margin-top: 6px;
+}
+
+.megaSubHead {
+  font-size: 0.83rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-bright);
+}
+
+.megaSubGroup .megaSubList {
+  margin-top: 6px;
+}
+
 /* mobile: the third level indents under its parent */
 .mobEntry {
   display: flex;
@@ -6652,6 +6834,16 @@ h1.h2 {
 
 .overlayNav .mobSubItem:hover {
   color: var(--text-bright);
+}
+
+/* Fourth level: Native / Hybrid App Development head their own indented list. */
+.overlayNav .mobSubHead {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: var(--text);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────

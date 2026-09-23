@@ -58,6 +58,8 @@ const TECH_RULES: readonly TechRule[] = [
   { pattern: /\bangular ?(\.|dot )?(js)?\b/, company: "/angularjs-development-company", hire: "/hire-angularjs-developers" },
   { pattern: /\btypescript\b/, company: "/typescript-development-company" },
   { pattern: /\bgraphql\b/, company: "/graphql-development-company" },
+  { pattern: /\bvue ?(\.|dot )?(js)?\b/, company: "/vuejs-development-company" },
+  { pattern: /\bpostgre(s|sql)\b/, company: "/postgresql-development-company" },
   { pattern: /\bruby on rails\b|\brails\b|\bror\b/, company: "/ruby-on-rails-development-company", hire: "/hire-ruby-on-rails-developer" },
   { pattern: /\bdjango\b/, company: "/python-application-development-company", hire: "/hire-django-developer" },
   { pattern: /\bpython\b/, company: "/python-application-development-company", hire: "/hire-python-developers" },

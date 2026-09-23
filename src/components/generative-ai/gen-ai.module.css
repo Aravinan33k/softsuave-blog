@@ -88,6 +88,39 @@
   color: var(--text);
 }
 
+/* ---- split section head ----
+   From 900px a head with an intro lays out the way the homepage's Clients band
+   does: kicker and title on the left, a hairline rule, the intro on the right,
+   centred against the rule, with the same gap either side of it and the
+   title's column hugging its longest line (`--fit-width`, measured by
+   SplitReveal). Mirrors `.sectionHead` in home.module.css — change them
+   together. */
+@media (min-width: 900px) {
+  .head:has(> .intro) {
+    --split-gap: clamp(28px, 3vw, 44px);
+    grid-template-columns: fit-content(60%) minmax(0, 1fr);
+    column-gap: var(--split-gap);
+    align-items: end;
+  }
+
+  .head:has(> .intro) .title {
+    /* 20ch at 40px sets the Clients heading in the three lines it was designed
+       around (Preferred AI-Enabled / Technology Partner for / Startups and
+       SMBs: the breaks hold anywhere from 16.5ch to 22.8ch), and every split
+       head shares the measure. `--fit-width` then pulls the column in to the
+       longest line it actually sets. */
+    max-width: min(20ch, var(--fit-width, 20ch));
+  }
+
+  .head:has(> .intro) > .intro {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    padding-left: var(--split-gap);
+    border-left: 1px solid var(--line);
+  }
+}
+
 /* ============================================================
    BUTTONS — squared, mono-labelled. The homepage's `.pill` is a 999px
    capsule; these are deliberately not.

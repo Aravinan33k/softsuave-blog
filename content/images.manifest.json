@@ -2807,6 +2807,246 @@
         "analysts reviewing data together",
         "analysts"
       ]
+    },
+    {
+      "id": "vuejs-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "A developer building a web application interface on a laptop",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "web developer coding laptop dark office",
+        "programmer writing javascript code screen",
+        "developer laptop code night",
+        "coding"
+      ]
+    },
+    {
+      "id": "ov-vuejs-development-company",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "A product team planning a web application together around a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "software team collaborating laptop office bright",
+        "developers meeting laptop discussion office",
+        "team working together laptops office",
+        "teamwork office"
+      ]
+    },
+    {
+      "id": "vue-svc-custom",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Frontend code for a custom web application in an editor",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "frontend javascript code editor screen",
+        "web development code monitor",
+        "source code screen",
+        "code"
+      ]
+    },
+    {
+      "id": "vue-svc-spa",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A responsive single-page web application shown on several devices",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "responsive web app laptop tablet phone",
+        "website on multiple devices desk",
+        "laptop smartphone website",
+        "devices"
+      ]
+    },
+    {
+      "id": "vue-svc-ecommerce",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "An online store checkout on a laptop screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "online shopping website laptop checkout",
+        "ecommerce store laptop shopping cart",
+        "online payment laptop card",
+        "online shopping"
+      ]
+    },
+    {
+      "id": "vue-svc-portal",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A business dashboard with charts and user data",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "business dashboard charts monitor office",
+        "analytics dashboard screen data",
+        "data dashboard computer",
+        "dashboard"
+      ]
+    },
+    {
+      "id": "vue-svc-migration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineers planning a frontend migration together at a screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "developers pair programming monitor discussion",
+        "two programmers reviewing code together",
+        "software team discussing code",
+        "programmers"
+      ]
+    },
+    {
+      "id": "vue-svc-support",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A developer maintaining and updating a live web application",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "developer fixing bug laptop focused",
+        "software engineer debugging code laptop",
+        "programmer working laptop desk",
+        "developer"
+      ]
+    },
+    {
+      "id": "postgresql-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Server racks in a data centre that host application databases",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "data center server racks blue light",
+        "server room database hardware",
+        "servers data center",
+        "servers"
+      ]
+    },
+    {
+      "id": "ov-postgresql-development-company",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Engineers reviewing data and database structure together on screen",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "engineers analysing data on computer screen office",
+        "two colleagues reviewing data monitor",
+        "data analysis office computer",
+        "office computer work"
+      ]
+    },
+    {
+      "id": "pg-svc-custom",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "SQL queries and database code on a monitor",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "sql database query code screen",
+        "database programming monitor code",
+        "database code",
+        "database"
+      ]
+    },
+    {
+      "id": "pg-svc-schema",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A team sketching a data model and table relationships on a whiteboard",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "team whiteboard diagram planning architecture",
+        "engineers drawing diagram whiteboard",
+        "whiteboard planning meeting",
+        "whiteboard"
+      ]
+    },
+    {
+      "id": "pg-svc-migration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Fibre and network connections carrying data between systems during a migration",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "fiber optic network cables data center",
+        "server network cabling rack",
+        "data center cables",
+        "data center"
+      ]
+    },
+    {
+      "id": "pg-svc-performance",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Performance metrics and query timings on a monitoring screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "performance monitoring graphs screen dark",
+        "system metrics charts monitor",
+        "graphs monitor analytics",
+        "graphs"
+      ]
+    },
+    {
+      "id": "pg-svc-integration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Connected services and APIs linked to a central database",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "network connections abstract technology digital",
+        "connected nodes technology concept",
+        "digital network abstract",
+        "network abstract"
+      ]
+    },
+    {
+      "id": "pg-svc-support",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "An engineer monitoring a database environment in a server room",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "it engineer laptop server room monitoring",
+        "technician checking servers laptop",
+        "server maintenance technician",
+        "technician"
+      ]
     }
   ]
 }

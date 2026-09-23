@@ -80,6 +80,8 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/ruby-on-rails-development-company', title: 'Ruby on Rails Development Company India' },
   { path: '/typescript-development-company', title: 'TypeScript Development Company for Web Apps' },
   { path: '/graphql-development-company', title: 'GraphQL Development Company for Modern APIs' },
+  { path: '/vuejs-development-company', title: 'Vue.js Development Company for Web Apps' },
+  { path: '/postgresql-development-company', title: 'PostgreSQL Development Company for Reliable Databases' },
   { path: '/reactjs-app-development-company', title: 'ReactJS Development Company in India' },
   { path: '/nodejs-development-company', title: 'NodeJS Development Company in India' },
   { path: '/java-application-development-company', title: 'Top Java Development Company in India' },

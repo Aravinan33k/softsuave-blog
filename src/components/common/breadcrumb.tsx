@@ -47,11 +47,13 @@ function stripTitleTail(title: string): string {
 function collectMenuLabels(into: Map<string, string>): void {
   const visit = (items: readonly NavMenuItem[]) => {
     for (const item of items) {
-      // `#section` anchors are homepage sections, not pages.
-      if (item.href.startsWith("/") && !item.href.includes("#") && !into.has(item.href)) {
-        into.set(item.href, item.name);
+      // `#section` anchors are homepage sections, not pages; an item with no
+      // href is a heading with no page at all.
+      const { href } = item;
+      if (href?.startsWith("/") && !href.includes("#") && !into.has(href)) {
+        into.set(href, item.name);
       }
-      if (item.items) visit(item.items);
+      if (item.items && !item.terse) visit(item.items);
     }
   };
   for (const panel of Object.values(navPanels)) {

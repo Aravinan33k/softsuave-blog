@@ -53,3 +53,14 @@ export function landingImage(id: string): { src: string; alt: string } | undefin
   const img = images[`landing/${id}`];
   return img ? { src: img.src, alt: img.alt } : undefined;
 }
+
+/**
+ * A pipeline slot's full record — dimensions and blur placeholder included —
+ * for a hero or other slot that is not an `ov-<slug>` overview. Same shape as
+ * `overviewImage`, looked up by the slot's own id (`landing/<id>`).
+ */
+export function landingPhoto(id: string): OverviewImage | undefined {
+  const img = images[`landing/${id}`];
+  if (!img) return undefined;
+  return { src: img.src, width: img.width, height: img.height, alt: img.alt, blurDataURL: img.blurDataURL };
+}

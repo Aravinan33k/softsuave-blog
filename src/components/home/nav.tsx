@@ -311,22 +311,44 @@ export default function Nav({
                   <div className={styles.mobPanel}>
                     {menuPanel.groups.map((g) => (
                       <div key={g.key} className={styles.mobGroup}>
-                        <span className={styles.mobGroupName}>{g.name}</span>
+                        {/* A one-group panel's group name only repeats the
+                            division label the reader just tapped. */}
+                        {menuPanel.groups.length > 1 && (
+                          <span className={styles.mobGroupName}>{g.name}</span>
+                        )}
                         {g.items.map((it) => (
                           <span key={it.name} className={styles.mobEntry}>
                             <MenuLink href={it.href} className={styles.mobItem} onNavigate={close}>
                               {it.name}
                             </MenuLink>
-                            {it.items?.map((sub) => (
-                              <MenuLink
-                                key={sub.name}
-                                href={sub.href}
-                                className={styles.mobSubItem}
-                                onNavigate={close}
-                              >
-                                {sub.name}
-                              </MenuLink>
-                            ))}
+                            {it.items?.map((sub) =>
+                              sub.items?.length ? (
+                                <span key={sub.name} className={styles.mobEntry}>
+                                  <MenuLink href={sub.href} className={styles.mobSubHead} onNavigate={close}>
+                                    {sub.name}
+                                  </MenuLink>
+                                  {sub.items.map((leaf) => (
+                                    <MenuLink
+                                      key={leaf.name}
+                                      href={leaf.href}
+                                      className={styles.mobSubItem}
+                                      onNavigate={close}
+                                    >
+                                      {leaf.name}
+                                    </MenuLink>
+                                  ))}
+                                </span>
+                              ) : (
+                                <MenuLink
+                                  key={sub.name}
+                                  href={sub.href}
+                                  className={styles.mobSubItem}
+                                  onNavigate={close}
+                                >
+                                  {sub.name}
+                                </MenuLink>
+                              ),
+                            )}
                           </span>
                         ))}
                       </div>

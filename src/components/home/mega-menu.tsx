@@ -32,7 +32,8 @@ export function MenuLink({
   onNavigate,
   children,
 }: {
-  href: string;
+  /** Omitted for a heading with no page of its own: renders as plain text. */
+  href?: string;
   className?: string;
   onNavigate: () => void;
   children: React.ReactNode;
@@ -41,7 +42,9 @@ export function MenuLink({
   // homepage, which owns every section this menu names. Anywhere else the
   // anchor is resolved against the homepage instead, so the same menu works on
   // every page rather than dead-ending on two dozen items.
-  const resolved = navHrefForPage(href, usePathname() === "/");
+  const onHome = usePathname() === "/";
+  if (href === undefined) return <span className={className}>{children}</span>;
+  const resolved = navHrefForPage(href, onHome);
 
   return resolved.startsWith("/") ? (
     <SiteLink href={resolved} className={className} onClick={onNavigate}>
@@ -114,9 +117,13 @@ export default function MegaPanel({
     { scope: root, dependencies: [active], revertOnUpdate: true },
   );
 
+  // A panel with one group (Industries, Company, Resources) has nothing to
+  // switch between, so it drops the rail and the items sit beside the lede.
+  const showRail = panel.groups.length > 1;
+
   return (
     <div ref={root} className={styles.megaPanel}>
-      <div className={styles.megaInner}>
+      <div className={`${styles.megaInner} ${showRail ? "" : styles.megaInnerNoRail}`}>
         <div className={`${styles.megaCol} ${styles.megaLede}`}>
           <span className={styles.eyebrow}>{panel.eyebrow}</span>
           <p className={styles.megaTitle}>{panel.title}</p>
@@ -127,37 +134,39 @@ export default function MegaPanel({
           </MenuLink>
         </div>
 
-        <div
-          className={`${styles.megaCol} ${styles.megaRail}`}
-          role="tablist"
-          aria-label={`${panel.eyebrow} categories`}
-        >
-          {panel.groups.map((g, i) => (
-            <button
-              key={g.key}
-              type="button"
-              id={tabId(g.key)}
-              role="tab"
-              aria-selected={g.key === group.key}
-              aria-controls={gridId}
-              className={`${styles.megaRailItem} ${g.key === group.key ? styles.megaRailItemOn : ""}`}
-              onMouseEnter={() => setActive(g.key)}
-              onFocus={() => setActive(g.key)}
-              onClick={() => setActive(g.key)}
-            >
-              <span className={styles.megaRailNum} aria-hidden>
-                {pad(i)}
-              </span>
-              <span>{g.name}</span>
-            </button>
-          ))}
-        </div>
+        {showRail && (
+          <div
+            className={`${styles.megaCol} ${styles.megaRail}`}
+            role="tablist"
+            aria-label={`${panel.eyebrow} categories`}
+          >
+            {panel.groups.map((g, i) => (
+              <button
+                key={g.key}
+                type="button"
+                id={tabId(g.key)}
+                role="tab"
+                aria-selected={g.key === group.key}
+                aria-controls={gridId}
+                className={`${styles.megaRailItem} ${g.key === group.key ? styles.megaRailItemOn : ""}`}
+                onMouseEnter={() => setActive(g.key)}
+                onFocus={() => setActive(g.key)}
+                onClick={() => setActive(g.key)}
+              >
+                <span className={styles.megaRailNum} aria-hidden>
+                  {pad(i)}
+                </span>
+                <span>{g.name}</span>
+              </button>
+            ))}
+          </div>
+        )}
 
         <div
-          className={`${styles.megaCol} ${styles.megaItems} ${group.dense ? styles.megaItemsDense : ""} ${nested ? styles.megaItemsNested : ""}`}
+          className={`${styles.megaCol} ${styles.megaItems} ${nested ? styles.megaItemsNested : ""}`}
           id={gridId}
-          role="tabpanel"
-          aria-labelledby={tabId(group.key)}
+          role={showRail ? "tabpanel" : undefined}
+          aria-labelledby={showRail ? tabId(group.key) : undefined}
         >
           {group.items.map((it, i) =>
             nested ? (
@@ -168,19 +177,41 @@ export default function MegaPanel({
                   </span>
                   <span className={styles.megaItemName}>{it.name}</span>
                 </MenuLink>
-                {it.blurb && <span className={styles.megaBlockBlurb}>{it.blurb}</span>}
                 {it.items && (
                   <div className={styles.megaSubList}>
-                    {it.items.map((sub) => (
-                      <MenuLink
-                        key={sub.name}
-                        href={sub.href}
-                        className={styles.megaSubItem}
-                        onNavigate={onNavigate}
-                      >
-                        {sub.name}
-                      </MenuLink>
-                    ))}
+                    {it.items.map((sub) =>
+                      sub.items?.length ? (
+                        // A fourth level (Mobile App → Native App → Android):
+                        // the sub-item becomes a small heading over its own
+                        // indented list, inside the same column.
+                        <div key={sub.name} className={styles.megaSubGroup}>
+                          <MenuLink href={sub.href} className={styles.megaSubHead} onNavigate={onNavigate}>
+                            {sub.name}
+                          </MenuLink>
+                          <div className={styles.megaSubList}>
+                            {sub.items.map((leaf) => (
+                              <MenuLink
+                                key={leaf.name}
+                                href={leaf.href}
+                                className={styles.megaSubItem}
+                                onNavigate={onNavigate}
+                              >
+                                {leaf.name}
+                              </MenuLink>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <MenuLink
+                          key={sub.name}
+                          href={sub.href}
+                          className={styles.megaSubItem}
+                          onNavigate={onNavigate}
+                        >
+                          {sub.name}
+                        </MenuLink>
+                      ),
+                    )}
                   </div>
                 )}
               </div>
@@ -191,7 +222,6 @@ export default function MegaPanel({
                 </span>
                 <span className={styles.megaItemText}>
                   <span className={styles.megaItemName}>{it.name}</span>
-                  {it.blurb && <span className={styles.megaItemBlurb}>{it.blurb}</span>}
                 </span>
               </MenuLink>
             ),
