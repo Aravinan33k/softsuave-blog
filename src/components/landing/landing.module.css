@@ -2507,6 +2507,27 @@
   margin-top: -0.4em;
 }
 
+/* A bulleted list inside an answer takes the same left inset as `.faqAnswer`,
+   so its markers begin exactly where the prose above and below them does.
+   Without it the list is the one block in the panel with no inset — it starts
+   at the panel's left edge, well left of the paragraph it belongs to, which is
+   what the review read as "the bullet points in the FAQs are not aligned with
+   the text".
+
+   Scoped to `.faqPanel` because `.tickList` is shared with the overview and
+   card sections, where it is already aligned to its own container.
+
+   The introducing paragraph's bottom padding is the gap above the list, so the
+   list's own top margin is dropped rather than added to it; the matching bottom
+   margin then spaces whatever follows — a closing paragraph, or the end of the
+   panel when the list is last (the outsourcing answer). */
+.faqPanel .tickList {
+  margin-top: 0;
+  margin-bottom: clamp(20px, 2.4vw, 28px);
+  padding-left: calc(2.5rem + clamp(12px, 1.6vw, 22px));
+  max-width: 78ch;
+}
+
 /* ============================================================
    CLIENT LOGO RAIL
    Slots held open at the final aspect ratio so real logos drop straight in:

@@ -7,6 +7,7 @@ import { publicMediaUrl } from "@/lib/media-url";
 import SectionHead from "@/components/landing/section-head";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import ServiceLink, { useServiceHref } from "@/components/common/service-link";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "@/components/landing/landing.module.css";
 
 export interface ServiceBoardContent {
@@ -256,9 +257,21 @@ export default function ServiceBoard({
 
       {content.cta && (
         <div className={styles.slatCta}>
-          <a className={styles.slatCtaLink} href={content.cta.href}>
-            {content.cta.label}
-          </a>
+          {/* Same branch as `landing/cta-band`: an in-page target stays a plain
+              <a> so ScrollProvider's Lenis handler intercepts it, while a site
+              path goes through SiteLink, which picks <Link> or an anchor
+              depending on whether this app serves that route yet. Every board
+              but React Native's still points at `#enquiry`, so they are
+              unaffected. */}
+          {content.cta.href.startsWith("#") ? (
+            <a className={styles.slatCtaLink} href={content.cta.href}>
+              {content.cta.label}
+            </a>
+          ) : (
+            <SiteLink className={styles.slatCtaLink} href={content.cta.href}>
+              {content.cta.label}
+            </SiteLink>
+          )}
         </div>
       )}
     </section>
