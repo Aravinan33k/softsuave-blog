@@ -31,24 +31,20 @@ import { HOME_SERVICE_CATALOG } from './home-service-catalog';
  * `homeJsonLd`.
  */
 
-const TITLE = 'Soft Suave — Scalable AI, Automation & Integrations';
+/* The SEO title and description as supplied for the homepage (24 Sep): 46 and
+   149 characters, inside the ~60 / ~160 where Google truncates on desktop. */
+const TITLE = 'Soft Suave | AI & Software Development Company';
 
 /*
- * Kept under 160 characters, which is where Google truncates on desktop.
- *
- * The previous line described the work but never said who it is for or why
- * this company — while the page's own client band leads on exactly that
- * ("Preferred AI-Enabled Technology Partner for Startups and SMBs", backed by
- * 13+ years). A description that omits the audience the page is written for
- * loses the qualifier a searcher scans for, so both are stated here. The
- * figure is the one `clients.body` already publishes above; it is not a new
- * claim, and if that copy changes this has to change with it.
+ * Both figures are ones the page already publishes — 13+ years in
+ * `clients.body`, 400+ specialists in the proof band's `why.stats` — so neither
+ * is a new claim. If either changes on the page, this has to change with it.
  */
 const DESCRIPTION =
-  'Scalable AI solutions, intelligent automation and system integrations for ' +
-  'startups and SMBs. 13+ years of product engineering, built for measurable outcomes.';
+  'Soft Suave is an AI and software development company with 13+ years of ' +
+  'experience and 400+ specialists building scalable, production-ready solutions.';
 
-const OG_IMAGE = dynamicOgImage(brand.name, 'Scalable AI, Automation & Integrations');
+const OG_IMAGE = dynamicOgImage(brand.name, 'AI & Software Development Company');
 
 export const homeMetadata: Metadata = {
   title: TITLE,
