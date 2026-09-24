@@ -163,7 +163,7 @@ export const industries = {
     {
       key: "ecommerce",
       href: "/ai-solutions-for-ecommerce",
-      name: "Ecommerce",
+      name: "eCommerce",
       body: "Transforming e-commerce with AI-driven solutions for smarter selling, faster operations, and better customer experiences. From personalized recommendations to inventory automation and real-time analytics, we help businesses grow efficiently.",
     },
     {

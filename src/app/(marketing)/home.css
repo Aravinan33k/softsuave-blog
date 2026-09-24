@@ -41,8 +41,11 @@
   --line: #434343;
   --accent: var(--brand-500);
   --accent-border: var(--brand-red);
-  /* Ink for text/icons painted on an --accent fill. */
-  --on-accent: #140b08;
+  /* Ink for text/icons painted on an --accent fill. White on the coral by
+     design direction (24 Sep): near-black on the orange read as muddy against
+     the red. The .light band's brick red already takes white too, so every
+     orange button now carries white text. */
+  --on-accent: #ffffff;
   --cream: #e6e4e2;
   --cream-line: #d8d8d8;
 

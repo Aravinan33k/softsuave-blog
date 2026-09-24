@@ -197,15 +197,10 @@ export default function Services() {
         <div className={styles.carGrid}>
           <div key={active} className={styles.carText} aria-live="polite">
             <span className={styles.carNum}>/{pad(active + 1)}</span>
-            {/* h3, not h2: the section's own heading is `.carHeadTitle` above,
-                and a service NAME is subordinate to it. The mobile stack below
-                already had this right — the desktop stage was emitting a second
-                h2 inside the same section. */}
-            {desktop ? (
-              <h3 className={styles.carName}>{items[active].name}</h3>
-            ) : (
-              <div className={styles.carName}>{items[active].name}</div>
-            )}
+            {/* Not a heading: this repeats whichever service is active, so as an
+                h3 it listed one of the ten. The ten H3s are the card tags in
+                the stage below, one per service, as the mobile stack has. */}
+            <div className={styles.carName}>{items[active].name}</div>
             <p className={styles.carBody}>{items[active].body}</p>
             {/* Follows the card on screen. This was a fixed "#contact", so
                 every one of the ten services sent the reader to the same
@@ -225,7 +220,14 @@ export default function Services() {
               >
                 <BrandImage page="four" id={imgId(i, s.img)} fill sizes="55vw" className="object-cover" />
                 <span className={styles.carCardVeil} aria-hidden />
-                <span className={styles.carCardTag}>{s.name}</span>
+                {/* The section's ten H3s while this layout is on screen — see
+                    useDesktopScene. Positioned absolute, so h3 vs span is
+                    the same box. */}
+                {desktop ? (
+                  <h3 className={styles.carCardTag}>{s.name}</h3>
+                ) : (
+                  <span className={styles.carCardTag}>{s.name}</span>
+                )}
               </div>
             ))}
           </div>

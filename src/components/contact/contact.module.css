@@ -329,7 +329,7 @@
 .stepNext {
   border: 1px solid var(--brand-500);
   background: var(--brand-500);
-  color: #140b08;
+  color: #ffffff;
 }
 
 .stepNext:hover {
@@ -545,7 +545,7 @@
   outline: none;
   border-color: var(--brand-500);
   background: var(--brand-500);
-  color: #140b08;
+  color: #ffffff;
 }
 
 .calLoading {
@@ -720,7 +720,7 @@
   height: 34px;
   border-radius: 50%;
   background: var(--brand-500);
-  color: #140b08;
+  color: #ffffff;
 }
 
 /* ---- Offices ---- */
