@@ -3587,6 +3587,126 @@
         "colleagues talking over work desk office people",
         "business team discussion office"
       ]
+    },
+    {
+      "id": "tx-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A TypeScript engineering team working on a business-critical application",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "software engineers working together office screens daylight",
+        "development team at desks bright office",
+        "engineers collaborating monitors workspace",
+        "tech team working office"
+      ]
+    },
+    {
+      "id": "tx-overview",
+      "page": "four",
+      "purpose": "overview-illustration",
+      "alt": "A developer reviewing typed application code on a workstation",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1200,
+      "keywords": [
+        "software developer working desk office natural light person",
+        "engineer at workstation bright office portrait",
+        "developer working computer window light",
+        "person working computer office"
+      ]
+    },
+    {
+      "id": "tx-svc-custom",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "An engineer building a custom TypeScript application",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developer building application laptop bright workspace window",
+        "engineer working laptop daylight desk",
+        "programmer laptop bright office desk",
+        "developer working laptop desk"
+      ]
+    },
+    {
+      "id": "tx-svc-migration",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Engineers planning an incremental migration of an existing codebase",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "two developers reviewing code together monitor office",
+        "engineers pair reviewing screen desk",
+        "colleagues discussing code screen office",
+        "developers reviewing work screen"
+      ]
+    },
+    {
+      "id": "tx-svc-frontend",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A typed frontend interface being built on a wide display",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "web designer working interface tablet bright desk",
+        "ui designer sketching app screens desk",
+        "product designer workspace bright daylight",
+        "designer working desk bright"
+      ]
+    },
+    {
+      "id": "tx-svc-backend",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Backend services being built and deployed for an application",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "backend engineer server infrastructure laptop",
+        "devops engineer working data centre",
+        "systems engineer working servers laptop",
+        "engineer working server room"
+      ]
+    },
+    {
+      "id": "tx-svc-api",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "API contracts being agreed between client and server teams",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "engineers mapping system architecture whiteboard diagram",
+        "team drawing architecture diagram meeting",
+        "developers planning integration whiteboard",
+        "team whiteboard planning office"
+      ]
+    },
+    {
+      "id": "tx-svc-maintenance",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "An engineer auditing an existing codebase before planned maintenance",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "engineers reviewing project together laptop office daylight",
+        "team code review meeting bright office",
+        "colleagues checking work laptop desk window",
+        "two colleagues laptop office"
+      ]
     }
   ]
 }
