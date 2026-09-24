@@ -217,7 +217,7 @@
   --line: #434343;
   --accent: var(--brand-500);
   --accent-border: var(--brand-red);
-  --on-accent: #140b08;
+  --on-accent: #ffffff;
 
   position: relative;
   overflow: hidden;
