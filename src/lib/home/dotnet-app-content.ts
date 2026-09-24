@@ -11,8 +11,13 @@
  * the pairing below is the live page's, not a guess at where the copy splits.
  *
  * The design and the motion are this surface's; the words are not ours to
- * reword, and the live page's own spellings are kept, including "AWS DynomoDB",
- * "GoogleCloud" run together, "MySql", and "SharpLang" in its framework list.
+ * reword, and the live page's own spellings are kept, including "GoogleCloud"
+ * run together and "MySql".
+ *
+ * Two names here were mis-transcriptions rather than the live page's spelling,
+ * and each cost its tile a logo: the framework list's fourth entry is "VueJs",
+ * not "SharpLang", and the database list's is "AWS DynamoDB", not
+ * "AWS DynomoDB" (review: "add missing tech icons in tech stack").
  *
  * The section `eyebrow` kickers are the live page's own too — it sets them
  * above each H2 (`span.text-primary`, and `span.style-font` for the FAQs).
@@ -46,7 +51,7 @@ export const netMeta = {
    * surface does, so it is trimmed to the name rather than shipped as a
    * sentence with the brand twice over.
    */
-  title: ".NET Development Company in India",
+  title: "Trusted .NET Development Company in India for Your Business",
   description:
     "Leading .NET development company in India delivering custom solutions for seamless, high-performance web applications and enterprise software.",
 } as const;
@@ -65,7 +70,9 @@ export const netHero: HeroContent = {
   badges: partnerHeroBadges,
   form: {
     // The live page's own form heading and sub-line.
-    eyebrow: "Let’s Discuss Your Project",
+    // No `eyebrow`: the review asked for the hero's kicker to go, and the
+    // card's is the only one the hero renders. Same correction the React
+    // Native, Ionic and Xamarin pages took.
     title: "Get free rough quote in 24 hrs",
     note: "Tell us what the application has to do and which systems it has to work with, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Submit",
@@ -94,8 +101,17 @@ export const netOverview: OverviewContent = {
     "We define the best strategy for providing customized .NET Web Development Services using the most advanced technologies and frameworks. Moreover, our .NET developers implement creative and innovative ideas to serve our clients with even better applications.",
     "Understanding client requirements and building applications is an ongoing process in Soft Suave. Hence, we are known for the exceptional ASP.NET application development with shorter development time and lower costs.",
   ],
+  /**
+   * Portrait-cut frame, replacing a 4:3 photograph.
+   *
+   * The frame stretches to the prose height at desktop and lands near square,
+   * so the landscape asset was cropped down to a corner of itself — the panel
+   * showed almost nothing but dark ground and a few blurred characters
+   * (review: "need to resize the section image"). Cut portrait, the square
+   * frame takes this one nearly whole.
+   */
   image: {
-    src: "/images/landing/dotnet/overview.webp",
+    src: "/images/four/net-overview.webp",
     width: 1400,
     height: 1050,
     alt: "C# source code on screen, the language a .NET application is written in",
@@ -114,7 +130,9 @@ export const netServices: ServiceBoardContent = {
   eyebrow: ".NET Development Services",
   title: "Full-Cycle .NET Development Services For Your Business",
   body: "With the help of the best-skilled ASP.NET development team with talented developers, designers, project managers, and business analysts, we deliver high-quality results.",
-  cta: { label: "Talk To Experts", href: "#enquiry" },
+  // /contact, not this page's `#enquiry` anchor — the review asked for this
+  // button to reach the contact page.
+  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "Custom .NET Development",
@@ -138,7 +156,10 @@ export const netServices: ServiceBoardContent = {
         "Apart from .NET Mobile App Development and web development, Soft Suave also takes care of third-party .NET customization solutions. Our crew of professionals strives to provide your business with the utmost support in every requirement- from UI improvement to API development. We also help with maintainability, technical support, UI skinning, and enhancement of functionality.",
         "As an ASP.NET development service company, we have skilled software engineers who have more than 5 years of experience. This helps them to bring your project to life by making use of the industry's best App development methods and practices.",
       ],
-      image: { src: "/images/landing/dotnet/svc-customization.webp", alt: "" },
+      // Replaced a screenshot of source code whose visible text read
+      // "Authentication Failed" — an error state is not what a services card
+      // should be showing.
+      image: { src: "/images/four/net-customization.webp", alt: "" },
     },
     {
       name: "ASP.NET Consulting Services",
@@ -146,7 +167,10 @@ export const netServices: ServiceBoardContent = {
         "The flexibility of the .NET Framework empowers our developers to craft powerful and safe applications. With more than 13+ years of experience in the field, we as a company help SMBs and startups gain the ultimate digital presence with our programming expertise.",
         "Procure quality, industry/international-standard ASP.NET consulting services by utilizing our .NET developers' talents. We understand that every business has its requirements, and strive to make sure the projects are tailored to meet these unique demands.",
       ],
-      image: { src: "/images/landing/dotnet/svc-consulting.webp", alt: "" },
+      // Consulting now gets an advisory scene. The photograph that was here
+      // — a floor of headset cubicles — is support, and has moved to the
+      // support card below where it belongs.
+      image: { src: "/images/four/net-consulting.webp", alt: "" },
     },
     {
       name: "ASP.NET Enterprise Solutions",
@@ -162,14 +186,19 @@ export const netServices: ServiceBoardContent = {
         "An App needs uninterrupted support and maintenance, in other words, post-deployment services to make sure it performs well and stays up to date. Hence, our .NET development team always examines App for enhancing existing features, cloud, and mobility-related functionalities and bug-fixing.",
         "We pride ourselves in our continued post-project support, and this has contributed to us being an established ASP.NET Web Development company. We additionally offer our support to enhance existing applications and provide complete support from start to finish to fulfill evolving commercial enterprise needs.",
       ],
-      image: { src: "/images/landing/dotnet/svc-support.webp", alt: "" },
+      // The headset-cubicle photograph, which was on the consulting card.
+      // What it replaced here was a developer at a code editor, which is
+      // development rather than support: the two were simply the wrong way
+      // round.
+      image: { src: "/images/landing/dotnet/svc-consulting.webp", alt: "" },
     },
   ],
 };
 
 /** The live page's band between the services and the technology stack. */
 export const netHireCta: CtaBandContent = {
-  eyebrow: "Hire A Team",
+  // No `eyebrow`: the review asked for the CTA's kicker to go, so the heading
+  // stands on its own — which is what `CtaBandContent.eyebrow` is optional for.
   title: "Hire an Offshore .NET Application Development Team",
   body: "Soft Suave has a pool of Dedicated .NET Developers who deliver your app development project on time and under your budget.",
   cta: { label: "Hire .NET Developer", href: "/hire-dot-net-developers" },
@@ -183,16 +212,16 @@ export const netHireCta: CtaBandContent = {
 export const netTech: TechStackContent = {
   eyebrow: ".NET Application Development",
   title: "Our Expertise in .NET Application Development Technologies",
-  body: "Soft Suave's .NET developers work across the frameworks, databases and cloud platforms below.",
+  body: "Partner with us to work with one of India's Best .NET Development Companies who are proficient in various Tools, Frameworks, Technologies, and Databases.",
   groups: [
-    { name: "Frameworks", items: ["ASP.NET Core", "C#", "VB.NET", "SharpLang", "Blazor"] },
+    { name: "Frameworks", items: ["ASP.NET Core", "C#", "VB.NET", "VueJs", "Blazor"] },
     {
       name: "Database",
       items: [
         "MySql",
         "MongoDB",
         "PostgreSQL",
-        "AWS DynomoDB",
+        "AWS DynamoDB",
         "SQLite",
         "Cloud Firestore",
         "Oracle",

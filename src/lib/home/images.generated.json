@@ -2892,5 +2892,44 @@
     "photographer": "Beyza Oruk",
     "pexelsUrl": "https://www.pexels.com/photo/cellphone-and-tablet-17803335/",
     "matchedTier": "mobile app developer tablet and phone testing"
+  },
+  "four/net-overview": {
+    "page": "four",
+    "id": "net-overview",
+    "src": "/images/four/net-overview.webp",
+    "width": 1000,
+    "height": 1200,
+    "alt": "A .NET engineer building an enterprise application at a desktop workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAACwAQCdASoLABAAA4BaJZwAAlFjFIhAAP538dR3ufpH469UoIrgj3SJu+nHWhkRlgMJmxSdNfOMOPj/NJoHYi46XHgN8OA883apmwrMdglsMutHAEbtL4AA",
+    "pexelsId": 12899165,
+    "photographer": "Mizuno K",
+    "pexelsUrl": "https://www.pexels.com/photo/vertical-shot-of-a-woman-in-an-office-looking-at-a-computer-screen-with-multicoloured-script-12899165/",
+    "matchedTier": "software engineer working desktop computer vertical"
+  },
+  "four/net-customization": {
+    "page": "four",
+    "id": "net-customization",
+    "src": "/images/four/net-customization.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Engineers integrating a third-party system into an existing application",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAABQAgCdASoQAAsAA4BaJYwCsAYvXzgIA3Fw9QAA/t2+ac3aBsbc7t+IFpdY3XzEtAtMd/A97vC0O6dVu4YSo+8Ca4wHfwva1U0Yup5pIMRJ7Ha1eacHuzM5WobrisU8QGDKmvgA",
+    "pexelsId": 15399855,
+    "photographer": "Usen Parmanov",
+    "pexelsUrl": "https://www.pexels.com/photo/meeting-in-the-office-with-a-video-call-on-a-laptop-15399855/",
+    "matchedTier": "developers integrating systems laptop screens"
+  },
+  "four/net-consulting": {
+    "page": "four",
+    "id": "net-consulting",
+    "src": "/images/four/net-consulting.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A consultant advising a client team on an application architecture",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAQAgCdASoQAAsAA4BaJZwAD5GwhnkI5NpgAP7xk+2GI17r9M5NmXopYl4XWAUs35AxEeAyaUODYfckqUBqqSHz0fc6NRPaI0v3bAKSNmCiusXb3st8qf6s84bQhT1qmymqwAAA",
+    "pexelsId": 7964144,
+    "photographer": "Felicity Tai",
+    "pexelsUrl": "https://www.pexels.com/photo/people-at-a-business-meeting-7964144/",
+    "matchedTier": "consultant advising team whiteboard meeting"
   }
 }

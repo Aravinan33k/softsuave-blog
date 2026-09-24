@@ -3287,6 +3287,51 @@
         "app running on tablet and smartphone desk",
         "mobile application devices desk"
       ]
+    },
+    {
+      "id": "net-overview",
+      "page": "four",
+      "purpose": "overview-illustration",
+      "alt": "A .NET engineer building an enterprise application at a desktop workstation",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1200,
+      "keywords": [
+        "software engineer working desktop computer vertical",
+        "developer at workstation office portrait",
+        "programmer working monitor office",
+        "developer desk computer"
+      ]
+    },
+    {
+      "id": "net-customization",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Engineers integrating a third-party system into an existing application",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developers integrating systems laptop screens",
+        "software integration engineers working",
+        "two developers reviewing code screen",
+        "engineers working laptop together"
+      ]
+    },
+    {
+      "id": "net-consulting",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A consultant advising a client team on an application architecture",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "consultant advising team whiteboard meeting",
+        "technology consultant client meeting office",
+        "business consultant presenting team",
+        "consulting meeting office discussion"
+      ]
     }
   ]
 }

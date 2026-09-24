@@ -473,6 +473,48 @@ export default function TechLogo({ name }: { name: string }) {
           <path d="M7.4 11.7h9.2M5.2 15.9h13.6" stroke="white" strokeWidth="1.1" strokeOpacity="0.75" />
         </svg>
       );
+    case "aspnetcore":
+    case "aspnet":
+      // ASP.NET Core — the purple .NET tile with the stack wordmark's dot
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#512BD4" />
+          <circle cx="5.9" cy="16.1" r="1.5" fill="#fff" />
+          <path d="M9.4 17V9.6h1.7l3 4.7V9.6h1.6V17h-1.6l-3.1-4.8V17H9.4Z" fill="#fff" />
+          <path d="M17.2 11.2h1.5v1.6h1.5v1.4h-1.5v1.6h-1.5v-1.6h-1.5v-1.4h1.5v-1.6Z" fill="#fff" />
+        </svg>
+      );
+    case "vbnet":
+      // VB.NET — the same .NET purple, marked with the language's initials
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#512BD4" />
+          <path d="M4.4 7.6h1.8l1.7 5.5 1.7-5.5h1.8l-2.6 8H7L4.4 7.6Z" fill="#fff" />
+          <path
+            d="M12.4 7.6h3c1.4 0 2.3.7 2.3 2 0 .8-.4 1.4-1 1.7.8.3 1.3.9 1.3 1.9 0 1.4-1 2.4-2.6 2.4h-3v-8Zm1.7 3.2h1.1c.5 0 .8-.3.8-.8s-.3-.8-.8-.8h-1.1v1.6Zm0 3.4h1.3c.6 0 .9-.3.9-.9s-.3-.9-.9-.9h-1.3v1.8Z"
+            fill="#fff"
+          />
+        </svg>
+      );
+    case "blazor":
+      // Blazor — its purple rounded badge with the lightning-bolt "B"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#512BD4" />
+          <path d="M13.6 4.5 7.4 12.6h3.4L9.9 19.5l6.4-8.4h-3.5l.8-6.6Z" fill="#fff" />
+        </svg>
+      );
+    case "rackspace":
+      // Rackspace — its red rounded tile with the wordmark's opening "r"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#E2231A" />
+          <path
+            d="M8.2 8.9h2.2v1.2c.5-.9 1.4-1.4 2.6-1.4.5 0 .9.1 1.3.2l-.5 2.1a3 3 0 0 0-1.1-.2c-1.4 0-2.3.9-2.3 2.6v2.7H8.2V8.9Z"
+            fill="#fff"
+          />
+        </svg>
+      );
     case "csharp":
       // C#'s purple rounded tile with the sharp sign
       return (
