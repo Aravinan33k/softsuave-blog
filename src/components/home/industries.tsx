@@ -390,6 +390,12 @@ export default function Industries() {
             style={{ ["--card" as string]: CARD_COLOR } as React.CSSProperties}
             onMouseEnter={() => handleMouseEnter(i)}
             onMouseLeave={() => handleMouseLeave(i)}
+            // Keyboard focus on the card's link is the same active state as a
+            // hover: lifted in the fan, description revealed (:focus-within).
+            onFocus={() => handleMouseEnter(i)}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node | null)) handleMouseLeave(i);
+            }}
           >
             <div className={styles.indFanCardImg}>
               <BrandImage
@@ -406,6 +412,14 @@ export default function Industries() {
               <CardIconBadge title={it.name} body={it.body} size="sm" className={styles.indFanCardNum} />
               <p className={styles.indFanCardBody}>{it.body}</p>
             </div>
+            {/* The whole card is the link: this layer covers the photo and the
+                description (above them, below the orange strip), so a click
+                anywhere on the card opens the sector's page — middle-click and
+                "open in new tab" included, which an onClick push would not give.
+                It is a duplicate of the strip's link, so it is taken out of the
+                tab order and the accessibility tree: the strip stays the card's
+                one named, focusable link. */}
+            <SiteLink href={it.href} className={styles.indFanCardHit} tabIndex={-1} aria-hidden="true" />
             {/* Each sector is an H3 under the section's H2. The link stays inside
                 the heading, so the name is still the card's link; the strip is
                 positioned against the card, so the h3 adds no layout. */}

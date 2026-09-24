@@ -64,13 +64,33 @@ function KnowMoreLink({ href }: { href: string }) {
   );
 }
 
-/** Position each card by its distance from the active slide. */
+/**
+ * Position each card by its distance from the active slide.
+ *
+ * The cards are links (see `carCardHit`), so the ones at opacity 0 — gone past
+ * the stack, or waiting off to the right — also stop taking the pointer:
+ * otherwise an invisible card would catch a click meant for what is beside it.
+ */
 function cardStyle(offset: number): React.CSSProperties {
   if (offset === 0) return { transform: "translateX(0) scale(1)", opacity: 1, zIndex: 30 };
   if (offset === -1) return { transform: "translateX(-14%) scale(0.9)", opacity: 1, zIndex: 20 };
   if (offset === -2) return { transform: "translateX(-24%) scale(0.82)", opacity: 0.3, zIndex: 10 };
-  if (offset < -2) return { transform: "translateX(-30%) scale(0.78)", opacity: 0, zIndex: 5 };
-  return { transform: "translateX(66%) scale(0.9)", opacity: 0, zIndex: 1 }; // upcoming
+  if (offset < -2)
+    return { transform: "translateX(-30%) scale(0.78)", opacity: 0, zIndex: 5, pointerEvents: "none" };
+  return { transform: "translateX(66%) scale(0.9)", opacity: 0, zIndex: 1, pointerEvents: "none" }; // upcoming
+}
+
+/**
+ * A card's click target: the whole card links to its service page.
+ *
+ * A duplicate of the Know More link for the same service, so it is kept out of
+ * the tab order and the accessibility tree — Know More stays the named,
+ * focusable link. MLOps (`#services`, no page of its own) gets none: its "page"
+ * is this section, so a card link would only scroll to where the reader is.
+ */
+function CardLink({ href }: { href: string }) {
+  if (href.startsWith("#")) return null;
+  return <SiteLink href={href} className={styles.carCardHit} tabIndex={-1} aria-hidden="true" />;
 }
 
 export default function Services() {
@@ -228,6 +248,7 @@ export default function Services() {
                 ) : (
                   <span className={styles.carCardTag}>{s.name}</span>
                 )}
+                <CardLink href={s.href} />
               </div>
             ))}
           </div>
@@ -278,6 +299,7 @@ export default function Services() {
           <article key={s.key} className={styles.carMobRow}>
             <div className={styles.carMobCard}>
               <BrandImage page="four" id={imgId(i, s.img)} fill sizes="100vw" className="object-cover" />
+              <CardLink href={s.href} />
             </div>
             <div className={styles.carMobText}>
               <span className={styles.carNum}>/{pad(i + 1)}</span>

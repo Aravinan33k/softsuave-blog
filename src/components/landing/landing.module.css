@@ -176,9 +176,9 @@
    --accent-border. Neither moves: the 2px lift is gone, as is the magnetic
    pull that used to slide these toward the cursor. */
 .btn:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--on-accent, #140b08);
+  background: var(--cta-bg, #ff5436);
+  border-color: var(--cta-bg, #ff5436);
+  color: var(--cta-ink, #ffffff);
 }
 
 .btn:focus-visible {
@@ -186,10 +186,11 @@
   outline-offset: 3px;
 }
 
+/* The fixed button orange (--cta-bg, home.css), not the band's --accent. */
 .btnPrimary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--on-accent, #140b08);
+  background: var(--cta-bg, #ff5436);
+  border-color: var(--cta-bg, #ff5436);
+  color: var(--cta-ink, #ffffff);
 }
 
 /* Already accent-filled at rest, so it highlights by shifting hue rather than

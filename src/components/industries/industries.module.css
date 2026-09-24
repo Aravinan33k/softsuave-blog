@@ -210,9 +210,9 @@
 }
 
 .pillFilled {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--on-accent, #140b08);
+  background: var(--cta-bg, #ff5436);
+  border-color: var(--cta-bg, #ff5436);
+  color: var(--cta-ink, #ffffff);
 }
 
 /* Colour-only hover — see the long note over home.module.css .pill. The
@@ -220,9 +220,9 @@
    --accent-border. Neither moves: the 2px lift is gone, as is the magnetic
    pull that used to slide these toward the cursor. */
 .pill:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--on-accent, #140b08);
+  background: var(--cta-bg, #ff5436);
+  border-color: var(--cta-bg, #ff5436);
+  color: var(--cta-ink, #ffffff);
 }
 
 /* The filled plate's hover is home.module.css `.pillFilled`'s contrast wipe,
