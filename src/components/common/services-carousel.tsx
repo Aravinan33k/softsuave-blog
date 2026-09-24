@@ -7,6 +7,7 @@ import { publicMediaUrl } from "@/lib/media-url";
 import SectionHead from "@/components/landing/section-head";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import ServiceLink, { useServiceHref } from "@/components/common/service-link";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "@/components/landing/landing.module.css";
 
 /** Horizontal travel a pointer drag needs before it counts as a swipe, in px. */
@@ -19,6 +20,11 @@ export interface ServicesCarouselContent {
   eyebrow: string;
   title: string;
   body: string;
+  /**
+   * Optional button under the carousel. The live Angular page closes this
+   * section with one and ours had none (review: "missing CTA").
+   */
+  cta?: { readonly label: string; readonly href: string };
   items: readonly {
     readonly name: string;
     readonly body: string;
@@ -268,6 +274,14 @@ export default function ServicesCarousel({
           );
         })}
       </div>
+
+      {content.cta && (
+        <div className={styles.carouselCta}>
+          <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
+            {content.cta.label}
+          </SiteLink>
+        </div>
+      )}
 
       <div className={styles.carouselNav}>
         <button

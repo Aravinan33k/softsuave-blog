@@ -3407,6 +3407,126 @@
         "blogger publishing content computer",
         "writing editing content computer"
       ]
+    },
+    {
+      "id": "ng-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "An Angular engineering team building a web application together",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "web engineering team collaborating office screens",
+        "developers working together modern office",
+        "software team meeting laptops office",
+        "tech team office collaboration"
+      ]
+    },
+    {
+      "id": "ng-spa",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A single-page application running in a browser on a designer workstation",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "web developer building website large monitor office",
+        "front end developer working desktop screen",
+        "developer coding website workstation bright",
+        "developer working large monitor"
+      ]
+    },
+    {
+      "id": "ng-plugin",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Engineers extending an existing application with custom components",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "two engineers pair programming laptop bright office",
+        "developers collaborating laptop desk window",
+        "colleagues working laptop office bright",
+        "pair of developers working desk"
+      ]
+    },
+    {
+      "id": "ng-widget",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Interface components being assembled on a design workstation",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "ui designer working interface tablet bright desk",
+        "designer sketching app interface screen",
+        "product designer workstation bright",
+        "designer working screen desk"
+      ]
+    },
+    {
+      "id": "ng-api",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Backend services connecting an application to its data",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "server room network engineer bright",
+        "data centre engineer working laptop",
+        "network infrastructure technician working",
+        "server racks technician"
+      ]
+    },
+    {
+      "id": "ng-work-health",
+      "page": "four",
+      "purpose": "case-card",
+      "alt": "A doctor consulting a patient over video on a tablet",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "doctor video consultation tablet patient",
+        "telemedicine doctor laptop video call",
+        "physician using tablet clinic",
+        "doctor using tablet hospital"
+      ]
+    },
+    {
+      "id": "ng-work-retail",
+      "page": "four",
+      "purpose": "case-card",
+      "alt": "A shopper browsing a multi-vendor marketplace on a phone",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "online shopping marketplace phone hand card",
+        "ecommerce shopping smartphone payment",
+        "person shopping online phone desk",
+        "online shopping ecommerce laptop"
+      ]
+    },
+    {
+      "id": "ng-work-consulting",
+      "page": "four",
+      "purpose": "case-card",
+      "alt": "A consulting team tracking project progress on a planning board",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "project management board team planning office",
+        "team tracking tasks kanban board office",
+        "project planning meeting whiteboard",
+        "team planning board office"
+      ]
     }
   ]
 }

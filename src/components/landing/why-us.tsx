@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import SectionHead from "./section-head";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./landing.module.css";
 import type { CardGridContent } from "./industries";
 
@@ -87,6 +88,13 @@ export default function WhyUs({
           </li>
         ))}
       </ul>
+
+      {/* The way out of the section, where the copy earns one. */}
+      {content.cta && (
+        <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.proofCta}`}>
+          {content.cta.label}
+        </SiteLink>
+      )}
     </section>
   );
 }

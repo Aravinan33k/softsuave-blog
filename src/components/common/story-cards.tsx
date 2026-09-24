@@ -5,6 +5,7 @@ import Image from "next/image";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
 import SectionHead from "@/components/landing/section-head";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "@/components/landing/landing.module.css";
 
 export interface StoryCardsContent {
@@ -21,6 +22,14 @@ export interface StoryCardsContent {
       readonly src: string;
       readonly alt: string;
     };
+    /**
+     * The case study this card summarises. Renders a "View More" link under
+     * the copy, which is what the live pages put there and what these cards
+     * were missing (review: "link to case study page is missing"). Omitted
+     * renders no link rather than a dead one — a story with nothing written
+     * up is still worth showing, just not worth clicking.
+     */
+    readonly href?: string;
   }[];
 }
 
@@ -94,6 +103,16 @@ export default function StoryCards({
             <span className={styles.stcTag}>{item.industry}</span>
             <h3 className={styles.stcName}>{item.name}</h3>
             <p className={styles.stcBody}>{item.body}</p>
+            {/* Through SiteLink: several of these case studies are pages
+                softsuave.com publishes and this app does not yet, so they
+                resolve to the live site rather than 404ing. */}
+            {item.href && (
+              <SiteLink href={item.href} className={styles.stcLink}>
+                View More
+                <span aria-hidden>&#8594;</span>
+                <span className={styles.srOnly}> about {item.name}</span>
+              </SiteLink>
+            )}
           </article>
         ))}
       </div>

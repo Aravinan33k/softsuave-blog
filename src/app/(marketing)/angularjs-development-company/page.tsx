@@ -7,6 +7,7 @@ import {
   ngFaqs,
   ngHero,
   ngHireCta,
+  ngProjectCta,
   ngMeta,
   ngServices,
   ngStacks,
@@ -176,6 +177,11 @@ export default function AngularDevelopmentPage() {
 
         <WhyUs content={ngWhyUs} />
 
+        {/* The live page's second conversion band, after the why-us case.
+            `backdrop={false}` keeps it on the page's own ground rather than
+            the coral light-field, as every corrected CTA on this surface does. */}
+        <CtaBand content={ngProjectCta} backdrop={false} />
+
         <div className={home.light}>
           <StoryCards content={ngStories} />
           {/* The live page's "Awards & Certifications" band. NOT
@@ -185,13 +191,15 @@ export default function AngularDevelopmentPage() {
           <Recognitions />
         </div>
 
-        <Faq content={ngFaqs} idPrefix="ng-faq" />
-
-        {/* Homepage client stories, on the warm-white band as they are there —
-            the live page's band carries the same heading and standfirst. */}
+        {/* The client stories now come before the FAQ, as the review asked and
+            as every corrected page on this surface runs them — the proof lands
+            before the objection-handling rather than after it. The live page's
+            band carries the same heading and standfirst. */}
         <div className={home.light}>
           <Testimonials />
         </div>
+
+        <Faq content={ngFaqs} idPrefix="ng-faq" />
 
         <Contact />
       </main>

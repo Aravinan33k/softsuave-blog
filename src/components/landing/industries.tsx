@@ -263,6 +263,14 @@ export interface CardGridContent {
   title: string;
   body: string;
   /**
+   * Optional button under the grid, for a section whose cards make a case the
+   * reader should be able to act on — the Angular page's "Why Choose Soft
+   * Suave" closes on six reasons and then offered no way forward (review:
+   * "CTA button missing"). Rendered by `landing/why-us`; the card grids that
+   * are pure statements simply omit it.
+   */
+  cta?: { readonly label: string; readonly href: string };
+  /**
    * Optional bullets between the intro and the grid, for a section whose copy
    * carries a short claim list of its own before the cards start.
    */
