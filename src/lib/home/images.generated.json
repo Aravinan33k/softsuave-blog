@@ -3100,5 +3100,44 @@
     "photographer": "olia danilevich",
     "pexelsUrl": "https://www.pexels.com/photo/high-angle-shot-of-a-boy-sitting-on-grey-chair-while-using-his-laptop-computers-4974922/",
     "matchedTier": "web developer building website large monitor office"
+  },
+  "four/nx-hero": {
+    "page": "four",
+    "id": "nx-hero",
+    "src": "/images/four/nx-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A product team building a web platform together in a bright studio",
+    "blurDataURL": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAADwAQCdASoQAAsAA4BaJQBdgB04Xp3bUyAA/uKINg6ugNceVPus9rz34jBk9pZm20oiYXZkboijWN9MyvRY/yduKszlQXzO0t0+5ryynbGaKKlVRdDkv7yC2yNoN3Uncy+QfDRPvZ/T7FogAAA=",
+    "pexelsId": 15543042,
+    "photographer": "Walls.io",
+    "pexelsUrl": "https://www.pexels.com/photo/employees-with-laptops-at-the-conference-table-in-the-office-15543042/",
+    "matchedTier": "product team working together bright office screens"
+  },
+  "four/nx-custom": {
+    "page": "four",
+    "id": "nx-custom",
+    "src": "/images/four/nx-custom.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "An engineer building a custom web application at a workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAQAgCdASoQAAsAA4BaJZwAD5DvHmtKY3oAAP7X8loHT5xnZUX93zs4ad7otPZ9zormGrvqAZ1gCTAuWbfsnO23HIvOW3nk3LVvTA4yj+gKY58Q5oyKxRSM362MCu9B5kL8nmJmkP9tcAAA",
+    "pexelsId": 1181676,
+    "photographer": "Christina Morillo",
+    "pexelsUrl": "https://www.pexels.com/photo/woman-sitting-while-operating-macbook-pro-1181676/",
+    "matchedTier": "developer building application laptop bright desk window"
+  },
+  "four/nx-migration": {
+    "page": "four",
+    "id": "nx-migration",
+    "src": "/images/four/nx-migration.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Engineers planning a migration of an existing application",
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAQAgCdASoQAAsAA4BaJYgCdADxAaseX7XMAP5LqUcqzeneAVtC7ey6ZDX66vGqXlIo/MXautuPgvWmGNB5lBaVpN2r7DSK6AVzmXUir60ZA465fklpSAKE8SLOAAAA",
+    "pexelsId": 7793103,
+    "photographer": "Yan Krukau",
+    "pexelsUrl": "https://www.pexels.com/photo/a-man-in-white-long-sleeve-button-up-shirt-7793103/",
+    "matchedTier": "engineers planning architecture whiteboard sticky notes"
   }
 }

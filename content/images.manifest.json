@@ -3527,6 +3527,51 @@
         "project planning meeting whiteboard",
         "team planning board office"
       ]
+    },
+    {
+      "id": "nx-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A product team building a web platform together in a bright studio",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "product team working together bright office screens",
+        "developers and designers collaborating studio",
+        "software product team office daylight",
+        "team working laptops bright office"
+      ]
+    },
+    {
+      "id": "nx-custom",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "An engineer building a custom web application at a workstation",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developer building application laptop bright desk window",
+        "software engineer working laptop daylight office",
+        "programmer at desk natural light",
+        "developer laptop bright workspace"
+      ]
+    },
+    {
+      "id": "nx-migration",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Engineers planning a migration of an existing application",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "engineers planning architecture whiteboard sticky notes",
+        "team mapping system migration meeting room",
+        "developers planning session whiteboard office",
+        "team planning whiteboard office"
+      ]
     }
   ]
 }

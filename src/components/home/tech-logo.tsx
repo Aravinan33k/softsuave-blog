@@ -473,6 +473,100 @@ export default function TechLogo({ name }: { name: string }) {
           <path d="M7.4 11.7h9.2M5.2 15.9h13.6" stroke="white" strokeWidth="1.1" strokeOpacity="0.75" />
         </svg>
       );
+    /* ----------------------------------------------------------------
+       Rendering strategies, routing, gateways and test levels.
+
+       These are the first entries here that are NOT products, so there is
+       no vendor mark to reproduce — and without one they fell through to
+       the generic dot, which is what the Next.js page's stack was showing
+       for eight of its thirty-one items (review: "a few icons are missing
+       in the tech stack section").
+
+       So they are drawn, in one accent colour rather than brand palettes,
+       which is the honest signal: a coloured logo means a product, a coral
+       glyph means a technique. Same 24x24 geometry as everything else.
+       ---------------------------------------------------------------- */
+    case "ssr":
+      // Server-side rendering: a server stack pushing a finished page out
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#FF5436" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2.6" y="4" width="8" height="5" rx="1.2" />
+          <rect x="2.6" y="13" width="8" height="5" rx="1.2" />
+          <path d="M12.8 11h6.4" />
+          <path d="M16.6 8.2 19.8 11l-3.2 2.8" />
+          <path d="M5.4 6.5h.01M5.4 15.5h.01" />
+        </svg>
+      );
+    case "ssg":
+      // Static generation: a page built ahead of time, marked done
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#FF5436" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5.6 3.4h8.2l4.6 4.6v12.6H5.6z" />
+          <path d="M13.4 3.6v4.6h4.6" />
+          <path d="M8.6 15.4l2 2 4.2-4.4" />
+        </svg>
+      );
+    case "isr":
+      // Incremental regeneration: a page that refreshes itself on a cycle
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#FF5436" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4.6 4.4h10.2v6.2" />
+          <path d="M19.6 12.4a7 7 0 01-11.8 5.1L5.2 15" />
+          <path d="M4.6 19.4v-4.6h4.6" />
+          <path d="M19.4 8.2V3.6h-4.6" />
+        </svg>
+      );
+    case "approuter":
+    case "router":
+      // Routing: one entry branching to the segments below it
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#FF5436" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="4.6" r="2.2" />
+          <circle cx="5.4" cy="19.4" r="2.2" />
+          <circle cx="18.6" cy="19.4" r="2.2" />
+          <path d="M12 6.8v4.4" />
+          <path d="M12 11.2H5.4v6M12 11.2h6.6v6" />
+        </svg>
+      );
+    case "apigateways":
+    case "apigateway":
+      // A gateway: traffic converging through one controlled opening
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#FF5436" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M8.6 20.4V8.6a3.4 3.4 0 016.8 0v11.8" />
+          <path d="M5.4 20.4h13.2" />
+          <path d="M2.6 12h3.6M17.8 12h3.6" />
+        </svg>
+      );
+    case "unittesting":
+      // One unit, checked in isolation
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#FF5436" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4.4" y="4.4" width="15.2" height="15.2" rx="2.4" />
+          <path d="M8.6 12.2l2.4 2.4 4.4-4.8" />
+        </svg>
+      );
+    case "integrationtesting":
+      // Two units checked where they meet
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#FF5436" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2.8" y="7.4" width="7.4" height="9.2" rx="1.8" />
+          <rect x="13.8" y="7.4" width="7.4" height="9.2" rx="1.8" />
+          <path d="M10.2 12h3.6" />
+          <path d="M10.6 4.6l1.4 1.4 1.4-1.4" />
+        </svg>
+      );
+    case "endtoendtesting":
+    case "e2etesting":
+      // The whole path walked, start to finish
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#FF5436" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="4.4" cy="17.6" r="2" />
+          <path d="M6.4 17.6h4a4 4 0 004-4v-2a4 4 0 014-4h1" />
+          <path d="M17.6 4.4v7.2" />
+          <path d="M17.6 4.4l3.4 1.8-3.4 1.8" />
+        </svg>
+      );
     case "aspnetcore":
     case "aspnet":
       // ASP.NET Core — the purple .NET tile with the stack wordmark's dot

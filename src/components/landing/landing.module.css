@@ -2447,7 +2447,12 @@
        main event. Capped at a fixed 420px instead: a single-column form reads
        fine at that width and stops widening past it, so the copy column takes
        every extra pixel a bigger viewport brings. */
-    grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+    /* Raised from 420px on review ("the form size needs to be updated"): a
+       hero whose copy column runs to five supporting points and a badge row
+       is around 760px tall, and beside it a 420px card read as stranded. 470
+       is still well short of the 600px+ the proportional share used to give
+       it, so the headline stays the page's main event. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 470px);
     gap: clamp(48px, 5vw, 88px);
     /* The enquiry form is the shorter column — floats centered in the row
        instead of pinned to the copy column's top edge. */
@@ -3497,15 +3502,21 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: var(--fs-card-title);
+  /* Was `--fs-card-title` (22px). These are the page's service headings, not
+     small cards in a grid — one is in focus at a time and the card is most of
+     the row (review: "update the font sizes and spacing, especially in the
+     services section"). */
+  font-size: clamp(1.45rem, 1.9vw, 1.75rem);
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: #fff;
 }
 
 .carouselText {
-  margin: 10px 0 0;
-  font-size: var(--fs-body-sm);
+  /* Was 10px against a heading twice its size, at `--fs-body-sm` (14.4px) —
+     the same undersized-prose correction the web-app service board took. */
+  margin: 14px 0 0;
+  font-size: var(--fs-body);
   line-height: 1.62;
   color: rgba(255, 255, 255, 0.86);
 }
