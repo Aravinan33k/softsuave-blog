@@ -133,8 +133,10 @@ export default function XamarinAppDevelopmentPage() {
        * Band rhythm. The `home.light` wrapper re-points the same
        * --bg/--surface/--text tokens every component already reads, so a
        * band is just the wrapper. Hero opens dark and the closing Contact
-       * band is dark, and everything between alternates cleanly — no run of
-       * two dark sections anywhere on the page.
+       * band is dark, and everything between alternates — the one two-dark
+       * run is the service board into its CTA, which is deliberate: moving
+       * that band ahead of the technology stack puts it directly under the
+       * services, and a CTA wants the deepest ground beneath it.
        *
        * This is the shortest page on the surface, because the live one is:
        * no clients band, no industries grid, no case studies, no FAQ.
@@ -153,15 +155,20 @@ export default function XamarinAppDevelopmentPage() {
             long to sit on cards and too long to run down the page. */}
         <ServiceBoard content={xamServices} />
 
-        <div className={home.light}>
-          <TechStack content={xamTech} />
-        </div>
-
+        {/* The CTA now sits between the services and the technology stack, as
+            the review asked — the reader is invited to act straight off the
+            services they have just read, rather than after a grid of logos. */}
         <CtaBand content={xamHireCta} />
 
-        {/* Homepage client stories, on the warm-white band as they are there —
-            the live page's band carries the same heading and standfirst. */}
+        {/* Moving the CTA up leaves the stack and the stories adjacent on the
+            warm white, so they share one wrapper: two light bands stacked
+            would double the padding between them and read as separate panels
+            rather than one chapter. Same merge `landing/hire-page` does with
+            its own runs. */}
         <div className={home.light}>
+          <TechStack content={xamTech} />
+          {/* Homepage client stories — the live page's band carries the same
+              heading and standfirst. */}
           <Testimonials />
         </div>
 

@@ -626,6 +626,19 @@
    The padding keeps the artwork off the frame's hairline, and the surface
    ground gives the letterboxed area something deliberate to be rather than a
    band of page showing through. */
+/* An internal link inside overview prose (`OverviewContent.links`). Underlined
+   on the accent rather than coloured alone, so it reads as a link in running
+   body text without the paragraph turning into a coral patch. */
+.proseLink {
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color 0.3s ease;
+}
+
+.proseLink:hover {
+  border-bottom-color: var(--accent);
+}
+
 .overviewMediaContain {
   background: var(--surface);
 }

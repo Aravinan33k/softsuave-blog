@@ -2866,5 +2866,31 @@
     "photographer": "Callum  Hilton",
     "pexelsUrl": "https://www.pexels.com/photo/man-watching-pictures-on-smartphone-at-table-with-laptop-7856676/",
     "matchedTier": "hybrid mobile app developer laptop phone"
+  },
+  "four/xam-overview": {
+    "page": "four",
+    "id": "xam-overview",
+    "src": "/images/four/xam-overview.webp",
+    "width": 1000,
+    "height": 1200,
+    "alt": "A developer writing C# for a cross-platform application at a desktop workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAwAgCdASoLABAAA4BaJZQCdADdtEkWIZjOAAD+72hkHaqV6Fzj4+0QWOrXW28FOPqoSqx4avtIAvP/hsqMKK0VNf2DvRGmRQcBq7lLYB5PNjs1G5c5MAAA",
+    "pexelsId": 12899149,
+    "photographer": "Mizuno K",
+    "pexelsUrl": "https://www.pexels.com/photo/laptop-on-desk-in-office-12899149/",
+    "matchedTier": "developer writing code desktop monitor vertical"
+  },
+  "four/xam-appdev": {
+    "page": "four",
+    "id": "xam-appdev",
+    "src": "/images/four/xam-appdev.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A cross-platform application running on a phone and a tablet during development",
+    "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoQAAsAA4BaJZwAAucZctOnzAAA/vEeF6LoRQXHSfj7jezBuXCvcOZHUbkDpzAlyT8nz/MxwRX9xywNS018RcrJxMAAAA==",
+    "pexelsId": 17803335,
+    "photographer": "Beyza Oruk",
+    "pexelsUrl": "https://www.pexels.com/photo/cellphone-and-tablet-17803335/",
+    "matchedTier": "mobile app developer tablet and phone testing"
   }
 }

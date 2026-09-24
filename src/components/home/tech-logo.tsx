@@ -80,7 +80,13 @@ export default function TechLogo({ name }: { name: string }) {
    * not worth betting a logo on.
    */
   const uid = useId().replace(/:/g, "");
-  const norm = name.toLowerCase().replace(/[^a-z0-9]/g, "");
+  /**
+   * `#` becomes the word before punctuation is stripped, so "C#" and "F#" stay
+   * distinct from "C" and "F". Without it both collapse to the same key and a
+   * C# stack borrows the C mark — which is what the Xamarin page was doing
+   * (review: "add the missing icons in the tech stack section").
+   */
+  const norm = name.toLowerCase().replace(/#/g, "sharp").replace(/[^a-z0-9]/g, "");
 
   switch (ALIASES[norm] ?? norm) {
     case "mistral":
@@ -465,6 +471,17 @@ export default function TechLogo({ name }: { name: string }) {
           <path d="M12 2.8 21 20H3L12 2.8Z" fill="#E4A83C" />
           <path d="M12 2.8V20" stroke="white" strokeWidth="1.1" strokeOpacity="0.75" />
           <path d="M7.4 11.7h9.2M5.2 15.9h13.6" stroke="white" strokeWidth="1.1" strokeOpacity="0.75" />
+        </svg>
+      );
+    case "csharp":
+      // C#'s purple rounded tile with the sharp sign
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#68217A" />
+          <path
+            d="M10.4 6.4h1.4l-.5 3h2l.5-3h1.4l-.5 3h1.9v1.3h-2.1l-.4 2.6h2v1.3h-2.2l-.5 3h-1.4l.5-3h-2l-.5 3H8.6l.5-3H7.2v-1.3h2.1l.4-2.6h-2V9.4h2.2l.5-3Zm.7 4.3-.4 2.6h2l.4-2.6h-2Z"
+            fill="#fff"
+          />
         </svg>
       );
     case "jquery":

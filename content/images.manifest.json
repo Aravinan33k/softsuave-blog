@@ -3257,6 +3257,36 @@
         "app running on two smartphones hands",
         "smartphones app screens desk"
       ]
+    },
+    {
+      "id": "xam-overview",
+      "page": "four",
+      "purpose": "overview-illustration",
+      "alt": "A developer writing C# for a cross-platform application at a desktop workstation",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1200,
+      "keywords": [
+        "developer writing code desktop monitor vertical",
+        "programmer working at computer portrait",
+        "software developer coding workstation",
+        "developer at desk computer"
+      ]
+    },
+    {
+      "id": "xam-appdev",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A cross-platform application running on a phone and a tablet during development",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "mobile app developer tablet and phone testing",
+        "developer testing app on tablet",
+        "app running on tablet and smartphone desk",
+        "mobile application devices desk"
+      ]
     }
   ]
 }

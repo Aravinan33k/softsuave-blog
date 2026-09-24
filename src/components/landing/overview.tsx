@@ -10,12 +10,62 @@ import SectionHead from "./section-head";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import type { IconKey } from "@/lib/home/icon-for";
 import Flow, { type FlowContent } from "@/components/common/flow";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./landing.module.css";
+
+/**
+ * Replace the first unplaced link phrase found in `text` with an anchor.
+ *
+ * Deliberately a plain string search rather than a regex: the phrases come
+ * from page copy and can contain characters a regex would read as syntax.
+ * Returns the paragraph untouched when nothing matches, so copy and links can
+ * drift without breaking the render — the link simply does not appear.
+ */
+function linkify(
+  text: string,
+  links: readonly { readonly text: string; readonly href: string }[] | undefined,
+  used: Set<string>,
+) {
+  if (!links?.length) return text;
+  for (const link of links) {
+    if (used.has(link.text)) continue;
+    const at = text.indexOf(link.text);
+    if (at === -1) continue;
+    used.add(link.text);
+    return (
+      <>
+        {text.slice(0, at)}
+        <SiteLink href={link.href} className={styles.proseLink}>
+          {link.text}
+        </SiteLink>
+        {text.slice(at + link.text.length)}
+      </>
+    );
+  }
+  return text;
+}
 
 export interface OverviewContent {
   eyebrow: string;
   title: string;
   paragraphs: readonly string[];
+  /**
+   * Internal links to weave into the prose, matched on their own words.
+   *
+   * The copy stays plain strings — `paragraphs` is extracted verbatim from the
+   * live page and is not ours to re-author into JSX — so a link is declared by
+   * the phrase it wraps. The first occurrence across the paragraphs is replaced
+   * with an anchor and the rest of the copy is untouched; a phrase that does
+   * not appear simply renders nothing, so a copy edit can never break a build,
+   * only drop the link.
+   *
+   * Exists because the live Xamarin page links "dedicated mobile app
+   * developers" to /hire-mobile-app-developers in its second paragraph, and
+   * that link was missing here (review: "internal link is missing in the 2nd
+   * paragraph"). Routed through `SiteLink`, so a path this app does not serve
+   * still resolves to softsuave.com rather than 404ing.
+   */
+  links?: readonly { readonly text: string; readonly href: string }[];
   /**
    * Optional short claim list under the prose, for an overview whose copy
    * names its reasons rather than describing them. Each entry is a phrase,
@@ -161,6 +211,15 @@ export default function Overview({
   const clamped = clamp && !expanded;
   const proseId = `${id}-prose`;
 
+  /**
+   * Which link phrases have already been placed. Shared across the paragraph
+   * map so a phrase that recurs — "dedicated mobile app developers" appears
+   * more than once in some copy — is linked on its first appearance only.
+   * Linking every occurrence would put the same href on the page three times,
+   * which reads as keyword stuffing rather than a reference.
+   */
+  const used = new Set<string>();
+
   const toggle = () => {
     setExpanded((v) => !v);
     // The section's height changes underneath every ScrollTrigger below it,
@@ -176,7 +235,7 @@ export default function Overview({
         style={clamped ? ({ WebkitLineClamp: clampLines } as CSSProperties) : undefined}
       >
         {content.paragraphs.map((p, i) => (
-          <p key={`${i}-${p.length}`}>{p}</p>
+          <p key={`${i}-${p.length}`}>{linkify(p, content.links, used)}</p>
         ))}
       </div>
 
