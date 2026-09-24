@@ -7,6 +7,8 @@ import { ScrollTrigger } from "@/lib/home/gsap";
 import FadeUp from "@/components/home/fade-up";
 import CountUp from "@/components/home/count-up";
 import SectionHead from "./section-head";
+import CardIconBadge from "@/components/common/card-icon-badge";
+import type { IconKey } from "@/lib/home/icon-for";
 import Flow, { type FlowContent } from "@/components/common/flow";
 import styles from "./landing.module.css";
 
@@ -28,8 +30,23 @@ export interface OverviewContent {
    * abstract claims, where a flat list under-sells the distinction between
    * them. Does not touch `styles.tickList`/`tickItem`, which the FAQ accordion's
    * own bullet points also render through — this is a separate class pair.
+   *
+   * `"icons"` is `"cards"` with an icon badge above each label, picked from
+   * the phrase's own words by `iconFor` — the treatment the Sep 23 review
+   * asked for on a "Why Choose Us" block, where six bare claims under a
+   * single illustration read as a plain list rather than as reasons.
    */
-  pointsVariant?: "list" | "cards";
+  pointsVariant?: "list" | "cards" | "icons";
+  /**
+   * Glyph per entry of `points`, `"icons"` only, positionally matched — an
+   * override for the pick `iconFor` makes from the phrase itself. Short claims
+   * collide easily ("400+ expert programmers" and "quick team setup" both read
+   * as people; "40-hour free trial" and "time-zone flexibility" both as time),
+   * and a six-card row showing the same glyph twice reads as a mistake. Give
+   * as many as the row needs; entries past the end, and an `undefined` in the
+   * middle, fall back to the automatic pick.
+   */
+  pointIcons?: readonly (IconKey | undefined)[];
   /**
    * Optional button under the points — for an overview whose copy closes on
    * its own call to action rather than leading into the next section. `href`
@@ -201,7 +218,16 @@ export default function Overview({
         </div>
 
         {content.points && content.points.length > 0 && (
-          content.pointsVariant === "cards" ? (
+          content.pointsVariant === "icons" ? (
+            <ul className={`${styles.pointCards} ${styles.pointIconCards}`}>
+              {content.points.map((point, i) => (
+                <li key={point} className={`${styles.pointCard} ${styles.pointIconCard}`}>
+                  <CardIconBadge title={point} size="sm" iconKey={content.pointIcons?.[i]} />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          ) : content.pointsVariant === "cards" ? (
             <ul className={styles.pointCards}>
               {content.points.map((point) => (
                 <li key={point} className={styles.pointCard}>
