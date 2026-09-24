@@ -28,6 +28,12 @@ export interface LandingPage {
   readonly path: string;
   /** Page title, for any future index listing. */
   readonly title: string;
+  /**
+   * The index page this one sits under, for its breadcrumb trail
+   * ("Home › Industries › FinTech"). Only for a parent the mega menu does not
+   * already express by nesting — see `breadcrumbTrail` in breadcrumb.tsx.
+   */
+  readonly parent?: string;
 }
 
 import { HIRE_SKILLS } from './hire-skills';
@@ -80,8 +86,8 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/ruby-on-rails-development-company', title: 'Ruby on Rails Development Company India' },
   { path: '/typescript-development-company', title: 'TypeScript Development Company for Web Apps' },
   { path: '/graphql-development-company', title: 'GraphQL Development Company for Modern APIs' },
-  { path: '/vuejs-development-company', title: 'Vue.js Development Company for Web Apps' },
-  { path: '/postgresql-development-company', title: 'PostgreSQL Development Company for Reliable Databases' },
+  { path: '/vuejs-development-company', title: 'Vue.js Development Company for Web Apps', parent: '/web-application-development-company' },
+  { path: '/postgresql-development-company', title: 'PostgreSQL Development Company for Reliable Databases', parent: '/web-application-development-company' },
   { path: '/reactjs-app-development-company', title: 'ReactJS Development Company in India' },
   { path: '/nodejs-development-company', title: 'NodeJS Development Company in India' },
   { path: '/java-application-development-company', title: 'Top Java Development Company in India' },
@@ -106,13 +112,13 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   // Industry AI pages. Slugs match the live marketing site's existing URLs, so
   // search equity and inbound links resolve to our routes rather than 404 once
   // `homepageEnabled` is on.
-  { path: '/fintech-ai-solutions', title: 'Fintech AI Development Services' },
-  { path: '/ai-solutions-in-healthtech', title: 'AI Solutions in HealthTech' },
-  { path: '/ai-solutions-in-edutech', title: 'AI Solutions in EdTech' },
-  { path: '/ai-solutions-for-ecommerce', title: 'AI Solutions for eCommerce' },
-  { path: '/ai-in-logistics', title: 'AI in Logistics & Supply Chain' },
-  { path: '/ai-solutions-for-telecom', title: 'AI Solutions for Telecom' },
-  { path: '/ai-solutions-for-construction', title: 'AI Solutions for Construction' },
+  { path: '/fintech-ai-solutions', title: 'Fintech AI Development Services', parent: '/industries' },
+  { path: '/ai-solutions-in-healthtech', title: 'AI Solutions in HealthTech', parent: '/industries' },
+  { path: '/ai-solutions-in-edutech', title: 'AI Solutions in EdTech', parent: '/industries' },
+  { path: '/ai-solutions-for-ecommerce', title: 'AI Solutions for eCommerce', parent: '/industries' },
+  { path: '/ai-in-logistics', title: 'AI in Logistics & Supply Chain', parent: '/industries' },
+  { path: '/ai-solutions-for-telecom', title: 'AI Solutions for Telecom', parent: '/industries' },
+  { path: '/ai-solutions-for-construction', title: 'AI Solutions for Construction', parent: '/industries' },
 
   // Hire-by-skill pages. Slugs match the live site's existing URLs, so the
   // nav's `hire-skill` group (see `nav-menu.ts`) starts resolving locally the
