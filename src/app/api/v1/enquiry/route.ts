@@ -3,6 +3,8 @@ import { handleRouteError, jsonError, getClientIp, getUserAgent } from '@/lib/ht
 import { rateLimit } from '@/lib/rate-limit';
 import { enquiryInput } from '@/lib/api/schemas';
 import { prisma } from '@/lib/db';
+import { databaseConfigured } from '@/lib/env';
+import { forwardLead } from '@/lib/leads/forward';
 
 /**
  * POST /api/v1/enquiry — a lead from the marketing surface's hero form.
@@ -61,6 +63,26 @@ export async function POST(req: NextRequest) {
     // Honeypot. Answered with the same 202 a real submission gets: telling a bot
     // it was detected only teaches the next attempt which field to leave alone.
     if (website) {
+      return NextResponse.json({ ok: true }, { status: 202 });
+    }
+
+    // No database configured (lib/env.ts): hand the lead to softsuave.com's own
+    // lead endpoint instead of storing it, so it still reaches the team.
+    if (!databaseConfigured) {
+      const sent = await forwardLead(req, {
+        name: lead.name,
+        email: lead.email,
+        phone: phone || null,
+        description: lead.subject ? `${lead.requirement}\n\n(${lead.subject})` : lead.requirement,
+        sourcePath: lead.sourcePath,
+      });
+      if (!sent) {
+        return jsonError(
+          502,
+          'lead_not_delivered',
+          'We could not send your enquiry just now. Please try again, or email contact@softsuave.com.',
+        );
+      }
       return NextResponse.json({ ok: true }, { status: 202 });
     }
 

@@ -1,7 +1,8 @@
 import 'server-only';
 import { PrismaClient } from '@/generated/prisma/client';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
-import { env } from './env';
+import { databaseConfigured, env } from './env';
+import { DatabaseNotConfiguredError } from './db-errors';
 
 // Prisma 7 uses the query compiler + a driver adapter (no Rust engine binary).
 // MySQL is served by Prisma's first-party `@prisma/adapter-mariadb`, which wraps
@@ -38,10 +39,10 @@ function sslConfig() {
   return env.DATABASE_SSL_CA ? { ca: env.DATABASE_SSL_CA, rejectUnauthorized: true } : true;
 }
 
-const adapter = new PrismaMariaDb({
+const createAdapter = (url: string) => new PrismaMariaDb({
   // The driver parses the mysql:// URL for host/user/password/database; the
   // options below are merged over whatever it contains.
-  ...parseUrl(env.DATABASE_URL),
+  ...parseUrl(url),
   connectionLimit: poolMax,
   // Seconds, unlike every other timeout here. Must stay below MySQL's
   // `wait_timeout` (default 28800s) or the server closes connections the pool
@@ -77,12 +78,33 @@ function parseUrl(url: string) {
 // Reuse a single client across hot-reloads in dev to avoid exhausting connections.
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
+/**
+ * The client used when DATABASE_URL is unset (the no-database mode — see
+ * lib/env.ts). Any query on it — `prisma.post.findMany()`, `prisma.$transaction()`
+ * — throws `DatabaseNotConfiguredError`, which callers already turn into a
+ * graceful result: public queries fall back to empty (lib/public/queries.ts),
+ * API routes answer 503 (lib/http.ts), and /admin shows a notice. `then` is
+ * left undefined so an accidental `await prisma` does not treat it as a promise.
+ */
+function unconfiguredClient(): PrismaClient {
+  const fail = () => {
+    throw new DatabaseNotConfiguredError();
+  };
+  const node: object = new Proxy(fail, {
+    get: (_target, prop) => (prop === 'then' ? undefined : node),
+    apply: fail,
+  });
+  return node as PrismaClient;
+}
+
 export const prisma =
   globalForPrisma.prisma ??
-  new PrismaClient({
-    adapter,
-    log: env.NODE_ENV === 'development' ? ['warn', 'error'] : ['error'],
-  });
+  (databaseConfigured && env.DATABASE_URL
+    ? new PrismaClient({
+        adapter: createAdapter(env.DATABASE_URL),
+        log: env.NODE_ENV === 'development' ? ['warn', 'error'] : ['error'],
+      })
+    : unconfiguredClient());
 
 if (env.NODE_ENV !== 'production') {
   globalForPrisma.prisma = prisma;

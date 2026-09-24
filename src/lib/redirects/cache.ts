@@ -1,5 +1,6 @@
 import 'server-only';
 import { prisma } from '../db';
+import { isDatabaseNotConfigured } from '../db-errors';
 import { normalizePath } from '../validation/redirect';
 
 // In-memory redirect lookup with a short TTL, so the proxy doesn't hit the DB on
@@ -49,7 +50,10 @@ export async function lookupRedirect(path: string): Promise<Entry | null> {
       // entire public site. Redirects are an enhancement — failing open serves
       // the page unredirected, which is what the stale path above already does.
       await refresh().catch((err) => {
-        console.warn('[redirects] lookup failed, serving unredirected:', (err as Error).message);
+        // No database configured is an expected state (lib/env.ts), not worth a warning per request.
+        if (!isDatabaseNotConfigured(err)) {
+          console.warn('[redirects] lookup failed, serving unredirected:', (err as Error).message);
+        }
       });
     }
   }

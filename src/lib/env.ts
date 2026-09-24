@@ -23,10 +23,16 @@ const schema = z
     // this it would boot fine and then fail on the first query inside a request.
     // A stale `?schema=public` query param (Postgres-only) is harmless — the
     // driver ignores it — so it is not rejected.
+    //
+    // OPTIONAL. Unset, the app builds and runs without a database: marketing
+    // pages are unaffected, public blog/search queries fall back to empty
+    // results, the API answers 503, /admin shows a notice, and the enquiry and
+    // meeting forms forward leads to softsuave.com instead of storing them (see
+    // `databaseConfigured` below and lib/db.ts).
     DATABASE_URL: z
       .string()
-      .min(1, 'DATABASE_URL is required')
-      .refine((v) => /^mysql:\/\//i.test(v), 'DATABASE_URL must be a mysql:// connection string'),
+      .refine((v) => /^mysql:\/\//i.test(v), 'DATABASE_URL must be a mysql:// connection string')
+      .optional(),
     // Connection-pool ceiling per process. Unset lets lib/db.ts choose a default
     // per phase; set it explicitly when several app instances share one MySQL, so
     // the total stays under the server's max_connections (default 151).
@@ -41,12 +47,17 @@ const schema = z
     // which is the norm for a self-hosted server.
     DATABASE_SSL_CA: z.string().optional(),
 
-    JWT_ACCESS_SECRET: z.string().min(16, 'JWT_ACCESS_SECRET must be at least 16 chars'),
-    JWT_REFRESH_SECRET: z.string().min(16, 'JWT_REFRESH_SECRET must be at least 16 chars'),
+    // The four secrets are optional so a deployment without a database (and so
+    // without admin users) still builds. Where one is unset its user signs with
+    // a random per-process key instead (`secretKey` below) — unguessable, just
+    // not stable across restarts — and REVALIDATE_SECRET's routes reject every
+    // request. Set all four wherever DATABASE_URL is set.
+    JWT_ACCESS_SECRET: z.string().min(16, 'JWT_ACCESS_SECRET must be at least 16 chars').optional(),
+    JWT_REFRESH_SECRET: z.string().min(16, 'JWT_REFRESH_SECRET must be at least 16 chars').optional(),
     ACCESS_TOKEN_TTL: z.coerce.number().int().positive().default(900),
     REFRESH_TOKEN_TTL: z.coerce.number().int().positive().default(2_592_000),
-    PREVIEW_SECRET: z.string().min(16, 'PREVIEW_SECRET must be at least 16 chars'),
-    REVALIDATE_SECRET: z.string().min(16, 'REVALIDATE_SECRET must be at least 16 chars'),
+    PREVIEW_SECRET: z.string().min(16, 'PREVIEW_SECRET must be at least 16 chars').optional(),
+    REVALIDATE_SECRET: z.string().min(16, 'REVALIDATE_SECRET must be at least 16 chars').optional(),
 
     STORAGE_DRIVER: z.enum(['local', 's3', 'cloudinary']).default('local'),
     LOCAL_STORAGE_DIR: z.string().default('.storage'),
@@ -88,6 +99,11 @@ const schema = z
     // reaches the browser. Empty disables the card's live calendar (it falls
     // back to linking the NeetoCal booking page).
     NEETOCAL_API_KEY: z.string().default(''),
+
+    // Where enquiry/meeting leads go when no database is configured: the live
+    // softsuave.com lead endpoint its own contact forms post to (see
+    // lib/leads/forward.ts). Override only to point at a different collector.
+    LEAD_FORWARD_URL: z.string().url().default('https://www.softsuave.com/forms/enquires/developer'),
     NEETOCAL_BASE_URL: z.string().default('https://softsuave.neetocal.com'),
     NEETOCAL_MEETING_SLUG: z.string().default('meeting-with-softsuave'),
 
@@ -178,3 +194,16 @@ function loadEnv() {
 
 export const env = loadEnv();
 export type Env = typeof env;
+
+/** Whether a database is configured. False is the no-database mode described on DATABASE_URL. */
+export const databaseConfigured = Boolean(env.DATABASE_URL);
+
+/**
+ * A secret's bytes, or — when it is unset — 32 random bytes generated once per
+ * call site at module load. Never a fixed fallback: `encode(undefined)` would
+ * sign with the literal string "undefined", which anyone could forge.
+ */
+export function secretKey(value: string | undefined): Uint8Array {
+  if (value) return new TextEncoder().encode(value);
+  return crypto.getRandomValues(new Uint8Array(32));
+}

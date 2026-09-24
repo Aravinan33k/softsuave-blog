@@ -3,6 +3,8 @@ import { z } from 'zod';
 import { handleRouteError, jsonError, getClientIp, getUserAgent } from '@/lib/http';
 import { rateLimit } from '@/lib/rate-limit';
 import { prisma } from '@/lib/db';
+import { databaseConfigured } from '@/lib/env';
+import { forwardLead } from '@/lib/leads/forward';
 import { isValidName, isValidPhone, NAME_MESSAGE, PHONE_MESSAGE } from '@/lib/forms/enquiry-rules';
 import { createBooking, isValidTimeZone, neetocalEnabled } from '@/lib/neetocal';
 
@@ -56,10 +58,20 @@ export async function POST(req: NextRequest) {
       return jsonError(409, 'slot_unavailable', 'That slot is no longer available. Please pick another time.');
     }
 
+    const requirement = `Meeting booked for ${date} ${time} (${timeZone}).\n\n${message}`;
+
+    // No database configured (lib/env.ts): forward the lead to softsuave.com, as
+    // the live page does alongside its booking. The meeting itself is already
+    // booked, so a failed forward is logged (inside forwardLead), not surfaced.
+    if (!databaseConfigured) {
+      await forwardLead(req, { ...lead, description: requirement, sourcePath });
+      return NextResponse.json({ ok: true }, { status: 202 });
+    }
+
     await prisma.enquiry.create({
       data: {
         ...lead,
-        requirement: `Meeting booked for ${date} ${time} (${timeZone}).\n\n${message}`,
+        requirement,
         subject: 'Contact page meeting booking',
         sourcePath: sourcePath ?? null,
         sourceKey: 'contact-meeting',

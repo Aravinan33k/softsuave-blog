@@ -5,6 +5,7 @@ import { verifyCsrf, generateCsrfToken, SAFE_METHODS } from '@/lib/auth/csrf';
 import { useSecureCookies } from '@/lib/http';
 import { lookupRedirect } from '@/lib/redirects/cache';
 import { rateLimit } from '@/lib/rate-limit';
+import { databaseConfigured } from '@/lib/env';
 
 // Next 16's `proxy` convention (Node.js runtime). Two responsibilities:
 //   1. Gate the admin dashboard + admin API (verify the access-token JWT).
@@ -13,8 +14,27 @@ import { rateLimit } from '@/lib/rate-limit';
 
 const LOGIN_PATH = '/admin/login';
 
+// Shown for every /admin page when no database is configured (lib/env.ts):
+// without one there are no users, posts or settings to manage. Answered here,
+// before any page code runs, because the login page and dashboard layout both
+// query the database directly.
+const NO_DATABASE_HTML = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Admin unavailable</title></head><body style="font-family:system-ui,sans-serif;max-width:32rem;margin:15vh auto;padding:0 1rem;color:#1a1a1a"><h1 style="font-size:1.5rem">Admin is unavailable</h1><p>This deployment has no database configured, so the admin dashboard is turned off. Set <code>DATABASE_URL</code> (and the auth secrets) to enable it.</p></body></html>`;
+
 async function guardAdmin(req: NextRequest): Promise<NextResponse> {
   const { pathname } = req.nextUrl;
+
+  if (!databaseConfigured) {
+    if (pathname.startsWith('/api/')) {
+      return NextResponse.json(
+        { error: { code: 'database_unavailable', message: 'This feature is not available right now.' } },
+        { status: 503 },
+      );
+    }
+    return new NextResponse(NO_DATABASE_HTML, {
+      status: 503,
+      headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' },
+    });
+  }
 
   if (pathname === LOGIN_PATH || pathname.startsWith(`${LOGIN_PATH}/`)) {
     return NextResponse.next();

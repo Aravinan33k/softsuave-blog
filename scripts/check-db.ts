@@ -17,6 +17,10 @@ import { env } from '../src/lib/env';
  * checks the handful of server settings this app actually depends on.
  */
 
+if (!env.DATABASE_URL) {
+  console.error('DATABASE_URL is not set — there is no database to check.');
+  process.exit(1);
+}
 const u = new URL(env.DATABASE_URL);
 const database = decodeURIComponent(u.pathname.replace(/^\//, ''));
 
