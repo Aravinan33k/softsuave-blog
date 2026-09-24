@@ -467,6 +467,38 @@ export default function TechLogo({ name }: { name: string }) {
           <path d="M7.4 11.7h9.2M5.2 15.9h13.6" stroke="white" strokeWidth="1.1" strokeOpacity="0.75" />
         </svg>
       );
+    case "jquery":
+      // jQuery's blue rounded badge with the lowercase wordmark's "jQ"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#0769AD" />
+          <path
+            d="M8.1 7.2h1.7v6.6c0 1.6-.9 2.5-2.4 2.5-.6 0-1.1-.1-1.5-.4l.4-1.4c.3.2.6.3.9.3.6 0 .9-.3.9-1.1V7.2Z"
+            fill="#fff"
+          />
+          <path
+            d="M15.3 16.6c-2 0-3.4-1.5-3.4-3.8s1.4-3.8 3.4-3.8 3.4 1.5 3.4 3.8c0 .9-.2 1.7-.6 2.3l.9.8-1 1.1-.9-.8c-.5.3-1.1.4-1.8.4Zm0-1.5c1 0 1.6-.9 1.6-2.3s-.6-2.3-1.6-2.3-1.6.9-1.6 2.3.6 2.3 1.6 2.3Z"
+            fill="#fff"
+          />
+        </svg>
+      );
+    case "android":
+      // Android's green robot head — antennae, eyes and the domed body
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M7.2 5.1 6.1 3.4a.4.4 0 0 1 .7-.4l1.1 1.8A7 7 0 0 1 12 4c1.5 0 2.9.3 4.1.8l1.1-1.8a.4.4 0 1 1 .7.4l-1.1 1.7A6 6 0 0 1 19.4 10H4.6a6 6 0 0 1 2.6-4.9Z"
+            fill="#3DDC84"
+          />
+          <circle cx="8.8" cy="7.6" r="0.8" fill="#fff" />
+          <circle cx="15.2" cy="7.6" r="0.8" fill="#fff" />
+          <path d="M4.6 11.2h14.8v6.1a1.5 1.5 0 0 1-1.5 1.5H6.1a1.5 1.5 0 0 1-1.5-1.5v-6.1Z" fill="#3DDC84" />
+          <rect x="1.4" y="11.2" width="2.2" height="6.4" rx="1.1" fill="#3DDC84" />
+          <rect x="20.4" y="11.2" width="2.2" height="6.4" rx="1.1" fill="#3DDC84" />
+          <rect x="8.2" y="18.6" width="2.2" height="4.2" rx="1.1" fill="#3DDC84" />
+          <rect x="13.6" y="18.6" width="2.2" height="4.2" rx="1.1" fill="#3DDC84" />
+        </svg>
+      );
     case "laravel":
       // Laravel's red angular "L" mark
       return (

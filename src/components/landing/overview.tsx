@@ -107,6 +107,17 @@ export interface OverviewContent {
     height: number;
     alt: string;
     blurDataURL?: string;
+    /**
+     * How the asset fills its frame. `"cover"` (the default) crops to fill,
+     * which is right for a photograph — the frame stretches to the prose height
+     * at desktop, and a photo can lose its edges without losing its subject.
+     *
+     * `"contain"` fits the whole asset inside the frame instead, centred and
+     * inset. For a drawn diagram or illustration, cropping removes content:
+     * the Ionic page's own one was losing the figure on its right and the top
+     * and bottom of its phone mockup (review: "need to resize the image").
+     */
+    fit?: "cover" | "contain";
   };
 }
 
@@ -280,7 +291,13 @@ export default function Overview({
           </div>
 
           {showImage && image && (
-            <figure className={styles.overviewMedia}>
+            <figure
+              className={
+                image.fit === "contain"
+                  ? `${styles.overviewMedia} ${styles.overviewMediaContain}`
+                  : styles.overviewMedia
+              }
+            >
               <Image
                 src={publicMediaUrl(image.src)}
                 alt={image.alt}
