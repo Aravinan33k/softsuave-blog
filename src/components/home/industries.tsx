@@ -406,14 +406,19 @@ export default function Industries() {
               <CardIconBadge title={it.name} body={it.body} size="sm" className={styles.indFanCardNum} />
               <p className={styles.indFanCardBody}>{it.body}</p>
             </div>
-            <SiteLink href={it.href} className={styles.indFanCardTitle}>
-              {it.name}
-              <span className={styles.indFanCardArrow} aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 17 17 7M9 7h8v8" />
-                </svg>
-              </span>
-            </SiteLink>
+            {/* Each sector is an H3 under the section's H2. The link stays inside
+                the heading, so the name is still the card's link; the strip is
+                positioned against the card, so the h3 adds no layout. */}
+            <h3>
+              <SiteLink href={it.href} className={styles.indFanCardTitle}>
+                {it.name}
+                <span className={styles.indFanCardArrow} aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17 17 7M9 7h8v8" />
+                  </svg>
+                </span>
+              </SiteLink>
+            </h3>
           </article>
         ))}
       </div>
