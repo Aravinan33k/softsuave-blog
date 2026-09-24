@@ -3139,5 +3139,18 @@
     "photographer": "Yan Krukau",
     "pexelsUrl": "https://www.pexels.com/photo/a-man-in-white-long-sleeve-button-up-shirt-7793103/",
     "matchedTier": "engineers planning architecture whiteboard sticky notes"
+  },
+  "four/ror-hero": {
+    "page": "four",
+    "id": "ror-hero",
+    "src": "/images/four/ror-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A Ruby on Rails engineering team at work together in a studio",
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAwAgCdASoQAAsAA4BaJZQAD48On0zKrOxcAAD+4own//sTXo2R5i8tqhoC8ZDIAzr7s+1EamphmHeeNn7Cv9B/d22Hy8RuPHGsFMdaZjwwkMV6m6NmPXiNLUekb8+Cl6m7mKC8OAA=",
+    "pexelsId": 7792859,
+    "photographer": "Yan Krukau",
+    "pexelsUrl": "https://www.pexels.com/photo/a-group-of-people-having-a-meeting-in-the-office-7792859/",
+    "matchedTier": "group of developers discussing project office people"
   }
 }

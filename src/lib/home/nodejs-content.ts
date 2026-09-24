@@ -229,7 +229,7 @@ export const njTech: TechStackContent = {
         "MySQL",
         "MongoDB",
         "PostgreSQL",
-        "AWS DynomoDB",
+        "AWS DynamoDB",
         "SQLite",
         "Cloud Firestore",
         "Oracle",

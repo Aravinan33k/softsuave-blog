@@ -486,6 +486,19 @@ export default function TechLogo({ name }: { name: string }) {
        which is the honest signal: a coloured logo means a product, a coral
        glyph means a technique. Same 24x24 geometry as everything else.
        ---------------------------------------------------------------- */
+    case "rspec":
+      // RSpec — Ruby's testing framework: its red-magenta tile marked with a
+      // spec's passing example
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#B3232A" />
+          <path
+            d="M6.4 6.2h3.5c1.9 0 3.1 1.1 3.1 2.8 0 1.2-.6 2.1-1.7 2.5l2.1 4.3h-2l-1.8-3.9H8.2v3.9H6.4V6.2Zm1.8 4.2h1.5c.9 0 1.4-.4 1.4-1.2s-.5-1.2-1.4-1.2H8.2v2.4Z"
+            fill="#fff"
+          />
+          <path d="M14.4 12.6l1.7 1.7 3.1-3.4" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
     case "ssr":
       // Server-side rendering: a server stack pushing a finished page out
       return (

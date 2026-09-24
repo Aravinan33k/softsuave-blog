@@ -1069,6 +1069,20 @@
   gap: 12px;
 }
 
+/* The conversion band's own button, sized up from the surface's default chip.
+   
+   `.btn` is one size everywhere, which is right for a link sitting under a
+   card or beside a section head. It is wrong here: this band is a full-width
+   interruption whose whole purpose is the click, and at the shared size the
+   button measured 196x40 with 12px type beside a heading four times that,
+   reading as a footnote rather than the point (review: "make the button
+   bigger"). Scoped to the band, so nothing else on the surface changes. */
+.ctaActions .btn {
+  padding: 1.05em 2.1em;
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  letter-spacing: 0.1em;
+}
+
 /* ============================================================
    INTEGRATION & DEPLOYMENT
    ============================================================ */

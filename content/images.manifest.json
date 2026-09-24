@@ -3572,6 +3572,21 @@
         "developers planning session whiteboard office",
         "team planning whiteboard office"
       ]
+    },
+    {
+      "id": "ror-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A Ruby on Rails engineering team at work together in a studio",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "group of developers discussing project office people",
+        "engineering team standing meeting office people",
+        "colleagues talking over work desk office people",
+        "business team discussion office"
+      ]
     }
   ]
 }
