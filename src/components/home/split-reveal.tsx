@@ -87,6 +87,12 @@ export default function SplitReveal({
       const split = new SplitType(ref.current, {
         types: type === "chars" ? "lines,chars" : "lines,words",
       });
+
+      // SplitType puts each visual line in its own block and drops the space
+      // at every wrap, so anything reading the text — crawlers, SEO audits —
+      // got "Builtfor", "AllSizes". A space between block lines renders as
+      // nothing; `revert()` restores the original markup, spaces and all.
+      split.lines?.slice(0, -1).forEach((line) => line.after(" "));
       const targets = (type === "chars" ? split.chars : split.words) ?? [];
       if (!targets.length) return;
 
@@ -113,7 +119,9 @@ export default function SplitReveal({
 
       return () => split.revert();
     },
-    { scope: ref },
+    // `Tag` can change after hydration (see `useDesktopScene`), which mounts a
+    // new element; re-split it rather than leave it unsplit.
+    { scope: ref, dependencies: [Tag], revertOnUpdate: true },
   );
 
   return (

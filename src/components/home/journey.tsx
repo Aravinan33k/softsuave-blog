@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { journey } from "@/lib/home/content";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import SplitReveal from "./split-reveal";
+import { useDesktopScene } from "@/lib/home/use-desktop-scene";
 import styles from "./home.module.css";
 
 /**
@@ -232,6 +233,8 @@ export default function Journey({
   const progressRef = useRef(0);
 
   const [active, setActive] = useState(0);
+  // Heading tags go to whichever layout is on screen — see useDesktopScene.
+  const desktop = useDesktopScene();
 
   const steps = content.steps;
   const N = steps.length;
@@ -611,7 +614,7 @@ export default function Journey({
         {/* left rail */}
         <div className={styles.journeyRail}>
           <span className={styles.eyebrow}>{content.eyebrow}</span>
-          <SplitReveal as="h2" className={styles.journeyTitle} type="words">
+          <SplitReveal as={desktop ? "h2" : "div"} className={styles.journeyTitle} type="words">
             {content.title}
           </SplitReveal>
           <p className={styles.journeyLead}>{content.body}</p>
@@ -634,7 +637,11 @@ export default function Journey({
                   {s.n}
                 </span>
                 <div className={styles.railText}>
-                  <h3 className={styles.railName}>{s.name}</h3>
+                  {desktop ? (
+                    <h3 className={styles.railName}>{s.name}</h3>
+                  ) : (
+                    <div className={styles.railName}>{s.name}</div>
+                  )}
                   <div className={styles.railBodyWrap}>
                     <p className={styles.railBody}>{s.body}</p>
                   </div>
@@ -655,7 +662,7 @@ export default function Journey({
       <div className={styles.journeyMobileContainer}>
         <div className={styles.sectionHead}>
           <span className={styles.eyebrow}>{content.eyebrow}</span>
-          <SplitReveal as="h2" className={styles.h2} type="words">
+          <SplitReveal as={desktop ? "div" : "h2"} className={styles.h2} type="words">
             {content.title}
           </SplitReveal>
           <p className={styles.lead}>{content.body}</p>
@@ -666,7 +673,11 @@ export default function Journey({
             <div key={s.name} className={styles.mobileJourneyRow}>
               <div className={styles.mobileJourneyNum}>/{s.n}</div>
               <div className={styles.mobileJourneyContent}>
-                <h3 className={styles.mobileJourneyName}>{s.name}</h3>
+                {desktop ? (
+                  <div className={styles.mobileJourneyName}>{s.name}</div>
+                ) : (
+                  <h3 className={styles.mobileJourneyName}>{s.name}</h3>
+                )}
                 <p className={styles.mobileJourneyBody}>{s.body}</p>
                 <div className={styles.mobileJourneyVisual}>
                   <svg viewBox="0 0 200 200" fill="none" className={styles.stepSvg}>

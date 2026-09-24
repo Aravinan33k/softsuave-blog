@@ -7,10 +7,10 @@ import { gtmContainerId } from '@/lib/flags';
  * inside it rather than pasted into the page. So there is one snippet here, not
  * one per tool.
  *
- * Renders NOTHING when `NEXT_PUBLIC_GTM_ID` is unset, which is the default. See
- * `lib/flags.ts`: the same constant gates the CSP in `next.config.ts`, so an
- * unconfigured deployment ships no third-party script and no origin allowing
- * one.
+ * Mounted once, in the root layout, so it is on every page. The container ID
+ * comes from `lib/flags.ts` (GTM-TWMFSDC unless overridden); this renders
+ * nothing only when `NEXT_PUBLIC_GTM_ID=off`. The same constant gates the CSP
+ * in `next.config.ts`.
  *
  * `afterInteractive` rather than `beforeInteractive`: the container is not
  * needed to render the page, and loading it ahead of hydration would put a

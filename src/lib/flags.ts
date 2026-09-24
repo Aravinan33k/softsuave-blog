@@ -34,20 +34,24 @@ export const homepageEnabled = process.env.NEXT_PUBLIC_HOMEPAGE_ENABLED === 'tru
  * everything else is configured inside it. The 11 Sep review asked for the
  * tracking codes to be present on these pages too.
  *
- * Empty by default, and that is deliberate: this is the variable that turns
- * third-party tracking ON, so it is set per deployment rather than compiled in.
- * An unset value means no GTM script, no `dataLayer`, and — because
- * `next.config.ts` reads this same constant — a CSP that still admits no
- * third-party script origin at all. Setting it is the whole switch:
+ * On by default: the container is compiled in, so every page the root layout
+ * renders — which is every page — loads it, with no per-page code and no
+ * per-deployment variable to forget. `next.config.ts` reads this same constant
+ * to admit googletagmanager.com in the CSP, so the two cannot drift apart.
  *
- *   NEXT_PUBLIC_GTM_ID=GTM-TWMFSDC
+ * `NEXT_PUBLIC_GTM_ID` still overrides it: another container ID points the
+ * deployment at that container, and `off` disables GTM entirely (no script,
+ * no `dataLayer`, no third-party origin in the CSP) — e.g. locally, to keep
+ * dev traffic out of the reports. An empty value is treated as unset, so the
+ * blank line in `.env.example` does not switch tracking off by accident.
  *
- * Being a `NEXT_PUBLIC_*` value it is baked in at build time, so turning it on
- * needs a rebuild. Note that GTM will fire for every visitor the moment it is
- * set — if this deployment owes anyone a consent gate, that belongs in the
- * container (or in front of this) before the variable goes into production.
+ * Being a `NEXT_PUBLIC_*` value it is baked in at build time; changing it
+ * needs a rebuild. GTM fires for every visitor — any consent gate belongs in
+ * the container.
  */
-export const gtmContainerId: string = process.env.NEXT_PUBLIC_GTM_ID ?? '';
+const GTM_DEFAULT = 'GTM-TWMFSDC';
+const gtmEnv = (process.env.NEXT_PUBLIC_GTM_ID ?? '').trim();
+export const gtmContainerId: string = gtmEnv === 'off' ? '' : gtmEnv || GTM_DEFAULT;
 
 /**
  * Subpath this app is mounted at, mirroring `basePath` in `next.config.ts`.

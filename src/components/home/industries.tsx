@@ -6,6 +6,7 @@ import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/home/gsap";
 import SplitReveal from "./split-reveal";
 import BrandImage from "./brand-image";
 import CardIconBadge from "@/components/common/card-icon-badge";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./home.module.css";
 
 /**
@@ -15,7 +16,8 @@ import styles from "./home.module.css";
  *   based on the carousel container width.
  * - Small viewports: clean CSS grid wrap.
  * - Hover lifts a single card without disturbing the rest.
- *   Click interaction is intentionally disabled; only hover reveals detail.
+ * - The orange title strip is the card's link, to that industry's page
+ *   (`href` in content.ts), with a black arrow at its right end.
  */
 const CARD_COLOR = "#ff5436";
 
@@ -404,7 +406,14 @@ export default function Industries() {
               <CardIconBadge title={it.name} body={it.body} size="sm" className={styles.indFanCardNum} />
               <p className={styles.indFanCardBody}>{it.body}</p>
             </div>
-            <span className={styles.indFanCardTitle}>{it.name}</span>
+            <SiteLink href={it.href} className={styles.indFanCardTitle}>
+              {it.name}
+              <span className={styles.indFanCardArrow} aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </span>
+            </SiteLink>
           </article>
         ))}
       </div>

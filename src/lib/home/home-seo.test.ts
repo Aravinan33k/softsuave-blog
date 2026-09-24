@@ -1,120 +1,59 @@
-import { existsSync } from 'node:fs';
-import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 import { footer } from './content';
-import { homeJsonLd, homeLocalBusinessLd, homeServiceLd } from './home-seo';
-import { HOME_SERVICE_CATALOG } from './home-service-catalog';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { homeJsonLd } from './home-seo';
+import { HOME_LIVE_JSON_LD, liveLocalBusiness, liveOrganization, liveService } from './home-live-schema';
 import { organizationLd } from '@/lib/seo/organization';
 
 /**
- * The homepage's structured data: Service, LocalBusiness and the footer's
- * PostalAddress microdata, alongside the WebPage and proof list it already had.
- *
- * What is pinned is what breaks silently — a catalogue link to a page that no
- * longer exists, an `@id` reference to a node that is not there, and the brief's
- * invalid values ("UK", `price: "Variable"`, an expired `priceValidUntil`)
- * creeping back in.
+ * The homepage's structured data is a verbatim mirror of softsuave.com's —
+ * its three JSON-LD blocks and the footer's PostalAddress microdata. What is
+ * pinned is that it STAYS a mirror: the live quirks are asserted on purpose, so
+ * a well-meant "fix" here fails loudly instead of drifting from the live site.
  */
 
-const HOME = absoluteUrl('/');
 const type = (n: Record<string, unknown>) => n['@type'];
 
 describe('homeJsonLd', () => {
-  it('emits WebPage, ItemList, Service and LocalBusiness', () => {
-    expect(homeJsonLd().map(type)).toEqual(['WebPage', 'ItemList', 'Service', 'LocalBusiness']);
+  it("emits the live homepage's blocks, in the live order", () => {
+    expect(homeJsonLd().map(type)).toEqual(['Service', 'LocalBusiness', 'Organization']);
+    expect(homeJsonLd()).toEqual(HOME_LIVE_JSON_LD);
   });
 
-  it('gives every node a unique @id under the homepage', () => {
-    const ids = homeJsonLd().map((n) => n['@id'] as string);
-    expect(new Set(ids).size).toBe(ids.length);
-    for (const id of ids) expect(id.startsWith(`${HOME}#`)).toBe(true);
+  it('returns copies, so a caller cannot edit the source', () => {
+    const first = homeJsonLd();
+    first[0].name = 'changed';
+    expect(homeJsonLd()[0].name).toBe('Softsuave Technologies');
   });
 
-  it('does not describe the company again — the layout emits the one Organization', () => {
-    expect(JSON.stringify(homeJsonLd())).not.toContain('"@type":"Organization"');
-  });
-});
-
-describe('homeServiceLd', () => {
-  const service = homeServiceLd();
-
-  it('names the site-wide organization as provider, by @id', () => {
-    expect(service.provider).toEqual({ '@id': organizationLd['@id'] });
-    expect(service.name).toBe(organizationLd.name);
-  });
-
-  it('uses ISO 3166-1 country codes — GB, never UK', () => {
-    const offers = service.offers as Record<string, unknown>;
-    for (const codes of [service.areaServed, offers.eligibleRegion] as string[][]) {
-      expect(codes).toContain('GB');
-      expect(codes).not.toContain('UK');
-      for (const c of codes) expect(c).toMatch(/^[A-Z]{2}$/);
-    }
-  });
-
-  it('carries no non-numeric price and no expired validity date', () => {
-    const offers = service.offers as Record<string, unknown>;
-    expect(offers.price).toBeUndefined();
-    expect(offers.priceValidUntil).toBeUndefined();
-  });
-
-  it('lists the whole catalogue as Offers of Services with absolute URLs', () => {
-    const catalog = service.hasOfferCatalog as { itemListElement: Record<string, unknown>[] };
-    expect(catalog.itemListElement).toHaveLength(HOME_SERVICE_CATALOG.length);
-    for (const offer of catalog.itemListElement) {
-      expect(offer['@type']).toBe('Offer');
-      expect(offer.url).toMatch(/^https?:\/\//);
-      expect((offer.itemOffered as Record<string, unknown>)['@type']).toBe('Service');
-    }
+  it("keeps the live markup's values as-is", () => {
+    const [service, business, org] = [liveService, liveLocalBusiness, liveOrganization];
+    expect(service['@context']).toBe('http://schema.org');
+    expect(service.areaServed).toContain('UK');
+    expect(service.offers).toMatchObject({ price: 'Variable', priceValidUntil: '2025-12-31' });
+    expect(service.serviceType).toContain('Xamarian App Development');
+    expect(service.hasOfferCatalog.itemListElement).toHaveLength(24);
+    expect(business.address.streetAddress).toBe('3210 Vogel Rd');
+    expect(org.name).toBe('Soft Suave Technologies');
+    expect(org.sameAs).toHaveLength(5);
   });
 });
 
-describe('HOME_SERVICE_CATALOG', () => {
-  it('links only to routes this app serves', () => {
-    const marketing = path.resolve(import.meta.dirname, '../../app/(marketing)');
-    const missing = HOME_SERVICE_CATALOG.filter((s) => !existsSync(path.join(marketing, s.path, 'page.tsx')));
-    expect(missing.map((s) => s.path)).toEqual([]);
-  });
-
-  it('gives every service its own name, page and description', () => {
-    for (const key of ['name', 'path', 'description'] as const) {
-      const values = HOME_SERVICE_CATALOG.map((s) => s[key]);
-      expect(new Set(values).size).toBe(values.length);
-    }
-  });
-});
-
-describe('homeLocalBusinessLd', () => {
-  const business = homeLocalBusinessLd();
-
-  it('sits at the US sales office organizationLd already lists', () => {
-    const office = organizationLd.address.find((a) => a.addressCountry === 'US')!;
-    expect(business.address).toEqual({
-      '@type': 'PostalAddress',
-      streetAddress: office.streetAddress,
-      addressLocality: office.addressLocality,
-      addressRegion: office.addressRegion,
-      postalCode: office.postalCode,
-      addressCountry: 'US',
+describe('footer office microdata', () => {
+  it('marks up the USA office only, with the live footer’s fields', () => {
+    const marked = footer.offices.filter((o) => 'microdata' in o);
+    expect(marked.map((o) => o.region)).toEqual(['USA']);
+    const usa = marked[0] as (typeof footer.offices)[0];
+    expect(usa.company).toBe('Soft Suave LLC');
+    expect(usa.microdata).toEqual({
+      postOfficeBoxNumber: '3030 K Street NW',
+      addressLocality: 'Suite 102',
+      addressRegion: 'Washington',
+      postalCode: 'DC 20007',
+      addressCountry: 'USA',
+      email: 'contact@softsuave.com',
+      telephone: ['+1 (410) 220-6301', '+44 7403 646450', '+91 8015159981 (HR)'],
     });
-  });
-
-  it('ties back to the organization by @id', () => {
-    expect(business.parentOrganization).toEqual({ '@id': organizationLd['@id'] });
-  });
-});
-
-describe('footer office addresses', () => {
-  it('gives every office a complete PostalAddress for the microdata', () => {
-    for (const office of footer.offices) {
-      const a = office.address;
-      for (const field of [a.streetAddress, a.addressLocality, a.addressRegion, a.postalCode]) {
-        expect(field.trim()).not.toBe('');
-      }
-      expect(a.addressCountry).toMatch(/^[A-Z]{2}$/);
-    }
   });
 });
 

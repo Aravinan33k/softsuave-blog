@@ -111,20 +111,26 @@ export default function Hero() {
         <h1 className={styles.heroTitle}>
           <span className={styles.heroLine}>
             <span className={styles.heroLineInner}>Empowering businesses</span>
-          </span>
+          </span>{" "}
+          {/* The spaces between lines are for anything reading the text rather
+              than the layout — crawlers, SEO audits — which otherwise got
+              "businesseswith". Each line is a block, so they render as nothing. */}
           <span className={styles.heroLine}>
             <span className={styles.heroLineInner}>
               with{" "}
+              {/* The visible words are drawn from `data-word` by CSS, so they are
+                  not document text: aria-hidden hides them from screen readers
+                  but not from textContent, and crawlers read the H1 as
+                  "ScalableIntelligentScalable, Intelligent". The sr-only line
+                  below is now the H1's one copy of them. */}
               <span className={styles.rotWrap} aria-hidden>
                 {hero.rotatingWords.map((w) => (
-                  <span key={w} className={styles.rotWord}>
-                    {w}
-                  </span>
+                  <span key={w} className={styles.rotWord} data-word={w} />
                 ))}
               </span>
               <span className={styles.srOnly}>{hero.rotatingWords.join(", ")}</span>
             </span>
-          </span>
+          </span>{" "}
           <span className={styles.heroLine}>
             <span className={styles.heroLineInner}>
               <em className={styles.heroItalic}>AI</em>, Automation &amp; Integrations

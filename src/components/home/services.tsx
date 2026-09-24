@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { services } from "@/lib/home/content";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import SplitReveal from "./split-reveal";
+import { useDesktopScene } from "@/lib/home/use-desktop-scene";
 import BrandImage from "./brand-image";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./home.module.css";
@@ -14,7 +15,7 @@ import styles from "./home.module.css";
  * long as the section is on screen (restarting each time it re-enters view).
  * Left/Right arrow keys step through the cards by hand and reset the
  * auto-advance clock so it doesn't immediately fire again. The left column
- * (name + body + Enquire + counter) crossfades per slide, while the image
+ * (name + body + Know More + counter) crossfades per slide, while the image
  * cards slide in from the right and leave a sliver of the previous card
  * peeking behind. Mobile falls back to a vertical stack. Reduced motion drops
  * the autoplay entirely and shows the first card static.
@@ -22,7 +23,7 @@ import styles from "./home.module.css";
 
 // Dwell time per slide while the section is on screen — a bit longer than a
 // snappy carousel so there's room to actually read the copy before it moves on.
-const AUTOPLAY_MS = 4200;
+const AUTOPLAY_MS = 6500;
 
 // Placeholder images until the real Pexels service shots are generated
 // (`npm run images` with PEXELS_API_KEY set) — then flip this to false.
@@ -35,7 +36,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
 const cx = (...c: (string | false | undefined)[]) => c.filter(Boolean).join(" ");
 
 /**
- * The per-service Enquire button.
+ * The per-service Know More button.
  *
  * `services.items[].href` mixes two kinds of destination and the element has to
  * follow, which is the whole reason this is a component rather than an inline
@@ -50,8 +51,8 @@ const cx = (...c: (string | false | undefined)[]) => c.filter(Boolean).join(" ")
  *                    the section; routing an in-page hash through next/link
  *                    fights the smooth scroller.
  */
-function EnquireLink({ href }: { href: string }) {
-  const label = "Enquire";
+function KnowMoreLink({ href }: { href: string }) {
+  const label = "Know More";
   return href.startsWith("#") ? (
     <a href={href} className={styles.carPill} data-cursor={label}>
       {label}
@@ -75,6 +76,8 @@ function cardStyle(offset: number): React.CSSProperties {
 export default function Services() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [active, setActive] = useState(0);
+  // Heading tags go to whichever layout is on screen — see useDesktopScene.
+  const desktop = useDesktopScene();
   const activeRef = useRef(0);
   const autoplayId = useRef<ReturnType<typeof setInterval> | null>(null);
   const inViewRef = useRef(false);
@@ -184,7 +187,7 @@ export default function Services() {
         <div className={styles.carHead}>
           <div>
             <span className={styles.eyebrow}>{services.eyebrow}</span>
-            <SplitReveal as="h2" className={styles.carHeadTitle} type="words">
+            <SplitReveal as={desktop ? "h2" : "div"} className={styles.carHeadTitle} type="words">
               {services.title}
             </SplitReveal>
           </div>
@@ -198,14 +201,18 @@ export default function Services() {
                 and a service NAME is subordinate to it. The mobile stack below
                 already had this right — the desktop stage was emitting a second
                 h2 inside the same section. */}
-            <h3 className={styles.carName}>{items[active].name}</h3>
+            {desktop ? (
+              <h3 className={styles.carName}>{items[active].name}</h3>
+            ) : (
+              <div className={styles.carName}>{items[active].name}</div>
+            )}
             <p className={styles.carBody}>{items[active].body}</p>
             {/* Follows the card on screen. This was a fixed "#contact", so
                 every one of the ten services sent the reader to the same
                 form — the button named a service and then did not take them
-                to it. `EnquireLink` picks the element from the href, because
+                to it. `KnowMoreLink` picks the element from the href, because
                 the list mixes real pages with one in-page anchor. */}
-            <EnquireLink href={items[active].href} />
+            <KnowMoreLink href={items[active].href} />
           </div>
 
           <div className={styles.carStage}>
@@ -259,7 +266,7 @@ export default function Services() {
       <div className={styles.carMobile}>
         <div className={styles.sectionHead}>
           <span className={styles.eyebrow}>{services.eyebrow}</span>
-          <SplitReveal as="h2" className={styles.h2} type="words">
+          <SplitReveal as={desktop ? "div" : "h2"} className={styles.h2} type="words">
             {services.title}
           </SplitReveal>
           <p className={styles.lead}>{services.body}</p>
@@ -272,12 +279,16 @@ export default function Services() {
             </div>
             <div className={styles.carMobText}>
               <span className={styles.carNum}>/{pad(i + 1)}</span>
-              <h3 className={styles.carName}>{s.name}</h3>
+              {desktop ? (
+                <div className={styles.carName}>{s.name}</div>
+              ) : (
+                <h3 className={styles.carName}>{s.name}</h3>
+              )}
               <p className={styles.carBody}>{s.body}</p>
               {/* Same per-service destination as the desktop stage above —
                   the mobile stack renders every card at once, so each row's
                   button has to carry its own. */}
-              <EnquireLink href={s.href} />
+              <KnowMoreLink href={s.href} />
             </div>
           </article>
         ))}

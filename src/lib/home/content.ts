@@ -189,7 +189,7 @@ export const services = {
   // separate from `key`: there are eight uploaded service shots and ten
   // services, so a couple of slots are shared until new art lands.
   //
-  // `href` is where the service lives, and it is what the carousel's Enquire
+  // `href` is where the service lives, and it is what the carousel's Know More
   // button points at — so this is the list that decides where that button goes
   // for the card on screen, not a decoration.
   //
@@ -701,22 +701,26 @@ export const footer = {
    * Offices, as printed in softsuave.com's own footer. `region` drives nothing
    * but the label — no flag emoji, which render inconsistently on Windows.
    *
-   * `lines` is what the reader sees; `address` is the same place split into
-   * schema.org PostalAddress fields, which the footer emits as microdata on the
-   * `<address>` element. They describe one address twice, so an edit to either
-   * has to be made to both.
+   * `lines` is what the reader sees. `microdata`, where present, is the
+   * schema.org PostalAddress the footer emits on that `<address>` element
+   * (`company` is its `name`). It is copied VERBATIM from softsuave.com's
+   * footer, which marks up the USA office only — field mapping included
+   * (street in `postOfficeBoxNumber`, suite in `addressLocality`, "DC 20007"
+   * as the postcode). Mirrored on purpose; do not correct it here alone.
    */
   offices: [
     {
       region: "USA",
       company: "Soft Suave LLC",
       lines: ["3030 K Street NW, Suite 102", "Washington, DC 20007, USA"],
-      address: {
-        streetAddress: "3030 K Street NW, Suite 102",
-        addressLocality: "Washington",
-        addressRegion: "DC",
-        postalCode: "20007",
-        addressCountry: "US",
+      microdata: {
+        postOfficeBoxNumber: "3030 K Street NW",
+        addressLocality: "Suite 102",
+        addressRegion: "Washington",
+        postalCode: "DC 20007",
+        addressCountry: "USA",
+        email: "contact@softsuave.com",
+        telephone: ["+1 (410) 220-6301", "+44 7403 646450", "+91 8015159981 (HR)"],
       },
     },
     {
@@ -726,13 +730,6 @@ export const footer = {
         "SSPDL Building, Alpha City, Gamma Block,",
         "5th Floor, Navalur, Chennai 603103",
       ],
-      address: {
-        streetAddress: "SSPDL Building, Alpha City, Gamma Block, 5th Floor, Navalur",
-        addressLocality: "Chennai",
-        addressRegion: "Tamil Nadu",
-        postalCode: "603103",
-        addressCountry: "IN",
-      },
     },
   ],
 

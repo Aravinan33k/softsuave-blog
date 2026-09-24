@@ -23,6 +23,8 @@ export default function Manifesto() {
       if (prefersReducedMotion() || !stmt.current) return;
 
       const split = new SplitType(stmt.current, { types: "lines,words" });
+      // Restore the space SplitType drops at each line wrap — see SplitReveal.
+      split.lines?.slice(0, -1).forEach((line) => line.after(" "));
       gsap.set(split.lines, {
         overflow: "hidden",
         clipPath: "inset(-12% 0% -40% 0%)",

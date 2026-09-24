@@ -182,9 +182,11 @@ h1.h2 {
 
    The same rules are set in landing/, generative-ai/ and industries/ module
    CSS for their own SectionHead; change them together. H2 heads only — the
-   awards masthead's h1 keeps its stacked layout. */
+   awards masthead's h1 keeps its stacked layout. `div.h2` is the same head
+   in the Services/Journey layout that is not on screen, which renders its
+   heading as a div so the page has one h2 per section (useDesktopScene). */
 @media (min-width: 900px) {
-  .sectionHead:has(> h2):has(> .lead) {
+  .sectionHead:has(> :is(h2, div.h2)):has(> .lead) {
     --split-gap: clamp(28px, 3vw, 44px);
     max-width: 1400px;
     display: grid;
@@ -194,7 +196,7 @@ h1.h2 {
     align-items: end;
   }
 
-  .sectionHead:has(> h2):has(> .lead) > h2 {
+  .sectionHead:has(> :is(h2, div.h2)):has(> .lead) > :is(h2, div.h2) {
     grid-column: 1;
     grid-row: 2;
     /* 20ch at 40px sets the Clients heading in the three lines it was designed
@@ -205,13 +207,13 @@ h1.h2 {
     max-width: min(20ch, var(--fit-width, 20ch));
   }
 
-  .sectionHead:has(> h2):has(> .lead) > :first-child:not(h2) {
+  .sectionHead:has(> :is(h2, div.h2)):has(> .lead) > :first-child:not(h2, div.h2) {
     grid-column: 1;
     grid-row: 1;
     justify-self: start;
   }
 
-  .sectionHead:has(> h2):has(> .lead) > .lead {
+  .sectionHead:has(> :is(h2, div.h2)):has(> .lead) > .lead {
     grid-column: 2;
     grid-row: 1 / span 2;
     align-self: stretch;
@@ -908,6 +910,12 @@ h1.h2 {
   grid-area: 1 / 1;
   white-space: nowrap;
   will-change: transform, opacity;
+}
+
+/* Generated content, so the rotating words are drawn but are not the H1's
+   text — see hero.tsx. */
+.rotWord::before {
+  content: attr(data-word);
 }
 
 /* Hero body copy is white site-wide: the muted greys these paragraphs used to
@@ -5601,7 +5609,7 @@ h1.h2 {
     border: 1px solid var(--line);
     box-shadow: 0 44px 100px -34px rgba(0, 0, 0, 0.75);
     transform-origin: center center;
-    transition: transform 0.75s cubic-bezier(0.5, 0, 0, 1), opacity 0.6s ease;
+    transition: transform 1.2s cubic-bezier(0.5, 0, 0, 1), opacity 0.9s ease;
     will-change: transform, opacity;
   }
   .carCardVeil {
@@ -5758,6 +5766,32 @@ h1.h2 {
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  /* The strip is the card's link: name on the left, arrow on the right. */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.indFanCardTitle:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -4px;
+}
+.indFanCardArrow {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #0a0a0a;
+  color: #ffffff;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.indFanCardTitle:hover .indFanCardArrow,
+.indFanCardTitle:focus-visible .indFanCardArrow {
+  transform: translate(2px, -2px);
 }
 .indFanCardOverlay {
   position: absolute;
