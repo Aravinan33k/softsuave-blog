@@ -168,6 +168,16 @@ export const sdWhyUs: OverviewContent = {
   paragraphs: [
     "Choosing Soft Suave for your custom software development means partnering with a team of professionals who prioritize quality, efficiency, and innovation. Here’s what you get",
   ],
+  // Six bare phrases with no body of their own, so they read as reasons only
+  // once each carries a glyph (review: "add images and icons in the Why Choose
+  // Us section"). The illustration beside the prose is the section's image;
+  // the badge per card is the icon, picked from the phrase's own words.
+  pointsVariant: "icons",
+  // Named rather than left to the picker on four of the six: "programmers" and
+  // "team setup" both resolve to the people glyph, and "40-hour" and
+  // "time-zone" both to the clock, which would print two pairs of twins in one
+  // row of six.
+  pointIcons: ["piggy", "users", "workflow", "award", "rocket", "globe"],
   points: [
     "Budget-friendly solutions",
     "400+ Expert programmers",
@@ -293,7 +303,15 @@ export const sdIndustries: CardGridContent = {
   ],
 };
 
-/** The live page's four delivery models, four across on a wide desktop. */
+/**
+ * The live page's four delivery models, four across on a wide desktop.
+ *
+ * Each carries its own `href`. The card grid only auto-links sections whose
+ * id reads as services or sectors, and this one renders under `id="engagement"`
+ * — so all four cards named a page this site serves and led nowhere (review:
+ * "add page links in the Delivery Method section"). Naming the route here
+ * rather than widening that rule keeps the change to this page.
+ */
 export const sdDelivery: CardGridContent = {
   eyebrow: "Delivery Method",
   title: "Flexible Solutions for Every Need",
@@ -301,18 +319,22 @@ export const sdDelivery: CardGridContent = {
   items: [
     {
       name: "Offshore Software Development Service",
+      href: "/offshore-software-development-company",
       body: "Explore superior talent without breaking the bank with Soft Suave’s offshore team. Experience seamless collaboration across time zones, delivering top-notch quality with expertly managed projects. Elevate your success effortlessly.",
     },
     {
       name: "Software Development Outsourcing Service",
+      href: "/it-outsourcing-company-india",
       body: "Focus on what you do best, running your business, while we handle your software development. With our efficiency, experience, and commitment to quality, we’ll deliver a top-notch product that elevates your success.",
     },
     {
       name: "Staff Augmentation Service",
+      href: "/it-staff-augmentation-services",
       body: "Need additional talent for your in-house team? Our staff augmentation service provides you with experienced developers and IT specialists who integrate smoothly with your existing team.",
     },
     {
       name: "Hire Dedicated Developer Team",
+      href: "/hire-dedicated-developers",
       body: "Build your dream team with Soft Suave’s dedicated developers. Our team of skilled developers works exclusively on your projects, ensuring high-quality delivery and full project control.",
     },
   ],

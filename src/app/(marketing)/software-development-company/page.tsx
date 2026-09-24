@@ -192,10 +192,12 @@ export default function SoftwareDevelopmentCompanyPage() {
         </div>
 
         {/* The closing pair share the warm-white band, for the same reason the
-            two grids above do. */}
+            two grids above do. Testimonials lead: the review asked for them
+            above the FAQ, so the page ends on the answers a reader came with
+            rather than on the praise. */}
         <div className={home.light}>
-          <Faq content={sdFaqs} idPrefix="sd-faq" />
           <Testimonials />
+          <Faq content={sdFaqs} idPrefix="sd-faq" />
         </div>
 
         <Contact />

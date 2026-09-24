@@ -5837,6 +5837,31 @@
   transform: translateY(-2px);
 }
 
+/* Icon variant of the same cards (`OverviewContent.pointsVariant: "icons"`).
+
+   A "Why Choose Us" block states its reasons as six bare phrases with no body
+   to describe them, so the tick list gave the reader six identical chevrons
+   and nothing to scan by (review: "add images and icons in the Why Choose Us
+   section"). Each card now opens on a glyph picked from its own words, which
+   is the same badge the service cards and process steps already carry — so
+   the section gains icons without gaining a second icon language.
+
+   The cards get more room than the label-only variant: the badge and the
+   label stack, so they need a wider minimum before the text starts wrapping
+   every other word. */
+.pointIconCards {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.pointIconCard {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 12px;
+  text-align: left;
+  min-height: 118px;
+}
+
 /* ============================================================
    COMPARISON — wide variant.
 
