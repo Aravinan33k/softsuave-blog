@@ -276,19 +276,21 @@ h1.h2 {
    --on-accent — the ink for an accent fill, white on every band's orange/red
    (see home.css). */
 .pill:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--on-accent, #140b08);
+  background: var(--cta-bg, #ff5436);
+  border-color: var(--cta-bg, #ff5436);
+  color: var(--cta-ink, #ffffff);
 }
 
 .pillFilled {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--cta-bg, #ff5436);
+  border-color: var(--cta-bg, #ff5436);
   /* --on-accent, not a literal: the fill is the BAND's accent, so the ink has
      to follow it. The dark ink is right on the dark band (6.08:1) but only
      3.28:1 on the light band's deeper brick red, where --on-accent is white
-     and gives 5.93:1. */
-  color: var(--on-accent, #140b08);
+     and gives 5.93:1.
+     Now --cta-ink: the fill is the fixed brand orange (--cta-bg) on every
+     band, so its ink is fixed too — white, as on the nav CTA. */
+  color: var(--cta-ink, #ffffff);
 }
 
 /* Hover / keyboard focus: a contrast fill WIPES across the plate from the left
@@ -2921,11 +2923,11 @@ h1.h2 {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  border: 1.5px solid var(--accent);
+  border: 1.5px solid var(--cta-bg, #ff5436);
   border-radius: 999px;
-  background: var(--accent);
-  /* Band-aware, for the same reason as .pillFilled above. */
-  color: var(--on-accent, #140b08);
+  background: var(--cta-bg, #ff5436);
+  /* The fixed button orange and its ink, as .pillFilled above. */
+  color: var(--cta-ink, #ffffff);
   padding: 1.3em 3.4em;
   font-family: var(--font-eyebrow);
   font-size: clamp(13px, 1.15vw, 16px);
@@ -4124,35 +4126,43 @@ h1.h2 {
   100% { transform: scale(1.15); opacity: 1; }
 }
 
-/* ---- left rail (numbered stepper overlay) ---- */
+/* ---- left rail (numbered stepper overlay) ----
+   The section is pinned at exactly one viewport tall with overflow hidden, so
+   the rail cannot scroll: whatever does not fit is simply cut off. At fixed
+   sizes it needed ~780px, more than a laptop browser shows (the last step's
+   description ran off the bottom). So every vertical measure below is
+   min(<design size>, <share of the viewport height>): on a tall screen the
+   design size wins and nothing changes; on a short one the rail shrinks to
+   fit, with no copy dropped. The shares are sized so the whole rail — heading,
+   lead, six rows and the open step's body — fits inside ~620px. */
 .journeyRail {
   position: absolute;
   /* Unchanged values, now named — the canvas derives its left edge from these,
      so moving the rail moves the stage with it. */
   left: var(--journey-rail-x);
-  top: clamp(60px, 6vh, 80px);
+  top: clamp(28px, 6vh, 80px);
   z-index: 10;
   width: var(--journey-rail-w);
   pointer-events: none;
 }
 .journeyRail .eyebrow {
-  margin-bottom: 18px;
+  margin-bottom: min(18px, 1.8vh);
 }
 .journeyTitle {
-  margin: 0 0 14px;
+  margin: 0 0 min(14px, 1.4vh);
   max-width: 480px;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: var(--fs-h2);
+  font-size: min(var(--fs-h2), 5.2vh);
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--text-bright);
 }
 .journeyLead {
-  margin: 0 0 26px;
-  max-width: 42ch;
-  font-size: var(--fs-body);
-  line-height: 1.6;
+  margin: 0 0 min(26px, 2.6vh);
+  max-width: 46ch;
+  font-size: min(var(--fs-body), 2.3vh);
+  line-height: 1.55;
   color: var(--muted);
 }
 .railList {
@@ -4161,19 +4171,22 @@ h1.h2 {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: min(6px, 0.6vh);
 }
 .railRow {
   display: grid;
-  grid-template-columns: 40px 1fr;
+  grid-template-columns: min(40px, 5vh) 1fr;
   gap: 18px;
   align-items: start;
-  padding: 6px 0;
+  padding: min(6px, 0.5vh) 0;
   transition: opacity 0.5s ease;
-  opacity: 0.4;
+  /* Dimmed, not faded out: at 0.4 the waiting steps' grey names sat under
+     ~3:1 on the dark stage and read as disabled. The open step still leads —
+     full opacity, white badge — so the rail's focus survives the lift. */
+  opacity: 0.6;
 }
 .railRowDone {
-  opacity: 0.55;
+  opacity: 0.72;
 }
 .railRowActive {
   opacity: 1;
@@ -4181,8 +4194,8 @@ h1.h2 {
 .railBadge {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: min(40px, 5vh);
+  height: min(40px, 5vh);
   border-radius: 10px;
   border: 1px solid var(--line);
   font-family: var(--font-eyebrow);
@@ -4196,23 +4209,23 @@ h1.h2 {
   border-color: #fff;
   color: #140b08;
 }
+/* The name's line box matches the badge height, so each row is exactly one
+   badge tall and the name sits centred on it. */
 .railText {
-  padding-top: 2px;
+  padding-top: 0;
 }
 .railName {
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: var(--fs-h3);
-  line-height: 1.5;
+  font-size: min(var(--fs-h3), 3.4vh);
+  line-height: min(40px, 5vh);
   letter-spacing: -0.01em;
   color: var(--text-bright);
   transition: font-size 0.5s ease;
 }
 .railRowActive .railName {
-  font-size: var(--fs-h3);
-  line-height: 1.15;
-  margin-top: 6px;
+  font-size: min(var(--fs-h3), 3.4vh);
 }
 .railBodyWrap {
   display: grid;
@@ -4226,8 +4239,8 @@ h1.h2 {
   overflow: hidden;
   margin: 0;
   max-width: 44ch;
-  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
-  line-height: 1.6;
+  font-size: min(clamp(0.95rem, 1.1vw, 1.1rem), 2.2vh);
+  line-height: 1.55;
   color: var(--muted);
   border-left: 1px solid var(--accent-border);
   padding-left: 18px;
@@ -4236,8 +4249,8 @@ h1.h2 {
 }
 .railRowActive .railBody {
   opacity: 1;
-  margin-top: 16px;
-  margin-bottom: 8px;
+  margin-top: min(10px, 1vh);
+  margin-bottom: min(8px, 0.8vh);
 }
 
 /* Mobile responsive styles */
@@ -5524,6 +5537,14 @@ h1.h2 {
   border-top: 1px solid var(--line);
   margin-top: clamp(24px, 5vw, 40px);
 }
+/* Whole-card click target on the services cards (desktop stage and mobile
+   stack) — see `CardLink` in services.tsx. Last in the card, so it sits over
+   the image, veil and name tag. */
+.carCardHit {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
 .carMobCard {
   position: relative;
   width: 100%;
@@ -5808,6 +5829,16 @@ h1.h2 {
   transition: opacity 0.4s ease;
   pointer-events: none;
 }
+/* Full-card click target — see `indFanCardHit` in industries.tsx. Painted over
+   the photo and the overlay (same z-index, later in the DOM), under the orange
+   strip (z-index 2), so every point of the card is a link to the sector. */
+.indFanCardHit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.indFanCard:focus-within .indFanCardOverlay,
 .indFanCard:hover .indFanCardOverlay {
   opacity: 1;
 }
@@ -5832,7 +5863,8 @@ h1.h2 {
 }
 
 /* Grid hover lift — only when cards are in the grid layout. */
-.indFanStage:not(.fanLayout) .indFanCard:hover {
+.indFanStage:not(.fanLayout) .indFanCard:hover,
+.indFanStage:not(.fanLayout) .indFanCard:focus-within {
   transform: translateY(-6px);
   box-shadow: 0 24px 50px -18px rgba(0, 0, 0, 0.65);
   z-index: 2;
@@ -5869,7 +5901,8 @@ h1.h2 {
   transition: box-shadow 0.25s ease;
   will-change: transform, opacity;
 }
-.fanLayout .indFanCard:hover {
+.fanLayout .indFanCard:hover,
+.fanLayout .indFanCard:focus-within {
   box-shadow: 0 48px 90px -22px rgba(0, 0, 0, 0.85);
 }
 
@@ -6106,7 +6139,8 @@ h1.h2 {
   transition: transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 
-.industriesFan.gridMode .indFanCard:hover {
+.industriesFan.gridMode .indFanCard:hover,
+.industriesFan.gridMode .indFanCard:focus-within {
   transform: translateY(-8px) !important;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25) !important;
 }

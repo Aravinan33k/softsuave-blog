@@ -46,6 +46,14 @@
      the red. The .light band's brick red already takes white too, so every
      orange button now carries white text. */
   --on-accent: #ffffff;
+
+  /* Filled-button colours: the brand orange with white ink — exactly the nav's
+     "Book AI Strategy Call". Deliberately NOT --accent: the warm-white bands
+     re-point --accent to a brick red for text contrast, which turned every
+     orange button inside them reddish. These are never re-pointed per band,
+     so a button is the same orange on every ground. */
+  --cta-bg: var(--brand-500);
+  --cta-ink: #ffffff;
   --cream: #e6e4e2;
   --cream-line: #d8d8d8;
 

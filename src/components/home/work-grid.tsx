@@ -232,19 +232,26 @@ export default function WorkGrid({
 
     lane.style.scrollBehavior = "auto";
     lane.style.scrollSnapType = "none";
-    lane.setPointerCapture(e.pointerId);
-
-    lane.classList.add(styles.hLaneDragging);
+    // No pointer capture yet — see onPointerMove. Capturing here, on every
+    // press, retargeted the click that follows a plain tap to the lane itself,
+    // so no link inside it (the outro's "Start a project") ever navigated.
   }, []);
 
   const onPointerMove = useCallback((e: React.PointerEvent) => {
     if (!isDragging.current) return;
     const dx = e.clientX - dragStartX.current;
     if (Math.abs(dx) < DRAG_THRESHOLD && !hasMoved.current) return;
-    hasMoved.current = true;
 
     const lane = laneRef.current;
     if (!lane) return;
+
+    // It is a drag now, not a click: only from here does the lane take the
+    // pointer, so the drag keeps tracking once the cursor leaves the lane.
+    if (!hasMoved.current) {
+      lane.setPointerCapture(e.pointerId);
+      lane.classList.add(styles.hLaneDragging);
+    }
+    hasMoved.current = true;
 
     const now = performance.now();
     const dt = now - lastTime.current;
@@ -265,7 +272,7 @@ export default function WorkGrid({
     const lane = laneRef.current;
     if (!lane) return;
 
-    lane.releasePointerCapture(e.pointerId);
+    if (lane.hasPointerCapture(e.pointerId)) lane.releasePointerCapture(e.pointerId);
     lane.style.scrollBehavior = "";
     lane.classList.remove(styles.hLaneDragging);
 
@@ -306,6 +313,15 @@ export default function WorkGrid({
       });
     } else {
       lane.style.scrollSnapType = "";
+    }
+  }, []);
+
+  /** A drag that ends over a link must not also follow it. `hasMoved` is
+   *  still set when this click arrives (the next press clears it). */
+  const onClickCapture = useCallback((e: React.MouseEvent) => {
+    if (hasMoved.current) {
+      e.preventDefault();
+      e.stopPropagation();
     }
   }, []);
 
@@ -467,7 +483,7 @@ export default function WorkGrid({
             <div className={styles.hIntroCta}>
               <SiteLink
                 href={content.cta.href}
-                className={styles.pill}
+                className={styles.pillFilled}
                 data-cursor="View"
               >
                 {content.cta.label}
@@ -516,6 +532,7 @@ export default function WorkGrid({
           onPointerMove={isDesktop ? onPointerMove : undefined}
           onPointerUp={isDesktop ? onPointerUp : undefined}
           onDragStart={isDesktop ? onDragStart : undefined}
+          onClickCapture={isDesktop ? onClickCapture : undefined}
           /* Autoplay pauses while the lane is hovered or focused, so it never
              pulls a card away from someone reading or tabbing through it. */
           onMouseEnter={() => (heldRef.current = true)}
