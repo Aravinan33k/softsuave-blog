@@ -1565,9 +1565,11 @@
   flex: 0 0 auto;
 
   /* 20px on the Sep 23 review read as "very small" beside the chip's own
-     label; 28px matches the text it sits with. */
-  width: 28px;
-  height: 28px;
+     label, and 28px — matched to the text it sits with — was still called
+     small on the next pass. 36px makes the mark, not the label, the thing the
+     eye lands on, which is what a technology grid is scanned for. */
+  width: 36px;
+  height: 36px;
   /* The reveal tweens `filter` (marks develop from grey into colour) and
      clears it afterwards, so this transition owns the hover alone. */
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
@@ -2873,10 +2875,31 @@
   object-position: 34% 28%;
 }
 
+/* The scrim that buys the hero copy its contrast.
+
+   It used to fall to 0.2 horizontally and 0.16 vertically right where the body
+   paragraphs sit, which is fine over a dark photograph and fails completely
+   over a bright one: the Flutter hero runs a light, busy app-screenshot
+   collage, and white text over the white cards in it came out at roughly 1.9:1
+   (review: "the subtext is not visible"). The copy column ends around 60% of
+   the width, so the darkness is held up to there and only then released for
+   the photo to read; the enquiry card that sits over the rest is opaque and
+   does not depend on this.
+
+   Combined with the vertical pass this keeps the copy band near 0.85 alpha,
+   which puts white on roughly 13:1 even where the photo underneath is pure
+   white. Shared by every compact hero, so it is a legibility floor for all of
+   them rather than a fix pinned to one page. */
 .heroCompact .heroBgVeil {
   background:
-    linear-gradient(90deg, rgba(4, 5, 8, 0.6) 0%, rgba(4, 5, 8, 0.2) 55%, rgba(4, 5, 8, 0.4) 100%),
-    linear-gradient(180deg, rgba(4, 5, 8, 0.35) 0%, rgba(4, 5, 8, 0.16) 40%, rgba(4, 5, 8, 0.9) 100%);
+    linear-gradient(
+      90deg,
+      rgba(4, 5, 8, 0.88) 0%,
+      rgba(4, 5, 8, 0.8) 45%,
+      rgba(4, 5, 8, 0.5) 68%,
+      rgba(4, 5, 8, 0.42) 100%
+    ),
+    linear-gradient(180deg, rgba(4, 5, 8, 0.4) 0%, rgba(4, 5, 8, 0.28) 40%, rgba(4, 5, 8, 0.9) 100%);
 }
 
 .heroCompact .heroGlow {
@@ -5727,6 +5750,13 @@
     clamp(16px, 1.8vw, 22px);
   overflow: hidden;
   background: var(--bg);
+  /* Follow the card's own 14px curve at the top, where the frame runs out to
+     the card edges, and stay square at the bottom where the copy continues
+     below it. Without this the picture cut a hard right angle across each
+     rounded top corner (review: "update the image div corner radius"). The
+     12px is the card's radius less its border and the pixel the frame's
+     negative margin leaves inside it. */
+  border-radius: 12px 12px 0 0;
 }
 
 .stcImage {
@@ -5739,6 +5769,24 @@
    and let each cell stack its figure over its label. */
 .overviewStats {
   margin-top: clamp(24px, 3vw, 40px);
+}
+
+/* `OverviewContent.statsAside` — the counters take the grid column the
+   illustration would otherwise fill. Below 1000px `.overviewGrid` collapses to
+   one column, so this simply stacks under the prose and needs the top margin
+   the full-width position has; from 1000px it sits beside the copy and the
+   margin goes, with the panel centred against the prose block rather than
+   stretched to its full height (four counters do not want to be pulled to the
+   height of four paragraphs). */
+.overviewStatsAside {
+  margin-top: clamp(24px, 3vw, 40px);
+}
+
+@media (min-width: 1000px) {
+  .overviewStatsAside {
+    margin-top: 0;
+    align-self: center;
+  }
 }
 
 .trustStatValue {

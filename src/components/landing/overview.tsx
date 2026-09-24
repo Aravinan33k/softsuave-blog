@@ -64,6 +64,20 @@ export interface OverviewContent {
    * clients band uses, so one proof band exists across the surface.
    */
   stats?: readonly { readonly figure: string; readonly label: string }[];
+  /**
+   * Put `stats` in the grid's right-hand column instead of running them full
+   * width underneath, and drop `image` — the counters become the block's
+   * companion to the prose rather than a footer under it.
+   *
+   * Opt-in, so the pages that already pair prose with an illustration are
+   * untouched. The Flutter page asked for it on review ("keep the bottom
+   * section (stats boxes) on the right side instead of the image"), where the
+   * illustration was a flat line-art icon stretched across a 4:3 frame and the
+   * four counters were the stronger thing to show beside the copy.
+   *
+   * With no `stats` it does nothing, so it can never blank the column.
+   */
+  statsAside?: boolean;
   /** Optional — only pages whose copy ends on a pull quote supply one. */
   pullQuote?: string;
   /**
@@ -181,28 +195,91 @@ export default function Overview({
     </>
   );
 
+  /*
+   * `statsAside` moves the counters into the right-hand column and drops the
+   * illustration, so the two are mutually exclusive — `hasStats` guards it,
+   * which is what stops the flag emptying the column on a page with no stats.
+   */
+  const hasStats = Boolean(content.stats && content.stats.length > 0);
+  const asideStats = Boolean(content.statsAside) && hasStats;
+  const showImage = Boolean(image) && !asideStats;
+  /** Whether the heading/prose share a row with something to their right. */
+  const twoColumn = showImage || asideStats;
+
+  /** The claim list, rendered either inside the left column or below the grid. */
+  const pointsList =
+    content.points && content.points.length > 0 ? (
+      content.pointsVariant === "icons" ? (
+        <ul className={`${styles.pointCards} ${styles.pointIconCards}`}>
+          {content.points.map((point, i) => (
+            <li key={point} className={`${styles.pointCard} ${styles.pointIconCard}`}>
+              <CardIconBadge title={point} size="sm" iconKey={content.pointIcons?.[i]} />
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
+      ) : content.pointsVariant === "cards" ? (
+        <ul className={styles.pointCards}>
+          {content.points.map((point) => (
+            <li key={point} className={styles.pointCard}>
+              {point}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <ul className={styles.tickList}>
+          {content.points.map((point) => (
+            <li key={point} className={styles.tickItem}>
+              {point}
+            </li>
+          ))}
+        </ul>
+      )
+    ) : null;
+
+  const statsPanel = hasStats ? (
+    <div className={styles.trustPanel}>
+      <dl className={styles.trustStats}>
+        {content.stats!.map((stat) => (
+          <div key={stat.label} className={styles.trustStat}>
+            <dt className={styles.srOnly}>{stat.label}</dt>
+            <dd className={styles.trustStatValue}>
+              <CountUp value={stat.figure} className={styles.trustFigure} />
+              <span className={styles.trustLabel} aria-hidden>
+                {stat.label}
+              </span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  ) : null;
+
   return (
     <section
       className={compact ? `${styles.sectionShell} ${styles.overviewCompact}` : styles.sectionShell}
       id={id}
     >
-      {/* With an image, the heading moves inside the left grid column so both
-          columns start at the same top edge — the image can then be stretched
-          (see `.overviewMedia` at 1000px in landing.module.css) to match the
-          full heading+prose block's height, top to bottom, instead of just
-          the prose. Without an image this is unchanged: the heading sits above
-          as this surface's normal full-width masthead. */}
-      {!image && <SectionHead kicker={content.eyebrow} title={content.title} />}
+      {/* In a two-column layout the heading moves inside the left column so
+          both columns start at the same top edge — the image (or the stats
+          panel) can then be stretched (see `.overviewMedia` at 1000px in
+          landing.module.css) to match the full heading+prose block's height,
+          top to bottom, instead of just the prose. In one column this is
+          unchanged: the heading sits above as this surface's normal
+          full-width masthead. */}
+      {!twoColumn && <SectionHead kicker={content.eyebrow} title={content.title} />}
 
       <FadeUp>
-        <div className={image ? styles.overviewGrid : undefined}>
+        <div className={twoColumn ? styles.overviewGrid : undefined}>
           <div>
-            {image && <SectionHead kicker={content.eyebrow} title={content.title} />}
+            {twoColumn && <SectionHead kicker={content.eyebrow} title={content.title} />}
 
             {prose}
+
+            {asideStats && pointsList}
           </div>
 
-          {image && (
+          {showImage && image && (
             <figure className={styles.overviewMedia}>
               <Image
                 src={publicMediaUrl(image.src)}
@@ -215,60 +292,23 @@ export default function Overview({
               />
             </figure>
           )}
+
+          {asideStats && <div className={styles.overviewStatsAside}>{statsPanel}</div>}
         </div>
 
-        {content.points && content.points.length > 0 && (
-          content.pointsVariant === "icons" ? (
-            <ul className={`${styles.pointCards} ${styles.pointIconCards}`}>
-              {content.points.map((point, i) => (
-                <li key={point} className={`${styles.pointCard} ${styles.pointIconCard}`}>
-                  <CardIconBadge title={point} size="sm" iconKey={content.pointIcons?.[i]} />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-          ) : content.pointsVariant === "cards" ? (
-            <ul className={styles.pointCards}>
-              {content.points.map((point) => (
-                <li key={point} className={styles.pointCard}>
-                  {point}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <ul className={styles.tickList}>
-              {content.points.map((point) => (
-                <li key={point} className={styles.tickItem}>
-                  {point}
-                </li>
-              ))}
-            </ul>
-          )
-        )}
+        {/* With the counters beside the copy the points move up into the left
+            column (see above), so the row is the whole block and the panel
+            centres against all of it rather than leaving the column empty
+            under itself. Everywhere else they stay here, below the grid. */}
+        {!asideStats && pointsList}
         {content.cta && (
           <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.overviewCta}`}>
             {content.cta.label}
           </a>
         )}
-        {content.stats && content.stats.length > 0 && (
-          <div className={styles.overviewStats}>
-            <div className={styles.trustPanel}>
-              <dl className={styles.trustStats}>
-                {content.stats.map((stat) => (
-                  <div key={stat.label} className={styles.trustStat}>
-                    <dt className={styles.srOnly}>{stat.label}</dt>
-                    <dd className={styles.trustStatValue}>
-                      <CountUp value={stat.figure} className={styles.trustFigure} />
-                      <span className={styles.trustLabel} aria-hidden>
-                        {stat.label}
-                      </span>
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </div>
-        )}
+        {/* Full-width footer position — skipped when the counters have already
+            been rendered in the column beside the prose. */}
+        {hasStats && !asideStats && <div className={styles.overviewStats}>{statsPanel}</div>}
         {content.pullQuote && <p className={styles.pullQuote}>{content.pullQuote}</p>}
         {content.flow && <Flow content={content.flow} />}
       </FadeUp>

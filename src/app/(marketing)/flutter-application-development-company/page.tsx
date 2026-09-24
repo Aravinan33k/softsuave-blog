@@ -134,8 +134,10 @@ export default function FlutterAppDevelopmentPage() {
        * Band rhythm. The `home.light` wrapper re-points the same
        * --bg/--surface/--text tokens every component already reads, so a
        * band is just the wrapper. Hero opens dark and the closing Contact
-       * band is dark, and everything between alternates cleanly — no run of
-       * two dark sections anywhere on the page.
+       * band is dark, and everything between alternates — the one two-dark
+       * run is FAQ → Contact at the end, which is what moving the FAQ past
+       * the client stories leaves, and is how the other corrected pages on
+       * this surface close too.
        *
        * This page carries no clients band or industries grid: the live page
        * has none, and nothing is invented to fill the rhythm.
@@ -161,21 +163,26 @@ export default function FlutterAppDevelopmentPage() {
 
         <TechStack content={flTech} />
 
-        {/* This page's own four projects, each with the live page's artwork —
-            not the homepage case-study gallery, which is a different set of
-            work. */}
+        {/* The FAQ now follows the client stories, as the review asked and as
+            every corrected page on this surface runs them — the proof lands
+            before the objection-handling rather than after it.
+
+            That puts the projects and the stories back to back on the warm
+            white, so they share one wrapper: two light bands stacked would
+            double the padding between them and read as separate panels rather
+            than one chapter of proof. Same merge `landing/hire-page` does with
+            its own runs. */}
         <div className={home.light}>
+          {/* This page's own four projects, each with the live page's artwork —
+              not the homepage case-study gallery, which is a different set of
+              work. */}
           <StoryCards content={flProjects} />
+          {/* Homepage client stories — the live page's band carries the same
+              heading, "What Our Clients Say About Us". */}
+          <Testimonials />
         </div>
 
         <Faq content={flFaqs} idPrefix="fl-faq" />
-
-        {/* Homepage client stories, on the warm-white band as they are there —
-            the live page's band carries the same heading, "What Our Clients
-            Say About Us". */}
-        <div className={home.light}>
-          <Testimonials />
-        </div>
 
         <Contact />
       </main>

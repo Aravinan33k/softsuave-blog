@@ -3152,6 +3152,96 @@
         "system monitoring dashboard",
         "monitoring"
       ]
+    },
+    {
+      "id": "fl-cross-platform",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "One codebase running as an app on both an Android phone and an iPhone",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "cross platform app developer phone laptop",
+        "mobile developer phone and laptop side by side",
+        "app developer testing two phones",
+        "software developer desk phones"
+      ]
+    },
+    {
+      "id": "fl-ios-android",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A developer testing the same app build on an iPhone and an Android handset",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "mobile app developers testing phones",
+        "developers testing mobile app devices",
+        "two smartphones app testing hands",
+        "mobile testing devices desk"
+      ]
+    },
+    {
+      "id": "fl-web",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A Flutter web build open in a browser on a developer workstation",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "web application developer laptop browser",
+        "frontend developer web design screen",
+        "developer building web app monitor",
+        "web developer workstation code"
+      ]
+    },
+    {
+      "id": "fl-dart",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Dart source code open in an editor during Flutter development",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "programmer writing code laptop editor",
+        "source code editor screen closeup",
+        "developer typing code keyboard screen",
+        "programming code monitor"
+      ]
+    },
+    {
+      "id": "fl-team",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "The dedicated Flutter engineering team working together in the studio",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "dedicated software developers team office",
+        "software team collaborating desks office",
+        "developers working together laptops team",
+        "engineering team office collaboration"
+      ]
+    },
+    {
+      "id": "fl-chat",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A chat application running on a phone, showing a live conversation thread",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "chat messaging app smartphone screen",
+        "person messaging on phone app",
+        "mobile chat conversation screen hand",
+        "smartphone messaging application"
+      ]
     }
   ]
 }

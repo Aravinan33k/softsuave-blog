@@ -2775,5 +2775,83 @@
     "photographer": "MART  PRODUCTION",
     "pexelsUrl": "https://www.pexels.com/photo/photo-of-papers-on-table-7605981/",
     "matchedTier": "analytics graphs report printed charts desk"
+  },
+  "four/fl-cross-platform": {
+    "page": "four",
+    "id": "fl-cross-platform",
+    "src": "/images/four/fl-cross-platform.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "One codebase running as an app on both an Android phone and an iPhone",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAQAgCdASoQAAsAA4BaJQBdgBmE1dR4DqQAAOJ9204d1tlFAHXc3LFYy9AJixwh/etjGBRJnMvTM+Z5qga98mqgK4pOUc+QEFV/8cGylPt+VdZ8tzzGPpFodtskfIoAYHhZ/QAA",
+    "pexelsId": 5912322,
+    "photographer": "Joshua Mayo",
+    "pexelsUrl": "https://www.pexels.com/photo/person-holding-black-iphone-5-5912322/",
+    "matchedTier": "cross platform app developer phone laptop"
+  },
+  "four/fl-ios-android": {
+    "page": "four",
+    "id": "fl-ios-android",
+    "src": "/images/four/fl-ios-android.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A developer testing the same app build on an iPhone and an Android handset",
+    "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwAgCdASoQAAsAA4BaJYwCdH8AGYnwMJEvAAD+fAtJGD84jExrnVgaIQrOrTodpJnfx4dY3YILDj8zjP7N2TuSbJXOXb56mDeYB5lIzskc+tk+sfQuyMUuib4b298rrRvWCDHAQ0AAAA==",
+    "pexelsId": 3183175,
+    "photographer": "fauxels",
+    "pexelsUrl": "https://www.pexels.com/photo/photo-of-people-standing-near-blackboard-3183175/",
+    "matchedTier": "mobile app developers testing phones"
+  },
+  "four/fl-web": {
+    "page": "four",
+    "id": "fl-web",
+    "src": "/images/four/fl-web.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A Flutter web build open in a browser on a developer workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAABQAgCdASoQAAsAA4BaJZgCdAEDsneOmzwVCAAA/uNoH08dVoPaYax8A0gCZ+YYvmmmEm4+fomS00KVJ+GtKqP6NnSuaG9TPKHlNXZN2xsg7weu3g+7XQAA",
+    "pexelsId": 6986455,
+    "photographer": "cottonbro studio",
+    "pexelsUrl": "https://www.pexels.com/photo/google-browser-on-laptop-6986455/",
+    "matchedTier": "web application developer laptop browser"
+  },
+  "four/fl-dart": {
+    "page": "four",
+    "id": "fl-dart",
+    "src": "/images/four/fl-dart.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Dart source code open in an editor during Flutter development",
+    "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAADwAQCdASoQAAsAA4BaJbAAD5CMVUMgdKAA/rYQNtZBAXq1tfW8RWePo/PaWuxtV0KkhsrgfrvtMHj4FpnE4ajNdgo1tR0PCyJhp+0vrHb+ump7zmVj97hwJKR2x7NwD6zONGnV2fGR8ZDVBlwDMCJNlyAAAA==",
+    "pexelsId": 1181467,
+    "photographer": "Christina Morillo",
+    "pexelsUrl": "https://www.pexels.com/photo/person-using-silver-macbook-pro-1181467/",
+    "matchedTier": "programmer writing code laptop editor"
+  },
+  "four/fl-team": {
+    "page": "four",
+    "id": "fl-team",
+    "src": "/images/four/fl-team.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "The dedicated Flutter engineering team working together in the studio",
+    "blurDataURL": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAABQAgCdASoQAAsAA4BaJZwAD4ovslxRnvjEPkAA/vUFV7M5FGvvNq6dtAwFQOOc+A1cJFg3MPswyxvRRz4wbpr6EgcvPnRsVxHEZAg+LEKr/yUQXZb23CFvdB2ScplRR0Ysr8vyLI3zCAAA",
+    "pexelsId": 7988745,
+    "photographer": "Mikhail Nilov",
+    "pexelsUrl": "https://www.pexels.com/photo/young-professionals-working-with-computers-7988745/",
+    "matchedTier": "dedicated software developers team office"
+  },
+  "four/fl-chat": {
+    "page": "four",
+    "id": "fl-chat",
+    "src": "/images/four/fl-chat.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A chat application running on a phone, showing a live conversation thread",
+    "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoQAAsAA4BaJZACdAD0iFURvlQA/vI4UMI/vGmrhet+XIlx2DhA21WjFrMQTL3+y8wJOct72iC094ptAejLMuchaHrQooAA",
+    "pexelsId": 30479283,
+    "photographer": "Airam Dato-on",
+    "pexelsUrl": "https://www.pexels.com/photo/smartphone-displaying-ai-chatbot-interface-30479283/",
+    "matchedTier": "chat messaging app smartphone screen"
   }
 }
