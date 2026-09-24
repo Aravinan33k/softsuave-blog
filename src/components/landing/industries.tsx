@@ -362,6 +362,7 @@ export default function Industries({
 
   columns = 4,
   variant = "cards",
+  autoLink: autoLinkProp,
 }: {
   content: CardGridContent;
   id?: string;
@@ -381,7 +382,21 @@ export default function Industries({
    * `bold` and `feature` are documented on the component itself, above.
    */
   variant?: "cards" | "watermark" | "bold" | "feature";
-
+  /**
+   * Force card auto-linking on or off, overriding the guess made from `id`.
+   *
+   * The default reads the section id for "service"/"industry"/"solution" and
+   * so on, which covers most grids but misses one whose anchor is named for
+   * its subject rather than its kind — the web-app page's `#core-tech` lists
+   * eight technologies we publish a page for each, and `#engagement` four
+   * delivery models likewise, and neither word is in that pattern (review:
+   * "services are missing links", "some cards are missing links").
+   *
+   * A card still only links where `lib/home/service-href.ts` finds a confident
+   * match, and never to the page it is on, so turning this on cannot invent a
+   * destination.
+   */
+  autoLink?: boolean;
 }) {
   const grid = [
     styles.cardGrid,
@@ -404,7 +419,7 @@ export default function Industries({
      models) are statements, not gateways, so they are never auto-linked.
      Either way a card never links to the page it is on. */
   const resolveHref = useServiceHref();
-  const autoLink = /service|industr|sector|offering|solution/i.test(id);
+  const autoLink = autoLinkProp ?? /service|industr|sector|offering|solution/i.test(id);
   const hrefOf = (item: CardGridContent["items"][number]) =>
     (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
 

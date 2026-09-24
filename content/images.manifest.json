@@ -3332,6 +3332,81 @@
         "business consultant presenting team",
         "consulting meeting office discussion"
       ]
+    },
+    {
+      "id": "web-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A web application team at work across large screens in a studio",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "web development team working large monitors office",
+        "developers building web application office",
+        "software team desks monitors modern office",
+        "tech team working office"
+      ]
+    },
+    {
+      "id": "web-overview",
+      "page": "four",
+      "purpose": "overview-illustration",
+      "alt": "A web developer building a custom application at a desktop workstation",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1200,
+      "keywords": [
+        "web developer working desktop monitor vertical",
+        "developer building website workstation portrait",
+        "programmer at computer office portrait",
+        "developer working desk computer"
+      ]
+    },
+    {
+      "id": "web-dynamic",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A dynamic web application updating live on a large display",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "business analytics dashboard laptop screen office",
+        "person reviewing dashboard laptop charts",
+        "web analytics screen desk working",
+        "dashboard laptop charts desk"
+      ]
+    },
+    {
+      "id": "web-spa",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A single-page application running smoothly in a browser on a wide display",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developer building website laptop browser open",
+        "front end developer working laptop screen",
+        "person using web app laptop desk",
+        "laptop browser website desk"
+      ]
+    },
+    {
+      "id": "web-cms",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "An editor publishing and organising content in a web content management system",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "person editing website content laptop blog",
+        "content editor writing laptop desk",
+        "blogger publishing content computer",
+        "writing editing content computer"
+      ]
     }
   ]
 }

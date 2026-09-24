@@ -2931,5 +2931,70 @@
     "photographer": "Felicity Tai",
     "pexelsUrl": "https://www.pexels.com/photo/people-at-a-business-meeting-7964144/",
     "matchedTier": "consultant advising team whiteboard meeting"
+  },
+  "four/web-hero": {
+    "page": "four",
+    "id": "web-hero",
+    "src": "/images/four/web-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A web application team at work across large screens in a studio",
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAwAgCdASoQAAsAA4BaJYwCdAf6tBijOW/dAAD8jvhVYAHtzqhJpya3UCt/pfKuh+cRCKLw7KROcrcr6/F9BRDmfT9dLckUH67uV7VMUnojRm3VlzpfE7dsxQF1BOAA",
+    "pexelsId": 3182800,
+    "photographer": "fauxels",
+    "pexelsUrl": "https://www.pexels.com/photo/people-in-front-of-the-computers-3182800/",
+    "matchedTier": "web development team working large monitors office"
+  },
+  "four/web-overview": {
+    "page": "four",
+    "id": "web-overview",
+    "src": "/images/four/web-overview.webp",
+    "width": 1000,
+    "height": 1200,
+    "alt": "A web developer building a custom application at a desktop workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAQAgCdASoLABAAA4BaJZwCdADdI8xIk0+AAP70fpY76ChmwNoN7gChP3at38Np5jqomFB3mYFH2WHLpMf0HGJVCGGRzMJhsIAAAA==",
+    "pexelsId": 9553905,
+    "photographer": "Mikhail Fesenko",
+    "pexelsUrl": "https://www.pexels.com/photo/man-writing-a-code-on-a-computer-and-laptop-9553905/",
+    "matchedTier": "web developer working desktop monitor vertical"
+  },
+  "four/web-cms": {
+    "page": "four",
+    "id": "web-cms",
+    "src": "/images/four/web-cms.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "An editor publishing and organising content in a web content management system",
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAADwAQCdASoQAAsAA4BaJbAAAqoyJKN7jQAA/uoZOhnR2v+9AQZrV1YeO9aANLtDXJCjZQMA6SBx0U7NwVoxeVMbx78R+KeoCYj/OPs5o43fkvH5Zd9QNERjL7/m+vM8Ab+b4U09gAA=",
+    "pexelsId": 7679456,
+    "photographer": "MART  PRODUCTION",
+    "pexelsUrl": "https://www.pexels.com/photo/online-business-using-a-laptop-and-internet-7679456/",
+    "matchedTier": "person editing website content laptop blog"
+  },
+  "four/web-dynamic": {
+    "page": "four",
+    "id": "web-dynamic",
+    "src": "/images/four/web-dynamic.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A dynamic web application updating live on a large display",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAwAgCdASoQAAsAA4BaJQBdgB9q0Ejgm/m8AAD+mqQiaaP98oQ7rlRpG5uuYu071tVvjSOqXGetHrnDSbt3bBi7ai+aGaa7WWDNA1/Kyj/PdtUlrQpqQ1JkoGQfcZyJc1OIAAAA",
+    "pexelsId": 7693142,
+    "photographer": "Yan Krukau",
+    "pexelsUrl": "https://www.pexels.com/photo/gray-laptop-on-the-table-7693142/",
+    "matchedTier": "business analytics dashboard laptop screen office"
+  },
+  "four/web-spa": {
+    "page": "four",
+    "id": "web-spa",
+    "src": "/images/four/web-spa.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A single-page application running smoothly in a browser on a wide display",
+    "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAAAQAgCdASoQAAsAA4BaJZQCdAEPdrqjGJyQAP71XyZ2XVzlHl1TamZI5h89aNru3FcTBR73sZTZnwxill9j3Fyak5Gfx4VlhcPEaBpFFWhbK8RUAAA=",
+    "pexelsId": 37085302,
+    "photographer": "Meet Patel",
+    "pexelsUrl": "https://www.pexels.com/photo/remote-work-with-laptop-on-rooftop-in-urban-setting-37085302/",
+    "matchedTier": "developer building website laptop browser open"
   }
 }

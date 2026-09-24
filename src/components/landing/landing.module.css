@@ -43,6 +43,15 @@
   position: relative;
 }
 
+/* Two sections stacked directly — which is what a shared `.light` band is —
+   otherwise meet with BOTH of their paddings, around 150px of empty ground
+   between the end of one grid and the next heading (review: "too much gap
+   after the section"). The first section's padding-bottom already separates
+   them amply, so the second drops its own. */
+.sectionShell + .sectionShell {
+  padding-top: 0;
+}
+
 /* Section masthead: kicker, title, then the intro paragraph beneath them.
    The intro used to sit in a second column from 1000px up, which put the lead
    on the same optical line as the title and made the two compete for the first
@@ -1085,7 +1094,11 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: var(--fs-card-title);
+  /* Was `--fs-card-title` (22px), which sat too close to the body beneath it
+     to read as this panel's heading (review: "the heading is very small").
+     These are two panels to a row, not a grid of small cards, so the title
+     carries more weight than a card title does. */
+  font-size: clamp(1.5rem, 2vw, 1.9rem);
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -2497,10 +2510,16 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  /* Integration: three panels fill one row. */
+  /* Integration: the panels fill one row, however many there are.
+     
+     This was a hard `repeat(3, …)`, which is right for the three panels on
+     /predictive-intelligence-services and wrong for the two on the web-app
+     page — that row ran three fixed 420px columns for two cards and left the
+     last third of it empty (review: "update the box width"). `auto-fit`
+     collapses the tracks nothing occupies, so two cards take half the row
+     each and three take a third, with no per-page prop to keep in step. */
   .integrationGrid {
-
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   }
 
   /* Why us: 6 proof points read as two rows of three. */
@@ -5484,7 +5503,11 @@
 .sbText {
   margin: 0;
   max-width: 62ch;
-  font-size: var(--fs-body-sm);
+  /* Was `--fs-body-sm` (14.4px). The stage is the one place this section puts
+     prose, and at the small size it read as a caption under a heading twice
+     its size — the review asked for it at 1.125rem/18px, which is `--fs-body`,
+     the same size every other section sets its prose. */
+  font-size: var(--fs-body);
   line-height: 1.68;
   color: var(--text);
 }

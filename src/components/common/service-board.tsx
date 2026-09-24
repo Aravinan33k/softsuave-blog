@@ -8,12 +8,21 @@ import SectionHead from "@/components/landing/section-head";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import ServiceLink, { useServiceHref } from "@/components/common/service-link";
 import { SiteLink } from "@/themes/softsuave/site-link";
+import { linkify, type InlineLink } from "@/components/common/linkify";
 import styles from "@/components/landing/landing.module.css";
 
 export interface ServiceBoardContent {
   eyebrow: string;
   title: string;
   body: string;
+  /**
+   * Internal links to weave into the services' prose, matched on their own
+   * words — see `components/common/linkify`. The live page links phrases
+   * inside these descriptions ("eCommerce web app", "WordPress") and those
+   * were missing here (review: "give the page links for Our Services
+   * section"). Each phrase is linked on its first appearance across the board.
+   */
+  links?: readonly InlineLink[];
   /** Optional button under the board — the section's own CTA on the live page. */
   cta?: { readonly label: string; readonly href: string };
   items: readonly {
@@ -77,6 +86,11 @@ export default function ServiceBoard({
 
   const items = content.items;
   const hrefFor = useServiceHref();
+  /**
+   * Which inline-link phrases have already been placed. One set for the whole
+   * board, so a phrase appearing in two services links in the first only.
+   */
+  const usedLinks = new Set<string>();
 
   // Entrance: the cards deal in, then the stage arrives under them.
   useGSAP(
@@ -244,7 +258,7 @@ export default function ServiceBoard({
                 <h3 className={styles.sbPanelName}>{item.name}</h3>
                 {item.paragraphs.map((p) => (
                   <p key={p.slice(0, 32)} className={styles.sbText}>
-                    {p}
+                    {linkify(p, content.links, usedLinks, styles.proseLink)}
                   </p>
                 ))}
                 {href && <ServiceLink href={href} label={item.name} />}

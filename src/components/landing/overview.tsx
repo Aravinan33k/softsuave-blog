@@ -10,40 +10,9 @@ import SectionHead from "./section-head";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import type { IconKey } from "@/lib/home/icon-for";
 import Flow, { type FlowContent } from "@/components/common/flow";
-import { SiteLink } from "@/themes/softsuave/site-link";
+import { linkify, type InlineLink } from "@/components/common/linkify";
 import styles from "./landing.module.css";
 
-/**
- * Replace the first unplaced link phrase found in `text` with an anchor.
- *
- * Deliberately a plain string search rather than a regex: the phrases come
- * from page copy and can contain characters a regex would read as syntax.
- * Returns the paragraph untouched when nothing matches, so copy and links can
- * drift without breaking the render — the link simply does not appear.
- */
-function linkify(
-  text: string,
-  links: readonly { readonly text: string; readonly href: string }[] | undefined,
-  used: Set<string>,
-) {
-  if (!links?.length) return text;
-  for (const link of links) {
-    if (used.has(link.text)) continue;
-    const at = text.indexOf(link.text);
-    if (at === -1) continue;
-    used.add(link.text);
-    return (
-      <>
-        {text.slice(0, at)}
-        <SiteLink href={link.href} className={styles.proseLink}>
-          {link.text}
-        </SiteLink>
-        {text.slice(at + link.text.length)}
-      </>
-    );
-  }
-  return text;
-}
 
 export interface OverviewContent {
   eyebrow: string;
@@ -65,7 +34,7 @@ export interface OverviewContent {
    * paragraph"). Routed through `SiteLink`, so a path this app does not serve
    * still resolves to softsuave.com rather than 404ing.
    */
-  links?: readonly { readonly text: string; readonly href: string }[];
+  links?: readonly InlineLink[];
   /**
    * Optional short claim list under the prose, for an overview whose copy
    * names its reasons rather than describing them. Each entry is a phrase,
@@ -235,7 +204,7 @@ export default function Overview({
         style={clamped ? ({ WebkitLineClamp: clampLines } as CSSProperties) : undefined}
       >
         {content.paragraphs.map((p, i) => (
-          <p key={`${i}-${p.length}`}>{linkify(p, content.links, used)}</p>
+          <p key={`${i}-${p.length}`}>{linkify(p, content.links, used, styles.proseLink)}</p>
         ))}
       </div>
 

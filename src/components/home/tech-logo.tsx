@@ -559,14 +559,24 @@ export default function TechLogo({ name }: { name: string }) {
         </svg>
       );
     case "laravel":
-      // Laravel's red angular "L" mark
+      /**
+       * Laravel's mark: the angular "L" drawn as a single red stroke.
+       *
+       * What this replaced was a stack of five shaded parallelograms — an
+       * isometric box, not a letter, and nothing a reader would recognise as
+       * Laravel (review: "update laravel icon"). The real mark is one
+       * continuous chevron path, so it is drawn as one.
+       */
       return (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2.4 5.6 6.6 3.2l4.2 2.4-4.2 2.4-4.2-2.4Z" fill="#FF2D20" />
-          <path d="M2.4 5.6v8.1l4.2 2.4V8l-4.2-2.4Z" fill="#C21B0F" />
-          <path d="M10.8 10.4 15 8l4.2 2.4-4.2 2.4-4.2-2.4Z" fill="#FF2D20" />
-          <path d="M10.8 10.4v8.1l4.2 2.4v-8.1l-4.2-2.4Z" fill="#C21B0F" />
-          <path d="M19.2 10.4v5.7L15 18.5v-5.7l4.2-2.4Z" fill="#FF6154" />
+          <path
+            d="M3.1 4.2h3.3v12.1h7.1l-1.7 3.5H3.1V4.2Z"
+            fill="#FF2D20"
+          />
+          <path
+            d="M13.4 4.2h3.4l4.1 8.4-1.7 3.5-2.4-5-2.5 5.1h-3.5l4.2-8.5-1.6-3.5Z"
+            fill="#FF2D20"
+          />
         </svg>
       );
     case "cakephp":
