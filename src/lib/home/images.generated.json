@@ -3477,5 +3477,18 @@
     "photographer": "Mikhail Nilov",
     "pexelsUrl": "https://www.pexels.com/photo/group-of-young-people-having-a-conversation-in-an-office-and-man-using-a-tablet-8101968/",
     "matchedTier": "modern tech office team collaboration"
+  },
+  "four/mad-hero": {
+    "page": "four",
+    "id": "mad-hero",
+    "src": "/images/four/mad-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A developer building a mobile app on a laptop beside a phone",
+    "blurDataURL": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAQCdASoQAAsAA4BaJZwCsACyvII7ewAA/odZ9iHoITHdWf3PC0yikwyeW1s5jO4R+80x1vKEe20jdQzXjZLls394xVsmg060vc+ukrPRkTTw3yvWLZQAAAA=",
+    "pexelsId": 5912326,
+    "photographer": "Joshua Mayo",
+    "pexelsUrl": "https://www.pexels.com/photo/person-holding-a-smartphone-5912326/",
+    "matchedTier": "hybrid mobile app developer laptop phone"
   }
 }

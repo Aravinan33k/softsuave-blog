@@ -33,6 +33,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { EngagementContent } from "@/components/common/engagement-models";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
+import type { WorkCarouselContent } from "@/components/home/work-grid";
 
 export const madMeta = {
   slug: "mobile-application-development-company",
@@ -64,7 +65,11 @@ export const madHero: HeroContent = {
     // The live page's own form heading and sub-line.
     eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
-    note: "Tell us what you want to build and which platforms it has to run on, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
+    // The live page's own applicant notice, missing here before (review:
+    // "need to update the form content") — every sibling page on this
+    // surface carries it.
+    note: "Tell us what you want to build and which platforms it has to run on, and we come back with an approach, timeline, and estimate. Everything stays under NDA. Alert: This form is for business, not candidates. To apply for jobs,",
+    noteLink: { label: "click here", href: "/career-overview" },
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",
@@ -72,13 +77,17 @@ export const madHero: HeroContent = {
       "The app you have in mind, the platforms it needs to run on, any systems it must integrate with, and where you are today — idea, designs, or an existing app.",
     subject: "Mobile App Development enquiry",
   },
-  // Hand-placed asset — full-bleed behind the whole hero section, veiled for
-  // contrast. See `Hero`'s `image` prop.
+  // This page's own photography, via the Pexels pipeline
+  // (`content/images.manifest.json`) — the previous asset was shared with
+  // four other pages and was dark enough to read as barely-there (review:
+  // "need to update the image and the visibility of the section is low").
   image: {
-    src: "/images/four/svc-mobile.webp",
-    width: 2048,
-    height: 944,
-    alt: "A mobile application under development, shown across phone and tablet screens",
+    src: "/images/four/mad-hero.webp",
+    width: 1920,
+    height: 1080,
+    alt: "A trading app open on a smartphone beside a laptop showing the same dashboard",
+    blurDataURL:
+      "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAQCdASoQAAsAA4BaJZwCsACyvII7ewAA/odZ9iHoITHdWf3PC0yikwyeW1s5jO4R+80x1vKEe20jdQzXjZLls394xVsmg060vc+ukrPRkTTw3yvWLZQAAAA=",
   },
 };
 
@@ -93,7 +102,7 @@ export const madServices: ServiceSlatsContent = {
   eyebrow: "Services",
   title: "Mobile App Development Services We Offer",
   body: "From concept to launch and ongoing maintenance, we offer full-spectrum mobile app development services to bring your ideas to life, ensuring scalability, performance, and seamless user experiences every step of the way.",
-  cta: { label: "Talk to Our Experts →", href: "#enquiry" },
+  cta: { label: "Talk to Our Experts →", href: "/contact" },
   items: [
     {
       name: "Custom Mobile App Development",
@@ -186,7 +195,7 @@ export const madProcess: ReleaseTrackContent = {
   eyebrow: "Process",
   title: "Our Mobile App Development Process",
   body: "We follow a clear, transparent, agile process from idea to launch, reducing risks and ensuring predictable delivery for high-quality, scalable mobile apps that meet your business goals.",
-  cta: { label: "Book a Consultation", href: "#enquiry" },
+  cta: { label: "Book a Consultation", href: "/contact" },
   steps: [
     {
       n: "01",
@@ -330,8 +339,49 @@ export const madEngagement: EngagementContent = {
  */
 export const madHireCta: CtaBandContent = {
   title: "Turn Ideas into Impact with India’s Leading Mobile App Experts",
-  body: "Whether you’re a startup or an SMB, we help bring your mobile app ideas to life with innovative solutions, ensuring seamless performance, scalability, and user-centric experiences every step of the way.",
+  // Trimmed the closing clause ("...scalability, and user-centric
+  // experiences every step of the way.") — accurate to the live page, but it
+  // echoes the Services section's own closing line almost word for word
+  // (review: "there is a additional line in section"), and the two read as a
+  // repeat back to back on one page.
+  body: "Whether you’re a startup or an SMB, we help bring your mobile app ideas to life with innovative solutions, ensuring seamless performance.",
   cta: { label: "Hire Mobile App Developer →", href: "/hire-mobile-app-developers" },
+};
+
+/**
+ * Four real mobile-app projects from Soft Suave's own portfolio (review:
+ * "need to update relevant case studies" — `<CaseStudies />` with no content
+ * prop was showing the homepage's generic AI/Vision case studies, unrelated
+ * to mobile apps). The live page carries no case-studies section of its own
+ * to copy from, so these are pulled from the individual case-study pages on
+ * softsuave.com rather than this page specifically.
+ */
+export const madCaseStudies: WorkCarouselContent = {
+  eyebrow: "Case Studies",
+  title: "Mobile Apps We've Built",
+  body: "A look at real mobile products we've shipped for clients across logistics, eCommerce, entertainment, and healthcare.",
+  items: [
+    {
+      title: "Logistics Ride Hailing Application",
+      tag: "Transportation",
+      body: "Native iOS and Android apps with separate rider and driver interfaces, live GPS tracking, and a web admin portal for a US taxi and goods-transportation provider.",
+    },
+    {
+      title: "Grabcery",
+      tag: "eCommerce",
+      body: "A multi-vendor grocery delivery platform with dedicated shopper, vendor, and admin apps — GPS-enabled delivery tracking, real-time cart customization, and multiple payment gateways.",
+    },
+    {
+      title: "Smart Movie Ticketing with Real-Time Booking",
+      tag: "On-Demand",
+      body: "A fast, intuitive web and mobile ticketing platform for a multi-theater cinema operator, with real-time seat selection, AI-driven dynamic pricing, and loyalty features.",
+    },
+    {
+      title: "Custom Telehealth App for Doctor Consultation",
+      tag: "HealthTech",
+      body: "A cross-platform Android and iOS telemedicine app connecting patients with doctors across specialties for scheduled consultations, built for a MedTech startup.",
+    },
+  ],
 };
 
 export const madFaqs: FaqContent = {

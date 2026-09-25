@@ -4,6 +4,7 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
+  madCaseStudies,
   madEngagement,
   madFaqs,
   madHero,
@@ -176,9 +177,11 @@ export default function MobileAppDevelopmentPage() {
             here too. */}
         <CtaBand content={madHireCta} />
 
-        {/* Homepage case-study gallery. */}
+        {/* Homepage case-study gallery, this page's own mobile-app projects
+            rather than the generic AI/Vision default (review: "need to
+            update relevant case studies"). */}
         <div className={home.light}>
-          <CaseStudies />
+          <CaseStudies content={madCaseStudies} countLabel="projects" />
         </div>
 
         {/* Homepage client stories, on the warm-white band as they are there. */}

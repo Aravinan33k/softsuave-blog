@@ -3950,6 +3950,21 @@
         "software developers coding office",
         "dedicated software developers team office"
       ]
+    },
+    {
+      "id": "mad-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A developer building a mobile app on a laptop beside a phone",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "hybrid mobile app developer laptop phone",
+        "cross platform app developer phone laptop",
+        "mobile app developers testing phones",
+        "mobile app developer tablet and phone testing"
+      ]
     }
   ]
 }
