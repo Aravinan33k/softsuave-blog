@@ -29,7 +29,7 @@ const swift: HireSkill = {
   key: "swift",
   name: "Swift",
   role: "Swift Developers",
-  metaTitle: "Hire Swift Developers India | 40-Hour Free Trial",
+  metaTitle: "Hire Swift Developer in India with 40 Hours Risk-free Trial",
   metaDescription:
     "Hire skilled Swift developers through Soft Suave — pre-vetted experts in Swift, Xcode and API development, available within 24–48 hours.",
   serviceType: "Swift development staffing",
@@ -332,7 +332,7 @@ const kotlin: HireSkill = {
       { name: "Frontend Web Development", items: ["React", "Angular"] },
       {
         name: "Testing Frameworks",
-        items: ["JUnity", "Mockito", "Espresso", "Roboelectric", "TestNG"],
+        items: ["JUnit", "Mockito", "Espresso", "Roboelectric", "TestNG"],
       },
       {
         name: "Build Tools",
@@ -469,9 +469,9 @@ const flutter: HireSkill = {
   key: "flutter",
   name: "Flutter",
   role: "Flutter Developers",
-  metaTitle: "Hire Dedicated Flutter Developers India",
+  metaTitle: "Hire Dedicated Flutter Developers India – Trusted Team",
   metaDescription:
-    "Hire skilled Flutter developers from India for cross-platform mobile apps. Experts in Flutter, Dart, Firebase, custom UI and Android + iOS delivery.",
+    "Hire top Flutter developers in India with a 40-hour free trial, no catch. Access time-zone compatible skilled resource for seamless projects.",
   serviceType: "Flutter development staffing",
   ctaLabel: "Hire Flutter developers",
 
@@ -620,9 +620,9 @@ const reactNative: HireSkill = {
   key: "react-native",
   name: "React Native",
   role: "React Native Developers",
-  metaTitle: "Hire React Native Developers India | $14/hr",
+  metaTitle: "Hire React Native Developers in India | $14/hr, 40-Hr Trial",
   metaDescription:
-    "Hire pre-vetted React Native developers experienced in cross-platform iOS and Android development, UI/UX, plugins and legacy app migration. From $14/hour.",
+    "Hire React Native developers in India from Soft Suave — save 60% on costs, start with a 40-hour risk-free trial, and build secure, high-performing apps.",
   serviceType: "React Native development staffing",
   ctaLabel: "Hire React Native developers",
 
@@ -784,6 +784,14 @@ const reactNative: HireSkill = {
     eyebrow: "FAQs",
     title: "Frequently Asked Questions",
     body: "Know more about our processes and how we work, with the help of the following FAQs.",
+    // Matches the live page's own links, inside the industries-experience
+    // answer (review: "internal links missing in the FAQs").
+    links: [
+      { text: "eCommerce", href: "https://www.softsuave.com/ecommerce-mobile-app-development-company" },
+      { text: "Healthcare", href: "https://www.softsuave.com/healthcare-mobile-app-development-company" },
+      { text: "Education", href: "https://www.softsuave.com/education-app-development-company" },
+      { text: "Construction", href: "https://www.softsuave.com/construction-employee-time-tracking-app" },
+    ],
     items: [
       {
         q: "How much does it cost to hire a React Native developer from Soft Suave?",

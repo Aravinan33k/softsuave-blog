@@ -297,7 +297,7 @@ const drupal: HireSkill = {
   key: "drupal",
   name: "Drupal",
   role: "Drupal Developers",
-  metaTitle: "Hire Drupal Developers India | 40-Hour Trial",
+  metaTitle: "Hire Dedicated Drupal Developer India with 40 Hours Trial",
   metaDescription:
     "Hire dedicated Drupal developers from India who build secure, scalable, content-rich platforms. Experts in Drupal CMS, custom modules, migrations and multisite.",
   serviceType: "Drupal development staffing",

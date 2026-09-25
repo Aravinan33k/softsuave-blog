@@ -390,6 +390,16 @@
   color: var(--accent);
 }
 
+/* --- hero CTA row: the "Start Trial" / "Book a Meeting" pair, separate
+   from the enquiry form beside it --- */
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 18px);
+  margin: clamp(26px, 3vw, 38px) 0 0;
+}
+
 /* --- trust badges: squared tags --- */
 .badges {
   list-style: none;
@@ -7277,9 +7287,14 @@
    kept at full strength rather than mixed toward the ground because every chip
    here is a link: a hairline pale enough to read as decoration on this warm
    white would put the second half of the roster under 4.5:1. */
+/* Was 1.2px var(--muted) — a thin warm-grey outline that reads as barely
+   there against this band's near-white ground (review: "low content
+   visibility... update the size and colour"). Thicker and darker keeps the
+   hollow/outline character that distinguishes this row from the solid one
+   above it, without it vanishing at a glance. */
 .exploreRows .exploreChipGhost {
   color: transparent;
-  -webkit-text-stroke: 1.2px var(--muted);
+  -webkit-text-stroke: 1.6px var(--text-bright);
 }
 
 .exploreRows .exploreChip:hover,
