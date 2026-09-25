@@ -285,7 +285,11 @@ export default function Overview({
 
   const statsPanel = hasStats ? (
     <div className={styles.trustPanel}>
-      <dl className={styles.trustStats}>
+      {/* `--stat-count` drives the desktop column count in landing.module.css —
+          a hardcoded 4-up grid left a visibly empty trailing cell whenever a
+          page supplied 3 (review: "remove the additional sections", the
+          closest thing on the page to an invented extra section). */}
+      <dl className={styles.trustStats} style={{ "--stat-count": content.stats!.length } as CSSProperties}>
         {content.stats!.map((stat) => (
           <div key={stat.label} className={styles.trustStat}>
             <dt className={styles.srOnly}>{stat.label}</dt>

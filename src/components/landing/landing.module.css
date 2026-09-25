@@ -2422,7 +2422,9 @@
 
 @media (min-width: 700px) {
   .trustStats {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    /* Falls back to 4 if the inline custom property is ever absent, matching
+       the previous hardcoded behavior. */
+    grid-template-columns: repeat(var(--stat-count, 4), minmax(0, 1fr));
   }
 
   .cardGrid,
@@ -6812,6 +6814,75 @@
   .featCard:has(.featMedia) {
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr);
     align-items: start;
+  }
+}
+
+/* `variant="list"` — a plain description list: thumbnail (or icon badge)
+   beside the name and body, one row per item, no card chrome. */
+.techListWrap {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3.2vw, 44px);
+}
+
+.techRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 2vw, 28px);
+  align-items: center;
+  padding-bottom: clamp(28px, 3.2vw, 44px);
+  border-bottom: 1px solid var(--line);
+}
+
+.techRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.techMedia {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 12px;
+  aspect-ratio: 16 / 9;
+  background: color-mix(in srgb, var(--text-bright) 6%, transparent);
+}
+
+.techImg {
+  object-fit: cover;
+}
+
+.techName {
+  margin: 0 0 10px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--fs-card-title);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--text-bright);
+}
+
+.techText {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+}
+
+/* Media and copy sit side by side once there is room, alternating which side
+   the art sits on so a long list does not read as one repeated row. */
+@media (min-width: 800px) {
+  .techRow {
+    grid-template-columns: minmax(0, 0.44fr) minmax(0, 1fr);
+  }
+
+  .techRow[data-side="right"] {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.44fr);
+  }
+
+  .techRow[data-side="right"] .techMedia {
+    order: 2;
   }
 }
 

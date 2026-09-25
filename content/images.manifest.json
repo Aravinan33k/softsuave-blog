@@ -3851,6 +3851,105 @@
         "software developer working desk office natural light person",
         "developers collaborating laptops"
       ]
+    },
+    {
+      "id": "java-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A Java developer's workstation with code on screen",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "java programming code screen",
+        "java developer coding workstation",
+        "programmer writing code laptop editor",
+        "software developer workspace code screen"
+      ]
+    },
+    {
+      "id": "java-svc-cloud",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A cloud-native application dashboard viewed on a laptop",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "cloud computing dashboard laptop screen",
+        "cloud technology network concept abstract",
+        "aws cloud console screen laptop"
+      ]
+    },
+    {
+      "id": "java-svc-saas",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A SaaS application interface open in a browser",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "web application developer laptop browser",
+        "modern web application browser screen desk clean",
+        "javascript web developer laptop"
+      ]
+    },
+    {
+      "id": "java-svc-migration",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Developers reviewing a plan to migrate an existing application to Java",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developer analysing code quality dual monitors office",
+        "two developers reviewing code together monitor office",
+        "engineers planning architecture whiteboard sticky notes"
+      ]
+    },
+    {
+      "id": "java-svc-api",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A developer building a REST API on a laptop",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "backend api developer laptop code",
+        "developers integrating systems laptop screens",
+        "backend developer code monitors"
+      ]
+    },
+    {
+      "id": "java-svc-maintenance",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A developer maintaining and supporting a live application",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "software developers coding office",
+        "engineer testing software results screen",
+        "developer reviewing code monitor vertical office"
+      ]
+    },
+    {
+      "id": "java-svc-dedicated",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A dedicated team of Java developers working together",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "modern tech office team collaboration",
+        "software developers coding office",
+        "dedicated software developers team office"
+      ]
     }
   ]
 }

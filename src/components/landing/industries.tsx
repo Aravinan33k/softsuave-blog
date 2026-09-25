@@ -359,6 +359,12 @@ export interface CardGridContent {
  *   thumbnail and "Learn more" link. Both of those are per-item and optional,
  *   so the layout is correct before any art or link targets exist. Ignores
  *   `columns`.
+ * - `list` — a stacked row per item: the thumbnail (or icon badge, if no
+ *   image) on one side, the name and body on the other, alternating sides
+ *   down the list on desktop. For a card set the source page shows as a
+ *   plain description list rather than a card grid — `feature`'s cropped
+ *   corner thumbnail was a poor match for six roughly-square illustrations
+ *   meant to be seen whole. Ignores `columns`.
  *
  * Deliberately NOT the homepage's image fan carousel: that needs one generated
  * Pexels frame per card and the manifest only holds five industry slots
@@ -387,9 +393,9 @@ export default function Industries({
    * numeral behind the card's text. Use it when a page carries two of these
    * grids, so the second does not read as a repeat of the first.
    *
-   * `bold` and `feature` are documented on the component itself, above.
+   * `bold`, `feature` and `list` are documented on the component itself, above.
    */
-  variant?: "cards" | "watermark" | "bold" | "feature";
+  variant?: "cards" | "watermark" | "bold" | "feature" | "list";
   /**
    * Force card auto-linking on or off, overriding the guess made from `id`.
    *
@@ -416,6 +422,7 @@ export default function Industries({
     .join(" ");
   const bold = variant === "bold";
   const feature = variant === "feature";
+  const list = variant === "list";
   /* Derived from the item count alone, so a section that gains or loses a card
      re-composes itself with no layout prop to keep in sync. */
   const spans = bold ? gridSpansFor(content.items.length) : [];
@@ -430,6 +437,55 @@ export default function Industries({
   const autoLink = autoLinkProp ?? /service|industr|sector|offering|solution/i.test(id);
   const hrefOf = (item: CardGridContent["items"][number]) =>
     (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
+
+  if (list) {
+    return (
+      <section className={styles.sectionShell} id={id}>
+        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+
+        <FadeUp>
+          <div className={styles.techListWrap}>
+            {content.items.map((item, i) => {
+              const glyph = item.icon ? ICONS[item.icon] : null;
+              return (
+                <article key={item.name} className={styles.techRow} data-side={i % 2 === 0 ? "left" : "right"}>
+                  <div className={styles.techMedia}>
+                    {item.imageId ? (
+                      <BrandImage
+                        page="four"
+                        id={item.imageId}
+                        fill
+                        sizes="(max-width: 999px) 100vw, 40vw"
+                        className={styles.techImg}
+                      />
+                    ) : item.image ? (
+                      <Image
+                        src={publicMediaUrl(item.image.src)}
+                        alt={item.image.alt}
+                        fill
+                        sizes="(max-width: 999px) 100vw, 40vw"
+                        className={styles.techImg}
+                      />
+                    ) : glyph ? (
+                      <span className={styles.featBadge} aria-hidden>
+                        <svg {...iconProps} className={styles.featBadgeIcon}>
+                          {glyph}
+                        </svg>
+                      </span>
+                    ) : null}
+                  </div>
+                  <div className={styles.techCopy}>
+                    <h3 className={styles.techName}>{item.name}</h3>
+                    {item.body ? <p className={styles.techText}>{item.body}</p> : null}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </FadeUp>
+      </section>
+    );
+  }
 
   if (feature) {
     return (

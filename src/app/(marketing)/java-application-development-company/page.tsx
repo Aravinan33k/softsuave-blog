@@ -17,6 +17,7 @@ import {
   javaMidCta,
   javaOverview,
   javaServices,
+  javaSuccessStories,
   javaTechniques,
   javaWhyUs,
 } from '@/lib/home/java-content';
@@ -158,9 +159,10 @@ export default function JavaApplicationDevelopmentCompanyPage() {
         </div>
 
         {/* The six techniques, each with the live page's own illustration —
-            the card grid's `feature` variant, which is the treatment the
-            Global Capability Center page uses for a card set that has artwork. */}
-        <CardGrid content={javaTechniques} id="techniques" variant="feature" />
+            the card grid's `list` variant, matching the live page's own
+            icon/thumbnail-beside-text layout for this section (review:
+            "update the design"). */}
+        <CardGrid content={javaTechniques} id="techniques" variant="list" />
 
         <div className={home.light}>
           <CtaBand content={javaMidCta} />
@@ -181,12 +183,23 @@ export default function JavaApplicationDevelopmentCompanyPage() {
             this app already serves. */}
         <CtaBand content={javaHireCta} />
 
-        {/* The proof chapter as one warm-white run, exactly as the live page
-            orders it: success stories, awards and certifications, then the
-            client testimonials. All three the homepage's own components. */}
+        {/* Success stories, awards and certifications, then client
+            testimonials — the live page's own order, and all three the
+            homepage's own components. Recognitions sits on the page's dark
+            ground between the two light bands, the same light/dark/light
+            break the homepage itself uses around this component (there,
+            with `Awards` instead) — otherwise these three ran as one
+            identical warm-white band with no variation (review: "the final
+            3 section all have the same colour theme"). `Recognitions`
+            already themes for either ground (see its own dark-mode badge
+            styling), so no new CSS was needed. */}
         <div className={home.light}>
-          <WorkGrid />
-          <Recognitions />
+          <WorkGrid content={javaSuccessStories} countLabel="case studies" />
+        </div>
+
+        <Recognitions />
+
+        <div className={home.light}>
           <Testimonials />
         </div>
 
