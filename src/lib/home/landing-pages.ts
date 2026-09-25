@@ -32,8 +32,24 @@ export interface LandingPage {
    * The index page this one sits under, for its breadcrumb trail
    * ("Home › Industries › FinTech"). Only for a parent the mega menu does not
    * already express by nesting — see `breadcrumbTrail` in breadcrumb.tsx.
+   * An array is the full chain, nearest last, for a page whose trail runs
+   * through more than one parent ("Home › Software Development › Web App
+   * Development › Python Development").
    */
-  readonly parent?: string;
+  readonly parent?: string | readonly string[];
+  /**
+   * The page's name in breadcrumb trails, when neither the mega menu label
+   * nor the tail-cut title reads right ("Python Development", not the
+   * `<title>`'s "Python Development Company in India"). Wins over both.
+   */
+  readonly breadcrumbLabel?: string;
+  /**
+   * The page's name only as the LAST crumb, on its own page, when that
+   * differs from how it reads as another page's parent: the web-app page
+   * ends its own trail "Web App Development Service" but sits in Python's as
+   * "Web App Development".
+   */
+  readonly breadcrumbCurrentLabel?: string;
 }
 
 import { HIRE_SKILLS } from './hire-skills';
@@ -78,9 +94,14 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/flutter-application-development-company', title: 'Flutter App Development Company in India' },
   { path: '/ionic-app-development-company', title: 'Best Ionic App Development Company in India' },
   { path: '/xamarin-app-development-company', title: 'Xamarin Development Company In India' },
-  { path: '/software-development-company', title: 'Software Development Company in India' },
+  { path: '/software-development-company', title: 'Software Development Company in India', breadcrumbLabel: 'Software Development' },
   { path: '/dot-net-application-development-company', title: '.NET Development Company in India' },
-  { path: '/web-application-development-company', title: 'Web Application Development Company In India' },
+  {
+    path: '/web-application-development-company',
+    title: 'Web Application Development Company In India',
+    breadcrumbCurrentLabel: 'Web App Development Service',
+    parent: '/software-development-company',
+  },
   { path: '/angularjs-development-company', title: 'Angular Development Company in India' },
   { path: '/nextjs-development-company', title: 'Next.js Development Company for Modern Web Apps' },
   { path: '/ruby-on-rails-development-company', title: 'Ruby on Rails Development Company India' },
@@ -95,8 +116,18 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   // serve: both were rewritten to softsuave.com by `navHref`, from the header
   // mega menu (`lib/home/nav-menu.ts`), the nav data's technology list and —
   // for Python — the web-app page's Django tile.
-  { path: '/python-application-development-company', title: 'Python Development Company in India' },
-  { path: '/php-application-development-company', title: 'PHP Development Company in India' },
+  {
+    path: '/python-application-development-company',
+    title: 'Python Development Company in India',
+    breadcrumbLabel: 'Python Development',
+    parent: ['/software-development-company', '/web-application-development-company'],
+  },
+  {
+    path: '/php-application-development-company',
+    title: 'PHP Development Company in India',
+    breadcrumbLabel: 'PHP Development',
+    parent: ['/software-development-company', '/web-application-development-company'],
+  },
 
   // Delivery-model and engineering-service pages. Slugs match the pages these
   // replace on the live marketing site, so existing search equity and inbound

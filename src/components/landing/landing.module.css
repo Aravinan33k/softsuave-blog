@@ -2328,6 +2328,22 @@
   opacity: 1;
 }
 
+/* An answer's `points` list. Takes `.faqAnswer`'s indent so the ticks line
+   up under the question text rather than under the +/- icon, and pulls up
+   into the lead-in paragraph's bottom padding so it reads as that
+   sentence's list; the padding moves below the list instead. */
+.faqPanel .tickList {
+  margin: calc(0.2em - clamp(20px, 2.4vw, 28px)) 0 0;
+  padding: 0 0 clamp(20px, 2.4vw, 28px) calc(2.5rem + clamp(12px, 1.6vw, 22px));
+  max-width: 78ch;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.08s;
+}
+
+.faqPanelWrap[data-open="true"] .tickList {
+  opacity: 1;
+}
+
 /* ============================================================
    UTILITY
    ============================================================ */

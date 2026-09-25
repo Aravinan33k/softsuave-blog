@@ -75,7 +75,12 @@ function collectMenuLabels(into: Map<string, string>): void {
  */
 const PAGE_LABELS: ReadonlyMap<string, string> = (() => {
   const labels = new Map<string, string>();
+  // A registry-declared label wins over every source below.
+  for (const page of LANDING_PAGES) {
+    if (page.breadcrumbLabel) labels.set(page.path, page.breadcrumbLabel);
+  }
   for (const skill of HIRE_SKILLS) {
+    if (labels.has(`/${skill.slug}`)) continue;
     labels.set(`/${skill.slug}`, skill.breadcrumbLabel ?? `Hire ${skill.role}`);
   }
   for (const route of HIRE_ROLE_ROUTES) {
@@ -87,6 +92,11 @@ const PAGE_LABELS: ReadonlyMap<string, string> = (() => {
   }
   return labels;
 })();
+
+/** A page's name when it is the trail's last crumb, where that differs. */
+const CURRENT_LABELS: ReadonlyMap<string, string> = new Map(
+  LANDING_PAGES.flatMap((p) => (p.breadcrumbCurrentLabel ? [[p.path, p.breadcrumbCurrentLabel] as const] : [])),
+);
 
 /** Where every hire-by-skill and hire-by-role page sits. */
 const HIRE_INDEX = "/hire-dedicated-developers";
@@ -117,7 +127,7 @@ function collectMenuParents(into: Map<string, readonly string[]>): void {
 const PAGE_PARENTS: ReadonlyMap<string, readonly string[]> = (() => {
   const parents = new Map<string, readonly string[]>();
   for (const page of LANDING_PAGES) {
-    if (page.parent) parents.set(page.path, [page.parent]);
+    if (page.parent) parents.set(page.path, typeof page.parent === "string" ? [page.parent] : page.parent);
   }
   const hirePaths = [...HIRE_SKILLS.map((s) => `/${s.slug}`), ...HIRE_ROLE_ROUTES.map((r) => r.path)];
   for (const path of hirePaths) {
@@ -144,7 +154,7 @@ export function breadcrumbTrail(pathname: string): Crumb[] {
       const name = breadcrumbLabel(p);
       return name ? [{ name, path: p }] : [];
     });
-  return [...parents, { name: label, path }];
+  return [...parents, { name: CURRENT_LABELS.get(path) ?? label, path }];
 }
 
 /** The trail's label for a route, or `undefined` for "/" and unknown paths. */

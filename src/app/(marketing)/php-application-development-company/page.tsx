@@ -150,12 +150,13 @@ export default function PhpApplicationDevelopmentCompanyPage() {
           <TechStack content={phpTech} />
         </div>
 
-        <Faq content={phpFaqs} idPrefix="php-faq" />
+        {/* Homepage client stories — the live page's band carries the same
+            heading and standfirst. Ahead of the FAQ, and on the dark ground
+            between two light bands, as on the AI and industry pages. */}
+        <Testimonials />
 
-        {/* Homepage client stories, on the warm-white band as they are there
-            — the live page's band carries the same heading and standfirst. */}
         <div className={home.light}>
-          <Testimonials />
+          <Faq content={phpFaqs} idPrefix="php-faq" />
         </div>
 
         <Contact />

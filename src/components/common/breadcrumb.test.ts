@@ -22,8 +22,13 @@ describe('breadcrumbLabel', () => {
   });
 
   it('prefers the mega menu label for service pages', () => {
-    expect(breadcrumbLabel('/software-development-company')).toBe('Custom Software Development');
+    expect(breadcrumbLabel('/web-application-development-company')).toBe('Web App Development');
     expect(breadcrumbLabel('/fintech-ai-solutions')).toBe('FinTech');
+  });
+
+  it('lets a registry breadcrumbLabel beat the menu label and the title', () => {
+    expect(breadcrumbLabel('/software-development-company')).toBe('Software Development');
+    expect(breadcrumbLabel('/python-application-development-company')).toBe('Python Development');
   });
 
   it('names hire pages by role, not by their one-word nav label', () => {
@@ -65,6 +70,35 @@ describe('breadcrumbTrail', () => {
     expect(paths('/ai-solutions-for-construction')[0]).toBe('/industries');
     expect(paths('/fintech-ai-solutions')[0]).toBe('/industries');
     expect(paths('/vuejs-development-company')[0]).toBe('/web-application-development-company');
+  });
+
+  it('names a page by its current-page label only at the end of its own trail', () => {
+    expect(names('/web-application-development-company')).toEqual([
+      'Software Development',
+      'Web App Development Service',
+    ]);
+    expect(names('/python-application-development-company')[1]).toBe('Web App Development');
+  });
+
+  it('puts PHP under Software Development › Web App Development', () => {
+    expect(names('/php-application-development-company')).toEqual([
+      'Software Development',
+      'Web App Development',
+      'PHP Development',
+    ]);
+  });
+
+  it('follows a registry-declared parent chain', () => {
+    expect(names('/python-application-development-company')).toEqual([
+      'Software Development',
+      'Web App Development',
+      'Python Development',
+    ]);
+    expect(paths('/python-application-development-company')).toEqual([
+      '/software-development-company',
+      '/web-application-development-company',
+      '/python-application-development-company',
+    ]);
   });
 
   it('puts hire pages under the hire index, but not the index itself', () => {
