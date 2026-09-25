@@ -68,7 +68,7 @@ const nodejs: HireSkill = {
   key: "nodejs",
   name: "Node.js",
   role: "Node.js Developers",
-  metaTitle: "Hire NodeJS Developers India | 150+ Clients",
+  metaTitle: "Hire NodeJS Developers in India - Trusted By 150+ Clients",
   metaDescription:
     "Hire dedicated Node.js developers for scalable APIs and backend systems. Onboard in 48 hours with a 40-hour risk-free trial. Rates from $14/hr.",
   serviceType: "Node.js development staffing",
@@ -462,7 +462,7 @@ const java: HireSkill = {
   key: "java",
   name: "Java",
   role: "Java Developers",
-  metaTitle: "Hire Java Developers India | 40-Hour Trial",
+  metaTitle: "Hire Java Developer India with 40 Hours Risk-free Trial",
   metaDescription:
     "Hire pre-vetted Java developers from India without long hiring delays. Experts in Spring Boot, Hibernate, microservices, REST APIs, AWS and enterprise apps.",
   serviceType: "Java development staffing",
@@ -605,7 +605,7 @@ const python: HireSkill = {
   key: "python",
   name: "Python",
   role: "Python Developers",
-  metaTitle: "Hire Offshore Python Developers from India",
+  metaTitle: "Hire Offshore Python Developers from India from $14/hr",
   metaDescription:
     "Hire skilled Python developers from India, ready to join quickly. Experts in Django, Flask, FastAPI, AI/ML, automation and data engineering.",
   serviceType: "Python development staffing",
@@ -756,7 +756,9 @@ const django: HireSkill = {
   key: "django",
   name: "Django",
   role: "Django Developers",
-  metaTitle: "Hire Django Developers India | 40-Hour Trial",
+  // VERBATIM, INCLUDING THE TYPO: the live title runs "Risk-freeTrial"
+  // together with no space.
+  metaTitle: "Hire Django Developer India with 40 Hours Risk-freeTrial",
   metaDescription:
     "Hire pre-vetted Django developers from India for faster backend delivery and lower hiring costs. Experts in Django, DRF, Python, PostgreSQL, APIs and SaaS platforms.",
   serviceType: "Django development staffing",
@@ -874,7 +876,7 @@ const django: HireSkill = {
           "Mysql",
           "MongoDB",
           "Postgresql",
-          "AWS dynomoDB",
+          "AWS DynamoDB",
           "SQLite",
           "Cloud Firestore",
           "Oracle",
@@ -1387,7 +1389,7 @@ const dotnet: HireSkill = {
   key: "dotnet",
   name: ".NET",
   role: ".NET Developers",
-  metaTitle: "Hire Dot Net Developers India | 40-Hour Free Trial",
+  metaTitle: "Hire Dot Net Developers India with 40 Hours Risk-free Trial",
   metaDescription:
     "Hire skilled .NET developers from India for secure, scalable software. Experts in ASP.NET, .NET Core, C#, Azure, MVC, APIs and cloud applications.",
   serviceType: ".NET development staffing",
@@ -1529,7 +1531,7 @@ const rails: HireSkill = {
   key: "rails",
   name: "Ruby on Rails",
   role: "Ruby on Rails Developers",
-  metaTitle: "Hire Ruby on Rails Developers on Demand",
+  metaTitle: "Hire Ruby on Rails Developers | Dedicated Devs on Demand",
   metaDescription:
     "Hire Ruby on Rails developers through Soft Suave — dedicated teams or individual developers, vetted, contract-ready, and built to deliver scalable web applications.",
   serviceType: "Ruby on Rails development staffing",

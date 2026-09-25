@@ -179,14 +179,15 @@ export default function ReactjsAppDevelopmentPage() {
 
         <WhyUs content={rjWhyUs} />
 
-        <div className={home.light}>
-          <Faq content={rjFaqs} idPrefix="rj-faq" />
-        </div>
-
-        {/* Homepage client stories, on the warm-white band as they are there —
-            the live page's band carries the same heading and standfirst. */}
+        {/* Client stories ahead of the FAQ (review: "move the testimonials
+            before the FAQ") — both are light bands, so they share one
+            wrapper rather than reopening the same surface twice in a row.
+            Homepage client stories, on the warm-white band as they are
+            there — the live page's band carries the same heading and
+            standfirst. */}
         <div className={home.light}>
           <Testimonials />
+          <Faq content={rjFaqs} idPrefix="rj-faq" />
         </div>
 
         <Contact />

@@ -2032,15 +2032,15 @@
       "id": "ov-android-application-development-company",
       "page": "landing",
       "purpose": "overview-illustration",
-      "alt": "Developer testing an Android app on a smartphone",
+      "alt": "A developer reviewing an Android app running on a smartphone",
       "orientation": "landscape",
       "width": 1400,
       "height": 1050,
       "keywords": [
-        "android smartphone app development",
+        "android developer coding smartphone",
         "developer testing smartphone app",
-        "mobile app",
-        "smartphone"
+        "hybrid mobile app developer laptop phone",
+        "mobile app developers testing phones"
       ]
     },
     {
@@ -2311,6 +2311,66 @@
         "iphone app development",
         "macbook coding",
         "developer"
+      ]
+    },
+    {
+      "id": "ios-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "A person holding an iPhone with an app open on the screen",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1200,
+      "keywords": [
+        "hand holding iphone app screen",
+        "iphone app interface closeup",
+        "smartphone app development hands",
+        "mobile app screen closeup"
+      ]
+    },
+    {
+      "id": "ios-story-healthcare",
+      "page": "landing",
+      "purpose": "case-study",
+      "alt": "A healthcare professional using a mobile app on a smartphone",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 450,
+      "keywords": [
+        "doctor smartphone app patient care",
+        "healthcare mobile app screen",
+        "medical professional using phone",
+        "telemedicine app phone"
+      ]
+    },
+    {
+      "id": "ios-story-ecommerce",
+      "page": "landing",
+      "purpose": "case-study",
+      "alt": "A person shopping online with a smartphone and shopping bags",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 450,
+      "keywords": [
+        "online shopping bags smartphone credit card",
+        "woman shopping online phone couch",
+        "ecommerce package delivery smartphone",
+        "online shopping"
+      ]
+    },
+    {
+      "id": "ios-story-consulting",
+      "page": "landing",
+      "purpose": "case-study",
+      "alt": "A consultant reviewing project and job tracking data on a laptop",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 450,
+      "keywords": [
+        "business consultant laptop project tracking",
+        "project management dashboard laptop",
+        "consultant working laptop office",
+        "business laptop work"
       ]
     },
     {
@@ -3151,6 +3211,834 @@
         "devops monitoring screens room",
         "system monitoring dashboard",
         "monitoring"
+      ]
+    },
+    {
+      "id": "fl-cross-platform",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "One codebase running as an app on both an Android phone and an iPhone",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "cross platform app developer phone laptop",
+        "mobile developer phone and laptop side by side",
+        "app developer testing two phones",
+        "software developer desk phones"
+      ]
+    },
+    {
+      "id": "fl-ios-android",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A developer testing the same app build on an iPhone and an Android handset",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "mobile app developers testing phones",
+        "developers testing mobile app devices",
+        "two smartphones app testing hands",
+        "mobile testing devices desk"
+      ]
+    },
+    {
+      "id": "fl-web",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A Flutter web build open in a browser on a developer workstation",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "web application developer laptop browser",
+        "frontend developer web design screen",
+        "developer building web app monitor",
+        "web developer workstation code"
+      ]
+    },
+    {
+      "id": "fl-dart",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Dart source code open in an editor during Flutter development",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "programmer writing code laptop editor",
+        "source code editor screen closeup",
+        "developer typing code keyboard screen",
+        "programming code monitor"
+      ]
+    },
+    {
+      "id": "fl-team",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "The dedicated Flutter engineering team working together in the studio",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "dedicated software developers team office",
+        "software team collaborating desks office",
+        "developers working together laptops team",
+        "engineering team office collaboration"
+      ]
+    },
+    {
+      "id": "fl-chat",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A chat application running on a phone, showing a live conversation thread",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "chat messaging app smartphone screen",
+        "person messaging on phone app",
+        "mobile chat conversation screen hand",
+        "smartphone messaging application"
+      ]
+    },
+    {
+      "id": "ion-hybrid",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "One hybrid build running as a native app on an iPhone and an Android phone side by side",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "hybrid mobile app developer laptop phone",
+        "mobile developer phone and laptop side by side",
+        "app running on two smartphones hands",
+        "smartphones app screens desk"
+      ]
+    },
+    {
+      "id": "xam-overview",
+      "page": "four",
+      "purpose": "overview-illustration",
+      "alt": "A developer writing C# for a cross-platform application at a desktop workstation",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1200,
+      "keywords": [
+        "developer writing code desktop monitor vertical",
+        "programmer working at computer portrait",
+        "software developer coding workstation",
+        "developer at desk computer"
+      ]
+    },
+    {
+      "id": "xam-appdev",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A cross-platform application running on a phone and a tablet during development",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "mobile app developer tablet and phone testing",
+        "developer testing app on tablet",
+        "app running on tablet and smartphone desk",
+        "mobile application devices desk"
+      ]
+    },
+    {
+      "id": "net-overview",
+      "page": "four",
+      "purpose": "overview-illustration",
+      "alt": "A .NET engineer building an enterprise application at a desktop workstation",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1200,
+      "keywords": [
+        "software engineer working desktop computer vertical",
+        "developer at workstation office portrait",
+        "programmer working monitor office",
+        "developer desk computer"
+      ]
+    },
+    {
+      "id": "net-customization",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Engineers integrating a third-party system into an existing application",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developers integrating systems laptop screens",
+        "software integration engineers working",
+        "two developers reviewing code screen",
+        "engineers working laptop together"
+      ]
+    },
+    {
+      "id": "net-consulting",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A consultant advising a client team on an application architecture",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "consultant advising team whiteboard meeting",
+        "technology consultant client meeting office",
+        "business consultant presenting team",
+        "consulting meeting office discussion"
+      ]
+    },
+    {
+      "id": "web-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A web application team at work across large screens in a studio",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "web development team working large monitors office",
+        "developers building web application office",
+        "software team desks monitors modern office",
+        "tech team working office"
+      ]
+    },
+    {
+      "id": "web-overview",
+      "page": "four",
+      "purpose": "overview-illustration",
+      "alt": "A web developer building a custom application at a desktop workstation",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1200,
+      "keywords": [
+        "web developer working desktop monitor vertical",
+        "developer building website workstation portrait",
+        "programmer at computer office portrait",
+        "developer working desk computer"
+      ]
+    },
+    {
+      "id": "web-dynamic",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A dynamic web application updating live on a large display",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "business analytics dashboard laptop screen office",
+        "person reviewing dashboard laptop charts",
+        "web analytics screen desk working",
+        "dashboard laptop charts desk"
+      ]
+    },
+    {
+      "id": "web-spa",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A single-page application running smoothly in a browser on a wide display",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developer building website laptop browser open",
+        "front end developer working laptop screen",
+        "person using web app laptop desk",
+        "laptop browser website desk"
+      ]
+    },
+    {
+      "id": "web-cms",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "An editor publishing and organising content in a web content management system",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "person editing website content laptop blog",
+        "content editor writing laptop desk",
+        "blogger publishing content computer",
+        "writing editing content computer"
+      ]
+    },
+    {
+      "id": "ng-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "An Angular engineering team building a web application together",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "web engineering team collaborating office screens",
+        "developers working together modern office",
+        "software team meeting laptops office",
+        "tech team office collaboration"
+      ]
+    },
+    {
+      "id": "ng-spa",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A single-page application running in a browser on a designer workstation",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "web developer building website large monitor office",
+        "front end developer working desktop screen",
+        "developer coding website workstation bright",
+        "developer working large monitor"
+      ]
+    },
+    {
+      "id": "ng-plugin",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Engineers extending an existing application with custom components",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "two engineers pair programming laptop bright office",
+        "developers collaborating laptop desk window",
+        "colleagues working laptop office bright",
+        "pair of developers working desk"
+      ]
+    },
+    {
+      "id": "ng-widget",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Interface components being assembled on a design workstation",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "ui designer working interface tablet bright desk",
+        "designer sketching app interface screen",
+        "product designer workstation bright",
+        "designer working screen desk"
+      ]
+    },
+    {
+      "id": "ng-api",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Backend services connecting an application to its data",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "server room network engineer bright",
+        "data centre engineer working laptop",
+        "network infrastructure technician working",
+        "server racks technician"
+      ]
+    },
+    {
+      "id": "ng-work-health",
+      "page": "four",
+      "purpose": "case-card",
+      "alt": "A doctor consulting a patient over video on a tablet",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "doctor video consultation tablet patient",
+        "telemedicine doctor laptop video call",
+        "physician using tablet clinic",
+        "doctor using tablet hospital"
+      ]
+    },
+    {
+      "id": "ng-work-retail",
+      "page": "four",
+      "purpose": "case-card",
+      "alt": "A shopper browsing a multi-vendor marketplace on a phone",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "online shopping marketplace phone hand card",
+        "ecommerce shopping smartphone payment",
+        "person shopping online phone desk",
+        "online shopping ecommerce laptop"
+      ]
+    },
+    {
+      "id": "ng-work-consulting",
+      "page": "four",
+      "purpose": "case-card",
+      "alt": "A consulting team tracking project progress on a planning board",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "project management board team planning office",
+        "team tracking tasks kanban board office",
+        "project planning meeting whiteboard",
+        "team planning board office"
+      ]
+    },
+    {
+      "id": "nx-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A product team building a web platform together in a bright studio",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "product team working together bright office screens",
+        "developers and designers collaborating studio",
+        "software product team office daylight",
+        "team working laptops bright office"
+      ]
+    },
+    {
+      "id": "nx-custom",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "An engineer building a custom web application at a workstation",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developer building application laptop bright desk window",
+        "software engineer working laptop daylight office",
+        "programmer at desk natural light",
+        "developer laptop bright workspace"
+      ]
+    },
+    {
+      "id": "nx-migration",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Engineers planning a migration of an existing application",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "engineers planning architecture whiteboard sticky notes",
+        "team mapping system migration meeting room",
+        "developers planning session whiteboard office",
+        "team planning whiteboard office"
+      ]
+    },
+    {
+      "id": "ror-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A Ruby on Rails engineering team at work together in a studio",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "group of developers discussing project office people",
+        "engineering team standing meeting office people",
+        "colleagues talking over work desk office people",
+        "business team discussion office"
+      ]
+    },
+    {
+      "id": "tx-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A TypeScript engineering team working on a business-critical application",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "software engineers working together office screens daylight",
+        "development team at desks bright office",
+        "engineers collaborating monitors workspace",
+        "tech team working office"
+      ]
+    },
+    {
+      "id": "tx-overview",
+      "page": "four",
+      "purpose": "overview-illustration",
+      "alt": "A developer reviewing typed application code on a workstation",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1200,
+      "keywords": [
+        "software developer working desk office natural light person",
+        "engineer at workstation bright office portrait",
+        "developer working computer window light",
+        "person working computer office"
+      ]
+    },
+    {
+      "id": "tx-svc-custom",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "An engineer building a custom TypeScript application",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developer building application laptop bright workspace window",
+        "engineer working laptop daylight desk",
+        "programmer laptop bright office desk",
+        "developer working laptop desk"
+      ]
+    },
+    {
+      "id": "tx-svc-migration",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Engineers planning an incremental migration of an existing codebase",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "two developers reviewing code together monitor office",
+        "engineers pair reviewing screen desk",
+        "colleagues discussing code screen office",
+        "developers reviewing work screen"
+      ]
+    },
+    {
+      "id": "tx-svc-frontend",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A typed frontend interface being built on a wide display",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "web designer working interface tablet bright desk",
+        "ui designer sketching app screens desk",
+        "product designer workspace bright daylight",
+        "designer working desk bright"
+      ]
+    },
+    {
+      "id": "tx-svc-backend",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Backend services being built and deployed for an application",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "backend engineer server infrastructure laptop",
+        "devops engineer working data centre",
+        "systems engineer working servers laptop",
+        "engineer working server room"
+      ]
+    },
+    {
+      "id": "tx-svc-api",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "API contracts being agreed between client and server teams",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "engineers mapping system architecture whiteboard diagram",
+        "team drawing architecture diagram meeting",
+        "developers planning integration whiteboard",
+        "team whiteboard planning office"
+      ]
+    },
+    {
+      "id": "tx-svc-maintenance",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "An engineer auditing an existing codebase before planned maintenance",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "engineers reviewing project together laptop office daylight",
+        "team code review meeting bright office",
+        "colleagues checking work laptop desk window",
+        "two colleagues laptop office"
+      ]
+    },
+    {
+      "id": "gq-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "Engineers connecting several services through a unified GraphQL API layer",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "developers integrating systems laptop screens",
+        "backend api developer laptop code",
+        "software engineers working together office screens daylight",
+        "engineers collaborating monitors workspace"
+      ]
+    },
+    {
+      "id": "gq-overview",
+      "page": "four",
+      "purpose": "overview-illustration",
+      "alt": "An engineer designing a GraphQL schema that unifies data from several services",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1200,
+      "keywords": [
+        "software engineer working desktop computer vertical person",
+        "engineer at workstation bright office portrait",
+        "developer working computer window light",
+        "person working computer office"
+      ]
+    },
+    {
+      "id": "gq-svc-schema",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Engineers mapping a GraphQL schema's object relationships on a whiteboard",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "engineers mapping system architecture whiteboard diagram",
+        "engineers planning architecture whiteboard sticky notes",
+        "consultants whiteboard planning data strategy"
+      ]
+    },
+    {
+      "id": "gq-svc-resolver",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A backend engineer developing resolvers that connect a GraphQL API to live services",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "backend developer code monitors",
+        "java developer coding workstation",
+        "web application developer laptop browser"
+      ]
+    },
+    {
+      "id": "gq-svc-integration",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Developers integrating a GraphQL API with existing REST services and platforms",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developers integrating systems laptop screens",
+        "full stack developer two monitors",
+        "backend api developer laptop code"
+      ]
+    },
+    {
+      "id": "gq-svc-migration",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Developers testing a phased migration from REST endpoints to GraphQL",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developer analysing code quality dual monitors office",
+        "two developers reviewing code together monitor office",
+        "engineer testing software results screen"
+      ]
+    },
+    {
+      "id": "gq-svc-performance",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A performance dashboard used to review GraphQL query and resolver behavior",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "server monitoring dashboards operations screens",
+        "monitoring dashboard alert spike screen",
+        "performance analytics dashboard screen charts"
+      ]
+    },
+    {
+      "id": "gq-svc-maintenance",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A dedicated team maintaining and updating a live GraphQL API",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "software developers coding office",
+        "javascript web developer laptop",
+        "web developer building website large monitor office"
+      ]
+    },
+    {
+      "id": "rj-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "An open laptop showing JavaScript code in a modern workspace",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "javascript web developer laptop",
+        "frontend developer web design screen",
+        "web developer interface monitor",
+        "modern web application browser screen desk clean"
+      ]
+    },
+    {
+      "id": "nj-overview",
+      "page": "four",
+      "purpose": "overview-illustration",
+      "alt": "A NodeJS development team collaborating around a workstation",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1200,
+      "keywords": [
+        "backend engineer server infrastructure laptop",
+        "two engineers pair programming laptop bright office",
+        "software developer working desk office natural light person",
+        "developers collaborating laptops"
+      ]
+    },
+    {
+      "id": "java-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A Java developer's workstation with code on screen",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "java programming code screen",
+        "java developer coding workstation",
+        "programmer writing code laptop editor",
+        "software developer workspace code screen"
+      ]
+    },
+    {
+      "id": "java-svc-cloud",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A cloud-native application dashboard viewed on a laptop",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "cloud computing dashboard laptop screen",
+        "cloud technology network concept abstract",
+        "aws cloud console screen laptop"
+      ]
+    },
+    {
+      "id": "java-svc-saas",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A SaaS application interface open in a browser",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "web application developer laptop browser",
+        "modern web application browser screen desk clean",
+        "javascript web developer laptop"
+      ]
+    },
+    {
+      "id": "java-svc-migration",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Developers reviewing a plan to migrate an existing application to Java",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developer analysing code quality dual monitors office",
+        "two developers reviewing code together monitor office",
+        "engineers planning architecture whiteboard sticky notes"
+      ]
+    },
+    {
+      "id": "java-svc-api",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A developer building a REST API on a laptop",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "backend api developer laptop code",
+        "developers integrating systems laptop screens",
+        "backend developer code monitors"
+      ]
+    },
+    {
+      "id": "java-svc-maintenance",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A developer maintaining and supporting a live application",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "software developers coding office",
+        "engineer testing software results screen",
+        "developer reviewing code monitor vertical office"
+      ]
+    },
+    {
+      "id": "java-svc-dedicated",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A dedicated team of Java developers working together",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "modern tech office team collaboration",
+        "software developers coding office",
+        "dedicated software developers team office"
+      ]
+    },
+    {
+      "id": "mad-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A developer building a mobile app on a laptop beside a phone",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "hybrid mobile app developer laptop phone",
+        "cross platform app developer phone laptop",
+        "mobile app developers testing phones",
+        "mobile app developer tablet and phone testing"
+      ]
+    },
+    {
+      "id": "and-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A developer testing an Android app on a smartphone",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "android developer coding smartphone",
+        "android smartphone app development",
+        "mobile app developer smartphone design",
+        "mobile app developers testing phones"
       ]
     }
   ]

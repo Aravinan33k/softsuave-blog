@@ -52,6 +52,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
 import { overviewImage } from "./overview-images";
+import type { WorkCarouselContent } from "@/components/home/work-grid";
 
 export const javaMeta = {
   slug: "java-application-development-company",
@@ -89,6 +90,17 @@ export const javaHero: HeroContent = {
     requirementPlaceholder:
       "The Java application you have in mind, whether this is a new build, a migration of an existing system, or an API layer, and which platforms and integrations it touches.",
     subject: "Java Application Development enquiry",
+  },
+  // The live page's own hero carries no background image, but every sibling
+  // page on this surface does — this page rendered only the decorative glow
+  // blob (review: "need to add the hero image").
+  image: {
+    src: "/images/four/java-hero.webp",
+    width: 1920,
+    height: 1080,
+    alt: "A Java developer's workstation with code on screen",
+    blurDataURL:
+      "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAABwAQCdASoQAAsAA4BaJZQAAhpW0AD+8z6Foqa8tehuORVY+DfrHQQqPl+UBsLDyAA=",
   },
 };
 
@@ -129,26 +141,32 @@ export const javaServices: ServicesCarouselContent = {
     {
       name: "Java Cloud Development",
       body: "We specialize in building cloud-native and serverless applications that make use of the full range of cloud features, including elasticity, scalability, and cost-efficiency. Our solutions are designed to efficiently utilize cloud services, ensuring high performance, smooth scaling, and powerful functionality for your business needs.",
+      image: { src: "/images/four/java-svc-cloud.webp", alt: "A cloud-native application dashboard viewed on a laptop" },
     },
     {
       name: "Java-based SaaS App Development",
       body: "We deliver reliable, secure, and high-performing SaaS solutions with sub-second response times. Our expertise spans online gaming backends, video streaming software, VoIP, messaging apps, and more. Trust us to create solutions that are efficient, robust, and perfectly tailored to meet the unique demands of your business.",
+      image: { src: "/images/four/java-svc-saas.webp", alt: "A SaaS application interface open in a browser" },
     },
     {
       name: "Java Application Migration",
       body: "Our Java developers are highly skilled in migrating your business applications to meet continually evolving business demands. We incorporate modern architecture, intuitive UI/UX, and the latest web standards, ensuring your applications are future-proof, scalable, and perfectly aligned with your business goals.",
+      image: { src: "/images/four/java-svc-migration.webp", alt: "Developers reviewing a plan to migrate an existing application to Java" },
     },
     {
       name: "Java API Development",
       body: "Our Java developers excel in crafting lightweight, high-performance, and secure REST APIs that easily integrate with any front-end or third-party application. Count on us for robust solutions that improve connectivity, scalability, and security across your ecosystem. Let us simplify your digital initiatives.",
+      image: { src: "/images/four/java-svc-api.webp", alt: "A developer building a REST API on a laptop" },
     },
     {
       name: "Java Maintenance & Support",
       body: "Being a Java Web development company in India, we provide comprehensive maintenance and support services for Java applications. Our team ensures easy integration of new features and modules, aligning with your evolving requirements. Trust us to improve functionality and enable continuous innovation and growth.",
+      image: { src: "/images/four/java-svc-maintenance.webp", alt: "A developer maintaining and supporting a live application" },
     },
     {
       name: "Dedicated Java Team",
       body: "Our dedicated team of Java developers offers a flexible extension to your workforce, easily scalable to meet changing business demands. With proven cost-effectiveness, we easily integrate with your operations, providing the expertise and agility needed to drive success. Trust us to adapt to your evolving needs.",
+      image: { src: "/images/four/java-svc-dedicated.webp", alt: "A dedicated team of Java developers working together" },
     },
   ],
 };
@@ -157,14 +175,22 @@ export const javaServices: ServicesCarouselContent = {
  * The six techniques the live page lists under "Advanced Java Development
  * Techniques for Your Solutions", each carrying that page's own illustration.
  *
- * Rendered through the card grid's `feature` variant — the treatment the
- * Global Capability Center page uses for a card set that has artwork, which is
- * what these six have and the services above do not.
+ * The live page has no second H2 for this stretch — it shares that one
+ * heading with `javaOverview` above it, so there is no live text to copy for
+ * this section's own title/subtext (review: "need to update the H2 and the
+ * subtext"). This is a deliberately distinct heading rather than a repeat of
+ * Overview's, naming the same six items concretely instead of restating
+ * "Java Development Techniques" a second time.
+ *
+ * Rendered through the card grid's `list` variant — an icon/thumbnail-left,
+ * text-right row per item, matching the live page's own layout for this
+ * section (review: "update the design"), rather than `feature`'s vertical
+ * cards with a cropped thumbnail in the corner.
  */
 export const javaTechniques: CardGridContent = {
   eyebrow: "Techniques",
-  title: "Modern Techniques Built Into Your Java Solutions",
-  body: "Modern Java technologies effectively meet your business needs. These are the capabilities we build into the Java applications we deliver.",
+  title: "Capabilities Built Into Every Java Application",
+  body: "Each of these is available as part of our Java development services, applied wherever it fits your solution's goals.",
   items: [
     {
       name: "Artificial Intelligence (AI)",
@@ -234,7 +260,7 @@ export const javaMidCta: CtaBandContent = {
   eyebrow: "Next Step",
   title: "Are You Looking For Top-Notch Java Development Services?",
   body: "Get the best Java development services from Soft Suave and procure high-performing apps to scale up your business operations efficiently!",
-  cta: { label: "Get FREE Consultation", href: "#enquiry" },
+  cta: { label: "Get FREE Consultation", href: "/contact" },
 };
 
 /** The live page's six "Benefits of Using Java Web Development" cards. */
@@ -303,11 +329,54 @@ export const javaHireCta: CtaBandContent = {
   cta: { label: "Hire Java Developers", href: "/hire-java-developers" },
 };
 
+/**
+ * The live page's own four "Success Stories" — pulled from its raw HTML, not
+ * the generic homepage case studies `<WorkGrid />` shows with no `content`
+ * prop (review: "need to update the right case studies"; the default set is
+ * AI/Vision case studies with nothing to do with Java).
+ */
+export const javaSuccessStories: WorkCarouselContent = {
+  eyebrow: "Case Studies",
+  title: "Success Stories",
+  body: "Learn how we transformed business operations across various industries with cutting-edge solutions and tailored them to their unique requirements.",
+  items: [
+    {
+      title: "Freelancer Platform",
+      tag: "Freelancer",
+      body: "Soft Suave has a long partnership with the client — the world's leading freelancer website, having millions of registered freelancers and clients with plenty of jobs posted annually.",
+    },
+    {
+      title: "Multi-vendor eCommerce Marketplace Application",
+      tag: "eCommerce",
+      body: "Our client was a start-up eCommerce company that wanted to offer an unmatched online shopping experience to customers and provide door delivery under 60 minutes for a vast range of products such as groceries, farm-fresh vegetables & fruits, beverages, personal & baby care, meat, fish and home essentials.",
+    },
+    {
+      title: "Logistics Supported Ride Hailing Mobile Application",
+      tag: "Logistics",
+      body: "Our client was a leading taxi service provider company in the United States, dedicated to providing seamless and quality taxi services to customers across the country.",
+    },
+    {
+      title: "Building a Highly Secured One-stop Digital Banking Solution",
+      tag: "Banking",
+      body: "The client is one of the first neo-banking companies based in the Philippines, with branches in Singapore and India, looking to expand their service through a mobile application that sits on everyone's phone as a secured banking platform.",
+    },
+  ],
+};
+
 /** The live page's ten FAQs, questions and answers verbatim. */
 export const javaFaqs: FaqContent = {
   eyebrow: "Ask Us",
   title: "Frequently Asked Questions",
   body: "Know more about our processes and how we work, with the help of the following FAQs.",
+  // The live page's own inline link in the last answer (review: "an internal
+  // link is missing in the last faq") — confirmed against the live HTML, not
+  // just the plain-text JSON-LD, which strips it.
+  links: [
+    {
+      text: "choose the best Java development framework",
+      href: "https://www.softsuave.com/blog/java-web-application-framework-for-future-project/",
+    },
+  ],
   items: [
     {
       q: "How much does Java application development cost?",
@@ -332,7 +401,6 @@ export const javaFaqs: FaqContent = {
     {
       q: "How does outsourcing to our Java development company work?",
       a: "We bring the expertise and resources, you bring the vision. Together, we'll deliver efficient and cost-effective results. Outsource your Java developers and partner with our team to create custom solutions.",
-      link: { label: "Hire Java developers", href: "/hire-java-developers" },
     },
     {
       q: "How can you monitor the progress of your Java development project?",
@@ -345,7 +413,6 @@ export const javaFaqs: FaqContent = {
     {
       q: "What types of Java development services do we offer?",
       a: "Our services include cloud-based solutions, migrations, integrations, mobile and web application development, and Java consulting. So when you are planning to hire a Java developer, make sure to know your project requirements before making decisions.",
-      link: { label: "Hire a Java developer", href: "/hire-java-developers" },
     },
     {
       q: "Is Java still a good option for software development?",

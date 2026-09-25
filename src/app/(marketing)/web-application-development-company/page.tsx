@@ -6,6 +6,7 @@ import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
   webAudience,
   webCoreTech,
+  webOutsourceCta,
   webDelivery,
   webFaqs,
   webHero,
@@ -29,6 +30,7 @@ import Overview from '@/components/landing/overview';
 import Integration from '@/components/common/integration';
 import ServiceBoard from '@/components/common/service-board';
 import Industries from '@/components/landing/industries';
+import CtaBand from '@/components/landing/cta-band';
 import Process from '@/components/landing/process';
 import WhyUs from '@/components/landing/why-us';
 import Faq from '@/components/landing/faq';
@@ -163,12 +165,23 @@ export default function WebApplicationDevelopmentPage() {
             long to sit on cards and too long to run down the page. */}
         <ServiceBoard content={webServices} />
 
+        {/* The live page's conversion band, between the services and the
+            technology grid. `backdrop={false}` keeps it on the page's own
+            ground rather than the coral light-field, as every corrected CTA on
+            this surface now does. */}
+        <CtaBand content={webOutsourceCta} backdrop={false} />
+
         {/* Eight technologies four across, then the four delivery models. They
             share a band so the process scene below keeps a clean alternation
-            over a page this long. */}
+            over a page this long.
+            
+            `autoLink` on both: every card in the two grids names a page we
+            publish, and neither anchor ("core-tech", "engagement") is a word
+            the id heuristic in `landing/industries` looks for, so both grids
+            were rendering as plain statements. */}
         <div className={home.light}>
-          <Industries content={webCoreTech} id="core-tech" />
-          <Industries content={webDelivery} id="engagement" variant="watermark" />
+          <Industries content={webCoreTech} id="core-tech" autoLink />
+          <Industries content={webDelivery} id="engagement" variant="watermark" autoLink />
         </div>
 
         {/* Seven stages, one row of five then two on a wide desktop. */}
@@ -183,10 +196,12 @@ export default function WebApplicationDevelopmentPage() {
         <WhyUs content={webWhyUs} />
 
         {/* The closing pair share the warm-white band, same reason as the two
-            grids above. */}
+            grids above — with the client stories first, as the review asked
+            and as every corrected page on this surface runs them: the proof
+            lands before the objection-handling rather than after it. */}
         <div className={home.light}>
-          <Faq content={webFaqs} idPrefix="web-faq" />
           <Testimonials />
+          <Faq content={webFaqs} idPrefix="web-faq" />
         </div>
 
         <Contact />

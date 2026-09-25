@@ -29,7 +29,7 @@ import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
-import type { StackLayersContent } from "@/components/android-app/stack-layers";
+import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
 import { overviewImage } from "./overview-images";
 
@@ -62,7 +62,10 @@ export const andHero: HeroContent = {
     // The live page's own form heading and sub-line.
     eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
-    note: "Tell us what the app has to do and which Android versions and devices it has to reach, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
+    // The applicant notice every sibling page carries, missing here before
+    // (review: "need to update the form content").
+    note: "Tell us what the app has to do and which Android versions and devices it has to reach, and we come back with an approach, timeline, and estimate. Everything stays under NDA. Alert: This form is for business, not candidates. To apply for jobs,",
+    noteLink: { label: "click here", href: "/career-overview" },
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",
@@ -70,13 +73,17 @@ export const andHero: HeroContent = {
       "The app you have in mind, the Android versions and devices it must support, any systems it has to talk to, and whether this is a new build or an existing app.",
     subject: "Android App Development enquiry",
   },
-  // Hand-placed asset — full-bleed behind the whole hero section, veiled for
-  // contrast. See `Hero`'s `image` prop.
+  // This page's own photography, via the Pexels pipeline
+  // (`content/images.manifest.json`) — the previous asset was shared with 4
+  // other pages and was dark enough to read as barely-there (review: "need
+  // to update the image and the visibility of the section is low").
   image: {
-    src: "/images/four/svc-mobile.webp",
-    width: 2048,
-    height: 944,
-    alt: "An Android application under development, shown across phone and tablet screens",
+    src: "/images/four/and-hero.webp",
+    width: 1920,
+    height: 1080,
+    alt: "A developer testing an Android app on a smartphone",
+    blurDataURL:
+      "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABwAgCdASoQAAsAA4BaJZQAD49u4amjptnJCWgAAP7wsNOyawMJiV6ON+LOZe0Vp2mfa9Rw40k7RuZ9kYl3sB2vPSkO/7l4O3j2uVYv6oWFTv3iJjek4q8FPX9Xd9NMoQfkKBIGzSMea6rqC/OgoAAA",
   },
 };
 
@@ -103,7 +110,7 @@ export const andServices: ServiceBoardContent = {
   eyebrow: "Android Development Services",
   title: "Android Development Services Soft Suave Offers",
   body: "Soft Suave provides best-in-class Android app development services and advanced solutions. Our mobile app development team can provide you with expert support.",
-  cta: { label: "Talk To Experts", href: "#enquiry" },
+  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "Custom Android App Development",
@@ -164,69 +171,25 @@ export const andHireCta: CtaBandContent = {
 };
 
 /**
- * The four technology tiers, rendered as the assembled stack
- * (landing/stack-layers.tsx). The live page groups these eight technologies
- * under Frontend / Platforms / Tools / Database and gives each one a real
- * description — so it is drawn as what it is called: a stack, built from the
- * database up.
+ * The four technology groups, rendered through the shared
+ * `landing/tech-stack.tsx` — the plain static-panel treatment every other
+ * page on this surface uses (review: "update the tech stack section like in
+ * other pages, current design not suitable"). This page's own bespoke
+ * `android-app/stack-layers.tsx` (four card "slabs", one paragraph per
+ * technology) read as a one-off next to every sibling page's simpler grouped
+ * chip grid. Names go straight to `components/home/tech-logo.tsx`; the
+ * per-technology descriptions the old layout carried are dropped, the same
+ * way every other TechStackContent-driven page already presents its stack.
  */
-export const andStack: StackLayersContent = {
+export const andStack: TechStackContent = {
   eyebrow: "Some Modern & Futuristic Technologies",
   title: "List of Some Modern & Futuristic Technologies We Use",
   body: "To offer start-to-end mobile app development services, our Android professionals at our mobile app development company use the following state-of-the-art technologies",
-  layers: [
-    {
-      name: "Frontend",
-      items: [
-        {
-          name: "Kotlin",
-          body: "Kotlin is a modern statically typed programming language that our Android developers adopt to boost productivity and code safety when developing an App.",
-        },
-        {
-          name: "Java",
-          body: "Java is the popular technology that can build applications using managed code that can be executed on mobile devices. Our extensive experience working with Java assists us to get most of its libraries, tools, and APIs.",
-        },
-        {
-          name: "XML",
-          body: "We have a dedicated team that utilizes this markup language to create layout files. Also, XML is a lightweight language that is simple yet scalable. Hence, it doesn’t make the layout heavy.",
-        },
-      ],
-    },
-    {
-      name: "Platforms",
-      items: [
-        {
-          name: "AWS",
-          body: "AWS is a remarkable development platform that renders an end-to-end solution to develop, deliver, test, and monitor applications. Our software engineers utilize its broad set of tools and services to support workflows.",
-        },
-        {
-          name: "Azure",
-          body: "Being a public cloud computing platform, Azure provides authentication, data query, offline synchronization, and push registration capabilities while developing mobile Apps using resources in the Azure cloud.",
-        },
-        {
-          name: "GoogleCloud",
-          body: "To help startups and SMBs, we implement Google Cloud Platform to get the benefits of Cost-efficiency, Exemplary safety, and Fast deployment while we create mobile Apps. Also, Google Cloud is one of the most versatile and affordable Cloud platforms out there.",
-        },
-      ],
-    },
-    {
-      name: "Tools",
-      items: [
-        {
-          name: "Android Studio",
-          body: "Being one of the most popular Android App development platforms, Android Studio’s flexibility and reliability are very high. This makes it a stable IDE. With its help, we easily accelerate development progress.",
-        },
-      ],
-    },
-    {
-      name: "Database",
-      items: [
-        {
-          name: "SQLite",
-          body: "Expert Android App developers at Soft Suave use SQLite which is an open-source database to add, update, read, delete data. Also, SQLite supports all the relational database features.",
-        },
-      ],
-    },
+  groups: [
+    { name: "Frontend", items: ["Kotlin", "Java", "XML"] },
+    { name: "Platforms", items: ["AWS", "Azure", "GoogleCloud"] },
+    { name: "Tools", items: ["Android Studio"] },
+    { name: "Database", items: ["SQLite"] },
   ],
 };
 

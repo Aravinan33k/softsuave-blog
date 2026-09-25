@@ -51,6 +51,7 @@ import type { OverviewContent } from "@/components/landing/overview";
 import type { IntegrationContent } from "@/components/common/integration";
 import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CardGridContent } from "@/components/landing/industries";
+import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { ProcessContent } from "@/components/landing/process";
 import type { FaqContent } from "@/components/landing/faq";
 
@@ -81,7 +82,9 @@ export const webHero: HeroContent = {
   badges: partnerHeroBadges,
   form: {
     // The live page's own form heading and sub-line.
-    eyebrow: "Let’s Discuss Your Project",
+    // No `eyebrow`: the review asked for the hero's kicker to go, and the
+    // card's is the only one the hero renders. Same correction every other
+    // corrected page on this surface took.
     title: "Get free rough quote in 24 hrs",
     note: "Tell us what the application has to do and who uses it, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Submit",
@@ -91,8 +94,13 @@ export const webHero: HeroContent = {
       "The application you have in mind, who uses it, anything it has to integrate with, and whether this is a new build or an existing web app to modernise.",
     subject: "Web Application Development enquiry",
   },
+  /**
+   * Replaced a frame so dark its subject could not be read (review: "need to
+   * change the hero image"). This one is a studio of people at work on web
+   * applications, which is what the page sells.
+   */
   image: {
-    src: "/images/landing/web-app/hero.webp",
+    src: "/images/four/web-hero.webp",
     width: 1920,
     height: 1080,
     alt: "A developer building a web application at a workstation",
@@ -108,8 +116,15 @@ export const webOverview: OverviewContent = {
     "Web applications can be created in order to embrace the web-centric digital reality. Our web app development company in USA and India provides smart functioning, visually appealing business solutions. In our quest to deliver web apps way beyond expectations, we use the most up-to-date programming languages, Front-end and Back-end Technologies, Databases, Cloud Services, Frameworks, Architecture types, and DevOps tools.",
     "You can achieve enriching business milestones with us rapidly by expanding your user base. Unlocking new digital opportunities across channels, and reaching new business junctures. Keeping up with today's technological advancements is what we are specialized in. We help Modernize or redesign your old web interfaces as part of our web application development services to align them with modern user needs.",
   ],
+  /**
+   * Portrait-cut, and of a developer building an application rather than a
+   * blurred stock laptop — the review asked for both ("resize the overview
+   * image and use a relevant image"). The frame stretches to the prose height
+   * at desktop and lands near square, so a landscape asset is cropped hard;
+   * cut portrait, the frame takes this one nearly whole.
+   */
   image: {
-    src: "/images/landing/web-app/overview.webp",
+    src: "/images/four/web-overview.webp",
     width: 1400,
     height: 1050,
     alt: "A laptop showing application code on a desk in a bright studio",
@@ -155,10 +170,26 @@ export const webSpecialties: IntegrationContent = {
  * board: the six names to pick from, one stage to read on.
  */
 export const webServices: ServiceBoardContent = {
+  /**
+   * The links the live page carries inside these descriptions, restored.
+   * Four of the five targets are pages softsuave.com publishes and this app
+   * does not yet, so `SiteLink` resolves them to the live site rather than
+   * 404ing — see `components/common/linkify`.
+   */
+  links: [
+    { text: "eCommerce web app", href: "/ecommerce-mobile-app-development-company" },
+    { text: "Education Portals", href: "/education-app-development-company" },
+    { text: "eCommerce Portals", href: "/multi-vendor-marketplace-platform" },
+    { text: "Healthcare Portals", href: "/healthcare-mobile-app-development-company" },
+    { text: "WordPress", href: "/wordpress-development-company" },
+    { text: "Modernizing legacy applications", href: "/legacy-modernization-services" },
+  ],
   eyebrow: "Our Services",
   title: "Our Diverse Web Application Development Services",
   body: "We have mastered web app development services for over a decade and keeping up with the newest technologies, our app development stands out among the most.",
-  cta: { label: "Talk To Experts", href: "#enquiry" },
+  // /contact, not this page's `#enquiry` anchor — the review asked for this
+  // button to reach the contact page.
+  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "Dynamic Web App Development",
@@ -166,7 +197,7 @@ export const webServices: ServiceBoardContent = {
         "Dynamic web applications that incorporate live data into their content, which helps them draw attention to the services and products being offered. All private and public data displayed on these applications is stored in databases. In most cases, web apps have an admin panel that allows administrators to control the backend and frontend portions, modify content, and add interactive features. The dynamic web apps is built using PHP, ASP.NET, etc.",
         "A dynamic web application generates pages/data in real-time, based on the request, and sends a response to the client (you). In response to the response, the client-side code will take the appropriate action. An example would be on Twitter when the follow button is clicked.",
       ],
-      image: { src: "/images/landing/web-app/svc-dynamic.webp", alt: "" },
+      image: { src: "/images/four/web-dynamic.webp", alt: "" },
     },
     {
       name: "eCommerce Web App Development",
@@ -182,7 +213,7 @@ export const webServices: ServiceBoardContent = {
         "Single-page applications, or SPAs, are dynamic web applications that do not require browser reloads. They function as a single unit of a web application and implement all business and technological strategies in the client-side browser. SPAs are fast and dynamic since they implement all business strategies in asynchronous navigation of the client-side browser.",
         "Since communication takes place in asynchronous navigating, communication is faster. Moreover, a SPA web application of any type can be reconfigured to achieve desired results; however, the main problem with SPAs is that they do not comply with SEO guidelines. The best examples of single-page apps are Netflix, Twitter, and Gmail",
       ],
-      image: { src: "/images/landing/web-app/svc-spa.webp", alt: "" },
+      image: { src: "/images/four/web-spa.webp", alt: "" },
     },
     {
       name: "Web Portal Development Company",
@@ -198,7 +229,7 @@ export const webServices: ServiceBoardContent = {
         "A content management system (CMS) is a type of website application that lets you modify the content without any help from the technical team. You can do this by using an admin panel without any knowledge of programming languages. There are many CMS variations with various specifications and designs, some examples being WordPress, Joomla, etc.",
         "If you're planning to add or change content to your website in the future, a CMS solution is a better option. CMSs simplify tasks such as editing existing pages, publishing new pages, adding an online store, and creating web forms.",
       ],
-      image: { src: "/images/landing/web-app/svc-cms.webp", alt: "" },
+      image: { src: "/images/four/web-cms.webp", alt: "" },
     },
     {
       name: "Web Legacy Modernization",
@@ -212,6 +243,21 @@ export const webServices: ServiceBoardContent = {
 };
 
 /** Eight core technologies, four across, so the grid runs two full rows. */
+/**
+ * The conversion band the live page runs between its services and its
+ * technology grid, which this page did not carry at all (review: "missing CTA
+ * banner section"). Copy and destination are the live page's own.
+ *
+ * No `eyebrow`, matching the correction every other CTA on this surface took.
+ * `/hire-web-app-developers` is a route this app serves, so it resolves
+ * locally.
+ */
+export const webOutsourceCta: CtaBandContent = {
+  title: "Looking to Outsource Web Development Projects?",
+  body: "Soft Suave has a pool of Dedicated Web Developers who deliver your app development project on time and under your budget.",
+  cta: { label: "Hire Web Developer", href: "/hire-web-app-developers" },
+};
+
 export const webCoreTech: CardGridContent = {
   eyebrow: "Core Tech",
   title: "Major Web App Development Technologies",
@@ -338,6 +384,15 @@ export const webAudience: OverviewContent = {
     "Soft Suave provides meticulous web app development services for a wide range of sectors in India, the US, and other countries. Help them grow and glow in their respective Industry. For over a decade we delivered numerous services to Startups and SMBs. whatever your business needs are, We can fulfill all your app development requirements in one place.",
   ],
   points: ["Start Up Business", "Small & Medium Business", "Agencies"],
+  /**
+   * Icons on the three audiences, and a way out of the section — the review
+   * asked for both ("CTA button is missing", "icons are missing for the
+   * points"). `icons` is the card variant that carries a glyph per point;
+   * the three below are positional.
+   */
+  pointsVariant: "icons",
+  pointIcons: ["rocket", "users", "network"],
+  cta: { label: "Talk To Our Experts", href: "/contact" },
 };
 
 export const webWhyUs: CardGridContent = {
@@ -370,6 +425,13 @@ export const webWhyUs: CardGridContent = {
 };
 
 export const webFaqs: FaqContent = {
+  /**
+   * The live page links "free consultation" in the third answer; that was
+   * missing here (review: "highlight the text and add the link in 3rd FAQ
+   * answer"). `/30-min-free-consultation` is a page softsuave.com publishes
+   * and this app does not, so `SiteLink` resolves it to the live site.
+   */
+  links: [{ text: "free consultation", href: "/30-min-free-consultation" }],
   eyebrow: "Ask Us",
   title: "Frequently Asked Questions",
   body: "Know more about our processes and how we work, with the help of the following FAQs our clients ask.",

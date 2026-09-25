@@ -8,6 +8,7 @@ import { publicMediaUrl } from "@/lib/media-url";
 import FadeUp from "@/components/home/fade-up";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import { useServiceHref } from "@/components/common/service-link";
+import { linkify, type InlineLink } from "@/components/common/linkify";
 import badgeStyles from "@/components/common/card-icon-badge.module.css";
 import { gridSpansFor } from "./card-spans";
 import SectionHead from "./section-head";
@@ -263,10 +264,29 @@ export interface CardGridContent {
   title: string;
   body: string;
   /**
+   * Optional button under the grid, for a section whose cards make a case the
+   * reader should be able to act on — the Angular page's "Why Choose Soft
+   * Suave" closes on six reasons and then offered no way forward (review:
+   * "CTA button missing"). Rendered by `landing/why-us`; the card grids that
+   * are pure statements simply omit it.
+   */
+  cta?: { readonly label: string; readonly href: string };
+  /**
    * Optional bullets between the intro and the grid, for a section whose copy
    * carries a short claim list of its own before the cards start.
    */
   points?: readonly string[];
+  /**
+   * Internal links to weave into each card's `body`, matched on their own
+   * words — see `OverviewContent.links`, the same mechanism. A card's body
+   * stays a plain string extracted verbatim from the live page, so a link is
+   * declared by the phrase it wraps rather than by rewriting the copy into
+   * JSX. Threaded across every card in the grid, so a repeated phrase links
+   * once. `cards`/`watermark`/`bold` only — `feature` and `list` cards use
+   * `href` for a whole-card link instead, and linking a phrase inside their
+   * shorter body would double up with that.
+   */
+  links?: readonly InlineLink[];
   items: readonly {
     readonly name: string;
     /**
@@ -351,6 +371,12 @@ export interface CardGridContent {
  *   thumbnail and "Learn more" link. Both of those are per-item and optional,
  *   so the layout is correct before any art or link targets exist. Ignores
  *   `columns`.
+ * - `list` — a stacked row per item: the thumbnail (or icon badge, if no
+ *   image) on one side, the name and body on the other, alternating sides
+ *   down the list on desktop. For a card set the source page shows as a
+ *   plain description list rather than a card grid — `feature`'s cropped
+ *   corner thumbnail was a poor match for six roughly-square illustrations
+ *   meant to be seen whole. Ignores `columns`.
  *
  * Deliberately NOT the homepage's image fan carousel: that needs one generated
  * Pexels frame per card and the manifest only holds five industry slots
@@ -362,6 +388,7 @@ export default function Industries({
 
   columns = 4,
   variant = "cards",
+  autoLink: autoLinkProp,
 }: {
   content: CardGridContent;
   id?: string;
@@ -378,10 +405,24 @@ export default function Industries({
    * numeral behind the card's text. Use it when a page carries two of these
    * grids, so the second does not read as a repeat of the first.
    *
-   * `bold` and `feature` are documented on the component itself, above.
+   * `bold`, `feature` and `list` are documented on the component itself, above.
    */
-  variant?: "cards" | "watermark" | "bold" | "feature";
-
+  variant?: "cards" | "watermark" | "bold" | "feature" | "list";
+  /**
+   * Force card auto-linking on or off, overriding the guess made from `id`.
+   *
+   * The default reads the section id for "service"/"industry"/"solution" and
+   * so on, which covers most grids but misses one whose anchor is named for
+   * its subject rather than its kind — the web-app page's `#core-tech` lists
+   * eight technologies we publish a page for each, and `#engagement` four
+   * delivery models likewise, and neither word is in that pattern (review:
+   * "services are missing links", "some cards are missing links").
+   *
+   * A card still only links where `lib/home/service-href.ts` finds a confident
+   * match, and never to the page it is on, so turning this on cannot invent a
+   * destination.
+   */
+  autoLink?: boolean;
 }) {
   const grid = [
     styles.cardGrid,
@@ -393,9 +434,13 @@ export default function Industries({
     .join(" ");
   const bold = variant === "bold";
   const feature = variant === "feature";
+  const list = variant === "list";
   /* Derived from the item count alone, so a section that gains or loses a card
      re-composes itself with no layout prop to keep in sync. */
   const spans = bold ? gridSpansFor(content.items.length) : [];
+  /* One set for the whole grid: a phrase in `content.links` is linked in
+     whichever card's body it appears in first. */
+  const usedLinks = new Set<string>();
 
   /* Links. A card's own `href` wins; failing that, a grid that lists services
      or sectors links each card to the page its name matches in the route
@@ -404,9 +449,58 @@ export default function Industries({
      models) are statements, not gateways, so they are never auto-linked.
      Either way a card never links to the page it is on. */
   const resolveHref = useServiceHref();
-  const autoLink = /service|industr|sector|offering|solution/i.test(id);
+  const autoLink = autoLinkProp ?? /service|industr|sector|offering|solution/i.test(id);
   const hrefOf = (item: CardGridContent["items"][number]) =>
     (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
+
+  if (list) {
+    return (
+      <section className={styles.sectionShell} id={id}>
+        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+
+        <FadeUp>
+          <div className={styles.techListWrap}>
+            {content.items.map((item, i) => {
+              const glyph = item.icon ? ICONS[item.icon] : null;
+              return (
+                <article key={item.name} className={styles.techRow} data-side={i % 2 === 0 ? "left" : "right"}>
+                  <div className={styles.techMedia}>
+                    {item.imageId ? (
+                      <BrandImage
+                        page="four"
+                        id={item.imageId}
+                        fill
+                        sizes="(max-width: 999px) 100vw, 40vw"
+                        className={styles.techImg}
+                      />
+                    ) : item.image ? (
+                      <Image
+                        src={publicMediaUrl(item.image.src)}
+                        alt={item.image.alt}
+                        fill
+                        sizes="(max-width: 999px) 100vw, 40vw"
+                        className={styles.techImg}
+                      />
+                    ) : glyph ? (
+                      <span className={styles.featBadge} aria-hidden>
+                        <svg {...iconProps} className={styles.featBadgeIcon}>
+                          {glyph}
+                        </svg>
+                      </span>
+                    ) : null}
+                  </div>
+                  <div className={styles.techCopy}>
+                    <h3 className={styles.techName}>{item.name}</h3>
+                    {item.body ? <p className={styles.techText}>{item.body}</p> : null}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </FadeUp>
+      </section>
+    );
+  }
 
   if (feature) {
     return (
@@ -552,7 +646,11 @@ export default function Industries({
                   item.name
                 )}
               </h3>
-              {item.body ? <p className={styles.cardBody}>{item.body}</p> : null}
+              {item.body ? (
+                <p className={styles.cardBody}>
+                  {linkify(item.body, content.links, usedLinks, styles.proseLink)}
+                </p>
+              ) : null}
             </article>
             );
           })}

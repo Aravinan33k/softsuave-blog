@@ -22,7 +22,7 @@ import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import ServiceBoard from '@/components/common/service-board';
 import CtaBand from '@/components/landing/cta-band';
-import StackLayers from '@/components/android-app/stack-layers';
+import TechStack from '@/components/landing/tech-stack';
 import Faq from '@/components/landing/faq';
 
 // Sections reused from the homepage verbatim: their copy is the homepage's
@@ -149,18 +149,16 @@ export default function AndroidAppDevelopmentPage() {
 
         <CtaBand content={andHireCta} />
 
-        {/* The stack, drawn as a stack: four slabs that assemble from the
-            base up. */}
+        {/* Client stories ahead of the FAQ (review: "place the faqs after
+            the testimonials"). Tech stack, testimonials and the FAQ are all
+            light bands once reordered, so they share one wrapper — the FAQ
+            sat dark on its own before, between two light bands either side
+            of it. Homepage client stories carry the live page's own
+            heading. */}
         <div className={home.light}>
-          <StackLayers content={andStack} />
-        </div>
-
-        <Faq content={andFaqs} idPrefix="and-faq" />
-
-        {/* Homepage client stories, on the warm-white band as they are there —
-            the live page's band carries the same heading. */}
-        <div className={home.light}>
+          <TechStack content={andStack} />
           <Testimonials />
+          <Faq content={andFaqs} idPrefix="and-faq" />
         </div>
 
         <Contact />

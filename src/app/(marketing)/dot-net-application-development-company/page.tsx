@@ -131,9 +131,10 @@ export default function DotNetApplicationDevelopmentPage() {
        * Band rhythm. The `home.light` wrapper re-points the same
        * --bg/--surface/--text tokens every component already reads, so a
        * band is just the wrapper. Hero opens dark and the closing Contact
-       * band is dark; everything between alternates, with one deliberate
-       * two-dark run — the services into their hiring CTA, because a CTA band
-       * wants the deepest ground under it.
+       * band is dark; everything between alternates, with two deliberate
+       * two-dark runs — the services into their hiring CTA, because a CTA band
+       * wants the deepest ground under it, and FAQ → Contact at the end, which
+       * is what moving the client stories ahead of the FAQ leaves.
        *
        * This page carries no clients band, industries grid or case studies:
        * the live page has none, and nothing is invented to fill the rhythm.
@@ -150,19 +151,28 @@ export default function DotNetApplicationDevelopmentPage() {
             long to sit on cards and too long to run down the page. */}
         <ServiceBoard content={netServices} />
 
-        <CtaBand content={netHireCta} />
+        {/* `backdrop={false}` drops the coral light-field loop, which read on
+            review as "the section colour is different" — the band now sits on
+            the page's own near-black ground like everything around it. */}
+        <CtaBand content={netHireCta} backdrop={false} />
 
+        {/* The client stories now come before the FAQ, as the review asked and
+            as every corrected page on this surface runs them — the proof lands
+            before the objection-handling rather than after it.
+
+            That puts the technology stack and the stories back to back on the
+            warm white, so they share one wrapper: two light bands stacked
+            would double the padding between them and read as separate panels
+            rather than one chapter. Same merge `landing/hire-page` does with
+            its own runs. */}
         <div className={home.light}>
           <TechStack content={netTech} />
+          {/* Homepage client stories — the live page's band carries the same
+              heading and standfirst. */}
+          <Testimonials />
         </div>
 
         <Faq content={netFaqs} idPrefix="net-faq" />
-
-        {/* Homepage client stories, on the warm-white band as they are there —
-            the live page's band carries the same heading and standfirst. */}
-        <div className={home.light}>
-          <Testimonials />
-        </div>
 
         <Contact />
       </main>

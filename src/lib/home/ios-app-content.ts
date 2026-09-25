@@ -63,7 +63,10 @@ export const iosHero: HeroContent = {
     // The live page's own form heading and sub-line.
     eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
-    note: "Tell us which Apple platforms the app has to reach — iPhone, iPad, Watch, TV — and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
+    // The applicant notice every sibling page carries, missing here before
+    // (review: "need to update the form content").
+    note: "Tell us which Apple platforms the app has to reach — iPhone, iPad, Watch, TV — and we come back with an approach, timeline, and estimate. Everything stays under NDA. Alert: This form is for business, not candidates. To apply for jobs,",
+    noteLink: { label: "click here", href: "/career-overview" },
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",
@@ -71,11 +74,14 @@ export const iosHero: HeroContent = {
       "The app you have in mind, the Apple platforms it must run on, whether this is an MVP or a full build, and any existing app or designs you already hold.",
     subject: "iOS App Development enquiry",
   },
+  // Replaces a generic Android-phone/social-media stock photo (review: "update
+  // the image") with a Pexels frame generated via content/images.manifest.json
+  // (id: ios-hero, page: landing) — see images.generated.json for credit.
   image: {
-    src: "/images/landing/ios/hero.webp",
+    src: "/images/landing/ios-hero.webp",
     width: 1920,
     height: 1200,
-    alt: "A smartphone resting on a dark surface, an application open on its screen",
+    alt: "A person holding an iPhone with an app open on the screen",
   },
 };
 
@@ -157,7 +163,8 @@ export const iosTech: CardGridContent = {
 export const iosLaunchCta: CtaBandContent = {
   title: "Ready to launch your brand on the most popular iOS platform?",
   body: "Work with us for high-quality iOS app development services. Let’s create exceptional apps that redefine user experiences, set benchmarks, and give your mission the edge it needs.",
-  cta: { label: "Talk to an iOS expert", href: "#enquiry" },
+  // Review: "redirect it to the contact page" — was "#enquiry".
+  cta: { label: "Talk to an iOS expert", href: "/contact" },
   stats: [
     { figure: "1250+", label: "Projects" },
     { figure: "13+", label: "Year of Experience" },
@@ -171,6 +178,10 @@ export const iosBenefits: CardGridContent = {
   // VERBATIM, INCLUDING THE BUG: the live page says "Angular" here, on an iOS
   // page. Flagged in the handover rather than quietly rewritten.
   body: "Soft Suave offers exceptional Angular development services designed to craft exceptional user experiences. See how we use the power of Angular:",
+  // Matches the live page's own link, inside the "Simplified Development
+  // Process" card body (review: "internal link missing in the benefits
+  // section").
+  links: [{ text: "app development company", href: "/mobile-application-development-company" }],
   items: [
     {
       name: "Maximize Your App Earnings",
@@ -236,16 +247,28 @@ export const iosStories: StoryCardsContent = {
       industry: "Healthcare",
       name: "Cloud-based Secured Communication App for Patient Care",
       body: "Soft Suave developed a cross-platform healthcare app that simplifies doctor-patient communication and helps during emergency situations. The app made Professionals and patients interact online using the latest technology, offering quality, safety, and reliability.",
+      image: {
+        src: "/images/landing/ios-story-healthcare.webp",
+        alt: "A healthcare professional using a mobile app on a smartphone",
+      },
     },
     {
       industry: "eCommerce",
       name: "Personalized One-Stop Solution for eCommerce Industry",
       body: "Soft Suave created an app to satisfy multiple needs to seamlessly give effective eCommerce solutions to customers. Specifically, the client wanted mobile applications that would enable customers to make fast decisions and lead them to make a purchase.",
+      image: {
+        src: "/images/landing/ios-story-ecommerce.webp",
+        alt: "A person shopping online with a smartphone and shopping bags",
+      },
     },
     {
       industry: "Consulting",
       name: "Effective Tool to track the Jobs or Projects for the Customers",
       body: "A standout job tracking solution app made by Soft Suave to ease the complex processes, for the customers to use and track the individual projects and Jobs more flexibly.",
+      image: {
+        src: "/images/landing/ios-story-consulting.webp",
+        alt: "A consultant reviewing project and job tracking data on a laptop",
+      },
     },
   ],
 };
@@ -254,6 +277,16 @@ export const iosFaqs: FaqContent = {
   eyebrow: "Questions",
   title: "Frequently Asked Questions",
   body: "Know more about our processes and how we work, with the help of the following FAQs.",
+  // Matches the live page's own link, inside the "develop iOS applications on
+  // Windows" answer (review: "one internal link missing in the faq"). The
+  // live page links to its blog, which this app does not host, so the link
+  // goes to softsuave.com's post directly.
+  links: [
+    {
+      text: "develop iOS applications on Windows",
+      href: "https://www.softsuave.com/blog/ios-development-on-windows/",
+    },
+  ],
   items: [
     {
       q: "What are the benefits of outsourcing iOS App Development?",
