@@ -608,7 +608,7 @@ export default function WorkGrid({
                     app's own routes, and SiteLink would still send it to
                     softsuave.com whenever that route is outside its
                     local-path set. */}
-                <Link href={content.outro.cta.href} className={styles.pill} data-cursor="Start">
+                <Link href={content.outro.cta.href} className={styles.pillFilled} data-cursor="Start">
                   {content.outro.cta.label}
                 </Link>
               </div>

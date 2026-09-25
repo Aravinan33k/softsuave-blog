@@ -54,11 +54,11 @@ const cx = (...c: (string | false | undefined)[]) => c.filter(Boolean).join(" ")
 function KnowMoreLink({ href }: { href: string }) {
   const label = "Know More";
   return href.startsWith("#") ? (
-    <a href={href} className={styles.carPill} data-cursor={label}>
+    <a href={href} className={`${styles.pillFilled} ${styles.carPill}`} data-cursor={label}>
       {label}
     </a>
   ) : (
-    <SiteLink href={href} className={styles.carPill} data-cursor={label}>
+    <SiteLink href={href} className={`${styles.pillFilled} ${styles.carPill}`} data-cursor={label}>
       {label}
     </SiteLink>
   );
