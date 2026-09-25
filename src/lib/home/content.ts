@@ -637,17 +637,9 @@ export const nav = {
 /** A footer sitemap entry. `href` is either an in-page `#anchor` or a site path. */
 export type FooterLink = { label: string; href: string };
 
-/**
- * A footer column's links, read off the nav panel of the same name.
- *
- * `mainOnly` takes just the top-level page of each category and skips the
- * long name-only (`dense`) hire lists — the Services panel holds ~70 links,
- * far more than a sitemap column can carry. Otherwise every item of the panel
- * is listed, in the panel's order.
- */
-function footerLinks(panel: NavMenuPanel, mainOnly = false): FooterLink[] {
+/** A footer column's links, read off the nav panel of the same name, in the panel's order. */
+function footerLinks(panel: NavMenuPanel): FooterLink[] {
   return panel.groups
-    .filter((g) => !mainOnly || !g.dense)
     .flatMap((g) => g.items)
     .flatMap((i) => (i.href === undefined ? [] : [{ label: i.name, href: i.href }]));
 }
@@ -656,21 +648,18 @@ export const footer = {
   tagline: "Empowering businesses with scalable AI, automation & integrations.",
 
   /**
-   * Sitemap columns — DERIVED from the nav's mega-menu panels
-   * (`lib/home/nav-menu.ts`), which follow the navigation tab of the
-   * site-revamp sheet. Retyping them here is how the footer drifted from the
-   * nav once already, so a nav edit now reaches the footer on its own.
+   * Sitemap columns — DERIVED rather than retyped, since retyping them is how
+   * the footer drifted from the nav once already.
    *
-   *   Services     each category's main page (the sheet's "Main Page" column):
-   *                Custom AI, Data Engineering, Data Science, the FDE page, the
-   *                three Software & Application pages and the seven Global
-   *                Delivery pages. The hire-by-role/skill lists stay in the nav.
-   *   Industries   the nav's six sectors
+   *   Services     the homepage's "AI & Software Services" section
+   *                (`services.items` above), in its order — the ten services
+   *                the homepage leads with, not the nav's Services panel.
+   *   Industries   the nav's sectors (`lib/home/nav-menu.ts`)
    *   Company      the nav's seven entries
    *   Resources    the nav's two entries
    */
   columns: [
-    { title: "Services", links: footerLinks(navPanels.Services, true) },
+    { title: "Services", links: services.items.map((s) => ({ label: s.name, href: s.href })) },
     { title: "Industries", links: footerLinks(navPanels.Industries) },
     { title: "Company", links: footerLinks(navPanels.Company) },
     { title: "Resources", links: footerLinks(navPanels.Resources) },
@@ -766,7 +755,6 @@ export const footer = {
       {
         country: "in",
         display: "+91 99527 32708",
-        note: "Business Enquiry",
         href: "tel:+919952732708",
         whatsapp: "https://wa.me/919952732708",
       },
