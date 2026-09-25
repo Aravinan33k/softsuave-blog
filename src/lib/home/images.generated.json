@@ -3373,5 +3373,18 @@
     "photographer": "Meet Patel",
     "pexelsUrl": "https://www.pexels.com/photo/laptop-on-outdoor-terrace-for-remote-work-in-india-37010902/",
     "matchedTier": "javascript web developer laptop"
+  },
+  "four/nj-overview": {
+    "page": "four",
+    "id": "nj-overview",
+    "src": "/images/four/nj-overview.webp",
+    "width": 1000,
+    "height": 1200,
+    "alt": "A NodeJS development team collaborating around a workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABQAgCdASoLABAAA4BaJZQAD5IQ48YbfKWxjgAA4nvoGYdKdq2r93Y2Ovxsvzw0ekHOhwNe+7m4gVytPV05M3UL9MBEXPluO3zF5bLdxsj32whwHmsf6wNdzXX/nQamMPnjhlB2fPXI+Fdej/6dAAAA",
+    "pexelsId": 12899156,
+    "photographer": "Mizuno K",
+    "pexelsUrl": "https://www.pexels.com/photo/programmer-in-office-12899156/",
+    "matchedTier": "backend engineer server infrastructure laptop"
   }
 }

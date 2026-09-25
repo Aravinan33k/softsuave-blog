@@ -3836,6 +3836,21 @@
         "web developer interface monitor",
         "modern web application browser screen desk clean"
       ]
+    },
+    {
+      "id": "nj-overview",
+      "page": "four",
+      "purpose": "overview-illustration",
+      "alt": "A NodeJS development team collaborating around a workstation",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1200,
+      "keywords": [
+        "backend engineer server infrastructure laptop",
+        "two engineers pair programming laptop bright office",
+        "software developer working desk office natural light person",
+        "developers collaborating laptops"
+      ]
     }
   ]
 }
