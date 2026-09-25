@@ -5996,6 +5996,13 @@
   margin-top: clamp(18px, 2.2vw, 26px);
 }
 
+/* `OverviewContent.ctaAlign: "center"` — centers `.overviewCta` under a
+   full-width claim list instead of leaving it flush left. `.btn` is
+   `display: inline-flex`, so it respects the wrapper's `text-align`. */
+.overviewCtaCenter {
+  text-align: center;
+}
+
 /* Card variant of an overview's claim list (`OverviewContent.pointsVariant:
    "cards"`), for copy naming a short set of concrete things rather than
    abstract claims — a flat tick list under-sells the distinction between

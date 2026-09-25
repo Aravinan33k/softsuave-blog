@@ -3821,6 +3821,21 @@
         "javascript web developer laptop",
         "web developer building website large monitor office"
       ]
+    },
+    {
+      "id": "rj-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "An open laptop showing JavaScript code in a modern workspace",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "javascript web developer laptop",
+        "frontend developer web design screen",
+        "web developer interface monitor",
+        "modern web application browser screen desk clean"
+      ]
     }
   ]
 }

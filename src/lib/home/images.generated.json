@@ -3360,5 +3360,18 @@
     "photographer": "Daniil Komov",
     "pexelsUrl": "https://www.pexels.com/photo/reflection-in-a-laptop-screen-showing-code-34804011/",
     "matchedTier": "software developers coding office"
+  },
+  "four/rj-hero": {
+    "page": "four",
+    "id": "rj-hero",
+    "src": "/images/four/rj-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "An open laptop showing JavaScript code in a modern workspace",
+    "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoQAAsAA4BaJZwAAuN29wE+AAD+90dn+BYdMAv/UOH76oazdGBc8CnMguML0rfFw7dLC8TvSgsWwh3p0LeQoLUSAAA=",
+    "pexelsId": 37010902,
+    "photographer": "Meet Patel",
+    "pexelsUrl": "https://www.pexels.com/photo/laptop-on-outdoor-terrace-for-remote-work-in-india-37010902/",
+    "matchedTier": "javascript web developer laptop"
   }
 }

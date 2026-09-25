@@ -76,6 +76,13 @@ export interface OverviewContent {
    */
   cta?: { readonly label: string; readonly href: string };
   /**
+   * `"center"` centers the button under a full-width claim list — a bare
+   * button flush left under a row of three cards reads as an afterthought
+   * (review: "either move the button to the center or remove it entirely").
+   * Omit for the default left-aligned start.
+   */
+  ctaAlign?: "start" | "center";
+  /**
    * Optional proof counters under the copy — the credibility numbers a
    * "why choose us" overview closes on. Figures are strings, not numbers:
    * they arrive already written ("400+", "13+") and are not ours to
@@ -346,11 +353,18 @@ export default function Overview({
             centres against all of it rather than leaving the column empty
             under itself. Everywhere else they stay here, below the grid. */}
         {!asideStats && pointsList}
-        {content.cta && (
-          <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.overviewCta}`}>
-            {content.cta.label}
-          </a>
-        )}
+        {content.cta &&
+          (content.ctaAlign === "center" ? (
+            <div className={styles.overviewCtaCenter}>
+              <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.overviewCta}`}>
+                {content.cta.label}
+              </a>
+            </div>
+          ) : (
+            <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.overviewCta}`}>
+              {content.cta.label}
+            </a>
+          ))}
         {/* Full-width footer position — skipped when the counters have already
             been rendered in the column beside the prose. */}
         {hasStats && !asideStats && <div className={styles.overviewStats}>{statsPanel}</div>}

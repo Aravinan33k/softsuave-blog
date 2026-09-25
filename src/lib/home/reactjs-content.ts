@@ -59,13 +59,27 @@
  *  - A mid-page CTA band, `"Want to Hire ReactJS Developers?"` (an H3 inside a
  *    headless `<section class="down_profile">`), between the services and the benefits.
  *  - The `"Talk to Experts"` button under "We Work For", which the live page
- *    points at `https://www.softsuave.com/free-quote` — a page this app does not
- *    serve, so it is a plain external anchor rather than routed through
- *    `SiteLink`.
+ *    points at `https://www.softsuave.com/free-quote`. Every other
+ *    "Talk to Experts"/"Talk to Our Experts" CTA on this surface leads to
+ *    `/contact` (review: "link the button to the contact page"), so this one
+ *    was brought in line rather than kept as a one-off external anchor to a
+ *    page this app does not serve.
  *
- * Images: hand-placed under `public/images/landing/reactjs/`. All eight are
- * free-licence Pexels photographs cropped to each slot; ids, source URLs and
- * blur placeholders are in that folder's `credits.json`.
+ * Images: hand-placed under `public/images/landing/reactjs/`. Seven of the
+ * eight are free-licence Pexels photographs cropped to each slot; ids,
+ * source URLs and blur placeholders are in that folder's `credits.json`. The
+ * hero background is the exception — the original crop showed a C#/.NET
+ * console app, not React, on the laptop screen (review: "need to change the
+ * hero image") — and is instead `four/rj-hero.webp` from the same
+ * manifest-driven Pexels pipeline the newer pages on this surface use
+ * (`content/images.manifest.json`), landing on an actual React starter
+ * project on screen.
+ *
+ * Two of the "Services We Offer ReactJS" band's asks (review: "the subtext
+ * needs to be updated" / "an internal link is missing" under "Migration to
+ * React") are also fixed here: the subtext no longer repeats the Overview
+ * section's own first sentence verbatim, and `links` carries the live page's
+ * "software development services" → its own homepage.
  */
 
 import { partnerHeroBadges } from "./hero-badges";
@@ -114,12 +128,12 @@ export const rjHero: HeroContent = {
     subject: "ReactJS App Development enquiry",
   },
   image: {
-    src: "/images/landing/reactjs/hero.webp",
+    src: "/images/four/rj-hero.webp",
     width: 1920,
     height: 1080,
-    alt: "An open laptop with React code on screen in a modern workspace",
+    alt: "An open laptop showing a React application's starter code",
     blurDataURL:
-      "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAwAgCdASoQAAkAA4BaJaACdH8AFdYsmB5gAAD+80xs9dxYMB/Y2ej7T3eWbnMM5tybuVv3vm1D9VVtrjKW++9B0Trc/px8bB0fvII3H6m1eDKLnrIFAAAA",
+      "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoQAAsAA4BaJZwAAuN29wE+AAD+90dn+BYdMAv/UOH76oazdGBc8CnMguML0rfFw7dLC8TvSgsWwh3p0LeQoLUSAAA=",
   },
 };
 
@@ -151,8 +165,9 @@ export const rjOverview: OverviewContent = {
 export const rjServices: ServiceBoardContent = {
   eyebrow: "ReactJS",
   title: "Services We Offer ReactJS",
-  body: "Our ReactJS Development Company in India delivers web applications with entreating speed and squeaky-clean functions.",
-  cta: { label: "Talk to Experts", href: "#enquiry" },
+  body: "From front-end builds to plugin development, integration, and long-term support, our ReactJS team covers every stage of your application.",
+  links: [{ text: "software development services", href: "/" }],
+  cta: { label: "Talk to Experts", href: "/contact" },
   items: [
     {
       name: "React Front-End Development Services",
@@ -207,7 +222,6 @@ export const rjServices: ServiceBoardContent = {
 
 /** The live page's mid-page band, between the services and the benefits. */
 export const rjHireCta: CtaBandContent = {
-  eyebrow: "Hire A Team",
   title: "Want to Hire ReactJS Developers?",
   body: "Hire dedicated ReactJS developers that are handpicked for your specific project requirements.",
   cta: { label: "Hire ReactJS Developers", href: "/hire-reactjs-developers" },
@@ -269,9 +283,14 @@ export const rjAudience: OverviewContent = {
   // The live page shows these as three cards, not a tick list — the
   // audiences are concrete things being named, not abstract claims.
   pointsVariant: "cards",
-  // The live page's own destination for this button: a live-site-only
-  // quote form this app does not serve itself.
-  cta: { label: "Talk to Experts", href: "https://www.softsuave.com/free-quote" },
+  // Every "Talk to Experts" CTA on this surface leads to /contact (review:
+  // "link the button to the contact page") — the live page's own
+  // quote-form destination is not carried over.
+  cta: { label: "Talk to Experts", href: "/contact" },
+  // Left-aligned under a three-card row read as an afterthought (review:
+  // "either move the button to the center or remove it entirely") — kept,
+  // centred, since it is still a working conversion path.
+  ctaAlign: "center",
 };
 
 /**
@@ -312,6 +331,15 @@ export const rjFaqs: FaqContent = {
   eyebrow: "Questions",
   title: "Frequently Asked Questions",
   body: "Know more about our processes and how we work, with the help of the following FAQs our clients ask.",
+  // Three phrases the live page links inside its FAQ answers (review: "few
+  // FAQs do not have an internal link"). `/cross-platform-application-development-company`
+  // and `/30-min-free-consultation` are not routes this app serves yet, so
+  // `SiteLink` (via `linkify`) resolves them to softsuave.com instead of 404ing.
+  links: [
+    { text: "cross-platform mobile", href: "/cross-platform-application-development-company" },
+    { text: "single-page applications,", href: "/angularjs-development-company" },
+    { text: "consultation for free", href: "/30-min-free-consultation" },
+  ],
   items: [
     {
       q: "Is ReactJS a framework or a library?",
