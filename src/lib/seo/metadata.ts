@@ -1,7 +1,7 @@
 import 'server-only';
 import type { Metadata } from 'next';
 import { env } from '../env';
-import { BASE_PATH } from '../flags';
+import { BASE_PATH, pageRobots } from '../flags';
 import type { SiteInfo } from '@/themes/_contract';
 
 // Central metadata builder for public pages: canonical URLs, Open Graph, Twitter
@@ -76,9 +76,9 @@ export function buildMetadata(a: BuildArgs): Metadata {
     title,
     description,
     alternates: { canonical },
-    robots: a.noIndex
-      ? { index: false, follow: false }
-      : { index: true, follow: true },
+    // `pageRobots` is noindex too while the site is closed to search engines
+    // (`siteIndexable`, lib/flags.ts).
+    robots: a.noIndex ? { index: false, follow: false } : pageRobots,
     openGraph: {
       title,
       description,

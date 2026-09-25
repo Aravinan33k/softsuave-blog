@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Inter, Fraunces, JetBrains_Mono } from 'next/font/google';
 import ScrollProvider from '@/components/home/scroll-provider';
 import { JsonLd } from '@/components/seo/json-ld';
-import { NotOnHomepage } from '@/components/seo/not-on-homepage';
-import { MARKETING_SITE_GRAPH } from '@/lib/seo/page-graph';
+import { SiteGraph } from '@/components/seo/site-graph';
+import { MARKETING_SITE_GRAPH, marketingWebSiteLd } from '@/lib/seo/page-graph';
 import './home.css';
 
 // Layout for the public marketing surface: the homepage at "/" and the service
@@ -60,13 +60,14 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
        * `{'@type': 'Organization', name: 'Soft Suave'}` stub, so the surface
        * described eighty unrelated companies that happened to share a name.
        *
-       * Every page except the homepage, which mirrors softsuave.com's own
-       * homepage schema exactly — Organization included — and so must not
-       * carry this pair as well (see `NotOnHomepage`).
+       * Not on the homepage, which mirrors softsuave.com's own homepage schema
+       * exactly — Organization included — and only the WebSite on the pages
+       * that publish their own Organization (see `SiteGraph`).
        */}
-      <NotOnHomepage>
-        <JsonLd data={MARKETING_SITE_GRAPH} />
-      </NotOnHomepage>
+      <SiteGraph
+        full={<JsonLd data={MARKETING_SITE_GRAPH} />}
+        websiteOnly={<JsonLd data={[marketingWebSiteLd]} />}
+      />
       <ScrollProvider>{children}</ScrollProvider>
     </div>
   );

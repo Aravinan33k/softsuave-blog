@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BASE_PATH } from '@/lib/flags';
+import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   title: `${madMeta.title} | Soft Suave`,
   description: madMeta.description,
   alternates: { canonical: madMeta.path },
-  robots: { index: true, follow: true },
+  robots: pageRobots,
   openGraph: {
     title: `${madMeta.title} | Soft Suave`,
     description: madMeta.description,

@@ -3,6 +3,7 @@ import { absoluteUrl } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import { meta as indexMeta } from '@/lib/home/industries-content';
 import type { SectorPageContent } from './types';
+import { pageRobots } from '@/lib/flags';
 
 /**
  * Metadata and structured data for a sector page.
@@ -19,7 +20,7 @@ export function sectorMetadata(content: SectorPageContent): Metadata {
     title: meta.title,
     description: meta.description,
     alternates: { canonical: slug },
-    robots: { index: true, follow: true },
+    robots: pageRobots,
     openGraph: {
       title: meta.title,
       description: meta.description,

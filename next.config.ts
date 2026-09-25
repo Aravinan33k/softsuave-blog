@@ -1,5 +1,5 @@
 import type { NextConfig } from 'next';
-import { gtmContainerId, homepageEnabled } from './src/lib/flags';
+import { gtmContainerId, homepageEnabled, siteIndexable } from './src/lib/flags';
 import { MARKETING_ROUTES } from './src/lib/home/landing-pages';
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -52,6 +52,11 @@ const securityHeaders = [
   { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+  // noindex, nofollow on EVERY response — pages, feeds, images, files — until
+  // the site is opened to search engines (`siteIndexable`, lib/flags.ts). A
+  // header, not just the robots meta, because it covers non-HTML responses too
+  // and outranks any page that still says `index`.
+  ...(siteIndexable ? [] : [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }]),
   // HSTS only in production (HTTPS). Harmless-but-pointless over dev HTTP.
   ...(isProd
     ? [{ key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' }]

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BASE_PATH } from '@/lib/flags';
+import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pgFaqLd, pgServiceLd, pgWebPageLd } from '@/lib/seo/postgresql-development-company';
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
   title: pgMeta.title,
   description: pgMeta.description,
   alternates: { canonical: pgMeta.path },
-  robots: { index: true, follow: true },
+  robots: pageRobots,
   openGraph: {
     title: pgMeta.title,
     description: pgMeta.description,

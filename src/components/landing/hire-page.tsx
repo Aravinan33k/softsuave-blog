@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
-import { BASE_PATH } from '@/lib/flags';
+import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
@@ -304,7 +304,7 @@ export function hireMetadata(skill: HireSkill): Metadata {
     title,
     description: skill.metaDescription,
     alternates: { canonical: path },
-    robots: { index: true, follow: true },
+    robots: pageRobots,
     openGraph: {
       title,
       description: skill.metaDescription,

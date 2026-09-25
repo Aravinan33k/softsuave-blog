@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { aiPageJsonLd } from '@/lib/seo/ai-page-schema';
-import { BASE_PATH } from '@/lib/flags';
+import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { meta, services as servicesContent } from '@/lib/home/generative-ai';
 
 import Nav from '@/components/home/nav';
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   title: meta.title,
   description: meta.description,
   alternates: { canonical: meta.path },
-  robots: { index: true, follow: true },
+  robots: pageRobots,
   openGraph: {
     title: meta.title,
     description: meta.description,

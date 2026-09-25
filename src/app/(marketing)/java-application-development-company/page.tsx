@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, homepageEnabled } from '@/lib/flags';
+import { BASE_PATH, homepageEnabled, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { breadcrumbLd } from '@/lib/seo/jsonld';
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
   title: `${javaMeta.title} | Soft Suave`,
   description: javaMeta.description,
   alternates: { canonical: javaMeta.path },
-  robots: { index: true, follow: true },
+  robots: pageRobots,
   openGraph: {
     title: `${javaMeta.title} | Soft Suave`,
     description: javaMeta.description,

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import { aiPageJsonLd } from '@/lib/seo/ai-page-schema';
+import { aiPageJsonLd, softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import {
   meta,
   hero as heroContent,
@@ -41,6 +41,7 @@ import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 
 import styles from '@/components/home/home.module.css';
+import { pageRobots } from '@/lib/flags';
 
 /**
  * Custom Agentic AI Development Services landing page.
@@ -65,7 +66,7 @@ export const metadata: Metadata = {
   title: meta.title,
   description: meta.description,
   alternates: { canonical: meta.path },
-  robots: { index: true, follow: true },
+  robots: pageRobots,
   openGraph: {
     title: meta.title,
     description: meta.description,
@@ -80,13 +81,16 @@ export const metadata: Metadata = {
   },
 };
 
-/** FAQPage schema, built from the same data the accordion renders. */
-/** Organization + Service + WebPage + FAQPage, from the approved SEO spec. */
+/** Service + WebPage + FAQPage, from the approved SEO spec. */
 const pageLd = aiPageJsonLd('agenticAi');
 
 export default function AgenticAiDevelopmentServicesPage() {
   return (
     <div className={styles.page}>
+      {/* This page's own Organization, the spec's block verbatim (no Facebook
+          profile, unlike the site-wide node). The layout leaves its
+          Organization off this page for it — see PAGES_WITH_OWN_ORGANIZATION. */}
+      <JsonLd data={softSuaveOrganizationLd} />
       <JsonLd data={pageLd} />
       <Nav />
       <main id="main">

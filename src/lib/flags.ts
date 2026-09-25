@@ -29,6 +29,31 @@
 export const homepageEnabled = process.env.NEXT_PUBLIC_HOMEPAGE_ENABLED === 'true';
 
 /**
+ * May search engines index this deployment?
+ *
+ * **Off by default — the site is noindex, nofollow for now.** While off, every
+ * response carries `X-Robots-Tag: noindex, nofollow` (`next.config.ts`) and
+ * every page's robots meta agrees (`pageRobots` below), so nothing here is
+ * indexed and no link is followed. `robots.txt` still ALLOWS crawling on
+ * purpose: a crawler blocked there never fetches a page, never sees its
+ * noindex, and can keep the bare URL in results.
+ *
+ * Set `NEXT_PUBLIC_ALLOW_INDEXING=true` at build time to open the site to
+ * search engines (a rebuild, like every `NEXT_PUBLIC_*` flag).
+ */
+export const siteIndexable = process.env.NEXT_PUBLIC_ALLOW_INDEXING === 'true';
+
+/**
+ * The robots directive for an ordinary, indexable page. Pages use this rather
+ * than a literal `{ index: true, follow: true }` so the `siteIndexable` switch
+ * above reaches all of them. Pages that are never indexable (search results,
+ * previews) keep their own stricter value.
+ */
+export const pageRobots = siteIndexable
+  ? { index: true, follow: true }
+  : { index: false, follow: false };
+
+/**
  * Google Tag Manager container, which is how softsuave.com loads Analytics —
  * the live site has no standalone `gtag.js`, only container `GTM-TWMFSDC`, and
  * everything else is configured inside it. The 11 Sep review asked for the
