@@ -2032,15 +2032,15 @@
       "id": "ov-android-application-development-company",
       "page": "landing",
       "purpose": "overview-illustration",
-      "alt": "Developer testing an Android app on a smartphone",
+      "alt": "A developer reviewing an Android app running on a smartphone",
       "orientation": "landscape",
       "width": 1400,
       "height": 1050,
       "keywords": [
-        "android smartphone app development",
+        "android developer coding smartphone",
         "developer testing smartphone app",
-        "mobile app",
-        "smartphone"
+        "hybrid mobile app developer laptop phone",
+        "mobile app developers testing phones"
       ]
     },
     {
@@ -3964,6 +3964,21 @@
         "cross platform app developer phone laptop",
         "mobile app developers testing phones",
         "mobile app developer tablet and phone testing"
+      ]
+    },
+    {
+      "id": "and-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A developer testing an Android app on a smartphone",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "android developer coding smartphone",
+        "android smartphone app development",
+        "mobile app developer smartphone design",
+        "mobile app developers testing phones"
       ]
     }
   ]

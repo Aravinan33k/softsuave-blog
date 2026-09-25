@@ -1794,12 +1794,12 @@
     "src": "/images/landing/ov-android-application-development-company.webp",
     "width": 1400,
     "height": 1050,
-    "alt": "Developer testing an Android app on a smartphone",
-    "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoQAAsAA4BaJYwCdAEWGTygbMwA/uaDPI7/33npZyMSP7EAncpfpnNOZnBBvRJRi6aJG6eNjBXNMM0jv0kNW6ZLbpqAAA==",
-    "pexelsId": 5253002,
-    "photographer": "Amarnath Radhakrishnan",
-    "pexelsUrl": "https://www.pexels.com/photo/a-phone-s-user-interface-with-applications-5253002/",
-    "matchedTier": "android smartphone app development"
+    "alt": "A developer reviewing an Android app running on a smartphone",
+    "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwAgCdASoQAAsAA4BaJQBdgCFZts0ShyrrAADOP+nlKjOiPpj3Sy61eQof2SYQHQK5PaLCM/g2TzUqeDawRAd+53aLfDylYDZC0Ss60u67GYvk2BbNeqrnly/fdSS8QuyeM69W60AAAA==",
+    "pexelsId": 1181243,
+    "photographer": "Christina Morillo",
+    "pexelsUrl": "https://www.pexels.com/photo/black-and-silver-laptop-computer-on-round-brown-wooden-table-1181243/",
+    "matchedTier": "android developer coding smartphone"
   },
   "landing/ov-cloud-computing": {
     "page": "landing",
@@ -3490,5 +3490,18 @@
     "photographer": "Joshua Mayo",
     "pexelsUrl": "https://www.pexels.com/photo/person-holding-a-smartphone-5912326/",
     "matchedTier": "hybrid mobile app developer laptop phone"
+  },
+  "four/and-hero": {
+    "page": "four",
+    "id": "and-hero",
+    "src": "/images/four/and-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A developer testing an Android app on a smartphone",
+    "blurDataURL": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABwAgCdASoQAAsAA4BaJZQAD49u4amjptnJCWgAAP7wsNOyawMJiV6ON+LOZe0Vp2mfa9Rw40k7RuZ9kYl3sB2vPSkO/7l4O3j2uVYv6oWFTv3iJjek4q8FPX9Xd9NMoQfkKBIGzSMea6rqC/OgoAAA",
+    "pexelsId": 1181244,
+    "photographer": "Christina Morillo",
+    "pexelsUrl": "https://www.pexels.com/photo/person-holding-smartphone-while-using-laptop-1181244/",
+    "matchedTier": "android developer coding smartphone"
   }
 }
