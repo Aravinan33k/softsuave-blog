@@ -2918,7 +2918,11 @@ h1.h2 {
   color: var(--accent);
 }
 
-/* ---- prominent enquiry CTA — solid coral by default, sheen sweep on hover ---- */
+/* ---- prominent enquiry CTA ----
+   The site CTA at a larger size: same orange plate and the same hover as
+   `.pillFilled` above — the --cta-hover-bg fill wipes in from the left (white
+   on the dark canvas, near-black in a `.light` band) and the label inks over
+   to --cta-hover-ink. No lift and no glow, per the pill-button note. */
 .holdBtn {
   position: relative;
   overflow: hidden;
@@ -2935,14 +2939,19 @@ h1.h2 {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 0 12px 38px -10px rgba(255, 84, 54, 0.6);
-  transition: box-shadow 0.35s ease, transform 0.35s ease;
+  /* background snaps (see the hover rule) rather than fading under the wipe */
+  transition: background 0s, color 0.3s ease, border-color 0.3s ease;
 }
 
-.holdBtn:hover {
-  transform: translateY(-2px);
-  /* No glow on hover: the coral/rose haze round the plate read as fog. The fill change is the whole signal. */
-  box-shadow: none;
+.holdBtn:hover,
+.holdBtn:focus-visible,
+.holdDone {
+  /* once the wipe has covered the plate, the plate takes the colour too, so
+     no coral rim shows round it (as .pillFilled) */
+  background: var(--cta-hover-bg, #ffffff);
+  border-color: var(--cta-hover-bg, #ffffff);
+  color: var(--cta-hover-ink, #140b08);
+  transition: background 0s 0.4s, color 0.3s ease, border-color 0.3s ease;
 }
 
 .holdBtn:focus-visible {
@@ -2950,32 +2959,26 @@ h1.h2 {
   outline-offset: 4px;
 }
 
-/* light sheen that sweeps across the filled button on hover */
+/* the contrast fill that wipes across the plate — .pillFilled's ::before */
 .holdFill {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: rgba(255, 255, 255, 0.24);
+  border-radius: inherit;
+  background: var(--cta-hover-bg, #ffffff);
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.45s cubic-bezier(0.22, 0.7, 0.2, 1);
 }
 
 .holdBtn:hover .holdFill,
-.holdBtn:focus-visible .holdFill {
+.holdBtn:focus-visible .holdFill,
+.holdDone .holdFill {
   transform: scaleX(1);
 }
 
 .holdText {
   position: relative;
-}
-
-.holdDone {
-  color: #ffffff;
-}
-
-.holdDone .holdFill {
-  transform: scaleX(1);
 }
 
 /* ============================================================
@@ -5493,28 +5496,10 @@ h1.h2 {
   line-height: 1.6;
   color: var(--muted);
 }
+/* "Know More" is the site CTA (`.pillFilled`, composed in services.tsx) —
+   plate, fill and hover wipe all come from there. This only places it. */
 .carPill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
   margin-top: 26px;
-  padding: 0.85em 1.7em;
-  border-radius: 999px;
-  border: 1px solid var(--accent-border);
-  font-family: var(--font-eyebrow);
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-bright);
-  transition: background 0.4s ease, color 0.4s ease, transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-}
-.carPill:hover {
-  background: #ff5436;
-  border-color: #ff5436;
-  color: #fff;
-  transform: translateY(-2px);
-  /* No glow on hover: the coral/rose haze round the plate read as fog. The fill change is the whole signal. */
-  box-shadow: none;
 }
 
 /* desktop / mobile switches */
