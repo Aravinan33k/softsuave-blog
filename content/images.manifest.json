@@ -2314,6 +2314,66 @@
       ]
     },
     {
+      "id": "ios-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "A person holding an iPhone with an app open on the screen",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1200,
+      "keywords": [
+        "hand holding iphone app screen",
+        "iphone app interface closeup",
+        "smartphone app development hands",
+        "mobile app screen closeup"
+      ]
+    },
+    {
+      "id": "ios-story-healthcare",
+      "page": "landing",
+      "purpose": "case-study",
+      "alt": "A healthcare professional using a mobile app on a smartphone",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 450,
+      "keywords": [
+        "doctor smartphone app patient care",
+        "healthcare mobile app screen",
+        "medical professional using phone",
+        "telemedicine app phone"
+      ]
+    },
+    {
+      "id": "ios-story-ecommerce",
+      "page": "landing",
+      "purpose": "case-study",
+      "alt": "A person shopping online with a smartphone and shopping bags",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 450,
+      "keywords": [
+        "online shopping bags smartphone credit card",
+        "woman shopping online phone couch",
+        "ecommerce package delivery smartphone",
+        "online shopping"
+      ]
+    },
+    {
+      "id": "ios-story-consulting",
+      "page": "landing",
+      "purpose": "case-study",
+      "alt": "A consultant reviewing project and job tracking data on a laptop",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 450,
+      "keywords": [
+        "business consultant laptop project tracking",
+        "project management dashboard laptop",
+        "consultant working laptop office",
+        "business laptop work"
+      ]
+    },
+    {
       "id": "ov-hire-java-developers",
       "page": "landing",
       "purpose": "overview-illustration",

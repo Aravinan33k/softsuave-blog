@@ -8,6 +8,7 @@ import { publicMediaUrl } from "@/lib/media-url";
 import FadeUp from "@/components/home/fade-up";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import { useServiceHref } from "@/components/common/service-link";
+import { linkify, type InlineLink } from "@/components/common/linkify";
 import badgeStyles from "@/components/common/card-icon-badge.module.css";
 import { gridSpansFor } from "./card-spans";
 import SectionHead from "./section-head";
@@ -275,6 +276,17 @@ export interface CardGridContent {
    * carries a short claim list of its own before the cards start.
    */
   points?: readonly string[];
+  /**
+   * Internal links to weave into each card's `body`, matched on their own
+   * words — see `OverviewContent.links`, the same mechanism. A card's body
+   * stays a plain string extracted verbatim from the live page, so a link is
+   * declared by the phrase it wraps rather than by rewriting the copy into
+   * JSX. Threaded across every card in the grid, so a repeated phrase links
+   * once. `cards`/`watermark`/`bold` only — `feature` and `list` cards use
+   * `href` for a whole-card link instead, and linking a phrase inside their
+   * shorter body would double up with that.
+   */
+  links?: readonly InlineLink[];
   items: readonly {
     readonly name: string;
     /**
@@ -426,6 +438,9 @@ export default function Industries({
   /* Derived from the item count alone, so a section that gains or loses a card
      re-composes itself with no layout prop to keep in sync. */
   const spans = bold ? gridSpansFor(content.items.length) : [];
+  /* One set for the whole grid: a phrase in `content.links` is linked in
+     whichever card's body it appears in first. */
+  const usedLinks = new Set<string>();
 
   /* Links. A card's own `href` wins; failing that, a grid that lists services
      or sectors links each card to the page its name matches in the route
@@ -631,7 +646,11 @@ export default function Industries({
                   item.name
                 )}
               </h3>
-              {item.body ? <p className={styles.cardBody}>{item.body}</p> : null}
+              {item.body ? (
+                <p className={styles.cardBody}>
+                  {linkify(item.body, content.links, usedLinks, styles.proseLink)}
+                </p>
+              ) : null}
             </article>
             );
           })}

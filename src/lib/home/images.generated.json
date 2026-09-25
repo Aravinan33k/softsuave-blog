@@ -3503,5 +3503,57 @@
     "photographer": "Christina Morillo",
     "pexelsUrl": "https://www.pexels.com/photo/person-holding-smartphone-while-using-laptop-1181244/",
     "matchedTier": "android developer coding smartphone"
+  },
+  "landing/ios-hero": {
+    "page": "landing",
+    "id": "ios-hero",
+    "src": "/images/landing/ios-hero.webp",
+    "width": 1920,
+    "height": 1200,
+    "alt": "A person holding an iPhone with an app open on the screen",
+    "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADQAQCdASoQAAsAA4BaJQBdgBahhZJuwAD+UnMtL0pkuHn38jxWUcVsh/mlbiUOjdW2WAwjhSCMXitsmXOlQ2z9jlUbbIpuKxK7Qv2K1VkQAA==",
+    "pexelsId": 4114789,
+    "photographer": "Castorly Stock",
+    "pexelsUrl": "https://www.pexels.com/photo/person-holding-silver-iphone-6-4114789/",
+    "matchedTier": "hand holding iphone app screen"
+  },
+  "landing/ios-story-healthcare": {
+    "page": "landing",
+    "id": "ios-story-healthcare",
+    "src": "/images/landing/ios-story-healthcare.webp",
+    "width": 800,
+    "height": 450,
+    "alt": "A healthcare professional using a mobile app on a smartphone",
+    "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAQAgCdASoQAAsAA4BaJZQAD42Pv/iHlnPYAP7x18/BaXkx9KDzAjT2hKrj6vnyAQCl2nEjCFN6NAvraAu4z/+t8Of2c3oskGtyh/DXUOHpoQAA",
+    "pexelsId": 19957214,
+    "photographer": "Tessy Agbonome",
+    "pexelsUrl": "https://www.pexels.com/photo/smiling-black-doctor-talking-on-video-call-on-cellphone-19957214/",
+    "matchedTier": "doctor smartphone app patient care"
+  },
+  "landing/ios-story-consulting": {
+    "page": "landing",
+    "id": "ios-story-consulting",
+    "src": "/images/landing/ios-story-consulting.webp",
+    "width": 800,
+    "height": 450,
+    "alt": "A consultant reviewing project and job tracking data on a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAwAgCdASoQAAsAA4BaJYwCdAYvXzBexHDNsAD+9Fqqe+kqBc4kjr9vcsa3/Pda60f8fezr+eYPoafMRdgygXk0O/H8m3XN7/tpwbq/KrRKq6L9asEpw3z2ZIk2pSyt8DL2yrn4v017nNN2RsIAAA==",
+    "pexelsId": 7691727,
+    "photographer": "Yan Krukau",
+    "pexelsUrl": "https://www.pexels.com/photo/coworkers-in-front-of-a-laptop-7691727/",
+    "matchedTier": "business consultant laptop project tracking"
+  },
+  "landing/ios-story-ecommerce": {
+    "page": "landing",
+    "id": "ios-story-ecommerce",
+    "src": "/images/landing/ios-story-ecommerce.webp",
+    "width": 800,
+    "height": 450,
+    "alt": "A person shopping online with a smartphone and shopping bags",
+    "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAwAgCdASoQAAsAA4BaJYwCdAYtBqmo01xdYAD+7y5lb4DPoia+D2xNlmj+ge3G/n9Umr6kY6+ft718lmg6ei0HCcy8VFEsUOhIpBowjoRw6vP55lJ0LB3qblgq5qWw9WeQPW3xqm2KeBoLANKAAA==",
+    "pexelsId": 8938733,
+    "photographer": "Leeloo The First",
+    "pexelsUrl": "https://www.pexels.com/photo/woman-holding-a-credit-card-and-wallet-8938733/",
+    "matchedTier": "online shopping bags smartphone credit card"
   }
 }
