@@ -3707,6 +3707,120 @@
         "colleagues checking work laptop desk window",
         "two colleagues laptop office"
       ]
+    },
+    {
+      "id": "gq-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "Engineers connecting several services through a unified GraphQL API layer",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "developers integrating systems laptop screens",
+        "backend api developer laptop code",
+        "software engineers working together office screens daylight",
+        "engineers collaborating monitors workspace"
+      ]
+    },
+    {
+      "id": "gq-overview",
+      "page": "four",
+      "purpose": "overview-illustration",
+      "alt": "An engineer designing a GraphQL schema that unifies data from several services",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1200,
+      "keywords": [
+        "software engineer working desktop computer vertical person",
+        "engineer at workstation bright office portrait",
+        "developer working computer window light",
+        "person working computer office"
+      ]
+    },
+    {
+      "id": "gq-svc-schema",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Engineers mapping a GraphQL schema's object relationships on a whiteboard",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "engineers mapping system architecture whiteboard diagram",
+        "engineers planning architecture whiteboard sticky notes",
+        "consultants whiteboard planning data strategy"
+      ]
+    },
+    {
+      "id": "gq-svc-resolver",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A backend engineer developing resolvers that connect a GraphQL API to live services",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "backend developer code monitors",
+        "java developer coding workstation",
+        "web application developer laptop browser"
+      ]
+    },
+    {
+      "id": "gq-svc-integration",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Developers integrating a GraphQL API with existing REST services and platforms",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developers integrating systems laptop screens",
+        "full stack developer two monitors",
+        "backend api developer laptop code"
+      ]
+    },
+    {
+      "id": "gq-svc-migration",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Developers testing a phased migration from REST endpoints to GraphQL",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "developer analysing code quality dual monitors office",
+        "two developers reviewing code together monitor office",
+        "engineer testing software results screen"
+      ]
+    },
+    {
+      "id": "gq-svc-performance",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A performance dashboard used to review GraphQL query and resolver behavior",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "server monitoring dashboards operations screens",
+        "monitoring dashboard alert spike screen",
+        "performance analytics dashboard screen charts"
+      ]
+    },
+    {
+      "id": "gq-svc-maintenance",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A dedicated team maintaining and updating a live GraphQL API",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "software developers coding office",
+        "javascript web developer laptop",
+        "web developer building website large monitor office"
+      ]
     }
   ]
 }

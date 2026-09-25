@@ -145,13 +145,12 @@ export default function GraphQLDevelopmentCompanyPage() {
           <TechStack content={gqTech} />
         </div>
 
-        <div className={home.light}>
-          <Faq content={gqFaqs} idPrefix="gq-faq" />
-        </div>
-
-        {/* Homepage client stories, on the warm-white band as they are there. */}
+        {/* Client stories ahead of the FAQ (review: "move the testimonials
+            before the FAQ") — both are light bands, so they share one
+            wrapper rather than reopening the same surface twice in a row. */}
         <div className={home.light}>
           <Testimonials />
+          <Faq content={gqFaqs} idPrefix="gq-faq" />
         </div>
 
         <Contact />

@@ -1216,6 +1216,47 @@ export default function TechLogo({ name }: { name: string }) {
           <circle cx="4.6" cy="16.6" r="1.7" fill="#E10098" />
         </svg>
       );
+    case "apolloclient":
+    case "apollo":
+      // Apollo Client — the GraphQL client's dark orbit-ring mark
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#311C87" />
+          <ellipse cx="12" cy="12" rx="7" ry="3" stroke="white" strokeWidth="1.6" transform="rotate(-20 12 12)" />
+          <circle cx="12" cy="12" r="2.3" fill="white" />
+        </svg>
+      );
+    case "graphiql":
+      // GraphiQL — the in-browser query IDE's own prompt, on a dark editor tile
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="4" fill="#1B1B1B" />
+          <path d="M7 9l3 3-3 3" stroke="#E10098" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M12 15h5" stroke="#E10098" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      );
+    case "oauth20":
+    case "oauth2":
+    case "oauth":
+      // OAuth — a shield and key for delegated, token-based access
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.6l7 3v6c0 5-3 8.4-7 9.8-4-1.4-7-4.8-7-9.8v-6l7-3z" fill="#3B82F6" />
+          <circle cx="10.4" cy="11" r="2" stroke="white" strokeWidth="1.6" />
+          <path d="M12 12.4L16 16.4M14.4 14L16 12.6" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+      );
+    case "jwt":
+      // JWT — its own three dot-joined segments (header.payload.signature)
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="8" width="6" height="8" rx="2" fill="#FB015B" />
+          <rect x="9" y="8" width="6" height="8" rx="2" fill="#D63AFF" />
+          <rect x="16.5" y="8" width="6" height="8" rx="2" fill="#4A90D9" />
+          <circle cx="8.2" cy="12" r="0.9" fill="white" />
+          <circle cx="15.8" cy="12" r="0.9" fill="white" />
+        </svg>
+      );
     case "mongodb":
       // MongoDB — the green leaf
       return (
