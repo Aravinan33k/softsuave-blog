@@ -3,7 +3,7 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/organization';
 import { marketingWebSiteLd, SCHEMA_DATE_MODIFIED } from '@/lib/seo/page-graph';
-import { BASE_PATH } from '@/lib/flags';
+import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { meta, sectors } from '@/lib/home/industries-content';
 
 import Nav from '@/components/home/nav';
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   title: meta.title,
   description: meta.description,
   alternates: { canonical: meta.path },
-  robots: { index: true, follow: true },
+  robots: pageRobots,
   openGraph: {
     title: meta.title,
     description: meta.description,

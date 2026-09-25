@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BASE_PATH } from '@/lib/flags';
+import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { gqFaqLd, gqServiceLd, gqWebPageLd } from '@/lib/seo/graphql-development-company';
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
   title: `${gqMeta.title} | Soft Suave`,
   description: gqMeta.description,
   alternates: { canonical: gqMeta.path },
-  robots: { index: true, follow: true },
+  robots: pageRobots,
   openGraph: {
     title: `${gqMeta.title} | Soft Suave`,
     description: gqMeta.description,

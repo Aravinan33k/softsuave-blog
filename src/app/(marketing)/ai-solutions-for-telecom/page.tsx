@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BASE_PATH } from '@/lib/flags';
+import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   title: `${telecomMeta.title} | Soft Suave`,
   description: telecomMeta.description,
   alternates: { canonical: telecomMeta.path },
-  robots: { index: true, follow: true },
+  robots: pageRobots,
   openGraph: {
     title: `${telecomMeta.title} | Soft Suave`,
     description: telecomMeta.description,

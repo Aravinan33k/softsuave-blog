@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { brand } from './content';
 import { HOME_LIVE_JSON_LD } from './home-live-schema';
+import { pageRobots } from '@/lib/flags';
 
 /**
  * Metadata and structured data for the homepage.
@@ -19,7 +20,7 @@ import { HOME_LIVE_JSON_LD } from './home-live-schema';
  * The JSON-LD is a verbatim mirror of softsuave.com's homepage — see
  * `home-live-schema.ts`. The marketing layout emits the site-wide
  * Organization and WebSite (`lib/seo/organization.ts`) on every other page but
- * not this one (`NotOnHomepage`), so this page's schema is the live page's and
+ * not this one (`SiteGraph`), so this page's schema is the live page's and
  * nothing more.
  */
 
@@ -42,7 +43,7 @@ export const homeMetadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: '/' },
-  robots: { index: true, follow: true },
+  robots: pageRobots,
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,

@@ -5,6 +5,7 @@ import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import { brand } from '@/lib/home/content';
 import type { HireRolePageContent } from './types';
+import { pageRobots } from '@/lib/flags';
 
 /**
  * Metadata and structured data for a hire-by-role route.
@@ -30,7 +31,7 @@ export function hireRoleMetadata(content: HireRolePageContent): Metadata {
     title: meta.title,
     description: meta.description,
     alternates: { canonical: slug },
-    robots: { index: true, follow: true },
+    robots: pageRobots,
     openGraph: {
       title: meta.title,
       description: meta.description,

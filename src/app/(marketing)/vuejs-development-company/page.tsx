@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BASE_PATH } from '@/lib/flags';
+import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { vueFaqLd, vueServiceLd, vueWebPageLd } from '@/lib/seo/vuejs-development-company';
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
   title: `${vueMeta.title} | Soft Suave`,
   description: vueMeta.description,
   alternates: { canonical: vueMeta.path },
-  robots: { index: true, follow: true },
+  robots: pageRobots,
   openGraph: {
     title: `${vueMeta.title} | Soft Suave`,
     description: vueMeta.description,
