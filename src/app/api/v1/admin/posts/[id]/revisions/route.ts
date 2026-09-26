@@ -75,6 +75,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
           excerpt: revision.excerpt,
           contentJson: revision.contentJson as Prisma.InputJsonValue,
           contentHtml: rendered.contentHtml,
+          searchText: rendered.searchText,
           wordCount: rendered.wordCount,
           readingTimeMinutes: rendered.readingTimeMinutes,
         },

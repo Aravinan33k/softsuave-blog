@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getImage } from "@/lib/home/images";
+import { publicMediaUrl } from "@/lib/media-url";
 import type { PageKey } from "@/lib/home/content";
 
 type Props = {
@@ -18,6 +19,12 @@ type Props = {
  * next/image wrapper that pulls src/dimensions/blurDataURL/alt from the
  * generated Pexels manifest. Every image slot on every page uses this —
  * no placeholders, correct sizes, blur-up, priority on heroes.
+ *
+ * The manifest stores srcs root-relative ("/images/four/hero.webp"); the mount
+ * subpath is applied here via `publicMediaUrl`. `basePath` does NOT rewrite
+ * next/image sources — the optimizer fetches the `url` param verbatim, so under
+ * `basePath: '/blog'` an unprefixed src misses the statically served asset and
+ * comes back 400 "The requested resource isn't a valid image".
  */
 export default function BrandImage({
   page,
@@ -29,11 +36,12 @@ export default function BrandImage({
   fill = false,
 }: Props) {
   const img = getImage(page, id);
+  const src = publicMediaUrl(img.src);
   const resolvedAlt = alt ?? img.alt;
   if (fill) {
     return (
       <Image
-        src={img.src}
+        src={src}
         alt={resolvedAlt}
         fill
         placeholder="blur"
@@ -46,7 +54,7 @@ export default function BrandImage({
   }
   return (
     <Image
-      src={img.src}
+      src={src}
       alt={resolvedAlt}
       width={img.width}
       height={img.height}

@@ -1,0 +1,2469 @@
+/* ============================================================
+   AI landing pages — own design language.
+
+   These pages share the marketing surface's TOKENS (the `.theme-four` custom
+   properties from app/(marketing)/home.css: --bg/--surface/--line/--accent/
+   --muted/--font-body/--font-heading/--font-eyebrow) and its motion
+   primitives, so they read as the same brand. Everything structural is their
+   own, deliberately NOT the homepage's:
+
+   TYPOGRAPHY IS THE HOMEPAGE'S, verbatim: Fraunces ultralight serif headings
+   (--font-heading) at the homepage's own scales, JetBrains Mono eyebrows at
+   0.28em (--font-eyebrow), Inter body copy (--font-body), and 999px capsule
+   pills. The values below are lifted from `home.module.css` .h2 / .lead /
+   .eyebrow / .pill / .bentoName / .svcName / .techGroupName so a heading here
+   is the same object as a heading there.
+
+   What stays specific to these pages is LAYOUT, not style: static bordered
+   panels and grids instead of the homepage's display-type marquees, image
+   galleries and pinned scenes.
+
+   Breakpoints: 520 / 700 / 800 / 900 / 1000, matching home.module.css.
+   ============================================================ */
+
+/* ============================================================
+   SECTION SHELL + MASTHEAD
+   This surface's answer to home.module.css `.section` / `.sectionHead` /
+   `.eyebrow` / `.h2` / `.lead`.
+   ============================================================ */
+.sectionShell {
+  padding: clamp(34px, 4vw, 64px) var(--gutter);
+  position: relative;
+}
+
+/* Rule-topped masthead: kicker, title, then the intro paragraph beneath them.
+   The intro used to sit in a second column from 1000px up, which put the lead
+   on the same optical line as the title and made the two compete for the first
+   read. Stacked, the eye lands on the title first and falls into the intro. */
+/* No rule above the section head — see the note on `.head` in
+   landing/landing.module.css; the two surfaces stay in step. */
+.head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.4vw, 20px);
+  margin-bottom: clamp(20px, 2.6vw, 38px);
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--muted);
+}
+
+/* The homepage eyebrow's own accent rule. */
+.kicker::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.title {
+  margin: 0.5em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-h2);
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+  max-width: 26ch;
+}
+
+/* --text rather than --muted, here and on the section body copy (prose,
+   card bodies, answers): the grey passed AA on paper but read as washed out
+   across the bands (review: "the subtext is not visible"). --muted is kept
+   for labels, indices and other secondary furniture. */
+.intro {
+  margin: 0;
+  /* The masthead is stacked and full-width, so a narrow measure left the lead
+     wrapping into four short lines against a lot of empty space. */
+  max-width: 800px;
+  font-size: var(--fs-body);
+  line-height: 1.62;
+  color: var(--text);
+}
+
+/* ---- split section head ----
+   From 900px a head with an intro lays out the way the homepage's Clients band
+   does: kicker and title on the left, a hairline rule, the intro on the right,
+   centred against the rule, with the same gap either side of it and the
+   title's column hugging its longest line (`--fit-width`, measured by
+   SplitReveal). Mirrors `.sectionHead` in home.module.css — change them
+   together. */
+@media (min-width: 900px) {
+  .head:has(> .intro) {
+    --split-gap: clamp(28px, 3vw, 44px);
+    grid-template-columns: fit-content(60%) minmax(0, 1fr);
+    column-gap: var(--split-gap);
+    align-items: end;
+  }
+
+  .head:has(> .intro) .title {
+    /* 20ch at 40px sets the Clients heading in the three lines it was designed
+       around (Preferred AI-Enabled / Technology Partner for / Startups and
+       SMBs: the breaks hold anywhere from 16.5ch to 22.8ch), and every split
+       head shares the measure. `--fit-width` then pulls the column in to the
+       longest line it actually sets. */
+    max-width: min(20ch, var(--fit-width, 20ch));
+  }
+
+  .head:has(> .intro) > .intro {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    padding-left: var(--split-gap);
+    border-left: 1px solid var(--line);
+  }
+}
+
+/* ============================================================
+   BUTTONS — squared, mono-labelled. The homepage's `.pill` is a 999px
+   capsule; these are deliberately not.
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding: 0.85em 1.6em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-bright);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Colour-only hover — see the long note over home.module.css .pill. The
+   outline plate fills with the accent; the filled plate shifts to the deeper
+   --accent-border. Neither moves: the 2px lift is gone, as is the magnetic
+   pull that used to slide these toward the cursor. */
+.btn:hover {
+  background: var(--cta-bg, #ff5436);
+  border-color: var(--cta-bg, #ff5436);
+  color: var(--cta-ink, #ffffff);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.btnPrimary {
+  background: var(--cta-bg, #ff5436);
+  border-color: var(--cta-bg, #ff5436);
+  color: var(--cta-ink, #ffffff);
+}
+
+.btnPrimary:hover {
+  background: var(--accent-border);
+  border-color: var(--accent-border);
+  color: var(--on-accent, #140b08);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  padding: clamp(78px, 6.6vw, 98px) var(--gutter) clamp(32px, 3.4vw, 52px);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.heroGlow {
+  position: absolute;
+  inset: -30% -10% auto -10%;
+  height: 90%;
+  background: radial-gradient(
+    55% 55% at 22% 30%,
+    rgba(255, 84, 54, 0.14) 0%,
+    rgba(255, 84, 54, 0) 70%
+  );
+  pointer-events: none;
+}
+
+/* Full-bleed hero backdrop — the landing-page counterpart to the homepage's
+   intro-video frame (`.videoHeroFrame` / `.videoHeroVeil`), and it earns its
+   place the same way: the image must be legibly THERE, not a rumour under a
+   veil. The current frame is already near-black with cool blue key light, so
+   unlike a high-key stock photo it needs no darkening of its own — it runs at
+   near-full opacity under two light veil passes. The vertical pass weights the
+   fold into the section below; the horizontal one sits over the headline
+   column, which is the only place white type crosses the lit part of the
+   figure. The coral `.heroGlow` still layers over both.
+
+   `cover` + a slightly high `object-position` is what makes it fill any
+   viewport edge to edge: the frame is 16:9, wide viewports crop top and bottom,
+   and biasing upward keeps the figure's head in shot rather than centring the
+   crop on the empty lower half. */
+.heroMedia {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--bg);
+  pointer-events: none;
+}
+
+.heroMediaImg {
+  object-fit: cover;
+  /* Phone-shaped viewports crop a 16:9 frame down to a narrow vertical slice,
+     so the crop is biased left of centre there to keep the figure in shot; the
+     desktop override below recentres it once the hero is wider than it is
+     tall. */
+  object-position: 34% 28%;
+  opacity: 0.92;
+}
+
+.heroMediaVeil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 5, 8, 0.6) 0%,
+      rgba(4, 5, 8, 0.2) 55%,
+      rgba(4, 5, 8, 0.4) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4, 5, 8, 0.35) 0%,
+      rgba(4, 5, 8, 0.16) 40%,
+      rgba(4, 5, 8, 0.9) 100%
+    );
+}
+
+.heroGrid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(34px, 4vw, 64px);
+  align-items: start;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+/* The homepage's display headline — same face, weight and tracking. Only the
+   clamp is scaled down: the homepage caps at 6rem for a full-bleed headline,
+   while this hero gives ~45% of the row to the enquiry form.
+   Held at the same 60px as `.heroCompact .heroTitle` in landing.module.css:
+   these two surfaces sit side by side across the service pages, and at the old
+   2.9rem cap the H1 came in under the section H2s beneath it. */
+.heroTitle {
+  margin: 0.5em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-h1);
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+  color: var(--text-bright);
+  max-width: 24ch;
+}
+
+.heroTitleLine {
+  display: block;
+}
+
+.heroTitleAccent {
+  color: var(--accent);
+}
+
+/* Hero body copy is white site-wide: the muted greys these paragraphs used to
+   inherit were tuned for flat panels and washed out against the hero
+   backdrops. See the same treatment on every other hero. */
+.heroBody {
+  margin: clamp(16px, 2vw, 24px) 0 0;
+  max-width: 800px;
+  font-size: var(--fs-body);
+  line-height: 1.62;
+  color: #ffffff;
+  text-shadow: 0 1px 12px rgba(4, 5, 8, 0.75), 0 1px 2px rgba(4, 5, 8, 0.6);
+}
+
+.heroBody + .heroBody {
+  margin-top: 1em;
+}
+
+/* --- supporting points: tick-marked rows, unruled --- */
+.heroPoints {
+  list-style: none;
+  margin: clamp(20px, 2.4vw, 30px) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.heroPoint {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 0;
+  font-size: var(--fs-hero-point);
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.heroPointMark {
+  /* 26px, per spec. The tick reads as a mark beside the line, not as
+     punctuation inside it. */
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+/* ============================================================
+   HERO ENQUIRY FORM
+   ============================================================ */
+/* The enquiry card is a WHITE panel on the dark hero — the treatment the live
+   softsuave.com hero already uses, and the strongest thing on the page after
+   the headline.
+
+.input,
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--muted);
+}
+
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+
+/* ============================================================
+   OVERVIEW (editorial prose)
+   ============================================================ */
+.prose {
+  display: grid;
+  gap: 0.95em;
+  max-width: 76ch;
+}
+
+.prose p {
+  margin: 0;
+  font-size: var(--fs-body);
+  /* 1.68 rather than the airier 1.75 this started at: the section has to fit
+     one screen. Still comfortably above the 1.5 floor for body copy. */
+  line-height: 1.68;
+  color: var(--text);
+}
+
+/* Prose beside the section illustration. Both columns sit inside the section's
+   normal `var(--gutter)` padding, so the copy's left edge and the image's right
+   edge line up with every other band on the page. */
+.overviewGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 3vw, 44px);
+}
+
+/* Fluid frame, capped rather than filling the column. `aspect-ratio` (not a
+   fixed height) means the box tracks its own width at every viewport size, and
+   `next/image fill` paints into it — no layout shift, no size to go stale. The
+   ratio is the asset's own 4:3, so nothing is cropped.
+ *
+   It fills its column now. A `max-width` cap (380px, later 560px) kept the
+   picture from outgrowing the prose, but in a 0.85fr column it still read as
+   a thumbnail (review: "overview image too small"); the near-equal columns
+   below size it instead, and `max-height` stops it outgrowing the text on
+   very wide screens. Full width below 1000px, where it stacks. */
+.overviewMedia {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  max-height: 560px;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.overviewMedia img {
+  object-fit: cover;
+}
+
+/* Compact enough to clear the fold with the prose and the illustration above
+   it — this panel is the third block of the overview, and all three are meant
+   to be readable in one screen. */
+.pullQuote {
+  margin: clamp(18px, 2.2vw, 30px) 0 0;
+  padding: clamp(16px, 1.8vw, 24px) clamp(18px, 2vw, 28px);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: var(--surface);
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+/* ============================================================
+   PROBLEM / SOLUTION SELECTOR
+   Replaces the old static table: the problems are a vertical tablist and the
+   matching solution animates into the panel beside them. `align-items:
+   stretch` (the grid default) makes the panel take the list's height, so
+   switching between solutions of different lengths moves nothing on the page.
+   ============================================================ */
+.psGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.psList {
+  border-top: 1px solid var(--line);
+}
+
+.psTab {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  align-items: center; /* on the icon badge, not a numeral baseline */
+  gap: clamp(10px, 1.4vw, 18px);
+  width: 100%;
+  padding: clamp(14px, 1.8vw, 20px) 0 clamp(14px, 1.8vw, 20px) clamp(10px, 1.2vw, 16px);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: background 0.35s ease, padding-left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Accent rule on the active problem, drawn from the top down. */
+.psTab::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.psTab[aria-selected="true"]::before {
+  transform: scaleY(1);
+}
+
+.psTab[aria-selected="true"] {
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  padding-left: clamp(16px, 1.8vw, 24px);
+}
+
+.psTab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* The tab's icon badge (`CardIconBadge`, which replaced a "01" ordinal). It
+   keeps the numeral's muted-until-selected tint; scoped under `.psTab` so it
+   outranks the badge module's own accent colour whatever the load order. */
+.psTab .psTabNum {
+  color: var(--muted);
+  transition: color 0.35s ease;
+}
+
+.psTab[aria-selected="true"] .psTabNum {
+  color: var(--accent);
+}
+
+.psTabLabel {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.02rem, 1.35vw, 1.25rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+  transition: color 0.35s ease;
+}
+
+.psTab:hover .psTabLabel,
+.psTab[aria-selected="true"] .psTabLabel {
+  color: var(--accent);
+}
+
+/* The solution panel is a dark plate carrying the selected problem's artwork —
+   the one inverted element inside the light band, which is what lets a
+   photograph show at all: a scrim pale enough to keep dark type readable would
+   have washed the image out to nothing.
+ *
+   It re-points its own tokens the way `.form` and the `.light` band do, so the
+   label / title / body rules underneath need no dark-mode twin. `--accent` goes
+   back to the coral: the light band's brick red is for ink on cream and goes
+   muddy on black. */
+.psPanel {
+  --bg: #040508;
+  --surface: #101114;
+  /* The homepage's cream: the ink it uses for copy set over photographs. */
+  --text: var(--cream, #e6e4e2);
+  --text-bright: #f4f3f1;
+  --muted: #c4c2be;
+  --line: rgba(255, 255, 255, 0.16);
+  --accent: var(--brand-coral);
+  --accent-border: var(--brand-500);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 2.4vw, 32px);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Every row's artwork is mounted at once and crossfaded, so hovering down the
+   list never blanks the panel between images. */
+.psPanelMedia {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+.psPanelMediaOn {
+  opacity: 1;
+}
+
+/* Toned like the homepage's photo cards (`.indFanCardImg`), so no source
+   photo is bright enough to punch through the scrim behind the copy. */
+.psPanelMedia img {
+  object-fit: cover;
+  filter: contrast(1.05) brightness(0.82);
+}
+
+/* Fixed scrim rather than a per-image one: contrast then does not depend on
+   which photograph happens to be selected. Built the way the homepage guards
+   copy over imagery (`.journeyScrim`, `.bentoVeil`): near-black at ~.9+ where
+   the text sits — top-left, since the body is top-aligned — easing off toward
+   the lower right so the artwork still reads as a photograph there. The
+   earlier flat .55/.28/.72 left the body copy on bright monitor glare in
+   several of the photos (an .88/.76/.92 pass before that hid them entirely). */
+.psPanelScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(100deg, rgba(4, 5, 8, 0.9) 0%, rgba(4, 5, 8, 0.62) 55%, rgba(4, 5, 8, 0.3) 100%),
+    linear-gradient(180deg, rgba(4, 5, 8, 0.72) 0%, rgba(4, 5, 8, 0.4) 55%, rgba(4, 5, 8, 0) 74%, rgba(4, 5, 8, 0.6) 100%);
+}
+
+.psPanelBody {
+  position: relative;
+  z-index: 2;
+}
+
+.psPanel:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.psPanelLabel {
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-shadow: 0 1px 10px rgba(4, 5, 8, 0.8);
+}
+
+.psPanelTitle {
+  margin: 14px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+  text-shadow: 0 1px 10px rgba(4, 5, 8, 0.8);
+}
+
+.psPanelText {
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: clamp(0.92rem, 1.02vw, 1.02rem);
+  line-height: 1.68;
+  color: var(--text);
+  text-shadow: 0 1px 8px rgba(4, 5, 8, 0.75);
+}
+
+/* Autoplay progress: a hairline that fills across the active problem's row. */
+.psTicker {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--accent);
+  opacity: 0.55;
+}
+
+/* ============================================================
+   COMPARISON TABLE (multi-column)
+   ============================================================ */
+.cmpWrap {
+  /* Four columns need real width before they stay legible; below 900px the
+     stacked cards underneath take over. */
+  display: none;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.cmpTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  table-layout: fixed;
+}
+
+.cmpTable th,
+.cmpTable td {
+  padding: clamp(14px, 1.6vw, 20px) clamp(14px, 1.6vw, 22px);
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+
+.cmpTable tbody tr:last-child th,
+.cmpTable tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.cmpTable thead th {
+  background: var(--surface);
+  font-family: var(--font-eyebrow);
+  font-weight: 400;
+  font-size: var(--fs-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.cmpTable tbody th {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+}
+
+.cmpTable tbody td {
+  font-size: var(--fs-body-sm);
+  line-height: 1.58;
+  color: var(--text);
+}
+
+/* The column this page is about, given the accent the rest of the surface uses
+   for emphasis. Purely presentational — the text is unchanged. */
+.cmpLead {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.cmpTable thead th.cmpLead {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+}
+
+.cmpCards {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cmpCard {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: var(--surface);
+  padding: clamp(18px, 4vw, 24px);
+}
+
+.cmpCardLabel {
+  display: block;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cmpCardTitle {
+  margin: 10px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 1.15rem;
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+}
+
+.cmpDl {
+  margin: 14px 0 0;
+  padding-top: 4px;
+  display: grid;
+  gap: 12px;
+}
+
+.cmpDlRow {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.cmpDt {
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.cmpDd {
+  margin: 6px 0 0;
+  font-size: var(--fs-body-sm);
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* ============================================================
+   SERVICES — centre-focused carousel.
+
+   Three cards are on screen at once: the active one sits high and full-size,
+   its two neighbours drop slightly and scale back, so the eye is told which
+   card is the subject. Advancing moves content right-to-left (the new card
+   enters from the right), matching reading direction.
+
+   Cards are absolutely positioned in a fixed-height stage and placed purely by
+   `transform`, so moving between them animates on the compositor and the stage
+   never changes height — a grid of ten panels of unequal length cannot do that.
+   ============================================================ */
+.svcStage {
+  position: relative;
+  /* Tall enough for the image band plus the longest service body at this width.
+     Fixed, so advancing never changes the section's height. */
+  height: 545px;
+  margin-top: clamp(4px, 0.8vw, 10px);
+  /* The slides are the only positioned children; nothing here should catch
+     pointer events between them. */
+  touch-action: pan-y;
+}
+
+.svcSlide {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 82%;
+  margin-left: -41%;
+  /* Leaves room for the neighbours' downward offset inside the stage. */
+  height: calc(100% - 36px);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  /* A touch stronger than the bare hairline so a plain (imageless) card still
+     reads as a box on the warm-white `.light` band, where --surface and --bg
+     sit a few shades apart. */
+  border: 1px solid color-mix(in srgb, var(--text-bright) 12%, var(--line));
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.62s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s ease, border-color 0.4s ease, box-shadow 0.5s ease;
+  will-change: transform;
+}
+
+/* Slot geometry. The neighbours drop and scale back so the active card reads as
+   the subject; anything beyond them is parked off-stage and faded out. */
+.svcSlide[data-pos="active"] {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+  z-index: 30;
+}
+
+.svcSlide[data-pos="prev"] {
+  transform: translate3d(-104%, 26px, 0) scale(0.93);
+  opacity: 0.8;
+  z-index: 20;
+}
+
+.svcSlide[data-pos="next"] {
+  transform: translate3d(104%, 26px, 0) scale(0.93);
+  opacity: 0.8;
+  z-index: 20;
+}
+
+.svcSlide[data-pos="far-prev"],
+.svcSlide[data-pos="far-next"] {
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.svcSlide[data-pos="far-prev"] {
+  transform: translate3d(-170%, 40px, 0) scale(0.88);
+}
+
+.svcSlide[data-pos="far-next"] {
+  transform: translate3d(170%, 40px, 0) scale(0.88);
+}
+
+/* The artwork covers the whole card. The copy then sits over its lower part
+   with a gradient that is fully transparent across the top — so the picture is
+   untouched where there is no text — and deepens only under the words.
+
+   That gradient is not decoration and cannot be dropped: white-ish text over an
+   untreated photograph fails contrast outright, and several of these images are
+   bright. It is confined to the text band so the image stays fully visible
+   everywhere else.
+
+   Because the copy now sits on imagery rather than the card surface, the title
+   and body are lightened from the section's greys to near-white. */
+.svcSlideFigure {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.svcSlideFigure img {
+  object-fit: cover;
+}
+
+.svcSlideMain {
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  display: grid;
+  align-content: end;
+  padding: clamp(46px, 5vw, 64px) clamp(22px, 2.4vw, 32px) clamp(22px, 2.4vw, 32px);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, #05070b 46%, transparent) 26%,
+    color-mix(in srgb, #05070b 84%, transparent) 58%,
+    color-mix(in srgb, #05070b 95%, transparent) 100%
+  );
+}
+
+/* Cards with no artwork keep the plain surface — no gradient over nothing. */
+.svcSlideMain[data-plain="true"] {
+  background: none;
+  padding-top: clamp(22px, 2.4vw, 32px);
+  align-self: start;
+}
+
+/* The subject card: lifted, full contrast, and the only one that reads as "on". */
+.svcSlideActive {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: 0 30px 70px -46px rgba(0, 0, 0, 0.85);
+}
+
+/* Neighbours are a preview, so clicking one brings it forward. */
+.svcSlideNear {
+  cursor: pointer;
+}
+
+.svcSlideNear:hover {
+  border-color: var(--accent);
+}
+
+.svcDots {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.svcDot {
+  display: block;
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+}
+
+.svcDot:hover {
+  border-color: var(--accent);
+}
+
+.svcDot[aria-current="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.35);
+}
+
+.svcDot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.svcNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 2vw, 28px);
+  margin-top: clamp(18px, 2.2vw, 28px);
+}
+
+/* Prev/next controls flanking the dots. Squared to match this surface's
+   buttons rather than the homepage's capsules. */
+.svcArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  color: var(--text-bright);
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.svcArrow:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent, #140b08);
+}
+
+/* Card internals.
+
+   These colours answer to the CARD, not to the band the section sits in. An
+   artwork card is a dark photo panel under the `.svcSlideMain` gradient on
+   either ground, so both lines are near-white and must NOT read `--text-bright`
+   or `--muted`: inside a `.light` band those resolve to near-black ink over a
+   near-black gradient, which measured 1.10:1. The ground-aware pair lives on
+   `[data-plain="true"]` below, which is the only card that shows the surface. */
+.svcTitle {
+  margin: 0;
+  font-family: var(--font-heading);
+  /* 400 over the surface's usual 300: the title sits on artwork, and the
+     hairline weight thinned out against it (review: "the heading is small"). */
+  font-weight: 400;
+  font-size: var(--fs-card-title);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.svcText {
+  margin: 10px 0 0;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.62;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* The imageless card has no gradient, so its copy sits on `--surface` and takes
+   the band's own ink — the mirror of the rule above, and the reason the two are
+   split by card rather than left to one ground-aware value.
+
+   `--text` rather than `--muted` for the body: on the dark ground it is #d8d8d8,
+   which is where these cards already were, so the eight plain cards on the
+   Agentic AI page do not grey down; on warm white it is #4a4842, which the
+   near-white above never could be. */
+.svcSlideMain[data-plain="true"] .svcTitle {
+  color: var(--text-bright);
+}
+
+.svcSlideMain[data-plain="true"] .svcText {
+  color: var(--text);
+}
+
+/* Someone who has asked for less motion gets the position change with no
+   travel — the carousel still works, it just cuts. */
+@media (prefers-reduced-motion: reduce) {
+  .svcSlide {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   MID-PAGE CTA BAND
+   ============================================================ */
+.ctaBand {
+  /* Self-contained dark surface. On 13 pages this band sits INSIDE a
+     `.light` wrapper, and the backdrop behind it is dark either way — so the
+     band re-points the semantic tokens to the dark set rather than inheriting
+     warm-white ones and rendering near-black copy on a near-black video. */
+  --bg: #050609;
+  --surface: #131415;
+  --text: #d8d8d8;
+  --text-bright: #e8e8e8;
+  --muted: #bdb3b0;
+  --line: #434343;
+  --accent: var(--brand-500);
+  --accent-border: var(--brand-red);
+  --on-accent: #ffffff;
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(44px, 5.2vw, 80px) var(--gutter);
+  /* No top/bottom rule. The band is its own dark surface, so the change of
+     ground already marks its edges; the full-width hairlines on top of that
+     read as stray divider lines (review: remove the section lines). */
+  /* Base only — <LightFieldBackdrop> paints over this. It still matters: it is
+     what shows if the poster fails to load, and it keeps the band dark. */
+  background: #050609;
+}
+
+/* Above <LightFieldBackdrop>, which sits at z-index 0 inside the band. */
+.ctaInner,
+.ctaStats {
+  position: relative;
+  z-index: 1;
+}
+
+.ctaInner {
+  display: grid;
+  gap: clamp(22px, 2.8vw, 40px);
+  align-items: center;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  margin: 0.45em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-h2);
+  line-height: 1.16;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+  max-width: 24ch;
+}
+
+.ctaBody {
+  margin: 0.9em 0 0;
+  max-width: 56ch;
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ============================================================
+   INTEGRATION & DEPLOYMENT
+   ============================================================ */
+.integrationGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.4vw, 18px);
+}
+
+.integrationCard {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: clamp(20px, 2.4vw, 32px);
+}
+
+.integrationLabel {
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.integrationBody {
+  margin: 14px 0 0;
+  font-size: clamp(0.92rem, 1.02vw, 1.02rem);
+  line-height: 1.68;
+  color: var(--text);
+}
+
+/* ============================================================
+   PROCESS ORBIT — five steps rotating on an ellipse, the active one at
+   12 o'clock, with that step's copy inside the SAME card, in the ellipse's
+   own lower half. Two nested boxes, not two cards: `.processOrbit` is the
+   one visible panel (border, radius, background, padding); `.orbitStage` is
+   just a coordinate box for the ring — sized on its own so the trig in
+   `applyPositions` keeps sizing nodes off ITS height, unaffected by how tall
+   the copy underneath happens to be. See process.tsx for the rotation
+   mechanics; this block is layout and chrome only. Node position/size is
+   written inline per frame (--s / --o custom properties plus left/top), so
+   nothing here sets them. */
+.processOrbit {
+  margin-top: clamp(8px, 1vw, 16px);
+  /* Top padding clears the active node: at its largest it sits half outside
+     `.orbitStage`'s own box, breaching upward into this padding rather than
+     into the card's rounded top edge. Kept tight (rather than the ~65px the
+     node's max size would otherwise call for) so the whole card — heading,
+     ring, and the active step's copy — fits inside a single laptop-height
+     viewport without the page needing a second scroll just to read one step. */
+  padding: clamp(26px, 3vw, 38px) clamp(20px, 3vw, 40px) clamp(14px, 1.8vw, 22px);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.orbitStage {
+  position: relative;
+  isolation: isolate;
+  height: clamp(140px, 15vw, 180px);
+}
+
+/* Contained accent wash, not a full-bleed one — this is the one place the
+   reference video's black-and-orange treatment is allowed in, and only as a
+   soft glow behind the ring, sized well inside the stage. */
+.orbitGlow {
+  position: absolute;
+  inset: -10%;
+  z-index: 0;
+  background: radial-gradient(
+    46% 46% at 50% 46%,
+    color-mix(in srgb, var(--accent) 20%, transparent) 0%,
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+.orbitRing {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(2 * 42%);
+  height: calc(2 * 33%);
+  transform: translate(-50%, -50%);
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, var(--line));
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.orbitNode {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: clamp(40px, 4vw, 52px);
+  height: clamp(40px, 4vw, 52px);
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  /* Position/size come from JS every frame via these two custom properties
+     and inline left/top — left as the un-set default (centre, scale 1) so
+     the very first paint before useGSAP runs isn't a pile-up at the corner. */
+  --s: 1;
+  --o: 1;
+  transform: translate(-50%, -50%) scale(var(--s));
+  opacity: var(--o);
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+}
+
+.orbitNode:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.orbitNodeNum {
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.06em;
+}
+
+.orbitNodeActive {
+  width: clamp(72px, 7.2vw, 92px);
+  height: clamp(72px, 7.2vw, 92px);
+  border: 1px solid var(--accent);
+  background: var(--bg);
+  color: var(--accent);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 12%, transparent),
+    0 16px 40px -18px rgba(0, 0, 0, 0.6);
+}
+
+.orbitIcon {
+  display: grid;
+  place-items: center;
+  width: 55%;
+  height: 55%;
+}
+
+.orbitIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Dwell-time hairline under the active node, same device as `.psTicker`. */
+.orbitTicker {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 10%;
+  height: 2px;
+  background: var(--accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+/* Centered, unlike every other text block on this page: it reads as the
+   caption for a radial composition (ring above, copy below, both on one
+   axis), the way the reference video frames it — not a paragraph in the
+   page's left-aligned column. The hairline is what actually separates it
+   from the ring above, now that both live in one card. */
+.orbitPanel {
+  margin-top: clamp(8px, 1vw, 12px);
+  padding-top: clamp(8px, 1vw, 12px);
+  border-top: 1px solid var(--line);
+  max-width: 62ch;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.orbitPanel .processBody {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Manual prev/next under the ring. The ring advances on its own and is
+   driveable by keyboard, but nothing on screen said so (review: "the design
+   is confusing - or just keep a manual arrow"). */
+.orbitNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 1.6vw, 20px);
+  margin-top: clamp(14px, 1.8vw, 22px);
+}
+
+.orbitCount {
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.16em;
+  color: var(--text);
+}
+
+.processStepLabel {
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.processName {
+  margin: 0.4em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--text-bright);
+}
+
+.processBody {
+  margin: 10px 0 0;
+  max-width: 68ch;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--text);
+}
+
+/* ============================================================
+   CARD GRID (industries / applications)
+   Own chrome: an accent top rule that widens on hover, and an inline mono
+   index — not the homepage's `.statCard` with its absolute corner figure.
+   ============================================================ */
+.indGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+/* Reveal-on-hover image card: photo + icon + name at rest, description and a
+   "Know More" link surface over a darkened scrim on hover/focus. `overflow:
+   hidden` on the card clips both the image's hover zoom and the rounded
+   corners; every other layer stacks above it by z-index, not paint order,
+   since the image is an absolutely-positioned `next/image` fill. */
+.indCard {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  min-height: 280px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface);
+  transition: border-color 0.4s ease;
+}
+
+.indCard:hover,
+.indCard:focus-within {
+  border-color: var(--accent);
+}
+
+.indCardImg {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.indCard:hover .indCardImg,
+.indCard:focus-within .indCardImg {
+  transform: scale(1.06);
+}
+
+.indCardIndex {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 2;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Bottom-weighted at rest (just enough to keep the name legible on any photo),
+   deepening to a fuller scrim on hover so the revealed body copy stays
+   readable over the same backdrop. */
+.indCardScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(6, 6, 8, 0.92) 0%,
+    rgba(6, 6, 8, 0.55) 32%,
+    rgba(6, 6, 8, 0) 62%
+  );
+  transition: background 0.4s ease;
+}
+
+.indCard:hover .indCardScrim,
+.indCard:focus-within .indCardScrim {
+  background: linear-gradient(
+    to top,
+    rgba(6, 6, 8, 0.95) 0%,
+    rgba(6, 6, 8, 0.86) 55%,
+    rgba(6, 6, 8, 0.35) 100%
+  );
+}
+
+/* Rest-state face: icon + name pinned to the bottom of the photo. Fades out
+   (not removed) when `.indCardOverlay` takes over on hover/focus, so the name
+   never renders twice at once. */
+.indCardFace {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: clamp(14px, 1.8vw, 20px);
+  transition: opacity 0.3s ease;
+}
+
+.indCard:hover .indCardFace,
+.indCard:focus-within .indCardFace {
+  opacity: 0;
+}
+
+.indCardIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  color: #fff;
+}
+
+.indCardIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.indCardName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-card-title);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+/* The hover/focus reveal: a full inverted rectangle laid over the whole card
+   — not a strip growing from the bottom edge. Growing a block from the
+   bottom made its final height a function of how long each industry's body
+   copy happened to be, and on the narrower 4-up cards several ran taller
+   than the card itself, overflowing past its top edge. Cross-fading a
+   rectangle that already spans the card's own bounds (`inset: 0`) can't
+   overflow: whatever doesn't fit is a text-layout problem to fix with size,
+   not a box that can grow past its container. */
+.indCardOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: clamp(16px, 2vw, 22px);
+  /* A scrim, not a solid fill: the photo stays visible through the top of
+     the card, darkening only enough toward the bottom — where the copy
+     lives — to keep it legible over any of these backdrops. */
+  background: linear-gradient(
+    to top,
+    rgba(6, 5, 5, 0.96) 0%,
+    rgba(6, 5, 5, 0.82) 34%,
+    rgba(6, 5, 5, 0.32) 68%,
+    rgba(6, 5, 5, 0.05) 100%
+  );
+  opacity: 0;
+  transform: scale(1.02);
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.indCard:hover .indCardOverlay,
+.indCard:focus-within .indCardOverlay {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.indCardOverlay .indCardIcon {
+  margin-bottom: 2px;
+}
+
+.indCardBody {
+  margin: 0;
+  font-size: var(--fs-body-sm);
+  line-height: 1.52;
+  color: rgba(255, 255, 255, 0.85);
+  /* A guard, not a crop: at the card sizes this grid actually renders, no
+     industry's body copy reaches six lines. If a much longer string ever
+     lands here, this clips it with an ellipsis instead of pushing the
+     rectangle's own bounds — the failure mode `.indCardOverlay` was
+     rewritten to rule out. */
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.indCardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+}
+
+.indCardLink svg {
+  transition: transform 0.3s ease;
+}
+
+.indCardLink:hover svg,
+.indCardLink:focus-visible svg {
+  transform: translateX(3px);
+}
+
+/* ============================================================
+   PROOF GRID (why choose us)
+   Deliberately a different form from the card grid above so the page does not
+   repeat itself: hairline-separated cells led by a large serif figure.
+   ============================================================ */
+.proofGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--line);
+}
+
+.proofItem {
+  padding: clamp(22px, 2.6vw, 34px) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.proofFigure {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  /* Full accent: the figure is the proof point itself, and at 70% alpha it
+     dropped under 3:1 on the dark bands (review: "text visibility"). */
+  color: var(--accent);
+}
+
+.proofName {
+  margin: 14px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-card-title);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.proofBody {
+  margin: 10px 0 0;
+  max-width: 44ch;
+  font-size: var(--fs-body);
+  line-height: 1.62;
+  color: var(--text);
+}
+
+/* ============================================================
+   CASE STUDIES — outcome cards led by the metric.
+   (The homepage's WorkGrid is a horizontal image scroll-snap gallery.)
+   ============================================================ */
+.caseGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+/* ============================================================
+   TECHNOLOGY STACK — static bordered group panels.
+   (The homepage's version is alternating auto-running marquees.)
+   ============================================================ */
+.stackList {
+  display: grid;
+  gap: clamp(12px, 1.4vw, 18px);
+}
+
+.stackGroup {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.stackGroupHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: clamp(14px, 1.6vw, 18px) clamp(16px, 1.9vw, 24px);
+  border-bottom: 1px solid var(--line);
+}
+
+/* The group's icon badge (`CardIconBadge`, which replaced a "01" ordinal). */
+.stackGroupIndex {
+  flex: none;
+}
+
+/* An h3: the shared card-title face and size rather than the 13-16px mono
+   label it was, which made the tech-stack group the smallest H3 on the page. */
+.stackGroupName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-card-title);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.stackItems {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  background: var(--bg);
+  /* Closed-grid borders live on the cells (right + bottom); the trailing column
+     and final row spill 1px past the group so `.stackGroup`'s overflow:hidden
+     clips them instead of doubling its border. */
+  margin: 0 -1px -1px 0;
+}
+
+.stackItem {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: clamp(12px, 1.4vw, 15px) clamp(14px, 1.7vw, 20px);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  min-width: 0;
+}
+
+.stackItemLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+}
+
+.stackItemName {
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.05em;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   FINAL CTA — a bordered enquiry panel.
+   (The homepage's Contact is a scroll-scrubbed cinematic focus pull.)
+   ============================================================ */
+.finalCta {
+  padding: clamp(48px, 6vw, 96px) var(--gutter);
+  border-top: 1px solid var(--line);
+}
+
+.finalPanel {
+  position: relative;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: clamp(28px, 3.4vw, 56px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      70% 120% at 88% 8%,
+      color-mix(in srgb, var(--accent) 16%, transparent) 0%,
+      transparent 62%
+    ),
+    var(--surface);
+}
+
+.finalTitle {
+  margin: 0.45em 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-h2);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: var(--text-bright);
+  max-width: 22ch;
+}
+
+.finalBody {
+  margin: 1em 0 0;
+  max-width: 56ch;
+  font-size: var(--fs-body);
+  line-height: 1.68;
+  color: var(--text);
+}
+
+.finalActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(24px, 2.8vw, 36px);
+}
+
+.finalAssurance {
+  list-style: none;
+  margin: clamp(28px, 3.2vw, 44px) 0 0;
+  padding: clamp(20px, 2.4vw, 28px) 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.finalAssuranceItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 10px;
+  font-size: var(--fs-body-sm);
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.finalAssuranceItem::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  margin-top: 0.5em;
+  background: var(--accent);
+}
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+.faqList {
+  border-top: 1px solid var(--line);
+  max-width: 62rem;
+  /* Question numbers come from CSS, not from a span inside the `<h3>` —
+     generated content is not in the DOM, so the heading text a crawler reads
+     is the question alone. Mirrors `landing.module.css`. */
+  counter-reset: faq;
+}
+
+.faqItem {
+  border-bottom: 1px solid var(--line);
+}
+
+/* The trigger lives inside its heading (ARIA accordion pattern); the heading
+   itself must not contribute any box of its own. */
+.faqItem h3 {
+  margin: 0;
+  font: inherit;
+}
+
+.faqTrigger {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 22px);
+  width: 100%;
+  padding: clamp(18px, 2.2vw, 26px) 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+.faqTrigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.faqTrigger::before {
+  content: counter(faq, decimal-leading-zero);
+  counter-increment: faq;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.faqQuestion {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--fs-h3);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+  transition: color 0.4s ease;
+}
+
+.faqTrigger[aria-expanded="true"] .faqQuestion,
+.faqTrigger:hover .faqQuestion {
+  color: var(--accent);
+}
+
+/* Squared +/− box rather than the homepage's bare glyph. */
+.faqIcon {
+  position: relative;
+  display: block;
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--muted);
+  transition: border-color 0.4s ease, color 0.4s ease;
+}
+
+.faqIcon::before,
+.faqIcon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 1.5px;
+  margin: -0.75px 0 0 -5px;
+  background: currentColor;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faqIcon::after {
+  transform: rotate(90deg);
+}
+
+.faqTrigger[aria-expanded="true"] .faqIcon {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.faqTrigger[aria-expanded="true"] .faqIcon::after {
+  transform: rotate(0deg);
+}
+
+.faqPanelWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faqPanelWrap[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.faqPanel {
+  overflow: hidden;
+  /* Hidden from assistive tech and in-page find while collapsed, but unlike
+     `display: none` this still lets the wrapper's row transition animate. The
+     delay holds visibility until the close animation has finished. */
+  visibility: hidden;
+  transition: visibility 0s linear 0.5s;
+}
+
+.faqPanelWrap[data-open="true"] .faqPanel {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.faqAnswer {
+  margin: 0;
+  padding: 0 0 clamp(20px, 2.4vw, 28px) calc(2.5rem + clamp(12px, 1.6vw, 22px));
+  max-width: 78ch;
+  font-size: var(--fs-body);
+  line-height: 1.68;
+  color: var(--text);
+  opacity: 0;
+  transition: opacity 0.4s ease 0.08s;
+}
+
+.faqPanelWrap[data-open="true"] .faqAnswer {
+  opacity: 1;
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (min-width: 520px) {
+  .finalAssurance {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 700px) {
+  .svcStage {
+    height: 492px;
+  }
+
+  .svcSlide {
+    width: 52%;
+    margin-left: -26%;
+  }
+
+  .indGrid,
+  .caseGrid,
+  .integrationGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .proofGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(24px, 3vw, 48px);
+  }
+
+  .stackItems {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .psGrid {
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: clamp(24px, 3vw, 48px);
+  }
+
+  .cmpWrap {
+    display: block;
+  }
+
+  .cmpCards {
+    display: none;
+  }
+}
+
+@media (min-width: 1000px) {
+  .svcStage {
+    height: 452px;
+  }
+
+  /* 30% each keeps all three cards inside the content width with a real gap
+     between them; at 34% the neighbours ran past the gutter and were clipped by
+     the page's horizontal overflow. */
+  .svcSlide {
+    width: 30%;
+    margin-left: -15%;
+  }
+
+  .svcSlide[data-pos="prev"] {
+    transform: translate3d(-106%, 26px, 0) scale(0.93);
+  }
+
+  .svcSlide[data-pos="next"] {
+    transform: translate3d(106%, 26px, 0) scale(0.93);
+  }
+
+  .heroMediaImg {
+    object-position: center 38%;
+  }
+
+  .heroGrid {
+    grid-template-columns: 1.38fr 0.62fr;
+    gap: clamp(48px, 5vw, 88px);
+    align-items: center;
+  }
+
+  /* Prose + masthead lead, illustration supports. `end`, not `start` or
+     `center`: the image is capped by `max-width` and so is shorter than the
+     title + two paragraphs beside it. `start` left the whole difference as
+     dead space under the image; `center` split it evenly but then neither
+     edge lined up with the text, which read as misaligned rather than
+     centered. `end` gives the row one shared bottom edge — the image's
+     bottom sits flush with the last line of the second paragraph, right
+     where the pull quote begins below. */
+  .overviewGrid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    column-gap: clamp(32px, 4vw, 64px);
+    align-items: end;
+  }
+
+  .ctaInner {
+    grid-template-columns: 1.3fr auto;
+  }
+
+  .ctaActions {
+    justify-content: flex-end;
+  }
+
+  /* Industries: 8 cards read as three per row (the last row runs short). */
+  .indGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Why us: 6 proof points read as two rows of three. */
+  .proofGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .caseGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .stackItems {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ============================================================
+   INTEGRATION GRID — THREE-PANEL VARIANT
+   `.integrationGrid` tops out at two columns, which is right for the two
+   deployment panels the Generative AI page carries. The hire-by-role pages put
+   three engagement models through the same block, and 2 + 1 leaves the third
+   model sitting alone beside a gap. This modifier — applied by
+   `integration.tsx` only when there are exactly three panels, so the two-panel
+   pages are untouched — gives them one even row from 1000px up, where there is
+   room for three columns of prose.
+   ============================================================ */
+@media (min-width: 1000px) {
+  .integrationGridTrio {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ============================================================
+   CARD GRID — COMPACT (TEXT-ONLY) VARIANT
+   `.indCard` is a photograph: a 1:1 frame whose icon and name sit on a scrim
+   at the bottom edge, with the description revealed over the picture on hover.
+   The hire-by-role pages' specialisation grids name engineering disciplines,
+   which have no photography and should not pretend to — in that card the top
+   two-thirds is empty dark space and the description is behind a hover the
+   reader has no reason to expect.
+   This variant is what a text card wants instead: content-height bordered
+   panel, everything legible at rest, the index as a quiet mono ordinal rather
+   than white-on-photo. Opt-in via `variant="compact"`, so every existing
+   caller keeps the photographic card unchanged.
+   ============================================================ */
+.indGridCompact {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+.compactCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: clamp(20px, 2.2vw, 30px);
+  transition: border-color 0.35s ease, background 0.35s ease;
+}
+
+.compactCard:hover,
+.compactCard:focus-within {
+  border-color: var(--accent);
+}
+
+.compactIndex {
+  position: absolute;
+  top: clamp(16px, 1.8vw, 22px);
+  right: clamp(18px, 2vw, 26px);
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+
+.compactIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--accent);
+  transition: border-color 0.35s ease;
+}
+
+.compactCard:hover .compactIcon,
+.compactCard:focus-within .compactIcon {
+  border-color: var(--accent-border);
+}
+
+.compactIcon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.compactName {
+  margin: 0;
+  /* Matches `.indCardName`: the display serif at card scale, so the two card
+     variants read as the same family. */
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--fs-card-title);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  /* Room for the ordinal in the corner. */
+  padding-right: 2.2em;
+  color: var(--text-bright);
+}
+
+.compactBody {
+  margin: 0;
+  font-size: var(--fs-body-sm);
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.textCardLink {
+  margin-top: auto;
+  padding-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.textCardLink:hover,
+.textCardLink:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (min-width: 700px) {
+  .indGridCompact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  /* Nine disciplines read as three rows of three. */
+  .indGridCompact {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ============================================================
+   CARD GRID — BOLD VARIANT  (the hire pages' card design)
+
+   The treatment the Global Capability Center page's "Who It Fits" band
+   established, brought to the hire pages so both read as one design system.
+   It is the `bold` variant of `landing/industries` restated against this
+   module's tokens — the same composition rules, the same accent ramp, the
+   same restraint — because the hire-by-role pages render the generative-ai
+   section family and so cannot reach across to `landing.module.css`.
+
+   Three things define it, exactly as they do there:
+
+   - An asymmetric 12-column grid. Spans come from `gridSpansFor()` in
+     `landing/card-spans.ts` — the SAME function the reference section calls,
+     imported rather than re-derived — and arrive on the markup as
+     `data-span`. Rows go two-up then three-up, so a section composes full
+     rows at any card count and a card left alone on the last row takes the
+     full width rather than stranding itself beside a gap.
+   - A 3px accent rule across the card's top edge, from the five-step warm
+     brand ramp (`--card-accent-1..5`, declared on `.theme-four` in
+     `app/(marketing)/home.css` and re-declared darker on `.light`). It
+     cycles every five cards, so adjacent cards always read as distinct
+     without the page inventing a colour per item.
+   - Quiet everything else: a thin `--line` border, a large radius, generous
+     padding, one soft lift on hover. No gradient, no ordinal watermark, no
+     entrance animation of its own beyond the section's existing `FadeUp`.
+
+   The compact variant above stays exactly as it was: it is opt-in per
+   section, and nothing that calls it today is a hire page.
+   ============================================================ */
+.indGridBold {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.3vw, 18px);
+  /* Stretch, so every card in a row ends on the same line. With an accent
+     rule across each top edge, three different heights in one row read as
+     broken alignment rather than as economical spacing. */
+  align-items: stretch;
+}
+
+/* Per-card accent, cycling every five cards so any item count keeps the
+   sequence running rather than restarting mid-grid. */
+.indGridBold .indBoldCard:nth-child(5n + 1) { --card-accent: var(--card-accent-1); }
+.indGridBold .indBoldCard:nth-child(5n + 2) { --card-accent: var(--card-accent-2); }
+.indGridBold .indBoldCard:nth-child(5n + 3) { --card-accent: var(--card-accent-3); }
+.indGridBold .indBoldCard:nth-child(5n + 4) { --card-accent: var(--card-accent-4); }
+.indGridBold .indBoldCard:nth-child(5n + 5) { --card-accent: var(--card-accent-5); }
+
+.indBoldCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(9px, 0.95vw, 13px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--card-accent, var(--accent));
+  border-radius: 14px;
+  background: var(--surface);
+  /* Vertical padding runs ahead of horizontal: these cards are short, and the
+     room above the name and below the body is what keeps them from cramping. */
+  padding: clamp(22px, 2.4vw, 32px) clamp(20px, 2.1vw, 30px);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.35s ease,
+    background 0.35s ease;
+}
+
+/* `:focus-within` mirrors `:hover` so a card reached by keyboard gets the same
+   treatment as one under a pointer — the cards that carry a "Know More" are
+   the ones this matters for. */
+.indBoldCard:hover,
+.indBoldCard:focus-within {
+  transform: translateY(-4px);
+  background: color-mix(in srgb, var(--card-accent, var(--accent)) 6%, var(--surface));
+  box-shadow: 0 14px 34px -12px
+    color-mix(in srgb, var(--card-accent, var(--accent)) 55%, transparent);
+}
+
+/* The quiet mono ordinal, in the corner opposite the badge. Kept from the
+   compact card this replaces: at nine cards it is a real scanning aid, and it
+   stays far enough back not to compete with the name. */
+.indBoldIndex {
+  position: absolute;
+  top: clamp(18px, 2vw, 24px);
+  right: clamp(18px, 2vw, 26px);
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+
+/* The discipline glyph, tinted to the card's own accent rather than the one
+   site accent — which is what ties the badge to the rule above it. */
+.indBoldIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--card-accent, var(--accent));
+  background: color-mix(in srgb, var(--card-accent, var(--accent)) 9%, transparent);
+  transition: border-color 0.35s ease;
+}
+
+.indBoldCard:hover .indBoldIcon,
+.indBoldCard:focus-within .indBoldIcon {
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 55%, var(--line));
+}
+
+.indBoldIcon svg {
+  width: 19px;
+  height: 19px;
+}
+
+/* A brand mark carries its own colours — Java's cup is red over blue, PHP's
+   ellipse is purple with white lettering — so the accent wash and the accent
+   ink behind it read as a stain rather than a tint. The ring goes to the plain
+   card line and the fill to the card surface, which lets the logo sit on a
+   neutral disc at any point in the accent ramp and on either ground.
+
+   Only the badge changes. The rule across the card's top edge still cycles the
+   ramp, so a grid mixing brand marks and drawn glyphs keeps one rhythm. */
+.indBoldIcon[data-brand="true"] {
+  border-color: var(--line);
+  background: color-mix(in srgb, var(--text-bright) 6%, transparent);
+}
+
+.indBoldCard:hover .indBoldIcon[data-brand="true"],
+.indBoldCard:focus-within .indBoldIcon[data-brand="true"] {
+  border-color: color-mix(in srgb, var(--text-bright) 28%, var(--line));
+}
+
+/* The marks are authored at 22px on a 24 viewBox with their own `width`/`height`
+   attributes, so they need the same sizing the drawn glyphs get — and a touch
+   more room, since a logo reads smaller than a line glyph at equal box. */
+.indBoldIcon[data-brand="true"] svg {
+  width: 21px;
+  height: 21px;
+}
+
+.indBoldName {
+  margin: 0;
+  /* The display serif at card scale, matching `.compactName` and the
+     reference section's own card title, so every card on the site is set in
+     the same family at the same weight. */
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--fs-card-title);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--text-bright);
+}
+
+/* Room for the ordinal, but only on the cards that have one — the index span
+   is rendered ahead of the name, so a sibling combinator can ask. Sections
+   without it (the engagement models) get the full measure back. */
+.indBoldIndex ~ .indBoldName {
+  padding-right: 2.2em;
+}
+
+.indBoldBody {
+  margin: 0;
+  font-size: var(--fs-body-sm);
+  line-height: 1.65;
+  color: var(--text);
+}
+
+/* Pushed to the bottom edge so the links line up across a row of cards whose
+   descriptions run to different lengths. `.textCardLink` carries the type; this
+   only places it. */
+.indBoldLink {
+  margin-top: auto;
+  padding-top: clamp(4px, 0.5vw, 8px);
+}
+
+/* Mobile first: one card per row. The spans below only apply once there is
+   width to divide. */
+.indGridBold .indBoldCard {
+  grid-column: 1 / -1;
+}
+
+/* The 12-column track applies at every width from here up; only the SPANS
+   differ between tablet and desktop. */
+@media (min-width: 700px) {
+  .indGridBold {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+/* Tablet only: two per row regardless of the desktop composition, since a
+   4-span card is far too narrow at this width.
+
+   Bounded with max-width rather than left open-ended, because
+   `:last-child:nth-child(odd)` scores (0,4,0) and would otherwise outrank the
+   desktop `[data-span]` rules at (0,3,0) — which would silently push the last
+   card of an odd-numbered grid to full width on desktop too. */
+@media (min-width: 700px) and (max-width: 999px) {
+  .indGridBold .indBoldCard {
+    grid-column: span 6;
+  }
+
+  /* An odd card out spans the full row rather than leaving a gap. */
+  .indGridBold .indBoldCard:last-child:nth-child(odd) {
+    grid-column: span 12;
+  }
+}
+
+@media (min-width: 1000px) {
+  /* The real composition. `data-span` is written by the component from
+     `gridSpansFor()`: 12 for a card alone on its row, 6 for a pair, 4 for a
+     trio. */
+  .indGridBold .indBoldCard[data-span="12"] { grid-column: span 12; }
+  .indGridBold .indBoldCard[data-span="6"] { grid-column: span 6; }
+  .indGridBold .indBoldCard[data-span="4"] { grid-column: span 4; }
+}
+
+/* The lift and the shadow are decorative; the accent rule carries the design
+   on its own. */
+@media (prefers-reduced-motion: reduce) {
+  .indBoldCard,
+  .indBoldCard:hover,
+  .indBoldCard:focus-within {
+    transform: none;
+    box-shadow: none;
+    transition: none;
+  }
+}
+
+/* ============================================================
+   HERO TRUST BADGES  +  FORM HEADER / ALERT
+   Ported from components/landing/landing.module.css so the
+   Generative AI and Agentic AI heroes carry the same credential
+   strip and the same form masthead as the Custom AI page.
+   ============================================================ */
+.badges {
+  list-style: none;
+  margin: clamp(24px, 2.8vw, 36px) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.5em 0.85em;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* A long text tag ("*Satisfaction Guaranteed – Get 40-hour Free Trial" on the
+   hire-by-role pages) is wider than a phone. Kept on one line it sets the hero
+   column's min-content width, pushing the whole column past the viewport, so
+   below 1000px a tag may wrap instead. */
+@media (max-width: 999px) {
+  .badge {
+    white-space: normal;
+    max-width: 100%;
+  }
+}
+
+.badgeDot {
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+}
+
+
+/* Partner standing (Upwork, Clutch, Microsoft, AWS) runs as the issuers' own
+   lockups rather than as our paraphrase of them — a reader recognises the
+   Clutch wordmark without reading it. Each file has a transparent ground and a
+   dark logo, so the plaque is white: the art is reproduced as issued, never
+   recoloured to this surface. softsuave.com shows them the same way, as white
+   cards over the hero photograph.
+
+   The four differ widely in aspect (2.15 → 3.66), so height is pinned and
+   width follows. A shared box would squash the Microsoft and AWS lockups. */
+.badgeLogo {
+  padding: 9px 13px;
+  background: #fff;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.badgeLogoImg {
+  display: block;
+  width: auto;
+  /* Big enough that the small print inside the lockups — Upwork's "Top Rated
+     Plus", Clutch's 4.9/5.0 and its stars — stays readable. Under about 20px
+     those turn to texture, and a trust mark nobody can read is decoration. */
+  height: clamp(20px, 2vw, 24px);
+  object-fit: contain;
+}

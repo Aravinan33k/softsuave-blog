@@ -34,9 +34,12 @@ export default async function PagesListPage({ searchParams }: { searchParams: Pr
   const where: Prisma.PageWhereInput = {
     ...(params.q
       ? {
+          // See the note in the posts list: MySQL's utf8mb4_unicode_ci collation
+          // already makes `contains` case-insensitive, and `mode` does not exist
+          // on a MySQL Prisma client.
           OR: [
-            { title: { contains: params.q, mode: 'insensitive' as const } },
-            { slug: { contains: params.q, mode: 'insensitive' as const } },
+            { title: { contains: params.q } },
+            { slug: { contains: params.q } },
           ],
         }
       : {}),

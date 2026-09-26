@@ -41,6 +41,20 @@ export function WhatsappIcon({ className }: P) {
   );
 }
 
+/**
+ * Handset, for a number that can be called. Lucide-style stroke rather than
+ * the filled brand marks above, because this one is not a logo — it sits
+ * beside `WhatsappIcon` in the footer and would otherwise read as a second
+ * brand the number belongs to.
+ */
+export function PhoneIcon({ className }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+}
+
 // Lucide-style stroke icon for "copy link".
 export function LinkIcon({ className }: P) {
   return (

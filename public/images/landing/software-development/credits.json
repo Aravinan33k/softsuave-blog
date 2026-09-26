@@ -1,0 +1,65 @@
+[
+  {
+    "file": "/images/landing/software-development/hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A software team at work together in an open studio",
+    "pexelsId": "6804073",
+    "source": "https://www.pexels.com/photo/6804073/",
+    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADwAQCdASoQAAkAA4BaJZwCdACmLwWj1QAA/D+GGf8DNfR86+8UEyiXvBkCuoJjDc/rpoMx7a4k95154Wcdvzefl3jWnd+qOF3EmMf+pDCd+SMPLUD3zlYe01zAAA=="
+  },
+  {
+    "file": "/images/landing/software-development/svc-mobile.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A smartphone showing a finished mobile interface",
+    "pexelsId": "8408538",
+    "source": "https://www.pexels.com/photo/8408538/",
+    "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAwAgCdASoQAAwAA4BaJZwAEQRLa+LnvL68AAD2v5G0j6dvEbJcJgLInHStSOJeukHra0lOz8DIyJXUTo4XYpJoLGy3WvhjxyokmQ2g9zFo6AAA"
+  },
+  {
+    "file": "/images/landing/software-development/svc-web.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A web project in progress across multiple monitors and a laptop",
+    "pexelsId": "251225",
+    "source": "https://www.pexels.com/photo/251225/",
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAQAgCdASoQAAwAA4BaJYwC7AD5j6TfwRzkAP72MeMSFs/ChR+jE2RTEPUUaa9nMWYylIcS/fpAXdgHTH6A6lM30zrT2eGdAPlkqR76GfCktof2BaYeTkKQrma4pwAA"
+  },
+  {
+    "file": "/images/landing/software-development/svc-crossplatform.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Hands working on a tablet interface, one build serving every screen",
+    "pexelsId": "221185",
+    "source": "https://www.pexels.com/photo/221185/",
+    "blurDataURL": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAABQAgCdASoQAAwAA4BaJZQC7AYstS/68u01o0AA/uDbQYEM2Ya7gmnCsOVKMYsVAJhxvp6003Exer1TG/OWPHeExZlmdedXL6IbjuPL0C7IPg8ojW/Fn4xXNqTGkcv5/v9Z+v1BG561R0AA"
+  },
+  {
+    "file": "/images/landing/software-development/svc-software.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Two engineers building a custom system on large monitors",
+    "pexelsId": "7988079",
+    "source": "https://www.pexels.com/photo/7988079/",
+    "blurDataURL": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQAgCdASoQAAwAA4BaJZQAD45On0Ac0F2QAP5sU9q7LD+pmGqE4GBr7/Kb+einbbqasf12bpGfrv4u3qBZf3Vvh4ZKUh7GR+Sj81jCnveSCjhvv0zGn1K93L76vmv22WO7dLT7zuYdYzH6NZlEhZ/APIxOgCwA"
+  },
+  {
+    "file": "/images/landing/software-development/svc-ai.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A robotic hand reaching into a network of connected nodes",
+    "pexelsId": "8386437",
+    "source": "https://www.pexels.com/photo/8386437/",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAABQAgCdASoQAAwAA4BaJbACdLoAAxjcbbkn4AAA/s17iUPNM8mqaJN1JTDgPc++11CpPNgC/VtUyktqAmz4pVgKPFXTDf/rbLfTMDdmWf/uOwJVrB8amAAA"
+  },
+  {
+    "file": "/images/landing/software-development/svc-legacy.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Server racks and cabling in a data centre, the estate a modernisation touches",
+    "pexelsId": "6466141",
+    "source": "https://www.pexels.com/photo/6466141/",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAwAgCdASoQAAwAA4BaJQBWAMXcylEL6oToAAD+7lstS3VvFYKNMeyLAhMm5binOW1jMivhZvuK0dlJxEDMQizrEuJQC9t/CXT7VcNuOYa1WFazGqQjgxdyKbZgAgQOT9mGScAA"
+  }
+]

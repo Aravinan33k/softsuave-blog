@@ -2,6 +2,21 @@
   "$comment": "Every image slot across /one, /two, /three. keywords = tiers broad -> broader -> generic on-brand. Deduped by Pexels photo id across ALL slots (no photo repeats site-wide).",
   "images": [
     {
+      "id": "case-studies-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "Product team reviewing a delivered project together in a dim office",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "team collaboration laptop office night",
+        "business team meeting dark office",
+        "people working together laptop",
+        "office teamwork"
+      ]
+    },
+    {
       "id": "hero",
       "page": "one",
       "purpose": "hero-background",
@@ -767,6 +782,126 @@
       ]
     },
     {
+      "id": "svc-data-engineering",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Data engineering pipelines",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "server rack lights dark data center abstract",
+        "data center servers glowing dark",
+        "abstract technology lines data dark",
+        "technology abstract dark"
+      ]
+    },
+    {
+      "id": "svc-data-science",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Data science and analytics",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "abstract data visualisation glowing dark",
+        "financial data screen numbers dark closeup",
+        "analytics graph glowing dark abstract",
+        "data abstract dark"
+      ]
+    },
+    {
+      "id": "svc-generative-ai",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Generative AI systems",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "abstract neural network glowing nodes dark",
+        "digital brain abstract technology dark",
+        "generative abstract light pattern dark",
+        "abstract ai technology dark"
+      ]
+    },
+    {
+      "id": "svc-rag",
+      "page": "four",
+      "purpose": "service",
+      "alt": "RAG and document AI",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "abstract glowing connected dots network dark",
+        "abstract digital particles light dark",
+        "abstract blue light data dark",
+        "abstract technology dark"
+      ]
+    },
+    {
+      "id": "svc-computer-vision",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Computer vision systems",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "human eye iris macro closeup dark",
+        "abstract light refraction prism dark",
+        "optical glass light abstract dark",
+        "abstract optics dark"
+      ]
+    },
+    {
+      "id": "svc-predictive",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Predictive intelligence and forecasting",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "abstract glowing graph line dark",
+        "trading chart screen dark closeup",
+        "light trails long exposure dark abstract",
+        "abstract forecast lines dark"
+      ]
+    },
+    {
+      "id": "svc-mlops",
+      "page": "four",
+      "purpose": "service",
+      "alt": "MLOps and model operations",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "code terminal screen dark closeup",
+        "server monitoring screen code dark",
+        "programming code monitor dark macro",
+        "code screen dark"
+      ]
+    },
+    {
+      "id": "svc-fde",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Forward deployed engineers with a client team",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "business team meeting office laptop dark",
+        "colleagues discussing work desk office dark",
+        "professionals collaborating meeting room dark",
+        "office teamwork dark"
+      ]
+    },
+    {
       "id": "ind-ecommerce",
       "page": "four",
       "purpose": "industry",
@@ -839,6 +974,2183 @@
         "financial technology money digital",
         "banking finance app",
         "finance money"
+      ]
+    },
+    {
+      "id": "ind-telecom",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Telecom industry",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "telecom network tower antenna connectivity vertical",
+        "telecommunications fiber optic network infrastructure",
+        "mobile network signal tower",
+        "network connectivity"
+      ]
+    },
+    {
+      "id": "gcc-benefit-1",
+      "page": "four",
+      "purpose": "benefit",
+      "alt": "Cost structure that scales with headcount",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "coins stacked growth plant financial investment",
+        "money coins growth chart finance",
+        "business finance growth investment",
+        "finance money business"
+      ],
+      "prompt": "Stacks of gold coins on a soft cream surface with a small green seedling growing from the tallest stack, pale pink studio backdrop."
+    },
+    {
+      "id": "gcc-benefit-2",
+      "page": "four",
+      "purpose": "benefit",
+      "alt": "A team shaped around your roadmap",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "software team collaborating laptops office meeting",
+        "developers working together office desk",
+        "business team meeting laptops",
+        "team office collaboration"
+      ],
+      "prompt": "Four software engineers collaborating around laptops at a bright modern office desk, floor-to-ceiling windows behind them, candid daylight."
+    },
+    {
+      "id": "gcc-benefit-3",
+      "page": "four",
+      "purpose": "benefit",
+      "alt": "Teams deployed and shipping sooner",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "rocket launch sky clouds lift off",
+        "rocket launching speed motion sky",
+        "speed motion launch technology",
+        "launch speed technology"
+      ],
+      "prompt": "A rocket climbing steeply through soft white clouds into clear sky, golden hour light, cinematic wide shot."
+    },
+    {
+      "id": "gcc-benefit-4",
+      "page": "four",
+      "purpose": "benefit",
+      "alt": "Access to India engineering talent",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "group software engineers standing together office team",
+        "engineers whiteboard brainstorming team discussion",
+        "diverse professionals group standing office",
+        "team people office"
+      ],
+      "prompt": "A glowing dark-blue digital globe wrapped in a network of connected light nodes and arcing trails across continents, teal and warm amber accents."
+    },
+    {
+      "id": "gcc-benefit-5",
+      "page": "four",
+      "purpose": "benefit",
+      "alt": "Domain knowledge that stays in-house",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "laptop code editor desk developer workspace",
+        "programming code screen laptop desk",
+        "software developer workspace laptop",
+        "laptop code workspace"
+      ],
+      "prompt": "An open laptop on a clean desk showing a dark code editor with colourful syntax, a small potted plant beside it, soft window light."
+    },
+    {
+      "id": "gcc-benefit-6",
+      "page": "four",
+      "purpose": "benefit",
+      "alt": "Your leadership sets priorities directly",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "chess board strategy hand moving piece",
+        "chess strategy game board pieces",
+        "strategy decision business chess",
+        "chess strategy board"
+      ],
+      "prompt": "A hand moving a single chess piece on a polished board, dramatic low-key lighting against a dark background, shallow depth of field."
+    },
+    {
+      "id": "gcc-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Mapping which functions move offshore",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "business team planning session whiteboard strategy meeting",
+        "people planning workshop office whiteboard",
+        "business meeting discussion office",
+        "team meeting office"
+      ]
+    },
+    {
+      "id": "gcc-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Company registration and statutory compliance",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "legal documents contract signing pen desk office",
+        "business contract paperwork signing desk",
+        "legal paperwork documents office",
+        "documents desk office"
+      ]
+    },
+    {
+      "id": "gcc-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Infrastructure and security commissioned",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "server room data centre network racks blue light",
+        "data center servers network technology",
+        "server technology infrastructure racks",
+        "servers technology dark"
+      ]
+    },
+    {
+      "id": "gcc-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Sourcing and onboarding engineers",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "job interview handshake office candidate meeting",
+        "recruitment interview business people office",
+        "handshake business meeting office",
+        "handshake office business"
+      ]
+    },
+    {
+      "id": "gcc-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Running the centre against agreed SLAs",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "analytics dashboard charts laptop screen desk",
+        "business analytics data dashboard screen",
+        "data dashboard reporting laptop",
+        "dashboard analytics laptop"
+      ]
+    },
+    {
+      "id": "ind-fintech-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "AI-driven financial technology and digital banking operations",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "fintech banking dashboard dark screens",
+        "financial trading data screens dark",
+        "digital banking payment technology",
+        "finance technology dark"
+      ]
+    },
+    {
+      "id": "ind-healthtech-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Clinical teams using AI-assisted healthcare technology",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "hospital medical technology monitors dark",
+        "healthcare data clinical screens",
+        "medical imaging diagnostic technology",
+        "healthcare technology"
+      ]
+    },
+    {
+      "id": "ind-edtech-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Digital learning platform powered by adaptive AI",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "online learning classroom technology dark",
+        "student digital education screens",
+        "e-learning platform laptop study",
+        "education technology"
+      ]
+    },
+    {
+      "id": "ind-ecommerce-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Online retail operations driven by AI personalisation",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "ecommerce online shopping technology dark",
+        "retail warehouse fulfilment packages",
+        "online store checkout mobile commerce",
+        "ecommerce retail technology"
+      ]
+    },
+    {
+      "id": "ind-logistics-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Supply chain and fleet operations optimised with AI",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "logistics warehouse freight operations dark",
+        "supply chain shipping containers port",
+        "delivery fleet trucks logistics night",
+        "logistics transport technology"
+      ]
+    },
+    {
+      "id": "ind-telecom-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Telecom network operations monitored by AI systems",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "telecom network operations center dark",
+        "fiber optic network infrastructure",
+        "mobile network tower connectivity",
+        "telecommunications technology"
+      ]
+    },
+    {
+      "id": "ind-construction-hero",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Construction site planning supported by AI monitoring",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": [
+        "construction site engineering technology dark",
+        "building construction crane site",
+        "architecture blueprint construction planning",
+        "construction industry"
+      ]
+    },
+    {
+      "id": "fintech-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Discovery & Use-Case Definition",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "finance team strategy meeting dark",
+        "business planning workshop discussion",
+        "office meeting whiteboard",
+        "business meeting"
+      ]
+    },
+    {
+      "id": "fintech-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Data Assessment & Preparation",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "data analysis screens spreadsheet dark",
+        "database server data engineering",
+        "analyst reviewing data monitor",
+        "data analytics"
+      ]
+    },
+    {
+      "id": "fintech-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Model Development & Training",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "developer coding machine learning dark",
+        "programmer writing code screens",
+        "software engineer laptop code",
+        "coding development"
+      ]
+    },
+    {
+      "id": "fintech-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Validation & Explainability",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "analyst reviewing charts audit dark",
+        "financial report review documents",
+        "business analytics validation",
+        "report review"
+      ]
+    },
+    {
+      "id": "fintech-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Integration & Secure Deployment",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "server room security infrastructure dark",
+        "network security data centre",
+        "cybersecurity lock technology",
+        "security technology"
+      ]
+    },
+    {
+      "id": "fintech-step-6",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Monitoring & Continuous Improvement",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "monitoring dashboard screens dark",
+        "operations control room displays",
+        "live analytics dashboard",
+        "monitoring dashboard"
+      ]
+    },
+    {
+      "id": "ecommerce-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Goal Definition",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "retail strategy planning meeting dark",
+        "ecommerce business planning team",
+        "marketing strategy discussion",
+        "business planning"
+      ]
+    },
+    {
+      "id": "ecommerce-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Readiness Assessment",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "ecommerce analytics audit screens",
+        "online store data review laptop",
+        "retail performance analysis",
+        "analytics review"
+      ]
+    },
+    {
+      "id": "ecommerce-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Solution Design & Measurement Plan",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "design wireframe planning desk",
+        "ux design sketching workflow",
+        "product design planning board",
+        "design planning"
+      ]
+    },
+    {
+      "id": "ecommerce-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Model Development & Integration",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "developer building ecommerce platform",
+        "programmer integration api code",
+        "software development workstation",
+        "software development"
+      ]
+    },
+    {
+      "id": "ecommerce-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Testing & Validation",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "ab testing analytics comparison screen",
+        "quality testing software review",
+        "data testing charts laptop",
+        "software testing"
+      ]
+    },
+    {
+      "id": "ecommerce-step-6",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Optimisation & Scale",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "ecommerce growth chart rising analytics",
+        "online retail scale warehouse dispatch",
+        "business growth performance graph",
+        "growth analytics"
+      ]
+    },
+    {
+      "id": "off-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Requirements & Engagement Planning",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "client requirements meeting remote dark",
+        "offshore team video call planning",
+        "business requirements discussion",
+        "team planning"
+      ]
+    },
+    {
+      "id": "off-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Architecture & Delivery Preparation",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "software architecture diagram planning",
+        "technical design whiteboard system",
+        "engineering blueprint planning",
+        "system architecture"
+      ]
+    },
+    {
+      "id": "off-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Iterative Development",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "agile development team sprint board",
+        "developers collaborating code office",
+        "scrum standup team software",
+        "agile development"
+      ]
+    },
+    {
+      "id": "off-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Testing & Review",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "code review quality assurance screens",
+        "software testing engineer monitor",
+        "peer review programming pair",
+        "code review"
+      ]
+    },
+    {
+      "id": "off-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Release & Continuing Improvement",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "software release deployment pipeline",
+        "devops continuous delivery screens",
+        "product launch team celebration",
+        "software release"
+      ]
+    },
+    {
+      "id": "staff-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Requirement Analysis",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "hiring manager requirements meeting",
+        "recruitment planning discussion office",
+        "job role planning team",
+        "recruitment planning"
+      ]
+    },
+    {
+      "id": "staff-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Candidate Shortlisting",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "recruiter reviewing cv resumes laptop",
+        "hiring shortlist candidate profiles",
+        "recruitment screening desk",
+        "recruitment screening"
+      ]
+    },
+    {
+      "id": "staff-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Interviews & Skill Assessment",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "technical interview developer video call",
+        "job interview candidate office",
+        "coding assessment interview screen",
+        "job interview"
+      ]
+    },
+    {
+      "id": "staff-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Rapid Onboarding",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "new employee onboarding first day",
+        "team welcoming new developer office",
+        "onboarding laptop setup workspace",
+        "employee onboarding"
+      ]
+    },
+    {
+      "id": "staff-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Continuous Support & Monitoring",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "team performance review meeting",
+        "manager one to one discussion office",
+        "distributed team collaboration call",
+        "team management"
+      ]
+    },
+    {
+      "id": "ito-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Discuss the Requirements",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "business consultation client meeting dark",
+        "outsourcing discussion boardroom",
+        "stakeholder requirements workshop",
+        "business consultation"
+      ]
+    },
+    {
+      "id": "ito-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Select the Engagement Model",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "contract negotiation business documents",
+        "engagement model planning meeting",
+        "business agreement signing desk",
+        "business agreement"
+      ]
+    },
+    {
+      "id": "ito-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Confirm Scope and Responsibilities",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "project scope planning documents team",
+        "responsibility matrix planning board",
+        "project governance meeting",
+        "project planning"
+      ]
+    },
+    {
+      "id": "ito-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Begin Delivery",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "offshore delivery team working office",
+        "software team delivery workstations",
+        "engineering team collaboration",
+        "delivery team"
+      ]
+    },
+    {
+      "id": "ito-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Review and Improve",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "performance review dashboard meeting",
+        "service review business metrics",
+        "continuous improvement discussion",
+        "business review"
+      ]
+    },
+    {
+      "id": "prod-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Planning",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "product roadmap planning sticky notes",
+        "product team discovery workshop",
+        "product strategy planning board",
+        "product planning"
+      ]
+    },
+    {
+      "id": "prod-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Development",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "product engineering team building software",
+        "developers working product code",
+        "engineering team workstation",
+        "product development"
+      ]
+    },
+    {
+      "id": "prod-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Deployment",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "software deployment release pipeline screens",
+        "cloud deployment engineer monitor",
+        "devops release automation",
+        "software deployment"
+      ]
+    },
+    {
+      "id": "prod-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Performance",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "application performance monitoring charts",
+        "product metrics dashboard analysis",
+        "performance testing analytics",
+        "performance monitoring"
+      ]
+    },
+    {
+      "id": "prod-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Evolution",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "product iteration roadmap evolution",
+        "feature planning product growth",
+        "product team retrospective planning",
+        "product iteration"
+      ]
+    },
+    {
+      "id": "cloud-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Assessment & Discovery",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "cloud assessment infrastructure audit dark",
+        "it infrastructure review server",
+        "cloud consulting discussion technical",
+        "cloud assessment"
+      ]
+    },
+    {
+      "id": "cloud-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Cloud Model & Technology Selection",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "cloud platform selection architecture",
+        "cloud technology comparison planning",
+        "engineer choosing cloud services",
+        "cloud technology"
+      ]
+    },
+    {
+      "id": "cloud-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Architecture & Budget Planning",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "cloud architecture diagram planning",
+        "infrastructure cost planning spreadsheet",
+        "technical architecture whiteboard",
+        "cloud architecture"
+      ]
+    },
+    {
+      "id": "cloud-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Migration & Deployment",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "data centre migration servers dark",
+        "cloud migration engineer racks",
+        "server infrastructure deployment",
+        "cloud migration"
+      ]
+    },
+    {
+      "id": "cloud-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Optimisation & Managed Security",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "cloud security monitoring dashboard dark",
+        "cybersecurity operations centre",
+        "cloud cost optimisation analytics",
+        "cloud security"
+      ]
+    },
+    {
+      "id": "hire-step-1",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Share the Requirement",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "client requirements briefing meeting dark",
+        "hiring manager writing role brief",
+        "business requirements discussion desk",
+        "requirements meeting"
+      ]
+    },
+    {
+      "id": "hire-step-2",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Receive a Shortlist",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "recruiter shortlist developer profiles laptop",
+        "cv screening candidate selection",
+        "hiring shortlist review desk",
+        "candidate shortlist"
+      ]
+    },
+    {
+      "id": "hire-step-3",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Interview the Candidates",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "technical interview developer video call",
+        "remote job interview laptop screen",
+        "coding interview assessment desk",
+        "technical interview"
+      ]
+    },
+    {
+      "id": "hire-step-4",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Trial Period",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "developer working trial project code",
+        "programmer focused coding workstation",
+        "software engineer evaluating work",
+        "developer working"
+      ]
+    },
+    {
+      "id": "hire-step-5",
+      "page": "four",
+      "purpose": "process",
+      "alt": "Onboard and Deliver",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "new developer onboarding team welcome",
+        "distributed team collaboration delivery",
+        "engineer joining team office",
+        "developer onboarding"
+      ]
+    },
+    {
+      "id": "ind-construction",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "Construction industry",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": [
+        "construction site engineer blueprint crane vertical",
+        "building construction technology worker",
+        "construction site building",
+        "construction"
+      ]
+    },
+    {
+      "id": "hire-dotnet-hero",
+      "page": "four",
+      "purpose": "hero-background",
+      "source": "gemini",
+      "alt": "A darkened open-plan engineering workspace at night, monitors glowing warm against deep shadow",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "prompt": "A darkened open-plan engineering workspace at night, seen from a low wide angle. Monitors and desk lamps glow warm amber in the mid-right of the frame; the left half of the frame falls away into deep unlit shadow and empty space, calm and almost featureless. Graphite, charcoal and warm neutral tones only. Unoccupied desks, no people."
+    },
+    {
+      "id": "ov-about",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "A software team collaborating around laptops in a bright modern office",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "software company team collaborating office",
+        "tech team meeting laptops",
+        "office teamwork",
+        "team"
+      ]
+    },
+    {
+      "id": "ov-ai-in-logistics",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Automated warehouse with shelving and parcels ready for dispatch",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "logistics warehouse automation technology",
+        "warehouse logistics",
+        "shipping containers port",
+        "logistics"
+      ]
+    },
+    {
+      "id": "ov-ai-solutions-for-construction",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Engineer reviewing plans on a tablet at a construction site",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "construction engineer tablet site",
+        "construction technology",
+        "construction site",
+        "construction"
+      ]
+    },
+    {
+      "id": "ov-ai-solutions-for-ecommerce",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Online shopping on a laptop with a card and parcels on the desk",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "online shopping ecommerce laptop",
+        "ecommerce parcels",
+        "online shopping",
+        "shopping"
+      ]
+    },
+    {
+      "id": "ov-ai-solutions-for-telecom",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Telecommunication tower with antennas against the sky",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "telecommunication tower antenna",
+        "cell tower network",
+        "network server cables",
+        "telecommunication"
+      ]
+    },
+    {
+      "id": "ov-ai-solutions-in-edutech",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Student taking an online class on a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "online learning student laptop",
+        "e-learning",
+        "students technology classroom",
+        "education"
+      ]
+    },
+    {
+      "id": "ov-ai-solutions-in-healthtech",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Doctor using a digital tablet in a hospital",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "doctor using tablet hospital",
+        "healthcare technology",
+        "medical technology",
+        "healthcare"
+      ]
+    },
+    {
+      "id": "ov-android-application-development-company",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Developer testing an Android app on a smartphone",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "android smartphone app development",
+        "developer testing smartphone app",
+        "mobile app",
+        "smartphone"
+      ]
+    },
+    {
+      "id": "ov-cloud-computing",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Rows of servers in a cloud data center",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "cloud data center servers",
+        "server room",
+        "data center",
+        "technology"
+      ]
+    },
+    {
+      "id": "ov-fintech-ai-solutions",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Financial analytics dashboard on screens beside a mobile banking app",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "fintech financial data analytics screen",
+        "mobile banking",
+        "digital payment",
+        "finance"
+      ]
+    },
+    {
+      "id": "ov-global-capability-center",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Engineering team working together in a modern office",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "modern tech office team collaboration",
+        "corporate office team",
+        "office meeting",
+        "office"
+      ]
+    },
+    {
+      "id": "ov-it-outsourcing-company-india",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Distributed software team on a video call",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "remote software team video call",
+        "developers team office",
+        "team working laptops",
+        "team"
+      ]
+    },
+    {
+      "id": "ov-it-staff-augmentation-services",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Developers collaborating on laptops at a shared desk",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "developers collaborating laptops",
+        "software team meeting",
+        "team working",
+        "team"
+      ]
+    },
+    {
+      "id": "ov-java-application-development-company",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Java source code on a developer screen",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "java programming code screen",
+        "programming code monitor",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-offshore-software-development-company",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Software developers working together across laptops",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "software developers working laptops team",
+        "remote development team",
+        "software team",
+        "team"
+      ]
+    },
+    {
+      "id": "ov-product-engineering-services",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Product team planning a software release around a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "software product team planning laptop",
+        "ux designers wireframe app",
+        "product manager team meeting laptop",
+        "team laptop"
+      ]
+    },
+    {
+      "id": "ov-software-development-company",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Software developers writing code in an office",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "software developers coding office",
+        "programming team",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-android-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Android developer coding with a smartphone on the desk",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "android developer coding smartphone",
+        "mobile developer laptop",
+        "programmer laptop",
+        "developer"
+      ]
+    },
+    {
+      "id": "ov-hire-backend-application-developer",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Backend developer working with server code on multiple monitors",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "backend developer code monitors",
+        "programmer server code",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-dedicated-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Dedicated development team working at their desks",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "dedicated software developers team office",
+        "developers team",
+        "programmers office",
+        "team"
+      ]
+    },
+    {
+      "id": "ov-hire-devops-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "DevOps engineer monitoring systems in a server room",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "devops engineer server room laptop",
+        "it engineer servers",
+        "server room",
+        "technology"
+      ]
+    },
+    {
+      "id": "ov-hire-dot-net-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Developer writing C# code on a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "developer coding laptop csharp",
+        "software developer coding",
+        "programmer laptop",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-flutter-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Mobile app designer reviewing screens on a phone",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "mobile app developer smartphone design",
+        "app design smartphone",
+        "mobile app",
+        "smartphone"
+      ]
+    },
+    {
+      "id": "ov-hire-frontend-application-developer",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Frontend developer designing a web interface",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "frontend developer web design screen",
+        "web designer computer",
+        "web development",
+        "design"
+      ]
+    },
+    {
+      "id": "ov-hire-ionic-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Developer building a hybrid mobile app on laptop and phone",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "hybrid mobile app developer laptop phone",
+        "app developer smartphone laptop",
+        "mobile development",
+        "smartphone"
+      ]
+    },
+    {
+      "id": "ov-hire-ios-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "iOS developer working on an iPhone app with a MacBook",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "ios developer iphone macbook",
+        "iphone app development",
+        "macbook coding",
+        "developer"
+      ]
+    },
+    {
+      "id": "ov-hire-java-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Java developer focused on code at a workstation",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "java developer coding workstation",
+        "programmer focused code",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-mean-stack-developers-india",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Web developer writing JavaScript on a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "javascript web developer laptop",
+        "web developer code",
+        "programming laptop",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-mern-stack-developers-india",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Full stack developer working across two monitors",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "full stack developer two monitors",
+        "web developer desk",
+        "programmer monitors",
+        "developer"
+      ]
+    },
+    {
+      "id": "ov-hire-mobile-app-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Mobile app developers testing apps on phones",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "mobile app developers testing phones",
+        "app developers team",
+        "smartphones app",
+        "mobile"
+      ]
+    },
+    {
+      "id": "ov-hire-nestjs-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Backend developer building APIs on a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "backend api developer laptop code",
+        "nodejs developer",
+        "programmer coding night",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-php-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "PHP web developer coding a website",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "php web developer coding",
+        "website development code",
+        "web developer laptop",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-python-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Python programmer writing code on a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "python programmer code laptop",
+        "data programmer coding",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-react-native-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Developer building a cross-platform app on phone and laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "cross platform app developer phone laptop",
+        "mobile app development laptop",
+        "app developer",
+        "smartphone"
+      ]
+    },
+    {
+      "id": "ov-hire-reactjs-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "React code open in an editor on a MacBook",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "web developer interface monitor",
+        "frontend developer coding",
+        "web development",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-software-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Software developer at a tidy workspace with code on screen",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "software developer workspace code screen",
+        "programmer desk",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-swift-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Hand holding an iPhone showing its apps",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "iphone app icons screen hand",
+        "iphone apps",
+        "apple iphone",
+        "smartphone"
+      ]
+    },
+    {
+      "id": "ov-hire-web-app-developers",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Web application developer working on a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "web application developer laptop",
+        "web developer working",
+        "web development",
+        "laptop"
+      ]
+    },
+    {
+      "id": "ov-computer-vision-development-services",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Detection overlay on a screen analysing a live camera image",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "facial recognition detection screen technology",
+        "face detection scanning screen",
+        "camera lens macro technology",
+        "camera lens"
+      ]
+    },
+    {
+      "id": "cv-svc-consulting",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineers reviewing camera footage together on a laptop",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "engineers reviewing camera footage laptop",
+        "team reviewing screens technology meeting",
+        "business team laptop meeting",
+        "meeting"
+      ]
+    },
+    {
+      "id": "cv-svc-data",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Photo library being sorted on a computer screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "photo library sorting computer screen",
+        "photographer editing photos laptop",
+        "image files on screen",
+        "photos"
+      ]
+    },
+    {
+      "id": "cv-svc-model",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Neural network code on a developer screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "neural network machine learning code screen",
+        "ai code on monitor",
+        "programming code screen dark",
+        "code"
+      ]
+    },
+    {
+      "id": "cv-svc-detection",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Traffic camera view of vehicles on a road",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "traffic camera view vehicles road",
+        "highway traffic aerial cars",
+        "cars traffic street",
+        "traffic"
+      ]
+    },
+    {
+      "id": "cv-svc-ocr",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Printed document being scanned for text extraction",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "document scanning text closeup",
+        "scanner scanning paper document",
+        "printed text close up",
+        "documents"
+      ]
+    },
+    {
+      "id": "cv-svc-video",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Wall of monitors showing live video feeds",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "video wall monitors control room",
+        "security monitors screens room",
+        "cctv monitors",
+        "monitors"
+      ]
+    },
+    {
+      "id": "cv-svc-inspection",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Quality inspection of parts on a production line",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "quality inspection factory production line",
+        "factory worker inspecting product",
+        "manufacturing quality control",
+        "factory"
+      ]
+    },
+    {
+      "id": "cv-svc-validation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineer checking test results on screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "engineer testing software results screen",
+        "quality assurance testing computer",
+        "developer checking screen",
+        "testing"
+      ]
+    },
+    {
+      "id": "cv-svc-optimization",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Performance dashboard with charts on a screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "performance analytics dashboard screen charts",
+        "data dashboard monitor",
+        "analytics charts screen",
+        "dashboard"
+      ]
+    },
+    {
+      "id": "cv-svc-integration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Network engineer working in a server room",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "network engineer server room laptop",
+        "data center servers engineer",
+        "server racks network",
+        "servers"
+      ]
+    },
+    {
+      "id": "pi-svc-forecasting",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Forecast chart trending across a screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "forecast line chart screen analytics",
+        "business graph trend screen",
+        "stock chart screen",
+        "chart"
+      ]
+    },
+    {
+      "id": "pi-svc-modeling",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Data scientist building a predictive model on a laptop",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "data scientist machine learning laptop code",
+        "statistics model laptop analysis",
+        "programmer data analysis",
+        "data"
+      ]
+    },
+    {
+      "id": "pi-svc-anomaly",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Monitoring dashboard highlighting an unusual spike",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "monitoring dashboard alert spike screen",
+        "server monitoring graphs screen",
+        "security monitoring screen",
+        "monitor"
+      ]
+    },
+    {
+      "id": "pi-svc-recommendation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Personalised product recommendations on a shopping screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "online shopping recommendations phone screen",
+        "ecommerce product browsing laptop",
+        "online shopping cart laptop",
+        "shopping"
+      ]
+    },
+    {
+      "id": "de-svc-pipeline",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Network cables carrying data between systems",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "network cables patch panel data center",
+        "ethernet cables server rack",
+        "network switch cables",
+        "cables"
+      ]
+    },
+    {
+      "id": "de-svc-foundation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Storage hardware holding structured business data",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "database server storage hardware",
+        "hard drives storage array",
+        "data storage disks",
+        "storage"
+      ]
+    },
+    {
+      "id": "de-svc-connectivity",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Server racks linked in a data centre",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "server racks data centre connected",
+        "data center corridor servers",
+        "server room racks",
+        "servers"
+      ]
+    },
+    {
+      "id": "de-svc-cloud",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Abstract network representing cloud data infrastructure",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "cloud technology network concept abstract",
+        "abstract network connections blue technology",
+        "technology abstract blue background",
+        "abstract technology"
+      ]
+    },
+    {
+      "id": "de-svc-analytics",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Business dashboard with charts ready for reporting",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "business analytics dashboard charts screen",
+        "reporting dashboard monitor",
+        "data charts screen",
+        "analytics"
+      ]
+    },
+    {
+      "id": "de-svc-ai",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Team preparing data foundations for AI work",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "team analysing data charts whiteboard",
+        "data scientists discussing charts screen",
+        "analysts reviewing data together",
+        "analysts"
+      ]
+    },
+    {
+      "id": "vuejs-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "A developer building a web application interface on a laptop",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "web developer coding laptop dark office",
+        "programmer writing javascript code screen",
+        "developer laptop code night",
+        "coding"
+      ]
+    },
+    {
+      "id": "ov-vuejs-development-company",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "A product team planning a web application together around a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "software team collaborating laptop office bright",
+        "developers meeting laptop discussion office",
+        "team working together laptops office",
+        "teamwork office"
+      ]
+    },
+    {
+      "id": "vue-svc-custom",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Frontend code for a custom web application in an editor",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "frontend javascript code editor screen",
+        "web development code monitor",
+        "source code screen",
+        "code"
+      ]
+    },
+    {
+      "id": "vue-svc-spa",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A responsive single-page web application shown on several devices",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "responsive web app laptop tablet phone",
+        "website on multiple devices desk",
+        "laptop smartphone website",
+        "devices"
+      ]
+    },
+    {
+      "id": "vue-svc-ecommerce",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "An online store checkout on a laptop screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "online shopping website laptop checkout",
+        "ecommerce store laptop shopping cart",
+        "online payment laptop card",
+        "online shopping"
+      ]
+    },
+    {
+      "id": "vue-svc-portal",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A business dashboard with charts and user data",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "business dashboard charts monitor office",
+        "analytics dashboard screen data",
+        "data dashboard computer",
+        "dashboard"
+      ]
+    },
+    {
+      "id": "vue-svc-migration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineers planning a frontend migration together at a screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "developers pair programming monitor discussion",
+        "two programmers reviewing code together",
+        "software team discussing code",
+        "programmers"
+      ]
+    },
+    {
+      "id": "vue-svc-support",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A developer maintaining and updating a live web application",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "developer fixing bug laptop focused",
+        "software engineer debugging code laptop",
+        "programmer working laptop desk",
+        "developer"
+      ]
+    },
+    {
+      "id": "postgresql-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Server racks in a data centre that host application databases",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "keywords": [
+        "data center server racks blue light",
+        "server room database hardware",
+        "servers data center",
+        "servers"
+      ]
+    },
+    {
+      "id": "ov-postgresql-development-company",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Engineers reviewing data and database structure together on screen",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "engineers analysing data on computer screen office",
+        "two colleagues reviewing data monitor",
+        "data analysis office computer",
+        "office computer work"
+      ]
+    },
+    {
+      "id": "pg-svc-custom",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "SQL queries and database code on a monitor",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "sql database query code screen",
+        "database programming monitor code",
+        "database code",
+        "database"
+      ]
+    },
+    {
+      "id": "pg-svc-schema",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A team sketching a data model and table relationships on a whiteboard",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "team whiteboard diagram planning architecture",
+        "engineers drawing diagram whiteboard",
+        "whiteboard planning meeting",
+        "whiteboard"
+      ]
+    },
+    {
+      "id": "pg-svc-migration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Fibre and network connections carrying data between systems during a migration",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "fiber optic network cables data center",
+        "server network cabling rack",
+        "data center cables",
+        "data center"
+      ]
+    },
+    {
+      "id": "pg-svc-performance",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Performance metrics and query timings on a monitoring screen",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "performance monitoring graphs screen dark",
+        "system metrics charts monitor",
+        "graphs monitor analytics",
+        "graphs"
+      ]
+    },
+    {
+      "id": "pg-svc-integration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Connected services and APIs linked to a central database",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "network connections abstract technology digital",
+        "connected nodes technology concept",
+        "digital network abstract",
+        "network abstract"
+      ]
+    },
+    {
+      "id": "pg-svc-support",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "An engineer monitoring a database environment in a server room",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "it engineer laptop server room monitoring",
+        "technician checking servers laptop",
+        "server maintenance technician",
+        "technician"
+      ]
+    },
+    {
+      "id": "ov-data-science-services",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Data scientist working through charts and statistics on screen",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "data scientist analysing charts screen statistics",
+        "statistics analysis laptop charts",
+        "data analysis charts screen",
+        "data analysis"
+      ]
+    },
+    {
+      "id": "ds-svc-consulting",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Consultants framing a data question at a whiteboard",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "consultants whiteboard planning data strategy",
+        "business strategy meeting whiteboard",
+        "team planning meeting office",
+        "planning"
+      ]
+    },
+    {
+      "id": "ds-svc-exploration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Exploring a dataset of charts on a laptop",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "exploring dataset charts laptop analysis",
+        "data exploration screen graphs",
+        "charts on laptop screen",
+        "charts"
+      ]
+    },
+    {
+      "id": "ds-svc-statistics",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Statistical formulas worked out on a board",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "statistics formulas equations board math",
+        "mathematics equations blackboard",
+        "math formulas written",
+        "mathematics"
+      ]
+    },
+    {
+      "id": "ds-svc-modeling",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Machine learning code under development",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "machine learning model code screen python",
+        "ai model training code monitor",
+        "developer machine learning laptop",
+        "code"
+      ]
+    },
+    {
+      "id": "ds-svc-evaluation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Model results compared across printed charts and reports",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "analytics graphs report printed charts desk",
+        "business report charts paper analysis",
+        "graphs printed report",
+        "report charts"
+      ]
+    },
+    {
+      "id": "ds-svc-mlops",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Monitoring deployed models in production",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": [
+        "server monitoring dashboards operations screens",
+        "devops monitoring screens room",
+        "system monitoring dashboard",
+        "monitoring"
       ]
     }
   ]

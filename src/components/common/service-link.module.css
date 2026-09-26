@@ -1,0 +1,62 @@
+/* "Learn more →" under a service card. Band tokens only, so it re-tints in a
+   `.light` section. `position: relative` + `z-index` keep it clickable above
+   any decorative layer a card paints over its body. */
+
+.link {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  justify-self: start;
+  /* Pinned to the card's foot inside a flex column; plain spacing elsewhere. */
+  margin-top: auto;
+  padding-top: 10px;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.link:hover,
+.link:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.arrow {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.25s ease;
+}
+
+.link:hover .arrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow {
+    transition: none;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

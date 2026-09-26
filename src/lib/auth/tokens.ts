@@ -1,15 +1,16 @@
 import 'server-only';
 import { SignJWT, jwtVerify, type JWTPayload } from 'jose';
-import { env } from '../env';
+import { env, secretKey } from '../env';
 
 // JWT signing/verification with jose (HS256). Used by route handlers and by
 // proxy.ts. Access tokens are short-lived and self-contained; refresh tokens
 // carry a jti + family id and are additionally tracked server-side (see
 // refresh-store.ts) for rotation and reuse detection.
 
-const encoder = new TextEncoder();
-const accessKey = encoder.encode(env.JWT_ACCESS_SECRET);
-const refreshKey = encoder.encode(env.JWT_REFRESH_SECRET);
+// Random keys when the secrets are unset (the no-database mode, where there are
+// no users to sign in anyway) — see `secretKey` in lib/env.ts.
+const accessKey = secretKey(env.JWT_ACCESS_SECRET);
+const refreshKey = secretKey(env.JWT_REFRESH_SECRET);
 
 export type Role = 'ADMIN' | 'EDITOR';
 

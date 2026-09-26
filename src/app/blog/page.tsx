@@ -3,7 +3,8 @@ import { getSiteInfo, getPublishedPosts } from '@/lib/public/queries';
 import { ARCHIVE_PAGE_SIZE } from '@/lib/pagination';
 import { getActiveTheme } from '@/lib/public/theme';
 import { buildMetadata } from '@/lib/seo/metadata';
-import { organizationLd } from '@/lib/seo/jsonld';
+import { blogArchiveLd } from '@/lib/seo/blog-graph';
+import { MARKETING_SITE_GRAPH } from '@/lib/seo/page-graph';
 import { JsonLd } from '@/components/seo/json-ld';
 
 export const revalidate = 300; // ISR fallback; on-demand revalidation on publish
@@ -13,8 +14,9 @@ export const revalidate = 300; // ISR fallback; on-demand revalidation on publis
 // same theme ArchiveView with a filter applied.
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteInfo();
-  // path '/' — the app is mounted at /blog, so its root is the archive's canonical.
-  return buildMetadata({ site, title: site.title, description: site.description, path: '/', home: true, type: 'website' });
+  // `home: true` uses the bare site title rather than the "… | site" template:
+  // this is the blog's own landing page, even though "/" is the site's.
+  return buildMetadata({ site, title: site.title, description: site.description, path: '/blog', home: true, type: 'website' });
 }
 
 export default async function BlogIndexPage() {
@@ -25,9 +27,25 @@ export default async function BlogIndexPage() {
   ]);
   const { Layout, ArchiveView } = theme;
 
+  // The archive used to emit one `Organization` and nothing else — no WebSite,
+  // no node for the listing itself, no trail. It now carries the same site
+  // graph every marketing page does, plus a `Blog` whose ItemList names the
+  // posts on this page.
+  const ld = [
+    ...blogArchiveLd({
+      path: '/blog',
+      name: site.title,
+      description: site.description,
+      posts,
+      total,
+      type: 'Blog',
+    }),
+    ...MARKETING_SITE_GRAPH,
+  ];
+
   return (
     <>
-      <JsonLd data={organizationLd(site)} />
+      <JsonLd data={ld} />
       <Layout site={site}>
         <ArchiveView site={site} heading={site.tagline ?? 'Latest posts'} description={site.description} posts={posts} total={total} />
       </Layout>

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Lato, PT_Serif } from "next/font/google";
 import { env } from "@/lib/env";
+import { pageRobots } from "@/lib/flags";
+import GoogleTagManager from "@/components/analytics/google-tag-manager";
 import "./globals.css";
 
 // Only the two brand fonts are loaded. Fonts declared in the root layout are
@@ -25,6 +27,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
   title: { default: "Softsuave Blog", template: "%s" },
   description: "A fast, SEO-first blog.",
+  // Site-wide default for any page that sets no robots of its own — noindex,
+  // nofollow while `siteIndexable` (lib/flags.ts) is off.
+  robots: pageRobots,
 };
 
 export default function RootLayout({
@@ -45,6 +50,9 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        {/* Last in the body: the container is `afterInteractive`, so its
+            position here only decides where the noscript fallback lands. */}
+        <GoogleTagManager />
       </body>
     </html>
   );
