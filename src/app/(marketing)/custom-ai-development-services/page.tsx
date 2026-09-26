@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { aiPageJsonLd } from '@/lib/seo/ai-page-schema';
+import { aiPageJsonLd, softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import {
   caApproachCta,
@@ -91,7 +91,7 @@ export const metadata: Metadata = {
 const HOME_HREF = BASE_PATH || '/';
 
 /**
- * Organization + Service + WebPage + FAQPage, from the approved SEO spec
+ * Service + WebPage + FAQPage, from the approved SEO spec
  * (`lib/seo/ai-page-schema.ts`).
  *
  * This replaces the FAQPage and Service this page used to derive from its own
@@ -106,6 +106,10 @@ const structuredData = aiPageJsonLd('customAi');
 export default function CustomAiDevelopmentPage() {
   return (
     <div className={home.page}>
+      {/* This page's own Organization, the spec's block verbatim (no Facebook
+          profile, unlike the site-wide node). The layout leaves its
+          Organization off this page for it — see PAGES_WITH_OWN_ORGANIZATION. */}
+      <JsonLd data={softSuaveOrganizationLd} />
       <JsonLd data={structuredData} />
       <Nav logoHref={HOME_HREF} />
 
