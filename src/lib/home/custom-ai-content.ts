@@ -64,10 +64,10 @@ export const caHero: HeroContent = {
   // whole hero section, veiled for contrast. See `Hero`'s `image` prop in
   // components/landing/hero.tsx.
   image: {
-    src: "/images/four/work-7.png",
-    width: 1536,
-    height: 1024,
-    alt: "Holographic AI brain networked to automation, security, analytics, and cloud icons",
+    src: "/images/landing/custom-ai/custom-ai-development-hero-v5.webp",
+    width: 2400,
+    height: 1200,
+    alt: "A glowing AI processor with a neural-network brain at its core, wired into a circuit board",
   },
 };
 
@@ -92,13 +92,14 @@ export const caOverview: OverviewContent = {
     "Custom AI development services help businesses create tailored AI applications around their data, workflows, systems, and operational goals. These solutions include Generative AI tools, AI agents, RAG and Document AI systems, computer vision applications, and predictive models.",
     "Development can cover initial strategy, proof of concept, full product engineering, model integration and data pipeline development, secure deployment, and ongoing optimization. Unlike off-the-shelf tools, custom AI solutions are designed to fit specific business requirements and existing technology environments.",
   ],
-  // Hand-placed asset (not a Pexels-pipeline slot), same family as the hero's
-  // work-7 — its 3:2 crop matches `.overviewMedia`'s frame exactly.
+  // Hand-placed asset (not a Pexels-pipeline slot) from the design team's
+  // "New site image" set. 4:3, so `.overviewMedia`'s 3:2 frame trims a sliver
+  // off top and bottom.
   image: {
-    src: "/images/four/work-8.png",
-    width: 1536,
-    height: 1024,
-    alt: "Isometric AI processor networked to analytics, documents, cloud storage, and workflow icons",
+    src: "/images/landing/custom-ai/custom-ai-development-overview.webp",
+    width: 1120,
+    height: 840,
+    alt: "An isometric AI core connected to analytics, documents, cloud, database, user, settings, and workflow icons",
   },
 };
 

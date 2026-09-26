@@ -76,12 +76,12 @@ export const netHero: HeroContent = {
     subject: ".NET Application Development enquiry",
   },
   image: {
-    src: "/images/landing/dotnet/hero.webp",
-    width: 1920,
-    height: 1080,
-    alt: "A .NET application under development on a developer's screens",
+    src: "/images/landing/dotnet/dotnet-development-services-cover.webp",
+    width: 2400,
+    height: 1200,
+    alt: "The .NET logo at the centre of a network linking code, APIs, settings, database, and cloud",
     blurDataURL:
-      "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAACwAQCdASoQAAkAA4BaJZwAAl26d+/wAP71vOPu8ybHM7E14mg8K2jsKC6nhAEsIxNdDMHPveG8gDhgUo4AAA==",
+      "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAAAQAgCdASoQAAgAA4BaJZACdAEff1WAOS7AAP72yN+L9NCuRpXYP551Kejudl3GQPBhKEtPheMxGmA+4rj68NF21V+3YAAA",
   },
 };
 

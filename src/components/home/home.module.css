@@ -3453,16 +3453,17 @@ h1.h2 {
   }
 
   /* horizontal scroll-snap gallery on desktop — native overflow-x, no pin */
+  /* Spaced by its own padding, sized to its content. It used to hold a full
+     100vh and centre the intro + lane inside it, on top of a 96px margin — the
+     lane never pins, so that height was only dead canvas: a light band ending
+     above it (the AI pages' Why Us) opened onto most of a screen of black
+     before the eyebrow. */
   .workH {
-    padding: 0;
-    /* breaks the seam with the pinned Journey scene above. The section centres
-       its own content inside 100vh, so this only has to separate the two — a
-       larger gap just reads as a dead band of canvas. */
-    margin-top: clamp(56px, 6vw, 96px);
+    padding: clamp(48px, 4vw, 64px) 0;
+    margin-top: 0;
   }
 
   .hInner {
-    min-height: 100vh;
     display: flex;
     align-items: center;
   }
@@ -3503,9 +3504,9 @@ h1.h2 {
   .hLane {
     flex: 1 1 auto;
     min-width: 0;
-    /* sized by its tallest tile, not the 100vh shell: overflow-y computes to
-       `auto` next to overflow-x, so a fixed height would clip the unclamped
-       summaries instead of growing. .hInner still centres it in the viewport. */
+    /* sized by its tallest tile: overflow-y computes to `auto` next to
+       overflow-x, so a fixed height would clip the unclamped summaries instead
+       of growing. .hInner centres the intro against it. */
     height: auto;
     overflow-x: auto;
     overflow-y: hidden;

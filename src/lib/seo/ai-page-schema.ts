@@ -160,7 +160,7 @@ export const aiPageSchemas = {
         "serviceType": "Custom AI Development and AI Solution Engineering",
         "description": "Custom AI development services covering strategy, proof of concept, product engineering, model integration, data pipeline development, secure deployment, and ongoing optimization. Solutions include Generative AI, Agentic AI, RAG and Document AI, Computer Vision, and Predictive Intelligence.",
         "url": "https://www.softsuave.com/custom-ai-development-services",
-        "image": "https://www.softsuave.com/assets/images/custom-ai-development-services-og.webp",
+        "image": "https://www.softsuave.com/images/landing/custom-ai/custom-ai-development-hero-v5.webp",
         "provider": {
             "@id": "https://www.softsuave.com/#organization"
         },
@@ -240,8 +240,8 @@ export const aiPageSchemas = {
         "primaryImageOfPage": {
             "@type": "ImageObject",
             "@id": "https://www.softsuave.com/custom-ai-development-services#primaryimage",
-            "url": "https://www.softsuave.com/assets/images/custom-ai-development-services-og.webp",
-            "contentUrl": "https://www.softsuave.com/assets/images/custom-ai-development-services-og.webp",
+            "url": "https://www.softsuave.com/images/landing/custom-ai/custom-ai-development-hero-v5.webp",
+            "contentUrl": "https://www.softsuave.com/images/landing/custom-ai/custom-ai-development-hero-v5.webp",
             "caption": "Custom AI Development Services by Soft Suave"
         },
         "mainEntity": {
