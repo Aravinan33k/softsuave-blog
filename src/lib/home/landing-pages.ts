@@ -132,13 +132,49 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   // Delivery-model and engineering-service pages. Slugs match the pages these
   // replace on the live marketing site, so existing search equity and inbound
   // links resolve rather than 404.
+  //
+  // Trails read "Home › Software Development › <the service's full name>" —
+  // the shape the live IT Outsourcing page's own BreadcrumbList uses — rather
+  // than "Home › <the mega menu's short label>" (review: "Breadcrumbs are
+  // wrong"). The GCC page's review raised no breadcrumb issue, so it keeps its
+  // own.
   { path: '/global-capability-center', title: 'Global Capability Center Services' },
-  { path: '/offshore-software-development-company', title: 'Offshore Software Development Company' },
-  { path: '/it-staff-augmentation-services', title: 'IT Staff Augmentation Services' },
-  { path: '/it-outsourcing-company-india', title: 'IT Outsourcing Company in India' },
-  { path: '/legacy-modernization-services', title: 'Legacy Application Modernization Services' },
-  { path: '/product-engineering-services', title: 'Product Engineering Services' },
-  { path: '/cloud-computing', title: 'Cloud Computing Services' },
+  {
+    path: '/offshore-software-development-company',
+    title: 'Offshore Software Development Company',
+    breadcrumbLabel: 'Offshore Software Development',
+    parent: '/software-development-company',
+  },
+  {
+    path: '/it-staff-augmentation-services',
+    title: 'IT Staff Augmentation Services',
+    breadcrumbLabel: 'IT Staff Augmentation Services',
+    parent: '/software-development-company',
+  },
+  {
+    path: '/it-outsourcing-company-india',
+    title: 'IT Outsourcing Company in India',
+    breadcrumbLabel: 'IT Outsourcing Services',
+    parent: '/software-development-company',
+  },
+  {
+    path: '/legacy-modernization-services',
+    title: 'Legacy Application Modernization Services',
+    breadcrumbLabel: 'Legacy Modernization Services',
+    parent: '/software-development-company',
+  },
+  {
+    path: '/product-engineering-services',
+    title: 'Product Engineering Services',
+    breadcrumbLabel: 'Product Engineering Services',
+    parent: '/software-development-company',
+  },
+  {
+    path: '/cloud-computing',
+    title: 'Cloud Computing Services',
+    breadcrumbLabel: 'Cloud Computing Services',
+    parent: '/software-development-company',
+  },
 
   // Industry AI pages. Slugs match the live marketing site's existing URLs, so
   // search equity and inbound links resolve to our routes rather than 404 once

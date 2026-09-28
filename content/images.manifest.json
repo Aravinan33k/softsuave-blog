@@ -4145,6 +4145,171 @@
         "business people laptop meeting",
         "meeting"
       ]
+    },
+    {
+      "id": "ov-legacy-modernization-services",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "IT engineer with a laptop reviewing systems in a server room",
+      "orientation": "portrait",
+      "width": 1050,
+      "height": 1400,
+      "keywords": [
+        "woman engineer laptop server room",
+        "it professional laptop server room",
+        "engineer laptop servers",
+        "it professional"
+      ]
+    },
+    {
+      "id": "lm-svc-rehosting",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Server racks in a data center during an application migration",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "data center server racks cables",
+        "server room network cables",
+        "servers",
+        "network"
+      ]
+    },
+    {
+      "id": "lm-svc-rearchitecture",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Software architect sketching a system design on a whiteboard",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "software architect whiteboard diagram",
+        "engineer drawing diagram whiteboard",
+        "whiteboard planning",
+        "planning"
+      ]
+    },
+    {
+      "id": "lm-svc-modernization",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Developer updating application code on modern monitors",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "developer refactoring code monitors",
+        "programmer code screen office",
+        "coding",
+        "computer"
+      ]
+    },
+    {
+      "id": "lm-svc-roadmap",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Team mapping a modernization roadmap with sticky notes",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "team roadmap planning sticky notes wall",
+        "agile planning board sticky notes",
+        "team planning meeting",
+        "strategy"
+      ]
+    },
+    {
+      "id": "pe-svc-consulting",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Product consultants discussing requirements with a client",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "product consultant client meeting laptop",
+        "business consultation meeting office",
+        "meeting discussion",
+        "business"
+      ]
+    },
+    {
+      "id": "pe-svc-architecture",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineer designing a product architecture on a large screen",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "team planning software architecture whiteboard office",
+        "engineers sketching flowchart whiteboard",
+        "colleagues whiteboard brainstorming",
+        "brainstorming"
+      ]
+    },
+    {
+      "id": "pe-svc-uiux",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Designer working on app interface wireframes",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "ux designer wireframes sketches desk",
+        "ui designer app screens",
+        "designer laptop sketch",
+        "design"
+      ]
+    },
+    {
+      "id": "pe-svc-development",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Developers writing product code together",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "software developers pair programming",
+        "programmers coding together office",
+        "developers team",
+        "software"
+      ]
+    },
+    {
+      "id": "pe-svc-testing",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "QA engineer testing a product on several devices",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "qa tester multiple devices testing",
+        "software testing phone tablet laptop",
+        "testing devices",
+        "quality"
+      ]
+    },
+    {
+      "id": "pe-svc-deployment",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineer monitoring a live deployment on dashboards",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": [
+        "it engineer server room tablet",
+        "technician checking servers data center tablet",
+        "engineer data center",
+        "infrastructure"
+      ]
     }
   ]
 }

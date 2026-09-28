@@ -2,51 +2,61 @@
  * Copy for the "IT Staff Augmentation Services" landing page
  * (`/it-staff-augmentation-services`).
  *
- * Follows the live page's structure — why us, augmentation models, a five-step
- * process, hireable roles, technologies, industries, the "better than
- * traditional hiring" comparison, testimonials and FAQs. The live page's
- * ten-item industry list is trimmed to the six the rest of the site also
- * claims, and the comparison moves from five loose benefit cards into the
- * shared `Comparison` section, which states the alternative rather than
- * implying it.
+ * Everything — the hero's text, the page's title, description and schema, and
+ * the section set below the hero — follows the live softsuave.com page (review:
+ * "Need to update the page - lot of sections have changed including the title,
+ * description, canonicals, and schemas"). The hero keeps its own image, badges
+ * and form fields. The mapping, in live page order:
+ *
+ *   client logo strip                                        → homepage `Clients`
+ *   "Why Choose Us for IT Staff Augmentation?"               → `staffWhyUs` (4)
+ *   "IT Staff Augmentation Models We Offer"                  → `staffModels` (4)
+ *   "Our IT Staff Augmentation Process"                      → `staffProcess` (5)
+ *   "Roles You Can Hire Through IT Staff Augmentation"       → `staffRoles` (7)
+ *   "Choose Offshore Experts in Various Technologies"        → `staffTechnologies` (4)
+ *   "Industries We Support"                                  → `staffIndustries` (10)
+ *   "Why Staff Augmentation Is Better Than Traditional Hiring" → `staffBenefits` (5)
+ *   "What Our Clients Say About Us"                          → homepage `Testimonials`
+ *   "FAQs About IT Staff Augmentation Services"              → `staffFaqs` (6)
+ *
+ * The copy is the live page's own, verbatim. The live "better than traditional
+ * hiring" section is five benefit cards, not a table, so it renders as cards:
+ * a two-column table would need a "traditional hiring" column the live page
+ * never writes.
  */
 
 import type { HeroContent } from "@/components/landing/hero";
-import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { ProcessContent } from "@/components/landing/process";
-import type { CtaBandContent } from "@/components/landing/cta-band";
-import type { ComparisonContent } from "@/components/landing/comparison";
 import type { FaqContent } from "@/components/landing/faq";
-import { sharedHeroBadges } from "./delivery-shared";
-import { overviewImage } from "./overview-images";
+import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 
 export const staffMeta = {
   slug: "it-staff-augmentation-services",
   path: "/it-staff-augmentation-services",
-  title: "IT Staff Augmentation Services",
+  // The live page's <title> and meta description, verbatim.
+  title: "IT Staff Augmentation Services for Faster Project Delivery",
   description:
-    "Scale your team with vetted developers, QA engineers and cloud specialists. Onboarding in as little as 48 hours, with 40–60% savings against full-time hiring.",
+    "Accelerate delivery with our top-notch IT staff augmentation services. Access top remote talent, scale teams on demand, and strengthen your projects.",
 } as const;
 
 export const staffHero: HeroContent = {
   titleLines: ["IT Staff Augmentation", "Services"],
   body: [
-    "Add proven engineers to your team without running a hiring cycle for each one. Soft Suave gives you access to a vetted global talent pool so you can scale capacity up or down as your roadmap moves, while your managers keep full day-to-day control.",
-    "Augmented engineers report to you, work in your tools, and follow your process. You are adding people, not handing over a project.",
+    "Scale your team swiftly with cost-effective, top-tier talent. Gain access to a global pool of skilled professionals, empowering your business to adapt, grow, and excel, while maintaining high-quality performance at an efficient pace.",
   ],
   points: [
-    "Onboarding in as little as 48 hours",
-    "Save 40–60% against full-time hiring",
-    "Vetted engineering talent across every major stack",
-    "You retain full control of day-to-day work",
-    "No long-term commitment — scale up or down",
+    "Rapid Team Scaling",
+    "Flexible Engagement Models",
+    "Maximized Cost Savings",
+    "Vetted Engineering Talent",
   ],
   badges: sharedHeroBadges,
   form: {
-    eyebrow: "Business Enquiry",
-    title: "Tell us which roles you need",
+    // The live form's own heading and sub-line.
+    title: "Let's Discuss Your Project",
+    body: "Get free rough quote in 24 hrs",
     note: "Share the roles, skills, and timeline and we come back with matched profiles and rates. Everything stays under NDA.",
     submit: "Send requirements",
     sending: "Opening your mail…",
@@ -54,6 +64,7 @@ export const staffHero: HeroContent = {
     requirementPlaceholder:
       "Roles and seniority, the tech stack, how many engineers, expected duration, and the time zone you need overlap with.",
     subject: "IT staff augmentation enquiry",
+    alert: sharedHeroAlert,
   },
   image: {
     src: "/images/four/svc-web.webp",
@@ -63,50 +74,58 @@ export const staffHero: HeroContent = {
   },
 };
 
-export const staffOverview: OverviewContent = {
-  image: overviewImage("it-staff-augmentation-services"),
-  eyebrow: "The Short Answer",
-  title: "What Is IT Staff Augmentation?",
-  paragraphs: [
-    "IT staff augmentation is a model for adding skilled engineers to your existing team on a flexible basis. Rather than hiring full-time employees or handing a project to a vendor, you bring in specific people, for a specific period, to work inside your team under your management.",
-    "In practice that means the engineers join your stand-ups, use your repositories and tracking tools, follow your review process, and report to your leads. Responsibility for priorities, architecture decisions, and delivery stays with you. What changes is capacity and the range of skills available to you.",
-    "It suits teams that have a clear roadmap but not enough engineers to execute it, teams that need a specialism for one phase of work, and teams that need to move before a permanent hiring cycle could realistically deliver someone.",
-  ],
-  pullQuote:
-    "Augmentation adds people to your team. Outsourcing hands work to someone else's. Choosing wrongly is the most common reason either one disappoints.",
-};
-export const staffModels: CardGridContent = {
-  eyebrow: "Engagement Models",
-  title: "IT Staff Augmentation Models We Offer",
-  body: "The right model depends on how much real-time overlap the work needs, how long you need the capacity, and what you are optimising for — speed, cost, or proximity.",
+export const staffWhyUs: CardGridContent = {
+  eyebrow: "Why Choose Us",
+  title: "Why Choose Us for IT Staff Augmentation?",
+  body: "With proven expertise, rapid hiring, flexible models, and cost-effective solutions, we provide top-tier talent that seamlessly integrates, driving growth, innovation, and success for your business.",
   items: [
     {
+      name: "Experienced Developers",
+      body: "Access top-tier developers with proven expertise, extensive experience, and a wide range of successful projects across industries.",
+    },
+    {
+      name: "Faster Hiring Process",
+      body: "Our rapid shortlist-to-hire process ensures quick access to qualified developers, minimizing delays and accelerating project timelines.",
+    },
+    {
+      name: "Flexible Engagement Models",
+      body: "Choose from different models (fixed price, time & material, or dedicated team) customized to effectively address your unique requirements.",
+    },
+    {
+      name: "Cost-Effective Engagement",
+      body: "Save 40–60% compared to full-time hiring, with affordable, high-quality talent delivering exceptional value for your business.",
+    },
+  ],
+};
+
+export const staffModels: CardGridContent = {
+  eyebrow: "Models",
+  title: "IT Staff Augmentation Models We Offer",
+  body: "We provide flexible augmentation solutions tailored to your business needs, ensuring seamless integration of skilled talent that drives efficiency, innovation, and success across various industries and project requirements.",
+  items: [
+    {
+      name: "Onshore Augmentation",
+      body: "Achieve seamless communication and time-zone alignment with onshore experts provided only for select scenarios, ensuring delivery.",
+    },
+    {
       name: "Offshore Augmentation",
-      icon: "globe",
-      body: "Scale your team from our India delivery centres with a 4–6 hour working-hour overlap. The most cost-effective model, and the one with the deepest available talent pool.",
+      body: "Scale your team with continuous productivity, leveraging top talent for ongoing project progress and innovation.",
     },
     {
       name: "Dedicated Remote Engineers",
-      icon: "users",
-      body: "Named engineers embedded in your team full time and working only on your product, so context accumulates with the same people rather than resetting each engagement.",
-    },
-    {
-      name: "Onshore Augmentation",
-      icon: "book",
-      body: "Engineers aligned to your own time zone for work that genuinely needs same-hours collaboration. Available for select scenarios where overlap cannot be scheduled around.",
+      body: "Integrate dedicated developers into your team, boosting productivity and efficiency with full alignment to your business goals.",
     },
     {
       name: "Hybrid Team Models",
-      icon: "gauge",
-      body: "Combine onshore coordination with offshore delivery capacity, balancing real-time availability against cost where neither alone is the right answer.",
+      body: "Combine onshore and offshore strengths, maximizing flexibility, cost savings, and operational efficiency for optimal project outcomes.",
     },
   ],
 };
 
 export const staffProcess: ProcessContent = {
-  eyebrow: "How It Works",
+  eyebrow: "Process",
   title: "Our IT Staff Augmentation Process",
-  body: "From requirement to a contributing engineer, each stage has a defined output — so you know what happens next and what is expected of you at each point.",
+  body: "From seamless recruitment to smooth onboarding, our step-by-step process ensures the right talent is quickly integrated, empowering your team to achieve success with minimal disruption and maximum efficiency.",
   steps: [
     {
       n: "01",
@@ -117,7 +136,7 @@ export const staffProcess: ProcessContent = {
         alt: "Requirement Analysis in a staff augmentation engagement",
       },
       name: "Requirement Analysis",
-      body: "We review your tech stack, the experience level required, team structure, and project specifics to define what a genuine fit looks like before any sourcing starts.",
+      body: "We analyze your tech stack, required experience, and project specifics to identify the perfect fit for your team’s needs.",
     },
     {
       n: "02",
@@ -128,7 +147,7 @@ export const staffProcess: ProcessContent = {
         alt: "Candidate Shortlisting in a staff augmentation engagement",
       },
       name: "Candidate Shortlisting",
-      body: "Our vetting and matching process filters for technical depth and project relevance, so you review a short list of qualified candidates rather than a long list of available ones.",
+      body: "Our rigorous vetting and matching process ensures only the most qualified candidates align with your project requirements.",
     },
     {
       n: "03",
@@ -139,7 +158,7 @@ export const staffProcess: ProcessContent = {
         alt: "Interviews and Skill Assessment in a staff augmentation engagement",
       },
       name: "Interviews & Skill Assessment",
-      body: "You run the interviews. We coordinate scheduling, coding assessments, and culture-fit evaluation, and you make the selection decision on every engineer who joins.",
+      body: "From client interviews to coding tests and culture fit evaluations, we ensure the best candidates for your team.",
     },
     {
       n: "04",
@@ -150,7 +169,7 @@ export const staffProcess: ProcessContent = {
         alt: "Rapid Onboarding in a staff augmentation engagement",
       },
       name: "Rapid Onboarding",
-      body: "Access provisioning, tool integration, environment setup, and team introductions are handled together — typically within 48 hours of selection — so ramp-up starts immediately.",
+      body: "Quick and efficient onboarding with seamless access setup, tool integration, and smooth team alignment to kickstart projects faster.",
     },
     {
       n: "05",
@@ -161,170 +180,181 @@ export const staffProcess: ProcessContent = {
         alt: "Continuous Support and Monitoring in a staff augmentation engagement",
       },
       name: "Continuous Support & Monitoring",
-      body: "Ongoing account support, sprint reviews, and feedback loops keep performance visible, with replacement or rebalancing handled if the fit turns out to be wrong.",
+      body: "Ongoing project management, sprint reviews, and feedback loops ensure optimal performance and consistent progress throughout the engagement.",
     },
   ],
 };
 
 export const staffRoles: ServicesContent = {
-  eyebrow: "Roles",
-  title: "Roles You Can Hire Through Staff Augmentation",
-  body: "From individual specialists to a full cross-functional pod, these are the roles we staff most often — each vetted against the stack and seniority your team actually needs.",
+  eyebrow: "Roles We Have",
+  title: "Roles You Can Hire Through IT Staff Augmentation",
+  body: "Access a wide range of skilled professionals, from developers to project managers, ensuring the right expertise for every role to accelerate your projects and drive success.",
   items: [
     {
+      name: "Mobile App Developers",
+      body: "Specializing in Flutter, React Native, iOS, and Android to build seamless, high-performance mobile applications that elevate user experience.",
+    },
+    {
       name: "Frontend Developers",
-      tag: "Frontend",
-      body: "React, Angular, Vue, and Next.js engineers for single-page applications, design-system work, and UI development, delivering fast and accessible interfaces against your component standards.",
+      body: "Proficient in React, Angular, and Vue for SPA and UI development, delivering fast, responsive, and compelling digital experiences.",
     },
     {
       name: "Backend Developers",
-      tag: "Backend",
-      body: "API development, system architecture, and server-side logic in Node.js, Python, Java, .NET, PHP, and Go, built for the scale and integration surface your platform actually carries.",
+      body: "Experts in API development, system architecture, and backend logic using Node, Python, Java, and PHP to deliver scalable, efficient server-side solutions.",
     },
     {
       name: "Full-Stack Developers",
-      tag: "Full-Stack",
-      body: "Engineers covering both frontend and backend with practical DevOps ability, useful where a feature needs owning end to end rather than passing across a team boundary.",
-    },
-    {
-      name: "Mobile App Developers",
-      tag: "Mobile",
-      body: "Flutter, React Native, iOS, and Android specialists building native and cross-platform applications, including release management and store submission where you need it.",
+      body: "Bringing expertise in both frontend and backend development, combined with DevOps capabilities to streamline processes, improve collaboration, and accelerate delivery.",
     },
     {
       name: "DevOps & Cloud Engineers",
-      tag: "DevOps & Cloud",
-      body: "AWS, Azure, GCP, CI/CD, Docker, and Kubernetes engineers to optimise infrastructure, deployment pipelines, observability, and the cost profile of what you already run.",
+      body: "Proficient in AWS, Azure, GCP, CI/CD, and Docker, optimizing infrastructure, deployment, scalability, and ensuring efficient, reliable cloud operations across projects.",
     },
     {
       name: "QA Engineers",
-      tag: "Quality",
-      body: "Manual and automation testers working in Selenium, Cypress, Appium, and Jira, building regression coverage and release confidence rather than only reporting defects.",
+      body: "Experts in Selenium, Cypress, and Jira, delivering comprehensive manual and automation testing to ensure strong quality control and flawless product performance.",
     },
     {
       name: "UI/UX Designers",
-      tag: "Design",
-      body: "From wireframes and prototypes to maintained design systems, improving interface clarity and usability in step with the engineers building against the designs.",
-    },
-    {
-      name: "AI & Data Engineers",
-      tag: "AI & Data",
-      body: "Specialists in machine learning, generative AI, data pipelines, and analytics, for teams adding AI capability without hiring a permanent data function first.",
+      body: "From wireframes to prototypes, crafting intuitive design systems that elevate user experience, strengthen interface clarity, and enhance overall product usability.",
     },
   ],
 };
 
-export const staffComparison: ComparisonContent = {
-  eyebrow: "Decide With Clarity",
-  title: "Staff Augmentation vs. Traditional Hiring",
-  body: "Permanent hiring is the right answer for roles at the centre of your business. For capacity, specialisms, and anything time-boxed, the trade-offs look like this.",
-  columns: ["Staff Augmentation", "Traditional Hiring"],
-  /* The section argues for augmentation on these dimensions, so the table
-     leads with it — but the closing note keeps the concession the standfirst
-     already makes, that permanent hiring wins for roles at the centre of the
-     business. */
-  verdict: true,
-  verdictNote:
-    "Augmentation wins on speed, cost exposure, and access to specialists. Permanent hiring still wins for the roles that sit at the centre of your business and need to stay there.",
-  rows: [
+export const staffTechnologies: CardGridContent = {
+  eyebrow: "Tech Expert",
+  title: "Choose Offshore Experts in Various Technologies",
+  body: "Our offshore software developers excel in various technologies and frameworks and are known to blend with the project and technology easily to get great outcomes.",
+  items: [
     {
-      area: "Time to productive",
-      values: [
-        "Days to shortlist, onboarding in as little as 48 hours",
-        "Weeks to months of sourcing, notice periods, and ramp-up",
-      ],
+      name: "Web Technologies",
+      body: "Utilizing React, Angular, Laravel, and Django to create dynamic, scalable, and modern web applications tailored to evolving business requirements.",
     },
     {
-      area: "Cost structure",
-      values: [
-        "A single rate, no recruitment fees, benefits load, or severance exposure",
-        "Salary plus benefits, recruitment fees, equipment, and overhead",
-      ],
+      name: "Mobile Technologies",
+      body: "Expertise in Kotlin, Swift, Flutter, and React Native, delivering high-performance, cross-platform mobile apps that engage users everywhere.",
     },
     {
-      area: "Access to specialists",
-      values: [
-        "Hard-to-find skills available immediately from an existing bench",
-        "Limited to who is available and willing to move in your local market",
-      ],
+      name: "Cloud & DevOps Tools",
+      body: "Optimizing with Docker, Kubernetes, Jenkins, AWS, and Azure, ensuring scalable, secure, and efficient cloud and DevOps solutions.",
     },
     {
-      area: "Flexibility",
-      values: [
-        "Scale up or down as the roadmap changes, contract by contract",
-        "Headcount changes are slow and costly in both directions",
-      ],
-    },
-    {
-      area: "Day-to-day control",
-      values: [
-        "You manage tasks, priorities, and standards directly",
-        "You manage tasks, priorities, and standards directly",
-      ],
-    },
-    {
-      area: "Best suited for",
-      values: [
-        "Capacity gaps, specialist phases, and time-boxed initiatives",
-        "Core long-term roles where institutional knowledge must stay in-house",
-      ],
+      name: "Testing Tools",
+      body: "Utilizing Selenium, Appium, JMeter, and Cypress for robust, automated testing that guarantees seamless, bug-free user experiences.",
     },
   ],
 };
 
-export const staffMidCta: CtaBandContent = {
-  eyebrow: "Move Faster",
-  title: "Need Engineers on Your Team This Month?",
-  body: "Tell us the roles, the stack, and the timeline. We come back with matched profiles and rates, and eligible engagements can start with a 40-hour risk-free trial.",
-  cta: { label: "Request matched profiles", href: "#enquiry" },
+/** Ten sectors, so the grid runs five across and fills two rows exactly. */
+export const staffIndustries: CardGridContent = {
+  eyebrow: "Industries",
+  title: "Industries We Support",
+  body: "We tackle the unique challenges of each vertical, offering tailored solutions that drive innovation, efficiency, and growth across diverse industries, ensuring your business stays ahead of the competition.",
+  items: [
+    {
+      name: "SaaS",
+      body: "Accelerating feature velocity and enhancing product roadmaps to drive growth and deliver scalable, high-performance software solutions.",
+    },
+    {
+      name: "FinTech",
+      body: "Prioritizing data security and regulatory compliance, delivering secure, innovative financial solutions that meet industry standards.",
+    },
+    {
+      name: "Healthcare",
+      body: "Ensuring compliance, robust security, and seamless EMR integrations to improve patient care and operational efficiency.",
+    },
+    {
+      name: "Construction",
+      body: "Enhancing project management through workflow automation and system integration to boost efficiency and reduce costs.",
+    },
+    {
+      name: "Retail & E-Commerce",
+      body: "Streamlining automation and system integrations to enhance customer experience, boost sales, and optimize operations for growth.",
+    },
+    {
+      name: "Telecom",
+      body: "Optimizing network infrastructure and reliability while delivering innovative solutions that enhance communication services and customer satisfaction.",
+    },
+    {
+      name: "Logistics",
+      body: "Developing real-time tracking systems that improve efficiency, transparency, and accuracy in logistics and supply chain management.",
+    },
+    {
+      name: "Aviation",
+      body: "Improving aviation efficiency, safety, and real-time tracking to drive innovation, seamless travel, and improve performance.",
+    },
+    {
+      name: "EdTech",
+      body: "Creating scalable learning platforms, improving engagement, and enabling integrations that drive innovation and personalized education.",
+    },
+    {
+      name: "Manufacturing",
+      body: "Providing enterprise system support to enhance operational efficiency, production accuracy, and scalability for manufacturing businesses.",
+    },
+  ],
 };
+
+export const staffBenefits: CardGridContent = {
+  eyebrow: "Comparison",
+  title: "Why Staff Augmentation Is Better Than Traditional Hiring",
+  body: "Staff augmentation surpasses traditional hiring by enabling rapid scaling, flexible talent access, and smoother operations, helping businesses stay focused on core goals. Here are some notable advantages it offers.",
+  items: [
+    {
+      name: "Faster Onboarding",
+      body: "Accelerate hiring with a streamlined process, reducing onboarding time compared to traditional recruitment for quicker project starts.",
+    },
+    {
+      name: "Reduced Cost",
+      body: "Save significantly on hiring expenses with staff augmentation, avoiding recruitment fees, benefits, and long-term commitments.",
+    },
+    {
+      name: "Access to Global Talent",
+      body: "Gain access to hard-to-find specialists from around the world, ensuring top-tier skills for any project need.",
+    },
+    {
+      name: "Higher Productivity",
+      body: "Boost team efficiency with dedicated experts seamlessly integrating into your workflow, driving faster, high-quality results.",
+    },
+    {
+      name: "No Long-Term Commitment",
+      body: "Enjoy flexibility with contract-based engagements, allowing you to scale up or down as your project evolves.",
+    },
+  ],
+};
+
+/**
+ * The live accordion lists these six questions and then repeats the last five
+ * verbatim (eleven entries in all) — a duplicated block, not further content.
+ * Each question appears here once.
+ */
 export const staffFaqs: FaqContent = {
-  eyebrow: "FAQs",
+  eyebrow: "Ask Us",
   title: "FAQs About IT Staff Augmentation Services",
-  body: "A quick guide for CTOs and founders weighing up augmentation against hiring or outsourcing.",
+  body: "A quick guide for CTOs and founders seeking clear answers to the most common IT staff augmentation questions.",
   items: [
     {
       q: "What are IT staff augmentation services, and how do they work in practice?",
-      a: "Staff augmentation lets you add skilled engineers to your existing team for a defined period. In practice: you describe the roles and stack, we shortlist matched candidates, you interview and select, and the engineers onboard into your tools and process. From that point they work in your sprints and report to your leads — the day-to-day looks like your own team, because operationally it is.",
-    },
-    {
-      q: "How fast can I onboard developers through your staff augmentation model?",
-      a: "Onboarding typically completes within 48 hours of selection, covering access provisioning, tool integration, and environment setup. Getting to selection depends on how specialised the role is — a common stack shortlists in days, a scarce specialism takes longer. We tell you which situation you are in at the first conversation rather than after you have committed.",
+      a: "IT staff augmentation allows businesses to quickly scale their teams by integrating skilled developers on a temporary basis. The process includes recruitment, onboarding, and seamless team integration to drive project success.",
     },
     {
       q: "How much does IT staff augmentation cost per developer per month?",
-      a: "Rates vary with seniority, specialism, and engagement model, so a single figure would be misleading. What is consistent is the comparison: augmentation typically saves 40–60% against full-time hiring in US and Western European markets, once recruitment fees, benefits, equipment, and overhead are counted rather than just salary. We quote per role against your actual requirement.",
-      link: {
-        label: "Get a rough quote in 24 hours",
-        href: "https://www.softsuave.com/free-quote",
-      },
+      a: "Costs vary based on developer expertise, location, and engagement model, with factors like experience level and project complexity influencing the final rate.",
     },
     {
-      q: "What is the difference between staff augmentation, IT outsourcing, and a dedicated team?",
-      a: [
-        "Staff augmentation adds individual specialists to your team; you keep responsibility for priorities, architecture, and delivery. IT outsourcing assigns a defined scope to an external partner who takes responsibility for delivering it. A dedicated team sits between the two — a standing team working only on your roadmap, with more autonomy than augmented individuals but still directed by you.",
-        "The practical test is who you want making day-to-day delivery decisions. If the answer is your own leads, you want augmentation. If you would rather hand over an outcome and review it, you want outsourcing.",
-      ],
+      q: "How fast can I onboard developers through your IT staff augmentation model?",
+      a: "Our streamlined process enables fast onboarding, typically within 48 hours. From recruitment to full integration, we ensure minimal delays, allowing developers to start contributing to your project quickly.",
+    },
+    {
+      q: "What is the difference between IT staff augmentation and IT outsourcing or dedicated teams?",
+      a: "Staff augmentation provides flexible, short-term access to specific skill sets, while outsourcing involves a third-party managing entire projects. Dedicated teams offer long-term collaboration but with a focus on a single client.",
+    },
+    {
+      q: "What types of roles and tech stacks can I hire through IT staff augmentation?",
+      a: "You can hire developers, QA engineers, project managers, and more, across various tech stacks like Java, Python, React, AWS, and Azure.",
     },
     {
       q: "Do I retain full control over augmented developers and their day-to-day work?",
-      a: "Yes. Augmented engineers take direction from your managers, work to your priorities and deadlines, and follow your development standards and review process. They integrate into your existing workflows rather than running a parallel one. Our account team handles the employment relationship, performance escalation, and replacement if needed — not your technical direction.",
-    },
-    {
-      q: "What types of roles and tech stacks can I hire?",
-      a: "Frontend, backend, full-stack, mobile, DevOps and cloud, QA, UI/UX, and AI and data engineers, across React, Angular, Vue, Node.js, Python, Java, .NET, PHP, Go, Swift, Kotlin, Flutter, React Native, AWS, Azure, GCP, and the common testing toolchains. If a requirement falls outside what our bench covers, we say so rather than stretching a near-match into a fit.",
-    },
-    {
-      q: "What happens if an engineer is not the right fit?",
-      a: "You raise it with your account contact and we replace them. Because you run the interviews and make the selection, mismatches are uncommon, but they do happen — usually on team fit rather than technical ability. The replacement process and any notice terms are set out in the engagement agreement before anyone starts, so it is a defined path rather than a negotiation.",
-    },
-    {
-      q: "Can we try before committing to a longer engagement?",
-      a: "Eligible engagements can start with a 40-hour risk-free trial, which is enough to see real code, real communication, and how the engineer works inside your process. Suitability for the trial is confirmed during the initial discussion, since it makes sense for some role types and scopes more than others.",
-    },
-    {
-      q: "How do you handle security, NDAs, and access to our systems?",
-      a: "NDAs are signed before any information is shared. Access to your repositories and environments is provisioned under your own policies — we do not require blanket access — and revoked on a defined offboarding process when an engagement ends. Soft Suave operates an ISO/IEC 27001:2022-certified information security management system covering device management, data handling, and access control.",
+      a: "Yes, you maintain complete control over your augmented developers’ tasks, deadlines, and work priorities. They seamlessly integrate into your existing workflows and report directly to your management team.",
     },
   ],
 };

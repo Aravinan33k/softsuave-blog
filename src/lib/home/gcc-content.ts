@@ -1,31 +1,36 @@
 /**
  * Copy for the "Global Capability Center" landing page (`/global-capability-center`).
  *
- * Shapes match the prop types exported by `components/landing/*`, so each
- * section is `<Component content={…} />` with no adapter. Content is the live
- * page's, reorganised and expanded: the live page ships a hero, a three-card
- * "why us", a five-step setup sequence, three benefits, and a six-segment "who
- * should consider this" block, but no engagement models, technologies or FAQs.
- * Those are added here from company-level facts published elsewhere on the
- * site (team size, certification, delivery locations, engagement structures)
- * rather than invented.
+ * The hero is this page's own and is kept as it was. Everything below it — and
+ * the page's title, description and schema — follows the live softsuave.com
+ * page (review: "lot of sections have changed including the title,
+ * description, canonicals, and schemas"). The mapping, in live page order:
+ *
+ *   "Unlock Global Talent & Scale Your Business"      → `gccIntro`
+ *   "Why Choose Soft Suave for GCC?"                  → `gccWhyUs` (3)
+ *   "Simplify Your Development with Our Expertise"    → `gccServices` (5)
+ *   "Benefits of GCC"                                 → `gccBenefits` (3)
+ *   "Who Should Consider GCC-as-a-Service?"           → `gccAudience` (6)
+ *   "Transform Your Business with our GCC-as-a-Service" → `gccClosingCta`
+ *
+ * The copy is the live page's own, verbatim. The live page runs no client
+ * strip, testimonials, process or FAQs, so this page has none.
  */
 
 import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
-import type { ProcessContent } from "@/components/landing/process";
-import type { CtaBandContent } from "@/components/landing/cta-band";
-import { sharedHeroBadges } from "./delivery-shared";
+import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { overviewImage } from "./overview-images";
 
 export const gccMeta = {
   slug: "global-capability-center",
   path: "/global-capability-center",
-  title: "Global Capability Center (GCC) Services",
+  // The live page's <title> and meta description, verbatim.
+  title: "Global Capability Centre : Excellence in Action",
   description:
-    "Set up and run your own Global Capability Center in India — entity setup, infrastructure, hiring and daily operations, with your team under your control.",
+    "Leverage our Global Capability Centre in India with 40 hours of free trial. Access top talent and innovative solutions tailored to your business needs.",
 } as const;
 
 export const gccHero: HeroContent = {
@@ -46,6 +51,8 @@ export const gccHero: HeroContent = {
     eyebrow: "Business Enquiry",
     title: "Plan your Global Capability Center",
     note: "Tell us the roles, scale, and timeline you have in mind and we come back with a setup plan, an operating model, and an indicative cost structure. Everything stays under NDA.",
+    // The live form's business-only notice (review: "Form needs to be updated").
+    alert: sharedHeroAlert,
     submit: "Send requirements",
     sending: "Opening your mail…",
     requirementLabel: "What do you want your GCC to do?",
@@ -61,193 +68,153 @@ export const gccHero: HeroContent = {
   },
 };
 
-export const gccOverview: OverviewContent = {
-  image: overviewImage("global-capability-center"),
-  eyebrow: "The Short Answer",
-  title: "What Is a Global Capability Center?",
+/**
+ * The live page's opening block under the banner: a gradient strip (its label
+ * and one-line claim, with a "Contact with us" button) over three paragraphs.
+ * The strip's label is the eyebrow and its claim the title — the live block has
+ * no heading of its own.
+ */
+export const gccIntro: OverviewContent = {
+  eyebrow: "Unlock Global Talent & Scale Your Business",
+  title: "Our GCC Services provide businesses with the expertise and scalability to stay competitive.",
   paragraphs: [
-    "A Global Capability Center (GCC) is an offshore entity a company owns and operates itself, staffed with full-time employees who work only on that company's products and processes. It is the alternative to outsourcing: instead of buying delivery from a vendor, you build the delivery capability, and it stays yours.",
-    "GCC-as-a-Service removes the hard part of doing that. Soft Suave sets up the legal entity, the office and IT infrastructure, and the recruitment pipeline, then runs the payroll, facilities, and employee-experience functions day to day. Your engineering leadership sets priorities, owns the roadmap, and manages the team directly.",
-    "Because the centre is designed around your workflows rather than a generic service catalogue, it integrates with the systems, tooling, and release processes you already run. When the centre is mature, the entity and the team can transfer to you outright.",
+    "At Soft Suave, our Global Capability Center (GCC) Services offer businesses a flexible and cost-effective solution to scale their software development operations globally. We provide access to global talent pools and cutting-edge technologies, enabling your teams to innovate and drive operational efficiency.",
+    "Our GCC solutions are specifically designed to align with your software development goals, ensuring seamless integration with your existing systems. We help businesses optimize workflows, enhance development teams, and reduce operational costs while maintaining high quality.",
+    "By leveraging AI technologies, we empower businesses to automate development processes, improve decision-making, and foster continuous growth. With Soft Suave, your company gains the strategic edge needed to succeed in the competitive software development landscape.",
   ],
-  pullQuote:
-    "The point of a GCC is not cheaper delivery. It is delivery capability you own, at a cost base you could not build at home.",
+  // The live strip's "Contact with us" button; /contact, as the reviews ask of
+  // every consultation CTA.
+  cta: { label: "Contact with us", href: "/contact" },
+  // Stands in for the live page's team illustration (gcc-second-section.webp),
+  // which sits beside the "Why Choose" copy there; the card grid that section
+  // renders as here carries no image.
+  image: overviewImage("global-capability-center"),
+};
+
+/**
+ * "Why Choose Soft Suave for GCC?" — two paragraphs over three cards. The card
+ * grid's intro is a single string, so the two live paragraphs run as one here,
+ * word for word.
+ */
+export const gccWhyUs: CardGridContent = {
+  eyebrow: "Why Soft Suave",
+  title: "Why Choose Soft Suave for GCC?",
+  body: "Soft Suave distinguishes itself through an agile approach to software development, enabling rapid delivery and adaptability to evolving business needs. We provide highly skilled AI and software developers with expertise in Web, Mobile, Software, and AI solutions. Our dedicated teams are meticulously aligned with your business requirements, ensuring seamless integration and driving productivity and operational efficiency.",
+  items: [
+    {
+      name: "Process Re-engineering (For Local Integration)",
+      body: "Implement technologies that streamline processes to comply with local legal and statutory requirements efficiently.",
+    },
+    {
+      name: "End-to-End GCC (Comprehensive Services)",
+      body: "From talent acquisition and training to infrastructure setup and ongoing operations, we ensure seamless delivery at every stage.",
+    },
+    {
+      name: "Agility (Recognized for faster turnaround)",
+      body: "Our experienced team understands the market, collaborates flexibly with clients, and adapts plans in real-time as needed.",
+    },
+  ],
 };
 
 export const gccServices: ServicesContent = {
   eyebrow: "What We Handle",
-  title: "Simplify Your GCC Setup with Our Expertise",
-  body: "Standing up an offshore capability centre touches company law, tax, real estate, IT, recruitment, and HR before a single line of code is written. Soft Suave runs all five workstreams so your leadership team can concentrate on what the centre is being built to deliver.",
+  title: "Simplify Your Development with Our Expertise",
+  body: "We streamline the establishment and management of your GCC in India, offering a complete suite of services tailored to promote your business.",
   items: [
     {
       name: "Legal Establishment & Regulatory Compliance",
-      tag: "Legal & Compliance",
-      body: "From company registration through to financial, tax, and statutory filings, we manage the legal formation of your entity in India and keep it compliant as it operates — so the setup is clean from day one rather than remediated later.",
+      body: "From company registration to ensuring compliance with financial, tax, and statutory regulations, we manage all legal aspects to guarantee a smooth and efficient setup process.",
     },
     {
-      name: "Infrastructure Setup & Management",
-      tag: "Infrastructure",
-      body: "Office space, network, hardware, security controls, and the development tooling your teams need, specified and commissioned to your standards so the centre is operational rather than merely incorporated.",
+      name: "Setup and Management of Infrastructure",
+      body: "With cutting-edge technology and tools, we ensure your GCC is equipped for seamless operations by assisting in the setup of advanced IT infrastructure.",
     },
     {
-      name: "Staffing & Talent Strategy",
-      tag: "Talent",
-      body: "Our recruitment function sources leadership and engineering talent matched to your technology stack and your culture, drawing on the same pipeline behind our 400+ specialist bench rather than starting a search from zero.",
+      name: "Staffing and Talent Strategy",
+      body: "Tap into our recruitment expertise to secure top-tier leadership and skilled professionals who perfectly align with your organization’s culture and goals.",
     },
     {
       name: "Operations Excellence",
-      tag: "Operations",
-      body: "Payroll, employee value proposition, employer branding, onsite support, and workspace management run continuously, so retention and day-to-day employee experience are managed functions rather than an afterthought.",
+      body: "To ensure the smooth operation of your GCC, we handle ongoing activities such as employee value propositions (EVP), employer branding, onsite support, and workspace management.",
     },
     {
       name: "Process Automation & Optimization",
-      tag: "Automation",
-      body: "We automate the repeatable parts of running the centre and give you real-time visibility into headcount, delivery, and cost, alongside a documented knowledge base that survives individual departures.",
-    },
-  ],
-};
-export const gccProcess: ProcessContent = {
-  eyebrow: "How We Deliver",
-  title: "How We Set Up Your Capability Center",
-  body: "Each stage has a defined output and a decision point, so you are approving a centre as it takes shape rather than waiting for a handover at the end.",
-  steps: [
-    {
-      n: "01",
-      image: {
-        src: "/images/four/gcc-step-1.webp",
-        width: 1200,
-        height: 900,
-        alt: "Mapping which functions move offshore",
-      },
-      name: "Discovery & Operating Model",
-      body: "We map which functions move offshore, the roles and headcount they need, reporting lines, and the governance model — then agree what your leadership retains and what we operate.",
-    },
-    {
-      n: "02",
-      image: {
-        src: "/images/four/gcc-step-2.webp",
-        width: 1200,
-        height: 900,
-        alt: "Company registration and statutory compliance",
-      },
-      name: "Entity Formation & Compliance",
-      body: "Company registration, tax and statutory registrations, banking, and the policy set the entity needs to employ people legally in India, completed before the first offer letter goes out.",
-    },
-    {
-      n: "03",
-      image: {
-        src: "/images/four/gcc-step-3.webp",
-        width: 1200,
-        height: 900,
-        alt: "Infrastructure and security commissioned",
-      },
-      name: "Infrastructure & Security Setup",
-      body: "Workspace, network, devices, access control, and your development and deployment tooling are commissioned and security-reviewed so engineers are productive on day one.",
-    },
-    {
-      n: "04",
-      image: {
-        src: "/images/four/gcc-step-4.webp",
-        width: 1200,
-        height: 900,
-        alt: "Sourcing and onboarding engineers",
-      },
-      name: "Hiring & Onboarding",
-      body: "We source, screen, and present candidates for your interview loops — you make the hiring decisions — then run onboarding, tooling access, and the ramp-up plan for each new joiner.",
-    },
-    {
-      n: "05",
-      image: {
-        src: "/images/four/gcc-step-5.webp",
-        width: 1200,
-        height: 900,
-        alt: "Running the centre against agreed SLAs",
-      },
-      name: "Operate, Optimise & Transfer",
-      body: "The centre runs under agreed SLAs and reporting while we optimise cost, retention, and process. When it is mature, the entity and team transfer to you on the schedule agreed at the start.",
+      body: "We implement automation tools to streamline processes and enhance operational efficiency, offering access to a knowledge base and real-time monitoring tools.",
     },
   ],
 };
 
 export const gccBenefits: CardGridContent = {
   eyebrow: "Benefits",
-  title: "What a GCC Gives You",
-  body: "Centralising engineering and operations in a capability centre changes your cost structure, your access to talent, and how quickly you can put a team on a new initiative.",
+  title: "Benefits of GCC",
+  body: "GCCs provide businesses with numerous benefits, from centralized operations to streamlined processes globally.",
   items: [
     {
-      name: "Improved Financial Flexibility",
+      name: "Improve Financial Flexibility",
       icon: "coins",
       imageId: "gcc-benefit-1",
-      body: "Reduce fixed costs and free capital for other strategic initiatives, with a cost structure that scales against headcount rather than a vendor's margin.",
+      body: "Reduce fixed costs and free up capital to invest in other key strategic initiatives.",
     },
     {
-      name: "Customised Resources",
+      name: "Customized Resources",
       icon: "users",
       imageId: "gcc-benefit-2",
-      body: "Shape the team around emerging business needs instead of a fixed service catalogue, keeping capability aligned to your strategic objectives as they shift.",
+      body: "Adapt resources to meet emerging business needs, ensuring alignment with the company’s strategic objectives.",
     },
     {
       name: "Accelerated Time-to-Market",
       icon: "gauge",
       imageId: "gcc-benefit-3",
-      body: "Deploy teams and ship solutions faster, because hiring, onboarding, and environment setup are already-running functions rather than a new project each time.",
-    },
-    {
-      name: "Deeper Talent Access",
-      icon: "globe",
-      imageId: "gcc-benefit-4",
-      body: "Recruit from India's engineering market across web, mobile, cloud, data, QA, and AI — roles that are scarce or prohibitively expensive in many home markets.",
-    },
-    {
-      name: "Retained Institutional Knowledge",
-      icon: "book",
-      imageId: "gcc-benefit-5",
-      body: "Full-time employees working only on your products accumulate domain knowledge that stays with you, unlike project staff who rotate off at the end of a contract.",
-    },
-    {
-      name: "Direct Operational Control",
-      icon: "shield",
-      imageId: "gcc-benefit-6",
-      body: "Your leadership sets priorities, runs the ceremonies, and manages performance directly — the governance of an in-house team, not a vendor relationship.",
+      body: "Facilitate faster team deployment and solution delivery, speeding up project initiation and completion.",
     },
   ],
 };
 
+/** The live page's six audience tabs: the tab label is the card name, its panel the body. */
 export const gccAudience: CardGridContent = {
   eyebrow: "Who It Fits",
   title: "Who Should Consider GCC-as-a-Service?",
-  body: "GCC-as-a-Service suits organisations looking to centralise global operations, deepen collaboration, and improve efficiency. These are the profiles it most often fits.",
+  body: "GCC-as-a-Service is perfect for different organizations seeking to streamline their global operations, enhance collaboration, and improve efficiency. Here’s a general overview of who could use this service.",
   items: [
     {
-      name: "Multinational Corporations",
-      body: "Centralise finance, IT, R&D, and HR functions in one capability centre, driving innovation and reducing cost across markets rather than duplicating support functions region by region.",
+      name: "Multinational Corporations (MNCs)",
+      body: "GCC-as-a-Service centralizes functions like finance, IT, R&D, and HR, driving innovation and reducing costs for MNCs.",
     },
     {
       name: "Startups & Mid-Sized Businesses",
-      body: "Scale engineering efficiently while conserving capital, with the flexibility to grow or contract headcount as funding and roadmap priorities change.",
+      body: "GCC helps startups and SMBs scale efficiently, saving capital and offering flexibility and cost savings.",
     },
     {
       name: "Technology Companies",
-      body: "Tap India's engineering talent pool for R&D, product development, and platform support, adding capacity in roles that are hard to fill in the home market.",
+      body: "Tech firms leverage India’s talent pool for R&D, software development, and IT support, accelerating growth.",
     },
     {
       name: "Financial & Banking Sector",
-      body: "Streamline operations, strengthen compliance workflows, and centralise data and analytics capability with the access controls and auditability the sector requires.",
+      body: "GCCs streamline operations, enhance compliance, and optimize data analytics, ensuring cost-effective, secure solutions.",
     },
     {
       name: "Healthcare & Life Sciences",
-      body: "Support research, clinical trial operations, and data management with specialist talent, under data-handling controls scoped to the regulations you operate within.",
+      body: "Healthcare companies use GCCs for research, clinical trials, and data management with top talent.",
     },
     {
       name: "Retail & E-commerce",
-      body: "Centralise customer support, logistics coordination, supply-chain systems, and analytics to improve customer experience while reducing the cost of running them.",
+      body: "GCCs streamline customer support, logistics, supply chain, and analytics, improving customer experience and reducing costs.",
     },
   ],
 };
 
-export const gccMidCta: CtaBandContent = {
-  eyebrow: "Talk It Through",
-  title: "Not Sure Whether a GCC or a Dedicated Team Is Right?",
-  body: "The answer usually comes down to how long you need the capacity and whether the knowledge has to stay with you. A short conversation with our team will make the trade-off concrete for your situation.",
-  cta: { label: "Book a free consultation", href: "#enquiry" },
+/**
+ * The live page's closing consultation band. It runs straight into the dark
+ * closing enquiry section, and the landing `CtaBand` always paints its own dark
+ * ground, so it renders as a light prose block with its button instead.
+ */
+export const gccClosingCta: OverviewContent = {
+  eyebrow: "Talk To Us",
+  title: "Transform Your Business with our GCC-as-a-Service",
+  paragraphs: [
+    "Collaborate with us and experience seamless scalability and reduced operational costs with our tailored GCC-as-a-Service solutions.",
+  ],
+  // The live band's "Request a Consultation" button; /contact, as the reviews
+  // ask of every consultation CTA.
+  cta: { label: "Request a Consultation", href: "/contact" },
 };

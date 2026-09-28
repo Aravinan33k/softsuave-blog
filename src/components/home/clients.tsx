@@ -25,7 +25,17 @@ import styles from "./home.module.css";
  */
 export default function Clients({
   logos = clients.logos,
+  title = clients.title,
+  body = clients.body,
 }: {
+  /**
+   * Heading and standfirst. Default to the homepage's "Preferred AI-Enabled
+   * Technology Partner…" pair, which most pages' live band repeats word for
+   * word; a page whose live band has its own (the offshore page's "Our
+   * Clients") passes it here.
+   */
+  title?: string;
+  body?: string;
   /**
    * The marks to run. Defaults to the homepage's full roster.
    *
@@ -43,11 +53,11 @@ export default function Clients({
         <div className={styles.clientsHeadMain}>
           <span className={styles.eyebrow}>{clients.eyebrow}</span>
           <SplitReveal as="h2" className={styles.h2} type="words">
-            {clients.title}
+            {title}
           </SplitReveal>
         </div>
         <FadeUp className={styles.clientsHeadAside}>
-          <p className={styles.clientsBody}>{clients.body}</p>
+          <p className={styles.clientsBody}>{body}</p>
         </FadeUp>
       </div>
 

@@ -2,13 +2,32 @@
  * Copy for the "IT Outsourcing Company in India" landing page
  * (`/it-outsourcing-company-india`).
  *
- * The live page's distinguishing section is its destination comparison — India
- * against Poland, Mexico, the Philippines and Vietnam across cost, talent,
- * overlap, and fit. That is a four-value-column table, which is the reason
- * `components/landing/comparison.tsx` takes a variable column count rather than
- * a fixed pair. Everything else follows the live structure: overview, services,
- * when-it-fits, engagement models, process, collaboration, industries, why us,
- * tech, case studies, testimonials and FAQs.
+ * The hero keeps its own image, badges, layout and form fields; its text is the
+ * live hero's. Everything below it — and the page's title, description and
+ * schema — follows the live softsuave.com page, which was rebuilt with a new
+ * section set (review: "Need to update the page - lot of sections have changed
+ * including the title, description, canonicals, and schemas"). The mapping, in
+ * live page order:
+ *
+ *   "What Does an IT Outsourcing Company in India Do?"   → `itoOverview`
+ *   "IT Outsourcing Services We Provide"                 → `itoServices` (8)
+ *     + "Discuss Your IT Outsourcing Requirements"       → `itoServicesCta`
+ *   "When IT Outsourcing to India Makes Sense"           → `itoFit`
+ *   "How Does India Compare With Other IT ... ?"         → `itoDestinations`
+ *     + the three paragraphs under the table             → `itoDestinationsNotes`
+ *   "Choose the Right IT Outsourcing Model"              → `itoModels`
+ *   "Not Sure Which Outsourcing Model Fits?"             → `itoMidCta`
+ *   "Our IT Outsourcing Process"                         → `itoProcess` (5)
+ *   "Collaboration Across Teams and Time Zones"          → `itoCollaboration`
+ *   "Industries We Support"                              → `itoIndustries` (6)
+ *   "Why Work With Soft Suave?"                          → `itoWhyUs` (6)
+ *   "Transforming Ideas with Next-Gen Tech"              → `itoTech`
+ *   "Proven Results From IT Outsourcing Engagements"     → `itoCaseStudies` (7)
+ *   "What Our Clients Say About Us"                      → homepage `Testimonials`
+ *   "Frequently Asked Questions"                         → `itoFaqs` (8)
+ *
+ * The copy is the live page's own, verbatim; the eyebrows are the live
+ * sections' own kicker labels.
  */
 
 import type { HeroContent } from "@/components/landing/hero";
@@ -18,35 +37,41 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { ProcessContent } from "@/components/landing/process";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { ComparisonContent } from "@/components/landing/comparison";
+import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
-import { sharedHeroBadges } from "./delivery-shared";
+import type { WorkCarouselContent } from "@/components/home/work-grid";
+import type { InlineLink } from "@/components/common/linkify";
+import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { overviewImage } from "./overview-images";
 
 export const itoMeta = {
   slug: "it-outsourcing-company-india",
   path: "/it-outsourcing-company-india",
-  title: "IT Outsourcing Company in India",
+  // The live page's <title> and meta description, verbatim. The title already
+  // carries the brand suffix, so the route uses it as-is.
+  title: "IT Outsourcing Company in India | Soft Suave",
   description:
-    "Move technology initiatives forward with an experienced IT outsourcing company in India. Software, AI, QA, cloud and modernization expertise with a 4–6 hour overlap.",
+    "Work with a leading IT outsourcing company in India for software, AI, QA, and modernization. Compare flexible models and discuss your requirements.",
 } as const;
 
 export const itoHero: HeroContent = {
   titleLines: ["IT Outsourcing Company", "in India"],
   body: [
-    "Move critical technology initiatives forward with an IT outsourcing partner that brings software, AI, QA, cloud, and modernization capability under one engagement — shaped around your roadmap, your systems, and your delivery priorities.",
-    "We start by understanding your scope, what your internal team retains, and where capacity actually runs out, then recommend the engagement structure that fits. Not every requirement should be outsourced the same way.",
+    "Move critical technology initiatives forward with a reliable IT outsourcing company in India. Soft Suave combines software, AI, QA, cloud, and modernization expertise with flexible engagement models shaped around your roadmap, systems, and delivery priorities.",
+    "Discuss your scope, delivery responsibilities, and internal capacity before choosing the engagement structure that best fits your specific outsourcing requirement.",
   ],
   points: [
-    "Software, AI, QA, Cloud & Modernization",
+    "Software, AI, QA & Modernization",
+    "Flexible Engagement Models",
     "400+ AI & Engineering Specialists",
-    "Project, Dedicated Team or Staff Augmentation",
-    "4–6 Hour Global Working-Hour Overlap",
     "ISO/IEC 27001:2022 Certified",
+    "4–6 Hour Global Work Overlap",
   ],
   badges: sharedHeroBadges,
   form: {
     eyebrow: "Business Enquiry",
-    title: "Scope your outsourcing engagement",
+    // The live hero form's own heading.
+    title: "Let's Discuss Your Project",
     note: "Share your scope, the roles you need, and what your internal team will keep. We come back with a recommended model and an indicative estimate. Everything stays under NDA.",
     submit: "Send requirements",
     sending: "Opening your mail…",
@@ -54,6 +79,8 @@ export const itoHero: HeroContent = {
     requirementPlaceholder:
       "The initiative, the systems involved, which responsibilities stay in-house, and the timeline you are working to.",
     subject: "IT outsourcing enquiry",
+    // The live form's business-only notice (review: "Form needs to be updated").
+    alert: sharedHeroAlert,
   },
   image: {
     src: "/images/four/story.webp",
@@ -65,315 +92,444 @@ export const itoHero: HeroContent = {
 
 export const itoOverview: OverviewContent = {
   image: overviewImage("it-outsourcing-company-india"),
-  eyebrow: "The Short Answer",
+  eyebrow: "Overview",
   title: "What Does an IT Outsourcing Company in India Do?",
   paragraphs: [
-    "IT outsourcing assigns defined technology responsibilities to an external partner while you keep agreed strategic and operational control. What transfers is delivery execution — not direction, and not ownership of the outcome.",
-    "India is the most common destination for it because of a combination that is hard to find elsewhere: a very large engineering talent market spanning web, mobile, cloud, AI, data, QA, and enterprise technologies; a mature delivery ecosystem with established security and contracting practice; and a working day that overlaps usefully with both Europe and, with planning, the United States.",
-    "Soft Suave provides complete project outsourcing, dedicated development teams, and staff augmentation, drawing on 13+ years of delivery across industries. The section below sets out when each of those structures is the right one, because choosing the wrong structure is the most common reason outsourcing disappoints.",
+    "IT outsourcing assigns defined technology responsibilities to an external partner while the buyer retains agreed strategic and operational control. India offers broad engineering talent, a mature technology ecosystem, flexible engagement options, and working-hour overlap for global collaboration.",
+    "Soft Suave is an IT outsourcing company in India offering complete project outsourcing, dedicated development teams, and staff augmentation models. Businesses can select a model based on scope, skills, internal capacity, and delivery ownership.",
+    "With 13+ years of experience delivering software solutions across industries, Soft Suave provides reliable IT outsourcing support through skilled professionals, clear processes, and open communication. Its teams deliver quality work, reduce technology risks, and help businesses maintain visibility and control throughout the engagement.",
   ],
-  pullQuote:
-    "Outsourcing well is mostly a scoping problem. Decide what you are keeping before you decide who gets the rest.",
 };
 
 export const itoServices: ServicesContent = {
-  eyebrow: "Core Services",
+  eyebrow: "Services",
   title: "IT Outsourcing Services We Provide",
-  body: "One partner across the technology functions most often outsourced together, so integration between them is not your coordination problem.",
+  body: "Our IT outsourcing services cover the engineering capabilities needed to build, improve, test, integrate, and operate business applications. Each engagement is shaped around your objectives, existing technology environment, and preferred ownership structure.",
   items: [
     {
       name: "Custom Software Development",
-      tag: "Build",
-      body: "Custom applications, platforms, and APIs built around specific business workflows, covering architecture, development, integration, testing, deployment, and planned improvement across the lifecycle.",
+      body: "Develop custom applications, platforms, and APIs around specific business workflows. We support architecture, development, integration, testing, deployment, and planned improvements across the software lifecycle stages.",
     },
     {
       name: "Product Engineering Services",
-      tag: "Product",
-      body: "Product requirements turned into maintainable systems through discovery, planning, architecture, feature development, integration, testing, and release support, tracking a roadmap that keeps moving.",
+      body: "Turn product requirements into maintainable digital solutions through discovery, planning, architecture, feature development, integration, testing, and release support aligned with changing product roadmaps and priorities.",
     },
     {
       name: "Web Application Development",
-      tag: "Web",
-      body: "Responsive web applications for customer, employee, and operational workflows — frontend interfaces, backend services, APIs, databases, integrations, testing, deployment, and ongoing enhancement.",
+      body: "Build responsive web applications for customer, employee, and operational workflows. Our teams cover frontend interfaces, backend services, APIs, databases, integrations, testing, deployment, and ongoing enhancements.",
     },
     {
       name: "Mobile Application Development",
-      tag: "Mobile",
-      body: "Native and cross-platform applications for Android and iOS in Swift, Kotlin, Flutter, and React Native, covering architecture, API integration, testing, release, and continuing improvement.",
+      body: "Create native and cross-platform mobile applications for Android and iOS using Swift, Kotlin, Flutter, and React Native, covering architecture, API integration, testing, releases, and improvements.",
     },
     {
       name: "AI Development and Integration",
-      tag: "AI",
-      body: "Custom models, generative AI, intelligent automation, and predictive systems applied to workflows where they genuinely help, with requirements and implementation boundaries defined during discovery.",
+      body: "Apply AI to appropriate business workflows through custom models, generative AI, intelligent automation, predictive systems, and application integrations, with requirements and implementation boundaries defined during discovery.",
     },
     {
       name: "QA and Software Testing",
-      tag: "Quality",
-      body: "Functional, integration, regression, performance, and automated testing, with scope, environments, acceptance criteria, defect handling, and reporting agreed for each engagement rather than assumed.",
+      body: "Improve release confidence with functional, integration, regression, performance, and test-automation support. Testing scope, environments, acceptance criteria, defect handling, and reporting are agreed for each engagement.",
     },
     {
-      name: "Legacy Modernization & Integration",
-      tag: "Modernize",
-      body: "Aging applications, services, and architectures updated while critical workflows keep running — code improvement, cloud migration, API enablement, interface renewal, and system integration.",
+      name: "Legacy Modernization and Integration",
+      body: "Update aging applications, services, and architectures while protecting critical workflows. Modernization can include code improvement, cloud migration, API enablement, interface renewal, database changes, and system integration.",
     },
     {
       name: "Cloud and DevOps Engineering",
-      tag: "Cloud & DevOps",
-      body: "Cloud environments, deployment pipelines, infrastructure automation, monitoring, and release practice, with responsibilities defined against your platforms, access policies, and internal operations.",
+      body: "Support cloud environments, deployment pipelines, infrastructure automation, monitoring, and release practices. Responsibilities are defined according to your platforms, access policies, internal operations, and delivery model.",
     },
   ],
 };
 
-export const itoFit: CardGridContent = {
-  eyebrow: "When It Fits",
+/** The live services section's closing line and its "Contact us" button. */
+export const itoServicesCta = {
+  line: "Discuss Your IT Outsourcing Requirements",
+  cta: { label: "Contact us", href: "/contact" },
+} as const;
+
+export const itoFit: OverviewContent = {
+  eyebrow: "Outsourcing Fit",
   title: "When IT Outsourcing to India Makes Sense",
-  body: "Outsourcing is the right answer when your roadmap needs more delivery capacity, specialist expertise, or clearer project structure than your internal team can currently provide. These are the situations where it usually works.",
-  items: [
-    {
-      name: "A Skills Gap on a Planned Initiative",
-      icon: "users",
-      body: "Your roadmap includes work your team does not have the expertise for, and building that expertise internally would take longer than the initiative allows.",
-    },
-    {
-      name: "Priorities Exceed Capacity",
-      icon: "gauge",
-      body: "The backlog is well understood and agreed, but there are not enough engineers to execute it inside the window the business needs.",
-    },
-    {
-      name: "A Defined Project Needs an Owner",
-      icon: "book",
-      body: "A discrete piece of work needs agreed ownership, milestones, and accountability rather than being squeezed between competing internal priorities.",
-    },
-    {
-      name: "Legacy Systems Need Modernizing",
-      icon: "globe",
-      body: "Applications need re-platforming, integrating, or re-architecting — specialist, time-boxed work that rarely justifies permanent headcount.",
-    },
-    {
-      name: "Development and Testing Must Scale Together",
-      icon: "shield",
-      body: "Adding developers alone would just move the bottleneck to QA, so both capabilities need to expand at the same time.",
-    },
-    {
-      name: "Flexibility Before Permanent Hiring",
-      icon: "coins",
-      body: "You need delivery capacity now but are not ready to commit to permanent headcount until the roadmap or the funding picture settles.",
-    },
+  paragraphs: [
+    "IT outsourcing is suitable when your roadmap requires more delivery capacity, specialist expertise, or a clearer project structure than your internal team can currently provide. It can help you address defined technology priorities without treating permanent recruitment as the only option.",
+    "Consider an India-based IT outsourcing partner when:",
   ],
+  points: [
+    "Your team lacks skills required for a planned initiative.",
+    "Delivery priorities exceed available engineering capacity.",
+    "A defined project needs agreed ownership and milestones.",
+    "Legacy applications require modernization or integration.",
+    "Development and testing capacity must expand together.",
+    "You need flexible support before committing to internal hiring.",
+  ],
+  // The live section's closing line, which follows the list.
+  pullQuote:
+    "The right approach depends on how much responsibility you want to retain and whether the requirement is project-based, role-based, or ongoing.",
+  image: {
+    src: "/images/four/ito-step-4.webp",
+    width: 1200,
+    height: 900,
+    alt: "Distributed engineering team working across India and global time zones",
+  },
 };
 
 export const itoDestinations: ComparisonContent = {
-  eyebrow: "Destination Comparison",
-  title: "How Does India Compare With Other Outsourcing Destinations?",
-  body: "India is not automatically the right answer — it depends on whether you are optimising for cost, seniority, or real-time overlap. Here is an honest comparison across the destinations most often shortlisted against it.",
-  /* DELIBERATELY NO `verdict`. Every other comparison on this surface sets it
-     and paints column one as the recommended option; this one must not. The
-     body above says "India is not automatically the right answer" and the rows
-     mean it — Mexico wins the working-hour alignment row outright, and the
-     "Best suited for" row hands each destination a different job. Washing
-     India's column coral would contradict the section's own standfirst and
-     turn an honest matrix into a claim a reader can disprove by reading the
-     next cell along. */
-  columns: ["India", "Poland", "Mexico", "Philippines", "Vietnam"],
+  eyebrow: "Global Outsourcing Comparison",
+  title: "How Does India Compare With Other IT Outsourcing Destinations?",
+  body: "Compare India with other leading IT outsourcing destinations across talent availability, cost positioning, working-hour overlap, and common delivery strengths before choosing the market that best fits your project requirements.",
+  /* DELIBERATELY NO `verdict`. The table is the live page's own, one row per
+     country, and it is not an argument for India: Mexico wins the working-hour
+     row outright and the "Best Suited For" column hands each destination a
+     different job. Washing India's row coral would turn an honest matrix into a
+     claim a reader can disprove by reading the next row down. */
+  columns: ["Cost Positioning", "Engineering Talent", "Working-Hour Alignment", "Best Suited For"],
   rows: [
     {
-      area: "Cost positioning",
-      values: ["Lower", "Moderate to high", "Moderate", "Lower", "Lower"],
+      area: "India",
+      values: [
+        "Lower",
+        "Very large talent market across web, mobile, cloud, AI, data, QA, and enterprise technologies",
+        "Strong UK overlap and partial US overlap with planned schedules",
+        "Companies needing multiple engineering roles, broad technology coverage, and scalable delivery teams",
+      ],
     },
     {
-      area: "Engineering talent",
+      area: "Poland",
       values: [
-        "Very large market across web, mobile, cloud, AI, data, QA, and enterprise technologies",
+        "Moderate to high",
         "Strong senior engineering and enterprise technology expertise",
-        "Growing software and product engineering market",
-        "Established technology, QA, support, and English-language delivery talent",
-        "Growing engineering market with strong software development capacity",
-      ],
-    },
-    {
-      area: "Working-hour alignment",
-      values: [
-        "Strong UK overlap, partial US overlap with planned schedules",
         "Strong UK and European overlap; limited US overlap",
-        "Strong US working-hour alignment",
-        "Limited natural US overlap, often supported through shifted schedules",
-        "Limited natural US and UK overlap without adjusted schedules",
+        "Complex engineering projects requiring experienced teams and close European collaboration",
       ],
     },
     {
-      area: "Best suited for",
+      area: "Mexico",
       values: [
-        "Multiple engineering roles, broad technology coverage, and scalable delivery teams",
-        "Complex engineering projects needing experienced teams and close European collaboration",
-        "US companies prioritising real-time collaboration and nearshore delivery",
-        "QA, support, operations, and teams needing strong English communication",
-        "Cost-conscious development and larger engineering delivery requirements",
+        "Moderate",
+        "Growing software and product engineering market",
+        "Strong US working-hour alignment",
+        "US companies prioritizing real-time collaboration and nearshore delivery",
+      ],
+    },
+    {
+      area: "Philippines",
+      values: [
+        "Lower",
+        "Established technology, QA, support, and English-language delivery talent",
+        "Limited natural US overlap, often supported through shifted schedules",
+        "QA, support, operations, and technology teams requiring strong English communication",
+      ],
+    },
+    {
+      area: "Vietnam",
+      values: [
+        "Lower",
+        "Growing engineering market with strong software development capacity",
+        "Limited natural US and UK overlap without adjusted schedules",
+        "Cost-conscious software development and larger engineering delivery requirements",
       ],
     },
   ],
 };
 
-export const itoModels: CardGridContent = {
-  eyebrow: "Engagement Models",
-  title: "Choose the Right IT Outsourcing Model",
-  body: "The structure should follow from how stable your scope is, how many roles you need, and how much delivery ownership you want to retain.",
-  items: [
+/**
+ * The three paragraphs the live comparison runs under its table. The last
+ * links to the live blog's provider guide, as the live page does.
+ */
+export const itoDestinationsNotes: {
+  readonly paragraphs: readonly string[];
+  readonly links: readonly InlineLink[];
+} = {
+  paragraphs: [
+    "India is often considered when companies need access to several technology skills within the same outsourcing engagement. Its large engineering ecosystem allows businesses to combine roles such as frontend, backend, mobile, cloud, QA, data, and AI engineering without sourcing each capability from a different market.",
+    "The right destination still depends on how your team works. Mexico may be more suitable when extensive US working-hour overlap is essential, while Poland can provide closer alignment with European teams. The Philippines is widely used for technology-enabled support and QA functions, while Vietnam continues to expand as a software engineering destination.",
+    "For companies evaluating India, the next step is usually selecting the right provider rather than comparing countries. Our guide to the top IT outsourcing companies in India compares providers based on capabilities, engagement options, company size, and suitability for different outsourcing requirements.",
+  ],
+  links: [
     {
-      name: "Complete Project Outsourcing",
-      body: "For a defined product, platform, modernization, or integration requirement. Scope, milestones, responsibilities, and delivery expectations are agreed for the project, and we own execution against them.",
-    },
-    {
-      name: "Dedicated Development Team",
-      body: "For an ongoing product roadmap needing multiple roles. A defined team works across the roadmap with agreed responsibilities and collaboration practices, and stays with the product as it evolves.",
-    },
-    {
-      name: "Staff Augmentation",
-      body: "For an existing team that needs one or more additional specialists. Selected engineers extend your current capacity while your organisation keeps responsibility for priorities and direction.",
+      text: "top IT outsourcing companies in India",
+      href: "https://www.softsuave.com/blog/top-it-outsourcing-companies-in-india/",
     },
   ],
+};
+
+export const itoModels: ComparisonContent = {
+  eyebrow: "Engagement Models",
+  title: "Choose the Right IT Outsourcing Model",
+  body: "The appropriate model depends on scope clarity, delivery ownership, internal capacity, and how often priorities may change. Compare the working structures before choosing between complete project outsourcing, a dedicated development team, or a staff augmentation arrangement.",
+  columns: ["Suitable when", "Working structure"],
+  rows: [
+    {
+      area: "Complete project outsourcing",
+      values: [
+        "The buyer has a defined product, platform, modernization, or integration requirement",
+        "Scope, milestones, responsibilities, and delivery expectations are agreed for the project",
+      ],
+    },
+    {
+      area: "Dedicated development team",
+      values: [
+        "Multiple roles are needed to support an ongoing product roadmap.",
+        "A defined team works across the product roadmap with agreed responsibilities and collaboration practices",
+      ],
+    },
+    {
+      area: "Staff augmentation",
+      values: [
+        "The existing team needs one or more additional technical specialists",
+        "Selected professionals extend the buyer’s existing engineering capacity",
+      ],
+    },
+  ],
+  // The live note under the table.
+  verdictNote:
+    "Complete project outsourcing fits a clearly bounded outcome with agreed responsibilities. A dedicated software development team suits a continuing roadmap that needs coordinated roles. Staff augmentation adds selected specialists to your existing team.",
+};
+
+/** The live consultation band; its button goes to /contact, as the reviews ask of every consultation CTA. */
+export const itoMidCta: CtaBandContent = {
+  title: "Not Sure Which Outsourcing Model Fits?",
+  body: "Share your scope, required skills, internal capacity, and preferred delivery ownership. We’ll review your requirements and recommend whether project outsourcing, a dedicated team, or staff augmentation is the most suitable structure.",
+  cta: { label: "Get a free Consultation", href: "/contact" },
 };
 
 export const itoProcess: ProcessContent = {
-  eyebrow: "How We Deliver",
+  eyebrow: "Our Process",
   title: "Our IT Outsourcing Process",
-  body: "Five stages from first conversation to running engagement, each with a defined output — so scope, responsibilities, and commercial terms are settled before delivery starts rather than during it.",
+  body: "Our process establishes the requirements, working structure, responsibilities, and delivery controls before engineering begins. Each stage reflects the selected engagement model.",
   steps: [
     {
       n: "01",
-      image: {
-        src: "/images/four/ito-step-1.webp",
-        width: 1200,
-        height: 900,
-        alt: "Discuss the Requirements in an IT outsourcing engagement",
-      },
       name: "Discuss the Requirements",
-      body: "We clarify business goals, project scope, required roles, technical constraints, existing systems, expected outcomes, and — just as importantly — which responsibilities your internal team will retain.",
+      body: "Clarify business goals, project scope, required roles, technical constraints, existing systems, expected outcomes, and the responsibilities your internal team will retain.",
     },
     {
       n: "02",
-      image: {
-        src: "/images/four/ito-step-2.webp",
-        width: 1200,
-        height: 900,
-        alt: "Select the Engagement Model in an IT outsourcing engagement",
-      },
       name: "Select the Engagement Model",
-      body: "Complete project outsourcing, a dedicated team, or staff augmentation, chosen against ownership, scope stability, internal capacity, and how involved you want to be in delivery decisions.",
+      body: "Choose complete project outsourcing, a dedicated team, or a staff augmentation structure based on ownership, scope stability, internal capacity, and delivery needs.",
     },
     {
       n: "03",
-      image: {
-        src: "/images/four/ito-step-3.webp",
-        width: 1200,
-        height: 900,
-        alt: "Confirm Scope and Responsibilities in an IT outsourcing engagement",
-      },
       name: "Confirm Scope and Responsibilities",
-      body: "Deliverables, roles, milestones, dependencies, communication practices, acceptance expectations, and commercial terms are documented so both sides understand how the engagement will actually operate.",
+      body: "Document deliverables, roles, milestones, dependencies, communication practices, acceptance expectations, and commercial terms so both sides understand how the engagement will operate.",
     },
     {
       n: "04",
-      image: {
-        src: "/images/four/ito-step-4.webp",
-        width: 1200,
-        height: 900,
-        alt: "Begin Delivery in an IT outsourcing engagement",
-      },
       name: "Begin Delivery",
-      body: "Approved access, communication channels, development environments, repositories, tracking tools, and the delivery workflow are established for the agreed scope before the first sprint.",
+      body: "Establish approved access, communication channels, development environments, repositories, tracking tools, and the delivery workflow required for the agreed scope.",
     },
     {
       n: "05",
-      image: {
-        src: "/images/four/ito-step-5.webp",
-        width: 1200,
-        height: 900,
-        alt: "Review and Improve in an IT outsourcing engagement",
-      },
       name: "Review and Improve",
-      body: "Progress is monitored, completed work demonstrated, risks addressed, and changing priorities reviewed through the agreed governance and change process rather than ad hoc.",
+      body: "Monitor progress, demonstrate completed work, address risks, review changing priorities, and refine the delivery plan through the agreed governance and change process.",
     },
   ],
 };
 
-export const itoCollaboration: CardGridContent = {
-  eyebrow: "Working Together",
+export const itoCollaboration: OverviewContent = {
+  eyebrow: "Global Collaboration",
   title: "Collaboration Across Teams and Time Zones",
-  body: "Distributed delivery works when communication windows, decision ownership, tooling, and escalation paths are established at the start. These are the practices we set up before delivery begins.",
+  paragraphs: [
+    "Global clients using IT outsourcing services in India need clear communication windows, defined decision ownership, shared collaboration tools, and escalation paths established at the start.",
+    "To maintain a smooth workflow across time zones, we provide 4–6 hours of working-hour overlap for our clients. Scheduled meetings support planning, reviews, demonstrations, and decisions, while shared tracking systems and written documentation preserve visibility and context outside overlapping hours.",
+    "Soft Suave has delivery presence across Chennai, Bengaluru, and the United States. The collaboration structure is defined around the engagement model, stakeholder availability, response expectations, and delivery requirements. Agreed schedules, documentation standards, handoff practices, and escalation routes help distributed teams stay aligned.",
+  ],
+  image: {
+    src: "/images/four/ito-step-3.webp",
+    width: 1200,
+    height: 900,
+    alt: "Team members collaborating on shared delivery documents across time zones",
+  },
+};
+
+export const itoIndustries: CardGridContent = {
+  eyebrow: "Industries",
+  title: "Industries We Support",
+  body: "Technology requirements differ by industry because workflows, users, integrations, testing priorities, data access, and operational constraints vary. We adapt the delivery approach to the approved requirements of each product and engagement.",
   items: [
     {
-      name: "4–6 Hour Working Overlap",
-      body: "We maintain a 4–6 hour overlap with your working day so planning, reviews, demonstrations, and decisions happen live rather than accruing a day of latency each time.",
+      name: "FinTech",
+      icon: "coins",
+      body: "Our teams develop financial platforms, transaction workflows, integrations, reporting systems, and access-sensitive features that help FinTech businesses improve operations and deliver reliable digital services efficiently.",
     },
     {
-      name: "Defined Decision Ownership",
-      body: "Who decides what is agreed up front, so work does not stall waiting for an approval nobody knew they owned — the most common cause of lost days in distributed teams.",
+      name: "HealthTech",
+      icon: "pulse",
+      body: "We build health technology platforms supporting patient, provider, scheduling, care, and information workflows, helping HealthTech organizations improve coordination, system connectivity, and digital service delivery processes.",
     },
     {
-      name: "Shared Tracking and Tooling",
-      body: "We work in your tracking systems and repositories where possible, so progress is visible to your stakeholders continuously rather than summarised in a status call.",
+      name: "EdTech",
+      icon: "book",
+      body: "Our IT outsourcing services support learning platforms, content delivery, assessments, administration, and integrations, helping EdTech companies improve learner experiences and expand education capabilities across institutions.",
     },
     {
-      name: "Written Documentation by Default",
-      body: "Decisions, context, and technical rationale are written down, preserving visibility outside overlapping hours and surviving the handoffs that distributed work inevitably involves.",
+      name: "Logistics",
+      icon: "flow",
+      body: "Our teams build logistics platforms for shipment management, fleet visibility, field operations, scheduling, tracking, and documentation, helping businesses coordinate activities and improve visibility across locations.",
     },
     {
-      name: "Scheduled Reviews and Demos",
-      body: "Regular demonstrations of working software give your stakeholders something concrete to react to, which surfaces misunderstandings far earlier than written status does.",
+      name: "Telecom",
+      icon: "network",
+      body: "We support customer platforms, service workflows, operational systems, integrations, reporting, and modernization initiatives that help telecom businesses improve system connectivity and manage evolving digital requirements.",
     },
     {
-      name: "Multi-Location Delivery Presence",
-      body: "Delivery across Chennai, Bengaluru, and the United States, so escalation and account coordination are available inside your own business hours.",
+      name: "E-commerce",
+      icon: "chart",
+      body: "We develop storefronts, marketplaces, product catalogs, ordering systems, payment integrations, and fulfillment connections that help Ecommerce businesses improve customer journeys and support daily commerce operations.",
     },
   ],
 };
 
-export const itoMidCta: CtaBandContent = {
-  eyebrow: "Scope It Properly",
-  title: "Not Sure What You Should Outsource?",
-  body: "The hardest part is usually deciding what stays in-house. Talk it through with our team and we will map your scope against the three engagement models before you commit to any of them.",
-  cta: { label: "Talk to our experts", href: "#enquiry" },
+export const itoWhyUs: CardGridContent = {
+  eyebrow: "Why Choose Us",
+  title: "Why Work With Soft Suave?",
+  body: "Soft Suave combines technology experience, multidisciplinary capabilities, flexible delivery structures, and defined controls for outsourced engineering.",
+  items: [
+    {
+      name: "13+ Years of Technology Expertise",
+      icon: "layers",
+      body: "Apply experience spanning software delivery, product engineering, modernization, integration, testing, cloud, and emerging technologies.",
+    },
+    {
+      name: "400+ AI & Engineering Specialists",
+      icon: "users",
+      body: "Access capabilities across application development, quality engineering, DevOps, data, AI, and integrations.",
+    },
+    {
+      name: "Flexible Engagement Structures",
+      icon: "cycle",
+      body: "Choose project outsourcing, a dedicated team, or a staff augmentation model according to scope, ownership, and internal capacity.",
+    },
+    {
+      name: "Information Security Management",
+      icon: "shield",
+      body: "Work with an ISO/IEC 27001:2022-certified information security management system supporting secure practices across development and delivery.",
+    },
+    {
+      name: "Structured Risk and Delivery Controls",
+      icon: "gauge",
+      body: "We define ownership, reporting, access, documentation, escalation, and change controls throughout every outsourcing engagement.",
+    },
+    {
+      name: "Global Delivery Presence",
+      icon: "globe",
+      body: "Soft Suave’s delivery presence spans Chennai, Bengaluru, and the United States for international client engagements.",
+    },
+  ],
 };
+
+/**
+ * The live technology marquee, grouped. The live page scrolls one ungrouped
+ * run of logos; the set here is exactly the technologies it names.
+ */
+export const itoTech: TechStackContent = {
+  eyebrow: "Technology Stack",
+  title: "Transforming Ideas with Next-Gen Tech",
+  body: "Our 400+ AI & Engineering specialists specialize in cutting-edge technologies and platforms. Our comprehensive tech stack covers everything from design to testing, ensuring seamless and efficient development.",
+  groups: [
+    {
+      name: "Frontend",
+      items: ["React", "Vue.js", "Javascript", "Bootstrap", "HTML", "CSS", "Ember", "Next"],
+    },
+    {
+      name: "Backend and Data",
+      items: ["Node.js", ".Net", "ROR", "Java", "Python", "PHP", "Go", "SQL Server", "MongoDB"],
+    },
+    { name: "Mobile", items: ["iOS", "Swift", "Kotlin", "Flutter", "Ionic", "Cordova", "Xamarin"] },
+    {
+      name: "Cloud and DevOps",
+      items: ["AWS", "Azure", "Google Cloud", "Docker", "Jenkins", "Ansible", "Kubernetes"],
+    },
+    {
+      name: "Design and QA",
+      items: ["Photoshop", "Illustrator", "Adobe XD", "Figma", "Selenium"],
+    },
+  ],
+};
+
+/**
+ * The live page's seven case-study slides, each on its own live artwork
+ * (the same files, already committed under `/images/case-studies/`).
+ */
+export const itoCaseStudies: WorkCarouselContent = {
+  eyebrow: "Success Stories",
+  title: "Proven Results From IT Outsourcing Engagements",
+  body: "See how our IT outsourcing services have helped businesses improve operations, accelerate delivery, strengthen platforms, and achieve measurable outcomes across complex technology projects.",
+  items: [
+    {
+      title: "Smart Movie Ticketing with Real-Time Booking",
+      body: "Soft Suave built a smart movie ticketing system with real-time seats, secure payments, and smooth booking.",
+      image: { src: "/images/case-studies/on-demand-5.webp", alt: "Smart Movie Ticketing with Real-Time Booking" },
+    },
+    {
+      title: "Area Mapping Solution For A Solar Business",
+      body: "Our client offers solar energy solutions focused on home efficiency and sustainable power, helping homeowners save on bills.",
+      image: { src: "/images/case-studies/solar-mapping.webp", alt: "Area Mapping Solution For A Solar Business" },
+    },
+    {
+      title: "ParkSafe Community Vehicle Alert App",
+      body: "Soft Suave built a smart app to spot suspicious vehicles, send alerts, and boost community safety in real time.",
+      image: { src: "/images/case-studies/logistics-3.webp", alt: "ParkSafe Community Vehicle Alert App" },
+    },
+    {
+      title: "Digital Advertising in Public Spaces",
+      body: "Soft Suave built a dynamic digital ads platform for real-time content, location targeting, and analytics in public spaces.",
+      image: { src: "/images/case-studies/on-demand-1.webp", alt: "Digital Advertising in Public Spaces" },
+    },
+    {
+      title: "Restaurant Workflow Optimization",
+      body: "Soft Suave built a smart restaurant system to optimize orders, kitchen flow, and staff coordination for better dining.",
+      image: { src: "/images/case-studies/on-demand-3.webp", alt: "Restaurant Workflow Optimization" },
+    },
+    {
+      title: "Optimizing Influencer and Brand Collaborations",
+      body: "Soft Suave built a smart platform to streamline influencer-brand ties, automate tasks, and boost engagement with data.",
+      image: { src: "/images/case-studies/on-demand-8.webp", alt: "Optimizing Influencer and Brand Collaborations" },
+    },
+    {
+      title: "AI-Powered Multi-Cloud Management",
+      body: "Soft Suave built an AI platform to monitor, optimize, and automate multi-cloud setups with speed, security, and savings.",
+      image: { src: "/images/case-studies/on-demand-11.webp", alt: "AI-Powered Multi-Cloud Management" },
+    },
+  ],
+};
+
 export const itoFaqs: FaqContent = {
-  eyebrow: "FAQs",
-  title: "IT Outsourcing FAQs",
-  body: "The questions we are asked most by companies evaluating outsourcing to India for the first time.",
+  eyebrow: "Ask Us",
+  title: "Frequently Asked Questions",
+  body: "Get clear answers to common questions about IT outsourcing, helping you understand how engagements work and what to consider before choosing the right delivery partner.",
   items: [
     {
       q: "What IT outsourcing services does Soft Suave provide?",
-      a: "Software engineering, web and mobile development, AI development and integration, QA and testing, legacy modernization, system integration, and cloud and DevOps engineering. Most engagements combine several of these, which is usually the point — coordinating them across separate vendors is work you would otherwise absorb yourself.",
+      a: "Soft Suave provides software engineering, web and mobile development, AI, QA, modernization, integration, cloud, and DevOps services. The scope depends on your requirements.",
     },
     {
       q: "How much does IT outsourcing to India cost?",
-      a: "It depends on scope, the roles required, team size, engagement model, integration complexity, testing depth, security requirements, and schedule. Any figure quoted before those are known is a guess. We confirm pricing after reviewing requirements and scope, which typically takes one working session plus a follow-up.",
-      link: {
-        label: "Get a rough quote in 24 hours",
-        href: "https://www.softsuave.com/free-quote",
-      },
+      a: "The cost depends on scope, required roles, team size, engagement model, integrations, testing, security requirements, and delivery schedule. Project pricing is confirmed after requirements and scope are reviewed.",
     },
     {
       q: "What is the difference between outsourcing and staff augmentation?",
-      a: "Outsourcing assigns responsibility for defined work to an external partner, who owns delivery against agreed scope and milestones. Staff augmentation adds specialists to your team while your organisation retains responsibility for priorities, direction, and delivery. The test is whether you want to review an outcome or direct the work day to day.",
+      a: "Outsourcing assigns responsibilities to an external partner. Staff augmentation adds specialists to your team while your organization retains responsibility for priorities and direction.",
     },
     {
-      q: "How do outsourced teams collaborate with US, UK, or other global companies?",
-      a: "Through scheduled meetings, shared tracking tools, written documentation, regular demonstrations, and defined escalation paths, all established before delivery starts. We maintain a 4–6 hour working-hour overlap so planning and decisions happen live. Outside that window, documentation and tracking carry the context rather than a daily handoff call.",
+      q: "How do outsourced teams collaborate with US/UK or other global companies?",
+      a: "Teams collaborate through meetings, tracking tools, documentation, demonstrations, and escalation paths. We can also arrange 4–6 hours of working-hour overlap if needed.",
     },
     {
       q: "How are security and intellectual property handled?",
-      a: "Through contracts, NDAs, access controls, defined development practices, and a documented offboarding process. You own the intellectual property produced during the engagement, on terms agreed before work begins. Soft Suave maintains an ISO/IEC 27001:2022-certified information security management system covering data handling, access, and device management.",
+      a: "Contracts, NDAs, access controls, development practices, and offboarding address security and intellectual property. Soft Suave maintains an ISO/IEC 27001:2022-certified information security management system.",
     },
     {
       q: "Can we begin with one developer or a small team?",
-      a: "Yes, and it is often the sensible way in. Start with one engineer or a small team, confirm the working relationship is what you expected, then expand. Eligible engagements can include a 40-hour risk-free trial once suitability is confirmed, which gives you real output to judge rather than a reference call.",
+      a: "Yes, start with one developer or a small team and expand later. Eligible engagements may include a 40-hour risk-free trial after engagement suitability is confirmed.",
     },
     {
       q: "How long does it take to begin an outsourcing engagement?",
-      a: "It depends on how clear the requirements are, the engagement type, availability of the specific skills, your internal review and approval process, and access and onboarding steps. Requirement clarity is usually the largest variable, not our availability. We confirm a realistic plan once those are understood.",
+      a: "The starting timeline depends on requirement clarity, engagement type, skill availability, review, access, and onboarding. We confirm the plan after considering these factors.",
     },
     {
       q: "Should we outsource a project or hire a dedicated team?",
-      a: "Outsource the project when scope and deliverables are clear and you want accountability for an outcome. Choose a dedicated team when you need multiple roles supporting ongoing development against priorities that will keep changing — a fixed scope would only generate a change-request queue. If you are between the two, the dedicated team is usually the safer choice, because it degrades more gracefully when scope moves.",
+      a: "Choose project outsourcing for clear scope and deliverables. Choose a dedicated team when you need multiple roles to support ongoing development and changing priorities.",
     },
   ],
 };

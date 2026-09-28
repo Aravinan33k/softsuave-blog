@@ -2,47 +2,63 @@
  * Copy for the "Legacy Modernization Services" landing page
  * (`/legacy-modernization-services`).
  *
- * The live page is one of the thinnest on the site: a hero, some market
- * context, four service blurbs (re-hosting, re-architecture, modernization,
- * roadmap), and no process, industries, technologies, testimonials or FAQs.
- * Its substantive content is preserved — including the "7 Rs" framing, which
- * the live page states as "re-code, renew, replace, retire, re-platform,
- * re-engineer, or re-architect" — and the missing sections are built from
- * company-level facts published elsewhere on the site rather than invented.
+ * SOURCE: the live softsuave.com page of the same slug. The review asked for
+ * the page to follow it ("lot of sections have changed including the title,
+ * description, canonicals, and schemas"), so the live page IS the spec: its
+ * <title> and meta description, its hero copy, and — below the hero — its
+ * section set, in its order, in its words. The mapping:
+ *
+ *   H1 + 2 paragraphs + "Get Your FREE Quote Now!" form → `legacyHero`
+ *   "Top Legacy Application Modernization Company in India" → `legacyTopCompany`
+ *   "Soft Suave in Legacy Modernization Services"          → `legacyAbout`
+ *   "Our Legacy Modernization Services" (4)                → `legacyServices`
+ *   "Book Free Consultation" closing form                  → homepage `Contact`
+ *
+ * The live page is an older, thinner template: no process, industries,
+ * technologies, testimonials or FAQs. None is invented to fill it out.
+ *
+ * The live copy's own slips are carried as they are rather than silently
+ * rewritten — "Soft suave Legacy moderation service", "Soft Suave’ legacy",
+ * "into Futuristic one", "new feature faster", "your currents applications",
+ * "without any disturbing your business", and the re-architecture service
+ * closing on the re-hosting service's "re-host journey" paragraph. Fixing any
+ * of them is a copy decision for whoever owns the page.
+ *
+ * Images: the live page's own illustrations are not in this app, so the hero
+ * keeps its photograph and the "Soft Suave in …" section reuses the one this
+ * module already carried; the service board runs without per-service art.
  */
 
 import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
-import type { ServicesContent } from "@/components/landing/services";
-import type { CardGridContent } from "@/components/landing/industries";
-import type { CtaBandContent } from "@/components/landing/cta-band";
-import { sharedHeroBadges } from "./delivery-shared";
+import type { ServiceBoardContent } from "@/components/common/service-board";
+import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+import { overviewImage } from "./overview-images";
 
 export const legacyMeta = {
   slug: "legacy-modernization-services",
   path: "/legacy-modernization-services",
-  title: "Legacy Application Modernization Services",
+  // The live page's <title> and meta description, verbatim.
+  title: "Legacy Application Modernization Services - Soft Suave",
   description:
-    "Modernize legacy applications without stopping the business. Soft Suave assesses, re-platforms, re-architects and re-engineers aging systems on a staged roadmap.",
+    "Enhance your business with legacy application modernization services. We help upgrade outdated systems to modern and efficient solutions.",
 } as const;
 
 export const legacyHero: HeroContent = {
-  titleLines: ["Legacy Modernization", "Without Stopping the Business"],
+  // The live H1, split so the accent falls on its closing phrase.
+  titleLines: ["Legacy Modernization Services", "for Impeccable Results"],
   body: [
-    "Aging applications rarely fail outright. They get expensive to maintain, hard to hire for, slow to change, and increasingly difficult to secure — until a system that still technically works becomes the main constraint on what the business can do next.",
-    "Soft Suave assesses your applications down to component level, then recommends what to re-host, re-platform, re-architect, re-engineer, replace, or retire. The roadmap is staged so critical workflows keep running while the change happens underneath them.",
+    "Soft Suave is the best in legacy application modernization services to revamp your existing apps into futuristic apps.",
+    "Interested? Request a free 1-week trial now and we promise to get back within 3 business hours!",
   ],
-  points: [
-    "Component-level application assessment first",
-    "Re-host, re-platform, re-architect or re-engineer",
-    "Staged delivery — no big-bang cutover",
-    "Cloud migration and API enablement",
-    "ISO/IEC 27001:2022-certified delivery",
-  ],
+  points: [],
   badges: sharedHeroBadges,
   form: {
     eyebrow: "Business Enquiry",
-    title: "Get a modernization assessment",
+    // The live hero form's own heading.
+    title: "Get Your FREE Quote Now!",
+    // An H2 on the live page, so part of the outline here too.
+    titleAs: "h2",
     note: "Tell us what you are running and what is hurting. We come back with an assessment approach, a staged roadmap, and an indicative estimate. Everything stays under NDA.",
     submit: "Send requirements",
     sending: "Opening your mail…",
@@ -50,6 +66,7 @@ export const legacyHero: HeroContent = {
     requirementPlaceholder:
       "The application and its stack, roughly how old it is, what is driving the change, and which workflows cannot be interrupted.",
     subject: "Legacy modernization enquiry",
+    alert: sharedHeroAlert,
   },
   image: {
     src: "/images/four/svc-modernization.webp",
@@ -59,93 +76,97 @@ export const legacyHero: HeroContent = {
   },
 };
 
-export const legacyOverview: OverviewContent = {
-  eyebrow: "The Short Answer",
-  title: "What Legacy Application Modernization Involves",
+/**
+ * The live section's intro, then its two sub-blocks' prose in order —
+ * "Legacy Application Migration & Optimization" (two paragraphs) and "A legacy
+ * system is modernized for" (one paragraph and the three-item list, which is
+ * `points`).
+ */
+export const legacyTopCompany: OverviewContent = {
+  // Live runs this section without art; the pipeline photo fills what would
+  // otherwise be an empty right half of the band.
+  image: overviewImage("legacy-modernization-services"),
+  eyebrow: "Overview",
+  title: "Top Legacy Application Modernization Company in India",
   paragraphs: [
-    "Legacy modernization is the work of bringing an existing application onto current technology, architecture, and infrastructure without losing the business logic it encodes. That logic is usually the most valuable thing in the system and the least well documented — which is why modernization is an engineering problem before it is a migration problem.",
-    "The decision is rarely all-or-nothing. Each component can be re-hosted with minimal change, re-platformed onto managed services, re-architected for scale, re-engineered where the logic itself is the problem, replaced with a product, or retired if nothing depends on it any more. Getting that classification right is most of the value of an assessment.",
-    "Without adequate planning there is significant risk attached to modernizing a system in production. Our approach is to investigate the application to its most elementary level first, so the roadmap reflects what the code actually does rather than what the documentation claims.",
+    "Soft Suave is one of the best application modernization services company in India that provides modernization services that help companies cut down excessive operating costs.",
+    "Wild adoption of digital platforms such as Android, iPhone, Facebook, Twitter, analytics, cloud, artificial intelligence, and the Internet of Things (IoT) have made the marketplace competitive. To bridge the gap between the current capability and client expectations, companies need to reconsider their business models, making them digital-ready. Legacy app modernization service is the best way to address the gap. It is therefore crucial for companies to modernize their legacy systems, by embracing advanced technologies. Companies are making vast investments to update their legacy systems, aiming to lower costs, improving time-to-market, and adopting cutting-edge technologies to fulfill customer and market demands.",
+    "In the absence of adequate planning, and when the age and complexity of legacy systems are underrated, there is a significant risk of failure linked with system modernization. With our experience, we have performed several successful legacy modernization programs by leveraging latest technologies for constant upgrades and revisions to existing systems.",
+    "Our remote developers in India overlap time zones to work efficiently without any communication hassles or time gaps and make clients feel in-house throughout the project.",
   ],
-  pullQuote:
-    "The riskiest legacy system is not the one that breaks. It is the one nobody currently employed fully understands.",
+  points: [
+    "Reducing costs since hardware and software of older systems are expensive to maintain.",
+    "Simplifying the system as old systems are complex and inflexible.",
+    "Developing sophisticated software applications to succeed in business.",
+  ],
+};
+
+export const legacyAbout: OverviewContent = {
+  eyebrow: "Why Soft Suave",
+  title: "Soft Suave in Legacy Modernization Services",
+  paragraphs: [
+    "Soft suave Legacy moderation service updates your old complex and expensive technology into flexible and cost effective advanced technology to satisfy customer needs and achieve market goals.",
+    "Soft Suave abides by competent processes and methodologies to upgrade legacy applications and make them convenient enough to be used in sync with latest technologies. Soft Suave’ legacy app modernization services mainly focus on business requirements first and then on the modernization process.",
+    "Eventually, we embrace values from existing applications and modernize to newer applications while reducing costs, limiting disruptions and decreasing risk. The outcome transforms legacy applications to achieve high performance.",
+    "With Soft Suave’s top application modernization services, a detailed investigation of your applications is done to the most elementary level. Through our understanding, the experts will deliver you a complete report about your applications - including our recommendations specifying which application to re-code, renew, replace, retire, re-platform, re-engineer, and re-architect. With this, you can lower your costs and release resources.",
+  ],
   image: {
     src: "/images/four/work-6.webp",
     width: 800,
     height: 1000,
-    alt: "Legacy enterprise system being modernized with cloud and AI tooling",
+    alt: "Best application modernization services company Soft Suave",
   },
 };
 
-export const legacyDrivers: CardGridContent = {
-  eyebrow: "Why Modernize",
-  title: "What Usually Forces the Decision",
-  body: "Modernization projects almost always start from one of a handful of pressures. Naming which one you are under matters, because it determines what a successful outcome actually looks like.",
-  items: [
-    {
-      name: "Rising Maintenance Cost",
-      icon: "coins",
-      body: "Older hardware, unsupported runtimes, and specialist licences get more expensive every year, while an increasing share of engineering time goes to keeping the system upright rather than improving it.",
-    },
-    {
-      name: "Change Is Too Slow",
-      icon: "gauge",
-      body: "Tightly coupled, under-tested systems make every change risky, so delivery slows and the backlog of things the business wants grows faster than the team can clear it.",
-    },
-    {
-      name: "Security and Compliance Exposure",
-      icon: "shield",
-      body: "Unsupported components stop receiving patches, and audit requirements around access, encryption, and data handling become difficult to satisfy on architecture designed before them.",
-    },
-    {
-      name: "Hiring Has Become Hard",
-      icon: "users",
-      body: "The talent market for aging stacks shrinks year on year, concentrating operational knowledge in fewer people and making every departure a material risk.",
-    },
-    {
-      name: "Integration Is Blocked",
-      icon: "globe",
-      body: "Systems without APIs cannot participate in modern workflows, so data gets moved by export, batch job, or manual process — each one a source of latency and error.",
-    },
-    {
-      name: "Scale or Availability Limits",
-      icon: "book",
-      body: "Architecture designed for predictable on-premise load struggles with variable demand, and scaling means buying capacity for the peak rather than paying for what is used.",
-    },
-  ],
-};
-
-export const legacyServices: ServicesContent = {
+/**
+ * The live section's four services, in its order, each with every paragraph
+ * the live page gives it. The live section also lists the four names as
+ * bullets under its intro; the board's own selector is that list, so it is not
+ * repeated.
+ */
+export const legacyServices: ServiceBoardContent = {
   eyebrow: "Core Services",
   title: "Our Legacy Modernization Services",
-  body: "Four services covering the range from lowest-risk lift to full re-engineering. Most programmes use more than one, applied to different components of the same system.",
+  body: "Using Soft Suave’s legacy modernization services, organizations can transform their age-old traditional applications into Futuristic one.",
   items: [
     {
-      name: "Strategic Modernization Roadmap",
-      tag: "Strategy",
-      body: "Discovery, analysis, and planning that map the current state against a target architecture, classify each component by the treatment it needs, and sequence the work so dependencies and business risk are respected rather than discovered mid-migration.",
-    },
-    {
       name: "Application Re-hosting",
-      tag: "Re-host",
-      body: "The safest and most cost-effective route: moving applications locked inside complex or aging infrastructure onto modern hosting with minimal code change. Often the right first stage, buying time and reducing infrastructure cost before deeper work begins.",
+      image: { src: "/images/landing/lm-svc-rehosting.webp", alt: "Server racks in a data center during an application migration" },
+      paragraphs: [
+        "Your enterprise applications support your business. But it so happens that most of the times they’re locked away within a complex IT infrastructure, and if your applications are stuck on outdated architectures, it will lack flexibility and you cannot build for the future.",
+        "Re-hosting or application migration represents safe and cost-effective modernization. It is the key to explore the value of your core business systems, lowering your total cost of ownership and delivering applications with new feature faster.",
+        "Soft Suave is the industry leader in application re-hosting. Our expertise in delivering fast, easy, and cost-effective application modernization, supported by high-quality, proven technology, is incomparable. This re-hosting solution has helped many clients in USA, Europe, Canada and Australia.",
+        "We can assist you with every phase of your re-host journey. Join us to re-host and refresh your application architecture to build for the future.",
+      ],
     },
     {
       name: "Application Re-architecture",
-      tag: "Re-architect",
-      body: "Converting a system to modern architecture while preserving the business logic inside it — decomposing monoliths, introducing APIs, and enabling cloud, virtualization, and mobile deployment so the architecture can support growth rather than cap it.",
+      image: { src: "/images/landing/lm-svc-rearchitecture.webp", alt: "Software architect sketching a system design on a whiteboard" },
+      paragraphs: [
+        "Organizations have those tailor-made applications running on legacy systems, after implementing application modernization and cutting-edge technologies, you will improve your competitive advantage in the market while reducing functional costs and IT intricacy.",
+        "Being the best application modernization services company, Soft Suave’s application re-architecting is an established procedure to guard your business logic and application assets during conversion to a modern architecture. Our patented IP manages all project phases like data migration, code generation, design and analysis of current, and new application states.",
+        "If your company lacks in business agility and increases the backlog of requests, application re-architecture can transform things to a great extent. Enjoy the benefit of having an agile architecture that permit your business to grow continuously, adapt quickly, and respond whenever there is a business demand like cloud computing, virtualization and mobile deployment.",
+        // Live repeats the re-hosting service's closing line here, verbatim.
+        "We can assist you with every phase of your re-host journey. Join us to re-host and refresh your application architecture to build for the future.",
+      ],
     },
     {
-      name: "Application Modernization & Migration",
-      tag: "Migrate",
-      body: "Improving durability, usability, functionality, and availability: refreshing user experience and workflows, integrating systems that were never designed to talk to each other, and supporting the migration continuously rather than at a single cutover point.",
+      name: "Application Modernization",
+      image: { src: "/images/landing/lm-svc-modernization.webp", alt: "Developer updating application code on modern monitors" },
+      paragraphs: [
+        "Your company has invested a great deal of time and energy in developing several applications to meet your specific business needs. With the Soft Suave’s Legacy Application Modernization service, you can take that additional step to enhance durability, usability, functionality, and availability.",
+        "Whatever challenge you have faced for undertaking a mainframe modernization project, Soft Suave has the skills and experience to guide you on your journey by giving you the right suggestions. Together with our expert partners, we provide a complete range of business and technology requirements. Starting from initial discussions to modernization delivery, we provide constant support during the migration. Soft Suave combines a best-in-class modernization service with global delivery.",
+        "We guarantee that your currents applications meet the ever-changing business demands by improved user experience, workflows, and integration of all systems. Our goal is to assist you in growing and making a profit out of your existing application without any disturbing your business.",
+      ],
+    },
+    {
+      name: "Strategic Modernization Roadmap",
+      image: { src: "/images/landing/lm-svc-roadmap.webp", alt: "Team mapping a modernization roadmap with sticky notes" },
+      paragraphs: [
+        "Legacy systems are bulky, complex and expensive to maintain and Modernized platforms equip your applications better for flexible and cost-effective growth.",
+        "Your modernization journey needs to have a clear start and also require an understanding of the end goal. Soft Suave’s Strategic Modernization Roadmap services allow you to evaluate your existing state, your needs, and your end result through the implementation of a transformation roadmap.",
+        "Our strategic modernization approach includes 3 phases: discovery, analysis and planning. Understanding the applications, databases and processes that run in your data center now and mapping out a modernization strategy for the future.",
+      ],
     },
   ],
-};
-
-export const legacyMidCta: CtaBandContent = {
-  eyebrow: "Start With an Assessment",
-  title: "Not Sure Whether to Modernize or Replace?",
-  body: "That question is usually answered by what the assessment finds in the business logic, not by the age of the stack. Talk it through with our team before committing to either path.",
-  cta: { label: "Book a free consultation", href: "#enquiry" },
 };
