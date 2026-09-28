@@ -131,6 +131,9 @@ export const phpServices: ServiceBoardContent = {
   eyebrow: "PHP Development Services",
   title: "Diverse PHP Development Services To Build Dynamic Applications",
   body: "Our expertise in PHP frameworks encompasses a broader span of world-class features and functionalities that help businesses gain an enormous web presence.",
+  // The live page links this phrase in the "Dedicated PHP Developer Team"
+  // copy (review: "the internal link is not properly mentioned").
+  links: [{ text: "Hire PHP developers", href: "/hire-php-developers" }],
   cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
