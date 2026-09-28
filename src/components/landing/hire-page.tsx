@@ -8,6 +8,7 @@ import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import type { HireBand, HireSkill } from '@/lib/home/hire-skill';
 import { HIRE_CLIENT_LOGOS, HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 import { partnerHeroBadges } from '@/lib/home/hero-badges';
+import { sharedHeroCtas } from '@/lib/home/delivery-shared';
 import { overviewImage } from '@/lib/home/overview-images';
 import type { CardGridContent } from '@/components/landing/industries';
 import type { ServicesContent } from '@/components/landing/services';
@@ -165,8 +166,18 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
           />
         ) : null;
       case 'applications':
+        // `autoLink` forced on: the id "applications" doesn't match
+        // `CardGrid`'s own service/industry/solution guess, which left every
+        // card in this band unlinked on the two pages (Node, Angular) that
+        // open on it (review: "several buttons are not linked to any pages").
         return skill.applications ? (
-          <CardGrid key={band} content={asCardGrid(skill.applications)} id="applications" variant="bold" />
+          <CardGrid
+            key={band}
+            content={asCardGrid(skill.applications)}
+            id="applications"
+            variant="bold"
+            autoLink
+          />
         ) : null;
       case 'combinations':
         return skill.combinations ? (
@@ -264,10 +275,14 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
       <Nav logoHref={BASE_PATH || '/'} />
 
       <main id="main">
-        {/* The partner lockups are stated here, once, rather than in twenty
-            skill records: they are the company's standing, not the skill's,
-            and every other hero on the surface closes on the same four. */}
-        <Hero content={{ ...skill.hero, badges: partnerHeroBadges }} idPrefix={skill.key} />
+        {/* The partner lockups and the trial/meeting CTA pair are stated here,
+            once, rather than in twenty skill records: both are the company's
+            standing, not the skill's, and every live role page runs the same
+            two buttons beside the same four lockups. */}
+        <Hero
+          content={{ ...skill.hero, badges: partnerHeroBadges, ctas: sharedHeroCtas }}
+          idPrefix={skill.key}
+        />
         {groups.map((g, i) =>
           g.light ? (
             <div key={i} className={home.light}>

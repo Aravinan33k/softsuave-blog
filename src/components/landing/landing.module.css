@@ -43,6 +43,15 @@
   position: relative;
 }
 
+/* Two sections stacked directly — which is what a shared `.light` band is —
+   otherwise meet with BOTH of their paddings, around 150px of empty ground
+   between the end of one grid and the next heading (review: "too much gap
+   after the section"). The first section's padding-bottom already separates
+   them amply, so the second drops its own. */
+.sectionShell + .sectionShell {
+  padding-top: 0;
+}
+
 /* Section masthead: kicker, title, then the intro paragraph beneath them.
    The intro used to sit in a second column from 1000px up, which put the lead
    on the same optical line as the title and made the two compete for the first
@@ -381,6 +390,16 @@
   color: var(--accent);
 }
 
+/* --- hero CTA row: the "Start Trial" / "Book a Meeting" pair, separate
+   from the enquiry form beside it --- */
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 18px);
+  margin: clamp(26px, 3vw, 38px) 0 0;
+}
+
 /* --- trust badges: squared tags --- */
 .badges {
   list-style: none;
@@ -613,6 +632,45 @@
 
 .overviewMedia img {
   object-fit: cover;
+}
+
+/* `OverviewContent.image.fit: "contain"` — the whole asset inside the frame
+   rather than cropped to fill it.
+
+   `cover` is right for a photograph, which can lose its edges without losing
+   its subject. A drawn diagram cannot: the Ionic overview's illustration was
+   being cut down its right side and across the top and bottom of its phone
+   mockup, because at desktop the frame stretches to the prose height and the
+   asset is nowhere near that shape.
+
+   The padding keeps the artwork off the frame's hairline, and the surface
+   ground gives the letterboxed area something deliberate to be rather than a
+   band of page showing through. */
+/* An internal link inside overview prose (`OverviewContent.links`). Underlined
+   on the accent rather than coloured alone, so it reads as a link in running
+   body text without the paragraph turning into a coral patch. */
+.proseLink {
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color 0.3s ease;
+}
+
+.proseLink:hover {
+  border-bottom-color: var(--accent);
+}
+
+.overviewMediaContain {
+  background: var(--surface);
+}
+
+/* The padding sits on the image, not the frame: `next/image`'s `fill` makes it
+   absolutely positioned against the frame's padding box, so padding there
+   would not inset it at all. On the image it does, because `box-sizing:
+   border-box` keeps the 100%/100% inside the padding and `object-fit` fits the
+   asset to the content box. */
+.overviewMediaContain img {
+  object-fit: contain;
+  padding: clamp(18px, 2.2vw, 30px);
 }
 
 .pullQuote {
@@ -1021,6 +1079,20 @@
   gap: 12px;
 }
 
+/* The conversion band's own button, sized up from the surface's default chip.
+   
+   `.btn` is one size everywhere, which is right for a link sitting under a
+   card or beside a section head. It is wrong here: this band is a full-width
+   interruption whose whole purpose is the click, and at the shared size the
+   button measured 196x40 with 12px type beside a heading four times that,
+   reading as a footnote rather than the point (review: "make the button
+   bigger"). Scoped to the band, so nothing else on the surface changes. */
+.ctaActions .btn {
+  padding: 1.05em 2.1em;
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  letter-spacing: 0.1em;
+}
+
 /* ============================================================
    INTEGRATION & DEPLOYMENT
    ============================================================ */
@@ -1047,7 +1119,11 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: var(--fs-card-title);
+  /* Was `--fs-card-title` (22px), which sat too close to the body beneath it
+     to read as this panel's heading (review: "the heading is very small").
+     These are two panels to a row, not a grid of small cards, so the title
+     carries more weight than a card title does. */
+  font-size: clamp(1.5rem, 2vw, 1.9rem);
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -1566,9 +1642,11 @@
   flex: 0 0 auto;
 
   /* 20px on the Sep 23 review read as "very small" beside the chip's own
-     label; 28px matches the text it sits with. */
-  width: 28px;
-  height: 28px;
+     label, and 28px — matched to the text it sits with — was still called
+     small on the next pass. 36px makes the mark, not the label, the thing the
+     eye lands on, which is what a technology grid is scanned for. */
+  width: 36px;
+  height: 36px;
   /* The reveal tweens `filter` (marks develop from grey into colour) and
      clears it afterwards, so this transition owns the hover alone. */
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
@@ -2370,7 +2448,9 @@
 
 @media (min-width: 700px) {
   .trustStats {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    /* Falls back to 4 if the inline custom property is ever absent, matching
+       the previous hardcoded behavior. */
+    grid-template-columns: repeat(var(--stat-count, 4), minmax(0, 1fr));
   }
 
   .cardGrid,
@@ -2409,7 +2489,12 @@
        main event. Capped at a fixed 420px instead: a single-column form reads
        fine at that width and stops widening past it, so the copy column takes
        every extra pixel a bigger viewport brings. */
-    grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+    /* Raised from 420px on review ("the form size needs to be updated"): a
+       hero whose copy column runs to five supporting points and a badge row
+       is around 760px tall, and beside it a 420px card read as stranded. 470
+       is still well short of the 600px+ the proportional share used to give
+       it, so the headline stays the page's main event. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 470px);
     gap: clamp(48px, 5vw, 88px);
     /* The enquiry form is the shorter column — floats centered in the row
        instead of pinned to the copy column's top edge. */
@@ -2473,10 +2558,16 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  /* Integration: three panels fill one row. */
+  /* Integration: the panels fill one row, however many there are.
+     
+     This was a hard `repeat(3, …)`, which is right for the three panels on
+     /predictive-intelligence-services and wrong for the two on the web-app
+     page — that row ran three fixed 420px columns for two cards and left the
+     last third of it empty (review: "update the box width"). `auto-fit`
+     collapses the tracks nothing occupies, so two cards take half the row
+     each and three take a third, with no per-page prop to keep in step. */
   .integrationGrid {
-
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   }
 
   /* Why us: 6 proof points read as two rows of three. */
@@ -2522,6 +2613,27 @@
 .faqAnswer + .faqAnswer {
   padding-top: 0;
   margin-top: -0.4em;
+}
+
+/* A bulleted list inside an answer takes the same left inset as `.faqAnswer`,
+   so its markers begin exactly where the prose above and below them does.
+   Without it the list is the one block in the panel with no inset — it starts
+   at the panel's left edge, well left of the paragraph it belongs to, which is
+   what the review read as "the bullet points in the FAQs are not aligned with
+   the text".
+
+   Scoped to `.faqPanel` because `.tickList` is shared with the overview and
+   card sections, where it is already aligned to its own container.
+
+   The introducing paragraph's bottom padding is the gap above the list, so the
+   list's own top margin is dropped rather than added to it; the matching bottom
+   margin then spaces whatever follows — a closing paragraph, or the end of the
+   panel when the list is last (the outsourcing answer). */
+.faqPanel .tickList {
+  margin-top: 0;
+  margin-bottom: clamp(20px, 2.4vw, 28px);
+  padding-left: calc(2.5rem + clamp(12px, 1.6vw, 22px));
+  max-width: 78ch;
 }
 
 /* ============================================================
@@ -2869,10 +2981,31 @@
   object-position: 34% 28%;
 }
 
+/* The scrim that buys the hero copy its contrast.
+
+   It used to fall to 0.2 horizontally and 0.16 vertically right where the body
+   paragraphs sit, which is fine over a dark photograph and fails completely
+   over a bright one: the Flutter hero runs a light, busy app-screenshot
+   collage, and white text over the white cards in it came out at roughly 1.9:1
+   (review: "the subtext is not visible"). The copy column ends around 60% of
+   the width, so the darkness is held up to there and only then released for
+   the photo to read; the enquiry card that sits over the rest is opaque and
+   does not depend on this.
+
+   Combined with the vertical pass this keeps the copy band near 0.85 alpha,
+   which puts white on roughly 13:1 even where the photo underneath is pure
+   white. Shared by every compact hero, so it is a legibility floor for all of
+   them rather than a fix pinned to one page. */
 .heroCompact .heroBgVeil {
   background:
-    linear-gradient(90deg, rgba(4, 5, 8, 0.6) 0%, rgba(4, 5, 8, 0.2) 55%, rgba(4, 5, 8, 0.4) 100%),
-    linear-gradient(180deg, rgba(4, 5, 8, 0.35) 0%, rgba(4, 5, 8, 0.16) 40%, rgba(4, 5, 8, 0.9) 100%);
+    linear-gradient(
+      90deg,
+      rgba(4, 5, 8, 0.88) 0%,
+      rgba(4, 5, 8, 0.8) 45%,
+      rgba(4, 5, 8, 0.5) 68%,
+      rgba(4, 5, 8, 0.42) 100%
+    ),
+    linear-gradient(180deg, rgba(4, 5, 8, 0.4) 0%, rgba(4, 5, 8, 0.28) 40%, rgba(4, 5, 8, 0.9) 100%);
 }
 
 .heroCompact .heroGlow {
@@ -3343,7 +3476,14 @@
    top so the picture is untouched where there is no text, deepening only
    under the words. Not decoration — light text over an untreated photo
    fails contrast outright. Literal near-black on purpose: it sits on the
-   picture, not the page, so it must not flip with the `.light` band. */
+   picture, not the page, so it must not flip with the `.light` band.
+   
+   Deepened and started higher after the Angular review ("the text is not
+   properly visible"): it began at 46% under the title, which holds up over a
+   calm photograph and not at all over a bright screenshot of syntax-coloured
+   code, which is what several of those cards carried. The title now sits on
+   roughly 90% rather than 84%, and the ramp reaches that before the copy
+   starts rather than halfway down it. */
 .carouselMain {
   position: relative;
   z-index: 1;
@@ -3354,9 +3494,9 @@
   background: linear-gradient(
     180deg,
     transparent 0%,
-    color-mix(in srgb, #05070b 46%, transparent) 26%,
-    color-mix(in srgb, #05070b 84%, transparent) 58%,
-    color-mix(in srgb, #05070b 95%, transparent) 100%
+    color-mix(in srgb, #05070b 58%, transparent) 18%,
+    color-mix(in srgb, #05070b 90%, transparent) 44%,
+    color-mix(in srgb, #05070b 97%, transparent) 100%
   );
 }
 
@@ -3404,15 +3544,21 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: var(--fs-card-title);
+  /* Was `--fs-card-title` (22px). These are the page's service headings, not
+     small cards in a grid — one is in focus at a time and the card is most of
+     the row (review: "update the font sizes and spacing, especially in the
+     services section"). */
+  font-size: clamp(1.45rem, 1.9vw, 1.75rem);
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: #fff;
 }
 
 .carouselText {
-  margin: 10px 0 0;
-  font-size: var(--fs-body-sm);
+  /* Was 10px against a heading twice its size, at `--fs-body-sm` (14.4px) —
+     the same undersized-prose correction the web-app service board took. */
+  margin: 14px 0 0;
+  font-size: var(--fs-body);
   line-height: 1.62;
   color: rgba(255, 255, 255, 0.86);
 }
@@ -5418,7 +5564,11 @@
 .sbText {
   margin: 0;
   max-width: 62ch;
-  font-size: var(--fs-body-sm);
+  /* Was `--fs-body-sm` (14.4px). The stage is the one place this section puts
+     prose, and at the small size it read as a caption under a heading twice
+     its size — the review asked for it at 1.125rem/18px, which is `--fs-body`,
+     the same size every other section sets its prose. */
+  font-size: var(--fs-body);
   line-height: 1.68;
   color: var(--text);
 }
@@ -5723,6 +5873,46 @@
     clamp(16px, 1.8vw, 22px);
   overflow: hidden;
   background: var(--bg);
+  /* Follow the card's own 14px curve at the top, where the frame runs out to
+     the card edges, and stay square at the bottom where the copy continues
+     below it. Without this the picture cut a hard right angle across each
+     rounded top corner (review: "update the image div corner radius"). The
+     12px is the card's radius less its border and the pixel the frame's
+     negative margin leaves inside it. */
+  border-radius: 12px 12px 0 0;
+}
+
+/* "View More" under a story card (`StoryCardsContent.items[].href`). Pushed to
+   the card's foot so a row of cards with copy of different lengths still has
+   its links on one line. */
+.stcLink {
+  margin-top: auto;
+  padding-top: clamp(12px, 1.4vw, 16px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transition: gap 0.3s ease;
+}
+
+.stcLink:hover {
+  gap: 0.85em;
+}
+
+/* Button under the services carousel (`ServicesCarouselContent.cta`). */
+.carouselCta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(22px, 2.6vw, 34px);
+}
+
+/* Button under the why-us proof grid (`CardGridContent.cta`). */
+.proofCta {
+  margin-top: clamp(26px, 3vw, 40px);
 }
 
 .stcImage {
@@ -5735,6 +5925,24 @@
    and let each cell stack its figure over its label. */
 .overviewStats {
   margin-top: clamp(24px, 3vw, 40px);
+}
+
+/* `OverviewContent.statsAside` — the counters take the grid column the
+   illustration would otherwise fill. Below 1000px `.overviewGrid` collapses to
+   one column, so this simply stacks under the prose and needs the top margin
+   the full-width position has; from 1000px it sits beside the copy and the
+   margin goes, with the panel centred against the prose block rather than
+   stretched to its full height (four counters do not want to be pulled to the
+   height of four paragraphs). */
+.overviewStatsAside {
+  margin-top: clamp(24px, 3vw, 40px);
+}
+
+@media (min-width: 1000px) {
+  .overviewStatsAside {
+    margin-top: 0;
+    align-self: center;
+  }
 }
 
 .trustStatValue {
@@ -5814,6 +6022,13 @@
 /* CTA button appended to an overview's claim list (`OverviewContent.cta`). */
 .overviewCta {
   margin-top: clamp(18px, 2.2vw, 26px);
+}
+
+/* `OverviewContent.ctaAlign: "center"` — centers `.overviewCta` under a
+   full-width claim list instead of leaving it flush left. `.btn` is
+   `display: inline-flex`, so it respects the wrapper's `text-align`. */
+.overviewCtaCenter {
+  text-align: center;
 }
 
 /* Card variant of an overview's claim list (`OverviewContent.pointsVariant:
@@ -6628,6 +6843,75 @@
   }
 }
 
+/* `variant="list"` — a plain description list: thumbnail (or icon badge)
+   beside the name and body, one row per item, no card chrome. */
+.techListWrap {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3.2vw, 44px);
+}
+
+.techRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 2vw, 28px);
+  align-items: center;
+  padding-bottom: clamp(28px, 3.2vw, 44px);
+  border-bottom: 1px solid var(--line);
+}
+
+.techRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.techMedia {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 12px;
+  aspect-ratio: 16 / 9;
+  background: color-mix(in srgb, var(--text-bright) 6%, transparent);
+}
+
+.techImg {
+  object-fit: cover;
+}
+
+.techName {
+  margin: 0 0 10px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--fs-card-title);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--text-bright);
+}
+
+.techText {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+}
+
+/* Media and copy sit side by side once there is room, alternating which side
+   the art sits on so a long list does not read as one repeated row. */
+@media (min-width: 800px) {
+  .techRow {
+    grid-template-columns: minmax(0, 0.44fr) minmax(0, 1fr);
+  }
+
+  .techRow[data-side="right"] {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.44fr);
+  }
+
+  .techRow[data-side="right"] .techMedia {
+    order: 2;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .featCard,
   .featLinkIcon {
@@ -7019,9 +7303,14 @@
    kept at full strength rather than mixed toward the ground because every chip
    here is a link: a hairline pale enough to read as decoration on this warm
    white would put the second half of the roster under 4.5:1. */
+/* Was 1.2px var(--muted) — a thin warm-grey outline that reads as barely
+   there against this band's near-white ground (review: "low content
+   visibility... update the size and colour"). Thicker and darker keeps the
+   hollow/outline character that distinguishes this row from the solid one
+   above it, without it vanishing at a glance. */
 .exploreRows .exploreChipGhost {
   color: transparent;
-  -webkit-text-stroke: 1.2px var(--muted);
+  -webkit-text-stroke: 1.6px var(--text-bright);
 }
 
 .exploreRows .exploreChip:hover,

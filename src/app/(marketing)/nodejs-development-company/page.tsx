@@ -154,16 +154,17 @@ export default function NodejsDevelopmentPage() {
 
         <CtaBand content={njHireCta} />
 
+        {/* Client stories ahead of the FAQ (review: "move the testimonials
+            before the FAQ"). TechStack, Testimonials and the FAQ are all
+            light bands once reordered, so they share one wrapper rather than
+            alternating light/dark three times in five sections — the FAQ
+            sat dark on its own before, between two light bands either side
+            of it. Homepage client stories carry the same heading and
+            standfirst as the live page's own band. */}
         <div className={home.light}>
           <TechStack content={njTech} />
-        </div>
-
-        <Faq content={njFaqs} idPrefix="nj-faq" />
-
-        {/* Homepage client stories, on the warm-white band as they are there —
-            the live page's band carries the same heading and standfirst. */}
-        <div className={home.light}>
           <Testimonials />
+          <Faq content={njFaqs} idPrefix="nj-faq" />
         </div>
 
         <Contact />

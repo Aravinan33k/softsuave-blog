@@ -5,6 +5,7 @@ import Image from "next/image";
 import { publicMediaUrl } from "@/lib/media-url";
 import { isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./landing.module.css";
 import fx from "@/components/common/enquiry-form.module.css";
 import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
@@ -29,6 +30,19 @@ export interface HeroContent {
   badges?: readonly (string | HeroBadge)[];
   /** Copy for the enquiry card; the card itself is `common/enquiry-form`. */
   form: EnquiryFormContent;
+  /**
+   * Optional button row under the points list, separate from the enquiry
+   * form beside it — the live "Start X Trial" / "Book a Meeting" pair
+   * (review: "CTA button is missing in the hero section"). The first entry
+   * renders filled/primary; the rest render outlined. `external` opens the
+   * link in a new tab (a booking page, say) rather than routing through
+   * `SiteLink`.
+   */
+  ctas?: readonly {
+    readonly label: string;
+    readonly href: string;
+    readonly external?: boolean;
+  }[];
   /**
    * Optional full-bleed background image behind the *whole* hero section —
    * veiled for contrast, the same "image behind the text" treatment as the
@@ -203,6 +217,40 @@ export default function Hero({
               </li>
             ))}
           </ul>
+
+          {content.ctas && content.ctas.length > 0 && (
+            <div className={styles.heroCtas}>
+              {content.ctas.map((cta, i) => {
+                const className = i === 0 ? `${styles.btn} ${styles.btnPrimary}` : styles.btn;
+                if (cta.external) {
+                  return (
+                    <a
+                      key={cta.label}
+                      href={cta.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={className}
+                    >
+                      {cta.label}
+                    </a>
+                  );
+                }
+                // An in-page target stays a plain <a> so ScrollProvider's
+                // Lenis handler intercepts it; anything else goes through
+                // SiteLink, which resolves a live-only path (like the trial
+                // page) to softsuave.com instead of 404ing.
+                return cta.href.startsWith("#") ? (
+                  <a key={cta.label} href={cta.href} className={className}>
+                    {cta.label}
+                  </a>
+                ) : (
+                  <SiteLink key={cta.label} href={cta.href} className={className}>
+                    {cta.label}
+                  </SiteLink>
+                );
+              })}
+            </div>
+          )}
 
           {content.badges && content.badges.length > 0 && (
             <ul className={styles.badges} aria-label="Credentials">

@@ -28,6 +28,7 @@
  */
 
 import { partnerHeroBadges } from "./hero-badges";
+import { sharedHeroAlert } from "./delivery-shared";
 import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesCarouselContent } from "@/components/common/services-carousel";
@@ -51,21 +52,35 @@ export const txHero: HeroContent = {
     "As applications grow, inconsistent data handling and complex code patterns can slow development. Soft Suave is a reliable TypeScript development company that improves code structure, strengthens type safety, simplifies maintenance, and aligns implementation with your application architecture and established engineering standards.",
     "Explain your current challenges or product plans, and we will recommend a practical TypeScript development path for your application.",
   ],
+  /**
+   * Every point says something about TypeScript work.
+   *
+   * Two of these were company credentials — "13+ Years of Technology
+   * Expertise" and "400+ AI & Engineering Specialists" — which say nothing
+   * about what this page sells and which the badge row underneath already
+   * covers. They are replaced by what a reader weighing this service actually
+   * wants to know: how far the typing goes, and whether adopting it stops
+   * their roadmap (review: "update the highlighted points in the hero
+   * section").
+   */
   points: [
-    "13+ Years of Technology Expertise",
     "Full-Stack TypeScript Development",
-    "JavaScript-to-TypeScript Modernization",
+    "JavaScript-to-TypeScript Migration Without a Feature Freeze",
+    "Typed API Contracts Across Client and Server",
     "React, Angular, Vue.js, and Node.js Expertise",
-    "400+ AI & Engineering Specialists",
+    "Strict Compiler Setup and Type Coverage",
   ],
   badges: partnerHeroBadges,
   form: {
     eyebrow: "Business Enquiry",
     title: "Let's Discuss Your Project",
-    note: "Alert: This form is for business, not candidates. To apply for jobs,",
-    // The brief's own "click here" wording, made a real link rather than dead
-    // text — the same pattern the Next.js page's hero uses.
-    noteLink: { label: "click here", href: "/career-overview" },
+    /* The card carried no descriptive line at all, which is most of why it sat
+       short beside this hero's five-point copy column (review: "update the
+       form size"). Every other page on the surface sets one. */
+    note: "Tell us about the application or codebase, whether this is a new build or an existing JavaScript project, and which parts of the stack it touches. We come back with an approach, timeline, and estimate, all under NDA.",
+    /* The candidate notice was being pushed through `note`/`noteLink`, which
+       renders it as body copy; `alert` is the field built for it. */
+    alert: sharedHeroAlert,
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",
@@ -73,10 +88,14 @@ export const txHero: HeroContent = {
       "The application or codebase you have in mind, whether this is a new build or an existing JavaScript project to migrate, and which parts of the stack it touches.",
     subject: "TypeScript Development enquiry",
   },
+  /**
+   * Cut for this page, replacing `four/svc-web.webp` — a generic abstract
+   * frame shared with other pages, which is what the review was pointing at.
+   */
   image: {
-    src: "/images/four/svc-web.webp",
-    width: 587,
-    height: 410,
+    src: "/images/four/tx-hero.webp",
+    width: 1920,
+    height: 1080,
     alt: "A TypeScript application under development on a developer's screen",
   },
 };
@@ -89,8 +108,15 @@ export const txOverview: OverviewContent = {
     "Soft Suave provides TypeScript development services for new applications and established JavaScript products. Our work can include setting project standards, defining types for application data, updating selected modules, improving existing code, and coordinating type definitions across user interfaces, backend services, and APIs.",
     "TypeScript adoption does not need to cover the entire application at once. We can introduce it gradually into an existing JavaScript codebase or use it from the beginning, depending on your application, dependencies, release schedule, and team readiness.",
   ],
+  /**
+   * Portrait-cut and made for this page. What was here was
+   * `svc-consulting-discovery.webp`, borrowed from another page's services
+   * band, and the frame stretches to the prose height at desktop and lands
+   * near square — so a landscape asset was cropped hard as well as being off
+   * the subject (review: "resize the image in this section").
+   */
   image: {
-    src: "/images/landing/services/svc-consulting-discovery.webp",
+    src: "/images/four/tx-overview.webp",
     width: 640,
     height: 427,
     alt: "Planning a gradual TypeScript adoption across an existing codebase",
@@ -111,7 +137,7 @@ export const txServices: ServicesCarouselContent = {
       name: "Custom TypeScript Application Development",
       body: "Develop TypeScript applications with data models, reusable modules, framework integrations, and code structures aligned with your functional and technical requirements.",
       image: {
-        src: "/images/landing/services/svc-application-development.webp",
+        src: "/images/four/tx-svc-custom.webp",
         alt: "A TypeScript application taking shape from data models to interface",
       },
     },
@@ -119,7 +145,7 @@ export const txServices: ServicesCarouselContent = {
       name: "JavaScript-to-TypeScript Migration",
       body: "Convert JavaScript code incrementally by prioritizing modules, configuring compiler rules, resolving type gaps, and preserving working application behavior during migration.",
       image: {
-        src: "/images/landing/services/svc-support-optimisation.webp",
+        src: "/images/four/tx-svc-migration.webp",
         alt: "An existing JavaScript codebase being staged for TypeScript migration",
       },
     },
@@ -127,7 +153,7 @@ export const txServices: ServicesCarouselContent = {
       name: "Typed Frontend Application Development",
       body: "Build typed interfaces with React, Angular, Vue.js, or Next.js while organizing component properties, application state, API responses, and frontend utilities.",
       image: {
-        src: "/images/four/svc-custom-software.webp",
+        src: "/images/four/tx-svc-frontend.webp",
         alt: "A typed frontend interface built with component properties and application state",
       },
     },
@@ -135,7 +161,7 @@ export const txServices: ServicesCarouselContent = {
       name: "TypeScript Backend Development with Node.js",
       body: "Create Node.js services in TypeScript with structured request handling, data models, business logic, authentication flows, integrations, and maintainable server-side modules.",
       image: {
-        src: "/images/landing/services/svc-integration.webp",
+        src: "/images/four/tx-svc-backend.webp",
         alt: "A Node.js backend service structured around typed data models",
       },
     },
@@ -143,7 +169,7 @@ export const txServices: ServicesCarouselContent = {
       name: "Type Definitions and API Contract Integration",
       body: "Connect applications using typed REST or GraphQL contracts that describe payloads, responses, errors, and structures across client and server code.",
       image: {
-        src: "/images/landing/services/svc-model-selection.webp",
+        src: "/images/four/tx-svc-api.webp",
         alt: "A typed API contract describing payloads and responses between client and server",
       },
     },
@@ -151,7 +177,7 @@ export const txServices: ServicesCarouselContent = {
       name: "TypeScript Maintenance and Codebase Improvement",
       body: "Review compiler settings, dependencies, outdated types, duplicated definitions, test coverage, and complex modules before planning focused maintenance or refactoring work.",
       image: {
-        src: "/images/landing/services/svc-evaluation-llmops.webp",
+        src: "/images/four/tx-svc-maintenance.webp",
         alt: "A TypeScript codebase's compiler settings and dependencies under review",
       },
     },
@@ -163,7 +189,9 @@ export const txPlanCta: CtaBandContent = {
   eyebrow: "Next Step",
   title: "Is Your Codebase Becoming Harder to Maintain?",
   body: "Growing complexity can slow releases and lead to unnecessary rework. Share your application challenges, and we’ll recommend a practical TypeScript approach for your codebase and development goals.",
-  cta: { label: "Plan Your TypeScript Project", href: "#enquiry" },
+  // /contact, not this page's `#enquiry` anchor — the review asked for the
+  // button to reach the contact page.
+  cta: { label: "Plan Your TypeScript Project", href: "/contact" },
 };
 
 export const txWhyUs: CardGridContent = {

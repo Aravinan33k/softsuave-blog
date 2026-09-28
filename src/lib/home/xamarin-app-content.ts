@@ -69,8 +69,9 @@ export const xamHero: HeroContent = {
   // The four trust badges this surface shows beside every enquiry form.
   badges: partnerHeroBadges,
   form: {
-    // The live page's own form heading and sub-line.
-    eyebrow: "Let’s Discuss Your Project",
+    // The live page's own form heading and sub-line. No `eyebrow`: the review
+    // asked for the hero's kicker to go, and the card's is the only one the
+    // hero renders. Same correction the React Native and Ionic pages took.
     title: "Get free rough quote in 24 hrs",
     note: "Tell us what the app has to do and which platforms it has to reach, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Submit",
@@ -99,13 +100,26 @@ export const xamOverview: OverviewContent = {
     "During every stage of design and development process, our Xamarin developers optimize your apps for high value and superior usability for your end-customers. The application developed using Xamarin platform use hardware acceleration, which directly drives the performance like a native application.",
     "The Xamarin apps from Soft Suave are all Future Ready to stay ahead in the competition as Xamarin allows the re-use of code across all platforms as well as the integration of libraries written natively for each platform.",
   ],
+  /**
+   * The live page's own link, which was missing here: its second paragraph
+   * sends "dedicated mobile app developers" to the hire page. That route is
+   * one this app serves, so it resolves locally.
+   */
+  links: [{ text: "dedicated mobile app developers", href: "/hire-mobile-app-developers" }],
+  /**
+   * Portrait-cut frame, replacing a 4:3 macro of source code.
+   *
+   * The frame stretches to the prose height at desktop and lands near square,
+   * so the old landscape asset was cropped hard on both sides — and it was an
+   * extreme close-up to begin with, which left it reading as coloured blur
+   * rather than as anything (review: "need to resize the section image"). This
+   * one is cut portrait, so the square frame takes it almost whole.
+   */
   image: {
-    src: "/images/landing/xamarin/overview.webp",
-    width: 1400,
-    height: 1050,
-    alt: "C# source code on screen, the language a Xamarin application is written in",
-    blurDataURL:
-      "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACwAQCdASoQAAwAA4BaJQBOgB5gIdwAAP7s8JdDgqLjMTcKHBGTbR9Y/8v3hR2s6eRsQEYMlmzmMfBC6eVAObnqYAA=",
+    src: "/images/four/xam-overview.webp",
+    width: 1000,
+    height: 1200,
+    alt: "A developer writing C# for a cross-platform application at a desktop workstation",
   },
 };
 
@@ -119,7 +133,9 @@ export const xamServices: ServiceBoardContent = {
   eyebrow: "Xamarin App Development",
   title: "Our Strength in Xamarin App Development Services",
   body: "We specialize in building top-quality cross-platform mobile apps with innovative functionality and perform like native apps. As a leading Xamarin development company, we offer these diverse Xamarin services,",
-  cta: { label: "Talk To Experts", href: "#enquiry" },
+  // /contact, not this page's `#enquiry` anchor — the review asked for this
+  // button to reach the contact page.
+  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "Xamarin Development Consulting",
@@ -143,7 +159,11 @@ export const xamServices: ServiceBoardContent = {
         "Soft Suave provides Xamarin development 10X faster at a less expensive cost compared to our competitors. Being the best Xamarin App Development Company, we don’t compromise on quality when it comes to the development of applications. Our Xamarin developers are experts in developing applications with an interactive & highly responsive UI for iOS, Android, and Windows platforms. With the amount of experience with Xamarin, our team can efficiently work round the clock to deliver high performing and easy to maintain apps, with the fastest turnaround time.",
         "Xamarin apps developed by Soft Suave are assured to push your competition out of the market and helps you in topping the industry easily. This makes us the preeminent Xamarin development company.",
       ],
-      image: { src: "/images/landing/xamarin/svc-appdev.webp", alt: "" },
+      // Replaced the abstract close-up of source code that was here: it read
+      // as texture rather than subject, and repeated what the overview image
+      // already showed. The other three service photographs fit their
+      // sections and are untouched.
+      image: { src: "/images/four/xam-appdev.webp", alt: "" },
     },
     {
       name: "Cross-platform Development",
@@ -156,9 +176,17 @@ export const xamServices: ServiceBoardContent = {
   ],
 };
 
-/** The live page's band between the services and the technology stack. */
+/**
+ * The live page's band, which the review moved ahead of the technology stack.
+ *
+ * No `eyebrow`: the review asked for the CTA's kicker to go, so the heading
+ * stands on its own — which is what `CtaBandContent.eyebrow` is optional for.
+ *
+ * `/hire-xamarin-developer` is a page softsuave.com publishes and this app does
+ * not, so `SiteLink` resolves it to the live site. Building it here is its own
+ * piece of work (see PAGE-TEMPLATES.md), not part of these corrections.
+ */
 export const xamHireCta: CtaBandContent = {
-  eyebrow: "Hire A Team",
   title: "Need Xamarin Developers On Contract?",
   body: "Soft Suave has a pool of Dedicated Xamarin Developers who deliver your app development project on time and under your budget.",
   cta: { label: "Hire Xamarin Developer", href: "/hire-xamarin-developer" },
@@ -166,9 +194,10 @@ export const xamHireCta: CtaBandContent = {
 
 /**
  * The live page's three technology tabs, as the shared stack's groups. Names go
- * straight to `components/home/tech-logo.tsx`; Android has no mark there yet
- * and falls back to the generic glyph, and "C#" resolves to the C mark, which
- * is the closest the set holds.
+ * straight to `components/home/tech-logo.tsx`, and all seven resolve to a real
+ * brand mark — Android was the last one falling back to the generic glyph and
+ * was added to that component with jQuery, and C# now has its own mark rather
+ * than borrowing C's.
  */
 export const xamTech: TechStackContent = {
   eyebrow: "Xamarin Development",

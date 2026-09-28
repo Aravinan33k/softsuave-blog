@@ -33,3 +33,24 @@ export const sharedHeroAlert = {
   linkLabel: "click here.",
   href: "/career-overview",
 } as const;
+
+/**
+ * The hero CTA pair every "Hire <skill> Developers" page runs beside its
+ * enquiry form — "Start 40 Hours Free Trial" and "Book a Meeting" — missing
+ * from this surface's hero entirely before (review: "CTA button is missing
+ * in the hero section"). Company-level standing, not per-role copy, so it is
+ * injected once by the page renderer rather than repeated in twenty content
+ * modules — the same treatment `sharedHeroBadges` gets.
+ *
+ * `/free-7-days-trial` is a page softsuave.com has and this app does not;
+ * `SiteLink` resolves it to the live site rather than 404ing. The Calendly
+ * link is the live page's own booking link, unchanged.
+ */
+export const sharedHeroCtas = [
+  { label: "Start 40 Hours Free Trial", href: "/free-7-days-trial" },
+  {
+    label: "Book a Meeting",
+    href: "https://calendly.com/soft_suave/dedicated-teams",
+    external: true,
+  },
+] as const;

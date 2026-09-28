@@ -75,7 +75,9 @@ export const ngHero: HeroContent = {
   badges: partnerHeroBadges,
   form: {
     // The live page's own form heading and sub-line.
-    eyebrow: "Let’s Discuss Your Project",
+    // No `eyebrow`: the review asked for the hero's kicker to go, and the
+    // card's is the only one the hero renders. Same correction every other
+    // corrected page on this surface took.
     title: "Get free rough quote in 24 hrs",
     note: "Tell us what the application has to do and who uses it, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Submit",
@@ -85,8 +87,12 @@ export const ngHero: HeroContent = {
       "The application you have in mind, who uses it, anything it has to integrate with, and whether this is a new Angular build or an existing app to migrate.",
     subject: "Angular Development enquiry",
   },
+  /**
+   * Replaced on review ("need to change the hero image") with a brighter frame
+   * of a team at work, which is what the page sells.
+   */
   image: {
-    src: "/images/landing/angular/hero.webp",
+    src: "/images/four/ng-hero.webp",
     width: 1920,
     height: 1080,
     alt: "A workspace with interface sketches on a tablet beside code on a monitor",
@@ -97,13 +103,26 @@ export const ngHero: HeroContent = {
 export const ngServices: ServicesCarouselContent = {
   eyebrow: "Services",
   title: "Our Angular Development Services",
-  body: "Soft Suave offers exceptional Angular development services designed to craft exceptional user experiences.",
+  /**
+   * The live page's own standfirst, and the button it closes the section on —
+   * ours carried neither (review: "update the service section subtext, images
+   * and missing CTA"). /contact, as every corrected CTA on this surface goes.
+   */
+  cta: { label: "Talk To Our Experts", href: "/contact" },
+  /**
+   * What was here — "Soft Suave offers exceptional Angular development
+   * services designed to craft exceptional user experiences." — was the first
+   * sentence of the Strengths section's own standfirst, so the page said the
+   * same thing twice, two sections apart. This is the live page's line for
+   * this section.
+   */
+  body: "See how we utilize the speed, structure, and scalability of Angular to build next-generation web applications.",
   items: [
     {
       name: "SPA & PWA",
       body: "As a leading Angular development company, we specialize in crafting cutting-edge Single Page Applications (SPAs) and Progressive Web Apps (PWAs). Our expertise ensures fast, seamless, and engaging user experiences crucial for modern web applications.",
       image: {
-        src: "/images/landing/angular/svc-spa.webp",
+        src: "/images/four/ng-spa.webp",
         alt: "Front-end JavaScript on screen during a single-page build",
       },
     },
@@ -111,7 +130,7 @@ export const ngServices: ServicesCarouselContent = {
       name: "Angular Plugin Development",
       body: "Our team crafts custom Angular plugins to integrate with your existing applications seamlessly. We develop compatible and powerful solutions to fulfill your specific needs, whether it's adding unique features or improving integration capabilities across various Angular versions.",
       image: {
-        src: "/images/landing/angular/svc-plugin.webp",
+        src: "/images/four/ng-plugin.webp",
         alt: "A code editor open on a laptop, the kind of work a plugin build lives in",
       },
     },
@@ -119,7 +138,7 @@ export const ngServices: ServicesCarouselContent = {
       name: "Angular Widget Development",
       body: "As an Angular development company in India, we are skilled at creating custom widgets that add both functionality and aesthetic value to your applications. Our widgets are modular, reusable, and easy to integrate, enhancing user interactions and data presentation.",
       image: {
-        src: "/images/landing/angular/svc-widget.webp",
+        src: "/images/four/ng-widget.webp",
         alt: "Markup on screen showing the structure a reusable widget is built from",
       },
     },
@@ -143,7 +162,7 @@ export const ngServices: ServicesCarouselContent = {
       name: "REST APIs",
       body: "Specializing in building RESTful APIs, we ensure seamless communication between your Angular applications and other systems. Our APIs are secure, reliable, and optimized for high performance, facilitating effective data handling and integration.",
       image: {
-        src: "/images/landing/angular/svc-api.webp",
+        src: "/images/four/ng-api.webp",
         alt: "Code on a dark screen, the kind that wires one service to another",
       },
     },
@@ -186,7 +205,8 @@ export const ngStacks: CardGridContent = {
 
 /** The live page's band, with the three counters it prints beneath. */
 export const ngHireCta: CtaBandContent = {
-  eyebrow: "Hire A Team",
+  // No `eyebrow`: the review asked for the CTA's kicker to go, so the heading
+  // stands on its own — which is what `CtaBandContent.eyebrow` is optional for.
   title: "Lack Angular Resources for Your Development Project?",
   body: "Soft Suave provides pre-screened Angular developers and dedicated teams with a 1-week risk-free trial to enhance your project.",
   cta: { label: "Hire Angular Developers", href: "/hire-angularjs-developers" },
@@ -232,6 +252,9 @@ export const ngStrengths: CardGridContent = {
 };
 
 export const ngWhyUs: CardGridContent = {
+  // The section made its case and then offered nothing to do about it
+  // (review: "cta button missing").
+  cta: { label: "Talk To Our Experts", href: "/contact" },
   eyebrow: "Why Choose Soft Suave",
   title: "Why Choose Soft Suave For Angular Development?",
   body: "Empower your web applications with Soft Suave's expert Angular development services. Here's why you should choose us:",
@@ -252,6 +275,15 @@ export const ngWhyUs: CardGridContent = {
 };
 
 /** Three projects, each labelled with the industry the live page names. */
+/**
+ * The live page's three case studies, each with its own artwork and its own
+ * "View More" destination — ours carried neither (review: "link to case study
+ * page is missing", "images for the cards are missing").
+ *
+ * The three `/case-study-*` routes are pages softsuave.com publishes and this
+ * app does not, so `SiteLink` resolves them to the live site. They come back
+ * here the day a case-study template exists (see PAGE-TEMPLATES.md).
+ */
 export const ngStories: StoryCardsContent = {
   eyebrow: "Our Work",
   title: "Success Stories",
@@ -261,21 +293,58 @@ export const ngStories: StoryCardsContent = {
       industry: "Healthcare",
       name: "Telehealth App For Doctor Consultation",
       body: "Soft Suave developed a custom telehealth app for a MedTech start-up, aiming to simplify healthcare management with mobile solutions. The app allows doctors to register, connect with patients via video, and manage appointments. Hire mobile app developers and procure similar apps for your business requirements.",
+      image: {
+        src: "/images/four/ng-work-health.webp",
+        alt: "A doctor consulting a patient over video on a tablet",
+      },
+      href: "/case-study-telehealth-consultation-platform-for-doctors",
     },
     {
       industry: "Retail & eCommerce",
       name: "Multi-Vendor Marketplace App",
       body: "Soft Suave developed a customized multi-vendor eCommerce platform for an eCommerce start-up to deliver a superior online shopping experience. The platform includes multiple payment options, real-time inventory management, and different user panels to ensure smoother operation. Hire app developers and improve your business operations.",
+      image: {
+        src: "/images/four/ng-work-retail.webp",
+        alt: "A shopper browsing a multi-vendor marketplace on a laptop",
+      },
+      href: "/case-study-ecommerce-platform",
     },
     {
       industry: "Business- Consulting",
       name: "Tool For Project Progress Tracking",
       body: "Soft Suave created a job progress tracking application for a consulting company focused on the construction and real estate industries in New York City. The app facilitates project management by breaking large tasks into smaller, manageable units, and providing tools for task assignment, progress tracking, and resource allocation. Scale up your app performance by hiring mobile app developers.",
+      image: {
+        src: "/images/four/ng-work-consulting.webp",
+        alt: "A consulting team tracking project progress on a planning board",
+      },
+      href: "/case-study-job-progress-tracking",
     },
   ],
 };
 
+/**
+ * The band the live page runs after "Why Choose Soft Suave", which this page
+ * did not carry at all (review: "CTA banner section missing"). Its heading is
+ * the live page's own.
+ *
+ * The live button goes to /free-quote, a page this app does not serve; it is
+ * pointed at /contact instead, which is where every other corrected CTA on
+ * this surface now goes and which keeps the reader in the app.
+ */
+export const ngProjectCta: CtaBandContent = {
+  title: "Interested in discussing your Angular project with us?",
+  body: "Tell us what you are building and which parts of it Angular has to carry, and we come back with an approach, a timeline and an estimate.",
+  cta: { label: "Talk to Our Experts", href: "/contact" },
+};
+
 export const ngFaqs: FaqContent = {
+  /**
+   * The live page links "front-end development" in the second answer to the
+   * hire page, and that was missing here (review: "internal link is not
+   * updated in the 2nd faq"). It is a route this app serves, so it resolves
+   * locally — see `components/common/linkify`.
+   */
+  links: [{ text: "front-end development", href: "/hire-frontend-application-developer" }],
   eyebrow: "Questions",
   title: "Frequently Asked Questions",
   body: "Know more about our processes and how we work, with the help of the following FAQs.",

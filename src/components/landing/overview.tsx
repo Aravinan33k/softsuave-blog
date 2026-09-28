@@ -10,12 +10,31 @@ import SectionHead from "./section-head";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import type { IconKey } from "@/lib/home/icon-for";
 import Flow, { type FlowContent } from "@/components/common/flow";
+import { linkify, type InlineLink } from "@/components/common/linkify";
 import styles from "./landing.module.css";
+
 
 export interface OverviewContent {
   eyebrow: string;
   title: string;
   paragraphs: readonly string[];
+  /**
+   * Internal links to weave into the prose, matched on their own words.
+   *
+   * The copy stays plain strings — `paragraphs` is extracted verbatim from the
+   * live page and is not ours to re-author into JSX — so a link is declared by
+   * the phrase it wraps. The first occurrence across the paragraphs is replaced
+   * with an anchor and the rest of the copy is untouched; a phrase that does
+   * not appear simply renders nothing, so a copy edit can never break a build,
+   * only drop the link.
+   *
+   * Exists because the live Xamarin page links "dedicated mobile app
+   * developers" to /hire-mobile-app-developers in its second paragraph, and
+   * that link was missing here (review: "internal link is missing in the 2nd
+   * paragraph"). Routed through `SiteLink`, so a path this app does not serve
+   * still resolves to softsuave.com rather than 404ing.
+   */
+  links?: readonly InlineLink[];
   /**
    * Optional short claim list under the prose, for an overview whose copy
    * names its reasons rather than describing them. Each entry is a phrase,
@@ -57,6 +76,13 @@ export interface OverviewContent {
    */
   cta?: { readonly label: string; readonly href: string };
   /**
+   * `"center"` centers the button under a full-width claim list — a bare
+   * button flush left under a row of three cards reads as an afterthought
+   * (review: "either move the button to the center or remove it entirely").
+   * Omit for the default left-aligned start.
+   */
+  ctaAlign?: "start" | "center";
+  /**
    * Optional proof counters under the copy — the credibility numbers a
    * "why choose us" overview closes on. Figures are strings, not numbers:
    * they arrive already written ("400+", "13+") and are not ours to
@@ -64,6 +90,20 @@ export interface OverviewContent {
    * clients band uses, so one proof band exists across the surface.
    */
   stats?: readonly { readonly figure: string; readonly label: string }[];
+  /**
+   * Put `stats` in the grid's right-hand column instead of running them full
+   * width underneath, and drop `image` — the counters become the block's
+   * companion to the prose rather than a footer under it.
+   *
+   * Opt-in, so the pages that already pair prose with an illustration are
+   * untouched. The Flutter page asked for it on review ("keep the bottom
+   * section (stats boxes) on the right side instead of the image"), where the
+   * illustration was a flat line-art icon stretched across a 4:3 frame and the
+   * four counters were the stronger thing to show beside the copy.
+   *
+   * With no `stats` it does nothing, so it can never blank the column.
+   */
+  statsAside?: boolean;
   /** Optional — only pages whose copy ends on a pull quote supply one. */
   pullQuote?: string;
   /**
@@ -93,6 +133,17 @@ export interface OverviewContent {
     height: number;
     alt: string;
     blurDataURL?: string;
+    /**
+     * How the asset fills its frame. `"cover"` (the default) crops to fill,
+     * which is right for a photograph — the frame stretches to the prose height
+     * at desktop, and a photo can lose its edges without losing its subject.
+     *
+     * `"contain"` fits the whole asset inside the frame instead, centred and
+     * inset. For a drawn diagram or illustration, cropping removes content:
+     * the Ionic page's own one was losing the figure on its right and the top
+     * and bottom of its phone mockup (review: "need to resize the image").
+     */
+    fit?: "cover" | "contain";
   };
 }
 
@@ -136,6 +187,15 @@ export default function Overview({
   const clamped = clamp && !expanded;
   const proseId = `${id}-prose`;
 
+  /**
+   * Which link phrases have already been placed. Shared across the paragraph
+   * map so a phrase that recurs — "dedicated mobile app developers" appears
+   * more than once in some copy — is linked on its first appearance only.
+   * Linking every occurrence would put the same href on the page three times,
+   * which reads as keyword stuffing rather than a reference.
+   */
+  const used = new Set<string>();
+
   const toggle = () => {
     setExpanded((v) => !v);
     // The section's height changes underneath every ScrollTrigger below it,
@@ -151,7 +211,7 @@ export default function Overview({
         style={clamped ? ({ WebkitLineClamp: clampLines } as CSSProperties) : undefined}
       >
         {content.paragraphs.map((p, i) => (
-          <p key={`${i}-${p.length}`}>{p}</p>
+          <p key={`${i}-${p.length}`}>{linkify(p, content.links, used, styles.proseLink)}</p>
         ))}
       </div>
 
@@ -181,29 +241,102 @@ export default function Overview({
     </>
   );
 
+  /*
+   * `statsAside` moves the counters into the right-hand column and drops the
+   * illustration, so the two are mutually exclusive — `hasStats` guards it,
+   * which is what stops the flag emptying the column on a page with no stats.
+   */
+  const hasStats = Boolean(content.stats && content.stats.length > 0);
+  const asideStats = Boolean(content.statsAside) && hasStats;
+  const showImage = Boolean(image) && !asideStats;
+  /** Whether the heading/prose share a row with something to their right. */
+  const twoColumn = showImage || asideStats;
+
+  /** The claim list, rendered either inside the left column or below the grid. */
+  const pointsList =
+    content.points && content.points.length > 0 ? (
+      content.pointsVariant === "icons" ? (
+        <ul className={`${styles.pointCards} ${styles.pointIconCards}`}>
+          {content.points.map((point, i) => (
+            <li key={point} className={`${styles.pointCard} ${styles.pointIconCard}`}>
+              <CardIconBadge title={point} size="sm" iconKey={content.pointIcons?.[i]} />
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
+      ) : content.pointsVariant === "cards" ? (
+        <ul className={styles.pointCards}>
+          {content.points.map((point) => (
+            <li key={point} className={styles.pointCard}>
+              {point}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <ul className={styles.tickList}>
+          {content.points.map((point) => (
+            <li key={point} className={styles.tickItem}>
+              {point}
+            </li>
+          ))}
+        </ul>
+      )
+    ) : null;
+
+  const statsPanel = hasStats ? (
+    <div className={styles.trustPanel}>
+      {/* `--stat-count` drives the desktop column count in landing.module.css —
+          a hardcoded 4-up grid left a visibly empty trailing cell whenever a
+          page supplied 3 (review: "remove the additional sections", the
+          closest thing on the page to an invented extra section). */}
+      <dl className={styles.trustStats} style={{ "--stat-count": content.stats!.length } as CSSProperties}>
+        {content.stats!.map((stat) => (
+          <div key={stat.label} className={styles.trustStat}>
+            <dt className={styles.srOnly}>{stat.label}</dt>
+            <dd className={styles.trustStatValue}>
+              <CountUp value={stat.figure} className={styles.trustFigure} />
+              <span className={styles.trustLabel} aria-hidden>
+                {stat.label}
+              </span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  ) : null;
+
   return (
     <section
       className={compact ? `${styles.sectionShell} ${styles.overviewCompact}` : styles.sectionShell}
       id={id}
     >
-      {/* With an image, the heading moves inside the left grid column so both
-          columns start at the same top edge — the image can then be stretched
-          (see `.overviewMedia` at 1000px in landing.module.css) to match the
-          full heading+prose block's height, top to bottom, instead of just
-          the prose. Without an image this is unchanged: the heading sits above
-          as this surface's normal full-width masthead. */}
-      {!image && <SectionHead kicker={content.eyebrow} title={content.title} />}
+      {/* In a two-column layout the heading moves inside the left column so
+          both columns start at the same top edge — the image (or the stats
+          panel) can then be stretched (see `.overviewMedia` at 1000px in
+          landing.module.css) to match the full heading+prose block's height,
+          top to bottom, instead of just the prose. In one column this is
+          unchanged: the heading sits above as this surface's normal
+          full-width masthead. */}
+      {!twoColumn && <SectionHead kicker={content.eyebrow} title={content.title} />}
 
       <FadeUp>
-        <div className={image ? styles.overviewGrid : undefined}>
+        <div className={twoColumn ? styles.overviewGrid : undefined}>
           <div>
-            {image && <SectionHead kicker={content.eyebrow} title={content.title} />}
+            {twoColumn && <SectionHead kicker={content.eyebrow} title={content.title} />}
 
             {prose}
+
+            {asideStats && pointsList}
           </div>
 
-          {image && (
-            <figure className={styles.overviewMedia}>
+          {showImage && image && (
+            <figure
+              className={
+                image.fit === "contain"
+                  ? `${styles.overviewMedia} ${styles.overviewMediaContain}`
+                  : styles.overviewMedia
+              }
+            >
               <Image
                 src={publicMediaUrl(image.src)}
                 alt={image.alt}
@@ -215,60 +348,30 @@ export default function Overview({
               />
             </figure>
           )}
+
+          {asideStats && <div className={styles.overviewStatsAside}>{statsPanel}</div>}
         </div>
 
-        {content.points && content.points.length > 0 && (
-          content.pointsVariant === "icons" ? (
-            <ul className={`${styles.pointCards} ${styles.pointIconCards}`}>
-              {content.points.map((point, i) => (
-                <li key={point} className={`${styles.pointCard} ${styles.pointIconCard}`}>
-                  <CardIconBadge title={point} size="sm" iconKey={content.pointIcons?.[i]} />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-          ) : content.pointsVariant === "cards" ? (
-            <ul className={styles.pointCards}>
-              {content.points.map((point) => (
-                <li key={point} className={styles.pointCard}>
-                  {point}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <ul className={styles.tickList}>
-              {content.points.map((point) => (
-                <li key={point} className={styles.tickItem}>
-                  {point}
-                </li>
-              ))}
-            </ul>
-          )
-        )}
-        {content.cta && (
-          <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.overviewCta}`}>
-            {content.cta.label}
-          </a>
-        )}
-        {content.stats && content.stats.length > 0 && (
-          <div className={styles.overviewStats}>
-            <div className={styles.trustPanel}>
-              <dl className={styles.trustStats}>
-                {content.stats.map((stat) => (
-                  <div key={stat.label} className={styles.trustStat}>
-                    <dt className={styles.srOnly}>{stat.label}</dt>
-                    <dd className={styles.trustStatValue}>
-                      <CountUp value={stat.figure} className={styles.trustFigure} />
-                      <span className={styles.trustLabel} aria-hidden>
-                        {stat.label}
-                      </span>
-                    </dd>
-                  </div>
-                ))}
-              </dl>
+        {/* With the counters beside the copy the points move up into the left
+            column (see above), so the row is the whole block and the panel
+            centres against all of it rather than leaving the column empty
+            under itself. Everywhere else they stay here, below the grid. */}
+        {!asideStats && pointsList}
+        {content.cta &&
+          (content.ctaAlign === "center" ? (
+            <div className={styles.overviewCtaCenter}>
+              <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.overviewCta}`}>
+                {content.cta.label}
+              </a>
             </div>
-          </div>
-        )}
+          ) : (
+            <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.overviewCta}`}>
+              {content.cta.label}
+            </a>
+          ))}
+        {/* Full-width footer position — skipped when the counters have already
+            been rendered in the column beside the prose. */}
+        {hasStats && !asideStats && <div className={styles.overviewStats}>{statsPanel}</div>}
         {content.pullQuote && <p className={styles.pullQuote}>{content.pullQuote}</p>}
         {content.flow && <Flow content={content.flow} />}
       </FadeUp>

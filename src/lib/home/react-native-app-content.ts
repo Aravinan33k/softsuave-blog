@@ -59,8 +59,11 @@ export const rnHero: HeroContent = {
   // The four trust badges the live page shows beside its enquiry form.
   badges: partnerHeroBadges,
   form: {
-    // The live page's own form heading and sub-line.
-    eyebrow: "Let’s Discuss Your Project",
+    // The live page's own form heading and sub-line. No `eyebrow`: the review
+    // asked for the hero's kicker to go, and the card's is the only one the
+    // hero renders — `HeroContent` has no eyebrow field of its own. Matches the
+    // AI pages (custom-ai, computer-vision, data-science), whose cards already
+    // open on the title.
     title: "Get free rough quote in 24 hrs",
     note: "Tell us what the app has to do and which platforms it has to reach, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Submit",
@@ -111,7 +114,11 @@ export const rnServices: ServiceBoardContent = {
   eyebrow: "React Native Development",
   title: "Extensible React Native Development Services",
   body: "Soft Suave is your destination to create intuitive and engaging applications. Our range of custom React Native App Development Services includes;",
-  cta: { label: "Talk To Experts", href: "#enquiry" },
+  // /contact, not the hero's own `#enquiry` anchor: the review asked for this
+  // button to reach the contact page. This is the first board CTA to name a
+  // route rather than an anchor, which is why `ServiceBoard` now branches
+  // between a plain <a> and SiteLink the way `landing/cta-band` already did.
+  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "React Native UI/UX App Design",
@@ -148,9 +155,13 @@ export const rnServices: ServiceBoardContent = {
   ],
 };
 
-/** The live page's outsourcing band, between the services and the benefits. */
+/**
+ * The live page's outsourcing band, between the services and the benefits.
+ *
+ * No `eyebrow`: the review asked for the CTAs' kicker to go, so the heading
+ * stands on its own — which is what `CtaBandContent.eyebrow` is optional for.
+ */
 export const rnOutsourceCta: CtaBandContent = {
-  eyebrow: "Outsource With Us",
   title: "Want to Outsource React Native Development Company?",
   body: "Soft Suave has a pool of React Native Developers who deliver your app development project on time and under your budget.",
   cta: { label: "Hire React Native Developer", href: "/hire-react-native-developers" },
@@ -210,13 +221,16 @@ export const rnFaqs: FaqContent = {
         "By choosing React Native as your preferred framework to develop mobile Apps, you can get the following amazing benefits;",
         "We at Soft Suave make sure your App gets all these benefits with our end-to-end React Native development services.",
       ],
+      // Five points, as the live page lists them. "Cost-effective approach"
+      // was a sixth here and is not on the live page's list — it belongs to the
+      // outsourcing answer below, where it leads. Both halves of that were
+      // raised on review.
       points: [
         "Ability to reuse code and modular architecture",
         "Relatively simpler user interface",
         "Support for third-party plugins",
         "Live and Hot Reloading",
         "A large developers’ community",
-        "Cost-effective approach",
       ],
     },
     {
@@ -226,7 +240,11 @@ export const rnFaqs: FaqContent = {
     {
       q: "What are the benefits of outsourcing React Native app development?",
       a: "When you outsource your project to a reliable React Native App development company like Soft Suave, you can get these advantages;",
+      // Six points, in the live page's own order — "Cost-effective approach"
+      // opens the list there. It was missing here, having been carried into the
+      // "Why choose React Native" answer above instead.
       points: [
+        "Cost-effective approach",
         "Work round the clock",
         "Access to experienced developer",
         "Reduced development times",

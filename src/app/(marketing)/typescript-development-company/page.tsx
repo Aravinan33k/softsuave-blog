@@ -146,13 +146,13 @@ export default function TypeScriptDevelopmentCompanyPage() {
           <TechStack content={txTech} />
         </div>
 
-        <div className={home.light}>
-          <Faq content={txFaqs} idPrefix="tx-faq" />
-        </div>
-
-        {/* Homepage client stories, on the warm-white band as they are there. */}
+        {/* The client stories now come before the FAQ, as the review asked and
+            as every corrected page on this surface runs them — the proof lands
+            before the objection-handling rather than after it. They share the
+            warm-white band, so the two read as one closing chapter. */}
         <div className={home.light}>
           <Testimonials />
+          <Faq content={txFaqs} idPrefix="tx-faq" />
         </div>
 
         <Contact />

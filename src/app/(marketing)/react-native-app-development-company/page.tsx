@@ -151,19 +151,27 @@ export default function ReactNativeAppDevelopmentPage() {
             long to sit on cards and too long to run down the page. */}
         <ServiceBoard content={rnServices} />
 
-        <CtaBand content={rnOutsourceCta} />
+        {/* `backdrop={false}` drops the coral light-field loop, which read on
+            review as "the section is in a different colour theme than the other
+            sections" — the band now sits on the page's own near-black ground
+            like everything around it. */}
+        <CtaBand content={rnOutsourceCta} backdrop={false} />
 
-        {/* Six benefits, three across so neither row is left with an orphan. */}
+        {/* Client stories now sit ahead of the FAQ, as the review asked and as
+            every corrected page on this surface runs them — the proof lands
+            before the objection-handling rather than after it.
+
+            That puts two light bands back to back, so they share one wrapper:
+            the benefits grid and the stories read as a single warm-white
+            chapter instead of two stacked panels with doubled padding, which is
+            how `landing/hire-page` merges its own runs. */}
         <div className={home.light}>
+          {/* Six benefits, three across so neither row is left with an orphan. */}
           <Industries content={rnBenefits} id="benefits" columns={3} />
+          <Testimonials />
         </div>
 
         <Faq content={rnFaqs} idPrefix="rn-faq" />
-
-        {/* Homepage client stories, on the warm-white band as they are there. */}
-        <div className={home.light}>
-          <Testimonials />
-        </div>
 
         <Contact />
       </main>

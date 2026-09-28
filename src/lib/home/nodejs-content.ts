@@ -51,11 +51,22 @@
  *
  * The testimonials band is the homepage's own section rendered verbatim (see
  * the route), because the live page's copy for it IS the homepage's, to the
- * word: "What Our Clients Say About Us" with the same standfirst.
+ * word: "What Our Clients Say About Us" with the same standfirst. It now
+ * renders ahead of the FAQ (review: "move the testimonials before the FAQ").
  *
- * Images: hand-placed under `public/images/landing/nodejs/`. All eight are
- * free-licence Pexels photographs cropped to each slot; ids, source URLs and
- * blur placeholders are in that folder's `credits.json`.
+ * Images: hand-placed under `public/images/landing/nodejs/`. Seven of the
+ * eight are free-licence Pexels photographs cropped to each slot; ids, source
+ * URLs and blur placeholders are in that folder's `credits.json`. The
+ * "NodeJS Web Development" overview image is the exception — the 4:3 group
+ * photo was landing in a near-square desktop frame and losing its edges
+ * (review: "need to resize the image") — and is instead `four/nj-overview.webp`,
+ * a portrait crop from the same manifest-driven Pexels pipeline the newer
+ * pages on this surface use (`content/images.manifest.json`).
+ *
+ * The Services board's own "Talk To Experts" button now leads to `/contact`
+ * (review: "must be linked to the contact page") rather than this page's
+ * `#enquiry` anchor, and the "Hire A Team" CTA band no longer carries an
+ * eyebrow (review: "eyebrow heading not necessary").
  */
 
 import { partnerHeroBadges } from "./hero-badges";
@@ -122,12 +133,12 @@ export const njOverview: OverviewContent = {
     "Being the leading NodeJS development company in India, we leverage the technology to provide excellent application development services, including mobile application, web application, network applications, and real-time applications. If you are in search of a perfect application provider based on NodeJS, then partner with us and gain the best NodeJS web development services at an affordable cost.",
   ],
   image: {
-    src: "/images/landing/nodejs/overview.webp",
-    width: 1400,
-    height: 1050,
-    alt: "Workers collaborating in a modern office with computers, showcasing teamwork in technology development",
+    src: "/images/four/nj-overview.webp",
+    width: 1000,
+    height: 1200,
+    alt: "A NodeJS development team collaborating around a workstation",
     blurDataURL:
-      "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAACQAgCdASoQAAsAAsBMJYwCdAYuHqdXyR8zblbhAADLHkf/kLTRcZVL/oR8jgYlOPLTuF1Vxx+a67u+X8eU7eTQXiYrUJSNho3+7sIGJpl+nemIRij7Dpldg0dEOIdzQjAH7XuWRynY9n12L1E1TGD95qlAAA==",
+      "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABQAgCdASoLABAAA4BaJZQAD5IQ48YbfKWxjgAA4nvoGYdKdq2r93Y2Ovxsvzw0ekHOhwNe+7m4gVytPV05M3UL9MBEXPluO3zF5bLdxsj32whwHmsf6wNdzXX/nQamMPnjhlB2fPXI+Fdej/6dAAAA",
   },
 };
 
@@ -142,7 +153,7 @@ export const njServices: ServiceBoardContent = {
   eyebrow: "NodeJS App Development",
   title: "Our NodeJS App Development Services",
   body: "We are a first-class NodeJS development company delivering successful NodeJS applications to clients in the USA and all around the world. We are known for our premium NodeJS services such as,",
-  cta: { label: "Talk To Experts", href: "#enquiry" },
+  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "Custom NodeJS Development",
@@ -201,7 +212,6 @@ export const njServices: ServiceBoardContent = {
  * docblock — rather than to this page's own `#enquiry` form.
  */
 export const njHireCta: CtaBandContent = {
-  eyebrow: "Hire A Team",
   title: "Need Dedicated NodeJS Developers?",
   body: "Soft Suave has a pool of certified and experienced NodeJS developers who deliver your app development project on time and under your budget.",
   cta: { label: "Hire NodeJS Developer", href: "/hire-nodejs-developers" },
@@ -229,7 +239,7 @@ export const njTech: TechStackContent = {
         "MySQL",
         "MongoDB",
         "PostgreSQL",
-        "AWS DynomoDB",
+        "AWS DynamoDB",
         "SQLite",
         "Cloud Firestore",
         "Oracle",

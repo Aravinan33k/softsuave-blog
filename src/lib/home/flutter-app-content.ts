@@ -103,6 +103,12 @@ export const flOverview: OverviewContent = {
     "Design-Friendly Solutions",
     "Top-notch Native Interfaces",
     "Stand-out Market Presence",
+    // The live page closes this list with a bare "ISO", which names no
+    // standard and so claims nothing. Review asked for the certification to be
+    // stated in full; the exact form is the registered one — "ISO/IEC
+    // 27001:2022", not "ISO 27001:2022" — as `content.ts` records for the
+    // homepage badge.
+    "ISO/IEC 27001:2022",
   ],
   /**
    * The live page's own proof counters, which sit beside this block. Its
@@ -115,24 +121,33 @@ export const flOverview: OverviewContent = {
     { figure: "13+", label: "Year of Experience" },
   ],
   /**
-   * The live page's own cross-platform illustration, bundled from
-   * softsuave.com the way the ISO badge and the testimonial photographs are —
-   * not a Pexels-pipeline slot, so it sits under `public/images/landing/`.
+   * Counters to the right of the prose, in the column the illustration used to
+   * hold — the review asked for exactly that swap, and there is no `image`
+   * here any more as a result.
+   *
+   * What it replaced: `/images/landing/flutter/cross-platform.webp`, a 512px
+   * flat line-art glyph stretched across a 4:3 photographic frame. It read as
+   * a missing-image placeholder rather than artwork, and the same file was
+   * doing duty as a service card's picture further down the page.
    */
-  image: {
-    src: "/images/landing/flutter/cross-platform.webp",
-    width: 512,
-    height: 512,
-    alt: "One Flutter codebase compiling to native iOS, Android and web applications",
-  },
+  statsAside: true,
 };
 
-/** The live page's mid-page band, between the why-choose copy and the benefits. */
+/**
+ * The live page's mid-page band, between the why-choose copy and the benefits.
+ *
+ * No `eyebrow`: the review asked for "Start Building" to go, so the heading
+ * stands on its own — which is what `CtaBandContent.eyebrow` is optional for.
+ *
+ * The button goes to the Flutter hiring page rather than back up to this
+ * page's own enquiry form, as the review asked. `/hire-flutter-developers` is
+ * a route this app serves, so `CtaBand` resolves it through `SiteLink` to a
+ * local `<Link>`.
+ */
 export const flIdeaCta: CtaBandContent = {
-  eyebrow: "Start Building",
   title: "Have a Mobile App Idea Using Flutter?",
   body: "With our talented 400+ App Developers, we guarantee you a quality App Development Service.",
-  cta: { label: "Hire a Mobile Developer Today", href: "#enquiry" },
+  cta: { label: "Hire a Mobile Developer Today", href: "/hire-flutter-developers" },
 };
 
 /**
@@ -142,10 +157,17 @@ export const flIdeaCta: CtaBandContent = {
  * Native pages use.
  */
 export const flBenefits: ServiceBoardContent = {
-  eyebrow: "Flutter App Development",
+  // Was "Flutter App Development" — byte-for-byte the overview's own kicker,
+  // so two sections of one page wore the same label and the eyebrow stopped
+  // telling the reader where they were. This follows the convention the rest
+  // of the surface uses for a service board ("Android Development Services",
+  // "PHP Development Services", "Python Development Services").
+  eyebrow: "Flutter Development Services",
   title: "Key Benefits of Flutter App Development",
   body: "We design memorable digital experiences & scalable solutions that aid our clients to reach their business goals.",
-  cta: { label: "Talk To Experts", href: "#enquiry" },
+  // /contact, not this page's `#enquiry` anchor — the review asked for this
+  // button to reach the contact page.
+  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "Flutter Cross-Platform Development",
@@ -153,7 +175,7 @@ export const flBenefits: ServiceBoardContent = {
         "If you wish to build Apps that should focus on both Android and iOS users, you can opt for Native or cross-platform development. However, Native app development needs huge costs and a separate codebase for each platform. On the other hand, when you choose Flutter App Development, you can build cross-platform mobile apps, from a single codebase at an affordable price.",
         "Being a top-rated agency, we house skillful designers who can write the UI and navigation just once and share it across iOS and Android. Moreover, we can reuse 60% of the code which saves a lot of time and money.",
       ],
-      image: { src: "/images/landing/flutter/cross-platform.webp", alt: "" },
+      image: { src: "/images/four/fl-cross-platform.webp", alt: "" },
     },
     {
       name: "Flutter Development for iOS and Android",
@@ -161,21 +183,21 @@ export const flBenefits: ServiceBoardContent = {
         "Many businesses try to develop Apps that run on both iOS and Android. This helps them to target a wider range of customers compared to developing just one native App. However, obtaining the same look and feel for an app on both platforms is not easy as it sounds. This is where our competent Flutter App development team comes into play.",
         "As a leading Flutter mobile app development company, we craft the most appealing cross-platform Apps that behave as smoothly as native ones. Moreover, we are known for our ability in working with reasonable costs and offering great speed and usability at the same time.",
       ],
-      image: { src: "/images/four/svc-mobile.webp", alt: "" },
+      image: { src: "/images/four/fl-ios-android.webp", alt: "" },
     },
     {
       name: "Flutter Web Development",
       paragraphs: [
         "Flutter is a known mobile development tool, but it can also be used for building web apps. Flutter can be used for increasing users for an application, but its fast web development and its ‘widgets’ allow for unique interfaces, making it very useful. With its shared codebase, flutter allows easy web app development, as the same code is applied for both mobile and desktop apps. Using Flutter is thus perfect for single-page applications and progressive web apps, and also to improve the functionalities of existing applications. Soft Suave’s Flutter Web Development solutions are affordable, offer consistent UI across platforms, and offer high performance for a smooth user experience.",
       ],
-      image: { src: "/images/four/svc-web.webp", alt: "" },
+      image: { src: "/images/four/fl-web.webp", alt: "" },
     },
     {
       name: "Dart Application Development",
       paragraphs: [
         "Using Flutter’s programming language ‘Dart’ we develop highly beneficial apps that have fast execution, easy rendering, and quick compilations. With good documentation, excellent tooling support, a built-in package manager, and more, Dart allows for impressive next-gen applications.",
       ],
-      image: { src: "/images/landing/services/svc-application-development.webp", alt: "" },
+      image: { src: "/images/four/fl-dart.webp", alt: "" },
     },
     {
       name: "Dedicated Flutter Team",
@@ -183,14 +205,14 @@ export const flBenefits: ServiceBoardContent = {
         "As one of the proficient Flutter App development companies, we have helped numerous small businesses to build a flutter App with super-functional and high-performing features. Hire Flutter developers from us who can work with tight deadlines and tighter budgets.",
         "Our technical team is dedicated to creating the most efficient and profitable solutions possible. Throughout the project, we keep in close contact with our clients, answering their questions and resolving any issues they may have. Since our development process is flexible, we can easily make new changes or improvements given by our clients.",
       ],
-      image: { src: "/images/landing/services/svc-dedicated-teams.webp", alt: "" },
+      image: { src: "/images/four/fl-team.webp", alt: "" },
     },
     {
       name: "Chat Application Development",
       paragraphs: [
         "Our Flutter App Development Team offers a comprehensive Chat Development service using Flutter, and this Chat App allows for easy sharing of documents and images. Flutter usage for Chat Development allows for rapid development, simpler maintenance, and more.",
       ],
-      image: { src: "/images/landing/services/svc-integration.webp", alt: "" },
+      image: { src: "/images/four/fl-chat.webp", alt: "" },
     },
   ],
 };

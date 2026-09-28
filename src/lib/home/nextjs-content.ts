@@ -33,6 +33,7 @@
  */
 
 import { partnerHeroBadges } from "./hero-badges";
+import { sharedHeroAlert } from "./delivery-shared";
 import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesCarouselContent } from "@/components/common/services-carousel";
@@ -67,11 +68,14 @@ export const nxHero: HeroContent = {
   form: {
     eyebrow: "Business Enquiry",
     title: "Let's Discuss Your Project",
-    note: "Alert: This form is for business, not candidates. To apply for jobs,",
-    // The brief's own "click here" wording, made a real link rather than dead
-    // text — Career is a live-site page this app does not serve itself, so
-    // `SiteLink` sends it there.
-    noteLink: { label: "click here", href: "/career-overview" },
+    /* The card carried no descriptive line at all, which is most of why it
+       read as undersized beside this hero's five-point copy column. Every
+       other page on the surface sets one. */
+    note: "Tell us what the product has to do, how its content changes, and which systems it has to connect to, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
+    /* The candidate notice was being pushed through `note`/`noteLink`, which
+       renders it as body copy; `alert` is the field built for it and gives it
+       the bordered treatment every other hero uses. */
+    alert: sharedHeroAlert,
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",
@@ -79,8 +83,12 @@ export const nxHero: HeroContent = {
       "The product you have in mind, the rendering behaviour it needs, any systems it has to connect to, and whether this is a new build or an existing React app to migrate.",
     subject: "Next.js Development enquiry",
   },
+  /**
+   * Replaced on review ("need to change the hero image"): what was here was a
+   * dark screenshot of editor boilerplate, which says nothing about the work.
+   */
   image: {
-    src: "/images/landing/nextjs/hero.webp",
+    src: "/images/four/nx-hero.webp",
     width: 1920,
     height: 1080,
     alt: "A developer coding a Next.js application on a laptop",
@@ -121,7 +129,7 @@ export const nxServices: ServicesCarouselContent = {
       name: "Custom Next.js Application Development",
       body: "Turn product requirements into Next.js applications with clear route structures, reusable React components, connected data sources, and maintainable frontend foundations.",
       image: {
-        src: "/images/landing/nextjs/svc-custom.webp",
+        src: "/images/four/nx-custom.webp",
         alt: "Application code in an editor during a Next.js build",
       },
     },
@@ -153,7 +161,7 @@ export const nxServices: ServicesCarouselContent = {
       name: "React-to-Next.js Modernization and Migration",
       body: "Move established React applications toward Next.js through staged architecture changes, route planning, integration reviews, component reuse, testing, and deployment preparation.",
       image: {
-        src: "/images/landing/nextjs/svc-migration.webp",
+        src: "/images/four/nx-migration.webp",
         alt: "Two developers reviewing code on a large screen during a migration",
       },
     },
@@ -173,7 +181,9 @@ export const nxPlanCta: CtaBandContent = {
   eyebrow: "Next Step",
   title: "Have a Next.js Product Ready for Development?",
   body: "Tell us what you want to build or improve. We’ll assess your technical needs and recommend a clear path for moving the Next.js project forward.",
-  cta: { label: "Plan Your Next.js Project", href: "#enquiry" },
+  // /contact, not this page's `#enquiry` anchor — the review asked for the CTA
+  // button to reach the contact page.
+  cta: { label: "Plan Your Next.js Project", href: "/contact" },
 };
 
 export const nxWhyUs: CardGridContent = {

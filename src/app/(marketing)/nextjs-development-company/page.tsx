@@ -29,7 +29,7 @@ import Faq from '@/components/landing/faq';
 // Reused from the homepage verbatim, as the brief asks for both explicitly:
 // the clients logo band, the testimonials band, and the closing enquiry CTA.
 import Clients from '@/components/home/clients';
-import TechStack from '@/components/home/tech-stack';
+import TechStack from '@/components/landing/tech-stack';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
 
@@ -136,23 +136,21 @@ export default function NextjsDevelopmentCompanyPage() {
           <WhyUs content={nxWhyUs} />
         </div>
 
-        {/* The homepage's marquee tech rows, one per group, rather than the
-            landing set's static panel grid. Dark, as on the homepage;
-            `.techCompact` only clears the homepage's full-viewport
-            min-height for this content-height page. Every group here already
-            holds 3+ items, so none needs folding into another to avoid a
-            thin-looking row. */}
-        <div className={home.techCompact}>
-          <TechStack content={nxTech} />
-        </div>
+        {/* The landing set's grouped panel grid, not the homepage's marquee.
+            The marquee scrolls each row continuously, so at any moment the
+            chips at both ends are cut mid-word — fine as homepage motion,
+            but this is a reference table a reader scans, and the review
+            asked for the design to be updated. The same grid the .NET,
+            Ionic and Flutter pages use, so the surface reads as one set. */}
+        <TechStack content={nxTech} />
 
-        <div className={home.light}>
-          <Faq content={nxFaqs} idPrefix="nx-faq" />
-        </div>
-
-        {/* Homepage client stories, on the warm-white band as they are there. */}
+        {/* The client stories now come before the FAQ, as the review asked and
+            as every corrected page on this surface runs them — the proof lands
+            before the objection-handling rather than after it. They share the
+            warm-white band, so the two read as one closing chapter. */}
         <div className={home.light}>
           <Testimonials />
+          <Faq content={nxFaqs} idPrefix="nx-faq" />
         </div>
 
         <Contact />

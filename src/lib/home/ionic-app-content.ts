@@ -30,11 +30,15 @@
  * cost more than it returns.
  *
  * Images: hand-placed under `public/images/landing/ionic/`, the convention for
- * landing-page art (the Pexels pipeline in `content/images.manifest.json` is
- * the homepage's). Seven are free-licence Pexels photographs, cropped to each
+ * landing-page art. Six are free-licence Pexels photographs, cropped to each
  * slot; the overview illustration is Soft Suave's own diagram from the live
  * page. Every photo's id, source URL and blur placeholder is recorded in
  * `public/images/landing/ionic/credits.json`, the same way the iOS page does it.
+ *
+ * The seventh — the hybrid-development card — is `four/ion-hybrid`, generated
+ * through the manifest pipeline in `content/images.manifest.json` because the
+ * shot bundled here for it was a chroma-key mock-up whose blank green screens
+ * read as unfinished artwork.
  */
 
 import { partnerHeroBadges } from "./hero-badges";
@@ -71,8 +75,10 @@ export const ionHero: HeroContent = {
   // The four trust badges the live page shows beside its enquiry form.
   badges: partnerHeroBadges,
   form: {
-    // The live page's own form heading and sub-line.
-    eyebrow: "Let’s Discuss Your Project",
+    // The live page's own form heading and sub-line. No `eyebrow`: the review
+    // asked for the hero's kicker to go, and the card's is the only one the
+    // hero renders — `HeroContent` has no eyebrow field of its own. Same
+    // correction the React Native page took.
     title: "Get free rough quote in 24 hrs",
     note: "Tell us what the app has to do and which platforms it has to reach, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Submit",
@@ -110,6 +116,10 @@ export const ionOverview: OverviewContent = {
     src: "/images/landing/ionic/overview.webp",
     width: 488,
     height: 451,
+    // A drawn diagram, not a photograph: `cover` was cropping the figure on
+    // the right and the phone mockup top and bottom, because the frame
+    // stretches to the prose height at desktop. `contain` shows all of it.
+    fit: "contain",
     alt: "A diagram of an Ionic app built from one codebase for iOS, Android and the web",
     blurDataURL:
       "data:image/webp;base64,UklGRiYBAABXRUJQVlA4WAoAAAAQAAAADwAADgAAQUxQSHwAAAABgJtt2/HsiTOQbRu1s4DTZYdMgc6ss4Ftp9JvxM4AETEBAACx7fE3F87WTmztL0Aou8YSOdE856irAYCwPYP72JYAcKEzH5vttg3A3Z6tbrdbA0Dw3N/ye+0C/P/289TAWMjkUKjlYns6QSxlcoHkNL/0hbdOitLPKCbTVlA4IIQAAABQAgCdASoQAA8AA4BaJagC7Aacvm8UkQxKpoAA/udAxFov9anLEClLd7Qze7oXZ7/60ih/Pe1Stvf7QWDtWwe70h6XsyXZ42Mm3Vz42bldnYsGm2cli+ttY++YWGzT9ZP72w9KbhWcKqh+fPtBZ1zs7dTNIJNHdQsqOf7det+TvtQzaAA=",
@@ -126,7 +136,9 @@ export const ionServices: ServiceBoardContent = {
   eyebrow: "Services",
   title: "One-Stop Solution For Ionic App Development Services",
   body: "We are a competent Ionic Development Company constantly developing top-quality as well as highly efficient mobile apps. Our wide array of Ionic services are;",
-  cta: { label: "Talk to Our Experts", href: "#enquiry" },
+  // /contact, not this page's `#enquiry` anchor — the review asked for this
+  // button to reach the contact page.
+  cta: { label: "Talk to Our Experts", href: "/contact" },
   items: [
     {
       name: "Ionic UI/UX Design",
@@ -158,7 +170,11 @@ export const ionServices: ServiceBoardContent = {
         "Soft Suave, known as the best Ionic Mobile App Development Company in USA and India builds both native and hybrid mobile applications that are compatible with all major mobile platforms like iOS, Android and Windows. Our Ionic developers give the finest mobile interface to make the applications interactive.",
         "Our experienced Ionic developers follow the latest app development processes and methodologies to craft simple yet high-performing Ionic mobile app solutions for start-ups and SMBs. This experience helps the clients develop applications that are not only lighter but also affordable.",
       ],
-      image: { src: "/images/landing/ionic/svc-hybrid.webp", alt: "" },
+      // Replaced the chroma-key shot that was here: a tray of tablets and
+      // phones with blank bright-green screens, which read as unfinished
+      // artwork rather than devices. The five other service photographs fit
+      // their sections and are untouched.
+      image: { src: "/images/four/ion-hybrid.webp", alt: "" },
     },
     {
       name: "Ionic App Integration",
@@ -179,19 +195,27 @@ export const ionServices: ServiceBoardContent = {
   ],
 };
 
-/** The live page's band between the services and the technology stack. */
+/**
+ * The live page's band between the services and the technology stack.
+ *
+ * No `eyebrow`: the review asked for the CTAs' kicker to go, so the heading
+ * stands on its own — which is what `CtaBandContent.eyebrow` is optional for.
+ *
+ * The button goes to /contact, as the review asked, rather than back up to
+ * this page's own enquiry form.
+ */
 export const ionHireCta: CtaBandContent = {
-  eyebrow: "Hire A Team",
   title: "Hire an offshore Ionic app development team",
   body: "Soft Suave has a pool of Dedicated Ionic Developers who deliver your app development project on time and under your budget.",
-  cta: { label: "Talk to Our Experts", href: "#enquiry" },
+  cta: { label: "Talk to Our Experts", href: "/contact" },
 };
 
 /**
  * The live page's three technology tabs, as the shared stack's groups. Names
- * are passed straight to `components/home/tech-logo.tsx`; jQuery, Laravel and
- * Android have no mark there yet and fall back to the generic glyph, which is
- * three of sixteen.
+ * are passed straight to `components/home/tech-logo.tsx`, and all sixteen now
+ * resolve to a real brand mark — jQuery and Android were the last two falling
+ * back to the generic glyph (review: "2 icons are missing") and were added to
+ * that component.
  */
 export const ionTech: TechStackContent = {
   eyebrow: "Technology Stack",

@@ -25,7 +25,7 @@ const react: HireSkill = {
   key: "react",
   name: "ReactJS",
   role: "ReactJS Developers",
-  metaTitle: "Hire ReactJS Developers India | 40-Hour Free Trial",
+  metaTitle: "Hire ReactJS Developers India with 40 Hours Risk-free Trial",
   metaDescription:
     "Hire ReactJS developers India from Soft Suave on an hourly/full-time basis and save 60% on best-in-class ReactJS app development. Enquire here.",
   serviceType: "ReactJS development staffing",
@@ -133,6 +133,16 @@ const react: HireSkill = {
     eyebrow: "FAQs",
     title: "Frequently Asked Questions",
     body: "Know more about our processes and how we work, with the help of the following FAQs our clients ask.",
+    // Matches the live page's own links, inside the industries-experience
+    // answer (review: "internal links missing in the FAQs"). Live links
+    // four of the seven industries named there; the rest stay plain text,
+    // same as live.
+    links: [
+      { text: "Healthcare", href: "https://www.softsuave.com/healthcare-mobile-app-development-company" },
+      { text: "Retail", href: "https://www.softsuave.com/ecommerce-mobile-app-development-company" },
+      { text: "Education", href: "https://www.softsuave.com/education-app-development-company" },
+      { text: "Construction", href: "https://www.softsuave.com/construction-employee-time-tracking-app" },
+    ],
     items: [
       {
         q: "How much does it cost to hire ReactJS developers from Soft Suave?",
@@ -172,7 +182,7 @@ const angular: HireSkill = {
   key: "angular",
   name: "Angular",
   role: "Angular Developers",
-  metaTitle: "Hire Angularjs Developers India - Top 1% Programmers",
+  metaTitle: "Hire Angularjs Developers India – Top 1% Programmers",
   metaDescription:
     "Hire Angular developers from India to build scalable, feature-rich web applications. Specialists in Angular, TypeScript, RxJS, dashboards and enterprise platforms.",
   serviceType: "Angular development staffing",
@@ -380,6 +390,16 @@ const angular: HireSkill = {
     eyebrow: "FAQs",
     title: "Frequently Asked Questions",
     body: "Know more about our processes and how we work, with the help of the following FAQs.",
+    // Matches the live page's own link, inside the Angular-vs-React answer
+    // (review: "internal links missing in the FAQs"). Live links to its own
+    // blog, which this app does not host, so the link goes to
+    // softsuave.com's post directly.
+    links: [
+      {
+        text: "Angular versus React and guidance on making the right choice",
+        href: "https://www.softsuave.com/blog/angular-vs-react-which-framework-to-choose/",
+      },
+    ],
     items: [
       {
         q: "What do developers use AngularJS for?",
@@ -596,7 +616,9 @@ const mean: HireSkill = {
   key: "mean",
   name: "MEAN Stack",
   role: "MEAN Stack Developers",
-  metaTitle: "Hire MEAN Stack Developers in India",
+  // VERBATIM, INCLUDING THE TYPO: the live title says "Devlopers", not
+  // "Developers", in its second half.
+  metaTitle: "Hire MEAN Stack Developers in India | Remote MEAN Stack Devlopers India",
   metaDescription:
     "Hire a MEAN Stack developer in India from soft suave for your project to make it an Ideal and futuristic outcome.",
   serviceType: "MEAN stack development staffing",

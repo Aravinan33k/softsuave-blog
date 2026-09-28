@@ -25,9 +25,19 @@
  * every content module on this surface stores the bare title and the route
  * appends the suffix once, so the rendered title is unchanged.
  *
- * Images: reused bundled art already in this repo, the same starting point
- * the Next.js and TypeScript pages used — swap for Pexels-sourced photos if
- * asked.
+ * Images: this page's own Pexels-sourced photography (`content/images.manifest.json`,
+ * `four/gq-*`) — the hero, overview and all six service cards previously
+ * borrowed other pages' assets (review: "update the hero section image" /
+ * "update the images" on Services), the same issue fixed for the TypeScript
+ * page in the same way.
+ *
+ * Two of the hero's five highlighted points were generic company-credential
+ * boilerplate ("13+ Years of Technology Expertise", "NDA and SLA-Protected
+ * Engagements") repeated verbatim across a dozen other pages rather than
+ * anything about GraphQL — replaced with the two claims this page's own
+ * services actually back: query/caching performance and phased REST
+ * migration (review: "update the highlighted points in the hero section"),
+ * the same treatment the TypeScript page's hero points got.
  */
 
 import { partnerHeroBadges } from "./hero-badges";
@@ -58,8 +68,8 @@ export const gqHero: HeroContent = {
     "GraphQL API Architecture Expertise",
     "Schema and Resolver Engineering",
     "Complex Data Source Integration",
-    "NDA and SLA-Protected Engagements",
-    "13+ Years of Technology Expertise",
+    "Query-Level Performance and Caching Strategy",
+    "Phased REST-to-GraphQL Migration Paths",
   ],
   badges: partnerHeroBadges,
   form: {
@@ -77,10 +87,12 @@ export const gqHero: HeroContent = {
     subject: "GraphQL Development enquiry",
   },
   image: {
-    src: "/images/four/svc-ai-integrations.webp",
-    width: 2487,
-    height: 1536,
-    alt: "Connected systems and services linked through a unified API layer",
+    src: "/images/four/gq-hero.webp",
+    width: 1920,
+    height: 1080,
+    alt: "Engineers connecting several services through a unified GraphQL API layer",
+    blurDataURL:
+      "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAADwAQCdASoQAAsAA4BaJZQCdAD8vtRt40wA/qobL3oYvn+yS7f/Kj6aiiudzht3V5u4W9esiJtv3eM7d78PchHEagEvLc3Y4TIrFYjC405rFSasUEJdfRYAC95t+nttvqTGyFHAzIn3LPsgAAA=",
   },
 };
 
@@ -93,10 +105,12 @@ export const gqOverview: OverviewContent = {
     "Soft Suave provides GraphQL development services for shaping this layer around real application behavior. We map data relationships, define schema boundaries, build resolvers, and plan errors, caching, and schema changes with the teams that own connected systems. This creates an API structure that can evolve without forcing every underlying service to work in the same way.",
   ],
   image: {
-    src: "/images/landing/services/svc-integration.webp",
-    width: 900,
-    height: 600,
-    alt: "A unified data access layer connecting several services and databases",
+    src: "/images/four/gq-overview.webp",
+    width: 1000,
+    height: 1200,
+    alt: "An engineer designing a GraphQL schema that unifies data from several services",
+    blurDataURL:
+      "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQAgCdASoLABAAA4BaJZwCsAELXUj7T0AAAP68K3QDSn8UkSNg+FWj9CUGNtoymUXd6MS13DejbqVI9x+5522OhNKZyAYRGRa7Knt9Y6wszqEMkpyZe6ZY4obIlvgAAAA=",
   },
 };
 
@@ -114,48 +128,48 @@ export const gqServices: ServicesCarouselContent = {
       name: "GraphQL API Architecture and Schema Design",
       body: "Define GraphQL schemas, object relationships, queries, mutations, and naming conventions around your application domains, client needs, and existing data structures.",
       image: {
-        src: "/images/landing/services/svc-model-selection.webp",
-        alt: "A GraphQL schema mapping object relationships and query structures",
+        src: "/images/four/gq-svc-schema.webp",
+        alt: "Engineers mapping a GraphQL schema's object relationships on a whiteboard",
       },
     },
     {
       name: "Custom Resolver and Backend Development",
       body: "Develop resolvers that connect GraphQL operations with databases, internal services, business logic, authentication rules, validation processes, and existing backend capabilities.",
       image: {
-        src: "/images/landing/services/svc-application-development.webp",
-        alt: "A resolver connecting a GraphQL operation to backend services and data",
+        src: "/images/four/gq-svc-resolver.webp",
+        alt: "A backend engineer developing resolvers that connect a GraphQL API to live services",
       },
     },
     {
       name: "GraphQL Integration With Existing Systems",
       body: "Connect GraphQL APIs with REST services, databases, content platforms, third-party tools, and internal applications through planned integration and transformation logic.",
       image: {
-        src: "/images/four/svc-custom-software.webp",
-        alt: "A GraphQL API connected to existing REST services and internal applications",
+        src: "/images/four/gq-svc-integration.webp",
+        alt: "Developers integrating a GraphQL API with existing REST services and platforms",
       },
     },
     {
       name: "REST-to-GraphQL API Modernization",
       body: "Introduce GraphQL alongside existing REST endpoints or migrate selected operations through staged schema design, resolver development, testing, and client coordination.",
       image: {
-        src: "/images/landing/services/svc-support-optimisation.webp",
-        alt: "REST endpoints being staged for a phased migration to GraphQL",
+        src: "/images/four/gq-svc-migration.webp",
+        alt: "Developers testing a phased migration from REST endpoints to GraphQL",
       },
     },
     {
       name: "GraphQL Performance and Query Review",
       body: "Review query patterns, resolver behavior, data loading, caching, pagination, and request limits to address performance risks within the API layer.",
       image: {
-        src: "/images/landing/services/svc-evaluation-llmops.webp",
-        alt: "Query patterns and resolver performance under review",
+        src: "/images/four/gq-svc-performance.webp",
+        alt: "A performance dashboard used to review GraphQL query and resolver behavior",
       },
     },
     {
       name: "GraphQL API Support and Maintenance",
       body: "Maintain GraphQL APIs through schema updates, resolver changes, dependency reviews, issue resolution, integration adjustments, testing improvements, and ongoing documentation updates.",
       image: {
-        src: "/images/landing/services/svc-dedicated-teams.webp",
-        alt: "A dedicated team maintaining a live GraphQL API",
+        src: "/images/four/gq-svc-maintenance.webp",
+        alt: "A dedicated team maintaining and updating a live GraphQL API",
       },
     },
   ],
@@ -166,7 +180,7 @@ export const gqPlanCta: CtaBandContent = {
   eyebrow: "Next Step",
   title: "Are Disconnected APIs Slowing Your Application?",
   body: "Fragmented APIs can complicate frontend development and make every integration harder to maintain. We’ll help you design a GraphQL layer that brings access, structure, and control together.",
-  cta: { label: "Plan Your GraphQL Architecture", href: "#enquiry" },
+  cta: { label: "Plan Your GraphQL Architecture", href: "/contact" },
 };
 
 export const gqWhyUs: CardGridContent = {

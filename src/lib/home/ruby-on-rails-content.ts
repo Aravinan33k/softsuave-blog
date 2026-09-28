@@ -66,7 +66,8 @@ export const rorHero: HeroContent = {
   badges: partnerHeroBadges,
   form: {
     // The live page's own form heading and sub-line.
-    eyebrow: "Let’s Discuss Your Project",
+    // No `eyebrow`: the review asked for the form's text to be updated, and
+    // the card's kicker is what every other page on this surface has dropped.
     title: "Get free rough quote in 24 hrs",
     note: "Tell us what the application has to do and who uses it, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Submit",
@@ -76,8 +77,13 @@ export const rorHero: HeroContent = {
       "The application you have in mind, who uses it, anything it has to integrate with, and whether this is a new build or an existing Rails app to extend.",
     subject: "Ruby on Rails Development enquiry",
   },
+  /**
+   * Replaced on review ("need to change the hero image"). What was here was a
+   * dark screenshot of Ruby source that filled only the right half of the
+   * frame, leaving the copy side flat black and saying nothing about the work.
+   */
   image: {
-    src: "/images/landing/ruby-on-rails/hero.webp",
+    src: "/images/four/ror-hero.webp",
     width: 1920,
     height: 1080,
     alt: "Ruby on Rails source code on a developer's screen",
@@ -87,6 +93,13 @@ export const rorHero: HeroContent = {
 };
 
 export const rorOverview: OverviewContent = {
+  /**
+   * The live page links "web application development company" in its fourth
+   * paragraph and that was missing here (review: "in the 4th para the
+   * internal link is not updated"). It is a route this app serves, so it
+   * resolves locally — see `components/common/linkify`.
+   */
+  links: [{ text: "web application development company", href: "/web-application-development-company" }],
   eyebrow: "Ruby on Rails Development",
   title: "Highly Reliable Ruby on Rails Development Solutions",
   paragraphs: [
@@ -114,8 +127,12 @@ export const rorOverview: OverviewContent = {
 export const rorServices: ServiceBoardContent = {
   eyebrow: "Ruby on Rails Web Development",
   title: "Our Ruby on Rails Web Development Services",
-  body: "As an experienced Ruby on Rails development company, we help businesses from diverse industries to reach their full potential by offering quicker and cost-efficient ROR solutions.",
-  cta: { label: "Talk To Experts", href: "#enquiry" },
+  // The live page's own standfirst for this section (review: "subtext needs
+  // to be updated").
+  body: "We are an expert Ruby on Rails Development Services delivering efficient, secure, scalable, portable, and responsive apps tailored to client's business needs. Our custom ROR services include;",
+  // /contact, not this page's `#enquiry` anchor — the review asked for this
+  // button to be linked.
+  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "ROR Application Development",
@@ -158,7 +175,8 @@ export const rorServices: ServiceBoardContent = {
  * look to find.
  */
 export const rorHireCta: CtaBandContent = {
-  eyebrow: "Hire A Team",
+  // No `eyebrow`: the review asked for the kicker to go, so the heading stands
+  // on its own — which is what `CtaBandContent.eyebrow` is optional for.
   title: "Looking to Outsource Ruby on Rails Development Team?",
   body: "Soft Suave has a pool of ROR Developers who deliver your app development project on time and under your budget.",
   cta: { label: "Hire ROR Developer", href: "/hire-ruby-on-rails-developer" },
@@ -183,7 +201,7 @@ export const rorTech: TechStackContent = {
         "MySql",
         "MongoDB",
         "PostgreSQL",
-        "AWS DynomoDB",
+        "AWS DynamoDB",
         "SQLite",
         "Cloud Firestore",
         "Oracle",

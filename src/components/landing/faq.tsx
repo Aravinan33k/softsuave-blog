@@ -3,6 +3,7 @@
 import { Fragment, useState } from "react";
 import FadeUp from "@/components/home/fade-up";
 import SectionHead from "./section-head";
+import { linkify, type InlineLink } from "@/components/common/linkify";
 import styles from "./landing.module.css";
 
 export interface FaqAnswerLink {
@@ -31,6 +32,14 @@ export interface FaqContent {
   eyebrow: string;
   title: string;
   body: string;
+  /**
+   * Internal links to weave into the answers, matched on their own words —
+   * see `components/common/linkify`. `FaqItem.link` appends a link after the
+   * last paragraph, which is the right shape for "read more"; this is for a
+   * phrase the answer already contains, which is what the live pages link
+   * (review: "highlight the text and add the link in 3rd FAQ answer").
+   */
+  links?: readonly InlineLink[];
   items: readonly FaqItem[];
 }
 
@@ -60,6 +69,8 @@ export default function Faq({
   idPrefix?: string;
 }) {
   const [open, setOpen] = useState<number | null>(0);
+  /** One set for the whole accordion: a phrase is linked in its first answer. */
+  const usedLinks = new Set<string>();
 
   return (
     <section className={styles.sectionShell} id="faq">
@@ -95,7 +106,7 @@ export default function Faq({
                     {(typeof item.a === "string" ? [item.a] : item.a).map((para, pi, all) => (
                       <Fragment key={pi}>
                         <p className={styles.faqAnswer}>
-                          {para}
+                          {linkify(para, content.links, usedLinks, styles.faqAnswerLink)}
                           {pi === all.length - 1 && item.link ? (
                             <>
                               {" "}
