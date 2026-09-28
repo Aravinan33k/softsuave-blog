@@ -1,27 +1,42 @@
 /**
  * Copy for the "AI in Logistics" landing page (`/ai-in-logistics`).
  *
- * Follows the live softsuave.com page: its H1, its five solution cards, its six
- * "where AI revolutionises logistics" areas, its six benefits and its FAQ set
- * are all carried over. The live page ships no process section, so this page
- * has none either — an earlier draft added one and it was removed.
+ * The hero is this page's own and is kept as it was. Everything below it — and
+ * the page's title, description and schema — follows the live softsuave.com
+ * page, which was rebuilt with a new section set (review: "Need to update the
+ * entire page content and remove the sections that are no longer required").
+ * The mapping, in live page order:
+ *
+ *   client logo strip                                  → homepage `Clients`
+ *   "AI-Powered Precision in Logistics"                → `logisticsOverview` (6 areas)
+ *   "Optimizing Logistics with AI Solutions"           → `logisticsSolutions` (5)
+ *   "AI Solutions for Seamless Supply Chain Operations" → `logisticsBenefits` (6)
+ *   "Innovative AI Technologies & Approaches"          → `industryTechApproach`
+ *   "Real Results: Transforming Logistics with AI"     → `logisticsSuccessStories` (3)
+ *   "Elevate Logistics with AI-Powered Precision"      → that lane's closing card
+ *   "What Our Clients Say About Us"                    → homepage `Testimonials`
+ *   "FAQs About Logistics"                             → `logisticsFaqs` (13)
+ *
+ * The copy is the live page's own, verbatim; the eyebrows are the live
+ * sections' own kicker labels.
  */
 
 import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
-import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
+import type { WorkCarouselContent } from "@/components/home/work-grid";
 import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
 import { overviewImage } from "./overview-images";
 
 export const logisticsMeta = {
   slug: "ai-in-logistics",
   path: "/ai-in-logistics",
-  title: "AI in Logistics & Supply Chain",
+  // The live page's <title> and meta description, verbatim.
+  title: "AI in Logistics Development Services for Optimized process",
   description:
-    "Custom logistics AI from Soft Suave — route and delivery optimisation, freight cost control, predictive tracking, warehouse automation and demand forecasting.",
+    "Leverage AI in logistics development services to optimize operations, and enhance decision-making for a smarter, data-driven supply chain.",
 } as const;
 
 export const logisticsHero: HeroContent = {
@@ -54,165 +69,187 @@ export const logisticsHero: HeroContent = {
   },
 };
 
+/** The live page's industry overview: its intro and the six key areas it lists. */
 export const logisticsOverview: OverviewContent = {
-  image: overviewImage("ai-in-logistics"),
-  eyebrow: "The Short Answer",
-  title: "What AI Changes in Supply Chain Operations",
+  eyebrow: "Industry Overview",
+  title: "AI-Powered Precision in Logistics",
   paragraphs: [
-    "Logistics is a sequence of decisions made under uncertainty — how much stock to hold, which vehicle takes which drop, when a part will fail, whether a shipment will arrive. Each one is currently made on experience and a spreadsheet, and each one is a place where a model that has seen every previous instance does measurably better.",
-    "Routing and forecasting are where this starts, because both are well-defined optimisation problems with clean feedback: you find out whether the route was good and whether the forecast was right. That makes them straightforward to prove and straightforward to improve.",
-    "The harder and more valuable change is visibility. Most supply chain failures are not surprises so much as things nobody saw in time — a delayed inbound, a vehicle about to fail, a line about to stock out. Predictive monitoring turns those from incidents into decisions taken a day earlier, which is usually the difference between a cost and a crisis.",
+    "The logistics industry is advancing with automation, data-driven insights, and intelligent decision-making for greater efficiency. From route optimization to predictive analytics, AI streamlines supply chains, while enhancing accuracy, performance, seamless operations, reduced delays, and improved productivity. Here are six key areas where AI is revolutionizing logistics:",
   ],
-  pullQuote:
-    "Most supply chain failures were visible in the data before they were visible in the operation. The gap between those two moments is the whole opportunity.",
+  points: [
+    "Predictive Analytics for Demand Forecasting",
+    "Route Optimization & Fleet Management",
+    "Warehouse Automation & Robotics",
+    "AI-Driven Risk Management",
+    "Real-Time Shipment Tracking",
+    "Fraud Detection & Security",
+  ],
+  image: overviewImage("ai-in-logistics"),
 };
 
-export const logisticsServices: ServicesContent = {
-  eyebrow: "What We Build",
-  title: "Logistics AI Solutions Soft Suave Delivers",
-  body: "Five solution areas spanning freight, fleet, warehouse, and documentation — the four places where logistics cost and logistics delay actually accumulate.",
+/**
+ * The live page's five solutions. The live section also carries a "Get In
+ * Touch" button; `Services` takes no CTA, and the closing enquiry band covers it.
+ */
+export const logisticsSolutions: ServicesContent = {
+  eyebrow: "AI Solutions",
+  title: "Optimizing Logistics with AI Solutions",
+  body: "AI is transforming logistics by improving productivity, precision, and data-driven insights. From optimizing supply chains to automating operations, our AI solutions help businesses streamline workflows, reduce costs, and accelerate deliveries, ensuring agile, cost-effective, and adaptable supply chains.",
   items: [
     {
-      name: "AI-Powered Freight & Cost Optimisation",
-      tag: "Cost",
-      body: "Automated freight audit, load optimisation, and cost control that catch billing errors and under-filled vehicles — the two leaks that are largest in aggregate and least visible on any single invoice.",
+      name: "AI-Powered Freight & Cost Optimization",
+      body: "Soft Suave delivers automated freight auditing, cost control, and load optimization, ensuring precise billing, minimized expenses, and enhanced logistics efficiency through AI-driven insights.",
     },
     {
-      name: "Intelligent Route & Delivery Optimisation",
-      tag: "Routing",
-      body: "Route planning that accounts for traffic patterns, time windows, vehicle constraints, and driver hours, cutting fuel and miles while improving the on-time performance that last-mile customers judge you on.",
+      name: "Intelligent Route & Delivery Optimization",
+      body: "Our solutions optimize route planning, predict traffic patterns, and improve delivery schedules, reducing delays, cutting fuel costs, and streamlining last-mile logistics.",
     },
     {
-      name: "AI-Driven Tracking & Monitoring",
-      tag: "Visibility",
-      body: "Real-time shipment visibility with predictive alerts that flag a delay before it breaches a commitment, plus incident analytics that identify the lanes and handoffs where problems repeat.",
+      name: "AI-Driven Tracking & Monitoring System",
+      body: "We offer real-time shipment visibility, predictive alerts, and advanced incident analytics, enabling proactive logistics management and ensuring operational security.",
     },
     {
       name: "Smart Document & Data Management",
-      tag: "Documents",
-      body: "Automated extraction and validation across bills of lading, customs paperwork, and proof of delivery, turning a document flow that currently moves by rekeying into structured data your systems can act on.",
+      body: "Soft Suave simplifies document handling, compliance tracking, and analytics-driven reporting, enhancing operational efficiency and accelerating data-driven decision-making.",
     },
     {
-      name: "Fleet Management & Predictive Maintenance",
-      tag: "Fleet",
-      body: "Vehicle telemetry analysed for early signs of failure, so maintenance happens on a planned stop rather than a roadside one, alongside utilisation and yard management that reduce idle assets.",
+      name: "AI-Powered Parking & Fleet Management",
+      body: "Our technology improves parking utilization, detects violations, and provides vehicle insights, ensuring seamless fleet operations and optimized space management.",
     },
   ],
 };
 
+/** The live page's six "Key Benefits" cards. */
 export const logisticsBenefits: CardGridContent = {
-  eyebrow: "Benefits",
-  title: "What Logistics AI Changes",
-  body: "Gains that show up in fuel, miles, dwell time, stock cover, and on-time delivery — all numbers an operation already reports weekly.",
+  eyebrow: "Key Benefits",
+  title: "AI Solutions for Seamless Supply Chain Operations",
+  body: "AI is transforming logistics by bringing productivity, intelligence, and automation to every stage of the supply chain. From streamlining operations to enabling smarter decision-making, AI empowers businesses to stay agile and competitive. Here’s how AI is driving the future of logistics:",
   items: [
     {
-      name: "Lower Cost Per Delivery",
-      icon: "coins",
-      body: "Better routing and load consolidation cut fuel and mileage on the same volume, which is the most direct cost reduction available in any transport operation.",
+      name: "AI-Optimized Route Planning & Delivery Schedules",
+      icon: "compass",
+      body: "Real-time data analysis enhances route efficiency, minimizes delays, reduces fuel consumption, and ensures timely deliveries with intelligent logistics planning.",
     },
     {
-      name: "Supply Chain You Can See",
-      icon: "globe",
-      body: "Real-time tracking and predictive alerts replace status-by-phone-call with a live position, so exceptions are managed while there is still time to act on them.",
+      name: "Enhanced Supply Chain Visibility & Predictive Insights",
+      icon: "eye",
+      body: "Advanced tracking and analytics provide real-time supply chain transparency, automated reporting, and proactive decision-making for better operational control.",
     },
     {
-      name: "Inventory Matched to Demand",
-      icon: "book",
-      body: "Forecasting that reads seasonality and trend rather than trailing averages reduces both stockouts and the working capital tied up in cover that was never needed.",
+      name: "Intelligent Demand Forecasting & Inventory Management",
+      icon: "chart",
+      body: "Predictive insights help balance inventory levels, prevent stock fluctuations, and align supply with market demand for optimized resource allocation.",
     },
     {
-      name: "Warehouse Throughput",
-      icon: "gauge",
-      body: "Intelligent picking sequences, slotting, and task allocation raise throughput on the same footprint and headcount, which defers the capital cost of more space.",
+      name: "AI-Powered Warehouse Automation & Order Fulfillment",
+      icon: "cpu",
+      body: "Smart automation accelerates order processing, enhances warehouse efficiency, minimizes errors, and speeds up fulfillment for seamless logistics operations.",
     },
     {
-      name: "Fewer Unplanned Failures",
+      name: "Predictive Maintenance & Risk Management",
       icon: "shield",
-      body: "Predictive maintenance converts roadside breakdowns and unplanned downtime into scheduled work, protecting both service levels and asset life.",
+      body: "Proactive monitoring detects equipment issues early, prevents downtime, extends fleet lifespan, and strengthens security by identifying fraud and operational risks.",
+    },
+    {
+      name: "Automated Logistics Workflows & Last-Mile Optimization",
+      icon: "flow",
+      body: "AI automates decision-making, workflow execution, and last-mile delivery planning, ensuring faster, cost-efficient, and customer-centric logistics operations.",
     },
   ],
 };
 
-export const logisticsSegments: CardGridContent = {
-  eyebrow: "Where AI Applies",
-  title: "How AI Is Changing Logistics",
-  body: "Six areas where logistics operators are deploying AI, from the well-established to the more recent.",
+/**
+ * The live page's three success stories, each card's body its results list.
+ * Only the first publishes figures, so they run in the story lane rather than
+ * the metric-led `CaseStudies` grid. The lane's closing card carries the live
+ * "Elevate Logistics with AI-Powered Precision" band that follows the stories
+ * there; its consultation button goes to /contact, as the reviews ask of every
+ * consultation CTA.
+ */
+export const logisticsSuccessStories: WorkCarouselContent = {
+  eyebrow: "Success Stories",
+  title: "Real Results: Transforming Logistics with AI",
+  body: "Discover how our AI-powered solutions are reshaping logistics, enhancing efficiency, accuracy, and cost-effectiveness. These success stories highlight real-world impact, showcasing smarter & faster operations, and optimized supply chains.",
+  outro: {
+    eyebrow: "Elevate Logistics with AI-Powered Precision",
+    line: "Enhance operational speed, improve accuracy, and drive smarter decision-making with advanced AI solutions for seamless logistics management.",
+    cta: { label: "Request a Consultation", href: "/contact" },
+  },
   items: [
     {
-      name: "Predictive Demand Forecasting",
-      body: "Anticipating volume by lane, site, and season so capacity and stock are positioned before demand arrives rather than after it is missed.",
+      title: "Optimizing Global Logistics: A Shipment Tracking Success Story",
+      tag: "Shipment Tracking",
+      body: "85% Improvement in Logistics Efficiency · 65% Enhanced Real-Time Shipment Tracking · 50% Reduction in Operational Costs · 70% Increase in Team Collaboration · Scalable & Integrated Shipment Management System",
     },
     {
-      name: "Route Optimisation & Fleet Management",
-      body: "Planning that respects real constraints — windows, capacities, driver hours, traffic — and replans when the day departs from the plan, as it does.",
+      title: "Enhancing Vehicle Safety: A Smart Parking Success Story",
+      tag: "Smart Parking",
+      body: "Real-Time Vehicle Safety Alerts via SMS · QR Code-Based Anonymous Incident Reporting · Incentive System for Community Engagement · Reduction in Tickets, Towing, & Parking Violations · Seamless & Secure Vehicle Monitoring Platform",
     },
     {
-      name: "Warehouse Automation & Robotics",
-      body: "Picking, sorting, and slotting driven by models rather than fixed layouts, raising throughput without proportional headcount.",
-    },
-    {
-      name: "Risk Management & Disruption Response",
-      body: "Identifying exposure across suppliers, lanes, and carriers, and modelling the impact of a disruption before deciding how to reroute around it.",
-    },
-    {
-      name: "Real-Time Shipment Tracking",
-      body: "Live position and predicted arrival across a multi-carrier network, including the legs where a partner's visibility ends and yours has to infer.",
-    },
-    {
-      name: "Fraud Detection & Cargo Security",
-      body: "Anomaly detection across billing, routing, and handling that surfaces both freight invoice fraud and the deviations that precede cargo loss.",
+      title: "Optimizing Logistics: A Scalable Delivery Management Success Story",
+      tag: "Delivery Management",
+      body: "Real-Time Shipment Tracking & Monitoring · Seamless Barcode & Document Scanning for Loaders · Automated Alerts for Delays & Delivery Issues · Improved Workflow Efficiency Across Logistics Teams · Scalable & Integrated Multi-App Ecosystem",
     },
   ],
-};
-
-export const logisticsMidCta: CtaBandContent = {
-  eyebrow: "Talk It Through",
-  title: "Not Sure Whether Routing or Forecasting Comes First?",
-  body: "It depends on whether your cost problem is in the vehicles or in the warehouse. A short conversation about where your margin is going will usually settle it.",
-  cta: { label: "Book a free consultation", href: "#enquiry" },
 };
 
 export const logisticsFaqs: FaqContent = {
-  eyebrow: "FAQs",
-  title: "FAQs About AI in Logistics",
-  body: "Common questions from operations, supply chain, and technology leaders evaluating AI for a logistics network.",
+  eyebrow: "Ask Us",
+  title: "FAQs About Logistics",
+  body: "Review insights into our logistics software development, system features, and service delivery.",
   items: [
     {
-      q: "Can AI logistics software integrate with our existing WMS, TMS, ERP or fleet systems?",
-      a: "Yes, and it has to — replacing an operational system to add optimisation is almost never justified. We integrate through APIs and, where a system is older, through file or database-level connectors. The practical constraint is usually not the interface but the data quality behind it, which is why systems assessment comes before design.",
+      q: "Which company develops custom AI solutions for Logistics?",
+      a: "Companies like Soft Suave specialize in developing custom AI solutions for logistics, offering tailored software to optimize supply chain management, improve delivery efficiency, and enhance operational performance.",
     },
     {
-      q: "How much can AI realistically reduce logistics costs?",
-      a: "It depends entirely on how much slack is in the current operation. A network already running sophisticated route planning has less headroom than one planning manually, and a fleet with disciplined maintenance gains less from prediction than one running to failure. Rather than quote a percentage, we size the specific opportunity against your own historical data during discovery, because a generic figure tells you nothing about your operation.",
+      q: "What is Logistics AI Development, and how does it improve supply chain operations?",
+      a: "Logistics AI development involves creating AI-driven technologies to optimize supply chain processes, such as demand forecasting, route planning, and warehouse management, leading to increased efficiency, reduced costs, and faster deliveries.",
     },
     {
-      q: "How does predictive analytics improve delivery planning?",
-      a: "By turning planning from reactive into anticipatory. Forecasting expected volume by lane and day lets capacity be committed early at better rates; predicting traffic and dwell patterns produces routes that survive contact with the actual day; and flagging shipments likely to miss a window allows intervention while the options are still cheap. The gain is mostly in decisions made earlier rather than decisions made better.",
+      q: "How is AI used in logistics and supply chain optimization?",
+      a: "AI in logistics helps optimize routes, predict demand, automate inventory management, and improve real-time decision-making, enhancing supply chain efficiency, reducing costs, and ensuring timely deliveries.",
     },
     {
-      q: "Can AI improve warehouse picking accuracy and throughput?",
-      a: "Yes. Models optimise pick sequences and slotting so high-velocity items sit where they minimise travel, and task allocation responds to live workload rather than a fixed assignment. Where robotics are in place, models coordinate them; where they are not, the gains come from better sequencing alone, which needs no capital spend and is usually the right first step.",
+      q: "What types of logistics operations can be automated using AI logistics automation software?",
+      a: "AI logistics automation software can automate warehouse operations, inventory tracking, delivery routing, package sorting, fleet management, and order fulfillment, improving operational efficiency and reducing manual errors.",
     },
     {
-      q: "What technologies do you use for logistics AI?",
-      a: "Machine learning for forecasting and predictive maintenance, mathematical optimisation for routing and load planning — which is a different discipline from ML and frequently confused with it — computer vision for scanning, damage detection, and yard monitoring, and NLP for document extraction. Most real deployments combine several, because a routing problem is an optimisation problem with ML-estimated inputs.",
+      q: "What are the most common AI applications in logistics management today?",
+      a: "Common AI applications in logistics include route optimization, predictive maintenance, demand forecasting, inventory management, automated sorting, and real-time tracking, all aimed at improving operational efficiency and reducing costs.",
     },
     {
-      q: "How do you handle data privacy and security in logistics AI?",
-      a: "Commercial data — rates, volumes, customer addresses — is treated as confidential and handled under GDPR where personal data is involved, which includes driver telematics. Encryption, role-based access, and audit logging are standard, and delivery runs under Soft Suave's ISO/IEC 27001:2022-certified management system. Where carrier or customer contracts restrict data movement, we deploy inside your environment.",
+      q: "How does AI help reduce operational costs in logistics companies?",
+      a: "AI helps reduce operational costs by optimizing routes to minimize fuel usage, automating repetitive tasks, improving inventory management, and predicting maintenance needs to avoid expensive breakdowns and delays.",
     },
     {
-      q: "Does this work for a smaller fleet, or only at network scale?",
-      a: "Route optimisation and predictive maintenance both work at modest fleet sizes, because the gains come from better decisions per vehicle rather than from statistical scale. Demand forecasting is the one that genuinely needs volume — with sparse history a model has little to learn from, and a simpler method is often the honest recommendation.",
+      q: "Can AI improve warehouse automation, picking accuracy, and inventory forecasting?",
+      a: "Yes, AI can significantly improve warehouse automation by streamlining picking processes, increasing accuracy through robotics, and enhancing inventory forecasting by predicting demand patterns and adjusting stock levels accordingly.",
     },
     {
-      q: "How long does a logistics AI project take?",
-      a: "The modelling is usually not the constraint; data access and integration are. A network with well-maintained telematics and a modern TMS moves quickly, while one where operational history sits across several systems with inconsistent identifiers spends most of the effort before modelling starts. We size that explicitly in discovery so the timeline reflects your estate.",
-      link: {
-        label: "Book a free consultation",
-        href: "https://www.softsuave.com/30-min-free-consultation",
-        tail: "and we will scope it against your network.",
-      },
+      q: "How does predictive analytics improve delivery planning and route optimization?",
+      a: "Predictive analytics uses historical data and real-time information to forecast demand, plan delivery routes, and optimize schedules, helping logistics companies reduce delays, lower fuel costs, and improve delivery times.",
+    },
+    {
+      q: "Can AI logistics software integrate with existing WMS, TMS, ERP, or fleet systems?",
+      a: "Yes, AI logistics software can integrate with existing Warehouse Management Systems (WMS), Transportation Management Systems (TMS), Enterprise Resource Planning (ERP) software, and fleet management systems through APIs and customized solutions.",
+    },
+    {
+      q: "What technologies are used in logistics AI development (ML, NLP, CV, optimization models)?",
+      a: "Technologies used in logistics AI include Machine Learning (ML) for predictive analytics, Natural Language Processing (NLP) for customer support automation, Computer Vision (CV) for item tracking and sorting, and optimization models for route planning and inventory management.",
+    },
+    {
+      q: "How do you ensure data privacy and security when building AI for logistics?",
+      a: "Data privacy and security are ensured by implementing encryption, secure data storage, and following industry regulations like GDPR to protect sensitive logistics data and maintain compliance with data protection standards.",
+    },
+    {
+      q: "What is the cost of developing custom AI logistics automation software?",
+      a: "The cost of developing custom AI logistics automation software depends on project complexity, features, and scale. Since costs vary widely, it’s best to contact our experts for a tailored estimate based on your requirements.",
+    },
+    {
+      q: "How long does it take to build and deploy an AI solution for logistics?",
+      a: "The timeline to build and deploy an AI solution for logistics varies based on project complexity, integration needs, and customization. For a more precise estimate, please contact our experts.",
     },
   ],
 };

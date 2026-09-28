@@ -5,27 +5,24 @@ import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
   telecomBenefits,
+  telecomCta,
   telecomFaqs,
   telecomHero,
+  telecomIndustryOverview,
   telecomMeta,
-  telecomMidCta,
-  telecomOverview,
-  telecomSegments,
-  telecomServices,
+  telecomSolutions,
+  telecomSuccessStories,
 } from '@/lib/home/telecom-ai-content';
+import { industryTechApproach } from '@/lib/home/industry-shared';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-// COMPANY-LEVEL SECTIONS — the homepage's own components and content. Only the
-// ones the live Telecom AI Solutions page actually carries: it has a client logo strip, a
-// positioning block, a technology list, success stories and testimonials. It has no
-// company stats block, no awards section, no recognitions band and no
-// "industries we serve" section, so none are rendered here.
-import Manifesto from '@/components/home/manifesto';
+// COMPANY-LEVEL SECTIONS — the homepage's own components and content: the
+// client strip the live page opens on, its testimonials, and the closing
+// enquiry band. The success-story lane is the homepage's, fed this page's copy.
 import Clients from '@/components/home/clients';
 import WorkGrid from '@/components/home/work-grid';
-import TechStack from '@/components/home/tech-stack';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
 
@@ -33,8 +30,9 @@ import Contact from '@/components/home/contact';
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import Services from '@/components/landing/services';
-import CtaBand from '@/components/landing/cta-band';
 import CardGrid from '@/components/landing/industries';
+import TechStack from '@/components/landing/tech-stack';
+import CtaBand from '@/components/landing/cta-band';
 import Faq from '@/components/landing/faq';
 
 import home from '@/components/home/home.module.css';
@@ -46,20 +44,24 @@ import home from '@/components/home/home.module.css';
  * section below is a client component. Fonts, `.theme-four` tokens and Lenis
  * smooth scroll come from `app/(marketing)/layout.tsx`.
  *
- * Section order mirrors the live page's own. Bands alternate strictly by
- * position, so a section this page does not have cannot leave two light bands
- * adjacent.
+ * Below the hero, the section set and order are the live page's (see
+ * `lib/home/telecom-ai-content.ts`). Bands alternate so no two dark sections
+ * sit together: technology and success stories share one light band, and
+ * testimonials and FAQ another, either side of the dark consultation band, so
+ * the FAQ sits light ahead of the dark closing band.
  */
 
 export const revalidate = 300;
 
+// The live page's own <title>, verbatim — it already carries the brand, so no
+// suffix is added.
 export const metadata: Metadata = {
-  title: `${telecomMeta.title} | Soft Suave`,
+  title: telecomMeta.title,
   description: telecomMeta.description,
   alternates: { canonical: telecomMeta.path },
   robots: pageRobots,
   openGraph: {
-    title: `${telecomMeta.title} | Soft Suave`,
+    title: telecomMeta.title,
     description: telecomMeta.description,
     url: absoluteUrl(telecomMeta.path),
     siteName: 'Soft Suave',
@@ -68,7 +70,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${telecomMeta.title} | Soft Suave`,
+    title: telecomMeta.title,
     description: telecomMeta.description,
     images: [dynamicOgImage(telecomMeta.title, 'Soft Suave')],
   },
@@ -77,28 +79,28 @@ export const metadata: Metadata = {
 const HOME_HREF = BASE_PATH || '/';
 
 /**
- * This page's JSON-LD, from the shared builder.
+ * This page's JSON-LD, from the shared builder: `Service` (its offers are the
+ * page's own AI solutions list), `WebPage` and `FAQPage` (the page's own FAQs),
+ * `@id`-linked to the organization `app/(marketing)/layout.tsx` declares once.
+ * Built from the same content the page renders, so the schema can never drift
+ * from what a visitor reads.
  *
- * It replaces a hand-written `Service` whose `provider` was an inline
- * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
- * repeated on every page of this surface rather than the canonical one — with
- * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
- * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
- * at the organization `app/(marketing)/layout.tsx` declares once.
+ * `webPageName` is the live title as it stands: it already carries the brand,
+ * so the builder's default " | Soft Suave" suffix would double it.
  */
 const LD = pageSchemaGraph({
   path: telecomMeta.path,
   title: telecomMeta.title,
+  webPageName: telecomMeta.title,
   description: telecomMeta.description,
   serviceType: 'Telecom AI development services',
-  offerCatalogName: telecomServices.title,
-  offers: telecomServices.items.map((i) => ({ name: i.name, description: i.body })),
+  offerCatalogName: telecomSolutions.title,
+  offers: telecomSolutions.items.map((i) => ({ name: i.name, description: i.body })),
   faqName: telecomFaqs.title,
   faqs: telecomFaqs.items,
 });
 
 export default function TelecomAiSolutionsPage() {
-
   return (
     <div className={home.page}>
       <JsonLd data={LD} />
@@ -111,33 +113,25 @@ export default function TelecomAiSolutionsPage() {
           <Clients />
         </div>
 
-        <Manifesto />
+        <Overview content={telecomIndustryOverview} id="industry-overview" />
 
         <div className={home.light}>
-          <Overview content={telecomOverview} />
+          <Services content={telecomSolutions} variant="bold" />
         </div>
 
-        <Services content={telecomServices} variant="bold" />
+        <CardGrid content={telecomBenefits} id="benefits" variant="feature" />
 
         <div className={home.light}>
-          <CardGrid content={telecomBenefits} id="benefits" variant="feature" />
+          <TechStack content={industryTechApproach} />
+          <WorkGrid content={telecomSuccessStories} id="success-stories" countLabel="success stories" />
         </div>
 
-        <CardGrid content={telecomSegments} id="applications" variant="bold" />
+        {/* The consultation band draws its own dark ground whatever wraps it,
+            so it takes the dark slot between the two light pairs. */}
+        <CtaBand content={telecomCta} />
 
         <div className={home.light}>
-          <TechStack />
-        </div>
-
-        <WorkGrid />
-
-        <div className={home.light}>
-          <CtaBand content={telecomMidCta} />
-        </div>
-
-        <Testimonials />
-
-        <div className={home.light}>
+          <Testimonials />
           <Faq content={telecomFaqs} idPrefix="telecom-faq" />
         </div>
 

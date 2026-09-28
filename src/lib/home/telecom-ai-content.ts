@@ -2,10 +2,23 @@
  * Copy for the "AI Solutions for Telecom" landing page
  * (`/ai-solutions-for-telecom`).
  *
- * Follows the live softsuave.com page: its H1, its five solution cards, its six
- * "significant AI uses in telecom" areas, its six benefits and its FAQ set are
- * all carried over. The live page ships no process section, so this page has
- * none either — an earlier draft added one and it was removed.
+ * The hero is this page's own and is kept as it was. Everything below it — and
+ * the page's title, description and schema — follows the live softsuave.com
+ * page, which was rebuilt with a new section set (review: "Need to update the
+ * entire page, as the sections have been completely changed"). The mapping, in
+ * live page order:
+ *
+ *   client logo strip                                → homepage `Clients`
+ *   "AI-Powered Telecom: Smarter, Faster, Reliable"  → `telecomIndustryOverview` (6 uses)
+ *   "Transforming Connectivity with AI Solutions"    → `telecomSolutions` (5)
+ *   "Telecom Meets AI: Innovation Without Limits"    → `telecomBenefits` (6)
+ *   "Innovative AI Technologies & Approaches"        → `industryTechApproach`
+ *   "From Strategy to Success: Our Success Stories"  → `telecomSuccessStories` (1)
+ *   "Experience the Power of AI in Telecom"          → `telecomCta`
+ *   "What Our Clients Say About Us"                  → homepage `Testimonials`
+ *   "FAQs About Telecom"                             → `telecomFaqs` (12)
+ *
+ * The copy is the live page's own, verbatim.
  */
 
 import type { HeroContent } from "@/components/landing/hero";
@@ -14,15 +27,17 @@ import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
+import type { WorkCarouselContent } from "@/components/home/work-grid";
 import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
 import { overviewImage } from "./overview-images";
 
 export const telecomMeta = {
   slug: "ai-solutions-for-telecom",
   path: "/ai-solutions-for-telecom",
-  title: "AI Solutions for Telecom",
+  // The live page's <title> and meta description, verbatim.
+  title: "Custom AI Telecom Development Company - Soft Suave",
   description:
-    "Custom telecom AI from Soft Suave — network optimisation, predictive maintenance, fault detection, revenue assurance and AI-powered customer support.",
+    "Custom AI telecom development services that transform telecom network with automation, real-time analytics, and enhanced customer engagement.",
 } as const;
 
 export const telecomHero: HeroContent = {
@@ -55,165 +70,183 @@ export const telecomHero: HeroContent = {
   },
 };
 
-export const telecomOverview: OverviewContent = {
-  image: overviewImage("ai-solutions-for-telecom"),
-  eyebrow: "The Short Answer",
-  title: "What AI Changes for a Network Operator",
+/** The live "Industry Overview": its intro and the six significant uses of AI it lists. */
+export const telecomIndustryOverview: OverviewContent = {
+  eyebrow: "Industry Overview",
+  title: "AI-Powered Telecom: Smarter, Faster, Reliable",
   paragraphs: [
-    "A telecom network already emits everything needed to predict its own failures — performance counters, alarms, traffic patterns, equipment telemetry. What operators have historically lacked is a way to separate the signals that precede an outage from the thousands that precede nothing at all.",
-    "That is the core application: moving from alarms that report a fault to models that anticipate one. A base station degrading over days looks like noise in a dashboard and looks like a pattern to a model trained on every previous degradation, and the difference between those two readings is a planned intervention rather than an outage.",
-    "The second application is commercial rather than technical. Churn, fraud, and revenue leakage are all detectable in usage data well before they show up in a monthly report, and all three respond to being caught early — which makes them unusually good candidates for models operating on data the network already produces.",
+    "AI is transforming the telecom industry by enabling intelligent automation, boosting service reliability, and enhancing overall efficiency to meet growing demands and deliver seamless connectivity. Here are 6 significant uses of AI in this sector:",
   ],
-  pullQuote:
-    "The network has been telling you it was about to fail. The question has only ever been whether anything was listening at the right resolution.",
+  points: [
+    "Intelligent Network Optimization",
+    "Proactive Predictive Maintenance",
+    "Real-Time Fraud Detection",
+    "AI-Powered Virtual Assistants",
+    "Personalized Customer Experience Management",
+    "Accurate Revenue Assurance Systems",
+  ],
+  image: overviewImage("ai-solutions-for-telecom"),
 };
 
-export const telecomServices: ServicesContent = {
-  eyebrow: "What We Build",
-  title: "Telecom AI Solutions Soft Suave Delivers",
-  body: "Five solution areas spanning the network itself, the operations around it, and the customers on it.",
+/**
+ * The live page's five AI solutions. Its "Get In Touch" button is not carried:
+ * the services grid renders no section CTA, and the page's consultation band
+ * and closing enquiry form sit further down.
+ */
+export const telecomSolutions: ServicesContent = {
+  eyebrow: "AI Solutions",
+  title: "Transforming Connectivity with AI Solutions",
+  body: "The telecom industry is evolving fast, with AI at its core. Our AI solutions optimize networks, automate operations, and enhance customer experiences through predictive analytics, intelligent automation, and innovative data processing for improved efficiency.",
   items: [
     {
-      name: "Network Optimisation & Predictive Maintenance",
-      tag: "Network",
-      body: "Traffic management that allocates capacity where demand is forming, and predictive maintenance that identifies degrading infrastructure while intervention is still a scheduled job rather than an incident.",
+      name: "Network Optimization & Predictive Maintenance",
+      body: "We optimize network performance and enable predictive maintenance for infrastructure to ensure efficient traffic management and minimal downtime.",
     },
     {
-      name: "Automated Fault Detection & Resolution",
-      tag: "Operations",
-      body: "Automated detection, correlation, and where safe, resolution of faults — collapsing the alarm storms that follow a single root cause into one actionable incident rather than a thousand tickets.",
+      name: "Automated Fault Detection & Smart Resolution",
+      body: "Our AI automates fault detection and resolution processes, reducing manual intervention and speeding up recovery to maintain seamless connectivity.",
     },
     {
-      name: "AI-Powered Customer Support & Personalisation",
-      tag: "Service",
-      body: "Support that resolves the routine tier-one volume instantly and consistently, with personalisation that tailors plans and offers to actual usage rather than to a segment the customer was assigned years ago.",
+      name: "AI-Powered Customer Support & Personalization",
+      body: "We enhance user satisfaction through AI-powered customer support and personalized user experiences tailored to individual needs and behaviors.",
     },
     {
       name: "Fraud Detection & Revenue Assurance",
-      tag: "Revenue",
-      body: "Real-time detection of subscription fraud, SIM-box bypass, and usage anomalies, alongside billing validation that catches the leakage sitting between what was delivered and what was invoiced.",
+      body: "Using AI, we provide real-time fraud detection, prevention, and intelligent billing for accurate, secure, and assured revenue management.",
     },
     {
       name: "Intelligent Automation & Service Efficiency",
-      tag: "Automation",
-      body: "AI-driven automation across provisioning, billing, and field operations, so the workflows that scale with subscriber count stop requiring headcount that scales with it too.",
+      body: "We leverage AI-driven automation across operations, including billing, network traffic, and maintenance, to boost telecom service speed and efficiency.",
     },
   ],
 };
 
+/** The live page's six key benefits; the badge glyphs stand in for its card icons. */
 export const telecomBenefits: CardGridContent = {
-  eyebrow: "Benefits",
-  title: "What Telecom AI Changes",
-  body: "Gains measured where operators already measure — availability, mean time to repair, churn, ARPU, and revenue leakage.",
+  eyebrow: "Key Benefits",
+  title: "Telecom Meets AI: Innovation Without Limits",
+  body: "AI is transforming telecom with unmatched speed, accuracy, and intelligence - automating tasks, personalizing experiences, and helping providers scale, serve better, and innovate fast. Discover six key benefits driving this AI-powered telecom evolution.",
   items: [
     {
-      name: "Higher Network Availability",
-      icon: "globe",
-      body: "Predictive maintenance and traffic optimisation reduce both unplanned outages and the congestion that degrades service without ever registering as a fault.",
+      name: "Enhanced Network Performance & Optimization",
+      icon: "network",
+      body: "Boost overall network performance and traffic efficiency through AI-driven optimization, ensuring faster speeds, lower latency, and improved service quality.",
     },
     {
-      name: "Faster Fault Resolution",
-      icon: "gauge",
-      body: "Automated detection and correlation cut mean time to repair by identifying root cause instead of leaving an engineer to infer it from the symptoms a hundred alarms describe.",
-    },
-    {
-      name: "Protected Revenue",
-      icon: "shield",
-      body: "Real-time fraud detection and billing validation recover leakage that periodic audits find months later, by which time the traffic is long settled.",
-    },
-    {
-      name: "Lower Cost to Serve",
+      name: "Automated Fault Resolution & Cost Reduction",
       icon: "coins",
-      body: "Automating tier-one support and routine provisioning breaks the link between subscriber growth and operational headcount, which is where operator margin is won or lost.",
+      body: "AI enables instant fault detection and resolution, minimizing downtime, reducing manual effort, and significantly lowering operational costs.",
     },
     {
-      name: "Reduced Churn",
+      name: "Intelligent Customer Support Services",
       icon: "users",
-      body: "Usage and experience signals identify subscribers likely to leave while retention still has options, rather than at the point they call to cancel.",
+      body: "Deliver AI-powered customer support that’s fast, adaptive, and consistent, ensuring smoother interactions and boosting customer satisfaction across all channels.",
+    },
+    {
+      name: "Personalized User Experience Delivery",
+      icon: "target",
+      body: "Leverage AI to offer deeply personalized services based on user behavior, preferences, and data, enhancing engagement and loyalty.",
+    },
+    {
+      name: "Advanced Fraud Detection & Revenue Assurance",
+      icon: "shield",
+      body: "Detect and prevent fraudulent activities in real-time with AI, while ensuring accurate billing and protecting critical revenue streams.",
+    },
+    {
+      name: "Smart Resource Allocation & Data-Driven Decisions",
+      icon: "chart",
+      body: "Optimize internal resources and infrastructure with AI insights, enabling smarter, faster decision-making through continuous data analysis and learning.",
     },
   ],
 };
 
-export const telecomSegments: CardGridContent = {
-  eyebrow: "Where AI Applies",
-  title: "How AI Is Changing Telecom",
-  body: "Six areas where operators and service providers are deploying AI against data their networks already produce.",
+/**
+ * The live page's one success story. Its results are delivery outcomes rather
+ * than figures, so it runs in the work lane rather than the metric-led case
+ * study cards; the results list, verbatim, is the card's body.
+ */
+export const telecomSuccessStories: WorkCarouselContent = {
+  eyebrow: "Success Stories",
+  title: "From Strategy to Success: Our Success Stories",
+  body: "Discover how our AI-driven telecom solutions have transformed challenges into success stories, delivering measurable results and long-term value for our clients.",
   items: [
     {
-      name: "Intelligent Network Optimisation",
-      body: "Capacity and traffic allocation that respond to demand as it forms, improving throughput and latency without additional spectrum or hardware.",
-    },
-    {
-      name: "Proactive Predictive Maintenance",
-      body: "Equipment telemetry analysed for the degradation patterns that precede failure, converting outages into planned maintenance windows.",
-    },
-    {
-      name: "Real-Time Fraud Detection",
-      body: "Subscription fraud, bypass, and usage anomalies caught as they happen rather than in a reconciliation cycle weeks later.",
-    },
-    {
-      name: "AI-Powered Virtual Assistants",
-      body: "Support agents that handle billing, diagnostics, and provisioning queries around the clock, escalating with full context rather than restarting the conversation.",
-    },
-    {
-      name: "Personalised Experience Management",
-      body: "Plan, offer, and content recommendations driven by actual usage patterns, improving both take-up and the perception that the operator understands the customer.",
-    },
-    {
-      name: "Revenue Assurance Systems",
-      body: "Continuous validation that what was delivered matches what was rated and billed, across interconnect, roaming, and retail streams.",
+      title: "Salesforce Telephone App Integration",
+      tag: "Telephony",
+      body: "Integrated cloud-based telephony with Salesforce using Open CTI. · Enabled instant click-to-dial functionality within Salesforce. · Centralized contact management and call history tracking. · Implemented real-time call actions: transfer, mute/unmute, hold/unhold. · Built responsive UI with Aura and unique extensions for personalized communication.",
     },
   ],
 };
 
-export const telecomMidCta: CtaBandContent = {
-  eyebrow: "Talk It Through",
-  title: "Not Sure Whether to Start With the Network or the Customer?",
-  body: "Predictive maintenance pays back on availability; churn and fraud models pay back on revenue. A short conversation about where your losses concentrate will point to the first build.",
-  cta: { label: "Book a free consultation", href: "#enquiry" },
+/**
+ * The live consultation band between the success stories and the
+ * testimonials. Its "Request a Consultation" button goes to /contact, as the
+ * reviews ask of every consultation CTA.
+ */
+export const telecomCta: CtaBandContent = {
+  title: "Experience the Power of AI in Telecom",
+  body: "Consult our experts to streamline your telecom operations, enhance customer experience, and drive innovation with our tailored AI solutions.",
+  cta: { label: "Request a Consultation", href: "/contact" },
 };
 
+/**
+ * The live page's FAQs, verbatim. The live list repeats "What is the difference
+ * between Telecom AI development and traditional telecom software development?"
+ * twice in a row, word for word; it is carried once, so the page and its
+ * FAQPage schema hold 12 distinct questions.
+ */
 export const telecomFaqs: FaqContent = {
-  eyebrow: "FAQs",
-  title: "FAQs About AI in Telecom",
-  body: "Common questions from network, operations, and product leaders evaluating AI for a telecom estate.",
+  eyebrow: "Ask Us",
+  title: "FAQs About Telecom",
+  body: "Learn about our telecom software solutions, network-focused development, and AI-powered apps.",
   items: [
     {
-      q: "Do we need to rebuild our platform to add AI, or can it sit on existing systems?",
-      a: "It sits on top. Models consume data your OSS/BSS and network management systems already produce and return predictions through APIs, so no core replacement is involved. This is also the only realistic option: a live network cannot be rebuilt to accommodate an analytics layer, and any approach requiring that should be treated with suspicion.",
+      q: "Which company develops custom AI solutions for Telecom?",
+      a: "Soft Suave specializes in developing custom AI solutions for telecom, focusing on network optimization, customer service automation, predictive maintenance, and improving overall network performance using AI technologies.",
     },
     {
-      q: "What AI models are used for predictive maintenance and fraud detection?",
-      a: "Predictive maintenance typically uses time-series and survival models over equipment telemetry, looking for degradation signatures ahead of failure. Fraud detection uses anomaly detection against per-subscriber behavioural baselines, because fraud patterns change faster than any rule set maintained by hand. Customer support uses NLP over interaction history. Most deployments run several models with different update cadences.",
+      q: "How much does it cost to build AI-powered Telecom applications?",
+      a: "The cost of building AI-powered Telecom applications varies based on features, scale, and customization requirements. As costs can differ widely, it’s best to contact our experts for a detailed estimate.",
     },
     {
-      q: "How does AI reduce network downtime in practice?",
-      a: "Two ways. It predicts failures far enough ahead that repair becomes planned work, and it collapses alarm storms into a single identified root cause so engineers spend their time fixing rather than diagnosing. The second effect is frequently the larger one, because mean time to repair in a large network is dominated by locating the fault rather than correcting it.",
+      q: "What are the most common AI use cases in Telecom today?",
+      a: "Common AI use cases in Telecom include network optimization, predictive maintenance, customer service automation through chatbots, demand forecasting, fraud detection, and personalized customer experiences.",
     },
     {
-      q: "Can AI reduce churn, and how reliable is the prediction?",
-      a: "Churn models built on usage, experience, and billing signals reliably identify elevated risk, and the accuracy is usually good enough to prioritise retention spend far better than tenure-based segmentation does. What they cannot do is tell you the customer will definitely leave, so the value comes from ranking who to contact rather than from certainty about any individual.",
+      q: "How do AI-driven personalized systems work in Telecom platforms?",
+      a: "AI-driven personalized systems in Telecom analyze customer data, behavior, and preferences to offer customized services, such as tailored recommendations, plans, and offers, improving customer satisfaction and engagement.",
     },
     {
-      q: "How do you handle subscriber data privacy?",
-      a: "Subscriber data is personal data, and usage records are among the more sensitive categories, so processing runs under GDPR or the local equivalent with lawful basis established before modelling. We minimise and pseudonymise wherever the use case allows, keep processing inside your environment where regulation or licence conditions require it, and apply the access control and audit logging expected under an ISO/IEC 27001:2022-certified delivery process.",
+      q: "Do Telecom companies need to rebuild their platform to integrate AI, or can AI be added on top of existing systems?",
+      a: "Telecom companies can often integrate AI on top of existing platforms, enhancing capabilities like customer service, network optimization, and predictive analytics without a complete rebuild.",
     },
     {
-      q: "Can smaller operators and MVNOs use AI affordably?",
-      a: "Yes, particularly for customer-facing use cases. Support automation, churn prediction, and fraud detection all work at MVNO scale because they operate on subscriber behaviour rather than on network element telemetry. Deep network optimisation is harder without owning the infrastructure that generates the data, so the achievable scope depends on what your operating model actually gives you visibility of.",
+      q: "What AI models are used for Telecom features like predictive maintenance, fraud detection, or customer support?",
+      a: "AI models commonly used in Telecom include machine learning algorithms for predictive maintenance, anomaly detection models for fraud, and natural language processing (NLP) for automated customer support through chatbots.",
     },
     {
-      q: "How is telecom AI different from general software development?",
-      a: "Scale and consequence. Telemetry arrives at volumes that make naive architectures impossible, and a system acting on a live network can degrade service for a region if it is wrong. That drives the practices described in our process — offline validation against historical incidents, shadow-mode running, and explicit limits on what the system may act on without a human.",
+      q: "How long does it take to develop a full AI-powered Telecom platform?",
+      a: "The timeline for developing a full AI-powered Telecom platform depends on the complexity, features, and integration needs. It typically takes several months to a year for full development and deployment.",
     },
     {
-      q: "How long does a telecom AI project take?",
-      a: "Data access is usually the long pole rather than modelling. Where telemetry is already centralised at adequate resolution, a predictive maintenance model can be validated relatively quickly; where it is aggregated across several element managers with inconsistent retention, most of the effort goes into making it trainable. We assess that in discovery so the timeline is grounded in your estate rather than a standard figure.",
-      link: {
-        label: "Book a free consultation",
-        href: "https://www.softsuave.com/30-min-free-consultation",
-        tail: "and we will scope it against your network.",
-      },
+      q: "What is the difference between Telecom AI development and traditional telecom software development?",
+      a: "Telecom AI development focuses on integrating machine learning, automation, and analytics to optimize network operations, predict issues, and personalize services, whereas traditional software development focuses more on infrastructure and static applications.",
+    },
+    {
+      q: "Can AI improve service quality and customer engagement in Telecom platforms?",
+      a: "Yes, AI can enhance service quality by predicting network failures, optimizing resource allocation, and personalizing customer interactions, leading to better engagement, improved customer satisfaction, and reduced churn.",
+    },
+    {
+      q: "What are the best AI tools and integrations for Telecom platforms?",
+      a: "Best AI tools for Telecom platforms include AI-driven predictive analytics for network optimization, automated customer service chatbots, fraud detection systems, and tools for personalized offers and plan recommendations.",
+    },
+    {
+      q: "Can small Telecom companies use AI affordably without building a full in-house team?",
+      a: "Yes, small Telecom companies can use affordable AI solutions by leveraging third-party AI tools, cloud-based services, and AI-as-a-service platforms to enhance operations without needing a large in-house team.",
+    },
+    {
+      q: "How does AI detect usage patterns, network issues, and customer behavior in Telecom?",
+      a: "AI detects usage patterns, network issues, and customer behavior by analyzing data from network traffic, customer interactions, and usage logs to predict potential failures, optimize resources, and offer personalized services.",
     },
   ],
 };

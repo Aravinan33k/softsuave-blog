@@ -11,11 +11,7 @@ import Footer from '@/components/home/footer';
 import Clients from '@/components/home/clients';
 
 import Hero from '@/components/industries/hero';
-import ProofRail from '@/components/industries/proof-rail';
 import Sectors from '@/components/industries/sectors';
-import Capabilities from '@/components/industries/capabilities';
-import Work from '@/components/industries/work';
-import Delivery from '@/components/industries/delivery';
 import Closing from '@/components/industries/closing';
 
 import styles from '@/components/home/home.module.css';
@@ -125,19 +121,18 @@ export default function IndustriesPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
+        {/* The live page's own section set, in its order: hero, client strip,
+            the sector cards, and the closing consultation band (review:
+            "Align the client section after the hero section" / "Need to
+            remove unwanted sections"). The by-the-numbers rail, capabilities
+            ledger, case studies and staffing sections it no longer runs are
+            gone. Client strip and sectors share one light band between the
+            dark hero and the always-dark closing panel. */}
         <Hero />
-        <ProofRail />
-        <Sectors />
 
         <div className={styles.light}>
-          <Capabilities />
-        </div>
-
-        <Work />
-        <Clients />
-
-        <div className={styles.light}>
-          <Delivery />
+          <Clients />
+          <Sectors />
         </div>
 
         <Closing />

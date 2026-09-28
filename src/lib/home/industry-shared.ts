@@ -12,6 +12,7 @@
  */
 
 import type { HeroContent } from "@/components/landing/hero";
+import type { TechStackContent } from "@/components/landing/tech-stack";
 import { sharedHeroBadges } from "./delivery-shared";
 
 /**
@@ -53,5 +54,25 @@ export function industryEnquiryForm(opts: {
  * The confidentiality line every industry enquiry form closes on. The delivery
  * pages state the same commitment, so it is one string rather than seven.
  */
+/**
+ * "Innovative AI Technologies & Approaches" — the one technology band every
+ * live industry AI page runs, word for word the same on all seven, with the
+ * same six technology marks.
+ *
+ * One deliberate departure: the live body was written for the EdTech page
+ * ("improve learning experiences ... personalized learning ... educational
+ * solutions") and pasted unchanged onto the other six. The sector nouns are
+ * made neutral here so the sentence is true on every page; nothing else in it
+ * is changed.
+ */
+export const industryTechApproach: TechStackContent = {
+  eyebrow: "Technology",
+  title: "Innovative AI Technologies & Approaches",
+  body: "Using advanced AI-driven strategies & tools, we improve customer experiences, streamline operations, & reduce costs. Our approach focuses on intelligent automation, personalized experiences, & data-centric decision-making to create impactful and scalable solutions.",
+  groups: [
+    { name: "Technologies", items: ["React", "Angular", "Node.js", "Python", "Java", "PHP"] },
+  ],
+};
+
 export const NDA_NOTE =
   "Tell us where you are today and what you want the system to do, and we come back with an approach, a delivery shape, and an indicative cost. Everything stays under NDA.";

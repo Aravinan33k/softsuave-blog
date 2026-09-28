@@ -435,29 +435,22 @@
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
-  /* Row 1: 5 / 4 / 3 — a lead card, a mid card, a narrow one. */
-  .sectorCard:nth-child(1) {
-    grid-column: span 5;
-  }
-  .sectorCard:nth-child(2) {
-    grid-column: span 4;
-  }
-  .sectorCard:nth-child(3) {
-    grid-column: span 3;
-  }
-
-  /* Row 2: three equal quarters, stepped down half a gutter so the grid never
-     settles into a flat table. */
-  .sectorCard:nth-child(4),
-  .sectorCard:nth-child(5),
-  .sectorCard:nth-child(6) {
+  /* Rows 1 and 2: three equal thirds each. Row 1 used to run 5 / 4 / 3, which
+     left its three cards at three different widths with their titles and copy
+     starting at three different heights (review: "First 3 Card alignment
+     mismatch in 'Sector' section"). */
+  .sectorCard:nth-child(-n + 6) {
     grid-column: span 4;
   }
 
-  /* Row 3: the two flat cards, each half the row. */
+  /* Row 3: the flat cards, each half the row — or, with seven sectors, the
+     one left over takes the whole row rather than half of it beside a gap. */
   .sectorCard:nth-child(7),
   .sectorCard:nth-child(8) {
     grid-column: span 6;
+  }
+  .sectorCard:nth-child(7):last-child {
+    grid-column: 1 / -1;
   }
 }
 

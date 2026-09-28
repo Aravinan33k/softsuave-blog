@@ -2,32 +2,48 @@
  * Copy for the "AI Solutions in EdTech" landing page
  * (`/ai-solutions-in-edutech`).
  *
- * Follows the live softsuave.com page: its H1, its five solution cards, its six
- * "where AI is changing EdTech" areas, its six benefits and its FAQ set are all
- * carried over. The live FAQ runs to sixteen entries, several of which restate
- * one another ("how long does it take" and "what does it cost" both resolve to
- * "contact us"); the eight kept here are the ones that answer something.
+ * The hero is this page's own and is kept as it was. Everything below it — and
+ * the page's title, description and schema — follows the live softsuave.com
+ * page, which was rebuilt with a new section set (review: "Need to update the
+ * entire page, as the sections have been completely changed"). The mapping, in
+ * live page order:
  *
- * The live page ships no process section, so this page has none either. An
- * earlier draft added one; it was removed to keep the page's sections matched
- * to the live page's.
+ *   client logo strip                                → homepage `Clients`
+ *   "Smarter Learning Powered by AI Solutions"       → `edtechOverview`
+ *   "Using AI Solutions to revamp EdTech"            → `edtechSolutions` (5)
+ *   "The AI Advantage in Modern Education"           → `edtechBenefits` (6)
+ *   "Innovative AI Technologies & Approaches"        → `industryTechApproach`
+ *   "Real Results: Transforming EdTech with AI"      → `edtechSuccessStories` (3)
+ *   "What Our Clients Say About Us"                  → homepage `Testimonials`
+ *   "FAQs About EdTech"                              → `edtechFaqs` (16)
+ *
+ * The copy is the live page's own, verbatim, bar the live copy errors noted
+ * where they are corrected (the success-stories block was pasted from the
+ * logistics page and still names logistics).
+ *
+ * The live page also runs an "AI Solutions for Next-Gen Learning & Development"
+ * call-to-action strip between the success stories and the testimonials. It is
+ * left out, as the eCommerce page leaves out its own: the closing `Contact`
+ * band carries the page's enquiry, and the strip is a self-contained dark band
+ * that would sit dark-against-dark between its neighbours.
  */
 
 import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
-import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
-import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
+import type { ProblemsContent } from "@/components/generative-ai/problems";
+import type { WorkCarouselContent } from "@/components/home/work-grid";
 import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
 import { overviewImage } from "./overview-images";
 
 export const edtechMeta = {
   slug: "ai-solutions-in-edutech",
   path: "/ai-solutions-in-edutech",
-  title: "AI Solutions in EdTech",
+  // The live page's <title> and meta description, verbatim.
+  title: "Edutech software development company in India",
   description:
-    "Custom EdTech AI from Soft Suave — adaptive assignments, auto-grading, student progress analytics and learning assistants, integrated with your LMS.",
+    "Edutech software development company creating smart learning platforms, LMS, and digital tools to enhance education and student engagement.",
 } as const;
 
 export const edtechHero: HeroContent = {
@@ -60,165 +76,217 @@ export const edtechHero: HeroContent = {
   },
 };
 
+/** The live page's industry overview: its six "key areas" are the points. */
 export const edtechOverview: OverviewContent = {
-  image: overviewImage("ai-solutions-in-edutech"),
-  eyebrow: "The Short Answer",
-  title: "What AI Changes About How People Learn",
+  eyebrow: "Industry Overview",
+  title: "Smarter Learning Powered by AI Solutions",
   paragraphs: [
-    "A classroom moves at one pace, and that pace is wrong for most of the people in it. Adaptive systems are the first genuinely scalable answer to that: content, difficulty, and sequencing that respond to what an individual student has actually demonstrated rather than to where the syllabus says the cohort should be.",
-    "The second change is speed of feedback. Work marked a week later teaches far less than work marked immediately, because the student has moved on from the reasoning that produced the mistake. Automated assessment closes that loop, and does it at a volume no teaching team could staff.",
-    "The third is visibility. Progress analytics surface the students drifting toward failure while there is still time to intervene — which is the intervention that actually changes outcomes, as opposed to the one that happens after a failed assessment.",
+    "AI-driven tools revolutionize education with personalized learning, intelligent content generation, and automated assessments. Enhance efficiency, innovation, and engagement through adaptive technology, transforming how students learn and educators teach. The following are six key areas where AI is changing EdTech:",
   ],
-  pullQuote:
-    "Feedback a week late teaches almost nothing. The value of automated assessment is the timing, not the marking.",
+  points: [
+    "Adaptive Learning for Personalized Education",
+    "Automated Grading and Administrative Tasks",
+    "AI-Powered Accessibility for Inclusive Learning",
+    "Intelligent Resource Optimization for Efficiency",
+    "Immersive Learning with AI-Driven Engagement",
+    "Predictive Analytics for Data-Driven Decision Making",
+  ],
+  image: overviewImage("ai-solutions-in-edutech"),
 };
 
-export const edtechServices: ServicesContent = {
-  eyebrow: "What We Build",
-  title: "EdTech AI Solutions Soft Suave Delivers",
-  body: "Five solution areas covering the teaching loop end to end — setting work, marking it, tracking who is struggling, and answering the questions that arrive at eleven at night.",
-  items: [
+/**
+ * The live page's five solution tabs: the solution selects, its description
+ * fills the panel. These are also the page's offer catalogue in the JSON-LD.
+ */
+export const edtechSolutions: ProblemsContent = {
+  eyebrow: "AI Solutions",
+  title: "Using AI Solutions to revamp EdTech",
+  body: "AI is transforming education by personalizing learning, automating tasks, & providing intelligent insights. Our AI-driven solutions enhance engagement, streamline operations, and expand possibilities for smarter, more efficient education. Explore our AI solutions for seamless integration today.",
+  columns: ["AI solution", "What it does"],
+  rows: [
     {
-      name: "AI-Powered Assignment Generation",
-      tag: "Adaptive Learning",
-      body: "Intelligent assignment generators that personalise tasks to a student's pace, demonstrated ability, and the topics they have not yet secured, so practice targets the gap rather than the syllabus average.",
+      problem: "AI-Powered Assignment Tools",
+      solution:
+        "We equip your platform with intelligent assignment generators that personalize tasks based on learning pace, topic relevance, and student ability.",
     },
     {
-      name: "Student Progress Monitoring & Analytics",
-      tag: "Analytics",
-      body: "Real-time progress tracking, predictive analytics, and behaviour-based insight that identify students drifting toward failure early enough for an intervention to matter.",
+      problem: "Student Progress Monitoring",
+      solution:
+        "Gain complete visibility into learner performance through our real-time progress tracking, predictive analytics, and behavior-based academic insight tools.",
     },
     {
-      name: "Automated Chatbots for Student Queries",
-      tag: "Support",
-      body: "Assistants that answer student questions instantly and consistently at any hour, cutting support delays and escalating anything academic or pastoral to the right member of staff.",
+      problem: "Automated Chatbots for Student Queries",
+      solution:
+        "Our AI chatbots instantly respond to student questions, reducing support delays while delivering consistent, accurate, and engaging learning assistance.",
     },
     {
-      name: "AI-Powered Auto-Grading",
-      tag: "Assessment",
-      body: "Scoring against your rubrics with adaptive assessment logic, returning feedback while the student still remembers their reasoning — and removing the inconsistency that creeps into marking at volume.",
+      problem: "AI-Powered Auto-Grading",
+      solution:
+        "Eliminate manual grading errors with our smart evaluation system that scores assignments using predefined rubrics and adaptive assessment logic.",
     },
     {
-      name: "Study Content Recommendation",
-      tag: "Personalisation",
-      body: "Tailored content suggestions based on each student's demonstrated strengths and weaknesses, sequencing what to study next rather than presenting a catalogue and leaving the choice to them.",
+      problem: "Study Content Recommendations",
+      solution:
+        "Deliver tailored content suggestions based on each student’s strengths, weaknesses, and performance using our intelligent recommendation engine.",
     },
   ],
 };
 
 export const edtechBenefits: CardGridContent = {
-  eyebrow: "Benefits",
-  title: "What EdTech AI Changes",
-  body: "Outcomes an institution or platform can measure on data it already holds — completion, attainment, staff time, and support load.",
+  eyebrow: "Key Benefits",
+  title: "The AI Advantage in Modern Education",
+  body: "AI transforms education with personalized learning, enhanced accessibility, and smart solutions, helping institutions innovate, improve productivity, and elevate learning experiences. Explore the key benefits shaping the future of education.",
   items: [
     {
-      name: "Learning That Fits the Student",
+      name: "Personalized & Intelligent Learning Experiences",
       icon: "users",
-      body: "Adaptive paths and intelligent tutoring respond to demonstrated ability in real time, which helps the students a fixed pace leaves behind and the ones it holds back.",
+      body: "AI delivers personalized learning and intelligent tutoring, adapting to student needs with real-time guidance, customized study plans, and interactive support for better learning outcomes.",
     },
     {
-      name: "Staff Time Reclaimed",
+      name: "Efficient Administration & Seamless Automation",
       icon: "gauge",
-      body: "Automating grading, scheduling, attendance, and reporting returns hours to teaching, which is the part of the job that a machine cannot do and the part administration keeps displacing.",
+      body: "AI streamlines administrative processes, automating scheduling, attendance, and reporting, reducing manual effort, and improving institutional productivity for a more organized educational environment.",
     },
     {
-      name: "Immediate Feedback & Academic Integrity",
-      icon: "book",
-      body: "Instant assessment closes the feedback loop while it still teaches, and plagiarism and anomaly detection protect the credibility of the qualification being awarded.",
-    },
-    {
-      name: "Earlier Intervention on At-Risk Students",
+      name: "Instant Feedback, Smart Assessments & Academic Integrity",
       icon: "shield",
-      body: "Predictive analytics flag disengagement and likely failure from behavioural signals weeks before an assessment would, which is when support still changes the outcome.",
+      body: "Automated assessments provide instant feedback, while fraud detection ensures academic integrity by identifying plagiarism and maintaining credibility in education.",
     },
     {
-      name: "Accessibility and Reach",
-      icon: "globe",
-      body: "Speech recognition, captioning, translation, and adaptive interfaces widen who can use the platform, extending reach without a proportional increase in staffing.",
+      name: "Enhanced Student Engagement & Scalable Content Delivery",
+      icon: "layers",
+      body: "AI-driven tools enhance student engagement through interactive experiences, while scalable content delivery ensures seamless adaptation for diverse learning needs and institutions.",
+    },
+    {
+      name: "Data-Driven Insights for Smarter Decision-Making",
+      icon: "chart",
+      body: "AI-powered data insights help educators predict student performance, optimize courses, and improve decision-making for continuous learning improvements.",
+    },
+    {
+      name: "AI for Accessibility & Career Guidance",
+      icon: "compass",
+      body: "With speech recognition and adaptive tools, AI improves accessibility and inclusivity, while career guidance AI offers tailored academic and professional advice.",
     },
   ],
 };
 
-export const edtechSegments: CardGridContent = {
-  eyebrow: "Where AI Applies",
-  title: "How AI Is Changing EdTech",
-  body: "Six areas where institutions and learning platforms are deploying AI, from the routine and easily justified to the more ambitious.",
+/**
+ * The live page's three success stories, each with its published results list
+ * as the card's body. The first story publishes no figures, so the section
+ * runs as a lane of cards rather than the metric-led `CaseStudies` grid. The
+ * artwork is each story's own, from the case-study index.
+ *
+ * LIVE COPY ERRORS, corrected: the live section was pasted from the logistics
+ * page — its heading reads "Real Results: Transforming Logistics with AI" and
+ * its intro "reshaping logistics ... and optimized supply chains". Both are
+ * corrected to EdTech here ("supply chains" → "learning platforms"). The
+ * campus-management story's results also list "55% Enhancement in Remote
+ * Learning" twice; it appears once.
+ */
+export const edtechSuccessStories: WorkCarouselContent = {
+  eyebrow: "Success Stories",
+  title: "Real Results: Transforming EdTech with AI",
+  body: "Discover how our AI-powered solutions are reshaping EdTech, enhancing efficiency, accuracy, and cost-effectiveness. These success stories highlight real-world impact, showcasing smarter & faster operations, and optimized learning platforms.",
   items: [
     {
-      name: "Adaptive & Personalised Learning",
-      body: "Content and difficulty that respond to demonstrated mastery, giving each student a path through the material rather than a shared pace through it.",
+      title: "AI-Enabled Learning: Smarter Classrooms, Interactive Teaching, and Automated Feedback",
+      tag: "AI Learning",
+      body: "Enhanced Student Engagement · Improved Writing & Critical Thinking · Seamless Classroom Management · Transformative Learning",
+      image: {
+        src: "/images/case-studies/education-1.webp",
+        alt: "Students on tablets in a classroom guided by an AI teaching assistant",
+      },
     },
     {
-      name: "Automated Grading & Administration",
-      body: "Marking, attendance, scheduling, and reporting — the highest-volume work in any institution, and the easiest place to return staff time.",
+      title: "A Smarter Approach to Learning: High-Performance LMS for Modern Education",
+      tag: "LMS",
+      body: "50% Reduction in Administrative Workload · Increased Student Engagement · Enhanced Teaching Efficiency · High-Performance Learning Platform",
+      image: {
+        src: "/images/case-studies/education-2.webp",
+        alt: "High-performance learning management system for modern education",
+      },
     },
     {
-      name: "Accessibility & Inclusive Learning",
-      body: "Speech-to-text, captioning, translation, and adaptive interfaces that make the same material usable by students a standard format excludes.",
-    },
-    {
-      name: "Resource Optimisation",
-      body: "Timetabling, room and cohort allocation, and staffing models that respond to actual demand rather than to last year's template.",
-    },
-    {
-      name: "Immersive & Interactive Learning",
-      body: "Simulation, interactive tutoring, and generated practice material that raise engagement on subjects where reading alone loses students.",
-    },
-    {
-      name: "Predictive Analytics for Institutions",
-      body: "Forecasting attainment, retention, and enrolment so course design and support resourcing are decided on evidence rather than on the previous cycle.",
+      title: "Transforming Education with a Cloud-Integrated Campus Management System",
+      tag: "Campus Management",
+      body: "50% Increase in Operational Efficiency · 60% Improved Decision-Making · 55% Enhancement in Remote Learning · 40% Stronger Data Security & Compliance",
+      image: {
+        src: "/images/case-studies/education-3.webp",
+        alt: "Cloud-integrated campus management system",
+      },
     },
   ],
 };
 
-export const edtechMidCta: CtaBandContent = {
-  eyebrow: "Talk It Through",
-  title: "Not Sure Whether to Start With Grading or Personalisation?",
-  body: "Auto-grading pays back fastest and clears governance most easily; adaptive learning changes outcomes more. A short conversation will tell you which fits your platform and your data today.",
-  cta: { label: "Book a free consultation", href: "#enquiry" },
-};
-
+/** The live page's sixteen FAQs, questions and answers verbatim. */
 export const edtechFaqs: FaqContent = {
   eyebrow: "FAQs",
-  title: "FAQs About AI in EdTech",
-  body: "Common questions from institutions, platform teams, and EdTech founders evaluating AI for a learning product.",
+  title: "FAQs About EdTech",
+  body: "Find clear information on our Edutech development services, platform features, and custom solutions.",
   items: [
     {
-      q: "Can AI be integrated into our existing LMS without a rebuild?",
-      a: "Yes. We integrate with Moodle, Canvas, Google Classroom, and proprietary systems through their APIs and plugin interfaces, so adaptive learning, grading, or analytics appear inside the platform staff and students already use. A full rebuild is almost never the right route — the LMS is rarely the problem, and replacing it puts a migration between you and the outcome you wanted.",
+      q: "Which company develops custom AI Solutions for Edutech?",
+      a: "Soft Suave builds custom AI Edutech solutions, enhancing adaptive learning, assessments, and personalized education platforms.",
     },
     {
-      q: "How do you protect student data and meet FERPA and GDPR?",
-      a: "Student data is minimised and anonymised wherever the use case allows, access is role-controlled and logged, and retention and deletion run as scheduled jobs. Lawful basis and consent — including the additional care that applies to minors — are settled before training begins, because they determine what may be used at all. Where data may not leave your infrastructure, we train inside it.",
+      q: "What does an Edutech software development company in India typically offer for AI-powered education platforms?",
+      a: "Indian Edutech firms offer AI for adaptive learning, auto-grading, analytics, and LMS integration for education platforms.",
     },
     {
-      q: "What is the difference between traditional EdTech software and AI-powered EdTech?",
-      a: "Traditional EdTech delivers the same content in the same order to everyone and records what happened. AI-powered EdTech changes what a given student sees next based on what they have demonstrated, marks work without waiting for staff capacity, and predicts who is about to disengage. The platform stops being a delivery mechanism and starts being responsive.",
+      q: "How much does it cost to build an AI-driven EdTech platform or LMS in India?",
+      a: "Costs vary widely based on features, scalability, and integration needs, so it is difficult to estimate accurately. Contact our experts for a personalized quote.",
     },
     {
-      q: "How does AI improve learning outcomes compared with a standard digital platform?",
-      a: "Through three mechanisms: content matched to demonstrated ability rather than to cohort pace, feedback returned while the student still remembers their reasoning, and early identification of disengagement while intervention still helps. The size of the gain depends heavily on the subject, the cohort, and the baseline — a platform with strong teaching support has less headroom than one where students largely self-serve.",
+      q: "Can an Edutech development company integrate AI into an existing LMS or school/college management system?",
+      a: "Yes, we integrate AI into existing LMS/school systems via APIs for adaptive learning without full rebuilds.",
     },
     {
-      q: "What can realistically be automated in an EdTech platform?",
-      a: "Grading against rubrics, feedback generation, content recommendation, attendance and scheduling, first-line student support, and progress reporting are all routinely automated. What should not be fully automated is anything that decides a student's academic standing or pastoral support without a human confirming it — not because the model cannot, but because the consequences of being wrong sit on a person.",
+      q: "What types of EdTech solutions can AI enhance?",
+      a: "AI enhances adaptive learning, assessments, attendance tracking, gamification, and analytics in EdTech solutions.",
     },
     {
-      q: "Can smaller institutions and EdTech startups use AI, or is it only viable at scale?",
-      a: "Smaller organisations can benefit, and often faster, because they have fewer systems to integrate and shorter approval chains. Personalisation, chatbots, and auto-grading are all available at a scale that suits a single institution or an early-stage platform. What scale does change is how much a custom-trained model beats a general one — with less data, building on a foundation model is usually the right call.",
+      q: "How do AI development companies ensure data privacy and compliance when building EdTech solutions?",
+      a: "We ensure EdTech AI privacy via GDPR/FERPA compliance, encryption, and anonymized data handling for student safety.",
     },
     {
-      q: "Do you build teacher-facing tools as well as student-facing ones?",
-      a: "Yes, and they are often the better first build. Curriculum planning support, lesson assistants, automated reporting, and cohort analytics return staff time immediately and carry far less governance risk than anything that acts on a student directly. Teacher-facing tools also tend to see faster adoption, because the person using them chose to.",
+      q: "What is the difference between traditional EdTech software and AI-powered EdTech software?",
+      a: "Traditional EdTech is static; AI-powered EdTech adds personalization, predictive analytics, and automation for better outcomes.",
     },
     {
-      q: "How long does it take, and what does it cost?",
-      a: "Both depend on integration surface and data readiness more than on the model. A grading assistant integrated with one LMS is a different proposition from an adaptive learning engine spanning several systems and a student information database. We size the integration and data work explicitly in discovery, so the estimate reflects your platform rather than a generic average.",
-      link: {
-        label: "Book a free consultation",
-        href: "https://www.softsuave.com/30-min-free-consultation",
-        tail: "and we will scope it against your platform.",
-      },
+      q: "How long does it take to build a custom AI-enabled EdTech platform for schools, universities, or training institutes?",
+      a: "Timelines depend on complexity, testing, and deployment scope, so it is difficult to estimate precisely. Contact our experts for a tailored timeline.",
+    },
+    {
+      q: "Can small coaching centers and mid-sized EdTech startups also benefit from AI, or is it only for large platforms?",
+      a: "Yes, small coaching centers and mid-sized EdTech startups can benefit from AI to drive personalization, enhance learning experiences, and boost operational efficiency.",
+    },
+    {
+      q: "What AI models are commonly used in EdTech applications?",
+      a: "EdTech uses GPT tutoring, CV proctoring, predictive analytics, and NLP for adaptive assessments and engagement.",
+    },
+    {
+      q: "How does AI improve learning outcomes for students compared to standard digital learning platforms?",
+      a: "AI personalizes content, predicts struggles, and provides real-time feedback, boosting retention 30-50% over standard platforms.",
+    },
+    {
+      q: "What features can be automated using AI in EdTech systems?",
+      a: "AI automates grading, assessments, chatbots, content generation, and attendance in EdTech systems efficiently.",
+    },
+    {
+      q: "Do EdTech AI development companies offer teacher-centric tools like curriculum planning or AI lesson assistants?",
+      a: "Yes, we offer AI curriculum planners, lesson assistants, and analytics tools for teacher-centric EdTech efficiency.",
+    },
+    {
+      q: "How do you integrate AI with popular EdTech platforms like Moodle, Canvas, Google Classroom, or proprietary LMS systems?",
+      a: "We integrate AI via APIs/plugins with Moodle, Canvas, Google Classroom, and other proprietary LMS for seamless enhancement.",
+    },
+    {
+      q: "What engagement models do EdTech AI software development companies in India offer (POCs, dedicated AI teams, full-cycle product development)?",
+      a: "EdTech AI software development companies in India offer the following models: POCs, dedicated AI teams, full-cycle development, and agile iterations for platforms.",
+    },
+    {
+      q: "How do you evaluate the right Education AI development company for your needs?",
+      a: "Evaluate via portfolio, AI expertise, compliance, cost, and client reviews for your EdTech needs.",
     },
   ],
 };

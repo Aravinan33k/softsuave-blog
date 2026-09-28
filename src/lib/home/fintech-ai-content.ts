@@ -1,21 +1,26 @@
 /**
- * Copy for the "FinTech AI Solutions" landing page (`/fintech-ai-solutions`).
+ * Copy for the "Fintech AI Solutions" landing page (`/fintech-ai-solutions`).
  *
- * Shapes match the prop types exported by `components/landing/*`, so each
- * section is `<Component content={…} />` with no adapter.
+ * The hero is this page's own and is kept as it was. Everything below it — and
+ * the page's title, description and schema — follows the live softsuave.com
+ * page, which was rebuilt with a new section set (review: "Need to update the
+ * entire page, as the sections have been completely changed"). The mapping, in
+ * live page order:
  *
- * Content follows the live softsuave.com page: its H1, its ten solution cards,
- * its sub-sector list, its benefits and its FAQs are all carried over. Two
- * deliberate departures:
+ *   "AI Solutions for Fintech Innovation"               → `fintechSolutions` (10)
+ *   "Fintech AI Development Services Soft Suave Offers" → `fintechServices` (15)
+ *   "Our Fintech AI Solution Development Process"       → `fintechProcess` (11)
+ *   "Fintech Sectors We Develop AI Solutions For"       → `fintechSectors` (14)
+ *   "Benefits of Fintech AI Solutions for All ..."      → `fintechBenefits` (10)
+ *   "Key Features in Fintech AI Solution"               → `fintechFeatures` (10)
+ *   "Why Choose Soft Suave for Fintech AI ..."          → `fintechWhyUs`
+ *   "Innovative AI Technologies & Approaches"           → `industryTechApproach`
+ *   "Transforming FinTech: Proven Results in Action"    → `fintechSuccessStories` (5)
+ *   "What Our Clients Say About Us"                     → homepage `Testimonials`
+ *   "Frequently Asked Questions"                        → `fintechFaqs` (8)
  *
- * - The live page's eleven process steps collapse to six. Several of the eleven
- *   describe the same phase from different angles ("Defining Objectives and
- *   Requirements" and "Solution Design and Development" both sit inside
- *   scoping), and a landing page listing eleven near-identical steps reads as
- *   padding rather than method.
- * - The live page's one-line card copy is expanded into the fuller, more
- *   specific voice the delivery pages use. No new capability, metric or
- *   certification is claimed — only what the live page already states.
+ * The copy is the live page's own, verbatim, eyebrows included. The live page
+ * runs no client logo strip, so this page has none.
  */
 
 import type { HeroContent } from "@/components/landing/hero";
@@ -23,17 +28,19 @@ import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { ProcessContent } from "@/components/landing/process";
-import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
+import type { ProblemsContent } from "@/components/generative-ai/problems";
+import type { WorkCarouselContent } from "@/components/home/work-grid";
 import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
 import { overviewImage } from "./overview-images";
 
 export const fintechMeta = {
   slug: "fintech-ai-solutions",
   path: "/fintech-ai-solutions",
-  title: "Fintech AI Development Services",
+  // The live page's <title> and meta description, verbatim.
+  title: "Fintech AI Development Services | Custom Fintech AI Solutions",
   description:
-    "Custom fintech AI from Soft Suave — credit risk and underwriting models, real-time fraud detection, conversational banking assistants and RegTech automation.",
+    "Drive smarter finance with our secure, scalable Fintech AI development services powering innovation, fraud prevention, and personalized digital experiences.",
 } as const;
 
 export const fintechHero: HeroContent = {
@@ -66,272 +73,422 @@ export const fintechHero: HeroContent = {
   },
 };
 
-export const fintechOverview: OverviewContent = {
-  image: overviewImage("fintech-ai-solutions"),
-  eyebrow: "The Short Answer",
-  title: "What AI Actually Changes in Financial Services",
-  paragraphs: [
-    "Most financial institutions already hold the data that would make their decisions better — years of transactions, applications, repayments, and support conversations. What they lack is a way to act on it at the speed a customer expects, inside systems designed to be correct rather than fast.",
-    "AI in fintech is the layer that closes that gap: scoring an application in seconds instead of days, flagging a fraudulent transaction while it is still authorising, and answering a customer at midnight without a queue. None of that requires replacing the core — it requires models that read from it and write decisions back into it.",
-    "The constraint that shapes every build here is evidence. A credit decision has to be explainable to a regulator, a fraud block has to be reviewable by an analyst, and a model that drifts has to be caught before it reaches a customer. We build for that from the first sprint rather than retrofitting it before an audit.",
+/**
+ * The live page's ten solution blocks, each a title, a line and an image: the
+ * title selects, its line fills the panel. The live illustrations are not in
+ * this repo, so each panel wears one of the fintech photographs already here.
+ */
+export const fintechSolutions: ProblemsContent = {
+  eyebrow: "AI Solutions",
+  title: "AI Solutions for Fintech Innovation",
+  body: "Explore our cutting-edge AI solutions designed to transform fintech operations, enhance security, and unlock new growth opportunities for financial businesses.",
+  columns: ["Solution", "What it does"],
+  rows: [
+    {
+      problem: "Intelligent Credit Risk & Underwriting Frameworks",
+      solution:
+        "AI-driven credit scoring and underwriting accelerate approvals while reducing defaults and bias across portfolios.",
+      image: "/images/four/fintech-step-1.webp",
+    },
+    {
+      problem: "Real-Time Fraud Detection & Transaction Monitoring Engines",
+      solution:
+        "Monitor every transaction in real time, flag anomalies instantly, and stop fraud before it impacts customers.",
+      image: "/images/four/fintech-step-6.webp",
+    },
+    {
+      problem: "Conversational AI & Virtual Financial Assistants",
+      solution:
+        "Deliver 24/7 intelligent support with AI assistants that answer, assist, and guide customers across channels.",
+      image: "/images/four/fintech-step-2.webp",
+    },
+    {
+      problem: "Personalized Financial Product Recommendation Platforms",
+      solution:
+        "Analyze behavior and goals to recommend tailored financial products, boosting conversions and long-term customer loyalty.",
+      image: "/images/four/ind-fintech.webp",
+    },
+    {
+      problem: "Algorithmic Trading & Portfolio Optimization Suites",
+      solution:
+        "Leverage AI strategies that react to markets instantly, optimizing portfolios for returns and controlled risk.",
+      image: "/images/four/sec-hero-fintech.webp",
+    },
+    {
+      problem: "Big Data Analytics & Financial Insight Dashboards",
+      solution:
+        "Turn complex financial data into real-time visual dashboards, empowering faster, smarter decision-making organization-wide.",
+      image: "/images/four/fintech-step-5.webp",
+    },
+    {
+      problem: "AI-Powered Compliance & Regulatory Automation (RegTech)",
+      solution:
+        "Automate monitoring, reporting, and alerts to stay aligned with evolving regulations and audit requirements.",
+      image: "/images/four/fintech-step-4.webp",
+    },
+    {
+      problem: "Robotic Process Automation (RPA) with Intelligent Augmentation",
+      solution:
+        "Combine bots and AI to automate document-heavy workflows, reducing errors and freeing teams for strategic tasks.",
+      image: "/images/four/fintech-step-3.webp",
+    },
+    {
+      problem: "Smart Risk Management & Predictive Stress-Testing Systems",
+      solution:
+        "Simulate scenarios, forecast risks, and stress-test portfolios using predictive models for resilient financial planning.",
+      image: "/images/four/sec-hero-fintech.webp",
+    },
+    {
+      problem: "Embedded Finance & Smart Payment Platforms",
+      solution:
+        "Embed secure, intelligent payments into any journey, enabling smoother checkouts and contextual financial experiences.",
+      image: "/images/four/ind-fintech.webp",
+    },
   ],
-  pullQuote:
-    "In financial services, a model you cannot explain is a model you cannot deploy. Accuracy is the easy half.",
 };
 
 export const fintechServices: ServicesContent = {
-  eyebrow: "What We Build",
-  title: "Fintech AI Solutions Soft Suave Delivers",
-  body: "Ten solution areas across lending, payments, markets and compliance. They are listed separately because most engagements start with one, prove it against a measured baseline, and extend from there.",
+  eyebrow: "Services We Offer",
+  title: "Fintech AI Development Services Soft Suave Offers",
+  body: "Soft Suave's AI services empower fintech with intelligent automation, data-driven insights, and enhanced efficiency, shaping the future of financial innovation. Here are some of the major AI-driven services we offer:",
   items: [
     {
-      name: "Intelligent Credit Risk & Underwriting",
-      tag: "Risk",
-      body: "AI-driven credit scoring and underwriting that accelerate approvals while reducing defaults, carrying the feature-level explanations an adverse-action notice and a model risk review both require.",
+      name: "AI Strategy Development",
+      body: "We design actionable AI strategies for fintech modernization, ensuring measurable business value, ROI alignment, and seamless digital transformation initiatives.",
     },
     {
-      name: "Real-Time Fraud Detection & Transaction Monitoring",
-      tag: "Fraud",
-      body: "Score every transaction as it authorises and flag anomalies against behavioural baselines rather than static rules, with analyst review queues built in so a false positive is a minor delay rather than a lost customer.",
+      name: "AI & ML Model Development",
+      body: "We build, train, and optimize custom AI and machine learning models that automate financial processes, unlock insights, and drive performance.",
     },
     {
-      name: "Conversational AI & Virtual Financial Assistants",
-      tag: "Service",
-      body: "Assistants that answer balance, transaction, and product questions around the clock, escalate cleanly when confidence drops, and stay inside the disclosure rules governing what an institution may tell a customer without a human.",
+      name: "Conversational AI (Chatbots/Assistants)",
+      body: "Deploy advanced chatbots and assistants to enhance customer support, automate FAQs, provide personalized recommendations, and streamline financial transactions securely.",
     },
     {
-      name: "Personalised Product Recommendation",
-      tag: "Growth",
-      body: "Analyse behaviour, life stage, and stated goals to recommend products a customer is actually eligible for, improving conversion without the mis-selling exposure that comes from recommending on margin alone.",
+      name: "Predictive Analytics & Business Intelligence",
+      body: "Deliver future-ready insights with predictive analytics, helping you forecast trends, minimize risks, and make smarter, data-driven decisions.",
+    },
+    {
+      name: "Real‑Time Fraud Detection & Transaction Monitoring",
+      body: "Implement AI systems for real-time fraud detection, suspicious activity alerts, and seamless monitoring of all transactions to protect your business.",
+    },
+    {
+      name: "Credit Risk & Underwriting Automation",
+      body: "Automate risk assessment and underwriting with AI to deliver faster, fairer credit decisions and efficiently manage customer eligibility.",
     },
     {
       name: "Algorithmic Trading & Portfolio Optimisation",
-      tag: "Markets",
-      body: "Strategies that react to market movement within your risk mandate, with position limits, kill switches, and backtest-to-live consistency checks treated as part of the system rather than as policy around it.",
+      body: "Leverage AI algorithms to optimize trading strategies, maximize ROI, rebalance portfolios in real time, and mitigate market risks.",
     },
     {
-      name: "Big Data Analytics & Financial Dashboards",
-      tag: "Analytics",
-      body: "Turn transaction, ledger, and customer data into dashboards your finance and risk teams act on directly, with the lineage to trace any figure back to the records that produced it.",
+      name: "AI‑Powered Compliance & RegTech Solutions",
+      body: "Simplify compliance reporting and meet regulatory requirements through AI-powered automation that flags anomalies and supports continuous audits.",
     },
     {
-      name: "AI-Powered Compliance Automation (RegTech)",
-      tag: "RegTech",
-      body: "Automate transaction monitoring, suspicious-activity reporting, and KYC refresh cycles, with rule changes versioned so you can show a regulator what the system checked and from when.",
+      name: "Big Data Analytics & Visualization",
+      body: "Transform finance data into actionable insights using scalable big data analytics, real-time dashboards, and easy-to-understand visualizations.",
     },
     {
-      name: "Intelligent Process Automation",
-      tag: "Automation",
-      body: "Combine RPA with document AI to clear the paperwork-heavy middle office — statements, mandates, claims, onboarding packs — extracting and validating data that currently moves by rekeying.",
+      name: "Embedded Finance & AI‑Enabled Payment Platforms",
+      body: "Integrate AI-powered payment solutions for seamless embedded finance experiences on any digital platform, boosting efficiency and convenience.",
     },
     {
-      name: "Predictive Risk & Stress Testing",
-      tag: "Modelling",
-      body: "Simulate portfolio behaviour under scenarios you define, forecast concentration and liquidity risk, and stress-test against conditions that have not occurred yet but plausibly could.",
+      name: "RPA with Intelligent Augmentation",
+      body: "Streamline operations by combining robotic process automation with intelligent AI, automating repetitive tasks and complex decision workflows.",
     },
     {
-      name: "Embedded Finance & Smart Payments",
-      tag: "Payments",
-      body: "Put secure payment and lending journeys inside someone else's product, with the routing, risk checks, and reconciliation that make an embedded flow behave like a first-party one.",
-    },
-  ],
-};
-
-export const fintechBenefits: CardGridContent = {
-  eyebrow: "Benefits",
-  title: "What Fintech AI Changes for the Business",
-  body: "The gains that show up on a P&L rather than in a model scorecard — faster decisions, fewer losses, and a cost base that stops scaling linearly with volume.",
-  items: [
-    {
-      name: "Faster, Better-Evidenced Decisions",
-      icon: "gauge",
-      body: "Applications that took days of manual review clear in seconds, and every decision carries the feature attribution needed to defend it to a customer, an auditor, or a regulator.",
+      name: "Smart Risk Management & Stress‑Testing Systems",
+      body: "Deploy AI-driven systems to assess market risks, conduct advanced stress tests, and ensure robust financial stability for your business.",
     },
     {
-      name: "Lower Fraud Losses",
-      icon: "shield",
-      body: "Behavioural monitoring catches account takeover and payment fraud that static rules miss, while review queues stop false positives turning into abandoned transactions.",
+      name: "Generative AI for Financial Services",
+      body: "Utilize generative AI to automate content generation, synthetic data creation, and unlock new product innovation across financial services.",
     },
     {
-      name: "Operating Cost That Stops Tracking Volume",
-      icon: "coins",
-      body: "Automating document handling, monitoring, and tier-one support breaks the link between transaction growth and headcount growth across the middle and back office.",
+      name: "AI Integration & Deployment (MLOps & Governance)",
+      body: "Ensure smooth AI integration, deployment, and governance with MLOps, delivering secure, scalable, and compliant fintech AI solutions.",
     },
     {
-      name: "Compliance as a Running System",
-      icon: "book",
-      body: "Monitoring, reporting, and audit trails run continuously rather than being assembled ahead of an examination, which shortens both the preparation and the findings list.",
-    },
-    {
-      name: "Products That Adapt to the Customer",
-      icon: "users",
-      body: "Recommendations and servicing that respond to actual behaviour rather than segment averages, raising conversion and retention without adding advisory headcount.",
-    },
-  ],
-};
-
-export const fintechSegments: CardGridContent = {
-  eyebrow: "Who We Build For",
-  title: "Financial Sectors We Develop AI Solutions For",
-  body: "The regulatory surface and the available data differ sharply across these, so the approach does too — a lender's model risk problem is not a payment processor's latency problem.",
-  items: [
-    {
-      name: "Commercial Banks & Credit Unions",
-      body: "Core-integrated scoring, monitoring, and servicing AI that has to coexist with systems of record measured in decades rather than release cycles.",
-    },
-    {
-      name: "Insurance Companies & Brokers",
-      body: "Underwriting support, claims triage, and fraud detection across document-heavy workflows where most of the signal sits in unstructured text.",
-    },
-    {
-      name: "Neobanks & Digital-First Banks",
-      body: "Onboarding, KYC, and support automation for institutions whose cost advantage depends on never building a branch-scale operations team.",
-    },
-    {
-      name: "Capital Markets & Investment Management",
-      body: "Signal research, portfolio optimisation, and trade surveillance, with the backtest discipline and audit trail a regulated trading operation is examined on.",
-    },
-    {
-      name: "Payment Processors",
-      body: "Real-time authorisation scoring and reconciliation at volumes where a few milliseconds of added latency is a commercial problem, not just a technical one.",
-    },
-    {
-      name: "Lending & Mortgage Institutions",
-      body: "Document extraction, affordability assessment, and portfolio risk modelling across origination journeys that still run largely on PDFs.",
-    },
-    {
-      name: "P2P Lending & Crowdfunding",
-      body: "Borrower scoring and platform-level risk management for marketplaces carrying counterparty risk without a traditional balance sheet.",
-    },
-    {
-      name: "Crypto & Blockchain Platforms",
-      body: "On-chain analytics, transaction monitoring, and compliance tooling for platforms operating under rules that are still being written.",
+      name: "Blockchain & Smart Contract Integration",
+      body: "Combine AI with blockchain for automated smart contract execution, enhanced security, transparent transactions, and innovative financial services.",
     },
   ],
 };
 
 export const fintechProcess: ProcessContent = {
-  eyebrow: "How We Deliver",
-  title: "Our Fintech AI Development Process",
-  body: "Six stages, each ending in something you can evaluate — a scoped problem, a measured model, a passed security review — so you are never waiting until the end to find out whether it works.",
+  eyebrow: "Process",
+  title: "Our Fintech AI Solution Development Process",
+  body: "Discover our streamlined, step-by-step Fintech AI development process designed to deliver secure, innovative, and high-impact financial solutions.",
   steps: [
     {
       n: "01",
-      image: {
-        src: "/images/four/fintech-step-1.webp",
-        width: 1200,
-        height: 900,
-        alt: "Discovery and Use-Case Definition in a fintech AI project",
-      },
-      name: "Discovery & Use-Case Definition",
-      body: "We work out which decision is actually being made, who makes it today, what it costs when it is wrong, and what a good outcome would be worth. Use cases that cannot answer those four questions do not proceed to build.",
+      name: "Needs Assessment & Consultation",
+      body: "We understand your business, assess needs, and define clear project goals through strategic consultation for targeted AI adoption.",
     },
     {
       n: "02",
-      image: {
-        src: "/images/four/fintech-step-2.webp",
-        width: 1200,
-        height: 900,
-        alt: "Data Assessment and Preparation in a fintech AI project",
-      },
-      name: "Data Assessment & Preparation",
-      body: "We audit what data exists, how it is labelled, where it is held, and what may lawfully be used for modelling, then build the pipelines that make it trainable. This is routinely the longest stage, and pretending otherwise is how fintech AI projects fail.",
+      name: "Defining Objectives and Requirements",
+      body: "Collaboratively set measurable objectives and technical requirements, ensuring project alignment with your fintech operations and regulatory needs.",
     },
     {
       n: "03",
-      image: {
-        src: "/images/four/fintech-step-3.webp",
-        width: 1200,
-        height: 900,
-        alt: "Model Development and Training in a fintech AI project",
-      },
-      name: "Model Development & Training",
-      body: "We build and tune models against a held-out set defined before training starts, testing for accuracy and for disparate impact across protected characteristics — which in lending is a legal requirement rather than a refinement.",
+      name: "Data Collection and Preparation",
+      body: "Gather, clean, and structure relevant data, ensuring quality inputs for accurate AI model training and reliable outputs.",
     },
     {
       n: "04",
-      image: {
-        src: "/images/four/fintech-step-4.webp",
-        width: 1200,
-        height: 900,
-        alt: "Validation and Explainability in a fintech AI project",
-      },
-      name: "Validation & Explainability",
-      body: "Independent evaluation against the benchmark agreed in discovery, plus the feature-attribution layer that lets an analyst see why a decision came out as it did. A model that passes accuracy but fails explainability does not ship.",
+      name: "Choosing AI Technologies and Tools",
+      body: "Select optimal AI frameworks, platforms, and tools tailored to your project’s needs, scalability, and future integration possibilities.",
     },
     {
       n: "05",
-      image: {
-        src: "/images/four/fintech-step-5.webp",
-        width: 1200,
-        height: 900,
-        alt: "Integration and Secure Deployment in a fintech AI project",
-      },
-      name: "Integration & Secure Deployment",
-      body: "We wire the model into your core systems through APIs, deploy inside your security boundary, and put in place the access control, encryption, and logging an ISO 27001-certified delivery process requires.",
+      name: "Model Development and Training",
+      body: "Build, train, and fine-tune AI models to address specific use cases and maximize prediction accuracy.",
     },
     {
       n: "06",
-      image: {
-        src: "/images/four/fintech-step-6.webp",
-        width: 1200,
-        height: 900,
-        alt: "Monitoring and Continuous Improvement in a fintech AI project",
-      },
-      name: "Monitoring & Continuous Improvement",
-      body: "Live monitoring for accuracy, latency, and drift, with alerting when a model's behaviour moves away from its validated baseline — and a retraining path ready before that happens rather than after.",
+      name: "Model Evaluation and Testing",
+      body: "Rigorously evaluate model performance, test for bias and errors, and validate results against predefined benchmarks.",
+    },
+    {
+      n: "07",
+      name: "Integration and Deployment",
+      body: "Seamlessly integrate AI solutions with your existing fintech systems, followed by secure and controlled deployment into live environments.",
+    },
+    {
+      n: "08",
+      name: "Compliance and Security",
+      body: "Implement robust financial compliance measures and security protocols, ensuring your AI solution meets regulatory and data protection standards.",
+    },
+    {
+      n: "09",
+      name: "Monitoring and Maintenance",
+      body: "Continuously monitor AI system performance, proactively detect issues, and maintain operational stability for long-term reliability.",
+    },
+    {
+      n: "10",
+      name: "Solution Design and Development",
+      body: "Design intuitive interfaces and workflows, develop custom features, and ensure the solution delivers measurable business value.",
+    },
+    {
+      n: "11",
+      name: "Ongoing Support & Optimization",
+      body: "Provide ongoing technical support, optimize AI models, and keep solutions updated for continuous improvement and competitive advantage.",
     },
   ],
 };
 
-export const fintechMidCta: CtaBandContent = {
-  eyebrow: "Talk It Through",
-  title: "Not Sure Which Fintech AI Use Case to Start With?",
-  body: "The right first build is usually the decision you make most often and trust least. A short conversation will narrow it to one, with a view on the data you would need to support it.",
-  cta: { label: "Book a free consultation", href: "#enquiry" },
+/**
+ * The live page's fourteen sector cards. "Mortgage & Lending Institutions" is
+ * there too, though its name is not marked up as a heading on the live page.
+ */
+export const fintechSectors: CardGridContent = {
+  eyebrow: "AI in Finance",
+  title: "Fintech Sectors We Develop AI Solutions For",
+  body: "Explore the diverse fintech sectors we empower with our bespoke AI solutions, transforming operations, customer experience, and risk management industry-wide.",
+  items: [
+    { name: "Commercial Banks & Credit Unions", body: "Empowering banks with AI for enhanced security, service, and automation." },
+    { name: "Insurance Companies & Brokers", body: "Streamlining claims, underwriting, and fraud detection with advanced AI solutions." },
+    { name: "Neobanks Operations", body: "Optimizing digital-only banking experiences through smart, automated AI tools." },
+    { name: "Capital Markets", body: "Enabling smarter trading, analytics, and compliance for capital market firms." },
+    { name: "Investment Management Firms", body: "Delivering data-driven investment insights, portfolio optimization, and automation." },
+    { name: "Payment Processing Companies", body: "Securing and accelerating payment processing through AI-powered systems." },
+    { name: "P2P Lending & Crowdfunding", body: "Enhancing trust, automation, and risk controls for lending platforms." },
+    { name: "Mortgage & Lending Institutions", body: "Accelerating loan approvals, risk analysis, and customer experiences with AI." },
+    { name: "Consumer Finance", body: "Driving personalized financial services for improved user satisfaction and retention." },
+    { name: "Enterprise Budget Management", body: "Optimizing enterprise budgeting with predictive analytics and intelligent automation." },
+    { name: "Cryptocurrency & Blockchain Platforms", body: "Strengthening platform security and analytics with integrated AI innovation." },
+    { name: "Banks & Credit Unions", body: "Improving financial strategy, planning, and compliance through AI-driven tools." },
+    { name: "Financial Advisory Services", body: "Delivering AI-powered insights for smarter financial planning and advice." },
+    { name: "Real Estate Finance", body: "Automating assessments, loan processing, and valuation for real estate finance." },
+  ],
+};
+
+export const fintechBenefits: CardGridContent = {
+  eyebrow: "Key Benefits",
+  title: "Benefits of Fintech AI Solutions for All Financial Services",
+  body: "AI is transforming fintech with automation, enhanced security, and smarter decision-making. Real-time insights help businesses optimize performance, reduce risks, and elevate customer experiences. Here’s how AI could add value to Fintech.",
+  items: [
+    {
+      name: "Enhanced Decision-Making",
+      icon: "compass",
+      body: "AI-driven insights for smarter financial decisions and market opportunities.",
+    },
+    {
+      name: "Improved Customer Experience",
+      icon: "users",
+      body: "AI-powered, personalized financial services for instant engagement and lasting loyalty",
+    },
+    {
+      name: "Operational Efficiency",
+      icon: "gauge",
+      body: "AI automates tasks, reduces errors, and boosts productivity for teams.",
+    },
+    {
+      name: "Regulatory Compliance",
+      icon: "book",
+      body: "Ensures compliance with evolving financial regulations and secure operations.",
+    },
+    {
+      name: "Scalability",
+      icon: "layers",
+      body: "Rapidly scale financial products while maintaining performance and reliability.",
+    },
+    {
+      name: "Fraud Detection and Enhanced Security",
+      icon: "shield",
+      body: "AI monitors transactions, detecting suspicious activity and safeguarding integrity.",
+    },
+    {
+      name: "Reduced Operational Expenses",
+      icon: "coins",
+      body: "Automate processes and reduce errors to cut costs and boost innovation",
+    },
+    {
+      name: "Accelerated Transaction Processing",
+      icon: "rocket",
+      body: "AI speeds up transaction approvals, ensuring faster, seamless operations.",
+    },
+    {
+      name: "Risk Management",
+      icon: "chart",
+      body: "AI-driven analytics mitigate risks with predictive analysis and real-time monitoring.",
+    },
+    {
+      name: "Data-Driven Innovation",
+      icon: "spark",
+      body: "Drive new revenue streams and innovative products with emerging fintech trends.",
+    },
+  ],
+};
+
+/** The live page's ten numbered feature cards — each a name with no prose. */
+export const fintechFeatures: CardGridContent = {
+  eyebrow: "Features",
+  title: "Key Features in Fintech AI Solution",
+  body: "Discover the advanced features that set our fintech AI solutions apart, delivering unmatched intelligence, automation, security, and seamless integration to drive financial innovation and operational excellence.",
+  items: [
+    { name: "Real-Time Data Processing & Analytics" },
+    { name: "Automated Fraud Detection" },
+    { name: "Smart Personalization Engine" },
+    { name: "Natural Language Processing (NLP)" },
+    { name: "Predictive Risk Assessment" },
+    { name: "Self-Learning Algorithms" },
+    { name: "Seamless Integration with Banking Systems" },
+    { name: "Automated Compliance Monitoring" },
+    { name: "Secure Blockchain-Based Transactions" },
+    { name: "Performance Dashboard & Visualization Tools" },
+  ],
+};
+
+export const fintechWhyUs: OverviewContent = {
+  eyebrow: "Why Choose Us",
+  title: "Why Choose Soft Suave for Fintech AI Development Services",
+  paragraphs: [
+    "Choose Soft Suave for fintech AI development services - where expert innovation, proven solutions, and client-focused delivery empower your business to thrive in the evolving financial landscape.",
+  ],
+  // The live section's ten icon cards. Its second card carries a stray emoji
+  // placeholder beside the icon, which is dropped.
+  pointsVariant: "icons",
+  points: [
+    "Proven fintech domain expertise",
+    "Dedicated AI & ML specialists",
+    "End-to-end solution delivery",
+    "Agile, collaborative development process",
+    "Strong focus on security & compliance",
+    "Scalable, future-ready architectures",
+    "Custom AI-driven innovations",
+    "Transparent communication and project management",
+    "Rapid deployment and integration",
+    "Comprehensive post-launch support and optimization",
+  ],
+  image: overviewImage("fintech-ai-solutions"),
+};
+
+/**
+ * The live page's five success stories. None publishes a figure, so they run
+ * as the work lane rather than as metric-led case-study cards: each card's body
+ * is its results list. The live carousel's closing "See how AI can fit into
+ * your workflow" card becomes the lane's outro; its supporting line speaks of
+ * "healthcare processes" and "patient care" (copied from another page), so it
+ * is left out rather than carried onto a fintech page.
+ */
+export const fintechSuccessStories: WorkCarouselContent = {
+  eyebrow: "Success Stories",
+  title: "Transforming FinTech: Proven Results in Action",
+  body: "Explore our real-world success stories & discover how our fintech AI solutions have delivered measurable impact and innovation for diverse financial clients.",
+  outro: {
+    eyebrow: "Next step",
+    line: "See how AI can fit into your workflow",
+    // The live "Request a Consultation" button; /contact, as the reviews ask
+    // of every consultation CTA.
+    cta: { label: "Request a Consultation", href: "/contact" },
+  },
+  items: [
+    {
+      title: "Integrating Financial and Healthcare Services in One Platform A Health Subscription Success Story",
+      tag: "Health Subscription",
+      body: "Seamless Integration of Health & Banking Services · Flexible Subscription Plans for Individuals & Families · Comprehensive Health Benefits with Personalized Care Options · Secure Payment & Easy Member Management · Enhanced User Convenience & Financial Control",
+    },
+    {
+      title: "Automating Fund Management for Smarter Corporate Banking: A Financial Management Success Story",
+      tag: "Financial Management",
+      body: "Automated Fund Management for Maximized Earnings · Seamless Fixed Deposit Sweeps to Optimize Liquidity · Detailed Financial Insights with Weekly & Monthly Reports · Enhanced User Engagement with an Intuitive Interface · Scalable & Secure Banking Solution for Corporates",
+    },
+    {
+      title: "A Scalable Corporate Banking Platform for Seamless Financial Operations: A SaaS Banking Success Story",
+      tag: "SaaS Banking",
+      body: "Seamless Management of Corporate Accounts & Transactions · Automated Fund Sweeps to Optimize Cash Flow · Secure & Compliant Payment Processing with Multi-Layer Authentication · Real-Time Loan & Investment Tracking for Better Financial Control · Scalable & Adaptable Banking Solution for Large Enterprises",
+    },
+    {
+      title: "Transforming Digital Transactions with Blockchain-Powered Finance",
+      tag: "Blockchain",
+      body: "Enhanced Security & Compliance for Digital Currency Transactions · Real-Time Settlements for Faster Fund Transfers · Multi-Token Support for Stablecoins, CBDCs & Utility Tokens · Automated KYC & AML for Regulatory Adherence · Scalable & Future-Ready Financial Platform",
+    },
+    {
+      title: "Empowering Smart Savings with Automated Financial Planning",
+      tag: "Savings",
+      body: "Automated Savings Transfers for Effortless Financial Management · Group Savings Feature to Encourage Collective Goal Achievement · Seamless Bank API Integration for Secure Transactions · Real-Time Dashboard for Tracking Savings Progress & Rewards · Personalised Saving Challenges with Incentives & Gamification",
+    },
+  ],
 };
 
 export const fintechFaqs: FaqContent = {
-  eyebrow: "FAQs",
-  title: "FAQs About AI in Fintech",
-  body: "Common questions from product, risk, and engineering leaders evaluating AI for a regulated financial product.",
+  eyebrow: "Ask Us",
+  title: "Frequently Asked Questions",
+  body: "Get quick answers to common questions about our fintech AI development services, capabilities, and more.",
   items: [
     {
-      q: "How do you ensure compliance with GDPR, PCI-DSS, and local financial regulation?",
-      a: "Compliance is designed into the build rather than reviewed at the end: data minimisation and lawful-basis decisions taken before training, cardholder data kept out of model features entirely where PCI-DSS scope would otherwise expand, retention and deletion implemented as running jobs rather than policies, and an audit trail of what the system checked and when. Jurisdiction-specific obligations — data residency, local reporting formats, sector rules — are scoped during discovery, because they change the architecture rather than the paperwork.",
+      q: "How does AI in Fintech ensure compliance with financial regulations like GDPR, PCI-DSS, and local finance laws?",
+      a: "AI automates compliance checks, data privacy management, and continuous audits, ensuring adherence to GDPR, PCI-DSS, and finance laws with real-time regulatory framework updates.",
     },
     {
-      q: "Can AI solutions integrate with our existing core banking platform?",
-      a: "Yes, and this is the normal case rather than the exception. Models are deployed as services your core calls through APIs, with middleware handling translation where the core speaks an older protocol. We do not require a core replacement, because the institutions most likely to benefit from AI scoring are precisely the ones least able to replace a system of record mid-programme.",
+      q: "What programming languages and frameworks are commonly used in AI for Fintech development?",
+      a: "Python, Java, and .NET dominate, paired with frameworks like TensorFlow, PyTorch, Scikit-learn, Keras, and ML platforms for scalable, secure Fintech AI solutions.",
     },
     {
-      q: "How does AI improve fraud detection compared with a rules engine?",
-      a: "A rules engine catches the fraud you have already seen and written a rule for. A model scores each transaction against the behavioural baseline for that customer, device, and merchant, so novel patterns surface as anomalies before anyone has characterised them. In practice the two run together: rules handle known-bad cases deterministically, and the model covers the space rules cannot enumerate.",
+      q: "Can AI solutions for fintech be seamlessly integrated with current banking systems and platforms?",
+      a: "Yes, AI solutions are designed for seamless integration using APIs, middleware, and robust connectors, ensuring compatibility with legacy banking platforms and modern systems.",
     },
     {
-      q: "What programming languages and frameworks do you use?",
-      a: "Python for modelling, with PyTorch and scikit-learn depending on whether the problem is deep-learning-shaped or tabular — and in fintech it is usually tabular, where gradient boosting still outperforms. Serving is typically FastAPI. Where the surrounding estate is Java or .NET, models are served over APIs rather than rewritten, so the language of your core does not constrain the language of the model.",
+      q: "What are the key applications of AI in finance, and how does it enhance fraud detection in digital payments and financial transactions?",
+      a: "AI enables predictive analytics, automation, and real-time fraud detection by identifying suspicious transactions instantly, thus safeguarding digital payments and customer accounts.",
     },
     {
-      q: "How do you handle model explainability for regulators?",
-      a: "Every decision the system issues carries feature-level attribution showing which inputs drove it and in which direction, retained alongside the decision itself. For credit decisions that is what an adverse-action notice is built from; for model risk review it is what lets a validator reproduce the reasoning. Where a use case cannot tolerate a black box at all, we use inherently interpretable model classes rather than post-hoc explanations.",
+      q: "How does AI improve operational efficiency in neobanks and streamline customer experiences?",
+      a: "AI automates workflows, supports personalized assistance, and quickly resolves queries, dramatically improving operational efficiency and elevating user experience in neobanking.",
     },
     {
-      q: "How do you prevent bias in credit and underwriting models?",
-      a: "Protected characteristics are excluded as features and — more importantly — proxies for them are tested for, because a postcode can encode ethnicity as effectively as a direct field. We measure outcome disparity across groups on a held-out set before deployment and monitor it in production, since a model can pass a fairness test at launch and drift past it as the applicant population changes.",
+      q: "What role does AI play in blockchain applications for Fintech, and how does it contribute to secure transactions?",
+      a: "AI secures and automates smart contracts, enhances fraud monitoring, and strengthens blockchain transparency, ensuring tamper-proof, auditable, and highly secure Fintech transactions",
     },
     {
-      q: "What does a fintech AI project cost, and how long does it take?",
-      a: "Both depend far more on your data than on the model. An institution with clean, labelled, accessible history reaches a validated model quickly; one whose data sits across several systems with inconsistent definitions spends most of the effort before modelling starts. Rather than quote a standard figure, we size the data work explicitly during discovery so the estimate reflects your actual starting position.",
-      link: {
-        label: "Book a free consultation",
-        href: "https://www.softsuave.com/30-min-free-consultation",
-        tail: "and we will scope it against your systems.",
-      },
+      q: "How do AI-powered fraud detection systems save costs and improve ROI in fintech solutions?",
+      a: "AI-driven fraud detection minimizes losses, reduces manual investigation efforts, and optimizes operational expenses, directly improving ROI in fintech operations.",
     },
     {
-      q: "How do you keep our financial data secure during development?",
-      a: "Soft Suave operates an ISO/IEC 27001:2022-certified information security management system, and fintech engagements inherit it: access control, device management, and offboarding are governed processes with audit trails. Where production data cannot leave your environment, we develop against synthetic or masked data and train inside your boundary — the default for most regulated engagements rather than an exception made on request.",
+      q: "What steps does your company take to ensure the security, compliance, and scalability of AI solutions in fintech development?",
+      a: "We implement robust data protection, compliance monitoring, scalable architectures, and thorough testing to deliver secure, compliant, and future-proof Fintech AI solutions.",
     },
   ],
 };

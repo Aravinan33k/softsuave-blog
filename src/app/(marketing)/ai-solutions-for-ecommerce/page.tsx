@@ -4,38 +4,36 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
-  ecommerceBenefits,
+  ecommerceCaseStudies,
+  ecommerceChallenges,
   ecommerceFaqs,
   ecommerceHero,
   ecommerceMeta,
-  ecommerceMidCta,
-  ecommerceOverview,
   ecommerceProcess,
   ecommerceServices,
+  ecommerceWhyUs,
 } from '@/lib/home/ecommerce-ai-content';
+import { industryTechApproach } from '@/lib/home/industry-shared';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-// COMPANY-LEVEL SECTIONS — the homepage's own components and content. Only the
-// ones the live eCommerce AI Solutions page actually carries: it has a client logo strip, a
-// positioning block, a technology list, success stories. It has no
-// company stats block, no awards section, no recognitions band and no
-// "industries we serve" section, so none are rendered here.
-import Manifesto from '@/components/home/manifesto';
+// COMPANY-LEVEL SECTIONS — the homepage's own components and content: the
+// client strip the live page opens on, and the closing enquiry band.
 import Clients from '@/components/home/clients';
-import WorkGrid from '@/components/home/work-grid';
-import TechStack from '@/components/home/tech-stack';
 import Contact from '@/components/home/contact';
 
 // SECTOR-SPECIFIC SECTIONS — shared landing components taking this page's copy.
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import Services from '@/components/landing/services';
-import CtaBand from '@/components/landing/cta-band';
+import TechStack from '@/components/landing/tech-stack';
 import Process from '@/components/landing/process';
-import CardGrid from '@/components/landing/industries';
+import CaseStudies from '@/components/landing/case-studies';
 import Faq from '@/components/landing/faq';
+// The live page's challenge tabs — the same selector-and-panel the hire pages
+// run for their evaluation criteria.
+import Problems from '@/components/generative-ai/problems';
 
 import home from '@/components/home/home.module.css';
 
@@ -46,20 +44,22 @@ import home from '@/components/home/home.module.css';
  * section below is a client component. Fonts, `.theme-four` tokens and Lenis
  * smooth scroll come from `app/(marketing)/layout.tsx`.
  *
- * Section order mirrors the live page's own. Bands alternate strictly by
- * position, so a section this page does not have cannot leave two light bands
- * adjacent.
+ * Below the hero, the section set and order are the live page's (see
+ * `lib/home/ecommerce-ai-content.ts`). Bands alternate so no two dark sections
+ * sit together; technology and process share one light band so the FAQ can
+ * sit light ahead of the dark closing band.
  */
 
 export const revalidate = 300;
 
+// The live page's own <title>, verbatim — it carries no brand suffix there.
 export const metadata: Metadata = {
-  title: `${ecommerceMeta.title} | Soft Suave`,
+  title: ecommerceMeta.title,
   description: ecommerceMeta.description,
   alternates: { canonical: ecommerceMeta.path },
   robots: pageRobots,
   openGraph: {
-    title: `${ecommerceMeta.title} | Soft Suave`,
+    title: ecommerceMeta.title,
     description: ecommerceMeta.description,
     url: absoluteUrl(ecommerceMeta.path),
     siteName: 'Soft Suave',
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${ecommerceMeta.title} | Soft Suave`,
+    title: ecommerceMeta.title,
     description: ecommerceMeta.description,
     images: [dynamicOgImage(ecommerceMeta.title, 'Soft Suave')],
   },
@@ -77,18 +77,17 @@ export const metadata: Metadata = {
 const HOME_HREF = BASE_PATH || '/';
 
 /**
- * This page's JSON-LD, from the shared builder.
- *
- * It replaces a hand-written `Service` whose `provider` was an inline
- * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
- * repeated on every page of this surface rather than the canonical one — with
- * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
- * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
- * at the organization `app/(marketing)/layout.tsx` declares once.
+ * This page's JSON-LD, from the shared builder: `Service` (its offers are the
+ * page's own service list), `WebPage` and `FAQPage` (the page's own FAQs),
+ * `@id`-linked to the organization `app/(marketing)/layout.tsx` declares once.
+ * Built from the same content the page renders, so the schema can never drift
+ * from what a visitor reads.
  */
 const LD = pageSchemaGraph({
   path: ecommerceMeta.path,
   title: ecommerceMeta.title,
+  // The live <title> verbatim, as the page's own metadata uses it.
+  webPageName: ecommerceMeta.title,
   description: ecommerceMeta.description,
   serviceType: 'eCommerce AI development services',
   offerCatalogName: ecommerceServices.title,
@@ -98,7 +97,6 @@ const LD = pageSchemaGraph({
 });
 
 export default function EcommerceAiSolutionsPage() {
-
   return (
     <div className={home.page}>
       <JsonLd data={LD} />
@@ -111,31 +109,24 @@ export default function EcommerceAiSolutionsPage() {
           <Clients />
         </div>
 
-        <Manifesto />
+        <Problems content={ecommerceChallenges} id="challenges" />
 
         <div className={home.light}>
-          <Overview content={ecommerceOverview} />
+          <Overview content={ecommerceWhyUs} id="why" />
         </div>
 
         <Services content={ecommerceServices} variant="bold" />
 
         <div className={home.light}>
-          <CardGrid content={ecommerceBenefits} id="benefits" variant="feature" />
+          <TechStack content={industryTechApproach} />
+          <Process content={ecommerceProcess} />
         </div>
 
-        <Process content={ecommerceProcess} variant="mosaic" />
+        <CaseStudies content={ecommerceCaseStudies} />
 
         <div className={home.light}>
-          <TechStack />
+          <Faq content={ecommerceFaqs} idPrefix="ecommerce-faq" />
         </div>
-
-        <WorkGrid />
-
-        <div className={home.light}>
-          <CtaBand content={ecommerceMidCta} />
-        </div>
-
-        <Faq content={ecommerceFaqs} idPrefix="ecommerce-faq" />
 
         <Contact />
       </main>

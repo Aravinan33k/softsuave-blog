@@ -2,30 +2,40 @@
  * Copy for the "AI Solutions in HealthTech" landing page
  * (`/ai-solutions-in-healthtech`).
  *
- * Follows the live softsuave.com page: its H1, its five solution cards, its six
- * "where AI changes healthcare" areas, its six benefits and its FAQ set are all
- * carried over.
+ * The hero is this page's own and is kept as it was. Everything below it — and
+ * the page's title, description and schema — follows the live softsuave.com
+ * page, which was rebuilt with a new section set (review: "Need to update the
+ * entire page, as the sections have been completely changed"). The mapping, in
+ * live page order:
  *
- * The live page ships no process section, so this page has none either. An
- * earlier draft added one; it was removed to keep the page's sections matched
- * to the live page's.
+ *   client logo strip                                  → homepage `Clients`
+ *   "AI Solutions for Modern HealthTech"               → `healthtechOverview` (6 areas)
+ *   "How We Leverage AI to Transform HealthTech"       → `healthtechServices` (5)
+ *   "Enhancing HealthTech with AI-Powered ..."         → `healthtechBenefits` (6)
+ *   "Innovative AI Technologies & Approaches"          → `industryTechApproach`
+ *   "Real-World Impact: AI Transformations in ..."     → `healthtechSuccessStories` (5)
+ *   "What Our Clients Say About Us"                    → homepage `Testimonials`
+ *   "FAQs About HealthTech"                            → `healthtechFaqs` (13)
+ *
+ * The copy is the live page's own, verbatim.
  */
 
 import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
-import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
+import type { WorkCarouselContent } from "@/components/home/work-grid";
 import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
 import { overviewImage } from "./overview-images";
 
 export const healthtechMeta = {
   slug: "ai-solutions-in-healthtech",
   path: "/ai-solutions-in-healthtech",
-  title: "AI Solutions in HealthTech",
+  // The live page's <title> and meta description, verbatim.
+  title: "Healthtech AI Development Service for Healthcare Solutions",
   description:
-    "Custom HealthTech AI from Soft Suave — patient intake, risk assessment, clinical analysis, decision support and virtual assistants. HIPAA-aligned, EHR-integrated.",
+    "Healthtech AI development service delivering smart, secure, and scalable solutions to improve patient care and streamline healthcare systems.",
 } as const;
 
 export const healthtechHero: HeroContent = {
@@ -58,165 +68,204 @@ export const healthtechHero: HeroContent = {
   },
 };
 
+/** The live "Industry Overview": its paragraph and the six key areas it lists, each with an icon. */
 export const healthtechOverview: OverviewContent = {
-  image: overviewImage("ai-solutions-in-healthtech"),
-  eyebrow: "The Short Answer",
-  title: "Where AI Earns Its Place in Healthcare",
+  eyebrow: "Industry Overview",
+  title: "AI Solutions for Modern HealthTech",
   paragraphs: [
-    "A large share of clinical time goes on work that is not clinical — intake forms, documentation, prior authorisation, discharge paperwork, chasing results. That is the first and least controversial place AI belongs, because automating it returns time to patient care without putting a model anywhere near a diagnosis.",
-    "The second place is decision support: surfacing the relevant history, flagging a dangerous drug interaction, or highlighting a finding on an image that warrants a closer look. Here the model's job is to raise something for a clinician to judge, not to judge it — a distinction that governs how we build and how we evaluate.",
-    "Both depend on getting patient data handling right first. Access control, de-identification, audit logging, and lawful basis are not a compliance layer added at the end; they determine what data can be used to train at all, which is why they are settled before any modelling begins.",
+    "The HealthTech industry is rapidly evolving with AI-driven innovations. From automating administrative tasks to enhancing diagnostics and predictive analytics, AI is improving efficiency, accuracy, and patient care. By leveraging intelligent workflows, AI is transforming HealthTech operations for better outcomes. These are some of the key areas where AI is transforming HealthTech:",
   ],
-  pullQuote:
-    "In healthcare the model raises the question. The clinician still answers it — and the system has to be built so that stays true.",
+  points: [
+    "Automating Administrative Tasks",
+    "Enhancing Diagnostics",
+    "Predicting and Preventing Diseases",
+    "Personalizing Treatment Plans",
+    "Improving Drug Discovery",
+    "Optimizing Patient Care with Virtual Assistants",
+  ],
+  // The live areas each carry an icon, so they render as icon cards rather
+  // than a plain tick list.
+  pointsVariant: "icons",
+  image: overviewImage("ai-solutions-in-healthtech"),
 };
 
+/**
+ * The live page's five AI solutions. The live section's "Get In Touch" button
+ * has no counterpart here: the services component carries no CTA, and the
+ * page closes on the enquiry band.
+ */
 export const healthtechServices: ServicesContent = {
-  eyebrow: "What We Build",
-  title: "HealthTech AI Solutions Soft Suave Delivers",
-  body: "Five solution areas spanning the patient journey, from the first intake form to post-discharge follow-up. Each is built to sit inside your existing clinical systems rather than beside them.",
+  eyebrow: "AI Solutions",
+  title: "How We Leverage AI to Transform HealthTech",
+  body: "AI has the potential to reshape HealthTech by improving efficiency, enhancing decision-making, and automating critical processes. At SoftSuave, we explore AI-driven solutions that can help healthcare providers streamline operations, improve patient care, and optimize workflows.",
   items: [
     {
-      name: "AI-Powered Patient Intake & Risk Assessment",
-      tag: "Intake",
-      body: "Streamline intake, aggregate pre-consultation data from across records, and surface health risks early — so the clinician arrives at the appointment with the history already assembled rather than assembling it live.",
+      name: "AI-Powered Patient Intake and Risk Assessment",
+      body: "We help you streamline patient intake, automate pre-consultation data aggregation, and assess health risks early with AI-driven precision.",
     },
     {
       name: "Intelligent Clinical Analysis & Reporting",
-      tag: "Diagnostics",
-      body: "Analyse medical data, generate structured reports, and process images and documents to support faster diagnosis, with findings presented for clinical confirmation rather than issued as conclusions.",
+      body: "Our solutions analyze medical data, generate detailed reports, and process images and documents with accuracy to support faster diagnoses.",
     },
     {
       name: "Automated Discharge & Virtual Patient Support",
-      tag: "Patient Care",
-      body: "Automate discharge documentation, manage follow-up scheduling, and give patients an assistant that answers common questions around the clock, escalating anything clinical to a human.",
+      body: "Our platform automates patient discharge, manages follow-ups, and offers AI-powered virtual assistants for handling common patient questions.",
     },
     {
       name: "Smart Decision Support & Prescription Safety",
-      tag: "Safety",
-      body: "Real-time support at the point of decision, including interaction and dosage checks that flag prescription errors before they reach a patient — the use case where AI's value is measured in harm avoided.",
+      body: "We enable clinical teams with AI that supports real-time decisions and flags prescription errors before they impact patient safety.",
     },
     {
-      name: "Optimised Staff Scheduling & Resource Management",
-      tag: "Operations",
-      body: "Workforce planning and resource allocation that respond to actual demand patterns, ward occupancy, and skill mix, rather than to a roster template written for an average week that never occurs.",
+      name: "Optimized Staff Scheduling & Resource Management",
+      body: "You can optimize workforce planning and resource allocation through our intelligent scheduling system tailored to dynamic healthcare environments.",
     },
   ],
 };
 
+/** The live "Key Benefits" cards; each carries an icon there, so each gets a badge glyph here. */
 export const healthtechBenefits: CardGridContent = {
-  eyebrow: "Benefits",
-  title: "What HealthTech AI Changes",
-  body: "The gains providers report first are rarely diagnostic. They are time returned to clinicians, errors caught earlier, and patients who can get an answer without a queue.",
+  eyebrow: "Key Benefits",
+  title: "Enhancing HealthTech with AI-Powered Intelligent Systems",
+  body: "Adopting AI-driven solutions can transform healthcare operations, making them more efficient, accurate, and responsive. AI has the potential to reduce manual effort, enhance patient care, and optimize decision-making across various healthcare processes.",
   items: [
     {
-      name: "Clinical Time Returned",
+      name: "Improved Efficiency & Automation",
       icon: "gauge",
-      body: "Automating intake, documentation, and discharge paperwork reduces the administrative load that currently competes with patient contact for a clinician's day.",
+      body: "AI streamlines administrative tasks, reduces manual workload, and speeds up processes, allowing healthcare professionals to focus more on patient care.",
     },
     {
-      name: "Earlier, Better-Supported Detection",
-      icon: "shield",
-      body: "Imaging analysis and predictive models flag findings and at-risk patients earlier, improving the odds on conditions where the outcome depends heavily on when it was caught.",
+      name: "Enhanced Diagnostic Accuracy",
+      icon: "scan",
+      body: "AI-powered imaging and predictive analytics help detect diseases early and improve diagnostic precision, leading to better treatment outcomes.",
     },
     {
-      name: "Fewer Preventable Errors",
-      icon: "book",
-      body: "Interaction, dosage, and allergy checks run on every prescription rather than on the ones someone thought to double-check, catching the mistakes that fatigue produces.",
+      name: "Faster Decision-Making",
+      icon: "chart",
+      body: "AI analyzes vast amounts of medical data in real-time, enabling doctors to make quick and informed decisions for critical patient cases.",
     },
     {
-      name: "Patients Who Can Self-Serve",
+      name: "Better Patient Engagement",
       icon: "users",
-      body: "Virtual assistants handle scheduling, reminders, and routine questions around the clock, which reduces inbound call volume and the missed appointments that follow from unanswered ones.",
+      body: "AI-powered virtual assistants and chatbots provide 24/7 support, schedule appointments, and offer health reminders, improving patient interaction.",
     },
     {
-      name: "Capacity Matched to Demand",
+      name: "Cost Savings & Revenue Growth",
       icon: "coins",
-      body: "Scheduling and resource models reduce both the overtime of an understaffed shift and the cost of an overstaffed one, which is where most operational savings in a provider actually sit.",
+      body: "AI reduces operational costs, minimizes errors, and enhances efficiency, leading to increased profitability and better financial management for healthcare providers.",
+    },
+    {
+      name: "Personalized Patient Care",
+      icon: "target",
+      body: "Machine learning tailors treatments based on individual patient data, ensuring more effective therapies and improved recovery rates.",
     },
   ],
 };
 
-export const healthtechSegments: CardGridContent = {
-  eyebrow: "Where AI Applies",
-  title: "How AI Is Changing Healthcare Delivery",
-  body: "Six areas where healthcare organisations are deploying AI today, ordered roughly by how readily each one clears a clinical governance review.",
+/**
+ * The live page's five success stories, with the consultation prompt that
+ * closes the section there as the lane's closing card.
+ *
+ * Three of the five stories publish no figure to lead on, so this is the
+ * `WorkGrid` lane rather than the metric-led `CaseStudies` grid; each card's
+ * body is its live results list, joined with " · ". Titles are the live ones,
+ * verbatim (including "Al" for "AI" and the missing space after "Healthcare:").
+ */
+export const healthtechSuccessStories: WorkCarouselContent = {
+  eyebrow: "Success Stories",
+  title: "Real-World Impact: AI Transformations in HealthTech",
+  body: "Uncover the impact of AI-driven solutions in HealthTech, enhancing efficiency, accuracy, and patient outcomes. These real-world case studies highlight successful implementations and measurable results across the industry.",
+  outro: {
+    eyebrow: "See how AI can fit into your workflow",
+    line: "Discover how our AI solutions can seamlessly integrate into your healthcare processes to enhance efficiency and patient care.",
+    // The live "Request a Consultation" button; /contact, as the reviews ask
+    // of every consultation CTA.
+    cta: { label: "Request a Consultation", href: "/contact" },
+  },
   items: [
     {
-      name: "Automating Administrative Work",
-      body: "Intake, coding, prior authorisation, and discharge documentation — the highest-volume, lowest-risk starting point, and the one that returns clinical time fastest.",
+      title: "Revitalizing Al in Healthcare: A Performance Optimization Success Story",
+      tag: "Performance Optimization",
+      body: "40% Increase in System Efficiency · 2x Faster Query Execution · 35% Improvement in User Experience · 50% Reduction in System Errors & Crashes",
     },
     {
-      name: "Enhancing Diagnostics",
-      body: "Imaging and signal analysis that flags findings for a radiologist or clinician to confirm, improving throughput and consistency on high-volume reads.",
+      title: "Transforming Patient Care: A Communication Enhancement Success Story",
+      tag: "Communication Enhancement",
+      body: "60% Reduction in Patient Care Coordination Time · 3x Faster Access to Patient Records · 40% Improvement in Doctor Response Time · Significant Reduction in Communication Delays",
     },
     {
-      name: "Predicting and Preventing Deterioration",
-      body: "Risk models over vitals, history, and pathology that identify patients likely to deteriorate or readmit, moving intervention earlier in the course.",
+      title: "Revolutionizing Digital Healthcare: A Telehealth Success Story",
+      tag: "Telehealth",
+      body: "Reduced Inefficiencies in Patient Transport & Unnecessary Visits · User-Friendly Interface—Accessible Even for Older Generations · Adopted by 25+ Danish Hospitals · Consistent Growth & Widespread Adoption · Seamless Integration & Data Exchange with Strategic Partners",
     },
     {
-      name: "Personalising Treatment Plans",
-      body: "Matching therapy to the individual patient's history, comorbidities, and response data rather than to the modal patient a protocol was written for.",
+      title: "Modernising Virtual Healthcare: An Online Consultation Success Story",
+      tag: "Online Consultation",
+      body: "24/7 Access to Doctors for Remote Consultation · Seamless Scheduling & Video Call Integration · Encrypted Audio & Video for Secure Communication · Instant ePrescriptions & Medical Report Uploads · Risk-Free, Secure, & Scalable Telehealth Solution",
     },
     {
-      name: "Accelerating Drug Discovery",
-      body: "Candidate screening, target identification, and trial cohort selection, where model-led search narrows an intractably large space to a testable one.",
-    },
-    {
-      name: "Virtual Care & Patient Assistants",
-      body: "Round-the-clock triage support, medication reminders, and follow-up that keeps contact with a patient between appointments rather than only at them.",
+      title: "Bridging Global Healthcare:A Telehealth Innovation Success Story",
+      tag: "Telehealth Innovation",
+      body: "Seamless Cross-Border Doctor-Patient Consultations · Highly Secure & Encrypted Video/Audio Calls · Faster Appointment Scheduling & Management · Intuitive User Experience for Patients & Doctors · Expanding Access to Quality Healthcare Worldwide",
     },
   ],
-};
-
-export const healthtechMidCta: CtaBandContent = {
-  eyebrow: "Talk It Through",
-  title: "Not Sure Where AI Fits in Your Clinical Workflow?",
-  body: "The safest first build is almost always administrative rather than diagnostic. A short conversation will identify which part of your workflow returns the most clinical time for the least governance friction.",
-  cta: { label: "Book a free consultation", href: "#enquiry" },
 };
 
 export const healthtechFaqs: FaqContent = {
   eyebrow: "FAQs",
-  title: "FAQs About AI in HealthTech",
-  body: "Common questions from clinical, product, and compliance leaders evaluating AI for a healthcare product or provider organisation.",
+  title: "FAQs About HealthTech",
+  body: "Access quick facts about our healthtech software services, security standards, and development.",
   items: [
     {
-      q: "How do you ensure HIPAA compliance and patient data privacy?",
-      a: "Protected health information is minimised, de-identified wherever the use case allows, and kept inside your security boundary by default. Access is role-controlled and logged, retention and deletion run as scheduled jobs rather than policies, and business associate obligations are agreed before any data moves. Where production data cannot leave your environment at all, we develop against synthetic or de-identified data and train inside your infrastructure.",
+      q: "Which company develops custom AI solutions for HealthTech?",
+      a: "Many companies like Soft Suave specialize in custom AI solutions for HealthTech, offering tailored services for healthcare providers to improve diagnostics, patient care, and operational efficiency with AI-driven technologies.",
     },
     {
-      q: "Can AI be integrated into our existing EHR and clinical systems?",
-      a: "Yes. Models are deployed as services your EHR calls through its integration interfaces, so findings and automations appear inside the system clinicians already use rather than in a separate tool they would have to remember to open. A separate interface is the most reliable way to guarantee a clinical AI system goes unused.",
+      q: "What is HealthTech AI development, and how does it help healthcare companies?",
+      a: "HealthTech AI development involves creating advanced technologies that use artificial intelligence to enhance healthcare services, improve patient outcomes, and streamline administrative processes, providing better care and efficiency.",
     },
     {
-      q: "How accurate are AI diagnostic models compared with human specialists?",
-      a: "On narrow, well-defined tasks with large labelled datasets — certain imaging reads in particular — published results show models matching or exceeding specialist performance. That does not generalise to open-ended clinical judgement, and it does not remove the need for oversight. We build these systems to raise findings for confirmation, and we evaluate them on the error type that matters for the specific pathway rather than on headline accuracy.",
+      q: "What are AI healthcare diagnostics, and how do they improve clinical accuracy?",
+      a: "AI healthcare diagnostics leverage machine learning algorithms to analyze medical data, improving clinical accuracy by providing early detection, reducing errors, and supporting healthcare providers in making informed decisions.",
     },
     {
-      q: "What data is needed to train a medical AI model?",
-      a: "Typically annotated images, structured records, lab results, and clinical notes, in enough volume and variety to represent the population the model will serve. Representativeness matters more than raw size: a model trained on one demographic or one scanner generation degrades on another, which is why cohort composition is assessed during data governance rather than discovered after deployment.",
+      q: "How does AI retinal diagnostics work for early detection of eye diseases?",
+      a: "AI retinal diagnostics analyzes retinal images using machine learning models to detect early signs of eye diseases such as diabetic retinopathy, glaucoma, and macular degeneration, facilitating early intervention and better outcomes.",
     },
     {
-      q: "Can AI diagnostic systems work in remote or low-resource settings?",
-      a: "Yes, and this is one of the stronger arguments for them. Where specialist availability is the constraint rather than equipment, a model that screens and prioritises can extend reach considerably. Deployment in these settings needs attention to offline operation and intermittent connectivity, which changes the architecture and should be stated as a requirement up front.",
+      q: "What is digital diagnostics in AI retinal scanning, and why is it becoming essential for eye-care providers?",
+      a: "Digital diagnostics in AI retinal scanning uses automated systems to analyze retinal images and identify conditions, providing faster, more accurate diagnoses and enabling eye-care providers to offer improved patient care and early detection.",
     },
     {
-      q: "How do you keep a clinician in control of clinical decisions?",
-      a: "Clinical outputs are presented as findings to confirm, not as decisions already taken, and the interface makes overriding straightforward rather than a fight against a default. Override rates are monitored, both as a safety signal and because a rising override rate is usually the first sign that a model has drifted away from the population it was validated on.",
+      q: "Can AI assistants be integrated into existing HealthTech platforms for patient support and clinical workflows?",
+      a: "Yes, AI assistants can be integrated into HealthTech platforms to streamline clinical workflows, provide patient support, and enhance operational efficiency through tasks like appointment scheduling, symptom analysis, and patient inquiries.",
     },
     {
-      q: "How long does it take to build a HealthTech AI solution?",
-      a: "The modelling is rarely the long pole — data access and governance are. An organisation with a clean, accessible, well-governed data estate can move quickly; one where records sit across systems with inconsistent coding spends most of the effort before training starts. We size that work explicitly in discovery so the timeline reflects your actual position.",
-      link: {
-        label: "Book a free consultation",
-        href: "https://www.softsuave.com/30-min-free-consultation",
-        tail: "and we will scope it against your systems.",
-      },
+      q: "How can HealthTech startups use AI to build diagnostic, monitoring, or virtual-care applications quickly?",
+      a: "HealthTech startups can use pre-built AI models and cloud-based solutions to rapidly develop diagnostic, monitoring, and virtual-care applications, reducing development time while ensuring scalability and flexibility in healthcare services.",
     },
     {
-      q: "What does a custom HealthTech AI solution cost?",
-      a: "Cost tracks scope, integration surface, and the state of your data far more than it tracks model complexity. A focused administrative automation integrated with one system is a different proposition from a validated clinical decision support tool spanning several. We scope both explicitly rather than quoting a range that would not survive contact with your requirements.",
+      q: "What are the main use cases of AI in healthcare diagnostics today?",
+      a: "AI in healthcare diagnostics is primarily used for early detection of diseases, medical imaging analysis, predictive analytics for patient conditions, personalized treatment plans, and automating routine tasks to improve healthcare delivery.",
+    },
+    {
+      q: "How accurate are AI healthcare diagnostic models compared to human specialists?",
+      a: "AI healthcare diagnostic models have demonstrated high accuracy, often matching or exceeding human specialists in specific tasks, particularly in areas like medical imaging analysis and predictive diagnostics, though human oversight remains critical.",
+    },
+    {
+      q: "Can AI retinal diagnostic systems be used in remote or low-resource clinical environments?",
+      a: "Yes, AI retinal diagnostic systems can be deployed in remote or low-resource environments, providing accessible, cost-effective solutions for eye-care providers in underserved areas with limited infrastructure.",
+    },
+    {
+      q: "What data is required to train AI models for medical diagnostics?",
+      a: "AI models for medical diagnostics require large datasets, including annotated medical images, patient health records, lab results, and clinical notes, ensuring diverse and comprehensive data to train accurate and reliable models.",
+    },
+    {
+      q: "How do you ensure compliance, data privacy, and HIPAA standards when building AI HealthTech solutions?",
+      a: "Compliance, data privacy, and HIPAA standards are ensured by implementing robust encryption, secure data handling practices, and following regulations for patient information protection throughout the AI development process.",
+    },
+    {
+      q: "What is the cost of developing custom AI diagnostic solutions for healthcare or digital health startups?",
+      a: "The cost of developing custom AI diagnostic solutions varies based on project complexity, features, and scale. It's difficult to estimate without specific requirements. To get a precise estimate, please contact our experts.",
     },
   ],
 };

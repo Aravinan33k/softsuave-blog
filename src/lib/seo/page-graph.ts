@@ -101,6 +101,13 @@ export interface PageGraphInput {
   readonly path: string;
   /** The page's `<title>`, before the " | Soft Suave" suffix. */
   readonly title: string;
+  /**
+   * The WebPage `name`, where it is not the default `${title} | Soft Suave` —
+   * for a page whose `<title>` is its live counterpart's own text with no
+   * brand suffix (the industry AI pages), so the schema states the same name
+   * the title does.
+   */
+  readonly webPageName?: string;
   /** The page's meta description. Used as the WebPage description. */
   readonly description: string;
   /** schema.org `serviceType`, e.g. "ReactJS application development". */
@@ -218,7 +225,7 @@ export function pageSchemaGraph(input: PageGraphInput): object[] {
     '@type': 'WebPage',
     '@id': webPageId,
     url: pageUrl,
-    name: `${input.title} | Soft Suave`,
+    name: input.webPageName ?? `${input.title} | Soft Suave`,
     description: input.description,
     inLanguage: 'en',
     dateModified: input.dateModified ?? SCHEMA_DATE_MODIFIED,

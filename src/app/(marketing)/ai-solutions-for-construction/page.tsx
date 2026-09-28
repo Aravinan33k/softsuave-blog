@@ -5,27 +5,24 @@ import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
   constructionBenefits,
+  constructionCta,
   constructionFaqs,
   constructionHero,
   constructionMeta,
-  constructionMidCta,
   constructionOverview,
-  constructionSegments,
-  constructionServices,
+  constructionSolutions,
+  constructionSuccessStories,
 } from '@/lib/home/construction-ai-content';
+import { industryTechApproach } from '@/lib/home/industry-shared';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-// COMPANY-LEVEL SECTIONS — the homepage's own components and content. Only the
-// ones the live Construction AI Solutions page actually carries: it has a client logo strip, a
-// positioning block, a technology list, success stories and testimonials. It has no
-// company stats block, no awards section, no recognitions band and no
-// "industries we serve" section, so none are rendered here.
-import Manifesto from '@/components/home/manifesto';
+// COMPANY-LEVEL SECTIONS — the homepage's own components and content: the
+// client strip the live page opens on, the case-study lane (with this page's
+// own stories), the testimonials, and the closing enquiry band.
 import Clients from '@/components/home/clients';
 import WorkGrid from '@/components/home/work-grid';
-import TechStack from '@/components/home/tech-stack';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
 
@@ -33,8 +30,9 @@ import Contact from '@/components/home/contact';
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import Services from '@/components/landing/services';
-import CtaBand from '@/components/landing/cta-band';
 import CardGrid from '@/components/landing/industries';
+import TechStack from '@/components/landing/tech-stack';
+import CtaBand from '@/components/landing/cta-band';
 import Faq from '@/components/landing/faq';
 
 import home from '@/components/home/home.module.css';
@@ -46,20 +44,24 @@ import home from '@/components/home/home.module.css';
  * section below is a client component. Fonts, `.theme-four` tokens and Lenis
  * smooth scroll come from `app/(marketing)/layout.tsx`.
  *
- * Section order mirrors the live page's own. Bands alternate strictly by
- * position, so a section this page does not have cannot leave two light bands
- * adjacent.
+ * Below the hero, the section set and order are the live page's (see
+ * `lib/home/construction-ai-content.ts`). Bands alternate so no two dark
+ * sections sit together. The CTA band is always dark (it re-points its own
+ * tokens), so technology and success stories share one light band ahead of it,
+ * and testimonials and FAQ share the light band after it, ahead of the dark
+ * closing band.
  */
 
 export const revalidate = 300;
 
+// The live page's own <title>, verbatim — it carries no brand suffix there.
 export const metadata: Metadata = {
-  title: `${constructionMeta.title} | Soft Suave`,
+  title: constructionMeta.title,
   description: constructionMeta.description,
   alternates: { canonical: constructionMeta.path },
   robots: pageRobots,
   openGraph: {
-    title: `${constructionMeta.title} | Soft Suave`,
+    title: constructionMeta.title,
     description: constructionMeta.description,
     url: absoluteUrl(constructionMeta.path),
     siteName: 'Soft Suave',
@@ -68,7 +70,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${constructionMeta.title} | Soft Suave`,
+    title: constructionMeta.title,
     description: constructionMeta.description,
     images: [dynamicOgImage(constructionMeta.title, 'Soft Suave')],
   },
@@ -77,28 +79,26 @@ export const metadata: Metadata = {
 const HOME_HREF = BASE_PATH || '/';
 
 /**
- * This page's JSON-LD, from the shared builder.
- *
- * It replaces a hand-written `Service` whose `provider` was an inline
- * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
- * repeated on every page of this surface rather than the canonical one — with
- * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
- * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
- * at the organization `app/(marketing)/layout.tsx` declares once.
+ * This page's JSON-LD, from the shared builder: `Service` (its offers are the
+ * page's own solution list), `WebPage` and `FAQPage` (the page's own FAQs),
+ * `@id`-linked to the organization `app/(marketing)/layout.tsx` declares once.
+ * Built from the same content the page renders, so the schema can never drift
+ * from what a visitor reads.
  */
 const LD = pageSchemaGraph({
   path: constructionMeta.path,
   title: constructionMeta.title,
+  // The live <title> verbatim, as the page's own metadata uses it.
+  webPageName: constructionMeta.title,
   description: constructionMeta.description,
   serviceType: 'Construction AI development services',
-  offerCatalogName: constructionServices.title,
-  offers: constructionServices.items.map((i) => ({ name: i.name, description: i.body })),
+  offerCatalogName: constructionSolutions.title,
+  offers: constructionSolutions.items.map((i) => ({ name: i.name, description: i.body })),
   faqName: constructionFaqs.title,
   faqs: constructionFaqs.items,
 });
 
 export default function ConstructionAiSolutionsPage() {
-
   return (
     <div className={home.page}>
       <JsonLd data={LD} />
@@ -111,33 +111,29 @@ export default function ConstructionAiSolutionsPage() {
           <Clients />
         </div>
 
-        <Manifesto />
+        <Overview content={constructionOverview} id="overview" />
 
         <div className={home.light}>
-          <Overview content={constructionOverview} />
+          <Services content={constructionSolutions} id="solutions" variant="bold" />
         </div>
 
-        <Services content={constructionServices} variant="bold" />
+        <CardGrid content={constructionBenefits} id="benefits" variant="feature" />
 
         <div className={home.light}>
-          <CardGrid content={constructionBenefits} id="benefits" variant="feature" />
+          <TechStack content={industryTechApproach} />
+          <WorkGrid
+            content={constructionSuccessStories}
+            id="success-stories"
+            countLabel="case studies"
+          />
         </div>
 
-        <CardGrid content={constructionSegments} id="applications" variant="bold" />
+        {/* The band is its own dark surface wherever it sits, so it takes a
+            dark slot rather than a `.light` wrapper. */}
+        <CtaBand content={constructionCta} />
 
         <div className={home.light}>
-          <TechStack />
-        </div>
-
-        <WorkGrid />
-
-        <div className={home.light}>
-          <CtaBand content={constructionMidCta} />
-        </div>
-
-        <Testimonials />
-
-        <div className={home.light}>
+          <Testimonials />
           <Faq content={constructionFaqs} idPrefix="construction-faq" />
         </div>
 
