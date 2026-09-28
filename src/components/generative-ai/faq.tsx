@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { faq as generativeAiFaq } from "@/lib/home/generative-ai";
 import FadeUp from "@/components/home/fade-up";
+import { linkify, type InlineLink } from "@/components/common/linkify";
 import SectionHead from "./section-head";
 import styles from "./gen-ai.module.css";
 
@@ -11,6 +12,12 @@ export interface FaqContent {
   title: string;
   body: string;
   items: readonly { readonly q: string; readonly a: string }[];
+  /**
+   * Internal links woven into the answers, matched on their own words — see
+   * `components/common/linkify`. Each phrase links once across the whole
+   * accordion (review: "several internal links are missing in the FAQs").
+   */
+  links?: readonly InlineLink[];
 }
 
 /**
@@ -39,6 +46,9 @@ export default function Faq({
   idPrefix?: string;
 } = {}) {
   const [open, setOpen] = useState<number | null>(0);
+  // One set per render, threaded through every answer, so a phrase that
+  // recurs links only its first occurrence.
+  const usedLinks = new Set<string>();
 
   return (
     <section className={styles.sectionShell} id="faq">
@@ -71,7 +81,9 @@ export default function Faq({
                     role="region"
                     aria-labelledby={`${idPrefix}-trigger-${i}`}
                   >
-                    <p className={styles.faqAnswer}>{item.a}</p>
+                    <p className={styles.faqAnswer}>
+                      {linkify(item.a, content.links, usedLinks, styles.proseLink)}
+                    </p>
                   </div>
                 </div>
               </div>

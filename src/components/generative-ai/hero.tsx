@@ -10,6 +10,7 @@ import styles from "./gen-ai.module.css";
 import fx from "@/components/common/enquiry-form.module.css";
 import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
 import Breadcrumb from "@/components/common/breadcrumb";
+import { SiteLink } from "@/themes/softsuave/site-link";
 
 /**
  * Shape of the copy this hero renders. Every AI landing page supplies its own
@@ -38,6 +39,18 @@ export interface HeroContent {
     src: string;
     blurDataURL?: string;
   };
+  /**
+   * Optional button row under the points list, separate from the enquiry
+   * form beside it — the live "Start 40 Hours Free Trial" / "Book a Meeting"
+   * pair (review: "CTA button is missing in the hero section"). The same
+   * shape and treatment as `components/landing/hero`: the first renders
+   * filled, the rest outlined; `external` opens a new tab.
+   */
+  ctas?: readonly {
+    readonly label: string;
+    readonly href: string;
+    readonly external?: boolean;
+  }[];
   /** Copy for the enquiry card; the card itself is `common/enquiry-form`. */
   form: EnquiryFormContent;
 }
@@ -158,6 +171,38 @@ export default function Hero({
               </li>
             ))}
           </ul>
+
+          {content.ctas && content.ctas.length > 0 && (
+            <div className={styles.heroCtas}>
+              {content.ctas.map((cta, i) => {
+                const className = i === 0 ? `${styles.btn} ${styles.btnPrimary}` : styles.btn;
+                if (cta.external) {
+                  return (
+                    <a
+                      key={cta.label}
+                      href={cta.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={className}
+                    >
+                      {cta.label}
+                    </a>
+                  );
+                }
+                // In-page targets stay plain anchors for ScrollProvider's Lenis
+                // handler; anything else resolves through SiteLink.
+                return cta.href.startsWith("#") ? (
+                  <a key={cta.label} href={cta.href} className={className}>
+                    {cta.label}
+                  </a>
+                ) : (
+                  <SiteLink key={cta.label} href={cta.href} className={className}>
+                    {cta.label}
+                  </SiteLink>
+                );
+              })}
+            </div>
+          )}
 
           {content.badges && content.badges.length > 0 && (
             <ul className={styles.badges} aria-label="Credentials">

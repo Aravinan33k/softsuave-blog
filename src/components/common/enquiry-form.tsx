@@ -24,6 +24,13 @@ import PhoneField from "./phone-field";
 export interface EnquiryFormContent {
   eyebrow?: string;
   title: string;
+  /**
+   * Render the title as an `<h2>` rather than a paragraph — for pages whose
+   * live counterpart makes the form's heading part of the outline (the hire
+   * by role pages: "Get Skilled Backend Developers" is an H2 there). Styling
+   * is identical either way; omitted keeps the paragraph.
+   */
+  titleAs?: "h2";
   /** Short paragraph under the title, where the card has one. */
   body?: string;
   note?: string;
@@ -127,7 +134,11 @@ export default function EnquiryForm({
     <div className={fx.card} id="enquiry">
       <div className={fx.header}>
         {content.eyebrow ? <span className={fx.eyebrow}>{content.eyebrow}</span> : null}
-        <p className={fx.title}>{content.title}</p>
+        {content.titleAs === "h2" ? (
+          <h2 className={fx.title}>{content.title}</h2>
+        ) : (
+          <p className={fx.title}>{content.title}</p>
+        )}
         <span className={fx.accent} aria-hidden />
         {content.body ? <p className={fx.body}>{content.body}</p> : null}
       </div>

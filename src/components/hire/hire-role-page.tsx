@@ -4,7 +4,8 @@ import { BASE_PATH } from '@/lib/flags';
 import type { HireBand, HireRolePageContent } from '@/lib/home/hire-roles/types';
 import { assignGrounds } from '@/lib/home/hire-roles/band-grounds';
 import { partnerHeroBadges } from '@/lib/home/hero-badges';
-import { overviewImage } from '@/lib/home/overview-images';
+import { sharedHeroCtas } from '@/lib/home/delivery-shared';
+import { landingPhoto, overviewImage } from '@/lib/home/overview-images';
 
 // Company-level sections: the homepage's own components, rendering the
 // homepage's own copy from `lib/home/content.ts`. A role page's claim to these
@@ -18,7 +19,6 @@ import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 import Clients from '@/components/home/clients';
 import WorkGrid from '@/components/home/work-grid';
-import TechStack from '@/components/home/tech-stack';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
 
@@ -37,6 +37,11 @@ import Process from '@/components/generative-ai/process';
 import CardGrid from '@/components/generative-ai/industries';
 import Comparison from '@/components/generative-ai/comparison';
 import Faq from '@/components/generative-ai/faq';
+
+// The static grouped stack panels the Android and service pages run, in place
+// of the homepage marquee (review: "Technology Stack — change the tech stack
+// design ... reuse from already completed pages").
+import TechStack from '@/components/landing/tech-stack';
 
 import styles from '@/components/home/home.module.css';
 
@@ -92,6 +97,9 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
   const hero = {
     ...content.hero,
     badges: [...(content.hero.badges ?? []), ...partnerHeroBadges],
+    // The trial/meeting pair every live role hero runs beside its form — the
+    // same two buttons the hire-by-skill pages get from the same constant.
+    ctas: sharedHeroCtas,
   };
 
   function render(band: HireBand): ReactNode {
@@ -137,11 +145,28 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
         return content.fit ? <Problems key={band} content={content.fit} id="fit" /> : null;
       case 'engagement':
         return content.engagement ? (
-          <Integration key={band} content={content.engagement} id="engagement" variant="bold" />
+          <Integration
+            key={band}
+            content={content.engagement}
+            id="engagement"
+            variant="bold"
+            // Each live engagement model carries its own "Hire Now".
+            blockCta={{ label: 'Hire Now', href: '/contact' }}
+          />
         ) : null;
       case 'globalDelivery':
         return content.globalDelivery ? (
-          <Overview key={band} content={content.globalDelivery} id="delivery" />
+          <Overview
+            key={band}
+            // A page's own image wins; otherwise the pipeline's per-page
+            // delivery photo (`landing/dl-<slug>`) — the live band has one.
+            content={{
+              ...content.globalDelivery,
+              image:
+                content.globalDelivery.image ?? landingPhoto(`dl-${content.slug.replace(/^\//, '')}`),
+            }}
+            id="delivery"
+          />
         ) : null;
       case 'process':
         return <Process key={band} content={content.process} />;
@@ -160,7 +185,9 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
       case 'techStack':
         return content.techStack ? <TechStack key={band} content={content.techStack} /> : null;
       case 'caseStudies':
-        return <WorkGrid key={band} />;
+        // The page's own projects where its live page names them; otherwise
+        // the homepage's case studies.
+        return <WorkGrid key={band} content={content.caseStudies} />;
       case 'testimonials':
         return <Testimonials key={band} />;
       case 'faq':
@@ -174,7 +201,11 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
         // of these beside its real technology section, and they must not all
         // answer to the same id — that is invalid HTML and it stole the nav's
         // Tech Stack link, which belongs to the `techStack` band above.
-        return list ? <TechStack key={band} content={list} id={`list-${list.key}`} /> : null;
+        // Labels, not tools — so no brand marks: a bullet per label rather than
+        // the generic fallback disc on every chip.
+        return list ? (
+          <TechStack key={band} content={list} id={`list-${list.key}`} logos={false} />
+        ) : null;
       }
     }
   }

@@ -62,7 +62,462 @@ const ALIASES: Record<string, string> = {
   firestore: "firebase",
   mssqlserver: "microsoftsqlserver",
   mssql: "microsoftsqlserver",
+  // Spelling variants the hire-by-role technology bands use for marks above.
+  amazonwebservices: "awsbedrock",
+  googlecloudplatform: "googlevertexai",
+  googlecloudvision: "googlevertexai",
+  azureml: "azureai",
+  openaiapi: "openai",
+  chatgpt: "openai",
+  googlebert: "google",
+  expressjs: "express",
+  go: "golang",
+  // "Swift Data" and "SwiftData" — Apple's persistence framework for Swift.
+  swiftdata: "swift",
+  visualstudiocode: "vscode",
+  // The DevOps page's automation list abbreviates Selenium to "SE".
+  se: "selenium",
+  reduxtoolkit: "redux",
+  yii2: "yii",
+  elkstack: "elasticsearch",
+  jquerymobile: "jquery",
+  awscloudwatch: "cloudwatch",
+  restfulapis: "restapis",
+  integrationrestsoapapi: "rest",
+  jsonrpc: "json",
+  htmlcss: "html",
+  versioncontrolgit: "git",
+  unittestingapexui: "unittesting",
+  // Hyperledger Fabric's name for its smart contracts.
+  chaincode: "hyperledger",
+  owaspzap: "owasp",
+  katalonteststudio: "katalon",
+  // Salesforce's own products carry the Salesforce cloud.
+  salesforcecommunities: "salesforce",
+  salesforceconnect: "salesforce",
+  deploymenttoolssalesforcedx: "salesforce",
+  appexchangepackagedevelopment: "salesforce",
+  lightningwebcomponentslwc: "salesforce",
+  auralightningcomponents: "salesforce",
+  visualforce: "salesforce",
 };
+
+/**
+ * Names that are practices, protocols or skills rather than products — "RAG",
+ * "Token creation", "Data Modeling". No brand owns them, so rather than the
+ * generic disc they get a purpose-drawn glyph in the band's accent. Consulted
+ * only after every brand case has missed, so a product can never be drawn as a
+ * concept. Keyed by the normalised name, like `ALIASES`.
+ */
+type Concept =
+  | "shield"
+  | "lock"
+  | "key"
+  | "idcard"
+  | "audit"
+  | "plug"
+  | "link"
+  | "card"
+  | "cart"
+  | "database"
+  | "migrate"
+  | "schema"
+  | "chart"
+  | "insight"
+  | "chat"
+  | "team"
+  | "training"
+  | "bulb"
+  | "doc"
+  | "checklist"
+  | "check"
+  | "flow"
+  | "clock"
+  | "deploy"
+  | "code"
+  | "bug"
+  | "layout"
+  | "architecture"
+  | "cloud"
+  | "network"
+  | "blocks"
+  | "broadcast"
+  | "realtime"
+  | "token"
+  | "coins"
+  | "sparkle"
+  | "tune"
+  | "agent"
+  | "retrieval"
+  | "building"
+  | "pose";
+
+const CONCEPTS: Record<string, Concept> = {
+  // AI
+  llms: "sparkle",
+  llmfinetuning: "tune",
+  agenticai: "agent",
+  rag: "retrieval",
+  ragpipelines: "retrieval",
+  vectordatabases: "database",
+  openpose: "pose",
+  // Security and compliance
+  aes: "lock",
+  endtoendencryption: "lock",
+  rsa: "key",
+  cryptographicprotocols: "key",
+  gdpr: "shield",
+  hipaacompliance: "shield",
+  securitypractices: "shield",
+  secureapis: "shield",
+  securityaudits: "audit",
+  kycamlintegration: "idcard",
+  // Blockchain
+  tokencreation: "token",
+  ico: "token",
+  erc20: "token",
+  erc721: "token",
+  erc1155: "token",
+  defi: "coins",
+  consensusalgorithms: "network",
+  peertopeernetworkdesign: "network",
+  microservices: "blocks",
+  michelson: "code",
+  websocket: "realtime",
+  websockets: "realtime",
+  // Integrations and commerce
+  thirdpartyintegrations: "plug",
+  externalsystemintegration: "plug",
+  webhooks: "link",
+  paymentgateways: "card",
+  customecommercesolutions: "cart",
+  erp: "building",
+  manualtestingtools: "checklist",
+  // Salesforce platform skills
+  apexprogramming: "code",
+  soqlsosl: "database",
+  datamanagement: "database",
+  datamigration: "migrate",
+  datamodeling: "schema",
+  dataanalyticsreporting: "chart",
+  flowbuilder: "flow",
+  processbuilder: "flow",
+  workflowtriggers: "flow",
+  businessprocessmapping: "flow",
+  approvalprocesses: "check",
+  validationrules: "check",
+  batchclassesscheduling: "clock",
+  changesets: "deploy",
+  debuglogserrorhandling: "bug",
+  userinterfaceuidesign: "layout",
+  solutionsystemdesign: "architecture",
+  cloudcomputingconcepts: "cloud",
+  multiorgstrategy: "network",
+  platformeventspubsub: "broadcast",
+  crmbestpractices: "checklist",
+  requirementsgathering: "checklist",
+  technicaldocumentation: "doc",
+  // Working skills
+  communication: "chat",
+  teamcollaboration: "team",
+  usertraining: "training",
+  problemsolving: "bulb",
+  analyticalthinking: "insight",
+};
+
+/** The concept glyphs: accent line icons on the 24-unit grid the marks use. */
+const CONCEPT_GLYPHS: Record<Concept, React.ReactNode> = {
+  shield: (
+    <>
+      <path d="M12 3l7 2.8V11c0 4.4-2.9 8-7 9.4C7.9 19 5 15.4 5 11V5.8L12 3z" />
+      <path d="M9 11.8l2.1 2.1 4-4.3" />
+    </>
+  ),
+  lock: (
+    <>
+      <rect x="5" y="10.5" width="14" height="9.5" rx="2" />
+      <path d="M8.2 10.5V8a3.8 3.8 0 0 1 7.6 0v2.5" />
+      <path d="M12 14.2v2.4" />
+    </>
+  ),
+  key: (
+    <>
+      <circle cx="8" cy="16" r="4" />
+      <path d="M10.9 13.1L19.5 4.5" />
+      <path d="M16.5 7.5l2.5 2.5" />
+      <path d="M14 10l2 2" />
+    </>
+  ),
+  idcard: (
+    <>
+      <rect x="3" y="5.5" width="18" height="13" rx="2" />
+      <circle cx="8.6" cy="10.8" r="2" />
+      <path d="M5.8 15.6c.6-1.4 1.6-2 2.8-2s2.2.6 2.8 2" />
+      <path d="M14 10h4M14 13.5h3" />
+    </>
+  ),
+  audit: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="M15.3 15.3L20.5 20.5" />
+      <path d="M7.8 10.6l1.9 1.9 3.3-3.5" />
+    </>
+  ),
+  plug: (
+    <>
+      <path d="M9 3v4M15 3v4" />
+      <path d="M6.5 7h11v3.5a5.5 5.5 0 0 1-11 0V7z" />
+      <path d="M12 16v5" />
+    </>
+  ),
+  link: (
+    <>
+      <path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1" />
+      <path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1" />
+    </>
+  ),
+  card: (
+    <>
+      <rect x="3" y="5.5" width="18" height="13" rx="2" />
+      <path d="M3 9.5h18" />
+      <path d="M6.5 14.5h4" />
+    </>
+  ),
+  cart: (
+    <>
+      <path d="M3 4h2.2l2.2 10.2h10.4L20 7.4H6.3" />
+      <circle cx="9" cy="18.6" r="1.4" />
+      <circle cx="16.4" cy="18.6" r="1.4" />
+    </>
+  ),
+  database: (
+    <>
+      <ellipse cx="12" cy="6" rx="7" ry="2.8" />
+      <path d="M5 6v12c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8V6" />
+      <path d="M5 12c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8" />
+    </>
+  ),
+  migrate: (
+    <>
+      <ellipse cx="8" cy="6" rx="4.5" ry="2" />
+      <path d="M3.5 6v10c0 1.1 2 2 4.5 2s4.5-.9 4.5-2V6" />
+      <path d="M3.5 11c0 1.1 2 2 4.5 2s4.5-.9 4.5-2" />
+      <path d="M14.5 15h6.5M18.3 12.3l2.7 2.7-2.7 2.7" />
+    </>
+  ),
+  schema: (
+    <>
+      <rect x="3" y="3.5" width="7" height="5" rx="1" />
+      <rect x="14" y="3.5" width="7" height="5" rx="1" />
+      <rect x="8.5" y="15.5" width="7" height="5" rx="1" />
+      <path d="M6.5 8.5V12h11V8.5M12 12v3.5" />
+    </>
+  ),
+  chart: (
+    <>
+      <path d="M4 4v16h16" />
+      <path d="M8.5 16v-4M12.5 16V8M16.5 16v-6" />
+    </>
+  ),
+  insight: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="M15.3 15.3L20.5 20.5" />
+      <path d="M8 12.8v-1.6M10.5 12.8V8.2M13 12.8V10" />
+    </>
+  ),
+  chat: (
+    <>
+      <path d="M4 5h16v11H10.5L6 19.5V16H4z" />
+      <path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01" strokeWidth="2.4" />
+    </>
+  ),
+  team: (
+    <>
+      <circle cx="9" cy="8.5" r="3" />
+      <path d="M3.5 19c.6-3 2.8-4.8 5.5-4.8s4.9 1.8 5.5 4.8" />
+      <circle cx="16.5" cy="9.5" r="2.4" />
+      <path d="M16.4 14.3c2.2.1 3.7 1.7 4.1 4.2" />
+    </>
+  ),
+  training: (
+    <>
+      <path d="M2.5 9L12 4.5 21.5 9 12 13.5z" />
+      <path d="M6.5 11v4.5c1.5 1.6 3.4 2.4 5.5 2.4s4-.8 5.5-2.4V11" />
+      <path d="M21.5 9v5" />
+    </>
+  ),
+  bulb: (
+    <>
+      <path d="M9 17.5h6M10 20.5h4" />
+      <path d="M8.5 14.5C7 13.3 6 11.6 6 9.6a6 6 0 0 1 12 0c0 2-1 3.7-2.5 4.9-.5.4-.5 1-.5 1.5V17H9v-1c0-.5 0-1.1-.5-1.5z" />
+    </>
+  ),
+  doc: (
+    <>
+      <path d="M6 3h8l4 4v14H6z" />
+      <path d="M14 3v4h4" />
+      <path d="M9 12h6M9 15.5h6" />
+    </>
+  ),
+  checklist: (
+    <>
+      <rect x="5" y="4.5" width="14" height="16.5" rx="2" />
+      <path d="M9 3h6v3H9z" />
+      <path d="M8.3 11l1.3 1.3 2.2-2.3M8.3 16l1.3 1.3 2.2-2.3M14 11.3h2M14 16.3h2" />
+    </>
+  ),
+  check: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M8.3 12.2l2.5 2.5 4.9-5.2" />
+    </>
+  ),
+  flow: (
+    <>
+      <rect x="3" y="3.5" width="6.5" height="5" rx="1" />
+      <rect x="14.5" y="15.5" width="6.5" height="5" rx="1" />
+      <path d="M6.25 8.5V16a2 2 0 0 0 2 2h6.25" />
+      <path d="M12 15.5l2.5 2.5-2.5 2.5" />
+      <path d="M9.5 6h5a3.25 3.25 0 0 1 3.25 3.25v6.25" />
+    </>
+  ),
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 7.5V12l3 2" />
+    </>
+  ),
+  deploy: (
+    <>
+      <path d="M12 15V4M8 8l4-4 4 4" />
+      <path d="M4 14v5a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 20 19v-5" />
+    </>
+  ),
+  code: <path d="M8.5 7L3.5 12l5 5M15.5 7l5 5-5 5M13.5 5l-3 14" />,
+  bug: (
+    <>
+      <rect x="7.5" y="7.5" width="9" height="12" rx="4.5" />
+      <path d="M9.5 7.5a2.5 2.5 0 0 1 5 0M12 11v8.5" />
+      <path d="M4 13h3.5M16.5 13H20M5 8.5l2.8 1.5M19 8.5l-2.8 1.5M5 18.5l2.8-1.8M19 18.5l-2.8-1.8" />
+    </>
+  ),
+  layout: (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M3 8.5h18M9 8.5V20" />
+    </>
+  ),
+  architecture: (
+    <>
+      <rect x="9" y="3" width="6" height="5" rx="1" />
+      <rect x="3" y="16" width="6" height="5" rx="1" />
+      <rect x="15" y="16" width="6" height="5" rx="1" />
+      <path d="M12 8v4M6 16v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" />
+    </>
+  ),
+  cloud: <path d="M7 18.5h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 9.1 4.7 4.7 0 0 0 7 18.5z" />,
+  network: (
+    <>
+      <circle cx="12" cy="5" r="2.2" />
+      <circle cx="5" cy="17" r="2.2" />
+      <circle cx="19" cy="17" r="2.2" />
+      <path d="M10.9 6.9L6.1 15.1M13.1 6.9l4.8 8.2M7.2 17h9.6" />
+    </>
+  ),
+  blocks: (
+    <>
+      <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" />
+      <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
+      <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />
+      <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" />
+    </>
+  ),
+  broadcast: (
+    <>
+      <circle cx="12" cy="12" r="2" />
+      <path d="M8.3 8.3a5.2 5.2 0 0 0 0 7.4M15.7 8.3a5.2 5.2 0 0 1 0 7.4M5.3 5.3a9.5 9.5 0 0 0 0 13.4M18.7 5.3a9.5 9.5 0 0 1 0 13.4" />
+    </>
+  ),
+  realtime: <path d="M4 9h15l-3.5-3.5M20 15H5l3.5 3.5" />,
+  token: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <circle cx="12" cy="12" r="4.8" />
+      <path d="M12 9.8v4.4" />
+    </>
+  ),
+  coins: (
+    <>
+      <circle cx="9" cy="9" r="5.5" />
+      <path d="M14.2 10.3a5.5 5.5 0 1 1-3.9 3.9" />
+      <path d="M9 7v4" />
+    </>
+  ),
+  sparkle: (
+    <>
+      <path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z" />
+      <path d="M18 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" />
+    </>
+  ),
+  tune: (
+    <>
+      <path d="M5 4v16M12 4v16M19 4v16" />
+      <circle cx="5" cy="14.5" r="2" fill="var(--accent)" />
+      <circle cx="12" cy="8.5" r="2" fill="var(--accent)" />
+      <circle cx="19" cy="12.5" r="2" fill="var(--accent)" />
+    </>
+  ),
+  agent: (
+    <>
+      <rect x="5" y="8" width="14" height="11" rx="3" />
+      <path d="M12 5v3" />
+      <circle cx="12" cy="3.8" r="1.2" />
+      <path d="M9.5 12.5v1.5M14.5 12.5v1.5" />
+      <path d="M2.8 12v3.5M21.2 12v3.5" />
+    </>
+  ),
+  retrieval: (
+    <>
+      <path d="M12 21H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7l4 4v3.5" />
+      <path d="M13 3v4h4" />
+      <circle cx="16.3" cy="16.3" r="3" />
+      <path d="M18.5 18.5L21 21" />
+    </>
+  ),
+  building: (
+    <>
+      <path d="M4 21V5.5L12 3v18M12 8.5l8 2.5v10M3 21h18" />
+      <path d="M7 8h2M7 11.5h2M7 15h2M15 13.5h2M15 17h2" />
+    </>
+  ),
+  pose: (
+    <>
+      <circle cx="12" cy="4.5" r="2" />
+      <path d="M12 7v7M12 9.5l-5-2M12 9.5l5 2.5M12 14l-3.5 6.5M12 14l3.5 6.5" />
+      <circle cx="7" cy="7.5" r=".9" fill="var(--accent)" />
+      <circle cx="17" cy="12" r=".9" fill="var(--accent)" />
+    </>
+  ),
+};
+
+function ConceptGlyph({ kind }: { kind: Concept }) {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="var(--accent)"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {CONCEPT_GLYPHS[kind]}
+    </svg>
+  );
+}
 
 export default function TechLogo({ name }: { name: string }) {
   /**
@@ -88,7 +543,9 @@ export default function TechLogo({ name }: { name: string }) {
    */
   const norm = name.toLowerCase().replace(/#/g, "sharp").replace(/[^a-z0-9]/g, "");
 
-  switch (ALIASES[norm] ?? norm) {
+  const key = ALIASES[norm] ?? norm;
+
+  switch (key) {
     case "mistral":
       // Stylized chevron orange/red M
       return (
@@ -2270,7 +2727,868 @@ export default function TechLogo({ name }: { name: string }) {
           <path d="M6.5 17V7h2l3.5 6 3.5-6h2v10h-1.9v-6.6L12.6 17h-1.2L8.4 10.4V17H6.5Z" fill="white" />
         </svg>
       );
-    default:
+    /* ----------------------------------------------------------------
+       Added for the hire-by-role technology bands ("update the missing
+       icons"): every product those stacks name that had no mark here.
+       ---------------------------------------------------------------- */
+    case "express":
+      // Express — its monochrome "ex" wordmark
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.8" y="1.8" width="20.4" height="20.4" rx="5" stroke="currentColor" strokeWidth="1.3" />
+          <path d="M5.4 12.4h5.2c0-1.9-1.1-3.1-2.6-3.1s-2.6 1.3-2.6 3.1 1.1 3.1 2.6 3.1c1 0 1.8-.5 2.3-1.3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M13 9.4l5.4 6.2M18.4 9.4L13 15.6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+      );
+    case "golang":
+      // Go — the cyan "GO" with its speed lines
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.5 9.8h3.6M.8 12.2h3.6M1.8 14.6h2.4" stroke="#00ADD8" strokeWidth="1.3" strokeLinecap="round" />
+          <path d="M13.3 9.7A3.6 3.6 0 1 0 14.1 12.4H11.2" stroke="#00ADD8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="19" cy="12" r="3.1" stroke="#00ADD8" strokeWidth="2" />
+        </svg>
+      );
+    case "cloudwatch":
+      // Amazon CloudWatch — AWS management pink tile, cloud under a lens
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="4" fill="#E7157B" />
+          <path d="M7.6 15.5h6.6a2.6 2.6 0 0 0 .4-5.2 3.9 3.9 0 0 0-7.4-.9 3.1 3.1 0 0 0 .4 6.1z" stroke="white" strokeWidth="1.4" strokeLinejoin="round" />
+          <circle cx="15.2" cy="15.2" r="2.3" fill="#E7157B" stroke="white" strokeWidth="1.4" />
+          <path d="M16.9 16.9l1.9 1.9" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+        </svg>
+      );
+    case "redux":
+      // Redux — the purple three-arm swirl
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#764ABC" />
+          <g stroke="white" strokeWidth="1.6" strokeLinecap="round">
+            <path d="M14.6 7.2c1.9 1.4 2.9 3.9 2.3 6.3" />
+            <path d="M15.6 16.2c-2 1.4-4.8 1.6-6.8.2" />
+            <path d="M7.2 14.4c-.7-2.3 0-4.9 1.9-6.4" />
+          </g>
+          <circle cx="12.6" cy="6.8" r="1.3" fill="white" />
+          <circle cx="17.4" cy="15" r="1.3" fill="white" />
+          <circle cx="7.4" cy="15.9" r="1.3" fill="white" />
+        </svg>
+      );
+    case "springboot":
+    case "spring":
+      // Spring Boot — the green hexagon with its power mark
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2l8.7 5v10L12 22l-8.7-5V7z" fill="#6DB33F" />
+          <path d="M9.2 9.3a4.3 4.3 0 1 0 5.6 0" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+          <path d="M12 7.2v5" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      );
+    case "tailwindcss":
+    case "tailwind":
+      // Tailwind CSS — the sky-blue double wave
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.91.23 1.57.89 2.29 1.62C13.67 10.62 15.03 12 18 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.91-.23-1.57-.89-2.29-1.62C16.34 6.18 14.98 4.8 12 4.8zM6 12c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.91.23 1.57.89 2.29 1.62C7.67 17.82 9.03 19.2 12 19.2c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.91-.23-1.57-.89-2.29-1.62C10.34 13.38 8.98 12 6 12z"
+            fill="#38BDF8"
+          />
+        </svg>
+      );
+    case "jest":
+      // Jest — the crimson "J" under its three dots
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="6.5" cy="4.6" r="2" fill="#C21325" />
+          <circle cx="12" cy="4.6" r="2" fill="#C21325" />
+          <circle cx="17.5" cy="4.6" r="2" fill="#C21325" />
+          <path d="M14.8 8.8v6.8a4 4 0 0 1-8 .4" stroke="#C21325" strokeWidth="2.6" strokeLinecap="round" />
+        </svg>
+      );
+    case "vite":
+      // Vite — the violet-to-blue chevron with its yellow bolt
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21.6 4.3L12.5 20.4c-.2.4-.8.4-1 0L2.4 4.3c-.2-.4.1-.9.6-.8L12 5.1l9-1.6c.5-.1.8.4.6.8z" fill={`url(#viteGrad-${uid})`} />
+          <path d="M15.9 2.4L9.4 3.7c-.1 0-.2.1-.2.2l-.4 6.8c0 .2.1.3.3.3l1.8-.4c.2 0 .3.1.3.3l-.5 2.6c0 .2.1.3.3.3l1.1-.3c.2 0 .3.1.3.3l-.8 4c-.1.3.3.4.4.2l.1-.1 4.4-8.8c.1-.2-.1-.4-.3-.3l-1.9.4c-.2 0-.3-.1-.3-.3l1.2-4.3c.1-.2-.1-.4-.3-.3z" fill="#FFC517" />
+          <defs>
+            <linearGradient id={`viteGrad-${uid}`} x1="2" y1="3" x2="14" y2="20" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#41D1FF" />
+              <stop offset="1" stopColor="#BD34FE" />
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+    case "vitest":
+      // Vitest — the green check struck through by Vite's yellow bolt
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.5 12.5l6 6L20.5 6" stroke="#729B1B" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M13.8 3.5L8.5 12h3.4l-1.6 7 5.6-9.2h-3.5l1.4-6.3z" fill="#FCC72B" />
+        </svg>
+      );
+    case "npm":
+      // npm — the white "n" in its red square
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="2" fill="#CB3837" />
+          <path d="M6 18V6h12v12h-3V9h-3v9H6z" fill="white" />
+        </svg>
+      );
+    case "yarn":
+      // Yarn — a wound ball on the package manager's blue
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#2C8EBB" />
+          <circle cx="12" cy="12" r="5.8" stroke="white" strokeWidth="1.5" />
+          <path d="M7.6 10.2c2.4-.2 5.8.8 8.4 3.8M9 16.6c.6-2.6 2.6-5.4 5.6-7.2M11 6.6c1.6 1.6 2.6 4.4 2.4 10.8" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
+        </svg>
+      );
+    case "pnpm":
+      // pnpm — its grid of amber and grey squares
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2.5" y="2.5" width="5.6" height="5.6" fill="#F9AD00" />
+          <rect x="9.2" y="2.5" width="5.6" height="5.6" fill="#F9AD00" />
+          <rect x="15.9" y="2.5" width="5.6" height="5.6" fill="#F9AD00" />
+          <rect x="15.9" y="9.2" width="5.6" height="5.6" fill="#F9AD00" />
+          <rect x="9.2" y="9.2" width="5.6" height="5.6" fill="#8A8A8A" />
+          <rect x="2.5" y="15.9" width="5.6" height="5.6" fill="#8A8A8A" />
+          <rect x="9.2" y="15.9" width="5.6" height="5.6" fill="#8A8A8A" />
+          <rect x="15.9" y="15.9" width="5.6" height="5.6" fill="#8A8A8A" />
+        </svg>
+      );
+    case "eslint":
+      // ESLint — the indigo nested hexagons
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2l8.7 5v10L12 22l-8.7-5V7z" fill="#4B32C3" />
+          <path d="M12 6.6l4.7 2.7v5.4L12 17.4l-4.7-2.7V9.3z" stroke="#8080F2" strokeWidth="1.8" strokeLinejoin="round" />
+        </svg>
+      );
+    case "prettier":
+      // Prettier — its staggered colour bars
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="1.5" width="21" height="21" rx="4" fill="#1A2B34" />
+          <g strokeWidth="1.8" strokeLinecap="round">
+            <path d="M5 6h7" stroke="#56B3B4" />
+            <path d="M15 6h4" stroke="#EA5E5E" />
+            <path d="M5 9.5h4" stroke="#BF85BF" />
+            <path d="M12 9.5h7" stroke="#F7BA3E" />
+            <path d="M5 13h9" stroke="#EA5E5E" />
+            <path d="M17 13h2" stroke="#56B3B4" />
+            <path d="M5 16.5h3" stroke="#F7BA3E" />
+            <path d="M11 16.5h5" stroke="#BF85BF" />
+          </g>
+        </svg>
+      );
+    case "storybook":
+      // Storybook — the pink book with its bookmark and white "S"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.2 3.4L18.6 2.5c.8 0 1.4.6 1.4 1.4v16.2c0 .8-.7 1.4-1.5 1.4l-14-.6c-.7 0-1.3-.6-1.3-1.3L3 4.7c0-.7.5-1.3 1.2-1.3z" fill="#FF4785" />
+          <path d="M15.2 2.7l.1 3 1.1-.8 1 .7-.1-3.1z" fill="white" />
+          <path d="M14.6 9.2c-.6-.6-1.6-.9-2.6-.9-1.5 0-2.5.7-2.5 1.8 0 2.7 5.4 1.4 5.4 4.2 0 1.3-1.2 2.2-2.9 2.2-1.3 0-2.4-.4-3.1-1.2" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      );
+    case "materialui":
+    case "mui":
+      // MUI — the blue faceted "M"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.5 4.2l7.3 4.2v3L4 8.6v8.8l-2.5-1.4z" fill="#007FFF" />
+          <path d="M8.8 8.4L16 4.2v3l-7.2 4.2z" fill="#007FFF" />
+          <path d="M16 9.6l2.5-1.4v8.2L11.3 20.6v-3l4.7-2.7z" fill="#007FFF" />
+          <path d="M20 4.9l2.5-1.4v3L20 7.9z" fill="#007FFF" />
+        </svg>
+      );
+    case "styledcomponents":
+      // styled-components — pink angle brackets round a polish bottle
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 6.5L2 12l5 5.5M17 6.5l5 5.5-5 5.5" stroke="#DB7093" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <rect x="10.8" y="5.5" width="2.4" height="4.2" rx=".6" fill="#DB7093" />
+          <rect x="9" y="10" width="6" height="8" rx="1.6" fill="#DB7093" />
+        </svg>
+      );
+    case "ngrx":
+      // NgRx — the purple Angular-family shield
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 5.5L4.5 18L12 22L19.5 18L21 5.5L12 2Z" fill="#BA2BD2" />
+          <path d="M12 2V22L19.5 18L21 5.5L12 2Z" fill="#8F1FA5" />
+          <path d="M8.8 16V8l6.4 8V8" stroke="white" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "pinia":
+      // Pinia — the smiling pineapple
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 7.6c-1-2.2-3-3.4-5-3.2 1.2.8 2.2 1.9 2.6 3.2M12 7.6c1-2.2 3-3.4 5-3.2-1.2.8-2.2 1.9-2.6 3.2M12 7.6V2.5" stroke="#52CE63" strokeWidth="1.8" strokeLinecap="round" />
+          <ellipse cx="12" cy="14.8" rx="6" ry="7" fill="#FFD859" />
+          <circle cx="9.8" cy="14" r="1" fill="#3E2A0B" />
+          <circle cx="14.2" cy="14" r="1" fill="#3E2A0B" />
+          <path d="M10.6 17c.9.7 1.9.7 2.8 0" stroke="#3E2A0B" strokeWidth="1.2" strokeLinecap="round" />
+        </svg>
+      );
+    case "zustand":
+      // Zustand — the bear
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="6" cy="6.5" r="3" fill="#8B5E3C" />
+          <circle cx="18" cy="6.5" r="3" fill="#8B5E3C" />
+          <circle cx="12" cy="13" r="8.5" fill="#8B5E3C" />
+          <ellipse cx="12" cy="15.6" rx="4" ry="3.2" fill="#D9B38C" />
+          <circle cx="8.8" cy="11" r="1.1" fill="#2B1D12" />
+          <circle cx="15.2" cy="11" r="1.1" fill="#2B1D12" />
+          <ellipse cx="12" cy="14.4" rx="1.5" ry="1.1" fill="#2B1D12" />
+        </svg>
+      );
+    case "rxjs":
+      // RxJS — the magenta disc with its coiled stream
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#B7178C" />
+          <path d="M17 9.6A5.4 5.4 0 1 0 15.9 16" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+          <circle cx="12" cy="12" r="2" stroke="white" strokeWidth="1.6" />
+        </svg>
+      );
+    case "reacttestinglibrary":
+    case "testinglibrary":
+      // Testing Library — the red goat
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 7.6C7.3 6.3 7.3 4 8.8 2.8M15 7.6c1.7-1.3 1.7-3.6.2-4.8" stroke="#E33332" strokeWidth="1.8" strokeLinecap="round" />
+          <path d="M8 8.8L4 10.6l4.2 1.2zM16 8.8l4 1.8-4.2 1.2z" fill="#E33332" />
+          <path d="M8 7.8h8l-1 7.6c-.3 2-1.6 3.4-3 3.4s-2.7-1.4-3-3.4z" fill="#E33332" />
+          <path d="M11 18.4l1 3.4 1-3.4z" fill="#E33332" />
+          <circle cx="10.2" cy="11.2" r="1" fill="white" />
+          <circle cx="13.8" cy="11.2" r="1" fill="white" />
+        </svg>
+      );
+    case "grpc":
+      // gRPC — teal badge with the lowercase "g"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" fill="#244C5A" />
+          <circle cx="11.2" cy="10.4" r="3.4" stroke="#6FD0D0" strokeWidth="1.9" />
+          <path d="M14.6 7v7.8a3.6 3.6 0 0 1-6.6 2" stroke="#6FD0D0" strokeWidth="1.9" strokeLinecap="round" />
+        </svg>
+      );
+    case "swagger":
+      // Swagger — the green disc with its navy braces
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#85EA2D" />
+          <path d="M9.4 6.8c-1.8 0-1.6 2.6-1.6 3.6S7.2 12 6.2 12c1 0 1.6.6 1.6 1.6s-.2 3.6 1.6 3.6M14.6 6.8c1.8 0 1.6 2.6 1.6 3.6s.6 1.6 1.6 1.6c-1 0-1.6.6-1.6 1.6s.2 3.6-1.6 3.6" stroke="#173647" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="10" cy="12" r=".9" fill="#173647" />
+          <circle cx="12" cy="12" r=".9" fill="#173647" />
+          <circle cx="14" cy="12" r=".9" fill="#173647" />
+        </svg>
+      );
+    case "openapi":
+      // OpenAPI Initiative — the green ring of linked nodes
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3a9 9 0 1 1-8.6 6.4" stroke="#6BA539" strokeWidth="2" strokeLinecap="round" />
+          <circle cx="5.4" cy="5.6" r="2" fill="#6BA539" />
+          <circle cx="12" cy="12" r="2.4" fill="#6BA539" />
+          <path d="M12 12L7 7M12 12h5M12 12v5" stroke="#6BA539" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+      );
+    case "openidconnect":
+    case "openid":
+      // OpenID — the orange stroke inside the grey arc
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.6 4.2l3-1.5v17.6l-3 1.5z" fill="#F78C40" />
+          <path d="M9.2 8.4C5 9.3 2.2 11.6 2.2 14.3c0 3 3.6 5.6 8.4 6.1v-1.9C7.4 18 5.2 16.3 5.2 14.3c0-1.8 1.6-3.3 4-4z" fill="#B2B2B2" />
+          <path d="M15 8.4c2 .3 3.8.9 5.1 1.8l-1.4 1 4.8 1-.5-4.3-1.3.8c-1.8-1.1-4.2-1.9-6.7-2.1z" fill="#B2B2B2" />
+        </svg>
+      );
+    case "nunit":
+      // NUnit — the green "nu" badge
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" fill="#3BB14A" />
+          <path d="M5.8 16.2v-5.6a2.4 2.4 0 0 1 4.8 0v5.6M13.4 8.4v5.2a2.4 2.4 0 0 0 4.8 0V8.4" stroke="white" strokeWidth="1.9" strokeLinecap="round" />
+        </svg>
+      );
+    case "azuredevops":
+      // Azure DevOps — the blue folded loop
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22 6.4v11l-4.6 3.8-7.1-2.6v2.6l-4-5.3 11.7.9V6.8zM18 7L11.4 3v2.6L5.3 7.4 3.4 9.9v5.6l2.6 1.2V9.5z" fill="#0078D7" />
+        </svg>
+      );
+    case "grafana":
+      // Grafana — the orange-to-yellow cog swirl
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke={`url(#grafanaGrad-${uid})`} strokeLinecap="round">
+            <circle cx="12" cy="12.5" r="6.2" strokeWidth="2.6" />
+            <path d="M12 2.5v2.6M12 19.9v2.1M2.8 12.5h2.5M18.7 12.5h2.5M5.2 5.7l1.8 1.8M17 17.5l1.8 1.8M18.8 5.7L17 7.5M7 17.5l-1.8 1.8" strokeWidth="2.2" />
+          </g>
+          <path d="M12 12.5h3.4" stroke="#F46800" strokeWidth="2" strokeLinecap="round" />
+          <defs>
+            <linearGradient id={`grafanaGrad-${uid}`} x1="12" y1="22" x2="12" y2="2.5" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#FCEE1F" />
+              <stop offset="1" stopColor="#F15B2A" />
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+    case "spacy":
+      // spaCy — its cyan badge with the lowercase "s"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" fill="#09A3D5" />
+          <path d="M15.4 9c-.7-.7-1.9-1.1-3.1-1.1-1.7 0-2.9.8-2.9 2 0 2.9 6.2 1.5 6.2 4.4 0 1.3-1.3 2.2-3.2 2.2-1.4 0-2.7-.5-3.5-1.3" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      );
+    case "mediapipe":
+      // MediaPipe — its teal stacked pipes
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="4.2" height="18" rx="2.1" fill="#0097A7" />
+          <rect x="9.9" y="3" width="4.2" height="11" rx="2.1" fill="#00BCD4" />
+          <rect x="9.9" y="16.6" width="4.2" height="4.4" rx="2.1" fill="#00BCD4" />
+          <rect x="16.8" y="3" width="4.2" height="4.4" rx="2.1" fill="#4DD0E1" />
+          <rect x="16.8" y="10" width="4.2" height="11" rx="2.1" fill="#4DD0E1" />
+        </svg>
+      );
+    case "keras":
+      // Keras — the white "K" on red
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="2" fill="#D00000" />
+          <path d="M8.2 6v12M8.2 12.6L15.6 6M10.8 10.4L16 18" stroke="white" strokeWidth="2.1" strokeLinecap="round" />
+        </svg>
+      );
+    case "nltk":
+      // NLTK — a Python-blue badge with its "N" over a text line
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" fill="#3776AB" />
+          <path d="M8 14.5V6.5l8 8v-8" stroke="white" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M7 18h10" stroke="#FFD43B" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      );
+    case "google":
+      // Google — the four-colour "G"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g strokeWidth="3.4">
+            <path d="M5.42 9.61A7 7 0 0 1 17.36 7.5" stroke="#EA4335" />
+            <path d="M5.94 15.5A7 7 0 0 1 5.42 9.61" stroke="#FBBC05" />
+            <path d="M17.36 16.5A7 7 0 0 1 5.94 15.5" stroke="#34A853" />
+            <path d="M19 12A7 7 0 0 1 17.36 16.5M12 12h7" stroke="#4285F4" />
+          </g>
+        </svg>
+      );
+    case "jasmine":
+      // Jasmine — the white flower on purple
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#8A4182" />
+          <path d="M12 5.5v4M12 14.5v4M5.5 12h4M14.5 12h4M7.4 7.4l2.8 2.8M13.8 13.8l2.8 2.8M16.6 7.4l-2.8 2.8M10.2 13.8l-2.8 2.8" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+          <circle cx="12" cy="12" r="1.6" fill="white" />
+        </svg>
+      );
+    case "cucumber":
+      // Cucumber — the green gherkin
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.5c5 0 8.5 3.8 8.5 8.6 0 4.5-3.3 7.9-7.4 8.5v2.4C7.4 21.2 3.5 17 3.5 11.1 3.5 6.3 7 2.5 12 2.5z" fill="#23D96C" />
+          <g fill="white">
+            <circle cx="9" cy="8" r="1.2" />
+            <circle cx="15" cy="8" r="1.2" />
+            <circle cx="12" cy="11.5" r="1.2" />
+            <circle cx="9" cy="15" r="1.2" />
+            <circle cx="15" cy="15" r="1.2" />
+          </g>
+        </svg>
+      );
+    case "specflow":
+      // SpecFlow — green badge with its "S" leaf
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10H2V12C2 6.5 6.5 2 12 2z" fill="#3DB54A" />
+          <path d="M15.2 9c-.7-.7-1.8-1.1-3-1.1-1.6 0-2.7.8-2.7 1.9 0 2.8 5.9 1.4 5.9 4.3 0 1.2-1.2 2.1-3 2.1-1.3 0-2.5-.5-3.3-1.2" stroke="white" strokeWidth="1.9" strokeLinecap="round" />
+        </svg>
+      );
+    case "katalon":
+      // Katalon — navy badge with its green "K"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" fill="#1E2A4A" />
+          <path d="M8.5 6.5v11M8.5 13l7-6.5M11.2 10.7l4.8 6.8" stroke="#35D07F" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "restassured":
+      // REST Assured — a green check inside API braces
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" fill="#5A9E3A" />
+          <path d="M7.6 6.5C5.8 6.5 6.3 12 4.8 12c1.5 0 1 5.5 2.8 5.5M16.4 6.5c1.8 0 1.3 5.5 2.8 5.5-1.5 0-1 5.5-2.8 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M9.2 12.2l2 2 3.6-4" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "soapui":
+      // SoapUI — the green bar of soap and its bubbles
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2.5" y="11" width="15" height="9" rx="3" fill="#6CB33F" />
+          <path d="M6 15.5h8" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
+          <circle cx="17.5" cy="6.5" r="3.2" stroke="#6CB33F" strokeWidth="1.6" />
+          <circle cx="11" cy="6" r="2" stroke="#6CB33F" strokeWidth="1.4" />
+          <circle cx="20.5" cy="12.5" r="1.3" stroke="#6CB33F" strokeWidth="1.2" />
+        </svg>
+      );
+    case "blazemeter":
+      // BlazeMeter — the orange flame
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2c.6 3.4 5.8 5.6 5.8 11.2A5.8 5.8 0 0 1 12 19a5.8 5.8 0 0 1-5.8-5.8c0-2.4 1.2-4.2 2.6-5.5 0 1.8.8 3 2 3.4C10.2 8.2 11 4.8 12 2z" fill="#FF6B00" />
+          <path d="M12 12.2c1.3 1.3 2.6 2.2 2.6 3.8a2.6 2.6 0 0 1-5.2 0c0-1.6 1.3-2.5 2.6-3.8z" fill="#FFC23D" />
+          <path d="M6 21.5h12" stroke="#FF6B00" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+      );
+    case "browserstack":
+      // BrowserStack — the many-coloured concentric eye
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#E8543C" />
+          <circle cx="12.4" cy="11.6" r="8" fill="#F4B400" />
+          <circle cx="12.8" cy="11.2" r="6.2" fill="#2BB673" />
+          <circle cx="13" cy="11" r="4.5" fill="#1D8FE1" />
+          <circle cx="13.2" cy="10.8" r="2.7" fill="#0B1A2A" />
+          <circle cx="14" cy="10" r=".9" fill="white" />
+        </svg>
+      );
+    case "owasp":
+      // OWASP — the wasp
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.3" />
+          <ellipse cx="8.4" cy="8.6" rx="3.2" ry="1.7" transform="rotate(-30 8.4 8.6)" stroke="currentColor" strokeWidth="1.2" />
+          <ellipse cx="15.6" cy="8.6" rx="3.2" ry="1.7" transform="rotate(30 15.6 8.6)" stroke="currentColor" strokeWidth="1.2" />
+          <circle cx="12" cy="8.4" r="1.8" fill="currentColor" />
+          <path d="M12 10.4c1.8 0 2.4 1.6 2.4 3.6 0 2.4-1.2 4.3-2.4 5.6-1.2-1.3-2.4-3.2-2.4-5.6 0-2 .6-3.6 2.4-3.6z" fill="currentColor" />
+          <path d="M10 13.2h4M10.1 15.6h3.8" stroke="var(--surface, #111)" strokeWidth="1" />
+        </svg>
+      );
+    case "openstack":
+      // OpenStack — the red split square
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 9.5V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4.5h-4.2V7.2H7.2v2.3z" fill="#ED1944" />
+          <path d="M3 14.5V19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4.5h-4.2v2.3H7.2v-2.3z" fill="#ED1944" />
+          <path d="M3 11h4.2v2H3zM16.8 11H21v2h-4.2z" fill="#ED1944" />
+        </svg>
+      );
+    case "cloudfoundry":
+      // Cloud Foundry — the blue cloud badge
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" fill="#0C9ED5" />
+          <path d="M8 16.5h8.2a3 3 0 0 0 .4-6 4.5 4.5 0 0 0-8.6-1A3.5 3.5 0 0 0 8 16.5z" fill="white" />
+          <path d="M11 12.8h3" stroke="#0C9ED5" strokeWidth="1.4" strokeLinecap="round" />
+        </svg>
+      );
+    case "qasymphony":
+      // QASymphony — its teal "Q" badge
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" fill="#00A79D" />
+          <circle cx="11.6" cy="11.6" r="4.6" stroke="white" strokeWidth="1.9" />
+          <path d="M14 14l3.4 3.4" stroke="white" strokeWidth="1.9" strokeLinecap="round" />
+        </svg>
+      );
+    case "resharper":
+      // ReSharper — JetBrains' gradient frame round a black "R#" tile
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="2" fill={`url(#resharperGrad-${uid})`} />
+          <rect x="5" y="5" width="14" height="14" fill="#000" />
+          <path d="M7.2 14V8h2.2a1.7 1.7 0 0 1 0 3.4H7.2M9.3 11.4l1.6 2.6" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M13.2 8.4v5.2M15.6 8.4v5.2M12.4 10h4.2M12.4 12h4.2" stroke="white" strokeWidth="1.1" strokeLinecap="round" />
+          <path d="M7.2 16.6h5" stroke="white" strokeWidth="1.2" />
+          <defs>
+            <linearGradient id={`resharperGrad-${uid}`} x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#C21456" />
+              <stop offset=".5" stopColor="#E14CE3" />
+              <stop offset="1" stopColor="#FDBC2C" />
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+    case "saucelabs":
+      // Sauce Labs — the white bolt on red
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#E2231A" />
+          <path d="M13.4 5L8 13h3.4l-1 6 5.6-8.2h-3.5z" fill="white" />
+        </svg>
+      );
+    case "testrail":
+      // TestRail — the green "T" over its rails
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" fill="#65C179" />
+          <path d="M7 7.5h10M12 7.5v9.5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <path d="M6.5 12.5h3M14.5 12.5h3M6.5 16.5h3M14.5 16.5h3" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+        </svg>
+      );
+    case "sonarqube":
+      // SonarQube — the blue sonar arcs
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#4E9BCD" strokeLinecap="round">
+            <path d="M3 5.5c8 0 15 6 15.6 15" strokeWidth="2.2" />
+            <path d="M5.5 3c7.5 1.2 13 6.4 14.6 12.6" strokeWidth="1.6" />
+            <path d="M11 2.6c4.4 1.4 8 4.8 9.6 8.8" strokeWidth="1.2" />
+          </g>
+        </svg>
+      );
+    case "meteor":
+      // Meteor — the red streaking comet
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#DE4F4F" strokeLinecap="round">
+            <path d="M3 3l13 13" strokeWidth="2.2" />
+            <path d="M8 3.5l9 9M3.5 8l9 9" strokeWidth="1.5" />
+            <path d="M12.5 3.8l5.4 5.4M3.8 12.5l5.4 5.4" strokeWidth="1" />
+          </g>
+          <circle cx="17.8" cy="17.8" r="3.4" fill="#DE4F4F" />
+        </svg>
+      );
+    case "appdynamics":
+      // AppDynamics — the blue ring with its rising arc
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#0AAAE3" />
+          <path d="M7 16.5a5.5 5.5 0 1 1 10 0" stroke="white" strokeWidth="1.9" strokeLinecap="round" />
+          <path d="M12 16.5l2.6-5" stroke="white" strokeWidth="1.9" strokeLinecap="round" />
+          <circle cx="12" cy="16.5" r="1.3" fill="white" />
+        </svg>
+      );
+    case "sensu":
+      // Sensu — the green nested rings
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#89C967" />
+          <circle cx="12" cy="12" r="6" stroke="white" strokeWidth="1.8" />
+          <circle cx="12" cy="12" r="2.4" fill="white" />
+        </svg>
+      );
+    case "objectivec":
+      // Objective-C — message-send brackets round a "C"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" fill="#438EFF" />
+          <path d="M7.5 6.5H5.5v11h2M16.5 6.5h2v11h-2" stroke="white" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M14.2 9.6a3 3 0 1 0 0 4.8" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      );
+    case "wordpress":
+      // WordPress — the "W" in its ringed blue disc
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#21759B" />
+          <circle cx="12" cy="12" r="8" stroke="white" strokeWidth="1.1" />
+          <path d="M6.8 8.6l2.6 7.6 2.6-6.1 2.6 6.1 2.6-7.6" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "ethereum":
+      // Ethereum — the white octahedron on its violet coin
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#627EEA" />
+          <path d="M12 4v5.9l5 2.2z" fill="white" fillOpacity=".6" />
+          <path d="M12 4l-5 8.1 5-2.2z" fill="white" />
+          <path d="M12 16v4l5-7z" fill="white" fillOpacity=".6" />
+          <path d="M12 20v-4l-5-3z" fill="white" />
+          <path d="M12 15.1l5-3-5-2.2z" fill="white" fillOpacity=".2" />
+          <path d="M7 12.1l5 3V9.9z" fill="white" fillOpacity=".6" />
+        </svg>
+      );
+    case "hyperledger":
+      // Hyperledger — slate badge with a ledger-bar "H"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" fill="#2F3134" stroke="#5A5E63" strokeWidth="1" />
+          <path d="M8 6.5v11M16 6.5v11M8 12h8" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <path d="M10.5 8.5h3M10.5 15.5h3" stroke="#2F9FD8" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+      );
+    case "solana":
+      // Solana — the three gradient bars
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g fill={`url(#solanaGrad-${uid})`}>
+            <path d="M6.5 4h15l-4 4h-15z" />
+            <path d="M2.5 10h15l4 4h-15z" />
+            <path d="M6.5 16h15l-4 4h-15z" />
+          </g>
+          <defs>
+            <linearGradient id={`solanaGrad-${uid}`} x1="3" y1="20" x2="21" y2="4" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#9945FF" />
+              <stop offset="1" stopColor="#14F195" />
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+    case "eos":
+      // EOS — the faceted gem outline
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L6.5 9.5 4.5 16 12 22l7.5-6-2-6.5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+          <path d="M12 2l-3 16.5L12 22l3-3.5zM6.5 9.5L15 18.5M17.5 9.5L9 18.5M4.5 16h15" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" />
+        </svg>
+      );
+    case "polkadot":
+      // Polkadot — the pink ring of six dots
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#E6007A">
+            <ellipse cx="12" cy="4" rx="3.2" ry="2" />
+            <ellipse cx="12" cy="20" rx="3.2" ry="2" />
+            <ellipse cx="5.1" cy="8" rx="3.2" ry="2" transform="rotate(-60 5.1 8)" />
+            <ellipse cx="18.9" cy="16" rx="3.2" ry="2" transform="rotate(-60 18.9 16)" />
+            <ellipse cx="5.1" cy="16" rx="3.2" ry="2" transform="rotate(60 5.1 16)" />
+            <ellipse cx="18.9" cy="8" rx="3.2" ry="2" transform="rotate(60 18.9 8)" />
+          </g>
+        </svg>
+      );
+    case "cardano":
+      // Cardano — the dotted rings on its blue coin
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#0033AD" />
+          <g fill="white">
+            <circle cx="12" cy="8.2" r="1.3" />
+            <circle cx="12" cy="15.8" r="1.3" />
+            <circle cx="8.7" cy="10.1" r="1.3" />
+            <circle cx="15.3" cy="10.1" r="1.3" />
+            <circle cx="8.7" cy="13.9" r="1.3" />
+            <circle cx="15.3" cy="13.9" r="1.3" />
+            <circle cx="12" cy="4.6" r=".8" />
+            <circle cx="12" cy="19.4" r=".8" />
+            <circle cx="5.6" cy="8.3" r=".8" />
+            <circle cx="18.4" cy="8.3" r=".8" />
+            <circle cx="5.6" cy="15.7" r=".8" />
+            <circle cx="18.4" cy="15.7" r=".8" />
+          </g>
+        </svg>
+      );
+    case "solidity":
+      // Solidity — the stacked faceted diamonds
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L7.5 9.2 12 11.8z" fill="currentColor" fillOpacity=".85" />
+          <path d="M12 2l4.5 7.2L12 11.8z" fill="currentColor" fillOpacity=".5" />
+          <path d="M12 22l4.5-7.2L12 12.2z" fill="currentColor" fillOpacity=".85" />
+          <path d="M12 22l-4.5-7.2L12 12.2z" fill="currentColor" fillOpacity=".5" />
+        </svg>
+      );
+    case "rust":
+      // Rust — the "R" inside its cog
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9.3" stroke="currentColor" strokeWidth="2.4" strokeDasharray="1.6 1.32" />
+          <circle cx="12" cy="12" r="7.6" stroke="currentColor" strokeWidth="1.3" />
+          <path d="M8.6 16.2V7.8h3.8a2.2 2.2 0 0 1 0 4.4H8.6M12.4 12.2l2.8 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "vyper":
+      // Vyper — the nested "V" chevrons
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 4l9 16 9-16" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+          <path d="M7.5 4L12 12l4.5-8" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+        </svg>
+      );
+    case "web3js":
+    case "web3":
+      // web3.js — the orange isometric cube
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2l8.7 5L12 12 3.3 7z" fill="#F7A45D" />
+          <path d="M3.3 7L12 12v10l-8.7-5z" fill="#F16822" />
+          <path d="M20.7 7L12 12v10l8.7-5z" fill="#C6501A" />
+        </svg>
+      );
+    case "truffle":
+      // Truffle — the chocolate truffle with its teal drizzle
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 16.5c0-5.5 4-10 9-10s9 4.5 9 10c0 2.2-4 3.5-9 3.5s-9-1.3-9-3.5z" fill="#5E464D" />
+          <path d="M5.8 11.5c1.6 1.2 3 1.2 4.4 0s2.8-1.2 4.2 0 2.6 1.2 3.8 0" stroke="#3FE0C5" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+      );
+    case "hardhat":
+      // Hardhat — the yellow hard hat
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 15.5a8 8 0 0 1 16 0z" fill="#FFF100" />
+          <path d="M10.6 7.6h2.8v7.9h-2.8z" fill="#EDCF00" />
+          <rect x="2.2" y="15.5" width="19.6" height="2.6" rx="1.3" fill="#EDCF00" />
+        </svg>
+      );
+    case "mocha":
+      // Mocha — the coffee cup on its brown disc
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#8D6748" />
+          <path d="M6.5 10.5h9v3a4 4 0 0 1-4 4h-1a4 4 0 0 1-4-4z" fill="white" />
+          <path d="M15.5 11.3h1a1.9 1.9 0 0 1 0 3.8h-1.2" stroke="white" strokeWidth="1.3" />
+          <path d="M9.5 8.4c0-.9.9-.9.9-1.8M12.5 8.4c0-.9.9-.9.9-1.8" stroke="white" strokeWidth="1.1" strokeLinecap="round" />
+        </svg>
+      );
+    case "chai":
+      // Chai — the teacup on its brick-red disc
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#A30701" />
+          <path d="M6.5 9.5h9c0 3.6-1.8 6-4.5 6s-4.5-2.4-4.5-6z" fill="white" />
+          <path d="M15.3 10.5h.9a1.6 1.6 0 0 1 0 3.2h-1.4" stroke="white" strokeWidth="1.2" />
+          <path d="M5.5 17h11" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+        </svg>
+      );
+    case "salesforce":
+      // Salesforce — the sky-blue cloud
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 6.4a4 4 0 0 1 6.4.9 4.4 4.4 0 0 1 5.6 4.3 4.5 4.5 0 0 1-5.5 4.4 3.6 3.6 0 0 1-5 1.5 4.2 4.2 0 0 1-7.7-.4A3.8 3.8 0 0 1 2 10a3.9 3.9 0 0 1 5.4-3.6A3.9 3.9 0 0 1 10 6.4z" fill="#00A1E0" />
+        </svg>
+      );
+    case "sap":
+      // SAP — the white wordmark on its blue wedge
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.5 6h21L12 18H1.5z" fill={`url(#sapGrad-${uid})`} />
+          <g stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 9.1c-.3-.3-.8-.5-1.3-.5-.7 0-1.2.4-1.2.9 0 1.3 2.7.7 2.7 2.2 0 .6-.6 1.1-1.4 1.1-.6 0-1.2-.2-1.5-.6" />
+            <path d="M7.1 13l1.5-4.4 1.5 4.4M7.6 11.6h2" />
+            <path d="M11.4 13V8.6h1.3a1.3 1.3 0 0 1 0 2.6h-1.3" />
+          </g>
+          <defs>
+            <linearGradient id={`sapGrad-${uid}`} x1="12" y1="6" x2="12" y2="18" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#00B8F1" />
+              <stop offset="1" stopColor="#1E5FBB" />
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+    case "workday":
+      // Workday — the orange sun arc over the blue "w"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.2 9.2a5.8 5.8 0 0 1 11.6 0" stroke="#F38B00" strokeWidth="2.2" strokeLinecap="round" />
+          <path d="M3.8 11.5l3.2 7.5 5-6.6 5 6.6 3.2-7.5" stroke="#0875E1" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "microsoftteams":
+    case "teams":
+      // Microsoft Teams — the "T" tile with its person
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18.2" cy="6.8" r="2.4" fill="#7B83EB" />
+          <rect x="14.5" y="10" width="7.5" height="8.5" rx="2.5" fill="#7B83EB" />
+          <circle cx="11" cy="5" r="2.6" fill="#5059C9" />
+          <rect x="2" y="7" width="13" height="13" rx="2" fill="#5059C9" />
+          <path d="M5.5 10.5h6M8.5 10.5v6.5" stroke="white" strokeWidth="1.9" strokeLinecap="round" />
+        </svg>
+      );
+    case "linear":
+      // Linear — the indigo disc with its diagonal speed cuts
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#5E6AD2" />
+          <path d="M2.8 13.6l7.6 7.6M2.3 10.3l11.4 11.4M3.3 7.1l13.6 13.6" stroke="var(--surface, #0B0B0F)" strokeWidth="1.1" />
+        </svg>
+      );
+    case "shopify":
+      // Shopify — the green shopping bag with its "S"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 7.5V6a3 3 0 0 1 6 0v1.5" stroke="#5E8E3E" strokeWidth="1.6" />
+          <path d="M5 7.5h14l-1.2 13.5H6.2z" fill="#95BF47" />
+          <path d="M14 11c-.5-.5-1.2-.7-2-.7-1 0-1.8.6-1.8 1.4 0 1.9 3.8 1 3.8 3 0 .9-.8 1.5-2 1.5-.9 0-1.6-.3-2.1-.8" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+      );
+    case "magento":
+      // Magento — the orange hexagonal "M"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3.5 7v10l2.6 1.5V8.5L12 5.1l5.9 3.4v10L20.5 17V7z" fill="#EE672F" />
+          <path d="M12 8.6l-2.6 1.5v10.3L12 22l2.6-1.6V10.1z" fill="#EE672F" />
+        </svg>
+      );
+    case "woocommerce":
+      // WooCommerce — the purple speech bubble with "woo"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="4.5" width="21" height="12.5" rx="3" fill="#7F54B3" />
+          <path d="M13.5 16.5l4 3.8-.4-3.8z" fill="#7F54B3" />
+          <path d="M4.2 8.6l1.3 5.2 1.8-3.6 1.8 3.6 1.3-5.2" stroke="white" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="13.9" cy="11.5" r="1.7" stroke="white" strokeWidth="1.3" />
+          <circle cx="18.4" cy="11.5" r="1.7" stroke="white" strokeWidth="1.3" />
+        </svg>
+      );
+    case "bigcommerce":
+      // BigCommerce — the dark tile with its white "B"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="4" fill="#121118" stroke="#3F3F46" strokeWidth="1" />
+          <path d="M8 6.5h4.4c1.8 0 2.9.9 2.9 2.4 0 1-.5 1.7-1.4 2 1.1.3 1.8 1.1 1.8 2.4 0 1.7-1.3 2.7-3.2 2.7H8z" fill="white" />
+          <path d="M16.5 21.5L21.5 16.5v5z" fill="white" />
+        </svg>
+      );
+    case "eclipse":
+      // Eclipse — the striped violet disc with its orange crescent
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#F7941E" />
+          <circle cx="13.4" cy="12" r="8.6" fill="#2C2255" />
+          <path d="M6.2 10.6h14M6.2 13.4h14" stroke="white" strokeWidth="1.3" />
+        </svg>
+      );
+    case "jetpackcompose":
+      // Jetpack Compose — the layered hexagon
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2l8.7 5v10L12 22l-8.7-5V7z" fill="#073042" />
+          <path d="M12 5.6l5.6 3.2L12 12 6.4 8.8z" fill="#4285F4" />
+          <path d="M6.4 8.8L12 12v6.4l-5.6-3.2z" fill="#3DDC84" />
+          <path d="M17.6 8.8L12 12v6.4l5.6-3.2z" fill="#3DDC84" fillOpacity=".6" />
+        </svg>
+      );
+    case "nativescript":
+      // NativeScript — the white "N" on its light-blue tile
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" fill="#65ADF1" />
+          <path d="M8 17V7l8 10V7" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "mcp":
+    case "modelcontextprotocol":
+      // Model Context Protocol — the interlinked strokes
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3.5 11.3l7.7-7.7a2.7 2.7 0 0 1 3.8 3.8L9.2 13.2" />
+            <path d="M9.3 13.1L15 7.4a2.7 2.7 0 0 1 3.8 3.8l-6.7 6.7a.9.9 0 0 0 0 1.3l1.5 1.5" />
+            <path d="M13.1 5.5L7.4 11.2a2.7 2.7 0 0 0 3.8 3.8l5.7-5.7" />
+          </g>
+        </svg>
+      );
+    default: {
+      const concept = CONCEPTS[key];
+      if (concept) return <ConceptGlyph kind={concept} />;
       // Generic database/cloud icon
       return (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2278,5 +3596,6 @@ export default function TechLogo({ name }: { name: string }) {
           <circle cx="12" cy="12" r="4" fill="white" />
         </svg>
       );
+    }
   }
 }

@@ -37,9 +37,15 @@ export function heroForm(args: {
   return {
     eyebrow: '40-Hour Risk-Free Trial',
     title: args.title,
-    note: 'Alert: this form is for business, not candidates. To apply for jobs, see our careers page.',
+    // An H2 on every live role page, so part of the page outline here too.
+    titleAs: 'h2',
+    // The live form's own wording, with its "click here" to the careers page
+    // (review: "Need to re-check the forms and its content").
+    note: 'Alert: This form is for business, not candidates. To apply for jobs,',
+    noteLink: { label: 'click here', href: '/career-overview' },
     submit: 'Start My FREE Trial',
-    sending: 'Opening your mail…',
+    // The form POSTs to /api/v1/enquiry; it no longer opens a mail client.
+    sending: 'Sending...',
     requirementLabel: args.requirementLabel,
     requirementPlaceholder: args.requirementPlaceholder,
     subject: args.subject,

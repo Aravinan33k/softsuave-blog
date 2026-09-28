@@ -44,7 +44,7 @@ export const salesforce: HireRolePageContent = {
   meta: {
     title: 'Hire Salesforce Developers | 40-Hr Trial – Soft Suave',
     description:
-      'Hire pre-vetted Salesforce developers skilled in Apex, Lightning Web Components, Sales Cloud and Service Cloud customization, matched within 48 hours.',
+      'Hire Salesforce developers from Soft Suave for expert solutions. Benefit from flexible hiring models, a 40-hour trial, and world-class support.',
   },
 
   hero: {
@@ -310,6 +310,12 @@ export const salesforce: HireRolePageContent = {
     eyebrow: 'FAQs',
     title: 'FAQs About Hiring Salesforce Developers',
     body: 'Find answers to your most frequent questions on hiring Salesforce developers.',
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: '40-hour risk-free trial', href: '/contact' },
+    ],
     items: [
       {
         q: 'How much does it cost to hire a Salesforce developer?',

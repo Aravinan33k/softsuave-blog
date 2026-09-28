@@ -139,13 +139,17 @@ export default function TechStack({
 
       <div ref={root} className={styles.stackList}>
         {content.groups.map((group) => (
-          <div key={group.name} className={styles.stackGroup}>
-            <div className={styles.stackGroupHead}>
-              {/* An icon picked from the group's name, not a "01" ordinal: the
-                  Sep corrections review asked for icons in place of numbers. */}
-              <CardIconBadge title={group.name} size="sm" className={styles.stackGroupIndex} />
-              <h3 className={styles.stackGroupName}>{group.name}</h3>
-            </div>
+          <div key={group.name || "list"} className={styles.stackGroup}>
+            {/* A nameless group is one flat list under the section heading (the
+                QA page's label-only bands) — no head row to invent. */}
+            {group.name && (
+              <div className={styles.stackGroupHead}>
+                {/* An icon picked from the group's name, not a "01" ordinal: the
+                    Sep corrections review asked for icons in place of numbers. */}
+                <CardIconBadge title={group.name} size="sm" className={styles.stackGroupIndex} />
+                <h3 className={styles.stackGroupName}>{group.name}</h3>
+              </div>
+            )}
 
             <ul className={styles.stackItems}>
               {group.items.map((item) => (

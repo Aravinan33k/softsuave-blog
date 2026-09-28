@@ -45,7 +45,7 @@ export const ai: HireRolePageContent = {
   meta: {
     title: 'Hire AI Developers India for Generative AI Development',
     description:
-      'Hire pre-vetted AI developers in India for Generative AI, LLMs, NLP, machine learning, computer vision, chatbots, and automation. 40-hour risk-free trial.',
+      'Hire AI developers India with expertise in generative AI. Start with a 40-hour free trial, risk-free, and build scalable, intelligent solutions.',
   },
 
   hero: {
@@ -246,6 +246,13 @@ export const ai: HireRolePageContent = {
     eyebrow: 'FAQs',
     title: 'FAQs About Hiring AI Developers',
     body: 'Learn more about our procedures & methods with the help of these FAQs.',
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: '40-hour trial', href: '/contact' },
+      { text: 'fully managed service models', href: '/it-staff-augmentation-services' },
+    ],
     items: [
       {
         q: 'How much does it cost to hire AI developer?',

@@ -48,7 +48,7 @@ export const software: HireRolePageContent = {
   meta: {
     title: 'Hire Software Developers from India | Remote & Dedicated Teams',
     description:
-      'Hire experienced software developers from India, matched to your technology stack, project requirements, and team needs. 40-hour risk-free trial.',
+      'Access software developers from India for global teams. Hire remote, dedicated, or offshore talent with a 40-hour risk-free trial.',
   },
 
   hero: {
@@ -87,7 +87,7 @@ export const software: HireRolePageContent = {
     eyebrow: 'Start With a Trial',
     title: 'Hire the Right Software Developer with a 40-Hour Trial',
     body: 'Evaluate your developer through real project work and assess technical execution, communication, responsiveness, and team compatibility before extending the engagement.',
-    cta: { label: 'Start Your 40-Hour Trial', href: '#enquiry' },
+    cta: { label: 'Start Your 40-Hour Trial', href: '/contact' },
   },
 
   globalDelivery: {
@@ -297,6 +297,14 @@ export const software: HireRolePageContent = {
     eyebrow: 'Ask Us',
     title: 'Frequently Asked Questions About Hiring Developers',
     body: 'Find clear answers to common questions about hiring software developers and what to expect before starting an engagement.',
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: 'Dedicated software developers', href: '/hire-dedicated-developers' },
+      { text: 'modernization programs', href: '/legacy-modernization-services' },
+      { text: 'Offshore hiring', href: '/offshore-software-development-company' },
+    ],
     items: [
       {
         q: 'How much does it cost to hire a software developer?',

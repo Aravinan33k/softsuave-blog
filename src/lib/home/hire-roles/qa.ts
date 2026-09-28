@@ -57,7 +57,7 @@ export const qa: HireRolePageContent = {
   meta: {
     title: 'Hire QA Testers in India | 40-Hour Trial – Soft Suave',
     description:
-      'Hire pre-vetted QA testers skilled in manual and automation testing — Selenium, Appium, Postman, JMeter — placed on your team within 48 hours, from $14/hour.',
+      'Hire pre-vetted QA testers for manual & automation testing (Selenium, Appium). Onboard in 48 hours with a 40-hour risk-free trial. Rates from $14/hr.',
   },
 
   hero: {
@@ -157,7 +157,7 @@ export const qa: HireRolePageContent = {
     eyebrow: 'Rates',
     title: 'Hire Software QA Engineer Starting from $14/hour',
     body: 'We will provide you with remote QA testers that work from India. Contact us to take a look at CVs.',
-    cta: { label: 'Request Rate Card', href: '#enquiry' },
+    cta: { label: 'Request Rate Card', href: '/contact' },
   },
 
   process: {
@@ -327,6 +327,13 @@ export const qa: HireRolePageContent = {
     eyebrow: 'FAQs',
     title: 'Frequently Asked Questions',
     body: 'Learn more about the benefits of hiring QA engineers in India from Soft Suave',
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: '40-hour risk-free trial', href: '/contact' },
+      { text: 'Outsourcing QA testing', href: '/it-outsourcing-company-india' },
+    ],
     items: [
       {
         q: 'How much does it cost to hire a QA tester from Soft Suave?',

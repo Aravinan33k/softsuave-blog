@@ -325,6 +325,16 @@
   color: var(--accent);
 }
 
+/* --- hero CTA row: the "Start Trial" / "Book a Meeting" pair, separate
+   from the enquiry form beside it (same spacing as landing/hero) --- */
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 18px);
+  margin: clamp(26px, 3vw, 38px) 0 0;
+}
+
 /* ============================================================
    HERO ENQUIRY FORM
    ============================================================ */
@@ -558,7 +568,10 @@
    photo is bright enough to punch through the scrim behind the copy. */
 .psPanelMedia img {
   object-fit: cover;
-  filter: contrast(1.05) brightness(0.82);
+  /* Dimmer than the photo cards: this panel carries a paragraph, not a
+     one-line caption (review: "Practical Evaluation — low content
+     visibility"). */
+  filter: contrast(1.05) brightness(0.62);
 }
 
 /* Fixed scrim rather than a per-image one: contrast then does not depend on
@@ -572,9 +585,11 @@
   position: absolute;
   inset: 0;
   z-index: 1;
+  /* Solid behind the copy band across the full width, easing off only below
+     it — the body used to run past the 55% mark into artwork at .6. */
   background:
-    linear-gradient(100deg, rgba(4, 5, 8, 0.9) 0%, rgba(4, 5, 8, 0.62) 55%, rgba(4, 5, 8, 0.3) 100%),
-    linear-gradient(180deg, rgba(4, 5, 8, 0.72) 0%, rgba(4, 5, 8, 0.4) 55%, rgba(4, 5, 8, 0) 74%, rgba(4, 5, 8, 0.6) 100%);
+    linear-gradient(100deg, rgba(4, 5, 8, 0.92) 0%, rgba(4, 5, 8, 0.78) 60%, rgba(4, 5, 8, 0.5) 100%),
+    linear-gradient(180deg, rgba(4, 5, 8, 0.85) 0%, rgba(4, 5, 8, 0.7) 45%, rgba(4, 5, 8, 0.2) 80%, rgba(4, 5, 8, 0.6) 100%);
 }
 
 .psPanelBody {
@@ -600,7 +615,7 @@
   margin: 14px 0 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+  font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
@@ -611,9 +626,11 @@
   margin: 12px 0 0;
   padding-top: 12px;
   border-top: 1px solid var(--line);
-  font-size: clamp(0.92rem, 1.02vw, 1.02rem);
+  /* The surface's body size (18px ceiling), up from 15–16px: the one
+     paragraph this panel exists to show. */
+  font-size: var(--fs-body);
   line-height: 1.68;
-  color: var(--text);
+  color: var(--text-bright);
   text-shadow: 0 1px 8px rgba(4, 5, 8, 0.75);
 }
 
@@ -814,15 +831,20 @@
   z-index: 30;
 }
 
+/* Neighbours step back by scale and a slight dim, not by transparency: at
+   .8 opacity a dark photo card over the warm-white band washed out to grey
+   and took its copy's contrast with it. */
 .svcSlide[data-pos="prev"] {
   transform: translate3d(-104%, 26px, 0) scale(0.93);
-  opacity: 0.8;
+  opacity: 1;
+  filter: brightness(0.9);
   z-index: 20;
 }
 
 .svcSlide[data-pos="next"] {
   transform: translate3d(104%, 26px, 0) scale(0.93);
-  opacity: 0.8;
+  opacity: 1;
+  filter: brightness(0.9);
   z-index: 20;
 }
 
@@ -869,13 +891,22 @@
   display: grid;
   align-content: end;
   padding: clamp(46px, 5vw, 64px) clamp(22px, 2.4vw, 32px) clamp(22px, 2.4vw, 32px);
+  /* Dark from where the TITLE starts, not just under the body: at the old
+     .46 the title sat on the artwork's own figures and dials and read as part
+     of the picture (review: "the text is not visible on the image in the
+     Responsibilities section"). The picture still runs untouched above. */
   background: linear-gradient(
     180deg,
     transparent 0%,
-    color-mix(in srgb, #05070b 46%, transparent) 26%,
-    color-mix(in srgb, #05070b 84%, transparent) 58%,
-    color-mix(in srgb, #05070b 95%, transparent) 100%
+    color-mix(in srgb, #05070b 78%, transparent) 20%,
+    color-mix(in srgb, #05070b 92%, transparent) 48%,
+    color-mix(in srgb, #05070b 97%, transparent) 100%
   );
+}
+
+.svcSlideMain:not([data-plain="true"]) .svcTitle,
+.svcSlideMain:not([data-plain="true"]) .svcText {
+  text-shadow: 0 1px 12px rgba(5, 7, 11, 0.85);
 }
 
 /* Cards with no artwork keep the plain surface — no gradient over nothing. */
@@ -2339,6 +2370,25 @@
 .indBoldLink {
   margin-top: auto;
   padding-top: clamp(4px, 0.5vw, 8px);
+}
+
+/* An inline link woven into prose (FAQ answers) — the same treatment as
+   landing.module.css's `.proseLink`. */
+.proseLink {
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color 0.3s ease;
+}
+
+.proseLink:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* A card's button ("Hire Now" on the engagement models): bottom-aligned
+   across the row like `.indBoldLink`, sized to its label. */
+.indBoldCta {
+  margin-top: auto;
+  align-self: flex-start;
 }
 
 /* Mobile first: one card per row. The spans below only apply once there is

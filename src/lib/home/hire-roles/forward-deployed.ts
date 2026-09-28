@@ -71,7 +71,7 @@ export const forwardDeployed: HireRolePageContent = {
   meta: {
     title: 'Hire Forward Deployed Engineers in 6-8 Weeks',
     description:
-      'Hire forward deployed engineers who embed in your workflow and ship production AI in 6-8 weeks. 120+ FDEs deployed across 30+ clients, model-agnostic delivery.',
+      'Hire Forward Deployed Engineers who embed with your team and ship production code. Build and deploy AI in 6-8 weeks, not months — 120+ FDEs deployed.',
   },
 
   hero: {
@@ -228,7 +228,7 @@ export const forwardDeployed: HireRolePageContent = {
     eyebrow: 'Ready When You Are',
     title: 'Ready to build your team?',
     body: 'Deploy a fully managed Soft Suave FDE pod inside your workflow in weeks, not months.',
-    cta: { label: 'Talk to us', href: '#enquiry' },
+    cta: { label: 'Talk to us', href: '/contact' },
   },
 
   process: {
@@ -377,6 +377,16 @@ export const forwardDeployed: HireRolePageContent = {
     eyebrow: 'FAQ',
     title: 'Everything You Need to Know About FDEs',
     body: 'Answers to common questions about Forward Deployed Engineers and working with Soft Suave.',
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: 'React, Node.js', href: '/hire-reactjs-developers' },
+      { text: 'Python', href: '/hire-python-developers' },
+      { text: 'TypeScript', href: '/typescript-development-company' },
+      { text: 'RAG implementations', href: '/rag-development-services' },
+      { text: 'Contact us', href: '/contact' },
+    ],
     items: [
       {
         q: 'What is a Forward Deployed Engineer (FDE)?',

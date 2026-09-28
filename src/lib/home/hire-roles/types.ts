@@ -33,6 +33,7 @@ import type { IntegrationContent } from '@/components/generative-ai/integration'
 import type { TechStackContent } from '@/components/home/tech-stack';
 import type { FaqContent } from '@/components/generative-ai/faq';
 import type { CtaBandContent } from '@/components/generative-ai/cta-band';
+import type { WorkCarouselContent } from '@/components/home/work-grid';
 
 /**
  * Note what is NOT here: the client logos, the case studies, the client stories
@@ -199,6 +200,11 @@ export interface HireRolePageContent {
   readonly comparison?: ComparisonContent;
   /** Rate tiers, where the live page publishes them. */
   readonly rates?: ComparisonContent;
+  /**
+   * The `caseStudies` band's own projects, where the live page names them
+   * (web app, mobile). Omitted renders the homepage's case studies.
+   */
+  readonly caseStudies?: WorkCarouselContent;
   /** This role's stack, rendered through the homepage's technology band. */
   readonly techStack?: TechStackContent;
   /**

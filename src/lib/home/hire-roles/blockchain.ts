@@ -49,7 +49,7 @@ export const blockchain: HireRolePageContent = {
   meta: {
     title: 'Hire Blockchain Developers | 40-Hr Trial – Soft Suave',
     description:
-      'Hire pre-vetted blockchain developers skilled in Ethereum, Solidity, smart contracts and DeFi/Web3 development, matched to your project within 48 hours.',
+      'Hire pre-vetted blockchain developers for smart contracts, DeFi & Web3 (Ethereum, Solidity). Onboard in 48 hours with a 40-hour risk-free trial.',
   },
 
   hero: {
@@ -292,6 +292,12 @@ export const blockchain: HireRolePageContent = {
     eyebrow: 'Ask Us',
     title: 'FAQs About Hiring Blockchain Developers',
     body: 'Find quick answers about how we work and what makes our process effective',
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: 'get in touch with us', href: '/contact' },
+    ],
     items: [
       {
         q: 'How much does it cost to hire a Blockchain developer?',

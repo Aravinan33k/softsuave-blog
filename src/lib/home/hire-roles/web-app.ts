@@ -50,7 +50,7 @@ export const webApp: HireRolePageContent = {
   meta: {
     title: 'Hire Web App Developers | Remote with 40-Hour Risk-Free Trial',
     description:
-      'Hire web app developers matched to your technology stack, product requirements, and delivery process. 40-hour risk-free trial, from $14 per hour.',
+      'Hire web app developers matched to your technical needs. Review profiles, interview developers, and evaluate fit through a 40-hour risk-free trial.',
   },
 
   hero: {
@@ -138,7 +138,7 @@ export const webApp: HireRolePageContent = {
     eyebrow: 'Start With a Trial',
     title: 'Find the Right Developer Before You Commit',
     body: 'Select the engagement model that fits your project, then use the 40-hour risk-free trial to assess developer performance before making a longer-term commitment with confidence.',
-    cta: { label: 'Start Your 40-Hour Trial', href: '#enquiry' },
+    cta: { label: 'Start Your 40-Hour Trial', href: '/contact' },
   },
 
   engagement: {
@@ -316,6 +316,41 @@ export const webApp: HireRolePageContent = {
     ],
   },
 
+  // The live page's own case-study band, not the homepage's AI stories
+  // (review: heading/content mismatch). Titles and bodies verbatim.
+  caseStudies: {
+    eyebrow: 'Case Studies',
+    title: 'Web Applications Built Around Business Needs',
+    body: 'Explore web applications our remote web app developers have helped build and improve while collaborating with client teams across different technologies and business requirements.',
+    items: [
+      {
+        title: 'A Vision AI Platform for Real-Time Axle Counting & Traffic Monitoring',
+        tag: 'Transportation',
+        body: 'Soft Suave built a real-time computer-vision pipeline for accurate axle counting, lane-level vehicle tracking, congestion insights, and lifted/floating axle detection across high-traffic highway sites.',
+      },
+      {
+        title: 'A Platform for Driver Attention, Stress and Safety',
+        tag: 'Automotive',
+        body: 'Soft Suave built an AI-powered Behavioral Intelligence web app that combines driving video, eye-gaze, and heart-rate data to deliver automated safety, focus, and stress scores.',
+      },
+      {
+        title: 'AI-Powered Contract & Tender Management Lifecycle Platform',
+        tag: 'Energy',
+        body: 'Soft Suave built an AI-powered web app automating the contract and tender lifecycle with secure evaluation, audit trails, sealed-bid integrity, and English/Arabic support, fully on-premises for a leading LNG operator in Oman.',
+      },
+      {
+        title: 'An AI-Powered Shift Intelligence and Digital Logbook Platform for LNG Operations',
+        tag: 'Energy',
+        body: 'Soft Suave delivered ShiftSense, an air-gapped AI platform transforming LNG operational logs into instant, source-cited shift insights with English/Arabic support and full auditability.',
+      },
+      {
+        title: 'AI-Powered Onboarding and Configuration Assist for a Logistics Management Platform',
+        tag: 'Logistics',
+        body: 'Soft Suave built an AI assistant for logistics onboarding that guides setup, validates steps in real time, cuts onboarding time by half, and reduces support tickets.',
+      },
+    ],
+  },
+
   techStack: {
     eyebrow: 'Technologies',
     title: 'Technology Expertise for Modern Web Applications',
@@ -398,6 +433,17 @@ export const webApp: HireRolePageContent = {
     eyebrow: 'Ask Us',
     title: 'Frequently Asked Questions About Hiring Web App Developers',
     body: 'Find clear answers to common questions about hiring the right web app developer for your project.',
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: 'frontend development', href: '/hire-frontend-application-developer' },
+      { text: 'backend engineering', href: '/hire-backend-application-developer' },
+      { text: 'React', href: '/hire-reactjs-developers' },
+      { text: 'Angular', href: '/hire-angularjs-developers' },
+      { text: 'Node.js', href: '/hire-nodejs-developers' },
+      { text: 'Python', href: '/hire-python-developers' },
+    ],
     items: [
       {
         q: 'How do I hire web app developers from Soft Suave?',

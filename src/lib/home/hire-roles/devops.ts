@@ -47,7 +47,7 @@ export const devops: HireRolePageContent = {
   meta: {
     title: 'Hire DevOps Engineers in India | 40-Hour Trial – Soft Suave',
     description:
-      'Hire pre-vetted DevOps engineers experienced in CI/CD, Kubernetes, Docker, AWS and Azure, matched to your project within 48 hours. Rates from $14/hour.',
+      'Hire pre-vetted DevOps engineers for CI/CD, Kubernetes, Docker, AWS & Azure. Onboard in 48 hours with a 40-hour risk-free trial. Rates from $14/hr.',
   },
 
   hero: {
@@ -294,6 +294,13 @@ export const devops: HireRolePageContent = {
     eyebrow: 'FAQs',
     title: 'Frequently Asked Questions',
     body: 'Know more about our processes and how we work, with the help of the following FAQs our clients ask.',
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: '40-hour risk-free trial', href: '/contact' },
+      { text: 'AWS, Azure or GCP', href: '/cloud-computing' },
+    ],
     items: [
       {
         q: 'How much does it cost to hire a DevOps engineer from Soft Suave?',

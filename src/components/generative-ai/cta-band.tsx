@@ -2,6 +2,7 @@
 
 import { midCta as generativeAiMidCta } from "@/lib/home/generative-ai";
 import FadeUp from "@/components/home/fade-up";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./gen-ai.module.css";
 import LightFieldBackdrop from "@/components/home/light-field-backdrop";
 
@@ -40,9 +41,18 @@ export default function CtaBand({
         </div>
 
         <div className={styles.ctaActions}>
-          <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
-            {content.cta.label}
-          </a>
+          {/* In-page anchors stay plain for ScrollProvider's Lenis handler;
+              a page goes through SiteLink, which keeps a served route local
+              and sends a live-only one to softsuave.com. */}
+          {content.cta.href.startsWith("#") ? (
+            <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
+              {content.cta.label}
+            </a>
+          ) : (
+            <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
+              {content.cta.label}
+            </SiteLink>
+          )}
         </div>
       </FadeUp>
     </section>

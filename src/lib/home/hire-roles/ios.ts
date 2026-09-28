@@ -44,7 +44,7 @@ export const ios: HireRolePageContent = {
   meta: {
     title: 'Hire iOS Developers in India - Top 1% Programmers',
     description:
-      'Hire skilled iOS developers through Soft Suave, a specialized agency with vetted talent from $14/hour and flexible engagement models that keep your project on track.',
+      'Hire iOS Developer India with expertise in Swift & Objective-C. Build secure, interactive iPhone apps with flexible engagement models',
   },
 
   hero: {
@@ -123,7 +123,7 @@ export const ios: HireRolePageContent = {
     eyebrow: 'Rates',
     title: 'Hire iOS Developers Starting from $14/hour',
     body: 'We will provide you with remote iOS App developers that work from India. Contact us to take a look at CVs.',
-    cta: { label: 'Request Rate Card', href: '#enquiry' },
+    cta: { label: 'Request Rate Card', href: '/contact' },
   },
 
   process: {
@@ -196,6 +196,12 @@ export const ios: HireRolePageContent = {
     eyebrow: 'FAQs',
     title: 'Frequently Asked Questions',
     body: 'Know more about our processes and how we work, with the help of the following FAQs.',
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: 'Talk with our project managers', href: '/contact' },
+    ],
     items: [
       {
         q: 'Do your iOS developers work in Agile/Scrum methodology?',

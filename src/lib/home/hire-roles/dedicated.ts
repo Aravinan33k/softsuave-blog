@@ -70,7 +70,7 @@ export const dedicated: HireRolePageContent = {
   meta: {
     title: 'Hire Dedicated Developers India From $14/hr',
     description:
-      'Hire dedicated developers from India who join your team within 48 hours across web, mobile, full-stack, DevOps and QA. From $14/hour, with a 40-hour trial.',
+      'Looking to hire dedicated developers in India On Contract? We offers a 40-hour free trial and pricing beginning at $14. Connect with us!',
   },
 
   hero: {
@@ -170,7 +170,7 @@ export const dedicated: HireRolePageContent = {
   midCta: {
     title: 'Looking to hire dedicated developers?',
     body: 'Hire skilled developers faster with Soft Suave. Get vetted talent, flexible engagement models, and reliable support to scale your project without hiring delays.',
-    cta: { label: 'Download Rate Card', href: '#enquiry' },
+    cta: { label: 'Download Rate Card', href: '/contact' },
   },
 
   fit: {
@@ -378,6 +378,14 @@ export const dedicated: HireRolePageContent = {
     eyebrow: 'Ask Us',
     title: 'Frequently Asked Questions About Hiring Dedicated Developers from India',
     body: "Know more about Soft Suave's hiring process, engagement models, trial option, onboarding timeline, and how our dedicated developers work with your team.",
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: 'Offshore hiring', href: '/offshore-software-development-company' },
+      { text: 'QA testers', href: '/hire-qa-testers-india' },
+      { text: 'DevOps engineers', href: '/hire-devops-developers' },
+    ],
     items: [
       {
         q: 'Will dedicated developers from Soft Suave work in our time zone?',

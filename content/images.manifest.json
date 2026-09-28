@@ -4040,6 +4040,111 @@
         "mobile app developer smartphone design",
         "mobile app developers testing phones"
       ]
+    },
+    {
+      "id": "ov-hire-qa-testers-india",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "QA tester reviewing test results on a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "woman testing app on smartphone and laptop",
+        "person checking mobile app laptop office",
+        "woman working laptop office",
+        "office work"
+      ]
+    },
+    {
+      "id": "dl-hire-software-developers",
+      "page": "landing",
+      "purpose": "delivery-presence",
+      "alt": "Software team reviewing work together across a shared screen",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "diverse team working together office windows",
+        "colleagues collaborating office desk",
+        "coworkers office",
+        "teamwork"
+      ]
+    },
+    {
+      "id": "dl-hire-web-app-developers",
+      "page": "landing",
+      "purpose": "delivery-presence",
+      "alt": "Remote developer working from a home office desk",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "remote developer home office desk",
+        "programmer working from home",
+        "laptop home office",
+        "office"
+      ]
+    },
+    {
+      "id": "dl-hire-mobile-app-developers",
+      "page": "landing",
+      "purpose": "delivery-presence",
+      "alt": "Developer on a video call with a headset at a laptop",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "developer headset video call laptop",
+        "remote meeting headset",
+        "person headset computer",
+        "communication"
+      ]
+    },
+    {
+      "id": "dl-hire-frontend-application-developer",
+      "page": "landing",
+      "purpose": "delivery-presence",
+      "alt": "Designers and developers collaborating at a whiteboard",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "designers developers whiteboard collaboration",
+        "team whiteboard planning",
+        "office collaboration",
+        "collaboration"
+      ]
+    },
+    {
+      "id": "dl-hire-backend-application-developer",
+      "page": "landing",
+      "purpose": "delivery-presence",
+      "alt": "Engineering team in a morning stand-up meeting",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "programmers pair programming office monitors",
+        "two developers looking at code monitor",
+        "developers office computer",
+        "programming"
+      ]
+    },
+    {
+      "id": "dl-hire-forward-deployed-engineer",
+      "page": "landing",
+      "purpose": "delivery-presence",
+      "alt": "Engineer working alongside a client team in their office",
+      "orientation": "landscape",
+      "width": 1400,
+      "height": 1050,
+      "keywords": [
+        "consultant working with client office laptop",
+        "engineer client meeting",
+        "business people laptop meeting",
+        "meeting"
+      ]
     }
   ]
 }

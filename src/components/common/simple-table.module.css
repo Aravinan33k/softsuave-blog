@@ -48,14 +48,18 @@
   border-bottom: 0;
 }
 
+/* Column headings read as headings: body-size sans at full ink. They were the
+   12px mono eyebrow in muted grey — a label, where the table's columns are
+   the thing being compared (review: "Comparison Table ... the heading is very
+   small"). */
 .table thead th {
   background: var(--surface-2);
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  line-height: 1.35;
+  color: var(--text-bright);
 }
 
 .table thead th[data-lead="true"] {

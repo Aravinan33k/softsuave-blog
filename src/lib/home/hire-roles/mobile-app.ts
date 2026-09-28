@@ -57,7 +57,7 @@ export const mobileApp: HireRolePageContent = {
   meta: {
     title: 'Hire Mobile App Developers | 40-Hour Trial Before Hiring',
     description:
-      'Hire mobile app developers experienced in Android, iOS, Flutter, React Native, and other mobile technologies. Rates start at $14/hour.',
+      'Hire mobile app developers for Android, iOS, Flutter, and React Native. Review profiles and evaluate fit with a 40-hour risk-free trial.',
   },
 
   hero: {
@@ -142,7 +142,7 @@ export const mobileApp: HireRolePageContent = {
     eyebrow: 'Developer Selection',
     title: 'Not sure which mobile expertise fits your project?',
     body: 'Discuss your platform, architecture, and product requirements with our team to identify the right developer expertise for your project.',
-    cta: { label: 'Book a Consultation', href: '#enquiry' },
+    cta: { label: 'Book a Consultation', href: '/contact' },
   },
 
   globalDelivery: {
@@ -294,6 +294,41 @@ export const mobileApp: HireRolePageContent = {
     column: 'Soft Suave Developer',
   }),
 
+  // The live page's own case-study band, not the homepage's AI stories
+  // (review: heading/content mismatch). Titles and bodies verbatim.
+  caseStudies: {
+    eyebrow: 'Case Studies',
+    title: 'Mobile Applications Our Developers Have Built',
+    body: 'See how our mobile developers have contributed to real products across different business requirements, bringing hands-on experience across platforms, architectures, integrations, and ongoing product development.',
+    items: [
+      {
+        title: 'ParkSafe Community Vehicle Alert App',
+        tag: 'Community Safety',
+        body: 'A mobile app that spots suspicious vehicles, sends real-time alerts, and improves community safety.',
+      },
+      {
+        title: 'Smart Movie Ticketing app with Real-Time Booking',
+        tag: 'Entertainment',
+        body: 'A ticketing app with live seat availability, secure payments, and a smooth booking flow.',
+      },
+      {
+        title: 'Time-saving Video Calling App for Healthcare Industry',
+        tag: 'HealthTech',
+        body: 'Soft Suave developed an efficient Video calling app for instant consultations, to save time, and to get fast solutions.',
+      },
+      {
+        title: 'HealthPass Wellness Subscriptions in Banking App',
+        tag: 'Banking',
+        body: 'Soft Suave helps banks boost customer loyalty with personalized wellness benefits and engagement insights.',
+      },
+      {
+        title: 'All-in-One Financial Management App',
+        tag: 'FinTech',
+        body: 'Soft Suave built an all-in-one app that simplifies budgeting, expenses, investments, and bills.',
+      },
+    ],
+  },
+
   techStack: {
     eyebrow: 'Tech Stack',
     title: 'Technology Stack for Mobile App Engineering',
@@ -330,6 +365,14 @@ export const mobileApp: HireRolePageContent = {
     eyebrow: 'Ask Us',
     title: 'Frequently Asked Questions About Hiring Mobile Developers',
     body: 'Get clear answers to common questions about hiring mobile developers, pricing, technology fit, trials, and team integration.',
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: 'Android and iOS developers', href: '/hire-android-developers' },
+      { text: 'Flutter', href: '/hire-flutter-developers' },
+      { text: 'React Native', href: '/hire-react-native-developers' },
+    ],
     items: [
       {
         q: 'How do I hire the right mobile app developer?',

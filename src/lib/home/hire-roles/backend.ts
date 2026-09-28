@@ -59,7 +59,7 @@ export const backend: HireRolePageContent = {
   meta: {
     title: 'Hire Backend Developers From $14/hr | 40-hour trial',
     description:
-      'Hire backend developers matched to your technology stack, application requirements, and working model. Evaluate practical work before a longer-term commitment.',
+      'Hire backend developers from $14/hour for APIs, databases, cloud systems, and scalable applications. Evaluate talent through a 40-hour risk-free trial.',
   },
 
   hero: {
@@ -208,7 +208,7 @@ export const backend: HireRolePageContent = {
     eyebrow: 'Next Steps',
     title: 'Start Your Backend Engagement with Soft Suave',
     body: 'Share your backend technology, responsibilities, experience requirements, and engagement preferences. Review matched talent and evaluate practical work through the 40-hour risk-free trial.',
-    cta: { label: 'Start Your 40-Hour Trial', href: '#enquiry' },
+    cta: { label: 'Start Your 40-Hour Trial', href: '/contact' },
   },
 
   engagement: {
@@ -444,6 +444,16 @@ export const backend: HireRolePageContent = {
     eyebrow: 'Ask Us',
     title: 'Questions About Hiring Backend Developers',
     body: 'Find answers to common questions about hiring, evaluating, working with, and paying backend developers.',
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: 'Java', href: '/hire-java-developers' },
+      { text: 'PHP', href: '/hire-php-developers' },
+      { text: 'Python', href: '/hire-python-developers' },
+      { text: 'Node.js', href: '/hire-nodejs-developers' },
+      { text: 'wider team', href: '/hire-dedicated-developers' },
+    ],
     items: [
       {
         q: 'How do I hire a backend developer from Soft Suave?',

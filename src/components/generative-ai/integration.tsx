@@ -3,6 +3,7 @@
 import { integration as generativeAiIntegration } from "@/lib/home/generative-ai";
 import { gridSpansFor } from "@/components/landing/card-spans";
 import FadeUp from "@/components/home/fade-up";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import SectionHead from "./section-head";
 import styles from "./gen-ai.module.css";
 
@@ -31,6 +32,7 @@ export default function Integration({
   content = generativeAiIntegration,
   id = "integrations",
   variant = "panels",
+  blockCta,
 }: {
   content?: IntegrationContent;
   id?: string;
@@ -42,6 +44,12 @@ export default function Integration({
    * models and its specialisations are the same card rather than two.
    */
   variant?: "panels" | "bold";
+  /**
+   * Optional button at the foot of every `bold` card — the live hire pages'
+   * "Hire Now" on each engagement model (review: "CTA button is missing in
+   * the Engagement Options section").
+   */
+  blockCta?: { readonly label: string; readonly href: string };
 } = {}) {
   if (variant === "bold") {
     /* Two blocks compose 6 + 6, three compose 4 + 4 + 4 — the same function the
@@ -62,6 +70,15 @@ export default function Integration({
                     own cards carry neither. */}
                 <h3 className={styles.indBoldName}>{b.label}</h3>
                 <p className={styles.indBoldBody}>{b.body}</p>
+                {blockCta && (
+                  <SiteLink
+                    href={blockCta.href}
+                    className={`${styles.btn} ${styles.btnPrimary} ${styles.indBoldCta}`}
+                    aria-label={`${blockCta.label}: ${b.label}`}
+                  >
+                    {blockCta.label}
+                  </SiteLink>
+                )}
               </article>
             ))}
           </div>

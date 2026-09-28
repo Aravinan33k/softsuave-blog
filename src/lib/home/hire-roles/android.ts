@@ -43,7 +43,7 @@ export const android: HireRolePageContent = {
   meta: {
     title: 'Hire Android Developers India - 40-Hour Risk-Free Trial',
     description:
-      'Hire Android developers from India skilled in Kotlin, Java, Android Studio, Jetpack, API integrations and enterprise mobility. From $14/hour.',
+      'Hire Android Developer India on an hourly/full-time basis from Soft Suave to save 60% on development and get quality & affordable Android apps.',
   },
 
   hero: {
@@ -122,7 +122,7 @@ export const android: HireRolePageContent = {
     eyebrow: 'Rates',
     title: 'Hire Android Developers Starting from $14/hour',
     body: 'We will provide you with remote Android App developers that work from India. Contact us to take a look at CVs.',
-    cta: { label: 'Request Rate Card', href: '#enquiry' },
+    cta: { label: 'Request Rate Card', href: '/contact' },
   },
 
   process: {
@@ -195,6 +195,13 @@ export const android: HireRolePageContent = {
     eyebrow: 'FAQs',
     title: 'Frequently Asked Questions',
     body: 'Know more about our processes and how we work, with the help of the following FAQs.',
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: 'Java', href: '/hire-java-developers' },
+      { text: 'Kotlin', href: '/hire-kotlin-developer' },
+    ],
     items: [
       {
         q: 'How much does it cost to hire a dedicated Android developer?',
