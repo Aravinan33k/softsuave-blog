@@ -103,6 +103,7 @@ export default function Industries({
   content = generativeAiIndustries,
   id = "industries",
   variant = "photo",
+  links = true,
 }: {
   content?: CardGridContent;
   id?: string;
@@ -120,6 +121,12 @@ export default function Industries({
    * See the CARD GRID — BOLD VARIANT block in gen-ai.module.css.
    */
   variant?: "photo" | "compact" | "bold";
+  /**
+   * `false` drops every card's "Know More", `href`s included. The AI service
+   * pages' industry grids run without it: the sectors are context for the
+   * service, not destinations of their own.
+   */
+  links?: boolean;
 } = {}) {
   /* Links: a card's own `href` wins; a grid of services or sectors also links
      cards whose name matches one of our pages (`lib/home/service-href.ts`).
@@ -127,7 +134,7 @@ export default function Industries({
   const resolveHref = useServiceHref();
   const autoLink = /service|industr|sector|offering|solution/i.test(id);
   const hrefOf = (item: CardGridContent["items"][number]) =>
-    (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
+    links && (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
   const textOf = (item: CardGridContent["items"][number]) => `${item.name}. ${item.body}`;
 
   if (variant === "bold") {

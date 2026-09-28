@@ -63,6 +63,11 @@ export const frontend: HireRolePageContent = {
       'Add experienced front end developers to your product team for new interface development, modernization, performance improvement, and ongoing feature delivery. Our developers work across React, Angular, Vue.js, Next.js, JavaScript, and TypeScript while fitting into your existing tools, standards, and sprint routines.',
       'Share your frontend requirements, review matched developers, and assess practical work through a 40-hour risk-free trial before making a commitment.',
     ],
+    background: {
+      src: '/images/landing/hire-roles/hire-frontend-developer-cover.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADwAQCdASoQAAgAA4BaJbACdADRk42YpgAA/vMNaj+rXs0c4fzYGrlDF0eR0iic+gMwPdFU3VEiSdxrjx99mEWCUIUOS90l5UcqaF8GYerQNCAA',
+    },
     points: [
       'Vetted Talent On Contract',
       'React, Angular & Vue.js Skills',

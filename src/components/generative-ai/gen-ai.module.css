@@ -517,9 +517,10 @@
    back to the coral: the light band's brick red is for ink on cream and goes
    muddy on black. */
 .psPanel {
-  --bg: #08090c;
+  --bg: #040508;
   --surface: #101114;
-  --text: #d2d2d2;
+  /* The homepage's cream: the ink it uses for copy set over photographs. */
+  --text: var(--cream, #e6e4e2);
   --text-bright: #f4f3f1;
   --muted: #c4c2be;
   --line: rgba(255, 255, 255, 0.16);
@@ -553,27 +554,27 @@
   opacity: 1;
 }
 
+/* Toned like the homepage's photo cards (`.indFanCardImg`), so no source
+   photo is bright enough to punch through the scrim behind the copy. */
 .psPanelMedia img {
   object-fit: cover;
+  filter: contrast(1.05) brightness(0.82);
 }
 
 /* Fixed scrim rather than a per-image one: contrast then does not depend on
-   which photograph happens to be selected. Lightened to .55/.28/.72 from an
-   initial .88/.76/.92 — that first pass was dark enough that the artwork
-   barely read as a photograph at all. The label/title carry a text-shadow
-   rather than a heavier scrim, since the five source photos vary in
-   brightness and a fixed shadow protects all of them without re-darkening
-   the ones that were already fine. */
+   which photograph happens to be selected. Built the way the homepage guards
+   copy over imagery (`.journeyScrim`, `.bentoVeil`): near-black at ~.9+ where
+   the text sits — top-left, since the body is top-aligned — easing off toward
+   the lower right so the artwork still reads as a photograph there. The
+   earlier flat .55/.28/.72 left the body copy on bright monitor glare in
+   several of the photos (an .88/.76/.92 pass before that hid them entirely). */
 .psPanelScrim {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    180deg,
-    rgba(8, 9, 12, 0.55) 0%,
-    rgba(8, 9, 12, 0.28) 45%,
-    rgba(8, 9, 12, 0.72) 100%
-  );
+  background:
+    linear-gradient(100deg, rgba(4, 5, 8, 0.9) 0%, rgba(4, 5, 8, 0.62) 55%, rgba(4, 5, 8, 0.3) 100%),
+    linear-gradient(180deg, rgba(4, 5, 8, 0.72) 0%, rgba(4, 5, 8, 0.4) 55%, rgba(4, 5, 8, 0) 74%, rgba(4, 5, 8, 0.6) 100%);
 }
 
 .psPanelBody {
@@ -592,7 +593,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 1px 10px rgba(4, 5, 8, 0.8);
 }
 
 .psPanelTitle {
@@ -603,7 +604,7 @@
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--text-bright);
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 1px 10px rgba(4, 5, 8, 0.8);
 }
 
 .psPanelText {
@@ -613,6 +614,7 @@
   font-size: clamp(0.92rem, 1.02vw, 1.02rem);
   line-height: 1.68;
   color: var(--text);
+  text-shadow: 0 1px 8px rgba(4, 5, 8, 0.75);
 }
 
 /* Autoplay progress: a hairline that fills across the active problem's row. */

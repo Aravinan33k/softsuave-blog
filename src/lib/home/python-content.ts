@@ -20,8 +20,8 @@
  *
  * The standfirst the live page prints under "Outsourcing Python Web
  * Development Solutions" is the same sentence it prints again under "Our
- * Innovative Python Development Services" — a duplication in its own markup.
- * It is kept once, on the services band it actually introduces.
+ * Innovative Python Development Services". Both are kept, as the live page
+ * has them: it opens the overview and introduces the services band.
  *
  * The live page carries no clients strip, no benefits grid, no case studies,
  * no counters band and — unlike the PHP page beside it — no FAQ. None is
@@ -98,6 +98,7 @@ export const pyOverview: OverviewContent = {
   eyebrow: "Python Web Development",
   title: "Outsourcing Python Web Development Solutions",
   paragraphs: [
+    "We are a reliable custom Python Web Development Company operating more than 13+ successful years. Our best-in-class Python services include,",
     "Soft Suave is the leading Python development company in India that offers clients best-in-class solutions with the help of experienced developers who are experts in advanced Python development web framework, programming language and cutting-edge tools. Our developers show the finest commitment to deliver the highest level of customer service by creating innovative and customized Python solutions at an economical price.",
     "Our developers are also known for building custom solutions using Python to simplify complex software development. The Python applications from Soft Suave are developed in a way to handle the changes in the future technological trends.",
     "Soft Suave being the best Python web development company in India and the USA has all the technical capabilities and tools to develop web applications that matches the client requirements.",
@@ -122,7 +123,7 @@ export const pyServices: ServiceBoardContent = {
   eyebrow: "Python Development Services",
   title: "Our Innovative Python Development Services",
   body: "We are a reliable custom Python Web Development Company operating more than 13+ successful years. Our best-in-class Python services include,",
-  cta: { label: "Talk To Experts", href: "#enquiry" },
+  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "Custom Python Development",

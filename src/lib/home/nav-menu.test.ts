@@ -97,22 +97,18 @@ describe('footer columns', () => {
     }
   });
 
-  it("lists each Services category's main page, not the hire lists", () => {
+  it("lists the homepage's ten AI & Software services", () => {
     expect(column('Services')).toEqual([
       'Custom AI Development',
       'Data Engineering',
       'Data Science',
-      'Hire Forward Deployed Engineer',
-      'Custom Software Development',
-      'Web App Development',
-      'Mobile App Development',
-      'Global Capability Center',
-      'Offshore Development',
-      'IT Staff Augmentation',
-      'IT Outsourcing',
-      'Legacy Modernization',
-      'Product Engineering',
-      'Cloud Computing',
+      'Generative AI',
+      'Agentic AI',
+      'RAG and Document AI',
+      'Computer Vision',
+      'Predictive Intelligence',
+      'MLOps',
+      'Forward Deployed Engineers',
     ]);
   });
 });

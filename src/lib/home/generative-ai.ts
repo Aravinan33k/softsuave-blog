@@ -44,9 +44,9 @@ export const hero = {
    * illustration and the generated homepage manifest.
    */
   background: {
-    src: "/images/landing/generative-ai-hero-ai-figure.webp",
+    src: "/images/landing/generative-ai-development-hero-v2.webp",
     blurDataURL:
-      "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAABQAQCdASoQAAkAA4BaJQBOgC6gAP70ZSuMXAh7U5CLN/6R9Ag+TrLRBrkNmW0vWBn6rPX6AAA=",
+      "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAAAQAgCdASoQAAgAA4BaJYwCdH8AEWVIPSwAAP75GEfP4TveErKRwsT0UY7ISxssdbtC6RRy5o4u4mvmEOrrhJdl3hAAAA==",
   },
   form: {
     eyebrow: "Business Enquiry",
@@ -80,19 +80,19 @@ export const overview = {
    * `public/images/**` is allow-listed for the optimizer in next.config.ts.
    */
   image: {
-    src: "/images/landing/generative-ai-rag-architecture.webp",
-    width: 1448,
-    height: 1086,
-    alt: "How a generative AI solution fits together: your data, documents, knowledge base, and cloud storage feed a central AI model through a RAG layer, which connects out to CRM, ERP, APIs, and ticketing systems to return accurate answers and real business value.",
+    src: "/images/landing/generative-ai-development-overview.webp",
+    width: 1120,
+    height: 840,
+    alt: "A central generative AI engine drawing on documents, databases, and media, and producing images, written content, 3D designs, and shareable outputs",
     blurDataURL:
-      "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAAAQAgCdASoQAAwAAwBSJQBOgCHw35H/X5wAAP75+5o1KWhylCAGLAV8fi2WhvhAXHsUdEL5/sjZZAf0swAAAA==",
+      "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAABwAgCdASoQAAwAA4BaJYgCdAYuR2vzH47c0HwAAP72sCMEuM8HtTaeOBb93HyLPMNDpZqaTFAEPrDpvaOQDKn1u5MDbb04pLdvMUNs8OSQ72y4P50AAA==",
   },
 } as const;
 
 export const problems = {
   eyebrow: "Problems & Solutions",
   title: "Business Problems Generative AI Solutions Actually Solve",
-  body: "Generative AI delivers value when applied to clear operational challenges. Select a problem below to see how a tailored Generative AI solution addresses it with practical, measurable outcomes.",
+  body: "Generative AI delivers value when applied to clear operational challenges. The table below highlights common business problems and explains how tailored Generative AI solutions address each one with practical, measurable outcomes.",
   columns: ["Problem", "How generative AI solutions help"],
   /**
    * Each row carries the artwork its panel wears as a backdrop. Root-relative,
@@ -103,7 +103,7 @@ export const problems = {
   rows: [
     {
       problem: "Knowledge locked in documents",
-      image: "/images/landing/problems/knowledge-search.webp",
+      image: "/images/landing/problems/generative-ai-knowledge-locked-documents.webp",
       solution:
         "Employees spend hours searching contracts, policies, and support tickets. AI-powered search provides direct answers from these documents, with citations linking back to the original sources.",
     },

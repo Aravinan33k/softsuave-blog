@@ -9,10 +9,12 @@
  *
  *   /agentic-ai-development-services   the spec's Organization block verbatim
  *     (`softSuaveOrganizationLd`), which lists no Facebook profile — the
- *     site-wide node does (24 Sep request: this page only).
+ *     site-wide node does (24 Sep request).
+ *   /custom-ai-development-services    the same block (26 Sep request).
  *
  * Kept free of `server-only` so the client `SiteGraph` can read it.
  */
 export const PAGES_WITH_OWN_ORGANIZATION: ReadonlySet<string> = new Set([
   '/agentic-ai-development-services',
+  '/custom-ai-development-services',
 ]);
