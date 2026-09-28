@@ -38,16 +38,25 @@ export interface TeamContent {
 export default function Team({
   content,
   id = "team",
+  columns,
 }: {
   content: TeamContent;
   id?: string;
+  /**
+   * Fixed desktop column count (from 1000px up). Omit for the default
+   * auto-fit grid, which packs as many 190px cards as fit — six across on a
+   * wide viewport. `5` puts nine leaders in rows of five and four, which
+   * the /about review asked for; below 1000px the auto-fit grid takes over
+   * again either way.
+   */
+  columns?: 5;
 }) {
   return (
     <section className={styles.sectionShell} id={id}>
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
       <FadeUp>
-        <ul className={styles.teamGrid}>
+        <ul className={styles.teamGrid} data-cols={columns}>
           {content.members.map((m) => (
             <li key={m.name} className={styles.teamCard}>
               <div className={styles.teamMedia}>

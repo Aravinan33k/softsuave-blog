@@ -359,8 +359,9 @@ export const recognitions = {
   title: "Industry Recognitions",
   body: "Our commitment to innovation and excellence has earned us industry-leading awards and recognition, reinforcing our dedication to delivering top-tier solutions.",
   /** `href` is this app's own awards page, not softsuave.com's — the route is
-   *  `app/(marketing)/awards-recognition`, and it renders `items` below in
-   *  full. */
+   *  `app/(marketing)/awards-recognition`, which renders its own fuller list,
+   *  `awardsPage.items` (every badge below plus the older-year and Develop4u
+   *  entries the live page also carries). */
   cta: { label: "View All", href: "/awards-recognition" },
   items: [
     { key: "clutch", org: "Clutch", title: "Top B2B Company Global", year: "2024", src: "/brand/awards/clutch.webp" },
@@ -379,26 +380,48 @@ export const recognitions = {
 } as const;
 
 /**
- * Masthead of the standalone /awards-recognition page.
+ * The standalone /awards-recognition page — its copy and its full award wall,
+ * all taken from softsuave.com/awards-recognition.
  *
- * The wall itself is `recognitions.items` — one list of accolades for the whole
- * site, so the homepage band and this page can never disagree about what we have
- * won. Only the framing copy lives here.
+ * `items` is deliberately a separate list from `recognitions.items`. The live
+ * awards page carries fifteen awards, each under its own long-form title and a
+ * one-line description; the homepage band (and the other pages that reuse it)
+ * shows twelve badges with short titles, and must not change. The badge art is
+ * the same bundled files in both (public/brand/awards — see its MANIFEST.md).
  */
 export const awardsPage = {
   title: "Awards and Recognition",
-  body: "Thirteen years of building software has been accompanied by recognition from the industry's own directories and review platforms. Each of the marks below was issued by the organisation named beside it, on the strength of verified client reviews and independent assessment.",
-  /**
-   * Meta description, stated separately from `body`.
-   *
-   * `body` is the page's visible lead paragraph and reads at that length; as a
-   * meta description it ran to 272 characters, well past the ~165 a result
-   * snippet shows. This is the same claim written to that budget, so the
-   * snippet is a sentence rather than a truncated one — and the copy on the
-   * page is left exactly as approved.
-   */
+  /** Live's `<title>` reads "Soft Suave Technologies Award and regognation" —
+   *  used verbatim except for the misspelling of "Recognition", fixed here. */
+  metaTitle: "Soft Suave Technologies Award and Recognition",
+  /** Live's meta description verbatim, less the doubled period it ends on. */
   metaDescription:
-    "Thirteen years of building software, recognised by industry directories and review platforms. Each mark reflects verified client reviews and independent assessment.",
+    "Explore Soft Suave's prestigious awards and recognition for exceptional performance in delivering innovative software solutions, AI advancements, etc.",
+  body: "The 13+ years of remarkable journey accompanied by accolades and awards is always motivational. The reputation Soft Suave earned worldwide as the best web and mobile app development company in India is because of the love, feedback, and appreciation of our invaluable clients. The stature of Soft Suave has grown exponentially since we established our company. Over the past few glorious years, we headquartered in one of the largest tech hubs in India - Chennai, established our development center in Bangalore, and expanded our global presence to almost all tier 1 & 2 countries worldwide.",
+  /**
+   * The wall, in live's order. `title` and `description` are live's wording
+   * verbatim, with two slips corrected: the Wadline description named the
+   * directory "Wadlin", and the TopDevelopers.co one lacked its closing period.
+   * `org` and `year` are not rendered (the title already states both); they
+   * feed the page's structured data.
+   */
+  items: [
+    { key: "clutch", org: "Clutch", year: "2024", src: "/brand/awards/clutch.webp", title: "Top B2B Company Global 2024 – Clutch", description: "Soft Suave is ranked among the world’s top B2B companies in 2024 in the list released by Clutch." },
+    { key: "upfirms", org: "UpFirms", year: "2024", src: "/brand/awards/upfirms.webp", title: "Top Software Development Company 2024 – UpFirms", description: "Soft Suave is ranked as the top Software Development company in 2024, verified by UpFirms." },
+    { key: "softwareworld-2024", org: "SoftwareWorld", year: "2024", src: "/brand/awards/softwareworld.webp", title: "Top Software Development Company - SoftwareWorld", description: "Soft Suave was recognized as one of the world’s top Software Development company in the list released by SoftwareWorld." },
+    { key: "techreviewer-2024", org: "Techreviewer", year: "2024", src: "/brand/awards/techreviewer.webp", title: "Top Software Development Company 2024 – Techreviewer", description: "Soft Suave is ranked as one of the top Software Development companies in 2024, verified by Techreviewer." },
+    { key: "topdevelopers", org: "TopDevelopers.co", year: "2023", src: "/brand/awards/topdevelopers.webp", title: "Top Mobile App Development Company – Top Developers", description: "Soft Suave was ranked as one of the top mobile app development company in the list released by TopDevelopers.co." },
+    { key: "allaboutapps", org: "All About Apps", year: "2023", src: "/brand/awards/allaboutapps.webp", title: "Top Web Development Firms Company 2023 – All About Apps", description: "Soft Suave is ranked as one of the web application companies in 2023, verified by All About Apps." },
+    { key: "softwareworld-2022", org: "SoftwareWorld", year: "2022", src: "/brand/awards/softwareworld-2022.webp", title: "Top Software Development Company - SoftwareWorld", description: "Soft Suave was recognized as one of the world’s top Software Development company in the list released by SoftwareWorld." },
+    { key: "techreviewer-2022", org: "Techreviewer", year: "2022", src: "/brand/awards/techreviewer-2022.webp", title: "Top Software Development Company 2022 – Techreviewer", description: "Soft Suave is ranked as one of the top Software Development companies in 2022, verified by Techreviewer." },
+    { key: "techimply", org: "Techimply", year: "2022", src: "/brand/awards/techimply.webp", title: "Top Mobile App Development Company – Techimply", description: "Soft Suave is ranked among the world’s top mobile app companies in 2022 in the list released by techimply." },
+    { key: "goodfirms", org: "GoodFirms", year: null, src: "/brand/awards/goodfirms.webp", title: "Top Mobile App Development Company – GoodFirms", description: "Soft Suave was rated as one of the finest mobile app development company in the list verified by GoodFirms." },
+    { key: "selectedfirms", org: "SelectedFirms", year: null, src: "/brand/awards/selectedfirms.webp", title: "Top eCommerce Development Company - SelectedFirms", description: "Soft Suave was ranked among the top 10 eCommerce development company in the USA, verified by SelectedFirms." },
+    { key: "develop4u", org: "Develop4u", year: null, src: "/brand/awards/developer4u.webp", title: "Best Mobile App Developers - Develop4u", description: "Soft Suave ranks as one of the best Mobile App Developers in the list released by Develop4u." },
+    { key: "extract", org: "Extract", year: null, src: "/brand/awards/extract.webp", title: "Top Software App Development Company in USA – Extract", description: "Soft Suave is ranked as one of the top Software App Development companies in the USA by Extract." },
+    { key: "wadline", org: "Wadline", year: null, src: "/brand/awards/wadline.webp", title: "Top Mobile App Developers - Wadline", description: "Soft Suave ranks as one of the Top Mobile App Developers in the list released by Wadline." },
+    { key: "nasscom", org: "NASSCOM", year: null, src: "/brand/awards/nasscom.webp", title: "Rewarded with Membership at NASSCOM", description: "Soft Suave received the prestigious membership from NASSCOM." },
+  ],
 } as const;
 
 export const techStack = {

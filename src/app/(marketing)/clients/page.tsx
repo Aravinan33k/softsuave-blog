@@ -3,26 +3,25 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/organization';
-import { clients as clientRoster } from '@/lib/home/content';
 import {
-  clientsPageCta,
+  clientsPageBrands,
   clientsPageHero,
   clientsPageMeta,
 } from '@/lib/home/clients-content';
+import { SiteLink } from '@/themes/softsuave/site-link';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-// COMPANY-LEVEL SECTIONS — the homepage's own components, reading the homepage's
-// own content. This page is almost entirely made of them on purpose: see below.
+// COMPANY-LEVEL SECTIONS — the homepage's own components. Recognitions and
+// Testimonials read the homepage's own content, which matches the live page's
+// copy verbatim; the logo band takes this page's heading and roster as props.
 import Clients from '@/components/home/clients';
-import Awards from '@/components/home/awards';
 import Recognitions from '@/components/home/recognitions';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
 
-import SectionHead from '@/components/landing/section-head';
-import CtaBand from '@/components/landing/cta-band';
+import PhotoMasthead from '@/components/common/photo-masthead';
 
 import home from '@/components/home/home.module.css';
 import landing from '@/components/landing/landing.module.css';
@@ -37,14 +36,11 @@ import landing from '@/components/landing/landing.module.css';
  * brings that traffic back in-app; without it this page would exist and
  * nothing would link to it.
  *
- * Deliberately assembled from the homepage's own sections rather than given
- * its own roster: the live page is the client logo band, the awards marquee,
- * the recognitions strip and the testimonials, in that order, and all four are
- * company-level facts that already live in `lib/home/content.ts`. Copying them
- * into a page-local module would let this page and the homepage disagree about
- * who our clients are and what they said — the exact drift `delivery-shared.ts`
- * documents having already cleaned up once. Only the masthead and the closing
- * band are this page's own copy.
+ * The section set is the live page's and nothing more: the "Clients" hero,
+ * the "Trusted by Leading Brands" logo band with its "Talk To Experts"
+ * button, Industry Recognitions, the testimonials, then the consultation form.
+ * The homepage's integrations marquee and a "Your company here next" band used
+ * to sit between them; the review removed both because live runs neither.
  *
  * A SERVER component so the route owns its `metadata` and JSON-LD; every
  * section below is a client component. Fonts, `.theme-four` tokens and Lenis
@@ -53,13 +49,15 @@ import landing from '@/components/landing/landing.module.css';
 
 export const revalidate = 300;
 
+// Title and description are the live page's verbatim — no " | Soft Suave"
+// suffix, since the live title already names the company.
 export const metadata: Metadata = {
-  title: `${clientsPageMeta.title} | Soft Suave`,
+  title: { absolute: clientsPageMeta.title },
   description: clientsPageMeta.description,
   alternates: { canonical: clientsPageMeta.path },
   robots: pageRobots,
   openGraph: {
-    title: `${clientsPageMeta.title} | Soft Suave`,
+    title: clientsPageMeta.title,
     description: clientsPageMeta.description,
     url: absoluteUrl(clientsPageMeta.path),
     siteName: 'Soft Suave',
@@ -68,7 +66,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${clientsPageMeta.title} | Soft Suave`,
+    title: clientsPageMeta.title,
     description: clientsPageMeta.description,
     images: [dynamicOgImage(clientsPageMeta.title, 'Soft Suave')],
   },
@@ -86,22 +84,22 @@ const HOME_HREF = BASE_PATH || '/';
  * claim the page does not make. The organization is referenced by `@id` so the
  * canonical node the layout emits stays the only description of the company.
  *
- * `hasPart` names the roster the page actually renders, so the collection is
- * not an empty assertion; the marks come from `content.ts`, the same source the
- * `Clients` band reads, which is what keeps schema and markup from drifting.
+ * `hasPart` names the roster the page actually renders — the same
+ * `clientsPageBrands.logos` the band below is handed — which is what keeps
+ * schema and markup from drifting.
  */
 const structuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     '@id': `${absoluteUrl(clientsPageMeta.path)}#webpage`,
-    name: `${clientsPageMeta.title} | Soft Suave`,
+    name: clientsPageMeta.title,
     description: clientsPageMeta.description,
     url: absoluteUrl(clientsPageMeta.path),
     inLanguage: 'en',
     about: { '@id': organizationLd['@id'] },
     publisher: { '@id': organizationLd['@id'] },
-    hasPart: clientRoster.logos.map((l) => ({
+    hasPart: clientsPageBrands.logos.map((l) => ({
       '@type': 'Organization',
       name: l.name,
     })),
@@ -115,31 +113,41 @@ export default function ClientsPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        {/* The masthead carries this page's H1 — there is no hero above it to
-            hold one, which is what `level={1}` on SectionHead is for. */}
-        <section className={landing.indexHead} id="top">
-          <SectionHead
-            level={1}
-            kicker={clientsPageHero.eyebrow}
-            title={clientsPageHero.titleLines.join(' ')}
-            intro={clientsPageHero.body[0]}
+        {/* Live's hero: the single word, no paragraph, over its handshake
+            photograph. */}
+        <PhotoMasthead content={clientsPageHero} />
+
+        <div className={home.light}>
+          <Clients
+            title={clientsPageBrands.title}
+            body={clientsPageBrands.body}
+            logos={clientsPageBrands.logos}
           />
-          <p className={home.lead}>{clientsPageHero.body[1]}</p>
-        </section>
+          {/* `Clients` renders no button of its own, so live's "Talk To
+              Experts" sits directly under the band, on the band's content
+              measure. The negative top margin takes back the band's own
+              bottom padding (`.clients`), which is re-applied beneath the
+              button instead, so the button hangs off the logo strip rather
+              than floating between two sections. */}
+          <div
+            style={{
+              position: 'relative',
+              marginTop: 'calc(-1 * clamp(40px, 5vw, 76px))',
+              padding: '0 var(--gutter) clamp(40px, 5vw, 76px)',
+            }}
+          >
+            <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+              <SiteLink
+                href={clientsPageBrands.cta.href}
+                className={`${landing.btn} ${landing.btnPrimary}`}
+              >
+                {clientsPageBrands.cta.label}
+              </SiteLink>
+            </div>
+          </div>
 
-        <div className={home.light}>
-          <Clients />
-        </div>
-
-        <Awards />
-
-        <div className={home.light}>
           <Recognitions />
-        </div>
 
-        <CtaBand content={clientsPageCta} />
-
-        <div className={home.light}>
           <Testimonials />
         </div>
 

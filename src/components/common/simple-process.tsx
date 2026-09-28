@@ -45,9 +45,18 @@ function colsFor(n: number): number {
 export default function SimpleProcess({
   steps,
   className,
+  label = "step",
 }: Readonly<{
   steps: readonly SimpleProcessStep[];
   className?: string;
+  /**
+   * What the small label beside each badge reads. `"step"` (the default)
+   * is the ordinal "Step N" every process section shows. `"n"` prints the
+   * step's own `n` instead — for a chronology whose `n` is a year, where
+   * "Step 3" would say nothing and the date is the point (/about's
+   * milestones). A step with no `n` falls back to "Step N".
+   */
+  label?: "step" | "n";
 }>) {
   return (
     <ol
@@ -58,9 +67,15 @@ export default function SimpleProcess({
         <li key={step.n ?? step.name} className={styles.step}>
           <div className={styles.top}>
             <CardIconBadge title={step.name} body={step.body} />
-            <span className={styles.label} aria-hidden>
-              Step {i + 1}
-            </span>
+            {label === "n" && step.n ? (
+              /* Not aria-hidden: unlike an ordinal, the list does not
+                 already announce a date. */
+              <span className={styles.label}>{step.n}</span>
+            ) : (
+              <span className={styles.label} aria-hidden>
+                Step {i + 1}
+              </span>
+            )}
           </div>
           <h3 className={styles.name}>{step.name}</h3>
           <p className={styles.body}>{step.body}</p>

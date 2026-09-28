@@ -4,25 +4,18 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/organization';
 import { marketingWebSiteLd, SCHEMA_DATE_MODIFIED } from '@/lib/seo/page-graph';
-import {
-  careersContact,
-  careersListing,
-  careersMeta,
-  careersMidCta,
-} from '@/lib/home/careers-content';
+import { careersHero, careersMeta, careersOpenings } from '@/lib/home/careers-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-// SHARED LANDING SECTIONS, taking this page's copy. Nothing bespoke: the live
-// careers page is a masthead, a location filter and a table of roles, which is
-// exactly what `landing/listing` already renders for the case-study and
-// success-story indexes.
-import Listing from '@/components/landing/listing';
-import CardGrid from '@/components/landing/industries';
-import CtaBand from '@/components/landing/cta-band';
+import SectionHead from '@/components/landing/section-head';
+// PAGE-SPECIFIC SECTION — the live page's location tabs over a table of roles,
+// which no shared landing component renders.
+import OpeningsTable from '@/components/careers/openings-table';
 
 import home from '@/components/home/home.module.css';
+import landing from '@/components/landing/landing.module.css';
 
 /**
  * Careers — rebuilt from https://www.softsuave.com/career-overview.
@@ -31,32 +24,34 @@ import home from '@/components/home/home.module.css';
  * component. Fonts, `.theme-four` tokens and Lenis smooth scroll come from
  * `app/(marketing)/layout.tsx`.
  *
- * NO `Contact` BAND AND NO HERO ENQUIRY FORM, which every other page on this
- * surface closes with. That is the whole reason this route exists: the enquiry
- * form is for business, and `sharedHeroAlert` sends candidates HERE, away from
- * it, from seventeen other pages. Closing a careers page with a sales form
- * would walk the applicant straight back into the thing they were redirected
- * out of. The HR inboxes below are the close instead.
+ * The live page is a masthead ("Career" and its one-line standfirst) and the
+ * "Join Us" openings table, then the footer — so is this one. The masthead is
+ * `SectionHead level={1}` on `.indexHead`, the pattern `/faqs`, `/clients` and
+ * `/life-at-softsuave` use for a page with no hero form. Band rhythm: dark
+ * masthead, light openings band.
+ *
+ * NO `Contact` BAND AND NO HERO ENQUIRY FORM: live has neither, and the enquiry
+ * form is for business — `sharedHeroAlert` sends candidates HERE, away from it,
+ * from seventeen other pages.
  *
  * NO `JobPosting` SCHEMA either, deliberately. Google's JobPosting requires
  * `datePosted` and a real `description`, and rewards `validThrough` and
  * `baseSalary`. The live page publishes a role name and a city and nothing
  * else, so every posting here would be a stub — and an incomplete JobPosting
- * is worse than none: it is eligible for the jobs experience, gets rejected in
- * Search Console, and puts a stale listing in front of applicants with no
- * expiry. When the roles carry dates and descriptions, this is the place to
- * add it.
+ * is worse than none. When the roles carry dates and descriptions, this is the
+ * place to add it.
  */
 
 export const revalidate = 300;
 
+// The live page's own <title>, verbatim — it carries no brand suffix there.
 export const metadata: Metadata = {
-  title: `${careersMeta.title} | Soft Suave`,
+  title: careersMeta.title,
   description: careersMeta.description,
   alternates: { canonical: careersMeta.path },
   robots: pageRobots,
   openGraph: {
-    title: `${careersMeta.title} | Soft Suave`,
+    title: careersMeta.title,
     description: careersMeta.description,
     url: absoluteUrl(careersMeta.path),
     siteName: 'Soft Suave',
@@ -65,7 +60,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${careersMeta.title} | Soft Suave`,
+    title: careersMeta.title,
     description: careersMeta.description,
   },
 };
@@ -75,16 +70,16 @@ export const metadata: Metadata = {
 const HOME_HREF = BASE_PATH || '/';
 
 /**
- * A `CollectionPage` over the openings, hiring-organization-linked by `@id` to
- * the canonical `Organization` the group layout emits — never a second
- * Organization node, for the reason `/about` documents at length.
+ * A `CollectionPage` over the openings, linked by `@id` to the canonical
+ * `Organization` the group layout emits — never a second Organization node,
+ * for the reason `/about` documents at length.
  */
 const structuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     '@id': `${absoluteUrl(careersMeta.path)}#webpage`,
-    name: `${careersMeta.title} | Soft Suave`,
+    name: careersMeta.title,
     description: careersMeta.description,
     url: absoluteUrl(careersMeta.path),
     inLanguage: 'en',
@@ -102,31 +97,12 @@ export default function CareerOverviewPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        {/* Masthead and the openings in one component — `Listing` renders its
-            own H1, so this is the page's top rather than a section of it. */}
-        <Listing content={careersListing} id="openings" />
+        <section className={landing.indexHead} id="top">
+          <SectionHead level={1} title={careersHero.title} intro={careersHero.intro} />
+        </section>
 
-        <CtaBand content={careersMidCta} />
-
-        {/* The close: the two HR inboxes, on the warm-white band so the page
-            does not end on the same dark ground the CTA sits on. Each card
-            links its own mailbox — `mailto:` reaches `SiteLink`, which now
-            passes a complete URL through untouched (themes/softsuave/nav-data). */}
         <div className={home.light}>
-          <CardGrid
-            content={{
-              eyebrow: careersContact.eyebrow,
-              title: careersContact.title,
-              body: careersContact.intro,
-              items: careersContact.inboxes.map((i) => ({
-                name: i.label,
-                body: `${i.email} · ${i.phone}`,
-                href: `mailto:${i.email}`,
-              })),
-            }}
-            id="contact"
-            columns={3}
-          />
+          <OpeningsTable content={careersOpenings} id="openings" />
         </div>
       </main>
 

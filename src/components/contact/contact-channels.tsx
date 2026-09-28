@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import FadeUp from "@/components/home/fade-up";
 import { contactForm, quickContact, serviceOptions } from "@/lib/home/contact-content";
 import CardHead from "./card-head";
 import ContactScheduler from "./contact-scheduler";
+import LiveChat from "./live-chat";
 import styles from "./contact.module.css";
 
 /**
@@ -37,6 +38,9 @@ export default function ContactChannels() {
     </div>
   );
 }
+
+/** The Contact Form card's id — the Live Chat row brings the reader here. */
+const CONTACT_FORM_ID = "contact-form";
 
 type Step = 0 | 1 | 2 | 3;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -145,7 +149,7 @@ function SteppedForm() {
   const fieldId = `contact-${["name", "email", "phone", "service"][step]}`;
 
   return (
-    <form className={`${styles.channelCard} ${styles.formCard}`} onSubmit={onSubmit} noValidate>
+    <form id={CONTACT_FORM_ID} className={`${styles.channelCard} ${styles.formCard}`} onSubmit={onSubmit} noValidate>
       <CardHead icon={contactForm.icon} title={contactForm.title} subtitle={contactForm.subtitle} />
 
       {status === "ok" ? (
@@ -154,12 +158,6 @@ function SteppedForm() {
         </p>
       ) : (
         <div className={styles.stepBody}>
-          <div className={styles.stepMeter} aria-hidden>
-            {questions.map((q, i) => (
-              <span key={q.question} className={i <= step ? styles.stepDotOn : styles.stepDot} />
-            ))}
-          </div>
-
           <label className={styles.stepQuestion} htmlFor={fieldId}>
             {current.question}
           </label>
@@ -277,6 +275,8 @@ function SteppedForm() {
 
 function QuickContactCard() {
   const q = quickContact;
+  const [chatOpen, setChatOpen] = useState(false);
+  const closeChat = useCallback(() => setChatOpen(false), []);
   return (
     <div className={styles.channelCard}>
       <CardHead icon={q.icon} title={q.title} subtitle={q.subtitle} level={3} />
@@ -306,7 +306,15 @@ function QuickContactCard() {
         <Arrow />
       </a>
 
-      <a className={styles.quickRow} href={q.liveChat.href} target="_blank" rel="noopener noreferrer">
+      {/* Opens the Soft Suave assistant panel — the live page's Live Chat —
+          rather than an external app: see `quickContact.liveChat`. */}
+      <button
+        type="button"
+        className={styles.quickRow}
+        onClick={() => setChatOpen(true)}
+        aria-haspopup="dialog"
+        aria-expanded={chatOpen}
+      >
         <Image src={publicMediaUrl(q.liveChat.icon)} alt="" width={46} height={46} className={styles.quickRowImg} />
         <span className={styles.quickText}>
           <span className={styles.quickTitle}>
@@ -316,7 +324,8 @@ function QuickContactCard() {
           <span className={styles.quickSub}>{q.liveChat.text}</span>
         </span>
         <Arrow />
-      </a>
+      </button>
+      <LiveChat open={chatOpen} onClose={closeChat} />
     </div>
   );
 }

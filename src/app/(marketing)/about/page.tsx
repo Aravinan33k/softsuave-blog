@@ -8,9 +8,7 @@ import {
   aboutHero,
   aboutLeadership,
   aboutMeta,
-  aboutMidCta,
   aboutMilestones,
-  aboutMissionVision,
   aboutOverview,
 } from '@/lib/home/about-content';
 
@@ -19,19 +17,15 @@ import Footer from '@/components/home/footer';
 
 // COMPANY-LEVEL SECTIONS — the homepage's own components and content, so the
 // proof on this page is the same proof the rest of the site shows.
-import Manifesto from '@/components/home/manifesto';
 import Recognitions from '@/components/home/recognitions';
 import Clients from '@/components/home/clients';
-import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
 
 // SHARED LANDING SECTIONS, taking this page's copy.
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
-import CardGrid from '@/components/landing/industries';
 import Process from '@/components/landing/process';
 import Team from '@/components/landing/team';
-import CtaBand from '@/components/landing/cta-band';
 
 import home from '@/components/home/home.module.css';
 
@@ -42,21 +36,20 @@ import home from '@/components/home/home.module.css';
  * section below is a client component. Fonts, `.theme-four` tokens and Lenis
  * smooth scroll come from `app/(marketing)/layout.tsx`.
  *
- * Section order follows the live page — hero, mission/vision, milestones,
- * leadership, recognitions, clients — with the brand's own testimonial and
- * contact bands appended, which is the order every other page in this group
- * closes on.
+ * Section set and order follow the live page — hero, overview with mission
+ * and vision, milestones, leadership, recognitions, clients — closing on the
+ * brand's contact band, as every page in this group does.
  */
 
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: `${aboutMeta.title} | Soft Suave`,
+  title: aboutMeta.title,
   description: aboutMeta.description,
   alternates: { canonical: aboutMeta.path },
   robots: pageRobots,
   openGraph: {
-    title: `${aboutMeta.title} | Soft Suave`,
+    title: aboutMeta.title,
     description: aboutMeta.description,
     url: absoluteUrl(aboutMeta.path),
     siteName: 'Soft Suave',
@@ -65,11 +58,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${aboutMeta.title} | Soft Suave`,
+    title: aboutMeta.title,
     description: aboutMeta.description,
     images: [dynamicOgImage(aboutMeta.title, 'Soft Suave')],
   },
 };
+
+/* The title is the live page's own and already names the brand, so it is used
+   as-is rather than getting the " | Soft Suave" suffix the other pages add. */
 
 /** The nav logo is a plain <a>, which Next does NOT prefix with basePath, so it
  *  needs the already-public path; the links below go through next/link, which
@@ -104,7 +100,7 @@ const structuredData = [
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
     '@id': `${absoluteUrl(aboutMeta.path)}#webpage`,
-    name: `${aboutMeta.title} | Soft Suave`,
+    name: aboutMeta.title,
     description: aboutMeta.description,
     url: absoluteUrl(aboutMeta.path),
     inLanguage: 'en',
@@ -135,34 +131,29 @@ export default function AboutPage() {
       <main id="main">
         <Hero content={aboutHero} idPrefix="about" />
 
-        <div id="why" className={`${home.light} ${home.whySection}`}>
-          <Manifesto />
-        </div>
-
+        {/* The overview (with mission and vision inside it, as on the live
+            page) and the milestone timeline share one light band: the section
+            they replaced between them was the dark one, and this keeps the
+            leadership and proof bands on the inversions they already had. */}
         <div className={home.light}>
-          <Overview content={aboutOverview} />
+          <Overview content={aboutOverview} id="mission" />
+
+          {/* A chronology: each card is labelled with its year, not "Step N". */}
+          <Process content={aboutMilestones} id="milestones" label="n" />
         </div>
 
-        <CardGrid content={aboutMissionVision} id="mission" variant="feature" />
-
-        <div className={home.light}>
-          <Process content={aboutMilestones} id="milestones" variant="mosaic" />
-        </div>
-
-        <Team content={aboutLeadership} id="team" />
+        <Team content={aboutLeadership} id="team" columns={5} />
 
         {/* Both proof bands share one light band: they are the same argument
             told twice (who rates us, who buys from us), and splitting them
             across an inversion would read as two unrelated sections. */}
         <div className={home.light}>
           <Recognitions />
-          <Clients />
-        </div>
-
-        <CtaBand content={aboutMidCta} />
-
-        <div className={home.light}>
-          <Testimonials />
+          {/* The live About page's own heading and standfirst for this band. */}
+          <Clients
+            title="Preferred Technology Partner for Startups and SMBs Globally"
+            body="We use the latest technology and AI innovation to help startups transform digitally, guiding them through product development with unmatched experience and actionable results."
+          />
         </div>
 
         <Contact />

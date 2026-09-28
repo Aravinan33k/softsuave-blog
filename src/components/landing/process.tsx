@@ -48,6 +48,7 @@ export interface ProcessContent {
 export default function Process({
   content,
   id = "journey",
+  label,
 }: Readonly<{
   content: ProcessContent;
   id?: string;
@@ -55,13 +56,19 @@ export default function Process({
   variant?: "cards" | "even" | "stages" | "mosaic";
   /** Ignored — kept for call-site compatibility. See the note above. */
   columns?: 3 | 4;
+  /**
+   * Passed through to `SimpleProcess`: `"n"` labels each card with the
+   * step's own `n` (a year, on a timeline) instead of "Step N". Omit for
+   * the default.
+   */
+  label?: "step" | "n";
 }>) {
   return (
     <section className={styles.sectionShell} id={id}>
       {content.title && (
         <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
       )}
-      <SimpleProcess steps={content.steps} />
+      <SimpleProcess steps={content.steps} label={label} />
     </section>
   );
 }

@@ -7127,6 +7127,14 @@
   gap: clamp(14px, 1.6vw, 22px);
 }
 
+/* Opt-in fixed count (`columns={5}`): five across from 1000px up; narrower
+   viewports keep the auto-fit tracks above. */
+@media (min-width: 1000px) {
+  .teamGrid[data-cols="5"] {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
 .teamCard {
   display: flex;
   flex-direction: column;

@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
-import { BASE_PATH } from '@/lib/flags';
-import { absoluteUrl } from '@/lib/seo/metadata';
-import { JsonLd } from '@/components/seo/json-ld';
-import { organizationLd } from '@/lib/seo/organization';
+import { BASE_PATH, pageRobots } from '@/lib/flags';
+import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { contactHeading, contactMeta, contactTestimonials } from '@/lib/home/contact-content';
 
 import Nav from '@/components/home/nav';
@@ -21,6 +19,10 @@ import cx from '@/components/contact/contact.module.css';
  * certificates and the client testimonials, in the live page's order. All copy
  * lives in `src/lib/home/contact-content.ts`.
  *
+ * No page-level JSON-LD: the live page carries none, so this one adds nothing
+ * beyond the Organization / WebSite nodes every marketing page gets from the
+ * shared layout.
+ *
  * A SERVER component: only a server component may export `metadata`, and the
  * (marketing) layout's metadata is the homepage's. Fonts, `.theme-four` tokens
  * and Lenis smooth scroll all come from that layout.
@@ -34,12 +36,20 @@ export const metadata: Metadata = {
   title: { absolute: contactMeta.title },
   description: contactMeta.description,
   alternates: { canonical: '/contact' },
+  robots: pageRobots,
   openGraph: {
     title: contactMeta.title,
     description: contactMeta.description,
     url: absoluteUrl('/contact'),
     siteName: 'Soft Suave',
     type: 'website',
+    images: [dynamicOgImage(contactMeta.title, 'Soft Suave')],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: contactMeta.title,
+    description: contactMeta.description,
+    images: [dynamicOgImage(contactMeta.title, 'Soft Suave')],
   },
 };
 
@@ -50,29 +60,9 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-const PAGE_URL = absoluteUrl('/contact');
-
-/**
- * ContactPage schema. `organizationLd` carries the real contact details (the
- * addresses and points of contact), so this references it by `@id` rather than
- * restating any of them here — the same split the service pages use.
- */
-const contactPageLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ContactPage',
-  '@id': `${PAGE_URL}#webpage`,
-  url: PAGE_URL,
-  name: contactMeta.title,
-  description: contactMeta.description,
-  inLanguage: 'en',
-  about: { '@id': organizationLd['@id'] },
-  publisher: { '@id': organizationLd['@id'] },
-} as const;
-
 export default function ContactPage() {
   return (
     <div className={styles.page}>
-      <JsonLd data={[contactPageLd]} />
       <Nav logoHref={HOME_HREF} />
       <main id="main">
         {/* The hero — heading and the three channel cards — on white. `.light`
@@ -85,7 +75,11 @@ export default function ContactPage() {
           </section>
           <ContactChannels />
         </div>
-        <ContactOffices />
+        {/* The offices on the live page's light world-map band; the dark
+            awards band then sits between two light ones. */}
+        <div className={styles.light}>
+          <ContactOffices />
+        </div>
 
         <ContactAwards />
 

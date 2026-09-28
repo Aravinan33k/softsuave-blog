@@ -5,10 +5,10 @@ import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/organization';
 import { marketingWebSiteLd, SCHEMA_DATE_MODIFIED } from '@/lib/seo/page-graph';
 import {
+  lifeAwards,
+  lifeGallery,
   lifeHero,
   lifeMeta,
-  lifeMidCta,
-  lifeOverview,
   lifePerks,
   lifePractice,
   lifePurpose,
@@ -16,58 +16,43 @@ import {
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
+import Contact from '@/components/home/contact';
 
-// COMPANY-LEVEL SECTION — the homepage's own awards band, reading the one list
-// of accolades in `content.ts`. The live page ends on "Awards & Certifications"
-// with eleven directory badges; rendering the shared band means this page and
-// the homepage can never disagree about what we have won.
-import Recognitions from '@/components/home/recognitions';
-
-// SHARED LANDING SECTIONS, taking this page's copy.
-import SectionHead from '@/components/landing/section-head';
-import Overview from '@/components/landing/overview';
-import CardGrid from '@/components/landing/industries';
-import CtaBand from '@/components/landing/cta-band';
+// PAGE-LOCAL SECTIONS, composed from the landing surface's classes and
+// primitives — the photo-led arrangements live uses that the shared landing set
+// has no equivalent for (see each component's header).
+import PhotoMasthead from '@/components/common/photo-masthead';
+import LifeGallery from '@/components/life/life-gallery';
+import LifePurpose from '@/components/life/life-purpose';
+import LifePerks from '@/components/life/life-perks';
+import LifePractice from '@/components/life/life-practice';
+import LifeAwards from '@/components/life/life-awards';
 
 import home from '@/components/home/home.module.css';
-import landing from '@/components/landing/landing.module.css';
 
 /**
  * Life at Soft Suave — rebuilt from
- * https://www.softsuave.com/life-at-softsuave, section for section.
+ * https://www.softsuave.com/life-at-softsuave, section for section, with its
+ * copy verbatim and its own photographs (re-encoded under
+ * `public/images/life/`).
  *
- * A SERVER component so it can own its `metadata`; every section below is a
- * client component. Fonts, `.theme-four` tokens and Lenis smooth scroll come
- * from `app/(marketing)/layout.tsx`.
+ * A SERVER component so it can own its `metadata`. Fonts, `.theme-four` tokens
+ * and Lenis smooth scroll come from `app/(marketing)/layout.tsx`.
  *
- * NO HERO ENQUIRY FORM AND NO CLOSING `Contact` BAND, for the same reason the
- * careers page has neither: this page's reader is a candidate, and the enquiry
- * form on every other page is a sales form that `sharedHeroAlert` explicitly
- * redirects candidates away from. It closes on the careers CTA instead, which
- * is the action this page actually wants.
- *
- * The masthead is `SectionHead level={1}` on `.indexHead` rather than the
- * landing `Hero`, which is the pattern `/faqs` and `/clients` use for a page
- * with no form: an H1, a standfirst, and straight into the content.
- *
- * NO PHOTOGRAPHY YET. The live page carries office and event photographs, and
- * this surface's rule is that photographic slots go through the Pexels
- * pipeline and `BrandImage` — but stock photography of someone else's office
- * would be a worse lie than no photograph at all on a page whose entire
- * subject is THIS office. The slots belong in `content/images.manifest.json`
- * once the real photographs are exported from the live site; the layout takes
- * them without restructuring.
+ * Closes on the site's `Contact` band, the equivalent of the "Book Free
+ * Consultation" form live ends on.
  */
 
 export const revalidate = 300;
 
+// Live's <title> and meta description verbatim — no brand suffix there.
 export const metadata: Metadata = {
-  title: `${lifeMeta.title} | Soft Suave`,
+  title: lifeMeta.title,
   description: lifeMeta.description,
   alternates: { canonical: lifeMeta.path },
   robots: pageRobots,
   openGraph: {
-    title: `${lifeMeta.title} | Soft Suave`,
+    title: lifeMeta.title,
     description: lifeMeta.description,
     url: absoluteUrl(lifeMeta.path),
     siteName: 'Soft Suave',
@@ -76,7 +61,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${lifeMeta.title} | Soft Suave`,
+    title: lifeMeta.title,
     description: lifeMeta.description,
   },
 };
@@ -95,11 +80,12 @@ const structuredData = [
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
     '@id': `${absoluteUrl(lifeMeta.path)}#webpage`,
-    name: `${lifeMeta.title} | Soft Suave`,
+    name: lifeMeta.title,
     description: lifeMeta.description,
     url: absoluteUrl(lifeMeta.path),
     inLanguage: 'en',
     dateModified: SCHEMA_DATE_MODIFIED,
+    primaryImageOfPage: absoluteUrl(lifeHero.image.src),
     about: { '@id': organizationLd['@id'] },
     mainEntity: { '@id': organizationLd['@id'] },
     publisher: { '@id': organizationLd['@id'] },
@@ -113,40 +99,28 @@ export default function LifeAtSoftSuavePage() {
       <JsonLd data={structuredData} />
       <Nav logoHref={HOME_HREF} />
 
-      {/* Band rhythm: dark masthead, then alternating. The perks grid and the
-          practice grid are deliberately NOT adjacent on the same ground —
-          eight cards followed by five on one surface reads as thirteen cards. */}
+      {/* Band rhythm: photo masthead (dark), then light and dark alternating
+          down to the dark Contact band. */}
       <main id="main">
-        <section className={landing.indexHead} id="top">
-          <SectionHead
-            level={1}
-            kicker={lifeHero.eyebrow}
-            title={lifeHero.title}
-            intro={lifeHero.intro}
-          />
-        </section>
+        <PhotoMasthead content={lifeHero} />
 
         <div className={home.light}>
-          <Overview content={lifeOverview} id="people" />
+          <LifeGallery content={lifeGallery} />
         </div>
 
-        <CardGrid content={lifePurpose} id="purpose" variant="feature" columns={3} />
+        <LifePurpose content={lifePurpose} />
 
         <div className={home.light}>
-          <CardGrid content={lifePerks} id="perks" columns={4} />
+          <LifePerks content={lifePerks} />
         </div>
 
-        {/* `bold` rather than a third plain card grid: this is the page's
-            third consecutive grid, and the variant gives it its own
-            composition and the card-accent ramp instead of reading as a
-            repeat of the perks above it. */}
-        <CardGrid content={lifePractice} id="practice" variant="bold" />
+        <LifePractice content={lifePractice} />
 
         <div className={home.light}>
-          <Recognitions />
+          <LifeAwards content={lifeAwards} />
         </div>
 
-        <CtaBand content={lifeMidCta} />
+        <Contact />
       </main>
 
       <Footer />
