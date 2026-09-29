@@ -9,6 +9,7 @@
  *   /agentic-ai-development-services
  *   /computer-vision-development-services
  *   /custom-ai-development-services
+ *   /data-engineering-services
  *   /generative-ai-development-company
  *   /predictive-intelligence-services
  *   /rag-development-services
@@ -26,6 +27,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/agentic-ai-development-services',
   '/computer-vision-development-services',
   '/custom-ai-development-services',
+  '/data-engineering-services',
   '/generative-ai-development-company',
   '/predictive-intelligence-services',
   '/rag-development-services',

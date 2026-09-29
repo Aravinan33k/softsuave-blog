@@ -1407,7 +1407,7 @@ export const aiPageSchemas = {
         "@id": "https://www.softsuave.com/data-engineering-services#webpage",
         "url": "https://www.softsuave.com/data-engineering-services",
         "name": "Data Engineering Services & Solutions | Soft Suave",
-        "description": "Build stronger data foundations with Soft Suave's data engineering services for data pipelines, integrated systems, analytics-ready data, and AI solutions.",
+        "description": "Build stronger data foundations with Soft Suave’s data engineering services for data pipelines, integrated systems, analytics-ready data, and AI solutions.",
         "inLanguage": "en",
         "dateModified": "2026-09-15",
         "primaryImageOfPage": {
