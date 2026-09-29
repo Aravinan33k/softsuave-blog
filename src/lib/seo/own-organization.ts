@@ -21,12 +21,15 @@ export const PAGES_WITH_OWN_ORGANIZATION: ReadonlySet<string> = new Set([
  * Pages whose approved schema spec is the page's COMPLETE structured data, so
  * the layout emits nothing site-wide for them — not even the WebSite.
  *
- *   /custom-ai-development-services    exactly the spec's four blocks —
- *     Organization, Service, WebPage, FAQPage (29 Sep request). Its WebPage
- *     carries no `isPartOf`, so nothing on the page points at the WebSite. The
- *     page also turns off the footer's PostalAddress microdata for the same
- *     reason (`<Footer addressMicrodata={false} />`).
+ *   /custom-ai-development-services      exactly the spec's four blocks —
+ *   /generative-ai-development-company   Organization, Service, WebPage,
+ *     FAQPage (29 Sep requests). Their WebPages carry no `isPartOf`, so nothing
+ *     on the page points at the WebSite. Each page also turns off the footer's
+ *     PostalAddress microdata for the same reason
+ *     (`<Footer addressMicrodata={false} />`) and emits the spec's Organization
+ *     itself (`softSuaveOrganizationLd`).
  */
 export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/custom-ai-development-services',
+  '/generative-ai-development-company',
 ]);

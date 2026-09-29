@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import { aiPageJsonLd } from '@/lib/seo/ai-page-schema';
+import { aiPageJsonLd, softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { meta, services as servicesContent } from '@/lib/home/generative-ai';
 
@@ -50,6 +50,18 @@ import styles from '@/components/home/home.module.css';
 // Matches the homepage/marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
+/**
+ * The page's OG image — the hero artwork cropped to 1200×630, served from the
+ * exact path the approved schema spec names, so the Service `image`, the
+ * WebPage `primaryImageOfPage` and the og:image are one file.
+ */
+const OG_IMAGE = {
+  url: absoluteUrl('/assets/images/generative-ai-development-company-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'Generative AI Development Company - Soft Suave',
+};
+
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: meta.title,
@@ -62,17 +74,18 @@ export const metadata: Metadata = {
     url: absoluteUrl(meta.path),
     siteName: 'Soft Suave',
     type: 'website',
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: meta.title,
     description: meta.description,
+    images: [OG_IMAGE.url],
   },
 };
 
-/** FAQPage schema, built from the same data the accordion renders. */
 /**
- * Organization + Service + WebPage + FAQPage, from the approved SEO spec
+ * Service + WebPage + FAQPage, from the approved SEO spec
  * (`lib/seo/ai-page-schema.ts`). It replaces the hand-rolled Service and
  * FAQPage this page used to build from its own content: the approved set is
  * richer (offer catalogue, audience, primary image, publisher `@id`) and its
@@ -87,6 +100,12 @@ const HOME_HREF = BASE_PATH || '/';
 export default function GenerativeAiDevelopmentCompanyPage() {
   return (
     <div className={styles.page}>
+      {/* The spec's four blocks are this page's entire structured data:
+          Organization (verbatim — no Facebook profile, unlike the site-wide
+          node) + Service, WebPage, FAQPage. The layout adds nothing here, not
+          even its WebSite, and the footer's PostalAddress microdata is off —
+          see PAGES_WITH_OWN_SITE_GRAPH. */}
+      <JsonLd data={softSuaveOrganizationLd} />
       <JsonLd data={pageLd} />
       {/* This page owns both of the bar's anchor sections itself — `Services`
           renders #services and `WhyUs` renders #why — so the bar scrolls in-page
@@ -158,7 +177,7 @@ export default function GenerativeAiDevelopmentCompanyPage() {
 
         <Contact />
       </main>
-      <Footer />
+      <Footer addressMicrodata={false} />
     </div>
   );
 }
