@@ -3077,6 +3077,19 @@
   line-height: 1.06;
 }
 
+/* `titleFit`: the copy column is a size container, and the H1 scales with it so
+   its longest line fits (≈15em wide for "PostgreSQL Development Company") —
+   capped at the standard H1, floored at 34px for small screens. The 24ch cap
+   goes: it scales with the font, so it held that line at ≈14.9em whatever the
+   size, and the line always wrapped. */
+.heroCopyFit {
+  container-type: inline-size;
+}
+.heroCopyFit .heroTitle.heroTitleFit {
+  font-size: clamp(34px, 6.4cqi, var(--fs-h1));
+  max-width: none;
+}
+
 .heroCompact .heroBody {
   margin-top: clamp(16px, 2vw, 24px);
   max-width: 72ch;

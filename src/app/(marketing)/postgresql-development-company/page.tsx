@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
+import { absoluteUrl } from '@/lib/seo/metadata';
+import { softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import { pgFaqLd, pgServiceLd, pgWebPageLd } from '@/lib/seo/postgresql-development-company';
 import {
   pgFaqs,
@@ -48,12 +49,10 @@ import home from '@/components/home/home.module.css';
  * `lib/home/postgresql-content.ts`, which also notes where this page adapts that copy
  * to fit the shared components).
  *
- * The structured data follows the same split as `/nextjs-development-company`,
- * `/typescript-development-company` and `/graphql-development-company`: the site-wide Organization node
- * (`lib/seo/organization.ts`, unchanged, not re-declared) plus Service,
- * WebPage and FAQPage schemas built from this page's own content
- * (`lib/seo/postgresql-development-company.ts`), the three linked back to the
- * Organization by `@id` rather than repeating it.
+ * The structured data is the approved SEO spec's four blocks and nothing else:
+ * its Organization (`softSuaveOrganizationLd`) plus the Service, WebPage and
+ * FAQPage in `lib/seo/postgresql-development-company.ts` — see
+ * PAGES_WITH_OWN_SITE_GRAPH for why the layout adds nothing here.
  *
  * A SERVER component on purpose: only a server component may export `metadata`
  * (node_modules/next/dist/docs/.../generate-metadata.md), and the (marketing)
@@ -67,10 +66,10 @@ import home from '@/components/home/home.module.css';
 // Matches the marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
-// No bundled OG image for this page yet, so the dynamic /og route generates
-// one from the title — the same fallback every post and page without a
-// custom image already gets from `buildMetadata`.
-const ogImage = dynamicOgImage(pgMeta.title, 'Soft Suave');
+// The hero artwork cropped to 1200×630, served from the exact path the schema
+// spec names, so the Service `image`, the WebPage `primaryImageOfPage` and the
+// og:image are one file.
+const ogImage = absoluteUrl('/path-to-final-postgresql-og-image.webp');
 
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim —
@@ -105,6 +104,7 @@ const HOME_HREF = BASE_PATH || '/';
 export default function PostgreSqlDevelopmentCompanyPage() {
   return (
     <div className={home.page}>
+      <JsonLd data={softSuaveOrganizationLd} />
       <JsonLd data={[pgServiceLd, pgWebPageLd, pgFaqLd]} />
       <Nav logoHref={HOME_HREF} />
 
@@ -137,27 +137,27 @@ export default function PostgreSqlDevelopmentCompanyPage() {
           <WhyUs content={pgWhyUs} />
         </div>
 
-        {/* The homepage's marquee tech rows, one per group, rather than the
-            landing set's static panel grid. Dark, as on the homepage;
-            `.techCompact` only clears the homepage's full-viewport
-            min-height for this content-height page. */}
+        {/* The homepage's tech rows, one per group, rather than the landing
+            set's static panel grid. Dark, as on the homepage; `.techCompact`
+            only clears the homepage's full-viewport min-height for this
+            content-height page. `staticFrom` holds the rows still from tablet
+            width up — they wrap rather than scroll, as on the Vue.js page;
+            phones keep the scrolling rows. */}
         <div className={home.techCompact}>
-          <TechStack content={pgTech} />
+          <TechStack content={pgTech} staticFrom={768} />
         </div>
 
-        <div className={home.light}>
-          <Faq content={pgFaqs} idPrefix="pg-faq" />
-        </div>
-
-        {/* Homepage client stories, on the warm-white band as they are there. */}
+        {/* Client stories, then the FAQ, on one warm-white band (29 Sep
+            review: testimonials before the FAQ). */}
         <div className={home.light}>
           <Testimonials />
+          <Faq content={pgFaqs} idPrefix="pg-faq" />
         </div>
 
         <Contact />
       </main>
 
-      <Footer />
+      <Footer addressMicrodata={false} />
     </div>
   );
 }

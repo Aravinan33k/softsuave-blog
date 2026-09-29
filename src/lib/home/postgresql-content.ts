@@ -49,6 +49,8 @@ export const pgMeta = {
 export const pgHero: HeroContent = {
   // The H1, split so the last line takes the coral accent.
   titleLines: ["PostgreSQL Development Company", "for Dependable Data Systems"],
+  // Sized to its column so the H1 reads on two lines (29 Sep review).
+  titleFit: true,
   body: [
     "Business applications need databases that preserve accuracy as data, users, and integrations grow. Soft Suave serves as a reliable PostgreSQL development company for teams improving schema design, query performance, migrations, and database operations while keeping database work aligned with application requirements.",
     "Bring us your database bottlenecks or expansion plans, and we’ll help identify the most practical next step.",
@@ -130,7 +132,7 @@ export const pgPlanCta: CtaBandContent = {
   eyebrow: "Next Step",
   title: "Move From Database Complexity to Clearer Growth",
   body: "Transform a difficult database environment into a structured foundation that supports changing application needs. Our PostgreSQL team can help you plan the improvements needed to move forward.",
-  cta: { label: "Plan Your Database Improvements", href: "#enquiry" },
+  cta: { label: "Plan Your Database Improvements", href: "/contact" },
 };
 
 export const pgWhyUs: CardGridContent = {

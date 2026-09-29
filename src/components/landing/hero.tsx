@@ -19,6 +19,13 @@ import Breadcrumb from "@/components/common/breadcrumb";
 export interface HeroContent {
   /** The H1, split into lines. The last line takes the accent. */
   titleLines: readonly string[];
+  /**
+   * Size the H1 to its column so each of `titleLines` fits on one line — for
+   * a headline whose first line is too long for the standard H1 size (the
+   * PostgreSQL page: "make sure the h1 comes in 2 lines"). Scales down with
+   * the column, never above the standard size, never below 34px.
+   */
+  titleFit?: boolean;
   body: readonly string[];
   points: readonly string[];
   /**
@@ -172,10 +179,10 @@ export default function Hero({
       )}
 
       <div className={styles.heroGrid}>
-        <div>
+        <div className={content.titleFit ? styles.heroCopyFit : undefined}>
           {/* "Home › <page>", named from the route — see common/breadcrumb. */}
           <Breadcrumb />
-          <h1 className={styles.heroTitle}>
+          <h1 className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}`}>
             {/* The spans are display:block, so the spaces between them only
                 matter to the text content crawlers and screen readers see. */}
             {content.titleLines.map((line, i) => (
