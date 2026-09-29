@@ -16,6 +16,7 @@
  *   /postgresql-development-company
  *   /predictive-intelligence-services
  *   /rag-development-services
+ *   /typescript-development-company
  *   /vuejs-development-company
  *
  * so each page must also:
@@ -38,5 +39,6 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/postgresql-development-company',
   '/predictive-intelligence-services',
   '/rag-development-services',
+  '/typescript-development-company',
   '/vuejs-development-company',
 ]);
