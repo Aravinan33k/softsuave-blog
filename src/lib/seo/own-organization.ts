@@ -9,6 +9,7 @@
  *   /agentic-ai-development-services
  *   /custom-ai-development-services
  *   /generative-ai-development-company
+ *   /rag-development-services
  *
  * so each page must also:
  *   - emit the spec's Organization itself (`softSuaveOrganizationLd`, which
@@ -23,4 +24,5 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/agentic-ai-development-services',
   '/custom-ai-development-services',
   '/generative-ai-development-company',
+  '/rag-development-services',
 ]);
