@@ -11,6 +11,8 @@
  * own components, so that copy stays in one place.
  */
 
+import { sharedHeroAlert } from '@/lib/home/delivery-shared';
+
 export const meta = {
   title: 'Custom AI Development Services',
   description:
@@ -44,7 +46,8 @@ export const hero = {
     requirementLabel: 'What do you want to build?',
     requirementPlaceholder: 'The problem, the data you have, and where it should run.',
     subject: 'AI Development Services enquiry',
-    note: 'No obligation. We reply within one business day.',
+    // The business/candidates notice only — no sales line under the form.
+    alert: sharedHeroAlert,
   },
 } as const;
 

@@ -71,7 +71,6 @@ export const nxHero: HeroContent = {
     /* The card carried no descriptive line at all, which is most of why it
        read as undersized beside this hero's five-point copy column. Every
        other page on the surface sets one. */
-    note: "Tell us what the product has to do, how its content changes, and which systems it has to connect to, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
     /* The candidate notice was being pushed through `note`/`noteLink`, which
        renders it as body copy; `alert` is the field built for it and gives it
        the bordered treatment every other hero uses. */

@@ -54,6 +54,14 @@
      so a button is the same orange on every ground. */
   --cta-bg: var(--brand-500);
   --cta-ink: #ffffff;
+  /* Every orange button's hover: a contrast fill wipes across it (see
+     home.module.css `.pillFilled`). White with dark ink on this dark ground;
+     every LIGHT ground (`.light`, the light nav, the white contact hero)
+     re-points the pair to near-black with white ink, and a dark panel nested
+     inside a light band points it back. Form submit buttons keep their own
+     hover and do not read these. */
+  --cta-hover-bg: #ffffff;
+  --cta-hover-ink: #140b08;
   --cream: #e6e4e2;
   --cream-line: #d8d8d8;
 

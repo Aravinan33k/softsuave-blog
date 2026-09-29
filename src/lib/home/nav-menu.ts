@@ -25,9 +25,10 @@
  *
  * ## what is left out
  * Only pages that exist are linked. A sheet row with no page of its own is
- * dropped — MLOps and its ten tool rows under Data Science, Vue.js and
- * PostgreSQL under Web App Development, and the Level 4 rows (Java/Kotlin,
- * Jetpack Compose, Swift/Swift UI) — and joins the day its page ships.
+ * dropped — MLOps and its ten tool rows under Data Science, and the Level 4
+ * rows (Java/Kotlin, Jetpack Compose, Swift/Swift UI) — and joins the day its
+ * page ships. (Vue.js and PostgreSQL under Web App Development joined once
+ * their pages shipped.)
  *
  * The one exception is Native App Development and Hybrid App Development:
  * neither has a page, but their children do, so they stay as unlinked
@@ -157,6 +158,8 @@ const SERVICES: NavMenuPanel = {
             { name: "Java", href: "/java-application-development-company" },
             { name: "PHP", href: "/php-application-development-company" },
             { name: "Python", href: "/python-application-development-company" },
+            { name: "Vue.js", href: "/vuejs-development-company" },
+            { name: "PostgreSQL", href: "/postgresql-development-company" },
           ],
         },
         {

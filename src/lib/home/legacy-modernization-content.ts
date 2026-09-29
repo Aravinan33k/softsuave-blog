@@ -59,7 +59,6 @@ export const legacyHero: HeroContent = {
     title: "Get Your FREE Quote Now!",
     // An H2 on the live page, so part of the outline here too.
     titleAs: "h2",
-    note: "Tell us what you are running and what is hurting. We come back with an assessment approach, a staged roadmap, and an indicative estimate. Everything stays under NDA.",
     submit: "Send requirements",
     sending: "Opening your mail…",
     requirementLabel: "What system needs modernizing?",

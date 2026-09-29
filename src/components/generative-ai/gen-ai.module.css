@@ -163,12 +163,44 @@
   background: var(--cta-bg, #ff5436);
   border-color: var(--cta-bg, #ff5436);
   color: var(--cta-ink, #ffffff);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: background 0s, color 0.3s ease, border-color 0.3s ease;
 }
 
-.btnPrimary:hover {
-  background: var(--accent-border);
-  border-color: var(--accent-border);
-  color: var(--on-accent, #140b08);
+/* The site's orange-button hover — the contrast wipe of home.module.css
+   `.pillFilled`: white on a dark ground, near-black on a light one
+   (`--cta-hover-*`, set per ground). */
+.btnPrimary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--cta-hover-bg, #ffffff);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.btnPrimary:hover,
+.btnPrimary:focus-visible {
+  background: var(--cta-hover-bg, #ffffff);
+  border-color: var(--cta-hover-bg, #ffffff);
+  color: var(--cta-hover-ink, #140b08);
+  transition: background 0s 0.4s, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btnPrimary:hover::before,
+.btnPrimary:focus-visible::before {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btnPrimary::before {
+    transition: none;
+  }
 }
 
 /* ============================================================
@@ -528,6 +560,8 @@
    muddy on black. */
 .psPanel {
   --bg: #040508;
+  --cta-hover-bg: #ffffff;
+  --cta-hover-ink: #140b08;
   --surface: #101114;
   /* The homepage's cream: the ink it uses for copy set over photographs. */
   --text: var(--cream, #e6e4e2);
@@ -1069,6 +1103,9 @@
   --accent: var(--brand-500);
   --accent-border: var(--brand-red);
   --on-accent: #ffffff;
+  /* dark panel: the button hover wipes white, even inside a `.light` band */
+  --cta-hover-bg: #ffffff;
+  --cta-hover-ink: #140b08;
 
   position: relative;
   overflow: hidden;

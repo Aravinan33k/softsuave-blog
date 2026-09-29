@@ -56,7 +56,6 @@ export const prodHero: HeroContent = {
     // The live form's own heading pair.
     eyebrow: "Let's Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
-    note: "Tell us about the product, where it is today, and where it needs to be. We come back with an approach, a team shape, and an indicative estimate. Everything stays under NDA.",
     alert: sharedHeroAlert,
     submit: "Send requirements",
     sending: "Opening your mail…",

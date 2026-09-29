@@ -34,6 +34,7 @@ import type { EngagementContent } from "@/components/common/engagement-models";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
+import { sharedHeroAlert } from "./delivery-shared";
 
 export const madMeta = {
   slug: "mobile-application-development-company",
@@ -68,8 +69,7 @@ export const madHero: HeroContent = {
     // The live page's own applicant notice, missing here before (review:
     // "need to update the form content") — every sibling page on this
     // surface carries it.
-    note: "Tell us what you want to build and which platforms it has to run on, and we come back with an approach, timeline, and estimate. Everything stays under NDA. Alert: This form is for business, not candidates. To apply for jobs,",
-    noteLink: { label: "click here", href: "/career-overview" },
+    alert: sharedHeroAlert,
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",

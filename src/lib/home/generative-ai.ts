@@ -51,7 +51,6 @@ export const hero = {
   form: {
     eyebrow: "Business Enquiry",
     title: "Get Your FREE Quote Now!",
-    note: "Covered by NDA. No sales pitch — an engineer reviews your use case.",
     submit: "Request Consultation",
     sending: "Opening your mail…",
     requirementLabel: "Your generative AI use case",

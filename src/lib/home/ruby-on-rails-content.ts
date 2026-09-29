@@ -38,6 +38,7 @@ import type { OverviewContent } from "@/components/landing/overview";
 import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/landing/tech-stack";
+import { sharedHeroAlert } from "./delivery-shared";
 
 export const rorMeta = {
   slug: "ruby-on-rails-development-company",
@@ -69,7 +70,7 @@ export const rorHero: HeroContent = {
     // No `eyebrow`: the review asked for the form's text to be updated, and
     // the card's kicker is what every other page on this surface has dropped.
     title: "Get free rough quote in 24 hrs",
-    note: "Tell us what the application has to do and who uses it, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
+    alert: sharedHeroAlert,
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",

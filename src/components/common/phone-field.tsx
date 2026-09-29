@@ -21,9 +21,9 @@ import fx from "./enquiry-form.module.css";
  * count is checked across the whole string, so the shared validation in
  * `enquiry-rules.ts` covers the combined value untouched.
  *
- * An empty number emits `""`, not a bare `"+91"` — the field is optional, and
- * a lead row holding nothing but a country code would read as a number we
- * failed to capture rather than one that was never given.
+ * An empty number emits `""`, not a bare `"+91"`, so a caller that requires
+ * the field sees it as missing rather than as a number holding only a
+ * country code.
  *
  * ## the code is a guess, and says so by being changeable
  * The select is a real, always-enabled control, not a display of a detected
@@ -38,12 +38,15 @@ export default function PhoneField({
   onChange,
   name = "phone",
   placeholder = "98765 43210",
+  required = false,
 }: {
   id: string;
   value: string;
   onChange: (value: string) => void;
   name?: string;
   placeholder?: string;
+  /** Mark the number input `required` (native validation + the asterisk). */
+  required?: boolean;
 }) {
   const [dial, setDial] = useState(DEFAULT_DIAL);
   const [national, setNational] = useState(() => splitPhone(value).national);
@@ -186,6 +189,7 @@ export default function PhoneField({
         type="tel"
         autoComplete="tel-national"
         inputMode="tel"
+        required={required}
         pattern={PHONE_PATTERN}
         title={PHONE_HINT}
         value={national}

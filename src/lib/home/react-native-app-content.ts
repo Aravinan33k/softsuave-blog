@@ -32,6 +32,7 @@ import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
+import { sharedHeroAlert } from "./delivery-shared";
 
 export const rnMeta = {
   slug: "react-native-app-development-company",
@@ -65,7 +66,7 @@ export const rnHero: HeroContent = {
     // AI pages (custom-ai, computer-vision, data-science), whose cards already
     // open on the title.
     title: "Get free rough quote in 24 hrs",
-    note: "Tell us what the app has to do and which platforms it has to reach, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
+    alert: sharedHeroAlert,
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",

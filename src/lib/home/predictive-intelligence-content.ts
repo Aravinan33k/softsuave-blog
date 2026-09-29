@@ -54,7 +54,6 @@ export const piHero: HeroContent = {
   form: {
     eyebrow: "Business Enquiry",
     title: "Scope your predictive intelligence project",
-    note: "Tell us the decision you want to support and the data behind it, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Send requirements",
     sending: "Sending…",
     requirementLabel: "What decision should the prediction support?",

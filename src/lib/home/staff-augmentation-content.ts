@@ -57,7 +57,6 @@ export const staffHero: HeroContent = {
     // The live form's own heading and sub-line.
     title: "Let's Discuss Your Project",
     body: "Get free rough quote in 24 hrs",
-    note: "Share the roles, skills, and timeline and we come back with matched profiles and rates. Everything stays under NDA.",
     submit: "Send requirements",
     sending: "Opening your mail…",
     requirementLabel: "Which roles do you need to fill?",

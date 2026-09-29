@@ -34,7 +34,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
-import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
+import { industryHeroBadges, industryEnquiryForm } from "./industry-shared";
 import { overviewImage } from "./overview-images";
 
 export const constructionMeta = {
@@ -62,7 +62,6 @@ export const constructionHero: HeroContent = {
   badges: industryHeroBadges,
   form: industryEnquiryForm({
     title: "Plan your construction AI build",
-    note: NDA_NOTE,
     requirementLabel: "What should the system do?",
     requirementPlaceholder:
       "The project or site problem you want solved, the ERP and project management tools you run, portfolio size, and what site data you already capture.",

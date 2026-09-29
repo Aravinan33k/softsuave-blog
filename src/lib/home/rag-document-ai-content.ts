@@ -51,7 +51,6 @@ export const ragHero: HeroContent = {
   form: {
     eyebrow: "Business Enquiry",
     title: "Discuss your RAG project",
-    note: "Share your knowledge sources and what users need to ask, and we come back with a retrieval approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Send requirements",
     sending: "Sending…",
     requirementLabel: "What do you want to build?",

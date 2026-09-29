@@ -34,7 +34,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
 import type { ProblemsContent } from "@/components/generative-ai/problems";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
-import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
+import { industryHeroBadges, industryEnquiryForm } from "./industry-shared";
 import { overviewImage } from "./overview-images";
 
 export const edtechMeta = {
@@ -62,7 +62,6 @@ export const edtechHero: HeroContent = {
   badges: industryHeroBadges,
   form: industryEnquiryForm({
     title: "Plan your EdTech AI build",
-    note: NDA_NOTE,
     requirementLabel: "What should the system do?",
     requirementPlaceholder:
       "The learning or administrative workflow you want to improve, your LMS and student information systems, learner volumes, and the data rules you operate under.",

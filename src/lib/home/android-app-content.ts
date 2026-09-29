@@ -32,6 +32,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
 import { overviewImage } from "./overview-images";
+import { sharedHeroAlert } from "./delivery-shared";
 
 export const andMeta = {
   slug: "android-application-development-company",
@@ -64,8 +65,7 @@ export const andHero: HeroContent = {
     title: "Get free rough quote in 24 hrs",
     // The applicant notice every sibling page carries, missing here before
     // (review: "need to update the form content").
-    note: "Tell us what the app has to do and which Android versions and devices it has to reach, and we come back with an approach, timeline, and estimate. Everything stays under NDA. Alert: This form is for business, not candidates. To apply for jobs,",
-    noteLink: { label: "click here", href: "/career-overview" },
+    alert: sharedHeroAlert,
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",

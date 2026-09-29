@@ -66,7 +66,6 @@ export const offHero: HeroContent = {
     eyebrow: "Business Enquiry",
     // The live hero form's own heading.
     title: "Let's Discuss Your Project",
-    note: "Share your requirements and we come back with a delivery approach, a team shape, and an indicative estimate. Everything stays under NDA.",
     submit: "Send requirements",
     sending: "Opening your mail…",
     requirementLabel: "What do you need built?",

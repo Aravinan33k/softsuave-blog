@@ -32,6 +32,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { StoryCardsContent } from "@/components/common/story-cards";
 import type { FaqContent } from "@/components/landing/faq";
+import { sharedHeroAlert } from "./delivery-shared";
 
 export const flMeta = {
   slug: "flutter-application-development-company",
@@ -62,7 +63,7 @@ export const flHero: HeroContent = {
     // The live page's own form heading and sub-line.
     eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
-    note: "Tell us what the app has to do and which platforms it has to reach, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
+    alert: sharedHeroAlert,
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",

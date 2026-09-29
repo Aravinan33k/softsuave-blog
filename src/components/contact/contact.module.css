@@ -44,6 +44,9 @@
    whichever module's CSS loads first. */
 .heroWhite.heroWhite {
   --bg: #ffffff;
+  /* light ground: orange buttons' hover wipes near-black */
+  --cta-hover-bg: #17140f;
+  --cta-hover-ink: #ffffff;
   background: #ffffff;
   padding-bottom: clamp(20px, 3vw, 40px);
 }

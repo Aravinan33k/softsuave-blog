@@ -41,6 +41,7 @@ import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
+import { sharedHeroAlert } from "./delivery-shared";
 
 export const netMeta = {
   slug: "dot-net-application-development-company",
@@ -74,7 +75,7 @@ export const netHero: HeroContent = {
     // card's is the only one the hero renders. Same correction the React
     // Native, Ionic and Xamarin pages took.
     title: "Get free rough quote in 24 hrs",
-    note: "Tell us what the application has to do and which systems it has to work with, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
+    alert: sharedHeroAlert,
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",

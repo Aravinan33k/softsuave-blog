@@ -56,7 +56,6 @@ export const cvHero: HeroContent = {
   form: {
     eyebrow: "Business Enquiry",
     title: "Assess your Computer Vision use case",
-    note: "Tell us what your cameras capture and what the workflow must deliver, and we come back with a feasibility view, approach, and estimate. Everything stays under NDA.",
     submit: "Send requirements",
     sending: "Sending…",
     requirementLabel: "What do you want the workflow to do?",

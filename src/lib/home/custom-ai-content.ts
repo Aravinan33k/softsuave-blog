@@ -51,7 +51,6 @@ export const caHero: HeroContent = {
   form: {
     eyebrow: "Business Enquiry",
     title: "Get a custom AI project estimate",
-    note: "Share your requirements and we come back with a tailored approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Send requirements",
     sending: "Opening your mail…",
     requirementLabel: "What do you want to build?",

@@ -72,7 +72,6 @@ export const itoHero: HeroContent = {
     eyebrow: "Business Enquiry",
     // The live hero form's own heading.
     title: "Let's Discuss Your Project",
-    note: "Share your scope, the roles you need, and what your internal team will keep. We come back with a recommended model and an indicative estimate. Everything stays under NDA.",
     submit: "Send requirements",
     sending: "Opening your mail…",
     requirementLabel: "What do you want to outsource?",

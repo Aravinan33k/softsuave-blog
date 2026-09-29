@@ -43,6 +43,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
 import { overviewImage } from "./overview-images";
+import { sharedHeroAlert } from "./delivery-shared";
 
 export const sdMeta = {
   slug: "software-development-company",
@@ -76,7 +77,7 @@ export const sdHero: HeroContent = {
     // The live page's own form heading and sub-line.
     eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
-    note: "Tell us what you want built and which systems it has to work with, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
+    alert: sharedHeroAlert,
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",

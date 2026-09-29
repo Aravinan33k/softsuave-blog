@@ -200,18 +200,50 @@
   background: var(--cta-bg, #ff5436);
   border-color: var(--cta-bg, #ff5436);
   color: var(--cta-ink, #ffffff);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* background snaps (see the hover rule) rather than fading under the wipe */
+  transition: background 0s, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Already accent-filled at rest, so it highlights by shifting hue rather than
-   by filling: to --accent-border, the deeper sibling red. Never to white —
-   this button also sits inside the hero's WHITE form card (`.form`), where a
-   #fff fill measured 1.00:1 and the primary CTA disappeared under the cursor;
-   it would fail the same way in any `.light` band (1.08:1). --accent-border is
-   re-pointed per band, so one rule is correct on all three grounds. */
-.btnPrimary:hover {
-  background: var(--accent-border);
-  border-color: var(--accent-border);
-  color: var(--on-accent, #140b08);
+/* Hover / keyboard focus: the site's orange-button hover, the same contrast
+   wipe as home.module.css `.pillFilled` (the nav's "Book AI Strategy Call").
+   The fill sweeps in from the left and the label inks over: white on a dark
+   ground, near-black on a light one — `--cta-hover-*`, set per ground in
+   home.css / the `.light` band. Form submit buttons are styled separately
+   (common/enquiry-form) and keep their own hover. */
+.btnPrimary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--cta-hover-bg, #ffffff);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.btnPrimary:hover,
+.btnPrimary:focus-visible {
+  /* once the wipe has covered the plate, the plate takes the colour so no
+     orange rim shows round it */
+  background: var(--cta-hover-bg, #ffffff);
+  border-color: var(--cta-hover-bg, #ffffff);
+  color: var(--cta-hover-ink, #140b08);
+  transition: background 0s 0.4s, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btnPrimary:hover::before,
+.btnPrimary:focus-visible::before {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btnPrimary::before {
+    transition: none;
+  }
 }
 
 /* ============================================================
@@ -1026,6 +1058,9 @@
   --accent: var(--brand-500);
   --accent-border: var(--brand-red);
   --on-accent: #ffffff;
+  /* dark panel: the button hover wipes white, even inside a `.light` band */
+  --cta-hover-bg: #ffffff;
+  --cta-hover-ink: #140b08;
 
   position: relative;
   overflow: hidden;

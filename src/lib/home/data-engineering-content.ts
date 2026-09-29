@@ -54,7 +54,6 @@ export const deHero: HeroContent = {
   form: {
     eyebrow: "Business Enquiry",
     title: "Plan your data engineering project",
-    note: "Tell us which systems hold your data and where it needs to reach, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Send requirements",
     sending: "Sending…",
     requirementLabel: "What should your data flows support?",

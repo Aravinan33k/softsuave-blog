@@ -52,7 +52,6 @@ export const dsHero: HeroContent = {
   form: {
     eyebrow: "Business Enquiry",
     title: "Start with your business question",
-    note: "Tell us the question you need answered and what data you hold, and we come back with a feasible approach, timeline, and estimate. Everything stays under NDA.",
     submit: "Send requirements",
     sending: "Sending…",
     requirementLabel: "What question should the data answer?",

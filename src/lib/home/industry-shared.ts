@@ -13,7 +13,7 @@
 
 import type { HeroContent } from "@/components/landing/hero";
 import type { TechStackContent } from "@/components/landing/tech-stack";
-import { sharedHeroBadges } from "./delivery-shared";
+import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 
 /**
  * The delivery pages' trust badges, reused verbatim. Each is a published
@@ -32,28 +32,25 @@ export const industryHeroBadges = sharedHeroBadges;
 export function industryEnquiryForm(opts: {
   /** Form heading, e.g. "Plan your FinTech AI build". */
   readonly title: string;
-  readonly note: string;
   readonly requirementLabel: string;
   readonly requirementPlaceholder: string;
-  /** Subject line of the composed mailto. */
+  /** The lead's subject line, stored with the enquiry for triage. */
   readonly subject: string;
 }): HeroContent["form"] {
   return {
     eyebrow: "Business Enquiry",
     title: opts.title,
-    note: opts.note,
+    // The form closes on the business/candidates notice alone — no sales
+    // blurb under it.
+    alert: sharedHeroAlert,
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending...",
     requirementLabel: opts.requirementLabel,
     requirementPlaceholder: opts.requirementPlaceholder,
     subject: opts.subject,
   };
 }
 
-/**
- * The confidentiality line every industry enquiry form closes on. The delivery
- * pages state the same commitment, so it is one string rather than seven.
- */
 /**
  * "Innovative AI Technologies & Approaches" — the one technology band every
  * live industry AI page runs, word for word the same on all seven, with the
@@ -73,6 +70,3 @@ export const industryTechApproach: TechStackContent = {
     { name: "Technologies", items: ["React", "Angular", "Node.js", "Python", "Java", "PHP"] },
   ],
 };
-
-export const NDA_NOTE =
-  "Tell us where you are today and what you want the system to do, and we come back with an approach, a delivery shape, and an indicative cost. Everything stays under NDA.";

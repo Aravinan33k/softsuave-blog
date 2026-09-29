@@ -26,7 +26,7 @@ import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
-import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
+import { industryHeroBadges, industryEnquiryForm } from "./industry-shared";
 import { overviewImage } from "./overview-images";
 
 export const healthtechMeta = {
@@ -54,7 +54,6 @@ export const healthtechHero: HeroContent = {
   badges: industryHeroBadges,
   form: industryEnquiryForm({
     title: "Plan your HealthTech AI build",
-    note: NDA_NOTE,
     requirementLabel: "What should the system do?",
     requirementPlaceholder:
       "The clinical or administrative workflow you want to improve, the EHR and systems it must integrate with, and the regulatory regime you operate under.",

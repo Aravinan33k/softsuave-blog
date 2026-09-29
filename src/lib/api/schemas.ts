@@ -89,16 +89,15 @@ export const enquiryInput = z.object({
     .max(191)
     .refine(isValidName, NAME_MESSAGE),
   email: z.email('Please enter a valid email address.').trim().max(191),
-  // Optional. Not a country-specific shape — the form takes international
+  // Required. Not a country-specific shape — the form takes international
   // numbers in whatever form the reader writes them — but it does have to be a
   // number: digits and the punctuation people write them with, nothing else.
   phone: z
     .string()
     .trim()
+    .min(1, 'Please enter your phone number.')
     .max(64)
-    .refine(isValidPhone, PHONE_MESSAGE)
-    .optional()
-    .or(z.literal('')),
+    .refine(isValidPhone, PHONE_MESSAGE),
   requirement: z.string().trim().min(1, 'Please tell us what you need.').max(5000),
   /** The page's own subject line, for triage. Not reader-supplied. */
   subject: z.string().trim().max(255).optional(),

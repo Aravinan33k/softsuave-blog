@@ -218,6 +218,9 @@
   --accent: var(--brand-500);
   --accent-border: var(--brand-red);
   --on-accent: #ffffff;
+  /* dark panel: the button hover wipes white, even inside a `.light` band */
+  --cta-hover-bg: #ffffff;
+  --cta-hover-ink: #140b08;
 
   position: relative;
   overflow: hidden;

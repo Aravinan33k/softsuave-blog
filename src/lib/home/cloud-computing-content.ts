@@ -58,7 +58,6 @@ export const cloudHero: HeroContent = {
     title: "Get Your FREE Quote Now!",
     // An H2 on the live page, so part of the outline here too.
     titleAs: "h2",
-    note: "Tell us what you run today and what is driving the move. We come back with an assessment approach, a target architecture, and an indicative estimate. Everything stays under NDA.",
     alert: sharedHeroAlert,
     submit: "Send requirements",
     sending: "Opening your mail…",

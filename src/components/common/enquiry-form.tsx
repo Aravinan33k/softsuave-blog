@@ -89,8 +89,9 @@ export default function EnquiryForm({
       return;
     }
     // `form.phone` already carries the calling code: PhoneField emits the
-    // combined "+91 98765 43210", or "" for an untouched optional field.
-    if (!isValidPhone(form.phone)) {
+    // combined "+91 98765 43210", or "" when nothing was typed. Required: an
+    // empty number is rejected here, not only by the input's own `required`.
+    if (!form.phone.trim() || !isValidPhone(form.phone)) {
       setStatus("error");
       setError(PHONE_MESSAGE);
       return;
@@ -234,9 +235,11 @@ export default function EnquiryForm({
               id={`${idPrefix}-phone`}
               value={form.phone}
               onChange={(phone) => setForm((f) => ({ ...f, phone }))}
+              required
             />
             <label className={`${fx.label} ${fx.labelFloat}`} htmlFor={`${idPrefix}-phone`}>
-              Phone <span className={fx.optional} aria-hidden>(optional)</span>
+              <RequiredMark />
+              Phone
             </label>
           </div>
 

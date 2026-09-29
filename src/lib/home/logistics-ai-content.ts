@@ -27,7 +27,7 @@ import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
-import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
+import { industryHeroBadges, industryEnquiryForm } from "./industry-shared";
 import { overviewImage } from "./overview-images";
 
 export const logisticsMeta = {
@@ -55,7 +55,6 @@ export const logisticsHero: HeroContent = {
   badges: industryHeroBadges,
   form: industryEnquiryForm({
     title: "Plan your logistics AI build",
-    note: NDA_NOTE,
     requirementLabel: "What should the system do?",
     requirementPlaceholder:
       "The operational problem you want solved, your fleet or network size, the WMS/TMS/ERP systems in use, and the volumes involved.",

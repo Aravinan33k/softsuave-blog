@@ -28,7 +28,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
-import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
+import { industryHeroBadges, industryEnquiryForm } from "./industry-shared";
 import { overviewImage } from "./overview-images";
 
 export const telecomMeta = {
@@ -56,7 +56,6 @@ export const telecomHero: HeroContent = {
   badges: industryHeroBadges,
   form: industryEnquiryForm({
     title: "Plan your telecom AI build",
-    note: NDA_NOTE,
     requirementLabel: "What should the system do?",
     requirementPlaceholder:
       "The network or customer problem you want solved, your OSS/BSS and network management systems, subscriber scale, and the data you already collect.",

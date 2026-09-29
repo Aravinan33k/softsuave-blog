@@ -77,7 +77,6 @@ export const txHero: HeroContent = {
     /* The card carried no descriptive line at all, which is most of why it sat
        short beside this hero's five-point copy column (review: "update the
        form size"). Every other page on the surface sets one. */
-    note: "Tell us about the application or codebase, whether this is a new build or an existing JavaScript project, and which parts of the stack it touches. We come back with an approach, timeline, and estimate, all under NDA.",
     /* The candidate notice was being pushed through `note`/`noteLink`, which
        renders it as body copy; `alert` is the field built for it. */
     alert: sharedHeroAlert,

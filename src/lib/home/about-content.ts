@@ -16,7 +16,7 @@ import type { OverviewContent } from "@/components/landing/overview";
 import type { ProcessContent } from "@/components/landing/process";
 import type { TeamContent } from "@/components/landing/team";
 
-import { sharedHeroBadges } from "./delivery-shared";
+import { sharedHeroBadges, sharedHeroAlert } from "./delivery-shared";
 import { overviewImage } from "./overview-images";
 
 export const aboutMeta = {
@@ -46,7 +46,7 @@ export const aboutHero: HeroContent = {
   form: {
     eyebrow: "Talk to us",
     title: "Book a free consultation",
-    note: "Tell us what you are building. We reply within one business day, and nothing is shared before an NDA is in place.",
+    alert: sharedHeroAlert,
     submit: "Book free consultation",
     sending: "Sending…",
     requirementLabel: "What are you building?",

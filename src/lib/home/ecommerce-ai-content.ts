@@ -28,7 +28,7 @@ import type { ProcessContent } from "@/components/landing/process";
 import type { CaseStudiesContent } from "@/components/landing/case-studies";
 import type { FaqContent } from "@/components/landing/faq";
 import type { ProblemsContent } from "@/components/generative-ai/problems";
-import { industryHeroBadges, industryEnquiryForm, NDA_NOTE } from "./industry-shared";
+import { industryHeroBadges, industryEnquiryForm } from "./industry-shared";
 import { overviewImage } from "./overview-images";
 
 export const ecommerceMeta = {
@@ -56,7 +56,6 @@ export const ecommerceHero: HeroContent = {
   badges: industryHeroBadges,
   form: industryEnquiryForm({
     title: "Plan your eCommerce AI build",
-    note: NDA_NOTE,
     requirementLabel: "What should the system do?",
     requirementPlaceholder:
       "The metric you want to move, your platform and catalogue size, order volumes, and the systems the solution would need to integrate with.",

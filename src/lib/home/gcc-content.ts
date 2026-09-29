@@ -50,7 +50,6 @@ export const gccHero: HeroContent = {
   form: {
     eyebrow: "Business Enquiry",
     title: "Plan your Global Capability Center",
-    note: "Tell us the roles, scale, and timeline you have in mind and we come back with a setup plan, an operating model, and an indicative cost structure. Everything stays under NDA.",
     // The live form's business-only notice (review: "Form needs to be updated").
     alert: sharedHeroAlert,
     submit: "Send requirements",

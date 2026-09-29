@@ -89,6 +89,7 @@ import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
+import { sharedHeroAlert } from "./delivery-shared";
 
 export const rjMeta = {
   slug: "reactjs-app-development-company",
@@ -119,7 +120,7 @@ export const rjHero: HeroContent = {
     // The live page's own form heading and sub-line.
     eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
-    note: "Tell us what the application has to do and who uses it, and we come back with an approach, timeline, and estimate. Everything stays under NDA.",
+    alert: sharedHeroAlert,
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",

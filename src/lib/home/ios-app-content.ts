@@ -32,6 +32,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { StoryCardsContent } from "@/components/common/story-cards";
 import type { FaqContent } from "@/components/landing/faq";
+import { sharedHeroAlert } from "./delivery-shared";
 
 export const iosMeta = {
   slug: "ios-application-development-company",
@@ -65,8 +66,7 @@ export const iosHero: HeroContent = {
     title: "Get free rough quote in 24 hrs",
     // The applicant notice every sibling page carries, missing here before
     // (review: "need to update the form content").
-    note: "Tell us which Apple platforms the app has to reach — iPhone, iPad, Watch, TV — and we come back with an approach, timeline, and estimate. Everything stays under NDA. Alert: This form is for business, not candidates. To apply for jobs,",
-    noteLink: { label: "click here", href: "/career-overview" },
+    alert: sharedHeroAlert,
     submit: "Submit",
     sending: "Sending...",
     requirementLabel: "What do you want to build?",
