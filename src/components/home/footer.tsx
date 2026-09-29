@@ -41,7 +41,12 @@ const SOCIAL_ICONS = {
   YouTube: YoutubeIcon,
 } as const;
 
-export default function Footer() {
+/**
+ * `addressMicrodata={false}` drops the offices' PostalAddress microdata, for a
+ * page whose approved schema spec is its whole structured data (see
+ * `PAGES_WITH_OWN_SITE_GRAPH`). The visible addresses are unchanged.
+ */
+export default function Footer({ addressMicrodata = true }: { addressMicrodata?: boolean } = {}) {
   const year = new Date().getFullYear();
   // Same rule the nav uses: anchors stay in-page on the homepage and become
   // links back to it everywhere else.
@@ -132,7 +137,7 @@ export default function Footer() {
                 the prop — and React leaves a <meta> carrying itemProp where it
                 is instead of hoisting it to <head>. */}
             {footer.offices.map((o) => {
-              const md = "microdata" in o ? o.microdata : undefined;
+              const md = addressMicrodata && "microdata" in o ? o.microdata : undefined;
               return (
                 <address
                   key={o.region}

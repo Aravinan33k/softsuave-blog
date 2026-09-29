@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { PAGES_WITH_OWN_ORGANIZATION } from "@/lib/seo/own-organization";
+import { PAGES_WITH_OWN_ORGANIZATION, PAGES_WITH_OWN_SITE_GRAPH } from "@/lib/seo/own-organization";
 
 /**
  * Picks which site-wide JSON-LD the marketing layout emits, by page:
@@ -10,6 +10,8 @@ import { PAGES_WITH_OWN_ORGANIZATION } from "@/lib/seo/own-organization";
  *                                    softsuave.com's own homepage schema
  *                                    exactly (`lib/home/home-live-schema.ts`),
  *                                    Organization included, and nothing more.
+ *   PAGES_WITH_OWN_SITE_GRAPH        nothing — the page's approved spec is its
+ *                                    whole schema, WebSite not included.
  *   PAGES_WITH_OWN_ORGANIZATION      `websiteOnly` — the page publishes its own
  *                                    Organization, so the layout must not add a
  *                                    second node with the same `@id`.
@@ -27,6 +29,6 @@ import { PAGES_WITH_OWN_ORGANIZATION } from "@/lib/seo/own-organization";
  */
 export function SiteGraph({ full, websiteOnly }: { full: React.ReactNode; websiteOnly: React.ReactNode }) {
   const path = usePathname();
-  if (path === "/") return null;
+  if (path === "/" || PAGES_WITH_OWN_SITE_GRAPH.has(path)) return null;
   return PAGES_WITH_OWN_ORGANIZATION.has(path) ? websiteOnly : full;
 }
