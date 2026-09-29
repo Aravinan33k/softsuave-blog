@@ -1,96 +1,198 @@
 import 'server-only';
-import { absoluteUrl, dynamicOgImage } from './metadata';
-import { organizationLd } from './organization';
-import { vueFaqs, vueMeta, vueServices } from '@/lib/home/vuejs-content';
 
 /**
  * Service, WebPage and FAQPage JSON-LD for `/vuejs-development-company`,
- * built from the same content the page renders (`vueServices`, `vueFaqs`) so the
- * structured data can never drift from what a visitor actually sees.
+ * transcribed verbatim from the approved SEO spec (29 Sep review: "remove the
+ * extra schemas and update the ones in the sheet"). With the spec's
+ * Organization (`softSuaveOrganizationLd`, emitted by the page) these four are
+ * the page's entire structured data — the route is in
+ * `PAGES_WITH_OWN_SITE_GRAPH`, so the layout adds no WebSite or second
+ * Organization.
  *
- * These reference `organizationLd`'s `@id` for `provider`/`publisher` rather
- * than repeating that object. The node itself is emitted once for the whole
- * surface by `app/(marketing)/layout.tsx`, so the reference resolves without
- * this route carrying its own copy — one Organization node per document, every
- * schema pointing at it, which is how a linked JSON-LD graph is meant to work.
- *
- * The page has no bundled Open Graph image of its own, so `dynamicOgImage`
- * generates one from the title through the existing `/og` route — the same
- * fallback `buildMetadata` uses for every post and page without a custom
- * image, applied here to the schema's own image fields.
+ * URLs are absolute and production-canonical, like `ai-page-schema.ts`. The
+ * spec's dummy OG image path is real: it serves
+ * `public/assets/images/vuejs-development-company-og.webp`.
  */
 
-const pageUrl = absoluteUrl(vueMeta.path);
-const ogImage = dynamicOgImage(vueMeta.title, 'Soft Suave');
-
 export const vueServiceLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  '@id': `${pageUrl}#service`,
-  name: 'Vue.js Development Services',
-  serviceType: 'Vue.js Web Application Development',
-  description:
-    'Vue.js development services covering custom web applications, single-page applications, ecommerce frontends, enterprise portals, dashboards, frontend modernization, system integration, support, and maintenance.',
-  url: pageUrl,
-  image: ogImage,
-  provider: { '@id': organizationLd['@id'] },
-  areaServed: 'Worldwide',
-  audience: {
-    '@type': 'BusinessAudience',
-    name: 'Startups, SMBs, product teams, engineering leaders, and enterprises building or modernizing web applications',
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://www.softsuave.com/vuejs-development-company#service",
+  "name": "Vue.js Development Services",
+  "serviceType": "Vue.js Web Application Development",
+  "description": "Vue.js development services covering custom web applications, single-page applications, ecommerce frontends, enterprise portals, dashboards, frontend modernization, system integration, support, and maintenance.",
+  "url": "https://www.softsuave.com/vuejs-development-company",
+  "image": "https://www.softsuave.com/assets/images/vuejs-development-company-og.webp",
+  "provider": {
+    "@id": "https://www.softsuave.com/#organization"
   },
-  mainEntityOfPage: { '@id': `${pageUrl}#webpage` },
-  hasOfferCatalog: {
-    '@type': 'OfferCatalog',
-    name: 'Vue.js Development Services',
-    itemListElement: vueServices.items.map((item) => ({
-      '@type': 'Offer',
-      itemOffered: {
-        '@type': 'Service',
-        name: item.name,
-        description: item.body,
+  "areaServed": "Worldwide",
+  "audience": {
+    "@type": "BusinessAudience",
+    "name": "Startups, SMBs, product teams, engineering leaders, and enterprises building or modernizing web applications"
+  },
+  "mainEntityOfPage": {
+    "@id": "https://www.softsuave.com/vuejs-development-company#webpage"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Vue.js Development Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Custom Vue.js Web Application Development",
+          "description": "Custom Vue.js web applications with reusable components, responsive interfaces, API integrations, and frontend architecture aligned with business workflows."
+        }
       },
-    })),
-  },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Vue.js Single-Page Application Development",
+          "description": "Vue.js single-page applications with responsive interfaces, routing, state management, API communication, and smooth navigation across complex workflows."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Vue.js Ecommerce Frontend Development",
+          "description": "Vue.js ecommerce frontends with product discovery, customer accounts, responsive checkout experiences, and connections to existing commerce platforms."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Enterprise Portal and Dashboard Development",
+          "description": "Vue.js portals and dashboards that present business data, support different user roles, and connect securely with enterprise applications."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Vue.js Migration and Integration Services",
+          "description": "Frontend modernization and Vue.js integration with backend platforms, APIs, authentication systems, databases, and third-party services."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Vue.js Support and Maintenance",
+          "description": "Vue.js application support covering issue resolution, dependency updates, performance reviews, integration changes, refactoring, testing, and feature improvements."
+        }
+      }
+    ]
+  }
 } as const;
 
 export const vueWebPageLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  '@id': `${pageUrl}#webpage`,
-  url: pageUrl,
-  name: `${vueMeta.title} | Soft Suave`,
-  description: vueMeta.description,
-  inLanguage: 'en',
-  // The content doc's own dateModified; bump when the page's copy changes.
-  dateModified: '2026-09-15',
-  primaryImageOfPage: {
-    '@type': 'ImageObject',
-    '@id': `${pageUrl}#primaryimage`,
-    url: ogImage,
-    contentUrl: ogImage,
-    caption: 'Vue.js Development Company for Modern Web Applications',
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://www.softsuave.com/vuejs-development-company#webpage",
+  "url": "https://www.softsuave.com/vuejs-development-company",
+  "name": "Vue.js Development Company for Web Apps | Soft Suave",
+  "description": "Build modern web applications with a Vue.js development company backed by 13+ years of technology expertise. Discuss your project with Soft Suave.",
+  "inLanguage": "en",
+  "dateModified": "2026-09-15",
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "@id": "https://www.softsuave.com/vuejs-development-company#primaryimage",
+    "url": "https://www.softsuave.com/assets/images/vuejs-development-company-og.webp",
+    "contentUrl": "https://www.softsuave.com/assets/images/vuejs-development-company-og.webp",
+    "caption": "Vue.js Development Company for Modern Web Applications"
   },
-  mainEntity: { '@id': `${pageUrl}#service` },
-  about: { '@id': `${pageUrl}#service` },
-  publisher: { '@id': organizationLd['@id'] },
+  "mainEntity": {
+    "@id": "https://www.softsuave.com/vuejs-development-company#service"
+  },
+  "about": {
+    "@id": "https://www.softsuave.com/vuejs-development-company#service"
+  },
+  "publisher": {
+    "@id": "https://www.softsuave.com/#organization"
+  }
 } as const;
 
 export const vueFaqLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  '@id': `${pageUrl}#faq`,
-  url: pageUrl,
-  name: vueFaqs.title,
-  inLanguage: 'en',
-  isPartOf: { '@id': `${pageUrl}#webpage` },
-  about: { '@id': `${pageUrl}#service` },
-  mainEntity: vueFaqs.items.map((item) => ({
-    '@type': 'Question',
-    name: item.q,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: typeof item.a === 'string' ? item.a : item.a.join(' '),
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://www.softsuave.com/vuejs-development-company#faq",
+  "url": "https://www.softsuave.com/vuejs-development-company",
+  "name": "Frequently Asked Questions About Vue.js Development",
+  "isPartOf": {
+    "@id": "https://www.softsuave.com/vuejs-development-company#webpage"
+  },
+  "about": {
+    "@id": "https://www.softsuave.com/vuejs-development-company#service"
+  },
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What applications can a Vue.js development company build?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Vue.js development company can build single-page applications, SaaS interfaces, ecommerce storefronts, customer portals, internal dashboards, and administration systems. The right application structure depends on your users, workflows, data sources, integrations, rendering requirements, and plans for future development over time."
+      }
     },
-  })),
+    {
+      "@type": "Question",
+      "name": "How should I choose a Vue.js app development company?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Choose a Vue JS app development company by reviewing its experience, architectural approach, integration capabilities, testing practices, communication process, and support model. The company should understand your systems and explain how it will structure, deliver, document, and maintain the application."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can Vue.js integrate with our existing backend and APIs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Vue.js can connect with REST APIs, GraphQL APIs, authentication services, payment systems, content platforms, and custom backends. The integration approach depends on your API contracts, security requirements, data flows, error-handling rules, and the backend technologies already supporting the application."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you migrate an existing application to Vue.js?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We can assess the frontend and plan a complete or phased Vue.js migration. The assessment covers the current framework, reusable business logic, dependencies, API connections, test coverage, deployment process, and areas that should remain unchanged during the modernization work."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much do Vue.js development services cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Vue.js development costs depend on application scope, interface complexity, integrations, existing code quality, testing requirements, team responsibilities, and the delivery approach. Project pricing is confirmed after requirements and scope are reviewed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does Vue.js application development take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Delivery timelines depend on the project scope, complexity, integrations, and resource requirements. A realistic schedule is confirmed after the discovery discussion. A focused interface update will require a different plan from a new application, enterprise portal, or phased frontend migration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you provide Vue.js maintenance after launch?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Support can include defect resolution, dependency updates, feature enhancements, integration changes, performance review, and codebase improvements. We review the existing application and agree on priorities, access requirements, release procedures, and the responsibilities clearly shared between your team and ours."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Vue.js suitable for an existing enterprise application?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Vue.js can suit enterprise applications when its component model, ecosystem, and integration approach align with the system's architecture and maintenance needs. We evaluate frontend complexity, backend dependencies, security requirements, release constraints, and internal development standards before recommending an implementation approach."
+      }
+    }
+  ]
 } as const;

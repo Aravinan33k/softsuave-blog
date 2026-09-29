@@ -33,17 +33,27 @@ export default function Marquee({
   speed = 30,
   reverse = false,
   separator,
+  staticFrom,
 }: {
   children: ReactNode[];
   className?: string;
   speed?: number;
   reverse?: boolean;
   separator?: ReactNode;
+  /**
+   * Viewport width (px) from which the row never loops: an overflowing row
+   * wraps its items onto another line instead of scrolling. Below it the row
+   * behaves as usual. For a section whose review asked the rows to hold still
+   * (the Vue.js page's technology band).
+   */
+  staticFrom?: number;
 }) {
   const wrap = useRef<HTMLDivElement | null>(null);
   const rail = useRef<HTMLDivElement | null>(null);
   /** Whether one copy of the row is wider than the strip it sits in. */
   const [overflows, setOverflows] = useState(false);
+  /** Whether the row is held still and wrapping, per `staticFrom`. */
+  const [wrapped, setWrapped] = useState(false);
 
   useEffect(() => {
     const host = wrap.current;
@@ -51,6 +61,12 @@ export default function Marquee({
     if (!host || !track) return;
 
     const measure = () => {
+      if (staticFrom !== undefined && window.innerWidth >= staticFrom) {
+        setWrapped(true);
+        setOverflows(false);
+        return;
+      }
+      setWrapped(false);
       // `scrollWidth` is layout width, so it is unaffected by the transform the
       // loop is applying; `getBoundingClientRect` would be. Divide by the
       // copies currently rendered to get back to one row's width.
@@ -67,7 +83,18 @@ export default function Marquee({
     observer.observe(host);
     observer.observe(track);
     return () => observer.disconnect();
-  }, [overflows, children.length]);
+  }, [overflows, children.length, staticFrom]);
+
+  /**
+   * A row that stops looping on resize (it no longer overflows, or `staticFrom`
+   * took over) must sit at its left edge. Killing the tween leaves its last
+   * inline transform behind — up to half a track to the left — so it is
+   * cleared here. A plain effect, so it runs after `useGSAP`'s layout-effect
+   * cleanup and has the last word.
+   */
+  useEffect(() => {
+    if (!overflows && rail.current) gsap.set(rail.current, { clearProps: "transform" });
+  }, [overflows]);
 
   const row = (keyPrefix: string) =>
     children.map((c, i) => (
@@ -111,7 +138,10 @@ export default function Marquee({
         gsap.set(track, { xPercent: 0 });
       };
     },
-    { scope: wrap, dependencies: [overflows] },
+    // `revertOnUpdate`: without it a dependency change neither reverts the
+    // context nor runs the cleanup above, so a row that stopped overflowing on
+    // resize kept its loop running under the static layout.
+    { scope: wrap, dependencies: [overflows], revertOnUpdate: true },
   );
 
   return (
@@ -119,6 +149,7 @@ export default function Marquee({
       ref={wrap}
       className={`${styles.marquee} ${className ?? ""}`}
       data-loop={overflows ? "on" : "off"}
+      data-wrap={wrapped ? "on" : undefined}
     >
       <div ref={rail} className={styles.marqueeTrack}>
         {row("a")}

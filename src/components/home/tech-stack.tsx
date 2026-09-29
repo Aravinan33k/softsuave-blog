@@ -44,8 +44,15 @@ export interface TechStackContent {
 export default function TechStack({
   content = homeTechStack,
   id = "tech",
+  staticFrom,
 }: {
   content?: TechStackContent;
+  /**
+   * Viewport width (px) from which the rows hold still and wrap instead of
+   * scrolling — see `Marquee`'s prop of the same name. Omitted, the rows
+   * scroll whenever they overflow, as on the homepage.
+   */
+  staticFrom?: number;
   /**
    * Section anchor. Defaults to `tech`, which is what the nav's Tech Stack link
    * points at and what every caller rendering an actual technology band wants.
@@ -95,7 +102,7 @@ export default function TechStack({
               </div>
             )}
             <div className={styles.techMarqueeHost}>
-              <Marquee speed={16 + i * 3} reverse={i % 2 === 1}>
+              <Marquee speed={16 + i * 3} reverse={i % 2 === 1} staticFrom={staticFrom}>
                 {g.items.map((it) => (
                   <span key={it} className={styles.techChip}>
                     <span className={styles.chipLogo}>

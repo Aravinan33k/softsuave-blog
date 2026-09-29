@@ -1620,6 +1620,22 @@ h1.h2 {
   padding-left: 0;
 }
 
+/* A row held still by `staticFrom`: the items wrap onto further lines, spaced by
+   the track's gap rather than by item padding and separators — a separator at
+   the end of a wrapped line would dangle. */
+.marquee[data-wrap="on"] .marqueeTrack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px clamp(12px, 1.2vw, 18px);
+  white-space: normal;
+}
+.marquee[data-wrap="on"] .marqueeItem {
+  padding: 0;
+}
+.marquee[data-wrap="on"] .marqueeDot {
+  display: none;
+}
+
 .marqueeDot {
   display: inline-block;
   width: 7px;

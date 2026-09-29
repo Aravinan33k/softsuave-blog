@@ -135,7 +135,7 @@ export const vuePlanCta: CtaBandContent = {
   eyebrow: "Next Step",
   title: "Planning a Vue.js Development Project?",
   body: "Whether you are building a new application, modernizing a frontend, or improving an existing product, our team can recommend an approach based on your requirements and architecture.",
-  cta: { label: "Discuss Your Vue.js Project", href: "#enquiry" },
+  cta: { label: "Discuss Your Vue.js Project", href: "/contact" },
 };
 
 export const vueWhyUs: CardGridContent = {
