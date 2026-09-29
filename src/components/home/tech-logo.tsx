@@ -100,6 +100,64 @@ const ALIASES: Record<string, string> = {
   lightningwebcomponentslwc: "salesforce",
   auralightningcomponents: "salesforce",
   visualforce: "salesforce",
+  // Stack-band names that were drawing the generic disc (29 Sep sweep): the
+  // product itself under another spelling, or an official member of the
+  // vendor's own family, so the vendor mark is the honest one.
+  angularjs: "angular",
+  angular2: "angular",
+  angularmaterial: "angular",
+  bootstrap3: "bootstrap",
+  ngbootstrap: "bootstrap",
+  ngrxangularredux: "ngrx",
+  androidwebview: "android",
+  iosuiwebview: "apple",
+  awsrds: "amazonrds",
+  awscodecommit: "awsbedrock",
+  azuredatabase: "azureai",
+  gcpservices: "googlevertexai",
+  googlecloudsql: "googlevertexai",
+  googlemeet: "google",
+  googlemeetandchat: "google",
+  githubcopilot: "github",
+  msteams: "microsoftteams",
+  microsoftteam: "microsoftteams",
+  dockercontainerization: "docker",
+  postmanapitesting: "postman",
+  eclipsexcode: "eclipse",
+  visualstudiocodeionicextensionpack: "vscode",
+  graphqlservices: "graphql",
+  restservices: "rest",
+  kotlinmultiplatform: "kotlin",
+  meteorjs: "meteor",
+  tensorflowrecommenders: "tensorflow",
+  herokupostgres: "heroku",
+  jsonb: "json",
+  plpgsql: "postgresql",
+  psql: "postgresql",
+  pgadmin: "postgresql",
+  // Rails' own components
+  railsapi: "rails",
+  activestorage: "rails",
+  railsadmin: "rails",
+  webpacker: "webpack",
+  // Laravel's first-party packages and services ("Telescopet" and "Breez" are
+  // the live copy's spellings of Telescope and Breeze)
+  laravelblade: "laravel",
+  laravelforge: "laravel",
+  laravelpassport: "laravel",
+  sanctum: "laravel",
+  nova: "laravel",
+  vapor: "laravel",
+  envoyer: "laravel",
+  herd: "laravel",
+  tinker: "laravel",
+  telescope: "laravel",
+  telescopet: "laravel",
+  breeze: "laravel",
+  breez: "laravel",
+  atomeditor: "atom",
+  // Pug was called Jade until 2016
+  jade: "pug",
 };
 
 /**
@@ -150,7 +208,23 @@ type Concept =
   | "agent"
   | "retrieval"
   | "building"
-  | "pose";
+  | "pose"
+  | "alert"
+  | "badge"
+  | "button"
+  | "uicard"
+  | "checkbox"
+  | "chip"
+  | "fab"
+  | "array"
+  | "table"
+  | "list"
+  | "eye"
+  | "search"
+  | "backup"
+  | "geo"
+  | "globe"
+  | "mail";
 
 const CONCEPTS: Record<string, Concept> = {
   // AI
@@ -223,6 +297,44 @@ const CONCEPTS: Record<string, Concept> = {
   usertraining: "training",
   problemsolving: "bulb",
   analyticalthinking: "insight",
+  // Ionic UI components (hire-ionic stack)
+  alert: "alert",
+  badge: "badge",
+  button: "button",
+  card: "uicard",
+  checkbox: "checkbox",
+  chip: "chip",
+  content: "doc",
+  floatingactionbutton: "fab",
+  // Database concepts (PostgreSQL stack)
+  arrays: "array",
+  constraints: "check",
+  indexes: "list",
+  tables: "table",
+  views: "eye",
+  schemas: "schema",
+  fulltextsearch: "search",
+  backupandrestoretools: "backup",
+  schemamigrationtools: "migrate",
+  dbms: "database",
+  databasecleaner: "database",
+  postgis: "geo",
+  // Patterns and language features
+  factorypattern: "blocks",
+  repositorypattern: "database",
+  servicepattern: "blocks",
+  simplemvcpattern: "architecture",
+  mvvm: "architecture",
+  gates: "shield",
+  policies: "shield",
+  coroutines: "flow",
+  i18n: "globe",
+  delayedjobs: "clock",
+  nodecron: "clock",
+  // Mail libraries
+  phpmailer: "mail",
+  swiftmailer: "mail",
+  nodemailer: "mail",
 };
 
 /** The concept glyphs: accent line icons on the 24-unit grid the marks use. */
@@ -499,7 +611,285 @@ const CONCEPT_GLYPHS: Record<Concept, React.ReactNode> = {
       <circle cx="17" cy="12" r=".9" fill="var(--accent)" />
     </>
   ),
+  alert: (
+    <>
+      <path d="M12 4l9 15.5H3z" />
+      <path d="M12 10v4.2" />
+      <path d="M12 16.8h.01" strokeWidth="2.4" />
+    </>
+  ),
+  badge: (
+    <>
+      <rect x="3" y="7" width="14" height="11" rx="3" />
+      <circle cx="18" cy="6.5" r="3" fill="var(--accent)" />
+    </>
+  ),
+  button: (
+    <>
+      <rect x="3" y="7.5" width="18" height="9" rx="4.5" />
+      <path d="M8.5 12h7" />
+    </>
+  ),
+  uicard: (
+    <>
+      <rect x="4" y="3.5" width="16" height="17" rx="2" />
+      <path d="M4 11h16" />
+      <path d="M7.5 14.5h6M7.5 17h4" />
+    </>
+  ),
+  checkbox: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="3" />
+      <path d="M8 12.2l2.7 2.7L16 9.5" />
+    </>
+  ),
+  chip: (
+    <>
+      <rect x="2.5" y="7.5" width="19" height="9" rx="4.5" />
+      <circle cx="7.5" cy="12" r="2" />
+      <path d="M14 10.3l3.4 3.4M17.4 10.3L14 13.7" />
+    </>
+  ),
+  fab: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 8v8M8 12h8" />
+    </>
+  ),
+  array: (
+    <>
+      <path d="M7 4H4v16h3M17 4h3v16h-3" />
+      <path d="M9 12h.01M12 12h.01M15 12h.01" strokeWidth="2.4" />
+    </>
+  ),
+  table: (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M3 9.5h18M3 15h18M9.5 9.5V20" />
+    </>
+  ),
+  list: (
+    <>
+      <path d="M9 6h11M9 12h11M9 18h11" />
+      <path d="M4.5 6h.01M4.5 12h.01M4.5 18h.01" strokeWidth="2.4" />
+    </>
+  ),
+  eye: (
+    <>
+      <path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" />
+      <circle cx="12" cy="12" r="3" />
+    </>
+  ),
+  search: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="M15.3 15.3L20.5 20.5" />
+      <path d="M8 9h5M8 12h3.5" />
+    </>
+  ),
+  backup: (
+    <>
+      <path d="M4 12a8 8 0 1 0 2.4-5.7" />
+      <path d="M4 4v4h4" />
+      <path d="M12 8v4l2.5 1.5" />
+    </>
+  ),
+  geo: (
+    <>
+      <path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z" />
+      <circle cx="12" cy="10" r="2.4" />
+    </>
+  ),
+  globe: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M3.5 12h17" />
+      <path d="M12 3.5c2.4 2.4 3.6 5.2 3.6 8.5s-1.2 6.1-3.6 8.5c-2.4-2.4-3.6-5.2-3.6-8.5S9.6 5.9 12 3.5z" />
+    </>
+  ),
+  mail: (
+    <>
+      <rect x="3" y="5.5" width="18" height="13" rx="2" />
+      <path d="M3.5 7l8.5 6.5L20.5 7" />
+    </>
+  ),
 };
+
+/**
+ * Brand-coloured monogram tiles, for named products that have no mark drawn
+ * above. Several of these products' own marks ARE letter tiles (Adobe XD's
+ * "Xd", the JetBrains IDEs' black squares), and for the rest the product's
+ * colour and initials are the honest stand-in — the generic disc said nothing
+ * at all. Keyed by the normalised name, like `ALIASES`; consulted after every
+ * brand case and concept has missed.
+ *
+ * `[text, background, foreground?, shape?]` — `round` draws a disc, `ide` the
+ * JetBrains tile (letters top-left over a short bar).
+ */
+type MonogramSpec = readonly [string, string, string?, ("round" | "ide")?];
+
+const MONOGRAMS: Record<string, MonogramSpec> = {
+  // Ruby / Rails ecosystem
+  activeadmin: ["AA", "#5E6469"],
+  apipierails: ["Ap", "#CC0000"],
+  cancancan: ["Cc", "#D33A2C"],
+  capistrano: ["Cap", "#2B5B84"],
+  capybara: ["Cb", "#8D6E4B"],
+  carrierwave: ["CW", "#1F6FB2"],
+  cuba: ["Cu", "#B22222"],
+  devise: ["Dv", "#8B2331"],
+  dotenv: [".env", "#ECD53F", "#1A1A1A"],
+  factorybot: ["FB", "#D32F2F"],
+  faker: ["Fk", "#6D4C41"],
+  figaro: ["Fg", "#546E7A"],
+  grape: ["Gr", "#6F2DA8"],
+  hanami: ["Ha", "#E7488C"],
+  honeybadger: ["Hb", "#EA5937"],
+  hotwire: ["Hw", "#FFE801", "#1A1A1A"],
+  mina: ["Mi", "#4A4A4A"],
+  minitest: ["Mt", "#CC342D"],
+  omniauth: ["OA", "#2F2F2F"],
+  papertrail: ["PT", "#1B8A5A"],
+  passenger: ["Ps", "#6C2D91"],
+  puma: ["Pu", "#262626"],
+  pundit: ["Pd", "#5B4B8A"],
+  reek: ["Rk", "#CC342D"],
+  resque: ["Rq", "#B7282E"],
+  rollbar: ["Rb", "#3569F3"],
+  rubocop: ["RC", "#D8322B"],
+  sidekiq: ["Sq", "#B1003E"],
+  simplecov: ["SC", "#4CAF50"],
+  sinatra: ["Si", "#6C3483"],
+  solr: ["So", "#D9411E"],
+  thin: ["Th", "#607D8B"],
+  unicorn: ["Un", "#9C27B0"],
+  webrick: ["WB", "#CC342D"],
+  // PHP / Laravel ecosystem
+  authorizenet: ["Au", "#1C3D5A"],
+  backpack: ["Bp", "#7C69EF"],
+  composer: ["Co", "#885630"],
+  filament: ["Fi", "#F59E0B", "#1A1A1A"],
+  guzzlehttp: ["Gz", "#3E78B2"],
+  laragon: ["Lg", "#0E83CD"],
+  livewire: ["Lw", "#FB70A9"],
+  octobercms: ["Oc", "#DB6A26"],
+  pest: ["Pe", "#F472B6", "#1A1A1A"],
+  phpunit: ["PU", "#3C9CD7"],
+  pusher: ["Pu", "#300D4F"],
+  spatiepermissions: ["Sp", "#197593"],
+  sqlyog: ["SQ", "#1B75BB"],
+  statamic: ["St", "#FF269E"],
+  twig: ["Tw", "#8BC34A", "#1A1A1A"],
+  voyager: ["Vy", "#22A7F0"],
+  // JavaScript / Node ecosystem
+  adonisjs: ["A", "#5A45FF"],
+  feathersio: ["F", "#333333"],
+  hapijs: ["h", "#F7A80D", "#1A1A1A"],
+  koajs: ["koa", "#33333D"],
+  lodash: ["lo", "#3492FF"],
+  loopbackjs: ["LB", "#3F5DFF"],
+  mongoose: ["M", "#880000"],
+  passport: ["P", "#34E27A", "#1A1A1A"],
+  pm2: ["PM2", "#2B037A"],
+  pug: ["Pug", "#A86454"],
+  sailsjs: ["S", "#14ACC2"],
+  sequelize: ["Sq", "#52B0E7"],
+  totaljs: ["T", "#1A1A1A"],
+  unload: ["Ul", "#455A64"],
+  vash: ["V", "#6A1B9A"],
+  // Angular component libraries and data stores
+  couchdb: ["Cd", "#E42528"],
+  fullcalendar: ["FC", "#2C3E50"],
+  kendoui: ["K", "#FF6358"],
+  primeng: ["P", "#DD0031"],
+  rethinkdb: ["R", "#48B9A8"],
+  syncfusion: ["Sf", "#FF8C00", "#1A1A1A"],
+  // Kotlin / Android
+  dagger: ["Dg", "#3F51B5"],
+  hilt: ["Hi", "#3DDC84", "#1A1A1A"],
+  koin: ["Ko", "#F7931E", "#1A1A1A"],
+  ktor: ["Kt", "#087CFA"],
+  micronaut: ["Mn", "#1A1A1A"],
+  retrofit: ["Rf", "#48B983"],
+  roboelectric: ["Rb", "#8BC34A", "#1A1A1A"],
+  testng: ["TN", "#E0431F"],
+  // Databases and migrations
+  flyway: ["Fw", "#CC0200"],
+  liquibase: ["Lq", "#2962FF"],
+  mariadb: ["Ma", "#003545", "#C49A6C"],
+  // Data science and MLOps
+  dvc: ["DVC", "#945DD6"],
+  evidently: ["Ev", "#ED0400"],
+  implicit: ["im", "#37474F"],
+  microsoftpowerautomate: ["PA", "#0066FF"],
+  prometheus: ["P", "#E6522C", "#FFFFFF", "round"],
+  prophet: ["Pr", "#0467DF"],
+  pyod: ["Py", "#306998"],
+  r: ["R", "#276DC3", "#FFFFFF", "round"],
+  river: ["Rv", "#1E88E5"],
+  shap: ["SH", "#FF0051"],
+  // Tools, editors and services
+  adobexd: ["Xd", "#470137", "#FF61F6"],
+  ansible: ["A", "#1A1918", "#FFFFFF", "round"],
+  aptanastudio: ["Ap", "#E86B25"],
+  basecamp: ["Bc", "#FFE700", "#1D2D35"],
+  cordova: ["Co", "#35434F"],
+  ember: ["E", "#E04E39"],
+  phpstorm: ["PS", "#000000", "#FFFFFF", "ide"],
+  rubymine: ["RM", "#000000", "#FFFFFF", "ide"],
+  webstorm: ["WS", "#000000", "#FFFFFF", "ide"],
+  sublime: ["S", "#4B4B4B", "#FF9800"],
+  tabnine: ["Tn", "#6B4FBB"],
+};
+
+/**
+ * A near-black tile vanishes into the dark bands, so it gets a hairline in the
+ * band's own text colour — light on dark, dark (and barely there) on light.
+ */
+function isDark(hex: string) {
+  const n = parseInt(hex.slice(1), 16);
+  const [r, g, b] = [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b < 70;
+}
+
+function Monogram({ spec }: { spec: MonogramSpec }) {
+  const [text, bg, fg = "#FFFFFF", shape] = spec;
+  const font = { fontFamily: "var(--font-body), system-ui, sans-serif", fontWeight: 700 } as const;
+  const ring = isDark(bg) ? { stroke: "currentColor", strokeOpacity: 0.28, strokeWidth: 1 } : {};
+  if (shape === "ide") {
+    return (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="20" height="20" fill={bg} {...ring} />
+        <text x="5" y="12.5" fontSize="8" fill={fg} style={font}>
+          {text}
+        </text>
+        <rect x="5" y="16.5" width="7" height="1.6" fill={fg} />
+      </svg>
+    );
+  }
+  const size = text.length === 1 ? 12 : text.length === 2 ? 10 : text.length === 3 ? 7.8 : 7.2;
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {shape === "round" ? (
+        <circle cx="12" cy="12" r="10" fill={bg} {...ring} />
+      ) : (
+        <rect x="2" y="2" width="20" height="20" rx="5" fill={bg} {...ring} />
+      )}
+      <text
+        x="12"
+        y="12"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize={size}
+        letterSpacing="-0.3"
+        fill={fg}
+        style={font}
+      >
+        {text}
+      </text>
+    </svg>
+  );
+}
 
 function ConceptGlyph({ kind }: { kind: Concept }) {
   return (
@@ -3586,9 +3976,48 @@ export default function TechLogo({ name }: { name: string }) {
           </g>
         </svg>
       );
+    case "zoom":
+      // Zoom — the white camera on its blue tile
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="6" fill="#2D8CFF" />
+          <rect x="5" y="8.5" width="9.5" height="7" rx="1.8" fill="#FFFFFF" />
+          <path d="M15.3 11.2l3.7-2.4v6.4l-3.7-2.4z" fill="#FFFFFF" />
+        </svg>
+      );
+    case "vim":
+      // Vim — the green diamond with its "V"
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2l10 10-10 10L2 12z" fill="#019833" />
+          <path d="M7.5 7.5h3l1.5 5.3 1.5-5.3h3L13.3 16.5h-2.6z" fill="#FFFFFF" />
+        </svg>
+      );
+    case "atom":
+      // Atom — three orbits around the nucleus
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#5FB57D" strokeWidth="1.5">
+            <ellipse cx="12" cy="12" rx="9.5" ry="3.6" />
+            <ellipse cx="12" cy="12" rx="9.5" ry="3.6" transform="rotate(60 12 12)" />
+            <ellipse cx="12" cy="12" rx="9.5" ry="3.6" transform="rotate(120 12 12)" />
+          </g>
+          <circle cx="12" cy="12" r="1.8" fill="#5FB57D" />
+        </svg>
+      );
+    case "socketio":
+      // Socket.IO — the white bolt in the black disc
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#010101" stroke="currentColor" strokeOpacity="0.28" />
+          <path d="M13.6 4.5L7.2 13h4.4l-1.2 6.5 6.4-8.5h-4.4z" fill="#FFFFFF" />
+        </svg>
+      );
     default: {
       const concept = CONCEPTS[key];
       if (concept) return <ConceptGlyph kind={concept} />;
+      const monogram = MONOGRAMS[key];
+      if (monogram) return <Monogram spec={monogram} />;
       // Generic database/cloud icon
       return (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
