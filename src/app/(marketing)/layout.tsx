@@ -3,7 +3,7 @@ import { Inter, Fraunces, JetBrains_Mono } from 'next/font/google';
 import ScrollProvider from '@/components/home/scroll-provider';
 import { JsonLd } from '@/components/seo/json-ld';
 import { SiteGraph } from '@/components/seo/site-graph';
-import { MARKETING_SITE_GRAPH, marketingWebSiteLd } from '@/lib/seo/page-graph';
+import { MARKETING_SITE_GRAPH } from '@/lib/seo/page-graph';
 import './home.css';
 
 // Layout for the public marketing surface: the homepage at "/" and the service
@@ -61,13 +61,12 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
        * described eighty unrelated companies that happened to share a name.
        *
        * Not on the homepage, which mirrors softsuave.com's own homepage schema
-       * exactly — Organization included — and only the WebSite on the pages
-       * that publish their own Organization (see `SiteGraph`).
+       * exactly — Organization included — nor on the pages whose approved
+       * schema spec is their whole structured data (see `SiteGraph`).
        */}
-      <SiteGraph
-        full={<JsonLd data={MARKETING_SITE_GRAPH} />}
-        websiteOnly={<JsonLd data={[marketingWebSiteLd]} />}
-      />
+      <SiteGraph>
+        <JsonLd data={MARKETING_SITE_GRAPH} />
+      </SiteGraph>
       <ScrollProvider>{children}</ScrollProvider>
     </div>
   );

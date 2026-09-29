@@ -61,6 +61,18 @@ import { pageRobots } from '@/lib/flags';
 // Matches the homepage/marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
+/**
+ * The page's OG image — the hero artwork cropped to 1200×630, served from the
+ * exact path the approved schema spec names, so the Service `image`, the
+ * WebPage `primaryImageOfPage` and the og:image are one file.
+ */
+const OG_IMAGE = {
+  url: absoluteUrl('/assets/images/agentic-ai-development-services-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'Agentic AI Development Services by Soft Suave',
+};
+
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: meta.title,
@@ -73,11 +85,13 @@ export const metadata: Metadata = {
     url: absoluteUrl(meta.path),
     siteName: 'Soft Suave',
     type: 'website',
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: meta.title,
     description: meta.description,
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -87,9 +101,11 @@ const pageLd = aiPageJsonLd('agenticAi');
 export default function AgenticAiDevelopmentServicesPage() {
   return (
     <div className={styles.page}>
-      {/* This page's own Organization, the spec's block verbatim (no Facebook
-          profile, unlike the site-wide node). The layout leaves its
-          Organization off this page for it — see PAGES_WITH_OWN_ORGANIZATION. */}
+      {/* The spec's four blocks are this page's entire structured data:
+          Organization (verbatim — no Facebook profile, unlike the site-wide
+          node) + Service, WebPage, FAQPage. The layout adds nothing here, not
+          even its WebSite, and the footer's PostalAddress microdata is off —
+          see PAGES_WITH_OWN_SITE_GRAPH. */}
       <JsonLd data={softSuaveOrganizationLd} />
       <JsonLd data={pageLd} />
       <Nav />
@@ -137,7 +153,7 @@ export default function AgenticAiDevelopmentServicesPage() {
 
         <Contact />
       </main>
-      <Footer />
+      <Footer addressMicrodata={false} />
     </div>
   );
 }
