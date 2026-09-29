@@ -36,10 +36,9 @@ describe('breadcrumbLabel', () => {
     expect(breadcrumbLabel('/hire-dedicated-developers')).toBe('Hire Dedicated Developer');
   });
 
-  it('falls back to the registry title for pages the menu lists only tersely', () => {
-    expect(breadcrumbLabel('/android-application-development-company')).toBe(
-      'Android App Development Company',
-    );
+  it("uses softsuave.com's own last crumb for the technology pages", () => {
+    expect(breadcrumbLabel('/android-application-development-company')).toBe('Android Development Service');
+    expect(breadcrumbLabel('/ruby-on-rails-development-company')).toBe('ROR Development');
   });
 
   it('tolerates a trailing slash and ignores unknown paths', () => {
@@ -55,21 +54,38 @@ describe('breadcrumbTrail', () => {
   it('puts a sub-page under its mega-menu parent', () => {
     expect(names('/generative-ai-development-company')).toEqual(['Custom AI Development', 'Generative AI']);
     expect(paths('/generative-ai-development-company')[0]).toBe('/custom-ai-development-services');
-    expect(names('/reactjs-app-development-company')[0]).toBe('Web App Development');
   });
 
-  it('skips a menu heading that has no page of its own', () => {
-    // Android sits under the unlinked "Native App Development" heading.
+  it("follows softsuave.com's trail through Software Development", () => {
+    expect(names('/android-application-development-company')).toEqual([
+      'Software Development',
+      'Mobile App Development',
+      'Android Development Service',
+    ]);
     expect(paths('/android-application-development-company')).toEqual([
+      '/software-development-company',
       '/mobile-application-development-company',
       '/android-application-development-company',
+    ]);
+    expect(names('/reactjs-app-development-company')).toEqual([
+      'Software Development',
+      'Web App Development',
+      'ReactJS Development',
+    ]);
+    expect(names('/mobile-application-development-company')).toEqual([
+      'Software Development',
+      'Mobile App Development Service',
     ]);
   });
 
   it('uses a registry-declared parent for pages the menu does not nest', () => {
     expect(paths('/ai-solutions-for-construction')[0]).toBe('/industries');
     expect(paths('/fintech-ai-solutions')[0]).toBe('/industries');
-    expect(paths('/vuejs-development-company')[0]).toBe('/web-application-development-company');
+    expect(paths('/vuejs-development-company')).toEqual([
+      '/software-development-company',
+      '/web-application-development-company',
+      '/vuejs-development-company',
+    ]);
   });
 
   it('names a page by its current-page label only at the end of its own trail', () => {

@@ -70,7 +70,16 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   // Listed here because the sitemap now derives from this registry: it was in
   // the old hand-written sitemap list and has a route in app/(marketing), so
   // leaving it out would quietly drop an already-indexed page.
-  { path: '/ai-development-service', title: 'AI Development Services' },
+  // Breadcrumb trails below follow softsuave.com's own, crumb for crumb (29 Sep
+  // request): "Home › Software Development › [Mobile|Web App Development ›]
+  // <the live page's last crumb, verbatim>". Pages the live site gives no
+  // visible trail keep theirs.
+  {
+    path: '/ai-development-service',
+    title: 'AI Development Services',
+    breadcrumbLabel: 'AI Development Service',
+    parent: '/software-development-company',
+  },
   // `/custome-ai-developement` (two typos) was this page's path until the route
   // folder was renamed; next.config.ts 301s the misspelling and the intermediate
   // `/custom-ai-development` here. Registering the old spelling instead would
@@ -87,31 +96,124 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/data-science-services', title: 'Data Science Services' },
 
   // Mobile & web engineering-service pages.
-  { path: '/mobile-application-development-company', title: 'Mobile App Development Company' },
-  { path: '/android-application-development-company', title: 'Android App Development Company' },
-  { path: '/ios-application-development-company', title: 'iOS App Development Company' },
-  { path: '/react-native-app-development-company', title: 'React Native Development Company India' },
-  { path: '/flutter-application-development-company', title: 'Flutter App Development Company in India' },
-  { path: '/ionic-app-development-company', title: 'Best Ionic App Development Company in India' },
-  { path: '/xamarin-app-development-company', title: 'Xamarin Development Company In India' },
+  {
+    path: '/mobile-application-development-company',
+    title: 'Mobile App Development Company',
+    breadcrumbCurrentLabel: 'Mobile App Development Service',
+    parent: '/software-development-company',
+  },
+  {
+    path: '/android-application-development-company',
+    title: 'Android App Development Company',
+    breadcrumbLabel: 'Android Development Service',
+    parent: ['/software-development-company', '/mobile-application-development-company'],
+  },
+  {
+    path: '/ios-application-development-company',
+    title: 'iOS App Development Company',
+    breadcrumbLabel: 'iOS Development Services',
+    parent: ['/software-development-company', '/mobile-application-development-company'],
+  },
+  {
+    path: '/react-native-app-development-company',
+    title: 'React Native Development Company India',
+    breadcrumbLabel: 'React Native Development',
+    parent: ['/software-development-company', '/mobile-application-development-company'],
+  },
+  {
+    path: '/flutter-application-development-company',
+    title: 'Flutter App Development Company in India',
+    breadcrumbLabel: 'Flutter Development',
+    parent: ['/software-development-company', '/mobile-application-development-company'],
+  },
+  {
+    path: '/ionic-app-development-company',
+    title: 'Best Ionic App Development Company in India',
+    breadcrumbLabel: 'Ionic Development',
+    parent: ['/software-development-company', '/mobile-application-development-company'],
+  },
+  {
+    path: '/xamarin-app-development-company',
+    title: 'Xamarin Development Company In India',
+    breadcrumbLabel: 'Xamarin Development',
+    parent: ['/software-development-company', '/mobile-application-development-company'],
+  },
   { path: '/software-development-company', title: 'Software Development Company in India', breadcrumbLabel: 'Software Development' },
-  { path: '/dot-net-application-development-company', title: '.NET Development Company in India' },
+  {
+    path: '/dot-net-application-development-company',
+    title: '.NET Development Company in India',
+    breadcrumbLabel: '.NET Development',
+    parent: ['/software-development-company', '/web-application-development-company'],
+  },
   {
     path: '/web-application-development-company',
     title: 'Web Application Development Company In India',
     breadcrumbCurrentLabel: 'Web App Development Service',
     parent: '/software-development-company',
   },
-  { path: '/angularjs-development-company', title: 'Angular Development Company in India' },
-  { path: '/nextjs-development-company', title: 'Next.js Development Company for Modern Web Apps' },
-  { path: '/ruby-on-rails-development-company', title: 'Ruby on Rails Development Company India' },
-  { path: '/typescript-development-company', title: 'TypeScript Development Company for Web Apps' },
-  { path: '/graphql-development-company', title: 'GraphQL Development Company for Modern APIs' },
-  { path: '/vuejs-development-company', title: 'Vue.js Development Company for Web Apps', parent: '/web-application-development-company' },
-  { path: '/postgresql-development-company', title: 'PostgreSQL Development Company for Reliable Databases', parent: '/web-application-development-company' },
-  { path: '/reactjs-app-development-company', title: 'ReactJS Development Company in India' },
-  { path: '/nodejs-development-company', title: 'NodeJS Development Company in India' },
-  { path: '/java-application-development-company', title: 'Top Java Development Company in India' },
+  {
+    path: '/angularjs-development-company',
+    title: 'Angular Development Company in India',
+    breadcrumbLabel: 'Angular Development Services',
+    parent: ['/software-development-company', '/web-application-development-company'],
+  },
+  {
+    path: '/ruby-on-rails-development-company',
+    title: 'Ruby on Rails Development Company India',
+    breadcrumbLabel: 'ROR Development',
+    parent: ['/software-development-company', '/web-application-development-company'],
+  },
+  {
+    path: '/reactjs-app-development-company',
+    title: 'ReactJS Development Company in India',
+    breadcrumbLabel: 'ReactJS Development',
+    parent: ['/software-development-company', '/web-application-development-company'],
+  },
+  {
+    path: '/nodejs-development-company',
+    title: 'NodeJS Development Company in India',
+    breadcrumbLabel: 'NodeJS Development',
+    parent: ['/software-development-company', '/web-application-development-company'],
+  },
+  {
+    path: '/java-application-development-company',
+    title: 'Top Java Development Company in India',
+    breadcrumbLabel: 'Java Development Services',
+    parent: ['/software-development-company', '/web-application-development-company'],
+  },
+  // Web-app technology pages softsuave.com gives no visible trail. They take
+  // their live siblings' shape ("… › Web App Development › ReactJS
+  // Development") rather than a lone "Web App Development ›" over a long title.
+  {
+    path: '/nextjs-development-company',
+    title: 'Next.js Development Company for Modern Web Apps',
+    breadcrumbLabel: 'Next.js Development',
+    parent: ['/software-development-company', '/web-application-development-company'],
+  },
+  {
+    path: '/typescript-development-company',
+    title: 'TypeScript Development Company for Web Apps',
+    breadcrumbLabel: 'TypeScript Development',
+    parent: ['/software-development-company', '/web-application-development-company'],
+  },
+  {
+    path: '/graphql-development-company',
+    title: 'GraphQL Development Company for Modern APIs',
+    breadcrumbLabel: 'GraphQL Development',
+    parent: ['/software-development-company', '/web-application-development-company'],
+  },
+  {
+    path: '/vuejs-development-company',
+    title: 'Vue.js Development Company for Web Apps',
+    breadcrumbLabel: 'Vue.js Development',
+    parent: ['/software-development-company', '/web-application-development-company'],
+  },
+  {
+    path: '/postgresql-development-company',
+    title: 'PostgreSQL Development Company for Reliable Databases',
+    breadcrumbLabel: 'PostgreSQL Development',
+    parent: ['/software-development-company', '/web-application-development-company'],
+  },
   // The last two technology slugs the nav pointed at but this app did not
   // serve: both were rewritten to softsuave.com by `navHref`, from the header
   // mega menu (`lib/home/nav-menu.ts`), the nav data's technology list and —
@@ -142,7 +244,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   {
     path: '/offshore-software-development-company',
     title: 'Offshore Software Development Company',
-    breadcrumbLabel: 'Offshore Software Development',
+    breadcrumbLabel: 'Offshore Software Development Service',
     parent: '/software-development-company',
   },
   {
@@ -154,6 +256,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   {
     path: '/it-outsourcing-company-india',
     title: 'IT Outsourcing Company in India',
+    // softsuave.com's own casing
     breadcrumbLabel: 'IT Outsourcing Services',
     parent: '/software-development-company',
   },
