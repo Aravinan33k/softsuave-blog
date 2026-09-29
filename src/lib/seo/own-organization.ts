@@ -12,6 +12,7 @@
  *   /data-engineering-services
  *   /data-science-services
  *   /generative-ai-development-company
+ *   /graphql-development-company
  *   /nextjs-development-company
  *   /postgresql-development-company
  *   /predictive-intelligence-services
@@ -35,6 +36,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/data-engineering-services',
   '/data-science-services',
   '/generative-ai-development-company',
+  '/graphql-development-company',
   '/nextjs-development-company',
   '/postgresql-development-company',
   '/predictive-intelligence-services',
