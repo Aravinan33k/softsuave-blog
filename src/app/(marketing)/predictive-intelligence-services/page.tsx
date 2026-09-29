@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { aiPageJsonLd, softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import {
   piApplications,
   piCapabilities,
@@ -63,6 +63,18 @@ import home from '@/components/home/home.module.css';
 // Matches the marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
+/**
+ * The page's OG image — the hero artwork cropped to 1200×630, served from the
+ * exact path the approved schema spec names, so the Service `image`, the
+ * WebPage `primaryImageOfPage` and the og:image are one file.
+ */
+const OG_IMAGE = {
+  url: absoluteUrl('/assets/images/predictive-intelligence-services-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'Predictive Intelligence Services and Solutions by Soft Suave',
+};
+
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: `${piMeta.title} | Soft Suave`,
@@ -75,11 +87,13 @@ export const metadata: Metadata = {
     url: absoluteUrl(piMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${piMeta.title} | Soft Suave`,
     description: piMeta.description,
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -90,42 +104,23 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/** FAQPage + Service structured data — this page's answers are its SEO surface. */
-
 /**
- * This page's JSON-LD, from the shared builder.
- *
- * It replaces a hand-written `Service` whose `provider` was an inline
- * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
- * repeated on every page of this surface rather than the canonical one — with
- * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
- * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
- * at the organization `app/(marketing)/layout.tsx` declares once.
+ * Service + WebPage + FAQPage, from the approved SEO spec
+ * (`lib/seo/ai-page-schema.ts`). It replaces the graph this page used to build
+ * from its own content with `pageSchemaGraph`: the approved set is the page's
+ * exact structured data.
  */
-const LD = pageSchemaGraph({
-  path: piMeta.path,
-  title: piMeta.title,
-  description: piMeta.description,
-  // Both of these are the SEO sheet's own wording for this page (23 Sep).
-  serviceType: 'Predictive Intelligence and Machine Learning Development',
-  audience: 'Product, operations, finance, customer, data, and enterprise technology teams',
-  // The page's own short name for what it sells, not its `<title>`, which is
-  // written to win the click.
-  serviceName: 'Predictive Intelligence Services',
-  breadcrumbName: 'Predictive Intelligence Services',
-  offerCatalogName: piCapabilities.title,
-  offers: piCapabilities.items.map((i) => ({ name: i.name, description: i.body })),
-  faqName: piFaqs.title,
-  faqs: piFaqs.items,
-});
+const LD = aiPageJsonLd('predictiveIntelligence');
 
 export default function PredictiveIntelligenceServicesPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect — which leaves a
-  // single-item trail, so the schema is omitted rather than emitted empty.
-
   return (
     <div className={home.page}>
+      {/* The spec's four blocks are this page's entire structured data:
+          Organization (verbatim — no Facebook profile, unlike the site-wide
+          node) + Service, WebPage, FAQPage. The layout adds nothing here, not
+          even its WebSite, and the footer's PostalAddress microdata is off —
+          see PAGES_WITH_OWN_SITE_GRAPH. */}
+      <JsonLd data={softSuaveOrganizationLd} />
       <JsonLd data={LD} />
       <Nav logoHref={HOME_HREF} />
 
@@ -210,7 +205,7 @@ export default function PredictiveIntelligenceServicesPage() {
         <Contact />
       </main>
 
-      <Footer />
+      <Footer addressMicrodata={false} />
     </div>
   );
 }

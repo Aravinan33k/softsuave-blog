@@ -10,6 +10,7 @@
  *   /computer-vision-development-services
  *   /custom-ai-development-services
  *   /generative-ai-development-company
+ *   /predictive-intelligence-services
  *   /rag-development-services
  *
  * so each page must also:
@@ -26,5 +27,6 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/computer-vision-development-services',
   '/custom-ai-development-services',
   '/generative-ai-development-company',
+  '/predictive-intelligence-services',
   '/rag-development-services',
 ]);
