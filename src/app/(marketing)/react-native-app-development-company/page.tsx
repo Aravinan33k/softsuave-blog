@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { rnFaqLd, rnServiceLd } from '@/lib/seo/react-native-app-development-company';
 import {
   rnBenefits,
   rnFaqs,
@@ -61,6 +61,20 @@ import home from '@/components/home/home.module.css';
 // Matches the marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
+/**
+ * The page's link-preview image: the hero's artwork (one app's screens on
+ * iPhone and Android handsets alike) cropped to 1200×630 from its right side,
+ * clear of the mock product cards that name real brands. softsuave.com's own
+ * og:image is an SVG, which Facebook, LinkedIn and X do not render as a
+ * preview, so there is nothing on the live page to copy.
+ */
+const OG_IMAGE = {
+  url: absoluteUrl('/assets/images/react-native-app-development-company-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'React Native App Development Company - Soft Suave',
+};
+
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: `${rnMeta.title} | Soft Suave`,
@@ -73,11 +87,13 @@ export const metadata: Metadata = {
     url: absoluteUrl(rnMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${rnMeta.title} | Soft Suave`,
     description: rnMeta.description,
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -88,43 +104,13 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/** FAQPage + Service structured data — this page's answers are its SEO surface. */
-
-/**
- * This page's JSON-LD, from the shared builder.
- *
- * It replaces a hand-written `Service` whose `provider` was an inline
- * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
- * repeated on every page of this surface rather than the canonical one — with
- * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
- * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
- * at the organization `app/(marketing)/layout.tsx` declares once.
- */
-const LD = pageSchemaGraph({
-  path: rnMeta.path,
-  title: rnMeta.title,
-  description: rnMeta.description,
-  serviceType: 'React Native app development',
-  // The page's own short name for what it sells, not its `<title>`, which is
-  // written to win the click.
-  serviceName: 'React Native App Development',
-  breadcrumbName: 'React Native App Development',
-  offerCatalogName: rnServices.title,
-  offers: rnServices.items.map((i) => ({ name: i.name, description: i.paragraphs[0] })),
-  faqName: rnFaqs.title,
-  // The builder folds each answer's bulleted `points` into its text, as the
-  // hand-written block here did — the schema must say what the page shows.
-  faqs: rnFaqs.items,
-});
-
 export default function ReactNativeAppDevelopmentPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect — which leaves a
-  // single-item trail, so the schema is omitted rather than emitted empty.
-
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* softsuave.com's own schema for this page, verbatim — see
+          `lib/seo/react-native-app-development-company.ts`. */}
+      <JsonLd data={rnServiceLd} />
+      <JsonLd data={rnFaqLd} />
       <Nav logoHref={HOME_HREF} />
 
       {/*

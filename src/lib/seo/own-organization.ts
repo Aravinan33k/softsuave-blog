@@ -29,6 +29,10 @@
  *   /postgresql-development-company
  *   /predictive-intelligence-services
  *   /rag-development-services
+ *   /react-native-app-development-company (an exception, like Android, iOS
+ *     and Mobile App: it mirrors softsuave.com's page, whose schema is a
+ *     Service graph and a FAQPage — its Organization arrives from GTM and its
+ *     footer keeps the address microdata, as live's does)
  *   /typescript-development-company
  *   /vuejs-development-company
  *
@@ -56,6 +60,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/postgresql-development-company',
   '/predictive-intelligence-services',
   '/rag-development-services',
+  '/react-native-app-development-company',
   '/typescript-development-company',
   '/vuejs-development-company',
 ]);
