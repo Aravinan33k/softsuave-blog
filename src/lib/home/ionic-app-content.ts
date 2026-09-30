@@ -121,6 +121,9 @@ export const ionOverview: OverviewContent = {
     // the right and the phone mockup top and bottom, because the frame
     // stretches to the prose height at desktop. `contain` shows all of it.
     fit: "contain",
+    // A fixed 14:16 frame (30 Sep review: "need to resize the image |
+    // aspect-ratio: 14 / 16"), rather than one stretched to the prose height.
+    aspect: "14 / 16",
     alt: "A diagram of an Ionic app built from one codebase for iOS, Android and the web",
     blurDataURL:
       "data:image/webp;base64,UklGRiYBAABXRUJQVlA4WAoAAAAQAAAADwAADgAAQUxQSHwAAAABgJtt2/HsiTOQbRu1s4DTZYdMgc6ss4Ftp9JvxM4AETEBAACx7fE3F87WTmztL0Aou8YSOdE856irAYCwPYP72JYAcKEzH5vttg3A3Z6tbrdbA0Dw3N/ye+0C/P/289TAWMjkUKjlYns6QSxlcoHkNL/0hbdOitLPKCbTVlA4IIQAAABQAgCdASoQAA8AA4BaJagC7Aacvm8UkQxKpoAA/udAxFov9anLEClLd7Qze7oXZ7/60ih/Pe1Stvf7QWDtWwe70h6XsyXZ42Mm3Vz42bldnYsGm2cli+ttY++YWGzT9ZP72w9KbhWcKqh+fPtBZ1zs7dTNIJNHdQsqOf7det+TvtQzaAA=",
@@ -132,6 +135,14 @@ export const ionOverview: OverviewContent = {
  * for cards and too long to run down the page, so they render as a board: the
  * six names to pick from, one stage to read on. Same section the Android,
  * React Native and Flutter pages use.
+ *
+ * Three images were swapped for ones that show their item (30 Sep review:
+ * "images needs to be updated with most relevant ones"): an app screen built
+ * from widget tiles for Widgets (was a dark phone of Python code), a
+ * smartwatch beside a phone showing the same report for Integration (the copy
+ * is about smart watches and smart devices; was a watch alone), and a support
+ * team at their laptops for Maintenance & Support (was a man with his feet up
+ * on a call-centre desk). Design, Custom and Hybrid already fit and stay.
  */
 export const ionServices: ServiceBoardContent = {
   eyebrow: "Services",
@@ -163,7 +174,7 @@ export const ionServices: ServiceBoardContent = {
         "We have extensive expertise in the Ionic framework that allows us to develop feature-rich and robust cross-platform Apps. Our Ionic Development team produces the needed widgets in HTML5 and integrates them with Ionic via Cordova. Also, they can build Ionic widgets with different functionalities. Hence, integrating advanced features in Apps is not a complicated task for us.",
         "Partner with a reputed Ionic Development Company in India and upgrade your App with innovative features and match your business requirements.",
       ],
-      image: { src: "/images/landing/ionic/svc-widget.webp", alt: "" },
+      image: { src: "/images/four/ion-widgets.webp", alt: "" },
     },
     {
       name: "Native & Hybrid App Development",
@@ -183,7 +194,7 @@ export const ionServices: ServiceBoardContent = {
         "Soft Suave offers Ionic App Integration Services at a greater level by integrating apps with smart watches, geolocation devices, AR/VR devices and other smart devices. The Ionic app integration is done in consideration with the requirement of the client for smooth functioning and a pleasant user experience for the users.",
         "With the amount of technological advancement, Soft Suave is future-ready with a team of the best Ionic developers in India to deal with the rising of future technology and integrate Ionic applications into futuristic smart devices.",
       ],
-      image: { src: "/images/landing/ionic/svc-integration.webp", alt: "" },
+      image: { src: "/images/four/ion-watch-sync.webp", alt: "" },
     },
     {
       name: "Ionic Maintenance & Support",
@@ -191,7 +202,7 @@ export const ionServices: ServiceBoardContent = {
         "As a Reputed Ionic Development Company, we have a dedicated team of Ionic developers who support and maintain all the projects related to Ionic framework. They offer premium support to clients from the USA and Europe. Many clients who come to Soft Suave for support have a terrible past of losing money to companies who make false promise on maintenance of Ionic application after development.",
         "Soft Suave is the best app development company in India that not only supports new projects but also accepts abandoned projects to provide support and maintenance at an affordable cost according to the client requirement.",
       ],
-      image: { src: "/images/landing/ionic/svc-support.webp", alt: "" },
+      image: { src: "/images/four/ion-support-team.webp", alt: "" },
     },
   ],
 };

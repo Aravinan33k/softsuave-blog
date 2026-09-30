@@ -144,6 +144,14 @@ export interface OverviewContent {
      * and bottom of its phone mockup (review: "need to resize the image").
      */
     fit?: "cover" | "contain";
+    /**
+     * A fixed frame ratio (CSS `aspect-ratio`, e.g. `"14 / 16"`) at every
+     * width. Without it the frame is 4:3 (compact) or 3:2 below 1000px and
+     * stretches to the prose's height above it; with it the frame keeps this
+     * shape and sits at the top of its column instead (Ionic review: "need to
+     * resize the image | aspect-ratio: 14 / 16").
+     */
+    aspect?: string;
   };
 }
 
@@ -331,10 +339,17 @@ export default function Overview({
 
           {showImage && image && (
             <figure
-              className={
-                image.fit === "contain"
-                  ? `${styles.overviewMedia} ${styles.overviewMediaContain}`
-                  : styles.overviewMedia
+              className={[
+                styles.overviewMedia,
+                image.fit === "contain" ? styles.overviewMediaContain : "",
+                image.aspect ? styles.overviewMediaFixed : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              style={
+                image.aspect
+                  ? ({ "--overview-media-aspect": image.aspect } as CSSProperties)
+                  : undefined
               }
             >
               <Image

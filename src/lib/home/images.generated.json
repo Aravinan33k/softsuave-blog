@@ -4176,5 +4176,44 @@
     "photographer": "cottonbro studio",
     "pexelsUrl": "https://www.pexels.com/photo/person-using-smartphone-7343000/",
     "matchedTier": "pinned:7343000"
+  },
+  "four/ion-widgets": {
+    "page": "four",
+    "id": "ion-widgets",
+    "src": "/images/four/ion-widgets.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A smartphone app screen built from widget tiles for billing, add-ons and payments",
+    "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAABQAgCdASoQAAsAA4BaJbACdH8AgoDGCBw3YAAA+/upCXmiymbPpNyiukQ5NrZXNJtZsgWWzaEMapOZ1azWUpqD8OKG22/POZULsUsVy/nJaZ4odsAma6+eJ3pkGAe9XtRNvivJaGWHuNVPN9rUudorssswAA==",
+    "pexelsId": 54284,
+    "photographer": "Torsten Dettlaff",
+    "pexelsUrl": "https://www.pexels.com/photo/space-gray-iphone-6-54284/",
+    "matchedTier": "pinned:54284"
+  },
+  "four/ion-watch-sync": {
+    "page": "four",
+    "id": "ion-watch-sync",
+    "src": "/images/four/ion-watch-sync.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A smartwatch beside a smartphone showing the same weekly report",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADQAQCdASoQAAsAA4BaJbACdACp4OOFgAD+7MiZNZbE6i47gSsXjuGbotUq2h1LER2Edux3+591pNA4bXHk5HcHcolq7X6huzeAE5bZu+W6K/FnTd7x4gAA",
+    "pexelsId": 7947956,
+    "photographer": "RDNE Stock project",
+    "pexelsUrl": "https://www.pexels.com/photo/a-smartphone-and-smartwatch-on-the-table-7947956/",
+    "matchedTier": "pinned:7947956"
+  },
+  "four/ion-support-team": {
+    "page": "four",
+    "id": "ion-support-team",
+    "src": "/images/four/ion-support-team.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A support team with headsets working on laptops in an office",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAwAgCdASoQAAsAA4BaJZQAD43vv+hLEzMFQAD+wo1UdoXkILr/XfdcXrsSSpmNGOKZFugb4cjZSK8skf4fzoWK774PHNqq1J/zFKnNRH/HSWaQNCpKB6zRvO4ly56OTo8DgAAA",
+    "pexelsId": 7682087,
+    "photographer": "Mikhail Nilov",
+    "pexelsUrl": "https://www.pexels.com/photo/call-center-agents-using-laptops-7682087/",
+    "matchedTier": "pinned:7682087"
   }
 }

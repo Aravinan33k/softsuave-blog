@@ -3793,6 +3793,54 @@
       ]
     },
     {
+      "id": "ion-widgets",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A smartphone app screen built from widget tiles for billing, add-ons and payments",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "app interface widgets smartphone",
+        "mobile app dashboard tiles",
+        "smartphone app ui",
+        "smartphone"
+      ],
+      "pexelsId": 54284
+    },
+    {
+      "id": "ion-watch-sync",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A smartwatch beside a smartphone showing the same weekly report",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "smartwatch and smartphone together",
+        "smartwatch phone app sync",
+        "connected devices",
+        "smartwatch"
+      ],
+      "pexelsId": 7947956
+    },
+    {
+      "id": "ion-support-team",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "A support team with headsets working on laptops in an office",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "tech support team headset office",
+        "customer support team laptops",
+        "support team office",
+        "office team"
+      ],
+      "pexelsId": 7682087
+    },
+    {
       "id": "xam-overview",
       "page": "four",
       "purpose": "overview-illustration",

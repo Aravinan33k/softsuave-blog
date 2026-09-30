@@ -7873,3 +7873,16 @@
     padding-bottom: clamp(32px, 3.4vw, 52px);
   }
 }
+
+/* `OverviewContent.image.aspect` — a fixed frame ratio at every width (Ionic
+   review: "need to resize the image | aspect-ratio: 14 / 16"). Three classes,
+   so it outranks both `.overviewCompact .overviewMedia` and the 1000px rules
+   that stretch the frame to the prose height; the frame keeps its own shape
+   and opens at the top of its column instead. */
+.overviewGrid .overviewMedia.overviewMediaFixed {
+  aspect-ratio: var(--overview-media-aspect);
+  align-self: start;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+}

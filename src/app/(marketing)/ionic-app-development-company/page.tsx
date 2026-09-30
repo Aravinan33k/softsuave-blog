@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { ionFaqLd, ionServiceLd } from '@/lib/seo/ionic-app-development-company';
 import {
   ionFaqs,
   ionHero,
@@ -62,6 +62,20 @@ import home from '@/components/home/home.module.css';
 // Matches the marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
+/**
+ * The page's link-preview image: the hero's photograph (one site open on a
+ * laptop, a tablet and phones — Ionic's one-codebase pitch) cropped to
+ * 1200×630 and lifted a little, since the hero frame is dark. softsuave.com's
+ * own og:image is an SVG, which Facebook, LinkedIn and X do not render as a
+ * preview, so there is nothing on the live page to copy.
+ */
+const OG_IMAGE = {
+  url: absoluteUrl('/assets/images/ionic-app-development-company-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'Ionic App Development Company - Soft Suave',
+};
+
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: `${ionMeta.title} | Soft Suave`,
@@ -74,11 +88,13 @@ export const metadata: Metadata = {
     url: absoluteUrl(ionMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${ionMeta.title} | Soft Suave`,
     description: ionMeta.description,
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -89,43 +105,13 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/** FAQPage + Service structured data — this page's answers are its SEO surface. */
-
-/**
- * This page's JSON-LD, from the shared builder.
- *
- * It replaces a hand-written `Service` whose `provider` was an inline
- * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
- * repeated on every page of this surface rather than the canonical one — with
- * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
- * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
- * at the organization `app/(marketing)/layout.tsx` declares once.
- */
-const LD = pageSchemaGraph({
-  path: ionMeta.path,
-  title: ionMeta.title,
-  description: ionMeta.description,
-  serviceType: 'Ionic app development',
-  // The page's own short name for what it sells, not its `<title>`, which is
-  // written to win the click.
-  serviceName: 'Ionic App Development',
-  breadcrumbName: 'Ionic App Development',
-  offerCatalogName: ionServices.title,
-  offers: ionServices.items.map((i) => ({ name: i.name, description: i.paragraphs[0] })),
-  faqName: ionFaqs.title,
-  // The builder folds each answer's bulleted `points` into its text, as the
-  // hand-written block here did — the schema must say what the page shows.
-  faqs: ionFaqs.items,
-});
-
 export default function IonicAppDevelopmentPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect — which leaves a
-  // single-item trail, so the schema is omitted rather than emitted empty.
-
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* softsuave.com's own schema for this page, verbatim — see
+          `lib/seo/ionic-app-development-company.ts`. */}
+      <JsonLd data={ionServiceLd} />
+      <JsonLd data={ionFaqLd} />
       <Nav logoHref={HOME_HREF} />
 
       {/*

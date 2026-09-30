@@ -21,6 +21,10 @@
  *     GTM and its footer keeps the address microdata, as live's does)
  *   /generative-ai-development-company
  *   /graphql-development-company
+ *   /ionic-app-development-company (an exception, like Android, iOS, React
+ *     Native, Flutter and Mobile App: it mirrors softsuave.com's page, whose
+ *     schema is a Service graph and a FAQPage — its Organization arrives from
+ *     GTM and its footer keeps the address microdata, as live's does)
  *   /ios-application-development-company (an exception, like Android and
  *     Mobile App: it mirrors softsuave.com's page, whose schema is a Service
  *     graph, BreadcrumbList, FAQPage and Product — its Organization arrives
@@ -59,6 +63,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/flutter-application-development-company',
   '/generative-ai-development-company',
   '/graphql-development-company',
+  '/ionic-app-development-company',
   '/ios-application-development-company',
   '/mobile-application-development-company',
   '/nextjs-development-company',
