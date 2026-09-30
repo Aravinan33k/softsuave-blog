@@ -902,6 +902,116 @@
       ]
     },
     {
+      "id": "svc-card-custom-ai",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Code editor with an AI assistant menu offering to explain, generate and fix code",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "pexelsId": 34804017,
+      "keywords": ["ai assisted coding code editor"]
+    },
+    {
+      "id": "svc-card-data-engineering",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Data flowing through the stages of a processing pipeline",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "pexelsId": 17483874,
+      "keywords": ["data flow pipeline visualization"]
+    },
+    {
+      "id": "svc-card-data-science",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Analyst working through a data plot on a laptop",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "pexelsId": 3912976,
+      "keywords": ["data analysis graph laptop"]
+    },
+    {
+      "id": "svc-card-generative-ai",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Detailed digital illustration being created on a tablet, with code on screens behind",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "pexelsId": 30889258,
+      "keywords": ["digital artwork tablet creation"]
+    },
+    {
+      "id": "svc-card-agentic-ai",
+      "page": "four",
+      "purpose": "service",
+      "alt": "A robotic hand and a human hand meeting in a fist bump",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "pexelsId": 6153351,
+      "keywords": ["robot hand human hand fist bump"]
+    },
+    {
+      "id": "svc-card-rag",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Two colleagues reviewing documents alongside a laptop",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "pexelsId": 7876785,
+      "keywords": ["people reviewing documents laptop"]
+    },
+    {
+      "id": "svc-card-computer-vision",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Camera monitoring traffic on a busy road",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "pexelsId": 30546990,
+      "keywords": ["cctv camera traffic road"]
+    },
+    {
+      "id": "svc-card-predictive",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Magnifying glass over trend charts",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "pexelsId": 7948055,
+      "keywords": ["trend chart magnifying glass analysis"]
+    },
+    {
+      "id": "svc-card-mlops",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Laptop showing a monitoring dashboard of charts and metrics",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "pexelsId": 577210,
+      "keywords": ["laptop analytics dashboard"]
+    },
+    {
+      "id": "svc-card-fde",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Engineer meeting with client stakeholders across a desk",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "pexelsId": 8112152,
+      "keywords": ["business meeting client office"]
+    },
+    {
       "id": "ind-ecommerce",
       "page": "four",
       "purpose": "industry",

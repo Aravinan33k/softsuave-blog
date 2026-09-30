@@ -97,7 +97,7 @@ describe('footer columns', () => {
     }
   });
 
-  it("lists the homepage's ten AI & Software services", () => {
+  it("lists the homepage's AI & Software services, minus MLOps and Forward Deployed Engineers", () => {
     expect(column('Services')).toEqual([
       'Custom AI Development',
       'Data Engineering',
@@ -107,8 +107,6 @@ describe('footer columns', () => {
       'RAG and Document AI',
       'Computer Vision',
       'Predictive Intelligence',
-      'MLOps',
-      'Forward Deployed Engineers',
     ]);
   });
 });

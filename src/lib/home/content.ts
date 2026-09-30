@@ -186,8 +186,11 @@ export const services = {
   title: "AI & Software Services Built for Businesses of All Sizes",
   body: "Whether you are a startup, SMB, or enterprise, Soft Suave helps you build AI solutions, develop software, automate workflows, and scale digital products with confidence.",
   // `img` names the generated image slot (`four/svc-<img>`) and is deliberately
-  // separate from `key`: there are eight uploaded service shots and ten
-  // services, so a couple of slots are shared until new art lands.
+  // separate from `key`. The `card-*` slots (30 Sep: "change the 10 cards
+  // images with most relevant images") are each a photo chosen for that
+  // service and pinned by Pexels id in the manifest; they are new slots rather
+  // than replacements because the older `svc-*` files are still used
+  // elsewhere (the Agentic AI hero is `svc-ai-agents`).
   //
   // `href` is where the service lives, and it is what the carousel's Know More
   // button points at — so this is the list that decides where that button goes
@@ -206,70 +209,70 @@ export const services = {
     {
       key: "custom-ai-development-services",
       href: "/custom-ai-development-services",
-      img: "custom-ai",
+      img: "card-custom-ai",
       name: "Custom AI Development",
       body: "Create tailored solutions using generative AI, agentic AI, RAG, and more to automate workflows and solve complex business challenges.",
     },
     {
       key: "data-engineering",
       href: "/data-engineering-services",
-      img: "data-engineering",
+      img: "card-data-engineering",
       name: "Data Engineering",
       body: "Build reliable data foundations with ETL and ELT pipelines, orchestration, data quality controls, and real-time streaming.",
     },
     {
       key: "data-science",
       href: "/data-science-services",
-      img: "data-science",
+      img: "card-data-science",
       name: "Data Science",
       body: "Turn data into actionable insights through model training, feature engineering, experimentation, and MLOps for scalable AI outcomes.",
     },
     {
       key: "generative-ai",
       href: "/generative-ai-development-company",
-      img: "generative-ai",
+      img: "card-generative-ai",
       name: "Generative AI",
       body: "Build tailored generative AI solutions using LLMs to create content, code, images, and intelligent experiences aligned with diverse business needs.",
     },
     {
       key: "agentic-ai",
       href: "/agentic-ai-development-services",
-      img: "ai-agents",
+      img: "card-agentic-ai",
       name: "Agentic AI",
       body: "Develop autonomous AI agents that reason, use tools, and execute multi-step workflows to support complex business processes and decisions efficiently.",
     },
     {
       key: "rag-document-ai",
       href: "/rag-development-services",
-      img: "rag",
+      img: "card-rag",
       name: "RAG and Document AI",
       body: "Create RAG and Document AI solutions that retrieve trusted knowledge, extract information, and deliver accurate, context-aware responses from enterprise data.",
     },
     {
       key: "computer-vision",
       href: "/computer-vision-development-services",
-      img: "computer-vision",
+      img: "card-computer-vision",
       name: "Computer Vision",
       body: "Build computer vision solutions for detection, OCR, video analytics, and inspection, enabling faster analysis, improved accuracy, and smarter operational decisions.",
     },
     {
       key: "predictive-intelligence",
       href: "/predictive-intelligence-services",
-      img: "predictive",
+      img: "card-predictive",
       name: "Predictive Intelligence",
       body: "Turn historical and real-time data into forecasts, anomaly detection, and recommendations that help businesses anticipate outcomes and make informed decisions.",
     },
     {
       key: "mlops",
       href: "#services",
-      img: "mlops",
+      img: "card-mlops",
       name: "MLOps",
       body: "Streamline model deployment, monitoring, CI/CD, and lifecycle management to keep AI systems scalable, reliable, secure, and consistently performing in production.",
     },
     {
       key: "forward-deployed-engineers",
       href: "/hire-forward-deployed-engineer",
-      img: "fde",
+      img: "card-fde",
       name: "Forward Deployed Engineers",
       body: "Hire forward-deployed engineers who work with customers to understand requirements, develop integrations, solve challenges, and deploy production-ready solutions efficiently.",
     },
@@ -667,6 +670,9 @@ function footerLinks(panel: NavMenuPanel): FooterLink[] {
     .flatMap((i) => (i.href === undefined ? [] : [{ label: i.name, href: i.href }]));
 }
 
+/** Homepage services the footer's Services column does not list. */
+const FOOTER_OMITS_SERVICES: ReadonlySet<string> = new Set(["mlops", "forward-deployed-engineers"]);
+
 export const footer = {
   tagline: "Empowering businesses with scalable AI, automation & integrations.",
 
@@ -675,14 +681,22 @@ export const footer = {
    * the footer drifted from the nav once already.
    *
    *   Services     the homepage's "AI & Software Services" section
-   *                (`services.items` above), in its order — the ten services
-   *                the homepage leads with, not the nav's Services panel.
+   *                (`services.items` above), in its order — the services
+   *                the homepage leads with, not the nav's Services panel —
+   *                minus MLOps and Forward Deployed Engineers, which the
+   *                footer leaves out (30 Sep request; the homepage section
+   *                keeps them).
    *   Industries   the nav's sectors (`lib/home/nav-menu.ts`)
    *   Company      the nav's seven entries
    *   Resources    the nav's two entries
    */
   columns: [
-    { title: "Services", links: services.items.map((s) => ({ label: s.name, href: s.href })) },
+    {
+      title: "Services",
+      links: services.items
+        .filter((s) => !FOOTER_OMITS_SERVICES.has(s.key))
+        .map((s) => ({ label: s.name, href: s.href })),
+    },
     { title: "Industries", links: footerLinks(navPanels.Industries) },
     { title: "Company", links: footerLinks(navPanels.Company) },
     { title: "Resources", links: footerLinks(navPanels.Resources) },

@@ -24,18 +24,13 @@ import { pageRobots } from '@/lib/flags';
  * nothing more.
  */
 
-/* The SEO title and description as supplied for the homepage (24 Sep): 46 and
-   149 characters, inside the ~60 / ~160 where Google truncates on desktop. */
-const TITLE = 'Soft Suave | AI & Software Development Company';
+/* The SEO title and description as supplied for the homepage (30 Sep): 44 and
+   113 characters, inside the ~60 / ~160 where Google truncates on desktop. */
+const TITLE = 'Custom AI Solutions to Empower Your Business';
 
-/*
- * Both figures are ones the page already publishes — 13+ years in
- * `clients.body`, 400+ specialists in the proof band's `why.stats` — so neither
- * is a new claim. If either changes on the page, this has to change with it.
- */
 const DESCRIPTION =
-  'Soft Suave is an AI and software development company with 13+ years of ' +
-  'experience and 400+ specialists building scalable, production-ready solutions.';
+  "Discover how Soft Suave's custom AI solutions can transform your business " +
+  'operations and drive innovation';
 
 const OG_IMAGE = dynamicOgImage(brand.name, 'AI & Software Development Company');
 
