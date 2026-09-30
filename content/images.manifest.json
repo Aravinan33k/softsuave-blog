@@ -1012,6 +1012,28 @@
       "keywords": ["business meeting client office"]
     },
     {
+      "id": "mad-cs-grocery",
+      "page": "four",
+      "purpose": "case-study",
+      "alt": "Grocery delivery app on a phone, surrounded by fresh produce",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "pexelsId": 8939510,
+      "keywords": ["grocery delivery app smartphone"]
+    },
+    {
+      "id": "mad-hero-cross-device",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A mobile app open on a smartphone beside the same app on a laptop",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "pexelsId": 4549413,
+      "keywords": ["smartphone app laptop same app"]
+    },
+    {
       "id": "ind-ecommerce",
       "page": "four",
       "purpose": "industry",

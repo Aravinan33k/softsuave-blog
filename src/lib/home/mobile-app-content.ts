@@ -77,17 +77,20 @@ export const madHero: HeroContent = {
       "The app you have in mind, the platforms it needs to run on, any systems it must integrate with, and where you are today — idea, designs, or an existing app.",
     subject: "Mobile App Development enquiry",
   },
-  // This page's own photography, via the Pexels pipeline
-  // (`content/images.manifest.json`) — the previous asset was shared with
-  // four other pages and was dark enough to read as barely-there (review:
-  // "need to update the image and the visibility of the section is low").
+  // This page's own photography, pinned in the Pexels pipeline
+  // (`content/images.manifest.json`, `four/mad-hero-cross-device`): a mobile
+  // app on a phone beside the same app on a laptop — where the previous shot
+  // was a trading app in use (30 Sep: "change the background image, it should
+  // be matchable more"). Chosen by rendering candidates in this hero: the
+  // phone lands in the gap between the copy and the form, so it stays visible
+  // under the veil. The same artwork, cropped to 1200×630, is the OG image.
   image: {
-    src: "/images/four/mad-hero.webp",
+    src: "/images/four/mad-hero-cross-device.webp",
     width: 1920,
     height: 1080,
-    alt: "A trading app open on a smartphone beside a laptop showing the same dashboard",
+    alt: "A mobile app open on a smartphone beside the same app on a laptop",
     blurDataURL:
-      "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAQCdASoQAAsAA4BaJZwCsACyvII7ewAA/odZ9iHoITHdWf3PC0yikwyeW1s5jO4R+80x1vKEe20jdQzXjZLls394xVsmg060vc+ukrPRkTTw3yvWLZQAAAA=",
+      "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAAAQAgCdASoQAAsAA4BaJZgCsAD2CHpNabZAAP7uKsSGTiV4ljk5td2cBlVTd/YuD40wH6TNPM5Y2XIXe8T2vEClID6E76GAWV+r5YG9Q0XaSw+uVn9lJK4AAAA=",
   },
 };
 
@@ -365,21 +368,30 @@ export const madCaseStudies: WorkCarouselContent = {
       title: "Logistics Ride Hailing Application",
       tag: "Transportation",
       body: "Native iOS and Android apps with separate rider and driver interfaces, live GPS tracking, and a web admin portal for a US taxi and goods-transportation provider.",
+      // The case-study page's own artwork for this project (30 Sep request).
+      image: { src: "/images/case-studies/heling-ride.png", alt: "Ride-hailing app with a live map on a phone, taxis on the street behind" },
     },
     {
       title: "Grabcery",
       tag: "eCommerce",
       body: "A multi-vendor grocery delivery platform with dedicated shopper, vendor, and admin apps — GPS-enabled delivery tracking, real-time cart customization, and multiple payment gateways.",
+      // No case-study artwork exists for Grabcery, so a grocery-delivery photo
+      // pinned in the image manifest (`four/mad-cs-grocery`).
+      image: { src: "/images/four/mad-cs-grocery.webp", alt: "Grocery delivery app on a phone, surrounded by fresh produce" },
     },
     {
       title: "Smart Movie Ticketing with Real-Time Booking",
       tag: "On-Demand",
       body: "A fast, intuitive web and mobile ticketing platform for a multi-theater cinema operator, with real-time seat selection, AI-driven dynamic pricing, and loyalty features.",
+      // The case-study page's own artwork for this project.
+      image: { src: "/images/case-studies/on-demand-5.webp", alt: "Online movie ticket on a phone in a cinema" },
     },
     {
       title: "Custom Telehealth App for Doctor Consultation",
       tag: "HealthTech",
       body: "A cross-platform Android and iOS telemedicine app connecting patients with doctors across specialties for scheduled consultations, built for a MedTech startup.",
+      // The case-study page's own artwork for this project.
+      image: { src: "/images/case-studies/tele-app.png", alt: "Telehealth app showing a video consultation with a doctor" },
     },
   ],
 };

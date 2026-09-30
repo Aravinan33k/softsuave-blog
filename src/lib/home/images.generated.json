@@ -3919,5 +3919,31 @@
     "photographer": "Pavel Danilyuk",
     "pexelsUrl": "https://www.pexels.com/photo/people-at-lawyers-office-8112152/",
     "matchedTier": "pinned:8112152"
+  },
+  "four/mad-cs-grocery": {
+    "page": "four",
+    "id": "mad-cs-grocery",
+    "src": "/images/four/mad-cs-grocery.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Grocery delivery app on a phone, surrounded by fresh produce",
+    "blurDataURL": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABQAgCdASoQAAsAA4BaJZgCdH8AFjFhJpB0twAA3mMlzOvPsyGxgO6JgSKf+exLKWc1x8RZlqMFEsalO/GskckJlOB5SwgKojrpknBxpaFmDO9NmbeO1oKWC5+YvDWaxFloBL2DFvRebE+AAAA=",
+    "pexelsId": 8939510,
+    "photographer": "Nataliya Vaitkevich",
+    "pexelsUrl": "https://www.pexels.com/photo/person-holding-a-mobile-phone-with-scattered-fruits-and-vegetables-8939510/",
+    "matchedTier": "pinned:8939510"
+  },
+  "four/mad-hero-cross-device": {
+    "page": "four",
+    "id": "mad-hero-cross-device",
+    "src": "/images/four/mad-hero-cross-device.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A mobile app open on a smartphone beside the same app on a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAAAQAgCdASoQAAsAA4BaJZgCsAD2CHpNabZAAP7uKsSGTiV4ljk5td2cBlVTd/YuD40wH6TNPM5Y2XIXe8T2vEClID6E76GAWV+r5YG9Q0XaSw+uVn9lJK4AAAA=",
+    "pexelsId": 4549413,
+    "photographer": "Plann",
+    "pexelsUrl": "https://www.pexels.com/photo/person-using-laptop-and-smartphone-4549413/",
+    "matchedTier": "pinned:4549413"
   }
 }
