@@ -41,7 +41,7 @@ import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
-import type { TechStackContent } from "@/components/landing/tech-stack";
+import type { PlatformTabsContent } from "@/components/mobile-app/platform-tabs";
 import { sharedHeroAlert } from "./delivery-shared";
 
 export const xamMeta = {
@@ -116,10 +116,17 @@ export const xamOverview: OverviewContent = {
    * rather than as anything (review: "need to resize the section image"). This
    * one is cut portrait, so the square frame takes it almost whole.
    */
+  //
+  // Now a fixed 14:16 frame (30 Sep review, again: "need to resize the section
+  // image"), the ratio the same review gave for the Ionic page's matching
+  // section: the stretched frame capped out near square, cropping this
+  // portrait photo and stopping well short of the prose beside it. At 14:16
+  // the 5:6 asset shows almost whole.
   image: {
     src: "/images/four/xam-overview.webp",
     width: 1000,
     height: 1200,
+    aspect: "14 / 16",
     alt: "A developer writing C# for a cross-platform application at a desktop workstation",
   },
 };
@@ -160,11 +167,10 @@ export const xamServices: ServiceBoardContent = {
         "Soft Suave provides Xamarin development 10X faster at a less expensive cost compared to our competitors. Being the best Xamarin App Development Company, we don’t compromise on quality when it comes to the development of applications. Our Xamarin developers are experts in developing applications with an interactive & highly responsive UI for iOS, Android, and Windows platforms. With the amount of experience with Xamarin, our team can efficiently work round the clock to deliver high performing and easy to maintain apps, with the fastest turnaround time.",
         "Xamarin apps developed by Soft Suave are assured to push your competition out of the market and helps you in topping the industry easily. This makes us the preeminent Xamarin development company.",
       ],
-      // Replaced the abstract close-up of source code that was here: it read
-      // as texture rather than subject, and repeated what the overview image
-      // already showed. The other three service photographs fit their
-      // sections and are untouched.
-      image: { src: "/images/four/xam-appdev.webp", alt: "" },
+      // Code open on a laptop with a phone beside it: building the app itself
+      // (30 Sep review: "images needs to be updated with most relevant ones";
+      // was an iPad and a blank iPhone on a table, with no development in it).
+      image: { src: "/images/four/xam-app-code.webp", alt: "" },
     },
     {
       name: "Cross-platform Development",
@@ -172,7 +178,10 @@ export const xamServices: ServiceBoardContent = {
         "We build highly-customizable and scalable cross-platform applications with the help of C# to give you access to all the platform-specific functionalities and to make it look & feel native. Using Xamarin to develop a Cross-platform application not only reduces money, time and resource but also provides the best reach for your application in the market.",
         "Our developers’ well-versed experience and exposure in customized cross-platform app development using Xamarin technology make Soft Suave the best and trusted Xamarin Cross-platform App Development Company in India and the USA.",
       ],
-      image: { src: "/images/landing/xamarin/svc-crossplatform.webp", alt: "" },
+      // One design on a monitor, a laptop, a tablet and a phone: what one C#
+      // codebase reaches (was a pile of phones beside a closed MacBook, its
+      // Apple logo up).
+      image: { src: "/images/four/xam-screens.webp", alt: "" },
     },
   ],
 };
@@ -194,20 +203,36 @@ export const xamHireCta: CtaBandContent = {
 };
 
 /**
- * The live page's three technology tabs, as the shared stack's groups. Names go
- * straight to `components/home/tech-logo.tsx`, and all seven resolve to a real
- * brand mark — Android was the last one falling back to the generic glyph and
- * was added to that component with jQuery, and C# now has its own mark rather
- * than borrowing C's.
+ * The live page's three technology groups, as the Mobile App page's tab chooser
+ * (`mobile-app/platform-tabs.tsx`; 30 Sep review: "change the tech stack
+ * design like this page - /mobile-application-development-company"). Each
+ * tab's text is the live page's own description of the technologies in that
+ * group, joined verbatim, so every chip is one the prose beside it names, as
+ * that component requires. "Google Cloud" is spaced as the live page's
+ * image label has it (its heading runs the words together).
  */
-export const xamTech: TechStackContent = {
+export const xamTech: PlatformTabsContent = {
   eyebrow: "Xamarin Development",
   title: "Xamarin Development Technologies We Use",
   body: "Xamarin developers from Soft Suave are skilful and well versed in the following technologies.",
-  groups: [
-    { name: "Frontend", items: ["Xamarin", "C#"] },
-    { name: "Operating System", items: ["Android", "iOS"] },
-    // "GoogleCloud" is the live page's own spelling, run together.
-    { name: "Platforms", items: ["AWS", "Azure", "GoogleCloud"] },
+  items: [
+    {
+      name: "Frontend",
+      short: "Frontend",
+      body: "Are you looking to develop a powerful App customized for your business? Then Xamarin is the right technology as it can create 100% fully native Apps that can run on iOS, Android, Mac, and Windows devices. C# is a general-purpose and multi-paradigm programming language. Since it is functional, generic, object-oriented, and component-oriented, we use this while developing applications.",
+      tools: ["Xamarin", "C#"],
+    },
+    {
+      name: "Operating System",
+      short: "Operating System",
+      body: "Android is a comprehensive software stack of mobile devices that dominates mobile App development through its solid module of Android Software Development Kit (SDK). It offers faster Deployment, versatility, and scalability. Developers at Soft Suave provide top-notch iOS App Development Services to create Apps for Apple hardware, including iPhone, iPad, and iPod Touch. We can also integrate the latest features of iOS like added privacy features, refreshed maps, etc.",
+      tools: ["Android", "iOS"],
+    },
+    {
+      name: "Platforms",
+      short: "Platforms",
+      body: "AWS is a remarkable development platform that renders an end-to-end solution to develop, deliver, test, and monitor applications. Our software engineers utilize its broad set of tools and services to support workflows. Being a public cloud computing platform, Azure provides authentication, data query, offline synchronization, and push registration capabilities while developing mobile Apps using resources in the Azure cloud. To help startups and SMBs, we implement Google Cloud Platform to get the benefits of Cost-efficiency, Exemplary safety, and Fast deployment while we create mobile Apps. Also, Google Cloud is one of the most versatile and affordable Cloud platforms out there.",
+      tools: ["AWS", "Azure", "Google Cloud"],
+    },
   ],
 };

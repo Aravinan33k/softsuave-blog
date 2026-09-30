@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { xamBreadcrumbLd, xamProductLd } from '@/lib/seo/xamarin-app-development-company';
 import {
   xamHero,
   xamHireCta,
@@ -23,7 +23,7 @@ import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import ServiceBoard from '@/components/common/service-board';
 import CtaBand from '@/components/landing/cta-band';
-import TechStack from '@/components/landing/tech-stack';
+import PlatformTabs from '@/components/mobile-app/platform-tabs';
 
 // Reused from the homepage verbatim. Not a stylistic choice: the live page's
 // reviews band IS the homepage's, to the word — "What Our Clients Say About Us"
@@ -62,6 +62,20 @@ import home from '@/components/home/home.module.css';
 // Matches the marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
+/**
+ * The page's link-preview image: the hero's photograph (a laptop, a tablet and
+ * a phone side by side — the devices one Xamarin codebase targets) cropped to
+ * 1200×630, as the other mobile pages do. softsuave.com's own og:image is an
+ * 840×439 PNG, under the 1200×630 the large preview card is drawn at, so it
+ * is not reused.
+ */
+const OG_IMAGE = {
+  url: absoluteUrl('/assets/images/xamarin-app-development-company-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'Xamarin Development Company In India - Soft Suave',
+};
+
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: `${xamMeta.title} | Soft Suave`,
@@ -74,11 +88,13 @@ export const metadata: Metadata = {
     url: absoluteUrl(xamMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${xamMeta.title} | Soft Suave`,
     description: xamMeta.description,
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -89,44 +105,13 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/** Service structured data — no FAQPage here, because the page has no FAQ. */
-/**
- * This page's JSON-LD, from the shared builder.
- *
- * It replaces a hand-written `Service` whose `provider` was an inline
- * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
- * repeated on every page of this surface rather than the canonical one — with
- * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
- * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
- * at the organization `app/(marketing)/layout.tsx` declares once.
- */
-const LD = pageSchemaGraph({
-  path: xamMeta.path,
-  title: xamMeta.title,
-  description: xamMeta.description,
-  serviceType: 'Xamarin app development',
-  // The page's own short name for what it sells, not its `<title>`, which is
-  // written to win the click.
-  serviceName: 'Xamarin App Development',
-  // Matches the live page's own breadcrumb trail, minus one level: live runs
-  // Home › Mobile App › Cross-platform › Xamarin Development, but we have no
-  // page at the "Cross-platform" URL live links to, so that level is dropped
-  // rather than pointing our own schema at a page this app doesn't serve.
-  showBreadcrumb: true,
-  parents: [{ name: 'Mobile App', path: '/mobile-application-development-company' }],
-  breadcrumbName: 'Xamarin Development',
-  offerCatalogName: xamServices.title,
-  offers: xamServices.items.map((i) => ({ name: i.name, description: i.paragraphs[0] })),
-});
-
 export default function XamarinAppDevelopmentPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect — which leaves a
-  // single-item trail, so the schema is omitted rather than emitted empty.
-
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* softsuave.com's own schema for this page, verbatim — see
+          `lib/seo/xamarin-app-development-company.ts`. */}
+      <JsonLd data={xamProductLd} />
+      <JsonLd data={xamBreadcrumbLd} />
       <Nav logoHref={HOME_HREF} />
 
       {/*
@@ -166,7 +151,10 @@ export default function XamarinAppDevelopmentPage() {
             rather than one chapter. Same merge `landing/hire-page` does with
             its own runs. */}
         <div className={home.light}>
-          <TechStack content={xamTech} />
+          {/* The Mobile App page's tab chooser (review: "change the tech stack
+              design like this page - /mobile-application-development-company"),
+              keeping this section's `#tech` anchor. */}
+          <PlatformTabs content={xamTech} id="tech" />
           {/* Homepage client stories — the live page's band carries the same
               heading and standfirst. */}
           <Testimonials />

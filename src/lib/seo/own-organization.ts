@@ -43,6 +43,10 @@
  *     footer keeps the address microdata, as live's does)
  *   /typescript-development-company
  *   /vuejs-development-company
+ *   /xamarin-app-development-company (an exception, like the other mobile
+ *     pages: it mirrors softsuave.com's page, whose schema is a Product and a
+ *     BreadcrumbList — its Organization arrives from GTM and its footer keeps
+ *     the address microdata, as live's does)
  *
  * so each page must also:
  *   - emit the spec's Organization itself (`softSuaveOrganizationLd`, which
@@ -73,4 +77,5 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/react-native-app-development-company',
   '/typescript-development-company',
   '/vuejs-development-company',
+  '/xamarin-app-development-company',
 ]);

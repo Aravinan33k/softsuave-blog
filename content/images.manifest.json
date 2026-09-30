@@ -3871,6 +3871,38 @@
       ]
     },
     {
+      "id": "xam-app-code",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "App code open on a laptop with a smartphone beside it on the desk",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "laptop code and smartphone desk",
+        "mobile app developer coding",
+        "developer laptop phone",
+        "coding"
+      ],
+      "pexelsId": 48606
+    },
+    {
+      "id": "xam-screens",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "One design shown on a monitor, a laptop, a tablet and a smartphone at a desk",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "laptop tablet smartphone desk",
+        "multiple devices desk",
+        "cross platform devices",
+        "devices"
+      ],
+      "pexelsId": 19059657
+    },
+    {
       "id": "net-overview",
       "page": "four",
       "purpose": "overview-illustration",

@@ -4215,5 +4215,31 @@
     "photographer": "Mikhail Nilov",
     "pexelsUrl": "https://www.pexels.com/photo/call-center-agents-using-laptops-7682087/",
     "matchedTier": "pinned:7682087"
+  },
+  "four/xam-app-code": {
+    "page": "four",
+    "id": "xam-app-code",
+    "src": "/images/four/xam-app-code.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "App code open on a laptop with a smartphone beside it on the desk",
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAABwAgCdASoQAAsAA4BaJZgCdEf/gYzFqnPoTEUAAP7I/mpStZT674XwUc6MmWtZ2TmVhIMVdnbDBQ7PEtHlqhRxhXX66aWtGj3uRKiAWcH4j9Sd00HroQJKsq1T+2LHAAA=",
+    "pexelsId": 48606,
+    "photographer": "Negative Space",
+    "pexelsUrl": "https://www.pexels.com/photo/white-android-smartphone-near-grey-laptop-computer-48606/",
+    "matchedTier": "pinned:48606"
+  },
+  "four/xam-screens": {
+    "page": "four",
+    "id": "xam-screens",
+    "src": "/images/four/xam-screens.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "One design shown on a monitor, a laptop, a tablet and a smartphone at a desk",
+    "blurDataURL": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAwAgCdASoQAAsAA4BaJQBOgCP+JbQhj0aYAAD+QPjr8+A6/kzLPNqQVI21/83RmAQKBjv0lOUko2yBJBHEroMatHn7sOoBCCyeQxP0LU0czU/QT5cnVNz1ZAZp8IPCyrR1pNBaSy7uAAAA",
+    "pexelsId": 19059657,
+    "photographer": "Jakub Zerdzicki",
+    "pexelsUrl": "https://www.pexels.com/photo/a-modern-desk-with-laptops-a-monitor-and-smartphone-displaying-the-same-lockscreen-19059657/",
+    "matchedTier": "pinned:19059657"
   }
 }
