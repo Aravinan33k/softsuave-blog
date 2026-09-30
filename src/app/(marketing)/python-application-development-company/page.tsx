@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { pyServiceLd } from '@/lib/seo/python-application-development-company';
 import {
   pyHero,
   pyHireCta,
@@ -66,6 +66,21 @@ import home from '@/components/home/home.module.css';
 // Matches the marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
+/**
+ * The page's link-preview image: Python source on screen (`print(...)`,
+ * `complex(5,6)`, `from ctypes import`) at 1200×630, Pexels #27427258. Not the
+ * hero's photograph: that one shows C++ (`cout <<`, `cin >>`), which a
+ * reader would see as the wrong language on a card that names Python.
+ * softsuave.com's own og:image is an SVG, which Facebook, LinkedIn and X do
+ * not render as a preview, so there is nothing on the live page to copy.
+ */
+const OG_IMAGE = {
+  url: absoluteUrl('/assets/images/python-application-development-company-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'Python Development Company in India - Soft Suave',
+};
+
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: `${pyMeta.title} | Soft Suave`,
@@ -78,11 +93,13 @@ export const metadata: Metadata = {
     url: absoluteUrl(pyMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${pyMeta.title} | Soft Suave`,
     description: pyMeta.description,
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -93,32 +110,12 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/**
- * This page's JSON-LD, from the shared builder: `Service`, `WebPage` and a
- * `BreadcrumbList`, `@id`-linked and pointing provider and publisher at the
- * organization `app/(marketing)/layout.tsx` declares once.
- *
- * No `FAQPage` node — the live page carries no FAQ, so there is nothing to
- * describe. `pageSchemaGraph` omits it entirely when `faqs` is absent rather
- * than emitting an empty one.
- */
-const LD = pageSchemaGraph({
-  path: pyMeta.path,
-  title: pyMeta.title,
-  description: pyMeta.description,
-  serviceType: 'Python application development',
-  // The page's own short name for what it sells, not its `<title>`, which is
-  // written to win the click.
-  serviceName: 'Python Development',
-  breadcrumbName: 'Python Development',
-  offerCatalogName: pyServices.title,
-  offers: pyServices.items.map((i) => ({ name: i.name, description: i.paragraphs[0] })),
-});
-
 export default function PythonApplicationDevelopmentCompanyPage() {
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* softsuave.com's own schema for this page, verbatim — see
+          `lib/seo/python-application-development-company.ts`. */}
+      <JsonLd data={pyServiceLd} />
       <Nav logoHref={HOME_HREF} />
 
       {/*

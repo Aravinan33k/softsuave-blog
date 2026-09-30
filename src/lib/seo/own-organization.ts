@@ -34,6 +34,11 @@
  *     FAQPage — its Organization arrives from GTM and its footer keeps the
  *     address microdata, as live's does)
  *   /nextjs-development-company
+ *   /php-application-development-company and
+ *   /python-application-development-company (exceptions, like the mobile
+ *     pages: each mirrors softsuave.com's page — PHP a Service graph and a
+ *     FAQPage, Python a lone Service graph — with its Organization arriving
+ *     from GTM and its footer keeping the address microdata, as live's does)
  *   /postgresql-development-company
  *   /predictive-intelligence-services
  *   /rag-development-services
@@ -71,8 +76,10 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/ios-application-development-company',
   '/mobile-application-development-company',
   '/nextjs-development-company',
+  '/php-application-development-company',
   '/postgresql-development-company',
   '/predictive-intelligence-services',
+  '/python-application-development-company',
   '/rag-development-services',
   '/react-native-app-development-company',
   '/typescript-development-company',
