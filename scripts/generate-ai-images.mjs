@@ -161,12 +161,36 @@ function nearestRatio(width, height) {
 // Gemini
 // ---------------------------------------------------------------------------
 
+/**
+ * Opt-in visual systems a slot can name with `"style": "<preset>"`, replacing
+ * STYLE and NEGATIVE for that slot only. Slots without one are unchanged.
+ *
+ *   ai-concept   the homepage service cards (30 Sep: the manager's reference
+ *                was a glowing blue "AI" concept piece) — luminous blue concept
+ *                art, a clear subject per service, hands allowed but no faces.
+ */
+const STYLE_PRESETS = {
+  "ai-concept": {
+    style: [
+      "Premium digital concept art for an AI and software engineering company.",
+      "Deep navy to electric-blue palette with luminous cyan holographic light,",
+      "glowing circuit lines and data-network particles, cinematic depth, crisp",
+      "high detail, one clear central subject, dark edges fading to navy.",
+    ].join(" "),
+    negative:
+      "No human faces or full human figures; hands are allowed. No brand logos, " +
+      "no watermarks, and no readable words or lettering anywhere in the image.",
+  },
+};
+
 function fullPrompt(entry) {
   const ratio = nearestRatio(entry.width, entry.height);
+  const preset = entry.style ? STYLE_PRESETS[entry.style] : null;
+  if (entry.style && !preset) throw new Error(`Unknown style preset "${entry.style}" on ${entry.id}`);
   return [
-    STYLE,
+    preset ? preset.style : STYLE,
     entry.prompt,
-    NEGATIVE,
+    preset ? preset.negative : NEGATIVE,
     `Composition framed for a ${ratio} crop.`,
   ].filter(Boolean).join(" ");
 }

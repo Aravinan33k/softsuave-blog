@@ -186,9 +186,9 @@ export const services = {
   title: "AI & Software Services Built for Businesses of All Sizes",
   body: "Whether you are a startup, SMB, or enterprise, Soft Suave helps you build AI solutions, develop software, automate workflows, and scale digital products with confidence.",
   // `img` names the generated image slot (`four/svc-<img>`) and is deliberately
-  // separate from `key`. The `card-*` slots (30 Sep: "change the 10 cards
-  // images with most relevant images") are each a photo chosen for that
-  // service and pinned by Pexels id in the manifest; they are new slots rather
+  // separate from `key`. The `px-*` slots (30 Sep, second review: the manager
+  // asked for glowing blue AI concept imagery) are each a Pexels photo chosen
+  // for that service in that style and pinned by id in the manifest; they are new slots rather
   // than replacements because the older `svc-*` files are still used
   // elsewhere (the Agentic AI hero is `svc-ai-agents`).
   //
@@ -209,70 +209,70 @@ export const services = {
     {
       key: "custom-ai-development-services",
       href: "/custom-ai-development-services",
-      img: "card-custom-ai",
+      img: "px-custom-ai",
       name: "Custom AI Development",
       body: "Create tailored solutions using generative AI, agentic AI, RAG, and more to automate workflows and solve complex business challenges.",
     },
     {
       key: "data-engineering",
       href: "/data-engineering-services",
-      img: "card-data-engineering",
+      img: "px-data-engineering",
       name: "Data Engineering",
       body: "Build reliable data foundations with ETL and ELT pipelines, orchestration, data quality controls, and real-time streaming.",
     },
     {
       key: "data-science",
       href: "/data-science-services",
-      img: "card-data-science",
+      img: "px-data-science",
       name: "Data Science",
       body: "Turn data into actionable insights through model training, feature engineering, experimentation, and MLOps for scalable AI outcomes.",
     },
     {
       key: "generative-ai",
       href: "/generative-ai-development-company",
-      img: "card-generative-ai",
+      img: "px-generative-ai",
       name: "Generative AI",
       body: "Build tailored generative AI solutions using LLMs to create content, code, images, and intelligent experiences aligned with diverse business needs.",
     },
     {
       key: "agentic-ai",
       href: "/agentic-ai-development-services",
-      img: "card-agentic-ai",
+      img: "px-agentic-ai",
       name: "Agentic AI",
       body: "Develop autonomous AI agents that reason, use tools, and execute multi-step workflows to support complex business processes and decisions efficiently.",
     },
     {
       key: "rag-document-ai",
       href: "/rag-development-services",
-      img: "card-rag",
+      img: "px-rag",
       name: "RAG and Document AI",
       body: "Create RAG and Document AI solutions that retrieve trusted knowledge, extract information, and deliver accurate, context-aware responses from enterprise data.",
     },
     {
       key: "computer-vision",
       href: "/computer-vision-development-services",
-      img: "card-computer-vision",
+      img: "px-computer-vision",
       name: "Computer Vision",
       body: "Build computer vision solutions for detection, OCR, video analytics, and inspection, enabling faster analysis, improved accuracy, and smarter operational decisions.",
     },
     {
       key: "predictive-intelligence",
       href: "/predictive-intelligence-services",
-      img: "card-predictive",
+      img: "px-predictive",
       name: "Predictive Intelligence",
       body: "Turn historical and real-time data into forecasts, anomaly detection, and recommendations that help businesses anticipate outcomes and make informed decisions.",
     },
     {
       key: "mlops",
       href: "#services",
-      img: "card-mlops",
+      img: "px-mlops",
       name: "MLOps",
       body: "Streamline model deployment, monitoring, CI/CD, and lifecycle management to keep AI systems scalable, reliable, secure, and consistently performing in production.",
     },
     {
       key: "forward-deployed-engineers",
       href: "/hire-forward-deployed-engineer",
-      img: "card-fde",
+      img: "px-fde",
       name: "Forward Deployed Engineers",
       body: "Hire forward-deployed engineers who work with customers to understand requirements, develop integrations, solve challenges, and deploy production-ready solutions efficiently.",
     },
@@ -588,6 +588,9 @@ export const testimonials: {
       rating: "5.0",
       photo: "/brand/testimonials/tim-maliyil.webp",
       category: "Technology",
+      // All five reviews link their video on softsuave.com/#testimonials — these
+      // three were added 30 Sep, each video's title naming its client.
+      videoUrl: "https://youtu.be/vLCCMWY4S1s",
     },
     {
       quote:
@@ -597,6 +600,7 @@ export const testimonials: {
       rating: "5.0",
       photo: "/brand/testimonials/dimitris-rokos.webp",
       category: "Technology",
+      videoUrl: "https://youtu.be/G5IBYgvpRxQ",
     },
     {
       quote:
@@ -606,11 +610,10 @@ export const testimonials: {
       rating: "5.0",
       photo: "/brand/testimonials/dara-huang.webp",
       category: "Web",
+      videoUrl: "https://youtu.be/IuQRso68Tso",
     },
-    // The two video reviews from softsuave.com/#testimonials. Neither states a
-    // role or company there, so neither invents one here. Both DO carry a link
-    // there — the portrait is an anchor to the client's video on our YouTube
-    // channel — so both carry `videoUrl`.
+    // Two more video reviews from softsuave.com/#testimonials. Neither states a
+    // role or company there, so neither invents one here.
     {
       quote:
         "Soft Suave provides amazing service. I am completely satisfied with the projects and look forward to continuing my relationship. I will also recommend their services without question.",
