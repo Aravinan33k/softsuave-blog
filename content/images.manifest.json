@@ -2736,6 +2736,70 @@
       ]
     },
     {
+      "id": "ios-hero-iphone",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "A hand holding an iPhone showing the iOS home screen in front of a laptop",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1200,
+      "keywords": [
+        "hand holding iphone home screen",
+        "iphone app screen laptop",
+        "iphone in hand office",
+        "smartphone"
+      ],
+      "pexelsId": 887751
+    },
+    {
+      "id": "ios-story-telehealth",
+      "page": "landing",
+      "purpose": "case-study",
+      "alt": "A patient on a video call with a doctor from his iPhone",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 450,
+      "keywords": [
+        "patient video call doctor smartphone",
+        "telemedicine app phone",
+        "online doctor consultation smartphone",
+        "healthcare app"
+      ],
+      "pexelsId": 4008457
+    },
+    {
+      "id": "ios-story-shopping-app",
+      "page": "landing",
+      "purpose": "case-study",
+      "alt": "Hands browsing new clothing in a shopping app on an iPhone",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 450,
+      "keywords": [
+        "shopping app iphone",
+        "mobile shopping app hand",
+        "woman shopping online smartphone",
+        "online shopping"
+      ],
+      "pexelsId": 5076511
+    },
+    {
+      "id": "ios-story-job-tracking",
+      "page": "landing",
+      "purpose": "case-study",
+      "alt": "Hands holding an iPhone that shows a project's progress stages",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 450,
+      "keywords": [
+        "project progress tracking app phone",
+        "smartphone progress stages app",
+        "business app smartphone hands",
+        "mobile app"
+      ],
+      "pexelsId": 7947951
+    },
+    {
       "id": "ov-hire-java-developers",
       "page": "landing",
       "purpose": "overview-illustration",

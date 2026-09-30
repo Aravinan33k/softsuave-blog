@@ -17,6 +17,10 @@
  *   /data-science-services
  *   /generative-ai-development-company
  *   /graphql-development-company
+ *   /ios-application-development-company (an exception, like Android and
+ *     Mobile App: it mirrors softsuave.com's page, whose schema is a Service
+ *     graph, BreadcrumbList, FAQPage and Product — its Organization arrives
+ *     from GTM and its footer keeps the address microdata, as live's does)
  *   /mobile-application-development-company (the one exception to the
  *     list below: it mirrors softsuave.com's page, whose schema is a lone
  *     FAQPage — its Organization arrives from GTM and its footer keeps the
@@ -46,6 +50,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/data-science-services',
   '/generative-ai-development-company',
   '/graphql-development-company',
+  '/ios-application-development-company',
   '/mobile-application-development-company',
   '/nextjs-development-company',
   '/postgresql-development-company',

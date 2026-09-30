@@ -4085,5 +4085,57 @@
     "alt": "A hand holding an Android phone showing an app's string resources in code",
     "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoQAAkAA4BaJQBdgBTFt+IAAAD+w/JQGYzDhjzGChoUuPA1MczvcvWFoyWlyiGgRnNhczb789arTfkAAAA=",
     "source": "hand-placed"
+  },
+  "landing/ios-story-telehealth": {
+    "page": "landing",
+    "id": "ios-story-telehealth",
+    "src": "/images/landing/ios-story-telehealth.webp",
+    "width": 800,
+    "height": 450,
+    "alt": "A patient on a video call with a doctor from his iPhone",
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQAgCdASoQAAsAA4BaJYwAAqH/O6aRdFwAAP71I/ZS5+a/qkme/F/7EpapQxFpitUSHH/RYBmP4HzSQCJ79XFdPjazFW1YdC8jkkBmADRmaW+aEsrlmBgH0YQnLuPI4AA=",
+    "pexelsId": 4008457,
+    "photographer": "Polina Zimmerman",
+    "pexelsUrl": "https://www.pexels.com/photo/man-doing-facetime-4008457/",
+    "matchedTier": "pinned:4008457"
+  },
+  "landing/ios-story-shopping-app": {
+    "page": "landing",
+    "id": "ios-story-shopping-app",
+    "src": "/images/landing/ios-story-shopping-app.webp",
+    "width": 800,
+    "height": 450,
+    "alt": "Hands browsing new clothing in a shopping app on an iPhone",
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQAgCdASoQAAsAA4BaJZACdAYsZQZ4rjBQAP72pDI4+Z4dA10FWUu5g/CJi/MSa7iylcRPKhf2z+npdSwjE0kHUFaPUCM7+Rim8dQwGYLq4gteUvuKQCS9Scz/Uz7qCx+QryWQAAA=",
+    "pexelsId": 5076511,
+    "photographer": "cottonbro studio",
+    "pexelsUrl": "https://www.pexels.com/photo/person-holding-black-iphone-5-5076511/",
+    "matchedTier": "pinned:5076511"
+  },
+  "landing/ios-story-job-tracking": {
+    "page": "landing",
+    "id": "ios-story-job-tracking",
+    "src": "/images/landing/ios-story-job-tracking.webp",
+    "width": 800,
+    "height": 450,
+    "alt": "Hands holding an iPhone that shows a project's progress stages",
+    "blurDataURL": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABwAgCdASoQAAsAA4BaJYgCdAYuRyfGm+H8gqKgAPKUr86+VEvzaYt475onP9wPX/nw0enX4+ax/O38LKUfh0GPggSLeXSaesdl5vVuocx1zuJPc3vfHlYSlh+O4qFDq5FTOqf7y+QkkfIDgAA=",
+    "pexelsId": 7947951,
+    "photographer": "RDNE Stock project",
+    "pexelsUrl": "https://www.pexels.com/photo/close-up-shot-of-a-person-holding-a-smartphone-7947951/",
+    "matchedTier": "pinned:7947951"
+  },
+  "landing/ios-hero-iphone": {
+    "page": "landing",
+    "id": "ios-hero-iphone",
+    "src": "/images/landing/ios-hero-iphone.webp",
+    "width": 1920,
+    "height": 1200,
+    "alt": "A hand holding an iPhone showing the iOS home screen in front of a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoQAAsAA4BaJYwAAujEgm1HAAD+9kpOpuEFD7/S/H8pfGIjkJDwlQBGQzHT9PjgD6PsqxLEd1vuiDmJw+Ffa4Zn3EnfwAAA",
+    "pexelsId": 887751,
+    "photographer": "AS Photography",
+    "pexelsUrl": "https://www.pexels.com/photo/person-holding-silver-iphone-7-887751/",
+    "matchedTier": "pinned:887751"
   }
 }
