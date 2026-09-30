@@ -143,12 +143,14 @@ export const flOverview: OverviewContent = {
  * The button goes to the Flutter hiring page rather than back up to this
  * page's own enquiry form, as the review asked. `/hire-flutter-developers` is
  * a route this app serves, so `CtaBand` resolves it through `SiteLink` to a
- * local `<Link>`.
+ * local `<Link>`. Its label names that page (30 Sep review: "need to change
+ * the text in the button to 'hire flutter app developers'"), where it read
+ * "Hire a Mobile Developer Today".
  */
 export const flIdeaCta: CtaBandContent = {
   title: "Have a Mobile App Idea Using Flutter?",
   body: "With our talented 400+ App Developers, we guarantee you a quality App Development Service.",
-  cta: { label: "Hire a Mobile Developer Today", href: "/hire-flutter-developers" },
+  cta: { label: "Hire Flutter App Developers", href: "/hire-flutter-developers" },
 };
 
 /**
@@ -156,6 +158,13 @@ export const flIdeaCta: CtaBandContent = {
  * cards and too long to run down the page, so they render as a board: the six
  * names to pick from, one stage to read on. Same section the Android and React
  * Native pages use.
+ *
+ * Three images were swapped for ones that show their item (30 Sep review:
+ * "images needs to be updated with most relevant ones"): an iPhone beside an
+ * Android phone for iOS and Android (was a row of people on their phones), one
+ * web app on a phone and a laptop for Web (was a Google results page), and a
+ * plain chat thread for Chat (was the DeepSeek app). The other three already
+ * showed their subject and stay.
  */
 export const flBenefits: ServiceBoardContent = {
   // Was "Flutter App Development" — byte-for-byte the overview's own kicker,
@@ -184,14 +193,14 @@ export const flBenefits: ServiceBoardContent = {
         "Many businesses try to develop Apps that run on both iOS and Android. This helps them to target a wider range of customers compared to developing just one native App. However, obtaining the same look and feel for an app on both platforms is not easy as it sounds. This is where our competent Flutter App development team comes into play.",
         "As a leading Flutter mobile app development company, we craft the most appealing cross-platform Apps that behave as smoothly as native ones. Moreover, we are known for our ability in working with reasonable costs and offering great speed and usability at the same time.",
       ],
-      image: { src: "/images/four/fl-ios-android.webp", alt: "" },
+      image: { src: "/images/four/fl-both-platforms.webp", alt: "" },
     },
     {
       name: "Flutter Web Development",
       paragraphs: [
         "Flutter is a known mobile development tool, but it can also be used for building web apps. Flutter can be used for increasing users for an application, but its fast web development and its ‘widgets’ allow for unique interfaces, making it very useful. With its shared codebase, flutter allows easy web app development, as the same code is applied for both mobile and desktop apps. Using Flutter is thus perfect for single-page applications and progressive web apps, and also to improve the functionalities of existing applications. Soft Suave’s Flutter Web Development solutions are affordable, offer consistent UI across platforms, and offer high performance for a smooth user experience.",
       ],
-      image: { src: "/images/four/fl-web.webp", alt: "" },
+      image: { src: "/images/four/fl-web-app.webp", alt: "" },
     },
     {
       name: "Dart Application Development",
@@ -213,7 +222,7 @@ export const flBenefits: ServiceBoardContent = {
       paragraphs: [
         "Our Flutter App Development Team offers a comprehensive Chat Development service using Flutter, and this Chat App allows for easy sharing of documents and images. Flutter usage for Chat Development allows for rapid development, simpler maintenance, and more.",
       ],
-      image: { src: "/images/four/fl-chat.webp", alt: "" },
+      image: { src: "/images/four/fl-chat-app.webp", alt: "" },
     },
   ],
 };

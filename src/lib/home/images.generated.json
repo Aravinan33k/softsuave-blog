@@ -4137,5 +4137,44 @@
     "photographer": "AS Photography",
     "pexelsUrl": "https://www.pexels.com/photo/person-holding-silver-iphone-7-887751/",
     "matchedTier": "pinned:887751"
+  },
+  "four/fl-both-platforms": {
+    "page": "four",
+    "id": "fl-both-platforms",
+    "src": "/images/four/fl-both-platforms.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "An iPhone and an Android phone held side by side",
+    "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAQAgCdASoQAAsAA4BaJZQCdH8AEmjKFBeAAPkDuyw8Flwbx4fouSWonEQ738ez3ZNnWwYSA5O/LOG1P/vLWuTQ6j8MwFH+j7L/Z+JQKExzU+216lgAAA==",
+    "pexelsId": 28971395,
+    "photographer": "Belvedere Agency",
+    "pexelsUrl": "https://www.pexels.com/photo/close-up-of-hands-holding-smartphones-outdoors-28971395/",
+    "matchedTier": "pinned:28971395"
+  },
+  "four/fl-web-app": {
+    "page": "four",
+    "id": "fl-web-app",
+    "src": "/images/four/fl-web-app.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "The same web app open on a smartphone and a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAwAgCdASoQAAsAA4BaJYwCdAYvNSYp45xqAAD0cULgS0LdC6mYdG33d2KW/1ERtPUO9C+E2YNKvqOnpWJwsdJ+V43jdQXH9chBLtr6V+pUx1Dnp48MiwsYfiMB5NMgAAA=",
+    "pexelsId": 5839461,
+    "photographer": "Magnetme",
+    "pexelsUrl": "https://www.pexels.com/photo/two-people-using-electronic-devices-5839461/",
+    "matchedTier": "pinned:5839461"
+  },
+  "four/fl-chat-app": {
+    "page": "four",
+    "id": "fl-chat-app",
+    "src": "/images/four/fl-chat-app.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Hands typing a message in a chat app conversation on a smartphone",
+    "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoQAAsAA4BaJZQBTAAswPuw0AAA/vfEYerKPa5Jze4BbmXjsEpj9P1/4T08oHETXf3Xsl0OAh3jbb35hKa7JUQxDgAAAA==",
+    "pexelsId": 7343000,
+    "photographer": "cottonbro studio",
+    "pexelsUrl": "https://www.pexels.com/photo/person-using-smartphone-7343000/",
+    "matchedTier": "pinned:7343000"
   }
 }

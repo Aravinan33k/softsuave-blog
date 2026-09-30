@@ -15,6 +15,10 @@
  *   /custom-ai-development-services
  *   /data-engineering-services
  *   /data-science-services
+ *   /flutter-application-development-company (an exception, like Android,
+ *     iOS, React Native and Mobile App: it mirrors softsuave.com's page, whose
+ *     schema is a Service graph and a FAQPage — its Organization arrives from
+ *     GTM and its footer keeps the address microdata, as live's does)
  *   /generative-ai-development-company
  *   /graphql-development-company
  *   /ios-application-development-company (an exception, like Android and
@@ -52,6 +56,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/custom-ai-development-services',
   '/data-engineering-services',
   '/data-science-services',
+  '/flutter-application-development-company',
   '/generative-ai-development-company',
   '/graphql-development-company',
   '/ios-application-development-company',

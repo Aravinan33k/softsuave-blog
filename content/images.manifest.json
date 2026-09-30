@@ -3730,6 +3730,54 @@
       ]
     },
     {
+      "id": "fl-both-platforms",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "An iPhone and an Android phone held side by side",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "iphone and android phone side by side",
+        "two smartphones hands comparing",
+        "two different smartphones",
+        "smartphones"
+      ],
+      "pexelsId": 28971395
+    },
+    {
+      "id": "fl-web-app",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "The same web app open on a smartphone and a laptop",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "web app on laptop and smartphone",
+        "responsive web design laptop phone",
+        "web application laptop",
+        "laptop"
+      ],
+      "pexelsId": 5839461
+    },
+    {
+      "id": "fl-chat-app",
+      "page": "four",
+      "purpose": "service-card",
+      "alt": "Hands typing a message in a chat app conversation on a smartphone",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": [
+        "chat app smartphone messages",
+        "messaging app conversation phone",
+        "texting on smartphone",
+        "smartphone"
+      ],
+      "pexelsId": 7343000
+    },
+    {
       "id": "ion-hybrid",
       "page": "four",
       "purpose": "service-card",
