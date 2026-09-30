@@ -4075,5 +4075,15 @@
     "photographer": "cottonbro studio",
     "pexelsUrl": "https://www.pexels.com/photo/woman-with-bionic-arm-6153739/",
     "matchedTier": "pinned:6153739"
+  },
+  "four/and-hero-strings": {
+    "page": "four",
+    "id": "and-hero-strings",
+    "src": "/images/four/and-hero-strings.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A hand holding an Android phone showing an app's string resources in code",
+    "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoQAAkAA4BaJQBdgBTFt+IAAAD+w/JQGYzDhjzGChoUuPA1MczvcvWFoyWlyiGgRnNhczb789arTfkAAAA=",
+    "source": "hand-placed"
   }
 }

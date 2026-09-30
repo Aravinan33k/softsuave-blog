@@ -7,6 +7,10 @@
  * Service, WebPage, FAQPage (24–29 Sep requests):
  *
  *   /agentic-ai-development-services
+ *   /android-application-development-company (an exception, like the
+ *     Mobile App page below: it mirrors softsuave.com's page, whose schema is
+ *     a Service graph and a FAQPage — its Organization arrives from GTM and
+ *     its footer keeps the address microdata, as live's does)
  *   /computer-vision-development-services
  *   /custom-ai-development-services
  *   /data-engineering-services
@@ -35,6 +39,7 @@
  */
 export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/agentic-ai-development-services',
+  '/android-application-development-company',
   '/computer-vision-development-services',
   '/custom-ai-development-services',
   '/data-engineering-services',

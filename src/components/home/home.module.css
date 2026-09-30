@@ -164,6 +164,14 @@ h1.h2 {
 .techCompact #tech {
   min-height: 0;
 }
+/* What `.techCompact` means to do, written so it applies: CSS Modules hash
+   `#tech` like a class, so the rule above compiles to an id no element has and
+   every page using it still gets the full-viewport min-height. Opted into per
+   page (Android) rather than fixed in place, which would reflow the tech band
+   on the nine pages that have shipped with the tall section. */
+.techFit .techSection {
+  min-height: 0;
+}
 
 .sectionHead {
   max-width: 60rem;

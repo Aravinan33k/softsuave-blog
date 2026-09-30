@@ -29,7 +29,7 @@ import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
-import type { TechStackContent } from "@/components/landing/tech-stack";
+import type { TechStackContent } from "@/components/home/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
 import { overviewImage } from "./overview-images";
 import { sharedHeroAlert } from "./delivery-shared";
@@ -73,17 +73,20 @@ export const andHero: HeroContent = {
       "The app you have in mind, the Android versions and devices it must support, any systems it has to talk to, and whether this is a new build or an existing app.",
     subject: "Android App Development enquiry",
   },
-  // This page's own photography, via the Pexels pipeline
-  // (`content/images.manifest.json`) — the previous asset was shared with 4
-  // other pages and was dark enough to read as barely-there (review: "need
-  // to update the image and the visibility of the section is low").
+  // An Android handset showing an app's `strings.xml` resources — Android
+  // development specifically, not a generic laptop of code (review: "change
+  // the background hero image with more better & accurate one"). Pexels
+  // #33797245, placed by hand (manifest slot `and-hero-strings`,
+  // `source: "hand-placed"`): the photo's plain concrete is extended on the
+  // left so the phone sits in the gap between the copy and the form rather
+  // than under the paragraph, where the veil hid every centred subject tried.
   image: {
-    src: "/images/four/and-hero.webp",
+    src: "/images/four/and-hero-strings.webp",
     width: 1920,
     height: 1080,
-    alt: "A developer testing an Android app on a smartphone",
+    alt: "A hand holding an Android phone showing an app's string resources in code",
     blurDataURL:
-      "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABwAgCdASoQAAsAA4BaJZQAD49u4amjptnJCWgAAP7wsNOyawMJiV6ON+LOZe0Vp2mfa9Rw40k7RuZ9kYl3sB2vPSkO/7l4O3j2uVYv6oWFTv3iJjek4q8FPX9Xd9NMoQfkKBIGzSMea6rqC/OgoAAA",
+      "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoQAAkAA4BaJQBdgBTFt+IAAAD+w/JQGYzDhjzGChoUuPA1MczvcvWFoyWlyiGgRnNhczb789arTfkAAAA=",
   },
 };
 
@@ -171,15 +174,15 @@ export const andHireCta: CtaBandContent = {
 };
 
 /**
- * The four technology groups, rendered through the shared
- * `landing/tech-stack.tsx` — the plain static-panel treatment every other
- * page on this surface uses (review: "update the tech stack section like in
- * other pages, current design not suitable"). This page's own bespoke
- * `android-app/stack-layers.tsx` (four card "slabs", one paragraph per
- * technology) read as a one-off next to every sibling page's simpler grouped
- * chip grid. Names go straight to `components/home/tech-logo.tsx`; the
- * per-technology descriptions the old layout carried are dropped, the same
- * way every other TechStackContent-driven page already presents its stack.
+ * The live page's four technology groups, verbatim, rendered as the homepage's
+ * tech rows (`components/home/tech-stack.tsx`) — the treatment the recent
+ * service pages use (Vue.js, PostgreSQL, TypeScript, GraphQL). The review
+ * asked twice to "update the tech stack section like in other pages, current
+ * design not suitable": first this page's bespoke card slabs went to the
+ * landing set's static panel grid, whose four-column cells left most of each
+ * panel empty with only one to three names per group. Names go straight to
+ * `components/home/tech-logo.tsx`. "Google Cloud" is spaced as the live
+ * page's own image label has it (its heading runs the words together).
  */
 export const andStack: TechStackContent = {
   eyebrow: "Some Modern & Futuristic Technologies",
@@ -187,7 +190,7 @@ export const andStack: TechStackContent = {
   body: "To offer start-to-end mobile app development services, our Android professionals at our mobile app development company use the following state-of-the-art technologies",
   groups: [
     { name: "Frontend", items: ["Kotlin", "Java", "XML"] },
-    { name: "Platforms", items: ["AWS", "Azure", "GoogleCloud"] },
+    { name: "Platforms", items: ["AWS", "Azure", "Google Cloud"] },
     { name: "Tools", items: ["Android Studio"] },
     { name: "Database", items: ["SQLite"] },
   ],

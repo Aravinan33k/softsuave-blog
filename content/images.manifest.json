@@ -4404,6 +4404,17 @@
       ]
     },
     {
+      "id": "and-hero-strings",
+      "page": "four",
+      "purpose": "hero-background",
+      "alt": "A hand holding an Android phone showing an app's string resources in code",
+      "orientation": "landscape",
+      "width": 1920,
+      "height": 1080,
+      "pexelsId": 33797245,
+      "source": "hand-placed"
+    },
+    {
       "id": "ov-hire-qa-testers-india",
       "page": "landing",
       "purpose": "overview-illustration",
