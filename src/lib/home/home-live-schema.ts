@@ -12,7 +12,6 @@
  * - Product Engineering and Cloud Computing carrying the PHP page's
  *   description, and Node.js / Java sharing one generic line.
  * - A trailing slash on the offshore URL only; `/services` as the offer URL.
- * - Instagram listed twice in the Organization's `sameAs`.
  *
  * The footer's PostalAddress microdata mirrors the live footer the same way —
  * see `footer.offices` in `content.ts`.
@@ -358,40 +357,15 @@ export const liveLocalBusiness = {
   "currenciesAccepted": "USD"
 };
 
-export const liveOrganization = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Soft Suave Technologies",
-  "url": "https://www.softsuave.com/",
-  "logo": "https://www.softsuave.com/new-assets/common/images/softsuave_logo.webp",
-  "contactPoint": [
-    {
-      "@type": "ContactPoint",
-      "telephone": "+91 99527 32708",
-      "contactType": "sales",
-      "areaServed": "IN",
-      "availableLanguage": ["en", "Tamil", "Hindi"]
-    },
-    {
-      "@type": "ContactPoint",
-      "telephone": "+1 (410) 220-6301",
-      "contactType": "sales",
-      "areaServed": "US",
-      "availableLanguage": "en"
-    }
-  ],
-  "sameAs": [
-    "https://in.linkedin.com/company/softsuave",
-    "https://www.instagram.com/softsuavetech/",
-    "https://www.instagram.com/softsuavetech/",
-    "https://www.facebook.com/softsuave/",
-    "https://www.youtube.com/@softsuave"
-  ]
-};
-
-/** The live homepage's three JSON-LD blocks, in the live page's order. */
+/**
+ * The live homepage's two JSON-LD blocks, in the live page's order — each its
+ * own <script>, as live serves them (see `homeJsonLd`).
+ *
+ * No Organization: live's HTML carries none. The one an SEO tool reports on
+ * softsuave.com is injected by the shared GTM container, which this site loads
+ * too, so a copy here showed twice once GTM ran (1 Oct check).
+ */
 export const HOME_LIVE_JSON_LD: readonly Record<string, unknown>[] = [
   liveService,
   liveLocalBusiness,
-  liveOrganization,
 ];

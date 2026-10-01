@@ -2,12 +2,12 @@ import { describe, expect, it } from 'vitest';
 
 import { footer } from './content';
 import { homeJsonLd } from './home-seo';
-import { HOME_LIVE_JSON_LD, liveLocalBusiness, liveOrganization, liveService } from './home-live-schema';
+import { HOME_LIVE_JSON_LD, liveLocalBusiness, liveService } from './home-live-schema';
 import { organizationLd } from '@/lib/seo/organization';
 
 /**
  * The homepage's structured data is a verbatim mirror of softsuave.com's —
- * its three JSON-LD blocks and the footer's PostalAddress microdata. What is
+ * its two JSON-LD blocks and the footer's PostalAddress microdata. What is
  * pinned is that it STAYS a mirror: the live quirks are asserted on purpose, so
  * a well-meant "fix" here fails loudly instead of drifting from the live site.
  */
@@ -16,8 +16,12 @@ const type = (n: Record<string, unknown>) => n['@type'];
 
 describe('homeJsonLd', () => {
   it("emits the live homepage's blocks, in the live order", () => {
-    expect(homeJsonLd().map(type)).toEqual(['Service', 'LocalBusiness', 'Organization']);
+    expect(homeJsonLd().map(type)).toEqual(['Service', 'LocalBusiness']);
     expect(homeJsonLd()).toEqual(HOME_LIVE_JSON_LD);
+  });
+
+  it('carries no Organization — live injects that one from GTM, not its HTML', () => {
+    expect(homeJsonLd().map(type)).not.toContain('Organization');
   });
 
   it('returns copies, so a caller cannot edit the source', () => {
@@ -27,15 +31,13 @@ describe('homeJsonLd', () => {
   });
 
   it("keeps the live markup's values as-is", () => {
-    const [service, business, org] = [liveService, liveLocalBusiness, liveOrganization];
+    const [service, business] = [liveService, liveLocalBusiness];
     expect(service['@context']).toBe('http://schema.org');
     expect(service.areaServed).toContain('UK');
     expect(service.offers).toMatchObject({ price: 'Variable', priceValidUntil: '2025-12-31' });
     expect(service.serviceType).toContain('Xamarian App Development');
     expect(service.hasOfferCatalog.itemListElement).toHaveLength(24);
     expect(business.address.streetAddress).toBe('3210 Vogel Rd');
-    expect(org.name).toBe('Soft Suave Technologies');
-    expect(org.sameAs).toHaveLength(5);
   });
 });
 
