@@ -4241,5 +4241,15 @@
     "photographer": "Jakub Zerdzicki",
     "pexelsUrl": "https://www.pexels.com/photo/a-modern-desk-with-laptops-a-monitor-and-smartphone-displaying-the-same-lockscreen-19059657/",
     "matchedTier": "pinned:19059657"
+  },
+  "landing/agentic-ai-overview-workflow": {
+    "page": "landing",
+    "id": "agentic-ai-overview-workflow",
+    "src": "/images/landing/agentic-ai-overview-workflow.webp",
+    "width": 1536,
+    "height": 1024,
+    "alt": "An AI agent at the centre of a loop: it plans, uses tools such as CRM, ERP and APIs, decides, and acts, with a human approval checkpoint before it acts.",
+    "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoQAAsAA4BaJZwAD4QwkfHvGgAA/vcI20FPqRq/VPDM3+/4x8kkn/3rlnfxlNtTzqLCC3WCGsL9YC5QUAA=",
+    "source": "hand-placed"
   }
 }

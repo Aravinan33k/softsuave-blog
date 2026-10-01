@@ -79,13 +79,20 @@ export const overview = {
    * frame, matching how the generated homepage manifest supplies placeholders.
    * `public/images/**` is allow-listed for the optimizer in next.config.ts.
    */
+  //
+  // A diagram of exactly what the prose describes (1 Oct review: "use a better
+  // & suited / more relevant & accurate to content image"): an AI agent that
+  // plans, uses tools (CRM, ERP, APIs), decides and acts, with the human
+  // approval checkpoint the third paragraph sets before it acts. Drawn in the
+  // site's own fonts and warm-white band colours, replacing a humanoid-robot
+  // render. Manifest slot `agentic-ai-overview-workflow` (`source: hand-placed`).
   image: {
-    src: "/images/landing/agentic-ai-overview.webp",
+    src: "/images/landing/agentic-ai-overview-workflow.webp",
     width: 1536,
     height: 1024,
-    alt: "An agentic AI system map: planning, memory, knowledge, and tools feed a central AI core that drives decision-making and action, with a human oversight checkpoint alongside it.",
+    alt: "An AI agent at the centre of a loop: it plans, uses tools such as CRM, ERP and APIs, decides, and acts, with a human approval checkpoint before it acts.",
     blurDataURL:
-      "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADwAQCdASoQAAsAA8BmJZwAAuQDH4S94EAA/vWVv+Tn+e7LJ8O997ODVKgPFgTKgvoQBSXFaHwLwbMKhgA=",
+      "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoQAAsAA4BaJZwAD4QwkfHvGgAA/vcI20FPqRq/VPDM3+/4x8kkn/3rlnfxlNtTzqLCC3WCGsL9YC5QUAA=",
   },
 } as const;
 

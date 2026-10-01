@@ -2736,6 +2736,16 @@
       ]
     },
     {
+      "id": "agentic-ai-overview-workflow",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "An AI agent at the centre of a loop: it plans, uses tools such as CRM, ERP and APIs, decides, and acts, with a human approval checkpoint before it acts.",
+      "orientation": "landscape",
+      "width": 1536,
+      "height": 1024,
+      "source": "hand-placed"
+    },
+    {
       "id": "ios-hero-iphone",
       "page": "landing",
       "purpose": "hero-background",

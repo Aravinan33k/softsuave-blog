@@ -128,7 +128,13 @@ export default function AgenticAiDevelopmentServicesPage() {
         {/* Every service on screen at once, each card wearing its own
             artwork in its top corner — the GCC page's feature card. */}
         <ServicesGrid content={servicesContent} />
-        <Industries content={applicationsContent} id="applications" />
+        {/* Light, not dark (1 Oct review: "black colour sections are more on
+            this page"): services, applications and the CTA band ran ~3,300px
+            of unbroken black. The page now alternates dark / light / dark
+            through this stretch. */}
+        <div className={styles.light}>
+          <Industries content={applicationsContent} id="applications" />
+        </div>
         <CtaBand content={midCtaContent} />
 
         <div className={styles.light}>
