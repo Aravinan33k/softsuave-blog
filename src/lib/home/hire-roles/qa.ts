@@ -61,7 +61,10 @@ export const qa: HireRolePageContent = {
   },
 
   hero: {
-    titleLines: ['Hire Remote Software', 'QA Testers in India'],
+    // Same H1 text as before, re-broken so the role phrase sits on one line
+    // and can take the accent.
+    titleLines: ['Hire Remote Software QA Testers', 'in India'],
+    accent: 'Software QA Testers',
     body: [
       "Soft Suave provides pre-vetted QA testers skilled in manual and automation testing (Selenium, Appium, Postman, JMeter), placed on your team within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
       'Every release deserves a QA tester who never misses bugs.',
@@ -73,7 +76,6 @@ export const qa: HireRolePageContent = {
       'Airtight NDA & IP Protection',
       'Strong Delivery Governance from Day One',
     ],
-    badges: ['*Satisfaction Guaranteed – Get 40-hour Free Trial'],
     form: heroForm({
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
@@ -104,13 +106,13 @@ export const qa: HireRolePageContent = {
         problem: 'Automation Testing',
         solution:
           'Using Automation Testing, we strategize to meet the needs of your organization and recommend technology solutions for reducing costs, speeding up time to market, and enhancing end-product quality.',
-        image: '/images/landing/services/svc-evaluation-llmops.webp',
+        image: '/images/landing/hr-qa-fit-automation.webp',
       },
       {
         problem: 'Manual Testing',
         solution:
           'Manual testing is a type of software testing in which "Certified QA testers" develop and execute the test cases without using any automated tools to find bugs, errors, and defects in the app in the most classic way possible.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        image: '/images/landing/hr-qa-fit-manual.webp',
       },
     ],
   },
@@ -123,32 +125,32 @@ export const qa: HireRolePageContent = {
       {
         name: 'Extensive Technical Expertise',
         body: 'With high-level tech intelligence, our "Dedicated QA engineers" can deliver flawless software solutions all around the globe.',
-        image: '/images/landing/services/svc-application-development.webp',
+        image: '/images/landing/hr-qa-cap-expertise.webp',
       },
       {
         name: 'An Effective Communication Channel',
         body: 'We provide bug and error trace reports, as well as updates on the project. You can communicate with us through any of the communication tools you desire to communicate with us.',
-        image: '/images/landing/services/svc-dedicated-teams.webp',
+        image: '/images/landing/hr-qa-cap-communication.webp',
       },
       {
         name: 'Hire Certified QA Engineers Team',
         body: 'With our highly flexible engagement models, you can scale your existing team with our QA engineers.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        image: '/images/landing/hr-qa-cap-team.webp',
       },
       {
         name: 'Sweeping QA Testers',
         body: "We conduct extensive QA sessions to address all the major aspects of a system's performance on a real-time basis in order to deliver flawless applications.",
-        image: '/images/landing/services/svc-evaluation-llmops.webp',
+        image: '/images/landing/hr-qa-cap-sweeping.webp',
       },
       {
         name: 'NDA & Security',
         body: 'Hire QA testers to have strictly maintained NDA procedures. No fraudulent activities can ever happen inside Soft Suave. You are in safe hands.',
-        image: '/images/landing/services/svc-security-governance.webp',
+        image: '/images/landing/hr-qa-cap-nda.webp',
       },
       {
         name: 'Support & Maintenance',
         body: 'Customer service is our top priority. We work on solving bugs and preventing future issues with your applications, so there is no need to worry.',
-        image: '/images/landing/services/svc-support-optimisation.webp',
+        image: '/images/landing/hr-qa-cap-support.webp',
       },
     ],
   },
@@ -217,6 +219,7 @@ export const qa: HireRolePageContent = {
     ],
   },
 
+  techStackStyle: 'rows',
   techStack: {
     eyebrow: 'Tools',
     title: 'Powerful Tools and Technologies Our QA Testers Use',
@@ -263,8 +266,18 @@ export const qa: HireRolePageContent = {
   lists: [
     {
       key: 'testing',
+      display: 'tiles',
+      tileIcons: {
+        'Functional Testing': 'qa',
+        'Web App Testing': 'web',
+        'Mobile App Testing': 'mobile',
+        'UI/UX Testing': 'design',
+        'Integration Testing': 'integration',
+        'API Testing': 'api',
+      },
       eyebrow: 'QA Services',
-      title: 'Checkout the Types of QA Testing',
+      // Review: update the heading to "Explore the Types of QA Testing".
+      title: 'Explore the Types of QA Testing',
       body: 'We offer wide range of quality assurance services that include:',
       groups: [
         {
@@ -283,6 +296,18 @@ export const qa: HireRolePageContent = {
     },
     {
       key: 'domains',
+      display: 'tiles',
+      tileIcons: {
+        eCommerce: 'ecommerce',
+        ELearning: 'edtech',
+        Healthcare: 'healthtech',
+        Logistics: 'logistics',
+        'Real Estate': 'realestate',
+        Networking: 'telecom',
+        Finance: 'fintech',
+      },
+      // Live closes this band on its own "Hire QA Engineers" button.
+      cta: { label: 'Hire QA Engineers', href: '/contact' },
       eyebrow: 'Domains',
       title: 'Get Aided by Our Expertise in Many Domains',
       body: "Hire Offshore Software Testing Engineers from Soft Suave for exceptional software testing for domains such as Education, Healthcare, Retail, and so on. Using our experience in quality assurance, our QA testers will create an action plan aligned with your organization's goals.",
@@ -304,6 +329,13 @@ export const qa: HireRolePageContent = {
     },
     {
       key: 'approach',
+      display: 'tiles',
+      tileIcons: {
+        'Professional Testing Templates and Tools': 'standards',
+        'Adaptable engagement models': 'models',
+        'A commitment to integrity and transparency': 'accountability',
+        'A reasonable price and a timely delivery': 'rates',
+      },
       eyebrow: 'Our Approach',
       title: 'Hire QA Engineers in India for Easing Business Approach',
       body: 'Our hands-on Approach can make you feel at ease. Get back to us for satisfactory service.',

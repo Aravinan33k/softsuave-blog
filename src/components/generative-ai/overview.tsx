@@ -4,6 +4,7 @@ import Image from "next/image";
 import { overview as generativeAiOverview } from "@/lib/home/generative-ai";
 import { publicMediaUrl } from "@/lib/media-url";
 import FadeUp from "@/components/home/fade-up";
+import { linkify, type InlineLink } from "@/components/common/linkify";
 import SectionHead from "./section-head";
 import styles from "./gen-ai.module.css";
 
@@ -11,6 +12,8 @@ export interface OverviewContent {
   eyebrow: string;
   title: string;
   paragraphs: readonly string[];
+  /** Phrases in `paragraphs` to link, as the live page links them. */
+  links?: readonly InlineLink[];
   /** Optional — only pages whose copy ends on a pull quote supply one. */
   pullQuote?: string;
   /**
@@ -34,6 +37,13 @@ export interface OverviewContent {
     height: number;
     alt: string;
     blurDataURL?: string;
+    /**
+     * `column` stretches the frame to the full height of the prose beside it
+     * (from 1000px up), instead of a capped 4:3 box anchored to the column's
+     * foot — for a section whose copy runs much longer than the box is tall
+     * (review: "resize the image to fit the section height").
+     */
+    fit?: "column";
   };
 }
 
@@ -50,6 +60,17 @@ export interface OverviewContent {
  * a bordered accent-ruled panel rather than the homepage's bare oversized
  * blockquote.
  */
+function Paragraphs({ content }: { content: OverviewContent }) {
+  const used = new Set<string>();
+  return (
+    <div className={styles.prose}>
+      {content.paragraphs.map((p) => (
+        <p key={p.slice(0, 24)}>{linkify(p, content.links, used, styles.proseLink)}</p>
+      ))}
+    </div>
+  );
+}
+
 export default function Overview({
   content = generativeAiOverview,
   id = "overview",
@@ -67,14 +88,16 @@ export default function Overview({
             <div>
               <SectionHead kicker={content.eyebrow} title={content.title} />
 
-              <div className={styles.prose}>
-                {content.paragraphs.map((p) => (
-                  <p key={p.slice(0, 24)}>{p}</p>
-                ))}
-              </div>
+              <Paragraphs content={content} />
             </div>
 
-            <figure className={styles.overviewMedia}>
+            <figure
+              className={
+                image.fit === "column"
+                  ? `${styles.overviewMedia} ${styles.overviewMediaColumn}`
+                  : styles.overviewMedia
+              }
+            >
               <Image
                 src={publicMediaUrl(image.src)}
                 alt={image.alt}
@@ -94,11 +117,7 @@ export default function Overview({
           <SectionHead kicker={content.eyebrow} title={content.title} />
 
           <FadeUp>
-            <div className={styles.prose}>
-              {content.paragraphs.map((p) => (
-                <p key={p.slice(0, 24)}>{p}</p>
-              ))}
-            </div>
+            <Paragraphs content={content} />
 
             {content.pullQuote && <p className={styles.pullQuote}>{content.pullQuote}</p>}
           </FadeUp>

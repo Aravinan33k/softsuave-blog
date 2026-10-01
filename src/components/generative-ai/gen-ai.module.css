@@ -276,6 +276,26 @@
     );
 }
 
+/* Opt-in heavier veil (`background.veil: "strong"`): the copy column sits on
+   near-solid black fading out towards the form, so a detailed photograph
+   reads as atmosphere behind the text rather than texture inside it. */
+.heroMediaVeil[data-veil="strong"] {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 5, 8, 0.9) 0%,
+      rgba(4, 5, 8, 0.78) 45%,
+      rgba(4, 5, 8, 0.45) 75%,
+      rgba(4, 5, 8, 0.55) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4, 5, 8, 0.45) 0%,
+      rgba(4, 5, 8, 0.2) 40%,
+      rgba(4, 5, 8, 0.92) 100%
+    );
+}
+
 .heroGrid {
   position: relative;
   z-index: 2;
@@ -404,6 +424,11 @@
      one screen. Still comfortably above the 1.5 floor for body copy. */
   line-height: 1.68;
   color: var(--text);
+}
+
+/* The paragraphs a decision table closes on (`FitTable`). */
+.fitTableAfter {
+  margin-top: clamp(24px, 2.6vw, 36px);
 }
 
 /* Prose beside the section illustration. Both columns sit inside the section's
@@ -2086,6 +2111,20 @@
     justify-content: flex-end;
   }
 
+  /* A section's closing button sits centred under its grid or carousel, not
+     at the band's right edge where the conversion band puts its own. */
+  .ctaActions.sectionCtaRow {
+    justify-content: center;
+  }
+
+  /* `image.fit: "column"` — the frame runs the prose column's full height. */
+  .overviewMediaColumn {
+    align-self: stretch;
+    aspect-ratio: auto;
+    max-height: none;
+    min-height: 100%;
+  }
+
   /* Industries: 8 cards read as three per row (the last row runs short). */
   .indGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2410,6 +2449,83 @@
   font-size: var(--fs-body-sm);
   line-height: 1.65;
   color: var(--text);
+}
+
+/* Tiles (`variant="tiles"`): the bold card as badge + name, on an even grid.
+   Shares the bold card's accent ramp, border, radius and hover. */
+.indGridTiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.3vw, 18px);
+  align-items: stretch;
+}
+
+.indGridTiles .indBoldCard:nth-child(5n + 1) { --card-accent: var(--card-accent-1); }
+.indGridTiles .indBoldCard:nth-child(5n + 2) { --card-accent: var(--card-accent-2); }
+.indGridTiles .indBoldCard:nth-child(5n + 3) { --card-accent: var(--card-accent-3); }
+.indGridTiles .indBoldCard:nth-child(5n + 4) { --card-accent: var(--card-accent-4); }
+.indGridTiles .indBoldCard:nth-child(5n + 5) { --card-accent: var(--card-accent-5); }
+
+@media (min-width: 1000px) {
+  .indGridTiles[data-cols="4"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .indGridTiles[data-cols="3"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 479px) {
+  .indGridTiles {
+    grid-template-columns: 1fr;
+  }
+}
+
+.indTile {
+  gap: clamp(14px, 1.4vw, 20px);
+  padding: clamp(20px, 2vw, 28px) clamp(18px, 1.8vw, 26px);
+}
+
+/* Whole-card link (`cardLinks`): the title's anchor is stretched over the card
+   by its ::after, so a click anywhere on the card follows it while the link's
+   accessible name stays the card's own title. Inherits the title's colour; the
+   card's existing hover/focus-within lift is the affordance. */
+.indBoldStretch {
+  color: inherit;
+  text-decoration: none;
+}
+
+.indBoldStretch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.indBoldStretch:focus-visible {
+  outline: none;
+}
+
+.indBoldCard[data-linked="true"] {
+  cursor: pointer;
+}
+
+.indBoldCard[data-linked="true"]:has(.indBoldStretch:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.indBoldCard[data-linked="true"]:hover .indBoldName {
+  color: var(--card-accent, var(--accent));
+}
+
+/* A section's own closing button (`SectionCta`), under its grid or carousel.
+   `.ctaActions` already gives it the conversion band's size. */
+.sectionCtaRow {
+  margin-top: clamp(26px, 3vw, 40px);
+  justify-content: center;
 }
 
 /* Pushed to the bottom edge so the links line up across a row of cards whose

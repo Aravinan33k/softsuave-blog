@@ -54,6 +54,7 @@ export const blockchain: HireRolePageContent = {
 
   hero: {
     titleLines: ['Hire Blockchain Developers', 'from India'],
+    accent: 'Blockchain Developers',
     body: [
       'Soft Suave provides pre-vetted blockchain developers skilled in Ethereum, Solidity, smart contracts, and DeFi/Web3 development, matched to your project within 48 hours.',
       "Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",

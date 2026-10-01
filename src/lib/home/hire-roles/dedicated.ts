@@ -75,6 +75,15 @@ export const dedicated: HireRolePageContent = {
 
   hero: {
     titleLines: ['Hire Dedicated Developers in India', 'Vetted Teams from $14/hour'],
+    accent: 'Dedicated Developers',
+    // A full-bleed backdrop like the Frontend page's (review: "No image is
+    // visible in the background in the hero section").
+    background: {
+      src: '/images/landing/hire-dedicated-hero.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoQAAkAA4BaJQBdgCHfJOkM28AA/vMllO5K/ddrMcgttHe6QFHOs+ml5u97RyhURxbHyRmzmuLSbYtAAAA=',
+      veil: 'strong',
+    },
     body: [
       'Soft Suave offers dedicated developers from India who can join your team within 48 hours and work as an extension of your in-house team. Hire experts in web, mobile, full-stack, DevOps, QA, and more with flexible models, hourly rates starting at $14/hour, and a 40-hour risk-free trial.',
     ],
@@ -86,7 +95,6 @@ export const dedicated: HireRolePageContent = {
       'Airtight NDA & IP Protection',
       'Strong Delivery Governance from Day One',
     ],
-    badges: ['*Satisfaction Guaranteed – Get 40-hour Free Trial'],
     form: heroForm({
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
@@ -183,37 +191,37 @@ export const dedicated: HireRolePageContent = {
         problem: 'Focused Expertise',
         solution:
           'Get developers with skills that match your exact project needs, technology stack, and development goals.',
-        image: '/images/landing/services/svc-application-development.webp',
+        image: '/images/landing/hr-ded-fit-expertise.webp',
       },
       {
         problem: 'Full-Time Project Focus',
         solution:
           'Dedicated developers stay aligned with your project priorities instead of splitting time across multiple clients.',
-        image: '/images/landing/services/svc-dedicated-teams.webp',
+        image: '/images/landing/hr-ded-fit-full-time.webp',
       },
       {
         problem: 'Smooth Team Integration',
         solution:
           'They work with your tools, workflows, communication channels, and internal processes for easier collaboration.',
-        image: '/images/landing/services/svc-integration.webp',
+        image: '/images/landing/hr-ded-fit-integration.webp',
       },
       {
         problem: 'Flexible Scaling',
         solution:
           'Add or reduce developers based on project demand without the delays of traditional hiring.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        image: '/images/landing/hr-ded-fit-scaling.webp',
       },
       {
         problem: 'Clear Communication',
         solution:
           'Regular updates, progress tracking, and review calls help keep your team informed and aligned.',
-        image: '/images/landing/services/svc-proof-of-concept.webp',
+        image: '/images/landing/hr-ded-fit-communication.webp',
       },
       {
         problem: 'Cost Efficiency',
         solution:
           'Reduce recruitment, training, infrastructure, and long-term employment costs while accessing skilled development talent.',
-        image: '/images/landing/services/svc-support-optimisation.webp',
+        image: '/images/landing/hr-ded-fit-cost.webp',
       },
     ],
   },

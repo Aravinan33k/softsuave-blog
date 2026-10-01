@@ -64,6 +64,15 @@ export const backend: HireRolePageContent = {
 
   hero: {
     titleLines: ['Hire Backend Developers', 'for Scalable Applications'],
+    accent: 'Backend Developers',
+    // A full-bleed backdrop like the Frontend page's (review: "No image is
+    // visible in the background in the hero section").
+    background: {
+      src: '/images/landing/hire-backend-hero.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAQCdASoQAAoAA4BaJbACdAD0tgTcHWgA/vF4zo1RWmOBAilq5ZV7+yDvoe7lZJ6mZIaTO15yNvTFvhgC6a4tVQTd0a45IQeUnfwK07L2hftv5mdAW4AA',
+      veil: 'strong',
+    },
     body: [
       'Hire backend developers matched to your technology stack, application requirements, and working model. Evaluate technical execution, communication, requirement understanding, and team compatibility through practical work before confidently making a longer-term commitment to your development team.',
       'Take the next step toward stronger backend delivery by sharing your requirements and starting a focused conversation with our team.',
@@ -102,47 +111,47 @@ export const backend: HireRolePageContent = {
       {
         name: 'Server-Side Application Logic',
         body: 'Build and maintain application logic for web platforms, mobile apps, SaaS products, customer portals, and internal systems across new and existing codebases throughout their lifecycle.',
-        image: '/images/landing/services/svc-application-development.webp',
+        image: '/images/landing/hr-be-cap-logic.webp',
       },
       {
         name: 'API Development and Integration',
         body: 'Create, document, maintain, and connect REST or GraphQL APIs. This can include internal services, frontend communication, third-party platforms, payment systems, business tools, and data sources.',
-        image: '/images/landing/services/svc-integration.webp',
+        image: '/images/landing/hr-be-cap-api.webp',
       },
       {
         name: 'Database Work',
         body: 'Design schemas, write and optimize queries, maintain data-access layers, and support data consistency across PostgreSQL, MySQL, MongoDB, SQL Server, and other approved database environments.',
-        image: '/images/landing/services/svc-model-selection.webp',
+        image: '/images/landing/hr-be-cap-database.webp',
       },
       {
         name: 'Cloud and Deployment Collaboration',
         body: 'Contribute to backend deployment workflows using AWS, Azure, Google Cloud, Docker, Kubernetes, and CI/CD tools while coordinating with your DevOps or infrastructure team.',
-        image: '/images/landing/services/svc-dedicated-teams.webp',
+        image: '/images/landing/hr-be-cap-cloud.webp',
       },
       {
         name: 'Backend Modernization',
         body: 'Refactor legacy components, update frameworks, improve maintainability, and replace tightly coupled application logic through planned, incremental changes that fit your broader modernization roadmap.',
-        image: '/images/landing/services/svc-product-modernisation.webp',
+        image: '/images/landing/hr-be-cap-modernization.webp',
       },
       {
         name: 'Authentication and Authorization',
         body: 'Implement authentication flows, role-based access, permissions, and backend authorization logic according to your application requirements and approved architecture.',
-        image: '/images/landing/services/svc-security-governance.webp',
+        image: '/images/landing/hr-be-cap-auth.webp',
       },
       {
         name: 'Monitoring and Observability',
         body: 'Add or maintain application logging, metrics, tracing, dashboards, and alerts that help your team understand backend behavior and investigate operational issues.',
-        image: '/images/landing/services/svc-evaluation-llmops.webp',
+        image: '/images/landing/hr-be-cap-monitoring.webp',
       },
       {
         name: 'Migration Work',
         body: 'Support planned database, framework, infrastructure, or application-component migrations. Developers can contribute to assessment, implementation, testing, staged transition, and post-migration checks within your technical plan.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        image: '/images/landing/hr-be-cap-migration.webp',
       },
       {
         name: 'Testing, Performance and Maintenance',
         body: 'Write automated and integration tests, monitor server-side performance, investigate backend issues, resolve defects, and maintain existing components throughout ongoing development and application release cycles.',
-        image: '/images/landing/services/svc-support-optimisation.webp',
+        image: '/images/landing/hr-be-cap-testing.webp',
       },
     ],
   },
@@ -157,49 +166,49 @@ export const backend: HireRolePageContent = {
         problem: 'Technical Execution',
         solution:
           'Assess how the developer approaches backend work, handles dependencies, and applies relevant language, framework, and database knowledge.',
-        image: '/images/landing/services/svc-application-development.webp',
+        image: '/images/landing/hr-be-fit-execution.webp',
       },
       {
         problem: 'Architecture Approach',
         solution:
           'Evaluate how a backend developer for hire handles component boundaries, data flow, integrations, and maintainability.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        image: '/images/landing/hr-be-fit-architecture.webp',
       },
       {
         problem: 'API and Database Work',
         solution:
           'Evaluate endpoint design, query handling, data-access decisions, validation, and error management.',
-        image: '/images/landing/services/svc-integration.webp',
+        image: '/images/landing/hr-be-fit-api-db.webp',
       },
       {
         problem: 'Code Quality',
         solution:
           'Review readability, structure, maintainability, and alignment with your coding standards.',
-        image: '/images/landing/services/svc-proof-of-concept.webp',
+        image: '/images/landing/hr-be-fit-code-quality.webp',
       },
       {
         problem: 'Testing Practices',
         solution:
           'Assess how the developer validates expected behavior, handles edge cases, and uses automated testing.',
-        image: '/images/landing/services/svc-evaluation-llmops.webp',
+        image: '/images/landing/hr-be-fit-testing.webp',
       },
       {
         problem: 'Communication and Responsiveness',
         solution:
           'Observe how clearly the developer communicates progress, questions, dependencies, and blockers.',
-        image: '/images/landing/services/svc-dedicated-teams.webp',
+        image: '/images/landing/hr-be-fit-communication.webp',
       },
       {
         problem: 'Requirement Understanding',
         solution:
           'Check whether the developer translates business and technical requirements into practical backend decisions.',
-        image: '/images/landing/services/svc-model-selection.webp',
+        image: '/images/landing/hr-be-fit-requirements.webp',
       },
       {
         problem: 'Workflow Compatibility',
         solution:
           'Confirm the developer can work within your source-control practices, review process, sprint routines, and delivery expectations.',
-        image: '/images/landing/services/svc-support-optimisation.webp',
+        image: '/images/landing/hr-be-fit-workflow.webp',
       },
     ],
   },
@@ -214,7 +223,7 @@ export const backend: HireRolePageContent = {
   engagement: {
     eyebrow: 'Engagement Options',
     title: 'Flexible Ways to Hire Backend Developers',
-    body: 'Choose the engagement structure that matches your responsibilities, delivery needs, and how completely the work is defined before development begins.',
+    body: 'Choose a flexible engagement model that fits your project and keeps development moving smoothly.',
     blocks: [
       {
         label: 'Dedicated Developer',

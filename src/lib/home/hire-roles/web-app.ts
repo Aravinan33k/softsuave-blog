@@ -55,6 +55,7 @@ export const webApp: HireRolePageContent = {
 
   hero: {
     titleLines: ['Hire Web App Developers', 'for Scalable Digital Products'],
+    accent: 'Web App Developers',
     body: [
       'Hire web app developers matched to your technology stack, product requirements, and delivery process. Build new applications, modernize existing platforms, complete integrations, or add engineering capacity with specialists selected for the work your team needs to deliver.',
       'Review relevant profiles, interview specialists directly, and evaluate their technical execution through a 40-hour risk-free trial before extending the engagement.',
@@ -90,46 +91,48 @@ export const webApp: HireRolePageContent = {
     eyebrow: 'Capabilities',
     title: 'Web App Developers for Your Product Requirements',
     body: 'Hire web application developers who turn your requirements into reliable digital products, strengthen existing systems, and help your business scale confidently and adapt as priorities evolve over time.',
+    // Review: "Capabilities - In this section, a CTA button is missing".
+    cta: { label: 'Talk to Our Experts', href: '/contact' },
     items: [
       {
         name: 'SaaS Application Development',
         body: 'Build and expand subscription-based applications with account management, user permissions, dashboards, workflow automation, billing integrations, reporting, and product features aligned with your operating model.',
-        image: '/images/landing/services/svc-application-development.webp',
+        image: '/images/landing/hr-web-cap-saas.webp',
       },
       {
         name: 'Customer and Partner Portals',
         body: 'Develop secure web portals for customers, employees, vendors, and partners. Support account access, document sharing, communication, transactions, approvals, and self-service workflows within one application.',
-        image: '/images/landing/services/svc-dedicated-teams.webp',
+        image: '/images/landing/hr-web-cap-portals.webp',
       },
       {
         name: 'Enterprise Web Applications',
         body: 'Create internal platforms that support operational workflows, reporting, resource management, data access, and collaboration across departments, systems, and distributed business teams.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        image: '/images/landing/hr-web-cap-enterprise.webp',
       },
       {
         name: 'Ecommerce Applications',
         body: 'Build storefronts, marketplaces, ordering platforms, payment workflows, product-management systems, and customer experiences that connect with your business applications and external services.',
-        image: '/images/landing/services/svc-proof-of-concept.webp',
+        image: '/images/landing/hr-web-cap-ecommerce.webp',
       },
       {
         name: 'API and System Integrations',
         body: 'Connect your web application with PostgreSQL, MySQL, MongoDB, SQL Server, payment gateways, CRMs, ERPs, analytics platforms, identity providers, and third-party services through REST APIs, GraphQL, and integration workflows.',
-        image: '/images/landing/services/svc-integration.webp',
+        image: '/images/landing/hr-web-cap-api.webp',
       },
       {
         name: 'Web Application Modernization',
         body: 'Update legacy applications, replace outdated frameworks, and migrate workloads to AWS, Azure, or Google Cloud. Improve architecture and containerization with Docker and Kubernetes while supporting delivery through CI/CD pipelines.',
-        image: '/images/landing/services/svc-product-modernisation.webp',
+        image: '/images/landing/hr-web-cap-modernization.webp',
       },
       {
         name: 'Performance and Scalability Engineering',
         body: 'Improve application responsiveness, database performance, caching, infrastructure use, code quality, and system behavior as user demand and operational complexity increase.',
-        image: '/images/landing/services/svc-support-optimisation.webp',
+        image: '/images/landing/hr-web-cap-performance.webp',
       },
       {
         name: 'Application Maintenance and Enhancement',
         body: 'Add features, resolve technical issues, update dependencies, and strengthen automated testing, integration testing, and performance testing while supporting the continuous development of existing web applications.',
-        image: '/images/landing/services/svc-security-governance.webp',
+        image: '/images/landing/hr-web-cap-maintenance.webp',
       },
     ],
   },
@@ -167,6 +170,13 @@ export const webApp: HireRolePageContent = {
     paragraphs: [
       'Soft Suave supports distributed collaboration through agreed meetings, shared development tools, sprint routines, task tracking, and documentation, with 4 - 6 hours of overlap with US and UK business hours.',
       'Our web app developers in India work from Chennai and Bengaluru, supported by our delivery presence in the United States. They work within your existing tools and workflows, including source control, project management, sprint routines, code review, and deployment.',
+      'Not sure India is right for your project? Our guide to hiring web developers in India covers what to check first.',
+    ],
+    links: [
+      {
+        text: 'guide to hiring web developers in India',
+        href: '/blog/how-to-hire-a-web-developer-in-india',
+      },
     ],
   },
 
@@ -325,26 +335,31 @@ export const webApp: HireRolePageContent = {
     items: [
       {
         title: 'A Vision AI Platform for Real-Time Axle Counting & Traffic Monitoring',
+        image: { src: '/images/case-studies/vehicle-intelligence-cs.webp', alt: 'A Vision AI Platform for Real-Time Axle Counting & Traffic Monitoring' },
         tag: 'Transportation',
         body: 'Soft Suave built a real-time computer-vision pipeline for accurate axle counting, lane-level vehicle tracking, congestion insights, and lifted/floating axle detection across high-traffic highway sites.',
       },
       {
         title: 'A Platform for Driver Attention, Stress and Safety',
+        image: { src: '/images/case-studies/neurora-intelligence-cs.webp', alt: 'A Platform for Driver Attention, Stress and Safety' },
         tag: 'Automotive',
         body: 'Soft Suave built an AI-powered Behavioral Intelligence web app that combines driving video, eye-gaze, and heart-rate data to deliver automated safety, focus, and stress scores.',
       },
       {
         title: 'AI-Powered Contract & Tender Management Lifecycle Platform',
+        image: { src: '/images/case-studies/tender-intelligence-cs.webp', alt: 'AI-Powered Contract & Tender Management Lifecycle Platform' },
         tag: 'Energy',
         body: 'Soft Suave built an AI-powered web app automating the contract and tender lifecycle with secure evaluation, audit trails, sealed-bid integrity, and English/Arabic support, fully on-premises for a leading LNG operator in Oman.',
       },
       {
         title: 'An AI-Powered Shift Intelligence and Digital Logbook Platform for LNG Operations',
+        image: { src: '/images/case-studies/shift-sense-cs.webp', alt: 'An AI-Powered Shift Intelligence and Digital Logbook Platform for LNG Operations' },
         tag: 'Energy',
         body: 'Soft Suave delivered ShiftSense, an air-gapped AI platform transforming LNG operational logs into instant, source-cited shift insights with English/Arabic support and full auditability.',
       },
       {
         title: 'AI-Powered Onboarding and Configuration Assist for a Logistics Management Platform',
+        image: { src: '/images/case-studies/ai-assist-cs.webp', alt: 'AI-Powered Onboarding and Configuration Assist for a Logistics Management Platform' },
         tag: 'Logistics',
         body: 'Soft Suave built an AI assistant for logistics onboarding that guides setup, validates steps in real time, cuts onboarding time by half, and reduces support tickets.',
       },

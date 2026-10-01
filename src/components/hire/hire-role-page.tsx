@@ -30,6 +30,7 @@ import Contact from '@/components/home/contact';
 import Hero from '@/components/generative-ai/hero';
 import Overview from '@/components/generative-ai/overview';
 import Problems from '@/components/generative-ai/problems';
+import FitTable from '@/components/generative-ai/fit-table';
 import Services from '@/components/generative-ai/services';
 import CtaBand from '@/components/generative-ai/cta-band';
 import Integration from '@/components/generative-ai/integration';
@@ -42,6 +43,8 @@ import Faq from '@/components/generative-ai/faq';
 // of the homepage marquee (review: "Technology Stack — change the tech stack
 // design ... reuse from already completed pages").
 import TechStack from '@/components/landing/tech-stack';
+// The Android page's labelled rows, for a page that asks for them instead.
+import TechRows from '@/components/home/tech-stack';
 
 import styles from '@/components/home/home.module.css';
 
@@ -139,9 +142,13 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
             content={content.specialisations}
             id={servicesBand === 'specialisations' ? 'services' : 'expertise'}
             variant="bold"
+            // The whole card is the link (review: "remove the 'Know More'
+            // buttons; the entire cards must be clickable").
+            cardLinks
           />
         ) : null;
       case 'fit':
+        if (content.fitTable) return <FitTable key={band} content={content.fitTable} id="fit" />;
         return content.fit ? <Problems key={band} content={content.fit} id="fit" /> : null;
       case 'engagement':
         return content.engagement ? (
@@ -183,7 +190,23 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
       case 'rates':
         return content.rates ? <Comparison key={band} content={content.rates} id="rates" /> : null;
       case 'techStack':
-        return content.techStack ? <TechStack key={band} content={content.techStack} /> : null;
+        if (content.techStack && content.techStackStyle === 'rows') {
+          // `.techFit` drops the homepage band's full-viewport height;
+          // `staticFrom` holds the rows still from tablet width up — the same
+          // pairing the Android page uses.
+          return (
+            <div key={band} className={styles.techFit}>
+              <TechRows content={content.techStack} staticFrom={768} />
+            </div>
+          );
+        }
+        return content.techStack ? (
+          <TechStack
+            key={band}
+            content={content.techStack}
+            largeLogos={content.techStackLargeLogos}
+          />
+        ) : null;
       case 'caseStudies':
         // The page's own projects where its live page names them; otherwise
         // the homepage's case studies.
@@ -203,6 +226,24 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
         // Tech Stack link, which belongs to the `techStack` band above.
         // Labels, not tools — so no brand marks: a bullet per label rather than
         // the generic fallback disc on every chip.
+        if (list?.display === 'tiles') {
+          return (
+            <CardGrid
+              key={band}
+              id={`list-${list.key}`}
+              variant="tiles"
+              content={{
+                eyebrow: list.eyebrow,
+                title: list.title,
+                body: list.body,
+                cta: list.cta,
+                items: list.groups.flatMap((g) =>
+                  g.items.map((name) => ({ name, body: '', key: list.tileIcons?.[name] })),
+                ),
+              }}
+            />
+          );
+        }
         return list ? (
           <TechStack key={band} content={list} id={`list-${list.key}`} logos={false} />
         ) : null;

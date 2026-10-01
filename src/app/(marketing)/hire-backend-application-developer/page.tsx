@@ -25,7 +25,10 @@ export const metadata: Metadata = hireRoleMetadata(content);
 export default function HireBackendDevelopersPage() {
   return (
     <>
-      <JsonLd data={hireRoleJsonLd(content)} />
+      {/* One <script> per block, as the live page serves them. */}
+      {hireRoleJsonLd(content).map((block, i) => (
+        <JsonLd key={i} data={block} />
+      ))}
       <HireRolePage content={content} />
     </>
   );

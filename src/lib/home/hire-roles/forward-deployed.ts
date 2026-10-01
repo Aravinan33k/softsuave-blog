@@ -76,6 +76,7 @@ export const forwardDeployed: HireRolePageContent = {
 
   hero: {
     titleLines: ['Hire Forward Deployed Engineers', 'AI Agents Deployed in Weeks, Not Months'],
+    accent: 'Forward Deployed Engineers',
     body: [
       'Easily build and deploy AI with honest engineering.',
       "Soft Suave's Forward Deployed Engineering (FDE) teams help companies modernize technology, reimagine processes, and rebuild experiences — with engineers embedded directly in your workflow.",

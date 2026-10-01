@@ -8,6 +8,8 @@ import { gridSpansFor } from "@/components/landing/card-spans";
 import FadeUp from "@/components/home/fade-up";
 import SectionHead from "./section-head";
 import { useServiceHref } from "@/components/common/service-link";
+import { SiteLink } from "@/themes/softsuave/site-link";
+import SectionCta from "./section-cta";
 import CardIcon, { isBrandIcon } from "./card-icon";
 import styles from "./gen-ai.module.css";
 
@@ -36,8 +38,13 @@ export interface CardGridContent {
      */
     readonly href?: string;
   }[];
+  /**
+   * Optional button under the grid — the live hire pages close some of these
+   * sections on one ("Ready to discuss? Contact us"; review: "a CTA button is
+   * missing"). Same size as the mid-page conversion band's button.
+   */
+  cta?: { readonly label: string; readonly href: string };
 }
-
 
 /**
  * The card's "Know More".
@@ -104,6 +111,7 @@ export default function Industries({
   id = "industries",
   variant = "photo",
   links = true,
+  cardLinks = false,
 }: {
   content?: CardGridContent;
   id?: string;
@@ -119,14 +127,28 @@ export default function Industries({
    * off `gridSpansFor()` and a per-card accent rule along the top edge. It is
    * what every hire page uses, so the two families read as one design system.
    * See the CARD GRID — BOLD VARIANT block in gen-ai.module.css.
+   *
+   * `tiles` is the bold card cut down to a badge and a name, for a section
+   * that lists labels with no description of their own (the QA page's testing
+   * types, domains and approach). An even grid rather than the asymmetric
+   * spans, because every tile carries the same amount: four across, or three
+   * where the count divides by three and not four. A body, if an item has
+   * one, still renders.
    */
-  variant?: "photo" | "compact" | "bold";
+  variant?: "photo" | "compact" | "bold" | "tiles";
   /**
    * `false` drops every card's "Know More", `href`s included. The AI service
    * pages' industry grids run without it: the sectors are context for the
    * service, not destinations of their own.
    */
   links?: boolean;
+  /**
+   * `bold` only: the whole card is the link instead of a "Know More" under its
+   * copy (hire-by-role review: "remove the 'Know More' buttons; the entire
+   * cards must be clickable"). The card title carries the link, stretched over
+   * the card, so the accessible name is the card's own name.
+   */
+  cardLinks?: boolean;
 } = {}) {
   /* Links: a card's own `href` wins; a grid of services or sectors also links
      cards whose name matches one of our pages (`lib/home/service-href.ts`).
@@ -154,6 +176,7 @@ export default function Industries({
               <article
                 key={item.name}
                 className={styles.indBoldCard}
+                data-linked={href && cardLinks ? "true" : undefined}
                 /* A data attribute rather than an inline style: the span values
                    are a small fixed set, so CSS can hold them and the markup
                    stays free of style attributes. */
@@ -170,13 +193,21 @@ export default function Industries({
                 >
                   <CardIcon iconKey={item.key} text={textOf(item)} />
                 </span>
-                <h3 className={styles.indBoldName}>{item.name}</h3>
+                <h3 className={styles.indBoldName}>
+                  {href && cardLinks ? (
+                    <SiteLink href={href} className={styles.indBoldStretch}>
+                      {item.name}
+                    </SiteLink>
+                  ) : (
+                    item.name
+                  )}
+                </h3>
                 <p className={styles.indBoldBody}>{item.body}</p>
                 {/* Only where the card names a page of ours — same rule as the
                     compact card. This is what keeps the hire-by-role
                     specialisation grids working as navigation between the nine
                     role pages. */}
-                {href && (
+                {href && !cardLinks && (
                   <CardLink
                     href={href}
                     label={item.name}
@@ -188,6 +219,37 @@ export default function Industries({
             })}
           </div>
         </FadeUp>
+        <SectionCta cta={content.cta} />
+      </section>
+    );
+  }
+
+  if (variant === "tiles") {
+    const n = content.items.length;
+    const cols = n % 3 === 0 && n % 4 !== 0 ? 3 : 4;
+
+    return (
+      <section className={styles.sectionShell} id={id}>
+        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+
+        <FadeUp>
+          <div className={styles.indGridTiles} data-cols={cols}>
+            {content.items.map((item) => (
+              <article key={item.name} className={`${styles.indBoldCard} ${styles.indTile}`}>
+                <span
+                  className={styles.indBoldIcon}
+                  data-brand={isBrandIcon(item.key) ? "true" : undefined}
+                  aria-hidden
+                >
+                  <CardIcon iconKey={item.key} text={textOf(item)} />
+                </span>
+                <h3 className={styles.indBoldName}>{item.name}</h3>
+                {item.body && <p className={styles.indBoldBody}>{item.body}</p>}
+              </article>
+            ))}
+          </div>
+        </FadeUp>
+        <SectionCta cta={content.cta} />
       </section>
     );
   }

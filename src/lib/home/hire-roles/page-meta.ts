@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { HIRE_ROLE_LIVE_SCHEMA } from '@/lib/seo/hire-roles-live-schema';
 import { brand } from '@/lib/home/content';
 import type { HireRolePageContent } from './types';
 import { pageRobots } from '@/lib/flags';
@@ -71,6 +72,11 @@ export function hireRoleMetadata(content: HireRolePageContent): Metadata {
  * first item is a 307 is worse than no trail at all.
  */
 export function hireRoleJsonLd(content: HireRolePageContent): object[] {
+  // A page whose live softsuave.com schema has been adopted renders exactly
+  // that, verbatim — see `lib/seo/hire-roles-live-schema`.
+  const live = HIRE_ROLE_LIVE_SCHEMA[content.slug];
+  if (live) return [...live];
+
   return pageSchemaGraph({
     path: content.slug,
     title: content.meta.title,

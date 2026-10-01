@@ -62,6 +62,7 @@ export const mobileApp: HireRolePageContent = {
 
   hero: {
     titleLines: ['Hire Mobile App Developers:', 'Build the Right Team'],
+    accent: 'Mobile App Developers',
     body: [
       'Hire mobile app developers experienced in Android, iOS, Flutter, React Native, and other mobile technologies. Review relevant profiles, interview developers directly, and choose specialists who fit your product and existing codebase.',
       'Evaluate technical execution, communication, and workflow fit through real project work with a 40-hour trial before you onboard.',
@@ -93,48 +94,61 @@ export const mobileApp: HireRolePageContent = {
     ],
   },
 
-  fit: {
+  // The live page's three-column table, as a table (review: "Developer
+  // Selection ... it is a table with 3 columns, and it's not clear in the
+  // current design"), with the two paragraphs it runs after it.
+  fitTable: {
     eyebrow: 'Developer Selection',
     title: 'Which Mobile Developer Does Your Project Need?',
     body: 'The right choice depends on your existing architecture, target platforms, internal engineering skills, and product roadmap. Use these common scenarios to identify the expertise that best fits your project.',
-    columns: ['Your Situation', 'Developer to Consider'],
+    columns: ['Your Situation', 'Developer to Consider', 'Why This Fits'],
     rows: [
       {
-        problem: 'Android-only product or Android-first roadmap',
-        solution:
-          'Android / Kotlin Developer — direct access to platform APIs, background processing, and device features without an additional abstraction layer.',
-        image: '/images/landing/services/svc-application-development.webp',
+        head: 'Android-only product or Android-first roadmap',
+        cells: [
+          'Android / Kotlin Developer',
+          'Direct access to platform APIs, background processing, and device features without an additional abstraction layer',
+        ],
       },
       {
-        problem: 'iPhone or iPad product, or App Store-first launch',
-        solution:
-          'iOS / Swift Developer — native performance, Apple ecosystem integrations, and faster adoption of new iOS capabilities.',
-        image: '/images/landing/services/svc-proof-of-concept.webp',
+        head: 'iPhone or iPad product, or App Store-first launch',
+        cells: [
+          'iOS / Swift Developer',
+          'Native performance, Apple ecosystem integrations, and faster adoption of new iOS capabilities',
+        ],
       },
       {
-        problem: 'One codebase for both platforms with no existing mobile code',
-        solution:
-          'Flutter Developer — consistent UI rendering across platforms and a strong fit for design-led products.',
-        image: '/images/landing/services/svc-model-selection.webp',
+        head: 'One codebase for both platforms with no existing mobile code',
+        cells: [
+          'Flutter Developer',
+          'Consistent UI rendering across platforms and a strong fit for design-led products',
+        ],
       },
       {
-        problem: 'One codebase and a web team already using React or TypeScript',
-        solution:
-          'React Native Developer — shared language and tooling with existing engineers, making collaboration and internal handover easier.',
-        image: '/images/landing/services/svc-integration.webp',
+        head: 'One codebase and a web team already using React or TypeScript',
+        cells: [
+          'React Native Developer',
+          'Shared language and tooling with existing engineers, making collaboration and internal handover easier',
+        ],
       },
       {
-        problem: 'Hybrid application already in production',
-        solution:
-          'Ionic Developer — maintains continuity with your current web-based architecture without forcing an unnecessary rebuild.',
-        image: '/images/landing/services/svc-support-optimisation.webp',
+        head: 'Hybrid application already in production',
+        cells: [
+          'Ionic Developer',
+          'Maintains continuity with your current web-based architecture without forcing an unnecessary rebuild',
+        ],
       },
       {
-        problem: 'Mature native codebase you want to extend',
-        solution:
-          'Kotlin or Swift Specialist — extends the existing architecture without adding a cross-platform layer that could increase complexity.',
-        image: '/images/landing/services/svc-product-modernisation.webp',
+        head: 'Mature native codebase you want to extend',
+        cells: [
+          'Kotlin or Swift Specialist',
+          'Extends the existing architecture without adding a cross-platform layer that could increase complexity',
+        ],
       },
+    ],
+    after: [
+      'The technology choice should follow the product you already have or intend to build. Existing code, platform-specific functionality, internal expertise, and long-term maintenance requirements should guide which developer you hire.',
+      'If your requirement spans more than one discipline, the mobile developer may also need to coordinate with backend engineers, QA, DevOps, designers, or product stakeholders. Review those dependencies before selecting profiles so the developer matches your actual engineering environment rather than a framework name alone.',
     ],
   },
 
@@ -159,7 +173,7 @@ export const mobileApp: HireRolePageContent = {
   process: {
     eyebrow: 'Developer Evaluation',
     title: 'Evaluate Your Mobile Developer Before You Onboard',
-    body: 'Review relevant profiles, interview the developers you shortlist, and assess the selected developer through real project work before the engagement is extended.',
+    body: 'Make a more confident hiring decision with a process designed to reduce uncertainty and help you choose the right developer for your team.',
     steps: [
       {
         n: '01',
@@ -303,26 +317,31 @@ export const mobileApp: HireRolePageContent = {
     items: [
       {
         title: 'ParkSafe Community Vehicle Alert App',
+        image: { src: '/images/case-studies/logistics-3.webp', alt: 'ParkSafe Community Vehicle Alert App' },
         tag: 'Community Safety',
         body: 'A mobile app that spots suspicious vehicles, sends real-time alerts, and improves community safety.',
       },
       {
         title: 'Smart Movie Ticketing app with Real-Time Booking',
+        image: { src: '/images/case-studies/on-demand-5.webp', alt: 'Smart Movie Ticketing app with Real-Time Booking' },
         tag: 'Entertainment',
         body: 'A ticketing app with live seat availability, secure payments, and a smooth booking flow.',
       },
       {
         title: 'Time-saving Video Calling App for Healthcare Industry',
+        image: { src: '/images/case-studies/telemedicine-2.png', alt: 'Time-saving Video Calling App for Healthcare Industry' },
         tag: 'HealthTech',
         body: 'Soft Suave developed an efficient Video calling app for instant consultations, to save time, and to get fast solutions.',
       },
       {
         title: 'HealthPass Wellness Subscriptions in Banking App',
+        image: { src: '/images/case-studies/finance-6.webp', alt: 'HealthPass Wellness Subscriptions in Banking App' },
         tag: 'Banking',
         body: 'Soft Suave helps banks boost customer loyalty with personalized wellness benefits and engagement insights.',
       },
       {
         title: 'All-in-One Financial Management App',
+        image: { src: '/images/case-studies/finance-4.webp', alt: 'All-in-One Financial Management App' },
         tag: 'FinTech',
         body: 'Soft Suave built an all-in-one app that simplifies budgeting, expenses, investments, and bills.',
       },

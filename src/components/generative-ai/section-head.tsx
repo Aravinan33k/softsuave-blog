@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import SplitReveal from "@/components/home/split-reveal";
 import styles from "./gen-ai.module.css";
 
@@ -22,7 +23,8 @@ export default function SectionHead({
 }: {
   kicker?: string;
   title: string;
-  intro?: string;
+  /** Usually a string; a node when the intro carries inline links. */
+  intro?: ReactNode;
 }) {
   return (
     <div className={styles.head}>

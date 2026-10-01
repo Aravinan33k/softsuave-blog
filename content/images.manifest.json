@@ -5059,6 +5059,1046 @@
         "engineer data center",
         "infrastructure"
       ]
+    },
+    {
+      "id": "hr-web-cap-saas",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Laptop showing an analytics dashboard",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 139387,
+      "keywords": [
+        "saas dashboard laptop developer",
+        "analytics dashboard laptop office",
+        "business dashboard screen",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-web-cap-portals",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Laptop displaying a secured sign-in screen",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 4973899,
+      "keywords": [
+        "login screen laptop",
+        "customer using web portal laptop",
+        "online account laptop",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-web-cap-enterprise",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Colleagues working across several screens in an open office",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 6804073,
+      "keywords": [
+        "office team working computers data",
+        "employees using business software office",
+        "operations team monitors office",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-web-cap-ecommerce",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Shopper paying by card on an online store",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 34577,
+      "keywords": [
+        "online shopping laptop credit card",
+        "ecommerce website laptop",
+        "online payment laptop",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-web-cap-api",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Developer holding a JSON sticker",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 11035481,
+      "keywords": [
+        "api code screen",
+        "programmer code monitor json",
+        "developer writing code monitor",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-web-cap-modernization",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Server racks lit in a data center",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 37730212,
+      "keywords": [
+        "cloud migration servers",
+        "developer multiple monitors code office",
+        "data center engineer laptop",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-web-cap-performance",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Memory profiler graph on a laptop screen",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 34803991,
+      "keywords": [
+        "performance graphs monitor",
+        "website analytics graphs screen",
+        "stock chart screen dark",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-web-cap-maintenance",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Code editor open on a laptop beside a pair of glasses",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 34803990,
+      "keywords": [
+        "developer debugging code laptop",
+        "programmer fixing bug",
+        "software engineer coding laptop night",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-fe-cap-interface",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Browser inspector showing interface HTML",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 2764993,
+      "keywords": [
+        "web developer user interface screen",
+        "frontend developer coding",
+        "web design code monitor",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-fe-cap-design-to-code",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Designer sketching a wireframe on a tablet",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 34212988,
+      "keywords": [
+        "ux designer wireframes",
+        "ui design sketches laptop",
+        "wireframe sketch desk",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-fe-cap-components",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Interface layouts open across a monitor and laptops",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 15717260,
+      "keywords": [
+        "ui design screen components",
+        "web design layout monitor",
+        "designer working on interface monitor",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-fe-cap-api",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "JavaScript code on a laptop screen",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 270373,
+      "keywords": [
+        "javascript code screen",
+        "react code monitor",
+        "html code laptop",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-fe-cap-modernization",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Developer working across two monitors of code",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 16323581,
+      "keywords": [
+        "developer dual monitors code",
+        "programmer workstation multiple screens",
+        "coding setup monitors",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-fe-cap-performance",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Responsive website open on a tablet and phone",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 38639,
+      "keywords": [
+        "responsive website devices phone tablet laptop",
+        "website on laptop and phone",
+        "multiple devices desk screens",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-cap-logic",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Server-side code on a dark monitor",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 6424583,
+      "keywords": [
+        "backend developer code dark",
+        "programmer writing code dark room",
+        "code on screen dark",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-cap-api",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Code on a monitor seen through a pair of glasses",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 577585,
+      "keywords": [
+        "terminal code laptop",
+        "developer laptop terminal",
+        "command line screen",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-cap-database",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Data model associations in code on screen",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 374563,
+      "keywords": [
+        "database diagram",
+        "sql code screen",
+        "database server",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-cap-cloud",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Rack-mounted servers with status lights",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 5050305,
+      "keywords": [
+        "data center server racks",
+        "cloud server room lights",
+        "engineer server room",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-cap-modernization",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineer drawing an application flowchart on a whiteboard",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 1181311,
+      "keywords": [
+        "software architecture whiteboard",
+        "developers planning whiteboard diagram",
+        "flowchart whiteboard team",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-cap-auth",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Person using a hardware token to sign in on a laptop",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 10330120,
+      "keywords": [
+        "cyber security padlock laptop",
+        "password login security",
+        "authentication security laptop",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-cap-monitoring",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Terminal monitoring screens in a dark room",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 5380664,
+      "keywords": [
+        "monitoring dashboards screens",
+        "network operations center",
+        "system monitoring screens",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-cap-migration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Technician working on network cables in a server rack",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 442151,
+      "keywords": [
+        "technician server cables",
+        "network cables server rack",
+        "data migration server",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-cap-testing",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Debugger threads view on a laptop screen",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 34803999,
+      "keywords": [
+        "software testing code",
+        "developer testing code laptop",
+        "programmer code screens office",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ai-cap-genai",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Abstract generative render in red and amber",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 30547606,
+      "keywords": [
+        "generative ai",
+        "artificial intelligence abstract",
+        "ai art digital",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ai-cap-ml",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Abstract render of connected nodes",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 17485657,
+      "keywords": [
+        "machine learning",
+        "neural network visualization",
+        "data scientist laptop code",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ai-cap-nlp",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Man speaking a voice command into his phone",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 7188681,
+      "keywords": [
+        "chatbot phone",
+        "ai chatbot conversation",
+        "voice assistant smart speaker",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ai-cap-llm",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Screen text explaining how large language models work",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 18069697,
+      "keywords": [
+        "gpu graphics card",
+        "ai chip processor",
+        "computer hardware gpu server",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ai-cap-predictive",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Forecast chart on an analytics screen",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 5784807,
+      "keywords": [
+        "data analytics charts screen",
+        "financial charts analysis laptop",
+        "data analysis dashboard",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ai-cap-vision",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Robotic arm with a mounted camera",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 8438976,
+      "keywords": [
+        "security camera",
+        "camera lens technology",
+        "surveillance camera city",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-qa-cap-expertise",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineer testing equipment from her laptop in a lab",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 3862632,
+      "keywords": [
+        "software tester laptop",
+        "qa engineer computer",
+        "person testing software computer",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-qa-cap-communication",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Team member on a video call at her desk",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 5918400,
+      "keywords": [
+        "video call laptop meeting",
+        "remote team video conference",
+        "online meeting laptop",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-qa-cap-team",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineers reviewing code together in a meeting room",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 7988758,
+      "keywords": [
+        "software team office laptops",
+        "tech team working together",
+        "developers team meeting",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-qa-cap-sweeping",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Tester checking an app on a phone beside a laptop and tablet",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 196656,
+      "keywords": [
+        "testing app phone tablet",
+        "mobile app testing devices",
+        "smartphones tablets desk",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-qa-cap-nda",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Non-disclosure agreement document on a desk",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 7841406,
+      "keywords": [
+        "signing contract",
+        "nda agreement signing",
+        "document signing pen",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-qa-cap-support",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Support engineers with headsets at their workstations",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 8204367,
+      "keywords": [
+        "it support technician computer",
+        "help desk support",
+        "technician repair computer",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-devops-cap-enterprise",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Workstation cart in a data center server aisle",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 5092815,
+      "keywords": [
+        "enterprise data center",
+        "server hallway data center",
+        "servers blue light",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-devops-cap-dedicated",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Engineer working at monitors full of code",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 3861958,
+      "keywords": [
+        "devops engineer laptop",
+        "it engineer laptop server",
+        "cloud engineer working",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-devops-cap-paas",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Blade servers in a cloud data center",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 17489153,
+      "keywords": [
+        "cloud computing",
+        "cloud network technology",
+        "network connection technology",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-devops-cap-automation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Terminal listing on a dark screen",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 207580,
+      "keywords": [
+        "automation code terminal",
+        "script code screen",
+        "code running terminal",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-devops-cap-consulting",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Consultant presenting a plan at a whiteboard to a team",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 6814342,
+      "keywords": [
+        "it consultant presentation team",
+        "business presentation whiteboard technology",
+        "tech meeting presentation",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-devops-cap-config",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Network switch with connected cables",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 13963756,
+      "keywords": [
+        "network switch cables",
+        "server configuration",
+        "patch panel cables",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-fit-execution",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Developer working through code at his desk",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 6804080,
+      "keywords": [
+        "developer focused coding desk",
+        "programmer at work",
+        "software developer office",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-fit-architecture",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Developer mapping an architecture diagram on a whiteboard",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 7367,
+      "keywords": [
+        "system architecture diagram",
+        "engineer drawing diagram whiteboard",
+        "diagram whiteboard",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-fit-api-db",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Command console with database and config options",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 37709121,
+      "keywords": [
+        "database code",
+        "programming code closeup",
+        "code monitor closeup",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-fit-code-quality",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Two developers reviewing code on a large screen",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 7988747,
+      "keywords": [
+        "code review two developers",
+        "pair programming",
+        "developers looking at screen",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-fit-testing",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Code handling error and success responses",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 270557,
+      "keywords": [
+        "developer testing laptop",
+        "software testing",
+        "debugging code",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-fit-communication",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Developer on a video call from his laptop",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 7245808,
+      "keywords": [
+        "developer video call",
+        "remote work video call laptop",
+        "headset video call laptop",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-fit-requirements",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Team planning work in front of a sticky-note wall",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 4623365,
+      "keywords": [
+        "sticky notes planning",
+        "team planning sticky notes wall",
+        "requirements planning meeting",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-be-fit-workflow",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Developer moving a task across a sprint board",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 6804091,
+      "keywords": [
+        "kanban board",
+        "scrum board",
+        "agile sprint planning",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ai-fit-sourcing",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Recruiter reviewing a candidate's resume",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 5989941,
+      "keywords": [
+        "recruiter reviewing resume",
+        "hiring manager resume",
+        "reviewing cv",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ai-fit-assessment",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Two engineers reviewing code on a laptop",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 1181263,
+      "keywords": [
+        "technical interview coding",
+        "job interview laptop",
+        "coding interview",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ai-fit-thinkers",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Team brainstorming with sticky notes on glass",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 39204845,
+      "keywords": [
+        "engineers brainstorming",
+        "team brainstorming whiteboard",
+        "brainstorming ideas meeting",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ai-fit-culture",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Colleagues collaborating at a laptop",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 39204854,
+      "keywords": [
+        "diverse team collaborating office",
+        "coworkers collaborating laptop",
+        "team discussion office casual",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-qa-fit-automation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Unit test project open in a code editor",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 34803988,
+      "keywords": [
+        "automation testing",
+        "test script code",
+        "coding workstation dark",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-qa-fit-manual",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Tester taking notes while checking a phone app",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 6687738,
+      "keywords": [
+        "person testing mobile app",
+        "using smartphone app desk",
+        "smartphone app notes",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ded-fit-expertise",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Developer coding across two monitors",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 36706459,
+      "keywords": [
+        "software engineer expert coding",
+        "developer glasses code",
+        "programmer concentration",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ded-fit-full-time",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Developer focused on code at his workstation",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 6804610,
+      "keywords": [
+        "developer working desk office",
+        "focused programmer office",
+        "person working computer office",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ded-fit-integration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Team in a meeting with a remote colleague on screen",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 7644158,
+      "keywords": [
+        "team meeting remote member screen",
+        "hybrid meeting office",
+        "team video conference office",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ded-fit-scaling",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Large development team working side by side",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 36706825,
+      "keywords": [
+        "team of developers office",
+        "startup team working",
+        "software team open office",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ded-fit-communication",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Team reviewing progress together on a tablet",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 8344741,
+      "keywords": [
+        "progress meeting team laptop",
+        "team review meeting",
+        "stand up meeting team",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hr-ded-fit-cost",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Calculator on top of financial charts",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 600,
+      "pexelsId": 8068819,
+      "keywords": [
+        "budget planning calculator",
+        "financial report calculator",
+        "cost analysis",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hire-backend-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Code glowing on a monitor in a dark workspace",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 34212916,
+      "keywords": [
+        "code monitors dark room",
+        "server room dark",
+        "programming dark",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hire-ai-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Developer working late at monitors under a desk lamp",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 5473298,
+      "keywords": [
+        "developer night monitors",
+        "programmer dark office night",
+        "artificial intelligence dark",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hire-dedicated-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Team working late in a dim office",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 36713440,
+      "keywords": [
+        "office night team computers",
+        "developers working night office",
+        "dark office computers",
+        "software developer"
+      ]
+    },
+    {
+      "id": "ov-hire-devops-developers-tall",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "DevOps engineer working in terminals across a laptop and monitor",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 9553909,
+      "keywords": [
+        "devops engineer server room",
+        "engineer data center laptop",
+        "it technician server",
+        "software developer"
+      ]
     }
   ]
 }

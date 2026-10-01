@@ -49,6 +49,7 @@ export const salesforce: HireRolePageContent = {
 
   hero: {
     titleLines: ['Hire Salesforce Developers', 'On Contract'],
+    accent: 'Salesforce Developers',
     body: [
       "Soft Suave provides pre-vetted Salesforce developers skilled in Apex, Lightning Web Components, Sales Cloud and Service Cloud customization, matched to your project within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
     ],

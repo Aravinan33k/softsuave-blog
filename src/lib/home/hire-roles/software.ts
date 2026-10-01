@@ -52,7 +52,8 @@ export const software: HireRolePageContent = {
   },
 
   hero: {
-    titleLines: ['Hire Software Developers:', 'Get the Right Talent for Your Next Project'],
+    titleLines: ['Hire Software Developers', 'Get the Right Talent for Your Next Project'],
+    accent: 'Software Developers',
     body: [
       'Hire experienced software developers from India, matched to your technology stack, project requirements, and team needs. Add the right expertise to accelerate development, strengthen delivery, and support your business goals.',
       'Review relevant profiles, interview developers directly, and use a 40-hour risk-free trial to evaluate fit before extending the engagement.',
@@ -160,6 +161,9 @@ export const software: HireRolePageContent = {
       {
         key: 'fullstack',
         name: 'Hire Fullstack Developers',
+        // Live's own target. This app has no page for it, so `SiteLink`
+        // sends it to softsuave.com rather than to a 404.
+        href: '/hire-full-stack-developers-in-india',
         body: 'Get versatile, well-rounded full-stack developers who manage both front-end and back-end development with expertise. They seamlessly integrate your application layers, ensuring scalability, security, and efficiency for end-to-end solutions.',
       },
       {
@@ -195,6 +199,8 @@ export const software: HireRolePageContent = {
         body: 'Build innovative financial solutions with experienced fintech developers. We specialize in secure, high-impact apps that streamline financial operations, enhance user experience, and integrate cutting-edge tech to support the future of finance.',
       },
     ],
+    // Live closes the section on "Ready to discuss? Contact us".
+    cta: { label: 'Contact us', href: '/contact' },
   },
 
   whyRole: {

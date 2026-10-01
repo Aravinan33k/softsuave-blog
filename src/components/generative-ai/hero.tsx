@@ -18,8 +18,16 @@ import { SiteLink } from "@/themes/softsuave/site-link";
  * usage (`<Hero />`) is unchanged.
  */
 export interface HeroContent {
-  /** The H1, split into lines. The last line takes the accent. */
+  /** The H1, split into lines. The last line takes the accent unless `accent` is set. */
   titleLines: readonly string[];
+  /**
+   * The phrase in the H1 to colour, wherever it falls — the role or service
+   * the page is about ("Backend Developers"), rather than whatever words
+   * happen to sit on the last line (review: "the wrong words are being
+   * highlighted ... 'Software developer' must be highlighted in the h1").
+   * Must sit within one line. Omitted keeps the last-line accent.
+   */
+  accent?: string;
   body: readonly string[];
   points: readonly string[];
   /**
@@ -38,6 +46,13 @@ export interface HeroContent {
   background?: {
     src: string;
     blurDataURL?: string;
+    /**
+     * `strong` darkens the veil behind the copy column, for a busy photograph
+     * the default veil leaves competing with the body text (hire-by-role
+     * review: "increase the black gradient ... the text is not clearly
+     * visible"). Omitted keeps the default.
+     */
+    veil?: "strong";
   };
   /**
    * Optional button row under the points list, separate from the enquiry
@@ -53,6 +68,19 @@ export interface HeroContent {
   }[];
   /** Copy for the enquiry card; the card itself is `common/enquiry-form`. */
   form: EnquiryFormContent;
+}
+
+/** `line` with its first occurrence of `accent` wrapped in the accent colour. */
+function accentWithin(line: string, accent: string | undefined) {
+  const at = accent ? line.indexOf(accent) : -1;
+  if (!accent || at < 0) return line;
+  return (
+    <>
+      {line.slice(0, at)}
+      <span className={styles.heroTitleAccent}>{accent}</span>
+      {line.slice(at + accent.length)}
+    </>
+  );
 }
 
 /**
@@ -120,7 +148,7 @@ export default function Hero({
               ? { placeholder: "blur" as const, blurDataURL: content.background.blurDataURL }
               : {})}
           />
-          <div className={styles.heroMediaVeil} />
+          <div className={styles.heroMediaVeil} data-veil={content.background.veil} />
         </div>
       )}
 
@@ -138,10 +166,10 @@ export default function Hero({
                 {i > 0 ? " " : null}
                 <span
                   className={`${styles.heroTitleLine}${
-                    i === lastLine ? ` ${styles.heroTitleAccent}` : ""
+                    !content.accent && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
                   }`}
                 >
-                  {line}
+                  {accentWithin(line, content.accent)}
                 </span>
               </Fragment>
             ))}

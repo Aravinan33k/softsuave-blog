@@ -22,6 +22,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm, onboardingComparison } from './shared';
+import { caTech } from '@/lib/home/custom-ai-content';
 
 export const ai: HireRolePageContent = {
   key: 'hire-ai',
@@ -50,6 +51,15 @@ export const ai: HireRolePageContent = {
 
   hero: {
     titleLines: ['Hire AI Developers', 'in India On contract'],
+    accent: 'AI Developers',
+    // A full-bleed backdrop like the Frontend page's (review: "No image is
+    // visible in the background in the hero section").
+    background: {
+      src: '/images/landing/hire-ai-hero.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoQAAsAA4BaJQBOgCHgVSIOAAD+9dkBG5Ys9xohIJzq2W/7sTPtTJ7OQkPX7sy1QeTDhDsm+fQU1twjiB+Px+qToIgCAtAA',
+      veil: 'strong',
+    },
     body: [
       'Soft Suave offers Indian AI developers without the long hiring cycles. We are a specialized agency that connects you with pre-vetted experts in Generative AI, LLMs, NLP, Machine Learning, computer vision, AI chatbots, and automation systems — contract-ready and onboarded fast.',
       'See why businesses choose Soft Suave for their AI developers hiring.',
@@ -61,7 +71,6 @@ export const ai: HireRolePageContent = {
       'Airtight NDA & IP Protection',
       'Strong Delivery Governance from Day One',
     ],
-    badges: ['*Satisfaction Guaranteed – Get 40-hour Free Trial'],
     form: heroForm({
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
@@ -113,36 +122,43 @@ export const ai: HireRolePageContent = {
     eyebrow: 'Services',
     title: 'AI Development Services We Offer',
     body: 'From Generative AI development to fine-tuning LLMs, we provide comprehensive, end-to-end solutions that empower your business to unlock the full potential of AI, driving innovation and growth. As a leading offshore software development company, we help businesses worldwide hire offshore AI developer teams to scale quickly and cost-effectively.',
+    // Linked as the live page links it, and closed on its "Talk to Our
+    // Experts" button (review: "One internal link is missing in the subtext,
+    // and a CTA button is missing").
+    bodyLinks: [
+      { text: 'offshore software development company', href: '/offshore-software-development-company' },
+    ],
+    cta: { label: 'Talk to Our Experts', href: '/contact' },
     items: [
       {
         name: 'Generative AI',
         body: 'Harnessing the power of GPT-4, Midjourney, and DALL·E, we create groundbreaking solutions that generate creative content, streamline processes, and enhance customer experiences, making AI work smarter for your business.',
-        image: '/images/landing/services/svc-application-development.webp',
+        image: '/images/landing/hr-ai-cap-genai.webp',
       },
       {
         name: 'Machine Learning',
         body: 'Through advanced techniques like supervised, unsupervised, and reinforcement learning, our systems optimize performance, automate decision-making, and enhance efficiency, enabling you to leverage data for smarter business outcomes and growth.',
-        image: '/images/landing/services/svc-model-selection.webp',
+        image: '/images/landing/hr-ai-cap-ml.webp',
       },
       {
         name: 'Natural Language Processing',
         body: 'We power intelligent chatbots, voice assistants, and advanced text analytics, enabling machines to understand, interpret, and respond to human language, driving better user engagement and seamless interactions.',
-        image: '/images/landing/services/svc-integration.webp',
+        image: '/images/landing/hr-ai-cap-nlp.webp',
       },
       {
         name: 'LLM Fine-Tuning',
         body: 'We specialize in tailoring large language models (LLMs) to specific industries and tasks, enhancing performance in niche domains, ensuring better accuracy, and solving unique challenges for your business needs.',
-        image: '/images/landing/services/svc-evaluation-llmops.webp',
+        image: '/images/landing/hr-ai-cap-llm.webp',
       },
       {
         name: 'Predictive Analysis',
         body: 'By using robust machine learning models, we predict future trends with precision, helping businesses make data-driven decisions, mitigate risks, and seize opportunities, ensuring a competitive edge in fast-changing markets.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        image: '/images/landing/hr-ai-cap-predictive.webp',
       },
       {
         name: 'Computer Vision',
         body: 'At Soft Suave, we provide cutting-edge computer vision technology to analyze and interpret images and videos, unlocking insights for industries ranging from security to healthcare, enhancing automation, accuracy, and real-time decision-making.',
-        image: '/images/landing/services/svc-proof-of-concept.webp',
+        image: '/images/landing/hr-ai-cap-vision.webp',
       },
     ],
   },
@@ -156,25 +172,25 @@ export const ai: HireRolePageContent = {
       {
         problem: 'Rigorous talent sourcing',
         solution: "We don't wait - we recruit elite AI developers from competitive tech markets.",
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        image: '/images/landing/hr-ai-fit-sourcing.webp',
       },
       {
         problem: 'In-depth skill assessment',
         solution:
           'Our vetting includes challenging live coding tasks and deep technical evaluations to prove their expertise.',
-        image: '/images/landing/services/svc-evaluation-llmops.webp',
+        image: '/images/landing/hr-ai-fit-assessment.webp',
       },
       {
         problem: 'Thinkers & Innovators',
         solution:
           'We hire engineers who are thinkers as well as team collaborators, not just coders.',
-        image: '/images/landing/services/svc-dedicated-teams.webp',
+        image: '/images/landing/hr-ai-fit-thinkers.webp',
       },
       {
         problem: 'Cultural fit & adaptability',
         solution:
           'Our candidates are adaptable, proactive, and culturally aligned with your working environment.',
-        image: '/images/landing/services/svc-support-optimisation.webp',
+        image: '/images/landing/hr-ai-fit-culture.webp',
       },
     ],
   },
@@ -213,33 +229,15 @@ export const ai: HireRolePageContent = {
     column: 'Soft Suave',
   }),
 
+  techStackLargeLogos: true,
   techStack: {
     eyebrow: 'Technical Expertise',
     title: 'Technical Expertise of Our AI Developers',
     body: 'Our AI developers excel in machine learning, deep learning, NLP, computer vision, and more, delivering innovative solutions tailored to your needs.',
-    groups: [
-      {
-        name: 'AI & Machine Learning',
-        items: [
-          'Python',
-          'SpaCy',
-          'PyTorch',
-          'PySpark',
-          'Pandas',
-          'MediaPipe',
-          'Keras',
-          'Google Cloud Vision',
-          'Azure ML',
-          'OpenCV',
-          'TensorFlow',
-          'OpenPose',
-          'NLTK',
-          'Scikit-learn',
-          'Google BERT',
-          'ChatGPT',
-        ],
-      },
-    ],
+    // The Custom AI page's stack, grouped and at its larger logo size
+    // (review: "Change the tech stack - use the one from the custom AI
+    // development page"). The heading stays this page's own.
+    groups: caTech.groups,
   },
 
   faq: {

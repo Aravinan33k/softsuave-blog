@@ -21,6 +21,14 @@
  *     GTM and its footer keeps the address microdata, as live's does)
  *   /generative-ai-development-company
  *   /graphql-development-company
+ *   /hire-backend-application-developer, /hire-dedicated-developers,
+ *     /hire-devops-developers, /hire-frontend-application-developer,
+ *     /hire-mobile-app-developers, /hire-qa-testers-india,
+ *     /hire-software-developers and /hire-web-app-developers (exceptions,
+ *     like the mobile pages: each mirrors its softsuave.com page's own blocks
+ *     verbatim — see `lib/seo/hire-roles-live-schema` — with its Organization
+ *     arriving from GTM where live carries none, and its footer keeping the
+ *     address microdata, as live's does)
  *   /ionic-app-development-company (an exception, like Android, iOS, React
  *     Native, Flutter and Mobile App: it mirrors softsuave.com's page, whose
  *     schema is a Service graph and a FAQPage — its Organization arrives from
@@ -72,6 +80,14 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/flutter-application-development-company',
   '/generative-ai-development-company',
   '/graphql-development-company',
+  '/hire-backend-application-developer',
+  '/hire-dedicated-developers',
+  '/hire-devops-developers',
+  '/hire-frontend-application-developer',
+  '/hire-mobile-app-developers',
+  '/hire-qa-testers-india',
+  '/hire-software-developers',
+  '/hire-web-app-developers',
   '/ionic-app-development-company',
   '/ios-application-development-company',
   '/mobile-application-development-company',
