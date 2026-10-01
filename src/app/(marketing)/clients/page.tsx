@@ -139,7 +139,7 @@ export default function ClientsPage() {
             <div style={{ maxWidth: 1400, margin: '0 auto' }}>
               <SiteLink
                 href={clientsPageBrands.cta.href}
-                className={`${landing.btn} ${landing.btnPrimary}`}
+                className={`${landing.btn} ${landing.btnPrimary} ${landing.btnLg}`}
               >
                 {clientsPageBrands.cta.label}
               </SiteLink>

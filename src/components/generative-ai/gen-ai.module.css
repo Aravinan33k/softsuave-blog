@@ -1159,6 +1159,17 @@
   gap: 12px;
 }
 
+/* The band's own button, sized up from the surface's default chip to match
+   the landing pages' conversion band (`.ctaActions .btn` in landing.module.css):
+   at the shared size it measured 40px with 12px type, smaller than the same
+   band on every sibling page (1 Oct review: "the cta button size in the middle
+   of the pages is small"). Scoped to the band. */
+.ctaActions .btn {
+  padding: 1.05em 2.1em;
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  letter-spacing: 0.1em;
+}
+
 /* ============================================================
    INTEGRATION & DEPLOYMENT
    ============================================================ */

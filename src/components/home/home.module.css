@@ -7307,3 +7307,29 @@ h1.h2 {
     aspect-ratio: 4 / 3 !important;
   }
 }
+
+/* ============================================================
+   MID-PAGE CTA SIZE (1 Oct review: "the cta button size in the middle of the
+   pages is small, so slightly increase it like in other pages")
+   The section CTAs — the services carousel's "Know More", the case-study
+   gallery's "View Case Study" and its closing "Start a project" — used the
+   shared pill at 39px with 11.5px type. The landing pages' conversion band
+   sizes its button up to 51px / 13.7px (`.ctaActions .btn` in
+   landing.module.css); these now match it. Scoped to those three, so the nav
+   and hero pills keep their size.
+   ============================================================ */
+.carPill,
+.hIntroCta .pillFilled,
+.hOutro .pillFilled {
+  padding: 1.05em 2.1em;
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  letter-spacing: 0.1em;
+}
+
+/* The same size for a homepage-style pill used as a section CTA elsewhere
+   (the services pages' conversion band — `components/services/cta-band.tsx`). */
+.pillLg {
+  padding: 1.05em 2.1em;
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  letter-spacing: 0.1em;
+}

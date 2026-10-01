@@ -1122,7 +1122,11 @@
    button measured 196x40 with 12px type beside a heading four times that,
    reading as a footnote rather than the point (review: "make the button
    bigger"). Scoped to the band, so nothing else on the surface changes. */
-.ctaActions .btn {
+.ctaActions .btn,
+/* The case-study grid's closing "View all Case Studies" is the section's one
+   call to action, the same as the case-study gallery's "View Case Study" on the
+   other AI pages, which is sized to this band (1 Oct review). */
+.caseFoot .btn {
   padding: 1.05em 2.1em;
   font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
   letter-spacing: 0.1em;
@@ -7885,4 +7889,29 @@
   height: auto;
   min-height: 0;
   max-height: none;
+}
+
+/* ============================================================
+   SECTION CTA SIZE (1 Oct review: "do the above cta button size work for all
+   pages across the entire application")
+   Every section-level call to action now matches the conversion band's button
+   (`.ctaActions .btn` above): 51px tall, 13.7px type at desktop. The overview,
+   carousel, proof, case-list, slat and track CTAs each sized themselves on
+   their own (40–46px, 12px), so the same click read smaller on one page than
+   the next. `.btnLg` is the opt-in for a CTA with no section class of its own
+   (the Clients and Life pages). Card-level buttons (one per case study, job or
+   industry card) keep the default chip, so the cards stay light.
+   Placed last so it outranks each component's own earlier sizing.
+   ============================================================ */
+.overviewCta,
+.overviewCtaCenter .btn,
+.carouselCta .btn,
+.proofCta,
+.listHeadCta .btn,
+.slatCtaLink,
+.trkCtaLink,
+.btnLg {
+  padding: 1.05em 2.1em;
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  letter-spacing: 0.1em;
 }
