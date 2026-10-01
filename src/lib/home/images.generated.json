@@ -4261,5 +4261,54 @@
     "alt": "An overhead street camera view with computer vision detection boxes on two cars, a pedestrian and two motorcycles, and a validated-output panel counting them and sending the result to a traffic dashboard.",
     "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAABwAQCdASoQAAwAA4BaJQAAI7bjAAD+9Z28EfWFfCzLnzdjwNiimqRhCz4fB4qF415pIqtkP1qcggt453uMnAZ4bl67CHpwkKWyYp7EGgAAAA==",
     "source": "hand-placed"
+  },
+  "landing/pi-cap-forecasting": {
+    "page": "landing",
+    "id": "pi-cap-forecasting",
+    "src": "/images/landing/pi-cap-forecasting.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Hands holding a chart of product trends by month",
+    "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABQAgCdASoQAAsAA4BaJZgCdAYvrqwAuEzdVEAA/vNb9meC9JTSd5gUZALMSSBKP6hrDnfSzixZjiquELj4SYRqB4uBcmvdkx7+WgcIq29l0Uqdzjqsr2nToDePo4euFJEZXw4azelK4WKFexQAAA==",
+    "pexelsId": 7580639,
+    "photographer": "RDNE Stock project",
+    "pexelsUrl": "https://www.pexels.com/photo/person-holding-white-printer-paper-7580639/",
+    "matchedTier": "pinned:7580639"
+  },
+  "landing/pi-cap-modeling": {
+    "page": "landing",
+    "id": "pi-cap-modeling",
+    "src": "/images/landing/pi-cap-modeling.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "An analyst working on a laptop showing a model's distribution curve",
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAABQAgCdASoQAAoAA4BaJYwCdAD7WKaDzuwLCYAA/t8WrOHzL2jMTiAoFTBhDvdjl+CfmD2Z7UL3HZFNwFpV9ZD8FmVbLV8BqHz2Zc0+FcL56a+NH6O76QPdowmCtrgA",
+    "pexelsId": 6930431,
+    "photographer": "Mikhail Nilov",
+    "pexelsUrl": "https://www.pexels.com/photo/a-person-using-a-laptop-6930431/",
+    "matchedTier": "pinned:6930431"
+  },
+  "landing/pi-cap-recommendation": {
+    "page": "landing",
+    "id": "pi-cap-recommendation",
+    "src": "/images/landing/pi-cap-recommendation.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A shopper pointing at recommended products in an online store on a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAQCdASoQAAsAA4BaJQBOgB6tOhBBTjAA8eFVjm9sPqJRIvgJXJv05JRvbsHuqgXbAP1ZXPhrzf3hMlgLL5Qkx1epyBMm/tV2qEc87zGUDguli2Q06l9EAAA=",
+    "pexelsId": 7667442,
+    "photographer": "MART  PRODUCTION",
+    "pexelsUrl": "https://www.pexels.com/photo/person-doing-online-shopping-7667442/",
+    "matchedTier": "pinned:7667442"
+  },
+  "landing/pi-cap-anomaly-flag": {
+    "page": "landing",
+    "id": "pi-cap-anomaly-flag",
+    "src": "/images/landing/pi-cap-anomaly-flag.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A live transaction metric inside its adaptive threshold band, with the one point outside it flagged as an anomaly",
+    "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAQCdASoQAAwAA4BaJYwAAtd+/GMAAP73eYLNTUnaq+8JKQ1gQQPzZaeCr7eJtwvFyZxIluMu1a48g/rOXql32Xk2aIAA",
+    "source": "hand-placed"
   }
 }

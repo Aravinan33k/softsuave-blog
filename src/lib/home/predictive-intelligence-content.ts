@@ -38,7 +38,7 @@ export const piMeta = {
 
 export const piHero: HeroContent = {
   // The last line takes the coral accent.
-  titleLines: ["Predictive Intelligence Services:", "From Prediction to Action"],
+  titleLines: ["Predictive Intelligence Services", "From Prediction to Action"],
   body: [
     "Soft Suave develops custom systems that turn business data into forecasts, risk signals, recommendations, alerts, and workflow actions. We help product, operations, finance, customer, and technology teams apply predictive capabilities to specific decisions within their existing processes.",
     "Bring predictions into your daily operations through practical signals, recommendations, alerts, and actions aligned with your business decisions.",
@@ -142,18 +142,21 @@ export const piComparison: ComparisonContent = {
  */
 /**
  * Capability-card artwork for this page, from the image pipeline
- * (`landing/pi-svc-*` slots in content/images.manifest.json).
+ * (`landing/pi-cap-*` slots in content/images.manifest.json).
  *
- * The cards used to borrow the generic service photographs every AI page
- * shares. The Sep 23 review asked for relevant images, so each card now shows
- * its own subject: a forecast chart, model development, an anomaly in a
- * monitoring feed, and a recommendation in a shopping app.
+ * Replaced again on 1 Oct ("update relevant / more accurate with text
+ * images"): a product-trends-by-month chart for forecasting, an analyst on a
+ * model's distribution curve for modeling, a drawn metric with its adaptive
+ * threshold band and one flagged point for anomaly detection (no photograph
+ * shows that), and a shopper choosing between suggested products for
+ * recommendations. The previous set showed a stock-trading chart for
+ * anomalies and a laptop of code for modeling.
  */
 const PI_SVC = {
-  forecasting: landingImage("pi-svc-forecasting"),
-  modeling: landingImage("pi-svc-modeling"),
-  anomaly: landingImage("pi-svc-anomaly"),
-  recommendation: landingImage("pi-svc-recommendation"),
+  forecasting: landingImage("pi-cap-forecasting"),
+  modeling: landingImage("pi-cap-modeling"),
+  anomaly: landingImage("pi-cap-anomaly-flag"),
+  recommendation: landingImage("pi-cap-recommendation"),
 };
 
 export const piCapabilities: ServicesCarouselContent = {

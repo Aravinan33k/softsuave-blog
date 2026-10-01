@@ -4013,6 +4013,112 @@ export default function TechLogo({ name }: { name: string }) {
           <path d="M13.6 4.5L7.2 13h4.4l-1.2 6.5 6.4-8.5h-4.4z" fill="#FFFFFF" />
         </svg>
       );
+    // ---- Predictive Intelligence stack (1 Oct review: "update the tech stack
+    // icons"). These were letter monograms; each is now the product's own mark
+    // where it has one (R, Prometheus, DVC, Power Automate), and otherwise a
+    // drawing of what the library does in its brand colour.
+    case "r":
+      // R — the grey ring behind the blue R
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="12" cy="10.5" rx="10.2" ry="7.2" stroke="#9EA2AB" strokeWidth="2.6" />
+          <path d="M9 7.6h6.1c2 0 3.2 1.1 3.2 2.7 0 1.4-.9 2.3-2.3 2.6l3 4.9h-3.2l-2.6-4.6h-1.3v4.6H9z M11.9 9.8v1.6h2.6c.6 0 1-.3 1-.8s-.4-.8-1-.8z" fill="#276DC3" fillRule="evenodd" />
+        </svg>
+      );
+    case "prometheus":
+      // Prometheus — the white torch flame on the orange disc
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10.5" fill="#E6522C" />
+          <path d="M12 4.6c.6 2.2 2.9 3.3 2.9 6.2 0 .9-.3 1.7-.8 2.3.1-1-.4-1.9-1-2.5-.2 1-.7 1.6-1.4 2-.3-.9-1-1.5-1.5-2.1-.6.9-1 1.7-.9 2.6-.6-.7-1-1.5-1-2.4 0-2.7 2.9-3.9 3.7-6.1z" fill="#FFFFFF" />
+          <rect x="7.2" y="14.6" width="9.6" height="1.6" rx=".5" fill="#FFFFFF" />
+          <rect x="8.2" y="17.2" width="7.6" height="1.6" rx=".5" fill="#FFFFFF" />
+        </svg>
+      );
+    case "dvc":
+      // DVC — its three coloured pipeline strokes
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6.5h9.5a3 3 0 0 1 3 3" stroke="#13ADC7" strokeWidth="2.6" strokeLinecap="round" />
+          <path d="M4 12h16" stroke="#945DD6" strokeWidth="2.6" strokeLinecap="round" />
+          <path d="M4 17.5h9.5a3 3 0 0 0 3-3" stroke="#F46737" strokeWidth="2.6" strokeLinecap="round" />
+        </svg>
+      );
+    case "microsoftpowerautomate":
+      // Power Automate — the blue folded chevrons
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 4.5h8.5l6.5 7.5-6.5 7.5H3l6.5-7.5z" fill="#0066FF" />
+          <path d="M11.5 4.5H17l4 7.5-4 7.5h-5.5l6.5-7.5z" fill="#2D9CFF" />
+        </svg>
+      );
+    case "shap":
+      // SHAP — its force plot: red pushes up, blue pushes down
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 8l3 4-3 4h4.5l3-4-3-4zM8.5 8l3 4-3 4H12l3-4-3-4z" fill="#FF0051" />
+          <path d="M21.5 8l-3 4 3 4h-3.5l-3-4 3-4z" fill="#008BFB" />
+        </svg>
+      );
+    case "prophet":
+      // Prophet — a history line running into a shaded forecast band
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 9.5l8-4.5v9l-8 1.5z" fill="#0467DF" fillOpacity="0.22" />
+          <path d="M3 17l3.2-3.5 3 1.8 3.8-4.8" stroke="#0467DF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M13 10.5l8-1.5" stroke="#0467DF" strokeWidth="2.2" strokeLinecap="round" strokeDasharray="2 2.4" />
+        </svg>
+      );
+    case "pyod":
+      // PyOD — outlier detection: a cluster, and the one point flagged outside it
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="6" cy="15" r="1.8" fill="#306998" />
+          <circle cx="9.5" cy="17.5" r="1.8" fill="#306998" />
+          <circle cx="8.8" cy="12.6" r="1.8" fill="#306998" />
+          <circle cx="12.4" cy="15.4" r="1.8" fill="#306998" />
+          <circle cx="17.5" cy="6.5" r="2" fill="#FFD43B" />
+          <circle cx="17.5" cy="6.5" r="4.2" stroke="#E5484D" strokeWidth="1.6" />
+        </svg>
+      );
+    case "river":
+      // River — online learning on a stream: three flowing waves
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 8c3-2.6 6-2.6 9 0s6 2.6 9 0" stroke="#1E88E5" strokeWidth="2.2" strokeLinecap="round" />
+          <path d="M3 12.5c3-2.6 6-2.6 9 0s6 2.6 9 0" stroke="#42A5F5" strokeWidth="2.2" strokeLinecap="round" />
+          <path d="M3 17c3-2.6 6-2.6 9 0s6 2.6 9 0" stroke="#90CAF9" strokeWidth="2.2" strokeLinecap="round" />
+        </svg>
+      );
+    case "implicit":
+      // implicit — collaborative filtering's user × item matrix, gaps filled in
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {[0, 1, 2].flatMap((r) =>
+            [0, 1, 2].map((c) => (
+              <rect
+                key={`${r}${c}`}
+                x={3.5 + c * 6}
+                y={3.5 + r * 6}
+                width="5"
+                height="5"
+                rx="1.2"
+                fill={(r + c) % 2 === 0 ? "#26A69A" : "#B2DFDB"}
+                fillOpacity={(r + c) % 2 === 0 ? 1 : 0.7}
+              />
+            )),
+          )}
+        </svg>
+      );
+    case "evidently":
+      // Evidently — model monitoring: a drift chart on its red tile
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2.5" y="2.5" width="19" height="19" rx="4.5" fill="#ED0400" />
+          <path d="M6 15.5l3.2-3.4 2.8 2 3.4-5 2.6 2.4" stroke="#FFFFFF" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M6 18h12" stroke="#FFFFFF" strokeOpacity="0.55" strokeWidth="1.4" strokeLinecap="round" />
+        </svg>
+      );
     default: {
       const concept = CONCEPTS[key];
       if (concept) return <ConceptGlyph kind={concept} />;

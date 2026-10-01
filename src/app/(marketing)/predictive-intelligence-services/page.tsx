@@ -181,8 +181,13 @@ export default function PredictiveIntelligenceServicesPage() {
             `techCompact` only clears the band's full-viewport min-height.
             Ahead of the case studies, in the order the Sep 23 sheet lists the
             three sections that follow "Why choose us". */}
-        <div className={home.techCompact}>
-          <TechStack content={piTech} />
+        {/* Every row holds still and wraps, the Android page's treatment
+            (1 Oct review: two of the eight rows were static while the rest
+            scrolled, so the section read as half-finished). Kept on its dark
+            band; group names wrap as they do there. `.techFit` clears the
+            full-viewport min-height that `.techCompact` never reaches. */}
+        <div className={home.techFit}>
+          <TechStack content={piTech} staticFrom={768} />
         </div>
 
         {/* Homepage case-study gallery, on the warm-white band as it is there. */}

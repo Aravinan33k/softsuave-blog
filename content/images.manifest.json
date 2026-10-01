@@ -2736,6 +2736,49 @@
       ]
     },
     {
+      "id": "pi-cap-forecasting",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Hands holding a chart of product trends by month",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": ["product trends by month chart", "forecast chart", "business trend chart", "chart"],
+      "pexelsId": 7580639
+    },
+    {
+      "id": "pi-cap-modeling",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "An analyst working on a laptop showing a model's distribution curve",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": ["data analyst laptop distribution curve", "data analysis laptop", "analyst office", "laptop"],
+      "pexelsId": 6930431
+    },
+    {
+      "id": "pi-cap-anomaly-flag",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A live transaction metric inside its adaptive threshold band, with the one point outside it flagged as an anomaly",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "source": "hand-placed"
+    },
+    {
+      "id": "pi-cap-recommendation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A shopper pointing at recommended products in an online store on a laptop",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "keywords": ["online store product options laptop", "ecommerce product grid", "online shopping laptop", "shopping"],
+      "pexelsId": 7667442
+    },
+    {
       "id": "cv-overview-detection",
       "page": "landing",
       "purpose": "overview-illustration",
