@@ -4310,5 +4310,65 @@
     "alt": "A live transaction metric inside its adaptive threshold band, with the one point outside it flagged as an anomaly",
     "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAQCdASoQAAwAA4BaJYwAAtd+/GMAAP73eYLNTUnaq+8JKQ1gQQPzZaeCr7eJtwvFyZxIluMu1a48g/rOXql32Xk2aIAA",
     "source": "hand-placed"
+  },
+  "landing/de-card-pipeline": {
+    "page": "landing",
+    "id": "de-card-pipeline",
+    "src": "/images/landing/de-card-pipeline.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A database feeding a processing step that sends data on to two applications",
+    "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAACwAQCdASoQAAwAA4BaJZQAAuD9YRAAAP73eROFpreGNJZwgYiUVDtguvOCy7IleiWvZ8YKsWoT3TaAAAA=",
+    "source": "hand-placed"
+  },
+  "landing/de-card-foundation": {
+    "page": "landing",
+    "id": "de-card-foundation",
+    "src": "/images/landing/de-card-foundation.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Three stacked data layers, the top one highlighted, forming a structured data foundation",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAABQAgCdASoQAAwAA4BaJQBOiP/7JEBXjQWCdgAA/vfGyENN/fB7HKYOvS9BCh2uOB+Ubv6XVsTzu7xNQpH1vypLb9qIMAs5aCTo3lVppmcdLrQS/dMtIAAA",
+    "source": "hand-placed"
+  },
+  "landing/de-card-connectivity": {
+    "page": "landing",
+    "id": "de-card-connectivity",
+    "src": "/images/landing/de-card-connectivity.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A central database connected to four applications and systems",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADQAQCdASoQAAwAA4BaJZwAApZi4MNAAAD+81N9EVm0Nxt96DTsnRNEkv4/tj+nPs+KsnilJ1UsBFw/FXxF1lv6XKBWNrWP63WOOmf9LYig7zzDKoQx4AAA",
+    "source": "hand-placed"
+  },
+  "landing/de-card-cloud": {
+    "page": "landing",
+    "id": "de-card-cloud",
+    "src": "/images/landing/de-card-cloud.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Databases inside a cloud environment sending data to an application",
+    "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoQAAwAA4BaJZQAD4uwXkUDOTgA/veAjDM9zv1V4e0ipAWiSSI35Div8DXjuN98RE9ENkCxmmXXbWm/8IwAAA==",
+    "source": "hand-placed"
+  },
+  "landing/de-card-analytics": {
+    "page": "landing",
+    "id": "de-card-analytics",
+    "src": "/images/landing/de-card-analytics.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "An analytics dashboard with a bar chart, the latest bar highlighted",
+    "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAQAgCdASoQAAwAA4BaJZQAD4zQcC9ntFEAAP712wuPi7XnmdUn1ODvPNzEKhAIXwaO86zS++6j1bGzGg+n4pM5eCy2n5jpMsDxeh1yMYgJwm502WAAAA==",
+    "source": "hand-placed"
+  },
+  "landing/de-card-ai": {
+    "page": "landing",
+    "id": "de-card-ai",
+    "src": "/images/landing/de-card-ai.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A database feeding connected business data into an AI system",
+    "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADQAQCdASoQAAwAA4BaJYwAAuDDdFhAAAD+93fgUFzz2d3WmSTDklg1VlILOi3w90W4pW296W/qaNAAAAA=",
+    "source": "hand-placed"
   }
 }

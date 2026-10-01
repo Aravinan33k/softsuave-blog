@@ -97,21 +97,23 @@ export const deOverview: OverviewContent = {
  */
 /**
  * Solution-card artwork for this page, from the image pipeline
- * (`landing/de-svc-*` slots in content/images.manifest.json).
+ * (`landing/de-card-*` slots in content/images.manifest.json).
  *
- * The cards used to borrow the generic service photographs every AI page
- * shares. The Sep 23 review asked for relevant images, so each card now shows
- * its own subject: patch cabling for pipelines, storage hardware for the data
- * foundation, racks for connectivity, a connected network for cloud, a
- * reporting dashboard for analytics, and a team working the data for AI.
+ * One drawn diagram per card, showing the flow its text describes (1 Oct
+ * review: "update relevant / accurate to text images"): a database feeding a
+ * pipeline out to applications, stacked data layers, a database linking four
+ * systems, databases in a cloud serving an application, a dashboard, and data
+ * feeding an AI system. They replace cabling, server-rack and robot-hand
+ * photographs that showed infrastructure rather than these services, and stay
+ * readable at the cards' 130px thumbnail size, where a photograph does not.
  */
 const DE_SVC = {
-  pipeline: landingImage("de-svc-pipeline"),
-  foundation: landingImage("de-svc-foundation"),
-  connectivity: landingImage("de-svc-connectivity"),
-  cloud: landingImage("de-svc-cloud"),
-  analytics: landingImage("de-svc-analytics"),
-  ai: landingImage("de-svc-ai"),
+  pipeline: landingImage("de-card-pipeline"),
+  foundation: landingImage("de-card-foundation"),
+  connectivity: landingImage("de-card-connectivity"),
+  cloud: landingImage("de-card-cloud"),
+  analytics: landingImage("de-card-analytics"),
+  ai: landingImage("de-card-ai"),
 };
 
 export const deSolutions: ShowcaseContent = {

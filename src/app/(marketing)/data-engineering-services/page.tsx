@@ -121,7 +121,10 @@ export default function DataEngineeringServicesPage() {
           even its WebSite, and the footer's PostalAddress microdata is off —
           see PAGES_WITH_OWN_SITE_GRAPH. */}
       <JsonLd data={softSuaveOrganizationLd} />
-      <JsonLd data={LD} />
+      {/* One <script> per block, as the spec lays them out (1 Oct check). */}
+      {LD.map((node) => (
+        <JsonLd key={String((node as { '@type': string })['@type'])} data={node} />
+      ))}
       <Nav logoHref={HOME_HREF} />
 
       {/*
@@ -177,12 +180,13 @@ export default function DataEngineeringServicesPage() {
           <CaseStudies />
         </div>
 
-        {/* Same layout as /rag-development-services: the homepage's marquee
-            rows, one per group, alternating direction. Dark, as on the
-            homepage; `.techCompact` only clears its full-viewport
-            min-height. */}
-        <div className={home.techCompact}>
-          <TechStack content={deTech} />
+        {/* The homepage's tech rows, one per group, on the dark band. Every
+            row holds still and wraps from tablet width up, the Android page's
+            treatment (1 Oct review: the last two rows stood still while the
+            rest scrolled). `.techFit` clears the full-viewport min-height
+            that `.techCompact` never reaches. */}
+        <div className={home.techFit}>
+          <TechStack content={deTech} staticFrom={768} />
         </div>
 
         {/* Homepage client stories, on the warm-white band as they are there. */}

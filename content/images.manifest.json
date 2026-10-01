@@ -2736,6 +2736,66 @@
       ]
     },
     {
+      "id": "de-card-pipeline",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A database feeding a processing step that sends data on to two applications",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "source": "hand-placed"
+    },
+    {
+      "id": "de-card-foundation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Three stacked data layers, the top one highlighted, forming a structured data foundation",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "source": "hand-placed"
+    },
+    {
+      "id": "de-card-connectivity",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A central database connected to four applications and systems",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "source": "hand-placed"
+    },
+    {
+      "id": "de-card-cloud",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Databases inside a cloud environment sending data to an application",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "source": "hand-placed"
+    },
+    {
+      "id": "de-card-analytics",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "An analytics dashboard with a bar chart, the latest bar highlighted",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "source": "hand-placed"
+    },
+    {
+      "id": "de-card-ai",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A database feeding connected business data into an AI system",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "source": "hand-placed"
+    },
+    {
       "id": "pi-cap-forecasting",
       "page": "landing",
       "purpose": "service-card",
