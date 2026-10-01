@@ -4251,5 +4251,15 @@
     "alt": "An AI agent at the centre of a loop: it plans, uses tools such as CRM, ERP and APIs, decides, and acts, with a human approval checkpoint before it acts.",
     "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoQAAsAA4BaJZwAD4QwkfHvGgAA/vcI20FPqRq/VPDM3+/4x8kkn/3rlnfxlNtTzqLCC3WCGsL9YC5QUAA=",
     "source": "hand-placed"
+  },
+  "landing/cv-overview-detection": {
+    "page": "landing",
+    "id": "cv-overview-detection",
+    "src": "/images/landing/cv-overview-detection.webp",
+    "width": 1600,
+    "height": 1200,
+    "alt": "An overhead street camera view with computer vision detection boxes on two cars, a pedestrian and two motorcycles, and a validated-output panel counting them and sending the result to a traffic dashboard.",
+    "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAABwAQCdASoQAAwAA4BaJQAAI7bjAAD+9Z28EfWFfCzLnzdjwNiimqRhCz4fB4qF415pIqtkP1qcggt453uMnAZ4bl67CHpwkKWyYp7EGgAAAA==",
+    "source": "hand-placed"
   }
 }

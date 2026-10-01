@@ -31,7 +31,7 @@ import ServicesGrid from '@/components/common/services-grid';
 import Industries from '@/components/landing/industries';
 import CtaBand from '@/components/landing/cta-band';
 import WhyUs from '@/components/landing/why-us';
-import TechStack from '@/components/landing/tech-stack';
+import TechStack from '@/components/home/tech-stack';
 import Faq from '@/components/landing/faq';
 
 // Sections reused from the homepage verbatim: their copy is the homepage's
@@ -170,11 +170,18 @@ export default function ComputerVisionDevelopmentServicesPage() {
 
         <WhyUs content={cvWhyUs} />
 
-        {/* Static bordered group panels, not the homepage's marquee rows:
-            thirteen categories of two or three tools each would leave every
-            marquee nearly empty. Ahead of the case studies, per the Sep 23
-            review: the stack answers "can you build it" before the proof. */}
-        <TechStack content={cvTech} />
+        {/* The homepage's tech rows, one per group, as the Android page has
+            them (1 Oct review: "the tech stack UI is not looking good — use the
+            /android-application-development-company page style"). Ahead of the
+            case studies, per the Sep 23 review: the stack answers "can you
+            build it" before the proof. On the dark band (1 Oct: "use dark
+            background for techstack section"), as on the homepage.
+            `.techFit` clears the homepage's full-viewport min-height;
+            `staticFrom` holds the rows still from tablet width up;
+            `.techWideLabels` keeps each group name on one line. */}
+        <div className={`${home.techFit} ${home.techWideLabels}`}>
+          <TechStack content={cvTech} staticFrom={768} />
+        </div>
 
         {/* Homepage case-study gallery, on the warm-white band as it is there. */}
         <div className={home.light}>

@@ -19,12 +19,12 @@ import type { ProcessContent } from "@/components/landing/process";
 import type { CapabilityGuideContent } from "@/components/computer-vision/capability-guide";
 import type { ServicesCarouselContent } from "@/components/common/services-carousel";
 import type { CardGridContent } from "@/components/landing/industries";
-import type { TechStackContent } from "@/components/landing/tech-stack";
+import type { TechStackContent } from "@/components/home/tech-stack";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
-import { landingImage, overviewImage } from "./overview-images";
+import { landingImage, landingPhoto } from "./overview-images";
 
 export const cvMeta = {
   slug: "computer-vision-development-services",
@@ -38,9 +38,12 @@ export const cvMeta = {
 
 export const cvHero: HeroContent = {
   // The last line takes the coral accent.
-  // Two balanced lines rather than three: the Sep 23 review asked for the H1
-  // to stop wrapping across the hero.
+  // One line (1 Oct review: "make sure the H1 comes in a single line" / "the
+  // H1 is not updated properly"): the Sep 23 fix for wrapping had split it over
+  // two lines instead. `titleOneLine` keeps the two-tone accent inline and
+  // sizes the H1 to the copy column from 1200px up.
   titleLines: ["Computer Vision", "Development Services"],
+  titleOneLine: true,
   body: [
     "Soft Suave provides custom computer vision development services that turn camera feeds, images, video, and visual documents into outputs your business can use. We develop workflows that detect relevant objects or information, validate the results, connect with existing systems, and support defined operational actions.",
     "Bring us your visual input, business problem, and required outcome. We will help you assess the use case and plan the right Computer Vision workflow.",
@@ -74,6 +77,9 @@ export const cvHero: HeroContent = {
   },
 };
 
+const withAspect = (img: OverviewContent["image"], aspect: string): OverviewContent["image"] =>
+  img ? { ...img, aspect } : undefined;
+
 export const cvOverview: OverviewContent = {
   eyebrow: "Overview",
   title: "How Computer Vision Services Move From Visual Input to Operational Action",
@@ -81,7 +87,13 @@ export const cvOverview: OverviewContent = {
     "Computer vision services convert visual information into validated outputs that software and operational teams can use.",
     "Computer vision development covers the full path from receiving an image, document, or video feed to identifying relevant information and sending the result into a defined business workflow.",
   ],
-  image: overviewImage("computer-vision-development-services"),
+  // The path the prose describes, shown on a real feed (1 Oct review: "use a
+  // more suitable / accurate / relevant to text image"): detection boxes on a
+  // street camera view and the validated output sent to a dashboard. Replaces
+  // a man watching a wall of TV screens. Manifest slot cv-overview-detection.
+  // Pinned to the asset's own 4:3 so the camera tag and labels at its edges
+  // are not trimmed by a slightly wider frame.
+  image: withAspect(landingPhoto("cv-overview-detection"), "4 / 3"),
 };
 
 /**
@@ -377,11 +389,12 @@ export const cvWhyUs: CardGridContent = {
 };
 
 /**
- * The brief's Category/Technologies table, as the static bordered group
- * panels (`landing/tech-stack.tsx`) rather than the homepage's marquee rows:
- * thirteen categories of two or three tools each would leave every marquee
- * nearly empty. Every name here resolves to a mark in
- * `components/home/tech-logo.tsx`.
+ * The brief's Category/Technologies table, as the homepage's tech rows
+ * (`home/tech-stack.tsx`), the Android page's treatment (1 Oct review: "use
+ * the /android-application-development-company page style"). The page passes
+ * `staticFrom`, so from tablet width up each row holds still and wraps rather
+ * than scrolling a nearly empty marquee of two or three tools. Every name here
+ * resolves to a mark in `components/home/tech-logo.tsx`.
  */
 export const cvTech: TechStackContent = {
   eyebrow: "Technologies",

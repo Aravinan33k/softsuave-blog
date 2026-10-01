@@ -2736,6 +2736,17 @@
       ]
     },
     {
+      "id": "cv-overview-detection",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "An overhead street camera view with computer vision detection boxes on two cars, a pedestrian and two motorcycles, and a validated-output panel counting them and sending the result to a traffic dashboard.",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 1200,
+      "pexelsId": 5287874,
+      "source": "hand-placed"
+    },
+    {
       "id": "agentic-ai-overview-workflow",
       "page": "landing",
       "purpose": "overview-illustration",

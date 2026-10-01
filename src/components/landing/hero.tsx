@@ -26,6 +26,13 @@ export interface HeroContent {
    * the column, never above the standard size, never below 34px.
    */
   titleFit?: boolean;
+  /**
+   * Sets every title line on ONE line from 1200px up, sized to the copy
+   * column (the last line keeps its accent colour inline), and lets it wrap
+   * normally below that, where one line cannot fit at a readable size.
+   * Computer Vision review, 1 Oct: "make sure the H1 comes in a single line".
+   */
+  titleOneLine?: boolean;
   body: readonly string[];
   points: readonly string[];
   /**
@@ -179,10 +186,14 @@ export default function Hero({
       )}
 
       <div className={styles.heroGrid}>
-        <div className={content.titleFit ? styles.heroCopyFit : undefined}>
+        <div className={content.titleFit || content.titleOneLine ? styles.heroCopyFit : undefined}>
           {/* "Home › <page>", named from the route — see common/breadcrumb. */}
           <Breadcrumb />
-          <h1 className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}`}>
+          <h1
+            className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}${
+              content.titleOneLine ? ` ${styles.heroTitleOneLine}` : ""
+            }`}
+          >
             {/* The spans are display:block, so the spaces between them only
                 matter to the text content crawlers and screen readers see. */}
             {content.titleLines.map((line, i) => (

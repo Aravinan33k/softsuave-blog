@@ -3102,6 +3102,23 @@
   max-width: none;
 }
 
+/* `titleOneLine`: every title line inline, on one line, from 1200px up. The
+   copy column is the size container (`.heroCopyFit`), and 6cqi is the size at
+   which a ~16.4em title fills it, so the H1 is 50px on a wide screen and steps
+   down to fit a laptop's narrower column instead of wrapping. Below 1200px it
+   wraps normally at the standard size; one line would need type smaller than
+   the H2s beneath it. */
+.heroTitleOneLine .heroTitleLine {
+  display: inline;
+}
+@media (min-width: 1200px) {
+  .heroCopyFit .heroTitle.heroTitleOneLine {
+    white-space: nowrap;
+    max-width: none;
+    font-size: clamp(30px, 6cqi, var(--fs-h1));
+  }
+}
+
 .heroCompact .heroBody {
   margin-top: clamp(16px, 2vw, 24px);
   max-width: 72ch;

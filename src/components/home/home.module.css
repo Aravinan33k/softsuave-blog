@@ -7333,3 +7333,17 @@ h1.h2 {
   font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
   letter-spacing: 0.1em;
 }
+
+/* Opt-in for a tech-rows section whose group names are long (Computer Vision:
+   "Model Inference & Optimization"): from 1000px up the label column widens so
+   every name sits on one line (1 Oct review: "align them in a single line").
+   330–400px holds the longest name at every desktop width; the default 280px
+   cap wrapped seven of them onto two lines. */
+@media (min-width: 1000px) {
+  .techWideLabels .techGroup {
+    grid-template-columns: clamp(330px, 33vw, 400px) 1fr;
+  }
+  .techWideLabels .techGroupName {
+    white-space: nowrap;
+  }
+}
