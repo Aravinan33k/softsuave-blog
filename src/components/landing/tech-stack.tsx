@@ -44,6 +44,7 @@ export default function TechStack({
   content,
   id = "tech",
   logos = true,
+  largeLogos = false,
 }: {
   content: TechStackContent;
   id?: string;
@@ -58,6 +59,12 @@ export default function TechStack({
    * of the reveal simply has nothing to run on.
    */
   logos?: boolean;
+  /**
+   * Draws each brand mark at 28px instead of the SVG's own 22px, so it fills
+   * more of its 36px box (Custom AI review, 1 Oct: "make the icons slightly
+   * bigger"). Opt-in, so the other stacks keep their current marks.
+   */
+  largeLogos?: boolean;
 }) {
   const root = useRef<HTMLDivElement | null>(null);
 
@@ -134,7 +141,10 @@ export default function TechStack({
   );
 
   return (
-    <section className={styles.sectionShell} id={id}>
+    <section
+      className={largeLogos ? `${styles.sectionShell} ${styles.stackLargeLogos}` : styles.sectionShell}
+      id={id}
+    >
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
       <div ref={root} className={styles.stackList}>

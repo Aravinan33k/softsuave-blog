@@ -211,7 +211,7 @@ export default function CustomAiDevelopmentPage() {
         <CaseStudies content={caCaseStudies} />
 
         <div className={home.light}>
-          <TechStack content={caTech} />
+          <TechStack content={caTech} largeLogos />
         </div>
 
         {/* Client stories and the FAQ share the closing warm-white band, so

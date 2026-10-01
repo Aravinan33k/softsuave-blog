@@ -169,14 +169,13 @@ export const caOfferings: ServicesContent = {
 export const caComparison = {
   eyebrow: "Decide With Clarity",
   title: "Custom AI Solutions vs. Off-the-Shelf AI Tools",
-  body: "Off-the-shelf AI tools suit standard needs and quick deployment, while custom AI solutions support tailored workflows, proprietary data, deeper integrations, control, and scalability.",
+  // Verbatim from Custom_AI_Development_Services_Content.md, closing sentence
+  // included (1 Oct review: "need to update the subtext (one line missing)").
+  // The table has no closing note: the "Custom is the answer when…" line under
+  // it was not in the content doc and is gone (same review: "additional text at
+  // the end of the bottom (need to remove it)").
+  body: "Off-the-shelf AI tools suit standard needs and quick deployment, while custom AI solutions support tailored workflows, proprietary data, deeper integrations, control, and scalability. The table below compares both options.",
   columns: { area: "Comparison Area", custom: "Custom AI Solutions", offTheShelf: "Off-the-Shelf AI Tools" },
-  /* Closes the table. Says what the eight rows add up to WITHOUT overclaiming
-     — off-the-shelf genuinely wins on speed to deploy, which the table's own
-     "Implementation" row states, so the note concedes it rather than pretending
-     the comparison is one-sided. */
-  verdictNote:
-    "Custom is the answer when the requirement is unique to your business, your data, or your systems. Where the need is common and speed matters more than fit, an off-the-shelf tool will get you there sooner.",
   rows: [
     {
       area: "Customization",

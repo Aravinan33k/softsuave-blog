@@ -1695,6 +1695,14 @@
   transform: scale(1.18);
 }
 
+/* `largeLogos` on landing/tech-stack.tsx. The box above is 36px, but every
+   mark in tech-logo.tsx is a fixed 22px SVG, so the mark itself never grew
+   with it. This sizes the SVG to 28px inside the same box. */
+.stackLargeLogos .stackItemLogo svg {
+  width: 28px;
+  height: 28px;
+}
+
 /* Stands in for the brand mark when a stack renders without logos
    (`logos={false}`), so the names keep the same left rhythm as a logo row. */
 .stackItemBullet {

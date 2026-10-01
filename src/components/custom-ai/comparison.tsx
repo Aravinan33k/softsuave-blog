@@ -95,7 +95,6 @@ export default function Comparison() {
            — so the table says so rather than laying eight rows out neutrally
            and leaving the reader to total them up. */
         verdict: true,
-        verdictNote: caComparison.verdictNote,
       }}
     />
   );
