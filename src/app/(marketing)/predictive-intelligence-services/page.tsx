@@ -119,9 +119,12 @@ export default function PredictiveIntelligenceServicesPage() {
           Organization (verbatim — no Facebook profile, unlike the site-wide
           node) + Service, WebPage, FAQPage. The layout adds nothing here, not
           even its WebSite, and the footer's PostalAddress microdata is off —
-          see PAGES_WITH_OWN_SITE_GRAPH. */}
+          see PAGES_WITH_OWN_SITE_GRAPH. Each block is its own <script>, as
+          the spec lays them out (1 Oct check), not one array of three. */}
       <JsonLd data={softSuaveOrganizationLd} />
-      <JsonLd data={LD} />
+      {LD.map((node) => (
+        <JsonLd key={String((node as { '@type': string })['@type'])} data={node} />
+      ))}
       <Nav logoHref={HOME_HREF} />
 
       {/*
