@@ -140,10 +140,10 @@ export default function RagDocumentAiServicePage() {
           <Clients />
         </div>
 
-        {/* Four paragraphs of definition — clipped to the first few lines
-            behind "View more" so the illustration and pull quote stay in
-            reach without the reader scrolling past a wall of prose. */}
-        <Overview content={ragOverview} variant="compact" clampLines={6} />
+        {/* All four paragraphs shown in full: the "View more / View less"
+            clamp is gone (1 Oct review: "remove the View More and View Less
+            options in this section"). */}
+        <Overview content={ragOverview} variant="compact" />
 
         <div className={home.light}>
           {/* Every service on screen at once, each card wearing its own
@@ -151,8 +151,10 @@ export default function RagDocumentAiServicePage() {
           <ServicesGrid content={ragServices} />
         </div>
 
-        {/* Same bordered card grid as Industries, filled with use cases. */}
-        <Industries content={ragUseCases} id="use-cases" />
+        {/* Same bordered card grid as Industries, filled with use cases —
+            three across (1 Oct review: "we can try 3x2 alignments"), so the
+            five cards sit 3 + 2 instead of 4 + 1. */}
+        <Industries content={ragUseCases} id="use-cases" columns={3} />
 
         <div className={home.light}>
           <CtaBand content={ragProjectCta} />

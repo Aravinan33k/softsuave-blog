@@ -152,6 +152,13 @@ export interface OverviewContent {
      * resize the image | aspect-ratio: 14 / 16").
      */
     aspect?: string;
+    /**
+     * Gives the image the larger column from 1000px up (about 57/43 instead
+     * of the prose leading) and centres it against the prose, for a diagram
+     * whose labels need the room (RAG review: "the image is really small").
+     * Pair it with `aspect` at the asset's own ratio so nothing is cropped.
+     */
+    wide?: boolean;
   };
 }
 
@@ -328,7 +335,15 @@ export default function Overview({
       {!twoColumn && <SectionHead kicker={content.eyebrow} title={content.title} />}
 
       <FadeUp>
-        <div className={twoColumn ? styles.overviewGrid : undefined}>
+        <div
+          className={
+            twoColumn
+              ? showImage && image?.wide
+                ? `${styles.overviewGrid} ${styles.overviewGridWideImage}`
+                : styles.overviewGrid
+              : undefined
+          }
+        >
           <div>
             {twoColumn && <SectionHead kicker={content.eyebrow} title={content.title} />}
 

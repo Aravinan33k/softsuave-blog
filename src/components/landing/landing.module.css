@@ -7923,3 +7923,18 @@
   font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
   letter-spacing: 0.1em;
 }
+
+/* `OverviewContent.image.wide` — the image takes the larger column and sits
+   centred against the prose, for a diagram whose labels need the room (RAG
+   review, 1 Oct: "the image is really small"). Specific enough to outrank both
+   the compact variant's 1.1fr / 0.9fr split and `.overviewMediaFixed`'s
+   top alignment. */
+@media (min-width: 1000px) {
+  .overviewCompact .overviewGrid.overviewGridWideImage,
+  .overviewGrid.overviewGridWideImage {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  }
+  .overviewGrid.overviewGridWideImage .overviewMedia.overviewMediaFixed {
+    align-self: center;
+  }
+}

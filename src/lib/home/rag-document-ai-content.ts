@@ -92,10 +92,15 @@ export const ragOverview: OverviewContent = {
   },
   // Hand-placed asset — the RAG architecture illustration already shipped for
   // the generative-AI page; its subject is exactly this section's.
+  // Shown larger and uncropped (1 Oct review: "the image is really small"):
+  // the wider column, at the diagram's own 4:3, so the CRM / ERP / Documents
+  // labels at its edges are no longer cut off by a near-square frame.
   image: {
     src: "/images/landing/generative-ai-rag-architecture.webp",
     width: 1448,
     height: 1086,
+    aspect: "1448 / 1086",
+    wide: true,
     alt: "How a RAG solution fits together: documents, knowledge bases, and cloud storage feed a retrieval layer that grounds a central AI model, which connects out to CRM, ERP, APIs, and ticketing systems.",
     blurDataURL:
       "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAAAQAgCdASoQAAwAAwBSJQBOgCHw35H/X5wAAP75+5o1KWhylCAGLAV8fi2WhvhAXHsUdEL5/sjZZAf0swAAAA==",
