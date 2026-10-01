@@ -109,6 +109,7 @@ export const caOfferings: ServicesContent = {
   items: [
     {
       name: "Generative AI Development",
+      href: "/generative-ai-development-company",
       body: "Build custom Generative AI solutions using LLMs to create and transform content, code, and images, supporting copilots, automation, and enterprise applications tailored to specific business needs and workflows at scale.",
       // Hand-placed assets (not the Pexels pipeline) — filenames name the card
       // they belong to.
@@ -121,6 +122,7 @@ export const caOfferings: ServicesContent = {
     },
     {
       name: "Agentic AI Development",
+      href: "/agentic-ai-development-services",
       body: "Develop Agentic AI solutions that enable autonomous, multi-step workflows with tool use, helping systems plan, reason, act, and coordinate tasks across business applications while maintaining human oversight and operational control.",
       image: {
         src: "/images/four/ajentic.jpg",
@@ -131,6 +133,7 @@ export const caOfferings: ServicesContent = {
     },
     {
       name: "RAG and Document AI Solutions",
+      href: "/rag-development-services",
       body: "Create RAG and Document AI solutions for retrieval, knowledge access, and document extraction, helping teams find trusted answers, process information, and automate document-heavy workflows securely across enterprise systems and applications.",
       image: {
         src: "/images/four/rag.png",
@@ -141,6 +144,7 @@ export const caOfferings: ServicesContent = {
     },
     {
       name: "Computer Vision Development",
+      href: "/computer-vision-development-services",
       body: "Build Computer Vision solutions for detection, OCR, video analysis, and visual inspection, helping businesses recognize patterns, monitor operations, identify anomalies, and improve quality across real-world environments and workflows at scale.",
       image: {
         src: "/images/four/vision.webp",
@@ -151,6 +155,7 @@ export const caOfferings: ServicesContent = {
     },
     {
       name: "Predictive Intelligence Solutions",
+      href: "/predictive-intelligence-services",
       body: "Develop Predictive Intelligence solutions for forecasting, anomaly detection, and recommendations, using historical and real-time data to anticipate outcomes, identify risks, optimize planning, and support smarter decisions across business operations effectively.",
       image: {
         src: "/images/four/predective.jpg",

@@ -44,6 +44,13 @@ export interface WorkCarouselItem {
    * generated blurDataURL a loose file has no equivalent for.
    */
   readonly image?: { readonly src: string; readonly alt?: string };
+  /**
+   * Makes the whole tile a link to this route (Custom AI review, 1 Oct: "link
+   * the cards to their relevant pages"). Optional: case-study lanes have no
+   * page per tile and stay unlinked. A drag that ends over the tile does not
+   * follow it — see `onClickCapture`.
+   */
+  readonly href?: string;
 }
 
 /** Everything the lane renders. See `WorkCarouselItem` for the cards. */
@@ -596,6 +603,11 @@ export default function WorkGrid({
                     {t.metric ? <span className={styles.tileMetric}>{t.metric}</span> : null}
                   </div>
                   <p className={styles.tileBody}>{t.body}</p>
+                  {/* Last in the tile so it paints over everything; the name is
+                      the tile's own title, so the link reads as the card. */}
+                  {t.href ? (
+                    <SiteLink href={t.href} className={styles.hTileLink} aria-label={t.title} draggable={false} />
+                  ) : null}
                 </article>
               );
             })}

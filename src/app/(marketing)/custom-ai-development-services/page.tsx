@@ -185,6 +185,8 @@ export default function CustomAiDevelopmentPage() {
                 // so the intrinsic width/height on the source asset are not
                 // carried across.
                 image: s.image ? { src: s.image.src, alt: s.image.alt } : undefined,
+                // Each card opens its own service page (1 Oct review).
+                href: s.href,
               })),
             }}
           />

@@ -1265,6 +1265,22 @@ h1.h2 {
   user-drag: none;
 }
 
+/* `WorkCarouselItem.href`: the whole tile is the link, painted over it. The
+   focus ring sits inside the tile so the lane's overflow does not clip it. */
+.hTileLink {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 14px;
+}
+.hTileLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.hTile:has(.hTileLink):hover .tileTitle {
+  color: var(--accent);
+}
+
 .hMedia {
   position: relative;
   width: 100%;
