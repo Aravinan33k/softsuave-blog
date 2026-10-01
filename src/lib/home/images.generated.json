@@ -4370,5 +4370,65 @@
     "alt": "A database feeding connected business data into an AI system",
     "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADQAQCdASoQAAwAA4BaJYwAAuDDdFhAAAD+93fgUFzz2d3WmSTDklg1VlILOi3w90W4pW296W/qaNAAAAA=",
     "source": "hand-placed"
+  },
+  "landing/ds-card-consulting": {
+    "page": "landing",
+    "id": "ds-card-consulting",
+    "src": "/images/landing/ds-card-consulting.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A business question mark leading along a roadmap to a goal flag",
+    "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADQAQCdASoQAAwAA4BaJZQAAuVN2LcAAAD+93lsGQ7ewQQYkeL/h/0y5+Qlcv88PPWBvgGYnsfBY5Lu3U502WAA",
+    "source": "hand-placed"
+  },
+  "landing/ds-card-exploration": {
+    "page": "landing",
+    "id": "ds-card-exploration",
+    "src": "/images/landing/ds-card-exploration.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A scatter plot with a trend line and a magnifier over the pattern it reveals",
+    "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAAAQAgCdASoQAAwAA4BaJZQAD4wQXg/KEA4AAP73fzCzZTDdSu65R4je0xmg0u+0P79fCP5fwKoaDXow+0vddWzK7QAAAA==",
+    "source": "hand-placed"
+  },
+  "landing/ds-card-statistics": {
+    "page": "landing",
+    "id": "ds-card-statistics",
+    "src": "/images/landing/ds-card-statistics.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "An A/B experiment: two overlapping distributions, B shifted from A",
+    "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoQAAwAA4BaJZQAAudfgu1blAAA/vd5u7f546B09loJywdQMS+lBmAj5k1bvI6sKqJzs8rZb6Zu3um0AAA=",
+    "source": "hand-placed"
+  },
+  "landing/ds-card-modeling": {
+    "page": "landing",
+    "id": "ds-card-modeling",
+    "src": "/images/landing/ds-card-modeling.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A small neural network model whose output is marked as validated",
+    "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADQAQCdASoQAAwAA4BaJZwAAsf0W9zwAAD+9uFt+Blkh0+7Ecp2ZdUMlrePJ5HNakv3J37GGxJ8n+CqcozjaEiRupkfI/2AGcAAAA==",
+    "source": "hand-placed"
+  },
+  "landing/ds-card-evaluation": {
+    "page": "landing",
+    "id": "ds-card-evaluation",
+    "src": "/images/landing/ds-card-evaluation.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A model evaluation ROC curve well above the chance line, marked as passing",
+    "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADwAQCdASoQAAwAA4BaJZQAAuspuBQ2cAAA/ve6Omb5yPUCOqxsin8VGUDCOMG103j8OpukqXE7JZCDvQ6AprA7RvPJEQAA",
+    "source": "hand-placed"
+  },
+  "landing/ds-card-mlops": {
+    "page": "landing",
+    "id": "ds-card-mlops",
+    "src": "/images/landing/ds-card-mlops.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A model lifecycle loop of deploy, monitor and retrain around a versioned model",
+    "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADQAQCdASoQAAwAA4BaJZwAAu18ghMQAAD+93oOwhbnwokFWiOhsuyAPlP7CAONA9z18BFouAAAAA==",
+    "source": "hand-placed"
   }
 }

@@ -78,6 +78,10 @@ export const dsOverview: OverviewContent = {
     "Soft Suave approaches Data Science around the business question first. We assess the available data, identify what can reasonably be learned from it, and determine whether analysis, experimentation, statistical modeling, or machine learning is suitable.",
     "Once the data and analytical approach are validated, the engagement can move toward the most suitable outcome. This may be a set of validated findings, a feasibility decision, an analytical model, or a foundation for a broader AI development initiative.",
   ],
+  // The last paragraph's internal link (1 Oct review: "one internal link
+  // missing in the last para"): "AI development" leads on to the Custom AI
+  // Development page, the parent service these AI pages sit under.
+  links: [{ text: "AI development", href: "/custom-ai-development-services" }],
   image: overviewImage("data-science-services"),
 };
 
@@ -144,21 +148,25 @@ export const dsFit: FitGuideContent = {
  */
 /**
  * Service-card artwork for this page, from the image pipeline
- * (`landing/ds-svc-*` slots in content/images.manifest.json).
+ * (`landing/ds-card-*` slots in content/images.manifest.json).
  *
- * The cards used to borrow the generic service photographs every AI page
- * shares. The Sep 23 review asked for relevant images, so each card now shows
- * its own subject: a strategy whiteboard, dataset exploration, statistics
- * worked out on a board, model code, printed result comparisons, and a
- * monitoring wall for MLOps.
+ * One drawn diagram per card, showing the method its text describes (1 Oct
+ * review: "update relevant / accurate to respective text images"): a business
+ * question leading along a roadmap, a scatter plot with its pattern under the
+ * lens, an A/B experiment's two distributions, a small validated model, an
+ * ROC curve above the chance line, and the deploy–monitor–retrain loop around
+ * a versioned model. They replace photographs of a stock trader, a calculus
+ * board, marketing printouts and sci-fi control panels, and stay readable at
+ * the cards' 130px thumbnail size — the same treatment as the Data
+ * Engineering page.
  */
 const DS_SVC = {
-  consulting: landingImage("ds-svc-consulting"),
-  exploration: landingImage("ds-svc-exploration"),
-  statistics: landingImage("ds-svc-statistics"),
-  modeling: landingImage("ds-svc-modeling"),
-  evaluation: landingImage("ds-svc-evaluation"),
-  mlops: landingImage("ds-svc-mlops"),
+  consulting: landingImage("ds-card-consulting"),
+  exploration: landingImage("ds-card-exploration"),
+  statistics: landingImage("ds-card-statistics"),
+  modeling: landingImage("ds-card-modeling"),
+  evaluation: landingImage("ds-card-evaluation"),
+  mlops: landingImage("ds-card-mlops"),
 };
 
 export const dsServices: ServicesCarouselContent = {

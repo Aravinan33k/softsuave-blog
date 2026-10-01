@@ -2736,6 +2736,66 @@
       ]
     },
     {
+      "id": "ds-card-consulting",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A business question mark leading along a roadmap to a goal flag",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "source": "hand-placed"
+    },
+    {
+      "id": "ds-card-exploration",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A scatter plot with a trend line and a magnifier over the pattern it reveals",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "source": "hand-placed"
+    },
+    {
+      "id": "ds-card-statistics",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "An A/B experiment: two overlapping distributions, B shifted from A",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "source": "hand-placed"
+    },
+    {
+      "id": "ds-card-modeling",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A small neural network model whose output is marked as validated",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "source": "hand-placed"
+    },
+    {
+      "id": "ds-card-evaluation",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A model evaluation ROC curve well above the chance line, marked as passing",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "source": "hand-placed"
+    },
+    {
+      "id": "ds-card-mlops",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A model lifecycle loop of deploy, monitor and retrain around a versioned model",
+      "orientation": "landscape",
+      "width": 800,
+      "height": 600,
+      "source": "hand-placed"
+    },
+    {
       "id": "de-card-pipeline",
       "page": "landing",
       "purpose": "service-card",
