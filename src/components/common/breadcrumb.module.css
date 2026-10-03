@@ -1,0 +1,74 @@
+/* ============================================================
+   BREADCRUMB — the small "Home › <page>" trail above a hero's H1
+   ============================================================
+   Sits on the dark hero ground (both landing heroes are dark), so the colours
+   are pinned rather than read from `--muted`: the surface's muted grey
+   (#9c9c9c) is too faint for 0.8rem text over a photograph. The trail is
+   #c8c8c8, the current page the hero's own bright text colour. */
+
+.breadcrumb {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono-label, ui-monospace, monospace);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: #c8c8c8;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-width: 0;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--accent, #ff6a3d);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--accent, #ff6a3d);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.sep {
+  color: #8a8a8a;
+}
+
+.current {
+  color: var(--text-bright, #fff);
+}
+
+/* `tone="band"`: a masthead that is not a dark hero — the page headers of the
+   index/company pages, one of which sits in a `.light` band. The section's own
+   tokens carry the contrast there, and invert with the band. */
+.breadcrumb[data-tone="band"] {
+  color: var(--text);
+}
+
+.breadcrumb[data-tone="band"] .sep {
+  color: var(--muted);
+}
+
+.breadcrumb[data-tone="band"] .current {
+  color: var(--text-bright);
+}

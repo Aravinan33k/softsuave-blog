@@ -1,0 +1,74 @@
+[
+  {
+    "file": "/images/landing/python/hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "Close-up of colorful programming code displayed on a monitor screen.",
+    "pexelsId": "1102797",
+    "source": "https://www.pexels.com/photo/1102797/",
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAABwAQCdASoQAAkAA4BaJZACdAFAAAD+8naDNUZekgdRkpiJuo40bAr2I21NgCwhQAA="
+  },
+  {
+    "file": "/images/landing/python/overview.webp",
+    "width": 1400,
+    "height": 1050,
+    "alt": "Bearded male developer in headphones coding on a laptop in a modern office setting.",
+    "pexelsId": "6803542",
+    "source": "https://www.pexels.com/photo/6803542/",
+    "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwAgCdASoQAAwAA4BaJZwAD5Yxe+9i0yO0IAD8As32dTEPYFivRzQqfbHDKDb4hVYkOqp33Esjky6gBIZx79kUf/B3imvj8Dwg3nZnbHXrpr77akfFOsy0I58J+P4YG+zCeRidAFgAAA=="
+  },
+  {
+    "file": "/images/landing/python/svc-custom.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Close-up of a person coding on a laptop, showcasing web development and programming concepts.",
+    "pexelsId": "574069",
+    "source": "https://www.pexels.com/photo/574069/",
+    "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAQAgCdASoQAAwAA4BaJYgCdADp5V+C2JlcAP6GM2XJZbWnNsNhLXCQf6e0NnhA9yt2tFwvtgRzNDYS5pIZFaPHUK34Os+lNDIQkRsbeAA="
+  },
+  {
+    "file": "/images/landing/python/svc-ml.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Futuristic abstract artwork showcasing AI concepts with digital text overlays.",
+    "pexelsId": "18069693",
+    "source": "https://www.pexels.com/photo/18069693/",
+    "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADQAQCdASoQAAwAA4BaJZgCdAEUfrN4AAD+1PxcPXxDa9A+R5E8+sRJT7i/u4lcMGbwgQNnB7f299rTrDtLGj2Ezx/7kUtPpGxSlwq2qipV60TlM0NQAA=="
+  },
+  {
+    "file": "/images/landing/python/svc-cms.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Sleek laptop showcasing data analytics and graphs on the screen in a bright room.",
+    "pexelsId": "577210",
+    "source": "https://www.pexels.com/photo/577210/",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAQAgCdASoQAAwAA4BaJZQCsAERHm2p/lgAAP73IM9rnH0NB1ZOhH64GNCOf+yuwJaumanKyJWEVJ4NPJZrkyTxlPcWPmKnyMrtXGlwUQwYi0utqTIkXLAA"
+  },
+  {
+    "file": "/images/landing/python/svc-hybrid.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "High-resolution close-up of HTML code displayed on a computer screen, perfect for technology themes.",
+    "pexelsId": "14553704",
+    "source": "https://www.pexels.com/photo/14553704/",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAABwAQCdASoQAAwAA4BaJZVefAHJgAD+8wJ9koHB5tiVgRZFkwk9uYoFAAA="
+  },
+  {
+    "file": "/images/landing/python/svc-migration.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Close-up of server racks in a data center highlighting modern technology infrastructure.",
+    "pexelsId": "37730212",
+    "source": "https://www.pexels.com/photo/37730212/",
+    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAwAgCdASoQAAwAA4BaJZACdAEPWpRVndeWAAD+8XS/AXiHAwR6e1V8ktAH/mvIRnGQAQvdAvhJMoWNyQ5B+fTva6zwjbX+vx/jLkJzU+1KliGv4PjF5NsdEOIAAA=="
+  },
+  {
+    "file": "/images/landing/python/svc-maintenance.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Focused view of a computer screen displaying code and debug information.",
+    "pexelsId": "34803999",
+    "source": "https://www.pexels.com/photo/34803999/",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAACQAgCdASoQAAwAA4BaJbACdH8AGCJHjYJr/8QzAAD+0G/N+ixVvMiyjs154e4EvcJI8b8HlvKYx4a8NHP/jy54rFURJVtloh8SRlb0I1f/Q0QFqLwyZURHhBPzZzajR9izWAAA"
+  }
+]

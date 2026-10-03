@@ -1,0 +1,68 @@
+[
+  {
+    "file": "/images/landing/nodejs/hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "Hands typing code on a laptop keyboard in a dark room, capturing the essence of late-night programming",
+    "pexelsId": "5496464",
+    "source": "https://www.pexels.com/photo/5496464/",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAADQAwCdASoQABgAPtFapkyoJSOiMAgBABoJYwAAW+jMy7Yt9n6eBTgA/vd2wrDSWgMK4vSTlkKga+8pgV0KymibGuamCaBNGUNVzf8GKzDLHcnhpnNOQF29/tN8PmWO378wR+AA"
+  },
+  {
+    "file": "/images/landing/nodejs/overview.webp",
+    "width": 1400,
+    "height": 1050,
+    "alt": "Workers collaborating in a modern office with computers, showcasing teamwork in technology development",
+    "pexelsId": "6803525",
+    "source": "https://www.pexels.com/photo/6803525/",
+    "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAACQAgCdASoQAAsAAsBMJYwCdAYuHqdXyR8zblbhAADLHkf/kLTRcZVL/oR8jgYlOPLTuF1Vxx+a67u+X8eU7eTQXiYrUJSNho3+7sIGJpl+nemIRij7Dpldg0dEOIdzQjAH7XuWRynY9n12L1E1TGD95qlAAA=="
+  },
+  {
+    "file": "/images/landing/nodejs/svc-custom.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A developer writing code on a laptop, displaying programming scripts in an office environment",
+    "pexelsId": "7988114",
+    "source": "https://www.pexels.com/photo/7988114/"
+  },
+  {
+    "file": "/images/landing/nodejs/svc-api.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Detailed view of a server rack with a focus on technology and data storage",
+    "pexelsId": "17489157",
+    "source": "https://www.pexels.com/photo/17489157/"
+  },
+  {
+    "file": "/images/landing/nodejs/svc-plugin.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Close-up of colorful programming code displayed on a computer monitor with a dark background",
+    "pexelsId": "6424583",
+    "source": "https://www.pexels.com/photo/6424583/"
+  },
+  {
+    "file": "/images/landing/nodejs/svc-migration.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Close-up of server equipment in a modern data center highlighting technology infrastructure",
+    "pexelsId": "37605910",
+    "source": "https://www.pexels.com/photo/37605910/"
+  },
+  {
+    "file": "/images/landing/nodejs/svc-consulting.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Professional business discussion between a consultant and client in an office setting",
+    "pexelsId": "5816285",
+    "source": "https://www.pexels.com/photo/5816285/"
+  },
+  {
+    "file": "/images/landing/nodejs/svc-maintenance.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Customer service agent using a computer and headset within a modern office setting",
+    "pexelsId": "8204319",
+    "source": "https://www.pexels.com/photo/8204319/"
+  }
+]

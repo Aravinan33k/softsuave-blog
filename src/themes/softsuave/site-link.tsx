@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { isExternalHref, navHref } from './nav-data';
+import { isExternalHref, navHref, navRoute } from './nav-data';
 
 /**
  * A link to a Soft Suave path that may or may not be served by this app.
@@ -14,13 +14,16 @@ export function SiteLink({
   children,
   ...rest
 }: Omit<React.ComponentProps<'a'>, 'href'> & { href: string }) {
-  const resolved = navHref(href);
+  // The two branches take different forms of the same destination: an anchor gets
+  // the public url, <Link> the app-internal route. They coincide while the app is
+  // served from the domain root, and diverge under a subpath mount — see
+  // `navRoute`, which is where that difference is kept.
   return isExternalHref(href) ? (
-    <a href={resolved} {...rest}>
+    <a href={navHref(href)} {...rest}>
       {children}
     </a>
   ) : (
-    <Link href={resolved} {...rest}>
+    <Link href={navRoute(href)} {...rest}>
       {children}
     </Link>
   );

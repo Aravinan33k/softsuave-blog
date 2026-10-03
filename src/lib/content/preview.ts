@@ -1,11 +1,12 @@
 import 'server-only';
 import { SignJWT, jwtVerify } from 'jose';
-import { env } from '../env';
+import { env, secretKey } from '../env';
 
 // Signed, expiring links that let a draft be viewed before publishing without
-// being public or indexable. Signed with PREVIEW_SECRET (separate from auth).
+// being public or indexable. Signed with PREVIEW_SECRET (separate from auth);
+// a random key when it is unset — see `secretKey` in lib/env.ts.
 
-const key = new TextEncoder().encode(env.PREVIEW_SECRET);
+const key = secretKey(env.PREVIEW_SECRET);
 export type PreviewType = 'post' | 'page';
 
 export async function signPreviewToken(type: PreviewType, id: string, ttlSeconds = 86_400): Promise<string> {

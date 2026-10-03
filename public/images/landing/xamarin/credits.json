@@ -1,0 +1,56 @@
+[
+  {
+    "file": "/images/landing/xamarin/hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A laptop, tablet and smartphone together on a desk, the platforms one Xamarin codebase targets",
+    "pexelsId": "4158",
+    "source": "https://www.pexels.com/photo/4158/",
+    "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAAAQAgCdASoQAAkAA4BaJagCdADdcADjiAgAAP6I+HyrDRNPjBIncna065kxPp54kfKyoyTmcXiyC/ebKIOgdWSLpkpiwAAA"
+  },
+  {
+    "file": "/images/landing/xamarin/overview.webp",
+    "width": 1400,
+    "height": 1050,
+    "alt": "C# source code on screen, the language a Xamarin application is written in",
+    "pexelsId": "4976712",
+    "source": "https://www.pexels.com/photo/4976712/",
+    "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACwAQCdASoQAAwAA4BaJQBOgB5gIdwAAP7s8JdDgqLjMTcKHBGTbR9Y/8v3hR2s6eRsQEYMlmzmMfBC6eVAObnqYAA="
+  },
+  {
+    "file": "/images/landing/xamarin/svc-consulting.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A team presenting an application strategy to stakeholders in a meeting room",
+    "pexelsId": "7988758",
+    "source": "https://www.pexels.com/photo/7988758/",
+    "blurDataURL": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAwAgCdASoQAAsAA4BaJaQAD5UOnKHoNtHcAAD+t9Tc5q5U2QEze/6QDBJG1LsiQEcf5v+Fv+5sqQukjiZboy3ym/erx4WBT3cY++frl55DHzbdNafejlWDxnpX9qhDTtgQuZnxHcspPJFYAAA="
+  },
+  {
+    "file": "/images/landing/xamarin/svc-team.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A dedicated group of developers working together on a programming project",
+    "pexelsId": "6804071",
+    "source": "https://www.pexels.com/photo/6804071/",
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQAgCdASoQAAsAA4BaJZwAAqAlbWghdL7YAP3Hsivqc4vY7QX+hb88FQXYKrOuDt2Up/pFsZesunzm9u9+OhVp7XvYm3sfsCoaVvv5GkVhJWbE8GnmL4+RQyV0OwcAAAA="
+  },
+  {
+    "file": "/images/landing/xamarin/svc-appdev.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "Application code on a developer's monitor during a build",
+    "pexelsId": "7325498",
+    "source": "https://www.pexels.com/photo/7325498/",
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADQAQCdASoQAAsAA4BaJZwCdAEN0vtxOAD+7N6GzqnK1uXtihSEZD4+YWLvHCkYAAA="
+  },
+  {
+    "file": "/images/landing/xamarin/svc-crossplatform.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A laptop, smartphones and other devices together on a desk, one shared codebase serving all of them",
+    "pexelsId": "207589",
+    "source": "https://www.pexels.com/photo/207589/",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAABwAgCdASoQAAsAA4BaJYwC7AYrduPKVRcWehriAP6YXogTWp7GTlCe74zvj9f5mCC2SrWBhnj6oM362KDyOd/vHffUf6sRNdds3czeebCJL6CM/X2urk/4sXKiMRpg5vzzvwAA"
+  }
+]

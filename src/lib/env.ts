@@ -10,20 +10,54 @@ import { z } from 'zod';
 const schema = z
   .object({
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
-    NEXT_PUBLIC_SITE_URL: z.string().min(1).default('http://localhost:3000'),
+    // Canonical origin for every canonical tag, JSON-LD `@id`/`url`, OG image,
+    // sitemap and feed URL. The default is the live origin, not localhost: a
+    // deployment that forgets this variable should publish correct canonicals
+    // pointing at the real site, not ship a page telling crawlers its canonical
+    // is a loopback address. Local dev overrides it in `.env`.
+    NEXT_PUBLIC_SITE_URL: z.string().min(1).default('https://www.softsuave.com'),
 
-    DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
+    // Must be a mysql:// URL. The protocol is checked rather than accepted as any
+    // non-empty string because this app was ported from Postgres: a leftover
+    // postgresql:// URL is the single most likely misconfiguration, and without
+    // this it would boot fine and then fail on the first query inside a request.
+    // A stale `?schema=public` query param (Postgres-only) is harmless — the
+    // driver ignores it — so it is not rejected.
+    //
+    // OPTIONAL. Unset, the app builds and runs without a database: marketing
+    // pages are unaffected, public blog/search queries fall back to empty
+    // results, the API answers 503, /admin shows a notice, and the enquiry and
+    // meeting forms forward leads to softsuave.com instead of storing them (see
+    // `databaseConfigured` below and lib/db.ts).
+    DATABASE_URL: z
+      .string()
+      .refine((v) => /^mysql:\/\//i.test(v), 'DATABASE_URL must be a mysql:// connection string')
+      .optional(),
     // Connection-pool ceiling per process. Unset lets lib/db.ts choose a default
-    // per phase; set it explicitly when several app instances share one Postgres,
-    // so the total stays under the server's max_connections.
+    // per phase; set it explicitly when several app instances share one MySQL, so
+    // the total stays under the server's max_connections (default 151).
     DATABASE_POOL_MAX: z.coerce.number().int().positive().optional(),
+    // TLS to MySQL. `verify` (default) encrypts AND authenticates the server;
+    // `no-verify` encrypts only, accepting any certificate, so it does not stop a
+    // MITM; `disable` sends credentials in plaintext and is for a loopback socket
+    // in local development only. See sslConfig() in lib/db.ts.
+    DATABASE_SSL: z.enum(['verify', 'no-verify', 'disable']).default('verify'),
+    // PEM contents (not a path) of the CA that signed the MySQL server
+    // certificate. Needed with DATABASE_SSL=verify against a self-signed cert,
+    // which is the norm for a self-hosted server.
+    DATABASE_SSL_CA: z.string().optional(),
 
-    JWT_ACCESS_SECRET: z.string().min(16, 'JWT_ACCESS_SECRET must be at least 16 chars'),
-    JWT_REFRESH_SECRET: z.string().min(16, 'JWT_REFRESH_SECRET must be at least 16 chars'),
+    // The four secrets are optional so a deployment without a database (and so
+    // without admin users) still builds. Where one is unset its user signs with
+    // a random per-process key instead (`secretKey` below) — unguessable, just
+    // not stable across restarts — and REVALIDATE_SECRET's routes reject every
+    // request. Set all four wherever DATABASE_URL is set.
+    JWT_ACCESS_SECRET: z.string().min(16, 'JWT_ACCESS_SECRET must be at least 16 chars').optional(),
+    JWT_REFRESH_SECRET: z.string().min(16, 'JWT_REFRESH_SECRET must be at least 16 chars').optional(),
     ACCESS_TOKEN_TTL: z.coerce.number().int().positive().default(900),
     REFRESH_TOKEN_TTL: z.coerce.number().int().positive().default(2_592_000),
-    PREVIEW_SECRET: z.string().min(16, 'PREVIEW_SECRET must be at least 16 chars'),
-    REVALIDATE_SECRET: z.string().min(16, 'REVALIDATE_SECRET must be at least 16 chars'),
+    PREVIEW_SECRET: z.string().min(16, 'PREVIEW_SECRET must be at least 16 chars').optional(),
+    REVALIDATE_SECRET: z.string().min(16, 'REVALIDATE_SECRET must be at least 16 chars').optional(),
 
     STORAGE_DRIVER: z.enum(['local', 's3', 'cloudinary']).default('local'),
     LOCAL_STORAGE_DIR: z.string().default('.storage'),
@@ -43,6 +77,35 @@ const schema = z
     CLOUDINARY_API_SECRET: z.string().default(''),
     // Optional key prefix for all uploaded objects, e.g. "blog". No slashes.
     CLOUDINARY_FOLDER: z.string().default(''),
+
+    // Must match MySQL's `innodb_ft_min_token_size`. InnoDB never indexes tokens
+    // below it, so lib/search/fulltext.ts drops shorter terms rather than sending
+    // a query that silently matches nothing. Lowering it here without also
+    // lowering it on the server (and rebuilding the FULLTEXT indexes) just moves
+    // the empty results one layer down.
+    SEARCH_MIN_TOKEN_SIZE: z.coerce.number().int().min(1).max(10).default(3),
+
+    // MaxMind GeoLite2-Country database, used to preselect the enquiry form's
+    // phone country code. Licensed and refreshed weekly upstream, so it is not
+    // committed — `npm run geo:update` downloads it. Optional: with no file
+    // present every form simply defaults to +91 (see lib/geo/country.ts).
+    GEOIP_DB_PATH: z.string().default('./data/GeoLite2-Country.mmdb'),
+    // Free MaxMind account → Manage License Keys. Read only by the download
+    // script; the running app never contacts MaxMind.
+    MAXMIND_LICENSE_KEY: z.string().default(''),
+
+    // NeetoCal meeting scheduler behind /contact's "Schedule Meeting" card.
+    // Server-side only: /api/v1/meeting/* proxies NeetoCal so the key never
+    // reaches the browser. Empty disables the card's live calendar (it falls
+    // back to linking the NeetoCal booking page).
+    NEETOCAL_API_KEY: z.string().default(''),
+
+    // Where enquiry/meeting leads go when no database is configured: the live
+    // softsuave.com lead endpoint its own contact forms post to (see
+    // lib/leads/forward.ts). Override only to point at a different collector.
+    LEAD_FORWARD_URL: z.string().url().default('https://www.softsuave.com/forms/enquires/developer'),
+    NEETOCAL_BASE_URL: z.string().default('https://softsuave.neetocal.com'),
+    NEETOCAL_MEETING_SLUG: z.string().default('meeting-with-softsuave'),
 
     RATE_LIMIT_DRIVER: z.enum(['memory', 'upstash']).default('memory'),
     UPSTASH_REDIS_REST_URL: z.string().default(''),
@@ -131,3 +194,16 @@ function loadEnv() {
 
 export const env = loadEnv();
 export type Env = typeof env;
+
+/** Whether a database is configured. False is the no-database mode described on DATABASE_URL. */
+export const databaseConfigured = Boolean(env.DATABASE_URL);
+
+/**
+ * A secret's bytes, or — when it is unset — 32 random bytes generated once per
+ * call site at module load. Never a fixed fallback: `encode(undefined)` would
+ * sign with the literal string "undefined", which anyone could forge.
+ */
+export function secretKey(value: string | undefined): Uint8Array {
+  if (value) return new TextEncoder().encode(value);
+  return crypto.getRandomValues(new Uint8Array(32));
+}

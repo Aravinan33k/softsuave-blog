@@ -4,7 +4,7 @@ import { rateLimit } from '@/lib/rate-limit';
 import { searchPosts } from '@/lib/api/public';
 import { searchQuery, postListItemDto, paginationMeta } from '@/lib/api/schemas';
 
-// GET /api/v1/search?q=&page&perPage — Postgres full-text search over posts.
+// GET /api/v1/search?q=&page&perPage — MySQL FULLTEXT search over posts.
 // The query structure is swappable for Meilisearch/Algolia later (see searchPosts).
 export async function GET(req: NextRequest) {
   try {
@@ -15,9 +15,12 @@ export async function GET(req: NextRequest) {
     if (!parsed.success) return jsonError(400, 'invalid_query', 'A non-empty "q" parameter is required.');
     const { q, page, perPage } = parsed.data;
 
-    const { data, total } = await searchPosts(q, { page, perPage });
+    const { data, total, ignoredTerms } = await searchPosts(q, { page, perPage });
     return NextResponse.json(
-      { data: postListItemDto.array().parse(data), pagination: paginationMeta(page, perPage, total), query: q },
+      // `ignoredTerms` tells a consumer why a term matched nothing — MySQL
+      // FULLTEXT cannot index tokens below innodb_ft_min_token_size, so an empty
+      // result for "AI" is a limitation, not an absence of content.
+      { data: postListItemDto.array().parse(data), pagination: paginationMeta(page, perPage, total), query: q, ignoredTerms },
       { headers: { 'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=120' } },
     );
   } catch (err) {

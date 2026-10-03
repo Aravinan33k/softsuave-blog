@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import { hash, type Options } from '@node-rs/argon2';
 import { PrismaClient } from '../src/generated/prisma/client';
 
@@ -13,7 +13,22 @@ if (!connectionString) {
   throw new Error('DATABASE_URL is not set — cannot seed.');
 }
 
-const adapter = new PrismaPg({ connectionString });
+// The URL is decomposed rather than handed over whole, because `timezone` has to
+// be set alongside it and the driver takes either a connection string or an
+// options object, not both. `timezone: 'Z'` matters for the same reason as in
+// lib/db.ts: MySQL DATETIME carries no zone, so without it the driver writes rows
+// using this machine's local clock and every createdAt/updatedAt lands offset
+// from what the app later reads back.
+const dbUrl = new URL(connectionString);
+const adapter = new PrismaMariaDb({
+  host: dbUrl.hostname,
+  port: dbUrl.port ? Number(dbUrl.port) : 3306,
+  user: decodeURIComponent(dbUrl.username),
+  password: decodeURIComponent(dbUrl.password),
+  database: decodeURIComponent(dbUrl.pathname.replace(/^\//, '')),
+  timezone: 'Z',
+  connectionLimit: 2,
+});
 const prisma = new PrismaClient({ adapter });
 
 // Argon2id parameters (also used by the Phase 2 auth lib — keep in sync).

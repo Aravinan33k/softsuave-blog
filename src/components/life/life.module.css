@@ -1,0 +1,211 @@
+/* ============================================================
+   /life-at-softsuave — page-local sections (components/life/*).
+   Built on the landing surface's tokens and card classes; only the
+   arrangements the shared set lacks live here.
+   ============================================================ */
+
+/* ---------- Photo rows ---------- */
+
+/* Full-bleed: the rows run past both gutters to the viewport edges, as live's
+   do. `.page` clips horizontal overflow, so the bleed never scrolls. */
+.rows {
+  display: grid;
+  gap: clamp(10px, 1.2vw, 16px);
+  margin-inline: calc(var(--gutter) * -1);
+  overflow: hidden;
+}
+
+.row {
+  overflow: hidden;
+}
+
+.track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: clamp(10px, 1.2vw, 16px);
+  width: max-content;
+  animation: lifeDrift 70s linear infinite;
+}
+
+.row[data-dir="reverse"] .track {
+  animation-direction: reverse;
+  animation-duration: 64s;
+}
+
+.row:hover .track {
+  animation-play-state: paused;
+}
+
+/* Two copies of the row with one gap between each photo: one copy plus one gap
+   is half the track plus half a gap, which is where the second copy's first
+   photo lands exactly where the first copy's started. */
+@keyframes lifeDrift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - clamp(10px, 1.2vw, 16px) / 2));
+  }
+}
+
+.photo {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(220px, 26vw, 380px);
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--text-bright) 6%, transparent);
+}
+
+@media (max-width: 700px) {
+  .photo {
+    width: 62vw;
+  }
+}
+
+.photoImg {
+  object-fit: cover;
+}
+
+/* No drift: the row becomes a plain swipeable scroller of one copy. */
+@media (prefers-reduced-motion: reduce) {
+  .row {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .track {
+    animation: none;
+    padding-inline: var(--gutter);
+  }
+
+  .photo[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+.ctaRow {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(28px, 3.4vw, 48px);
+}
+
+/* ---------- Driven by Purpose ---------- */
+
+.purposeCard {
+  align-content: start;
+}
+
+/* A light plaque, so the illustrations keep the white ground they were drawn
+   for on either band. */
+.purposeArt {
+  display: grid;
+  /* A definite row, so the image's `height: 100%` resolves against the plaque
+     instead of falling back to the artwork's intrinsic height. */
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  place-items: center;
+  height: clamp(170px, 15vw, 210px);
+  padding: clamp(14px, 1.6vw, 20px);
+  border-radius: 12px;
+  background: #f4f2ee;
+}
+
+.purposeImg {
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ---------- Perks ---------- */
+
+.perkGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+@media (min-width: 1000px) {
+  .perkGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Imagination at Work ---------- */
+
+.practiceGrid {
+  display: grid;
+  gap: clamp(28px, 3.6vw, 56px);
+}
+
+@media (min-width: 1000px) {
+  .practiceGrid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+  }
+
+  .practiceLead {
+    position: sticky;
+    top: clamp(96px, 10vw, 120px);
+  }
+}
+
+.practiceMedia {
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+}
+
+.practiceImg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.practiceList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(12px, 1.4vw, 18px);
+}
+
+.practiceList .practiceCard {
+  display: block;
+}
+
+/* ---------- Awards & Certifications ---------- */
+
+.awardGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  /* Twelve badges: 6 x 2 on desktop, 4 x 3 on tablet, 3 x 4 on a phone —
+     always full rows, never a stray badge on its own. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.8vw, 24px);
+}
+
+@media (min-width: 640px) {
+  .awardGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .awardGrid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.awardGrid .awardBadge {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 16px;
+}

@@ -5,6 +5,8 @@ import { industries } from "@/lib/home/content";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/home/gsap";
 import SplitReveal from "./split-reveal";
 import BrandImage from "./brand-image";
+import CardIconBadge from "@/components/common/card-icon-badge";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./home.module.css";
 
 /**
@@ -14,10 +16,10 @@ import styles from "./home.module.css";
  *   based on the carousel container width.
  * - Small viewports: clean CSS grid wrap.
  * - Hover lifts a single card without disturbing the rest.
- *   Click interaction is intentionally disabled; only hover reveals detail.
+ * - The orange title strip is the card's link, to that industry's page
+ *   (`href` in content.ts), with a black arrow at its right end.
  */
 const CARD_COLOR = "#ff5436";
-const pad = (n: number) => String(n + 1).padStart(2, "0");
 
 type LayoutTarget = {
   x: number;
@@ -47,6 +49,10 @@ type LayoutResult =
  *   y = 120 + off² * 6
  *   rotation = off * 8
  *   spread = Math.min(270, containerWidth * 0.155)
+ *
+ * Every width/height budget below is derived from `N` rather than hardcoded to
+ * the original five cards, so adding an industry re-fits the fan instead of
+ * quietly overflowing the stage.
  */
 function computeLayout(
   width: number,
@@ -65,8 +71,10 @@ function computeLayout(
   // Calculate dynamic size factor based on available height (from 0.50 at height = 500px up to 1.0 at height >= 800px)
   const hScale = Math.max(0.5, Math.min(1, 0.5 + ((height - 500) / 300) * 0.5));
 
-  // 1. Calculate optimal card width based on width and height constraints
-  const cardW_widthBased = (width - safetyX * 2) / 4.3;
+  // 1. Calculate optimal card width based on width and height constraints.
+  //    The divisor tracks the card count (N - 0.7 → 4.3 at the original N = 5)
+  //    so a wider fan shrinks its cards instead of running off the stage.
+  const cardW_widthBased = (width - safetyX * 2) / (N - 0.7);
   const safetyY = height < 700 ? 180 : 280;
   const cardW_heightBased = (height - safetyY) / 1.35;
 
@@ -90,7 +98,7 @@ function computeLayout(
   const fanHeight = cardH + maxTranslateY + cornerDrop;
 
   const totalHeightNeeded = safetyY + fanHeight; // header + safety buffer
-  const totalWidthNeeded = 4 * idealSpread + cardW + safetyX * 2;
+  const totalWidthNeeded = (N - 1) * idealSpread + cardW + safetyX * 2;
 
   // Fit verification (enable fan above 768px width, and switch to grid only when cannot fit)
   const canFan = width >= 768 && width >= totalWidthNeeded && height >= 520 && idealSpread >= minSpread;
@@ -131,7 +139,9 @@ export default function Industries() {
 
   const items = industries.items;
   const N = items.length;
-  const center = Math.floor(N / 2);
+  // Fractional midpoint (2.5 for six cards) so the fan stays symmetric about
+  // the stage centre for an even count as well as an odd one.
+  const center = (N - 1) / 2;
 
   const cardEls = useRef<(HTMLElement | null)[]>([]);
   const baseTargets = useRef<LayoutTarget[]>([]);
@@ -380,6 +390,12 @@ export default function Industries() {
             style={{ ["--card" as string]: CARD_COLOR } as React.CSSProperties}
             onMouseEnter={() => handleMouseEnter(i)}
             onMouseLeave={() => handleMouseLeave(i)}
+            // Keyboard focus on the card's link is the same active state as a
+            // hover: lifted in the fan, description revealed (:focus-within).
+            onFocus={() => handleMouseEnter(i)}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node | null)) handleMouseLeave(i);
+            }}
           >
             <div className={styles.indFanCardImg}>
               <BrandImage
@@ -391,10 +407,32 @@ export default function Industries() {
               />
             </div>
             <div className={styles.indFanCardOverlay}>
-              <span className={styles.indFanCardNum}>/{pad(i)}</span>
+              {/* An icon for the sector, not a "/01" ordinal — the Sep review
+                  asked for icons in place of numbers across the pages. */}
+              <CardIconBadge title={it.name} body={it.body} size="sm" className={styles.indFanCardNum} />
               <p className={styles.indFanCardBody}>{it.body}</p>
             </div>
-            <span className={styles.indFanCardTitle}>{it.name}</span>
+            {/* The whole card is the link: this layer covers the photo and the
+                description (above them, below the orange strip), so a click
+                anywhere on the card opens the sector's page — middle-click and
+                "open in new tab" included, which an onClick push would not give.
+                It is a duplicate of the strip's link, so it is taken out of the
+                tab order and the accessibility tree: the strip stays the card's
+                one named, focusable link. */}
+            <SiteLink href={it.href} className={styles.indFanCardHit} tabIndex={-1} aria-hidden="true" />
+            {/* Each sector is an H3 under the section's H2. The link stays inside
+                the heading, so the name is still the card's link; the strip is
+                positioned against the card, so the h3 adds no layout. */}
+            <h3>
+              <SiteLink href={it.href} className={styles.indFanCardTitle}>
+                {it.name}
+                <span className={styles.indFanCardArrow} aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17 17 7M9 7h8v8" />
+                  </svg>
+                </span>
+              </SiteLink>
+            </h3>
           </article>
         ))}
       </div>

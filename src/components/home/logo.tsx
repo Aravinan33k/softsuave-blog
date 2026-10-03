@@ -1,8 +1,14 @@
 import Image from "next/image";
 import { brand } from "@/lib/home/content";
+import { publicMediaUrl } from "@/lib/media-url";
 
 /** Full logo lockup assets (cube + wordmark + tagline). The light variant is for
- *  dark backgrounds; the dark variant is for light backgrounds. */
+ *  dark backgrounds; the dark variant is for light backgrounds.
+ *
+ *  Paths are root-relative and get the mount subpath applied at render time via
+ *  `publicMediaUrl`: `basePath` prefixes framework assets but not next/image
+ *  sources, and the optimizer fetches the `url` param verbatim — so under
+ *  `basePath: '/blog'` an unprefixed src 400s instead of resolving. */
 const LOCKUP = {
   light: "/brand/softsuave_logo_light.webp",
   dark: "/brand/softsuave_logo_dark.webp",
@@ -39,7 +45,7 @@ export default function Logo({
     const w = Math.round(h * (LOCKUP_W / LOCKUP_H));
     return (
       <Image
-        src={LOCKUP[tone]}
+        src={publicMediaUrl(LOCKUP[tone])}
         alt={brand.name}
         width={w}
         height={h}
@@ -57,7 +63,7 @@ export default function Logo({
       aria-label={brand.name}
     >
       <Image
-        src={MARK}
+        src={publicMediaUrl(MARK)}
         alt=""
         height={size}
         width={Math.round((165 / 192) * size)}

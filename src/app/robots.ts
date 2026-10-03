@@ -3,9 +3,8 @@ import { absoluteUrl } from '@/lib/seo/metadata';
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    // Both admin paths are listed: /blog/admin is the public entry point and
-    // /admin still resolves (it 307s there), so excluding only one would leave
-    // the login page crawlable at the other.
+    // /blog/admin/ is still listed: it 302s to /admin, and a crawler that
+    // followed the old subpath URL should not be invited to index the hop.
     rules: [{ userAgent: '*', allow: '/', disallow: ['/admin/', '/blog/admin/', '/api/', '/preview/'] }],
     sitemap: absoluteUrl('/sitemap.xml'),
   };

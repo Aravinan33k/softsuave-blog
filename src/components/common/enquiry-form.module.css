@@ -1,0 +1,678 @@
+/* ============================================================
+   ENQUIRY FORM — the single source of truth for every enquiry
+   card on the marketing surface.
+
+   There used to be three of these, and they had drifted into three
+   different designs:
+
+     landing.module.css   40 pages  white card, radius 24, fields were a
+                                    bare 1px underline with no fill
+     gen-ai.module.css     3 pages  cream card, radius 14, boxed fields
+     services.module.css   1 page   translucent DARK card, boxed fields,
+                                    mono uppercase labels
+
+   So the same form looked like three different products depending on which
+   page the reader landed on. This module is what all three now import, which
+   is what keeps them identical — the fix is structural, not a matter of
+   keeping three files in sync by hand.
+
+   Deliberately NOT built on the surface's own --bg/--text/--surface tokens:
+   this is a light card floating on a dark hero, and pointing those tokens at
+   light values here would flip them everywhere else the theme uses them. The
+   card declares its own --fx-* island instead, so it renders the same
+   whatever band it is dropped into.
+
+   --accent and --on-accent ARE read from the theme, because the submit
+   button has to stay the brand's button and those two already resolve to the
+   same pair on every page that carries a form.
+   ============================================================ */
+.card {
+  /* Card-local palette. Fixed values, so the card cannot pick up a
+     surrounding band's ink and change character from page to page. */
+  --fx-ink: #0f1115;
+  --fx-label: #3f434d;
+  --fx-muted: #656b76;
+  --fx-placeholder: #9aa0aa;
+  --fx-line: #dfe1e6;
+  --fx-line-hover: #c6cad2;
+  --fx-well: #f6f7f9;
+  --fx-danger: #c8321c;
+  --fx-danger-ink: #8f2412;
+  --fx-danger-tint: #fdf4f1;
+  --fx-radius: 8px;
+
+  border: 1px solid rgba(15, 17, 21, 0.07);
+  border-radius: 16px;
+  background: #fff;
+  color: var(--fx-ink);
+  /* Sized down from clamp(26px, 3vw, 40px)/20px radius: at the old scale the
+     card ran taller than the hero copy beside it and pushed the H1 off the
+     first screen on a laptop. The type inside is unchanged where it carries
+     meaning (inputs stay 16px); it is the padding and gaps that shrank. */
+  /* Trimmed again on the Sep 23 review ("the height of the form is too
+     long"): the card is the first screen's right half, so every band of
+     padding inside it costs hero height. */
+  padding: clamp(18px, 1.8vw, 22px);
+  /* Three layers rather than one: a hairline to seat the card on its own
+     edge, a mid shadow for shape, and a wide soft one for the float. A
+     single large blur reads as haze over a photographic hero. */
+  box-shadow:
+    0 1px 2px rgba(15, 17, 21, 0.06),
+    0 18px 40px -20px rgba(15, 17, 21, 0.32),
+    0 48px 96px -48px rgba(15, 17, 21, 0.45);
+}
+
+/* ---------- header ---------- */
+.header {
+  text-align: center;
+}
+
+/* The same mono eyebrow the dark sections use, re-inked for this white card —
+   the theme's --muted grey is far too low-contrast here. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-family: var(--font-eyebrow);
+  font-size: clamp(10px, 0.78vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: #16181d;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--accent, #ff5436);
+}
+
+/* Leads the header where the card carries no eyebrow above it
+   (/ai-development-service is the case), so it does not open on stray space. */
+.header .title:first-child {
+  margin-top: 0;
+}
+
+.title {
+  margin: 0.55em 0 0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 1.45vw, 1.4rem);
+  line-height: 1.24;
+  letter-spacing: -0.015em;
+  color: #0b0d11;
+}
+
+/* Supporting sentence under the title, where a page supplies one. */
+.body {
+  margin: 0.5em 0 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--fx-muted);
+}
+
+/* The three-dash rule under the title, as the live site draws it. Painted
+   with a gradient rather than `border-bottom: dashed`, whose dash length and
+   phase the browser picks — at this width that rendered as a row of uneven
+   ticks that looked like a fault. Here each dash is exactly 13px with a 9px
+   gap, so it is always three of them, centred. */
+.accent {
+  display: block;
+  width: 57px;
+  height: 3px;
+  margin: 10px auto 0;
+  border: 0;
+  border-radius: 999px;
+  background-image: linear-gradient(90deg, var(--accent, #ff5436) 0 13px, transparent 13px 22px);
+  background-size: 22px 100%;
+  background-repeat: repeat-x;
+}
+
+/* ---------- fields ----------
+   Underlined rows with a floating label, matching the form on the live
+   softsuave.com pages: an icon in its own column, the label sitting on the
+   line where the answer will go, and a single hairline under the row instead
+   of a boxed well. The label lifts and shrinks on focus or once the field
+   holds a value, so the field is never unlabelled while it is being typed
+   into — which is the failure mode of a placeholder-only form.
+
+   Pure CSS, no JS: the float is driven by `:placeholder-shown`, which is why
+   every control still carries a placeholder (hidden at rest, revealed on
+   focus as a format hint under the risen label). */
+.fields {
+  display: grid;
+  gap: 12px;
+  margin-top: clamp(14px, 1.5vw, 18px);
+}
+
+.field {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: start;
+  /* Headroom the risen label occupies. 18px clears a 16px label scaled to
+     0.76 without it touching the control's own text below. */
+  padding-top: 18px;
+}
+
+/* Decorative field marker, in its own column so it stays put while the label
+   above the line moves. */
+.fieldIcon {
+  grid-column: 1;
+  width: 18px;
+  height: 18px;
+  /* The control's own top padding (3px) plus half the difference between the
+     text line and the glyph, so it centres on the first line of text rather
+     than on the whole row (which the textarea would throw off). */
+  margin-top: 6px;
+  color: var(--fx-label);
+}
+
+/* Sits over the control at rest (same size and position as the text the
+   reader is about to type), then lifts above the line. Not a pointer target —
+   clicks pass through to the control underneath, which the `for`/`id` pair
+   would otherwise only handle on the label's own box. */
+.label {
+  position: absolute;
+  /* Icon column (20px) + column gap (12px) — flush with the control. */
+  left: 32px;
+  top: 21px;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--fx-muted);
+  pointer-events: none;
+  transform-origin: left top;
+  transition:
+    transform 0.16s ease,
+    color 0.16s ease;
+}
+
+.input:focus ~ .label,
+.textarea:focus ~ .label,
+.input:not(:placeholder-shown) ~ .label,
+.textarea:not(:placeholder-shown) ~ .label {
+  transform: translateY(-19px) scale(0.76);
+  color: var(--fx-label);
+}
+
+.input:focus ~ .label,
+.textarea:focus ~ .label {
+  color: color-mix(in srgb, var(--accent, #ff5436) 80%, #000);
+}
+
+/* Risen, a label is one line whatever its length: there is only 18px of
+   headroom above the control, so a second line would come back down over the
+   placeholder it just made way for. At 0.76 scale even the longest of these
+   labels fits the column on a desktop card; the ellipsis is the safety net if
+   a longer one is ever written. */
+.textarea:focus ~ .label,
+.textarea:not(:placeholder-shown) ~ .label {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* On a phone the card is narrow enough that the longest label would be cut
+   mid-word by that ellipsis, so there it wraps to two lines instead and the
+   row carries the headroom for them: the label rests 16px lower to stay on
+   the control's line, and rises by that much more. */
+@media (max-width: 620px) {
+  .fieldArea {
+    padding-top: 34px;
+  }
+
+  .fieldArea .label {
+    top: 37px;
+  }
+
+  .fieldArea .textarea:focus ~ .label,
+  .fieldArea .textarea:not(:placeholder-shown) ~ .label {
+    white-space: normal;
+    transform: translateY(-35px) scale(0.76);
+  }
+}
+
+.optional {
+  font-weight: 400;
+  color: var(--fx-placeholder);
+}
+
+/* Required marker. Decorative — the real semantics are the `required`
+   attribute on the control, so this is aria-hidden in the markup. */
+/* See landing.module.css .required — flat --accent is 3.19:1 on this white
+   card; 80% of it over black is 4.77:1. */
+/* Set as a superscript ahead of the label text, the way the live form marks
+   its required rows. */
+.required {
+  align-self: flex-start;
+  order: -1;
+  font-size: 0.72em;
+  line-height: 1;
+  color: var(--fx-danger);
+  font-weight: 700;
+}
+
+/* The control itself: a hairline under an otherwise bare row. */
+.input,
+.textarea {
+  grid-column: 2;
+  width: 100%;
+  padding: 3px 0 9px;
+  border: 0;
+  border-bottom: 1px solid var(--fx-line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--fx-ink);
+  font-family: var(--font-body);
+  /* 16px exactly. Mobile Safari zooms the whole page in when a focused field
+     measures under 16px, which shoved the hero off-screen mid-form on every
+     one of these pages. */
+  font-size: 1rem;
+  line-height: 1.45;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+/* Opens as a single line, like every other row on the live card, and only
+   takes the room for a paragraph once the reader is actually in it — an
+   empty four-line box is what made this card tall in the first place. */
+.textarea {
+  /* Two lines of resting label, not one. The label stands in for the
+     placeholder here, and the longest of them ("What decision should the
+     prediction support?" on /predictive-intelligence-services) wraps — at
+     34px it ran past the row's own hairline and sat on the text below. */
+  min-height: 52px;
+  resize: vertical;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    min-height 0.2s ease;
+}
+
+.textarea:focus,
+.textarea:not(:placeholder-shown) {
+  min-height: 76px;
+}
+
+/* Hidden while the label is standing in for it; shown once the label has
+   risen, so the two never occupy the same line. */
+.input::placeholder,
+.textarea::placeholder {
+  color: transparent;
+  transition: color 0.16s ease;
+}
+
+.input:focus::placeholder,
+.textarea:focus::placeholder {
+  color: var(--fx-placeholder);
+}
+
+.input:hover:not(:focus),
+.textarea:hover:not(:focus) {
+  border-color: var(--fx-line-hover);
+}
+
+/* `:focus`, not `:focus-visible` — a text field should show focus however it
+   was reached, including a pointer click, since the caret alone is a thin
+   signal on a field this wide. The rule takes the accent and doubles in
+   weight (the second pixel is a shadow, so the row does not shift). */
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--accent, #ff5436);
+  box-shadow: 0 1px 0 0 var(--accent, #ff5436);
+}
+
+/* `:user-invalid` rather than `:invalid`: `:invalid` matches every required
+   field the moment the page loads, so an untouched form would open painted
+   red. This fires only after the reader has actually left a bad value. */
+.input:user-invalid,
+.textarea:user-invalid {
+  border-color: var(--fx-danger);
+}
+
+.input:user-invalid:focus,
+.textarea:user-invalid:focus {
+  box-shadow: 0 1px 0 0 var(--fx-danger);
+}
+
+.input:user-invalid ~ .label,
+.textarea:user-invalid ~ .label {
+  color: var(--fx-danger-ink);
+}
+
+/* Chrome paints autofilled fields its own pale yellow, which on this white
+   card looked like a rendering fault. An inset shadow is the only way to
+   repaint that fill. */
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--fx-ink);
+  -webkit-box-shadow: 0 0 0 40px #fff inset;
+  caret-color: var(--fx-ink);
+}
+
+.input:-webkit-autofill:focus {
+  -webkit-box-shadow:
+    0 0 0 40px #fff inset,
+    0 1px 0 0 var(--accent, #ff5436);
+}
+
+/* ---------- submit ---------- */
+/* Self-contained rather than composed from each surface's own .btn variants,
+   which is how the three cards ended up with three different buttons.
+   Sentence-case body type on purpose: the uppercase mono eyebrow voice
+   belongs to the dark sections' CTAs, not to this card. */
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* Clear of the last field's hairline, as on the live form. */
+  margin-top: 10px;
+  padding: 0.85em 1.4em;
+  border: 1px solid var(--accent, #ff5436);
+  border-radius: var(--fx-radius);
+  background: var(--accent, #ff5436);
+  color: var(--on-accent, #140b08);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: normal;
+  text-transform: none;
+  cursor: pointer;
+  box-shadow: 0 10px 20px -10px color-mix(in srgb, var(--accent, #ff5436) 75%, transparent);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Colour-only, like every other CTA on the site: the whole plate shifts to
+   --accent-border, the deeper sibling red. No lift — the button sits inside a
+   card whose own edge is 10px away, and a rising plate read as detaching from
+   it. The resting glow deepens with the fill so the press still has weight. */
+.submit:hover {
+  background: var(--accent-border, #fb3b5c);
+  border-color: var(--accent-border, #fb3b5c);
+  /* No glow on hover: the coral/rose haze round the plate read as fog. The fill change is the whole signal. */
+  box-shadow: none;
+}
+
+.submit:active {
+  box-shadow: 0 6px 14px -8px color-mix(in srgb, var(--accent-border, #fb3b5c) 75%, transparent);
+}
+
+.submit:focus-visible {
+  outline: 2px solid var(--accent, #ff5436);
+  outline-offset: 3px;
+}
+
+/* Mid-request. The label swapping to "Sending..." is the state signal; this
+   only drops the affordances that would still say "pressable".
+
+   Deliberately no `opacity`: it composites the label along with the plate,
+   and at 0.72 the "Sending..." text goes sub-AA against its own button — at
+   exactly the moment the reader is watching it for news. */
+.submit:disabled {
+  cursor: progress;
+  transform: none;
+  box-shadow: none;
+}
+
+.submit:disabled:hover {
+  background: var(--accent, #ff5436);
+  border-color: var(--accent, #ff5436);
+  transform: none;
+}
+
+/* ---------- states ---------- */
+/* Failure, directly above the submit button the reader just pressed. Not
+   carried by colour alone: it is the only bordered block in the stack, and it
+   is announced through role="alert". */
+.error {
+  margin: 2px 0 0;
+  padding: 10px 12px;
+  border: 1px solid var(--fx-danger);
+  border-left-width: 3px;
+  border-radius: 8px;
+  background: var(--fx-danger-tint);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--fx-danger-ink);
+}
+
+/* Success, in place of the fields. */
+.done {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: clamp(20px, 2.4vw, 30px) 0 clamp(10px, 1.2vw, 16px);
+  text-align: center;
+}
+
+.doneMark {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 4px;
+  /* The accent's darker twin: #ff5436 is only 3.2:1 on white, and this glyph
+     is the confirmation's main signal. */
+  color: color-mix(in srgb, var(--accent, #ff5436) 82%, #000);
+}
+
+.doneTitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  line-height: 1.3;
+  color: #0b0d11;
+}
+
+.doneBody {
+  margin: 0;
+  max-width: 34ch;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--fx-muted);
+}
+
+.note {
+  margin: 8px 0 0;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--fx-muted);
+  text-align: center;
+}
+
+.noteLink {
+  color: color-mix(in srgb, var(--accent, #ff5436) 82%, #000);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.noteLink:hover,
+.noteLink:focus-visible {
+  color: color-mix(in srgb, var(--accent, #ff5436) 62%, #000);
+}
+
+.status {
+  margin: 12px 0 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--accent, #ff5436) 75%, #000);
+  text-align: center;
+}
+
+/* Notice under the form steering job applicants away from the sales inbox.
+   Tinted rather than bordered-red: it is guidance, not an error, and the two
+   must not read alike when they can appear on the same card. */
+.alert {
+  /* Plain centred small print, as the live card carries it — the tinted,
+     bordered box this used to be read as a second card inside the card. The
+     bold "Alert:" lead is what marks it as guidance rather than help text. */
+  margin: 9px 0 0;
+  font-size: 0.74rem;
+  line-height: 1.45;
+  color: var(--fx-muted);
+  text-align: center;
+}
+
+.alertLabel {
+  font-weight: 700;
+  color: color-mix(in srgb, var(--accent, #ff5436) 75%, #000);
+}
+
+.alertLink {
+  color: color-mix(in srgb, var(--accent, #ff5436) 80%, #000);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Honeypot. Off-screen rather than `display: none` or `visibility: hidden`,
+   both of which some form bots know to skip — this stays a real field that
+   simply cannot be reached, since the input carries tabindex="-1" and the
+   wrapper is aria-hidden. */
+.honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input,
+  .textarea,
+  .submit {
+    transition: none;
+  }
+}
+
+/* ---------- phone, with its country calling code ---------- */
+/* `common/phone-field.tsx` arrived with the boxed-well version of this card
+   and is restyled here to the hairline row the rest of these fields use. Only
+   the paint differs — the markup, the keyboard behaviour and the hidden input
+   carrying the combined number are the component's own.
+
+   `auto 1fr` rather than two flexed halves: the code sizes to its own text,
+   from "+1" to "+998", and the number takes every pixel that is left. */
+.phoneRow {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 10px;
+  align-items: end;
+}
+
+/* The number input is already `grid-column: 2` from the shared `.input` rule,
+   which lands it in this nested grid's second column — beside the code, not
+   under it. */
+
+.dialWrap {
+  position: relative;
+  display: inline-flex;
+}
+
+/* The real control, laid transparently over the span that paints the code.
+   A native `<select>` renders its whole selected option ("India (+91)") when
+   closed, which is far too wide to sit beside the number — but replacing it
+   with a custom listbox would cost the keyboard handling, the screen-reader
+   role and the mobile picker that come free here. So the select keeps all of
+   that and gives up only its paint. 16px so mobile Safari does not zoom the
+   page on focus, the same reason as `.input`. */
+.dialSelect {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+/* The dropdown list is painted by the platform, which inherits neither this
+   card's custom properties nor its colours — without this, a dark-UI browser
+   shows white text on a white list. */
+.dialSelect option {
+  color: #111;
+  background: #fff;
+}
+
+/* Metrically identical to `.input`, so the code and the number sit on one
+   continuous hairline. */
+.dialValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 0 9px;
+  border: 0;
+  border-bottom: 1px solid var(--fx-line);
+  background: transparent;
+  color: var(--fx-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.45;
+  white-space: nowrap;
+  /* clicks belong to the select underneath */
+  pointer-events: none;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.dialCaret {
+  width: 10px;
+  height: 6px;
+  opacity: 0.55;
+}
+
+/* The hover and focus states the transparent select cannot show itself,
+   carried to the span that is actually visible. `:focus` and not
+   `:focus-visible`, matching `.input` — there is no caret here to stand in
+   for a ring. */
+.dialSelect:hover + .dialValue {
+  border-color: var(--fx-line-hover);
+}
+
+.dialSelect:focus + .dialValue {
+  border-color: var(--accent, #ff5436);
+  box-shadow: 0 1px 0 0 var(--accent, #ff5436);
+}
+
+/* A label pinned to the risen position instead of resting on the control's
+   line. The phone row needs it for two reasons: the dial code paints a value
+   from the first render, so there is no empty line for a label to sit on; and
+   the number input is nested inside `.phoneRow`, so the `~ .label` rules that
+   float the other rows cannot reach it across the wrapper. */
+.labelFloat {
+  transform: translateY(-19px) scale(0.76);
+  color: var(--fx-label);
+}
+
+.field:focus-within .labelFloat {
+  color: color-mix(in srgb, var(--accent, #ff5436) 80%, #000);
+}
+
+/* With the label permanently clear of the line, the number's placeholder is
+   not competing with it and can show at rest. */
+.phoneRow .input::placeholder {
+  color: var(--fx-placeholder);
+}
