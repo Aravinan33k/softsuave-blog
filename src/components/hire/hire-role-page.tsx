@@ -6,6 +6,7 @@ import { assignGrounds } from '@/lib/home/hire-roles/band-grounds';
 import { partnerHeroBadges } from '@/lib/home/hero-badges';
 import { sharedHeroCtas } from '@/lib/home/delivery-shared';
 import { landingPhoto, overviewImage } from '@/lib/home/overview-images';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 // Company-level sections: the homepage's own components, rendering the
 // homepage's own copy from `lib/home/content.ts`. A role page's claim to these
@@ -291,7 +292,11 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
             "Book Free Consultation" form every live role page ends on. Its CTA
             keeps the default `/contact` destination — the review asked for
             every final CTA to lead to the contact page. */}
-        <Contact />
+        {content.closing === 'consultation' ? (
+          <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        ) : (
+          <Contact />
+        )}
       </main>
 
       <Footer />

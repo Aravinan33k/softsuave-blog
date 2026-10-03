@@ -17,8 +17,15 @@ import Breadcrumb from "@/components/common/breadcrumb";
  * usage (`<Hero />`) is unchanged.
  */
 export interface HeroContent {
-  /** The H1, split into lines. The last line takes the accent. */
+  /** The H1, split into lines. The last line takes the accent unless `accent` is set. */
   titleLines: readonly string[];
+  /**
+   * The phrase in the H1 to colour, wherever it falls — the technology the
+   * page hires for ("ReactJS Developers"), rather than whatever words sit on
+   * the last line (hire-by-skill review: "the wrong words are being
+   * highlighted"). Must sit within one line. Omitted keeps the last-line accent.
+   */
+  accent?: string;
   /**
    * Size the H1 to its column so each of `titleLines` fits on one line — for
    * a headline whose first line is too long for the standard H1 size (the
@@ -79,7 +86,27 @@ export interface HeroContent {
     alt: string;
     /** 16px placeholder of the same frame, as the overview illustration has. */
     blurDataURL?: string;
+    /**
+     * `strong` lays a near-black gradient under the copy column, fading out
+     * towards the form — for pages whose photo competes with the text
+     * (hire-by-skill review: "add a black gradient to increase visibility in
+     * the hero section"). Omitted keeps the default even veil.
+     */
+    veil?: "strong";
   };
+}
+
+/** `line` with its first occurrence of `accent` wrapped in the accent colour. */
+function accentWithin(line: string, accent: string | undefined) {
+  const at = accent ? line.indexOf(accent) : -1;
+  if (!accent || at < 0) return line;
+  return (
+    <>
+      {line.slice(0, at)}
+      <span className={styles.heroTitleAccent}>{accent}</span>
+      {line.slice(at + accent.length)}
+    </>
+  );
 }
 
 /**
@@ -175,7 +202,7 @@ export default function Hero({
               ? { placeholder: "blur" as const, blurDataURL: content.image.blurDataURL }
               : {})}
           />
-          <div className={styles.heroBgVeil} aria-hidden />
+          <div className={styles.heroBgVeil} data-veil={content.image.veil} aria-hidden />
           {/* The compact look layers the coral glow over the photo as well,
               the way the generative-AI hero does; the display look drops it
               (the photo is the accent there). */}
@@ -201,10 +228,10 @@ export default function Hero({
                 {i > 0 ? " " : null}
                 <span
                   className={`${styles.heroTitleLine}${
-                    i === lastLine ? ` ${styles.heroTitleAccent}` : ""
+                    !content.accent && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
                   }`}
                 >
-                  {line}
+                  {accentWithin(line, content.accent)}
                 </span>
               </Fragment>
             ))}

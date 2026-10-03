@@ -24,6 +24,13 @@ export interface FaqItem {
    * paragraphs follow underneath as the closing remark.
    */
   readonly points?: readonly string[];
+  /**
+   * Which paragraph (0-based) the list follows, for an answer that runs two
+   * lines of introduction before it ("…you can get in touch with us." / "You
+   * should also check the below factors:"). Defaults to 0. An answer that is
+   * nothing but the list passes an empty `a`.
+   */
+  readonly pointsAfter?: number;
   /** Closes the last paragraph with a link, for answers that point somewhere. */
   readonly link?: FaqAnswerLink;
 }
@@ -103,6 +110,18 @@ export default function Faq({
                     role="region"
                     aria-labelledby={`${idPrefix}-trigger-${i}`}
                   >
+                    {/* An answer that is only a list has no paragraph to hang it from. */}
+                    {(typeof item.a === "string" ? [item.a] : item.a).length === 0 &&
+                      item.points &&
+                      item.points.length > 0 && (
+                        <ul className={styles.tickList}>
+                          {item.points.map((point) => (
+                            <li key={point} className={styles.tickItem}>
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     {(typeof item.a === "string" ? [item.a] : item.a).map((para, pi, all) => (
                       <Fragment key={pi}>
                         <p className={styles.faqAnswer}>
@@ -122,9 +141,9 @@ export default function Faq({
                             </>
                           ) : null}
                         </p>
-                        {/* Slots in after the opening line, which is the one
-                            that introduces the list. */}
-                        {pi === 0 && item.points && item.points.length > 0 && (
+                        {/* Slots in after the line that introduces the list —
+                            the opening one unless `pointsAfter` says otherwise. */}
+                        {pi === (item.pointsAfter ?? 0) && item.points && item.points.length > 0 && (
                           <ul className={styles.tickList}>
                             {item.points.map((point) => (
                               <li key={point} className={styles.tickItem}>

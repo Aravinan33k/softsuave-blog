@@ -37,7 +37,7 @@ const magento: HireSkill = {
   role: "Magento Developers",
   metaTitle: "Hire Magento Developer in India with Soft Suave",
   metaDescription:
-    "Hire Magento developers from India for custom eCommerce growth. Experts in Magento 2, Adobe Commerce, payment gateway integration, custom modules and migrations.",
+    "Want to hire Magento developers in India quickly? Onboard them in just 48 hours & create feature-packed e-commerce site for your business.",
   serviceType: "Magento development staffing",
   ctaLabel: "Hire Magento developers",
 
@@ -45,6 +45,7 @@ const magento: HireSkill = {
 
   hero: {
     titleLines: ["Hire Magento Developers", "in India on Contract"],
+    accent: "Magento Developers",
     body: [
       "Soft Suave helps companies hire Magento developers from India for custom eCommerce growth. Our experts work in Magento 2, Adobe Commerce, payment gateway integration, custom modules, migrations, and high-performance online stores. Scale teams quickly with flexible hiring models.",
       "See why businesses choose Soft Suave for their Magento developer hiring.",
@@ -57,7 +58,6 @@ const magento: HireSkill = {
       "Airtight NDA & IP Protection",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -66,11 +66,15 @@ const magento: HireSkill = {
       subject: "Magento Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/svc-web.webp",
-      width: 1200,
-      height: 860,
-      alt: "A Magento commerce storefront with catalogue, checkout, and admin views",
+      src: "/images/landing/hs-magento-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Miniature shopping cart in front of sales charts",
+      blurDataURL:
+        "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAwAgCdASoQAAsAA4BaJbACdAYvDqvP6MgUAAD+6hAcni9sRuGAXAEzOyJTfvceBO6TIpIK8pqdt6d0wvtXNqSOApwG5ukRulN2jsWdmCulqAHrX9WKvXvidmPHrOdvzKKTgAAA",
     },
   },
 
@@ -189,6 +193,8 @@ const magento: HireSkill = {
   },
 
   services: {
+    // Live closes this band on "Talk to Our Experts" (review: "missing a CTA button").
+    cta: { label: "Talk to Our Experts", href: "/contact" },
     eyebrow: "Services",
     title: "Magento Development Services We Offer",
     body: "We craft, optimize, and scale powerful Magento stores - delivering seamless user experiences, lightning-fast performance, secure integrations, and flexible solutions tailored to your business needs, so your eCommerce thrives globally.",
@@ -299,7 +305,7 @@ const drupal: HireSkill = {
   role: "Drupal Developers",
   metaTitle: "Hire Dedicated Drupal Developer India with 40 Hours Trial",
   metaDescription:
-    "Hire dedicated Drupal developers from India who build secure, scalable, content-rich platforms. Experts in Drupal CMS, custom modules, migrations and multisite.",
+    "Hire expert Drupal developers from India with 40 hours of free trial. Get access to top-tier developers and leverage 400+ in-house resources.",
   serviceType: "Drupal development staffing",
   ctaLabel: "Hire Drupal developers",
 
@@ -307,6 +313,7 @@ const drupal: HireSkill = {
 
   hero: {
     titleLines: ["Hire Drupal Developers", "in India on Contract"],
+    accent: "Drupal Developers",
     body: [
       "Soft Suave helps businesses hire dedicated Drupal developers from India who build secure, scalable, and content-rich digital platforms. Access pre-vetted experts in Drupal CMS, custom module development, migrations, API integrations, multisite setups, and enterprise web solutions with fast onboarding.",
       "See why businesses choose Soft Suave for their Drupal developer hiring.",
@@ -319,7 +326,6 @@ const drupal: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -328,11 +334,15 @@ const drupal: HireSkill = {
       subject: "Drupal Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-3.webp",
-      width: 1200,
-      height: 860,
-      alt: "A Drupal content platform showing structured content types and editorial workflow",
+      src: "/images/landing/hs-drupal-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Person building a website on a laptop in a blue-lit room",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAQAgCdASoQAAsAA4BaJbACdAEURwEW2IOAAP70fgohl+v0CQws01FCtqsiMTT6Xe6A5t5DFMzsHyXW/IDhDa8hSVc/h0yZvStXyYAA",
     },
   },
 
@@ -451,6 +461,8 @@ const drupal: HireSkill = {
   },
 
   services: {
+    // Live closes this band on "Talk to Our Experts" (review: "missing a CTA button").
+    cta: { label: "Talk to Our Experts", href: "/contact" },
     eyebrow: "Services",
     title: "Drupal Development Services We Offer",
     body: "Whatever your Drupal needs, Soft Suave has you covered. From concept to deployment and beyond, our comprehensive suite of services ensures your project thrives, delivering innovation and reliability.",

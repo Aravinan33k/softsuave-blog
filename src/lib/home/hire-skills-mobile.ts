@@ -21,8 +21,8 @@
 import type { HireSkill } from "./hire-skill";
 import { sharedHeroAlert } from "./delivery-shared";
 import { mobileExplore } from "./hire-explore";
-import { partnerTable } from "./hire-comparison";
-import { MERN_STEPS, MERN_WHY, CURATED_STEPS } from "./hire-blocks";
+import { PARTNER_TABLE_INTRO, partnerTable } from "./hire-comparison";
+import { CURATED_STEPS, techSteps, techWhy } from "./hire-blocks";
 
 const swift: HireSkill = {
   slug: "hire-swift-developers",
@@ -31,7 +31,7 @@ const swift: HireSkill = {
   role: "Swift Developers",
   metaTitle: "Hire Swift Developer in India with 40 Hours Risk-free Trial",
   metaDescription:
-    "Hire skilled Swift developers through Soft Suave — pre-vetted experts in Swift, Xcode and API development, available within 24–48 hours.",
+    "Looking to hire Swift developers in India? Get affordable rates, flexible engagement models, and exceptional services from Soft Suave's developers.",
   serviceType: "Swift development staffing",
   ctaLabel: "Hire Swift developers",
 
@@ -48,6 +48,7 @@ const swift: HireSkill = {
 
   hero: {
     titleLines: ["Hire Swift Developers", "in India on Contract"],
+    accent: "Swift Developers",
     body: [
       "Top-tier Swift developers do not have to come with a top-tier price tag. Hire skilled Swift developers through Soft Suave, a specialized IT outsourcing agency offering pre-vetted experts in Swift, Xcode, and API development; within 24–48 hours, and up to 60% more cost-effective.",
       "Lower hiring cost, more native iOS performance starting right now.",
@@ -60,7 +61,6 @@ const swift: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -69,15 +69,30 @@ const swift: HireSkill = {
       subject: "Swift Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-1.webp",
-      width: 1200,
-      height: 860,
-      alt: "A Swift codebase shared across iPhone, iPad, Mac, and Watch applications",
+      src: "/images/landing/hs-swift-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Swift code open in a dark-themed editor",
+      blurDataURL:
+        "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoQAAsABIBaJZwCdAFAAAD+9GLMccvAAAA=",
     },
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (review: "resize
+    // the image to fit the height of the section").
+    image: {
+      src: "/images/landing/ov-hire-swift-developers-tall.webp",
+      width: 1000,
+      height: 1250,
+      alt: "Developer testing code on a phone above a laptop terminal",
+      blurDataURL:
+        "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAwAgCdASoLABAAA4BaJZQCdAYstYp9MreQAAD9drL96gSg2yNz5A3qAI2G7Po54DLZpfH+VTTM1cI1fwD2X6XGBITWngotBaPCUfMNpZZZANoEw7SoUaIyFVAAAA==",
+      column: true,
+    },
     eyebrow: "Overview",
     title: "Hire Remote Swift Developers from Soft Suave",
     paragraphs: [
@@ -122,7 +137,7 @@ const swift: HireSkill = {
   midCta: {
     title: "Hire Remote Swift Developers Starting from $14/hour",
     body: "We will provide you with remote Swift developers that work from India. Contact us to look at the rate card.",
-    cta: { label: "Request Rate Card", href: "#enquiry" },
+    cta: { label: "Request Rate Card", href: "/contact" },
   },
 
   /** Five stages, not four — the Swift page is the only one that splits them. */
@@ -159,7 +174,7 @@ const swift: HireSkill = {
     eyebrow: "Why Soft Suave",
     title: "Why Hire Swift Developers from Soft Suave Most Reliable?",
     body: "Our Swift app developers are renowned for their technical expertise, attention to detail, and focus on quality.",
-    items: MERN_WHY,
+    items: techWhy("Swift", "Swift, Xcode, and API development"),
   },
 
   exploreMore: mobileExplore,
@@ -183,7 +198,8 @@ const swift: HireSkill = {
       },
       {
         q: "How to Hire Swift App Developers?",
-        a: [
+        a: [],
+        points: [
           "Identify all the tasks the developer needs to complete",
           "Choose your preferred developer and technology.",
           "Finalize the agreement with the project manager or sales team.",
@@ -205,7 +221,7 @@ const kotlin: HireSkill = {
   role: "Kotlin Developers",
   metaTitle: "Hire Kotlin Developers India - Top 1% Programmers",
   metaDescription:
-    "Hire vetted Kotlin developers from India for Android and backend development. Experts in Kotlin, Android Studio, Jetpack, APIs and enterprise mobility.",
+    "Hire Kotlin developers India to turn your app ideas into reality, offering expert solutions with a 40-hour free trial for powerful, efficient mobile apps",
   serviceType: "Kotlin development staffing",
   ctaLabel: "Hire Kotlin developers",
 
@@ -224,6 +240,7 @@ const kotlin: HireSkill = {
 
   hero: {
     titleLines: ["Hire Kotlin Developers", "in India on Contract"],
+    accent: "Kotlin Developers",
     body: [
       "Soft Suave connects businesses with vetted Kotlin developers from India for Android and backend development. Our developers specialize in Kotlin, Android Studio, Jetpack, APIs, enterprise mobility, and scalable mobile applications. Hire quickly with flexible contracts.",
       "See why businesses choose Soft Suave for their Kotlin developer hiring.",
@@ -236,7 +253,6 @@ const kotlin: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -245,11 +261,15 @@ const kotlin: HireSkill = {
       subject: "Kotlin Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-2.webp",
-      width: 1200,
-      height: 860,
-      alt: "A Kotlin codebase shared across Android, iOS, and server-side targets",
+      src: "/images/landing/hs-kotlin-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Smartphone displaying code on a dark surface",
+      blurDataURL:
+        "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACQAQCdASoQAAsAA4BaJaQAAudVM+AA/vQlRr6cs+YTHhL2c11UAAAA",
     },
   },
 
@@ -319,6 +339,9 @@ const kotlin: HireSkill = {
     ],
   },
 
+  // The Android page's labelled rows: two or three tools per group left most
+  // of the panel grid empty (review: "change the design of the tech stack").
+  techStackStyle: "rows",
   techStack: {
     eyebrow: "Technology",
     title: "Technical Expertise of Our Kotlin Developers",
@@ -431,7 +454,10 @@ const kotlin: HireSkill = {
     ],
   },
 
-  comparison: partnerTable("Choosing the Right Kotlin Partner for Your Specific Needs"),
+  comparison: partnerTable(
+    "Choosing the Right Kotlin Partner for Your Specific Needs",
+    "Use our simple guide to compare freelancers, in-house teams, and Soft Suave’s experts to find the best fit for your business.",
+  ),
 
   exploreMore: mobileExplore,
 
@@ -488,6 +514,7 @@ const flutter: HireSkill = {
 
   hero: {
     titleLines: ["Hire Flutter Developers", "in India on Contract"],
+    accent: "Flutter Developers",
     body: [
       "Soft Suave provides skilled Flutter developers from India for startups and enterprises building cross-platform mobile apps. Hire experts in Flutter, Dart, Firebase, API integrations, custom UI, and scalable Android + iOS app development. Fast onboarding with cost-effective engagement options.",
       "See why businesses choose Soft Suave for their Flutter developer hiring.",
@@ -500,7 +527,6 @@ const flutter: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -509,15 +535,26 @@ const flutter: HireSkill = {
       subject: "Flutter Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-4.webp",
-      width: 1200,
-      height: 860,
-      alt: "A Flutter application rendering an identical custom interface on iOS and Android",
+      src: "/images/landing/hs-flutter-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Hands using a glowing smartphone in the dark",
+      blurDataURL:
+        "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoQAAsAA4BaJZwAAuQpLL5ywGAA/vkQ9fYnXWPwzRbYkAVIPsUldi+gQmTCTYzGTx88hOTPyt9IyKAA",
     },
   },
 
   overview: {
+    // Internal links in the second paragraph (review: "internal link missing
+    // in the 2nd paragraph"). The live page has none to copy, so each is a
+    // phrase already in the copy, pointed at the matching service page.
+    links: [
+      { text: "cross-platform app development company", href: "/mobile-application-development-company" },
+      { text: "enterprise-grade flutter development", href: "/flutter-application-development-company" },
+    ],
     eyebrow: "Overview",
     title: "Hire Flutter Developers Team At Your Flexibility",
     paragraphs: [
@@ -562,21 +599,21 @@ const flutter: HireSkill = {
   midCta: {
     title: "Hire Flutter Developers Starting from $14/hour",
     body: "We will provide you with remote flutter developers that work from India. Contact us to take a look at CVs.",
-    cta: { label: "Request Rate Card", href: "#enquiry" },
+    cta: { label: "Request Rate Card", href: "/contact" },
   },
 
   process: {
     eyebrow: "Hiring Process",
     title: "Hire Flutter Developers in 4 easy steps",
     body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
-    steps: MERN_STEPS,
+    steps: techSteps("Flutter"),
   },
 
   whyUs: {
     eyebrow: "Why Soft Suave",
     title: "Why Are Our Flutter Developers Considered the Best?",
     body: "Building intuitive and user-friendly Apps is easily achievable when you connect with our trained Flutter developers.",
-    items: MERN_WHY,
+    items: techWhy("Flutter", "Flutter, Dart, Firebase, API integrations, and custom UI"),
   },
 
   exploreMore: mobileExplore,
@@ -594,6 +631,8 @@ const flutter: HireSkill = {
         q: "What are the types of engagement models you offer?",
         a: [
           "When you hire Flutter developers from us, we offer three flexible engagement models to fit your need and budget.",
+        ],
+        points: [
           "Fixed-bid Model: - Small projects fall into this model where the budget and time is fixed before the project kick-off.",
           "Time & material Model: - This model is used when clients have a lot of requirements. Clients are billed for the hours invested by the developers.",
           "Dedicated Team: - A team of dedicated developers will be assigned to clients. The charges will be monthly-based.",
@@ -641,6 +680,7 @@ const reactNative: HireSkill = {
 
   hero: {
     titleLines: ["Hire React Native Developers", "in India on Contract"],
+    accent: "React Native Developers",
     body: [
       "Soft Suave provides pre-vetted React Native developers experienced in cross-platform iOS and Android app development, UI/UX, plugin development, and legacy app migration. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
       "All your React Native hiring problem ends right here.",
@@ -653,7 +693,6 @@ const reactNative: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -662,11 +701,15 @@ const reactNative: HireSkill = {
       subject: "React Native Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-5.webp",
-      width: 1200,
-      height: 860,
-      alt: "A React Native application sharing components and logic across iOS and Android",
+      src: "/images/landing/hs-react-native-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Mobile UI code beside an app preview on screen",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoQAAsAA4BaJZQAAiGwNlcbcagA/ublYCamdpA+pNtKBDVfvyZlu7PbUHLd9odbs6M8EhzJIQC7ba71ra2IEX+WS67mQAAA",
     },
   },
 
@@ -716,7 +759,8 @@ const reactNative: HireSkill = {
   comparison: {
     eyebrow: "Compare",
     title: "Choose the Right React Native Development Partner",
-    body: "",
+    body: PARTNER_TABLE_INTRO,
+    areaLabel: "Criteria",
     columns: ["Soft Suave", "Freelance Marketplaces", "In-House Hiring"],
     rows: [
       {
@@ -761,21 +805,21 @@ const reactNative: HireSkill = {
   midCta: {
     title: "Hire React Native Developers Starting from $14/hour",
     body: "We will provide you with remote React Native developers that work from India. Contact us to take a look at CVs.",
-    cta: { label: "Request Rate Card", href: "#enquiry" },
+    cta: { label: "Request Rate Card", href: "/contact" },
   },
 
   process: {
     eyebrow: "Hiring Process",
     title: "Hire React Native Developers in 4 easy steps",
     body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
-    steps: MERN_STEPS,
+    steps: techSteps("React Native"),
   },
 
   whyUs: {
     eyebrow: "Why Soft Suave",
     title: "What Makes Our React Native Developers Unique and Trustworthy?",
     body: "We provide dedicated React Native developers in India who has exceptional knowledge in web app development.",
-    items: MERN_WHY,
+    items: techWhy("React Native", "cross-platform iOS and Android apps, UI/UX, plugin development, and app migration"),
   },
 
   exploreMore: mobileExplore,
@@ -813,6 +857,8 @@ const reactNative: HireSkill = {
         q: "What are the various hiring models offered by you to hire React Native developers?",
         a: [
           "Hiring our React Native developer is made easy with three flexible hiring models. These models are designed based on the clients' interest and affordability.",
+        ],
+        points: [
           "Full-time hiring",
           "Part-time hiring",
           "Milestone hiring",
@@ -849,7 +895,7 @@ const ionic: HireSkill = {
   role: "Ionic Developers",
   metaTitle: "Hire Ionic App Developers India – Top 3% Talent",
   metaDescription:
-    "Hire experienced Ionic developers through Soft Suave — pre-vetted talent within 24–48 hours, skilled in cross-platform hybrid app development, from $14/hour.",
+    "Hire top Ionic app developers in India with 40 hours of a free trial. Get access to the top 3% developers, ensuring high-quality, scalable apps.",
   serviceType: "Ionic development staffing",
   // Matches the live page's own breadcrumb trail exactly: Home › Hire
   // Developers › Ionic Developers.
@@ -872,6 +918,7 @@ const ionic: HireSkill = {
 
   hero: {
     titleLines: ["Hire Ionic Developers", "in India"],
+    accent: "Ionic Developers",
     body: [
       "Why build three apps when one Ionic codebase does it all? Hire experienced Ionic developers through Soft Suave, a top agency delivering pre-vetted talent within 24–48 hours, skilled in cross-platform hybrid app development, starting from $14/hour on flexible engagement models.",
       "Your next Ionic developer is one conversation away.",
@@ -884,7 +931,6 @@ const ionic: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -893,11 +939,15 @@ const ionic: HireSkill = {
       subject: "Ionic Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-6.webp",
-      width: 1200,
-      height: 860,
-      alt: "An Ionic application running as a website and as installed mobile apps",
+      src: "/images/landing/hs-ionic-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Tablet displaying an app interface on a dark desk",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoQAAwAA4BaJbACdADp9IrvOMAA/veHKnq6KaRhKanyZpau7OpZxUGWnFqMPpV7/+58jlYO3hHdHyFBsknZ8vR3BUEAAA==",
     },
   },
 
@@ -946,7 +996,7 @@ const ionic: HireSkill = {
   midCta: {
     title: "Searching for Dedicated Ionic App Developers?",
     body: "Access offshore Ionic developers in india who work remotely with you. Contact us to view ratecard.",
-    cta: { label: "Request Rate Card", href: "#enquiry" },
+    cta: { label: "Request Rate Card", href: "/contact" },
   },
 
   techStack: {
@@ -977,6 +1027,8 @@ const ionic: HireSkill = {
   },
 
   whyUs: {
+    // Live closes this band on "Contact us" (review: "CTA button missing").
+    cta: { label: "Contact us", href: "/contact" },
     eyebrow: "Why Soft Suave",
     title: "Why Choose Soft Suave for Hiring Ionic Developers?",
     body: "Get proactive mobile app development strategies with our Ionic experts. Get on-time delivery and guaranteed satisfaction.",

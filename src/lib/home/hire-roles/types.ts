@@ -243,4 +243,10 @@ export interface HireRolePageContent {
    */
   readonly lists?: readonly HireListBand[];
   readonly faq: FaqContent;
+  /**
+   * `consultation` closes the page on the hire-by-skill pages' "Book Free
+   * Consultation" band instead of the homepage's AI-strategy band (review:
+   * "Change the final CTA similar to the ones on other pages").
+   */
+  readonly closing?: 'consultation';
 }

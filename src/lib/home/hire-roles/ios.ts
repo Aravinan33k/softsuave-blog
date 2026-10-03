@@ -50,6 +50,13 @@ export const ios: HireRolePageContent = {
   hero: {
     titleLines: ['Hire iOS Developers', 'in India on Contract'],
     accent: 'iOS Developers',
+    // A full-bleed backdrop (review: "No image is in the hero section").
+    background: {
+      src: '/images/landing/hire-ios-hero.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABwAgCdASoQAAsAA4BaJbACdAYtz23D/I4feMlgAP6sbH/KZARwUjIcnTFeTELq+eRtFRV692b5a222LxWNYk5tMyUinalCLHDcJwE7fOwyL1TL7k+RA29Bp2P+/qMyeIWttWVeaRBqrlaTqVpLFFAA',
+      veil: 'strong',
+    },
     body: [
       'Great iOS apps do not happen by accident; they are built by the right people. Hire skilled iOS developers through Soft Suave, a specialized agency with vetted talent starting from $14/hour and flexible engagement models that keep your project on track.',
       'Soft Suave puts the right iOS developer in your team every time.',
@@ -61,13 +68,14 @@ export const ios: HireRolePageContent = {
       'Airtight NDA & IP Protection',
       'Strong Delivery Governance from Day One',
     ],
-    badges: ['*Satisfaction Guaranteed – Get 40-hour Free Trial'],
     form: heroForm({
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
         'Your iOS app, the existing codebase if there is one, the responsibilities involved, and when you need to start.',
       subject: 'iOS developer hiring enquiry',
+      // Review: "remove the additional heading from the form".
+      noEyebrow: true,
     }),
   },
 
@@ -83,6 +91,8 @@ export const ios: HireRolePageContent = {
   },
 
   capabilities: {
+    // Review: "Remove the links from the service cards".
+    links: false,
     eyebrow: 'Expertise',
     title: 'Our Dedicated iOS App Developer Expertise',
     body: 'Hire iPhone App Developer from us and bring the best talent on board to build successful Apps of any complexity.',
@@ -192,6 +202,10 @@ export const ios: HireRolePageContent = {
       },
     ],
   },
+
+  // The hire-by-skill pages' closing band (review: "Change the final CTA
+  // similar to the ones on other pages").
+  closing: 'consultation',
 
   faq: {
     eyebrow: 'FAQs',

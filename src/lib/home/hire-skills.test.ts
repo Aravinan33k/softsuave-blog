@@ -229,7 +229,10 @@ describe('hire page copy', () => {
 
   it('points every hero image at a real asset path', () => {
     for (const skill of HIRE_SKILLS) {
-      expect(skill.hero.image?.src, skill.slug).toMatch(/^\/images\/four\/[\w.-]+$/);
+      // The hire-by-skill review gave every page its own photo under
+      // /images/landing; the file must exist, or the hero renders a broken image.
+      expect(skill.hero.image?.src, skill.slug).toMatch(/^\/images\/landing\/[\w.-]+$/);
+      expect(existsSync(join(process.cwd(), 'public', skill.hero.image!.src)), skill.slug).toBe(true);
       expect(skill.hero.image?.alt.length ?? 0, skill.slug).toBeGreaterThan(20);
     }
   });

@@ -159,6 +159,14 @@ export interface OverviewContent {
      * Pair it with `aspect` at the asset's own ratio so nothing is cropped.
      */
     wide?: boolean;
+    /**
+     * From 1000px, run the frame the full height of the heading + prose beside
+     * it, with no height cap — for an overview whose copy runs far longer than
+     * the capped frame, which otherwise leaves the image stranded at the top
+     * (hire-by-skill review: "resize the image to fit the height of the
+     * section"). Pair it with a portrait asset, so the crop stays generous.
+     */
+    column?: boolean;
   };
 }
 
@@ -358,6 +366,7 @@ export default function Overview({
                 styles.overviewMedia,
                 image.fit === "contain" ? styles.overviewMediaContain : "",
                 image.aspect ? styles.overviewMediaFixed : "",
+                image.column ? styles.overviewMediaColumn : "",
               ]
                 .filter(Boolean)
                 .join(" ")}

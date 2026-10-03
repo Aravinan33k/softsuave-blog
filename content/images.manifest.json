@@ -6099,6 +6099,438 @@
         "it technician server",
         "software developer"
       ]
+    },
+    {
+      "id": "hs-react-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Laptop showing code in a dark room lit with blue lights",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 6424590,
+      "keywords": [
+        "react code screen dark",
+        "javascript code monitor dark",
+        "frontend developer night",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-angular-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "HTML markup open in a dark-themed code editor",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 36571389,
+      "keywords": [
+        "typescript code screen",
+        "web development dark monitor",
+        "enterprise software screen dark",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-ror-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Ruby test configuration code on a dark screen",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 546819,
+      "keywords": [
+        "ruby code screen",
+        "web developer laptop night",
+        "programmer laptop dark desk",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-node-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Server chassis lit blue in a dark data center",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 37730211,
+      "keywords": [
+        "terminal code dark screen",
+        "server rack lights dark",
+        "backend server code night",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-java-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Java code glowing on an angled monitor",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 4816921,
+      "keywords": [
+        "java code screen",
+        "developer multiple monitors dark",
+        "software engineer workstation night",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-python-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Python code in bright syntax colours on screen",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 27427258,
+      "keywords": [
+        "python code screen",
+        "data science laptop dark",
+        "data charts screen dark",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-php-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "PHP configuration code on a dark screen",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 276452,
+      "keywords": [
+        "php code screen",
+        "html code laptop dark",
+        "web developer coding laptop dark",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-dotnet-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "C# project files and version history open in an IDE",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 34803968,
+      "keywords": [
+        "c# code screen",
+        "visual studio code dark monitor",
+        "software development office night",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-flutter-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Hands using a glowing smartphone in the dark",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 11391948,
+      "keywords": [
+        "mobile app development laptop phone",
+        "smartphones on desk dark",
+        "phone and laptop dark desk",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-laravel-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Developer coding on a laptop by lamplight at night",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 16058831,
+      "keywords": [
+        "laptop code dark desk",
+        "coding laptop night lamp",
+        "web application code laptop",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-react-native-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Mobile UI code beside an app preview on screen",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 3888149,
+      "keywords": [
+        "smartphone app screen dark",
+        "mobile apps phones hands dark",
+        "phone screen glow night",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-nestjs-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Code on a dark monitor with a warm red tint",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 38440159,
+      "keywords": [
+        "api code monitor",
+        "code editor dark theme monitor",
+        "mechanical keyboard monitor code dark",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-django-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Developer typing code on a laptop in low light",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 5483071,
+      "keywords": [
+        "python programming laptop",
+        "coding laptop dark room",
+        "developer code screen closeup dark",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-ionic-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Tablet displaying an app interface on a dark desk",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 13003485,
+      "keywords": [
+        "tablet and phone app dark",
+        "mobile devices app design",
+        "phone tablet desk night",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-kotlin-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Smartphone displaying code on a dark surface",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 20694602,
+      "keywords": [
+        "android phone laptop code",
+        "android smartphone dark",
+        "mobile developer laptop phone dark",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-magento-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Miniature shopping cart in front of sales charts",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 5980898,
+      "keywords": [
+        "ecommerce laptop online shopping dark",
+        "online store laptop night",
+        "shopping cart laptop",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-swift-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Swift code open in a dark-themed editor",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 37227160,
+      "keywords": [
+        "iphone app screen dark",
+        "ios app development",
+        "phone app developer night",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-mern-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Laptop with a code editor under pink and blue light",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 34803987,
+      "keywords": [
+        "full stack developer monitors",
+        "javascript code dual monitors",
+        "coding setup night monitors",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-drupal-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Person building a website on a laptop in a blue-lit room",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 17771078,
+      "keywords": [
+        "website design monitor dark",
+        "web designer studio night",
+        "website builder screen",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hs-mean-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Developer working on a laptop at night by a city-lit window",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 7864379,
+      "keywords": [
+        "code laptop terminal dark",
+        "web app code screen dark",
+        "developer late night code",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hire-android-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Android phone showing the time on its lock screen in the dark",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 404280,
+      "keywords": [
+        "android phone dark",
+        "smartphone on desk dark",
+        "android development",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hire-ios-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Hand holding a smartphone against warm evening bokeh",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 13243411,
+      "keywords": [
+        "iphone screen dark",
+        "iphone in hand night",
+        "mobile app iphone desk",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hire-salesforce-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Professional reviewing a sales bar chart on a tablet",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 37685036,
+      "keywords": [
+        "crm dashboard laptop",
+        "sales dashboard screen",
+        "business analytics dashboard dark",
+        "software developer"
+      ]
+    },
+    {
+      "id": "hire-blockchain-hero",
+      "page": "landing",
+      "purpose": "hero-background",
+      "alt": "Abstract chain of connected blocks on a dark background",
+      "orientation": "landscape",
+      "width": 1800,
+      "height": 900,
+      "pexelsId": 30766684,
+      "keywords": [
+        "blockchain network abstract",
+        "blockchain technology",
+        "digital network nodes dark",
+        "software developer"
+      ]
+    },
+    {
+      "id": "ov-hire-reactjs-developers-tall",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "React JSX component code on a monitor",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 29459444,
+      "keywords": [
+        "frontend developer coding",
+        "web developer working computer",
+        "programmer javascript code",
+        "software developer"
+      ]
+    },
+    {
+      "id": "ov-hire-swift-developers-tall",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Developer testing code on a phone above a laptop terminal",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 5935791,
+      "keywords": [
+        "iphone app development",
+        "mobile app developer phone laptop",
+        "developer holding phone code",
+        "software developer"
+      ]
+    },
+    {
+      "id": "ov-hire-mern-stack-developers-india-tall",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Developer typing code on a laptop in a dim room",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 5496459,
+      "keywords": [
+        "full stack developer coding",
+        "software developer working laptop",
+        "programmer coding monitor",
+        "software developer"
+      ]
     }
   ]
 }

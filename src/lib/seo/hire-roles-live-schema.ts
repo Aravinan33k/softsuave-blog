@@ -17,6 +17,9 @@ import 'server-only';
  * `PAGES_WITH_OWN_SITE_GRAPH` (the layout adds no Organization or WebSite)
  * and the footer keeps its address microdata, as live's does.
  *
+ * The Android, iOS, Salesforce and Blockchain pages were added with the
+ * hire-by-skill review, on the same terms.
+ *
  * /hire-ai-developer is absent on purpose: its live page carries no JSON-LD
  * at all, so it keeps the schema `hireRoleJsonLd` builds from the page.
  */
@@ -1358,6 +1361,332 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
         "bestRating": "5",
         "ratingCount": "73"
       }
+    }
+  ],
+  "/hire-android-developers": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Service",
+          "ServiceType": "Software",
+          "name": "Hire Android Developers from Soft Suave",
+          "url": "https://www.softsuave.com/hire-android-developers",
+          "description": "Hire top Android developers on an hourly/full-time basis from Soft Suave to save 60% on Android app development and get high-quality & affordable Android apps.",
+          "image": "https://www.softsuave.com/assets/new-formate/hire-android/android-app-img.svg",
+          "areaServed": [
+            "US",
+            "CA",
+            "UK",
+            "AU",
+            "FR",
+            "IT",
+            "DE",
+            "ES"
+          ],
+          "provider": {
+            "@type": "Organization",
+            "name": "Soft Suave Technologies",
+            "@id": "https://www.softsuave.com/"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does it cost to hire a dedicated Android developer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To hire our Android experts, you don’t need a fortune. Our prices are competitive in the app development market, economical, and assured to fit the budget of start-ups and SMBs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why shall I hire Android App developers from Soft Suave?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If you hire Android developers from Soft Suave, you get to choose from a pool of A-list Android developer in India who are highly-talented, committed, and have hands-on experience in many industries."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the various hiring models offered by you to hire Android developers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To hire our top-notch Android developers, you can leverage our client-friendly hiring models."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the industries that are served by your Android developers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Android app developer from Soft Suave are skilled in a wide array of industry verticals like Healthcare, Education, eCommerce &amp; Retail, Construction, Travel &amp; Tourism, Media &amp; Entertainment, and Banking."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Java or Kotlin - which language do you prefer for Android app development?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Successful Android app development can be made possible with both Java and Kotlin. Nevertheless, we prefer Kotlin as it provides more flexibility while development and adds extra security to apps."
+          }
+        }
+      ]
+    }
+  ],
+  "/hire-ios-developers": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Service",
+          "ServiceType": "Software",
+          "name": "Hire Dedicated iOS Developers from Soft Suave",
+          "url": "https://www.softsuave.com/hire-ios-developers",
+          "description": "Hire iOS Developer in India with flexible hiring models who are experts in Swift & Objective-C. Our iPhone App designers/programmers can design highly interactive iOS Apps",
+          "image": "https://www.softsuave.com/assets/new-formate/ios-app-dev/iOS-bacg-img.svg",
+          "areaServed": [
+            "US",
+            "CA",
+            "UK",
+            "AU",
+            "FR",
+            "IT",
+            "DE",
+            "ES"
+          ],
+          "provider": {
+            "@type": "Organization",
+            "name": "Soft Suave Technologies",
+            "@id": "https://www.softsuave.com/"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do your iOS developers work in Agile/Scrum methodology?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, our iOS mobile App developers follow the agile & scrum process of product development. This ensures a smooth and quick delivery process."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does it cost to hire an iOS App developer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There are many factors that come into play when you cost of hire an iOS App developer. The main ones are,\nComplexity of the project\nFrameworks, tools to be used\nDuration of the project\nFeatures to be included\nTalk with our project managers now to know the exact price estimation.\n"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What Are the Steps To Hire iOS Developers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Just follow three simple steps,\nGather all the tasks the developer needs to do.\nThen choose your preferred developer and technologies.\nTalk with the project manager or sales team and finalize the agreement.\nIf you are stuck anywhere, just connect with our experts. \n"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you sign a Non-disclosure agreement (NDA) for my project?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, it's a mandatory step we follow before commencing the project. By signing an NDA, we ensure utmost confidentiality and commitment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I hire an iOS developer for hourly or project-based tasks?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, you can hire iPhone App developer from us through three flexible engagement models - Part-time, Full-time, and Milestone basis."
+          }
+        }
+      ]
+    }
+  ],
+  "/hire-salesforce-developer": [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Salesforce Developer Staffing",
+      "url": "https://www.softsuave.com/hire-salesforce-developer",
+      "provider": {
+        "@type": "Organization",
+        "name": "Soft Suave Technologies",
+        "url": "https://www.softsuave.com"
+      },
+      "areaServed": [
+        "US",
+        "UK",
+        "IN"
+      ],
+      "description": "Hire pre-vetted Salesforce developers for Apex, Lightning and CRM integrations. 48-hour matching, 40-hour risk-free trial, rates from $14/hour.",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "14",
+          "priceCurrency": "USD",
+          "unitText": "HOUR"
+        }
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does it cost to hire a Salesforce developer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rates start from $14/hour for a dedicated offshore hire, in line with the $25–$40/hour range Upwork reports for Salesforce developers ($30/hour median). Final pricing depends on project scope — every engagement starts with a 40-hour risk-free trial before you commit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a free trial period available?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. We offer a risk-free 40-hour trial to ensure the right fit for your project before full-scale commitment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What Salesforce skills and technologies do your developers specialize in?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Developers are skilled in Lightning Web Components (LWC), Apex programming, SOQL/SOSL, Flow Builder automation, REST/SOAP API integrations, and Sales Cloud/Service Cloud customization."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What hiring engagement options are available at Soft Suave?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Choose from fixed price, time and material, or managed services models, tailored to your business needs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you provide support and maintenance after deployment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — developers provide continuous support and maintenance to keep your Salesforce solution running efficiently after go-live."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if the Salesforce developer isn't the right fit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can request a replacement developer at no extra cost during or after the trial period, re-matched based on your feedback."
+          }
+        }
+      ]
+    }
+  ],
+  "/hire-blockchain-developer": [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Blockchain Developer Staffing",
+      "url": "https://www.softsuave.com/hire-blockchain-developer",
+      "provider": {
+        "@type": "Organization",
+        "name": "Soft Suave Technologies",
+        "url": "https://www.softsuave.com"
+      },
+      "areaServed": [
+        "US",
+        "UK",
+        "IN"
+      ],
+      "description": "Hire pre-vetted blockchain developers for smart contracts, DeFi and Web3 development. 48-hour matching, 40-hour risk-free trial, rates from $14/hour.",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "14",
+          "priceCurrency": "USD",
+          "unitText": "HOUR"
+        }
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does it cost to hire a Blockchain developer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cost starts at $14/hour depending on project scope and developer expertise — well below the $40/hour median rate for blockchain developers on Upwork ($30–$59/hr typical range). For a quote customized to your requirements, get in touch with us."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there any free trial period available?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, enjoy a free 40-hour trial to test the developer's performance risk-free."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What blockchain platforms and languages do your developers work with?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Developers work across Ethereum, Hyperledger, Solana, EOS, Polkadot and Cardano, writing smart contracts in Solidity, Rust, Vyper and Chaincode."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you audit smart contracts for security vulnerabilities?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — developers follow OWASP security practices and can perform smart contract audits, alongside GDPR/HIPAA compliance and KYC/AML integration work where required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the hiring engagement options available at Soft Suave?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We offer fixed-price, time & material, or fully managed development options."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you provide support and maintenance services after deployment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, we offer continuous maintenance, performance optimization, and committed support."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if the blockchain developer isn't the right fit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can request a replacement developer at no extra cost during or after the trial period, re-matched based on your feedback."
+          }
+        }
+      ]
     }
   ],
 };

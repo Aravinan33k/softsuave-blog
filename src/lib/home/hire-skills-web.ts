@@ -7,18 +7,16 @@
  * previous arrangement, where all twenty pages shared one order and one set of
  * hand-written engagement sections.
  *
- * Where the live copy contains an evident authoring slip it is carried across
- * as-is rather than silently corrected — the React page's hiring steps and
- * why-hire cards talk about "MERN", and the MEAN page's steps do too. Those are
- * the live pages' own words; fixing them is a content decision for the site
- * owners, not something to do quietly in a port.
+ * The live React and MEAN pages' hiring steps and why-hire cards talk about
+ * "MERN" — a copy slip the hire-by-skill review asked us to correct, so those
+ * pages build the blocks for their own technology (`techSteps` / `techWhy`).
  */
 
 import type { HireSkill } from "./hire-skill";
 import { sharedHeroAlert } from "./delivery-shared";
 import { webExplore } from "./hire-explore";
 import { partnerTable } from "./hire-comparison";
-import { MERN_STEPS, MERN_WHY, CURATED_STEPS } from "./hire-blocks";
+import { MERN_STEPS, MERN_WHY, CURATED_STEPS, techSteps, techWhy } from "./hire-blocks";
 
 const react: HireSkill = {
   slug: "hire-reactjs-developers",
@@ -35,6 +33,7 @@ const react: HireSkill = {
 
   hero: {
     titleLines: ["Hire ReactJS Developers", "In India On contract"],
+    accent: "ReactJS Developers",
     body: [
       "SoftSuave helps businesses hire pre-vetted ReactJS developers from India for faster frontend delivery and lower hiring costs. Our developers specialize in React.js, Next.js, TypeScript, Redux, UI modernization, SPA development, and scalable web applications. Get contract-ready talent onboarded quickly with flexible engagement models.",
       "See why businesses choose Soft Suave for their ReactJS developers hiring.",
@@ -47,7 +46,6 @@ const react: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -56,15 +54,30 @@ const react: HireSkill = {
       subject: "ReactJS Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/svc-web.webp",
-      width: 1200,
-      height: 860,
-      alt: "A React component architecture and interface system laid out across connected screens",
+      src: "/images/landing/hs-react-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Laptop showing code in a dark room lit with blue lights",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAAAwAgCdASoQAAsAA4BaJbACdAD2PPErD64/AAD+94JCqSUNodRi4kKw8wSKPXCmD8vSwy9qZYXL0j5+aPlLbqQIJjW4AA==",
     },
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (review: "resize
+    // the image to fit the height of the section").
+    image: {
+      src: "/images/landing/ov-hire-reactjs-developers-tall.webp",
+      width: 1000,
+      height: 1250,
+      alt: "React JSX component code on a monitor",
+      blurDataURL:
+        "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoJABAAA4BaJYwAAud9plYAAP74Z8fIoeb+U966Kek0QSANmPB3TAAA",
+      column: true,
+    },
     eyebrow: "Overview",
     title: "Hire Top ReactJS Developers in India from Soft Suave",
     paragraphs: [
@@ -110,21 +123,21 @@ const react: HireSkill = {
   midCta: {
     title: "Hire React Developers Starting from $14/hour",
     body: "We will provide you with remote react developers that work from India. Contact us to take a look at CVs.",
-    cta: { label: "Request Rate Card", href: "#enquiry" },
+    cta: { label: "Request Rate Card", href: "/contact" },
   },
 
   process: {
     eyebrow: "Hiring Process",
     title: "Hire ReactJS Developers in 4 easy steps",
     body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
-    steps: MERN_STEPS,
+    steps: techSteps("ReactJS"),
   },
 
   whyUs: {
     eyebrow: "Why Soft Suave",
     title: "What Makes Our ReactJs Developers Unique and Trustworthy?",
     body: "Hire ReactJS developers from us who have 5+ years of average experience and excellent coding skills.",
-    items: MERN_WHY,
+    items: techWhy("ReactJS", "React.js, Next.js, TypeScript, Redux, APIs, and cloud"),
   },
 
   exploreMore: webExplore,
@@ -160,6 +173,8 @@ const react: HireSkill = {
         q: "What are the various hiring models offered by you to hire ReactJS experts?",
         a: [
           "We have curated three hiring models keeping our valuable clients in our minds.",
+        ],
+        points: [
           "Full-time Basis",
           "Part-time Basis",
           "Milestone Basis",
@@ -184,7 +199,7 @@ const angular: HireSkill = {
   role: "Angular Developers",
   metaTitle: "Hire Angularjs Developers India – Top 1% Programmers",
   metaDescription:
-    "Hire Angular developers from India to build scalable, feature-rich web applications. Specialists in Angular, TypeScript, RxJS, dashboards and enterprise platforms.",
+    "Hire expert AngularJS developers in India with 40 hours of free trial. Access the top 3% of developers for custom, high-performance web solutions.",
   serviceType: "Angular development staffing",
   // Matches the live page's own breadcrumb trail exactly: Home › Hire
   // Developers › Angular Developers.
@@ -207,6 +222,7 @@ const angular: HireSkill = {
 
   hero: {
     titleLines: ["Hire Angular Developers", "In India"],
+    accent: "Angular Developers",
     body: [
       "Soft Suave offers Angular developers from India who help companies build scalable and feature-rich web applications. Access specialists in Angular, TypeScript, RxJS, dashboards, enterprise platforms, and modern frontend architecture.",
       "See why businesses choose Soft Suave for their Angular developer hiring.",
@@ -219,7 +235,6 @@ const angular: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -228,11 +243,15 @@ const angular: HireSkill = {
       subject: "Angular Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-1.webp",
-      width: 1200,
-      height: 860,
-      alt: "An enterprise Angular application showing modular structure and data-dense views",
+      src: "/images/landing/hs-angular-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "HTML markup open in a dark-themed code editor",
+      blurDataURL:
+        "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAABwAQCdASoQAAsAA4BaJaVefAGIAAD+9FoKscpdHQakztadfbqvfjauJmBwAA==",
     },
   },
 
@@ -307,7 +326,7 @@ const angular: HireSkill = {
   midCta: {
     title: "Interested in Hiring AngularJS Developers on Contract?",
     body: "Access offshore Angular developers in india who work remotely with you. Contact us to view ratecard.",
-    cta: { label: "Request Rate Card", href: "#enquiry" },
+    cta: { label: "Request Rate Card", href: "/contact" },
   },
 
   techStack: {
@@ -338,6 +357,8 @@ const angular: HireSkill = {
   },
 
   whyUs: {
+    // Live closes this band on "Contact us" (review: "CTA button missing").
+    cta: { label: "Contact us", href: "/contact" },
     eyebrow: "Why Soft Suave",
     title: "Why Hire Angular Developers From Soft Suave?",
     body: "Using the skills of offshore AngularJS developers can be highly beneficial for your web application needs. Let us tell you why!",
@@ -459,7 +480,10 @@ const mern: HireSkill = {
   order: ["overview", "services", "midCta", "process", "whyUs", "exploreMore", "testimonials", "faq"],
 
   hero: {
-    titleLines: ["Hire Remote MERN Stack", "Developers In India"],
+    // Same H1 text, re-broken so the role phrase sits on one line and can
+    // take the accent.
+    titleLines: ["Hire Remote MERN Stack Developers", "In India"],
+    accent: "MERN Stack Developers",
     body: [
       "Why manage multiple specialists when one MERN stack developer can handle your full JavaScript stack? Soft Suave connects you with vetted MERN developers in India skilled in MongoDB, Express, React, Node.js, GraphQL, and microservices. Each developer is screened for technical depth, English communication, remote delivery experience, and client-ready execution. Hire within 48 hours and start with a 40-hour risk-free trial.",
       "Build your MERN team with the right skills, support, and hiring flexibility.",
@@ -473,7 +497,6 @@ const mern: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get a 40-Hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -482,15 +505,30 @@ const mern: HireSkill = {
       subject: "MERN Stack Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-2.webp",
-      width: 1200,
-      height: 860,
-      alt: "A full-stack JavaScript application spanning database, API, and interface layers",
+      src: "/images/landing/hs-mern-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Laptop with a code editor under pink and blue light",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoQAAsAA4BaJbAAAuRCnXxPOQAA/vX9+ruPSP7ppwaw4DPM3G1D41DEexbcjU45xeIA9GeCY9cFr4014BvbfUj/Si8t2hQA",
     },
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (review: "resize
+    // the image to fit the height of the section").
+    image: {
+      src: "/images/landing/ov-hire-mern-stack-developers-india-tall.webp",
+      width: 1000,
+      height: 1250,
+      alt: "Developer typing code on a laptop in a dim room",
+      blurDataURL:
+        "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAQCdASoLABAAA4BaJYwCdADdpisKC0AA/vQ2FsLVhDHXZz3fxoCFU15q0ymVTFoFyL7KBpaRFfhxive/uW6cegZYSO7LD7J9VErujMq2n/mtiMOEhUw8AAA=",
+      column: true,
+    },
     eyebrow: "Overview",
     title: "Why Use the MERN Stack for Your Next Web App?",
     paragraphs: [
@@ -541,7 +579,7 @@ const mern: HireSkill = {
   midCta: {
     title: "Hire MERN Stack Developers Starting from $14/hour",
     body: "Hire skilled remote MERN stack developers from India with flexible contract models and transparent rates. Get the right talent for your project without long hiring delays.",
-    cta: { label: "Request Rate Card", href: "#enquiry" },
+    cta: { label: "Request Rate Card", href: "/contact" },
   },
 
   process: {
@@ -628,6 +666,7 @@ const mean: HireSkill = {
 
   hero: {
     titleLines: ["Hire MEAN Stack Developers", "in India on Contract"],
+    accent: "MEAN Stack Developers",
     body: [
       "Finding reliable MEAN Stack developers is hard, and retaining them is even harder. Soft Suave is a top software development firm that addresses both challenges through pre-vetted engineers, with access to a large, cost-effective talent pool, and flexible engagement models designed to scale without disruption.",
       "Here's how Soft Suave solves common MEAN Stack hiring challenges",
@@ -640,7 +679,6 @@ const mean: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -649,11 +687,15 @@ const mean: HireSkill = {
       subject: "MEAN Stack Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-4.webp",
-      width: 1200,
-      height: 860,
-      alt: "A structured full-stack JavaScript application with modular front-end and service layers",
+      src: "/images/landing/hs-mean-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Developer working on a laptop at night by a city-lit window",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAQAgCdASoQAAsAA4BaJbACdAEfbjybxzd0AP71l3fHwHJBkfycN2jtPsEKaljZ6a9kuJnuYTt5e85H1k4N4NKqhf0ZQ7uN3v0Q4gAA",
     },
   },
 
@@ -704,21 +746,21 @@ const mean: HireSkill = {
   midCta: {
     title: "Hire MEAN Stack Developers Starting from $14/hour",
     body: "We will provide you with remote MEAN stack developers that work from India. Contact us to take a look at the rate card.",
-    cta: { label: "Request Rate Card", href: "#enquiry" },
+    cta: { label: "Request Rate Card", href: "/contact" },
   },
 
   process: {
     eyebrow: "Hiring Process",
     title: "Hire MEAN Stack Developers in 4 easy steps",
     body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
-    steps: MERN_STEPS,
+    steps: techSteps("MEAN Stack"),
   },
 
   whyUs: {
     eyebrow: "Why Soft Suave",
     title: "Why Are Our MEAN Stack Developers Considered the Best?",
     body: "Our strong team of remote MEAN Stack developers in India has complete expertise and exceptional knowledge in the front end, back end, databases, cloud deployment, and integration solutions.",
-    items: MERN_WHY,
+    items: techWhy("MEAN Stack", "MongoDB, Express, Angular, Node, APIs, and cloud"),
   },
 
   exploreMore: webExplore,
@@ -741,16 +783,21 @@ const mean: HireSkill = {
         a: [
           "Our MEAN Stack programmers are well experienced, and talented, have knowledge of Advanced technologies, and are constantly updated with new technologies and tools.",
           "Another important benefit of hiring from soft Suave is, that",
+        ],
+        points: [
           "you can choose who you want to work with.",
           "You can hire them based on your timeline.",
           "Flexible hire on an hourly, monthly, and full-time basis.",
           "1-week free trial for the developers before hiring.",
         ],
+        pointsAfter: 1,
       },
       {
         q: "What are the benefits of hiring MEAN Stack Developers?",
         a: [
           "Hiring MEAN stack programmers are also in high demand since they work with a technology that allows them to produce high-performance digital solutions that are quick to build and execute.",
+        ],
+        points: [
           "MEAN allow Isomorphic coding.",
           "One developer can manage both Front End and Back End single-handed.",
           "The MEAN stack is faster in speed.",

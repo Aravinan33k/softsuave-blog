@@ -267,8 +267,8 @@ export interface CardGridContent {
    * Optional button under the grid, for a section whose cards make a case the
    * reader should be able to act on — the Angular page's "Why Choose Soft
    * Suave" closes on six reasons and then offered no way forward (review:
-   * "CTA button missing"). Rendered by `landing/why-us`; the card grids that
-   * are pure statements simply omit it.
+   * "CTA button missing"). Rendered under the grid here and by
+   * `landing/why-us`; the card grids that are pure statements simply omit it.
    */
   cta?: { readonly label: string; readonly href: string };
   /**
@@ -498,6 +498,13 @@ export default function Industries({
             })}
           </div>
         </FadeUp>
+        {content.cta && (
+          <div className={styles.gridCtaRow}>
+            <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}>
+              {content.cta.label}
+            </SiteLink>
+          </div>
+        )}
       </section>
     );
   }
@@ -575,6 +582,13 @@ export default function Industries({
             })}
           </div>
         </FadeUp>
+        {content.cta && (
+          <div className={styles.gridCtaRow}>
+            <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}>
+              {content.cta.label}
+            </SiteLink>
+          </div>
+        )}
       </section>
     );
   }
@@ -656,6 +670,13 @@ export default function Industries({
           })}
         </div>
       </FadeUp>
+    {content.cta && (
+      <div className={styles.gridCtaRow}>
+        <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}>
+          {content.cta.label}
+        </SiteLink>
+      </div>
+    )}
     </section>
   );
 }

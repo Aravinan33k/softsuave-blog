@@ -11,7 +11,9 @@
  * all of them. It is reproduced rather than corrected — quietly rewriting a
  * client's published copy during a port is not this file's call — and defining
  * it once makes the duplication visible instead of hiding it behind six
- * near-identical hand transcriptions.
+ * near-identical hand transcriptions. The hire-by-skill review has since asked
+ * for each page to name its own technology, so only the MERN page still uses
+ * them as they stand; the rest go through `techSteps` / `techWhy`.
  */
 
 import type { CardGridContent } from "@/components/landing/industries";
@@ -78,6 +80,55 @@ export const MERN_WHY: CardGridContent["items"] = [
     icon: "book",
   },
 ];
+
+/**
+ * `MERN_STEPS` for a page that is not the MERN page — the same four steps,
+ * naming the page's own technology. The live pages carried "MERN" on the React,
+ * Java, Python, PHP, .NET, Flutter, React Native and MEAN pages too; the
+ * hire-by-skill review asked for each to name its own ("replace MERN with the
+ * respective technology").
+ */
+export function techSteps(tech: string): ProcessContent["steps"] {
+  return [
+    {
+      n: "01",
+      name: `Share the ${tech} JD`,
+      body: `Send your ${tech} needs with project scope, skills, experience, and timeline.`,
+    },
+    {
+      n: "02",
+      name: `Review Soft Suave's ${tech} Shortlist`,
+      body: `Review curated ${tech} profiles with skills, experience, availability, and project fit details.`,
+    },
+    MERN_STEPS[2],
+    {
+      n: "04",
+      name: `Onboard the ${tech} Developer to Your Team`,
+      body: `Sign SLA and NDA, complete onboarding, and integrate the ${tech} developer into your workflow.`,
+    },
+  ];
+}
+
+/**
+ * `MERN_WHY` for a page that is not the MERN page: the first card names the
+ * page's technology and the skills its own hero copy lists (`expertise`), and
+ * the engagement card names the technology. The other four cards are
+ * technology-neutral and stay as they are.
+ */
+export function techWhy(tech: string, expertise: string): CardGridContent["items"] {
+  return [
+    {
+      ...MERN_WHY[0],
+      name: `Senior ${tech} Talent`,
+      body: `Hire skilled ${tech} developers with expertise in ${expertise}.`,
+    },
+    MERN_WHY[1],
+    MERN_WHY[2],
+    MERN_WHY[3],
+    { ...MERN_WHY[4], name: `Flexible ${tech} Engagement Models` },
+    MERN_WHY[5],
+  ];
+}
 
 /**
  * The hiring steps on the Angular, Node, NestJS and Ionic pages — the same four

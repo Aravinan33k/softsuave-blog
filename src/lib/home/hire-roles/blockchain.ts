@@ -55,6 +55,13 @@ export const blockchain: HireRolePageContent = {
   hero: {
     titleLines: ['Hire Blockchain Developers', 'from India'],
     accent: 'Blockchain Developers',
+    // A full-bleed backdrop (review: "No image is in the hero section").
+    background: {
+      src: '/images/landing/hire-blockchain-hero.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoQAAkAA4BaJaQAAueJX19kAP73u7YuO/Sa07+XZ4AAAA==',
+      veil: 'strong',
+    },
     body: [
       'Soft Suave provides pre-vetted blockchain developers skilled in Ethereum, Solidity, smart contracts, and DeFi/Web3 development, matched to your project within 48 hours.',
       "Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
@@ -73,6 +80,8 @@ export const blockchain: HireRolePageContent = {
       requirementPlaceholder:
         'The chain and contracts involved, what the system has to do, audit or compliance needs, and when you need to start.',
       subject: 'Blockchain developer hiring enquiry',
+      // Review: "remove the additional heading from the form".
+      noEyebrow: true,
     }),
   },
 
@@ -143,6 +152,11 @@ export const blockchain: HireRolePageContent = {
   },
 
   capabilities: {
+    // Review: "Remove the links from the service cards".
+    links: false,
+    // Live closes this band on "Talk to Our Experts" (review: "missing a CTA
+    // button").
+    cta: { label: 'Talk to Our Experts', href: '/contact' },
     eyebrow: 'What We Do',
     title: 'Blockchain Development Services We Offer',
     body: 'Our blockchain services span industries, offering tailored solutions for every project. Hire remote blockchain developers, ensuring a perfect fit for all your development needs.',
@@ -288,6 +302,10 @@ export const blockchain: HireRolePageContent = {
       },
     ],
   },
+
+  // The hire-by-skill pages' closing band (review: "Change the final CTA
+  // similar to the ones on other pages").
+  closing: 'consultation',
 
   faq: {
     eyebrow: 'Ask Us',

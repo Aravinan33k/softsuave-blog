@@ -323,6 +323,21 @@
   );
 }
 
+/* Opt-in heavier veil (`image.veil: "strong"`): near-solid black under the
+   copy column, easing off towards the form, so the photograph reads as
+   atmosphere behind the text rather than texture inside it. */
+.heroBgVeil[data-veil="strong"] {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 5, 8, 0.92) 0%,
+      rgba(4, 5, 8, 0.8) 45%,
+      rgba(4, 5, 8, 0.5) 75%,
+      rgba(4, 5, 8, 0.6) 100%
+    ),
+    linear-gradient(180deg, rgba(4, 5, 8, 0.45) 0%, rgba(4, 5, 8, 0.2) 40%, rgba(4, 5, 8, 0.9) 100%);
+}
+
 .heroGrid {
   position: relative;
   z-index: 2;
@@ -424,6 +439,23 @@
 
 /* --- hero CTA row: the "Start Trial" / "Book a Meeting" pair, separate
    from the enquiry form beside it --- */
+/* The hero's outlined button ("Book a Meeting") — a dark plate with a clearly
+   drawn outline, so it holds its shape over the hero photo instead of
+   dissolving into it at the default hairline (hire-by-skill review: "make the
+   outline of the 'book a meeting' button darker"). */
+.heroCtas .btn:not(.btnPrimary) {
+  border: 1.5px solid rgba(255, 255, 255, 0.72);
+  background: rgba(4, 5, 8, 0.6);
+}
+
+/* Keep the shared outline-button hover (accent fill), which the rule above
+   would otherwise outrank. */
+.heroCtas .btn:not(.btnPrimary):hover,
+.heroCtas .btn:not(.btnPrimary):focus-visible {
+  background: var(--cta-bg, #ff5436);
+  border-color: var(--cta-bg, #ff5436);
+}
+
 .heroCtas {
   display: flex;
   flex-wrap: wrap;
@@ -3241,6 +3273,13 @@
     aspect-ratio: auto;
     min-height: 320px;
     max-height: 560px;
+    align-self: stretch;
+  }
+
+  /* `image.column` — no cap: the frame runs the whole heading + prose block. */
+  .overviewCompact .overviewMedia.overviewMediaColumn,
+  .overviewMedia.overviewMediaColumn {
+    max-height: none;
     align-self: stretch;
   }
 }
@@ -7935,6 +7974,13 @@
 .listHeadCta .btn,
 .slatCtaLink,
 .trkCtaLink,
+/* A card grid's closing button (`CardGridContent.cta`), centred under it. */
+.gridCtaRow {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(26px, 3vw, 40px);
+}
+
 .btnLg {
   padding: 1.05em 2.1em;
   font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);

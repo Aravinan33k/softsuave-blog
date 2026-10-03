@@ -49,9 +49,18 @@ export const android: HireRolePageContent = {
   hero: {
     titleLines: ['Hire Android Developers', 'in India On Contract'],
     accent: 'Android Developers',
+    // A full-bleed backdrop (review: "No image is in the hero section").
+    background: {
+      src: '/images/landing/hire-android-hero.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADQAQCdASoQAAsAA4BaJZwAAudN9GJFQAD++FKkv32ySgLfEcAAAA==',
+      veil: 'strong',
+    },
+    // The live hero's copy as it stands: one paragraph, then its "See why"
+    // line (review: "Need to update the content in the hero section").
     body: [
-      'Soft Suave offers Android developers from India skilled in Kotlin, Java, Android Studio, Jetpack, API integrations, enterprise mobility, and custom mobile app development.',
-      'Hire trusted experts quickly for scalable Android applications with flexible engagement models.',
+      'Soft Suave offers Android developers from India skilled in Kotlin, Java, Android Studio, Jetpack, API integrations, enterprise mobility, and custom mobile app development. Hire trusted experts quickly for scalable Android applications with flexible engagement models.',
+      'See why businesses choose Soft Suave for their Android developer hiring.',
     ],
     points: [
       '40-Hour Risk-Free Trial',
@@ -60,13 +69,14 @@ export const android: HireRolePageContent = {
       'Airtight NDA & IP Protection',
       'Strong Delivery Governance from Day One',
     ],
-    badges: ['*Satisfaction Guaranteed – Get 40-hour Free Trial'],
     form: heroForm({
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
         'Your Android app, the existing codebase if there is one, the responsibilities involved, and when you need to start.',
       subject: 'Android developer hiring enquiry',
+      // Review: "remove the additional heading from the form".
+      noEyebrow: true,
     }),
   },
 
@@ -82,6 +92,8 @@ export const android: HireRolePageContent = {
   },
 
   capabilities: {
+    // Review: "Remove the links from the service cards".
+    links: false,
     eyebrow: 'Expertise',
     title: 'Our Android Developers Expertise',
     body: 'Our Android developers have a proven track record of developing top-grade Apps for clients all over the world.',
@@ -191,6 +203,10 @@ export const android: HireRolePageContent = {
       },
     ],
   },
+
+  // The hire-by-skill pages' closing band (review: "Change the final CTA
+  // similar to the ones on other pages").
+  closing: 'consultation',
 
   faq: {
     eyebrow: 'FAQs',

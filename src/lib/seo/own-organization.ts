@@ -29,6 +29,13 @@
  *     verbatim — see `lib/seo/hire-roles-live-schema` — with its Organization
  *     arriving from GTM where live carries none, and its footer keeping the
  *     address microdata, as live's does)
+ *   the hire-by-skill pages whose live page carries JSON-LD — Angular, .NET,
+ *     Flutter, Ionic, Java, MEAN, NestJS, Node, PHP, Python, React Native,
+ *     ReactJS and Swift — and the Android, iOS, Salesforce and Blockchain
+ *     role pages (exceptions, like the hire-by-role pages: each mirrors its
+ *     live page's own blocks verbatim — see `lib/seo/hire-skills-live-schema`
+ *     and `hire-roles-live-schema` — with the Organization arriving from GTM
+ *     and the footer keeping its address microdata, as live's does)
  *   /ionic-app-development-company (an exception, like Android, iOS, React
  *     Native, Flutter and Mobile App: it mirrors softsuave.com's page, whose
  *     schema is a Service graph and a FAQPage — its Organization arrives from
@@ -80,13 +87,30 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/flutter-application-development-company',
   '/generative-ai-development-company',
   '/graphql-development-company',
+  '/hire-android-developers',
+  '/hire-angularjs-developers',
   '/hire-backend-application-developer',
+  '/hire-blockchain-developer',
   '/hire-dedicated-developers',
   '/hire-devops-developers',
+  '/hire-dot-net-developers',
+  '/hire-flutter-developers',
   '/hire-frontend-application-developer',
+  '/hire-ionic-developers',
+  '/hire-ios-developers',
+  '/hire-java-developers',
+  '/hire-mean-stack-developers-india',
   '/hire-mobile-app-developers',
+  '/hire-nestjs-developers',
+  '/hire-nodejs-developers',
+  '/hire-php-developers',
+  '/hire-python-developers',
   '/hire-qa-testers-india',
+  '/hire-react-native-developers',
+  '/hire-reactjs-developers',
+  '/hire-salesforce-developer',
   '/hire-software-developers',
+  '/hire-swift-developers',
   '/hire-web-app-developers',
   '/ionic-app-development-company',
   '/ios-application-development-company',

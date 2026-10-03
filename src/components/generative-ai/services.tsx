@@ -34,6 +34,11 @@ export interface ServicesContent {
   }[];
   /** Phrases in `body` to link, as the live page links them. */
   bodyLinks?: readonly InlineLink[];
+  /**
+   * `false` drops every card's "Learn more" — the cards stop linking out
+   * (hire-by-skill review: "Remove the links from the service cards").
+   */
+  links?: boolean;
   /** Optional button under the carousel (review: "a CTA button is missing"). */
   cta?: { readonly label: string; readonly href: string };
 }
@@ -269,7 +274,7 @@ export default function Services({
           const off = offsetOf(i);
           const onScreen = Math.abs(off) <= 1;
           const isNear = Math.abs(off) === 1;
-          const href = hrefFor(s.name, s.href);
+          const href = content.links === false ? undefined : hrefFor(s.name, s.href);
           return (
             <article
               key={s.name}

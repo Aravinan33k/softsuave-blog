@@ -15,6 +15,12 @@ export interface ServicesContent {
   eyebrow: string;
   title: string;
   body: string;
+  /**
+   * Optional button under the cards, where the live page closes the section
+   * on one ("Talk to Our Experts"). Drawn by the card grid the hire pages
+   * render these through — see `asCardGrid` in `landing/hire-page`.
+   */
+  cta?: { readonly label: string; readonly href: string };
   items: readonly {
     readonly name: string;
     readonly body: string;

@@ -379,6 +379,21 @@
 
 /* --- hero CTA row: the "Start Trial" / "Book a Meeting" pair, separate
    from the enquiry form beside it (same spacing as landing/hero) --- */
+/* The hero's outlined button ("Book a Meeting"): a dark plate with a clearly
+   drawn outline — same treatment as landing.module.css `.heroCtas`. */
+.heroCtas .btn:not(.btnPrimary) {
+  border: 1.5px solid rgba(255, 255, 255, 0.72);
+  background: rgba(4, 5, 8, 0.6);
+}
+
+/* Keep the shared outline-button hover (accent fill), which the rule above
+   would otherwise outrank. */
+.heroCtas .btn:not(.btnPrimary):hover,
+.heroCtas .btn:not(.btnPrimary):focus-visible {
+  background: var(--cta-bg, #ff5436);
+  border-color: var(--cta-bg, #ff5436);
+}
+
 .heroCtas {
   display: flex;
   flex-wrap: wrap;
