@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
+import { sdServiceLd } from '@/lib/seo/software-development-company';
 import {
   sdDelivery,
   sdFaqs,
@@ -71,6 +71,18 @@ import home from '@/components/home/home.module.css';
 // Matches the marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
+/**
+ * The page's link-preview image: softsuave.com's own share card for this page
+ * (logo and "Software Development Company" over a darkened desk photo),
+ * resized from its 1200×627 to 1200×630.
+ */
+const OG_IMAGE = {
+  url: ogImageUrl('/assets/images/software-development-company-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'Software Development Company in India - Soft Suave',
+};
+
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: `${sdMeta.title} | Soft Suave`,
@@ -83,11 +95,13 @@ export const metadata: Metadata = {
     url: absoluteUrl(sdMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${sdMeta.title} | Soft Suave`,
     description: sdMeta.description,
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -98,41 +112,12 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/** FAQPage + Service structured data — this page's answers are its SEO surface. */
-
-/**
- * This page's JSON-LD, from the shared builder.
- *
- * It replaces a hand-written `Service` whose `provider` was an inline
- * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
- * repeated on every page of this surface rather than the canonical one — with
- * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
- * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
- * at the organization `app/(marketing)/layout.tsx` declares once.
- */
-const LD = pageSchemaGraph({
-  path: sdMeta.path,
-  title: sdMeta.title,
-  description: sdMeta.description,
-  serviceType: 'Custom software development',
-  // The page's own short name for what it sells, not its `<title>`, which is
-  // written to win the click.
-  serviceName: 'Software Development Company',
-  breadcrumbName: 'Software Development Company',
-  offerCatalogName: sdServices.title,
-  offers: sdServices.items.map((i) => ({ name: i.name, description: i.body })),
-  faqName: sdFaqs.title,
-  faqs: sdFaqs.items,
-});
-
 export default function SoftwareDevelopmentCompanyPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect — which leaves a
-  // single-item trail, so the schema is omitted rather than emitted empty.
-
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* The live page's one JSON-LD block, verbatim — see
+          `lib/seo/software-development-company.ts`. */}
+      <JsonLd data={sdServiceLd} />
       <Nav logoHref={HOME_HREF} />
 
       {/*
@@ -186,9 +171,12 @@ export default function SoftwareDevelopmentCompanyPage() {
         {/* The homepage's marquee tech rows, one per group. Dark, as on the
             homepage: the rows fade out against the deep ground at both ends.
             `.techCompact` only clears the homepage's full-viewport
-            min-height for this content-height page. */}
+            min-height for this content-height page. `loopShortRows`: the five-
+            tool Design and QA row is too short to overflow on a wide screen,
+            and sat still while the four above it scrolled (review: "no
+            scrolling effect"), so it repeats its chips to fill the strip. */}
         <div className={home.techCompact}>
-          <TechStack content={sdTech} />
+          <TechStack content={sdTech} loopShortRows />
         </div>
 
         {/* The closing pair share the warm-white band, for the same reason the

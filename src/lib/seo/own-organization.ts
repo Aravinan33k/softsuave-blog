@@ -74,6 +74,10 @@
  *     and Mobile App: it mirrors softsuave.com's page, whose schema is a
  *     Service graph and a FAQPage — its Organization arrives from GTM and its
  *     footer keeps the address microdata, as live's does)
+ *   /software-development-company (an exception, like PHP and Python: it
+ *     mirrors softsuave.com's page, whose schema is a lone Service graph —
+ *     its Organization arrives from GTM and its footer keeps the address
+ *     microdata, as live's does; see `lib/seo/software-development-company`)
  *   /typescript-development-company
  *   /vuejs-development-company
  *   /xamarin-app-development-company (an exception, like the other mobile
@@ -144,6 +148,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/python-application-development-company',
   '/rag-development-services',
   '/react-native-app-development-company',
+  '/software-development-company',
   '/typescript-development-company',
   '/vuejs-development-company',
   '/xamarin-app-development-company',

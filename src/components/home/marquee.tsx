@@ -34,6 +34,7 @@ export default function Marquee({
   reverse = false,
   separator,
   staticFrom,
+  fill = false,
 }: {
   children: ReactNode[];
   className?: string;
@@ -47,6 +48,15 @@ export default function Marquee({
    * (the Vue.js page's technology band).
    */
   staticFrom?: number;
+  /**
+   * Loop a row even when one copy of it is narrower than the strip, by
+   * repeating its items until they fill the strip — the way ExploreMarquee
+   * loops its short rows. Opt-in: a hire page's one-to-three-chip rows are
+   * meant to sit still, but a band where every other row scrolls should not
+   * leave its shortest one parked (Software Development page review: "last
+   * category (Design and QA) has no scrolling effect").
+   */
+  fill?: boolean;
 }) {
   const wrap = useRef<HTMLDivElement | null>(null);
   const rail = useRef<HTMLDivElement | null>(null);
@@ -54,6 +64,8 @@ export default function Marquee({
   const [overflows, setOverflows] = useState(false);
   /** Whether the row is held still and wrapping, per `staticFrom`. */
   const [wrapped, setWrapped] = useState(false);
+  /** How many times one copy of the row repeats the items, per `fill`. */
+  const [reps, setReps] = useState(1);
 
   useEffect(() => {
     const host = wrap.current;
@@ -64,6 +76,7 @@ export default function Marquee({
       if (staticFrom !== undefined && window.innerWidth >= staticFrom) {
         setWrapped(true);
         setOverflows(false);
+        setReps(1);
         return;
       }
       setWrapped(false);
@@ -71,11 +84,15 @@ export default function Marquee({
       // loop is applying; `getBoundingClientRect` would be. Divide by the
       // copies currently rendered to get back to one row's width.
       const copies = overflows ? 2 : 1;
-      const row = track.scrollWidth / copies;
-      if (!row) return;
+      const single = track.scrollWidth / copies / reps;
+      if (!single) return;
+      const still = prefersReducedMotion();
+      // With `fill`, enough repeats that one copy outruns the strip.
+      const nextReps = fill && !still ? Math.floor((host.clientWidth + 2) / single) + 1 : 1;
+      setReps(nextReps);
       // A hair of tolerance: sub-pixel layout should not start a loop that
       // moves the row by half a pixel.
-      setOverflows(!prefersReducedMotion() && row > host.clientWidth + 2);
+      setOverflows(!still && single * nextReps > host.clientWidth + 2);
     };
 
     measure();
@@ -83,7 +100,7 @@ export default function Marquee({
     observer.observe(host);
     observer.observe(track);
     return () => observer.disconnect();
-  }, [overflows, children.length, staticFrom]);
+  }, [overflows, reps, fill, children.length, staticFrom]);
 
   /**
    * A row that stops looping on resize (it no longer overflows, or `staticFrom`
@@ -97,23 +114,30 @@ export default function Marquee({
   }, [overflows]);
 
   const row = (keyPrefix: string) =>
-    children.map((c, i) => (
-      <span className={styles.marqueeItem} key={`${keyPrefix}-${i}`}>
-        {c}
-        {/* The separator sits between items. In the loop that includes after
-            the last one, which is what divides it from the copy that follows;
-            in a static row it would be a dot hanging off the end. */}
-        {(overflows || i < children.length - 1) &&
-          (separator ?? <span className={styles.marqueeDot} aria-hidden />)}
-      </span>
-    ));
+    Array.from({ length: reps }, (_, r) =>
+      children.map((c, i) => (
+        <span
+          className={styles.marqueeItem}
+          key={`${keyPrefix}-${r}-${i}`}
+          // A `fill` repeat is the same words again, so only the first is read.
+          aria-hidden={r > 0 || undefined}
+        >
+          {c}
+          {/* The separator sits between items. In the loop that includes after
+              the last one, which is what divides it from the copy that follows;
+              in a static row it would be a dot hanging off the end. */}
+          {(overflows || i < children.length - 1) &&
+            (separator ?? <span className={styles.marqueeDot} aria-hidden />)}
+        </span>
+      )),
+    );
 
   useGSAP(
     () => {
       if (!overflows || prefersReducedMotion() || !wrap.current) return;
       const track = wrap.current.querySelector<HTMLElement>(`.${styles.marqueeTrack}`);
       if (!track) return;
-      const dur = children.length * (60 / speed);
+      const dur = children.length * reps * (60 / speed);
       const tween = gsap.fromTo(
         track,
         { xPercent: reverse ? -50 : 0 },
@@ -141,7 +165,7 @@ export default function Marquee({
     // `revertOnUpdate`: without it a dependency change neither reverts the
     // context nor runs the cleanup above, so a row that stopped overflowing on
     // resize kept its loop running under the static layout.
-    { scope: wrap, dependencies: [overflows], revertOnUpdate: true },
+    { scope: wrap, dependencies: [overflows, reps], revertOnUpdate: true },
   );
 
   return (
