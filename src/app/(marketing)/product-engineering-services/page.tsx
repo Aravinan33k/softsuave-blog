@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import {
   prodAbout,
   prodHero,
@@ -42,6 +40,19 @@ import home from '@/components/home/home.module.css';
 
 export const revalidate = 300;
 
+/**
+ * The page's link-preview image (review: "add the Social Share Preview
+ * image"). softsuave.com publishes none for this page, so it is a 1200x630
+ * card in the style of its other share images: the logo and the page's name
+ * over a darkened photograph from the page.
+ */
+const OG_IMAGE = {
+  url: ogImageUrl('/assets/images/product-engineering-services-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'Software Product Engineering Services - Soft Suave',
+};
+
 // The live page's own <title>, verbatim — it carries no brand suffix there.
 export const metadata: Metadata = {
   title: prodMeta.title,
@@ -54,43 +65,26 @@ export const metadata: Metadata = {
     url: absoluteUrl(prodMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
-    images: [dynamicOgImage(prodMeta.title, 'Soft Suave')],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: prodMeta.title,
     description: prodMeta.description,
-    images: [dynamicOgImage(prodMeta.title, 'Soft Suave')],
+    images: [OG_IMAGE.url],
   },
 };
 
 const HOME_HREF = BASE_PATH || '/';
 
-/**
- * This page's JSON-LD, from the shared builder: `Service` (its offers are the
- * page's own six services), `WebPage` and `BreadcrumbList`, `@id`-linked to the
- * organization `app/(marketing)/layout.tsx` declares once. The trail matches
- * the visible one — Home › Software Development › Product Engineering
- * Services. The live page runs no FAQ, so none is emitted.
- */
-const LD = pageSchemaGraph({
-  path: prodMeta.path,
-  title: prodMeta.title,
-  // The live <title> verbatim, as the page's own metadata uses it.
-  webPageName: prodMeta.title,
-  description: prodMeta.description,
-  serviceType: 'Product engineering',
-  offerCatalogName: prodServices.title,
-  offers: prodServices.items.map((i) => ({ name: i.name, description: i.paragraphs[0] })),
-  showBreadcrumb: true,
-  parents: [{ name: 'Software Development', path: '/software-development-company' }],
-  breadcrumbName: 'Product Engineering Services',
-});
-
 export default function ProductEngineeringPage() {
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* No page JSON-LD: softsuave.com's own page carries none (its only block
+          is the site Organization the shared GTM container injects, which
+          this site loads too), and the review asked for the live schema with
+          the rest removed. The route is in PAGES_WITH_OWN_SITE_GRAPH, so the
+          layout adds no Organization/WebSite of its own either. */}
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">

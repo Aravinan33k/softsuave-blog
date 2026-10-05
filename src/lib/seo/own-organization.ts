@@ -41,6 +41,10 @@
  *     (exceptions, like the hire pages: each mirrors its live page's own
  *     blocks verbatim — see `lib/seo/<slug>.ts` — with the site Organization
  *     arriving from GTM and the footer keeping its address microdata)
+ *   /cloud-computing, /legacy-modernization-services and
+ *     /product-engineering-services (exceptions: their live pages carry no
+ *     JSON-LD of their own — only the GTM-injected site Organization — so
+ *     these pages emit none either, and the footer keeps its microdata)
  *   /ionic-app-development-company (an exception, like Android, iOS, React
  *     Native, Flutter and Mobile App: it mirrors softsuave.com's page, whose
  *     schema is a Service graph and a FAQPage — its Organization arrives from
@@ -85,6 +89,7 @@
 export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/agentic-ai-development-services',
   '/android-application-development-company',
+  '/cloud-computing',
   '/computer-vision-development-services',
   '/custom-ai-development-services',
   '/data-engineering-services',
@@ -122,12 +127,14 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/ios-application-development-company',
   '/it-outsourcing-company-india',
   '/it-staff-augmentation-services',
+  '/legacy-modernization-services',
   '/mobile-application-development-company',
   '/nextjs-development-company',
   '/offshore-software-development-company',
   '/php-application-development-company',
   '/postgresql-development-company',
   '/predictive-intelligence-services',
+  '/product-engineering-services',
   '/python-application-development-company',
   '/rag-development-services',
   '/react-native-app-development-company',
