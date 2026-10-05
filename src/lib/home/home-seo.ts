@@ -1,6 +1,6 @@
 import 'server-only';
 import type { Metadata } from 'next';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { brand } from './content';
 import { HOME_LIVE_JSON_LD } from './home-live-schema';
 import { pageRobots } from '@/lib/flags';
@@ -39,7 +39,7 @@ const DESCRIPTION =
    is drawn at, and carries the retired "The smart way..." tagline, so it is
    not reused. */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/home-og.webp'),
+  url: ogImageUrl('/assets/images/home-og.webp'),
   width: 1200,
   height: 630,
   alt: 'Custom AI Solutions to Empower Your Business - Soft Suave',

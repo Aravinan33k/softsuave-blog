@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { phpFaqLd, phpServiceLd } from '@/lib/seo/php-application-development-company';
 import {
   phpFaqs,
@@ -73,7 +73,7 @@ export const revalidate = 300;
  * and too square for the large preview card, so it is not reused.
  */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/php-application-development-company-og.webp'),
+  url: ogImageUrl('/assets/images/php-application-development-company-og.webp'),
   width: 1200,
   height: 630,
   alt: 'PHP Development Company in India - Soft Suave',

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
+import { GCC_LIVE_LD } from '@/lib/seo/global-capability-center';
 import {
   gccAudience,
   gccBenefits,
@@ -29,6 +29,7 @@ import Overview from '@/components/landing/overview';
 import WhyUs from '@/components/landing/why-us';
 import Services from '@/components/landing/services';
 import CardGrid from '@/components/landing/industries';
+import CtaBand from '@/components/landing/cta-band';
 
 import home from '@/components/home/home.module.css';
 
@@ -40,12 +41,24 @@ import home from '@/components/home/home.module.css';
  * smooth scroll come from `app/(marketing)/layout.tsx`.
  *
  * Below the hero, the section set and order are the live page's (see
- * `lib/home/gcc-content.ts`). Bands alternate so no two dark sections sit
- * together; the audience grid and the closing consultation block share one
- * light band ahead of the dark closing enquiry section.
+ * `lib/home/gcc-content.ts`). The closing "Talk To Us" band is the shared
+ * mid-page `CtaBand`, as on every other page, ahead of the closing enquiry
+ * section.
  */
 
 export const revalidate = 300;
+
+/**
+ * The page's link-preview image: softsuave.com's own share card for this
+ * page (1200x628), set to the exact 1200x630 the large preview uses
+ * (review: "add the Social Share Preview image").
+ */
+const OG_IMAGE = {
+  url: ogImageUrl('/assets/images/global-capability-center-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'Global Capability Center (GCC) as a Service - Soft Suave',
+};
 
 // The live page's own <title>, verbatim — it carries no brand suffix there.
 export const metadata: Metadata = {
@@ -59,13 +72,13 @@ export const metadata: Metadata = {
     url: absoluteUrl(gccMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
-    images: [dynamicOgImage(gccMeta.title, 'Soft Suave')],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: gccMeta.title,
     description: gccMeta.description,
-    images: [dynamicOgImage(gccMeta.title, 'Soft Suave')],
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -76,28 +89,15 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/**
- * This page's JSON-LD, from the shared builder: `Service` (its offers are the
- * page's own service list) and `WebPage`, `@id`-linked to the organization
- * `app/(marketing)/layout.tsx` declares once. Built from the same content the
- * page renders, so the schema can never drift from what a visitor reads. The
- * live page runs no FAQs, so there is no `FAQPage`.
- */
-const LD = pageSchemaGraph({
-  path: gccMeta.path,
-  title: gccMeta.title,
-  // The live <title> verbatim, as the page's own metadata uses it.
-  webPageName: gccMeta.title,
-  description: gccMeta.description,
-  serviceType: 'Global Capability Center setup and operations',
-  offerCatalogName: gccServices.title,
-  offers: gccServices.items.map((i) => ({ name: i.name, description: i.body })),
-});
 
 export default function GlobalCapabilityCenterPage() {
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* softsuave.com's own schema for this page, verbatim, one <script> per
+          block — see `lib/seo/global-capability-center.ts`. */}
+      {GCC_LIVE_LD.map((block, i) => (
+        <JsonLd key={i} data={block} />
+      ))}
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
@@ -117,8 +117,9 @@ export default function GlobalCapabilityCenterPage() {
 
         <div className={home.light}>
           <CardGrid content={gccAudience} id="audience" variant="bold" />
-          <Overview content={gccClosingCta} id="consultation" />
         </div>
+
+        <CtaBand content={gccClosingCta} />
 
         <Contact />
       </main>

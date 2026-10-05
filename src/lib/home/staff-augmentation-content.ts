@@ -125,6 +125,9 @@ export const staffProcess: ProcessContent = {
   eyebrow: "Process",
   title: "Our IT Staff Augmentation Process",
   body: "From seamless recruitment to smooth onboarding, our step-by-step process ensures the right talent is quickly integrated, empowering your team to achieve success with minimal disruption and maximum efficiency.",
+  // The live section's own "Book a Consultation" (review: "one CTA button
+  // missing"); /contact, as the reviews ask of every consultation CTA.
+  cta: { label: "Book a Consultation", href: "/contact" },
   steps: [
     {
       n: "01",
@@ -354,6 +357,33 @@ export const staffFaqs: FaqContent = {
     {
       q: "Do I retain full control over augmented developers and their day-to-day work?",
       a: "Yes, you maintain complete control over your augmented developers’ tasks, deadlines, and work priorities. They seamlessly integrate into your existing workflows and report directly to your management team.",
+    },
+    // The six questions the live page's own FAQ schema carries, word for word
+    // (review: "Few FAQs are missing"). Shown here, the page's schema — which
+    // is live's, verbatim — only names questions a visitor can read.
+    {
+      q: "Staff augmentation in the IT industry: What is it?",
+      a: "Staff augmentation, which is common in the IT field is when you hire outside professionals for a short time to help out with the needs of the in-house team. This method allows companies to fill gaps of skill, finish projects on time, and handle workload without making long-term agreements.",
+    },
+    {
+      q: "How do you offer staff augmentation services?",
+      a: "Soft Suave provides staff augmentation services and our skilled IT professionals easily fit into your current team. The process involves grasping the requirements of your project, choosing appropriate talent, and making sure that the onboarding and collaboration process are smooth.",
+    },
+    {
+      q: "Why should companies consider IT staff augmentation services?",
+      a: "Thinking about IT staff augmentation, companies can use this method to easily get more specialized skills when needed, increase their team size as necessary, lower the costs of recruitment, and maintain project schedules. This kind of flexibility supports businesses in adjusting to varying demands and concentrating on core activities.",
+    },
+    {
+      q: "How to choose the right IT staff augmentation provider?",
+      a: "Checking experience, technical skills, client feedback, and comprehension of project needs are the most important factors when selecting an IT staff augmentation provider. Good communication and past performance in similar projects also play a significant role.",
+    },
+    {
+      q: "Can IT staff augmentation services help with specific project needs?",
+      a: "Certainly, IT staff augmentation services can assist in fulfilling specific project requirements by supplying professionals who possess the needed abilities for your project. Augmented staff are skilled and reliable, and with them, you can scale up operations, and procure the needed technical support and help.",
+    },
+    {
+      q: "What is the difference between IT outsourcing and IT staff augmentation?",
+      a: "IT Outsourcing is a situation where a company hires an outside service provider to manage its entire or some part of the IT functions. IT Staff Augmentation, on the other hand, means you are adding professionals from outside to your team. In this way, tasks are not given completely as they would be in outsourcing but rather divided between internal and external parties.",
     },
   ],
 };

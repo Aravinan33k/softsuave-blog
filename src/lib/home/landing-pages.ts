@@ -250,7 +250,9 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   {
     path: '/it-staff-augmentation-services',
     title: 'IT Staff Augmentation Services',
-    breadcrumbLabel: 'IT Staff Augmentation Services',
+    // softsuave.com's own trail label (review: "update the breadcrumb exactly
+    // like in the original page")
+    breadcrumbLabel: 'Staff Augmentation Service',
     parent: '/software-development-company',
   },
   {

@@ -36,6 +36,11 @@
  *     live page's own blocks verbatim — see `lib/seo/hire-skills-live-schema`
  *     and `hire-roles-live-schema` — with the Organization arriving from GTM
  *     and the footer keeping its address microdata, as live's does)
+ *   /global-capability-center, /offshore-software-development-company,
+ *     /it-staff-augmentation-services and /it-outsourcing-company-india
+ *     (exceptions, like the hire pages: each mirrors its live page's own
+ *     blocks verbatim — see `lib/seo/<slug>.ts` — with the site Organization
+ *     arriving from GTM and the footer keeping its address microdata)
  *   /ionic-app-development-company (an exception, like Android, iOS, React
  *     Native, Flutter and Mobile App: it mirrors softsuave.com's page, whose
  *     schema is a Service graph and a FAQPage — its Organization arrives from
@@ -86,6 +91,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/data-science-services',
   '/flutter-application-development-company',
   '/generative-ai-development-company',
+  '/global-capability-center',
   '/graphql-development-company',
   '/hire-android-developers',
   '/hire-angularjs-developers',
@@ -114,8 +120,11 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/hire-web-app-developers',
   '/ionic-app-development-company',
   '/ios-application-development-company',
+  '/it-outsourcing-company-india',
+  '/it-staff-augmentation-services',
   '/mobile-application-development-company',
   '/nextjs-development-company',
+  '/offshore-software-development-company',
   '/php-application-development-company',
   '/postgresql-development-company',
   '/predictive-intelligence-services',

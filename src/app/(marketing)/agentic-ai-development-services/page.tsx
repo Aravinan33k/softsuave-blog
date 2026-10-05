@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { aiPageJsonLd, softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import {
   meta,
@@ -67,7 +67,7 @@ export const revalidate = 300;
  * WebPage `primaryImageOfPage` and the og:image are one file.
  */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/agentic-ai-development-services-og.webp'),
+  url: ogImageUrl('/assets/images/agentic-ai-development-services-og.webp'),
   width: 1200,
   height: 630,
   alt: 'Agentic AI Development Services by Soft Suave',

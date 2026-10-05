@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
+import { OFFSHORE_LIVE_LD } from '@/lib/seo/offshore-software-development-company';
 import {
   offCaseStudies,
   offFaqs,
@@ -61,6 +61,18 @@ import home from '@/components/home/home.module.css';
 
 export const revalidate = 300;
 
+/**
+ * The page's link-preview image: softsuave.com's own share card for this
+ * page (1200x628), set to the exact 1200x630 the large preview uses
+ * (review: "add the Social Share Preview image").
+ */
+const OG_IMAGE = {
+  url: ogImageUrl('/assets/images/offshore-software-development-company-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'Offshore Software Development Company - Soft Suave',
+};
+
 // The live page's own <title>, verbatim — it already ends "| Soft Suave".
 export const metadata: Metadata = {
   title: offMeta.title,
@@ -73,48 +85,27 @@ export const metadata: Metadata = {
     url: absoluteUrl(offMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
-    images: [dynamicOgImage(offMeta.title, 'Soft Suave')],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: offMeta.title,
     description: offMeta.description,
-    images: [dynamicOgImage(offMeta.title, 'Soft Suave')],
+    images: [OG_IMAGE.url],
   },
 };
 
 const HOME_HREF = BASE_PATH || '/';
 
-/**
- * This page's JSON-LD, from the shared builder: `Service` (its offers are the
- * page's own service list), `WebPage`, `FAQPage` (the page's own FAQs) and the
- * `BreadcrumbList` the visible trail shows — Home › Software Development ›
- * Offshore Software Development — `@id`-linked to the organization
- * `app/(marketing)/layout.tsx` declares once. Built from the same content the
- * page renders, so the schema can never drift from what a visitor reads.
- */
-const LD = pageSchemaGraph({
-  path: offMeta.path,
-  title: offMeta.title,
-  // The live <title> verbatim, as the page's own metadata uses it.
-  webPageName: offMeta.title,
-  description: offMeta.description,
-  // The live page's own Service name.
-  serviceName: 'Offshore Software Development Services',
-  serviceType: 'Offshore software development',
-  offerCatalogName: offServices.title,
-  offers: offServices.items.map((i) => ({ name: i.name, description: i.body })),
-  faqName: offFaqs.title,
-  faqs: offFaqs.items,
-  showBreadcrumb: true,
-  parents: [{ name: 'Software Development', path: '/software-development-company' }],
-  breadcrumbName: 'Offshore Software Development',
-});
 
 export default function OffshoreSoftwareDevelopmentPage() {
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* softsuave.com's own schema for this page, verbatim, one <script> per
+          block — see `lib/seo/offshore-software-development-company.ts`. */}
+      {OFFSHORE_LIVE_LD.map((block, i) => (
+        <JsonLd key={i} data={block} />
+      ))}
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
@@ -131,8 +122,16 @@ export default function OffshoreSoftwareDevelopmentPage() {
         <Overview content={offOverview} />
 
         <div className={home.light}>
-          <Services content={offServices} variant="bold" />
-          <CardGrid content={offModels} id="models" variant="feature" />
+          {/* Whole cards link (review: "remove the 'Learn More' and make the
+              whole card clickable"); each engagement model gets its "Hire Now"
+              (review: "the hire now button is missing in these cards"). */}
+          <Services content={offServices} variant="bold" cardLinks />
+          <CardGrid
+            content={offModels}
+            id="models"
+            variant="feature"
+            cardCta={{ label: 'Hire Now', href: '/contact' }}
+          />
         </div>
 
         <CtaBand content={offMidCta} />

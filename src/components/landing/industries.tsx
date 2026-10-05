@@ -389,6 +389,7 @@ export default function Industries({
   columns = 4,
   variant = "cards",
   autoLink: autoLinkProp,
+  cardCta,
 }: {
   content: CardGridContent;
   id?: string;
@@ -423,6 +424,12 @@ export default function Industries({
    * destination.
    */
   autoLink?: boolean;
+  /**
+   * `feature` only: the same button at the foot of every card — the
+   * engagement-model cards' "Hire Now" (Offshore review: "the hire now button
+   * is missing in these cards"). Its accessible name carries the card's title.
+   */
+  cardCta?: { readonly label: string; readonly href: string };
 }) {
   const grid = [
     styles.cardGrid,
@@ -543,6 +550,16 @@ export default function Industries({
                   <h3 className={styles.featName}>{item.name}</h3>
                   <span className={styles.featRule} aria-hidden />
                   {item.body ? <p className={styles.featText}>{item.body}</p> : null}
+
+                  {cardCta ? (
+                    <SiteLink
+                      href={cardCta.href}
+                      className={`${styles.btn} ${styles.btnPrimary} ${styles.featCta}`}
+                      aria-label={`${cardCta.label}: ${item.name}`}
+                    >
+                      {cardCta.label}
+                    </SiteLink>
+                  ) : null}
 
                   {href ? (
                     <Link href={href} className={styles.featLink}>

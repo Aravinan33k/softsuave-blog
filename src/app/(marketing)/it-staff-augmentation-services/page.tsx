@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
+import { STAFF_AUG_LIVE_LD } from '@/lib/seo/it-staff-augmentation-services';
 import {
   staffBenefits,
   staffFaqs,
@@ -50,6 +50,18 @@ import home from '@/components/home/home.module.css';
 
 export const revalidate = 300;
 
+/**
+ * The page's link-preview image: softsuave.com's own share card for this
+ * page (1200x628), set to the exact 1200x630 the large preview uses
+ * (review: "add the Social Share Preview image").
+ */
+const OG_IMAGE = {
+  url: ogImageUrl('/assets/images/it-staff-augmentation-services-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'IT Staff Augmentation Services - Soft Suave',
+};
+
 // The live page's own <title>, verbatim — it carries no brand suffix there.
 export const metadata: Metadata = {
   title: staffMeta.title,
@@ -62,49 +74,27 @@ export const metadata: Metadata = {
     url: absoluteUrl(staffMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
-    images: [dynamicOgImage(staffMeta.title, 'Soft Suave')],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: staffMeta.title,
     description: staffMeta.description,
-    images: [dynamicOgImage(staffMeta.title, 'Soft Suave')],
+    images: [OG_IMAGE.url],
   },
 };
 
 const HOME_HREF = BASE_PATH || '/';
 
-/**
- * This page's JSON-LD, from the shared builder: `Service` (its offers are the
- * page's own hireable roles), `WebPage`, `BreadcrumbList` and `FAQPage` (the
- * page's own FAQs), `@id`-linked to the organization `app/(marketing)/layout.tsx`
- * declares once. Built from the same content the page renders, so the schema
- * can never drift from what a visitor reads.
- */
-const LD = pageSchemaGraph({
-  path: staffMeta.path,
-  title: staffMeta.title,
-  // The live <title> verbatim, as the page's own metadata uses it.
-  webPageName: staffMeta.title,
-  description: staffMeta.description,
-  serviceType: 'IT staff augmentation',
-  // Matches the visible trail (`lib/home/landing-pages.ts`): Home › Software
-  // Development › IT Staff Augmentation Services. Live's own parent link
-  // (`/software-development-company-india`) 404s on its own site; pointed at
-  // our real equivalent page instead of copying a dead link.
-  showBreadcrumb: true,
-  parents: [{ name: 'Software Development', path: '/software-development-company' }],
-  breadcrumbName: 'IT Staff Augmentation Services',
-  offerCatalogName: staffRoles.title,
-  offers: staffRoles.items.map((i) => ({ name: i.name, description: i.body })),
-  faqName: staffFaqs.title,
-  faqs: staffFaqs.items,
-});
 
 export default function ItStaffAugmentationPage() {
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* softsuave.com's own schema for this page, verbatim, one <script> per
+          block — see `lib/seo/it-staff-augmentation-services.ts`. */}
+      {STAFF_AUG_LIVE_LD.map((block, i) => (
+        <JsonLd key={i} data={block} />
+      ))}
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
@@ -123,7 +113,9 @@ export default function ItStaffAugmentationPage() {
         <Process content={staffProcess} />
 
         <div className={home.light}>
-          <Services content={staffRoles} variant="bold" />
+          {/* Whole cards link (review: "remove the 'learn more' and make the
+              whole cards clickable"). */}
+          <Services content={staffRoles} variant="bold" cardLinks />
         </div>
 
         <CardGrid content={staffTechnologies} id="technologies" columns={4} />

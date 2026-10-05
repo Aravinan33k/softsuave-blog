@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { ionFaqLd, ionServiceLd } from '@/lib/seo/ionic-app-development-company';
 import {
   ionFaqs,
@@ -70,7 +70,7 @@ export const revalidate = 300;
  * preview, so there is nothing on the live page to copy.
  */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/ionic-app-development-company-og.webp'),
+  url: ogImageUrl('/assets/images/ionic-app-development-company-og.webp'),
   width: 1200,
   height: 630,
   alt: 'Ionic App Development Company - Soft Suave',

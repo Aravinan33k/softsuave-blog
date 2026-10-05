@@ -29,11 +29,32 @@ export function absoluteUrl(path: string): string {
   return p === '/' ? SITE_URL : `${SITE_URL}${p}`;
 }
 
+/**
+ * Origin that actually serves this deployment's files, for link-preview
+ * images. Canonicals and `og:url` must name the public site (SITE_URL), but a
+ * crawler has to be able to FETCH an `og:image` — and while the site runs on
+ * its Vercel address ahead of launch, SITE_URL (www.softsuave.com) is still
+ * the old site, where none of these images exist, so every share preview came
+ * back empty ("Social Share Preview is not coming"). On a Vercel deployment
+ * with no custom domain yet, `VERCEL_PROJECT_PRODUCTION_URL` is that
+ * `*.vercel.app` address; anywhere else — or once the project has its real
+ * domain — this is SITE_URL, so nothing changes after launch.
+ */
+const VERCEL_HOST = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const ASSET_ORIGIN =
+  VERCEL_HOST && /\.vercel\.app$/.test(VERCEL_HOST) ? `https://${VERCEL_HOST}` : SITE_URL;
+
+/** Absolute URL of a link-preview image this app serves — see `ASSET_ORIGIN`. */
+export function ogImageUrl(path: string): string {
+  if (/^https?:\/\//.test(path)) return path;
+  return absoluteUrl(path).replace(SITE_URL, ASSET_ORIGIN);
+}
+
 /** URL of the dynamically-generated OG image for content without a custom one. */
 export function dynamicOgImage(title: string, subtitle?: string): string {
   const q = new URLSearchParams({ title });
   if (subtitle) q.set('subtitle', subtitle);
-  return absoluteUrl(`/og?${q.toString()}`);
+  return ogImageUrl(`/og?${q.toString()}`);
 }
 
 interface BuildArgs {

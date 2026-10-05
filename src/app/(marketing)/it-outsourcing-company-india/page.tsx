@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
+import { ITO_LIVE_LD } from '@/lib/seo/it-outsourcing-company-india';
 import {
   itoCaseStudies,
   itoCollaboration,
@@ -68,6 +68,19 @@ import landing from '@/components/landing/landing.module.css';
 
 export const revalidate = 300;
 
+/**
+ * The page's link-preview image: softsuave.com's own share card rebuilt at
+ * 1200x630 — live's is 840x439, too small for the large preview — with the
+ * same logo-and-title layout over a globe-network photograph (review: "add
+ * the Social Share Preview image").
+ */
+const OG_IMAGE = {
+  url: ogImageUrl('/assets/images/it-outsourcing-company-india-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'Top IT Outsourcing Company in India - Soft Suave',
+};
+
 // The live page's own <title>, verbatim — it already ends "| Soft Suave".
 export const metadata: Metadata = {
   title: itoMeta.title,
@@ -80,42 +93,18 @@ export const metadata: Metadata = {
     url: absoluteUrl(itoMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
-    images: [dynamicOgImage(itoMeta.title, 'Soft Suave')],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: itoMeta.title,
     description: itoMeta.description,
-    images: [dynamicOgImage(itoMeta.title, 'Soft Suave')],
+    images: [OG_IMAGE.url],
   },
 };
 
 const HOME_HREF = BASE_PATH || '/';
 
-/**
- * This page's JSON-LD, from the shared builder: `Service` (its offers are the
- * page's own service list), `WebPage`, `FAQPage` (the page's own FAQs) and the
- * breadcrumb trail, `@id`-linked to the organization
- * `app/(marketing)/layout.tsx` declares once. Built from the same content the
- * page renders, so the schema can never drift from what a visitor reads.
- */
-const LD = pageSchemaGraph({
-  path: itoMeta.path,
-  title: itoMeta.title,
-  // The live <title> verbatim, as the page's own metadata uses it.
-  webPageName: itoMeta.title,
-  description: itoMeta.description,
-  serviceType: 'IT outsourcing',
-  // Matches the live page's own breadcrumb trail exactly: Home › Software
-  // Development › IT Outsourcing Services.
-  showBreadcrumb: true,
-  parents: [{ name: 'Software Development', path: '/software-development-company' }],
-  breadcrumbName: 'IT Outsourcing Services',
-  offerCatalogName: itoServices.title,
-  offers: itoServices.items.map((i) => ({ name: i.name, description: i.body })),
-  faqName: itoFaqs.title,
-  faqs: itoFaqs.items,
-});
 
 /**
  * The live services section closes on a line and a "Contact us" button; the
@@ -157,7 +146,11 @@ function DestinationsNotes() {
 export default function ItOutsourcingCompanyIndiaPage() {
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* softsuave.com's own schema for this page, verbatim, one <script> per
+          block — see `lib/seo/it-outsourcing-company-india.ts`. */}
+      {ITO_LIVE_LD.map((block, i) => (
+        <JsonLd key={i} data={block} />
+      ))}
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
@@ -167,7 +160,9 @@ export default function ItOutsourcingCompanyIndiaPage() {
           <Overview content={itoOverview} />
         </div>
 
-        <Services content={itoServices} variant="bold" />
+        {/* Whole cards link (review: "remove the 'Learn More' and make the
+            whole card clickable"). */}
+        <Services content={itoServices} variant="bold" cardLinks />
         <ServicesCta />
 
         <div className={home.light}>

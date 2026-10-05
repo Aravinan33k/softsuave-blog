@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { aiPageJsonLd, softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import {
   piApplications,
@@ -69,7 +69,7 @@ export const revalidate = 300;
  * WebPage `primaryImageOfPage` and the og:image are one file.
  */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/predictive-intelligence-services-og.webp'),
+  url: ogImageUrl('/assets/images/predictive-intelligence-services-og.webp'),
   width: 1200,
   height: 630,
   alt: 'Predictive Intelligence Services and Solutions by Soft Suave',

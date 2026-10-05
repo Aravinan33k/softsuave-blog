@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { aiPageJsonLd, softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { meta, services as servicesContent } from '@/lib/home/generative-ai';
@@ -56,7 +56,7 @@ export const revalidate = 300;
  * WebPage `primaryImageOfPage` and the og:image are one file.
  */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/generative-ai-development-company-og.webp'),
+  url: ogImageUrl('/assets/images/generative-ai-development-company-og.webp'),
   width: 1200,
   height: 630,
   alt: 'Generative AI Development Company - Soft Suave',

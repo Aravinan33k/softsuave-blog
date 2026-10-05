@@ -6,6 +6,7 @@ import { publicMediaUrl } from "@/lib/media-url";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import ServiceLink, { useServiceHref } from "@/components/common/service-link";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import badgeStyles from "@/components/common/card-icon-badge.module.css";
 import { spansFor } from "./card-spans";
 import SectionHead from "./section-head";
@@ -70,10 +71,18 @@ export default function Services({
   content,
   id = "services",
   variant = "default",
+  cardLinks = false,
 }: {
   content: ServicesContent;
   id?: string;
   variant?: "default" | "bold";
+  /**
+   * The whole card is the link instead of a "Learn more" under its copy
+   * (reviews: "remove the 'Learn More' and make the whole card clickable").
+   * The title carries the link, stretched over the card, so its accessible
+   * name is the card's own title. Cards with no page of their own stay plain.
+   */
+  cardLinks?: boolean;
 }) {
   const root = useRef<HTMLDivElement | null>(null);
   const bold = variant === "bold";
@@ -112,6 +121,14 @@ export default function Services({
       >
         {content.items.map((s, i) => {
           const href = hrefFor(s.name, s.href);
+          const title =
+            href && cardLinks ? (
+              <SiteLink href={href} className={styles.cardStretch}>
+                {s.name}
+              </SiteLink>
+            ) : (
+              s.name
+            );
           return (
           <article
             key={s.name}
@@ -120,6 +137,7 @@ export default function Services({
                a small fixed set, so CSS can hold them and the markup stays free
                of style attributes. */
             data-span={bold ? spans[i] : undefined}
+            data-linked={href && cardLinks ? "true" : undefined}
           >
             {s.image && !bold && (
               <div className={styles.svcImageFrame}>
@@ -138,16 +156,16 @@ export default function Services({
                 <>
                   <CardIconBadge title={s.name} body={s.body} size="sm" className={badgeStyles.stack} />
                   {s.tag && <span className={styles.boldTag}>{s.tag}</span>}
-                  <h3 className={styles.svcTitle}>{s.name}</h3>
+                  <h3 className={styles.svcTitle}>{title}</h3>
                 </>
               ) : (
                 <div className={styles.svcCardHead}>
                   <CardIconBadge title={s.name} body={s.body} size="sm" />
-                  <h3 className={styles.svcTitle}>{s.name}</h3>
+                  <h3 className={styles.svcTitle}>{title}</h3>
                 </div>
               )}
               <p className={styles.svcText}>{s.body}</p>
-              {href && <ServiceLink href={href} label={s.name} />}
+              {href && !cardLinks && <ServiceLink href={href} label={s.name} />}
             </div>
           </article>
           );

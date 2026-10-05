@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { flFaqLd, flServiceLd } from '@/lib/seo/flutter-application-development-company';
 import {
   flBenefits,
@@ -76,7 +76,7 @@ export const revalidate = 300;
  * not render as a preview, so there is nothing on the live page to copy.
  */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/flutter-application-development-company-og.webp'),
+  url: ogImageUrl('/assets/images/flutter-application-development-company-og.webp'),
   width: 1200,
   height: 630,
   alt: 'Flutter App Development Services - Soft Suave',

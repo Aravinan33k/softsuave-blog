@@ -1,4 +1,5 @@
 import SimpleProcess from "@/components/common/simple-process";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import SectionHead from "./section-head";
 import styles from "./landing.module.css";
 
@@ -12,6 +13,11 @@ export interface ProcessContent {
   eyebrow?: string;
   title?: string;
   body?: string;
+  /**
+   * Optional button under the steps, where the live page closes the section
+   * on one (IT Staff Augmentation review: "Process - one CTA button missing").
+   */
+  cta?: { readonly label: string; readonly href: string };
   steps: readonly {
     readonly n: string;
     readonly name: string;
@@ -69,6 +75,16 @@ export default function Process({
         <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
       )}
       <SimpleProcess steps={content.steps} label={label} />
+      {content.cta && (
+        <div className={styles.gridCtaRow}>
+          <SiteLink
+            href={content.cta.href}
+            className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}
+          >
+            {content.cta.label}
+          </SiteLink>
+        </div>
+      )}
     </section>
   );
 }

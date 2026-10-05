@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import { txFaqLd, txServiceLd, txWebPageLd } from '@/lib/seo/typescript-development-company';
 import {
@@ -70,7 +70,7 @@ export const revalidate = 300;
 // The hero artwork cropped to 1200×630, served from the exact path the schema
 // spec names, so the Service `image`, the WebPage `primaryImageOfPage` and the
 // og:image are one file.
-const ogImage = absoluteUrl('/assets/images/typescript-development-company-og.webp');
+const ogImage = ogImageUrl('/assets/images/typescript-development-company-og.webp');
 
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.

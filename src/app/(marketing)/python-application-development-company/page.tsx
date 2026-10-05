@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { pyServiceLd } from '@/lib/seo/python-application-development-company';
 import {
   pyHero,
@@ -75,7 +75,7 @@ export const revalidate = 300;
  * not render as a preview, so there is nothing on the live page to copy.
  */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/python-application-development-company-og.webp'),
+  url: ogImageUrl('/assets/images/python-application-development-company-og.webp'),
   width: 1200,
   height: 630,
   alt: 'Python Development Company in India - Soft Suave',

@@ -7955,6 +7955,65 @@
   max-height: none;
 }
 
+/* Whole-card link (`Services cardLinks`): the title's anchor is stretched over
+   the card by its ::after, so a click anywhere on the card follows it while the
+   link's accessible name stays the card's title. The card's own hover lift is
+   the affordance. */
+.cardStretch {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cardStretch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.cardStretch:focus-visible {
+  outline: none;
+}
+
+.boldCard[data-linked="true"],
+.svcPanel[data-linked="true"] {
+  position: relative;
+  cursor: pointer;
+}
+
+.boldCard[data-linked="true"]:has(.cardStretch:focus-visible),
+.svcPanel[data-linked="true"]:has(.cardStretch:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.boldCard[data-linked="true"]:hover .svcTitle,
+.svcPanel[data-linked="true"]:hover .svcTitle {
+  color: var(--svc-accent, var(--accent));
+}
+
+/* A feature card's own button (`cardCta`), at the foot of its copy. */
+.featCta {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* Breathing room between a card's copy and its button (Offshore review: "place
+   those HIRE NOW buttons a little bit down"). On the text rather than the
+   button so the button's own `margin-top: auto` can still drop it to the
+   card's floor when the descriptions differ in length. */
+.featText:has(+ .featCta) {
+  margin-bottom: clamp(22px, 2.4vw, 30px);
+}
+
+/* A card grid's closing button (`CardGridContent.cta`), centred under it. */
+.gridCtaRow {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(26px, 3vw, 40px);
+}
+
 /* ============================================================
    SECTION CTA SIZE (1 Oct review: "do the above cta button size work for all
    pages across the entire application")
@@ -7974,13 +8033,6 @@
 .listHeadCta .btn,
 .slatCtaLink,
 .trkCtaLink,
-/* A card grid's closing button (`CardGridContent.cta`), centred under it. */
-.gridCtaRow {
-  display: flex;
-  justify-content: center;
-  margin-top: clamp(26px, 3vw, 40px);
-}
-
 .btnLg {
   padding: 1.05em 2.1em;
   font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);

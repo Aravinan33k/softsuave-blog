@@ -175,6 +175,9 @@ export const itoFit: OverviewContent = {
 export const itoDestinations: ComparisonContent = {
   eyebrow: "Global Outsourcing Comparison",
   title: "How Does India Compare With Other IT Outsourcing Destinations?",
+  // The live table's first heading (review: "First heading in the table is
+  // missing").
+  areaLabel: "Country",
   body: "Compare India with other leading IT outsourcing destinations across talent availability, cost positioning, working-hour overlap, and common delivery strengths before choosing the market that best fits your project requirements.",
   /* DELIBERATELY NO `verdict`. The table is the live page's own, one row per
      country, and it is not an argument for India: Mexico wins the working-hour
@@ -256,6 +259,9 @@ export const itoModels: ComparisonContent = {
   eyebrow: "Engagement Models",
   title: "Choose the Right IT Outsourcing Model",
   body: "The appropriate model depends on scope clarity, delivery ownership, internal capacity, and how often priorities may change. Compare the working structures before choosing between complete project outsourcing, a dedicated development team, or a staff augmentation arrangement.",
+  // The live table's first heading (review: "First heading in the table is
+  // missing").
+  areaLabel: "Engagement model",
   columns: ["Suitable when", "Working structure"],
   rows: [
     {

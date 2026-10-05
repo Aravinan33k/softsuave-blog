@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import {
   iosBreadcrumbLd,
   iosFaqLd,
@@ -77,7 +77,7 @@ export const revalidate = 300;
  * smart way..." tagline and Apple-logo shapes, so it is not reused.
  */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/ios-application-development-company-og.webp'),
+  url: ogImageUrl('/assets/images/ios-application-development-company-og.webp'),
   width: 1200,
   height: 630,
   alt: 'iOS App Development Services - Soft Suave',
