@@ -1,7 +1,7 @@
 import 'server-only';
 import type { Metadata } from 'next';
 
-import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import { HIRE_ROLE_LIVE_SCHEMA } from '@/lib/seo/hire-roles-live-schema';
 import { brand } from '@/lib/home/content';
@@ -22,10 +22,11 @@ import { pageRobots } from '@/lib/flags';
 
 export function hireRoleMetadata(content: HireRolePageContent): Metadata {
   const { meta, slug, name } = content;
-  // The dynamic OG route renders the title and a subtitle into the brand frame,
-  // so a role page gets a real card without an image slot per page — and the
-  // image pipeline needs no new slot (which it could not generate here anyway).
-  const ogImage = dynamicOgImage(name, meta.description);
+  // One 1200×630 card per role (review: "update the schemas … add the Social
+  // Share Preview image"): live's own share card resized where it has one at
+  // full size, otherwise the logo and page name over a darkened page photo.
+  // Named after the slug — `public/assets/images/hire-<role>-og.webp`.
+  const ogImage = ogImageUrl(`/assets/images${slug}-og.webp`);
 
   return {
     // The root layout's title template is "%s", so this renders verbatim.

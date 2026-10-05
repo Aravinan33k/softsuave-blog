@@ -6,9 +6,11 @@ import 'server-only';
  * JSON-LD block a live page's HTML carries is copied here as served, in the
  * order served, quirks included — the Service nodes' `ServiceType`
  * capitalisation, the Backend and Dedicated pages' Product ratings, and the
- * breadcrumbs whose "Hire Developers" crumb points at
+ * Backend breadcrumb whose "Hire Developers" crumb points at
  * /hire-dedicated-developers. Each block renders as its own <script>, as
- * live's do.
+ * live's do. Blocks live has commented out (`<!-- <script …> -->` — the Mobile
+ * App and Dedicated pages' breadcrumbs) are not part of the page and are left
+ * out (6 Oct review: "BreadcrumbList - remove this extra schema").
  *
  * As on the mobile app and PHP pages, the rest of what an SEO tool reports on
  * a live page is not the page's own: its Organization (on the pages that do
@@ -20,8 +22,10 @@ import 'server-only';
  * The Android, iOS, Salesforce and Blockchain pages were added with the
  * hire-by-skill review, on the same terms.
  *
- * /hire-ai-developer is absent on purpose: its live page carries no JSON-LD
- * at all, so it keeps the schema `hireRoleJsonLd` builds from the page.
+ * /hire-ai-developer maps to no blocks: its live page carries no JSON-LD of
+ * its own (only the GTM-injected site Organization), so it emits none either.
+ * /hire-forward-deployed-engineer carries live's two blocks — a Service +
+ * FAQPage graph and its own Organization + WebSite graph.
  */
 export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> = {
   "/hire-software-developers": [
@@ -810,24 +814,6 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
           }
         }
       ]
-    },
-    {
-      "@context": "https://schema.org/",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.softsuave.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Hire Developers",
-          "item": "https://www.softsuave.com/hire-dedicated-developers"
-        }
-      ]
     }
   ],
   "/hire-frontend-application-developer": [
@@ -1333,24 +1319,6 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
       ]
     },
     {
-      "@context": "https://schema.org/",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.softsuave.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Hire Developers",
-          "item": "https://www.softsuave.com/hire-dedicated-developers"
-        }
-      ]
-    },
-    {
       "@context": "http://schema.org/",
       "@type": "Product",
       "name": "Soft Suave Technologies",
@@ -1689,4 +1657,266 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
       ]
     }
   ],
+  "/hire-forward-deployed-engineer": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Service",
+          "@id": "https://www.softsuave.com/hire-forward-deployed-engineer#service",
+          "serviceType": "Forward Deployed Engineering",
+          "name": "Hire Forward Deployed Engineers",
+          "url": "https://www.softsuave.com/hire-forward-deployed-engineer",
+          "description": "Dedicated Forward Deployed Engineering teams and project pods embedded in your workflow, reaching production deployment in 6-8 weeks.",
+          "image": "https://www.softsuave.com/assets/images/OG-FDE.webp",
+          "areaServed": [
+            "US",
+            "CA",
+            "UK",
+            "AU",
+            "DE",
+            "NL",
+            "SG",
+            "AE"
+          ],
+          "provider": {
+            "@id": "https://www.softsuave.com/"
+          },
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "price": "14",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "priceCurrency": "USD",
+              "minPrice": "14",
+              "unitCode": "HUR",
+              "referenceQuantity": {
+                "@type": "QuantitativeValue",
+                "value": "1",
+                "unitCode": "HUR"
+              }
+            },
+            "availability": "https://schema.org/InStock",
+            "url": "https://www.softsuave.com/contact"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Engagement Models",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Dedicated FDE Teams",
+                  "description": "Full-stack engineers embedded in your workflow, working like your in-house team."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Project Pods",
+                  "description": "A scoped, fully managed pod that ships specific features on a fixed timeline."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Startup Accelerator",
+                  "description": "FDE capacity that scales with your customer implementations."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://www.softsuave.com/hire-forward-deployed-engineer#webpage",
+          "url": "https://www.softsuave.com/hire-forward-deployed-engineer",
+          "name": "Hire Forward Deployed Engineers in 6-8 Weeks | Soft Suave",
+          "description": "Hire Forward Deployed Engineers who embed with your team and ship production code. Build and deploy AI in 6-8 weeks, not months — 120+ FDEs deployed.",
+          "isPartOf": {
+            "@id": "https://www.softsuave.com/#website"
+          },
+          "about": {
+            "@id": "https://www.softsuave.com/hire-forward-deployed-engineer#service"
+          },
+          "primaryImageOfPage": "https://www.softsuave.com/assets/images/OG-FDE.webp",
+          "inLanguage": "en",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is a Forward Deployed Engineer (FDE)?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A Forward Deployed Engineer is a senior software engineer who is embedded directly with your team to solve complex technical challenges. Unlike traditional consultants who deliver recommendations, FDEs deliver working production code. The term was popularized by Palantir and is now used by companies like Stripe, Databricks, and Notion."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How quickly can you deploy a team?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Most teams reach production deployment within 6-8 weeks. We have pre-vetted engineers across our three regions (USA, South America, India) who can start immediately. For larger teams or specialized skills, it may take slightly longer."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What skills do your FDE engineers have?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Our Forward Deployed Engineers are proficient in modern tech stacks including React, Node.js, Python, TypeScript, AWS, GCP, and more. Many have AI/ML experience including LLM fine-tuning, RAG implementations, and enterprise integrations with systems like Salesforce, SAP, and Workday."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does FDE pricing work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We offer simple monthly pricing based on team size and engagement model. Dedicated teams have flat monthly rates starting at $14 per hour. Project pods are scoped with fixed pricing. No hidden fees, no hourly surprises. Contact us for a custom quote based on your specific needs."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the difference between FDE and consulting?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Traditional consultants deliver strategy decks and recommendations. FDEs deliver working software. We write production code, commit to your repo, and ship features. We measure success by what gets deployed, not by hours billed or pages written."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What if an engineer is not a good fit?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We replace any engineer within 2 weeks at no additional cost. Our vetting process is rigorous, but we understand that team chemistry matters. Your satisfaction is guaranteed."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do the engineers work in our time zone?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! With teams in USA, South America, and India, we can provide engineers in any time zone. South American teams overlap perfectly with US hours. Indian teams can provide extended coverage or overnight support for 24/7 operations."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do you vet your Forward Deployed Engineers?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Every engineer goes through technical assessments, live coding interviews, system design reviews, and soft skills evaluation. We assess both technical depth and communication abilities. We accept less than 3% of applicants. You get senior-level talent without the recruiting headache."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can we hire the engineers directly after the engagement?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, after a minimum engagement period (typically 6 months), you can extend offers to bring engineers in-house. Many clients do this as they scale. We want to be your long-term talent partner, and successful transitions are part of that relationship."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What tools and processes do FDE teams use?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Your tools, your processes. Engineers integrate into your existing workflow—Slack, Teams, Jira, Linear, GitHub, GitLab, whatever you use. They attend your standups and follow your development practices. It feels like an extension of your team, not an external vendor."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you work with enterprise clients or just startups?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Both. We work with seed-stage startups building their first MVP, Series A-C companies scaling their engineering capacity, and Fortune 500 enterprises tackling specific technical challenges. Our engagement models are flexible to accommodate different sizes and needs."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the minimum engagement length?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "For dedicated teams, we recommend a minimum 3-month engagement to see meaningful results. Project pods are scoped based on deliverables, typically 4-12 weeks. Startup Accelerator engagements scale with your customer implementations."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do you handle intellectual property and confidentiality?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "All code written by our FDEs belongs to you. We sign comprehensive NDAs and can accommodate custom security requirements. Data never leaves your secure environment. We are SOC 2 compliant and can work within HIPAA, PCI, and other regulatory frameworks."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What makes FDE Team different from traditional outsourcing?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Traditional outsourcing sends resumes. We send outcomes. Our engineers are managed, mentored, and supported by our team. We take responsibility for delivery, not just placement. We also offer specialized pods with domain expertise that traditional providers cannot match."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.softsuave.com/",
+          "name": "Soft Suave Technologies",
+          "url": "https://www.softsuave.com",
+          "logo": "https://www.softsuave.com/new-assets/common/images/softsuave_logo.webp",
+          "description": "Soft Suave deploys Forward Deployed Engineers who embed with your team to build, integrate and ship AI and custom software into production.",
+          "email": "contact@softsuave.com",
+          "areaServed": [
+            "US",
+            "CA",
+            "UK",
+            "AU",
+            "DE",
+            "NL",
+            "SG",
+            "AE"
+          ],
+          "knowsAbout": [
+            "Forward Deployed Engineering",
+            "AI agent deployment",
+            "LLM integration",
+            "Enterprise systems integration",
+            "Custom software development"
+          ],
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "sales",
+              "email": "contact@softsuave.com",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.softsuave.com/#website",
+          "url": "https://www.softsuave.com",
+          "name": "Soft Suave Technologies",
+          "description": "Hire Forward Deployed Engineers who embed with your team and ship production code. Build and deploy AI in 6-8 weeks, not months — 120+ FDEs deployed.",
+          "publisher": {
+            "@id": "https://www.softsuave.com/"
+          },
+          "inLanguage": "en"
+        }
+      ]
+    }
+  ],
+  // Live carries no JSON-LD of its own here (only the GTM-injected site
+  // Organization), so this page emits none either (review: "Need to remove the
+  // excess schemas").
+  "/hire-ai-developer": [],
 };

@@ -161,9 +161,10 @@ export const software: HireRolePageContent = {
       {
         key: 'fullstack',
         name: 'Hire Fullstack Developers',
-        // Live's own target. This app has no page for it, so `SiteLink`
-        // sends it to softsuave.com rather than to a 404.
-        href: '/hire-full-stack-developers-in-india',
+        // Unlinked for now: live's target (/hire-full-stack-developers-in-india)
+        // has no page here, and the review wants these cards to stay on the new
+        // site rather than send readers to softsuave.com.
+        link: false,
         body: 'Get versatile, well-rounded full-stack developers who manage both front-end and back-end development with expertise. They seamlessly integrate your application layers, ensuring scalability, security, and efficiency for end-to-end solutions.',
       },
       {

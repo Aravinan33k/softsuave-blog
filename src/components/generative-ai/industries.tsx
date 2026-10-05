@@ -37,6 +37,13 @@ export interface CardGridContent {
      * navigation between the nine role pages rather than nine dead ends.
      */
     readonly href?: string;
+    /**
+     * `false` keeps this one card unlinked even where its name matches one of
+     * our pages — for a card whose right destination does not exist yet
+     * (hire-by-role review: "Hire Xamarin Developers - remove the link from
+     * this card for now").
+     */
+    readonly link?: false;
   }[];
   /**
    * Optional button under the grid — the live hire pages close some of these
@@ -156,7 +163,7 @@ export default function Industries({
   const resolveHref = useServiceHref();
   const autoLink = /service|industr|sector|offering|solution/i.test(id);
   const hrefOf = (item: CardGridContent["items"][number]) =>
-    links && (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
+    links && item.link !== false && (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
   const textOf = (item: CardGridContent["items"][number]) => `${item.name}. ${item.body}`;
 
   if (variant === "bold") {

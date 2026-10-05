@@ -34,7 +34,14 @@ export default function SectionHead({
           {title}
         </SplitReveal>
       </div>
-      {intro && <p className={styles.intro}>{intro}</p>}
+      {/* One child for the split head's centring flex box: bare, an intro that
+          carries a link became three flex items — text, link, text — set side
+          by side as columns (hire-by-role review: "major ui issue"). */}
+      {intro && (
+        <p className={styles.intro}>
+          <span>{intro}</span>
+        </p>
+      )}
     </div>
   );
 }
