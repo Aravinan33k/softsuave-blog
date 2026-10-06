@@ -29,6 +29,15 @@ const GTM_CONNECT = [
   'https://*.g.doubleclick.net',
 ];
 const gtmOn = Boolean(gtmContainerId);
+
+// `upgrade-insecure-requests` makes the browser fetch every asset over https —
+// right for the real site, fatal on a plain-http deployment (a bare server IP),
+// where each CSS/JS/font request is rewritten to a port nothing answers and the
+// page never finishes loading. So it follows the site URL's scheme (same default
+// as env.ts).
+const siteIsHttps = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.softsuave.com').startsWith(
+  'https://',
+);
 const extra = (on: boolean, origins: string[]) => (on ? ` ${origins.join(' ')}` : '');
 
 const csp = [
@@ -43,7 +52,7 @@ const csp = [
   "font-src 'self' data:",
   `connect-src 'self'${extra(gtmOn, GTM_CONNECT)}`,
   ...(gtmOn ? [`frame-src 'self' ${GTM_SCRIPT[0]}`] : []),
-  'upgrade-insecure-requests',
+  ...(siteIsHttps ? ['upgrade-insecure-requests'] : []),
 ].join('; ');
 
 const securityHeaders = [
