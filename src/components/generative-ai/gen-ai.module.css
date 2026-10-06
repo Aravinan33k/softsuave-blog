@@ -2098,8 +2098,11 @@
     object-position: center 38%;
   }
 
+  /* The card's column is the shared `--enquiry-col` (globals.css), not a share
+     of the row: at 0.62fr it fell to 270px on a 1024px laptop and wrapped the
+     card's title, while the landing hero's card beside it was 470px. */
   .heroGrid {
-    grid-template-columns: 1.38fr 0.62fr;
+    grid-template-columns: minmax(0, 1fr) var(--enquiry-col);
     gap: clamp(48px, 5vw, 88px);
     align-items: center;
   }

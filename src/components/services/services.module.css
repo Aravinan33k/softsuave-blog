@@ -12,12 +12,26 @@
    ============================================================ */
 
 /* ---- hero ---- */
+/* Same frame as the landing hero: content capped at 1500px and centred, and
+   the enquiry card in the shared `--enquiry-col` (globals.css). The
+   proportional 0.85fr it had before made the card 706px wide on a 1920px
+   screen, half as wide again as on every other page. */
 .hero {
+  max-width: calc(1500px + 2 * var(--gutter));
+  margin-inline: auto;
   padding: clamp(104px, 12vw, 168px) var(--gutter) clamp(48px, 6vw, 88px);
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(32px, 5vw, 80px);
   align-items: start;
+}
+
+/* Side by side from 1000px, the breakpoint the other two heroes use. It was
+   1025px here, so a 1024px laptop got the card stacked at full width. */
+@media (min-width: 1000px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) var(--enquiry-col);
+  }
 }
 
 .heroTitle {
@@ -513,7 +527,6 @@
 
 /* ---- responsive ---- */
 @media (max-width: 1024px) {
-  .hero,
   .ctaBand,
   .stackGroup {
     grid-template-columns: minmax(0, 1fr);

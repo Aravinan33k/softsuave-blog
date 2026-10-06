@@ -41,6 +41,13 @@
   --fx-danger-tint: #fdf4f1;
   --fx-radius: 8px;
 
+  /* Beside the hero copy the column (`--enquiry-col`, globals.css) sets the
+     width. Stacked under it, below 1000px, the column is the whole row: on a
+     tablet that stretched the card to ~690px of hairlines with a lone button,
+     so it stops at 560px there and keeps the copy's left edge. Phones are
+     narrower than the cap and stay full width. */
+  width: 100%;
+  max-width: 560px;
   border: 1px solid rgba(15, 17, 21, 0.07);
   border-radius: 16px;
   background: #fff;

@@ -55,6 +55,12 @@
 }
 
 :root {
+  /* Width of the enquiry card's column in every two-column hero (landing,
+     generative-ai and services heroes all read it, from 1000px up). One value
+     so the card cannot come out a different size from page to page: 380px on a
+     1000px laptop, growing with the viewport, capped at 470px from ~1270px. */
+  --enquiry-col: clamp(380px, 37vw, 470px);
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

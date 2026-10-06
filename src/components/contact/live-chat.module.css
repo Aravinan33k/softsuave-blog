@@ -158,7 +158,10 @@
   border: 1px solid rgba(11, 16, 32, 0.16);
   border-radius: 999px;
   font: inherit;
-  font-size: 0.95rem;
+  /* 16px, not 0.95rem: mobile Safari zooms the page in when a focused field's
+     text is under 16px, which threw the chat panel half off-screen. Same rule
+     as the enquiry card's inputs. */
+  font-size: 1rem;
   color: inherit;
   background: #ffffff;
 }

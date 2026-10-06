@@ -2573,7 +2573,11 @@
        is around 760px tall, and beside it a 420px card read as stranded. 470
        is still well short of the 600px+ the proportional share used to give
        it, so the headline stays the page's main event. */
-    grid-template-columns: minmax(0, 1fr) minmax(0, 470px);
+    /* Now the shared `--enquiry-col` (globals.css), which tops out at that same
+       470px but eases down to 380px on a 1000-1270px laptop, where a fixed 470
+       squeezed the headline column. The generative-ai and services heroes read
+       the same value, so the card is one size on every page. */
+    grid-template-columns: minmax(0, 1fr) var(--enquiry-col);
     gap: clamp(48px, 5vw, 88px);
     /* The enquiry form is the shorter column — floats centered in the row
        instead of pinned to the copy column's top edge. */

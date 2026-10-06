@@ -60,9 +60,13 @@
 
 /* ---- Channel cards (form / schedule / quick contact) ---- */
 
+/* `minmax(0, …)` on every track, the single column included: a bare `1fr`
+   will not shrink below its content's min-content width, and the scheduler's
+   time-zone <select> measures as wide as its longest zone name. That held all
+   three cards at 374px on a 360-390px phone, clipping their right edge. */
 .channels {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(14px, 1.6vw, 22px);
   padding: 0 var(--gutter) clamp(36px, 4vw, 64px);
   max-width: 1440px;
@@ -71,17 +75,30 @@
 
 .channels > div {
   display: flex;
+  min-width: 0;
 }
 
+/* Tablet and small laptop: form and scheduler side by side, Quick Contact
+   across the full row beneath them rather than stranded alone in the left
+   column. Three across waits for 1200px: at 1000-1199 each card was under
+   300px, which clipped "WhatsApp" and broke the email address mid-word. */
 @media (min-width: 760px) {
   .channels {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .channels > div:nth-child(3) {
+    grid-column: 1 / -1;
+  }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1200px) {
   .channels {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .channels > div:nth-child(3) {
+    grid-column: auto;
   }
 }
 
@@ -104,6 +121,9 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  /* Same reason as `.channels`: a flex item's automatic minimum is its
+     content's min-content width, which the time-zone <select> inflates. */
+  min-width: 0;
   min-height: 100%;
   padding: clamp(22px, 2.2vw, 30px);
   border-radius: 16px;
