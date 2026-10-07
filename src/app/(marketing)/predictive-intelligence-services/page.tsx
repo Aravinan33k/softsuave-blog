@@ -158,9 +158,10 @@ export default function PredictiveIntelligenceServicesPage() {
         />
 
         {/* Every capability on screen at once, each card wearing its own
-            artwork in its top corner — the GCC page's feature card. */}
+            artwork in its top corner — the GCC page's feature card. Two
+            across, so the four capabilities are a 2x2 grid (7 Oct review). */}
         <div className={home.light}>
-          <ServicesGrid content={piCapabilities} />
+          <ServicesGrid content={piCapabilities} columns={2} />
         </div>
 
         <Industries content={piApplications} id="use-cases" />

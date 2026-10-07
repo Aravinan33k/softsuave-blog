@@ -10,6 +10,7 @@ import styles from "./gen-ai.module.css";
 import fx from "@/components/common/enquiry-form.module.css";
 import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
 import Breadcrumb from "@/components/common/breadcrumb";
+import { titleFitStyle } from "@/components/landing/hero";
 import { SiteLink } from "@/themes/softsuave/site-link";
 
 /**
@@ -28,6 +29,14 @@ export interface HeroContent {
    * Must sit within one line. Omitted keeps the last-line accent.
    */
   accent?: string;
+  /**
+   * Size the H1 so each of `titleLines` fits the copy column on one line —
+   * never above the standard size; at the 30px floor a line too long for a
+   * narrow column wraps. The counterpart of `titleFit` on
+   * `components/landing/hero` — Generative AI review, 7 Oct: "the h1 in the
+   * hero section must come in 2 lines".
+   */
+  titleFit?: boolean;
   body: readonly string[];
   points: readonly string[];
   /**
@@ -155,10 +164,13 @@ export default function Hero({
       <div className={styles.heroGlow} aria-hidden />
 
       <div className={styles.heroGrid}>
-        <div>
+        <div className={content.titleFit ? styles.heroCopyFit : undefined}>
           {/* "Home › <page>", named from the route — see common/breadcrumb. */}
           <Breadcrumb />
-          <h1 className={styles.heroTitle}>
+          <h1
+            className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}`}
+            style={content.titleFit ? titleFitStyle(content.titleLines) : undefined}
+          >
             {/* The spans are display:block, so the spaces between them only
                 matter to the text content crawlers and screen readers see. */}
             {content.titleLines.map((line, i) => (

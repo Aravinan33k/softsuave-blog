@@ -32,8 +32,9 @@ export const caMeta = {
 } as const;
 
 export const caHero: HeroContent = {
-  // The last line takes the coral accent.
+  // 7 Oct review: "Highlight 'Custom AI' in the h1".
   titleLines: ["Custom AI Development", "Services"],
+  accent: "Custom AI",
   body: [
     "Build custom AI solutions around your business data, workflows, and goals, taking your idea from proof of concept to secure, production-ready deployment.",
     "From strategy to ongoing optimization, every step is built around how your business actually works.",

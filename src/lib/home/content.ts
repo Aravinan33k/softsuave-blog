@@ -141,39 +141,49 @@ export const industries = {
   eyebrow: "Industries",
   title: "AI-Driven Efficiency and Growth Across Industries",
   body: "Our AI-driven solutions help industries improve efficiency, scale operations, and accelerate transformation. By making business systems smarter and more connected, we help organizations modernize faster and stay competitive in a digital-first world.",
+  // `img` is the card's `four` image slot. FinTech, EdTech, eCommerce and
+  // Telecom have their own `-home` art (7 Oct review: "update relevant images in
+  // the industry section") — the shared `ind-<key>` frames they replace are
+  // still the FinTech page's and /industries'.
   items: [
     {
       key: "fintech",
+      img: "ind-fintech-home",
       href: "/fintech-ai-solutions",
       name: "FinTech",
       body: "Redefining FinTech with AI-powered intelligence by enhancing security, automating decisions, and unlocking new financial possibilities. From real-time fraud detection to hyper-personalized banking, we drive the future of digital finance.",
     },
     {
       key: "healthtech",
+      img: "ind-healthtech",
       href: "/ai-solutions-in-healthtech",
       name: "HealthTech",
       body: "Elevate healthcare with next-gen advanced AI solutions that refine patient outcomes, optimize clinical workflows, and streamline operations. We deliver intelligent automation and data-driven insights for transformative health tech innovation.",
     },
     {
       key: "edtech",
+      img: "ind-edtech-home",
       href: "/ai-solutions-in-edutech",
       name: "EdTech",
       body: "Reimagining education with next-gen AI solutions, creating personalized learning experiences, and smart content curation. From adaptive learning support to insightful analytics, we're pioneering the evolution of education.",
     },
     {
       key: "ecommerce",
+      img: "ind-ecommerce-home",
       href: "/ai-solutions-for-ecommerce",
       name: "eCommerce",
       body: "Transforming e-commerce with AI-driven solutions for smarter selling, faster operations, and better customer experiences. From personalized recommendations to inventory automation and real-time analytics, we help businesses grow efficiently.",
     },
     {
       key: "logistics",
+      img: "ind-logistics",
       href: "/ai-in-logistics",
       name: "Logistics",
       body: "Optimizing logistics with AI-powered solutions for smarter supply chains, real-time tracking, and operational efficiency. From demand forecasting to automated route optimization, we drive seamless and cost-effective logistics management.",
     },
     {
       key: "telecom",
+      img: "ind-telecom-home",
       href: "/ai-solutions-for-telecom",
       name: "Telecom",
       body: "Advancing telecom with AI-driven solutions for smarter networks, automated operations, and better customer experiences. From predictive maintenance to intelligent network optimization, we help providers improve reliability and efficiency.",
@@ -209,14 +219,14 @@ export const services = {
     {
       key: "custom-ai-development-services",
       href: "/custom-ai-development-services",
-      img: "px-custom-ai",
+      img: "px-custom-ai-v2",
       name: "Custom AI Development",
       body: "Create tailored solutions using generative AI, agentic AI, RAG, and more to automate workflows and solve complex business challenges.",
     },
     {
       key: "data-engineering",
       href: "/data-engineering-services",
-      img: "px-data-engineering",
+      img: "px-data-engineering-v2",
       name: "Data Engineering",
       body: "Build reliable data foundations with ETL and ELT pipelines, orchestration, data quality controls, and real-time streaming.",
     },
@@ -230,21 +240,21 @@ export const services = {
     {
       key: "generative-ai",
       href: "/generative-ai-development-company",
-      img: "px-generative-ai",
+      img: "px-generative-ai-v2",
       name: "Generative AI",
       body: "Build tailored generative AI solutions using LLMs to create content, code, images, and intelligent experiences aligned with diverse business needs.",
     },
     {
       key: "agentic-ai",
       href: "/agentic-ai-development-services",
-      img: "px-agentic-ai",
+      img: "px-agentic-ai-v2",
       name: "Agentic AI",
       body: "Develop autonomous AI agents that reason, use tools, and execute multi-step workflows to support complex business processes and decisions efficiently.",
     },
     {
       key: "rag-document-ai",
       href: "/rag-development-services",
-      img: "px-rag",
+      img: "px-rag-v2",
       name: "RAG and Document AI",
       body: "Create RAG and Document AI solutions that retrieve trusted knowledge, extract information, and deliver accurate, context-aware responses from enterprise data.",
     },
@@ -272,7 +282,7 @@ export const services = {
     {
       key: "forward-deployed-engineers",
       href: "/hire-forward-deployed-engineer",
-      img: "px-fde",
+      img: "px-fde-v2",
       name: "Forward Deployed Engineers",
       body: "Hire forward-deployed engineers who work with customers to understand requirements, develop integrations, solve challenges, and deploy production-ready solutions efficiently.",
     },

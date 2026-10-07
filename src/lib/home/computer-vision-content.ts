@@ -37,13 +37,13 @@ export const cvMeta = {
 } as const;
 
 export const cvHero: HeroContent = {
-  // The last line takes the coral accent.
-  // One line (1 Oct review: "make sure the H1 comes in a single line" / "the
-  // H1 is not updated properly"): the Sep 23 fix for wrapping had split it over
-  // two lines instead. `titleOneLine` keeps the two-tone accent inline and
-  // sizes the H1 to the copy column from 1200px up.
-  titleLines: ["Computer Vision", "Development Services"],
-  titleOneLine: true,
+  // 7 Oct review: the H1 becomes "Computer Vision Development Services for
+  // Smarter Workflows" with "Computer Vision Development" highlighted. Too long
+  // for the single line the 1 Oct review asked of the shorter title, so it is
+  // two lines now, each sized to the copy column (`titleFit`).
+  titleLines: ["Computer Vision Development Services", "for Smarter Workflows"],
+  accent: "Computer Vision Development",
+  titleFit: true,
   body: [
     "Soft Suave provides custom computer vision development services that turn camera feeds, images, video, and visual documents into outputs your business can use. We develop workflows that detect relevant objects or information, validate the results, connect with existing systems, and support defined operational actions.",
     "Bring us your visual input, business problem, and required outcome. We will help you assess the use case and plan the right Computer Vision workflow.",

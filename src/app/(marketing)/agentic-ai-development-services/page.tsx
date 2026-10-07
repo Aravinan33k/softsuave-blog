@@ -139,7 +139,7 @@ export default function AgenticAiDevelopmentServicesPage() {
 
         <div className={styles.light}>
           <Process content={processContent} />
-          <Industries content={industriesContent} id="industries" links={false} />
+          <Industries content={industriesContent} id="industries" cardLinks />
         </div>
 
         <WhyUs content={whyUsContent} />

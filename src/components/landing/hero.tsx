@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useRef } from "react";
+import { Fragment, useRef, type CSSProperties } from "react";
 import Image from "next/image";
 import { publicMediaUrl } from "@/lib/media-url";
 import { isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
@@ -94,6 +94,15 @@ export interface HeroContent {
      */
     veil?: "strong";
   };
+}
+
+/**
+ * `titleFit` sizes the H1 from its longest line: `--title-chars` is that
+ * line's length, and the stylesheet turns it into a font size that fits the
+ * line to the copy column. See `.heroTitleFit` in landing.module.css.
+ */
+export function titleFitStyle(lines: readonly string[]) {
+  return { "--title-chars": Math.max(...lines.map((l) => l.length)) } as CSSProperties;
 }
 
 /** `line` with its first occurrence of `accent` wrapped in the accent colour. */
@@ -220,6 +229,7 @@ export default function Hero({
             className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}${
               content.titleOneLine ? ` ${styles.heroTitleOneLine}` : ""
             }`}
+            style={content.titleFit ? titleFitStyle(content.titleLines) : undefined}
           >
             {/* The spans are display:block, so the spaces between them only
                 matter to the text content crawlers and screen readers see. */}

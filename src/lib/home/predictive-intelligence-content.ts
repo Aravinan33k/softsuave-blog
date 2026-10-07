@@ -37,8 +37,10 @@ export const piMeta = {
 } as const;
 
 export const piHero: HeroContent = {
-  // The last line takes the coral accent.
-  titleLines: ["Predictive Intelligence Services", "From Prediction to Action"],
+  // 7 Oct review: the colon was missing, and "Predictive Intelligence
+  // Services" is the phrase to highlight.
+  titleLines: ["Predictive Intelligence Services:", "From Prediction to Action"],
+  accent: "Predictive Intelligence Services",
   body: [
     "Soft Suave develops custom systems that turn business data into forecasts, risk signals, recommendations, alerts, and workflow actions. We help product, operations, finance, customer, and technology teams apply predictive capabilities to specific decisions within their existing processes.",
     "Bring predictions into your daily operations through practical signals, recommendations, alerts, and actions aligned with your business decisions.",

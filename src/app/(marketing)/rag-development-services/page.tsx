@@ -176,9 +176,13 @@ export default function RagDocumentAiServicePage() {
         </div>
 
         {/* Dark, as on the homepage and the generative-AI page. `.techCompact`
-            only clears the homepage's full-viewport min-height. */}
+            only clears the homepage's full-viewport min-height.
+            `loopShortRows`: rows of five (Evaluation & Monitoring,
+            Infrastructure) fit a wide screen and held still while the longer
+            rows scrolled (7 Oct review: "the technologies under 'Evaluation &
+            Monitoring' are not scrolling"). */}
         <div className={home.techCompact}>
-          <TechStack content={ragTech} />
+          <TechStack content={ragTech} loopShortRows />
         </div>
 
         {/* Homepage client stories, on the warm-white band as they are there. */}

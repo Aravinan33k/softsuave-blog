@@ -944,6 +944,24 @@ h1.h2 {
   gap: 14px;
 }
 
+/* "Explore AI Solutions": a 2px, brighter outline (7 Oct review: "make the
+   button outline more visible by increasing the border size") — the 1px
+   --line hairline all but vanished over the hero video. The filled button
+   beside it takes the same 2px, in its own fill colour, so the pair stay one
+   height. */
+.heroCtaRow .pill,
+.heroCtaRow .pillFilled {
+  border-width: 2px;
+}
+
+.heroCtaRow .pill {
+  border-color: rgba(255, 255, 255, 0.78);
+}
+
+.heroCtaRow .pill:hover {
+  border-color: var(--cta-bg, #ff5436);
+}
+
 .heroScroll {
   position: absolute;
   right: var(--gutter);

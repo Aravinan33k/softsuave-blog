@@ -66,11 +66,18 @@ function CardLink({
   href,
   label,
   className = styles.indCardLink,
+  decorative = false,
 }: {
   href: string;
   label: string;
   /** The card variant's own link class. Defaults to the picture card's. */
   className?: string;
+  /**
+   * Paint the "Know More" without making it a link — for a card that is
+   * itself the link (`cardLinks`), where a second link inside it would be a
+   * duplicate tab stop to the same page.
+   */
+  decorative?: boolean;
 }) {
   const inner = (
     <>
@@ -88,6 +95,14 @@ function CardLink({
       </svg>
     </>
   );
+
+  if (decorative) {
+    return (
+      <span className={className} aria-hidden>
+        {inner}
+      </span>
+    );
+  }
 
   return href.startsWith("/") ? (
     <Link className={className} href={href}>
@@ -150,10 +165,18 @@ export default function Industries({
    */
   links?: boolean;
   /**
-   * `bold` only: the whole card is the link instead of a "Know More" under its
-   * copy (hire-by-role review: "remove the 'Know More' buttons; the entire
-   * cards must be clickable"). The card title carries the link, stretched over
-   * the card, so the accessible name is the card's own name.
+   * The whole card is the link instead of a "Know More" inside it.
+   *
+   * `bold`: the "Know More" under the copy goes (hire-by-role review: "remove
+   * the 'Know More' buttons; the entire cards must be clickable"); the card
+   * title carries the link, stretched over the card, so the accessible name is
+   * the card's own name.
+   *
+   * `photo`: a link layer over the whole card, named for the card, above the
+   * hover overlay; the overlay keeps its "Know More" as a cue, no longer a link
+   * of its own (7 Oct review, Generative AI and Agentic AI industries: "link
+   * the cards with respective industry pages and make the whole cards
+   * clickable").
    */
   cardLinks?: boolean;
 } = {}) {
@@ -301,7 +324,11 @@ export default function Industries({
           {content.items.map((item) => {
             const href = hrefOf(item);
             return (
-            <article key={item.name} className={styles.indCard}>
+            <article
+              key={item.name}
+              className={styles.indCard}
+              data-linked={href && cardLinks ? "true" : undefined}
+            >
               {item.image && (
                 <Image
                   src={publicMediaUrl(item.image)}
@@ -332,8 +359,14 @@ export default function Industries({
                   {item.name}
                 </span>
                 <p className={styles.indCardBody}>{item.body}</p>
-                {href && <CardLink href={href} label={item.name} />}
+                {href && <CardLink href={href} label={item.name} decorative={cardLinks} />}
               </div>
+
+              {href && cardLinks && (
+                <SiteLink href={href} className={styles.indCardHit}>
+                  <span className={styles.srOnly}>{item.name}</span>
+                </SiteLink>
+              )}
             </article>
             );
           })}

@@ -22,6 +22,9 @@ export const meta = {
 export const hero = {
   /** Rendered as the page's single H1, split into lines for the masked reveal. */
   titleLines: ["Generative AI Development Company:", "From Pilot to Production"],
+  /** 7 Oct review: highlight "Generative AI", and keep the H1 to two lines. */
+  accent: "Generative AI",
+  titleFit: true,
   body: [
     "Soft Suave is a generative AI development company that takes your idea from prototype to production. Our 400+ AI & engineering specialists build RAG systems, AI agents, and LLM applications that integrate with the systems and tools your business already runs on.",
     "Start with a 30-minute technical consultation to discuss your use case and identify a suitable approach before committing your project budget.",
@@ -166,7 +169,10 @@ export const services = {
     {
       name: "Generative AI Security and Governance",
       body: "We build security into every stage with access controls, guardrails, audit logging, and human oversight, helping your generative AI solution move safely from development to production.",
-      image: "/images/landing/services/svc-security-governance.webp",
+      // The AI-shield art. The two files' names are the wrong way round: this
+      // card and Dedicated Teams below had each other's images until the 7 Oct
+      // review ("update the images in the services section").
+      image: "/images/landing/services/svc-dedicated-teams.webp",
     },
     {
       name: "Evaluation, Testing and LLMOps",
@@ -176,12 +182,14 @@ export const services = {
     {
       name: "Dedicated Generative AI Development Teams",
       body: "Scale your AI engineering capacity without a hiring cycle. Pre-vetted AI developers join within 48 hours and work in your sprints, your tools, and your timezone from day one.",
-      image: "/images/landing/services/svc-dedicated-teams.webp",
+      // The team-at-work art — see Security and Governance above.
+      image: "/images/landing/services/svc-security-governance.webp",
     },
     {
       name: "Generative AI Product Modernisation",
       body: "Add generative AI to software you already own. Assistants, search, and automation extend the existing product rather than forcing a rebuild around a new architecture.",
-      image: "/images/landing/services/svc-product-modernisation.webp",
+      // Code on screen (pinned Pexels slot); the old frame was a second shield.
+      image: "/images/landing/svc-product-modernisation-v2.webp",
     },
     {
       name: "Generative AI Support and Optimisation",

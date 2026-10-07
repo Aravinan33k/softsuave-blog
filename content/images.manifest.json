@@ -6531,6 +6531,204 @@
         "programmer coding monitor",
         "software developer"
       ]
+    },
+    {
+      "id": "svc-px-custom-ai-v2",
+      "page": "four",
+      "purpose": "service",
+      "alt": "An engineer lit by a wall of blue code on screen",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": ["developer blue code screen"],
+      "pexelsId": 5866051
+    },
+    {
+      "id": "svc-px-data-engineering-v2",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Fibre-optic cables patched into a data-centre switch panel",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": ["data center network cables"],
+      "pexelsId": 4682189
+    },
+    {
+      "id": "svc-px-generative-ai-v2",
+      "page": "four",
+      "purpose": "service",
+      "alt": "A human hand and a robotic hand typing on the same laptop",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": ["robot hand typing laptop"],
+      "pexelsId": 5614124
+    },
+    {
+      "id": "svc-px-agentic-ai-v2",
+      "page": "four",
+      "purpose": "service",
+      "alt": "A robotic arm carrying out an automated task in a lab",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": ["robot arm automation lab"],
+      "pexelsId": 32778341
+    },
+    {
+      "id": "svc-px-rag-v2",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Rows of labelled document binders on a dark shelf",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": ["document binders archive"],
+      "pexelsId": 34293528
+    },
+    {
+      "id": "svc-px-fde-v2",
+      "page": "four",
+      "purpose": "service",
+      "alt": "Engineers at their screens inside a client operations room",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 860,
+      "keywords": ["engineers operations control room"],
+      "pexelsId": 19317897
+    },
+    {
+      "id": "ind-fintech-home",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "A phone held to a card terminal for a contactless payment",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": ["contactless payment phone terminal"],
+      "pexelsId": 4199524
+    },
+    {
+      "id": "ind-edtech-home",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "A student in headphones taking an online class on a laptop",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": ["student online class laptop headphones"],
+      "pexelsId": 6958515
+    },
+    {
+      "id": "ind-ecommerce-home",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "A laptop showing \"Shop now\" beside a small shopping cart and parcels",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": ["online shopping laptop cart parcels"],
+      "pexelsId": 6214471
+    },
+    {
+      "id": "ind-telecom-home",
+      "page": "four",
+      "purpose": "industry",
+      "alt": "A mobile network tower with antenna panels against the sky",
+      "orientation": "portrait",
+      "width": 800,
+      "height": 1000,
+      "keywords": ["telecommunication tower antennas"],
+      "pexelsId": 18379732
+    },
+    {
+      "id": "ag-app-customer-ops",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A customer support agent in a headset working with a team lead",
+      "orientation": "square",
+      "width": 900,
+      "height": 900,
+      "keywords": ["customer support agent headset"],
+      "pexelsId": 8867475
+    },
+    {
+      "id": "ag-app-sales",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Two people shaking hands on a deal in a meeting",
+      "orientation": "square",
+      "width": 900,
+      "height": 900,
+      "keywords": ["business handshake deal meeting"],
+      "pexelsId": 7792841
+    },
+    {
+      "id": "ag-app-finance",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A hand filling in a financial form beside the business pages",
+      "orientation": "square",
+      "width": 900,
+      "height": 900,
+      "keywords": ["finance paperwork form signing"],
+      "pexelsId": 16282318
+    },
+    {
+      "id": "ag-app-it-support",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "An engineer with a laptop checking racks in a server room",
+      "orientation": "square",
+      "width": 900,
+      "height": 900,
+      "keywords": ["it engineer server room laptop"],
+      "pexelsId": 1181354
+    },
+    {
+      "id": "ag-app-supply-chain",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "A warehouse aisle lined with stocked shelving",
+      "orientation": "square",
+      "width": 900,
+      "height": 900,
+      "keywords": ["warehouse aisle shelves"],
+      "pexelsId": 14554082
+    },
+    {
+      "id": "ag-app-data-research",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "An analyst reviewing charts on a laptop, phone and printouts",
+      "orientation": "square",
+      "width": 900,
+      "height": 900,
+      "keywords": ["analyst charts laptop reports"],
+      "pexelsId": 7693229
+    },
+    {
+      "id": "ag-app-hr",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "An interviewer reviewing a candidate resume",
+      "orientation": "square",
+      "width": 900,
+      "height": 900,
+      "keywords": ["job interview resume"],
+      "pexelsId": 4225927
+    },
+    {
+      "id": "svc-product-modernisation-v2",
+      "page": "landing",
+      "purpose": "service-card",
+      "alt": "Code on dark monitors as a legacy application is rebuilt",
+      "orientation": "landscape",
+      "width": 900,
+      "height": 450,
+      "keywords": ["code monitors dark"],
+      "pexelsId": 34212916
     }
   ]
 }

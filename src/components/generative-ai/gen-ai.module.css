@@ -328,6 +328,19 @@
   display: block;
 }
 
+/* `titleFit`: each title line kept to one line, sized to the copy column.
+   Same rule and the same 0.51em-per-character estimate as `.heroTitleFit` in
+   landing.module.css (the two heroes share the face and tracking); the hero
+   sets `--title-chars` from its longest line. */
+.heroCopyFit {
+  container-type: inline-size;
+}
+
+.heroCopyFit .heroTitle.heroTitleFit {
+  font-size: clamp(30px, calc(100cqi / (var(--title-chars, 33) * 0.51)), var(--fs-h1));
+  max-width: none;
+}
+
 .heroTitleAccent {
   color: var(--accent);
 }
@@ -2524,6 +2537,30 @@
 
 .indBoldStretch:focus-visible {
   outline: none;
+}
+
+/* `cardLinks` on the picture card: one link over the whole card, above the
+   hover overlay (z-index 3), so a click anywhere on the photo, the name or the
+   revealed description goes to the industry page. Its focus ring is the
+   card's, and focusing it still drives the `:focus-within` reveal. */
+.indCardHit {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+}
+
+.indCardHit:focus-visible {
+  outline: none;
+}
+
+.indCard[data-linked="true"] {
+  cursor: pointer;
+}
+
+.indCard[data-linked="true"]:has(.indCardHit:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .indBoldCard[data-linked="true"] {

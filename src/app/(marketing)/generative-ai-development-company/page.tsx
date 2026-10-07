@@ -149,7 +149,7 @@ export default function GenerativeAiDevelopmentCompanyPage() {
           <Process />
         </div>
 
-        <Industries links={false} />
+        <Industries cardLinks />
 
         <div className={styles.light}>
           <WhyUs />

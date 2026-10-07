@@ -2767,7 +2767,11 @@
 }
 
 /* Link out to the full case-study index, below the grid. */
+/* Centred under the cards, like the closing button of every other card grid
+   (7 Oct review, Custom AI: "move the view case study button to the center"). */
 .caseFoot {
+  display: flex;
+  justify-content: center;
   margin-top: clamp(20px, 2.4vw, 32px);
 }
 
@@ -2845,16 +2849,19 @@
    Closing guidance under the comparison rows ("when to pick which") — a
    short prose block in the section's measure, ruled off from the rows.
    ============================================================ */
+/* The closing note under a comparison table. No rule above it and 18px type
+   (7 Oct review, RAG and Data Engineering: "at the end of the table, remove
+   the line and update the font size to 18 px") — the hairline read as a
+   second table border, and the note sat smaller than the table above it.
+   Predictive Intelligence shares it and changes with them. */
 .cmpNotes {
   max-width: 68ch;
   margin-top: clamp(24px, 3vw, 40px);
-  padding-top: clamp(18px, 2vw, 26px);
-  border-top: 1px solid var(--line);
 }
 
 .cmpNotes p {
   margin: 0;
-  font-size: clamp(0.94rem, 1.08vw, 1.05rem);
+  font-size: 1.125rem;
   line-height: 1.65;
   color: var(--text);
 }
@@ -3133,8 +3140,17 @@
 .heroCopyFit {
   container-type: inline-size;
 }
+/* `titleFit`: sized so the longest title line fills the copy column (100cqi)
+   and no more. `--title-chars` is that line's length (set by the hero), and
+   0.51em is a little over the widest average advance per character measured
+   for this face at the H1's -0.045em tracking (0.42em for "From Pilot to
+   Production" up to 0.50em for the capital-heavy "PostgreSQL Development
+   Company"), so the estimate errs towards fitting. It was a fixed 6.4cqi, which suited
+   the 30-character PostgreSQL title but wrapped the 36-character Computer
+   Vision one. Never above the standard size; at the 34px floor a line too long
+   for a narrow column wraps rather than overflowing. */
 .heroCopyFit .heroTitle.heroTitleFit {
-  font-size: clamp(34px, 6.4cqi, var(--fs-h1));
+  font-size: clamp(34px, calc(100cqi / (var(--title-chars, 33) * 0.51)), var(--fs-h1));
   max-width: none;
 }
 
@@ -6807,6 +6823,11 @@
 @media (min-width: 1100px) {
   .featGrid > * {
     flex: 0 1 calc((100% - 2 * clamp(14px, 1.6vw, 22px)) / 3);
+  }
+
+  /* `columns={2}`: stays two across, so four cards are a 2x2 square. */
+  .featGrid2 > * {
+    flex: 0 1 calc((100% - clamp(14px, 1.6vw, 22px)) / 2);
   }
 }
 

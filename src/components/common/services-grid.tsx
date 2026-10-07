@@ -212,9 +212,12 @@ function iconFor(name: string): CardIcon {
 export default function ServicesGrid({
   content,
   id = "services",
+  columns,
 }: {
   content: ServicesGridContent;
   id?: string;
+  /** `2` keeps the grid two across at every width — see `CardGrid`'s `columns`. */
+  columns?: 2;
 }) {
   const grid: CardGridContent = {
     eyebrow: content.eyebrow,
@@ -234,5 +237,5 @@ export default function ServicesGrid({
     })),
   };
 
-  return <CardGrid content={grid} id={id} variant="feature" />;
+  return <CardGrid content={grid} id={id} variant="feature" columns={columns} />;
 }

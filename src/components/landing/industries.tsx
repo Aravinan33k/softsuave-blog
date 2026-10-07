@@ -369,8 +369,8 @@ export interface CardGridContent {
  * - `feature` — light cards lifted off the dark band: a tinted icon badge, a
  *   ghosted ordinal, a short accent rule under the name, and optional
  *   thumbnail and "Learn more" link. Both of those are per-item and optional,
- *   so the layout is correct before any art or link targets exist. Ignores
- *   `columns`.
+ *   so the layout is correct before any art or link targets exist. Three
+ *   across; `columns={2}` holds it at two, any other value is ignored.
  * - `list` — a stacked row per item: the thumbnail (or icon badge, if no
  *   image) on one side, the name and body on the other, alternating sides
  *   down the list on desktop. For a card set the source page shows as a
@@ -397,10 +397,13 @@ export default function Industries({
    * Desktop column count, chosen to fill the rows the list actually has.
    * Four is the default (eight cards read as two rows of four); three suits
    * a multiple of three; five puts an awkward five-item list in one row
-   * instead of four plus a lone card. Ignored by `bold` and `feature`, which
-   * set their own composition.
+   * instead of four plus a lone card. Ignored by `bold`, which sets its own
+   * composition, and by `feature` except for `2`: a feature grid otherwise
+   * runs three across, and `2` holds it at two so four cards make a 2x2
+   * square rather than three plus a lone one (Predictive Intelligence review,
+   * 7 Oct: "align the cards in a 2x2 grid").
    */
-  columns?: 3 | 4 | 5;
+  columns?: 2 | 3 | 4 | 5;
   /**
    * `watermark` swaps the small mono index for a large translucent serif
    * numeral behind the card's text. Use it when a page carries two of these
@@ -522,7 +525,7 @@ export default function Industries({
         <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
         <FadeUp>
-          <div className={styles.featGrid}>
+          <div className={`${styles.featGrid}${columns === 2 ? ` ${styles.featGrid2}` : ""}`}>
             {content.items.map((item) => {
               /* Resolved before the badge is drawn, not inside it. The disc used
                  to render whether or not a glyph came back, so an item with no

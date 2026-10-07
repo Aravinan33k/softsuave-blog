@@ -34,8 +34,9 @@ export const ragMeta = {
 } as const;
 
 export const ragHero: HeroContent = {
-  // The last line takes the coral accent.
+  // 7 Oct review: "Highlight 'RAG Development' in the H1".
   titleLines: ["RAG Development Services", "for Knowledge Retrieval"],
+  accent: "RAG Development",
   body: [
     "Build custom RAG systems that connect your business documents, knowledge bases, and approved data sources with large language models. Soft Suave combines retrieval engineering with Document AI because the way documents are extracted, structured, and chunked directly affects what a RAG system can retrieve.",
     "Turn scattered business knowledge into AI answers grounded in information retrieved from the original source.",
@@ -92,15 +93,16 @@ export const ragOverview: OverviewContent = {
   },
   // Hand-placed asset — the RAG architecture illustration already shipped for
   // the generative-AI page; its subject is exactly this section's.
-  // Shown larger and uncropped (1 Oct review: "the image is really small"):
-  // the wider column, at the diagram's own 4:3, so the CRM / ERP / Documents
-  // labels at its edges are no longer cut off by a near-square frame.
+  // Uncropped at the diagram's own 4:3 (1 Oct review: "the image is really
+  // small"), so the CRM / ERP / Documents labels at its edges are not cut off
+  // by a near-square frame. In the standard column, not the wider one it had
+  // then: 7 Oct review, "the text width is very low, and the image width is
+  // high ... update it to be similar to other pages".
   image: {
     src: "/images/landing/generative-ai-rag-architecture.webp",
     width: 1448,
     height: 1086,
     aspect: "1448 / 1086",
-    wide: true,
     alt: "How a RAG solution fits together: documents, knowledge bases, and cloud storage feed a retrieval layer that grounds a central AI model, which connects out to CRM, ERP, APIs, and ticketing systems.",
     blurDataURL:
       "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAAAQAgCdASoQAAwAAwBSJQBOgCHw35H/X5wAAP75+5o1KWhylCAGLAV8fi2WhvhAXHsUdEL5/sjZZAf0swAAAA==",

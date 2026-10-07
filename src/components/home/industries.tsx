@@ -400,7 +400,7 @@ export default function Industries() {
             <div className={styles.indFanCardImg}>
               <BrandImage
                 page="four"
-                id={`ind-${it.key}`}
+                id={it.img}
                 fill
                 sizes="260px"
                 className="object-cover"
