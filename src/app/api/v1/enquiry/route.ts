@@ -1,10 +1,11 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import { after, NextResponse, type NextRequest } from 'next/server';
 import { handleRouteError, jsonError, getClientIp, getUserAgent } from '@/lib/http';
 import { rateLimit } from '@/lib/rate-limit';
 import { enquiryInput } from '@/lib/api/schemas';
 import { prisma } from '@/lib/db';
 import { databaseConfigured } from '@/lib/env';
-import { forwardLead } from '@/lib/leads/forward';
+import { forwardLead, leadPageUrl } from '@/lib/leads/forward';
+import { notifyLead } from '@/lib/leads/notify';
 
 /**
  * POST /api/v1/enquiry — a lead from the marketing surface's hero form.
@@ -86,16 +87,32 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true }, { status: 202 });
     }
 
+    const ipAddress = getClientIp(req);
     await prisma.enquiry.create({
       data: {
         ...lead,
         // "" from an untouched optional input is absence, not an empty phone
         // number — store NULL so the column means what it says.
         phone: phone ? phone : null,
-        ipAddress: getClientIp(req),
+        ipAddress,
         userAgent: getUserAgent(req),
       },
     });
+
+    // Email the team (lib/leads/notify.ts) once the response has gone out. The
+    // lead is already stored, so a slow or failing mail server costs the
+    // visitor nothing; with SMTP unconfigured this is a no-op.
+    const notice = {
+      name: lead.name,
+      email: lead.email,
+      phone: phone || null,
+      requirement: lead.requirement,
+      subject: lead.subject ?? null,
+      pageUrl: leadPageUrl(req, lead.sourcePath),
+      ipAddress,
+      receivedAt: new Date(),
+    };
+    after(() => notifyLead(notice));
 
     // 202, not 201: the lead is recorded, but what the reader is promised — that
     // someone gets in touch — has not happened yet, and no resource is being

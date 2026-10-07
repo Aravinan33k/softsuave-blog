@@ -1,10 +1,11 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import { after, NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
 import { handleRouteError, jsonError, getClientIp, getUserAgent } from '@/lib/http';
 import { rateLimit } from '@/lib/rate-limit';
 import { prisma } from '@/lib/db';
 import { databaseConfigured } from '@/lib/env';
-import { forwardLead } from '@/lib/leads/forward';
+import { forwardLead, leadPageUrl } from '@/lib/leads/forward';
+import { notifyLead } from '@/lib/leads/notify';
 import { isValidName, isValidPhone, NAME_MESSAGE, PHONE_MESSAGE } from '@/lib/forms/enquiry-rules';
 import { createBooking, isValidTimeZone, neetocalEnabled } from '@/lib/neetocal';
 
@@ -68,17 +69,34 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true }, { status: 202 });
     }
 
+    const ipAddress = getClientIp(req);
+    const subject = 'Contact page meeting booking';
     await prisma.enquiry.create({
       data: {
         ...lead,
         requirement,
-        subject: 'Contact page meeting booking',
+        subject,
         sourcePath: sourcePath ?? null,
         sourceKey: 'contact-meeting',
-        ipAddress: getClientIp(req),
+        ipAddress,
         userAgent: getUserAgent(req),
       },
     });
+
+    // Same notification as the enquiry route (lib/leads/notify.ts), after the
+    // response. NeetoCal sends the calendar invite itself; this tells the team
+    // who booked and why.
+    const notice = {
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone ?? null,
+      requirement,
+      subject,
+      pageUrl: leadPageUrl(req, sourcePath),
+      ipAddress,
+      receivedAt: new Date(),
+    };
+    after(() => notifyLead(notice));
 
     return NextResponse.json({ ok: true }, { status: 202 });
   } catch (err) {

@@ -53,7 +53,7 @@ export const caHero: HeroContent = {
     eyebrow: "Business Enquiry",
     title: "Get a custom AI project estimate",
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What do you want to build?",
     requirementPlaceholder:
       "The problem, the data you have, the systems it needs to touch, and what a good outcome looks like.",

@@ -60,7 +60,7 @@ export const cloudHero: HeroContent = {
     titleAs: "h2",
     alert: sharedHeroAlert,
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What do you need from the cloud?",
     requirementPlaceholder:
       "Your current infrastructure, the applications involved, what is driving the change — cost, scale, resilience — and any compliance constraints.",

@@ -60,7 +60,7 @@ export const legacyHero: HeroContent = {
     // An H2 on the live page, so part of the outline here too.
     titleAs: "h2",
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What system needs modernizing?",
     requirementPlaceholder:
       "The application and its stack, roughly how old it is, what is driving the change, and which workflows cannot be interrupted.",

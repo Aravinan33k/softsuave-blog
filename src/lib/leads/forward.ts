@@ -35,15 +35,23 @@ function header(req: Request, name: string): string {
   }
 }
 
+/**
+ * The absolute URL of the page a lead was sent from: the request's own origin
+ * (so a lead from the test server links to the test server) joined to the
+ * form's `sourcePath`. Falls back to the site URL, then to the bare origin.
+ */
+export function leadPageUrl(req: Request, sourcePath?: string | null): string {
+  const origin = req.headers.get('origin') ?? env.NEXT_PUBLIC_SITE_URL;
+  try {
+    return new URL(sourcePath || '/', origin).toString();
+  } catch {
+    return origin;
+  }
+}
+
 /** Resolves true when the endpoint accepted the lead. Never throws. */
 export async function forwardLead(req: Request, lead: ForwardedLead): Promise<boolean> {
-  const origin = req.headers.get('origin') ?? env.NEXT_PUBLIC_SITE_URL;
-  let url = origin;
-  try {
-    url = new URL(lead.sourcePath || '/', origin).toString();
-  } catch {
-    /* keep the bare origin */
-  }
+  const url = leadPageUrl(req, lead.sourcePath);
 
   const payload = {
     name: lead.name,

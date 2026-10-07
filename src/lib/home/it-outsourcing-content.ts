@@ -73,7 +73,7 @@ export const itoHero: HeroContent = {
     // The live hero form's own heading.
     title: "Let's Discuss Your Project",
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What do you want to outsource?",
     requirementPlaceholder:
       "The initiative, the systems involved, which responsibilities stay in-house, and the timeline you are working to.",

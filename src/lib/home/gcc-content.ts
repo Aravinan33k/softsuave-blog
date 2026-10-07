@@ -54,7 +54,7 @@ export const gccHero: HeroContent = {
     // The live form's business-only notice (review: "Form needs to be updated").
     alert: sharedHeroAlert,
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What do you want your GCC to do?",
     requirementPlaceholder:
       "Functions you want to move offshore, roles and headcount, target timeline, and where your existing teams sit.",

@@ -55,7 +55,7 @@ export const hero = {
     eyebrow: "Business Enquiry",
     title: "Get Your FREE Quote Now!",
     submit: "Request Consultation",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "Your generative AI use case",
     requirementPlaceholder:
       "What should the system do, and which data or systems does it need to reach?",

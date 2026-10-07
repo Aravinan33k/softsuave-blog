@@ -58,7 +58,7 @@ export const staffHero: HeroContent = {
     title: "Let's Discuss Your Project",
     body: "Get free rough quote in 24 hrs",
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "Which roles do you need to fill?",
     requirementPlaceholder:
       "Roles and seniority, the tech stack, how many engineers, expected duration, and the time zone you need overlap with.",

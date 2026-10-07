@@ -67,7 +67,7 @@ export const offHero: HeroContent = {
     // The live hero form's own heading.
     title: "Let's Discuss Your Project",
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What do you need built?",
     requirementPlaceholder:
       "The product or system, the platforms it runs on, what it has to integrate with, and your target timeline.",
