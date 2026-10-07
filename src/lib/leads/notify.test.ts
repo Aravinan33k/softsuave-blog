@@ -16,35 +16,57 @@ const lead = {
   email: 'jane@company.com',
   phone: '+91 98765 43210',
   requirement: 'We need a <b>RAG</b> assistant\nover our policy documents.',
-  subject: 'RAG development enquiry',
   pageUrl: 'http://54.237.230.68/rag-development-services',
-  ipAddress: '203.0.113.7',
+  ipAddress: '157.51.86.204',
+  city: 'Chennai',
+  region: 'Tamil Nadu',
+  country: 'IN',
   receivedAt: new Date('2026-10-07T10:15:00Z'),
 };
 
 describe('buildLeadEmail', () => {
-  it('leads the subject with the page subject and the visitor name', async () => {
+  it('uses one subject for every lead', async () => {
     const { buildLeadEmail } = await import('./notify');
-    expect(buildLeadEmail(lead).subject).toBe('New lead: RAG development enquiry — Jane Doe');
+    expect(buildLeadEmail(lead).subject).toBe('New Business Enquiry – Jane Doe');
   });
 
-  it('falls back to a generic label when the page sends no subject', async () => {
-    const { buildLeadEmail } = await import('./notify');
-    expect(buildLeadEmail({ ...lead, subject: null }).subject).toBe('New lead: Website enquiry — Jane Doe');
-  });
-
-  it('carries every field in the plain-text body', async () => {
+  it('lists the visitor, a separator, then where the lead came from — in the live order', async () => {
     const { buildLeadEmail } = await import('./notify');
     const { text } = buildLeadEmail(lead);
-    for (const s of ['Name: Jane Doe', 'Email: jane@company.com', 'Phone: +91 98765 43210', 'Page: http://54.237.230.68/rag-development-services', 'over our policy documents.', 'IP address: 203.0.113.7']) {
-      expect(text).toContain(s);
+    const order = [
+      'From: Jane Doe',
+      'Email: jane@company.com',
+      'Phone: +91 98765 43210',
+      'description: We need a <b>RAG</b> assistant',
+      '*'.repeat(58),
+      'IP: 157.51.86.204',
+      'URL: http://54.237.230.68/rag-development-services',
+      'City: Chennai',
+      'Region: Tamil Nadu',
+      'Country: IN',
+      'Received: Wed, 7 Oct, 2026, 3:45:00 pm IST',
+    ];
+    let at = -1;
+    for (const s of order) {
+      const i = text.indexOf(s);
+      expect(i, s).toBeGreaterThan(at);
+      at = i;
     }
   });
 
-  it('writes the received time in India time by default', async () => {
+  it('links the email, phone and page, and ends with the disclaimer', async () => {
+    const { buildLeadEmail, LEAD_EMAIL_DISCLAIMER } = await import('./notify');
+    const { html } = buildLeadEmail(lead);
+    expect(html).toContain('href="mailto:jane@company.com"');
+    expect(html).toContain('href="tel:+919876543210"');
+    expect(html).toContain('href="http://54.237.230.68/rag-development-services"');
+    expect(html).toContain(LEAD_EMAIL_DISCLAIMER);
+  });
+
+  it('leaves location fields blank rather than failing when unknown', async () => {
     const { buildLeadEmail } = await import('./notify');
-    // 10:15 UTC is 3:45 pm IST.
-    expect(buildLeadEmail(lead).text).toContain('Received: Wed, 7 Oct, 2026, 3:45:00 pm IST');
+    const { text } = buildLeadEmail({ ...lead, city: null, region: null, country: null });
+    expect(text).toContain('City: \nRegion: \nCountry: ');
   });
 
   it('falls back to UTC for an unknown timezone', async () => {
@@ -96,7 +118,7 @@ describe('notifyLead', () => {
     );
     const msg = sendMail.mock.calls[0][0];
     expect(msg.to).toEqual(['contact@softsuave.com', 'sales@softsuave.com']);
-    expect(msg.from).toEqual({ name: 'Soft Suave Website', address: 'website@softsuave.com' });
+    expect(msg.from).toEqual({ name: 'Softsuave', address: 'website@softsuave.com' });
     expect(msg.replyTo).toEqual({ name: 'Jane Doe', address: 'jane@company.com' });
   });
 
@@ -109,5 +131,17 @@ describe('notifyLead', () => {
     expect(await notifyLead(lead)).toBe(false);
     expect(err).toHaveBeenCalled();
     err.mockRestore();
+  });
+});
+
+describe('smtpPassword', () => {
+  it('drops the spaces Google shows in a Gmail app password', async () => {
+    const { smtpPassword } = await import('./mailer');
+    expect(smtpPassword('smtp.gmail.com', 'abcd efgh ijkl mnop')).toBe('abcdefghijklmnop');
+  });
+
+  it('leaves any other provider’s password exactly as written', async () => {
+    const { smtpPassword } = await import('./mailer');
+    expect(smtpPassword('smtp.office365.com', 'pass with spaces')).toBe('pass with spaces');
   });
 });

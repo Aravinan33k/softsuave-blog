@@ -358,6 +358,42 @@
   color: var(--fx-danger-ink);
 }
 
+/* ---------- field errors ----------
+   The form's own verdict (`enquiry-rules.ts`), shown when the reader leaves a
+   field or presses submit: the row's hairline and label turn the danger red,
+   and the message sits under the control in the same column. Red whether or
+   not the field has focus — a focused field with a problem must still say so,
+   so these outrank the accent focus rules above. */
+.fieldInvalid .input,
+.fieldInvalid .textarea,
+.fieldInvalid .dialValue,
+.fieldInvalid .input:hover:not(:focus),
+.fieldInvalid .textarea:hover:not(:focus) {
+  border-color: var(--fx-danger);
+}
+
+.fieldInvalid .input:focus,
+.fieldInvalid .textarea:focus,
+.fieldInvalid .dialSelect:focus + .dialValue {
+  border-color: var(--fx-danger);
+  box-shadow: 0 1px 0 0 var(--fx-danger);
+}
+
+.fieldInvalid .label,
+.fieldInvalid .input:focus ~ .label,
+.fieldInvalid .textarea:focus ~ .label,
+.field.fieldInvalid:focus-within .labelFloat {
+  color: var(--fx-danger-ink);
+}
+
+.fieldMessage {
+  grid-column: 2;
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--fx-danger-ink);
+}
+
 /* Chrome paints autofilled fields its own pale yellow, which on this white
    card looked like a rendering fault. An inset shadow is the only way to
    repaint that fill. */

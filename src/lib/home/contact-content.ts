@@ -41,17 +41,11 @@ export const contactForm = {
   title: "Contact Form",
   subtitle: "Let's talk! Fill out the form",
   steps: {
-    name: { question: "Hey there! What’s your name?", placeholder: "Full Name", error: "Please enter a valid name." },
-    email: {
-      question: "Great! Let’s get your email!",
-      placeholder: "Email ID",
-      error: "Please enter a valid email address.",
-    },
-    phone: {
-      question: "Got a number we can reach you at?",
-      placeholder: "Phone Number",
-      error: "Please enter a valid phone number.",
-    },
+    // Name, email and phone messages come from the shared rules
+    // (lib/forms/enquiry-rules.ts), as on every other form.
+    name: { question: "Hey there! What’s your name?", placeholder: "Full Name" },
+    email: { question: "Great! Let’s get your email!", placeholder: "Email ID" },
+    phone: { question: "Got a number we can reach you at?", placeholder: "Phone Number" },
     service: {
       question: "What brings you here?",
       placeholder: "Select your service",

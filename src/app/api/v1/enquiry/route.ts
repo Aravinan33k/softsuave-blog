@@ -6,6 +6,8 @@ import { prisma } from '@/lib/db';
 import { databaseConfigured } from '@/lib/env';
 import { forwardLead, leadPageUrl } from '@/lib/leads/forward';
 import { notifyLead } from '@/lib/leads/notify';
+import { sendAutoReply } from '@/lib/leads/auto-reply';
+import { lookupIpLocation, normalizeIp, platformLocation } from '@/lib/leads/ip-location';
 
 /**
  * POST /api/v1/enquiry — a lead from the marketing surface's hero form.
@@ -107,12 +109,23 @@ export async function POST(req: NextRequest) {
       email: lead.email,
       phone: phone || null,
       requirement: lead.requirement,
-      subject: lead.subject ?? null,
       pageUrl: leadPageUrl(req, lead.sourcePath),
-      ipAddress,
+      ipAddress: normalizeIp(ipAddress),
       receivedAt: new Date(),
     };
-    after(() => notifyLead(notice));
+    const platform = platformLocation(req.headers);
+    // …and thank the visitor (lib/leads/auto-reply.ts), its "Know more" button
+    // pointing at the home page of the site they used.
+    const visitor = { name: lead.name, email: lead.email };
+    const siteUrl = leadPageUrl(req, '/');
+    // The team email waits on the visitor's city / region / country
+    // (lib/leads/ip-location.ts); the thank-you does not need it.
+    after(() =>
+      Promise.all([
+        lookupIpLocation(notice.ipAddress, platform).then((where) => notifyLead({ ...notice, ...where })),
+        sendAutoReply(visitor, siteUrl),
+      ]),
+    );
 
     // 202, not 201: the lead is recorded, but what the reader is promised — that
     // someone gets in touch — has not happened yet, and no resource is being

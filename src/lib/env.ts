@@ -129,6 +129,22 @@ const schema = z
     // The timezone the email's "Received" time is written in. The server's own
     // clock is UTC, which put an IST team's leads hours off their inbox time.
     LEAD_NOTIFY_TIMEZONE: z.string().default('Asia/Kolkata'),
+    // City / region / country in the lead email, looked up from the visitor's
+    // IP through ipinfo.io once per lead (lib/leads/ip-location.ts) — the same
+    // service the live site's forms use. Optional token for its higher limits;
+    // "false" on LEAD_GEO_LOOKUP leaves the three fields blank instead.
+    IPINFO_TOKEN: z.string().default(''),
+    LEAD_GEO_LOOKUP: z
+      .string()
+      .optional()
+      .transform((v) => !(v === 'false' || v === '0')),
+    // The visitor's automatic "thank you for getting in touch" email
+    // (lib/leads/auto-reply.ts), sent alongside the team notification. On
+    // whenever SMTP is configured; "false" turns it off on its own.
+    LEAD_AUTOREPLY: z
+      .string()
+      .optional()
+      .transform((v) => !(v === 'false' || v === '0')),
     NEETOCAL_BASE_URL: z.string().default('https://softsuave.neetocal.com'),
     NEETOCAL_MEETING_SLUG: z.string().default('meeting-with-softsuave'),
 

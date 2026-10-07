@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { appPath } from "@/lib/media-url";
-import { PHONE_HINT, PHONE_PATTERN } from "@/lib/forms/enquiry-rules";
+import { PHONE_DIGITS, PHONE_HINT, PHONE_PATTERN } from "@/lib/forms/enquiry-rules";
 import { DEFAULT_DIAL, DIAL_CODES, detectDialCode, splitPhone } from "@/lib/forms/dial-codes";
 import fx from "./enquiry-form.module.css";
 
@@ -17,13 +17,19 @@ import fx from "./enquiry-form.module.css";
  * The parent keeps ONE string, exactly as before: this emits
  * `"+91 98765 43210"`, the server stores it whole, and neither
  * `lib/api/schemas.ts` nor the Prisma model changed. The code is split out for
- * display only. `PHONE_PATTERN` already admits a leading `+` and the digit
- * count is checked across the whole string, so the shared validation in
- * `enquiry-rules.ts` covers the combined value untouched.
+ * display only. `phoneError` in `enquiry-rules.ts` checks that combined value
+ * (a code, a space, ten digits), in the forms and on the server alike.
  *
  * An empty number emits `""`, not a bare `"+91"`, so a caller that requires
  * the field sees it as missing rather than as a number holding only a
  * country code.
+ *
+ * ## ten digits, and only digits
+ * The number box takes digits alone and stops at ten (`PHONE_DIGITS`, 7 Oct:
+ * "strict 10 digit validation"). Anything else typed is dropped as it is
+ * typed. A pasted number keeps its LAST ten digits, so "+91 98765 43210" or
+ * "098765-43210" pasted in lands as "9876543210" rather than as a truncated
+ * front half.
  *
  * ## the code is a guess, and says so by being changeable
  * The select is a real, always-enabled control, not a display of a detected
@@ -37,8 +43,11 @@ export default function PhoneField({
   value,
   onChange,
   name = "phone",
-  placeholder = "98765 43210",
+  placeholder = "9876543210",
   required = false,
+  onBlur,
+  invalid = false,
+  describedBy,
 }: {
   id: string;
   value: string;
@@ -47,6 +56,12 @@ export default function PhoneField({
   placeholder?: string;
   /** Mark the number input `required` (native validation + the asterisk). */
   required?: boolean;
+  /** Called when the number box loses focus — the form validates then. */
+  onBlur?: () => void;
+  /** The form's verdict on this field, for `aria-invalid`. */
+  invalid?: boolean;
+  /** Id of the element carrying this field's error message. */
+  describedBy?: string;
 }) {
   const [dial, setDial] = useState(DEFAULT_DIAL);
   const [national, setNational] = useState(() => splitPhone(value).national);
@@ -130,9 +145,9 @@ export default function PhoneField({
 
   const emit = (nextDial: string, nextNational: string) => {
     const trimmed = nextNational.trim();
-    // A reader who types their own "+" has given a complete international
-    // number; prefixing the select's code onto it would produce "+91 +44 …".
-    const next = !trimmed ? "" : trimmed.startsWith("+") ? trimmed : `${nextDial} ${trimmed}`;
+    // "+91 9876543210" — the code from the select, the digits from the box
+    // (which only ever holds digits, so there is never a typed "+" to keep).
+    const next = !trimmed ? "" : `${nextDial} ${trimmed}`;
     // Both updates land in one batch with the parent's, so the render that
     // sees the new `value` also sees it recorded here.
     setEmitted(next);
@@ -188,15 +203,30 @@ export default function PhoneField({
         className={fx.input}
         type="tel"
         autoComplete="tel-national"
-        inputMode="tel"
+        inputMode="numeric"
         required={required}
         pattern={PHONE_PATTERN}
         title={PHONE_HINT}
         value={national}
         onChange={(e) => {
-          setNational(e.target.value);
-          emit(dial, e.target.value);
+          // Typing: digits only, and no more than ten of them.
+          const next = e.target.value.replace(/\D/g, "").slice(0, PHONE_DIGITS);
+          setNational(next);
+          emit(dial, next);
         }}
+        onPaste={(e) => {
+          // Pasting: a whole number with its country code or a trunk 0 keeps
+          // the national part — the last ten digits.
+          const digits = e.clipboardData.getData("text").replace(/\D/g, "");
+          if (digits.length <= PHONE_DIGITS) return;
+          e.preventDefault();
+          const next = digits.slice(-PHONE_DIGITS);
+          setNational(next);
+          emit(dial, next);
+        }}
+        onBlur={onBlur}
+        aria-invalid={invalid || undefined}
+        aria-describedby={describedBy}
         placeholder={placeholder}
       />
     </div>

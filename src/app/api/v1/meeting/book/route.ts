@@ -6,7 +6,9 @@ import { prisma } from '@/lib/db';
 import { databaseConfigured } from '@/lib/env';
 import { forwardLead, leadPageUrl } from '@/lib/leads/forward';
 import { notifyLead } from '@/lib/leads/notify';
-import { isValidName, isValidPhone, NAME_MESSAGE, PHONE_MESSAGE } from '@/lib/forms/enquiry-rules';
+import { sendAutoReply } from '@/lib/leads/auto-reply';
+import { lookupIpLocation, normalizeIp, platformLocation } from '@/lib/leads/ip-location';
+import { EMAIL_MESSAGE, isValidEmail, isValidName, isValidPhone, NAME_MESSAGE, PHONE_MESSAGE } from '@/lib/forms/enquiry-rules';
 import { createBooking, isValidTimeZone, neetocalEnabled } from '@/lib/neetocal';
 
 /**
@@ -20,7 +22,7 @@ export const dynamic = 'force-dynamic';
 
 const bookingInput = z.object({
   name: z.string().trim().min(1, 'Please enter your name.').max(191).refine(isValidName, NAME_MESSAGE),
-  email: z.email('Please enter a valid email address.').trim().max(191),
+  email: z.email(EMAIL_MESSAGE).trim().max(191).refine(isValidEmail, EMAIL_MESSAGE),
   phone: z.string().trim().min(1, 'Please enter a valid phone number.').max(64).refine(isValidPhone, PHONE_MESSAGE),
   message: z.string().trim().min(1, 'Please tell us what the meeting is about.').max(5000),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Please pick a date.'),
@@ -91,12 +93,23 @@ export async function POST(req: NextRequest) {
       email: lead.email,
       phone: lead.phone ?? null,
       requirement,
-      subject,
       pageUrl: leadPageUrl(req, sourcePath),
-      ipAddress,
+      ipAddress: normalizeIp(ipAddress),
       receivedAt: new Date(),
     };
-    after(() => notifyLead(notice));
+    const platform = platformLocation(req.headers);
+    // …and thank the visitor (lib/leads/auto-reply.ts), its "Know more" button
+    // pointing at the home page of the site they used.
+    const visitor = { name: lead.name, email: lead.email };
+    const siteUrl = leadPageUrl(req, '/');
+    // The team email waits on the visitor's city / region / country
+    // (lib/leads/ip-location.ts); the thank-you does not need it.
+    after(() =>
+      Promise.all([
+        lookupIpLocation(notice.ipAddress, platform).then((where) => notifyLead({ ...notice, ...where })),
+        sendAutoReply(visitor, siteUrl),
+      ]),
+    );
 
     return NextResponse.json({ ok: true }, { status: 202 });
   } catch (err) {

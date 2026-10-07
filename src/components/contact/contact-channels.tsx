@@ -5,7 +5,9 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { appPath, publicMediaUrl } from "@/lib/media-url";
-import { isValidName, isValidPhone } from "@/lib/forms/enquiry-rules";
+import { EMAIL_MAX, NAME_MAX, emailError, nameError, phoneError } from "@/lib/forms/enquiry-rules";
+import { focusAtEnd } from "@/lib/forms/focus";
+import { useClearOnClick } from "@/lib/forms/use-clear-on-click";
 import PhoneField from "@/components/common/phone-field";
 import FadeUp from "@/components/home/fade-up";
 import { contactForm, quickContact, serviceOptions } from "@/lib/home/contact-content";
@@ -43,7 +45,6 @@ export default function ContactChannels() {
 const CONTACT_FORM_ID = "contact-form";
 
 type Step = 0 | 1 | 2 | 3;
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 /**
  * The live page's four-step form — name, email, phone, service — one question
@@ -61,28 +62,48 @@ function SteppedForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  // A step's message goes on the next click or tap anywhere (the form's own
+  // Next / Submit aside), as on every enquiry card.
+  useClearOnClick(Boolean(fieldError), () => setFieldError(null), formRef);
 
   const s = contactForm.steps;
   const questions = [s.name, s.email, s.phone, s.service] as const;
   const current = questions[step];
 
-  /** Validates the current step; returns its error message, or null when it passes. */
-  const check = (at: Step): string | null => {
-    if (at === 0) return form.name.trim().length >= 2 && isValidName(form.name) ? null : s.name.error;
-    if (at === 1) return EMAIL_RE.test(form.email.trim()) ? null : s.email.error;
-    // Required here, as on the live form. PhoneField emits "" until digits are
-    // typed, and `isValidPhone` alone treats "" as a valid (optional) value.
-    if (at === 2) return form.phone.trim() && isValidPhone(form.phone) ? null : s.phone.error;
-    return form.service ? null : s.service.error;
+  /**
+   * The rule for each step, from the shared `lib/forms/enquiry-rules.ts` (the
+   * same ones every enquiry card and the API use): a name of letters, a valid
+   * email, a ten-digit phone. Returns the message to show, or null.
+   */
+  const rule = (at: Step, f: typeof form): string | null => {
+    if (at === 0) return nameError(f.name);
+    if (at === 1) return emailError(f.email);
+    if (at === 2) return phoneError(f.phone);
+    return f.service ? null : s.service.error;
+  };
+  const check = (at: Step) => rule(at, form);
+
+  /** Updates a value; once this step has shown a message, re-checks as the reader types. */
+  const edit = (key: keyof typeof form, value: string) => {
+    const nextForm = { ...form, [key]: value };
+    setForm(nextForm);
+    if (fieldError) setFieldError(rule(step, nextForm));
   };
 
   const focusField = () =>
-    requestAnimationFrame(() => fieldRef.current?.querySelector<HTMLElement>("input:not([type=hidden]), select")?.focus());
+    requestAnimationFrame(() => {
+      // The text box first: on the phone step the country-code select comes
+      // before the number in the DOM, and the number is what needs fixing.
+      const box = fieldRef.current?.querySelector("input:not([type=hidden])");
+      focusAtEnd(box ?? fieldRef.current?.querySelector("select"));
+    });
 
   const next = () => {
     const err = check(step);
     setFieldError(err);
-    if (err) return;
+    // Back into the field to fix it, rather than leaving focus on Next.
+    if (err) return focusField();
     setStep((n) => (n < 3 ? ((n + 1) as Step) : n));
     focusField();
   };
@@ -149,7 +170,7 @@ function SteppedForm() {
   const fieldId = `contact-${["name", "email", "phone", "service"][step]}`;
 
   return (
-    <form id={CONTACT_FORM_ID} className={`${styles.channelCard} ${styles.formCard}`} onSubmit={onSubmit} noValidate>
+    <form ref={formRef} id={CONTACT_FORM_ID} className={`${styles.channelCard} ${styles.formCard}`} onSubmit={onSubmit} noValidate>
       <CardHead icon={contactForm.icon} title={contactForm.title} subtitle={contactForm.subtitle} />
 
       {status === "ok" ? (
@@ -170,9 +191,10 @@ function SteppedForm() {
                 type="text"
                 name="name"
                 autoComplete="name"
+                maxLength={NAME_MAX}
                 placeholder={s.name.placeholder}
                 value={form.name}
-                onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                onChange={(e) => edit("name", e.target.value)}
                 aria-invalid={Boolean(fieldError)}
                 aria-describedby={fieldError ? "contact-step-error" : undefined}
               />
@@ -184,9 +206,10 @@ function SteppedForm() {
                 type="email"
                 name="email"
                 autoComplete="email"
+                maxLength={EMAIL_MAX}
                 placeholder={s.email.placeholder}
                 value={form.email}
-                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                onChange={(e) => edit("email", e.target.value)}
                 aria-invalid={Boolean(fieldError)}
                 aria-describedby={fieldError ? "contact-step-error" : undefined}
               />
@@ -197,7 +220,9 @@ function SteppedForm() {
                   id={fieldId}
                   value={form.phone}
                   placeholder={s.phone.placeholder}
-                  onChange={(phone) => setForm((f) => ({ ...f, phone }))}
+                  onChange={(phone) => edit("phone", phone)}
+                  invalid={Boolean(fieldError)}
+                  describedBy={fieldError ? "contact-step-error" : undefined}
                 />
               </div>
             )}
@@ -207,7 +232,7 @@ function SteppedForm() {
                 className={styles.selectInput}
                 name="service"
                 value={form.service}
-                onChange={(e) => setForm((f) => ({ ...f, service: e.target.value }))}
+                onChange={(e) => edit("service", e.target.value)}
                 aria-invalid={Boolean(fieldError)}
                 aria-describedby={fieldError ? "contact-step-error" : undefined}
               >
