@@ -55,7 +55,9 @@ export const itoMeta = {
 } as const;
 
 export const itoHero: HeroContent = {
+  // 8 Oct review: "highlight 'IT Outsourcing Company' in the H1".
   titleLines: ["IT Outsourcing Company", "in India"],
+  accent: "IT Outsourcing Company",
   body: [
     "Move critical technology initiatives forward with a reliable IT outsourcing company in India. Soft Suave combines software, AI, QA, cloud, and modernization expertise with flexible engagement models shaped around your roadmap, systems, and delivery priorities.",
     "Discuss your scope, delivery responsibilities, and internal capacity before choosing the engagement structure that best fits your specific outsourcing requirement.",
@@ -123,6 +125,10 @@ export const itoServices: ServicesContent = {
     },
     {
       name: "AI Development and Integration",
+      // Named rather than matched: the name alone resolves to
+      // /ai-development-service (8 Oct review: "replace the link with this
+      // page: /custom-ai-development-services").
+      href: "/custom-ai-development-services",
       body: "Apply AI to appropriate business workflows through custom models, generative AI, intelligent automation, predictive systems, and application integrations, with requirements and implementation boundaries defined during discovery.",
     },
     {

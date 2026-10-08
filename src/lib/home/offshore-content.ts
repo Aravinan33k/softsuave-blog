@@ -49,7 +49,9 @@ export const offMeta = {
 } as const;
 
 export const offHero: HeroContent = {
+  // 8 Oct review: "highlight 'Offshore Software Development' in the H1".
   titleLines: ["Offshore Software Development", "Company for Global Businesses"],
+  accent: "Offshore Software Development",
   body: [
     "Soft Suave is an offshore software company that builds and modernizes software for startups, scaling businesses, and established organizations worldwide. We combine experienced engineering capabilities with flexible delivery models to address your project requirements.",
     "Share your requirements, and we'll outline the capabilities, delivery approach, and next steps for your project.",
@@ -106,7 +108,9 @@ export const offServices: ServicesContent = {
   items: [
     {
       name: "Custom AI Services",
-      href: "/ai-development-service",
+      // 8 Oct review: "replace the link to this page -
+      // /custom-ai-development-services".
+      href: "/custom-ai-development-services",
       body: "Build tailored AI solutions across generative AI, machine learning, natural language processing, LLM fine-tuning, predictive analytics, and computer vision based on your specific business requirements.",
     },
     {

@@ -71,7 +71,10 @@ export const webMeta = {
 
 export const webHero: HeroContent = {
   // The H1, split so the last line takes the coral accent.
+  // 8 Oct review: "highlight 'Web App Development' in the H1" — the phrase
+  // runs across the line break, which the hero's accent handles.
   titleLines: ["Custom Web App", "Development Services"],
+  accent: "Web App Development",
   body: [
     "Let’s build your next-gen Web Apps with the crackerjack web application development company in India",
     "Want to Outsource Web Application Development Agency? Get in touch for a free quote!",
@@ -129,6 +132,10 @@ export const webOverview: OverviewContent = {
     width: 1400,
     height: 1050,
     alt: "A laptop showing application code on a desk in a bright studio",
+    // The four paragraphs run well past the frame's height cap, which left
+    // the image at the top of the row (8 Oct review: "align the image to the
+    // center of the section").
+    align: "center",
   },
 };
 

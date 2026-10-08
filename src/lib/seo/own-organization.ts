@@ -80,6 +80,10 @@
  *     microdata, as live's does; see `lib/seo/software-development-company`)
  *   /typescript-development-company
  *   /vuejs-development-company
+ *   /web-application-development-company (an exception, like Mobile App: it
+ *     mirrors softsuave.com's page, whose schema is a lone FAQPage — its
+ *     Organization arrives from GTM and its footer keeps the address
+ *     microdata, as live's does; see `lib/seo/web-application-development-company`)
  *   /xamarin-app-development-company (an exception, like the other mobile
  *     pages: it mirrors softsuave.com's page, whose schema is a Product and a
  *     BreadcrumbList — its Organization arrives from GTM and its footer keeps
@@ -151,5 +155,6 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/software-development-company',
   '/typescript-development-company',
   '/vuejs-development-company',
+  '/web-application-development-company',
   '/xamarin-app-development-company',
 ]);

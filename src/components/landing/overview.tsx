@@ -167,6 +167,14 @@ export interface OverviewContent {
      * section"). Pair it with a portrait asset, so the crop stays generous.
      */
     column?: boolean;
+    /**
+     * From 1000px, centre the frame vertically against the heading + prose
+     * beside it — for an overview whose copy runs taller than the frame's
+     * height cap, which otherwise leaves the image at the top of the row with
+     * empty band under it (Web App review: "align the image to the center of
+     * the section"). The frame keeps its size; only its position changes.
+     */
+    align?: "center";
   };
 }
 
@@ -367,6 +375,7 @@ export default function Overview({
                 image.fit === "contain" ? styles.overviewMediaContain : "",
                 image.aspect ? styles.overviewMediaFixed : "",
                 image.column ? styles.overviewMediaColumn : "",
+                image.align === "center" ? styles.overviewMediaCenter : "",
               ]
                 .filter(Boolean)
                 .join(" ")}

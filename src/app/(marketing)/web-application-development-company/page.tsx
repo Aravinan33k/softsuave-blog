@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
+import { webFaqLd } from '@/lib/seo/web-application-development-company';
 import {
   webAudience,
   webCoreTech,
@@ -71,6 +71,19 @@ import home from '@/components/home/home.module.css';
 // Matches the marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
+/**
+ * The page's link-preview image: softsuave.com's own share card rebuilt at
+ * 1200x630 — live's is 840x439, too small for the large preview — with the
+ * same logo-and-title layout over this page's hero photograph (review: "add
+ * Social Share Preview image").
+ */
+const OG_IMAGE = {
+  url: ogImageUrl('/assets/images/web-application-development-company-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'Web App Development Company In India - Soft Suave',
+};
+
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: `${webMeta.title} | Soft Suave`,
@@ -83,11 +96,13 @@ export const metadata: Metadata = {
     url: absoluteUrl(webMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${webMeta.title} | Soft Suave`,
     description: webMeta.description,
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -98,41 +113,12 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/** FAQPage + Service structured data — this page's answers are its SEO surface. */
-
-/**
- * This page's JSON-LD, from the shared builder.
- *
- * It replaces a hand-written `Service` whose `provider` was an inline
- * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
- * repeated on every page of this surface rather than the canonical one — with
- * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
- * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
- * at the organization `app/(marketing)/layout.tsx` declares once.
- */
-const LD = pageSchemaGraph({
-  path: webMeta.path,
-  title: webMeta.title,
-  description: webMeta.description,
-  serviceType: 'Web application development',
-  // The page's own short name for what it sells, not its `<title>`, which is
-  // written to win the click.
-  serviceName: 'Web Application Development',
-  breadcrumbName: 'Web Application Development',
-  offerCatalogName: webServices.title,
-  offers: webServices.items.map((i) => ({ name: i.name, description: i.paragraphs[0] })),
-  faqName: webFaqs.title,
-  faqs: webFaqs.items,
-});
-
 export default function WebApplicationDevelopmentPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect — which leaves a
-  // single-item trail, so the schema is omitted rather than emitted empty.
-
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* The live page's one JSON-LD block, verbatim — see
+          `lib/seo/web-application-development-company.ts`. */}
+      <JsonLd data={webFaqLd} />
       <Nav logoHref={HOME_HREF} />
 
       {/*

@@ -8202,6 +8202,20 @@
   }
 }
 
+/* `OverviewContent.image.align: "center"` — the frame sits centred against
+   the heading + prose beside it instead of opening at the top of a column
+   taller than its height cap (Web App review, 8 Oct: "align the image to the
+   center of the section"). `height: 100%` resolves against the grid row, so
+   the frame still follows the row up to the variant's `max-height` and keeps
+   its floor; only the leftover band is now split above and below it. Three
+   classes, so it outranks `.overviewCompact .overviewMedia`'s stretch. */
+@media (min-width: 1000px) {
+  .overviewGrid .overviewMedia.overviewMediaCenter {
+    align-self: center;
+    height: 100%;
+  }
+}
+
 /* ============================================================
    THANK YOU (`/thank-you`)
    Where every lead form lands. softsuave.com/thank-you's content — the

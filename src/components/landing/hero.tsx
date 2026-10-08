@@ -29,7 +29,10 @@ export interface HeroContent {
    * The phrase in the H1 to colour, wherever it falls — the technology the
    * page hires for ("ReactJS Developers"), rather than whatever words sit on
    * the last line (hire-by-skill review: "the wrong words are being
-   * highlighted"). Must sit within one line. Omitted keeps the last-line accent.
+   * highlighted"). May run across a line break — "Custom Web App" /
+   * "Development Services" takes "Web App Development" (Web App review:
+   * "highlight 'Web App Development' in the H1"). Omitted keeps the
+   * last-line accent.
    */
   accent?: string;
   /**
@@ -132,15 +135,31 @@ export function titleFitStyle(lines: readonly string[]) {
   return { "--title-chars": Math.max(...lines.map((l) => l.length)) } as CSSProperties;
 }
 
-/** `line` with its first occurrence of `accent` wrapped in the accent colour. */
-function accentWithin(line: string, accent: string | undefined) {
-  const at = accent ? line.indexOf(accent) : -1;
-  if (!accent || at < 0) return line;
+/**
+ * Where `accent` falls on each title line, as a `[start, end)` slice of that
+ * line, or `null` for a line it misses. The phrase is looked up in the lines
+ * joined by single spaces — the text the H1 actually reads as — so a phrase
+ * that runs across a line break colours its part on each line.
+ */
+function accentSlices(lines: readonly string[], accent: string | undefined) {
+  const at = accent ? lines.join(" ").indexOf(accent) : -1;
+  let offset = 0;
+  return lines.map((line) => {
+    const start = Math.max(at, offset) - offset;
+    const end = Math.min(at + (accent?.length ?? 0), offset + line.length) - offset;
+    offset += line.length + 1;
+    return at >= 0 && end > start ? ([start, end] as const) : null;
+  });
+}
+
+/** `line` with its `[start, end)` slice wrapped in the accent colour. */
+function accentWithin(line: string, slice: readonly [number, number] | null) {
+  if (!slice) return line;
   return (
     <>
-      {line.slice(0, at)}
-      <span className={styles.heroTitleAccent}>{accent}</span>
-      {line.slice(at + accent.length)}
+      {line.slice(0, slice[0])}
+      <span className={styles.heroTitleAccent}>{line.slice(slice[0], slice[1])}</span>
+      {line.slice(slice[1])}
     </>
   );
 }
@@ -218,6 +237,7 @@ export default function Hero({
   );
 
   const lastLine = content.titleLines.length - 1;
+  const accents = accentSlices(content.titleLines, content.accent);
 
   return (
     <section
@@ -275,7 +295,7 @@ export default function Hero({
                     !content.accent && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
                   }`}
                 >
-                  {accentWithin(line, content.accent)}
+                  {accentWithin(line, accents[i])}
                 </span>
               </Fragment>
             ))}

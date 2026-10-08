@@ -42,7 +42,9 @@ export const staffMeta = {
 } as const;
 
 export const staffHero: HeroContent = {
+  // 8 Oct review: "highlight 'IT Staff Augmentation' in the H1".
   titleLines: ["IT Staff Augmentation", "Services"],
+  accent: "IT Staff Augmentation",
   body: [
     "Scale your team swiftly with cost-effective, top-tier talent. Gain access to a global pool of skilled professionals, empowering your business to adapt, grow, and excel, while maintaining high-quality performance at an efficient pace.",
   ],

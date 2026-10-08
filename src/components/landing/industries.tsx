@@ -310,6 +310,13 @@ export interface CardGridContent {
      */
     readonly href?: string;
     /**
+     * `false` keeps this one card unlinked even in an auto-linked grid whose
+     * other cards match a page — the generative-AI grid's opt-out of the same
+     * name (Software Development review: "remove the link from the blockchain
+     * development service card").
+     */
+    readonly link?: false;
+    /**
      * Pexels slot id for the card thumbnail, `feature` variant only. Set this
      * ONLY once `content/images.manifest.json` holds the slot and
      * `npm run images:home` has generated it — `getImage` throws on a missing
@@ -461,7 +468,7 @@ export default function Industries({
   const resolveHref = useServiceHref();
   const autoLink = autoLinkProp ?? /service|industr|sector|offering|solution/i.test(id);
   const hrefOf = (item: CardGridContent["items"][number]) =>
-    (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
+    item.link !== false && (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
 
   if (list) {
     return (
