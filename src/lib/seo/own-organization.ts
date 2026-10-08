@@ -13,6 +13,7 @@
  *   /data-science-services
  *   /generative-ai-development-company
  *   /graphql-development-company
+ *   /hire-anthropic-developers
  *   /mobile-application-development-company (the one exception to the
  *     list below: it mirrors softsuave.com's page, whose schema is a lone
  *     FAQPage — its Organization arrives from GTM and its footer keeps the
@@ -41,6 +42,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/data-science-services',
   '/generative-ai-development-company',
   '/graphql-development-company',
+  '/hire-anthropic-developers',
   '/mobile-application-development-company',
   '/nextjs-development-company',
   '/postgresql-development-company',

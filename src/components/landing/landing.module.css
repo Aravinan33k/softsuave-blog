@@ -432,6 +432,129 @@
   margin: clamp(26px, 3vw, 38px) 0 0;
 }
 
+/* --- optional hero kicker ("FREE 7-DAY TRIAL"): the section-head kicker,
+   brightened for the hero ground and sitting directly over the H1 --- */
+.heroEyebrow {
+  color: var(--text);
+}
+
+.heroEyebrow + .heroTitle {
+  margin-top: 0.3em;
+}
+
+/* --- optional stat cards: a row of dark-red gradient cards, each led by a
+   black icon tile with coral corner edges, then the title and one line.
+
+   Laid out by the copy column's width (a size container), not the viewport:
+   that column is full-width on phones and tablets but narrows to ~440px on a
+   1000px laptop, once the form sits beside it.
+     < 600px column  one card per row, icon beside the text (compact height)
+     ≥ 600px column  three cards side by side, icon above the text --- */
+.heroStatsWrap {
+  container-type: inline-size;
+  margin-top: clamp(26px, 3vw, 40px);
+}
+
+.heroStats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(14px, 1.4vw, 20px);
+}
+
+.heroStat {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top-color: rgba(255, 84, 54, 0.32);
+  border-radius: clamp(16px, 1.4vw, 22px);
+  background:
+    radial-gradient(90% 70% at 50% 0%, rgba(120, 6, 16, 0.6) 0%, rgba(60, 2, 8, 0.35) 45%, rgba(5, 5, 6, 0) 100%),
+    linear-gradient(180deg, #1a0306 0%, #050506 100%);
+}
+
+/* Black tile; the coral shows only at the top-left and bottom-right corners,
+   via a gradient border painted under a solid padding-box fill. */
+.heroStatIcon {
+  display: grid;
+  place-items: center;
+  width: 45px;
+  height: 45px;
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  background:
+    linear-gradient(#060606, #060606) padding-box,
+    linear-gradient(135deg, var(--accent) 0%, transparent 32%, transparent 68%, var(--accent) 100%) border-box;
+  color: var(--accent);
+}
+
+.heroStatIcon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.heroStatTitle {
+  display: block;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-bright);
+  overflow-wrap: break-word;
+}
+
+.heroStatBody {
+  display: block;
+  margin-top: 6px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+  overflow-wrap: break-word;
+}
+
+/* Room for three across: the cards stand upright, icon above the text, and
+   the type scales with the column (cqi) between phone and desktop sizes. */
+@container (min-width: 600px) {
+  .heroStats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .heroStat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .heroStatTitle {
+    margin-top: clamp(16px, 3.4cqi, 30px);
+    font-size: clamp(17px, 2.8cqi, 22px);
+  }
+
+  .heroStatBody {
+    margin-top: clamp(8px, 1.6cqi, 14px);
+    line-height: 1.6;
+  }
+}
+
+/* --- optional label over the badge row, ruled off from the copy above --- */
+.heroBadgesLabel {
+  display: flex;
+  margin-top: clamp(28px, 3.4vw, 46px);
+  padding-top: clamp(24px, 3vw, 40px);
+  border-top: 1px solid var(--line);
+  color: var(--text);
+}
+
+.heroBadgesLabel + .badges {
+  margin-top: clamp(14px, 1.6vw, 20px);
+}
+
 /* --- trust badges: squared tags --- */
 .badges {
   list-style: none;
