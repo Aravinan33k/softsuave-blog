@@ -88,6 +88,17 @@ export const frontend: HireRolePageContent = {
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: '/images/landing/ov-hire-frontend-application-developer-tall.webp',
+      width: 1000,
+      height: 1250,
+      alt: 'Frontend developer designing a web interface',
+      blurDataURL:
+        'data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAABwAQCdASoQAAsAA4BaJZVefAHJgAD+80KUupaBYIFis8C3qB9ioAAA',
+      fit: 'column',
+    },
     eyebrow: 'Overview',
     title: 'Why Hire a Frontend Developer for Your Product Team?',
     paragraphs: [

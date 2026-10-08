@@ -517,6 +517,17 @@ const java: HireSkill = {
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: "/images/landing/ov-hire-java-developers-tall.webp",
+      width: 1000,
+      height: 1250,
+      alt: "Java developer focused on code at a workstation",
+      blurDataURL:
+        "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoQAAsAA4BaJZACdAEO9oMYRgAA/r4ciaQw9ZHpmttgeAoSRefWARcN2eARB1MbQdAdRpV+r7xEAAAA",
+      column: true,
+    },
     // Internal links in the second paragraph (review: "internal link missing
     // in the 2nd paragraph"). The live page has none to copy, so each is a
     // phrase already in the copy, pointed at the matching service page.
@@ -673,6 +684,17 @@ const python: HireSkill = {
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: "/images/landing/ov-hire-python-developers-tall.webp",
+      width: 1000,
+      height: 1250,
+      alt: "Python programmer writing code on a laptop",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoQAAsAA4BaJQBOgBrZdLY/AAD+7Mecp03BGQbJESRK+CEARPKyVO9EOCeWu0z2ifyYnXCTDNzLmpWDlEAAAA==",
+      column: true,
+    },
     eyebrow: "Overview",
     title: "Multiskilled Team of Dedicated Python Developers",
     paragraphs: [
@@ -1054,6 +1076,17 @@ const php: HireSkill = {
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: "/images/landing/ov-hire-php-developers-tall.webp",
+      width: 1000,
+      height: 1250,
+      alt: "PHP web developer coding a website",
+      blurDataURL:
+        "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAAAwAgCdASoQAAsAA4BaJQBOj+ADMgCN09icYAD+6jW94N/JYuDKmFBmkWUi5cYXV4neSEvcZ8Z23H3sRqp6P+xbkn3dvZbi3I9QApRB1J+gLWNoAAA=",
+      column: true,
+    },
     eyebrow: "Overview",
     title: "Hire Remote PHP Developers 2X Faster",
     paragraphs: [

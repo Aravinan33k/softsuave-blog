@@ -14,36 +14,19 @@ import 'server-only';
  * container and its address microdata sits in the footer. So these routes are
  * in `PAGES_WITH_OWN_SITE_GRAPH` and the footer keeps its address microdata.
  *
- * Absent on purpose: Django, Drupal, Kotlin, Laravel, Magento, MERN and Ruby on
- * Rails, whose live pages carry no JSON-LD at all — they keep the schema
- * `HirePage` builds from the page.
+ * Django and Ruby on Rails carry no JSON-LD of their own on live, so each maps
+ * to an empty list and emits none; Laravel carries only the FAQPage live's GTM
+ * container injects (8 Oct review: "need to remove the excess schema").
+ *
+ * Absent on purpose: Drupal, Kotlin, Magento and MERN, whose live pages carry
+ * no JSON-LD at all — they keep the schema `HirePage` builds from the page.
  */
 export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> = {
+  // Live's HTML also holds a BreadcrumbList, but inside an HTML comment, so
+  // it never reaches a crawler — copying it shipped one block more than live
+  // serves (8 Oct review: "BreadcrumbList - need to remove this additional
+  // schema from the site").
   "/hire-angularjs-developers": [
-    {
-      "@context": "https://schema.org/",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.softsuave.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Hire Developers",
-          "item": "https://www.softsuave.com/hire-dedicated-developers"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Angular Developers",
-          "item": "https://www.softsuave.com/hire-angularjs-developers"
-        }
-      ]
-    },
     {
       "@context": "http://schema.org/",
       "@type": "Product",
@@ -127,6 +110,10 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
       ]
     }
   ],
+  // Live's page carries no JSON-LD of its own — only the GTM-injected site
+  // Organization — so this page emits none either (8 Oct review: "need to
+  // remove the excess schema").
+  "/hire-django-developer": [],
   "/hire-dot-net-developers": [
     {
       "@context": "https://schema.org",
@@ -435,6 +422,60 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Our dedicated developers are committed to your business goals and stay proactive in offering successful Java app development solutions. Moreover, they are flexible to overlap time zones to receive tasks and feedback from you directly."
+          }
+        }
+      ]
+    }
+  ],
+  // Live's HTML carries no JSON-LD, but its GTM container injects this
+  // FAQPage (and the site Organization) on load — copied verbatim from the
+  // rendered page; its five questions are the ones this page shows. Nothing
+  // else is emitted (8 Oct review: "need to remove the excess schema"). As
+  // on the Offshore and IT Outsourcing pages, the GTM tag must be paused at
+  // launch or the block will appear twice.
+  "/hire-laravel-developer": [
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does it cost to hire a Laravel developer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our prices begin at $14/hour, and based on the level of experience of the developer, it may increase."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there any free trial period available?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, we provide a risk-free 40-hour trial so you can assess our developers' abilities before committing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the hiring engagement options available at Soft Suave?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We offer flexible hiring models: fixed price, time and material, or managed services model."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you provide support and maintenance services after deployment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, we offer dedicated support, maintenance, and performance enhancement services once the project goes live. Full-time Basis, Part-time Basis, Milestone Basis."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where can you find a Laravel Engineer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "At Soft Suave, you can hire expert Laravel developers quickly and easily."
           }
         }
       ]
@@ -1012,6 +1053,10 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
       ]
     }
   ],
+  // Live's page carries no JSON-LD of its own — only the GTM-injected site
+  // Organization — so this page emits none either (8 Oct review: "need to
+  // remove the excess schema").
+  "/hire-ruby-on-rails-developer": [],
   "/hire-swift-developers": [
     {
       "@context": "https://schema.org",

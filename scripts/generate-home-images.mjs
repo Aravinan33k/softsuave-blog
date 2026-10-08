@@ -145,6 +145,27 @@ function pickPhoto(photos, entry, usedIds) {
   return pool[0];
 }
 
+/**
+ * The slot-sized crop of a downloaded photo. By default sharp's `attention`
+ * strategy picks the crop. A slot may set `focusX` (0–1) — the horizontal
+ * centre of the crop in the source — when that misses: cutting a portrait
+ * slot from a landscape photo, `attention` can settle on the background and
+ * leave the subject half out of frame (hire pages' "-tall" overview crops).
+ */
+async function cropToSlot(buf, entry) {
+  if (typeof entry.focusX !== "number") {
+    return sharp(buf).resize(entry.width, entry.height, { fit: "cover", position: "attention" });
+  }
+  const { width: sw, height: sh } = await sharp(buf).metadata();
+  const scale = Math.max(entry.width / sw, entry.height / sh);
+  const w = Math.round(sw * scale);
+  const h = Math.round(sh * scale);
+  const left = Math.min(Math.max(Math.round(entry.focusX * w - entry.width / 2), 0), w - entry.width);
+  const top = Math.round((h - entry.height) / 2);
+  const scaled = await sharp(buf).resize(w, h).toBuffer();
+  return sharp(scaled).extract({ left, top, width: entry.width, height: entry.height });
+}
+
 function bestSrc(photo, entry) {
   // Pick a Pexels-hosted size at least as large as the slot, else original.
   const s = photo.src || {};
@@ -277,10 +298,7 @@ async function main() {
 
     try {
       const buf = await downloadBuffer(bestSrc(chosen.photo, entry));
-      await sharp(buf)
-        .resize(entry.width, entry.height, { fit: "cover", position: "attention" })
-        .webp({ quality: 82 })
-        .toFile(outFile);
+      await (await cropToSlot(buf, entry)).webp({ quality: 82 }).toFile(outFile);
       const blurDataURL = await makeBlur(buf);
 
       usedIds.add(chosen.photo.id);

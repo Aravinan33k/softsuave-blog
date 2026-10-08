@@ -77,6 +77,17 @@ export const webApp: HireRolePageContent = {
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: '/images/landing/ov-hire-web-app-developers-tall.webp',
+      width: 1000,
+      height: 1250,
+      alt: 'Web application developer working on a laptop',
+      blurDataURL:
+        'data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAQAgCdASoQAAsAA4BaJYwCdAEPPND78MMkAP7f9P8T+Bny0/Eh0KgWDycbfTPZEFsacddULmUHPRH+jWI7RGyC8TP2bUNgQfkXv2XWgAA=',
+      fit: 'column',
+    },
     eyebrow: 'Overview',
     title: 'Hire Web Application Developers for Your Product',
     paragraphs: [

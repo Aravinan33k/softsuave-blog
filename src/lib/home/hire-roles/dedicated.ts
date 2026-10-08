@@ -73,6 +73,10 @@ export const dedicated: HireRolePageContent = {
   hero: {
     titleLines: ['Hire Dedicated Developers in India', 'Vetted Teams from $14/hour'],
     accent: 'Dedicated Developers',
+    // Sized so each line fits the column — both wrapped on a laptop, leaving
+    // three or four lines (8 Oct review: "H1 is in 3 lines even though there
+    // is space; ensure it doesn't break").
+    titleFit: true,
     // A full-bleed backdrop like the Frontend page's (review: "No image is
     // visible in the background in the hero section").
     background: {
@@ -102,6 +106,17 @@ export const dedicated: HireRolePageContent = {
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: '/images/landing/ov-hire-dedicated-developers-tall.webp',
+      width: 1000,
+      height: 1250,
+      alt: 'Dedicated development team working at their desks',
+      blurDataURL:
+        'data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAQAgCdASoQAAsAA4BaJZQAD45O61xiokCwAP7raFqv6IHiv5LhUdViF4/GphMEF3T7/lJzvwhsWx0TpIeOY3dXHpjdOQPONuHViKcMPj72cj7scpL/vj8EafTe/6K+4AAAAA==',
+      fit: 'column',
+    },
     eyebrow: 'Smart Choice',
     title: 'Why Hire Dedicated Developers from Soft Suave?',
     paragraphs: [

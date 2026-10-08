@@ -36,6 +36,11 @@
  *     live page's own blocks verbatim — see `lib/seo/hire-skills-live-schema`
  *     and `hire-roles-live-schema` — with the Organization arriving from GTM
  *     and the footer keeping its address microdata, as live's does)
+ *   /hire-django-developer, /hire-laravel-developer and
+ *     /hire-ruby-on-rails-developer (exceptions, like the skill pages above:
+ *     Django and Ruby on Rails emit no JSON-LD, as their live pages carry
+ *     none; Laravel emits only the FAQPage live's GTM injects — see
+ *     `lib/seo/hire-skills-live-schema`)
  *   /global-capability-center, /offshore-software-development-company,
  *     /it-staff-augmentation-services and /it-outsourcing-company-india
  *     (exceptions, like the hire pages: each mirrors its live page's own
@@ -117,6 +122,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/hire-blockchain-developer',
   '/hire-dedicated-developers',
   '/hire-devops-developers',
+  '/hire-django-developer',
   '/hire-dot-net-developers',
   '/hire-flutter-developers',
   '/hire-forward-deployed-engineer',
@@ -124,6 +130,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/hire-ionic-developers',
   '/hire-ios-developers',
   '/hire-java-developers',
+  '/hire-laravel-developer',
   '/hire-mean-stack-developers-india',
   '/hire-mobile-app-developers',
   '/hire-nestjs-developers',
@@ -133,6 +140,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/hire-qa-testers-india',
   '/hire-react-native-developers',
   '/hire-reactjs-developers',
+  '/hire-ruby-on-rails-developer',
   '/hire-salesforce-developer',
   '/hire-software-developers',
   '/hire-swift-developers',

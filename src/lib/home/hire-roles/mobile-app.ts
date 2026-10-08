@@ -82,6 +82,17 @@ export const mobileApp: HireRolePageContent = {
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: '/images/landing/ov-hire-mobile-app-developers-tall.webp',
+      width: 1000,
+      height: 1250,
+      alt: 'Mobile app developers testing apps on phones',
+      blurDataURL:
+        'data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAABQAgCdASoQAAsAA4BaJbACdAYt9vPNftaaTIAA/vTFl2nlUNjvSykha/vqPIB7/Xv1+28xK9bQ6X7QBsq6ntlSHoqd5Fmejmh+8clBDBYx154vgoJHQ58tOB8t57/y+uQ4AkRdS7wg96Aw3m4AW6XgAN0pAAAA',
+      fit: 'column',
+    },
     eyebrow: 'Overview',
     title: 'Hire Mobile App Developers for Your Product and Team Needs',
     paragraphs: [
@@ -158,6 +169,17 @@ export const mobileApp: HireRolePageContent = {
   },
 
   globalDelivery: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: '/images/landing/dl-hire-mobile-app-developers-tall.webp',
+      width: 1000,
+      height: 1250,
+      alt: 'Developer on a video call with a headset at a laptop',
+      blurDataURL:
+        'data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADwAQCdASoQAAsAA4BaJbACdAEUu/NkAIgA+UGylZxof7KpY3V9EiWXRfqSOElZvn8vd+dweBg/M8gX4JyB7WaB6SaFsJxufMzLf/2I2jwOAAAA',
+      fit: 'column',
+    },
     eyebrow: 'Global Delivery',
     title: 'Hire Mobile App Developers in India for Global Teams',
     paragraphs: [

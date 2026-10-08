@@ -65,6 +65,10 @@ export const qa: HireRolePageContent = {
     // and can take the accent.
     titleLines: ['Hire Remote Software QA Testers', 'in India'],
     accent: 'Software QA Testers',
+    // Sized so each line fits the column — the first wrapped on a laptop,
+    // leaving three lines (8 Oct review: "H1 is in 3 lines even though there
+    // is space; ensure it doesn't break").
+    titleFit: true,
     body: [
       "Soft Suave provides pre-vetted QA testers skilled in manual and automation testing (Selenium, Appium, Postman, JMeter), placed on your team within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
       'Every release deserves a QA tester who never misses bugs.',
@@ -86,6 +90,17 @@ export const qa: HireRolePageContent = {
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: '/images/landing/ov-hire-qa-testers-india-tall.webp',
+      width: 1000,
+      height: 1250,
+      alt: 'QA tester reviewing test results on a laptop',
+      blurDataURL:
+        'data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQAgCdASoQAAsAA4BaJQBOgMX6ccpwGy4AAP724hg3fexCDmp3Ja5l/Nhf0o2SSyYp1hKvo2Tp+1PGpsMhIxrOxbhUOFIemD4Cma215Lcw7Jupg2TgWr4Z6g3fDKacAAA=',
+      fit: 'column',
+    },
     eyebrow: 'Overview',
     title: 'Hire Remote QA Testers in India For Flawless Software Solutions',
     paragraphs: [

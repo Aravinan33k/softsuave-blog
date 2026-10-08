@@ -6533,6 +6533,169 @@
       ]
     },
     {
+      "id": "ov-hire-web-app-developers-tall",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Web application developer working on a laptop",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 35184839,
+      "focusX": 0.47,
+      "keywords": [
+        "web application developer laptop",
+        "web developer working",
+        "web development",
+        "laptop"
+      ]
+    },
+    {
+      "id": "ov-hire-mobile-app-developers-tall",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Mobile app developers testing apps on phones",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 16840499,
+      "keywords": [
+        "mobile app developers testing phones",
+        "app developers team",
+        "smartphones app",
+        "mobile"
+      ]
+    },
+    {
+      "id": "dl-hire-mobile-app-developers-tall",
+      "page": "landing",
+      "purpose": "delivery-presence",
+      "alt": "Developer on a video call with a headset at a laptop",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 8866719,
+      "focusX": 0.7,
+      "keywords": [
+        "developer headset video call laptop",
+        "remote meeting headset",
+        "person headset computer",
+        "communication"
+      ]
+    },
+    {
+      "id": "ov-hire-frontend-application-developer-tall",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Frontend developer designing a web interface",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 14553704,
+      "keywords": [
+        "frontend developer web design screen",
+        "web designer computer",
+        "web development",
+        "design"
+      ]
+    },
+    {
+      "id": "ov-hire-qa-testers-india-tall",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "QA tester reviewing test results on a laptop",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 6347713,
+      "keywords": [
+        "woman testing app on smartphone and laptop",
+        "person checking mobile app laptop office",
+        "woman working laptop office",
+        "office work"
+      ]
+    },
+    {
+      "id": "ov-hire-dedicated-developers-tall",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Dedicated development team working at their desks",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 7988218,
+      "keywords": [
+        "dedicated software developers team office",
+        "developers team",
+        "programmers office",
+        "team"
+      ]
+    },
+    {
+      "id": "ov-hire-java-developers-tall",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Java developer focused on code at a workstation",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 5242012,
+      "keywords": [
+        "java developer coding workstation",
+        "programmer focused code",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-python-developers-tall",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Python programmer writing code on a laptop",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 4955393,
+      "keywords": [
+        "python programmer code laptop",
+        "data programmer coding",
+        "developer coding",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-php-developers-tall",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "PHP web developer coding a website",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 11035390,
+      "focusX": 0.51,
+      "keywords": [
+        "php web developer coding",
+        "website development code",
+        "web developer laptop",
+        "code"
+      ]
+    },
+    {
+      "id": "ov-hire-react-native-developers-tall",
+      "page": "landing",
+      "purpose": "overview-illustration",
+      "alt": "Developer building a cross-platform app on phone and laptop",
+      "orientation": "portrait",
+      "width": 1000,
+      "height": 1250,
+      "pexelsId": 8171308,
+      "keywords": [
+        "cross platform app developer phone laptop",
+        "mobile app development laptop",
+        "app developer",
+        "smartphone"
+      ]
+    },
+    {
       "id": "svc-px-custom-ai-v2",
       "page": "four",
       "purpose": "service",
