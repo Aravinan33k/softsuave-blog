@@ -52,6 +52,29 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Forward Deployed Engineers page (`components/fde`). Names no other page
+     uses; their `--fde-*` values exist only inside that page's `.fde` wrapper
+     (`components/fde/fde.css`), so elsewhere these utilities resolve to
+     nothing. The serif and mono fall back to the stacks they had before. */
+  --color-primary-glow: hsl(var(--fde-primary-glow));
+  --color-primary-deep: hsl(var(--fde-primary-deep));
+  --color-danger: hsl(var(--fde-danger));
+  --color-danger-soft: hsl(var(--fde-danger-soft));
+  --color-surface: var(--fde-surface);
+  --color-ink: hsl(var(--fde-ink));
+  --color-ink-card: hsl(var(--fde-ink-card));
+  --color-ink-card-raised: hsl(var(--fde-ink-card-raised));
+  --color-ink-border: hsl(var(--fde-ink-border));
+  --color-ink-foreground: hsl(var(--fde-ink-foreground));
+  --color-ink-muted: hsl(var(--fde-ink-muted));
+  --font-display: var(--fde-font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--fde-font-serif, ui-serif), Georgia, Cambria, "Times New Roman", serif;
+  --radius-card: var(--fde-radius);
+  --shadow-glow: 0 20px 60px -20px hsl(var(--fde-primary) / 0.35);
+  --shadow-soft: 0 8px 30px -12px hsl(220 15% 8% / 0.12);
+  --animate-fade-up: fde-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fde-fade-in 0.7s ease both;
 }
 
 :root {
