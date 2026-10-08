@@ -42,12 +42,30 @@ describe('lookupIpLocation', () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it('does not look up private or missing addresses', async () => {
+  it('in production, never looks up a private or missing address — and says why', async () => {
+    vi.stubEnv('NODE_ENV', 'production');
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const { lookupIpLocation } = await import('./ip-location');
     for (const ip of ['::1', '127.0.0.1', '10.0.0.4', '172.18.0.1', '192.168.12.5', null]) {
       expect(await lookupIpLocation(ip)).toEqual(EMPTY);
     }
     expect(fetchMock).not.toHaveBeenCalled();
+    expect(String(warn.mock.calls[0][0])).toContain('X-Forwarded-For');
+    warn.mockRestore();
+  });
+
+  it("in development, a local request reports this machine's public IP and location", async () => {
+    vi.stubEnv('NODE_ENV', 'development');
+    fetchMock.mockResolvedValue(json({ ip: '157.51.86.204', city: 'Chennai', region: 'Tamil Nadu', country: 'IN' }));
+    const { lookupIpLocation } = await import('./ip-location');
+    expect(await lookupIpLocation('::1')).toEqual({ city: 'Chennai', region: 'Tamil Nadu', country: 'IN', ipAddress: '157.51.86.204' });
+    expect(String(fetchMock.mock.calls[0][0])).toBe('https://ipinfo.io/json');
+  });
+
+  it('only replaces the IP for a local request, never a real one', async () => {
+    fetchMock.mockResolvedValue(json({ ip: '157.51.86.204', city: 'Chennai', region: 'Tamil Nadu', country: 'IN' }));
+    const { lookupIpLocation } = await import('./ip-location');
+    expect((await lookupIpLocation('157.51.86.204')).ipAddress).toBeUndefined();
   });
 
   it('unwraps IPv4 addresses seen through an IPv6 socket', async () => {

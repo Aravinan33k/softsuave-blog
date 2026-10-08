@@ -84,7 +84,7 @@ export function buildLeadEmail(lead: LeadNotice): { subject: string; text: strin
     ['From', name],
     ['Email', lead.email],
     ['Phone', lead.phone ?? ''],
-    ['description', lead.requirement],
+    ['Description', lead.requirement],
   ];
   const origin: [string, string][] = [
     ['IP', lead.ipAddress ?? ''],

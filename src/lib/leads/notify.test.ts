@@ -37,7 +37,7 @@ describe('buildLeadEmail', () => {
       'From: Jane Doe',
       'Email: jane@company.com',
       'Phone: +91 98765 43210',
-      'description: We need a <b>RAG</b> assistant',
+      'Description: We need a <b>RAG</b> assistant',
       '*'.repeat(58),
       'IP: 157.51.86.204',
       'URL: http://54.237.230.68/rag-development-services',
