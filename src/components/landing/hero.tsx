@@ -2,6 +2,7 @@
 
 import { Fragment, useRef, type CSSProperties } from "react";
 import Image from "next/image";
+import { Globe, SquareTerminal, Users } from "lucide-react";
 import { publicMediaUrl } from "@/lib/media-url";
 import { isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
@@ -17,6 +18,11 @@ import Breadcrumb from "@/components/common/breadcrumb";
  * usage (`<Hero />`) is unchanged.
  */
 export interface HeroContent {
+  /**
+   * Optional kicker above the H1 ("FREE 7-DAY TRIAL"), in the section heads'
+   * own accent-ruled mono style. Omitted on every page whose hero has none.
+   */
+  eyebrow?: string;
   /** The H1, split into lines. The last line takes the accent unless `accent` is set. */
   titleLines: readonly string[];
   /**
@@ -49,6 +55,17 @@ export interface HeroContent {
    * allowed, and reads fine — the plaques simply sit taller than the tags.
    */
   badges?: readonly (string | HeroBadge)[];
+  /**
+   * Optional label over the badge row ("Trusted by global brands"), set off
+   * from the copy above it by a hairline — the live trial page's arrangement.
+   */
+  badgesLabel?: string;
+  /**
+   * Optional icon stat cards under the body ("150+ CLIENTS" + a line), the
+   * live trial page's two-up grid. Rendered in place of nothing: a page can
+   * pass these with an empty `points` list, or both.
+   */
+  stats?: readonly HeroStat[];
   /** Copy for the enquiry card; the card itself is `common/enquiry-form`. */
   form: EnquiryFormContent;
   /**
@@ -94,6 +111,16 @@ export interface HeroContent {
      */
     veil?: "strong";
   };
+}
+
+/** Glyphs a hero stat card can lead with. */
+const STAT_ICONS = { clients: Users, experts: SquareTerminal, countries: Globe } as const;
+
+export interface HeroStat {
+  /** "150+ Clients". */
+  readonly title: string;
+  readonly body: string;
+  readonly icon: keyof typeof STAT_ICONS;
 }
 
 /**
@@ -148,10 +175,13 @@ export default function Hero({
   content,
   idPrefix = "landing",
   variant = "display",
+  breadcrumb = true,
 }: {
   content: HeroContent;
   idPrefix?: string;
   variant?: HeroVariant;
+  /** `false` drops the "Home › <page>" trail for a page that shows none. */
+  breadcrumb?: boolean;
 }) {
   const root = useRef<HTMLElement | null>(null);
   const compact = variant === "compact";
@@ -169,6 +199,9 @@ export default function Hero({
       })
         .from(`.${styles.heroBody}`, { opacity: 0, y: 20, duration: 0.7, ease: "power2.out", stagger: 0.08 }, "-=0.5")
         .from(`.${styles.heroPoint}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.05 }, "-=0.4");
+      if (content.stats?.length) {
+        tl.from(`.${styles.heroStat}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.06 }, "-=0.3");
+      }
       if (content.badges?.length) {
         tl.from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3");
       }
@@ -224,7 +257,8 @@ export default function Hero({
       <div className={styles.heroGrid}>
         <div className={content.titleFit || content.titleOneLine ? styles.heroCopyFit : undefined}>
           {/* "Home › <page>", named from the route — see common/breadcrumb. */}
-          <Breadcrumb />
+          {breadcrumb && <Breadcrumb />}
+          {content.eyebrow && <span className={`${styles.kicker} ${styles.heroEyebrow}`}>{content.eyebrow}</span>}
           <h1
             className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}${
               content.titleOneLine ? ` ${styles.heroTitleOneLine}` : ""
@@ -253,6 +287,31 @@ export default function Hero({
             </p>
           ))}
 
+          {/* The wrapper is a size container, so the cards lay out by the
+              copy column's own width — it narrows sharply once the form
+              sits beside it, which a viewport breakpoint can't see. */}
+          {content.stats && content.stats.length > 0 && (
+            <div className={styles.heroStatsWrap}>
+            <ul className={styles.heroStats}>
+              {content.stats.map((stat) => {
+                const Icon = STAT_ICONS[stat.icon];
+                return (
+                  <li key={stat.title} className={styles.heroStat}>
+                    <span className={styles.heroStatIcon} aria-hidden>
+                      <Icon strokeWidth={1.6} />
+                    </span>
+                    <span>
+                      <strong className={styles.heroStatTitle}>{stat.title}</strong>
+                      <span className={styles.heroStatBody}>{stat.body}</span>
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+            </div>
+          )}
+
+          {content.points.length > 0 && (
           <ul className={styles.heroPoints}>
             {content.points.map((point) => (
               <li key={point} className={styles.heroPoint}>
@@ -272,6 +331,7 @@ export default function Hero({
               </li>
             ))}
           </ul>
+          )}
 
           {content.ctas && content.ctas.length > 0 && (
             <div className={styles.heroCtas}>
@@ -307,8 +367,11 @@ export default function Hero({
             </div>
           )}
 
+          {content.badgesLabel && content.badges && content.badges.length > 0 && (
+            <span className={`${styles.kicker} ${styles.heroBadgesLabel}`}>{content.badgesLabel}</span>
+          )}
           {content.badges && content.badges.length > 0 && (
-            <ul className={styles.badges} aria-label="Credentials">
+            <ul className={styles.badges} aria-label={content.badgesLabel ?? "Credentials"}>
               {content.badges.map((b) =>
                 isHeroBadge(b) ? (
                   <li key={b.src} className={`${styles.badge} ${styles.badgeLogo}`}>

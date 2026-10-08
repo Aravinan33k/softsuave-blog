@@ -429,8 +429,8 @@ export const webFaqs: FaqContent = {
   /**
    * The live page links "free consultation" in the third answer; that was
    * missing here (review: "highlight the text and add the link in 3rd FAQ
-   * answer"). `/30-min-free-consultation` is a page softsuave.com publishes
-   * and this app does not, so `SiteLink` resolves it to the live site.
+   * answer"). `/30-min-free-consultation` is served by this app, so
+   * `SiteLink` routes it in-app.
    */
   links: [{ text: "free consultation", href: "/30-min-free-consultation" }],
   eyebrow: "Ask Us",

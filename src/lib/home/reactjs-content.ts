@@ -334,8 +334,8 @@ export const rjFaqs: FaqContent = {
   body: "Know more about our processes and how we work, with the help of the following FAQs our clients ask.",
   // Three phrases the live page links inside its FAQ answers (review: "few
   // FAQs do not have an internal link"). `/cross-platform-application-development-company`
-  // and `/30-min-free-consultation` are not routes this app serves yet, so
-  // `SiteLink` (via `linkify`) resolves them to softsuave.com instead of 404ing.
+  // is not a route this app serves yet, so `SiteLink` (via `linkify`) resolves
+  // it to softsuave.com instead of 404ing; `/30-min-free-consultation` is ours.
   links: [
     { text: "cross-platform mobile", href: "/cross-platform-application-development-company" },
     { text: "single-page applications,", href: "/angularjs-development-company" },

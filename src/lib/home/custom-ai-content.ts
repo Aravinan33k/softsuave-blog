@@ -427,14 +427,14 @@ export const caFaqs: FaqContent = {
     {
       q: "How much does it cost to build an AI solution with a team in India?",
       a: "AI development in India typically costs 40–60% less than equivalent US or EU rates, which is the main reason global teams build here. Beyond location, four factors move the price: project complexity, model selection, the state of your data, and the engagement model you choose. Because those vary sharply between projects, we give you a realistic figure rather than a range that fits nobody.",
-      link: { label: "Get a rough quote in 24 hours", href: "https://www.softsuave.com/free-quote" },
+      link: { label: "Get a rough quote in 24 hours", href: "/free-quote" },
     },
     {
       q: "How long does it take to develop a production-ready AI solution?",
       a: "It depends on your data and integration needs, so we structure it in stages rather than guessing upfront. Discovery maps the use case and validates your data. A POC then proves one high-value case against defined KPIs. Only after that do we commit to a full build timeline, because by then we know what the data can actually support. Timelines stretch most when data needs cleaning or labeling, or when compliance review is involved.",
       link: {
         label: "Talk to our experts",
-        href: "https://www.softsuave.com/30-min-free-consultation",
+        href: "/30-min-free-consultation",
         tail: "for an estimate against your specific use case.",
       },
     },

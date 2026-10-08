@@ -42,8 +42,8 @@ export const sharedHeroAlert = {
  * injected once by the page renderer rather than repeated in twenty content
  * modules — the same treatment `sharedHeroBadges` gets.
  *
- * `/free-7-days-trial` is a page softsuave.com has and this app does not;
- * `SiteLink` resolves it to the live site rather than 404ing. The Calendly
+ * `/free-7-days-trial` is served by this app (registered in landing-pages.ts),
+ * so `SiteLink` routes it in-app. The Calendly
  * link is the live page's own booking link, unchanged.
  */
 export const sharedHeroCtas = [

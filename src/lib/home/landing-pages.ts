@@ -87,6 +87,9 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/custom-ai-development-services', title: 'Custom AI Development Services' },
   { path: '/generative-ai-development-company', title: 'Generative AI Development Company' },
   { path: '/agentic-ai-development-services', title: 'Agentic AI Development Services' },
+  { path: '/free-7-days-trial', title: '40-Hour Free Trial' },
+  { path: '/30-min-free-consultation', title: 'Free Consultation' },
+  { path: '/free-quote', title: 'Free Quote' },
 
   // Custom-AI sub-pages.
   { path: '/rag-development-services', title: 'RAG & Document AI' },
