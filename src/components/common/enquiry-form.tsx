@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { appPath } from "@/lib/media-url";
 import {
   EMAIL_MAX,
@@ -14,6 +14,7 @@ import {
   requirementError,
 } from "@/lib/forms/enquiry-rules";
 import { focusAtEnd } from "@/lib/forms/focus";
+import { THANK_YOU_PATH } from "@/lib/forms/thank-you";
 import { useClearOnClick } from "@/lib/forms/use-clear-on-click";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import fx from "./enquiry-form.module.css";
@@ -67,10 +68,12 @@ const RULES: Record<Field, (value: string) => string | null> = {
  * The one enquiry card on the marketing surface. POSTs to `/api/v1/enquiry`,
  * which validates the lead and writes an `Enquiry` row.
  *
- * Four states: `idle`, `sending` (submit disabled, so a double click cannot
- * write two rows), `ok` (the fields are replaced by the confirmation) and
- * `error` (the server's message sits above the submit button and everything
- * typed is still there to retry with).
+ * Three states: `idle`, `sending` (submit disabled, so a double click cannot
+ * write two rows) and `error` (the server's message sits above the submit
+ * button and everything typed is still there to retry with). Once the lead is
+ * accepted the reader is sent to `/thank-you` (`THANK_YOU_PATH`), as
+ * softsuave.com's forms do; the button keeps saying "Sending…" until the page
+ * changes.
  *
  * Every field is validated in the browser with the shared rules in
  * `lib/forms/enquiry-rules.ts` — the same ones the API enforces. Pressing
@@ -92,7 +95,8 @@ export default function EnquiryForm({
   idPrefix: string;
 }) {
   const pathname = usePathname();
-  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
+  const router = useRouter();
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", email: "", phone: "", requirement: "" });
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -175,7 +179,8 @@ export default function EnquiryForm({
         );
       }
 
-      setStatus("ok");
+      // Stays "sending" — the form is about to be replaced by the page.
+      router.push(THANK_YOU_PATH);
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -195,147 +200,127 @@ export default function EnquiryForm({
         {content.body ? <p className={fx.body}>{content.body}</p> : null}
       </div>
 
-      {status === "ok" ? (
-        <div className={fx.done} role="status">
-          <svg
-            className={fx.doneMark}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden
-          >
-            <circle cx="12" cy="12" r="9.2" />
-            <path d="M7.8 12.4l3 2.9 5.4-6" />
-          </svg>
-          <p className={fx.doneTitle}>Thanks — we&rsquo;ve got your details.</p>
-          <p className={fx.doneBody}>One of our team will contact you within one business day.</p>
+      <form ref={formRef} className={fx.fields} onSubmit={onSubmit} noValidate>
+        {/* `noValidate`: the browser's own bubbles are replaced by the
+            messages under each field, which use the same rules as the
+            server. The honeypot below is off-screen rather than
+            display:none, which some bots skip. */}
+        <div className={fx.honeypot} aria-hidden>
+          <label htmlFor={`${idPrefix}-website`}>Website</label>
+          <input
+            id={`${idPrefix}-website`}
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+          />
         </div>
-      ) : (
-        <form ref={formRef} className={fx.fields} onSubmit={onSubmit} noValidate>
-          {/* `noValidate`: the browser's own bubbles are replaced by the
-              messages under each field, which use the same rules as the
-              server. The honeypot below is off-screen rather than
-              display:none, which some bots skip. */}
-          <div className={fx.honeypot} aria-hidden>
-            <label htmlFor={`${idPrefix}-website`}>Website</label>
-            <input
-              id={`${idPrefix}-website`}
-              type="text"
-              name="website"
-              tabIndex={-1}
-              autoComplete="off"
-              value={website}
-              onChange={(e) => setWebsite(e.target.value)}
-            />
-          </div>
 
-          {/* Each row is icon → control → label. The label comes *after* its
-              control in source so the float can be a plain sibling selector
-              (`.input:not(:placeholder-shown) ~ .label`) with no `:has()` and
-              no JS; `htmlFor`/`id` still pairs them for assistive tech, and
-              CSS grid puts the icon in its own column while the label is
-              positioned over the control's line. */}
-          <div className={fieldClass("name")}>
-            <FieldIcon name="person" />
-            <input
-              id={`${idPrefix}-name`}
-              className={fx.input}
-              type="text"
-              name="name"
-              autoComplete="name"
-              required
-              maxLength={NAME_MAX}
-              title={NAME_HINT}
-              value={form.name}
-              onChange={set("name")}
-              {...a11y("name")}
-              placeholder="Jane Doe"
-            />
-            <label className={fx.label} htmlFor={`${idPrefix}-name`}>
-              <RequiredMark />
-              Full name
-            </label>
-            {message("name")}
-          </div>
+        {/* Each row is icon → control → label. The label comes *after* its
+            control in source so the float can be a plain sibling selector
+            (`.input:not(:placeholder-shown) ~ .label`) with no `:has()` and
+            no JS; `htmlFor`/`id` still pairs them for assistive tech, and
+            CSS grid puts the icon in its own column while the label is
+            positioned over the control's line. */}
+        <div className={fieldClass("name")}>
+          <FieldIcon name="person" />
+          <input
+            id={`${idPrefix}-name`}
+            className={fx.input}
+            type="text"
+            name="name"
+            autoComplete="name"
+            required
+            maxLength={NAME_MAX}
+            title={NAME_HINT}
+            value={form.name}
+            onChange={set("name")}
+            {...a11y("name")}
+            placeholder="Jane Doe"
+          />
+          <label className={fx.label} htmlFor={`${idPrefix}-name`}>
+            <RequiredMark />
+            Full name
+          </label>
+          {message("name")}
+        </div>
 
-          <div className={fieldClass("email")}>
-            <FieldIcon name="mail" />
-            <input
-              id={`${idPrefix}-email`}
-              className={fx.input}
-              type="email"
-              name="email"
-              autoComplete="email"
-              required
-              maxLength={EMAIL_MAX}
-              value={form.email}
-              onChange={set("email")}
-              {...a11y("email")}
-              placeholder="jane@company.com"
-            />
-            <label className={fx.label} htmlFor={`${idPrefix}-email`}>
-              <RequiredMark />
-              Work email
-            </label>
-            {message("email")}
-          </div>
+        <div className={fieldClass("email")}>
+          <FieldIcon name="mail" />
+          <input
+            id={`${idPrefix}-email`}
+            className={fx.input}
+            type="email"
+            name="email"
+            autoComplete="email"
+            required
+            maxLength={EMAIL_MAX}
+            value={form.email}
+            onChange={set("email")}
+            {...a11y("email")}
+            placeholder="jane@company.com"
+          />
+          <label className={fx.label} htmlFor={`${idPrefix}-email`}>
+            <RequiredMark />
+            Work email
+          </label>
+          {message("email")}
+        </div>
 
-          {/* The only two-control row: a calling code beside the number. The
-              label stays risen (`labelFloat`) rather than resting on the line
-              the way the other rows' do — the code is painted from first
-              render, so there is never an empty line for it to sit on. */}
-          <div className={fieldClass("phone")}>
-            <FieldIcon name="phone" />
-            <PhoneField
-              id={`${idPrefix}-phone`}
-              value={form.phone}
-              onChange={(phone) => update("phone", phone)}
-              invalid={Boolean(errors.phone)}
-              describedBy={errors.phone ? `${idPrefix}-phone-error` : undefined}
-              required
-            />
-            <label className={`${fx.label} ${fx.labelFloat}`} htmlFor={`${idPrefix}-phone`}>
-              <RequiredMark />
-              Phone
-            </label>
-            {message("phone")}
-          </div>
+        {/* The only two-control row: a calling code beside the number. The
+            label stays risen (`labelFloat`) rather than resting on the line
+            the way the other rows' do — the code is painted from first
+            render, so there is never an empty line for it to sit on. */}
+        <div className={fieldClass("phone")}>
+          <FieldIcon name="phone" />
+          <PhoneField
+            id={`${idPrefix}-phone`}
+            value={form.phone}
+            onChange={(phone) => update("phone", phone)}
+            invalid={Boolean(errors.phone)}
+            describedBy={errors.phone ? `${idPrefix}-phone-error` : undefined}
+            required
+          />
+          <label className={`${fx.label} ${fx.labelFloat}`} htmlFor={`${idPrefix}-phone`}>
+            <RequiredMark />
+            Phone
+          </label>
+          {message("phone")}
+        </div>
 
-          <div className={fieldClass("requirement", fx.fieldArea)}>
-            <FieldIcon name="doc" />
-            <textarea
-              id={`${idPrefix}-requirement`}
-              className={fx.textarea}
-              name="requirement"
-              required
-              rows={1}
-              maxLength={REQUIREMENT_MAX}
-              value={form.requirement}
-              onChange={set("requirement")}
-              {...a11y("requirement")}
-              placeholder={content.requirementPlaceholder}
-            />
-            <label className={fx.label} htmlFor={`${idPrefix}-requirement`}>
-              <RequiredMark />
-              {content.requirementLabel}
-            </label>
-            {message("requirement")}
-          </div>
+        <div className={fieldClass("requirement", fx.fieldArea)}>
+          <FieldIcon name="doc" />
+          <textarea
+            id={`${idPrefix}-requirement`}
+            className={fx.textarea}
+            name="requirement"
+            required
+            rows={1}
+            maxLength={REQUIREMENT_MAX}
+            value={form.requirement}
+            onChange={set("requirement")}
+            {...a11y("requirement")}
+            placeholder={content.requirementPlaceholder}
+          />
+          <label className={fx.label} htmlFor={`${idPrefix}-requirement`}>
+            <RequiredMark />
+            {content.requirementLabel}
+          </label>
+          {message("requirement")}
+        </div>
 
-          {status === "error" && error && (
-            <p className={fx.error} role="alert">
-              {error}
-            </p>
-          )}
+        {status === "error" && error && (
+          <p className={fx.error} role="alert">
+            {error}
+          </p>
+        )}
 
-          <button type="submit" className={fx.submit} disabled={status === "sending"}>
-            {status === "sending" ? content.sending : content.submit}
-          </button>
-        </form>
-      )}
+        <button type="submit" className={fx.submit} disabled={status === "sending"}>
+          {status === "sending" ? content.sending : content.submit}
+        </button>
+      </form>
 
       {(content.note || content.noteLink) && (
         <p className={fx.note}>

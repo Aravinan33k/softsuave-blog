@@ -1,12 +1,13 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { appPath, publicMediaUrl } from "@/lib/media-url";
 import { EMAIL_MAX, NAME_MAX, emailError, nameError, phoneError } from "@/lib/forms/enquiry-rules";
 import { focusAtEnd } from "@/lib/forms/focus";
+import { THANK_YOU_PATH } from "@/lib/forms/thank-you";
 import { useClearOnClick } from "@/lib/forms/use-clear-on-click";
 import PhoneField from "@/components/common/phone-field";
 import FadeUp from "@/components/home/fade-up";
@@ -51,15 +52,17 @@ type Step = 0 | 1 | 2 | 3;
  * at a time with Back / Next, submitting on the last step. It POSTs to the
  * same `/api/v1/enquiry` endpoint as every other enquiry card, so a lead from
  * here lands in the `Enquiry` table with `sourceKey: "contact"`; the chosen
- * service is stored as the requirement.
+ * service is stored as the requirement. Once accepted, the reader is sent to
+ * `/thank-you`, as on the live page.
  */
 function SteppedForm() {
   const pathname = usePathname();
+  const router = useRouter();
   const [step, setStep] = useState<Step>(0);
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "" });
   const [website, setWebsite] = useState("");
   const [fieldError, setFieldError] = useState<string | null>(null);
-  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -154,7 +157,8 @@ function SteppedForm() {
               : "Something went wrong. Please try again."),
         );
       }
-      setStatus("ok");
+      // Stays "sending" until the thank-you page replaces this one.
+      router.push(THANK_YOU_PATH);
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -173,122 +177,116 @@ function SteppedForm() {
     <form ref={formRef} id={CONTACT_FORM_ID} className={`${styles.channelCard} ${styles.formCard}`} onSubmit={onSubmit} noValidate>
       <CardHead icon={contactForm.icon} title={contactForm.title} subtitle={contactForm.subtitle} />
 
-      {status === "ok" ? (
-        <p className={styles.formSuccess} role="status">
-          {contactForm.success}
-        </p>
-      ) : (
-        <div className={styles.stepBody}>
-          <label className={styles.stepQuestion} htmlFor={fieldId}>
-            {current.question}
-          </label>
+      <div className={styles.stepBody}>
+        <label className={styles.stepQuestion} htmlFor={fieldId}>
+          {current.question}
+        </label>
 
-          <div className={styles.stepField} ref={fieldRef}>
-            {step === 0 && (
-              <input
+        <div className={styles.stepField} ref={fieldRef}>
+          {step === 0 && (
+            <input
+              id={fieldId}
+              className={styles.textInput}
+              type="text"
+              name="name"
+              autoComplete="name"
+              maxLength={NAME_MAX}
+              placeholder={s.name.placeholder}
+              value={form.name}
+              onChange={(e) => edit("name", e.target.value)}
+              aria-invalid={Boolean(fieldError)}
+              aria-describedby={fieldError ? "contact-step-error" : undefined}
+            />
+          )}
+          {step === 1 && (
+            <input
+              id={fieldId}
+              className={styles.textInput}
+              type="email"
+              name="email"
+              autoComplete="email"
+              maxLength={EMAIL_MAX}
+              placeholder={s.email.placeholder}
+              value={form.email}
+              onChange={(e) => edit("email", e.target.value)}
+              aria-invalid={Boolean(fieldError)}
+              aria-describedby={fieldError ? "contact-step-error" : undefined}
+            />
+          )}
+          {step === 2 && (
+            <div className={styles.phoneWrap}>
+              <PhoneField
                 id={fieldId}
-                className={styles.textInput}
-                type="text"
-                name="name"
-                autoComplete="name"
-                maxLength={NAME_MAX}
-                placeholder={s.name.placeholder}
-                value={form.name}
-                onChange={(e) => edit("name", e.target.value)}
-                aria-invalid={Boolean(fieldError)}
-                aria-describedby={fieldError ? "contact-step-error" : undefined}
+                value={form.phone}
+                placeholder={s.phone.placeholder}
+                onChange={(phone) => edit("phone", phone)}
+                invalid={Boolean(fieldError)}
+                describedBy={fieldError ? "contact-step-error" : undefined}
               />
-            )}
-            {step === 1 && (
-              <input
-                id={fieldId}
-                className={styles.textInput}
-                type="email"
-                name="email"
-                autoComplete="email"
-                maxLength={EMAIL_MAX}
-                placeholder={s.email.placeholder}
-                value={form.email}
-                onChange={(e) => edit("email", e.target.value)}
-                aria-invalid={Boolean(fieldError)}
-                aria-describedby={fieldError ? "contact-step-error" : undefined}
-              />
-            )}
-            {step === 2 && (
-              <div className={styles.phoneWrap}>
-                <PhoneField
-                  id={fieldId}
-                  value={form.phone}
-                  placeholder={s.phone.placeholder}
-                  onChange={(phone) => edit("phone", phone)}
-                  invalid={Boolean(fieldError)}
-                  describedBy={fieldError ? "contact-step-error" : undefined}
-                />
-              </div>
-            )}
-            {step === 3 && (
-              <select
-                id={fieldId}
-                className={styles.selectInput}
-                name="service"
-                value={form.service}
-                onChange={(e) => edit("service", e.target.value)}
-                aria-invalid={Boolean(fieldError)}
-                aria-describedby={fieldError ? "contact-step-error" : undefined}
-              >
-                <option value="" disabled hidden>
-                  {s.service.placeholder}
+            </div>
+          )}
+          {step === 3 && (
+            <select
+              id={fieldId}
+              className={styles.selectInput}
+              name="service"
+              value={form.service}
+              onChange={(e) => edit("service", e.target.value)}
+              aria-invalid={Boolean(fieldError)}
+              aria-describedby={fieldError ? "contact-step-error" : undefined}
+            >
+              <option value="" disabled hidden>
+                {s.service.placeholder}
+              </option>
+              {serviceOptions.map((o) => (
+                <option key={o} value={o}>
+                  {o}
                 </option>
-                {serviceOptions.map((o) => (
-                  <option key={o} value={o}>
-                    {o}
-                  </option>
-                ))}
-              </select>
-            )}
-          </div>
-
-          {fieldError && (
-            <p id="contact-step-error" className={styles.fieldError} role="alert">
-              {fieldError}
-            </p>
+              ))}
+            </select>
           )}
-          {status === "error" && error && (
-            <p className={styles.formError} role="alert">
-              {error}
-            </p>
-          )}
-
-          {/* Honeypot — hidden from people and from assistive tech. */}
-          <input
-            className={styles.honeypot}
-            type="text"
-            name="website"
-            tabIndex={-1}
-            autoComplete="off"
-            aria-hidden
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-          />
-
-          <div className={step === 0 ? styles.stepActionsEnd : styles.stepActions}>
-            {step > 0 && (
-              <button type="button" className={styles.stepBack} onClick={back}>
-                ‹ {contactForm.back}
-              </button>
-            )}
-            {step < 3 ? (
-              <button type="submit" className={styles.stepNext}>
-                {contactForm.next} ›
-              </button>
-            ) : (
-              <button type="submit" className={styles.stepNext} disabled={status === "sending"}>
-                {status === "sending" ? contactForm.sending : contactForm.submit}
-              </button>
-            )}
-          </div>
         </div>
-      )}
+
+        {fieldError && (
+          <p id="contact-step-error" className={styles.fieldError} role="alert">
+            {fieldError}
+          </p>
+        )}
+        {status === "error" && error && (
+          <p className={styles.formError} role="alert">
+            {error}
+          </p>
+        )}
+
+        {/* Honeypot — hidden from people and from assistive tech. */}
+        <input
+          className={styles.honeypot}
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+
+        <div className={step === 0 ? styles.stepActionsEnd : styles.stepActions}>
+          {step > 0 && (
+            <button type="button" className={styles.stepBack} onClick={back}>
+              ‹ {contactForm.back}
+            </button>
+          )}
+          {step < 3 ? (
+            <button type="submit" className={styles.stepNext}>
+              {contactForm.next} ›
+            </button>
+          ) : (
+            <button type="submit" className={styles.stepNext} disabled={status === "sending"}>
+              {status === "sending" ? contactForm.sending : contactForm.submit}
+            </button>
+          )}
+        </div>
+      </div>
 
       <p className={styles.formAlert}>
         <strong>{contactForm.alert.label}</strong> {contactForm.alert.text}{" "}

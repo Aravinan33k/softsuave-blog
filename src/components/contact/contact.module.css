@@ -357,15 +357,6 @@
   outline-offset: 3px;
 }
 
-.formSuccess {
-  flex: 1;
-  margin: 0;
-  padding-top: 24px;
-  font-size: var(--fs-body);
-  line-height: 1.6;
-  color: var(--fx-ink);
-}
-
 .formAlert {
   margin: 20px 0 0;
   padding-top: 14px;

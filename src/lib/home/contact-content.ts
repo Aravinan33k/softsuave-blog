@@ -56,8 +56,6 @@ export const contactForm = {
   back: "Back",
   submit: "Submit ➣",
   sending: "Sending…",
-  /** The live form redirects to a thank-you page this app does not have, so the card confirms in place. */
-  success: "Thank you! Your enquiry has been received. Our team will get back to you shortly.",
   alert: {
     label: "Alert:",
     text: "This form is for business, not candidates. To apply for jobs,",
@@ -80,12 +78,11 @@ export const scheduleMeeting = {
     messagePlaceholder: "Type here...",
     messageError: "Please tell us what the meeting is about.",
   },
-  // Not on the live page (it shows no copy for these states, and redirects to
-  // a thank-you page on success); written here for this app.
+  // Not on the live page (it shows no copy for these states); written here
+  // for this app. A booking redirects to /thank-you, as the live page does.
   loading: "Loading available slots…",
   empty: "No open slots right now.",
   error: "Unable to load slots.",
-  success: "Your meeting is booked. A calendar invite is on its way to your inbox.",
   /** Fallback when the live calendar cannot load — the NeetoCal booking page it draws from ("View More Slots" is the live page's label). */
   fallback: { label: "View More Slots ➡", href: "https://softsuave.neetocal.com/meeting-with-softsuave" },
 } as const;

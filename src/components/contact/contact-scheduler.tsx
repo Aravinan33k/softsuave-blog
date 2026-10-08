@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { appPath } from "@/lib/media-url";
 import {
   EMAIL_MAX,
@@ -13,6 +13,7 @@ import {
   requirementError,
 } from "@/lib/forms/enquiry-rules";
 import { focusAtEnd } from "@/lib/forms/focus";
+import { THANK_YOU_PATH } from "@/lib/forms/thank-you";
 import { useClearOnClick } from "@/lib/forms/use-clear-on-click";
 import PhoneField from "@/components/common/phone-field";
 import { contactForm, scheduleMeeting } from "@/lib/home/contact-content";
@@ -58,7 +59,6 @@ export default function ContactScheduler() {
   const [dayIdx, setDayIdx] = useState(0);
   const [windowStart, setWindowStart] = useState(0);
   const [picked, setPicked] = useState<{ date: string; time: string } | null>(null);
-  const [booked, setBooked] = useState(false);
 
   // The visitor's zone is only knowable in the browser; resolve it after mount
   // so the server-rendered markup and the first client render agree.
@@ -74,11 +74,8 @@ export default function ContactScheduler() {
     return () => cancelAnimationFrame(frame);
   }, []);
 
-  /** Bumped to re-fetch the same zone (after a booking takes a slot). */
-  const [reload, setReload] = useState(0);
-
-  // Callers put the card into its loading state before changing `tz` or
-  // `reload`; the effect only sets state once the response is in.
+  // Callers put the card into its loading state before changing `tz`; the
+  // effect only sets state once the response is in.
   useEffect(() => {
     if (!tz) return;
     const ctrl = new AbortController();
@@ -96,25 +93,11 @@ export default function ContactScheduler() {
         if (err.name !== "AbortError") setLoad({ status: "error" });
       });
     return () => ctrl.abort();
-  }, [tz, reload]);
+  }, [tz]);
 
   if (picked) {
     return (
-      <MeetingForm
-        slot={picked}
-        timeZone={tz}
-        booked={booked}
-        onBooked={() => setBooked(true)}
-        onBack={() => {
-          setPicked(null);
-          // A booked slot is gone from NeetoCal's list; refresh before showing the calendar again.
-          if (booked) {
-            setBooked(false);
-            setLoad({ status: "loading" });
-            setReload((n) => n + 1);
-          }
-        }}
-      />
+      <MeetingForm slot={picked} timeZone={tz} onBack={() => setPicked(null)} />
     );
   }
 
@@ -271,21 +254,22 @@ export default function ContactScheduler() {
 
 type Step = 0 | 1 | 2 | 3;
 
-/** The "Enter Details" card — the live page's four booking questions, one at a time. */
+/**
+ * The "Enter Details" card — the live page's four booking questions, one at a
+ * time. Once NeetoCal accepts the booking the reader is sent to `/thank-you`,
+ * as on the live page; NeetoCal emails the calendar invite itself.
+ */
 function MeetingForm({
   slot,
   timeZone,
-  booked,
-  onBooked,
   onBack,
 }: {
   slot: { date: string; time: string };
   timeZone: string;
-  booked: boolean;
-  onBooked: () => void;
   onBack: () => void;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [step, setStep] = useState<Step>(0);
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [website, setWebsite] = useState("");
@@ -365,8 +349,8 @@ function MeetingForm({
               : "Something went wrong. Please try again."),
         );
       }
-      setStatus("idle");
-      onBooked();
+      // Stays "sending" until the thank-you page replaces this one.
+      router.push(THANK_YOU_PATH);
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -392,117 +376,104 @@ function MeetingForm({
     <form ref={formRef} className={`${styles.channelCard} ${styles.formCard}`} onSubmit={onSubmit} noValidate>
       <CardHead icon={scheduleMeeting.icon} title={d.title} subtitle={when} />
 
-      {booked ? (
-        <div className={styles.stepBody}>
-          <p className={styles.formSuccess} role="status">
-            {scheduleMeeting.success}
+      <div className={styles.stepBody}>
+        <div className={styles.stepMeter} aria-hidden>
+          {questions.map((q, i) => (
+            <span key={q} className={i <= step ? styles.stepDotOn : styles.stepDot} />
+          ))}
+        </div>
+
+        <label className={styles.stepQuestion} htmlFor={fieldId}>
+          {questions[step]}
+        </label>
+
+        <div className={styles.stepField} ref={fieldRef}>
+          {step === 0 && (
+            <input
+              id={fieldId}
+              className={styles.textInput}
+              type="text"
+              autoComplete="name"
+              maxLength={NAME_MAX}
+              placeholder={s.name.placeholder}
+              value={form.name}
+              onChange={(e) => edit("name", e.target.value)}
+              aria-invalid={Boolean(fieldError)}
+              aria-describedby={describedBy}
+            />
+          )}
+          {step === 1 && (
+            <input
+              id={fieldId}
+              className={styles.textInput}
+              type="email"
+              autoComplete="email"
+              maxLength={EMAIL_MAX}
+              placeholder={s.email.placeholder}
+              value={form.email}
+              onChange={(e) => edit("email", e.target.value)}
+              aria-invalid={Boolean(fieldError)}
+              aria-describedby={describedBy}
+            />
+          )}
+          {step === 2 && (
+            <div className={styles.phoneWrap}>
+              <PhoneField
+                id={fieldId}
+                value={form.phone}
+                placeholder={s.phone.placeholder}
+                onChange={(phone) => edit("phone", phone)}
+                invalid={Boolean(fieldError)}
+                describedBy={describedBy}
+              />
+            </div>
+          )}
+          {step === 3 && (
+            <input
+              id={fieldId}
+              className={styles.textInput}
+              type="text"
+              maxLength={REQUIREMENT_MAX}
+              placeholder={d.messagePlaceholder}
+              value={form.message}
+              onChange={(e) => edit("message", e.target.value)}
+              aria-invalid={Boolean(fieldError)}
+              aria-describedby={describedBy}
+            />
+          )}
+        </div>
+
+        {fieldError && (
+          <p id="meeting-step-error" className={styles.fieldError} role="alert">
+            {fieldError}
           </p>
-          <div className={styles.stepActions}>
-            <button type="button" className={styles.stepBack} onClick={onBack}>
-              ‹ {contactForm.back}
-            </button>
-          </div>
+        )}
+        {status === "error" && error && (
+          <p className={styles.formError} role="alert">
+            {error}
+          </p>
+        )}
+
+        <input
+          className={styles.honeypot}
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+
+        <div className={styles.stepActions}>
+          <button type="button" className={styles.stepBack} onClick={back}>
+            ‹ {contactForm.back}
+          </button>
+          <button type="submit" className={styles.stepNext} disabled={status === "sending"}>
+            {step < 3 ? `${contactForm.next} ›` : status === "sending" ? contactForm.sending : contactForm.submit}
+          </button>
         </div>
-      ) : (
-        <div className={styles.stepBody}>
-          <div className={styles.stepMeter} aria-hidden>
-            {questions.map((q, i) => (
-              <span key={q} className={i <= step ? styles.stepDotOn : styles.stepDot} />
-            ))}
-          </div>
-
-          <label className={styles.stepQuestion} htmlFor={fieldId}>
-            {questions[step]}
-          </label>
-
-          <div className={styles.stepField} ref={fieldRef}>
-            {step === 0 && (
-              <input
-                id={fieldId}
-                className={styles.textInput}
-                type="text"
-                autoComplete="name"
-                maxLength={NAME_MAX}
-                placeholder={s.name.placeholder}
-                value={form.name}
-                onChange={(e) => edit("name", e.target.value)}
-                aria-invalid={Boolean(fieldError)}
-                aria-describedby={describedBy}
-              />
-            )}
-            {step === 1 && (
-              <input
-                id={fieldId}
-                className={styles.textInput}
-                type="email"
-                autoComplete="email"
-                maxLength={EMAIL_MAX}
-                placeholder={s.email.placeholder}
-                value={form.email}
-                onChange={(e) => edit("email", e.target.value)}
-                aria-invalid={Boolean(fieldError)}
-                aria-describedby={describedBy}
-              />
-            )}
-            {step === 2 && (
-              <div className={styles.phoneWrap}>
-                <PhoneField
-                  id={fieldId}
-                  value={form.phone}
-                  placeholder={s.phone.placeholder}
-                  onChange={(phone) => edit("phone", phone)}
-                  invalid={Boolean(fieldError)}
-                  describedBy={describedBy}
-                />
-              </div>
-            )}
-            {step === 3 && (
-              <input
-                id={fieldId}
-                className={styles.textInput}
-                type="text"
-                maxLength={REQUIREMENT_MAX}
-                placeholder={d.messagePlaceholder}
-                value={form.message}
-                onChange={(e) => edit("message", e.target.value)}
-                aria-invalid={Boolean(fieldError)}
-                aria-describedby={describedBy}
-              />
-            )}
-          </div>
-
-          {fieldError && (
-            <p id="meeting-step-error" className={styles.fieldError} role="alert">
-              {fieldError}
-            </p>
-          )}
-          {status === "error" && error && (
-            <p className={styles.formError} role="alert">
-              {error}
-            </p>
-          )}
-
-          <input
-            className={styles.honeypot}
-            type="text"
-            name="website"
-            tabIndex={-1}
-            autoComplete="off"
-            aria-hidden
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-          />
-
-          <div className={styles.stepActions}>
-            <button type="button" className={styles.stepBack} onClick={back}>
-              ‹ {contactForm.back}
-            </button>
-            <button type="submit" className={styles.stepNext} disabled={status === "sending"}>
-              {step < 3 ? `${contactForm.next} ›` : status === "sending" ? contactForm.sending : contactForm.submit}
-            </button>
-          </div>
-        </div>
-      )}
+      </div>
     </form>
   );
 }
