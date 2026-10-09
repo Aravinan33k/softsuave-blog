@@ -1,6 +1,7 @@
 // scripts/generate-home-images.mjs
 // Fills every image slot in content/images.manifest.json with a real Pexels photo.
 // - orientation + min-resolution filtering
+// - a slot may pin `pexelsId` to use a CHOSEN photo instead of searching
 // - fallback keyword tiers (broad -> broader -> generic on-brand)
 // - dedupe by Pexels photo id across ALL slots (no photo repeats site-wide)
 // - crops to exact slot dimensions with sharp, writes /public/images/<page>/<id>.webp
@@ -76,6 +77,40 @@ async function pexelsSearch(query, orientation) {
   return data;
 }
 
+/**
+ * Fetch one specific photo by id — the escape hatch from keyword roulette.
+ *
+ * A slot may pin `pexelsId` when the photo was CHOSEN rather than matched:
+ * the search tiers rank by orientation and resolution, which says nothing
+ * about whether a picture is any good. A pinned slot skips the search
+ * entirely, so a human decision cannot be silently overridden by a
+ * better-scoring match later.
+ */
+async function pexelsPhoto(id) {
+  ensureDir(CACHE_DIR);
+  const cacheFile = path.join(CACHE_DIR, `photo-${id}.json`);
+  if (fs.existsSync(cacheFile)) {
+    try {
+      return JSON.parse(fs.readFileSync(cacheFile, "utf8"));
+    } catch {
+      /* fall through to live fetch */
+    }
+  }
+  await sleep(THROTTLE_MS);
+  const res = await fetch(`https://api.pexels.com/v1/photos/${id}`, {
+    headers: { Authorization: API_KEY },
+  });
+  if (res.status === 429) {
+    throw new Error("Pexels rate limit hit (429). Wait and re-run; cached results are kept.");
+  }
+  if (!res.ok) {
+    throw new Error(`Pexels API error ${res.status} for pinned photo ${id}`);
+  }
+  const data = await res.json();
+  fs.writeFileSync(cacheFile, JSON.stringify(data));
+  return data;
+}
+
 function matchesOrientation(photo, orientation) {
   const r = photo.width / photo.height;
   if (orientation === "landscape") return r >= 1.2;
@@ -110,6 +145,27 @@ function pickPhoto(photos, entry, usedIds) {
   return pool[0];
 }
 
+/**
+ * The slot-sized crop of a downloaded photo. By default sharp's `attention`
+ * strategy picks the crop. A slot may set `focusX` (0–1) — the horizontal
+ * centre of the crop in the source — when that misses: cutting a portrait
+ * slot from a landscape photo, `attention` can settle on the background and
+ * leave the subject half out of frame (hire pages' "-tall" overview crops).
+ */
+async function cropToSlot(buf, entry) {
+  if (typeof entry.focusX !== "number") {
+    return sharp(buf).resize(entry.width, entry.height, { fit: "cover", position: "attention" });
+  }
+  const { width: sw, height: sh } = await sharp(buf).metadata();
+  const scale = Math.max(entry.width / sw, entry.height / sh);
+  const w = Math.round(sw * scale);
+  const h = Math.round(sh * scale);
+  const left = Math.min(Math.max(Math.round(entry.focusX * w - entry.width / 2), 0), w - entry.width);
+  const top = Math.round((h - entry.height) / 2);
+  const scaled = await sharp(buf).resize(w, h).toBuffer();
+  return sharp(scaled).extract({ left, top, width: entry.width, height: entry.height });
+}
+
 function bestSrc(photo, entry) {
   // Pick a Pexels-hosted size at least as large as the slot, else original.
   const s = photo.src || {};
@@ -141,7 +197,11 @@ async function makeBlur(buffer) {
 
 async function main() {
   const manifest = JSON.parse(fs.readFileSync(MANIFEST, "utf8"));
-  const entries = manifest.images.filter((e) => e.id && e.page);
+  // Pexels owns only the slots that claim no other source. A slot marked
+  // "gemini" belongs to generate-ai-images.mjs and "hand-placed" to neither —
+  // without this filter those slots read as permanently unfilled here, and the
+  // run would fail on images that are in fact already present.
+  const entries = manifest.images.filter((e) => e.id && e.page && !e.source);
 
   // Load prior generated results so we keep dedupe stable and skip existing files.
   let generated = {};
@@ -171,10 +231,10 @@ async function main() {
   if (!API_KEY) {
     console.error(
       `\n[images] ERROR: ${pending.length} image slot(s) are missing and PEXELS_API_KEY is not set.\n` +
-        "Set PEXELS_API_KEY (see .env.example) locally or in your host's env, then re-run.\n" +
-        "Missing: " +
-        pending.map((e) => `${e.page}/${e.id}`).join(", ") +
-        "\n"
+      "Set PEXELS_API_KEY (see .env.example) locally or in your host's env, then re-run.\n" +
+      "Missing: " +
+      pending.map((e) => `${e.page}/${e.id}`).join(", ") +
+      "\n"
     );
     process.exit(1);
   }
@@ -204,7 +264,18 @@ async function main() {
     ensureDir(outPageDir);
 
     let chosen = null;
-    for (const tier of entry.keywords) {
+
+    // A pinned photo was chosen on purpose; it wins over any search.
+    if (entry.pexelsId) {
+      try {
+        const photo = await pexelsPhoto(entry.pexelsId);
+        if (photo?.id) chosen = { photo, tier: `pinned:${entry.pexelsId}` };
+      } catch (e) {
+        log(`  ! pinned photo ${entry.pexelsId} failed: ${e.message}`);
+      }
+    }
+
+    for (const tier of chosen ? [] : entry.keywords || []) {
       let data;
       try {
         data = await pexelsSearch(tier, entry.orientation);
@@ -227,10 +298,7 @@ async function main() {
 
     try {
       const buf = await downloadBuffer(bestSrc(chosen.photo, entry));
-      await sharp(buf)
-        .resize(entry.width, entry.height, { fit: "cover", position: "attention" })
-        .webp({ quality: 82 })
-        .toFile(outFile);
+      await (await cropToSlot(buf, entry)).webp({ quality: 82 }).toFile(outFile);
       const blurDataURL = await makeBlur(buf);
 
       usedIds.add(chosen.photo.id);
@@ -266,7 +334,8 @@ async function main() {
   if (unfilled.length) {
     console.error("\n[images] FAILED — the following slots could not be filled (fix keywords and re-run):");
     for (const e of unfilled) {
-      console.error(`  - ${e.page}/${e.id}  [${e.orientation} ${e.width}x${e.height}]  keywords: ${JSON.stringify(e.keywords)}`);
+      const how = e.pexelsId ? `pinned pexels#${e.pexelsId}` : `keywords: ${JSON.stringify(e.keywords || [])}`;
+      console.error(`  - ${e.page}/${e.id}  [${e.orientation} ${e.width}x${e.height}]  ${how}`);
     }
     console.error("\nNo placeholders were written. Re-run `npm run images:home` after adjusting keywords.\n");
     process.exit(1);

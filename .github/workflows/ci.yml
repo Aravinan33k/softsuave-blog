@@ -18,11 +18,14 @@ jobs:
       - run: npx prisma generate
       - run: npm run typecheck
       - run: npm run lint
+      - run: npm test
       - run: npm run build
         env:
-          # Build-time env (no real DB needed for `next build`). Provide dummy
-          # secrets so env validation passes.
-          DATABASE_URL: postgresql://user:pass@localhost:5432/db?schema=public
+          # Build-time env (no real DB needed for `next build` — the public query
+          # helpers fall back to empty results, see lib/public/queries.ts `safe`).
+          # Must be a mysql:// URL: env.ts rejects any other scheme.
+          # Dummy secrets satisfy env validation (16-char minimum).
+          DATABASE_URL: mysql://user:pass@localhost:3306/db
           JWT_ACCESS_SECRET: ci-access-secret-placeholder-0000000000000000
           JWT_REFRESH_SECRET: ci-refresh-secret-placeholder-000000000000000
           PREVIEW_SECRET: ci-preview-secret-placeholder-0000000000000000

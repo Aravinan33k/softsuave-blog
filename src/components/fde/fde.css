@@ -1,0 +1,164 @@
+/* ---------------------------------------------------------------
+   Forward Deployed Engineers page (`/hire-forward-deployed-engineer`)
+
+   The page was built as its own app with its own globals.css. Its design
+   tokens share names with this app's (`--primary`, `--muted`, `--border`,
+   `--background`…) but not values, so everything here is scoped to the
+   page's `.fde` wrapper — the same approach `#admin-shell` takes in
+   globals.css — and no other page is touched.
+
+   Two layers of tokens:
+   - `--fde-*` raw HSL channels, the original values, which the components'
+     arbitrary classes compose with alpha: `hsl(var(--fde-primary)/0.35)`.
+   - The shared names this app's Tailwind theme reads (`bg-primary` is
+     `var(--primary)`), re-pointed inside `.fde` at full colours built from
+     those channels. The page's extra names (`ink`, `primary-glow`, `surface`,
+     `font-display`…) are added to the theme in globals.css and read the
+     `--fde-*` values directly.
+---------------------------------------------------------------- */
+.fde {
+  --fde-background: 0 0% 100%;
+  --fde-foreground: 220 15% 8%;
+
+  --fde-primary: 344.5 100% 50%;
+  --fde-primary-glow: 338 100% 64%;
+  --fde-primary-deep: 348 100% 38%;
+  --fde-primary-foreground: 0 0% 100%;
+
+  --fde-muted: 220 14% 96%;
+  --fde-muted-foreground: 220 9% 46%;
+
+  /* Brand text gradient (see `.text-gradient`). */
+  --fde-gradient-from: #ff1640;
+  --fde-gradient-to: #ff6c3a;
+
+  --fde-danger: 0 84% 60%;
+  --fde-danger-soft: 0 91% 71%;
+
+  /* Off-white section ground, distinct from the pure-white cards on it. */
+  --fde-surface: #fafafb;
+
+  /* Dark ("ink") section palette, for sections that invert the page. */
+  --fde-ink: 220 15% 7.8%;
+  --fde-ink-card: 344 9% 7%;
+  --fde-ink-card-raised: 344 12% 9%;
+  --fde-ink-border: 344 8% 16%;
+  --fde-ink-foreground: 0 0% 100%;
+  --fde-ink-muted: 220 9% 68%;
+
+  --fde-border: 220 13% 91%;
+  --fde-ring: 344.5 100% 50%;
+
+  --fde-radius: 0.75rem;
+
+  /* This app's theme names, inside the page only. */
+  --background: hsl(var(--fde-background));
+  --foreground: hsl(var(--fde-foreground));
+  --primary: hsl(var(--fde-primary));
+  --primary-foreground: hsl(var(--fde-primary-foreground));
+  --muted: hsl(var(--fde-muted));
+  --muted-foreground: hsl(var(--fde-muted-foreground));
+  --border: hsl(var(--fde-border));
+  --ring: hsl(var(--fde-ring));
+
+  background-color: hsl(var(--fde-background));
+  color: hsl(var(--fde-foreground));
+  font-family: var(--fde-font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fde ::selection {
+  background-color: hsl(var(--fde-primary) / 0.18);
+}
+
+.fde :focus-visible {
+  outline: 2px solid hsl(var(--fde-ring));
+  outline-offset: 2px;
+}
+
+/**
+ * Gradient text. Apply as its own class — never by overriding `.text-primary`,
+ * which is also used on SVG icons that paint with `stroke="currentColor"`
+ * (a transparent `currentColor` makes those icons silently vanish).
+ */
+.fde .text-gradient {
+  background-image: linear-gradient(90deg, var(--fde-gradient-from), var(--fde-gradient-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  /* Grow the painted box, then pull the layout back so nothing shifts. */
+  display: inline-block;
+  padding: 0.08em 0.12em 0.16em 0.02em;
+  margin: -0.08em -0.12em -0.16em -0.02em;
+  /* Keeps the gradient intact if the text wraps a line. */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+@keyframes fde-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fde-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Each reel carries a trailing gap, so the track is exactly 2 reels wide. */
+@keyframes fde-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fde *,
+  .fde *::before,
+  .fde *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* `font-mono` in this app's theme is a system stack; the page used JetBrains
+   Mono, which the marketing layout already loads. */
+.fde .font-mono {
+  font-family: var(--font-jbmono), ui-monospace, SFMono-Regular, monospace;
+}
+
+/* The site's header is fixed (out of flow) and 77px tall at the top of the
+   page (20px padding around the logo row, see `.nav` in home.module.css);
+   the page's own build had an in-flow header. Clear it so the hero's content
+   starts where it did — as padding INSIDE the hero, not above it, so the
+   hero's own wash runs up behind the header. Padding on the page wrapper left
+   a flat white strip there, which showed while the header slides in on load. */
+.fde > section:first-child {
+  padding-top: 77px;
+}
+
+/* home.css resets every link in the marketing group to `color: inherit;
+   text-decoration: none` with an UNLAYERED rule, which outranks Tailwind's
+   layered utilities whatever their specificity — so a coloured link here
+   (the white-on-coral "Talk to us") rendered in body ink. Hand both
+   properties back to the layers inside this page. */
+.fde a {
+  color: revert-layer;
+  text-decoration: revert-layer;
+}

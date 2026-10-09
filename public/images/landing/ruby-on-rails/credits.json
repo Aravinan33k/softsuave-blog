@@ -1,0 +1,56 @@
+[
+  {
+    "file": "/images/landing/ruby-on-rails/hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "Ruby on Rails source code on a developer's screen",
+    "pexelsId": "374559",
+    "source": "https://www.pexels.com/photo/374559/",
+    "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADQAQCdASoQAAkAA4BaJQBOgB0+cYhsAAD+TuLXeh27y7mxBzB2D1/ybGYgq/+clN9LVudbUiAAAA=="
+  },
+  {
+    "file": "/images/landing/ruby-on-rails/overview.webp",
+    "width": 1400,
+    "height": 1050,
+    "alt": "A team collaborating around a laptop in a modern office",
+    "pexelsId": "32866724",
+    "source": "https://www.pexels.com/photo/32866724/",
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAwAgCdASoQAAwAA4BaJQBdgB9x/jrtFqsZ4AD82L3Ui1LQ01nE3zESMze36bNVz7wGg+I1sTLGpMHDxrxMt/wV6QBpmHtmeUw5ZLUJH9H5Bb4X8bAkJa6b50XDWTIneDLO3atwAAA="
+  },
+  {
+    "file": "/images/landing/ruby-on-rails/svc-application.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Two developers collaborating on an application build across their monitors",
+    "pexelsId": "7988116",
+    "source": "https://www.pexels.com/photo/7988116/",
+    "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAAAQAgCdASoQAAwAA4BaJZQAD4oukbnyqBOwAP4K0p4GQ0zAM0HadNBn10a2codhQic21DmX6jr2mTf5nRddq8JP028GSYo1gy/9gwUwP71sviwKdasAGqJAYlwFwq8uhFcw5KN5+rVZMPfBoAuSnICoABSoABgQAAA="
+  },
+  {
+    "file": "/images/landing/ruby-on-rails/svc-migration.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "An engineer connecting network cabling, the kind of integration work behind a migration",
+    "pexelsId": "442150",
+    "source": "https://www.pexels.com/photo/442150/",
+    "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAABQAgCdASoQAAwAA4BaJYgC7AYtpLCoEqT96gAA/oksRYlt4HWW/BN2qE1t8jZS+icgeDJNlgjX8yxIMz9keOL8zYmzQHAooQLYqL18BAHKGKf3AUTFZ3BTH/JRhcLlpp2MVKCzNn0EzmuekNLIXE4AAAA="
+  },
+  {
+    "file": "/images/landing/ruby-on-rails/svc-team.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A dedicated team of developers collaborating on a project together",
+    "pexelsId": "12902857",
+    "source": "https://www.pexels.com/photo/12902857/",
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQAgCdASoQAAwAA4BaJZQAD5CMVQyOpVeAAP7YG3oxkhY3pvknH9/iguAC/jFP21+PLnx2Eq9huDUaD7WfJIL+P7cYvTIaxNN/qyVrQpp7D2QOy8FEceVeJY3Z8cCfsIVAzPZAAAA="
+  },
+  {
+    "file": "/images/landing/ruby-on-rails/svc-support.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A support engineer on a headset helping a client in a modern office",
+    "pexelsId": "7709268",
+    "source": "https://www.pexels.com/photo/7709268/",
+    "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAQAgCdASoQAAwAA4BaJZQCdAEa2wPsr+AAAP7nV2zZqGr8Ke4RuGd7eYi7SgLzjGRwoYJt50xuapGloYJHZEpDgR0ijA2txOAAAA=="
+  }
+]

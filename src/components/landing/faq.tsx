@@ -1,0 +1,177 @@
+"use client";
+
+import { Fragment, useState } from "react";
+import FadeUp from "@/components/home/fade-up";
+import SectionHead from "./section-head";
+import { linkify, type InlineLink } from "@/components/common/linkify";
+import { SiteLink } from "@/themes/softsuave/site-link";
+import styles from "./landing.module.css";
+
+export interface FaqAnswerLink {
+  readonly label: string;
+  readonly href: string;
+  /** Trailing prose after the link, when the sentence continues past it. */
+  readonly tail?: string;
+}
+
+export interface FaqItem {
+  readonly q: string;
+  /** One string, or several for a multi-paragraph answer. */
+  readonly a: string | readonly string[];
+  /**
+   * A bulleted list inside the answer, for copy that introduces one and then
+   * enumerates. It renders after the FIRST paragraph, because the line that
+   * opens such an answer is always the one introducing the list; any further
+   * paragraphs follow underneath as the closing remark.
+   */
+  readonly points?: readonly string[];
+  /**
+   * Which paragraph (0-based) the list follows, for an answer that runs two
+   * lines of introduction before it ("…you can get in touch with us." / "You
+   * should also check the below factors:"). Defaults to 0. An answer that is
+   * nothing but the list passes an empty `a`.
+   */
+  readonly pointsAfter?: number;
+  /** Closes the last paragraph with a link, for answers that point somewhere. */
+  readonly link?: FaqAnswerLink;
+}
+
+export interface FaqContent {
+  eyebrow: string;
+  title: string;
+  body: string;
+  /**
+   * Internal links to weave into the answers, matched on their own words —
+   * see `components/common/linkify`. `FaqItem.link` appends a link after the
+   * last paragraph, which is the right shape for "read more"; this is for a
+   * phrase the answer already contains, which is what the live pages link
+   * (review: "highlight the text and add the link in 3rd FAQ answer").
+   */
+  links?: readonly InlineLink[];
+  items: readonly FaqItem[];
+}
+
+/**
+ * FAQ accordion.
+ *
+ * Open/close animates a wrapper's `grid-template-rows: 0fr → 1fr`, which needs
+ * no height measurement. The control is this surface's own squared +/− box at
+ * question-appropriate sans type, not the homepage industry list's giant serif
+ * row with a bare glyph.
+ *
+ * Accessibility: each question is a real `<button>` inside its heading, with
+ * `aria-expanded` and `aria-controls`, so it is reachable and operable by
+ * keyboard (Enter/Space) for free. A collapsed panel is taken out of the
+ * accessibility tree with `visibility: hidden` rather than `display: none`,
+ * which keeps it hidden from screen readers while still allowing the transition
+ * to animate. The first item starts open so the section never reads as an empty
+ * list.
+ *
+ * `idPrefix` namespaces the trigger/panel ids so two accordions could coexist.
+ */
+export default function Faq({
+  content,
+  idPrefix = "faq",
+}: {
+  content: FaqContent;
+  idPrefix?: string;
+}) {
+  const [open, setOpen] = useState<number | null>(0);
+  /** One set for the whole accordion: a phrase is linked in its first answer. */
+  const usedLinks = new Set<string>();
+
+  return (
+    <section className={styles.sectionShell} id="faq">
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+
+      <FadeUp>
+        <div className={styles.faqList}>
+          {content.items.map((item, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={item.q} className={styles.faqItem}>
+                <h3>
+                  <button
+                    type="button"
+                    className={styles.faqTrigger}
+                    aria-expanded={isOpen}
+                    aria-controls={`${idPrefix}-panel-${i}`}
+                    id={`${idPrefix}-trigger-${i}`}
+                    onClick={() => setOpen(isOpen ? null : i)}
+                  >
+                    <span className={styles.faqQuestion}>{item.q}</span>
+                    <span className={styles.faqIcon} aria-hidden />
+                  </button>
+                </h3>
+
+                <div className={styles.faqPanelWrap} data-open={isOpen}>
+                  <div
+                    className={styles.faqPanel}
+                    id={`${idPrefix}-panel-${i}`}
+                    role="region"
+                    aria-labelledby={`${idPrefix}-trigger-${i}`}
+                  >
+                    {/* An answer that is only a list has no paragraph to hang it from. */}
+                    {(typeof item.a === "string" ? [item.a] : item.a).length === 0 &&
+                      item.points &&
+                      item.points.length > 0 && (
+                        <ul className={styles.tickList}>
+                          {item.points.map((point) => (
+                            <li key={point} className={styles.tickItem}>
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    {(typeof item.a === "string" ? [item.a] : item.a).map((para, pi, all) => (
+                      <Fragment key={pi}>
+                        <p className={styles.faqAnswer}>
+                          {linkify(para, content.links, usedLinks, styles.faqAnswerLink)}
+                          {pi === all.length - 1 && item.link ? (
+                            <>
+                              {" "}
+                              {/* A page of ours opens in place (SiteLink routes
+                                  it in-app, or out to softsuave.com if we do
+                                  not serve it); only a full URL to another
+                                  site opens a new tab. */}
+                              {/^https?:\/\//.test(item.link.href) ? (
+                                <a
+                                  className={styles.faqAnswerLink}
+                                  href={item.link.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {item.link.label}
+                                </a>
+                              ) : (
+                                <SiteLink className={styles.faqAnswerLink} href={item.link.href}>
+                                  {item.link.label}
+                                </SiteLink>
+                              )}
+                              {item.link.tail ? ` ${item.link.tail}` : "."}
+                            </>
+                          ) : null}
+                        </p>
+                        {/* Slots in after the line that introduces the list —
+                            the opening one unless `pointsAfter` says otherwise. */}
+                        {pi === (item.pointsAfter ?? 0) && item.points && item.points.length > 0 && (
+                          <ul className={styles.tickList}>
+                            {item.points.map((point) => (
+                              <li key={point} className={styles.tickItem}>
+                                {point}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </Fragment>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </FadeUp>
+    </section>
+  );
+}

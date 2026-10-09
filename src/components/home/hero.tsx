@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { hero } from "@/lib/home/content";
+import { publicMediaUrl } from "@/lib/media-url";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
-import Magnetic from "./magnetic";
 import styles from "./home.module.css";
 
 /**
@@ -49,7 +50,6 @@ export default function Hero() {
       // Load reveal (hands off from preloader).
       const tl = gsap.timeline({ delay: startDelay });
       tl.from(frame.current, { opacity: 0, duration: 1.4, ease: "power2.out" })
-        .from(`.${styles.heroEyebrow}`, { opacity: 0, y: 16, duration: 0.7, ease: "power2.out" }, 0.2)
         .from(
           lines,
           { yPercent: 118, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.08 },
@@ -100,33 +100,37 @@ export default function Hero() {
             preload="metadata"
             onLoadedData={() => ScrollTrigger.refresh()}
           >
-            <source src="/videos/intro.webm" type="video/webm" />
-            <source src="/videos/intro.mp4" type="video/mp4" />
+            <source src={publicMediaUrl("/videos/intro.webm")} type="video/webm" />
+            <source src={publicMediaUrl("/videos/intro.mp4")} type="video/mp4" />
           </video>
         )}
         <div ref={veil} className={styles.videoHeroVeil} />
       </div>
 
       <div ref={content} className={styles.heroContent}>
-        <span className={styles.heroEyebrow}>✦ From idea to outcome.</span>
-
         <h1 className={styles.heroTitle}>
           <span className={styles.heroLine}>
             <span className={styles.heroLineInner}>Empowering businesses</span>
-          </span>
+          </span>{" "}
+          {/* The spaces between lines are for anything reading the text rather
+              than the layout — crawlers, SEO audits — which otherwise got
+              "businesseswith". Each line is a block, so they render as nothing. */}
           <span className={styles.heroLine}>
             <span className={styles.heroLineInner}>
               with{" "}
+              {/* The visible words are drawn from `data-word` by CSS, so they are
+                  not document text: aria-hidden hides them from screen readers
+                  but not from textContent, and crawlers read the H1 as
+                  "ScalableIntelligentScalable, Intelligent". The sr-only line
+                  below is now the H1's one copy of them. */}
               <span className={styles.rotWrap} aria-hidden>
                 {hero.rotatingWords.map((w) => (
-                  <span key={w} className={styles.rotWord}>
-                    {w}
-                  </span>
+                  <span key={w} className={styles.rotWord} data-word={w} />
                 ))}
               </span>
               <span className={styles.srOnly}>{hero.rotatingWords.join(", ")}</span>
             </span>
-          </span>
+          </span>{" "}
           <span className={styles.heroLine}>
             <span className={styles.heroLineInner}>
               <em className={styles.heroItalic}>AI</em>, Automation &amp; Integrations
@@ -137,16 +141,15 @@ export default function Hero() {
         <p className={styles.heroSub}>{hero.subtitle}</p>
 
         <div className={styles.heroCtaRow}>
-          <Magnetic>
-            <a href={hero.primaryCta.href} className={styles.pillFilled} data-cursor="Book">
-              {hero.primaryCta.label}
-            </a>
-          </Magnetic>
-          <Magnetic>
-            <a href={hero.secondaryCta.href} className={styles.pill} data-cursor="Explore">
-              {hero.secondaryCta.label}
-            </a>
-          </Magnetic>
+          <Link href={hero.primaryCta.href} className={styles.pillFilled} data-cursor="Book">
+            {hero.primaryCta.label}
+          </Link>
+          {/* A real route now (see `hero.secondaryCta`), so it goes through
+              next/link and picks up `basePath` — a plain <a> would resolve
+              outside the /blog mount in production. */}
+          <Link href={hero.secondaryCta.href} className={styles.pill} data-cursor="Explore">
+            {hero.secondaryCta.label}
+          </Link>
         </div>
       </div>
 

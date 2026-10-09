@@ -1,0 +1,34 @@
+{
+  "broken": [
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Privacy Policy",
+      "href": "/privacy-policy",
+      "clean": "/privacy-policy"
+    },
+    {
+      "file": "src/lib/home/xamarin-app-content.ts",
+      "label": "Hire Xamarin Developer",
+      "href": "/hire-xamarin-developer",
+      "clean": "/hire-xamarin-developer"
+    }
+  ],
+  "mismatch": [
+    {
+      "file": "src/lib/home/faqs-content.ts",
+      "label": "Hire developers",
+      "href": "/hire-dedicated-developers",
+      "want": "/hire-android-developers"
+    }
+  ],
+  "anchorNamesPage": [],
+  "counts": {
+    "total": 361,
+    "ok": 268,
+    "broken": 2,
+    "mismatch": 1,
+    "anchors": 74,
+    "anchorNamesPage": 0,
+    "external": 16
+  }
+}
