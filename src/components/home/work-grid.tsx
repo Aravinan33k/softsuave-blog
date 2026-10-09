@@ -103,6 +103,18 @@ const HOMEPAGE_WORK: WorkCarouselContent = {
 };
 
 /**
+ * The lane `scrollLeft` that frames `el` as snapping does: its left edge at
+ * the lane's `scroll-padding-left` (the track's own left padding — see
+ * `.hLane`), not flush with the lane's edge. Measuring to the bare edge sent
+ * the arrows and drag a padding's width past the snap point, and native snap
+ * then jerked the lane back once the tween ended.
+ */
+function snapLeftOf(lane: HTMLElement, el: HTMLElement) {
+  const pad = parseFloat(getComputedStyle(lane).scrollPaddingLeft) || 0;
+  return el.getBoundingClientRect().left - lane.getBoundingClientRect().left + lane.scrollLeft - pad;
+}
+
+/**
  * Selected work — a horizontal scroll-snap gallery. On desktop the lane is a
  * native `overflow-x` scroller (drag/swipe/trackpad/shift-wheel all just
  * work) with a snap point per tile, plus explicit arrow buttons and a thin
@@ -173,14 +185,11 @@ export default function WorkGrid({
     const snapChildren = lane.querySelectorAll<HTMLElement>(
       `.${styles.hTile}, .${styles.hOutro}`,
     );
-    const laneRect = lane.getBoundingClientRect();
     let closestIndex = 0;
     let minDist = Infinity;
 
     snapChildren.forEach((el, index) => {
-      const elRect = el.getBoundingClientRect();
-      const elScrollLeft = elRect.left - laneRect.left + lane.scrollLeft;
-      const dist = Math.abs(lane.scrollLeft - elScrollLeft);
+      const dist = Math.abs(lane.scrollLeft - snapLeftOf(lane, el));
       if (dist < minDist) {
         minDist = dist;
         closestIndex = index;
@@ -191,9 +200,7 @@ export default function WorkGrid({
     if (targetIndex < 0) targetIndex = 0;
     if (targetIndex >= snapChildren.length) targetIndex = snapChildren.length - 1;
 
-    const targetEl = snapChildren[targetIndex] as HTMLElement;
-    const targetElRect = targetEl.getBoundingClientRect();
-    const targetScrollLeft = targetElRect.left - laneRect.left + lane.scrollLeft;
+    const targetScrollLeft = snapLeftOf(lane, snapChildren[targetIndex] as HTMLElement);
 
     const maxScroll = lane.scrollWidth - lane.clientWidth;
     const finalScrollLeft = Math.max(0, Math.min(targetScrollLeft, maxScroll));
@@ -291,13 +298,11 @@ export default function WorkGrid({
       const snapChildren = lane.querySelectorAll<HTMLElement>(
         `.${styles.hTile}, .${styles.hOutro}`,
       );
-      const laneRect = lane.getBoundingClientRect();
       let closestLeft = 0;
       let minDist = Infinity;
 
       snapChildren.forEach((el) => {
-        const elRect = el.getBoundingClientRect();
-        const elScrollLeft = elRect.left - laneRect.left + lane.scrollLeft;
+        const elScrollLeft = snapLeftOf(lane, el);
         const dist = Math.abs(targetScrollLeft - elScrollLeft);
         if (dist < minDist) {
           minDist = dist;

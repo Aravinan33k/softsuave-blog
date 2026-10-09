@@ -3575,6 +3575,24 @@ h1.h2 {
     cursor: grab;
     user-select: none;
     touch-action: pan-y;
+
+    /* WHOLE CARDS + ONE PREVIEW (BUG-017). Tiles used to be `32vw` wide
+       whatever space the lane had, so beside the intro column the row summed
+       to ~105vw below 1350px: the second card ran past the viewport edge and
+       its metric and summary stopped mid-word (at 1920px the third did).
+       The lane is now a size container and the tiles divide ITS width:
+       `--lane-cols` whole cards, then a `--lane-peek` strip of the next one,
+       faded by the mask so it reads as a preview rather than a cut-off. */
+    container-type: inline-size;
+    --lane-pad: clamp(24px, 3vw, 60px);
+    --lane-gap: clamp(32px, 4vw, 84px);
+    --lane-peek: clamp(40px, 4.5vw, 80px);
+    /* Snap (and the arrows, and drag — see work-grid.tsx) put a card at the
+       track's own left padding, so every position frames the same way: no
+       sliver of the previous card at the left, the preview at the right. */
+    scroll-padding-left: var(--lane-pad);
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - var(--lane-peek)), transparent);
+    mask-image: linear-gradient(90deg, #000 calc(100% - var(--lane-peek)), transparent);
   }
   .hLane::-webkit-scrollbar {
     display: none;
@@ -3588,20 +3606,46 @@ h1.h2 {
   }
 
   .hTrack {
+    /* Whole cards in view, by the lane's own width — a card stays at least
+       ~280px wide, so the title and its metric still share a row. */
+    --lane-cols: 1;
+    /* pad + cols × (card + gap) + peek = the lane's width, exactly. */
+    --lane-card: calc(
+      (100cqi - var(--lane-pad) - var(--lane-cols) * var(--lane-gap) - var(--lane-peek)) /
+        var(--lane-cols)
+    );
     width: max-content;
     display: flex;
     flex-wrap: nowrap;
     grid-template-columns: none;
-    gap: clamp(32px, 4vw, 84px);
+    gap: var(--lane-gap);
     /* tops line up so a longer summary just runs further down its own tile */
     align-items: flex-start;
-    padding: 0 12vw 0 clamp(24px, 3vw, 60px);
+    /* The end padding is one gap + the preview strip, so the lane's last
+       scroll position is itself a snap point: it frames the final cards
+       whole, where the old 12vw left the card before them cut at the left. */
+    padding: 0 calc(var(--lane-gap) + var(--lane-peek)) 0 var(--lane-pad);
     user-select: none;
+  }
+  @container (min-width: 740px) {
+    .hTrack {
+      --lane-cols: 2;
+    }
+  }
+  @container (min-width: 1180px) {
+    .hTrack {
+      --lane-cols: 3;
+    }
+  }
+  @container (min-width: 1900px) {
+    .hTrack {
+      --lane-cols: 4;
+    }
   }
 
   .hTile {
     flex: 0 0 auto;
-    width: clamp(300px, 32vw, 440px);
+    width: var(--lane-card);
     scroll-snap-align: start;
     user-select: none;
   }
@@ -3621,7 +3665,9 @@ h1.h2 {
 
   .hOutro {
     flex: 0 0 auto;
-    width: min(34vw, 460px);
+    /* One card wide, so it takes a card's slot in the last frame (see the
+       track's end padding) instead of leaving a fraction of one. */
+    width: var(--lane-card);
     /* the closing panel is short — keep it centred against the tile tops */
     align-self: center;
     scroll-snap-align: start;
