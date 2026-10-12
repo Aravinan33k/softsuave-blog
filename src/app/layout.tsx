@@ -11,16 +11,24 @@ import "./globals.css";
 // without a single glyph rendering from either.
 
 // Soft Suave brand fonts: headings = Lato, body = PT Serif.
+//
+// `preload: false` (BUG-026): this layout wraps the marketing pages too, so
+// its preloads went out on every one of them — five font files the marketing
+// surface never draws (it sets its own three in `(marketing)/layout.tsx`),
+// competing with the render-blocking CSS on a phone connection. Unpreloaded,
+// each still downloads the moment a page actually renders text in it.
 const lato = Lato({
   weight: ["400", "700", "900"],
   subsets: ["latin"],
   variable: "--font-lato",
+  preload: false,
 });
 
 const ptSerif = PT_Serif({
   weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-pt-serif",
+  preload: false,
 });
 
 export const metadata: Metadata = {

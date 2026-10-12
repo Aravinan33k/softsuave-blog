@@ -4,6 +4,42 @@ import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 import SplitType from "split-type";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 
+/*
+ * `--fit-width` measuring, batched across every heading on the page
+ * (BUG-026). Each heading used to measure itself in its own frame callback:
+ * clear the property (a style write), then read its line boxes — a forced
+ * layout of the whole page per heading, eleven of them back to back while
+ * the homepage loads. Here all the clears go first, then all the reads (one
+ * layout), then all the writes.
+ */
+const fitQueue = new Set<HTMLElement>();
+let fitFrame = 0;
+
+function fitWidthOf(el: HTMLElement): number {
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  const left = el.getBoundingClientRect().left;
+  let right = left;
+  for (const rect of range.getClientRects()) right = Math.max(right, rect.right);
+  return right > left ? Math.ceil(right - left) + 1 : 0;
+}
+
+function flushFit() {
+  fitFrame = 0;
+  const els = [...fitQueue].filter((el) => el.isConnected);
+  fitQueue.clear();
+  for (const el of els) el.style.removeProperty("--fit-width");
+  const widths = els.map(fitWidthOf);
+  els.forEach((el, i) => {
+    if (widths[i]) el.style.setProperty("--fit-width", `${widths[i]}px`);
+  });
+}
+
+function scheduleFit(el: HTMLElement) {
+  fitQueue.add(el);
+  if (!fitFrame) fitFrame = requestAnimationFrame(flushFit);
+}
+
 type Props = {
   children: ReactNode;
   as?: ElementType;
@@ -58,66 +94,79 @@ export default function SplitReveal({
   useEffect(() => {
     const el = ref.current;
     if (!el || typeof ResizeObserver === "undefined") return;
-    let frame = 0;
-    const measure = () => {
-      el.style.removeProperty("--fit-width");
-      const range = document.createRange();
-      range.selectNodeContents(el);
-      const left = el.getBoundingClientRect().left;
-      let right = left;
-      for (const rect of range.getClientRects()) right = Math.max(right, rect.right);
-      if (right > left) el.style.setProperty("--fit-width", `${Math.ceil(right - left) + 1}px`);
-    };
-    const schedule = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(measure);
-    };
+    const schedule = () => scheduleFit(el);
     const observer = new ResizeObserver(schedule);
     observer.observe(document.documentElement);
     document.fonts?.ready.then(schedule);
     return () => {
       observer.disconnect();
-      cancelAnimationFrame(frame);
+      fitQueue.delete(el);
     };
   }, []);
 
   useGSAP(
-    () => {
-      if (prefersReducedMotion() || !ref.current) return;
-      const split = new SplitType(ref.current, {
-        types: type === "chars" ? "lines,chars" : "lines,words",
-      });
+    (_context, contextSafe) => {
+      const el = ref.current;
+      if (prefersReducedMotion() || !el) return;
+      let split: SplitType | null = null;
 
-      // SplitType puts each visual line in its own block and drops the space
-      // at every wrap, so anything reading the text — crawlers, SEO audits —
-      // got "Builtfor", "AllSizes". A space between block lines renders as
-      // nothing; `revert()` restores the original markup, spaces and all.
-      split.lines?.slice(0, -1).forEach((line) => line.after(" "));
-      const targets = (type === "chars" ? split.chars : split.words) ?? [];
-      if (!targets.length) return;
+      const arm = () => {
+        split = new SplitType(el, {
+          types: type === "chars" ? "lines,chars" : "lines,words",
+        });
 
-      // Each line is a clip-path/overflow mask; pieces rise from below with a
-      // slight rotation + fade for a bolder, clearly-in-view reveal.
-      gsap.set(split.lines, {
-        overflow: "hidden",
-        clipPath: "inset(-10% 0% -35% 0%)",
-        paddingBottom: "0.28em",
-        marginBottom: "-0.28em",
-      });
-      gsap.set(targets, { yPercent: 110, rotate: 0.001, opacity: 0 });
-      gsap.to(targets, {
-        yPercent: 0,
-        opacity: 1,
-        duration,
-        ease,
-        stagger,
-        delay,
-        scrollTrigger: scrub
-          ? { trigger: ref.current, start, end, scrub: 0.8 }
-          : { trigger: ref.current, start, once: true },
-      });
+        // SplitType puts each visual line in its own block and drops the space
+        // at every wrap, so anything reading the text — crawlers, SEO audits —
+        // got "Builtfor", "AllSizes". A space between block lines renders as
+        // nothing; `revert()` restores the original markup, spaces and all.
+        split.lines?.slice(0, -1).forEach((line) => line.after(" "));
+        const targets = (type === "chars" ? split.chars : split.words) ?? [];
+        if (!targets.length) return;
 
-      return () => split.revert();
+        // Each line is a clip-path/overflow mask; pieces rise from below with a
+        // slight rotation + fade for a bolder, clearly-in-view reveal.
+        gsap.set(split.lines, {
+          overflow: "hidden",
+          clipPath: "inset(-10% 0% -35% 0%)",
+          paddingBottom: "0.28em",
+          marginBottom: "-0.28em",
+        });
+        gsap.set(targets, { yPercent: 110, rotate: 0.001, opacity: 0 });
+        gsap.to(targets, {
+          yPercent: 0,
+          opacity: 1,
+          duration,
+          ease,
+          stagger,
+          delay,
+          scrollTrigger: scrub
+            ? { trigger: el, start, end, scrub: 0.8 }
+            : { trigger: el, start, once: true },
+        });
+      };
+
+      // Split and arm only when the heading is about to scroll into view
+      // (BUG-026). Doing it for every heading at hydration — a split, a style
+      // read per word, a ScrollTrigger each — was the largest share of the
+      // homepage's main-thread work while it loaded, almost all of it for
+      // headings screens below the fold. The 30% look-ahead hides the words
+      // before the heading is on screen, so the reveal looks as it did.
+      // `contextSafe` records what `arm` creates, so cleanup still reverts it.
+      const armSafe = contextSafe ? contextSafe(arm) : arm;
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((e) => e.isIntersecting)) return;
+          io.disconnect();
+          armSafe();
+        },
+        { rootMargin: "0px 0px 30% 0px" },
+      );
+      io.observe(el);
+
+      return () => {
+        io.disconnect();
+        split?.revert();
+      };
     },
     // `Tag` can change after hydration (see `useDesktopScene`), which mounts a
     // new element; re-split it rather than leave it unsplit.

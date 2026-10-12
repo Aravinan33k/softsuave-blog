@@ -374,6 +374,12 @@ h1.h2 {
   height: 100vh;
 }
 
+/* The intro plays in CSS from the first paint and clears itself at ~1s
+   (BUG-026). It used to be a GSAP timeline, which could only start once the
+   page's JavaScript had loaded and hydrated — on a mid-range phone that is
+   several seconds, all of them spent behind this opaque layer: PageSpeed put
+   the hero's first paint 3.7s late and Speed Index at 11s. Same beats, same
+   timings as that timeline; preloader.tsx now only unmounts it. */
 .preloader {
   position: fixed;
   inset: 0;
@@ -385,6 +391,69 @@ h1.h2 {
   justify-content: center;
   gap: clamp(24px, 4vh, 40px);
   will-change: opacity;
+  animation: preOut 0.24s ease-out 0.8s forwards;
+}
+
+/* `visibility` ends hidden too, so the faded layer stops catching taps even
+   before React removes it. */
+@keyframes preOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* starter dot: pulses in and out at the centre */
+.preDot {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: preDot 0.24s ease-in-out forwards;
+}
+
+@keyframes preDot {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+/* main mark traces its outline, then the gradient fill blooms in */
+.preMark {
+  animation:
+    preTrace 0.45s ease-in-out 0.12s forwards,
+    preFill 0.22s ease-out 0.42s forwards;
+}
+
+/* twin echo traces alongside, a beat behind and faint */
+.preTwin {
+  animation: preTrace 0.5s ease-in-out 0.14s forwards;
+}
+
+@keyframes preTrace {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes preFill {
+  to {
+    fill-opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    display: none;
+  }
 }
 
 /* the crest: logo wrapped in a heartbeat glow + emitted radar rings */
@@ -395,6 +464,15 @@ h1.h2 {
   display: grid;
   place-items: center;
   will-change: opacity, transform;
+  /* brief hold after the fill, then the crest shrinks away */
+  animation: preCrestOut 0.2s ease-in-out 0.68s forwards;
+}
+
+@keyframes preCrestOut {
+  to {
+    opacity: 0;
+    transform: scale(0.92);
+  }
 }
 .preGlow {
   position: absolute;
@@ -874,6 +952,20 @@ h1.h2 {
   object-fit: cover;
   opacity: 0.55;
 }
+
+/* The video's first frame, tiny and inlined (hero.tsx), blurred under the
+   video until the video has frames of its own (BUG-026). Same opacity as the
+   video, so the hero is already the colour it will be; the slight scale
+   hides the soft edge the blur leaves at the frame's border. */
+.videoHeroPoster {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(14px);
+  transform: scale(1.08);
+  opacity: 0.55;
+}
 .videoHeroVeil {
   position: absolute;
   inset: 0;
@@ -945,6 +1037,14 @@ h1.h2 {
    text — see hero.tsx. */
 .rotWord::before {
   content: attr(data-word);
+}
+
+/* Before the hero's script runs, only the first word shows — the rest share
+   its grid cell and would print on top of it. Once the intro clears on its own
+   (BUG-026) a slow phone can show the hero before that script has loaded.
+   GSAP's inline styles take over from here. */
+.rotWord + .rotWord {
+  opacity: 0;
 }
 
 /* Hero body copy is white site-wide: the muted greys these paragraphs used to
@@ -1285,8 +1385,14 @@ h1.h2 {
   gap: clamp(44px, 7vw, 96px);
 }
 
+/* Stacked (below 1000px, and reduced motion) the intro sits directly on top
+   of the first card, so the bottom margin is the only thing between the
+   "View Case Study" button and that card's image — it was 0, and the button
+   sat flush on the picture (BUG-025). The desktop rule below zeroes it: there
+   the intro is a column beside the lane. */
 .hIntro {
   max-width: 40rem;
+  margin-bottom: clamp(28px, 6vw, 48px);
 }
 
 /* "View Case Study" — links out to the full case-study index. */
@@ -3562,6 +3668,7 @@ h1.h2 {
     flex: 0 0 auto;
     width: min(34vw, 460px);
     max-width: none;
+    margin-bottom: 0;
     padding-left: var(--gutter);
     padding-right: clamp(24px, 3vw, 56px);
     align-self: center;
@@ -3760,6 +3867,12 @@ h1.h2 {
   .hTile,
   .hOutro {
     width: auto !important;
+  }
+
+  /* Stacked here at every width, so the gap under the intro comes back even
+     where the desktop rule zeroed it (BUG-025). */
+  .hIntro {
+    margin-bottom: clamp(28px, 6vw, 48px) !important;
   }
 
   .hMedia {
