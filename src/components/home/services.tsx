@@ -230,57 +230,61 @@ export default function Services() {
             <KnowMoreLink href={items[active].href} />
           </div>
 
-          <div className={styles.carStage}>
-            {items.map((s, i) => (
-              <div
-                key={s.key}
-                className={styles.carCard}
-                style={cardStyle(i - active)}
-                aria-hidden={i !== active}
-              >
-                <BrandImage page="four" id={imgId(i, s.img)} fill sizes="55vw" className="object-cover" />
-                <span className={styles.carCardVeil} aria-hidden />
-                {/* The section's ten H3s while this layout is on screen — see
-                    useDesktopScene. Positioned absolute, so h3 vs span is
-                    the same box. */}
-                {desktop ? (
-                  <h3 className={styles.carCardTag}>{s.name}</h3>
-                ) : (
-                  <span className={styles.carCardTag}>{s.name}</span>
-                )}
-                <CardLink href={s.href} />
+          {/* The stack and its controls share one column, so the arrows sit
+              under the card they move, a fixed gap below it, instead of in the
+              section's corner (BUG-027). */}
+          <div className={styles.carStageCol}>
+            <div className={styles.carStage}>
+              {items.map((s, i) => (
+                <div
+                  key={s.key}
+                  className={styles.carCard}
+                  style={cardStyle(i - active)}
+                  aria-hidden={i !== active}
+                >
+                  <BrandImage page="four" id={imgId(i, s.img)} fill sizes="55vw" className="object-cover" />
+                  <span className={styles.carCardVeil} aria-hidden />
+                  {/* The section's ten H3s while this layout is on screen — see
+                      useDesktopScene. Positioned absolute, so h3 vs span is
+                      the same box. */}
+                  {desktop ? (
+                    <h3 className={styles.carCardTag}>{s.name}</h3>
+                  ) : (
+                    <span className={styles.carCardTag}>{s.name}</span>
+                  )}
+                  <CardLink href={s.href} />
+                </div>
+              ))}
+            </div>
+            <div className={styles.carControls}>
+              <span className={styles.carCounter}>
+                {pad(active + 1)} <i /> {pad(N)}
+              </span>
+              <div className={styles.carArrows}>
+                <button
+                  type="button"
+                  className={styles.carArrowBtn}
+                  onClick={() => step(-1)}
+                  aria-label="Previous service"
+                  data-cursor="Prev"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: "block" }}>
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  className={styles.carArrowBtn}
+                  onClick={() => step(1)}
+                  aria-label="Next service"
+                  data-cursor="Next"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: "block" }}>
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </button>
               </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.carControls}>
-          <span className={styles.carCounter}>
-            {pad(active + 1)} <i /> {pad(N)}
-          </span>
-          <div className={styles.carArrows}>
-            <button
-              type="button"
-              className={styles.carArrowBtn}
-              onClick={() => step(-1)}
-              aria-label="Previous service"
-              data-cursor="Prev"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: "block" }}>
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-            <button
-              type="button"
-              className={styles.carArrowBtn}
-              onClick={() => step(1)}
-              aria-label="Next service"
-              data-cursor="Next"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: "block" }}>
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
+            </div>
           </div>
         </div>
       </div>

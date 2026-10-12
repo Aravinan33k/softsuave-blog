@@ -5465,6 +5465,30 @@ h1.h2 {
   right: clamp(14px, 2.2vw, 20px);
 }
 
+/* A narrow card — two across on a small phone (134px at 320px wide) — has
+   too little room between its points for "ENGINEERING" at the full 0.22em
+   tracking, and a single word cannot wrap, so it ran under them (BUG-028).
+   Measured on the card itself, so it applies wherever a card is this narrow:
+   the points tuck closer to the corners and the tracking tightens, which
+   fits the longest word with room either side. */
+.stackCard {
+  container-type: inline-size;
+}
+@container (max-width: 200px) {
+  .stackTab {
+    padding-inline: 22px;
+  }
+  .stackTabTitle {
+    letter-spacing: 0.12em;
+  }
+  .stackTabDot:first-child {
+    left: 9px;
+  }
+  .stackTabDot:last-child {
+    right: 9px;
+  }
+}
+
 @media (min-width: 1000px) {
   .whyIntroInner {
     max-width: 1400px;
@@ -5824,11 +5848,22 @@ h1.h2 {
     grid-template-columns: 0.82fr 1.18fr;
     gap: clamp(40px, 5vw, 90px);
     align-items: center;
-    /* Reserves the control row. `.carControls` is absolutely positioned at the
-       bottom of `.carDesktop`, so it takes no flow space of its own — without
-       this the stage centres into the full height and the active card (inline
-       `z-index: 30` from `cardStyle`) paints straight over the arrows. */
-    padding-bottom: clamp(64px, 8vh, 88px);
+  }
+
+  /* The stack and its controls, one column (BUG-027). The controls used to be
+     absolutely positioned in the section's bottom-right corner with this grid
+     padded to keep the cards off them — so on a tablet (1024×768, 1180×820)
+     they overlapped the card's foot, and on a tall screen they floated
+     50–120px below it, the gap set by the screen's height rather than the
+     design. In one flex column the gap is fixed, and the stage shrinks (it
+     may, `min-height: 0`) before it can reach them. */
+  .carStageCol {
+    align-self: stretch;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(16px, 2.2vh, 24px);
   }
   .carText {
     max-width: 32rem;
@@ -5850,8 +5885,9 @@ h1.h2 {
      overflowed the row and painted over the controls. */
   .carStage {
     position: relative;
+    flex: 0 1 auto;
+    min-height: 0;
     height: min(52vh, 540px);
-    max-height: 100%;
   }
   .carCard {
     position: absolute;
@@ -5882,13 +5918,14 @@ h1.h2 {
   }
 
   .carControls {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    /* Above the cards, which stack up to `z-index: 30` inline from `cardStyle`.
-       The padding on `.carGrid` already keeps the stage clear of this row; this
-       is what stops the arrows being buried again if the stage ever grows. */
+    /* Under the stack, flush with its right edge (see `.carStageCol`). Still
+       above the cards — they stack to `z-index: 30` inline from `cardStyle`,
+       and the side cards lean out past the stage — so it needs a stacking
+       position of its own. */
+    position: relative;
     z-index: 40;
+    flex: 0 0 auto;
+    align-self: flex-end;
     display: inline-flex;
     align-items: center;
     gap: 22px;
@@ -5902,10 +5939,13 @@ h1.h2 {
     letter-spacing: 0.18em;
     color: var(--muted);
   }
+  /* The rule between "04" and "10". It was `--line`, which on the warm-white
+     band is nearly the band's own colour — the numbers read as stranded with a
+     gap between them (BUG-027). */
   .carCounter i {
     width: 40px;
     height: 1px;
-    background: var(--line);
+    background: color-mix(in srgb, var(--muted) 60%, transparent);
   }
   .carArrows {
     display: inline-flex;
@@ -7280,6 +7320,15 @@ h1.h2 {
 
   .stackWrap {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Capped by width alone here (BUG-028). The base `min(320px, 34vh)` sizes
+     the cards by the screen's HEIGHT so the row fits one desktop screen; on a
+     phone turned sideways (360-430px tall) that made them 122-146px wide,
+     floating in 340px columns, and "Engineering Specialists" ran under the
+     coral points of its header. A phone scrolls; the cards can be their size. */
+  .stackTilt {
+    max-width: 320px;
   }
 
   .recogLayout {
