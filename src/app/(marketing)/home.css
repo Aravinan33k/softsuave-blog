@@ -15,6 +15,19 @@
    are dropped).
    ============================================================ */
 
+/* FIXED-NAV CLEARANCE (BUG-018). The nav is `position: fixed` and 77px tall,
+   so anything the page JUMPS to — an in-page link, the chapter nav, a #hash
+   arriving from another page, `scrollIntoView` — used to land with its top
+   under the bar, cutting off the heading. Scroll padding on the root lands
+   every such target 96px down instead: native fragment navigation and
+   scrollIntoView honour it, and so does Lenis's `scrollTo` (see
+   components/home/scroll-provider.tsx). The one root-level rule in this file,
+   scoped by `:has()` to documents that render the marketing theme, so the
+   blog and admin keep their own behaviour even after a client navigation. */
+html:has(.theme-four) {
+  scroll-padding-top: 96px;
+}
+
 .theme-four {
   /* Shared brand tokens */
   --brand-coral: #ff7a45;

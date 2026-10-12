@@ -7694,10 +7694,10 @@
    CASE-STUDY INDEX CARD — the live index's card (image, category, title,
    summary, platform, "View Case Study") on the `.caseCard` shell.
    ============================================================ */
-/* Clears the fixed nav when the masthead button jumps here. */
+/* The masthead button's jump target. The fixed nav's clearance comes from the
+   root's `scroll-padding-top` (home.css) — a margin here too would double it. */
 .listAnchor {
   display: block;
-  scroll-margin-top: clamp(80px, 8vw, 110px);
 }
 
 .listHeadCta {

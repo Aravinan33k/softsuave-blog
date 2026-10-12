@@ -78,7 +78,11 @@ export default function ScrollProvider({ children }: { children: React.ReactNode
           return;
         }
       }
-      lenis.scrollTo(target as HTMLElement, { duration: 1.2, offset: -12 });
+      // No offset of its own: Lenis subtracts the root's `scroll-padding-top`
+      // (home.css — the fixed nav's clearance) and the target's
+      // `scroll-margin-top`, so a link lands where a native hash jump would.
+      // The old `-12` put every target's top 12px down, under the 77px nav.
+      lenis.scrollTo(target as HTMLElement, { duration: 1.2 });
     };
     document.addEventListener("click", onAnchorClick);
 

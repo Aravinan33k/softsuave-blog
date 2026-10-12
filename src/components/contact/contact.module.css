@@ -187,8 +187,9 @@
 
 .formCard {
   gap: 0;
-  /* The Live Chat row scrolls this card into view: clear the fixed nav. */
-  scroll-margin-top: 96px;
+  /* The Live Chat row scrolls this card into view; the fixed nav's clearance
+     now comes from the root's `scroll-padding-top` (home.css), so a margin
+     here as well would land it twice as far down. */
 }
 
 .stepBody {

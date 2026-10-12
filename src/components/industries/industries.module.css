@@ -468,9 +468,8 @@
   min-height: clamp(320px, 42vw, 460px);
   padding: clamp(18px, 2vw, 28px);
   /* Each card is a hash target for the nav's Industries panel
-     (`/industries#sector-<key>`). Without this the native hash scroll puts the
-     card's top edge at the viewport top, under the fixed bar. */
-  scroll-margin-top: clamp(104px, 12vh, 136px);
+     (`/industries#sector-<key>`); the root's `scroll-padding-top` (home.css)
+     lands it clear of the fixed bar. */
   overflow: hidden;
   border-radius: 14px;
   border: 1px solid var(--line);
