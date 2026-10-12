@@ -82,9 +82,18 @@ export const scheduleMeeting = {
   // for this app. A booking redirects to /thank-you, as the live page does.
   loading: "Loading available slots…",
   empty: "No open slots right now.",
-  error: "Unable to load slots.",
-  /** Fallback when the live calendar cannot load — the NeetoCal booking page it draws from ("View More Slots" is the live page's label). */
-  fallback: { label: "View More Slots ➡", href: "https://softsuave.neetocal.com/meeting-with-softsuave" },
+  // BUG-019: "Unable to load slots." read as a dead end. The card now says
+  // where to book instead, and leads with the button that does it.
+  error: "Our calendar couldn’t load here. Pick a time on our booking page instead.",
+  retry: "Try again",
+  /** The NeetoCal booking page the calendar draws from, linked when it cannot show slots itself. */
+  fallback: {
+    href: "https://softsuave.neetocal.com/meeting-with-softsuave",
+    /** Under "No open slots" — the live page's own label for this link. */
+    label: "View More Slots ➡",
+    /** When the calendar did not load at all, "View More Slots" promises slots the card never showed. */
+    unavailableLabel: "Book a Meeting ➡",
+  },
 } as const;
 
 export const quickContact = {

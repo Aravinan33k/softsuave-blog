@@ -33,7 +33,13 @@ import styles from "./contact.module.css";
  */
 
 type SlotDay = { date: string; slots: string[] };
-type Load = { status: "loading" } | { status: "ready"; days: SlotDay[] } | { status: "error" };
+/**
+ * `retry` is false when the API answered 503 — scheduling is not configured
+ * on this deployment (no NeetoCal key), which no amount of retrying fixes —
+ * and true for anything that might be transient (a network blip, a NeetoCal
+ * error).
+ */
+type Load = { status: "loading" } | { status: "ready"; days: SlotDay[] } | { status: "error"; retry: boolean };
 
 const DAYS_PER_VIEW = 3;
 
@@ -59,6 +65,8 @@ export default function ContactScheduler() {
   const [dayIdx, setDayIdx] = useState(0);
   const [windowStart, setWindowStart] = useState(0);
   const [picked, setPicked] = useState<{ date: string; time: string } | null>(null);
+  /** Bumped by "Try again" to re-run the slots fetch for the same zone. */
+  const [attempt, setAttempt] = useState(0);
 
   // The visitor's zone is only knowable in the browser; resolve it after mount
   // so the server-rendered markup and the first client render agree.
@@ -90,10 +98,10 @@ export default function ContactScheduler() {
         setWindowStart(0);
       })
       .catch((err: Error) => {
-        if (err.name !== "AbortError") setLoad({ status: "error" });
+        if (err.name !== "AbortError") setLoad({ status: "error", retry: err.message !== "503" });
       });
     return () => ctrl.abort();
-  }, [tz]);
+  }, [tz, attempt]);
 
   if (picked) {
     return (
@@ -127,9 +135,31 @@ export default function ContactScheduler() {
       <CardHead icon={scheduleMeeting.icon} title={scheduleMeeting.title} subtitle={scheduleMeeting.subtitle} />
 
       <div className={styles.scheduleBody}>
-        {load.status === "error" || (load.status === "ready" && days.length === 0) ? (
+        {load.status === "error" ? (
+          // BUG-019: the calendar could not load, so the card's job becomes
+          // getting the visitor to the NeetoCal booking page, which has the
+          // same meeting, its own calendar and its own time-zone picker.
+          <div className={styles.calState} role="status">
+            <p>{scheduleMeeting.error}</p>
+            <a className={styles.stepNext} href={scheduleMeeting.fallback.href} target="_blank" rel="noopener noreferrer">
+              {scheduleMeeting.fallback.unavailableLabel}
+            </a>
+            {load.retry && (
+              <button
+                type="button"
+                className={styles.stepBack}
+                onClick={() => {
+                  setLoad({ status: "loading" });
+                  setAttempt((n) => n + 1);
+                }}
+              >
+                {scheduleMeeting.retry}
+              </button>
+            )}
+          </div>
+        ) : load.status === "ready" && days.length === 0 ? (
           <div className={styles.calState}>
-            <p>{load.status === "error" ? scheduleMeeting.error : scheduleMeeting.empty}</p>
+            <p>{scheduleMeeting.empty}</p>
             <a className={styles.stepNext} href={scheduleMeeting.fallback.href} target="_blank" rel="noopener noreferrer">
               {scheduleMeeting.fallback.label}
             </a>
@@ -227,26 +257,30 @@ export default function ContactScheduler() {
           </>
         )}
 
-        <label className={styles.calTz}>
-          <span className={styles.calTzLabel}>{scheduleMeeting.timezoneLabel}</span>
-          <span className={styles.calTzField}>
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-              <circle cx="12" cy="12" r="9" />
-              <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
-            </svg>
-            <select className={styles.calTzSelect} value={tz} onChange={(e) => {
-                setLoad({ status: "loading" });
-                setTz(e.target.value);
-              }} disabled={!tz}>
-              {!tz && <option value="">{scheduleMeeting.timezonePlaceholder}</option>}
-              {zones.map((z) => (
-                <option key={z} value={z}>
-                  {z}
-                </option>
-              ))}
-            </select>
-          </span>
-        </label>
+        {/* Hidden once the calendar has failed: switching zones cannot bring
+            it back, and the booking page asks for the zone itself. */}
+        {load.status !== "error" && (
+          <label className={styles.calTz}>
+            <span className={styles.calTzLabel}>{scheduleMeeting.timezoneLabel}</span>
+            <span className={styles.calTzField}>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+                <circle cx="12" cy="12" r="9" />
+                <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+              </svg>
+              <select className={styles.calTzSelect} value={tz} onChange={(e) => {
+                  setLoad({ status: "loading" });
+                  setTz(e.target.value);
+                }} disabled={!tz}>
+                {!tz && <option value="">{scheduleMeeting.timezonePlaceholder}</option>}
+                {zones.map((z) => (
+                  <option key={z} value={z}>
+                    {z}
+                  </option>
+                ))}
+              </select>
+            </span>
+          </label>
+        )}
       </div>
     </div>
   );
