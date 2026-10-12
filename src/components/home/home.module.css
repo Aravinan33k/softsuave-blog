@@ -638,6 +638,15 @@ h1.h2 {
   display: inline-flex;
 }
 
+/* With the logo's transparent margin trimmed (BUG-024, see logo.tsx) the
+   48px lockup is softsuave.com's desktop size. On phones live drops it to
+   42px; so does this, so it does not crowd the menu button. */
+@media (max-width: 999px) {
+  .navLogo {
+    --logo-h: 42px;
+  }
+}
+
 .navLogoOnDark,
 .navLogoOnLight {
   transition: opacity 0.45s ease;

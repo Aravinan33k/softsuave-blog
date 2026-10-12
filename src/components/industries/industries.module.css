@@ -492,6 +492,16 @@
   padding-top: calc(36px + clamp(12px, 1.2vw, 16px));
 }
 
+/* The photo cards need the same clearance (BUG-023). Their copy is pinned to
+   the card's foot, which hides the problem while it is short — but on a
+   narrow phone the tagline, body and chips wrap long enough to fill the card,
+   and the title then slid up under the badge (6 of 7 cards at 320px, Telecom
+   up to 768px). As a margin it is only a floor: short copy still sits at the
+   foot, and long copy grows the card instead of reaching the badge. */
+.sectorMediaCard .sectorBody {
+  margin-top: calc(36px + clamp(12px, 1.2vw, 16px));
+}
+
 .sectorCard:hover {
   transform: translateY(-4px);
   border-color: var(--accent-border);
