@@ -43,9 +43,12 @@ export default function RootLayout({
       className={`${lato.variable} ${ptSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/* z-[1000]: the marketing header is z-index 120, so at 100 the
+            focused link sat UNDER the bar and its logo (BUG-022). `fixed`, not
+            `absolute`, so it shows wherever the page is scrolled to. */}
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-[#ff0042] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[1000] focus:rounded-full focus:bg-[#ff0042] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
         >
           Skip to content
         </a>

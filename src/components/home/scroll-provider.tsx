@@ -70,6 +70,14 @@ export default function ScrollProvider({ children }: { children: React.ReactNode
       if (!target) return;
       e.preventDefault();
       holdSnap(1800); // don't let the snapper tug us off the intended target
+      // Move keyboard focus with the scroll, as a native in-page jump does.
+      // Without this, "Skip to content" scrolled but left focus on itself, so
+      // the next Tab went straight back into the header (BUG-022). A target
+      // that is not focusable gets tabindex="-1" (focusable by script, not a
+      // tab stop); home.css drops the ring around such a target.
+      const el = target as HTMLElement;
+      if (el.tabIndex < 0 && !el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+      el.focus({ preventScroll: true });
       const pinId = REVEAL_END[href];
       if (pinId) {
         const st = ScrollTrigger.getById(pinId);

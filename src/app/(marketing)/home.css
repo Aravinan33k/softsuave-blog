@@ -28,6 +28,13 @@ html:has(.theme-four) {
   scroll-padding-top: 96px;
 }
 
+/* An in-page jump moves keyboard focus to its target (scroll-provider.tsx),
+   giving a non-focusable section `tabindex="-1"`. The scroll itself is the
+   visible cue there, so no focus ring is drawn around a whole section. */
+.theme-four [tabindex="-1"]:focus {
+  outline: none;
+}
+
 .theme-four {
   /* Shared brand tokens */
   --brand-coral: #ff7a45;
