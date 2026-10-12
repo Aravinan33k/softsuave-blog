@@ -55,6 +55,18 @@
   color: var(--text);
 }
 
+/* Two light bands back to back (BUG-020) — the homepage's "Why Soft Suave"
+   and Clients. They meet at a fractional y, and on a phone whose pixel ratio
+   is not a whole number (2.625, 2.75 — most Android handsets) that edge falls
+   mid-pixel: each band covers only part of the row, and the near-black page
+   behind them shows through as a grey hairline across the screen (worst in
+   landscape). A 1px shadow in the band's own colour, cast upward from the
+   second band, covers that row whole; it lies on the first band's identical
+   ground, so it is invisible wherever there is no seam to fill. */
+.light + .light {
+  box-shadow: 0 -1px 0 var(--bg);
+}
+
 /* ---- shared type / layout primitives ---- */
 .eyebrow,
 .eyebrowDark {
