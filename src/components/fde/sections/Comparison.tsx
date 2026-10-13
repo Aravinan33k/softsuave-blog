@@ -28,10 +28,10 @@ export function Comparison({
 
           <AccentHeading
             runs={content.headline}
-            className="text-foreground text-[1.75rem] font-semibold leading-[1.15] tracking-[-0.03em] sm:text-[2.25rem] lg:text-[2.6rem]"
+            className="text-foreground text-balance text-[length:var(--fs-h2)] font-light leading-[1.1] tracking-[-0.03em]"
           />
 
-          <p className="mt-5 max-w-3xl text-[0.95rem] leading-[1.7] text-muted-foreground sm:text-base">
+          <p className="mt-5 max-w-3xl text-pretty text-[length:var(--fs-body)] leading-[1.6] text-muted-foreground">
             {content.description}
           </p>
         </div>

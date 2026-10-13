@@ -2492,7 +2492,7 @@
   align-items: center;
   gap: clamp(12px, 1.6vw, 22px);
   width: 100%;
-  padding: clamp(18px, 2.2vw, 26px) 0;
+  padding: clamp(16px, 1.8vw, 22px) 0;
   border: 0;
   background: none;
   text-align: left;
@@ -2518,9 +2518,10 @@
 .faqQuestion {
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
-  line-height: 1.22;
-  letter-spacing: -0.02em;
+  /* Its own FAQ size (home.css), not the section-level H3 it used to share. */
+  font-size: var(--fs-faq-q);
+  line-height: 1.32;
+  letter-spacing: -0.01em;
   color: var(--text-bright);
   transition: color 0.4s ease;
 }
@@ -2597,7 +2598,7 @@
   margin: 0;
   padding: 0 0 clamp(20px, 2.4vw, 28px) calc(2.5rem + clamp(12px, 1.6vw, 22px));
   max-width: 78ch;
-  font-size: var(--fs-body);
+  font-size: var(--fs-faq-a);
   line-height: 1.68;
   color: var(--text);
   opacity: 0;
@@ -2840,6 +2841,12 @@
   margin-bottom: clamp(20px, 2.4vw, 28px);
   padding-left: calc(2.5rem + clamp(12px, 1.6vw, 22px));
   max-width: 78ch;
+}
+
+/* The list reads at the answer's own size (`--fs-faq-a`), not the shared
+   tick list's smaller card size, so it stays part of the answer. */
+.faqPanel .tickItem {
+  font-size: var(--fs-faq-a);
 }
 
 /* ============================================================
@@ -8213,6 +8220,20 @@
   .overviewGrid .overviewMedia.overviewMediaCenter {
     align-self: center;
     height: 100%;
+  }
+
+  /* With `aspect` as well, the frame keeps that ratio while it centres: the
+     row-height `height: 100%` above would otherwise stretch it to the prose
+     and crop the diagram (RAG, 13 Oct: "center align the images"). */
+  .overviewGrid .overviewMedia.overviewMediaFixed.overviewMediaCenter {
+    height: auto;
+  }
+
+  /* `OverviewContent.image.even` — equal columns instead of the compact
+     variant's 1.1 / 0.9 (RAG review, 13 Oct: "make it bigger slightly"). */
+  .overviewCompact .overviewGrid.overviewGridEven,
+  .overviewGrid.overviewGridEven {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 }
 

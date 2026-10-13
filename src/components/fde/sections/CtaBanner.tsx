@@ -72,11 +72,11 @@ export function CtaBanner({ content = ctaBannerContent }: CtaBannerProps) {
             style={{ backgroundImage: copyScrim }}
           />
 
-          <h2 className="font-display text-[1.6rem] font-semibold leading-[1.2] tracking-[-0.025em] text-ink-foreground sm:text-[2rem]">
+          <h2 className="font-display text-balance text-[length:var(--fs-h2)] font-light leading-[1.1] tracking-[-0.03em] text-ink-foreground">
             {content.headline}
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-[0.95rem] leading-[1.7] text-ink-muted sm:text-base">
+          <p className="mx-auto mt-4 max-w-xl text-pretty text-[length:var(--fs-body)] leading-[1.6] text-ink-muted">
             {content.description}
           </p>
 
@@ -86,7 +86,12 @@ export function CtaBanner({ content = ctaBannerContent }: CtaBannerProps) {
                 key={action.label}
                 href={action.href}
                 variant={action.variant}
-                size="md"
+                size="lg"
+                // The section-CTA size the site uses. Its mono label is wider
+                // than a phone's card (~290px against ~240-330px), so below
+                // `sm` it may wrap onto a second line instead of running out
+                // of the pill.
+                className="max-sm:h-auto max-sm:min-h-[3.25rem] max-sm:whitespace-normal max-sm:py-3 max-sm:text-center max-sm:leading-[1.45]"
               >
                 {action.leadingIcon ? leadingIcons[action.leadingIcon] : null}
                 {action.label}

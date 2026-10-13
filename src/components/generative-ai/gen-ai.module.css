@@ -296,6 +296,21 @@
     );
 }
 
+/* Stacked (under 1000px, where the form drops below) the copy runs the full
+   width, so the left-to-right falloff above leaves the photo's right half lit
+   behind the text. There the heavier veil darkens evenly instead (Generative
+   AI review, 13 Oct: "increase the black gradient in the hero section"). */
+@media (max-width: 999px) {
+  .heroMediaVeil[data-veil="strong"] {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 5, 8, 0.82) 0%,
+      rgba(4, 5, 8, 0.74) 45%,
+      rgba(4, 5, 8, 0.92) 100%
+    );
+  }
+}
+
 .heroGrid {
   position: relative;
   z-index: 2;
@@ -1905,7 +1920,7 @@
   align-items: center;
   gap: clamp(12px, 1.6vw, 22px);
   width: 100%;
-  padding: clamp(18px, 2.2vw, 26px) 0;
+  padding: clamp(16px, 1.8vw, 22px) 0;
   border: 0;
   background: none;
   text-align: left;
@@ -1931,9 +1946,10 @@
 .faqQuestion {
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
-  line-height: 1.22;
-  letter-spacing: -0.02em;
+  /* Its own FAQ size (home.css), not the section-level H3 it used to share. */
+  font-size: var(--fs-faq-q);
+  line-height: 1.32;
+  letter-spacing: -0.01em;
   color: var(--text-bright);
   transition: color 0.4s ease;
 }
@@ -2010,7 +2026,7 @@
   margin: 0;
   padding: 0 0 clamp(20px, 2.4vw, 28px) calc(2.5rem + clamp(12px, 1.6vw, 22px));
   max-width: 78ch;
-  font-size: var(--fs-body);
+  font-size: var(--fs-faq-a);
   line-height: 1.68;
   color: var(--text);
   opacity: 0;

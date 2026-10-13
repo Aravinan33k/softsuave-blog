@@ -16,8 +16,10 @@ type BadgeProps = {
 
 const variants = {
   outline:
-    "border border-border/80 bg-background/80 shadow-[0_2px_10px_-4px_hsl(220_15%_8%/0.10)] backdrop-blur-sm",
-  soft: "bg-primary/10 font-medium text-primary",
+    "border border-border/80 bg-card/80 shadow-[0_2px_10px_-4px_hsl(var(--fde-foreground)/0.10)] backdrop-blur-sm",
+  // Brick text on the orange wash: the orange itself is too pale for 12px
+  // type on the cream (see fde.css).
+  soft: "bg-primary/10 font-medium text-primary-deep",
   ink: "bg-white/[0.06] font-medium text-primary",
 };
 

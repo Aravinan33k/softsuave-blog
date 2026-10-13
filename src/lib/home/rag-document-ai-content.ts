@@ -97,12 +97,17 @@ export const ragOverview: OverviewContent = {
   // small"), so the CRM / ERP / Documents labels at its edges are not cut off
   // by a near-square frame. In the standard column, not the wider one it had
   // then: 7 Oct review, "the text width is very low, and the image width is
-  // high ... update it to be similar to other pages".
+  // high ... update it to be similar to other pages". 13 Oct review: "align
+  // the image properly, make it bigger slightly and center align" — equal
+  // columns, and the frame centred against the prose rather than stranded at
+  // the top of it.
   image: {
     src: "/images/landing/generative-ai-rag-architecture.webp",
     width: 1448,
     height: 1086,
     aspect: "1448 / 1086",
+    even: true,
+    align: "center",
     alt: "How a RAG solution fits together: documents, knowledge bases, and cloud storage feed a retrieval layer that grounds a central AI model, which connects out to CRM, ERP, APIs, and ticketing systems.",
     blurDataURL:
       "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAAAQAgCdASoQAAwAAwBSJQBOgCHw35H/X5wAAP75+5o1KWhylCAGLAV8fi2WhvhAXHsUdEL5/sjZZAf0swAAAA==",

@@ -35,10 +35,10 @@ export function EngagementModels({
 
           <AccentHeading
             runs={content.headline}
-            className="mt-7 text-ink-foreground text-[2rem] font-semibold leading-[1.12] tracking-[-0.03em] sm:text-[2.75rem] lg:text-[3.25rem]"
+            className="mt-7 text-ink-foreground text-balance text-[length:var(--fs-h2)] font-light leading-[1.1] tracking-[-0.03em]"
           />
 
-          <p className="mt-5 max-w-xl text-[0.95rem] leading-[1.7] text-ink-muted sm:text-base">
+          <p className="mt-5 max-w-xl text-pretty text-[length:var(--fs-body)] leading-[1.6] text-ink-muted">
             {content.description}
           </p>
         </div>
@@ -55,7 +55,7 @@ export function EngagementModels({
         </div>
 
         <div className="mt-16 flex flex-col items-center gap-6 sm:mt-20">
-          <p className="text-center text-[0.95rem] text-ink-muted">
+          <p className="text-center text-[length:var(--fs-body-sm)] text-ink-muted">
             {content.footerPrompt}
           </p>
 

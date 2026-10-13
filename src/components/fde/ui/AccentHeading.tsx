@@ -3,7 +3,7 @@ import { cn } from "@/lib/fde/utils";
 
 export type HeadingRun = {
   text: string;
-  /** Renders in the brand green italic serif face. */
+  /** Renders in the italic serif face with the brand gradient. */
   accent?: boolean;
 };
 

@@ -30,9 +30,11 @@ export function Hero({ content = heroContent }: { content?: HeroContent }) {
 
           <h1
             className={cn(
-              "mt-7 text-balance font-display text-[2.5rem] font-semibold leading-[1.08] tracking-[-0.035em] text-foreground",
-              // Sized so the forced break below lands two full lines from `lg` up.
-              "sm:mt-8 sm:text-[3.25rem] md:text-[3.5rem] lg:text-[3.75rem] xl:text-[4.5rem]",
+              // The site's page-H1 size and weight (`--fs-h1`, home.css: 50px
+              // on desktop easing to 34px on phones); the forced break below
+              // gives two full lines from `lg` up.
+              "mt-7 text-balance font-display text-[length:var(--fs-h1)] font-light leading-[1.08] tracking-[-0.04em] text-foreground",
+              "sm:mt-8",
               "animate-[fde-fade-up_0.7s_cubic-bezier(0.22,1,0.36,1)_0.08s_both]",
             )}
           >
@@ -52,7 +54,7 @@ export function Hero({ content = heroContent }: { content?: HeroContent }) {
             ))}
           </h1>
 
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground animate-[fde-fade-up_0.7s_cubic-bezier(0.22,1,0.36,1)_0.16s_both] sm:mt-7 sm:text-lg sm:leading-[1.7]">
+          <p className="mt-6 max-w-2xl text-pretty text-[length:var(--fs-body)] leading-[1.6] text-muted-foreground animate-[fde-fade-up_0.7s_cubic-bezier(0.22,1,0.36,1)_0.16s_both] sm:mt-7">
             {content.description}
           </p>
 

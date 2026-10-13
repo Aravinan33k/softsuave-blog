@@ -17,43 +17,65 @@
      `--fde-*` values directly.
 ---------------------------------------------------------------- */
 .fde {
-  --fde-background: 0 0% 100%;
-  --fde-foreground: 220 15% 8%;
+  /* Colour theme (13 Oct review: "update the font style and size and the
+     colour theme of this page without changing any designs"). The page came in
+     with its own app's palette — hot pink #ff0040 on cool white — which read as
+     a different site between our header and footer. It now takes the site's:
+     the warm-white band the light header already sits on (`.light` and
+     `.navLight` in home.module.css), its ink and line colours, the button
+     orange for every fill, and the band's brick red for primary-coloured TEXT,
+     since the orange is too pale for small type on cream (2.9:1; the brick is
+     5.5:1). The dark section takes the site's near-black canvas. */
+  --fde-background: 36 26.32% 96.27%; /* #f8f6f3, the site's light band */
+  --fde-foreground: 37.5 21.05% 7.45%; /* #17140f */
 
-  --fde-primary: 344.5 100% 50%;
-  --fde-primary-glow: 338 100% 64%;
-  --fde-primary-deep: 348 100% 38%;
+  --fde-primary: 8.96 100% 60.59%; /* #ff5436, --brand-500 / --cta-bg */
+  --fde-primary-glow: 17.1 100% 63.53%; /* #ff7a45, --brand-coral */
+  --fde-primary-deep: 9.87 75.24% 41.18%; /* #b8341a, the light band's --accent */
   --fde-primary-foreground: 0 0% 100%;
 
-  --fde-muted: 220 14% 96%;
-  --fde-muted-foreground: 220 9% 46%;
+  --fde-muted: 40 20.93% 91.57%; /* #eeebe5, the light band's --surface */
+  --fde-muted-foreground: 45 5.71% 27.45%; /* #4a4842, the light band's --text */
 
-  /* Brand text gradient (see `.text-gradient`). */
-  --fde-gradient-from: #ff1640;
-  --fde-gradient-to: #ff6c3a;
+  /* Brand text gradient (see `.text-gradient`): the brand orange-to-rose,
+     taken a step deeper so the italic accents hold 3:1 on the cream. The
+     dark section swaps in the full-strength pair below. */
+  --fde-gradient-from: #ec4b22;
+  --fde-gradient-to: #d62e4a;
 
-  --fde-danger: 0 84% 60%;
-  --fde-danger-soft: 0 91% 71%;
+  --fde-danger: 4 70% 52%;
+  --fde-danger-soft: 4 85% 70%;
 
-  /* Off-white section ground, distinct from the pure-white cards on it. */
-  --fde-surface: #fafafb;
+  /* Cards sit white on the cream, the way they sat on the old white page. */
+  --fde-card: #ffffff;
+  /* Alternate section ground, a step down from the band. */
+  --fde-surface: #f1eee8;
 
-  /* Dark ("ink") section palette, for sections that invert the page. */
-  --fde-ink: 220 15% 7.8%;
-  --fde-ink-card: 344 9% 7%;
-  --fde-ink-card-raised: 344 12% 9%;
-  --fde-ink-border: 344 8% 16%;
-  --fde-ink-foreground: 0 0% 100%;
-  --fde-ink-muted: 220 9% 68%;
+  /* Dark ("ink") section palette — the site's dark canvas (home.css). */
+  --fde-ink: 225 33% 2%; /* #040508, --bg */
+  --fde-ink-card: 210 5% 8%; /* #131415, --surface */
+  --fde-ink-card-raised: 225 7% 11%; /* #1b1c1f */
+  --fde-ink-border: 0 0% 26%; /* #434343, --line */
+  --fde-ink-foreground: 0 0% 91%; /* #e8e8e8, --text-bright */
+  --fde-ink-muted: 0 0% 70%;
 
-  --fde-border: 220 13% 91%;
-  --fde-ring: 344.5 100% 50%;
+  --fde-border: 38.57 21.88% 87.45%; /* #e6e1d8 */
+  --fde-ring: 8.96 100% 60.59%;
 
   --fde-radius: 0.75rem;
+
+  /* Type: the site's own faces (the marketing layout's next/font variables),
+     in place of the DM Sans / Outfit / DM Serif Display the page shipped
+     with — headings and the italic accents in Fraunces, text in Inter. Sizes
+     come from the site scale (`--fs-*`, home.css) in the components. */
+  --fde-font-sans: var(--font-inter);
+  --fde-font-display: var(--font-fraunces);
+  --fde-font-serif: var(--font-fraunces);
 
   /* This app's theme names, inside the page only. */
   --background: hsl(var(--fde-background));
   --foreground: hsl(var(--fde-foreground));
+  --card: var(--fde-card);
   --primary: hsl(var(--fde-primary));
   --primary-foreground: hsl(var(--fde-primary-foreground));
   --muted: hsl(var(--fde-muted));
@@ -95,6 +117,13 @@
   /* Keeps the gradient intact if the text wraps a line. */
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
+}
+
+/* On the dark section the accents take the brand gradient at full strength
+   (`--brand-gradient`, home.css), which the near-black can carry. */
+.fde .bg-ink {
+  --fde-gradient-from: #ff7a45;
+  --fde-gradient-to: #fb3b5c;
 }
 
 @keyframes fde-fade-up {

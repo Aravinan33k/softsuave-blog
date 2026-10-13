@@ -26,7 +26,7 @@ export function TimelineStep({ step }: { step: ProtocolStep }) {
       <span
         className={cn(
           "mt-3 font-mono text-[0.68rem] tracking-[0.14em]",
-          isTerminal ? "text-primary" : "text-muted-foreground",
+          isTerminal ? "text-primary-deep" : "text-muted-foreground",
         )}
       >
         {step.day}
@@ -36,8 +36,8 @@ export function TimelineStep({ step }: { step: ProtocolStep }) {
         <p
           className={cn(
             isTerminal
-              ? "font-mono text-[0.95rem] font-medium text-primary"
-              : "font-display text-[1.05rem] font-bold tracking-[-0.01em] text-foreground",
+              ? "font-mono text-[0.95rem] font-medium text-primary-deep"
+              : "font-display text-[1.25rem] font-normal tracking-[-0.015em] text-foreground",
           )}
         >
           {step.title}

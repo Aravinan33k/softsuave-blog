@@ -3,13 +3,13 @@ export type CellValue =
   | { type: "text"; text: string }
   | { type: "yes" }
   | { type: "no" }
-  /** Green dash plus a qualifier, e.g. "varies". */
+  /** Brand-coloured dash plus a qualifier, e.g. "varies". */
   | { type: "partial"; text: string };
 
 export type TableColumn = {
   title: string;
   subtitle: string;
-  /** Tints the column and greens the header — our own offering. */
+  /** Tints the column and colours its header — our own offering. */
   highlight?: boolean;
 };
 

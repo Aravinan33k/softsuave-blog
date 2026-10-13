@@ -9,7 +9,7 @@ export function TestimonialCard({
   const initials = testimonial.initials ?? toInitials(testimonial.name);
 
   return (
-    <figure className="flex h-full flex-col rounded-[1rem] border border-border bg-background p-6 transition-all duration-300 hover:border-primary/25 hover:shadow-[0_22px_50px_-30px_hsl(220_15%_8%/0.22)] sm:p-7">
+    <figure className="flex h-full flex-col rounded-[1rem] border border-border bg-card p-6 transition-all duration-300 hover:border-primary/25 hover:shadow-[0_22px_50px_-30px_hsl(var(--fde-foreground)/0.22)] sm:p-7">
       <div className="flex items-start justify-between gap-4">
         <div
           className="flex gap-1 text-primary"
@@ -24,7 +24,7 @@ export function TestimonialCard({
       </div>
 
       {/* min-height keeps the attributions level across a row of cards */}
-      <blockquote className="mt-5 text-[0.95rem] leading-[1.65] text-foreground/85 lg:min-h-[8.5rem]">
+      <blockquote className="mt-5 text-[clamp(0.95rem,1.05vw,1.08rem)] leading-[1.6] text-foreground/85 lg:min-h-[8.5rem]">
         {`"${testimonial.quote}"`}
       </blockquote>
 
@@ -37,7 +37,7 @@ export function TestimonialCard({
           {initials}
         </span>
         <span>
-          <span className="block font-display text-[0.95rem] font-bold text-foreground">
+          <span className="block font-display text-[1.0625rem] font-medium text-foreground">
             {testimonial.name}
           </span>
           <span className="mt-0.5 block text-[0.875rem] leading-[1.45] text-muted-foreground">

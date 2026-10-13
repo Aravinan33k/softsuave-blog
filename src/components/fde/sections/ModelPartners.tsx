@@ -25,11 +25,11 @@ export function ModelPartners({
             {content.badge}
           </Badge>
 
-          <h2 className="mt-7 font-display text-[1.75rem] font-semibold leading-[1.15] tracking-[-0.03em] text-foreground sm:text-[2.25rem] lg:text-[2.75rem]">
+          <h2 className="mt-7 font-display text-balance text-[length:var(--fs-h2)] font-light leading-[1.1] tracking-[-0.03em] text-foreground">
             {content.headline}
           </h2>
 
-          <p className="mt-6 max-w-2xl text-[0.95rem] leading-[1.75] text-muted-foreground sm:text-base">
+          <p className="mt-6 max-w-2xl text-pretty text-[length:var(--fs-body)] leading-[1.6] text-muted-foreground">
             {content.description}
           </p>
         </div>
@@ -40,7 +40,7 @@ export function ModelPartners({
           ))}
         </div>
 
-        <p className="mx-auto mt-12 max-w-2xl text-center text-sm leading-relaxed text-muted-foreground sm:mt-14">
+        <p className="mx-auto mt-12 max-w-2xl text-center text-[length:var(--fs-body-sm)] leading-relaxed text-muted-foreground sm:mt-14">
           {content.footnote}
         </p>
       </Container>

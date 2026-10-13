@@ -33,9 +33,10 @@ function Cell({ value }: { value: CellValue }) {
         </>
       );
     case "partial":
-      // Dash and qualifier are both brand green — a partial "yes", not a "no".
+      // Dash and qualifier are both in the brand colour — a partial "yes",
+      // not a "no".
       return (
-        <span className="inline-flex items-center gap-1.5 text-primary">
+        <span className="inline-flex items-center gap-1.5 text-primary-deep">
           <span aria-hidden>—</span>
           {value.text}
         </span>
@@ -103,7 +104,7 @@ export function ComparisonTable({
           <tr className="border-b border-border">
             <th
               scope="col"
-              className="px-5 py-5 text-left text-[0.95rem] font-normal text-muted-foreground"
+              className="px-5 py-5 text-left text-[length:var(--fs-body-sm)] font-normal text-muted-foreground"
             >
               {rowHeaderLabel}
             </th>
@@ -116,8 +117,8 @@ export function ComparisonTable({
               >
                 <span
                   className={cn(
-                    "block font-display text-[0.95rem] font-bold tracking-[-0.01em]",
-                    column.highlight ? "text-primary" : "text-foreground",
+                    "block font-display text-[1.125rem] font-normal tracking-[-0.01em]",
+                    column.highlight ? "text-primary-deep" : "text-foreground",
                   )}
                 >
                   {column.title}
@@ -139,7 +140,7 @@ export function ComparisonTable({
             >
               <th
                 scope="row"
-                className="px-5 py-5 text-left text-[0.95rem] font-normal text-foreground"
+                className="px-5 py-5 text-left text-[length:var(--fs-body-sm)] font-normal text-foreground"
               >
                 {row.capability}
               </th>
@@ -148,7 +149,7 @@ export function ComparisonTable({
                 <td
                   key={columns[index]?.title ?? index}
                   className={cn(
-                    "px-5 py-5 text-[0.95rem]",
+                    "px-5 py-5 text-[length:var(--fs-body-sm)]",
                     columns[index]?.highlight && highlightCell,
                   )}
                 >

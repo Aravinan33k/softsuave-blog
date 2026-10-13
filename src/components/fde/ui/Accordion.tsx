@@ -51,10 +51,10 @@ export function Accordion({
           <div
             key={item.id}
             className={cn(
-              "overflow-hidden rounded-[0.75rem] border bg-background transition-colors duration-200",
+              "overflow-hidden rounded-[0.75rem] border bg-card transition-colors duration-200",
               isOpen
-                ? "border-primary/25 shadow-[0_6px_20px_-12px_hsl(220_15%_8%/0.18)]"
-                : "border-border shadow-[0_1px_2px_0_hsl(220_15%_8%/0.04)] hover:border-border/60",
+                ? "border-primary/25 shadow-[0_6px_20px_-12px_hsl(var(--fde-foreground)/0.18)]"
+                : "border-border shadow-[0_1px_2px_0_hsl(var(--fde-foreground)/0.04)] hover:border-border/60",
             )}
           >
             <h3>
@@ -66,7 +66,8 @@ export function Accordion({
                 onClick={() => toggle(item.id)}
                 className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left"
               >
-                <span className="text-[0.95rem] font-medium leading-snug text-foreground sm:text-base">
+                {/* The site's FAQ question and answer sizes (home.css). */}
+                <span className="font-display text-[length:var(--fs-faq-q)] font-normal leading-[1.32] tracking-[-0.01em] text-foreground">
                   {item.trigger}
                 </span>
                 <ChevronDownIcon
@@ -94,7 +95,7 @@ export function Accordion({
               )}
             >
               <div className="overflow-hidden">
-                <div className="px-6 pb-5 text-[0.925rem] leading-[1.7] text-muted-foreground">
+                <div className="px-6 pb-5 text-[length:var(--fs-faq-a)] leading-[1.68] text-muted-foreground">
                   {item.content}
                 </div>
               </div>

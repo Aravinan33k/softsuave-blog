@@ -22,11 +22,11 @@ export function Testimonials({
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <Badge variant="soft">{content.badge}</Badge>
 
-          <h2 className="mt-6 font-display text-[1.75rem] font-semibold leading-[1.15] tracking-[-0.03em] text-foreground sm:text-[2.25rem] lg:text-[2.6rem]">
+          <h2 className="mt-6 font-display text-balance text-[length:var(--fs-h2)] font-light leading-[1.1] tracking-[-0.03em] text-foreground">
             {content.headline}
           </h2>
 
-          <p className="mt-5 max-w-2xl text-[0.95rem] leading-[1.7] text-muted-foreground sm:text-base">
+          <p className="mt-5 max-w-2xl text-pretty text-[length:var(--fs-body)] leading-[1.6] text-muted-foreground">
             {content.description}
           </p>
         </div>
@@ -38,7 +38,7 @@ export function Testimonials({
         </div>
 
         <div className="mt-16 flex flex-col items-center sm:mt-20">
-          <p className="text-center text-[0.95rem] text-muted-foreground">
+          <p className="text-center text-[length:var(--fs-body-sm)] text-muted-foreground">
             {content.segmentsPrompt}
           </p>
 
@@ -46,7 +46,7 @@ export function Testimonials({
             {content.segments.map((segment) => (
               <li
                 key={segment}
-                className="text-[0.95rem] text-muted-foreground/70"
+                className="text-[length:var(--fs-body-sm)] text-muted-foreground/75"
               >
                 {segment}
               </li>

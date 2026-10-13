@@ -126,7 +126,7 @@ html:has(.theme-four) {
      there below it.
 
      Headings read these everywhere. `--fs-body` is only for plain text
-     content (heroes, section intros, prose, FAQs, CTAs, simple cards); the
+     content (heroes, section intros, prose, CTAs, simple cards); the
      animated / interactive scenes keep their own paragraph sizes. */
   --fs-h1-home: clamp(40px, 6vw - 2px, 70px);
   --fs-h1: clamp(34px, 3.2vw + 11.6px, 50px);
@@ -138,6 +138,14 @@ html:has(.theme-four) {
   --fs-card-title: clamp(18px, 0.8vw + 12.4px, 22px);
   --fs-body: clamp(16px, 0.4vw + 13.2px, 18px);
   --fs-hero-point: clamp(15px, 0.2vw + 13.6px, 16px);
+  /* FAQ accordions — every kit's (landing, generative-AI, services, the FDE
+     page). Questions used to take the section-level --fs-h3 (28px), so a list
+     of eight read as eight headings and wrapped to three lines on phones (13 Oct
+     review: "the size of the faq seems too big"). A question now sits a step
+     under a card title, 20px easing to 17px on phones; an answer is 16px
+     everywhere, the readable floor the body copy also holds on phones. */
+  --fs-faq-q: clamp(17px, 0.6vw + 12.8px, 20px);
+  --fs-faq-a: 16px;
   /* Card body copy and the smallest readable label size. */
   --fs-body-sm: clamp(0.9rem, 0.95vw, 1rem);
   --fs-label: 0.75rem;

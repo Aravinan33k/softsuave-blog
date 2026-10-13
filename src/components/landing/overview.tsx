@@ -173,8 +173,16 @@ export interface OverviewContent {
      * height cap, which otherwise leaves the image at the top of the row with
      * empty band under it (Web App review: "align the image to the center of
      * the section"). The frame keeps its size; only its position changes.
+     * With `aspect` the frame keeps that ratio too.
      */
     align?: "center";
+    /**
+     * Equal columns from 1000px on the compact variant, in place of its
+     * 1.1 / 0.9 split — a step up in image size that stops well short of
+     * `wide`, which narrowed the prose too far (RAG review, 13 Oct: "make it
+     * bigger slightly").
+     */
+    even?: boolean;
   };
 }
 
@@ -356,7 +364,9 @@ export default function Overview({
             twoColumn
               ? showImage && image?.wide
                 ? `${styles.overviewGrid} ${styles.overviewGridWideImage}`
-                : styles.overviewGrid
+                : showImage && image?.even
+                  ? `${styles.overviewGrid} ${styles.overviewGridEven}`
+                  : styles.overviewGrid
               : undefined
           }
         >

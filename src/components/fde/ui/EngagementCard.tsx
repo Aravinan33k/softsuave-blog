@@ -58,12 +58,13 @@ export function EngagementCard({
 
       <p className="mt-8 text-sm text-primary">{model.eyebrow}</p>
 
-      <h3 className="mt-2 font-display text-xl font-bold tracking-[-0.015em] text-ink-foreground sm:text-[1.35rem]">
+      <h3 className="mt-2 font-display text-[length:var(--fs-card-title)] font-normal leading-[1.25] tracking-[-0.015em] text-ink-foreground">
         {model.title}
       </h3>
 
-      {/* min-height keeps every card's bullet list starting on the same line */}
-      <p className="mt-4 text-[0.9rem] leading-[1.65] text-ink-muted lg:min-h-[4.5rem]">
+      {/* min-height (four lines) keeps every card's bullet list starting on
+          the same line */}
+      <p className="mt-4 text-[length:var(--fs-body-sm)] leading-[1.65] text-ink-muted lg:min-h-[6.6em]">
         {model.description}
       </p>
 
@@ -74,7 +75,7 @@ export function EngagementCard({
               aria-hidden
               className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
             />
-            <span className="text-[0.9rem] leading-[1.5] text-ink-muted">
+            <span className="text-[length:var(--fs-body-sm)] leading-[1.5] text-ink-muted">
               {point}
             </span>
           </li>

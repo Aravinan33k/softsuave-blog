@@ -24,8 +24,8 @@ export function ComparisonCard({ column }: { column: ComparisonColumn }) {
       className={cn(
         "relative flex h-full flex-col overflow-hidden rounded-[1.5rem]",
         isFeatured
-          ? "border-2 border-primary bg-gradient-to-b from-background to-primary/[0.05] shadow-[0_0_50px_-12px_hsl(var(--fde-primary)/0.35)]"
-          : "border border-border/70 bg-background shadow-[0_10px_40px_-24px_hsl(220_15%_8%/0.18)]",
+          ? "border-2 border-primary bg-gradient-to-b from-card to-primary/[0.05] shadow-[0_0_50px_-12px_hsl(var(--fde-primary)/0.35)]"
+          : "border border-border/70 bg-card shadow-[0_10px_40px_-24px_hsl(var(--fde-foreground)/0.18)]",
       )}
     >
       {/* Corner banner. The card's overflow-hidden trims its outer edge to the
@@ -41,7 +41,7 @@ export function ComparisonCard({ column }: { column: ComparisonColumn }) {
           <span className="flex h-13 w-13 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
             <Icon className="h-6 w-6" />
           </span>
-          <h3 className="font-display text-xl font-bold tracking-[-0.015em] text-foreground sm:text-2xl">
+          <h3 className="font-display text-[length:var(--fs-card-title)] font-normal leading-[1.25] tracking-[-0.015em] text-foreground">
             {column.title}
           </h3>
         </header>
@@ -53,7 +53,7 @@ export function ComparisonCard({ column }: { column: ComparisonColumn }) {
                 aria-hidden
                 className="mt-0.5 h-[1.35rem] w-[1.35rem] shrink-0 text-primary"
               />
-              <span className="text-[1.05rem] leading-[1.45] text-muted-foreground">
+              <span className="text-[length:var(--fs-body-sm)] leading-[1.5] text-muted-foreground">
                 {point}
               </span>
             </li>
@@ -63,7 +63,7 @@ export function ComparisonCard({ column }: { column: ComparisonColumn }) {
 
       {/* Full-bleed band, so it sits outside the content padding */}
       {isFeatured && column.footnote ? (
-        <p className="flex items-center justify-center gap-2.5 bg-primary/[0.08] px-6 py-5 text-center text-[1.05rem] font-semibold text-primary">
+        <p className="flex items-center justify-center gap-2.5 bg-primary/[0.08] px-6 py-5 text-center text-[length:var(--fs-body-sm)] font-medium text-primary-deep">
           <StarOutlineIcon aria-hidden className="h-5 w-5 shrink-0" />
           {column.footnote}
         </p>

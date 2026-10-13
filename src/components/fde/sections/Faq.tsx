@@ -36,11 +36,11 @@ export function Faq({ content = faqContent, items = faqItems }: FaqProps) {
           <div className="flex flex-col items-start text-left lg:sticky lg:top-28 lg:self-start">
             <Badge variant="soft">{content.badge}</Badge>
 
-            <h2 className="mt-6 font-display text-[1.75rem] font-semibold leading-[1.15] tracking-[-0.03em] text-foreground sm:text-[2.25rem] lg:text-[2.6rem]">
+            <h2 className="mt-6 font-display text-balance text-[length:var(--fs-h2)] font-light leading-[1.1] tracking-[-0.03em] text-foreground">
               {content.headline}
             </h2>
 
-            <p className="mt-5 max-w-2xl text-[0.95rem] leading-[1.7] text-muted-foreground sm:text-base">
+            <p className="mt-5 max-w-2xl text-pretty text-[length:var(--fs-body)] leading-[1.6] text-muted-foreground">
               {content.description}
             </p>
           </div>

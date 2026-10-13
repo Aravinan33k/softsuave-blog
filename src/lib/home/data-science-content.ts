@@ -35,8 +35,10 @@ export const dsMeta = {
 } as const;
 
 export const dsHero: HeroContent = {
-  // The last line takes the coral accent.
+  // 13 Oct review: highlight "Data Science Services" in the H1 — the
+  // coral accent used to fall on the last line.
   titleLines: ["Data Science Services", "for Smarter Business Decisions"],
+  accent: "Data Science Services",
   body: [
     "Turn business data into useful insights, validated models, and better-informed decisions. Soft Suave provides data science services covering strategy, exploratory analysis, statistical experimentation, model development, and evaluation based on your specific business problem and available data.",
     "Define your business question, assess whether your data supports it, and choose the right analytical or modeling approach before implementation begins.",

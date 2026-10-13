@@ -3,7 +3,7 @@ import { contactEmailHref, contactPageHref } from "@/lib/fde/contact";
 export type HeroStat = {
   value: string;
   label: string;
-  /** Renders the value in brand green when true. */
+  /** Renders the value in the brand colour when true. */
   highlight?: boolean;
 };
 

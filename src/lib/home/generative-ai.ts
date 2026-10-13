@@ -50,6 +50,9 @@ export const hero = {
     src: "/images/landing/generative-ai-development-hero-v2.webp",
     blurDataURL:
       "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAAAQAgCdASoQAAgAA4BaJYwCdH8AEWVIPSwAAP75GEfP4TveErKRwsT0UY7ISxssdbtC6RRy5o4u4mvmEOrrhJdl3hAAAA==",
+    // 13 Oct review: "increase the black gradient in the hero section" — the
+    // lit circuitry ran behind the H1 and body copy.
+    veil: "strong",
   },
   form: {
     eyebrow: "Business Enquiry",

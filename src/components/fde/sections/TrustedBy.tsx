@@ -38,7 +38,7 @@ export function TrustedBy({
       <Container size="wide" className="py-12 sm:py-14 lg:py-16">
         <div className="flex items-center justify-center gap-4 sm:gap-6">
           <span aria-hidden className="hidden h-px w-10 bg-border sm:block lg:w-16" />
-          <h2 className="text-center text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:text-xs sm:tracking-[0.28em]">
+          <h2 className="text-center font-mono text-[0.6875rem] uppercase tracking-[0.22em] text-muted-foreground sm:text-xs sm:tracking-[0.28em]">
             {label}
           </h2>
           <span aria-hidden className="hidden h-px w-10 bg-border sm:block lg:w-16" />

@@ -15,7 +15,6 @@ import {
   siteTitle,
   websiteSchema,
 } from '@/lib/fde/seo';
-import { fdeFontVariables } from '@/lib/fde/fonts';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
@@ -42,7 +41,9 @@ import '@/components/fde/fde.css';
  * `lib/fde`: same sections, order, copy and classes. Only the site's own
  * header and footer replace that app's, so it sits inside the site like every
  * other page. Its design tokens are scoped to the `.fde` wrapper
- * (`components/fde/fde.css`), so nothing here restyles another page.
+ * (`components/fde/fde.css`), so nothing here restyles another page. Since
+ * the 13 Oct review those tokens carry the site's own fonts, type scale and
+ * colours rather than that app's, with the layout unchanged.
  *
  * The standalone page also rendered a "Deployment Units" section and a "CEO
  * Corner", both commented out there, so neither is ported.
@@ -119,7 +120,7 @@ export default function HireForwardDeployedEngineerPage() {
       {/* `data-nav-tone="light"`: the page is a light design, so the site
           header takes its white ground while scrolling over it — the one
           dark section opts back to the black bar (EngagementModels). */}
-      <main id="main" className={`fde ${fdeFontVariables}`} data-nav-tone="light">
+      <main id="main" className="fde" data-nav-tone="light">
         <Hero />
         <TrustedBy />
         <ModelPartners />

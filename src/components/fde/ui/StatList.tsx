@@ -30,13 +30,14 @@ export function StatList({
           <dd>
             <span
               className={cn(
-                "block font-display text-[1.75rem] font-semibold tracking-[-0.02em] sm:text-3xl lg:text-[2.25rem]",
-                stat.highlight ? "text-primary" : "text-foreground",
+                // The site's counter figure (`.trustFigure`, landing).
+                "block font-display text-[clamp(1.85rem,3.2vw,2.75rem)] font-normal leading-none tracking-[-0.035em]",
+                stat.highlight ? "text-primary-deep" : "text-foreground",
               )}
             >
               {stat.value}
             </span>
-            <span className="mt-1.5 block text-sm text-muted-foreground">
+            <span className="mt-2.5 block text-sm text-muted-foreground">
               {stat.label}
             </span>
           </dd>

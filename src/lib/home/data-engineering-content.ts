@@ -37,8 +37,10 @@ export const deMeta = {
 } as const;
 
 export const deHero: HeroContent = {
-  // The last line takes the coral accent.
+  // 13 Oct review: highlight "Data Engineering Services" in the H1 — the
+  // coral accent used to fall on the last line.
   titleLines: ["Data Engineering Services", "for Analytics and AI"],
+  accent: "Data Engineering Services",
   body: [
     "Build connected data foundations that move information reliably across applications, databases, cloud environments, and business systems. Create consistent, accessible data that supports reporting, analytics, artificial intelligence, and informed decision-making as your business requirements continue to grow.",
     "Soft Suave provides data engineering services to structure data flows, build reliable pipelines, integrate systems, and support analytics and AI.",

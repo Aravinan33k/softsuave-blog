@@ -3,7 +3,7 @@ import { contactPageHref } from "@/lib/fde/contact";
 export type EngagementIconName = "code" | "layers" | "rocket";
 
 export type EngagementModel = {
-  /** Small green line above the title. */
+  /** Small brand-coloured line above the title. */
   eyebrow: string;
   title: string;
   description: string;
