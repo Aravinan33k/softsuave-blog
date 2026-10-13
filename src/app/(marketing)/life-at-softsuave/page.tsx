@@ -17,6 +17,7 @@ import {
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 // PAGE-LOCAL SECTIONS, composed from the landing surface's classes and
 // primitives — the photo-led arrangements live uses that the shared landing set
@@ -120,7 +121,7 @@ export default function LifeAtSoftSuavePage() {
           <LifeAwards content={lifeAwards} />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

@@ -27,6 +27,7 @@ import Footer from '@/components/home/footer';
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 // The case-study lane, given this page's own seven studies.
 import WorkGrid from '@/components/home/work-grid';
 
@@ -159,7 +160,7 @@ export default function OffshoreSoftwareDevelopmentPage() {
           <Faq content={offFaqs} idPrefix="offshore-faq" />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

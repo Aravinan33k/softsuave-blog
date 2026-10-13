@@ -32,6 +32,7 @@ import Faq from '@/components/landing/faq';
 // Us" with the same standfirst.
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -153,7 +154,7 @@ export default function PhpApplicationDevelopmentCompanyPage() {
           <Faq content={phpFaqs} idPrefix="php-faq" />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

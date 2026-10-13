@@ -33,6 +33,7 @@ import Faq from '@/components/landing/faq';
 // components rather than a second implementation of the same section.
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -159,7 +160,7 @@ export default function ReactNativeAppDevelopmentPage() {
 
         <Faq content={rnFaqs} idPrefix="rn-faq" />
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

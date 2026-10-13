@@ -180,6 +180,12 @@ export const HIRE_CLIENT_LOGOS = clients.logos.filter((l) => !NOT_ON_HIRE_PAGES.
  * AI?" pitch, which is not what any hire page says here — the live band is a
  * consultation offer, and the component is borrowed for its layout, not for
  * the homepage's words.
+ *
+ * Since the 13 Oct review ("for all the pages use the final cta from the hire
+ * developer pages") it is the close on every marketing page except the
+ * homepage, the AI service pages and the AI industry pages, which keep the
+ * homepage's AI-strategy band. Pages render it as
+ * `<Contact content={HIRE_CLOSING_BAND} eyebrow="" />`.
  */
 export const HIRE_CLOSING_BAND = {
   title: "Book Free Consultation",

@@ -20,6 +20,7 @@ import Footer from '@/components/home/footer';
 import Recognitions from '@/components/home/recognitions';
 import Clients from '@/components/home/clients';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 // SHARED LANDING SECTIONS, taking this page's copy.
 import Hero from '@/components/landing/hero';
@@ -156,7 +157,7 @@ export default function AboutPage() {
           />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

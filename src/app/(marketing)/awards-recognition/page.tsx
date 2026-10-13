@@ -11,6 +11,7 @@ import { awardsPage } from '@/lib/home/content';
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 import Breadcrumb from '@/components/common/breadcrumb';
 import styles from '@/components/home/home.module.css';
 
@@ -26,7 +27,9 @@ import styles from '@/components/home/home.module.css';
  * here the wall is the point of the page, so it is always open.
  *
  * Live closes on a "Schedule an Interview Now !" form; the closing `<Contact />`
- * band stands in for it, as on every other marketing page.
+ * band stands in for it with the hire pages' "Book Free Consultation" copy, as
+ * on every marketing page but the homepage, the AI service pages and the
+ * industry pages.
  *
  * A SERVER component: only a server component may export `metadata`, and the
  * (marketing) layout's metadata is the homepage's. Fonts, `.theme-four` tokens
@@ -201,9 +204,10 @@ export default function AwardsRecognitionPage() {
           </section>
         </div>
 
-        {/* The homepage's closing band, on its default /contact destination —
-            the same close every other marketing page ends on. */}
-        <Contact />
+        {/* The hire pages' "Book Free Consultation" close, on its default
+            /contact destination (13 Oct review: one final CTA for every page
+            but the homepage, the AI service pages and the industry pages). */}
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

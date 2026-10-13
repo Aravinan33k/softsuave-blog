@@ -15,6 +15,7 @@ import Footer from '@/components/home/footer';
 // COMPANY-LEVEL SECTIONS — the homepage's closing enquiry band, which is the
 // live page's "Book Free Consultation" form.
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 // SERVICE-SPECIFIC SECTIONS — shared landing components taking this page's copy.
 import Hero from '@/components/landing/hero';
@@ -99,7 +100,7 @@ export default function LegacyModernizationPage() {
           <ServiceBoard content={legacyServices} />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

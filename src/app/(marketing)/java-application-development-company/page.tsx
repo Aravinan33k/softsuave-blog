@@ -46,6 +46,7 @@ import WorkGrid from '@/components/home/work-grid';
 import Recognitions from '@/components/home/recognitions';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -207,7 +208,7 @@ export default function JavaApplicationDevelopmentCompanyPage() {
           <Faq content={javaFaqs} idPrefix="java-faq" />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

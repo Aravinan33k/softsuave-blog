@@ -303,10 +303,6 @@ export const blockchain: HireRolePageContent = {
     ],
   },
 
-  // The hire-by-skill pages' closing band (review: "Change the final CTA
-  // similar to the ones on other pages").
-  closing: 'consultation',
-
   faq: {
     eyebrow: 'Ask Us',
     title: 'FAQs About Hiring Blockchain Developers',

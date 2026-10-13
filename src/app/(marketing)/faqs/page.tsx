@@ -16,6 +16,7 @@ import {
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import SectionHead from '@/components/landing/section-head';
 import Faq from '@/components/landing/faq';
@@ -123,7 +124,7 @@ export default function FaqsPage() {
 
         <CtaBand content={faqsPageCta} />
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

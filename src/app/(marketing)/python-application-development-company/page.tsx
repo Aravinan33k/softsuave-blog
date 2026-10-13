@@ -30,6 +30,7 @@ import TechStack from '@/components/landing/tech-stack';
 // Us" with the same standfirst.
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -156,7 +157,7 @@ export default function PythonApplicationDevelopmentCompanyPage() {
           <Testimonials />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

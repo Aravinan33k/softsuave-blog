@@ -41,6 +41,7 @@ import Clients from '@/components/home/clients';
 import CaseStudies from '@/components/home/work-grid';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -172,7 +173,7 @@ export default function MobileAppDevelopmentPage() {
 
         <Faq content={madFaqs} idPrefix="mad-faq" />
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

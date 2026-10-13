@@ -35,6 +35,7 @@ import Clients from '@/components/home/clients';
 import TechStack from '@/components/home/tech-stack';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -154,7 +155,7 @@ export default function PostgreSqlDevelopmentCompanyPage() {
           <Faq content={pgFaqs} idPrefix="pg-faq" />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer addressMicrodata={false} />

@@ -35,7 +35,10 @@ export const gccMeta = {
 } as const;
 
 export const gccHero: HeroContent = {
+  // 13 Oct review: highlight "Global Capability Center" in the H1 — the
+  // coral accent used to fall on the last line.
   titleLines: ["Global Capability Center", "Services"],
+  accent: "Global Capability Center",
   body: [
     "Build your own offshore engineering centre in India without standing up a legal entity, an office, and a hiring function from scratch. Soft Suave handles company registration, infrastructure, recruitment, and daily operations, while the team works to your roadmap and your standards.",
     "You get the cost base and talent depth of an India delivery centre with the control of an in-house team — and a defined path to taking the centre fully in-house when you are ready.",

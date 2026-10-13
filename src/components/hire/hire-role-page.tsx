@@ -291,12 +291,10 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
             press-and-hold confirm, which is this surface's rendering of the
             "Book Free Consultation" form every live role page ends on. Its CTA
             keeps the default `/contact` destination — the review asked for
-            every final CTA to lead to the contact page. */}
-        {content.closing === 'consultation' ? (
-          <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
-        ) : (
-          <Contact />
-        )}
+            every final CTA to lead to the contact page. Every role page now
+            takes this copy (13 Oct review); four used to opt in to it and the
+            rest kept the homepage's AI-strategy pitch. */}
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

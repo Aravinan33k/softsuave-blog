@@ -320,10 +320,6 @@ export const salesforce: HireRolePageContent = {
     ],
   },
 
-  // The hire-by-skill pages' closing band (review: "Change the final CTA
-  // similar to the ones on other pages").
-  closing: 'consultation',
-
   faq: {
     eyebrow: 'FAQs',
     title: 'FAQs About Hiring Salesforce Developers',

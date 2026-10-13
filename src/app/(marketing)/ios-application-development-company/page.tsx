@@ -40,6 +40,7 @@ import Clients from '@/components/home/clients';
 import Recognitions from '@/components/home/recognitions';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -177,7 +178,7 @@ export default function IosAppDevelopmentPage() {
 
         <Faq content={iosFaqs} idPrefix="ios-faq" />
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

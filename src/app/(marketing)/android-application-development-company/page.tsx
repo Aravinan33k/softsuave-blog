@@ -31,6 +31,7 @@ import Faq from '@/components/landing/faq';
 // live page's testimonials band carries the identical heading.
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -159,7 +160,7 @@ export default function AndroidAppDevelopmentPage() {
           <Faq content={andFaqs} idPrefix="and-faq" />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />
