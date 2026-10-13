@@ -5,6 +5,7 @@ import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
   healthtechBenefits,
+  healthtechCta,
   healthtechFaqs,
   healthtechHero,
   healthtechMeta,
@@ -30,7 +31,8 @@ import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import Services from '@/components/landing/services';
 import CardGrid from '@/components/landing/industries';
-import TechStack from '@/components/landing/tech-stack';
+import CtaBand from '@/components/landing/cta-band';
+import TechStack from '@/components/home/tech-stack';
 import Faq from '@/components/landing/faq';
 
 import home from '@/components/home/home.module.css';
@@ -116,10 +118,17 @@ export default function HealthtechAiSolutionsPage() {
         <CardGrid content={healthtechBenefits} id="benefits" variant="feature" />
 
         <div className={home.light}>
-          <TechStack content={industryTechApproach} />
+          {/* The homepage's technology rows under this section's live heading. */}
+          <div className={home.techFit}>
+            <TechStack content={industryTechApproach} />
+          </div>
+          <WorkGrid content={healthtechSuccessStories} id="success-stories" countLabel="stories" />
         </div>
 
-        <WorkGrid content={healthtechSuccessStories} id="success-stories" countLabel="stories" />
+        {/* The live page's band after the success stories (13 Oct review: "CTA
+            section is missing"). The stories join the light band above so the
+            dark band sits between two light ones, as on Telecom. */}
+        <CtaBand content={healthtechCta} />
 
         <div className={home.light}>
           <Testimonials />

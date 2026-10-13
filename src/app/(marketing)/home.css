@@ -164,6 +164,36 @@ body:has(.theme-four) {
   background: #040508;
 }
 
+/* The marketing header and footer on the blog (themes/softsuave/layout.tsx):
+   each sits in its own `.theme-four` box for the tokens and fonts it is styled
+   with, but that box must not be a page — no full-viewport height, no dark
+   ground — and the page under it keeps the blog's white rather than the dark
+   overscroll this surface paints. */
+.theme-four.theme-four-chrome {
+  /* The marketing pages' `.page` gutter (home.module.css), which the bar and
+     footer pad themselves with. */
+  --gutter: clamp(20px, 5vw, 90px);
+  min-height: 0;
+  background: transparent;
+}
+
+body:has(.ss-theme) {
+  background: #ffffff;
+}
+
+/* The bar is fixed, so the blog content starts below it: the bar's own height
+   at the top of the page (`.nav` in home.module.css), 77px, and 71px below
+   1000px, where its logo is smaller. */
+.ss-theme-main {
+  padding-top: 77px;
+}
+
+@media (max-width: 999px) {
+  .ss-theme-main {
+    padding-top: 71px;
+  }
+}
+
 /* Kill the UA stylesheet's link blue and underline, WITHOUT outranking the
    components.
  *

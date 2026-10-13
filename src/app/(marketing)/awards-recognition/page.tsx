@@ -4,8 +4,6 @@ import Image from 'next/image';
 import { BASE_PATH } from '@/lib/flags';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { publicMediaUrl } from '@/lib/media-url';
-import { JsonLd } from '@/components/seo/json-ld';
-import { organizationLd } from '@/lib/seo/organization';
 import { awardsPage } from '@/lib/home/content';
 
 import Nav from '@/components/home/nav';
@@ -66,44 +64,6 @@ export const metadata: Metadata = {
  *  does. */
 const HOME_HREF = BASE_PATH || '/';
 
-const PAGE_URL = absoluteUrl('/awards-recognition');
-
-/**
- * CollectionPage + ItemList for the award wall.
- *
- * Built from `awardsPage.items` — the same list the page renders — so the
- * structured data cannot drift from what a visitor sees. `organizationLd` is
- * referenced by `@id` for the publisher rather than repeated, the pattern the
- * service pages use.
- */
-const awardsPageLd = {
-  '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  '@id': `${PAGE_URL}#webpage`,
-  url: PAGE_URL,
-  name: awardsPage.metaTitle,
-  description: awardsPage.metaDescription,
-  inLanguage: 'en',
-  publisher: { '@id': organizationLd['@id'] },
-  mainEntity: {
-    '@type': 'ItemList',
-    name: awardsPage.title,
-    numberOfItems: awardsPage.items.length,
-    itemListElement: awardsPage.items.map((item, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      item: {
-        '@type': 'CreativeWork',
-        name: item.title,
-        description: item.description,
-        ...(item.year ? { dateCreated: item.year } : {}),
-        award: item.title,
-        provider: { '@type': 'Organization', name: item.org },
-      },
-    })),
-  },
-} as const;
-
 /*
  * Page-local layout for the wall. The shared `.recog*` rules in
  * home.module.css also serve the homepage band, so this page's differences
@@ -159,7 +119,9 @@ const descStyle: CSSProperties = {
 export default function AwardsRecognitionPage() {
   return (
     <div className={styles.page}>
-      <JsonLd data={[awardsPageLd]} />
+      {/* No JSON-LD: the live page carries none (13 Oct review: "need to update
+          the schema"), and the route is in PAGES_WITH_OWN_SITE_GRAPH, so the
+          layout adds no Organization or WebSite here either. */}
       <Nav logoHref={HOME_HREF} />
 
       {/* The awards wall sits in the warm-white `.light` band: it re-points

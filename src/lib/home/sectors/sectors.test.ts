@@ -20,9 +20,17 @@ import generated from '../images.generated.json';
  */
 const renderedSlots = new Set(Object.keys(generated as Record<string, unknown>));
 
+/**
+ * Sector pages deliberately left off the index's cards. Construction's card was
+ * removed (13 Oct review: "Sectors: Remove the construction card"); its page
+ * stays, at its own URL.
+ */
+const OFF_INDEX = new Set(['construction']);
+
 describe('sector pages', () => {
   it('covers every sector the index lists, once', () => {
-    expect(SECTOR_PAGES.map((s) => s.key).sort()).toEqual(sectors.items.map((s) => s.key).sort());
+    const listed = SECTOR_PAGES.filter((s) => !OFF_INDEX.has(s.key));
+    expect(listed.map((s) => s.key).sort()).toEqual(sectors.items.map((s) => s.key).sort());
     expect(new Set(SECTOR_SLUGS).size).toBe(SECTOR_PAGES.length);
   });
 
@@ -30,6 +38,7 @@ describe('sector pages', () => {
     // The card's href IS the route. If these drift, /industries links to a 404
     // or back out to the live site.
     for (const page of SECTOR_PAGES) {
+      if (OFF_INDEX.has(page.key)) continue;
       const card = sectors.items.find((s) => s.key === page.key);
       expect(card, `no index card for ${page.key}`).toBeDefined();
       expect(card!.href).toBe(page.slug);

@@ -5,6 +5,7 @@ import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
   edtechBenefits,
+  edtechCta,
   edtechFaqs,
   edtechHero,
   edtechMeta,
@@ -29,7 +30,8 @@ import Contact from '@/components/home/contact';
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import CardGrid from '@/components/landing/industries';
-import TechStack from '@/components/landing/tech-stack';
+import CtaBand from '@/components/landing/cta-band';
+import TechStack from '@/components/home/tech-stack';
 import Faq from '@/components/landing/faq';
 // The live page's solution tabs — the same selector-and-panel the hire pages
 // run for their evaluation criteria.
@@ -118,10 +120,17 @@ export default function EdtechAiSolutionsPage() {
         <CardGrid content={edtechBenefits} id="benefits" variant="feature" />
 
         <div className={home.light}>
-          <TechStack content={industryTechApproach} />
+          {/* The homepage's technology rows under this section's live heading. */}
+          <div className={home.techFit}>
+            <TechStack content={industryTechApproach} />
+          </div>
+          <WorkGrid content={edtechSuccessStories} id="success-stories" countLabel="case studies" />
         </div>
 
-        <WorkGrid content={edtechSuccessStories} id="success-stories" countLabel="case studies" />
+        {/* The live page's band after the success stories (13 Oct review: "CTA
+            section is missing"). The stories join the light band above so the
+            dark band sits between two light ones, as on Telecom. */}
+        <CtaBand content={edtechCta} />
 
         <div className={home.light}>
           <Testimonials />

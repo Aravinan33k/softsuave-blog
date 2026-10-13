@@ -69,8 +69,25 @@ export interface HeroContent {
    * pass these with an empty `points` list, or both.
    */
   stats?: readonly HeroStat[];
-  /** Copy for the enquiry card; the card itself is `common/enquiry-form`. */
-  form: EnquiryFormContent;
+  /**
+   * Copy for the enquiry card; the card itself is `common/enquiry-form`.
+   * Omitted only on a hero whose `aside` image takes the card's column.
+   */
+  form?: EnquiryFormContent;
+  /**
+   * An image in the enquiry card's column instead of the card — for a page
+   * whose hero is an introduction rather than a lead form (About review, 13
+   * Oct: "remove the form instead use the image"). Shown whole (`contain`),
+   * so transparent cut-out artwork keeps its own shape; beside the copy from
+   * 1000px, under it below that.
+   */
+  aside?: {
+    src: string;
+    width: number;
+    height: number;
+    alt: string;
+    blurDataURL?: string;
+  };
   /**
    * Optional button row under the points list, separate from the enquiry
    * form beside it — the live "Start X Trial" / "Book a Meeting" pair
@@ -224,7 +241,7 @@ export default function Hero({
       if (content.badges?.length) {
         tl.from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3");
       }
-      tl.from(`.${fx.card}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
+      tl.from(content.aside ? `.${styles.heroAside}` : `.${fx.card}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
 
       // Backdrop lifts out of black underneath all of that — the same hand-off
       // the homepage hero gives its video frame. Added last, at an absolute
@@ -274,7 +291,7 @@ export default function Hero({
         <div className={styles.heroGlow} aria-hidden />
       )}
 
-      <div className={styles.heroGrid}>
+      <div className={content.aside ? `${styles.heroGrid} ${styles.heroGridAside}` : styles.heroGrid}>
         <div className={content.titleFit || content.titleOneLine ? styles.heroCopyFit : undefined}>
           {/* "Home › <page>", named from the route — see common/breadcrumb. */}
           {breadcrumb && <Breadcrumb />}
@@ -417,7 +434,24 @@ export default function Hero({
           )}
         </div>
 
-        <EnquiryForm content={content.form} idPrefix={idPrefix} />
+        {content.aside ? (
+          <figure className={styles.heroAside}>
+            <Image
+              src={publicMediaUrl(content.aside.src)}
+              alt={content.aside.alt}
+              width={content.aside.width}
+              height={content.aside.height}
+              sizes="(max-width: 999px) 92vw, 46vw"
+              priority
+              className={styles.heroAsideImg}
+              {...(content.aside.blurDataURL
+                ? { placeholder: "blur" as const, blurDataURL: content.aside.blurDataURL }
+                : {})}
+            />
+          </figure>
+        ) : content.form ? (
+          <EnquiryForm content={content.form} idPrefix={idPrefix} />
+        ) : null}
       </div>
     </section>
   );

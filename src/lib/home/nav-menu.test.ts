@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { navHrefForPage, navPanels, type NavMenuItem } from './nav-menu';
+import { CURRENT_BLOG, navHrefForPage, navPanels, type NavMenuItem } from './nav-menu';
 import { footer, nav } from './content';
 
 /** Every item of every panel, at every depth. */
@@ -40,7 +40,8 @@ describe('navHrefForPage', () => {
 
 describe('nav menu data', () => {
   // Anything else — "industries", "./x" — would resolve against whatever path
-  // the reader happens to be on, so it must not exist in the first place.
+  // the reader happens to be on, so it must not exist in the first place. The
+  // one absolute URL is the current softsuave.com blog, linked as is.
   it('only holds hrefs that are a path or an anchor', () => {
     const hrefs = [
       // a null href is a division with no page of its own — nothing to resolve
@@ -52,6 +53,7 @@ describe('nav menu data', () => {
 
     expect(hrefs.length).toBeGreaterThan(50);
     for (const href of hrefs) {
+      if (href === CURRENT_BLOG) continue;
       expect(
         href.startsWith('/') || href.startsWith('#'),
         `"${href}" is neither a path nor an anchor`,

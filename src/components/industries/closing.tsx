@@ -13,7 +13,8 @@ export interface ClosingContent {
   title: string;
   body: string;
   primaryCta: { readonly label: string; readonly href: string };
-  secondaryCta: { readonly label: string; readonly href: string };
+  /** Optional second, outlined button. */
+  secondaryCta?: { readonly label: string; readonly href: string };
 }
 
 /**
@@ -28,11 +29,18 @@ export interface ClosingContent {
  */
 export default function Closing({
   content: closing = industriesClosing,
+  id = "contact",
 }: {
   content?: ClosingContent;
+  /**
+   * Section anchor. `contact` while this panel is a page's last word; a page
+   * that runs it mid-page and closes on the shared `Contact` band (which owns
+   * `#contact`) passes its own.
+   */
+  id?: string;
 } = {}) {
   return (
-    <section className={styles.closing} id="contact">
+    <section className={styles.closing} id={id}>
       <div className={styles.closingBg} aria-hidden>
         <BrandImage page="four" id="contact-bg" alt="" fill sizes="100vw" />
       </div>
@@ -52,9 +60,11 @@ export default function Closing({
             >
               {closing.primaryCta.label}
             </Link>
-            <Link href={closing.secondaryCta.href} className={styles.pill} data-cursor="Explore">
-              {closing.secondaryCta.label}
-            </Link>
+            {closing.secondaryCta && (
+              <Link href={closing.secondaryCta.href} className={styles.pill} data-cursor="Explore">
+                {closing.secondaryCta.label}
+              </Link>
+            )}
           </div>
         </FadeUp>
       </div>

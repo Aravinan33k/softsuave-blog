@@ -23,7 +23,8 @@ export function SoftSuavePostView({ post, relatedPosts }: PostViewProps) {
           the copy. A CSS background is invisible to the preload scanner and this
           is the LCP element, so ask for it explicitly. */}
       <link rel="preload" as="image" href={BANNER_BG} fetchPriority="high" />
-      <div className="bg-cover bg-center" style={{ backgroundImage: `url(${BANNER_BG})` }}>
+      {/* `data-nav-tone="dark"`: the site header turns black over this banner. */}
+      <div className="bg-cover bg-center" data-nav-tone="dark" style={{ backgroundImage: `url(${BANNER_BG})` }}>
         <div className="mx-auto max-w-[1320px] px-4 py-14 text-white sm:py-20">
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-white/80">
             <ol className="flex flex-wrap items-center">

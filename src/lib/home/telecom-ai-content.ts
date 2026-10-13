@@ -29,7 +29,6 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
 import { industryHeroBadges, industryEnquiryForm } from "./industry-shared";
-import { overviewImage } from "./overview-images";
 
 export const telecomMeta = {
   slug: "ai-solutions-for-telecom",
@@ -42,6 +41,9 @@ export const telecomMeta = {
 
 export const telecomHero: HeroContent = {
   titleLines: ["Enhancing Telecom Efficiency", "with AI"],
+  // 13 Oct review: the industry name is the highlighted phrase in the H1
+  // ("eg for Ecommerce page - ecommerce in H1 must be highlighted").
+  accent: "Telecom",
   body: [
     "From network optimisation and predictive maintenance to fraud detection and customer service, we build AI that keeps a telecom operation running closer to its capacity and further from its failure modes.",
     "Telecom generates more operational telemetry than almost any other sector. The constraint has never been data — it is having systems that act on it inside the window where acting still prevents the outage.",
@@ -61,11 +63,17 @@ export const telecomHero: HeroContent = {
       "The network or customer problem you want solved, your OSS/BSS and network management systems, subscriber scale, and the data you already collect.",
     subject: "Telecom AI solutions enquiry",
   }),
+  // The live page's own hero artwork (13 Oct review: "use the existing images
+  // from the respective pages for the hero"), under the strong veil ("increase
+  // the black gradient in the hero section to make the text more readable").
   image: {
-    src: "/images/four/ind-telecom-hero.webp",
-    width: 1200,
-    height: 860,
-    alt: "Telecom network operations centre monitoring infrastructure with AI-driven analytics",
+    src: "/images/industries/telecom/hero.webp",
+    width: 1814,
+    height: 933,
+    alt: "A telecom tower with a glowing network mesh behind it",
+    blurDataURL:
+      "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAADQAQCdASoQAAgAA4BaJbACdAEKjujIMAD+9ol/syFH+aN0QNZpeT4u9pw3AH1JyrruPOgA",
+    veil: "strong",
   },
 };
 
@@ -84,7 +92,20 @@ export const telecomIndustryOverview: OverviewContent = {
     "Personalized Customer Experience Management",
     "Accurate Revenue Assurance Systems",
   ],
-  image: overviewImage("ai-solutions-for-telecom"),
+  // The live page's own artwork for this section (13 Oct review: "use the
+  // existing images from the respective pages ... wherever possible"): a
+  // transparent cut-out collage, shown whole and centred against the copy and slightly bigger (13 Oct review: "center align the image and make it slightly bigger").
+  image: {
+    src: "/images/industries/telecom/overview.webp",
+    width: 891,
+    height: 882,
+    aspect: "891 / 882",
+    fit: "cutout",
+    align: "center",
+    alt: "A collage of an AI robot at a network-optimisation console beside server racks and a cell tower",
+    blurDataURL:
+      "data:image/webp;base64,UklGRtIAAABXRUJQVlA4WAoAAAAQAAAADwAADwAAQUxQSEgAAAABYFJr25MnwZ/iz0UHemCxKwKHAti9wXFwuN+i9lb4iJgA7s3tfkJqArAeNsbN/eAv+jujG9osy9RTsL2cq6oKXymA//Pe9BdWUDggZAAAAFACAJ0BKhAAEAADgFolsAJ0BiZZcYRg3ciYAAD+NA7JXF05JTvrYJCuM9b5a44MkMNJpl6Q0qngNxpaToJLt5573GZgz+mlhUtXG5rCQKDN5jsN8xo/L/N0fjnFXbIuWToyIAA=",
+  },
 };
 
 /**
@@ -168,9 +189,15 @@ export const telecomSuccessStories: WorkCarouselContent = {
   eyebrow: "Success Stories",
   title: "From Strategy to Success: Our Success Stories",
   body: "Discover how our AI-driven telecom solutions have transformed challenges into success stories, delivering measurable results and long-term value for our clients.",
+  // Each card wears the live page's own artwork for that story (13 Oct
+  // review: "update the case study images same as the old page").
   items: [
     {
       title: "Salesforce Telephone App Integration",
+      image: {
+        src: "/images/industries/telecom/case-1.webp",
+        alt: "The Salesforce logo on a cloud with verification badges",
+      },
       tag: "Telephony",
       body: "Integrated cloud-based telephony with Salesforce using Open CTI. · Enabled instant click-to-dial functionality within Salesforce. · Centralized contact management and call history tracking. · Implemented real-time call actions: transfer, mute/unmute, hold/unhold. · Built responsive UI with Aura and unique extensions for personalized communication.",
     },

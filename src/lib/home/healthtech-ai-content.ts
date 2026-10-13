@@ -26,8 +26,8 @@ import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
+import type { CtaBandContent } from "@/components/landing/cta-band";
 import { industryHeroBadges, industryEnquiryForm } from "./industry-shared";
-import { overviewImage } from "./overview-images";
 
 export const healthtechMeta = {
   slug: "ai-solutions-in-healthtech",
@@ -40,9 +40,13 @@ export const healthtechMeta = {
 
 export const healthtechHero: HeroContent = {
   titleLines: ["AI Solutions Shaping", "The Future of Healthcare"],
+  // 13 Oct review: the industry name is the highlighted phrase in the H1
+  // ("eg for Ecommerce page - ecommerce in H1 must be highlighted").
+  accent: "Healthcare",
+  // The live page's own hero line, verbatim (13 Oct review: "need to confirm
+  // the subtext in hero section").
   body: [
-    "Automate the administrative load, surface what clinicians need at the point of decision, and give patients a way to get answers without waiting for a callback. We build HealthTech AI that works inside your EHR and your existing clinical workflow.",
-    "Healthcare is the sector where a wrong answer has the highest cost, so every system we build keeps a clinician in the loop on clinical decisions and carries the data handling that patient information legally requires.",
+    "Unlock the power of AI to automate processes, generate insights, and revolutionize HealthTech. Powered by AI to accelerate digital transformation.",
   ],
   points: [
     "Patient intake and risk assessment",
@@ -59,11 +63,17 @@ export const healthtechHero: HeroContent = {
       "The clinical or administrative workflow you want to improve, the EHR and systems it must integrate with, and the regulatory regime you operate under.",
     subject: "HealthTech AI solutions enquiry",
   }),
+  // The live page's own hero artwork (13 Oct review: "use the existing images
+  // from the respective pages for the hero"), under the strong veil ("increase
+  // the black gradient in the hero section to make the text more readable").
   image: {
-    src: "/images/four/ind-healthtech-hero.webp",
-    width: 1200,
-    height: 860,
-    alt: "Clinical staff reviewing patient data on AI-assisted healthcare monitoring systems",
+    src: "/images/industries/healthtech/hero.webp",
+    width: 1920,
+    height: 1080,
+    alt: "A doctor surrounded by holographic health-data icons",
+    blurDataURL:
+      "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAADwAQCdASoQAAkAA4BaJYwC7AEO+XUKzEAA/veNQS9/5yx5Vrazey9075iqenNAQi1gAA==",
+    veil: "strong",
   },
 };
 
@@ -85,7 +95,20 @@ export const healthtechOverview: OverviewContent = {
   // The live areas each carry an icon, so they render as icon cards rather
   // than a plain tick list.
   pointsVariant: "icons",
-  image: overviewImage("ai-solutions-in-healthtech"),
+  // The live page's own artwork for this section (13 Oct review: "use the
+  // existing images from the respective pages ... wherever possible"): a
+  // transparent cut-out collage, shown whole and centred against the copy.
+  image: {
+    src: "/images/industries/healthtech/overview.webp",
+    width: 807,
+    height: 768,
+    aspect: "807 / 768",
+    fit: "cutout",
+    align: "center",
+    alt: "A clinician figure drawn in light inside a circle of health-data icons, with a robotic hand holding medical symbols",
+    blurDataURL:
+      "data:image/webp;base64,UklGRiQBAABXRUJQVlA4WAoAAAAQAAAADwAADgAAQUxQSIAAAAABgGJb27LqwWlU9+QQnUZ0EiOgaWIOkGk0Ta6zYATu7nbd7zeFiJgA/Oqsbd6WRQcASqx7atc+fs+wEP/4fwFzgg/3naRVIjnwOwRvoNn3/xoAyP0rBUD7/I+bHACC73+8BgAWHfBOf+l7AKrRAIDtT6YTIbmNA0i4+JPKUihBDlZQOCB+AAAAEAIAnQEqEAAPAAOAWiWwAnQA9XyC3TXZAAD+rZwdJG6Hd+V472+asY0Z5hs3xk8Bddjnn2T3AmNWYenrSVYmBjFHMEuR06QBt+19Xxx0rZ3rY2C1kYwyoBYQ834c3kIeFJkbwpdD98jDJuYfurSqixtFRavwlXLLZ2gggAAA",
+  },
 };
 
 /**
@@ -180,33 +203,67 @@ export const healthtechSuccessStories: WorkCarouselContent = {
     // of every consultation CTA.
     cta: { label: "Request a Consultation", href: "/contact" },
   },
+  // Each card wears the live page's own artwork for that story (13 Oct
+  // review: "update the case study images same as the old page").
   items: [
     {
       title: "Revitalizing Al in Healthcare: A Performance Optimization Success Story",
+      image: {
+        src: "/images/industries/healthtech/case-1.webp",
+        alt: "Doctors discussing performance data on a tablet in a hospital",
+      },
       tag: "Performance Optimization",
       body: "40% Increase in System Efficiency · 2x Faster Query Execution · 35% Improvement in User Experience · 50% Reduction in System Errors & Crashes",
     },
     {
       title: "Transforming Patient Care: A Communication Enhancement Success Story",
+      image: {
+        src: "/images/industries/healthtech/case-2.webp",
+        alt: "A nurse and doctor attending a patient in a hospital bed",
+      },
       tag: "Communication Enhancement",
       body: "60% Reduction in Patient Care Coordination Time · 3x Faster Access to Patient Records · 40% Improvement in Doctor Response Time · Significant Reduction in Communication Delays",
     },
     {
       title: "Revolutionizing Digital Healthcare: A Telehealth Success Story",
+      image: {
+        src: "/images/industries/healthtech/case-3.webp",
+        alt: "A hand holding a phone with holographic telehealth screens",
+      },
       tag: "Telehealth",
       body: "Reduced Inefficiencies in Patient Transport & Unnecessary Visits · User-Friendly Interface—Accessible Even for Older Generations · Adopted by 25+ Danish Hospitals · Consistent Growth & Widespread Adoption · Seamless Integration & Data Exchange with Strategic Partners",
     },
     {
       title: "Modernising Virtual Healthcare: An Online Consultation Success Story",
+      image: {
+        src: "/images/industries/healthtech/case-4.webp",
+        alt: "A family on a video consultation with a doctor on a large screen",
+      },
       tag: "Online Consultation",
       body: "24/7 Access to Doctors for Remote Consultation · Seamless Scheduling & Video Call Integration · Encrypted Audio & Video for Secure Communication · Instant ePrescriptions & Medical Report Uploads · Risk-Free, Secure, & Scalable Telehealth Solution",
     },
     {
       title: "Bridging Global Healthcare:A Telehealth Innovation Success Story",
+      image: {
+        src: "/images/industries/healthtech/case-5.webp",
+        alt: "A doctor holding a glowing globe of connected healthcare icons",
+      },
       tag: "Telehealth Innovation",
       body: "Seamless Cross-Border Doctor-Patient Consultations · Highly Secure & Encrypted Video/Audio Calls · Faster Appointment Scheduling & Management · Intuitive User Experience for Patients & Doctors · Expanding Access to Quality Healthcare Worldwide",
     },
   ],
+};
+
+/**
+ * The mid-page call to action (13 Oct review: "CTA section is missing - must
+ * be updated"), the band the Telecom and Construction pages already run. The
+ * live page's band after the success stories, verbatim. Its "Request a
+ * Consultation" goes to /contact, as every consultation CTA here does.
+ */
+export const healthtechCta: CtaBandContent = {
+  title: "See how AI can fit into your workflow",
+  body: "Discover how our AI solutions can seamlessly integrate into your healthcare processes to enhance efficiency and patient care.",
+  cta: { label: "Request a Consultation", href: "/contact" },
 };
 
 export const healthtechFaqs: FaqContent = {

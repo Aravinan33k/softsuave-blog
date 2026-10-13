@@ -12,8 +12,9 @@
  */
 
 import type { HeroContent } from "@/components/landing/hero";
-import type { TechStackContent } from "@/components/landing/tech-stack";
+import type { TechStackContent as HomeTechStackContent } from "@/components/home/tech-stack";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+import { techStack } from "./content";
 
 /**
  * The delivery pages' trust badges, reused verbatim. Each is a published
@@ -61,12 +62,15 @@ export function industryEnquiryForm(opts: {
  * solutions") and pasted unchanged onto the other six. The sector nouns are
  * made neutral here so the sentence is true on every page; nothing else in it
  * is changed.
+ *
+ * The stack itself is the homepage's (13 Oct review: "Tech Stack Mismatched -
+ * use the tech stack from home page"): its eight groups, in the homepage's own
+ * marquee rows (`components/home/tech-stack`), under this section's live
+ * heading. It replaced a single six-logo "Technologies" row.
  */
-export const industryTechApproach: TechStackContent = {
+export const industryTechApproach: HomeTechStackContent = {
   eyebrow: "Technology",
   title: "Innovative AI Technologies & Approaches",
   body: "Using advanced AI-driven strategies & tools, we improve customer experiences, streamline operations, & reduce costs. Our approach focuses on intelligent automation, personalized experiences, & data-centric decision-making to create impactful and scalable solutions.",
-  groups: [
-    { name: "Technologies", items: ["React", "Angular", "Node.js", "Python", "Java", "PHP"] },
-  ],
+  groups: techStack.groups,
 };

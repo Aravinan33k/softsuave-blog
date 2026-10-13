@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { organizationLd } from '@/lib/seo/organization';
 import {
   clientStories,
   employeeStories,
@@ -58,41 +56,12 @@ export const metadata: Metadata = {
 
 const HOME_HREF = BASE_PATH || '/';
 
-/**
- * A `CollectionPage` whose parts are the videos, as `VideoObject` nodes.
- *
- * Only what the page itself states: name, thumbnail and the YouTube URL.
- * `uploadDate` and `description`, which Google wants for a video rich result,
- * are left out rather than invented — the page does not carry them.
- */
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    '@id': `${absoluteUrl(successStoriesPageMeta.path)}#webpage`,
-    name: successStoriesPageMeta.title,
-    description: successStoriesPageMeta.description,
-    url: absoluteUrl(successStoriesPageMeta.path),
-    inLanguage: 'en',
-    about: { '@id': organizationLd['@id'] },
-    publisher: { '@id': organizationLd['@id'] },
-    hasPart: [clientStories, employeeStories].flatMap((group) =>
-      group.items.map((story) => ({
-        '@type': 'VideoObject',
-        name: story.title,
-        url: story.href,
-        thumbnailUrl: absoluteUrl(story.image.src),
-        genre: group.title,
-        publisher: { '@id': organizationLd['@id'] },
-      })),
-    ),
-  },
-];
-
 export default function SuccessStoriesPage() {
   return (
     <div className={home.page}>
-      <JsonLd data={structuredData} />
+      {/* No JSON-LD: the live page carries none (13 Oct review: "need to update
+          the schema"), and the route is in PAGES_WITH_OWN_SITE_GRAPH, so the
+          layout adds no Organization or WebSite here either. */}
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">

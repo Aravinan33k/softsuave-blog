@@ -22,8 +22,10 @@ export function SoftSuaveArchiveView({ site, heading, description, posts, total,
       <link rel="preload" as="image" href={BANNER_BG} fetchPriority="high" />
 
       {/* Hero: full-bleed backdrop, left-aligned copy, category tabs inside. */}
+      {/* `data-nav-tone="dark"`: the site header turns black over this banner. */}
       <section
         className="bg-cover bg-center"
+        data-nav-tone="dark"
         style={{ backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.88), rgba(0,0,0,0.55)), url(${BANNER_BG})` }}
       >
         <div className="mx-auto max-w-[1320px] px-4 py-14 text-white sm:py-20">

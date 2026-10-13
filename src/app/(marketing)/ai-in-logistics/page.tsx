@@ -5,6 +5,7 @@ import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
   logisticsBenefits,
+  logisticsCta,
   logisticsFaqs,
   logisticsHero,
   logisticsMeta,
@@ -30,7 +31,8 @@ import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import Services from '@/components/landing/services';
 import CardGrid from '@/components/landing/industries';
-import TechStack from '@/components/landing/tech-stack';
+import CtaBand from '@/components/landing/cta-band';
+import TechStack from '@/components/home/tech-stack';
 import Faq from '@/components/landing/faq';
 
 import home from '@/components/home/home.module.css';
@@ -113,10 +115,17 @@ export default function LogisticsAiSolutionsPage() {
 
         <div className={home.light}>
           <CardGrid content={logisticsBenefits} id="benefits" variant="feature" />
-          <TechStack content={industryTechApproach} />
+          {/* The homepage's technology rows under this section's live heading. */}
+          <div className={home.techFit}>
+            <TechStack content={industryTechApproach} />
+          </div>
+          <WorkGrid content={logisticsSuccessStories} id="results" countLabel="success stories" />
         </div>
 
-        <WorkGrid content={logisticsSuccessStories} id="results" countLabel="success stories" />
+        {/* The live page's band after the success stories (13 Oct review: "CTA
+            section is missing"). The stories join the light band above so the
+            dark band sits between two light ones, as on Telecom. */}
+        <CtaBand content={logisticsCta} />
 
         <div className={home.light}>
           <Testimonials />

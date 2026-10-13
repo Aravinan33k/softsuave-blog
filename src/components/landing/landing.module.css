@@ -8390,3 +8390,71 @@
     align-items: start;
   }
 }
+
+/* `OverviewContent.image.fit: "cutout"` — transparent cut-out artwork (the
+   live industry and About pages' collages) shown whole on the band's own
+   ground: no surface panel, no border, no inset, no crop. Capped so a tall
+   collage beside a short block of copy cannot run away with the row; the
+   image is `contain`ed inside the cap. Last in the file and three classes, so
+   it outranks `.overviewMediaFixed`'s `max-height: none` and the compact
+   variant's bordered frame. */
+.overviewGrid .overviewMedia.overviewMediaCutout {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  max-height: 560px;
+}
+
+.overviewGrid .overviewMediaCutout img {
+  object-fit: contain;
+}
+
+/* A centred cut-out can be the taller column (a portrait collage beside a
+   short block of copy); then the copy centres against it in turn, so neither
+   column hangs off the other's top edge. */
+@media (min-width: 1000px) {
+  .overviewGrid:has(> .overviewMediaCutout.overviewMediaCenter) {
+    align-items: center;
+  }
+}
+
+/* `HeroContent.aside` — an image in the enquiry card's column (About). The
+   column is wider than the card's `--enquiry-col`, since a picture, unlike a
+   form, gains from the room; the image keeps its own shape (`contain`), so
+   transparent cut-out artwork reads as artwork, not as a cropped photo. */
+.heroAside {
+  margin: 0;
+  width: 100%;
+  max-width: 640px;
+  justify-self: center;
+}
+
+.heroAsideImg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 1000px) {
+  .heroGrid.heroGridAside {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+    align-items: center;
+  }
+}
+
+/* The stronger hero veil once the copy runs the full width (under 1000px,
+   where the form or image drops below it): the desktop veil fades from left
+   to right, which leaves the photo's lit right half under the stacked copy,
+   so here it darkens evenly instead (industry review, 13 Oct: "increase the
+   black gradient in the hero section to make the text more readable"). */
+@media (max-width: 999px) {
+  .heroBgVeil[data-veil="strong"] {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 5, 8, 0.82) 0%,
+      rgba(4, 5, 8, 0.74) 45%,
+      rgba(4, 5, 8, 0.92) 100%
+    );
+  }
+}

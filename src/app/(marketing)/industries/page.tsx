@@ -9,6 +9,7 @@ import { meta, sectors } from '@/lib/home/industries-content';
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 import Clients from '@/components/home/clients';
+import Contact from '@/components/home/contact';
 
 import Hero from '@/components/industries/hero';
 import Sectors from '@/components/industries/sectors';
@@ -121,21 +122,27 @@ export default function IndustriesPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        {/* The live page's own section set, in its order: hero, client strip,
-            the sector cards, and the closing consultation band (review:
-            "Align the client section after the hero section" / "Need to
-            remove unwanted sections"). The by-the-numbers rail, capabilities
+        {/* The live page's section set: hero, client strip, the "Next step"
+            consultation band, the sector cards, then the closing CTA every
+            industry page ends on (13 Oct review: "move this section before
+            the Sector section" / "Use the final cta used in other industry
+            section on this page"). The by-the-numbers rail, capabilities
             ledger, case studies and staffing sections it no longer runs are
-            gone. Client strip and sectors share one light band between the
-            dark hero and the always-dark closing panel. */}
+            gone. The always-dark "Next step" panel sits between the light
+            client and sector bands. */}
         <Hero />
 
         <div className={styles.light}>
           <Clients />
+        </div>
+
+        <Closing id="next-step" />
+
+        <div className={styles.light}>
           <Sectors />
         </div>
 
-        <Closing />
+        <Contact />
       </main>
 
       <Footer />

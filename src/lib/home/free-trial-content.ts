@@ -18,7 +18,9 @@ import type { ProcessContent } from "@/components/landing/process";
 
 export const freeTrialMeta = {
   path: "/free-7-days-trial",
-  title: "Book a Risk-free 40 Hours Trail to Test Our Developers | Soft Suave",
+  // The live page's <title> and description, verbatim (13 Oct review: "need
+  // to update the title and description").
+  title: "Book a Risk-free 40 Hours Trial to Test Our Developers - Soft Suave",
   description:
     "Fill the form below to book a Risk-free 7 Days Trial to test our developers.",
 } as const;

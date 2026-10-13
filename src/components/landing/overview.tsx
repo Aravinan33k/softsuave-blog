@@ -142,8 +142,12 @@ export interface OverviewContent {
      * inset. For a drawn diagram or illustration, cropping removes content:
      * the Ionic page's own one was losing the figure on its right and the top
      * and bottom of its phone mockup (review: "need to resize the image").
+     *
+     * `"cutout"` is `contain` with no frame at all — no surface ground, no
+     * inset, no crop — for transparent cut-out artwork (the live industry and
+     * About pages' collages), which a panel behind it would box in.
      */
-    fit?: "cover" | "contain";
+    fit?: "cover" | "contain" | "cutout";
     /**
      * A fixed frame ratio (CSS `aspect-ratio`, e.g. `"14 / 16"`) at every
      * width. Without it the frame is 4:3 (compact) or 3:2 below 1000px and
@@ -294,9 +298,13 @@ export default function Overview({
    * The claim list joins the left column when the right-hand block is meant
    * to run its whole height — the stats panel, or an `image.column` frame,
    * which otherwise stopped at the prose and left the list beside empty
-   * ground (MERN review, 13 Oct: "resize the image to match the section").
+   * ground (MERN review, 13 Oct: "resize the image to match the section") —
+   * or to sit centred against it (`image.align: "center"`), so the image
+   * centres on the whole block, list included, rather than on the prose
+   * above it (Logistics/Telecom review: "center align the image").
    */
-  const pointsInColumn = asideStats || (showImage && Boolean(image?.column));
+  const pointsInColumn =
+    asideStats || (showImage && Boolean(image?.column || image?.align === "center"));
 
   /** The claim list, rendered either inside the left column or below the grid. */
   const pointsList =
@@ -390,6 +398,7 @@ export default function Overview({
               className={[
                 styles.overviewMedia,
                 image.fit === "contain" ? styles.overviewMediaContain : "",
+                image.fit === "cutout" ? styles.overviewMediaCutout : "",
                 image.aspect ? styles.overviewMediaFixed : "",
                 image.column ? styles.overviewMediaColumn : "",
                 image.align === "center" ? styles.overviewMediaCenter : "",

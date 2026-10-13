@@ -104,8 +104,10 @@
  * Kept free of `server-only` so the client `SiteGraph` can read it.
  */
 export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
+  '/about',
   '/agentic-ai-development-services',
   '/android-application-development-company',
+  '/awards-recognition',
   '/cloud-computing',
   '/computer-vision-development-services',
   '/custom-ai-development-services',
@@ -164,6 +166,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/react-native-app-development-company',
   '/reactjs-app-development-company',
   '/software-development-company',
+  '/success-stories',
   '/typescript-development-company',
   '/vuejs-development-company',
   '/web-application-development-company',

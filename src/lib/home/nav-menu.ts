@@ -293,17 +293,25 @@ const COMPANY: NavMenuPanel = {
   ],
 };
 
+/**
+ * The blog links (this panel's CTA and its "Blog" item, which the footer's
+ * Resources column also renders) go to the current softsuave.com blog, as is
+ * (13 Oct review: "Link the current blog in the header and footer - no changes
+ * in this link"). This app's own `/blog` has no posts until they are imported.
+ */
+export const CURRENT_BLOG = "https://www.softsuave.com/blog/";
+
 const RESOURCES: NavMenuPanel = {
   eyebrow: "Resources",
   title: "Field notes from building AI systems",
   body: "Engineering write-ups, delivery playbooks and the case studies behind them.",
-  cta: { label: "Read the blog", href: "/blog" },
+  cta: { label: "Read the blog", href: CURRENT_BLOG },
   groups: [
     {
       key: "resources",
       name: "Resources",
       items: [
-        { name: "Blog", href: "/blog" },
+        { name: "Blog", href: CURRENT_BLOG },
         { name: "Case Studies", href: "/case-studies" },
       ],
     },

@@ -216,7 +216,7 @@ describe('hire page copy', () => {
       expect(skill.hero.titleLines.length, skill.slug).toBe(2);
       expect(skill.hero.body.length, skill.slug).toBeGreaterThanOrEqual(2);
       expect(skill.hero.points.length, skill.slug).toBeGreaterThanOrEqual(4);
-      expect(skill.hero.form.title, skill.slug).toBe('Get Skilled Remote Developers');
+      expect(skill.hero.form?.title, skill.slug).toBe('Get Skilled Remote Developers');
     }
   });
 

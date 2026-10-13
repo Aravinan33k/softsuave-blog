@@ -20,9 +20,11 @@ import type { ProcessContent } from "@/components/landing/process";
 
 export const consultationMeta = {
   path: "/30-min-free-consultation",
-  title: "Book a 30 Minute FREE Consultation For Your Business Needs | Soft Suave",
+  // The live page's <title> and description, verbatim (13 Oct review: "need
+  // to update the title and description").
+  title: "Book a 30 Minute FREE Consultation For Your Business Needs",
   description:
-    "Skip the guesswork – get a free expert consultation within 24 hours. Whether you're building a new app or enhancing an existing one, our specialists will guide you every step of the way.",
+    "Fill the form below to book a 30 Minute FREE Consultation for your business needs",
 } as const;
 
 export const consultationHero: HeroContent = {

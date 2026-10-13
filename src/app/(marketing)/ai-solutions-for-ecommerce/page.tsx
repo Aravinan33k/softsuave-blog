@@ -4,13 +4,14 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
-  ecommerceCaseStudies,
   ecommerceChallenges,
+  ecommerceCta,
   ecommerceFaqs,
   ecommerceHero,
   ecommerceMeta,
   ecommerceProcess,
   ecommerceServices,
+  ecommerceSuccessStories,
   ecommerceWhyUs,
 } from '@/lib/home/ecommerce-ai-content';
 import { industryTechApproach } from '@/lib/home/industry-shared';
@@ -21,15 +22,16 @@ import Footer from '@/components/home/footer';
 // COMPANY-LEVEL SECTIONS — the homepage's own components and content: the
 // client strip the live page opens on, and the closing enquiry band.
 import Clients from '@/components/home/clients';
+import WorkGrid from '@/components/home/work-grid';
 import Contact from '@/components/home/contact';
 
 // SECTOR-SPECIFIC SECTIONS — shared landing components taking this page's copy.
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import Services from '@/components/landing/services';
-import TechStack from '@/components/landing/tech-stack';
+import TechStack from '@/components/home/tech-stack';
 import Process from '@/components/landing/process';
-import CaseStudies from '@/components/landing/case-studies';
+import CtaBand from '@/components/landing/cta-band';
 import Faq from '@/components/landing/faq';
 // The live page's challenge tabs — the same selector-and-panel the hire pages
 // run for their evaluation criteria.
@@ -118,11 +120,19 @@ export default function EcommerceAiSolutionsPage() {
         <Services content={ecommerceServices} variant="bold" />
 
         <div className={home.light}>
-          <TechStack content={industryTechApproach} />
+          {/* The homepage's technology rows under this section's live heading. */}
+          <div className={home.techFit}>
+            <TechStack content={industryTechApproach} />
+          </div>
           <Process content={ecommerceProcess} />
+          {/* The image-led success-story lane the other industry pages run
+              (13 Oct review: "redesign the success stories section"). */}
+          <WorkGrid content={ecommerceSuccessStories} id="success-stories" countLabel="success stories" />
         </div>
 
-        <CaseStudies content={ecommerceCaseStudies} />
+        {/* The live page's closing band, ahead of the FAQ here so the dark band
+            sits between two light ones rather than against the closing CTA. */}
+        <CtaBand content={ecommerceCta} />
 
         <div className={home.light}>
           <Faq content={ecommerceFaqs} idPrefix="ecommerce-faq" />

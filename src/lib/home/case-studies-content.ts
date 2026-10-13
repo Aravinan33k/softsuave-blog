@@ -28,8 +28,10 @@ export const caseStudiesPageMeta = {
   slug: "case-studies",
   path: "/case-studies",
   title: "Soft Suave Case Study: Proven IT Solutions for Business",
+  // The live page's meta description, verbatim (13 Oct review: "need to
+  // update the description").
   description:
-    "Explore Soft Suave case studies across healthcare, eCommerce, logistics, education, finance, telecom, oil & gas and on-demand platforms — AI, web and mobile solutions built and shipped for our clients.",
+    "Case studies that will help you develop top-notch apps with Soft Suave, the perfect app development solutions for all leading industries in the market.",
 } as const;
 
 export const caseStudiesListing: ListingContent = {

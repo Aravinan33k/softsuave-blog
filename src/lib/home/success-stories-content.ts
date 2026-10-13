@@ -18,11 +18,12 @@ export const successStoriesPageMeta = {
   /** The live `<title>`. Used as-is; the route does not append the brand. */
   title: "Soft Suave Success Stories: Proven Business Impact",
   /**
-   * NOT the live description — the live tag is a Magento page's description
-   * pasted onto this one. This says what the page actually holds.
+   * The live description, verbatim (13 Oct review: "meta description
+   * mismatched"). Note it is a Magento page's description pasted onto this
+   * one on softsuave.com; it is matched here as asked, not corrected.
    */
   description:
-    "Watch Soft Suave's client and employee success stories — clients on the development support we delivered, and team members on their journey from trainee to team leader.",
+    "Partner with a leading Magento development company in India for custom eCommerce solutions who build high-performance Magento stores.",
 } as const;
 
 /** The live banner's only content is its "Success Stories" title. */
