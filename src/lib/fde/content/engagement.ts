@@ -1,4 +1,5 @@
 import { contactPageHref } from "@/lib/fde/contact";
+import { HOURLY_RATE } from "@/lib/company-figures";
 
 export type EngagementIconName = "code" | "layers" | "rocket";
 
@@ -37,7 +38,7 @@ export const engagementModels: EngagementModel[] = [
     icon: "code",
     points: [
       "Flexible scope and requirements",
-      "FDE rates from $14/hour",
+      `FDE rates from ${HOURLY_RATE}`,
       "Scale capacity as needed",
       "Sprint-based delivery",
     ],

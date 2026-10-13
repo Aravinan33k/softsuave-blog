@@ -56,6 +56,7 @@ import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 export const phpMeta = {
   slug: "php-application-development-company",
@@ -111,7 +112,7 @@ export const phpOverview: OverviewContent = {
   title: "PHP Development Services To Maximize Your Business Growth",
   paragraphs: [
     "With our best-in-class PHP web development services we cater to the needs of global as well as domestic clients.",
-    "Soft Suave is a top-of-the-line PHP Web Development Company in India operating for more than 13+ years winning the trust and loyalty of our respectful customers. Being an experienced PHP development company, we leverage the power of this server-side scripting language and combine our HTML5 skills with PHP knowledge to create responsive and secure applications.",
+    `Soft Suave is a top-of-the-line PHP Web Development Company in India operating for more than ${YEARS_PLUS} years winning the trust and loyalty of our respectful customers. Being an experienced PHP development company, we leverage the power of this server-side scripting language and combine our HTML5 skills with PHP knowledge to create responsive and secure applications.`,
     "We consistently craft creative, unique, and attractive solutions, thanks to our skillful development team of qualified PHP developers, designers, analysts, and project managers. Besides, having a strong team specialized in PHP assists us to develop web Apps with superior performance, greater reliability, and scalable functionality. To achieve such results, we always utilize a range of PHP extensions and libraries so we can integrate all the latest extensions in our client's projects.",
     "To ensure our PHP Application Development Solutions attracts end-users, we pay special attention to our PHP professionals and constantly nourish them with personnel training, motivation, knowledge sharing, and performance monitoring.",
   ],
@@ -178,7 +179,7 @@ export const phpServices: ServiceBoardContent = {
     {
       name: "OpenSource CMS Development",
       paragraphs: [
-        "Soft Suave, with its combined experience of 13+ years, has dealt with a plethora of PHP Web Application Development projects including CMS solutions. We have the expertise and experience to deal with any Open Source CMS regardless of its complexity or duration. Whether you require a small and compact web App or a complex e-commerce web application, we can address all your requirements. Soft Suave would be honored to start a business relationship with you.",
+        `Soft Suave, with its combined experience of ${YEARS_PLUS} years, has dealt with a plethora of PHP Web Application Development projects including CMS solutions. We have the expertise and experience to deal with any Open Source CMS regardless of its complexity or duration. Whether you require a small and compact web App or a complex e-commerce web application, we can address all your requirements. Soft Suave would be honored to start a business relationship with you.`,
         "Our PHP experts have the knowledge and experience to provide you with matchless PHP-based CMS development, ensuring that your final PHP-based output is in line with your business plan.",
       ],
       image: {

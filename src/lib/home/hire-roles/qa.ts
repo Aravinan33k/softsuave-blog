@@ -31,6 +31,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
+import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const qa: HireRolePageContent = {
   key: 'hire-qa',
@@ -57,7 +58,7 @@ export const qa: HireRolePageContent = {
   meta: {
     title: 'Hire QA Testers in India | 40-Hour Trial – Soft Suave',
     description:
-      'Hire pre-vetted QA testers for manual & automation testing (Selenium, Appium). Onboard in 48 hours with a 40-hour risk-free trial. Rates from $14/hr.',
+      `Hire pre-vetted QA testers for manual & automation testing (Selenium, Appium). Onboard in 48 hours with a 40-hour risk-free trial. Rates from ${HOURLY_RATE}.`,
   },
 
   hero: {
@@ -70,7 +71,7 @@ export const qa: HireRolePageContent = {
     // is space; ensure it doesn't break").
     titleFit: true,
     body: [
-      "Soft Suave provides pre-vetted QA testers skilled in manual and automation testing (Selenium, Appium, Postman, JMeter), placed on your team within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
+      `Soft Suave provides pre-vetted QA testers skilled in manual and automation testing (Selenium, Appium, Postman, JMeter), placed on your team within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from ${HOURLY_RATE} and no long-term contract required until you're satisfied.`,
       'Every release deserves a QA tester who never misses bugs.',
     ],
     points: [
@@ -172,7 +173,7 @@ export const qa: HireRolePageContent = {
 
   midCta: {
     eyebrow: 'Rates',
-    title: 'Hire Software QA Engineer Starting from $14/hour',
+    title: `Hire Software QA Engineer Starting from ${HOURLY_RATE}`,
     body: 'We will provide you with remote QA testers that work from India. Contact us to take a look at CVs.',
     cta: { label: 'Request Rate Card', href: '/contact' },
   },
@@ -384,7 +385,7 @@ export const qa: HireRolePageContent = {
     items: [
       {
         q: 'How much does it cost to hire a QA tester from Soft Suave?',
-        a: 'Rates start from $14/hour, in line with the $15/hour median rate for software QA testers on Upwork ($12–$20/hr typical range). Every hire starts with a 40-hour risk-free trial before any monthly commitment.',
+        a: `Rates start from ${HOURLY_RATE}, in line with the $15/hour median rate for software QA testers on Upwork ($12–$20/hr typical range). Every hire starts with a 40-hour risk-free trial before any monthly commitment.`,
       },
       {
         q: 'How does the 40-hour risk-free trial work?',

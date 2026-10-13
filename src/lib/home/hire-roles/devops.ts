@@ -25,6 +25,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
+import { HOURLY_RATE, YEARS_PLUS } from '@/lib/company-figures';
 
 export const devops: HireRolePageContent = {
   key: 'hire-devops',
@@ -47,14 +48,14 @@ export const devops: HireRolePageContent = {
   meta: {
     title: 'Hire DevOps Engineers in India | 40-Hour Trial – Soft Suave',
     description:
-      'Hire pre-vetted DevOps engineers for CI/CD, Kubernetes, Docker, AWS & Azure. Onboard in 48 hours with a 40-hour risk-free trial. Rates from $14/hr.',
+      `Hire pre-vetted DevOps engineers for CI/CD, Kubernetes, Docker, AWS & Azure. Onboard in 48 hours with a 40-hour risk-free trial. Rates from ${HOURLY_RATE}.`,
   },
 
   hero: {
     titleLines: ['Hire DevOps Developers', 'from India in 48 hours'],
     accent: 'DevOps Developers',
     body: [
-      "Soft Suave provides pre-vetted DevOps engineers experienced in CI/CD, Kubernetes, Docker, AWS and Azure, matched to your project within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
+      `Soft Suave provides pre-vetted DevOps engineers experienced in CI/CD, Kubernetes, Docker, AWS and Azure, matched to your project within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from ${HOURLY_RATE} and no long-term contract required until you're satisfied.`,
       'See why businesses choose Soft Suave for their DevOps hiring.',
     ],
     points: [
@@ -91,7 +92,7 @@ export const devops: HireRolePageContent = {
     paragraphs: [
       'Redefine your software delivery & deployment strategy to the next level by hiring our DevOps developers.',
       'Do your development and operational environment need to be automated? Hire Remote DevOps Developers from a leading DevOps development company like us for better integration. Our dedicated developers team would conduct a complete analysis of your business to integrate DevOps automation into your IT ecosystem. For this, we create and follow a detailed roadmap. We have helped many Startups and SMBs to accelerate time-to-market, increase efficiency and add value to their organization with our exceptional services. Our dedicated DevOps engineers (Amazon AWS or Microsoft Azure) focus on controlling the entire software implementation and delivery process to automate hefty workflow activities.',
-      'Our offshore DevOps programmers are delivering successful projects for more than 13+ years which helped them to gain immense knowledge to solve any issue. Since, our developers have hands-on experience working with robust DevOps tools like Gradle, Git, Jenkins, Bamboo, etc., they have the capability to achieve world-class IT service delivery.',
+      `Our offshore DevOps programmers are delivering successful projects for more than ${YEARS_PLUS} years which helped them to gain immense knowledge to solve any issue. Since, our developers have hands-on experience working with robust DevOps tools like Gradle, Git, Jenkins, Bamboo, etc., they have the capability to achieve world-class IT service delivery.`,
       "As an expert DevOps consulting company, we help businesses to realize the full potential of collaborated performance, software quality & delivery speed. Also, our senior DevOps engineers upgrade enterprise Apps, improve IT security, and utilize infrastructure resources with a motive to increase our client's customer satisfaction, retention, and business efficiency.",
     ],
   },
@@ -317,7 +318,7 @@ export const devops: HireRolePageContent = {
     items: [
       {
         q: 'How much does it cost to hire a DevOps engineer from Soft Suave?',
-        a: 'Rates start from $14/hour (Junior $14/hr, Mid-level $18/hr, Senior $25/hr) — well below the $60/hour median rate for DevOps engineers on Upwork. Every hire starts with a 40-hour risk-free trial before any monthly commitment.',
+        a: `Rates start from ${HOURLY_RATE} (Junior ${HOURLY_RATE}, Mid-level $18/hour, Senior $25/hour) — well below the $60/hour median rate for DevOps engineers on Upwork. Every hire starts with a 40-hour risk-free trial before any monthly commitment.`,
       },
       {
         q: 'How long does it take to hire a DevOps engineer?',

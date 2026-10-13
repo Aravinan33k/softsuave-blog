@@ -25,6 +25,7 @@
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
 import { overviewImage } from '../overview-images';
+import { HOURLY_RATE, YEARS_PLUS } from '@/lib/company-figures';
 
 export const ios: HireRolePageContent = {
   key: 'hire-ios',
@@ -59,7 +60,7 @@ export const ios: HireRolePageContent = {
       veil: 'strong',
     },
     body: [
-      'Great iOS apps do not happen by accident; they are built by the right people. Hire skilled iOS developers through Soft Suave, a specialized agency with vetted talent starting from $14/hour and flexible engagement models that keep your project on track.',
+      `Great iOS apps do not happen by accident; they are built by the right people. Hire skilled iOS developers through Soft Suave, a specialized agency with vetted talent starting from ${HOURLY_RATE} and flexible engagement models that keep your project on track.`,
       'Soft Suave puts the right iOS developer in your team every time.',
     ],
     points: [
@@ -88,7 +89,7 @@ export const ios: HireRolePageContent = {
     title: 'Hire iOS Developers At The Right Place',
     paragraphs: [
       'Soft Suave is your best place to hire iOS Developer in India who have vast industry knowledge and experience.',
-      "Soft Suave's iPhone developers have been developing robust and business-centric iOS Apps for more than 13+ years. Hire iOS Developer in India to fill any skill gaps in your onshore App development team and to get the most out of iOS SDK technologies.",
+      `Soft Suave's iPhone developers have been developing robust and business-centric iOS Apps for more than ${YEARS_PLUS} years. Hire iOS Developer in India to fill any skill gaps in your onshore App development team and to get the most out of iOS SDK technologies.`,
       'Our developers belong to the 1% of the top iOS Developers in India that create award-winning Apps for start-ups and SMBs. When you Hire iPhone App Developer from Soft Suave, you are assured of ground-breaking Apps that trend in the App Store. After you hire remote iOS developers, they carefully understand the scope of the project, analyze the customer requirements to finally deliver feature-rich iOS Apps within the estimated time and budget.',
       'Our iOS mobile App developers and iPhone App Designers are well-versed to develop secure and innovative mobile applications using all the latest technologies like AI/ML, IoT, AR/VR, Chatbots, Cloud Integration, etc. for iPhone, iPad, and Apple Watch.',
     ],
@@ -136,7 +137,7 @@ export const ios: HireRolePageContent = {
 
   midCta: {
     eyebrow: 'Rates',
-    title: 'Hire iOS Developers Starting from $14/hour',
+    title: `Hire iOS Developers Starting from ${HOURLY_RATE}`,
     body: 'We will provide you with remote iOS App developers that work from India. Contact us to take a look at CVs.',
     cta: { label: 'Request Rate Card', href: '/contact' },
   },

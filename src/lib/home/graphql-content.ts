@@ -48,13 +48,14 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { TechStackContent } from "@/components/home/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const gqMeta = {
   slug: "graphql-development-company",
   path: "/graphql-development-company",
   title: "GraphQL Development Company for Modern APIs",
   description:
-    "Work with a GraphQL development company backed by 13+ years of technology expertise and 400+ AI & Engineering Specialists for modern API solutions.",
+    `Work with a GraphQL development company backed by ${YEARS_PLUS} years of technology expertise and ${SPECIALISTS_PLUS} AI & Engineering Specialists for modern API solutions.`,
 } as const;
 
 export const gqHero: HeroContent = {
@@ -200,11 +201,11 @@ export const gqWhyUs: CardGridContent = {
   items: [
     {
       name: "Technology Experience for Complex API Work",
-      body: "Apply 13+ years of technology expertise to GraphQL architecture, integration, testing, and maintenance.",
+      body: `Apply ${YEARS_PLUS} years of technology expertise to GraphQL architecture, integration, testing, and maintenance.`,
     },
     {
       name: "Access to Broader Engineering Knowledge",
-      body: "Consult 400+ AI & Engineering Specialists when projects require application, data, cloud, or testing support.",
+      body: `Consult ${SPECIALISTS_PLUS} AI & Engineering Specialists when projects require application, data, cloud, or testing support.`,
     },
     {
       name: "Schema Design Based on Your Domain",

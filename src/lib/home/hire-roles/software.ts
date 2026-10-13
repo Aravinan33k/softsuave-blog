@@ -23,6 +23,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm, hiringComparison } from './shared';
+import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const software: HireRolePageContent = {
   key: 'hire-software',
@@ -60,7 +61,7 @@ export const software: HireRolePageContent = {
     ],
     points: [
       'Project-Ready Developer Profiles',
-      '400+ AI & Engineering Specialists',
+      `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
       '40-Hour Risk-Free Trial',
       'Flexible Hiring Options',
       'Direct Developer Collaboration',
@@ -211,13 +212,13 @@ export const software: HireRolePageContent = {
     items: [
       {
         key: 'experience',
-        name: '13+ Years of Technology Expertise',
-        body: 'Bring 13+ years of technology expertise into software development requirements across applications, integrations, modernization, and ongoing engineering work.',
+        name: `${YEARS_PLUS} Years of Technology Expertise`,
+        body: `Bring ${YEARS_PLUS} years of technology expertise into software development requirements across applications, integrations, modernization, and ongoing engineering work.`,
       },
       {
         key: 'specialists',
-        name: '400+ AI & Engineering Specialists',
-        body: 'Soft Suave is backed by 400+ AI & Engineering Specialists across multiple development disciplines and technology areas.',
+        name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+        body: `Soft Suave is backed by ${SPECIALISTS_PLUS} AI & Engineering Specialists across multiple development disciplines and technology areas.`,
       },
       {
         key: 'trial',
@@ -315,7 +316,7 @@ export const software: HireRolePageContent = {
     items: [
       {
         q: 'How much does it cost to hire a software developer?',
-        a: "The cost depends on the developer's experience, technology stack, specialization, engagement duration, required capacity, and project responsibilities. Once we understand your requirements, we'll recommend the right developer and engagement model for your project. At Soft Suave, software developer rates start from $14/hour.",
+        a: `The cost depends on the developer's experience, technology stack, specialization, engagement duration, required capacity, and project responsibilities. Once we understand your requirements, we'll recommend the right developer and engagement model for your project. At Soft Suave, software developer rates start from ${HOURLY_RATE}.`,
       },
       {
         q: 'Can I interview a software developer before hiring?',

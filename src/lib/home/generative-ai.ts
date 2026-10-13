@@ -11,11 +11,12 @@
  */
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const meta = {
   title: "Generative AI Development Company | Soft Suave",
   description:
-    "Choose Soft Suave, a generative AI development company with 13+ years of experience and 400+ AI experts, for secure, production-ready solutions.",
+    `Choose Soft Suave, a generative AI development company with ${YEARS_PLUS} years of experience and ${SPECIALISTS_PLUS} AI experts, for secure, production-ready solutions.`,
   path: "/generative-ai-development-company",
 } as const;
 
@@ -26,7 +27,7 @@ export const hero = {
   accent: "Generative AI",
   titleFit: true,
   body: [
-    "Soft Suave is a generative AI development company that takes your idea from prototype to production. Our 400+ AI & engineering specialists build RAG systems, AI agents, and LLM applications that integrate with the systems and tools your business already runs on.",
+    `Soft Suave is a generative AI development company that takes your idea from prototype to production. Our ${SPECIALISTS_PLUS} AI & engineering specialists build RAG systems, AI agents, and LLM applications that integrate with the systems and tools your business already runs on.`,
     "Start with a 30-minute technical consultation to discuss your use case and identify a suitable approach before committing your project budget.",
   ],
   points: [
@@ -312,11 +313,11 @@ export const whyUs = {
   body: "Successful generative AI development requires more than selecting a model. Soft Suave combines AI expertise, proven software engineering, secure development practices, and production experience to build solutions that deliver lasting business value.",
   items: [
     {
-      name: "400+ AI & Engineering Specialists",
+      name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
       body: "Build your solution with experienced engineers across generative AI, cloud, data, frontend, backend, integration, testing, and DevOps.",
     },
     {
-      name: "13+ Years of Software Engineering Expertise",
+      name: `${YEARS_PLUS} Years of Software Engineering Expertise`,
       body: "Benefit from extensive experience building reliable software and turning complex ideas into secure, scalable, production-ready solutions.",
     },
     {

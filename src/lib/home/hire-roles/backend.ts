@@ -27,6 +27,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
+import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const backend: HireRolePageContent = {
   key: 'hire-backend',
@@ -57,9 +58,9 @@ export const backend: HireRolePageContent = {
   ],
 
   meta: {
-    title: 'Hire Backend Developers From $14/hr | 40-hour trial',
+    title: `Hire Backend Developers From ${HOURLY_RATE} | 40-hour trial`,
     description:
-      'Hire backend developers from $14/hour for APIs, databases, cloud systems, and scalable applications. Evaluate talent through a 40-hour risk-free trial.',
+      `Hire backend developers from ${HOURLY_RATE} for APIs, databases, cloud systems, and scalable applications. Evaluate talent through a 40-hour risk-free trial.`,
   },
 
   hero: {
@@ -81,8 +82,8 @@ export const backend: HireRolePageContent = {
       'Vetted Talent On Contract',
       'Developers Matched to Your Stack',
       'NDA & SLA Backed Engagements',
-      '400+ AI & Engineering Specialists',
-      'Flexible Hiring from $14/Hour',
+      `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+      `Flexible Hiring from ${HOURLY_RATE}`,
     ],
     form: heroForm({
       title: 'Get Skilled Backend Developers',
@@ -351,12 +352,12 @@ export const backend: HireRolePageContent = {
     items: [
       {
         key: 'experience',
-        name: '13+ Years of Technology Expertise',
+        name: `${YEARS_PLUS} Years of Technology Expertise`,
         body: 'Work with an experienced technology partner for application development, modernization, integrations, and ongoing engineering requirements.',
       },
       {
         key: 'specialists',
-        name: '400+ AI & Engineering Specialists',
+        name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
         body: 'Access broader engineering expertise across applications, cloud, data, DevOps, testing, and AI for complex backend requirements.',
       },
       {
@@ -506,7 +507,7 @@ export const backend: HireRolePageContent = {
       },
       {
         q: 'How much does it cost to hire a back end developer?',
-        a: 'Our backend developer rates start at $14 per hour. Final pricing depends on the required skills, experience level, project responsibilities, engagement model, and duration.',
+        a: `Our backend developer rates start at ${HOURLY_RATE}. Final pricing depends on the required skills, experience level, project responsibilities, engagement model, and duration.`,
       },
     ],
   },

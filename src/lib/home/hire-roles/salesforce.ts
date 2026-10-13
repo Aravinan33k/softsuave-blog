@@ -21,6 +21,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm, onboardingComparison } from './shared';
+import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const salesforce: HireRolePageContent = {
   key: 'hire-salesforce',
@@ -58,7 +59,7 @@ export const salesforce: HireRolePageContent = {
       veil: 'strong',
     },
     body: [
-      "Soft Suave provides pre-vetted Salesforce developers skilled in Apex, Lightning Web Components, Sales Cloud and Service Cloud customization, matched to your project within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
+      `Soft Suave provides pre-vetted Salesforce developers skilled in Apex, Lightning Web Components, Sales Cloud and Service Cloud customization, matched to your project within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from ${HOURLY_RATE} and no long-term contract required until you're satisfied.`,
     ],
     points: [
       '40-Hour Risk-Free Trial',
@@ -333,7 +334,7 @@ export const salesforce: HireRolePageContent = {
     items: [
       {
         q: 'How much does it cost to hire a Salesforce developer?',
-        a: 'Rates start from $14/hour for a dedicated offshore hire, in line with the $25-$40/hour range Upwork reports for Salesforce developers ($30/hour median). Final pricing depends on project scope - every engagement starts with a 40-hour risk-free trial before you commit.',
+        a: `Rates start from ${HOURLY_RATE} for a dedicated offshore hire, in line with the $25-$40/hour range Upwork reports for Salesforce developers ($30/hour median). Final pricing depends on project scope - every engagement starts with a 40-hour risk-free trial before you commit.`,
       },
       {
         q: 'Is there a free trial period available?',

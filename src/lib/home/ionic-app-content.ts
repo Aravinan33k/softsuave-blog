@@ -49,6 +49,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroAlert } from "./delivery-shared";
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 export const ionMeta = {
   slug: "ionic-app-development-company",
@@ -266,7 +267,7 @@ export const ionFaqs: FaqContent = {
   items: [
     {
       q: "Why should we hire Soft Suave for ionic App development?",
-      a: "Soft Suave is a leading Ionic App development company operating for more than 13+ years. We have clients all around the world and a track record of delivering best-in-class Apps that will be successful in the market.",
+      a: `Soft Suave is a leading Ionic App development company operating for more than ${YEARS_PLUS} years. We have clients all around the world and a track record of delivering best-in-class Apps that will be successful in the market.`,
     },
     {
       q: "Why should I choose an ionic framework for mobile App development?",

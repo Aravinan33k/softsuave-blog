@@ -1,4 +1,5 @@
 import 'server-only';
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 /**
  * JSON-LD for `/mobile-application-development-company`: softsuave.com's own
@@ -30,7 +31,7 @@ export const madFaqLd = {
       "name": "Why Soft Suave for mobile app development?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Having 10+ years of an extraordinary journey and being awarded as top mobile App development company by Top developers, GoodFirms, selectedfirms, etc, we make sure our Apps are an instant hit and have high productivity and efficiency. Moreover, our premium App support ensures its continuous operation and success."
+        "text": `Having ${YEARS_PLUS} years of an extraordinary journey and being awarded as top mobile App development company by Top developers, GoodFirms, selectedfirms, etc, we make sure our Apps are an instant hit and have high productivity and efficiency. Moreover, our premium App support ensures its continuous operation and success.`
       }
     },
     {

@@ -23,6 +23,7 @@ import type { FaqContent } from "@/components/landing/faq";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { landingImage, overviewImage } from "./overview-images";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const dsMeta = {
   slug: "data-science-services",
@@ -44,8 +45,8 @@ export const dsHero: HeroContent = {
     "Define your business question, assess whether your data supports it, and choose the right analytical or modeling approach before implementation begins.",
   ],
   points: [
-    "13+ Years of Technology Expertise",
-    "400+ AI & Engineering Specialists",
+    `${YEARS_PLUS} Years of Technology Expertise`,
+    `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     "Data Science Consulting & Development",
     "Analysis, Modeling & Validation Expertise",
     "ISO/IEC 27001:2022 Information Security",
@@ -297,12 +298,12 @@ export const dsWhyUs: CardGridContent = {
   body: "Choosing a data science company requires more than comparing modeling technologies. The engagement should connect business questions, available data, analytical methods, validation requirements, information security, and the wider software environment in which the results may eventually be used.",
   items: [
     {
-      name: "13+ Years of Technology Expertise",
-      body: "Bring Data Science initiatives into an engineering environment shaped by 13+ years of delivery experience.",
+      name: `${YEARS_PLUS} Years of Technology Expertise`,
+      body: `Bring Data Science initiatives into an engineering environment shaped by ${YEARS_PLUS} years of delivery experience.`,
     },
     {
-      name: "400+ AI & Engineering Specialists",
-      body: "Access 400+ AI and engineering specialists to connect Data Science with applications, APIs, and systems.",
+      name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+      body: `Access ${SPECIALISTS_PLUS} AI and engineering specialists to connect Data Science with applications, APIs, and systems.`,
     },
     {
       name: "Data Science Consulting & Development",

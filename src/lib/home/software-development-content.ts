@@ -44,6 +44,7 @@ import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
 import { overviewImage } from "./overview-images";
 import { sharedHeroAlert } from "./delivery-shared";
+import { SPECIALISTS_PLUS } from "@/lib/company-figures";
 
 export const sdMeta = {
   slug: "software-development-company",
@@ -69,7 +70,7 @@ export const sdHero: HeroContent = {
   ],
   // The three claims the live hero prints beside its headline.
   points: [
-    "400+ AI-powered experts",
+    `${SPECIALISTS_PLUS} AI-powered experts`,
     "Risk-free 40-hour trial",
     "Agile methodology for rapid results",
   ],
@@ -105,7 +106,7 @@ export const sdHero: HeroContent = {
 export const sdServices: ServicesCarouselContent = {
   eyebrow: "Our Services",
   title: "Our Software Development Services",
-  body: "Experience unparalleled quality with Soft Suave. Our expert team of 400+ developers is ready to transform your ideas into custom software solutions using cutting-edge technology.",
+  body: `Experience unparalleled quality with Soft Suave. Our expert team of ${SPECIALISTS_PLUS} developers is ready to transform your ideas into custom software solutions using cutting-edge technology.`,
   items: [
     {
       name: "Mobile App Development Service",
@@ -187,7 +188,7 @@ export const sdWhyUs: OverviewContent = {
   pointIcons: ["piggy", "users", "workflow", "award", "rocket", "globe"],
   points: [
     "Budget-friendly solutions",
-    "400+ Expert programmers",
+    `${SPECIALISTS_PLUS} Expert programmers`,
     "Agile workflows",
     "40-hour free trial",
     "Quick team setup",

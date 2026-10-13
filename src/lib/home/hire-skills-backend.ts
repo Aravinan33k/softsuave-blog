@@ -25,6 +25,7 @@ import { sharedHeroAlert } from "./delivery-shared";
 import { webExplore } from "./hire-explore";
 import { partnerTable } from "./hire-comparison";
 import { CURATED_STEPS, techSteps, techWhy } from "./hire-blocks";
+import { CLIENTS_PLUS, HOURLY_RATE, YEARS_PLUS } from "../company-figures";
 
 /** The older pages' shared running order, oldest layout first. */
 const CLASSIC_ORDER = [
@@ -68,9 +69,9 @@ const nodejs: HireSkill = {
   key: "nodejs",
   name: "Node.js",
   role: "Node.js Developers",
-  metaTitle: "Hire NodeJS Developers in India - Trusted By 150+ Clients",
+  metaTitle: `Hire NodeJS Developers in India - Trusted By ${CLIENTS_PLUS} Clients`,
   metaDescription:
-    "Hire dedicated Node.js developers for scalable APIs and backend systems. Onboard in 48 hours with a 40-hour risk-free trial. Rates from $14/hr.",
+    `Hire dedicated Node.js developers for scalable APIs and backend systems. Onboard in 48 hours with a 40-hour risk-free trial. Rates from ${HOURLY_RATE}.`,
   serviceType: "Node.js development staffing",
   // Matches the live page's own breadcrumb trail exactly: Home › Hire
   // Developers › Node.js Developers.
@@ -96,7 +97,7 @@ const nodejs: HireSkill = {
     titleLines: ["Hire Node.js Developers", "In India"],
     accent: "Node.js Developers",
     body: [
-      "Soft Suave provides pre-vetted Node.js developers experienced in Express.js, NestJS, MongoDB, and scalable backend systems, matched to your project within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
+      `Soft Suave provides pre-vetted Node.js developers experienced in Express.js, NestJS, MongoDB, and scalable backend systems, matched to your project within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from ${HOURLY_RATE} and no long-term contract required until you're satisfied.`,
       "Here is how Soft Suave engineers your Node.js success.",
     ],
     points: [
@@ -280,7 +281,7 @@ const nodejs: HireSkill = {
     body: "Using the skills of dedicated NodeJS developers in India can be highly beneficial for your web application needs. Let us tell you why",
     items: [
       {
-        name: "13+ Years of Average Experience",
+        name: `${YEARS_PLUS} Years of Average Experience`,
         body: "Our seasoned NodeJS developers make use of their in-depth knowledge to deliver exceptional applications, on time, every time.",
         icon: "book",
       },
@@ -315,7 +316,7 @@ const nodejs: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire a Node.js developer from Soft Suave?",
-        a: "Rates start from $14/hour, below the $25/hour median rate for Node.js developers on Upwork ($18–$38/hr typical range). Every engagement starts with a 40-hour risk-free trial before any monthly commitment.",
+        a: `Rates start from ${HOURLY_RATE}, below the $25/hour median rate for Node.js developers on Upwork ($18–$38/hr typical range). Every engagement starts with a 40-hour risk-free trial before any monthly commitment.`,
       },
       {
         q: "Is there a free trial period available?",
@@ -375,7 +376,7 @@ const nestjs: HireSkill = {
     titleLines: ["Hire Remote NestJS Developers", "in India on Contract"],
     accent: "NestJS Developers",
     body: [
-      "Hire NestJS developers from Soft Suave without long hiring cycles. As a specialized development agency, we deliver vetted experts starting at $14/hr, ready to build scalable applications fast while ensuring flexibility, strong quality standards, and complete project control.",
+      `Hire NestJS developers from Soft Suave without long hiring cycles. As a specialized development agency, we deliver vetted experts starting at ${HOURLY_RATE}, ready to build scalable applications fast while ensuring flexibility, strong quality standards, and complete project control.`,
       "Skip hiring delays. Start building with NestJS experts today.",
     ],
     points: [
@@ -475,7 +476,7 @@ const java: HireSkill = {
   // reads "starting at /hour" (Java: "0/hour"), while the page quotes
   // $14/hour throughout.
   metaDescription:
-    "Hire Java developers India - Outsource dedicated java application developers in USA to build high-quality web applications starting at $14/hour.",
+    `Hire Java developers India - Outsource dedicated java application developers in USA to build high-quality web applications starting at ${HOURLY_RATE}.`,
   serviceType: "Java development staffing",
   ctaLabel: "Hire Java developers",
 
@@ -578,7 +579,7 @@ const java: HireSkill = {
   },
 
   midCta: {
-    title: "Hire Java Developers Starting from $14/hour",
+    title: `Hire Java Developers Starting from ${HOURLY_RATE}`,
     body: "We will provide you with remote Java developers that work from India. Contact us to take a look at CVs.",
     cta: { label: "Request Rate Card", href: "/contact" },
   },
@@ -640,7 +641,7 @@ const python: HireSkill = {
   key: "python",
   name: "Python",
   role: "Python Developers",
-  metaTitle: "Hire Offshore Python Developers from India from $14/hr",
+  metaTitle: `Hire Offshore Python Developers from India from ${HOURLY_RATE}`,
   metaDescription:
     "Hire top software developers in India with 40 hours of free trial, risk-free. Get access to the top 3% of developers for scalable and custom solutions.",
   serviceType: "Python development staffing",
@@ -701,7 +702,7 @@ const python: HireSkill = {
       "Leverage the expertise of our experienced Python developers to build technology-rich Apps.",
       "Do you need a skilled remote Python developer to develop a top-notch web application? or do you want to transform/improve your existing app effortlessly? Hire Python developers from us who have in-depth knowledge and expertise working with the programming language. Also, they have the capacity to work with any complex development projects and bring in desired results.",
       "Our developers build intuitive applications as they are experts in development tools & frameworks including Django, Turbogears, Pylons, Web2py, Flask, and Pyramid. And, our Python web developer's unique specialty is building powerful apps with seamless & complex functionalities that improve client's business efficiency and offer engaging user experience.",
-      "Our developer's competency in working with Python language helps us to execute complicated tasks with a few lines of code. This will be greatly convenient to maintain the application effectively after successful deployment in the market. Develop feature-packed, scalable, customizable, and responsive web apps by partnering with our trusted Python app development team who has 13+ years of experience. Also, our simple yet efficient app constructing methods assist us to reduce up to 60% development cost which is loved by many start-ups and SMBs.",
+      `Our developer's competency in working with Python language helps us to execute complicated tasks with a few lines of code. This will be greatly convenient to maintain the application effectively after successful deployment in the market. Develop feature-packed, scalable, customizable, and responsive web apps by partnering with our trusted Python app development team who has ${YEARS_PLUS} years of experience. Also, our simple yet efficient app constructing methods assist us to reduce up to 60% development cost which is loved by many start-ups and SMBs.`,
     ],
   },
 
@@ -738,7 +739,7 @@ const python: HireSkill = {
   },
 
   midCta: {
-    title: "Hire Python Developers Starting from $14/hour",
+    title: `Hire Python Developers Starting from ${HOURLY_RATE}`,
     body: "We will provide you with remote python developers that work from India. Contact us to take a look at CVs.",
     cta: { label: "Request Rate Card", href: "/contact" },
   },
@@ -1005,7 +1006,7 @@ const django: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire Django developer?",
-        a: "Hire dedicated Django developer starting at just $14/hour. Pricing that is transparent and adaptable to your project's scope and budget.",
+        a: `Hire dedicated Django developer starting at just ${HOURLY_RATE}. Pricing that is transparent and adaptable to your project's scope and budget.`,
       },
       {
         q: "Is there any free trial period available?",
@@ -1436,7 +1437,7 @@ const laravel: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire a Laravel developer?",
-        a: "Our prices begin at $14/hour, and based on the level of experience of the developer, it may increase.",
+        a: `Our prices begin at ${HOURLY_RATE}, and based on the level of experience of the developer, it may increase.`,
       },
       {
         q: "Is there any free trial period available?",
@@ -1475,7 +1476,7 @@ const dotnet: HireSkill = {
   // reads "starting at /hour" (Java: "0/hour"), while the page quotes
   // $14/hour throughout.
   metaDescription:
-    "Looking to hire .Net developers India ? Outsource ASP.Net application developer to build high-quality web applications starting at $14/hour.",
+    `Looking to hire .Net developers India ? Outsource ASP.Net application developer to build high-quality web applications starting at ${HOURLY_RATE}.`,
   serviceType: ".NET development staffing",
   ctaLabel: "Hire .NET developers",
 
@@ -1566,7 +1567,7 @@ const dotnet: HireSkill = {
   },
 
   midCta: {
-    title: "Hire .Net Developers Starting from $14/hour",
+    title: `Hire .Net Developers Starting from ${HOURLY_RATE}`,
     body: "We will provide you with remote .Net developers that work from India. Contact us to take a look at CVs.",
     cta: { label: "Request Rate Card", href: "/contact" },
   },
@@ -1853,7 +1854,7 @@ const rails: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire Ruby on Rails developer?",
-        a: "Costs depend on skills and the engagement model. We offer affordable rates starting from $14/hour when you hire expert Ruby on Rails developer talent.",
+        a: `Costs depend on skills and the engagement model. We offer affordable rates starting from ${HOURLY_RATE} when you hire expert Ruby on Rails developer talent.`,
       },
       {
         q: "Is there any free trial period available?",

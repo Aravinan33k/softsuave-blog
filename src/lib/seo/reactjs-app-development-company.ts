@@ -1,4 +1,5 @@
 import 'server-only';
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 /**
  * JSON-LD for `/reactjs-app-development-company`: softsuave.com's own schema for this page (13 Oct review: "need to update
@@ -24,7 +25,7 @@ export const rjServiceLd = {
       "ServiceType": "Software",
       "name": "Best ReactJS Development Service by Soft Suave",
       "url": "https://www.softsuave.com/reactjs-app-development-company",
-      "description": "Looking for top React.js app development company in India & USA that suits your budget. We are the leading React development services provider with 11+ years of experience.",
+      "description": `Looking for top React.js app development company in India & USA that suits your budget. We are the leading React development services provider with ${YEARS_PLUS} years of experience.`,
       "image": "https://www.softsuave.com/assets/images/react-development-company-softsuave.jpg",
       "areaServed": [
         "US",

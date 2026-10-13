@@ -35,6 +35,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
+import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const forwardDeployed: HireRolePageContent = {
   key: 'hire-fde',
@@ -133,7 +134,7 @@ export const forwardDeployed: HireRolePageContent = {
       {
         problem: 'Expensive local talent costs',
         solution:
-          'Cost-effective global talent on simple monthly pricing, with dedicated teams starting at $14 per hour and no hourly surprises.',
+          `Cost-effective global talent on simple monthly pricing, with dedicated teams starting at ${HOURLY_RATE} and no hourly surprises.`,
         image: '/images/landing/services/svc-dedicated-teams.webp',
       },
       {
@@ -403,7 +404,7 @@ export const forwardDeployed: HireRolePageContent = {
       },
       {
         q: 'How does FDE pricing work?',
-        a: 'We offer simple monthly pricing based on team size and engagement model. Dedicated teams have flat monthly rates starting at $14 per hour. Project pods are scoped with fixed pricing. No hidden fees, no hourly surprises. Contact us for a custom quote based on your specific needs.',
+        a: `We offer simple monthly pricing based on team size and engagement model. Dedicated teams have flat monthly rates starting at ${HOURLY_RATE}. Project pods are scoped with fixed pricing. No hidden fees, no hourly surprises. Contact us for a custom quote based on your specific needs.`,
       },
       {
         q: 'What is the difference between FDE and consulting?',

@@ -22,6 +22,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const ragMeta = {
   slug: "rag-development-services",
@@ -42,8 +43,8 @@ export const ragHero: HeroContent = {
     "Turn scattered business knowledge into AI answers grounded in information retrieved from the original source.",
   ],
   points: [
-    "13+ Years of Technology Expertise",
-    "400+ AI & Engineering Specialists",
+    `${YEARS_PLUS} Years of Technology Expertise`,
+    `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     "Document AI & Knowledge Extraction",
     "Enterprise RAG & Knowledge Retrieval",
     "Vector Database & LLM Expertise",
@@ -274,12 +275,12 @@ export const ragWhyUs: CardGridContent = {
       body: "Combine RAG and Document AI expertise to design retrieval systems around complex enterprise documents and knowledge.",
     },
     {
-      name: "13+ Years of Engineering Experience",
-      body: "13+ years of engineering experience, with capabilities across AI, full-stack applications, cloud platforms, APIs, and integrations.",
+      name: `${YEARS_PLUS} Years of Engineering Experience`,
+      body: `${YEARS_PLUS} years of engineering experience, with capabilities across AI, full-stack applications, cloud platforms, APIs, and integrations.`,
     },
     {
-      name: "400+ AI & Engineering Specialists",
-      body: "400+ AI and engineering specialists support architecture, development, integration, testing, and production delivery across complex projects.",
+      name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+      body: `${SPECIALISTS_PLUS} AI and engineering specialists support architecture, development, integration, testing, and production delivery across complex projects.`,
     },
     {
       name: "Retrieval Quality Evaluation",

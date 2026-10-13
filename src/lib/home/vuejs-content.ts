@@ -42,13 +42,14 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { TechStackContent } from "@/components/home/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const vueMeta = {
   slug: "vuejs-development-company",
   path: "/vuejs-development-company",
   title: "Vue.js Development Company for Web Apps",
   description:
-    "Build modern web applications with a Vue.js development company backed by 13+ years of technology expertise. Discuss your project with Soft Suave.",
+    `Build modern web applications with a Vue.js development company backed by ${YEARS_PLUS} years of technology expertise. Discuss your project with Soft Suave.`,
 } as const;
 
 export const vueHero: HeroContent = {
@@ -67,7 +68,7 @@ export const vueHero: HeroContent = {
     "Reusable Component Development",
     "API and Backend Integration",
     "Flexible Project Delivery",
-    "13+ Years of Technology Expertise",
+    `${YEARS_PLUS} Years of Technology Expertise`,
   ],
   badges: partnerHeroBadges,
   form: {
@@ -91,7 +92,7 @@ export const vueOverview: OverviewContent = {
   paragraphs: [
     "Vue.js is a JavaScript framework for building user interfaces and web applications. Its component-based structure helps teams create reusable interface elements and maintain consistent experiences across dashboards, portals, ecommerce platforms, and other interactive systems.",
     "As a leading Vue.js development company, Soft Suave supports technical planning, interface development, API integration, testing, deployment, and ongoing improvement. We can build new applications, introduce Vue.js into existing systems, or modernize frontends that have become difficult to maintain.",
-    "With 13+ years of technology expertise and delivery presence across Chennai, Bengaluru, and the United States, Soft Suave works closely with your product and engineering teams. Our developers follow your engineering standards and align frontend work with APIs, data flows, and user needs.",
+    `With ${YEARS_PLUS} years of technology expertise and delivery presence across Chennai, Bengaluru, and the United States, Soft Suave works closely with your product and engineering teams. Our developers follow your engineering standards and align frontend work with APIs, data flows, and user needs.`,
   ],
   // Centred against the copy beside it rather than pinned to the top of a
   // taller column (13 Oct review: "align the image with the section").
@@ -150,11 +151,11 @@ export const vueWhyUs: CardGridContent = {
   body: "Work with a team that combines Vue.js capability, broader engineering support, clear collaboration, and experience delivering software for startups and businesses with different technical requirements, product goals, and delivery needs.",
   items: [
     {
-      name: "13+ Years of Technology Expertise",
-      body: "Bring 13+ years of technology expertise to every stage of Vue.js application development.",
+      name: `${YEARS_PLUS} Years of Technology Expertise`,
+      body: `Bring ${YEARS_PLUS} years of technology expertise to every stage of Vue.js application development.`,
     },
     {
-      name: "400+ AI & Engineering Specialists",
+      name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
       body: "Access broader engineering support across frontend, backend, cloud, data, testing, and integrations.",
     },
     {

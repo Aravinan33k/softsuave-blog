@@ -23,6 +23,7 @@ import { sharedHeroAlert } from "./delivery-shared";
 import { mobileExplore } from "./hire-explore";
 import { PARTNER_TABLE_INTRO, partnerTable } from "./hire-comparison";
 import { CURATED_STEPS, techSteps, techWhy } from "./hire-blocks";
+import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from "../company-figures";
 
 const swift: HireSkill = {
   slug: "hire-swift-developers",
@@ -135,7 +136,7 @@ const swift: HireSkill = {
   },
 
   midCta: {
-    title: "Hire Remote Swift Developers Starting from $14/hour",
+    title: `Hire Remote Swift Developers Starting from ${HOURLY_RATE}`,
     body: "We will provide you with remote Swift developers that work from India. Contact us to look at the rate card.",
     cta: { label: "Request Rate Card", href: "/contact" },
   },
@@ -468,7 +469,7 @@ const kotlin: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire Kotlin developer?",
-        a: "Several factors influence the price of hiring a Kotlin developer, among them: the developer's experience, the project's complexity, and the hiring model are important ones. At Soft Suave, we provide Kotlin developers starting with an affordable $14/hour.",
+        a: `Several factors influence the price of hiring a Kotlin developer, among them: the developer's experience, the project's complexity, and the hiring model are important ones. At Soft Suave, we provide Kotlin developers starting with an affordable ${HOURLY_RATE}.`,
       },
       {
         q: "Is there any free trial period available?",
@@ -559,7 +560,7 @@ const flutter: HireSkill = {
     title: "Hire Flutter Developers Team At Your Flexibility",
     paragraphs: [
       "Right from App concept till its successful launch, you can count on our Flutter developers.",
-      "Soft Suave is the leading cross-platform app development company in India that offers top Flutter experts for hire. Our Flutter app developer's specialization in developing cost-effective apps is strengthened by leading-edge technologies and tools. Our development team comprises 400+ Success-driven & skilled programmers with more than 6+ years of experience. Our programmers have the expertise to understand the requirements and offer solutions to strengthen your business across several industry verticals. We focus on building enterprise-grade flutter development for start-ups and SMBs around the world. You can hire Flutter developer to build secure and reliable applications with next-gen features for your business.",
+      `Soft Suave is the leading cross-platform app development company in India that offers top Flutter experts for hire. Our Flutter app developer's specialization in developing cost-effective apps is strengthened by leading-edge technologies and tools. Our development team comprises ${SPECIALISTS_PLUS} Success-driven & skilled programmers with more than 6+ years of experience. Our programmers have the expertise to understand the requirements and offer solutions to strengthen your business across several industry verticals. We focus on building enterprise-grade flutter development for start-ups and SMBs around the world. You can hire Flutter developer to build secure and reliable applications with next-gen features for your business.`,
       "Our certified Flutter engineers analyse your business needs and help you jump start your App development effortlessly. You can hire Flutter developer in India from us and utilize the wide range of libraries to develop engaging apps that support intuitive user interface. Our Flutter app developer's hands-on experience helps start-up and SMB owners to transform any business requirement into world-class apps. Hire Flutter developer from us to reduce 60% of your development cost and design robust cross-platform apps that run flawlessly on all devices and platforms.",
     ],
   },
@@ -597,7 +598,7 @@ const flutter: HireSkill = {
   },
 
   midCta: {
-    title: "Hire Flutter Developers Starting from $14/hour",
+    title: `Hire Flutter Developers Starting from ${HOURLY_RATE}`,
     body: "We will provide you with remote flutter developers that work from India. Contact us to take a look at CVs.",
     cta: { label: "Request Rate Card", href: "/contact" },
   },
@@ -659,7 +660,7 @@ const reactNative: HireSkill = {
   key: "react-native",
   name: "React Native",
   role: "React Native Developers",
-  metaTitle: "Hire React Native Developers in India | $14/hr, 40-Hr Trial",
+  metaTitle: `Hire React Native Developers in India | ${HOURLY_RATE}, 40-Hr Trial`,
   metaDescription:
     "Hire React Native developers in India from Soft Suave — save 60% on costs, start with a 40-hour risk-free trial, and build secure, high-performing apps.",
   serviceType: "React Native development staffing",
@@ -682,7 +683,7 @@ const reactNative: HireSkill = {
     titleLines: ["Hire React Native Developers", "in India on Contract"],
     accent: "React Native Developers",
     body: [
-      "Soft Suave provides pre-vetted React Native developers experienced in cross-platform iOS and Android app development, UI/UX, plugin development, and legacy app migration. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
+      `Soft Suave provides pre-vetted React Native developers experienced in cross-platform iOS and Android app development, UI/UX, plugin development, and legacy app migration. Every engagement starts with a 40-hour risk-free trial, with rates from ${HOURLY_RATE} and no long-term contract required until you're satisfied.`,
       "All your React Native hiring problem ends right here.",
     ],
     points: [
@@ -728,7 +729,7 @@ const reactNative: HireSkill = {
     eyebrow: "Overview",
     title: "Hire Dedicated Team Of React Native Developers",
     paragraphs: [
-      "Soft Suave is a renowned web and mobile app development company that houses more than 300+ top-ranked developers in India. Besides, Soft Suave also employs top mobile app developers that are experts in all the latest technologies to deliver amazing cross-platform apps and robust native mobile apps according to business requirements.",
+      `Soft Suave is a renowned web and mobile app development company that houses more than ${SPECIALISTS_PLUS} top-ranked developers in India. Besides, Soft Suave also employs top mobile app developers that are experts in all the latest technologies to deliver amazing cross-platform apps and robust native mobile apps according to business requirements.`,
       "Our premium React Native app developers use cutting-edge technology to deliver outstanding applications that are innovative and high-performing at the same time. You can expect quality results in no time if you hire our dedicated React Native developer.",
       "The code reusability in React Native allows our React Native app developers to develop intuitive apps in both iOS and Android platforms in no time. They can easily raise the bar by competing with Native apps in the market and win with the same cross-platform application. Our testimonials and client reviews are a witness to the quality of work our expert React Native app programmers provide to our clients. Hire from Soft Suave and harness the top-tier React Native developers in India to accomplish your business goals at the most economical price.",
     ],
@@ -776,7 +777,7 @@ const reactNative: HireSkill = {
     rows: [
       {
         area: "Starting rate",
-        values: ["$14/hour", "$24–$45/hour (Upwork median $30/hour)", "Full salary + benefits + overhead"],
+        values: [`${HOURLY_RATE}`, "$24–$45/hour (Upwork median $30/hour)", "Full salary + benefits + overhead"],
       },
       {
         area: "Vetting before you pay",
@@ -814,7 +815,7 @@ const reactNative: HireSkill = {
   },
 
   midCta: {
-    title: "Hire React Native Developers Starting from $14/hour",
+    title: `Hire React Native Developers Starting from ${HOURLY_RATE}`,
     body: "We will provide you with remote React Native developers that work from India. Contact us to take a look at CVs.",
     cta: { label: "Request Rate Card", href: "/contact" },
   },
@@ -850,7 +851,7 @@ const reactNative: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire a React Native developer from Soft Suave?",
-        a: "Hire our professional React Native developer at a competitive cost as low as $14/hour. You can select and hire from the pool of brilliant senior React Native app developers with expertise in all the latest development technologies and tools.",
+        a: `Hire our professional React Native developer at a competitive cost as low as ${HOURLY_RATE}. You can select and hire from the pool of brilliant senior React Native app developers with expertise in all the latest development technologies and tools.`,
       },
       {
         q: "Is there a free trial period available?",
@@ -931,7 +932,7 @@ const ionic: HireSkill = {
     titleLines: ["Hire Ionic Developers", "in India"],
     accent: "Ionic Developers",
     body: [
-      "Why build three apps when one Ionic codebase does it all? Hire experienced Ionic developers through Soft Suave, a top agency delivering pre-vetted talent within 24–48 hours, skilled in cross-platform hybrid app development, starting from $14/hour on flexible engagement models.",
+      `Why build three apps when one Ionic codebase does it all? Hire experienced Ionic developers through Soft Suave, a top agency delivering pre-vetted talent within 24–48 hours, skilled in cross-platform hybrid app development, starting from ${HOURLY_RATE} on flexible engagement models.`,
       "Your next Ionic developer is one conversation away.",
     ],
     points: [
@@ -1045,7 +1046,7 @@ const ionic: HireSkill = {
     body: "Get proactive mobile app development strategies with our Ionic experts. Get on-time delivery and guaranteed satisfaction.",
     items: [
       {
-        name: "13+ Years of Average Experience",
+        name: `${YEARS_PLUS} Years of Average Experience`,
         body: "Our Ionic developer's years of experience in the field help us deliver custom-made, quality solutions- on time, every time.",
         icon: "book",
       },

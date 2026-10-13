@@ -18,6 +18,7 @@ import { webExplore } from "./hire-explore";
 import { partnerTable } from "./hire-comparison";
 import { MERN_STEPS, MERN_WHY, CURATED_STEPS, techSteps, techWhy } from "./hire-blocks";
 import { overviewImage } from "./overview-images";
+import { HOURLY_RATE, YEARS_PLUS } from "../company-figures";
 
 const react: HireSkill = {
   slug: "hire-reactjs-developers",
@@ -122,7 +123,7 @@ const react: HireSkill = {
   },
 
   midCta: {
-    title: "Hire React Developers Starting from $14/hour",
+    title: `Hire React Developers Starting from ${HOURLY_RATE}`,
     body: "We will provide you with remote react developers that work from India. Contact us to take a look at CVs.",
     cta: { label: "Request Rate Card", href: "/contact" },
   },
@@ -160,7 +161,7 @@ const react: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire ReactJS developers from Soft Suave?",
-        a: "Soft Suave is renowned for having the dedicated Reactjs developers in India. You can hire expert ReactJS developers at a reasonable cost of $14/hour. Additionally, all our React.js app developers are senior developers and have vast experience in the industry.",
+        a: `Soft Suave is renowned for having the dedicated Reactjs developers in India. You can hire expert ReactJS developers at a reasonable cost of ${HOURLY_RATE}. Additionally, all our React.js app developers are senior developers and have vast experience in the industry.`,
       },
       {
         q: "Is it possible to migrate an app from other technologies to ReactJS?",
@@ -365,7 +366,7 @@ const angular: HireSkill = {
     body: "Using the skills of offshore AngularJS developers can be highly beneficial for your web application needs. Let us tell you why!",
     items: [
       {
-        name: "13+ Years of Average Experience",
+        name: `${YEARS_PLUS} Years of Average Experience`,
         body: "Our Angular developer's years of experience in the field help us deliver custom-made, quality solutions- on time, every time.",
         icon: "book",
       },
@@ -496,7 +497,7 @@ const mern: HireSkill = {
     ],
     points: [
       "40-Hour Risk-Free Trial",
-      "MERN Stack Developers from $14/hour",
+      `MERN Stack Developers from ${HOURLY_RATE}`,
       "Hire Within 48 Hours",
       "Time-Zone & Language Aligned Teams",
       "Airtight NDA & IP Protection",
@@ -583,7 +584,7 @@ const mern: HireSkill = {
   },
 
   midCta: {
-    title: "Hire MERN Stack Developers Starting from $14/hour",
+    title: `Hire MERN Stack Developers Starting from ${HOURLY_RATE}`,
     body: "Hire skilled remote MERN stack developers from India with flexible contract models and transparent rates. Get the right talent for your project without long hiring delays.",
     cta: { label: "Request Rate Card", href: "/contact" },
   },
@@ -629,7 +630,7 @@ const mern: HireSkill = {
       },
       {
         q: "How much does it cost to hire MERN stack developers in India?",
-        a: "The cost to hire MERN stack developers from Soft Suave starts from $14/hour. The final cost depends on the developer's experience, project scope, engagement model, technology requirements, and hiring duration.",
+        a: `The cost to hire MERN stack developers from Soft Suave starts from ${HOURLY_RATE}. The final cost depends on the developer's experience, project scope, engagement model, technology requirements, and hiring duration.`,
       },
       {
         q: "MEAN vs MERN - which stack is better?",
@@ -754,7 +755,7 @@ const mean: HireSkill = {
   },
 
   midCta: {
-    title: "Hire MEAN Stack Developers Starting from $14/hour",
+    title: `Hire MEAN Stack Developers Starting from ${HOURLY_RATE}`,
     body: "We will provide you with remote MEAN stack developers that work from India. Contact us to take a look at the rate card.",
     cta: { label: "Request Rate Card", href: "/contact" },
   },

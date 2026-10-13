@@ -17,6 +17,7 @@
 
 import type { HeroContent } from "@/components/landing/hero";
 import type { ProcessContent } from "@/components/landing/process";
+import { CLIENTS_PLUS, COUNTRIES_PLUS, SPECIALISTS_PLUS } from "@/lib/company-figures";
 
 export const consultationMeta = {
   path: "/30-min-free-consultation",
@@ -36,17 +37,17 @@ export const consultationHero: HeroContent = {
   points: [],
   stats: [
     {
-      title: "150+ Clients",
+      title: `${CLIENTS_PLUS} Clients`,
       body: "World wide country-focused and industry-specific app solutions.",
       icon: "clients",
     },
     {
-      title: "400+ Experts",
+      title: `${SPECIALISTS_PLUS} Experts`,
       body: "A power-packed team of experienced app developers.",
       icon: "experts",
     },
     {
-      title: "20+ Countries Served",
+      title: `${COUNTRIES_PLUS} Countries Served`,
       body: "Serving businesses worldwide with tailored app solutions.",
       icon: "countries",
     },

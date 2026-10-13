@@ -5,6 +5,7 @@
  */
 
 import { navPanels, type NavMenuPanel } from "./nav-menu";
+import { FIGURES, YEARS_PLUS } from "../company-figures";
 
 export const brand = {
   name: "Soft Suave",
@@ -42,28 +43,28 @@ export const why = {
    */
   stats: [
     {
-      value: 400,
+      value: FIGURES.specialists,
       suffix: "+",
       label: "Engineering Specialists",
       icon: "specialists",
       line: "AI and engineering specialists building scalable systems in-house.",
     },
     {
-      value: 13,
+      value: FIGURES.years,
       suffix: "+",
       label: "Proven Delivery",
       icon: "years",
       line: "Years of delivering reliable software and production-ready AI solutions.",
     },
     {
-      value: 150,
+      value: FIGURES.clients,
       suffix: "+",
       label: "Global Clients",
       icon: "clients",
       line: "Startups, SMBs, and enterprises supported from concept to launch.",
     },
     {
-      value: 20,
+      value: FIGURES.countries,
       suffix: "+",
       label: "Countries",
       icon: "countries",
@@ -99,7 +100,7 @@ export const clients: {
 } = {
   eyebrow: "Clients",
   title: "Preferred AI-Enabled Technology Partner for Startups and SMBs",
-  body: "We combine AI-enabled engineering with 13+ years of product development expertise to help clients build scalable AI solutions, automate complex workflows, and integrate systems for measurable business outcomes.",
+  body: `We combine AI-enabled engineering with ${YEARS_PLUS} years of product development expertise to help clients build scalable AI solutions, automate complex workflows, and integrate systems for measurable business outcomes.`,
   logos: [
     // The three testimonial clients. Their marks are not in softsuave.com's own
     // homepage carousel — they are published on its /clients index instead,
@@ -410,7 +411,7 @@ export const awardsPage = {
   /** Live's meta description verbatim, less the doubled period it ends on. */
   metaDescription:
     "Explore Soft Suave's prestigious awards and recognition for exceptional performance in delivering innovative software solutions, AI advancements, etc.",
-  body: "The 13+ years of remarkable journey accompanied by accolades and awards is always motivational. The reputation Soft Suave earned worldwide as the best web and mobile app development company in India is because of the love, feedback, and appreciation of our invaluable clients. The stature of Soft Suave has grown exponentially since we established our company. Over the past few glorious years, we headquartered in one of the largest tech hubs in India - Chennai, established our development center in Bangalore, and expanded our global presence to almost all tier 1 & 2 countries worldwide.",
+  body: `The ${YEARS_PLUS} years of remarkable journey accompanied by accolades and awards is always motivational. The reputation Soft Suave earned worldwide as the best web and mobile app development company in India is because of the love, feedback, and appreciation of our invaluable clients. The stature of Soft Suave has grown exponentially since we established our company. Over the past few glorious years, we headquartered in one of the largest tech hubs in India - Chennai, established our development center in Bangalore, and expanded our global presence to almost all tier 1 & 2 countries worldwide.`,
   /**
    * The wall, in live's order. `title` and `description` are live's wording
    * verbatim, with two slips corrected: the Wadline description named the

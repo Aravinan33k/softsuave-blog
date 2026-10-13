@@ -43,6 +43,7 @@ import type { WorkCarouselContent } from "@/components/home/work-grid";
 import type { InlineLink } from "@/components/common/linkify";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { overviewImage } from "./overview-images";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const itoMeta = {
   slug: "it-outsourcing-company-india",
@@ -65,7 +66,7 @@ export const itoHero: HeroContent = {
   points: [
     "Software, AI, QA & Modernization",
     "Flexible Engagement Models",
-    "400+ AI & Engineering Specialists",
+    `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     "ISO/IEC 27001:2022 Certified",
     "4–6 Hour Global Work Overlap",
   ],
@@ -98,7 +99,7 @@ export const itoOverview: OverviewContent = {
   paragraphs: [
     "IT outsourcing assigns defined technology responsibilities to an external partner while the buyer retains agreed strategic and operational control. India offers broad engineering talent, a mature technology ecosystem, flexible engagement options, and working-hour overlap for global collaboration.",
     "Soft Suave is an IT outsourcing company in India offering complete project outsourcing, dedicated development teams, and staff augmentation models. Businesses can select a model based on scope, skills, internal capacity, and delivery ownership.",
-    "With 13+ years of experience delivering software solutions across industries, Soft Suave provides reliable IT outsourcing support through skilled professionals, clear processes, and open communication. Its teams deliver quality work, reduce technology risks, and help businesses maintain visibility and control throughout the engagement.",
+    `With ${YEARS_PLUS} years of experience delivering software solutions across industries, Soft Suave provides reliable IT outsourcing support through skilled professionals, clear processes, and open communication. Its teams deliver quality work, reduce technology risks, and help businesses maintain visibility and control throughout the engagement.`,
   ],
 };
 
@@ -397,12 +398,12 @@ export const itoWhyUs: CardGridContent = {
   body: "Soft Suave combines technology experience, multidisciplinary capabilities, flexible delivery structures, and defined controls for outsourced engineering.",
   items: [
     {
-      name: "13+ Years of Technology Expertise",
+      name: `${YEARS_PLUS} Years of Technology Expertise`,
       icon: "layers",
       body: "Apply experience spanning software delivery, product engineering, modernization, integration, testing, cloud, and emerging technologies.",
     },
     {
-      name: "400+ AI & Engineering Specialists",
+      name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
       icon: "users",
       body: "Access capabilities across application development, quality engineering, DevOps, data, AI, and integrations.",
     },
@@ -436,7 +437,7 @@ export const itoWhyUs: CardGridContent = {
 export const itoTech: TechStackContent = {
   eyebrow: "Technology Stack",
   title: "Transforming Ideas with Next-Gen Tech",
-  body: "Our 400+ AI & Engineering specialists specialize in cutting-edge technologies and platforms. Our comprehensive tech stack covers everything from design to testing, ensuring seamless and efficient development.",
+  body: `Our ${SPECIALISTS_PLUS} AI & Engineering specialists specialize in cutting-edge technologies and platforms. Our comprehensive tech stack covers everything from design to testing, ensuring seamless and efficient development.`,
   groups: [
     {
       name: "Frontend",

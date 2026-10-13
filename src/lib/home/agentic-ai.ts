@@ -13,11 +13,12 @@
  */
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const meta = {
   title: "Agentic AI Development Services | Soft Suave",
   description:
-    "Transform complex workflows with our agentic AI development services backed by 13+ years of expertise and 400+ AI & engineering specialists.",
+    `Transform complex workflows with our agentic AI development services backed by ${YEARS_PLUS} years of expertise and ${SPECIALISTS_PLUS} AI & engineering specialists.`,
   path: "/agentic-ai-development-services",
 } as const;
 
@@ -321,8 +322,8 @@ export const whyUs = {
       body: "Each engagement begins with clear goals, success measures, and boundaries.",
     },
     {
-      name: "13+ Years of Technology Expertise",
-      body: "13+ years of engineering experience guide reliable, production-ready agentic AI.",
+      name: `${YEARS_PLUS} Years of Technology Expertise`,
+      body: `${YEARS_PLUS} years of engineering experience guide reliable, production-ready agentic AI.`,
     },
     {
       name: "Risk-Aligned Autonomy",

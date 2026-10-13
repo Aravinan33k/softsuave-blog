@@ -36,13 +36,14 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { TechStackContent } from "@/components/home/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const txMeta = {
   slug: "typescript-development-company",
   path: "/typescript-development-company",
   title: "TypeScript Development Company for Web Apps",
   description:
-    "Work with a TypeScript development company backed by 13+ years of technology expertise for application development, migration, integration, and support.",
+    `Work with a TypeScript development company backed by ${YEARS_PLUS} years of technology expertise for application development, migration, integration, and support.`,
 } as const;
 
 export const txHero: HeroContent = {
@@ -206,12 +207,12 @@ export const txWhyUs: CardGridContent = {
   body: "Work with a team that understands how TypeScript decisions affect application structure, developer collaboration, API contracts, testing, and maintenance across frontend and backend systems throughout an evolving long-term product lifecycle.",
   items: [
     {
-      name: "13+ Years Supporting Technology Delivery",
-      body: "Use 13+ years of technology expertise when planning and delivering TypeScript application work.",
+      name: `${YEARS_PLUS} Years Supporting Technology Delivery`,
+      body: `Use ${YEARS_PLUS} years of technology expertise when planning and delivering TypeScript application work.`,
     },
     {
-      name: "400+ AI & Engineering Specialists",
-      body: "Reach 400+ AI & Engineering Specialists for additional frontend, backend, data, cloud, or testing knowledge.",
+      name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+      body: `Reach ${SPECIALISTS_PLUS} AI & Engineering Specialists for additional frontend, backend, data, cloud, or testing knowledge.`,
     },
     {
       name: "Support for Gradual TypeScript Adoption",

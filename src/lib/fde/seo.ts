@@ -5,6 +5,7 @@
  */
 import { contactEmail, contactPageHref } from "@/lib/fde/contact";
 import { faqItems } from "@/lib/fde/content/faq";
+import { HOURLY_RATE } from "@/lib/company-figures";
 
 export { contactEmail };
 
@@ -32,10 +33,10 @@ export const siteName = "Soft Suave Technologies";
 export const brandName = "Soft Suave";
 
 export const siteTitle =
-  "Hire Forward Deployed Engineers From $14/Hour | Soft Suave";
+  `Hire Forward Deployed Engineers From ${HOURLY_RATE} | Soft Suave`;
 
 export const siteDescription =
-  "Hire Forward Deployed Engineers from $14/hour to build AI solutions, integrate systems, and turn complex workflows into production-ready implementations.";
+  `Hire Forward Deployed Engineers from ${HOURLY_RATE} to build AI solutions, integrate systems, and turn complex workflows into production-ready implementations.`;
 
 /**
  * Relative to /public. Also used for the Twitter card and the schema's image.

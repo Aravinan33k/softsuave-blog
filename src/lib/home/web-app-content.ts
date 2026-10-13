@@ -55,6 +55,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { ProcessContent } from "@/components/landing/process";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroAlert } from "./delivery-shared";
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 export const webMeta = {
   slug: "web-application-development-company",
@@ -160,7 +161,7 @@ export const webSpecialties: IntegrationContent = {
     },
     {
       name: "Back End Web Development",
-      body: "With 13+ experience, we specialize in developing backend systems using strong microservices-based architecture. Also, our web expert's knowledge in back end development ensures our Apps render flawless speed & performance by leveraging multi-tenancy, scalability, and third-party integration.",
+      body: `With ${YEARS_PLUS} experience, we specialize in developing backend systems using strong microservices-based architecture. Also, our web expert's knowledge in back end development ensures our Apps render flawless speed & performance by leveraging multi-tenancy, scalability, and third-party integration.`,
       tools: [
         { name: "Nodejs", href: "/nodejs-development-company" },
         { name: "Laravel", href: "/hire-laravel-developer" },

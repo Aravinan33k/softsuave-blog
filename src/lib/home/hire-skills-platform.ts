@@ -15,6 +15,7 @@ import type { HireSkill } from "./hire-skill";
 import { sharedHeroAlert } from "./delivery-shared";
 import { webExplore } from "./hire-explore";
 import { partnerTable } from "./hire-comparison";
+import { FIGURES, HOURLY_RATE, SPECIALISTS_PLUS } from "../company-figures";
 
 /** The newer pages' running order, with the prose expertise band. */
 const PLATFORM_ORDER = [
@@ -201,7 +202,7 @@ const magento: HireSkill = {
     items: [
       {
         name: "Customized Magento Web Development",
-        body: "Soft Suave crafts powerful Magento web apps with custom extensions, smart design, and flawless performance, delivering engaging, scalable B2B and B2C solutions trusted by clients for over 12 years.",
+        body: `Soft Suave crafts powerful Magento web apps with custom extensions, smart design, and flawless performance, delivering engaging, scalable B2B and B2C solutions trusted by clients for over ${FIGURES.years} years.`,
       },
       {
         name: "Dedicated Magento Developers Team",
@@ -276,7 +277,7 @@ const magento: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire Magento developers?",
-        a: "The price of Magento developers depends on the experience, project complexity, and work engagement model. At Soft Suave, we provide cost-efficient pricing solutions that start from $14/hour.",
+        a: `The price of Magento developers depends on the experience, project complexity, and work engagement model. At Soft Suave, we provide cost-efficient pricing solutions that start from ${HOURLY_RATE}.`,
       },
       {
         q: "Is there any free trial period available?",
@@ -305,7 +306,7 @@ const drupal: HireSkill = {
   role: "Drupal Developers",
   metaTitle: "Hire Dedicated Drupal Developer India with 40 Hours Trial",
   metaDescription:
-    "Hire expert Drupal developers from India with 40 hours of free trial. Get access to top-tier developers and leverage 400+ in-house resources.",
+    `Hire expert Drupal developers from India with 40 hours of free trial. Get access to top-tier developers and leverage ${SPECIALISTS_PLUS} in-house resources.`,
   serviceType: "Drupal development staffing",
   ctaLabel: "Hire Drupal developers",
 
@@ -548,7 +549,7 @@ const drupal: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire Drupal developer?",
-        a: "Our transparent pricing starts from just $14/hour, varying by experience and engagement model. Request a custom quote today and discover the exceptional value we offer.",
+        a: `Our transparent pricing starts from just ${HOURLY_RATE}, varying by experience and engagement model. Request a custom quote today and discover the exceptional value we offer.`,
       },
       {
         q: "Is there any free trial period available?",

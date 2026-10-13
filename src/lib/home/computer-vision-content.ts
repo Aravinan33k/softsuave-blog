@@ -25,6 +25,7 @@ import type { FaqContent } from "@/components/landing/faq";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { landingImage, landingPhoto } from "./overview-images";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const cvMeta = {
   slug: "computer-vision-development-services",
@@ -49,8 +50,8 @@ export const cvHero: HeroContent = {
     "Bring us your visual input, business problem, and required outcome. We will help you assess the use case and plan the right Computer Vision workflow.",
   ],
   points: [
-    "13+ Years of Technology Expertise",
-    "400+ AI & Engineering Specialists",
+    `${YEARS_PLUS} Years of Technology Expertise`,
+    `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     "ISO/IEC 27001:2022 Certified",
     "Operational Computer Vision Experience",
     "End-to-End CV Development",

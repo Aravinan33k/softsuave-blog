@@ -25,6 +25,7 @@ import type { FaqContent } from "@/components/landing/faq";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { landingImage } from "./overview-images";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const deMeta = {
   slug: "data-engineering-services",
@@ -46,10 +47,10 @@ export const deHero: HeroContent = {
     "Soft Suave provides data engineering services to structure data flows, build reliable pipelines, integrate systems, and support analytics and AI.",
   ],
   points: [
-    "13+ Years of Technology Expertise",
+    `${YEARS_PLUS} Years of Technology Expertise`,
     "Time-Zone & Language Aligned Teams",
     "AWS, Azure & Google Cloud Expertise",
-    "400+ AI & Engineering Specialists",
+    `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     "ISO/IEC 27001:2022 Certified",
   ],
   badges: sharedHeroBadges,
@@ -316,12 +317,12 @@ export const deWhyUs: CardGridContent = {
   body: "Soft Suave brings together data foundations, application engineering, cloud technologies, and AI capabilities to support connected data initiatives across modern technology environments. As a data engineering services company, we help businesses build data systems that work effectively with the applications, platforms, and workflows that depend on them.",
   items: [
     {
-      name: "13+ Years of Technology Expertise",
-      body: "Bring 13+ years of technology engineering experience across applications, cloud environments, databases, and connected systems.",
+      name: `${YEARS_PLUS} Years of Technology Expertise`,
+      body: `Bring ${YEARS_PLUS} years of technology engineering experience across applications, cloud environments, databases, and connected systems.`,
     },
     {
-      name: "400+ AI & Engineering Specialists",
-      body: "Work with 400+ AI & Engineering Specialists across applications, backend, cloud technologies, and data foundations.",
+      name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+      body: `Work with ${SPECIALISTS_PLUS} AI & Engineering Specialists across applications, backend, cloud technologies, and data foundations.`,
     },
     {
       name: "Connected Engineering Capabilities",

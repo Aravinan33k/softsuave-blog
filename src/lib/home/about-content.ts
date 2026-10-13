@@ -17,6 +17,7 @@ import type { ProcessContent } from "@/components/landing/process";
 import type { TeamContent } from "@/components/landing/team";
 
 import { sharedHeroBadges } from "./delivery-shared";
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 export const aboutMeta = {
   slug: "about",
@@ -85,7 +86,7 @@ export const aboutOverview: OverviewContent = {
   eyebrow: "Our Mission And Vision",
   title: "Your Trusted AI-Enabled Product Engineering Partner",
   paragraphs: [
-    "Soft Suave is a leading AI-enabled product engineering partner with 13+ years of experience delivering scalable technology solutions for global enterprises across diverse industries.",
+    `Soft Suave is a leading AI-enabled product engineering partner with ${YEARS_PLUS} years of experience delivering scalable technology solutions for global enterprises across diverse industries.`,
     "From enterprise modernization to augmented engineering teams, we help businesses accelerate innovation, improve operational efficiency, and build future-ready digital ecosystems.",
     "Today, Soft Suave’s capabilities are further amplified through our strategic partnership with KiwiTech. This collaboration expands our innovation ecosystem, strengthens our global reach, and unlocks new opportunities for clients seeking transformative digital solutions.",
   ],

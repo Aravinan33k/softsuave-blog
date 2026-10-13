@@ -25,6 +25,7 @@ import type { TechStackContent } from "@/components/landing/tech-stack";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { landingImage } from "./overview-images";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const piMeta = {
   slug: "predictive-intelligence-services",
@@ -46,8 +47,8 @@ export const piHero: HeroContent = {
     "Bring predictions into your daily operations through practical signals, recommendations, alerts, and actions aligned with your business decisions.",
   ],
   points: [
-    "13+ Years of Technology Expertise",
-    "400+ AI & Engineering Specialists",
+    `${YEARS_PLUS} Years of Technology Expertise`,
+    `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     "Forecasting & Predictive Models",
     "Anomaly Detection & Risk Signals",
     "Recommendations & Workflow Actions",
@@ -321,7 +322,7 @@ export const piWhyUs: CardGridContent = {
     },
     {
       name: "Technology Experience at Scale",
-      body: "Bring 13+ years of technology expertise and 400+ AI & Engineering Specialists to implementation requirements.",
+      body: `Bring ${YEARS_PLUS} years of technology expertise and ${SPECIALISTS_PLUS} AI & Engineering Specialists to implementation requirements.`,
     },
     {
       name: "Structured Global Delivery",

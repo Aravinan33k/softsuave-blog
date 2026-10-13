@@ -1,3 +1,4 @@
+import { YEARS_PLUS } from "../company-figures";
 /**
  * Mega-menu content for the nav's four divisions.
  *
@@ -274,7 +275,7 @@ const INDUSTRIES: NavMenuPanel = {
 const COMPANY: NavMenuPanel = {
   eyebrow: "Company",
   title: "Practical AI, built by a team that ships",
-  body: "13+ years of product development, an AI-first engineering bench, and the recognition to back it up.",
+  body: `${YEARS_PLUS} years of product development, an AI-first engineering bench, and the recognition to back it up.`,
   cta: { label: "Talk to us", href: "#contact" },
   groups: [
     {

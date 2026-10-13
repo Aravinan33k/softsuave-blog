@@ -25,6 +25,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm, hiringComparison } from './shared';
+import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const mobileApp: HireRolePageContent = {
   key: 'hire-mobile',
@@ -67,9 +68,9 @@ export const mobileApp: HireRolePageContent = {
     ],
     points: [
       'Android, iOS & Cross-Platform Expertise',
-      '400+ AI & Engineering Specialists',
+      `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
       'Vetted Talent On Contract',
-      'Flexible Hiring from $14/Hour',
+      `Flexible Hiring from ${HOURLY_RATE}`,
       'Global Delivery from India',
     ],
     form: heroForm({
@@ -98,8 +99,8 @@ export const mobileApp: HireRolePageContent = {
     paragraphs: [
       'Whether you are building a new mobile product, extending an existing application, or adding development capacity to your team, the right developer needs to match both your technology requirements and the way your team works.',
       'Soft Suave helps you hire mobile application developers based on your platform, technology stack, product requirements, existing codebase, and expected responsibilities. We shortlist relevant profiles so you can focus on developers whose experience aligns with the work you need to deliver.',
-      "You can review developer experience, interview shortlisted candidates directly, and assess their technical and communication skills before making a longer-term hiring decision. A 40-hour risk-free trial also gives you the opportunity to evaluate how the developer performs within your actual project environment. Soft Suave's mobile developer rates start at $14/hour, with final pricing based on experience, technology specialization, and engagement requirements.",
-      'With 13+ years of software development experience and 400+ AI & Engineering Specialists, Soft Suave gives you more than a CV-based hiring process. Your decision can be based on relevant experience, direct interaction, and how well the developer performs within your team and project environment.',
+      `You can review developer experience, interview shortlisted candidates directly, and assess their technical and communication skills before making a longer-term hiring decision. A 40-hour risk-free trial also gives you the opportunity to evaluate how the developer performs within your actual project environment. Soft Suave's mobile developer rates start at ${HOURLY_RATE}, with final pricing based on experience, technology specialization, and engagement requirements.`,
+      `With ${YEARS_PLUS} years of software development experience and ${SPECIALISTS_PLUS} AI & Engineering Specialists, Soft Suave gives you more than a CV-based hiring process. Your decision can be based on relevant experience, direct interaction, and how well the developer performs within your team and project environment.`,
     ],
   },
 
@@ -294,12 +295,12 @@ export const mobileApp: HireRolePageContent = {
     items: [
       {
         key: 'experience',
-        name: '13+ Years of Technology Expertise',
-        body: 'Bring 13+ years of software engineering experience to your project, supported by established delivery practices and technical expertise.',
+        name: `${YEARS_PLUS} Years of Technology Expertise`,
+        body: `Bring ${YEARS_PLUS} years of software engineering experience to your project, supported by established delivery practices and technical expertise.`,
       },
       {
         key: 'specialists',
-        name: '400+ AI & Engineering Specialists',
+        name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
         body: 'Access specialists across mobile, backend, cloud, DevOps, data, and AI to support broader product and engineering requirements.',
       },
       {
@@ -422,7 +423,7 @@ export const mobileApp: HireRolePageContent = {
       },
       {
         q: 'How much does it cost to hire a mobile app developer?',
-        a: "Soft Suave's mobile developer rates start at $14/hour. Final pricing depends on the developer's experience, technology specialization, engagement model, and project requirements. Pricing is confirmed after your requirements are reviewed so the proposed developer and commercial structure align with the actual work, collaboration model, and project needs.",
+        a: `Soft Suave's mobile developer rates start at ${HOURLY_RATE}. Final pricing depends on the developer's experience, technology specialization, engagement model, and project requirements. Pricing is confirmed after your requirements are reviewed so the proposed developer and commercial structure align with the actual work, collaboration model, and project needs.`,
       },
       {
         q: 'Should I hire an Android, iOS, Flutter, or React Native developer?',

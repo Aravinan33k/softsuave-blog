@@ -33,6 +33,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { StoryCardsContent } from "@/components/common/story-cards";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroAlert } from "./delivery-shared";
+import { CLIENTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const iosMeta = {
   slug: "ios-application-development-company",
@@ -176,8 +177,8 @@ export const iosLaunchCta: CtaBandContent = {
   cta: { label: "Talk to an iOS expert", href: "/contact" },
   stats: [
     { figure: "1250+", label: "Projects" },
-    { figure: "13+", label: "Year of Experience" },
-    { figure: "150+", label: "Clients Globally" },
+    { figure: `${YEARS_PLUS}`, label: "Year of Experience" },
+    { figure: `${CLIENTS_PLUS}`, label: "Clients Globally" },
   ],
 };
 

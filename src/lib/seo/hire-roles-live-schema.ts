@@ -1,4 +1,5 @@
 import 'server-only';
+import { HOURLY_RATE } from "@/lib/company-figures";
 
 /**
  * JSON-LD for the hire-by-role pages: softsuave.com's own schema for each
@@ -37,7 +38,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
           "serviceType": "Software Development",
           "name": "Hire Software Developers in India On Contract",
           "url": "https://www.softsuave.com/hire-software-developers",
-          "description": "Looking to hire Offshore software developers in India? Hire expert software developers remotely and get skilled engineers on contract from $14/hr for your projects.",
+          "description": `Looking to hire Offshore software developers in India? Hire expert software developers remotely and get skilled engineers on contract from ${HOURLY_RATE} for your projects.`,
           "image": "https://www.softsuave.com/assets/new-formate/og-image-software-developer-contract.jpg",
           "areaServed": [
             "US",
@@ -66,7 +67,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
           "name": "How much does it cost to hire a software developer?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The cost depends on the developer's experience, technology stack, specialization, engagement duration, required capacity, and project responsibilities. Once we understand your requirements, we'll recommend the right developer and engagement model for your project. At Soft Suave, software developer rates start from $14/hour."
+            "text": `The cost depends on the developer's experience, technology stack, specialization, engagement duration, required capacity, and project responsibilities. Once we understand your requirements, we'll recommend the right developer and engagement model for your project. At Soft Suave, software developer rates start from ${HOURLY_RATE}.`
           }
         },
         {
@@ -135,7 +136,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
       "@id": "https://www.softsuave.com/hire-web-app-developers#service",
       "name": "Hire Web App Developers",
       "serviceType": "Web App Developer Staff Augmentation",
-      "description": "Hire web app developers experienced in React, Angular, Node.js, .NET, Java, Python, PHP, Laravel, Django, and Ruby on Rails. Review relevant profiles, interview developers directly, and evaluate fit through a 40-hour risk-free trial before onboarding. Rates start at $14/hour.",
+      "description": `Hire web app developers experienced in React, Angular, Node.js, .NET, Java, Python, PHP, Laravel, Django, and Ruby on Rails. Review relevant profiles, interview developers directly, and evaluate fit through a 40-hour risk-free trial before onboarding. Rates start at ${HOURLY_RATE}.`,
       "url": "https://www.softsuave.com/hire-web-app-developers",
       "image": "https://www.softsuave.com/assets/new-formate/hire-webapp/og_img_web_app_developer.webp",
       "provider": {
@@ -470,7 +471,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
           "name": "How much does it cost to hire web app developers?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Developer rates start at $14 per hour and vary by skill, experience, engagement model, and project requirements. The final rate also depends on responsibilities, duration, team composition, and collaboration needs. Request a tailored rate card for your required role."
+            "text": `Developer rates start at ${HOURLY_RATE} and vary by skill, experience, engagement model, and project requirements. The final rate also depends on responsibilities, duration, team composition, and collaboration needs. Request a tailored rate card for your required role.`
           }
         },
         {
@@ -499,7 +500,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
       "@id": "https://www.softsuave.com/hire-mobile-app-developers#service",
       "name": "Hire Mobile App Developers",
       "serviceType": "Mobile App Developer Staff Augmentation",
-      "description": "Hire mobile app developers experienced in Android, iOS, Flutter, React Native, Ionic, Kotlin, Swift, and Java. Review relevant profiles, interview developers directly, and evaluate fit through a 40-hour risk-free trial before onboarding. Rates start at $14/hour.",
+      "description": `Hire mobile app developers experienced in Android, iOS, Flutter, React Native, Ionic, Kotlin, Swift, and Java. Review relevant profiles, interview developers directly, and evaluate fit through a 40-hour risk-free trial before onboarding. Rates start at ${HOURLY_RATE}.`,
       "url": "https://www.softsuave.com/hire-mobile-app-developers",
       "image": "https://www.softsuave.com/assets/new-formate/hire-mobileapp/og_img_mobile_developer.jpg",
       "provider": {
@@ -754,7 +755,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
           "name": "How much does it cost to hire a mobile app developer?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Soft Suave’s mobile developer rates start at $14/hour. Final pricing depends on the developer’s experience, technology specialization, engagement model, and project requirements. Pricing is confirmed after your requirements are reviewed so the proposed developer and commercial structure align with the actual work, collaboration model, and project needs."
+            "text": `Soft Suave’s mobile developer rates start at ${HOURLY_RATE}. Final pricing depends on the developer’s experience, technology specialization, engagement model, and project requirements. Pricing is confirmed after your requirements are reviewed so the proposed developer and commercial structure align with the actual work, collaboration model, and project needs.`
           }
         },
         {
@@ -854,7 +855,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
           "name": "Where can I find a cost-effective front-end developer?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "You can find the most cost-effective and high-quality back-end developer at Soft Suave. You can even hire our back-end developers at $16/hour, which is the most competitive cost in the industry."
+            "text": `You can find the most cost-effective and high-quality back-end developer at Soft Suave. You can even hire our back-end developers at ${HOURLY_RATE}, which is the most competitive cost in the industry.`
           }
         },
         {
@@ -1043,7 +1044,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
           "name": "How much does it cost to hire a back end developer?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Our backend developer rates start at $14 per hour. Final pricing depends on the required skills, experience level, project responsibilities, engagement model, and duration."
+            "text": `Our backend developer rates start at ${HOURLY_RATE}. Final pricing depends on the required skills, experience level, project responsibilities, engagement model, and duration.`
           }
         }
       ]
@@ -1123,7 +1124,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
         "UK",
         "IN"
       ],
-      "description": "Hire pre-vetted QA testers for manual and automation testing. 48-hour matching, 40-hour risk-free trial, rates from $14/hour.",
+      "description": `Hire pre-vetted QA testers for manual and automation testing. 48-hour matching, 40-hour risk-free trial, rates from ${HOURLY_RATE}.`,
       "offers": {
         "@type": "Offer",
         "priceCurrency": "USD",
@@ -1144,7 +1145,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
           "name": "How much does it cost to hire a QA tester from Soft Suave?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Rates start from $14/hour, in line with the $15/hour median rate for software QA testers on Upwork ($12–$20/hr typical range). Every hire starts with a 40-hour risk-free trial before any monthly commitment."
+            "text": `Rates start from ${HOURLY_RATE}, in line with the $15/hour median rate for software QA testers on Upwork ($12–$20/hr typical range). Every hire starts with a 40-hour risk-free trial before any monthly commitment.`
           }
         },
         {
@@ -1214,7 +1215,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
         "UK",
         "IN"
       ],
-      "description": "Hire pre-vetted, dedicated DevOps engineers experienced in CI/CD, Kubernetes, Docker, AWS and Azure. 48-hour matching, 40-hour risk-free trial, rates from $14/hour.",
+      "description": `Hire pre-vetted, dedicated DevOps engineers experienced in CI/CD, Kubernetes, Docker, AWS and Azure. 48-hour matching, 40-hour risk-free trial, rates from ${HOURLY_RATE}.`,
       "offers": {
         "@type": "Offer",
         "priceCurrency": "USD",
@@ -1235,7 +1236,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
           "name": "How much does it cost to hire a DevOps engineer from Soft Suave?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Rates start from $14/hour (Junior $14/hr, Mid-level $18/hr, Senior $25/hr) — well below the $60/hour median rate for DevOps engineers on Upwork. Every hire starts with a 40-hour risk-free trial before any monthly commitment."
+            "text": `Rates start from ${HOURLY_RATE} (Junior ${HOURLY_RATE}, Mid-level $18/hour, Senior $25/hour) — well below the $60/hour median rate for DevOps engineers on Upwork. Every hire starts with a 40-hour risk-free trial before any monthly commitment.`
           }
         },
         {
@@ -1298,7 +1299,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
           "ServiceType": "Software",
           "name": "Hire Dedicated Developers On Contract",
           "url": "https://www.softsuave.com/hire-dedicated-developers",
-          "description": "Looking to hire dedicated developers in India On Contract? Soft Suave offers a 40-hour free trial and pricing beginning at $14. Connect with us to get started!",
+          "description": `Looking to hire dedicated developers in India On Contract? Soft Suave offers a 40-hour free trial and pricing beginning at ${HOURLY_RATE}. Connect with us to get started!`,
           "image": "https://www.softsuave.com/assets/new-formate/dedicated-developers-india.jpg",
           "areaServed": [
             "US",
@@ -1322,7 +1323,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
       "@context": "http://schema.org/",
       "@type": "Product",
       "name": "Soft Suave Technologies",
-      "description": "Looking to hire dedicated developers in India On Contract? Soft Suave offers a 40-hour free trial and pricing beginning at $14. Connect with us to get started!",
+      "description": `Looking to hire dedicated developers in India On Contract? Soft Suave offers a 40-hour free trial and pricing beginning at ${HOURLY_RATE}. Connect with us to get started!`,
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.8",
@@ -1499,7 +1500,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
         "UK",
         "IN"
       ],
-      "description": "Hire pre-vetted Salesforce developers for Apex, Lightning and CRM integrations. 48-hour matching, 40-hour risk-free trial, rates from $14/hour.",
+      "description": `Hire pre-vetted Salesforce developers for Apex, Lightning and CRM integrations. 48-hour matching, 40-hour risk-free trial, rates from ${HOURLY_RATE}.`,
       "offers": {
         "@type": "Offer",
         "priceCurrency": "USD",
@@ -1520,7 +1521,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
           "name": "How much does it cost to hire a Salesforce developer?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Rates start from $14/hour for a dedicated offshore hire, in line with the $25–$40/hour range Upwork reports for Salesforce developers ($30/hour median). Final pricing depends on project scope — every engagement starts with a 40-hour risk-free trial before you commit."
+            "text": `Rates start from ${HOURLY_RATE} for a dedicated offshore hire, in line with the $25–$40/hour range Upwork reports for Salesforce developers ($30/hour median). Final pricing depends on project scope — every engagement starts with a 40-hour risk-free trial before you commit.`
           }
         },
         {
@@ -1582,7 +1583,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
         "UK",
         "IN"
       ],
-      "description": "Hire pre-vetted blockchain developers for smart contracts, DeFi and Web3 development. 48-hour matching, 40-hour risk-free trial, rates from $14/hour.",
+      "description": `Hire pre-vetted blockchain developers for smart contracts, DeFi and Web3 development. 48-hour matching, 40-hour risk-free trial, rates from ${HOURLY_RATE}.`,
       "offers": {
         "@type": "Offer",
         "priceCurrency": "USD",
@@ -1603,7 +1604,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
           "name": "How much does it cost to hire a Blockchain developer?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Cost starts at $14/hour depending on project scope and developer expertise — well below the $40/hour median rate for blockchain developers on Upwork ($30–$59/hr typical range). For a quote customized to your requirements, get in touch with us."
+            "text": `Cost starts at ${HOURLY_RATE} depending on project scope and developer expertise — well below the $40/hour median rate for blockchain developers on Upwork ($30–$59/hr typical range). For a quote customized to your requirements, get in touch with us.`
           }
         },
         {
@@ -1775,7 +1776,7 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
               "name": "How does FDE pricing work?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "We offer simple monthly pricing based on team size and engagement model. Dedicated teams have flat monthly rates starting at $14 per hour. Project pods are scoped with fixed pricing. No hidden fees, no hourly surprises. Contact us for a custom quote based on your specific needs."
+                "text": `We offer simple monthly pricing based on team size and engagement model. Dedicated teams have flat monthly rates starting at ${HOURLY_RATE}. Project pods are scoped with fixed pricing. No hidden fees, no hourly surprises. Contact us for a custom quote based on your specific needs.`
               }
             },
             {

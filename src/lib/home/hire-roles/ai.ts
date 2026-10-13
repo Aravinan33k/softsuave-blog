@@ -23,6 +23,7 @@
 import type { HireRolePageContent } from './types';
 import { heroForm, onboardingComparison } from './shared';
 import { caTech } from '@/lib/home/custom-ai-content';
+import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const ai: HireRolePageContent = {
   key: 'hire-ai',
@@ -254,7 +255,7 @@ export const ai: HireRolePageContent = {
     items: [
       {
         q: 'How much does it cost to hire AI developer?',
-        a: "Costs depend on the developer's experience, project scope, tech stack, etc. At Soft Suave, we offer flexible pricing starting from $14/hour, ensuring top value for your investment.",
+        a: `Costs depend on the developer's experience, project scope, tech stack, etc. At Soft Suave, we offer flexible pricing starting from ${HOURLY_RATE}, ensuring top value for your investment.`,
       },
       {
         q: 'Is there any free trial period available?',

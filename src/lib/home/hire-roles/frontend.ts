@@ -27,6 +27,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
+import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const frontend: HireRolePageContent = {
   key: 'hire-frontend',
@@ -52,7 +53,7 @@ export const frontend: HireRolePageContent = {
   ],
 
   meta: {
-    title: 'Hire Frontend Developers From $14/Hour | 40-Hour Trial',
+    title: `Hire Frontend Developers From ${HOURLY_RATE} | 40-Hour Trial`,
     description:
       'Hire frontend developers skilled in React, Angular, Vue.js, Next.js, and TypeScript. Evaluate matched talent through a 40-hour risk-free trial.',
   },
@@ -76,7 +77,7 @@ export const frontend: HireRolePageContent = {
       'React, Angular & Vue.js Skills',
       'Direct Developer Collaboration',
       'Flexible Engagement Models',
-      '400+ AI & Engineering Specialists',
+      `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     ],
     form: heroForm({
       title: 'Get Skilled Remote Developers',
@@ -105,7 +106,7 @@ export const frontend: HireRolePageContent = {
       'Frontend developers build and maintain the user-facing parts of websites and web applications. Their work includes creating interfaces, developing reusable components, integrating APIs, supporting responsive experiences, and improving frontend performance.',
       'You should hire a frontend developer when your team needs additional delivery capacity, specialized framework knowledge, help modernizing an existing interface, or continued support for a growing product. The developer can work independently or collaborate with designers, backend engineers, QA specialists, and product managers.',
       'Soft Suave provides front end developers for hire across React, Angular, Vue.js, Next.js, JavaScript, and TypeScript requirements. Developers join your existing tools and processes, including source control, sprint planning, code review, testing, documentation, and deployment workflows.',
-      'Our developer rates start at $14 per hour and vary by skill, experience, engagement model, and project requirements.',
+      `Our developer rates start at ${HOURLY_RATE} and vary by skill, experience, engagement model, and project requirements.`,
     ],
   },
 
@@ -320,12 +321,12 @@ export const frontend: HireRolePageContent = {
       },
       {
         key: 'specialists',
-        name: '400+ AI & Engineering Specialists',
+        name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
         body: 'Access broader engineering expertise when frontend delivery requires support across connected technical disciplines.',
       },
       {
         key: 'experience',
-        name: '13+ Years of Technology Expertise',
+        name: `${YEARS_PLUS} Years of Technology Expertise`,
         body: 'Work with an experienced engineering partner across development, modernization, maintenance, and changing technical requirements.',
       },
       {
@@ -439,7 +440,7 @@ export const frontend: HireRolePageContent = {
       },
       {
         q: 'How much does it cost to hire frontend developers?',
-        a: 'Our developer rates start at $14 per hour and vary by skill, experience, engagement model, and project requirements. Framework specialization, application complexity, architecture ownership, testing responsibilities, integration requirements, and engagement duration can all influence the applicable rate.',
+        a: `Our developer rates start at ${HOURLY_RATE} and vary by skill, experience, engagement model, and project requirements. Framework specialization, application complexity, architecture ownership, testing responsibilities, integration requirements, and engagement duration can all influence the applicable rate.`,
       },
       {
         q: 'Can frontend developers work with our backend team?',

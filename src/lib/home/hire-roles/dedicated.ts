@@ -32,6 +32,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm, onboardingComparison, rateTiers } from './shared';
+import { HOURLY_RATE, SPECIALISTS_PLUS } from '@/lib/company-figures';
 
 export const dedicated: HireRolePageContent = {
   key: 'hire-dedicated',
@@ -65,13 +66,13 @@ export const dedicated: HireRolePageContent = {
   ],
 
   meta: {
-    title: 'Hire Dedicated Developers India From $14/hr',
+    title: `Hire Dedicated Developers India From ${HOURLY_RATE}`,
     description:
-      'Looking to hire dedicated developers in India On Contract? We offers a 40-hour free trial and pricing beginning at $14. Connect with us!',
+      `Looking to hire dedicated developers in India On Contract? We offers a 40-hour free trial and pricing beginning at ${HOURLY_RATE}. Connect with us!`,
   },
 
   hero: {
-    titleLines: ['Hire Dedicated Developers in India', 'Vetted Teams from $14/hour'],
+    titleLines: ['Hire Dedicated Developers in India', `Vetted Teams from ${HOURLY_RATE}`],
     accent: 'Dedicated Developers',
     // Sized so each line fits the column — both wrapped on a laptop, leaving
     // three or four lines (8 Oct review: "H1 is in 3 lines even though there
@@ -86,11 +87,11 @@ export const dedicated: HireRolePageContent = {
       veil: 'strong',
     },
     body: [
-      'Soft Suave offers dedicated developers from India who can join your team within 48 hours and work as an extension of your in-house team. Hire experts in web, mobile, full-stack, DevOps, QA, and more with flexible models, hourly rates starting at $14/hour, and a 40-hour risk-free trial.',
+      `Soft Suave offers dedicated developers from India who can join your team within 48 hours and work as an extension of your in-house team. Hire experts in web, mobile, full-stack, DevOps, QA, and more with flexible models, hourly rates starting at ${HOURLY_RATE}, and a 40-hour risk-free trial.`,
     ],
     points: [
       '40-Hour Risk-Free Trial',
-      'Dedicated Developers from $14/hour',
+      `Dedicated Developers from ${HOURLY_RATE}`,
       'Hire Within 48 Hours',
       'Time-Zone & Language Aligned Teams',
       'Airtight NDA & IP Protection',
@@ -121,7 +122,7 @@ export const dedicated: HireRolePageContent = {
     title: 'Why Hire Dedicated Developers from Soft Suave?',
     paragraphs: [
       'Scale faster with expert developers who integrate seamlessly, deliver consistently, and adapt to your evolving business needs without hiring delays.',
-      'Soft Suave 400+ dedicated developers in India help businesses scale with skilled talent across 30+ technology stacks, including web, mobile, cloud, DevOps, QA, eCommerce, and emerging technologies. Each developer is assessed for technical depth, communication skills, project experience, and team compatibility before joining client projects.',
+      `Soft Suave ${SPECIALISTS_PLUS} dedicated developers in India help businesses scale with skilled talent across 30+ technology stacks, including web, mobile, cloud, DevOps, QA, eCommerce, and emerging technologies. Each developer is assessed for technical depth, communication skills, project experience, and team compatibility before joining client projects.`,
       'Our engagements are built for long-term value, not short-term staffing gaps. With a 97% client retention rate, Soft Suave gives businesses reliable development support backed by consistent delivery, clear communication, and developers who adapt to changing project needs.',
       'You can hire developers through flexible engagement models such as dedicated team, fixed-price, and time and material models. Expand your team on demand and keep projects moving without slow recruitment cycles.',
     ],
@@ -312,7 +313,7 @@ export const dedicated: HireRolePageContent = {
 
   rates: rateTiers({
     title: 'How Much Does It Cost to Hire Dedicated Developers in India?',
-    body: "Soft Suave's dedicated developers in India are available at flexible hourly rates starting from $14/hour. The final cost depends on the developer's experience, skill level, technology stack, and project requirements. An approximate pricing breakdown is listed below to help you plan your hiring budget.",
+    body: `Soft Suave's dedicated developers in India are available at flexible hourly rates starting from ${HOURLY_RATE}. The final cost depends on the developer's experience, skill level, technology stack, and project requirements. An approximate pricing breakdown is listed below to help you plan your hiring budget.`,
   }),
 
   techStack: {
@@ -431,7 +432,7 @@ export const dedicated: HireRolePageContent = {
       },
       {
         q: 'How much does it cost to hire dedicated developers from India?',
-        a: "The cost to hire dedicated developers from India starts at $14/hour. The final pricing may vary based on the developer's experience, role, technology stack, engagement model, and overall project requirements.",
+        a: `The cost to hire dedicated developers from India starts at ${HOURLY_RATE}. The final pricing may vary based on the developer's experience, role, technology stack, engagement model, and overall project requirements.`,
       },
       {
         q: 'How fast can Soft Suave onboard a dedicated developer?',
@@ -441,7 +442,7 @@ export const dedicated: HireRolePageContent = {
         // Live answer repeats the onboarding-speed answer above; answered here
         // from this page's own offshore rate, overlap hours and cost claims.
         q: 'What is the difference between onshore and offshore dedicated hiring?',
-        a: 'Onshore hiring places developers in your own country, at your local cost base and with recruitment, training, infrastructure and long-term employment costs carried by you. Offshore hiring — what Soft Suave provides from India — starts at $14/hour and removes those costs, with developers working flexible schedules that overlap your core business hours so daily communication, meetings and progress updates continue as normal.',
+        a: `Onshore hiring places developers in your own country, at your local cost base and with recruitment, training, infrastructure and long-term employment costs carried by you. Offshore hiring — what Soft Suave provides from India — starts at ${HOURLY_RATE} and removes those costs, with developers working flexible schedules that overlap your core business hours so daily communication, meetings and progress updates continue as normal.`,
       },
       {
         // Live answer repeats the onboarding-speed answer too; answered here

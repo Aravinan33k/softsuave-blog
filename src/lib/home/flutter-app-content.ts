@@ -33,6 +33,7 @@ import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { StoryCardsContent } from "@/components/common/story-cards";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroAlert } from "./delivery-shared";
+import { CLIENTS_PLUS, COUNTRIES_PLUS, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const flMeta = {
   slug: "flutter-application-development-company",
@@ -120,10 +121,10 @@ export const flOverview: OverviewContent = {
    * label reads "Year of Experience", singular, and is kept as written.
    */
   stats: [
-    { figure: "400+", label: "Experts" },
-    { figure: "21+", label: "Countries" },
-    { figure: "150+", label: "Clients" },
-    { figure: "13+", label: "Year of Experience" },
+    { figure: `${SPECIALISTS_PLUS}`, label: "Experts" },
+    { figure: `${COUNTRIES_PLUS}`, label: "Countries" },
+    { figure: `${CLIENTS_PLUS}`, label: "Clients" },
+    { figure: `${YEARS_PLUS}`, label: "Year of Experience" },
   ],
   /**
    * Counters to the right of the prose, in the column the illustration used to
@@ -153,7 +154,7 @@ export const flOverview: OverviewContent = {
  */
 export const flIdeaCta: CtaBandContent = {
   title: "Have a Mobile App Idea Using Flutter?",
-  body: "With our talented 400+ App Developers, we guarantee you a quality App Development Service.",
+  body: `With our talented ${SPECIALISTS_PLUS} App Developers, we guarantee you a quality App Development Service.`,
   cta: { label: "Hire Flutter App Developers", href: "/hire-flutter-developers" },
 };
 

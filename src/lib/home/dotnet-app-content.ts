@@ -42,6 +42,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroAlert } from "./delivery-shared";
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 export const netMeta = {
   slug: "dot-net-application-development-company",
@@ -172,7 +173,7 @@ export const netServices: ServiceBoardContent = {
     {
       name: "ASP.NET Consulting Services",
       paragraphs: [
-        "The flexibility of the .NET Framework empowers our developers to craft powerful and safe applications. With more than 13+ years of experience in the field, we as a company help SMBs and startups gain the ultimate digital presence with our programming expertise.",
+        `The flexibility of the .NET Framework empowers our developers to craft powerful and safe applications. With more than ${YEARS_PLUS} years of experience in the field, we as a company help SMBs and startups gain the ultimate digital presence with our programming expertise.`,
         "Procure quality, industry/international-standard ASP.NET consulting services by utilizing our .NET developers' talents. We understand that every business has its requirements, and strive to make sure the projects are tailored to meet these unique demands.",
       ],
       // Consulting now gets an advisory scene. The photograph that was here

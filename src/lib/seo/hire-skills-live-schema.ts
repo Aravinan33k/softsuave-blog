@@ -1,4 +1,5 @@
 import 'server-only';
+import { CLIENTS_PLUS, HOURLY_RATE } from "@/lib/company-figures";
 
 /**
  * JSON-LD for the hire-by-skill pages: softsuave.com's own schema for each
@@ -123,7 +124,7 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
           "ServiceType": "Software",
           "name": "Hire Dedicated .Net Developers from Soft Suave",
           "url": "https://www.softsuave.com/hire-dot-net-developers",
-          "description": "Looking to hire dedicated .Net developers in India & USA? Outsource ASP.Net application developer in USA to build high-quality web applications starting at $16/hr.",
+          "description": `Looking to hire dedicated .Net developers in India & USA? Outsource ASP.Net application developer in USA to build high-quality web applications starting at ${HOURLY_RATE}.`,
           "image": "https://www.softsuave.com/assets/new-formate/hire-dotnet/net-developer-cont-img-softsuave.webp",
           "areaServed": [
             "US",
@@ -207,7 +208,7 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
           "ServiceType": "Software",
           "name": "Hire Dedicated Flutter Developers from Soft Suave",
           "url": "https://www.softsuave.com/hire-flutter-developers",
-          "description": "Looking to hire dedicated flutter developers in India & USA? Hire an offshore flutter application developer in usa to build high-quality applications starting at $16/hr.",
+          "description": `Looking to hire dedicated flutter developers in India & USA? Hire an offshore flutter application developer in usa to build high-quality applications starting at ${HOURLY_RATE}.`,
           "image": "https://www.softsuave.com/assets/new-formate/hire-flutter/flutter-text-banner-img-softsuave.webp",
           "areaServed": [
             "US",
@@ -352,7 +353,7 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
           "ServiceType": "Software",
           "name": "Hire Java Developers from Soft Suave",
           "url": "https://www.softsuave.com/hire-java-developers",
-          "description": "Looking to hire dedicated Java developers in India & USA? Hire java application developer in usa to build high-quality web applications starting at $16/hr.",
+          "description": `Looking to hire dedicated Java developers in India & USA? Hire java application developer in usa to build high-quality web applications starting at ${HOURLY_RATE}.`,
           "image": "https://www.softsuave.com/assets/images/og_img_java_developer.jpg",
           "areaServed": [
             "US",
@@ -443,7 +444,7 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
           "name": "How much does it cost to hire a Laravel developer?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Our prices begin at $14/hour, and based on the level of experience of the developer, it may increase."
+            "text": `Our prices begin at ${HOURLY_RATE}, and based on the level of experience of the developer, it may increase.`
           }
         },
         {
@@ -542,9 +543,9 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
         {
           "@type": "Service",
           "serviceType": "Node.js Developer Staffing",
-          "name": "Hire NodeJS Developers in India Trusted By 150+ Clients",
+          "name": `Hire NodeJS Developers in India Trusted By ${CLIENTS_PLUS} Clients`,
           "url": "https://www.softsuave.com/hire-nodejs-developers",
-          "description": "Hire pre-vetted Node.js developers for scalable APIs and backend systems. 48-hour matching, 40-hour risk-free trial, rates from $14/hour.",
+          "description": `Hire pre-vetted Node.js developers for scalable APIs and backend systems. 48-hour matching, 40-hour risk-free trial, rates from ${HOURLY_RATE}.`,
           "image": "https://www.softsuave.com/assets/new-formate/hire-nodejs_developer-india.jpg",
           "areaServed": [
             "US",
@@ -621,7 +622,7 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
           "name": "How much does it cost to hire a Node.js developer from Soft Suave?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Rates start from $14/hour, below the $25/hour median rate for Node.js developers on Upwork ($18–$38/hr typical range). Every engagement starts with a 40-hour risk-free trial before any monthly commitment."
+            "text": `Rates start from ${HOURLY_RATE}, below the $25/hour median rate for Node.js developers on Upwork ($18–$38/hr typical range). Every engagement starts with a 40-hour risk-free trial before any monthly commitment.`
           }
         },
         {
@@ -776,7 +777,7 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
           "ServiceType": "Software",
           "name": "Hire Dedicated Python Developers from Soft Suave",
           "url": "https://www.softsuave.com/hire-python-developers",
-          "description": "Looking to hire dedicated python developers in India? Outsource python application developer in usa to build high-quality web applications starting at $16/hr.",
+          "description": `Looking to hire dedicated python developers in India? Outsource python application developer in usa to build high-quality web applications starting at ${HOURLY_RATE}.`,
           "image": "https://www.softsuave.com/assets/new-formate/hire-python/python-img.svg",
           "areaServed": [
             "US",
@@ -899,7 +900,7 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
           "name": "How much does it cost to hire a React Native developer from Soft Suave?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Hire our professional React Native developer at a competitive cost as low as $14/hour. You can select and hire from the pool of brilliant senior React Native app developers with expertise in all the latest development technologies and tools."
+            "text": `Hire our professional React Native developer at a competitive cost as low as ${HOURLY_RATE}. You can select and hire from the pool of brilliant senior React Native app developers with expertise in all the latest development technologies and tools.`
           }
         },
         {
@@ -986,7 +987,7 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
           "ServiceType": "Software",
           "name": "Hire Dedicated ReactJS App Developers from Soft Suave",
           "url": "https://www.softsuave.com/hire-reactjs-developers",
-          "description": "Looking to hire dedicated reactjs developers in India & USA? Hire react application programmers in usa to build high-quality web applications starting at $16/hr.",
+          "description": `Looking to hire dedicated reactjs developers in India & USA? Hire react application programmers in usa to build high-quality web applications starting at ${HOURLY_RATE}.`,
           "image": "https://www.softsuave.com/assets/new-formate/hire-reactjs/react-img.svg",
           "areaServed": [
             "US",
@@ -1015,7 +1016,7 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
           "name": "How much does it cost to hire ReactJS developers from Soft Suave?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Soft Suave is renowned for having the top-ranked Reactjs developers in India. You can hire expert ReactJS developers at a reasonable cost of $16/hour. Additionally, all our React.js app developers are senior developers and have vast experience in the industry."
+            "text": `Soft Suave is renowned for having the top-ranked Reactjs developers in India. You can hire expert ReactJS developers at a reasonable cost of ${HOURLY_RATE}. Additionally, all our React.js app developers are senior developers and have vast experience in the industry.`
           }
         },
         {

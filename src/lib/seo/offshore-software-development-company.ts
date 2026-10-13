@@ -1,4 +1,5 @@
 import 'server-only';
+import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 /**
  * JSON-LD for `/offshore-software-development-company`: softsuave.com's own schema for this page,
@@ -97,7 +98,7 @@ export const OFFSHORE_LIVE_LD: readonly object[] = [
         "name": "Why should I choose Soft Suave as my offshore development partner?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Soft Suave excels as a trusted offshore software development service provider with 12+ years of experience, a team of 400+ skilled developers, and a proven track record of 1,250+ successful projects. We offer cost-effective, scalable, and high-quality solutions with complete transparency and flexibility."
+          "text": `Soft Suave excels as a trusted offshore software development service provider with ${YEARS_PLUS} years of experience, a team of ${SPECIALISTS_PLUS} skilled developers, and a proven track record of 1,250+ successful projects. We offer cost-effective, scalable, and high-quality solutions with complete transparency and flexibility.`
         }
       },
       {
@@ -129,7 +130,7 @@ export const OFFSHORE_LIVE_LD: readonly object[] = [
         "name": "How much will the offshore development services cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The cost of offshore development services will vary depending on different factors like the technology used, the experience of the developers, the complexity of the project, etc. But our base price starts at an affordable $14/hour."
+          "text": `The cost of offshore development services will vary depending on different factors like the technology used, the experience of the developers, the complexity of the project, etc. But our base price starts at an affordable ${HOURLY_RATE}.`
         }
       }
     ]

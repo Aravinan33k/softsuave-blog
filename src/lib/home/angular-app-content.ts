@@ -45,6 +45,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { StoryCardsContent } from "@/components/common/story-cards";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroAlert } from "./delivery-shared";
+import { CLIENTS_PLUS, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const ngMeta = {
   slug: "angularjs-development-company",
@@ -72,7 +73,7 @@ export const ngHero: HeroContent = {
   // The four claims the live hero prints beside its headline.
   points: [
     "Save 60% Development Costs",
-    "400+ In-house Resources",
+    `${SPECIALISTS_PLUS} In-house Resources`,
     "7-Day Free Trial",
     "NDA & Flexible Engagement Models",
   ],
@@ -218,8 +219,8 @@ export const ngHireCta: CtaBandContent = {
   // "Year of Experience" is singular on the live page; kept as written.
   stats: [
     { figure: "1250+", label: "Projects" },
-    { figure: "13+", label: "Year of Experience" },
-    { figure: "150+", label: "Clients Globally" },
+    { figure: `${YEARS_PLUS}`, label: "Year of Experience" },
+    { figure: `${CLIENTS_PLUS}`, label: "Clients Globally" },
   ],
 };
 
@@ -263,7 +264,7 @@ export const ngWhyUs: CardGridContent = {
   items: [
     {
       name: "Dozens of Angular Projects to Date",
-      body: "With over 13+ years of experience in Angular development, we've honed our skills to craft custom, high-quality solutions. Our proven track record speaks for itself, ensuring we can deliver the results you need to achieve your business goals.",
+      body: `With over ${YEARS_PLUS} years of experience in Angular development, we've honed our skills to craft custom, high-quality solutions. Our proven track record speaks for itself, ensuring we can deliver the results you need to achieve your business goals.`,
     },
     {
       name: "Diverse Range of Talent",

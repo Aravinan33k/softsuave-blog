@@ -35,6 +35,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
 import { sharedHeroAlert } from "./delivery-shared";
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 export const madMeta = {
   slug: "mobile-application-development-company",
@@ -55,7 +56,7 @@ export const madHero: HeroContent = {
   titleLines: ["Mobile App Development", "Company in India"],
   accent: "Mobile App",
   body: [
-    "With 13+ years of expertise, Soft Suave Technologies is a powerhouse in mobile app development. We create high-performance Android, iOS, and cross-platform apps for global clients across the US, EU, and MEA regions, delivering unbeatable quality and exceptional offshore advantages.",
+    `With ${YEARS_PLUS} years of expertise, Soft Suave Technologies is a powerhouse in mobile app development. We create high-performance Android, iOS, and cross-platform apps for global clients across the US, EU, and MEA regions, delivering unbeatable quality and exceptional offshore advantages.`,
   ],
   points: [
     "Custom Native & Cross-Platform Apps",
@@ -246,8 +247,8 @@ export const madWhyUs: CardGridContent = {
   body: "At Soft Suave, we’re more than just coders; we’re partners dedicated to delivering impactful product outcomes and long-term value, ensuring your app’s success every step of the way.",
   items: [
     {
-      name: "13+ Years of Mobile App Development Experience",
-      body: "With 13+ years of experience, we’ve built numerous apps for clients across the USA, Europe, and the Middle East in diverse industries.",
+      name: `${YEARS_PLUS} Years of Mobile App Development Experience`,
+      body: `With ${YEARS_PLUS} years of experience, we’ve built numerous apps for clients across the USA, Europe, and the Middle East in diverse industries.`,
     },
     {
       name: "India-Based Team with Global Delivery Standards",

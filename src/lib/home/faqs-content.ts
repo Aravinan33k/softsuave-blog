@@ -24,6 +24,7 @@
  */
 
 import type { FaqContent } from "@/components/landing/faq";
+import { CLIENTS_PLUS, COUNTRIES_PLUS, FIGURES, YEARS_PLUS } from "@/lib/company-figures";
 
 export const faqsPageMeta = {
   slug: "faqs",
@@ -67,7 +68,7 @@ export const faqsGeneral: FaqContent = {
     },
     {
       q: "How large is the team?",
-      a: "Over 400 engineering specialists, with 13+ years of delivery behind them and work shipped for 150+ clients across 20+ countries.",
+      a: `Over ${FIGURES.specialists} engineering specialists, with ${YEARS_PLUS} years of delivery behind them and work shipped for ${CLIENTS_PLUS} clients across ${COUNTRIES_PLUS} countries.`,
     },
     {
       q: "Will you work to our standards and methodology?",

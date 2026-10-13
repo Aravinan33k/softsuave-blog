@@ -1,4 +1,5 @@
 import 'server-only';
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 /**
  * Service, WebPage and FAQPage JSON-LD for `/graphql-development-company`,
@@ -95,7 +96,7 @@ export const gqWebPageLd = {
   "@id": "https://www.softsuave.com/graphql-development-company#webpage",
   "url": "https://www.softsuave.com/graphql-development-company",
   "name": "GraphQL Development Company for Modern APIs | Soft Suave",
-  "description": "Work with a GraphQL development company backed by 13+ years of technology expertise and 400+ AI & Engineering Specialists for modern API solutions.",
+  "description": `Work with a GraphQL development company backed by ${YEARS_PLUS} years of technology expertise and ${SPECIALISTS_PLUS} AI & Engineering Specialists for modern API solutions.`,
   "inLanguage": "en",
   "dateModified": "2026-09-15",
   "primaryImageOfPage": {

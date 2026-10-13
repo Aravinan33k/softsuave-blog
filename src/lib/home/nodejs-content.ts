@@ -75,6 +75,7 @@ import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
+import { CLIENTS_PLUS, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const njMeta = {
   slug: "nodejs-development-company",
@@ -263,9 +264,9 @@ export const njFaqs: FaqContent = {
       q: "Why should I choose Soft Suave over other NodeJS development companies?",
       a: "To stand out from other NodeJS development companies, Soft Suave always provides personalized services to clients and helps them have a good online presence. Plus, we have",
       points: [
-        "13+ years of experience",
-        "150+ long term clients across the globe",
-        "400+ team of skilled developers",
+        `${YEARS_PLUS} years of experience`,
+        `${CLIENTS_PLUS} long term clients across the globe`,
+        `${SPECIALISTS_PLUS} team of skilled developers`,
         "4.8/5 ratings in Clutch",
       ],
     },

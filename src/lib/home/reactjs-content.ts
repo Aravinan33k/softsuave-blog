@@ -90,6 +90,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroAlert } from "./delivery-shared";
+import { FIGURES } from "@/lib/company-figures";
 
 export const rjMeta = {
   slug: "reactjs-app-development-company",
@@ -101,7 +102,7 @@ export const rjMeta = {
    */
   title: "ReactJS Development Company in India",
   description:
-    "Looking for React.js app development company in India that suits your budget. We are the leading development company with 13 Yrs of experience.",
+    `Looking for React.js app development company in India that suits your budget. We are the leading development company with ${FIGURES.years} Yrs of experience.`,
 } as const;
 
 export const rjHero: HeroContent = {

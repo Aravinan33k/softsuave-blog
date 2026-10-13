@@ -24,6 +24,7 @@ import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { overviewImage } from "./overview-images";
+import { SPECIALISTS_PLUS } from "@/lib/company-figures";
 
 export const gccMeta = {
   slug: "global-capability-center",
@@ -46,7 +47,7 @@ export const gccHero: HeroContent = {
   points: [
     "End-to-end GCC setup and operations",
     "Legal, tax and statutory compliance handled",
-    "400+ AI & engineering specialists to recruit from",
+    `${SPECIALISTS_PLUS} AI & engineering specialists to recruit from`,
     "Chennai, Bengaluru and US delivery presence",
     "Build-Operate-Transfer path to full ownership",
   ],

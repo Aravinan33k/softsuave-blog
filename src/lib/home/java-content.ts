@@ -53,6 +53,7 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
 import { overviewImage } from "./overview-images";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
+import { CLIENTS_PLUS, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const javaMeta = {
   slug: "java-application-development-company",
@@ -79,7 +80,7 @@ export const javaHero: HeroContent = {
   points: [
     "Save 60% on Development Costs",
     "NDA & Flexible Engagement Models",
-    "400+ In-house Resources",
+    `${SPECIALISTS_PLUS} In-house Resources`,
   ],
   badges: partnerHeroBadges,
   form: {
@@ -131,8 +132,8 @@ export const javaOverview: OverviewContent = {
   // The live page's counters, exactly as it writes them.
   stats: [
     { figure: "1250+", label: "Projects Executed Successfully" },
-    { figure: "13+", label: "Years of Experience in this Field" },
-    { figure: "150+", label: "Total No. of Satisfied Customers" },
+    { figure: `${YEARS_PLUS}`, label: "Years of Experience in this Field" },
+    { figure: `${CLIENTS_PLUS}`, label: "Total No. of Satisfied Customers" },
   ],
 };
 

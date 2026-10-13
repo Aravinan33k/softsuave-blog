@@ -48,6 +48,7 @@ import type { OverviewContent } from "@/components/landing/overview";
 import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/landing/tech-stack";
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 export const pyMeta = {
   slug: "python-application-development-company",
@@ -102,7 +103,7 @@ export const pyOverview: OverviewContent = {
   eyebrow: "Python Web Development",
   title: "Outsourcing Python Web Development Solutions",
   paragraphs: [
-    "We are a reliable custom Python Web Development Company operating more than 13+ successful years. Our best-in-class Python services include,",
+    `We are a reliable custom Python Web Development Company operating more than ${YEARS_PLUS} successful years. Our best-in-class Python services include,`,
     "Soft Suave is the leading Python development company in India that offers clients best-in-class solutions with the help of experienced developers who are experts in advanced Python development web framework, programming language and cutting-edge tools. Our developers show the finest commitment to deliver the highest level of customer service by creating innovative and customized Python solutions at an economical price.",
     "Our developers are also known for building custom solutions using Python to simplify complex software development. The Python applications from Soft Suave are developed in a way to handle the changes in the future technological trends.",
     "Soft Suave being the best Python web development company in India and the USA has all the technical capabilities and tools to develop web applications that matches the client requirements.",
@@ -129,7 +130,7 @@ export const pyOverview: OverviewContent = {
 export const pyServices: ServiceBoardContent = {
   eyebrow: "Python Development Services",
   title: "Our Innovative Python Development Services",
-  body: "We are a reliable custom Python Web Development Company operating more than 13+ successful years. Our best-in-class Python services include,",
+  body: `We are a reliable custom Python Web Development Company operating more than ${YEARS_PLUS} successful years. Our best-in-class Python services include,`,
   items: [
     {
       name: "Custom Python Development",

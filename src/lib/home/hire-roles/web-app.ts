@@ -23,6 +23,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
+import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const webApp: HireRolePageContent = {
   key: 'hire-web',
@@ -62,9 +63,9 @@ export const webApp: HireRolePageContent = {
     ],
     points: [
       'Project-Ready Developer Profiles',
-      '400+ AI & Engineering Specialists',
+      `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
       '40-Hour Risk-Free Trial',
-      'Flexible Hiring from $14/Hour',
+      `Flexible Hiring from ${HOURLY_RATE}`,
       'Direct Developer Collaboration',
     ],
     form: heroForm({
@@ -94,7 +95,7 @@ export const webApp: HireRolePageContent = {
       'Hiring web application developers gives your business additional engineering capacity for building, modernizing, and maintaining browser-based products. The right developer should match your architecture, technologies, delivery process, security requirements, and the responsibilities involved in your project.',
       'Soft Suave helps you identify web app developers for hire based on the technical skills, experience, availability, and collaboration model your project requires. Review relevant profiles, interview shortlisted specialists, and use the 40-hour trial to evaluate technical skills, communication, and team fit before continuing the engagement.',
       'Our developers build SaaS platforms, customer portals, internal business applications, ecommerce applications, and API-integrated systems. They can also support application modernization, feature delivery, ongoing maintenance, and longer-term web application requirements.',
-      'Our developer rates start at $14 per hour and vary by skill, experience, engagement model, and project requirements.',
+      `Our developer rates start at ${HOURLY_RATE} and vary by skill, experience, engagement model, and project requirements.`,
     ],
   },
 
@@ -311,7 +312,7 @@ export const webApp: HireRolePageContent = {
       },
       {
         key: 'specialists',
-        name: '400+ AI & Engineering Specialists',
+        name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
         body: 'Access developers across web application engineering, cloud, DevOps, testing, integrations, data, and AI capabilities for your requirements.',
       },
       {
@@ -326,8 +327,8 @@ export const webApp: HireRolePageContent = {
       },
       {
         key: 'experience',
-        name: '13+ Years of Technology Expertise',
-        body: 'Apply 13+ years of technology expertise to application development, modernization, integrations, and long-term engineering requirements.',
+        name: `${YEARS_PLUS} Years of Technology Expertise`,
+        body: `Apply ${YEARS_PLUS} years of technology expertise to application development, modernization, integrations, and long-term engineering requirements.`,
       },
       {
         key: 'contracts',
@@ -501,7 +502,7 @@ export const webApp: HireRolePageContent = {
       },
       {
         q: 'How much does it cost to hire web app developers?',
-        a: 'Developer rates start at $14 per hour and vary by skill, experience, engagement model, and project requirements. The final rate also depends on responsibilities, duration, team composition, and collaboration needs. Request a tailored rate card for your required role.',
+        a: `Developer rates start at ${HOURLY_RATE} and vary by skill, experience, engagement model, and project requirements. The final rate also depends on responsibilities, duration, team composition, and collaboration needs. Request a tailored rate card for your required role.`,
       },
       {
         q: 'How quickly can I receive matched developer profiles?',

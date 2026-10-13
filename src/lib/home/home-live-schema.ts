@@ -1,3 +1,4 @@
+import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 /**
  * The homepage's JSON-LD, copied VERBATIM from softsuave.com's homepage.
  *
@@ -137,7 +138,7 @@ export const liveService = {
         "itemOffered": {
           "@type": "Service",
           "name": "Hire Dedicated Developers",
-          "description": "Looking to hire dedicated developers in India On Contract? Soft Suave offers a 40-hour free trial and pricing beginning at $14. Connect with us to get started!"
+          "description": `Looking to hire dedicated developers in India On Contract? Soft Suave offers a 40-hour free trial and pricing beginning at ${HOURLY_RATE}. Connect with us to get started!`
         }
       },
       {
@@ -227,7 +228,7 @@ export const liveService = {
         "itemOffered": {
           "@type": "Service",
           "name": "Reactjs App Development",
-          "description": "Looking for a top React.js app development company in India & USA that suits your budget. We are the leading React development services provider with 11+ years of experience."
+          "description": `Looking for a top React.js app development company in India & USA that suits your budget. We are the leading React development services provider with ${YEARS_PLUS} years of experience.`
         }
       },
       {
@@ -254,7 +255,7 @@ export const liveService = {
         "itemOffered": {
           "@type": "Service",
           "name": "NodeJS Development",
-          "description": "Providing cost-effective offshore software development services with a team of 400+ skilled developers, ensuring seamless integration, optimized workflows, and continuous innovation."
+          "description": `Providing cost-effective offshore software development services with a team of ${SPECIALISTS_PLUS} skilled developers, ensuring seamless integration, optimized workflows, and continuous innovation.`
         }
       },
       {
@@ -263,7 +264,7 @@ export const liveService = {
         "itemOffered": {
           "@type": "Service",
           "name": "Java Development",
-          "description": "Providing cost-effective offshore software development services with a team of 400+ skilled developers, ensuring seamless integration, optimized workflows, and continuous innovation."
+          "description": `Providing cost-effective offshore software development services with a team of ${SPECIALISTS_PLUS} skilled developers, ensuring seamless integration, optimized workflows, and continuous innovation.`
         }
       },
       {

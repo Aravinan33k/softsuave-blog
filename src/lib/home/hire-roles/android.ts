@@ -23,6 +23,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
+import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const android: HireRolePageContent = {
   key: 'hire-android',
@@ -133,7 +134,7 @@ export const android: HireRolePageContent = {
 
   midCta: {
     eyebrow: 'Rates',
-    title: 'Hire Android Developers Starting from $14/hour',
+    title: `Hire Android Developers Starting from ${HOURLY_RATE}`,
     body: 'We will provide you with remote Android App developers that work from India. Contact us to take a look at CVs.',
     cta: { label: 'Request Rate Card', href: '/contact' },
   },

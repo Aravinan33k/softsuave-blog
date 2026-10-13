@@ -1,4 +1,5 @@
 import { contactEmailHref, contactPageHref } from "@/lib/fde/contact";
+import { COUNTRIES_PLUS, HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export type HeroStat = {
   value: string;
@@ -41,7 +42,7 @@ export const heroContent: HeroContent = {
     { text: " Implementation" },
   ],
   description:
-    "Hire Forward Deployed Engineers to turn complex AI ideas into working solutions that fit your systems, workflows, and real business needs, with rates starting from $14/hour.",
+    `Hire Forward Deployed Engineers to turn complex AI ideas into working solutions that fit your systems, workflows, and real business needs, with rates starting from ${HOURLY_RATE}.`,
   actions: [
     {
       label: "Talk to us",
@@ -64,8 +65,8 @@ export const heroContent: HeroContent = {
     successLabel: "Subscribed",
   },
   stats: [
-    { value: "13+", label: "Years of Engineering Experience" },
-    { value: "400+", label: "AI & Engineering Specialists" },
-    { value: "20+", label: "Countries Served" },
+    { value: `${YEARS_PLUS}`, label: "Years of Engineering Experience" },
+    { value: `${SPECIALISTS_PLUS}`, label: "AI & Engineering Specialists" },
+    { value: `${COUNTRIES_PLUS}`, label: "Countries Served" },
   ],
 };
