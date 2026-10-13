@@ -89,8 +89,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImage,
+        // The live card's own size (1200x628).
         width: 1200,
-        height: 630,
+        height: 628,
         alt: `${brandName} — Forward Deployed Engineers who ship production code`,
       },
     ],

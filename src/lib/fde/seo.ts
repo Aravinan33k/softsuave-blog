@@ -37,8 +37,17 @@ export const siteTitle =
 export const siteDescription =
   "Hire Forward Deployed Engineers from $14/hour to build AI solutions, integrate systems, and turn complex workflows into production-ready implementations.";
 
-/** Relative to /public. Also used for the Twitter card. This page's existing share card. */
-export const ogImagePath = "/assets/images/hire-forward-deployed-engineer-og.webp";
+/**
+ * Relative to /public. Also used for the Twitter card and the schema's image.
+ *
+ * softsuave.com's own card for this page, byte for byte, at the SAME path
+ * (13 Oct review: "use the same og image from the old page"). The path
+ * matters as much as the picture: a build whose site URL is
+ * www.softsuave.com — the Dockerfile default — points og:image there, where
+ * this file exists today; the resized copy this used to name 404s there,
+ * which left the share preview blank.
+ */
+export const ogImagePath = "/assets/images/OG-FDE.webp";
 
 export const ogImageUrl = `${siteUrl}${ogImagePath}`;
 

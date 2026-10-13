@@ -2172,6 +2172,12 @@
     min-height: 100%;
   }
 
+  /* `image.align: "center"` — the frame keeps its size and sits centred
+     against the masthead + prose instead of on the row's bottom edge. */
+  .overviewMedia.overviewMediaCenter {
+    align-self: center;
+  }
+
   /* Industries: 8 cards read as three per row (the last row runs short). */
   .indGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));

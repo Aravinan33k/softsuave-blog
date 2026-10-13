@@ -1,20 +1,31 @@
 import { Badge } from "@/components/fde/ui/Badge";
 import { Container } from "@/components/fde/ui/Container";
-import { TestimonialCard } from "@/components/fde/ui/TestimonialCard";
-import {
-  testimonials,
-  testimonialsContent,
-  type Testimonial,
-} from "@/lib/fde/content/testimonials";
+import ReviewArchive from "@/components/home/reviews/review-archive";
+import home from "@/components/home/home.module.css";
+import { testimonials, type Testimonial } from "@/lib/home/content";
+import { testimonialsContent } from "@/lib/fde/content/testimonials";
 
 type TestimonialsProps = {
   content?: typeof testimonialsContent;
-  items?: Testimonial[];
+  /** The client stories. Defaults to the site's own, as every page runs them. */
+  items?: readonly Testimonial[];
 };
 
+/**
+ * Client stories: this page's own masthead (badge, H2, subtext) and closing
+ * segments row, around the site's client-story box — `ReviewArchive`, the
+ * rotating story slot with photo, quote, counter, dots and arrows that every
+ * other page's testimonials section runs (13 Oct review: "update the client
+ * testimonial box alone without changing the h2 or the subtext design"). It
+ * replaced a row of three star-rated quote cards.
+ *
+ * The box reads the site's band tokens, which the `.fde` wrapper re-points or
+ * leaves at their dark-band values, so it sits in the warm-white `.light`
+ * scope; `fde-reviews` (fde.css) matches that scope's ground to this section.
+ */
 export function Testimonials({
   content = testimonialsContent,
-  items = testimonials,
+  items = testimonials.items,
 }: TestimonialsProps) {
   return (
     <section className="bg-surface py-10 sm:py-12 lg:py-[60px]">
@@ -31,10 +42,8 @@ export function Testimonials({
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:mt-16 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">
-          {items.map((testimonial) => (
-            <TestimonialCard key={testimonial.name} testimonial={testimonial} />
-          ))}
+        <div className={`${home.light} fde-reviews mx-auto mt-10 max-w-[1180px] sm:mt-12`}>
+          <ReviewArchive reviews={items.map((review, i) => ({ ...review, ordinal: i + 1 }))} />
         </div>
 
         <div className="mt-16 flex flex-col items-center sm:mt-20">

@@ -160,8 +160,8 @@ export interface OverviewContent {
      */
     wide?: boolean;
     /**
-     * From 1000px, run the frame the full height of the heading + prose beside
-     * it, with no height cap — for an overview whose copy runs far longer than
+     * From 1000px, run the frame the full height of the heading + prose (and
+     * any `points`, which move into that column) beside it, with no height cap — for an overview whose copy runs far longer than
      * the capped frame, which otherwise leaves the image stranded at the top
      * (hire-by-skill review: "resize the image to fit the height of the
      * section"). Pair it with a portrait asset, so the crop stays generous.
@@ -290,6 +290,13 @@ export default function Overview({
   const showImage = Boolean(image) && !asideStats;
   /** Whether the heading/prose share a row with something to their right. */
   const twoColumn = showImage || asideStats;
+  /**
+   * The claim list joins the left column when the right-hand block is meant
+   * to run its whole height — the stats panel, or an `image.column` frame,
+   * which otherwise stopped at the prose and left the list beside empty
+   * ground (MERN review, 13 Oct: "resize the image to match the section").
+   */
+  const pointsInColumn = asideStats || (showImage && Boolean(image?.column));
 
   /** The claim list, rendered either inside the left column or below the grid. */
   const pointsList =
@@ -375,7 +382,7 @@ export default function Overview({
 
             {prose}
 
-            {asideStats && pointsList}
+            {pointsInColumn && pointsList}
           </div>
 
           {showImage && image && (
@@ -410,11 +417,12 @@ export default function Overview({
           {asideStats && <div className={styles.overviewStatsAside}>{statsPanel}</div>}
         </div>
 
-        {/* With the counters beside the copy the points move up into the left
-            column (see above), so the row is the whole block and the panel
-            centres against all of it rather than leaving the column empty
-            under itself. Everywhere else they stay here, below the grid. */}
-        {!asideStats && pointsList}
+        {/* With the counters (or a full-height `image.column` frame) beside the
+            copy the points move up into the left column (see above), so the
+            row is the whole block and the right-hand side matches all of it
+            rather than leaving the column empty under itself. Everywhere else
+            they stay here, below the grid. */}
+        {!pointsInColumn && pointsList}
         {content.cta &&
           (content.ctaAlign === "center" ? (
             <div className={styles.overviewCtaCenter}>

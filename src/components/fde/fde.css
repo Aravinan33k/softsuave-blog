@@ -187,7 +187,15 @@
    layered utilities whatever their specificity — so a coloured link here
    (the white-on-coral "Talk to us") rendered in body ink. Hand both
    properties back to the layers inside this page. */
-.fde a {
+.fde a:not(.fde-reviews a) {
   color: revert-layer;
   text-decoration: revert-layer;
+}
+
+/* The site's client-story box (sections/Testimonials). It sits in the `.light`
+   band scope for the site's warm-white tokens; its ground is matched to the
+   section it sits in (`bg-surface`), so no lighter panel shows round it. Its
+   links keep their own colours — they are left out of the revert above. */
+.fde .fde-reviews {
+  --bg: var(--fde-surface);
 }

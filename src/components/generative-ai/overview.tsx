@@ -44,6 +44,13 @@ export interface OverviewContent {
      * (review: "resize the image to fit the section height").
      */
     fit?: "column";
+    /**
+     * From 1000px, centre the frame against the masthead + prose beside it
+     * instead of the default bottom alignment — for copy that runs well past
+     * the frame's height cap, where the bottom edge left a tall empty band
+     * above the picture (iOS review, 13 Oct: "center align the image").
+     */
+    align?: "center";
   };
 }
 
@@ -92,11 +99,13 @@ export default function Overview({
             </div>
 
             <figure
-              className={
-                image.fit === "column"
-                  ? `${styles.overviewMedia} ${styles.overviewMediaColumn}`
-                  : styles.overviewMedia
-              }
+              className={[
+                styles.overviewMedia,
+                image.fit === "column" ? styles.overviewMediaColumn : "",
+                image.align === "center" ? styles.overviewMediaCenter : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
             >
               <Image
                 src={publicMediaUrl(image.src)}

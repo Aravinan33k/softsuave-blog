@@ -17,6 +17,7 @@ import { sharedHeroAlert } from "./delivery-shared";
 import { webExplore } from "./hire-explore";
 import { partnerTable } from "./hire-comparison";
 import { MERN_STEPS, MERN_WHY, CURATED_STEPS, techSteps, techWhy } from "./hire-blocks";
+import { overviewImage } from "./overview-images";
 
 const react: HireSkill = {
   slug: "hire-reactjs-developers",
@@ -484,6 +485,11 @@ const mern: HireSkill = {
     // take the accent.
     titleLines: ["Hire Remote MERN Stack Developers", "In India"],
     accent: "MERN Stack Developers",
+    // 13 Oct review: "H1 is in 3 lines even though there is space" — the
+    // standard H1's 24ch cap wrapped the first line even beside a column
+    // 940px wide. Sized to fit instead: each line on one line, 50px where
+    // the column allows.
+    titleFit: true,
     body: [
       "Why manage multiple specialists when one MERN stack developer can handle your full JavaScript stack? Soft Suave connects you with vetted MERN developers in India skilled in MongoDB, Express, React, Node.js, GraphQL, and microservices. Each developer is screened for technical depth, English communication, remote delivery experience, and client-ready execution. Hire within 48 hours and start with a 40-hour risk-free trial.",
       "Build your MERN team with the right skills, support, and hiring flexibility.",
@@ -700,6 +706,10 @@ const mean: HireSkill = {
   },
 
   overview: {
+    // The pipeline's photo, centred against the prose rather than opening at
+    // the top of a column twice its height (13 Oct review: "center align the
+    // image").
+    image: { ...overviewImage("hire-mean-stack-developers-india")!, align: "center" },
     eyebrow: "Overview",
     title: "Hire MEAN Stack Developers to Start Your Ideal Project",
     paragraphs: [

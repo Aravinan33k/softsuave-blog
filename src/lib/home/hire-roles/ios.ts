@@ -24,6 +24,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
+import { overviewImage } from '../overview-images';
 
 export const ios: HireRolePageContent = {
   key: 'hire-ios',
@@ -80,6 +81,9 @@ export const ios: HireRolePageContent = {
   },
 
   overview: {
+    // The pipeline's photo, centred against the copy rather than sitting on
+    // the row's bottom edge (13 Oct review: "center align the image").
+    image: { ...overviewImage('hire-ios-developers')!, align: 'center' },
     eyebrow: 'Overview',
     title: 'Hire iOS Developers At The Right Place',
     paragraphs: [
