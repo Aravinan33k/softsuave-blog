@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, homepageEnabled, pageRobots } from '@/lib/flags';
+import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { breadcrumbLd } from '@/lib/seo/jsonld';
 import {
+  javaBreadcrumbLd,
   javaFaqLd,
+  javaProductLd,
   javaServiceLd,
-  javaWebPageLd,
 } from '@/lib/seo/java-application-development-company';
 import {
   javaBenefits,
@@ -112,26 +112,14 @@ export const metadata: Metadata = {
 const HOME_HREF = BASE_PATH || '/';
 
 export default function JavaApplicationDevelopmentCompanyPage() {
-  // Matches the live page's own breadcrumb trail exactly: Home › Web App —
-  // the live trail stops at the parent and never names this page itself. "/"
-  // is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect — which leaves a
-  // single-item trail, so the schema is omitted rather than emitted empty.
-  const trail = [
-    ...(homepageEnabled ? [{ name: 'Home', path: '/' }] : []),
-    { name: 'Web App', path: '/web-application-development-company' },
-  ];
-  const breadcrumb = trail.length > 1 ? breadcrumbLd(trail) : null;
-
   return (
     <div className={home.page}>
-      <JsonLd
-        data={[          javaServiceLd,
-          javaWebPageLd,
-          javaFaqLd,
-          ...(breadcrumb ? [breadcrumb] : []),
-        ]}
-      />
+      {/* softsuave.com's own schema for this page, one <script> per block —
+          see `lib/seo/java-application-development-company.ts`. */}
+      <JsonLd data={javaServiceLd} />
+      <JsonLd data={javaFaqLd} />
+      <JsonLd data={javaBreadcrumbLd} />
+      <JsonLd data={javaProductLd} />
       <Nav logoHref={HOME_HREF} />
 
       {/*
@@ -143,41 +131,42 @@ export default function JavaApplicationDevelopmentCompanyPage() {
       <main id="main">
         <Hero content={javaHero} idPrefix="java" variant="compact" />
 
+        {/* Bands follow the live page's order and alternate light and dark
+            like the other development pages (13 Oct review: "some sections
+            are not properly arranged, need arrange the sections similar to
+            the existing pages"). It used to open the techniques lead before
+            the services and then run three dark bands in a row. */}
+
         {/* The live page's "Trusted Partner for Startups and SMBs." strip. */}
         <div className={home.light}>
           <Clients />
         </div>
 
-        {/* The live page's "Advanced Java Development Techniques" lead — its
-            paragraph, three claims and CTA — closing on the three counters it
-            carries in the band below them. */}
-        <Overview content={javaOverview} variant="compact" />
-
         {/* Centre-focused carousel: one service in focus with its neighbours
             as context. Six services, as the live page lists them. */}
+        <ServicesCarousel content={javaServices} />
+
+        {/* The live page's "Advanced Java Development Techniques" section,
+            after the services as there: its lead (paragraph, three claims,
+            CTA and the three counters), then the six techniques, each with
+            the live page's own illustration — one band, so the two read as
+            the single section they are on the live page. */}
         <div className={home.light}>
-          <ServicesCarousel content={javaServices} />
+          <Overview content={javaOverview} variant="compact" />
+          <CardGrid content={javaTechniques} id="techniques" variant="list" />
         </div>
 
-        {/* The six techniques, each with the live page's own illustration —
-            the card grid's `list` variant, matching the live page's own
-            icon/thumbnail-beside-text layout for this section (review:
-            "update the design"). */}
-        <CardGrid content={javaTechniques} id="techniques" variant="list" />
-
-        <div className={home.light}>
-          <CtaBand content={javaMidCta} />
-        </div>
+        <CtaBand content={javaMidCta} />
 
         {/* The six enterprise benefits — the `bold` variant's asymmetric
             12-column composition, the same one the GCC page's "Who It Fits"
             band uses. No artwork on the live page for these, so they take the
             text card rather than the picture card. */}
-        <CardGrid content={javaBenefits} id="benefits" variant="bold" />
-
         <div className={home.light}>
-          <WhyUs content={javaWhyUs} />
+          <CardGrid content={javaBenefits} id="benefits" variant="bold" />
         </div>
+
+        <WhyUs content={javaWhyUs} />
 
         {/* The live page's "Looking For Expert Java Developers?" band. Its CTA
             is the one link that leaves this page, for the hire-by-skill page
@@ -185,15 +174,8 @@ export default function JavaApplicationDevelopmentCompanyPage() {
         <CtaBand content={javaHireCta} />
 
         {/* Success stories, awards and certifications, then client
-            testimonials — the live page's own order, and all three the
-            homepage's own components. Recognitions sits on the page's dark
-            ground between the two light bands, the same light/dark/light
-            break the homepage itself uses around this component (there,
-            with `Awards` instead) — otherwise these three ran as one
-            identical warm-white band with no variation (review: "the final
-            3 section all have the same colour theme"). `Recognitions`
-            already themes for either ground (see its own dark-mode badge
-            styling), so no new CSS was needed. */}
+            testimonials and the FAQ — the live page's own order, on the
+            homepage's light/dark/light break around `Recognitions`. */}
         <div className={home.light}>
           <WorkGrid content={javaSuccessStories} countLabel="case studies" />
         </div>
@@ -202,9 +184,6 @@ export default function JavaApplicationDevelopmentCompanyPage() {
 
         <div className={home.light}>
           <Testimonials />
-        </div>
-
-        <div className={home.light}>
           <Faq content={javaFaqs} idPrefix="java-faq" />
         </div>
 

@@ -58,8 +58,12 @@ export const netMeta = {
 } as const;
 
 export const netHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: [".NET Development", "Services"],
+  accent: ".NET",
   body: [
     "Tired of searching a reliable custom .NET Development Company in India? Soft Suave is your one-stop destination for all your .NET App development needs.",
     "Want to hire an offshore .NET Application Development Team? Get in touch for a free quote!",
@@ -70,10 +74,10 @@ export const netHero: HeroContent = {
   // The four trust badges this surface shows beside every enquiry form.
   badges: partnerHeroBadges,
   form: {
-    // The live page's own form heading and sub-line.
-    // No `eyebrow`: the review asked for the hero's kicker to go, and the
-    // card's is the only one the hero renders. Same correction the React
-    // Native, Ionic and Xamarin pages took.
+    // The live page's own form heading and sub-line, with the card's
+    // "Let’s Discuss Your Project" heading the other development pages
+    // carry (13 Oct review: "in some pages the form is missing a heading").
+    eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
     alert: sharedHeroAlert,
     submit: "Submit",
@@ -118,6 +122,9 @@ export const netOverview: OverviewContent = {
     alt: "C# source code on screen, the language a .NET application is written in",
     blurDataURL:
       "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAABwAQCdASoQAAwAA4BaJYwC7AGIQAD+8fPftHP8UkfoOTXyX7DxL2U/swAAAA==",
+    // Centred against the copy beside it rather than pinned to the top of a
+    // taller column (13 Oct review: "align the image with the section").
+    align: "center",
   },
 };
 

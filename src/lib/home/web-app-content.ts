@@ -85,10 +85,10 @@ export const webHero: HeroContent = {
   // The four trust badges this surface shows beside every enquiry form.
   badges: partnerHeroBadges,
   form: {
-    // The live page's own form heading and sub-line.
-    // No `eyebrow`: the review asked for the hero's kicker to go, and the
-    // card's is the only one the hero renders. Same correction every other
-    // corrected page on this surface took.
+    // The live page's own form heading and sub-line, with the card's
+    // "Let’s Discuss Your Project" heading the other development pages
+    // carry (13 Oct review: "in some pages the form is missing a heading").
+    eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
     alert: sharedHeroAlert,
     submit: "Submit",

@@ -105,8 +105,12 @@ export const rjMeta = {
 } as const;
 
 export const rjHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["React Js App", "Development Company"],
+  accent: "React Js",
   body: [
     "Build futuristic, dynamic web apps with a best-in-class ReactJS app development Company in India.",
     "Looking for custom React development partner in India that suits your budget? Get in touch for a free quote!",
@@ -153,6 +157,9 @@ export const rjOverview: OverviewContent = {
     alt: "A focused view of a developer's screen showing application code",
     blurDataURL:
       "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAAAwAgCdASoQAAwAA4BaJbACdAEO//hMMUSkAAD+0PFD3LSHwqwTwYv6UN5+L2B8Sru0fQFaEWHK93s2eX2AAA==",
+    // Centred against the copy beside it rather than pinned to the top of a
+    // taller column (13 Oct review: "align the image with the section").
+    align: "center",
   },
 };
 
@@ -168,7 +175,6 @@ export const rjServices: ServiceBoardContent = {
   title: "Services We Offer ReactJS",
   body: "From front-end builds to plugin development, integration, and long-term support, our ReactJS team covers every stage of your application.",
   links: [{ text: "software development services", href: "/" }],
-  cta: { label: "Talk to Experts", href: "/contact" },
   items: [
     {
       name: "React Front-End Development Services",

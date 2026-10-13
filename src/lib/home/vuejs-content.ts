@@ -52,8 +52,12 @@ export const vueMeta = {
 } as const;
 
 export const vueHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Vue.js Development Company", "for Modern Web Applications"],
+  accent: "Vue.js",
   body: [
     "Soft Suave delivers Vue.js development services for building new web applications, modernizing interfaces, developing reusable components, and integrating backend systems. Our developers use Vue.js with JavaScript, TypeScript, REST APIs, and GraphQL to create solutions that align with your product architecture and business requirements.",
     "Share your requirements, discuss the technical approach, and receive a practical roadmap for building or improving your Vue.js application.",
@@ -89,7 +93,9 @@ export const vueOverview: OverviewContent = {
     "As a leading Vue.js development company, Soft Suave supports technical planning, interface development, API integration, testing, deployment, and ongoing improvement. We can build new applications, introduce Vue.js into existing systems, or modernize frontends that have become difficult to maintain.",
     "With 13+ years of technology expertise and delivery presence across Chennai, Bengaluru, and the United States, Soft Suave works closely with your product and engineering teams. Our developers follow your engineering standards and align frontend work with APIs, data flows, and user needs.",
   ],
-  image: overviewImage("vuejs-development-company"),
+  // Centred against the copy beside it rather than pinned to the top of a
+  // taller column (13 Oct review: "align the image with the section").
+  image: { ...overviewImage("vuejs-development-company")!, align: "center" },
 };
 
 export const vueServices: ServicesCarouselContent = {

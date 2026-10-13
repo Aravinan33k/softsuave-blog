@@ -47,8 +47,12 @@ export const pgMeta = {
 } as const;
 
 export const pgHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["PostgreSQL Development Company", "for Dependable Data Systems"],
+  accent: "PostgreSQL",
   // Sized to its column so the H1 reads on two lines (29 Sep review).
   titleFit: true,
   body: [
@@ -86,7 +90,9 @@ export const pgOverview: OverviewContent = {
     "Database structure should reflect how an application actually works. This principle guides Soft Suave’s approach as a PostgreSQL development company, from data relationships to reporting and system integration. Our work can include schema design, functions, query development, migrations, performance reviews, backup planning, and connections with backend services.",
     "Backed by 13+ years of technology expertise, our engineers coordinate with application, cloud, DevOps, and data teams. We align PostgreSQL work with your coding standards, access controls, deployment processes, and maintenance expectations. Our delivery presence across Chennai, Bengaluru, and the United States supports clear communication and consistent project coordination with clients worldwide.",
   ],
-  image: overviewImage("postgresql-development-company"),
+  // Centred against the copy beside it rather than pinned to the top of a
+  // taller column (13 Oct review: "align the image with the section").
+  image: { ...overviewImage("postgresql-development-company")!, align: "center" },
 };
 
 export const pgServices: ServicesCarouselContent = {

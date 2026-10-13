@@ -51,8 +51,12 @@ export const nxMeta = {
 } as const;
 
 export const nxHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Next.js Development Company", "for Flexible Web Platforms"],
+  accent: "Next.js",
   body: [
     "As a reliable Next.js development company, Soft Suave builds web apps for businesses that need flexible rendering, organized React architecture, and dependable connections with existing systems. Our team combines Next.js, TypeScript, server-side rendering, REST APIs, and GraphQL to shape web products around your users, content, and specific operational workflows.",
     "Tell us what you plan to build, and we will outline a suitable path for your Next.js product development.",

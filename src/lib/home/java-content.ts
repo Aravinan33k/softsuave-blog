@@ -65,8 +65,12 @@ export const javaMeta = {
 } as const;
 
 export const javaHero: HeroContent = {
-  // The live H1, split so the last line takes the coral accent.
+  // The live H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Java Development", "Company in India"],
+  accent: "Java",
   body: [
     "Soft Suave is a top Java development company in India that provides outstanding Java development services and creates web applications that offer flexibility, scalability, and a robust user experience.",
     "Let us assist you in utilizing the full potential of Java for your next project.",
@@ -260,7 +264,9 @@ export const javaMidCta: CtaBandContent = {
   eyebrow: "Next Step",
   title: "Are You Looking For Top-Notch Java Development Services?",
   body: "Get the best Java development services from Soft Suave and procure high-performing apps to scale up your business operations efficiently!",
-  cta: { label: "Get FREE Consultation", href: "/contact" },
+  // The free 30-minute consultation page, where the live button goes (13 Oct
+  // review: "link this to the free consultation page").
+  cta: { label: "Get FREE Consultation", href: "/30-min-free-consultation" },
 };
 
 /** The live page's six "Benefits of Using Java Web Development" cards. */
@@ -339,25 +345,46 @@ export const javaSuccessStories: WorkCarouselContent = {
   eyebrow: "Case Studies",
   title: "Success Stories",
   body: "Learn how we transformed business operations across various industries with cutting-edge solutions and tailored them to their unique requirements.",
+  // The homepage's case-study button, to the full index (13 Oct review: "add
+  // a view all case studies button like in the home page").
+  cta: { label: "View all Case Studies", href: "/case-studies" },
+  // Each card wears the live page's own artwork for that case study (13 Oct
+  // review: "need to update the images"), in `public/images/landing/java/`.
   items: [
     {
       title: "Freelancer Platform",
       tag: "Freelancer",
+      image: {
+        src: "/images/landing/java/case-freelancer-platform.webp",
+        alt: "Freelancer marketplace web screens with job listings and a search",
+      },
       body: "Soft Suave has a long partnership with the client — the world's leading freelancer website, having millions of registered freelancers and clients with plenty of jobs posted annually.",
     },
     {
       title: "Multi-vendor eCommerce Marketplace Application",
       tag: "eCommerce",
+      image: {
+        src: "/images/landing/java/case-ecommerce-marketplace.webp",
+        alt: "Grocery marketplace app screens with categories and a product page",
+      },
       body: "Our client was a start-up eCommerce company that wanted to offer an unmatched online shopping experience to customers and provide door delivery under 60 minutes for a vast range of products such as groceries, farm-fresh vegetables & fruits, beverages, personal & baby care, meat, fish and home essentials.",
     },
     {
       title: "Logistics Supported Ride Hailing Mobile Application",
       tag: "Logistics",
+      image: {
+        src: "/images/landing/java/case-ride-hailing-logistics.webp",
+        alt: "Logistics app screens for package tracking, pickup details and routing",
+      },
       body: "Our client was a leading taxi service provider company in the United States, dedicated to providing seamless and quality taxi services to customers across the country.",
     },
     {
       title: "Building a Highly Secured One-stop Digital Banking Solution",
       tag: "Banking",
+      image: {
+        src: "/images/landing/java/case-digital-banking.webp",
+        alt: "Digital banking app screens with a card balance and latest payments",
+      },
       body: "The client is one of the first neo-banking companies based in the Philippines, with branches in Singapore and India, looking to expand their service through a mobile application that sits on everyone's phone as a secured banking platform.",
     },
   ],

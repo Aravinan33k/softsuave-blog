@@ -63,10 +63,9 @@
  * a portrait crop from the same manifest-driven Pexels pipeline the newer
  * pages on this surface use (`content/images.manifest.json`).
  *
- * The Services board's own "Talk To Experts" button now leads to `/contact`
- * (review: "must be linked to the contact page") rather than this page's
- * `#enquiry` anchor, and the "Hire A Team" CTA band no longer carries an
- * eyebrow (review: "eyebrow heading not necessary").
+ * The Services board carries no button of its own (13 Oct review: "remove
+ * the talk to experts button"), and the "Hire A Team" CTA band no longer
+ * carries an eyebrow (review: "eyebrow heading not necessary").
  */
 
 import { partnerHeroBadges } from "./hero-badges";
@@ -91,8 +90,12 @@ export const njMeta = {
 } as const;
 
 export const njHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Custom NodeJS Development", "Company In India"],
+  accent: "NodeJS",
   body: [
     "Tired of searching for a trustworthy and reliable NodeJS Web Development Company in India? Soft Suave is your one-stop destination for all your NodeJS application development needs.",
     "Need to build an interactive NodeJS App for your business? Get in touch for a free quote!",
@@ -139,6 +142,9 @@ export const njOverview: OverviewContent = {
     alt: "A NodeJS development team collaborating around a workstation",
     blurDataURL:
       "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABQAgCdASoLABAAA4BaJZQAD5IQ48YbfKWxjgAA4nvoGYdKdq2r93Y2Ovxsvzw0ekHOhwNe+7m4gVytPV05M3UL9MBEXPluO3zF5bLdxsj32whwHmsf6wNdzXX/nQamMPnjhlB2fPXI+Fdej/6dAAAA",
+    // Centred against the copy beside it rather than pinned to the top of a
+    // taller column (13 Oct review: "align the image with the section").
+    align: "center",
   },
 };
 
@@ -153,7 +159,6 @@ export const njServices: ServiceBoardContent = {
   eyebrow: "NodeJS App Development",
   title: "Our NodeJS App Development Services",
   body: "We are a first-class NodeJS development company delivering successful NodeJS applications to clients in the USA and all around the world. We are known for our premium NodeJS services such as,",
-  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "Custom NodeJS Development",

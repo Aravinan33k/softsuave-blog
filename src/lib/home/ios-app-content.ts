@@ -48,8 +48,12 @@ export const iosMeta = {
 } as const;
 
 export const iosHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["iOS App", "Development Services"],
+  accent: "iOS",
   body: [
     "As a top-tier iOS app development company in India, Soft Suave has successfully delivered over 120+ iOS apps. Our iOS developers specialize in using Swift and SwiftUI to build robust and scalable applications for all iOS devices. Whether you need an MVP or a custom application, we offer complete end-to-end iOS app development services to fulfill your requirements.",
   ],
@@ -99,7 +103,7 @@ export const iosHero: HeroContent = {
 export const iosServices: SpringboardContent = {
   eyebrow: "Services",
   title: "iOS Application Development Services We Offer",
-  body: "SoftSuave's team of iPhone app experts uses the latest tools to build awesome iPhone apps. Here are the iPhone app development services we offer:",
+  body: "Soft Suave's team of iPhone app experts uses the latest tools to build awesome iPhone apps. Here are the iPhone app development services we offer:",
   items: [
     {
       name: "Custom iOS App Development",

@@ -64,8 +64,12 @@ export const ionMeta = {
 } as const;
 
 export const ionHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Custom Ionic App Development", "Company In India"],
+  accent: "Ionic",
   body: [
     "Are you struggling to find a trustworthy custom Ionic Mobile App Development Company in India? Connect with Soft Suave to get Ionic development solutions that stand out from the rest.",
     "Does your business need success-proof Ionic Mobile App Development Services? Get in touch for a free quote!",
@@ -76,10 +80,10 @@ export const ionHero: HeroContent = {
   // The four trust badges the live page shows beside its enquiry form.
   badges: partnerHeroBadges,
   form: {
-    // The live page's own form heading and sub-line. No `eyebrow`: the review
-    // asked for the hero's kicker to go, and the card's is the only one the
-    // hero renders — `HeroContent` has no eyebrow field of its own. Same
-    // correction the React Native page took.
+    // The live page's own form heading and sub-line, with the card's
+    // "Let’s Discuss Your Project" heading the other development pages
+    // carry (13 Oct review: "in some pages the form is missing a heading").
+    eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
     alert: sharedHeroAlert,
     submit: "Submit",
@@ -127,6 +131,9 @@ export const ionOverview: OverviewContent = {
     alt: "A diagram of an Ionic app built from one codebase for iOS, Android and the web",
     blurDataURL:
       "data:image/webp;base64,UklGRiYBAABXRUJQVlA4WAoAAAAQAAAADwAADgAAQUxQSHwAAAABgJtt2/HsiTOQbRu1s4DTZYdMgc6ss4Ftp9JvxM4AETEBAACx7fE3F87WTmztL0Aou8YSOdE856irAYCwPYP72JYAcKEzH5vttg3A3Z6tbrdbA0Dw3N/ye+0C/P/289TAWMjkUKjlYns6QSxlcoHkNL/0hbdOitLPKCbTVlA4IIQAAABQAgCdASoQAA8AA4BaJagC7Aacvm8UkQxKpoAA/udAxFov9anLEClLd7Qze7oXZ7/60ih/Pe1Stvf7QWDtWwe70h6XsyXZ42Mm3Vz42bldnYsGm2cli+ttY++YWGzT9ZP72w9KbhWcKqh+fPtBZ1zs7dTNIJNHdQsqOf7det+TvtQzaAA=",
+    // Centred against the copy beside it rather than pinned to the top of a
+    // taller column (13 Oct review: "align the image with the section").
+    align: "center",
   },
 };
 
@@ -148,9 +155,6 @@ export const ionServices: ServiceBoardContent = {
   eyebrow: "Services",
   title: "One-Stop Solution For Ionic App Development Services",
   body: "We are a competent Ionic Development Company constantly developing top-quality as well as highly efficient mobile apps. Our wide array of Ionic services are;",
-  // /contact, not this page's `#enquiry` anchor — the review asked for this
-  // button to reach the contact page.
-  cta: { label: "Talk to Our Experts", href: "/contact" },
   items: [
     {
       name: "Ionic UI/UX Design",

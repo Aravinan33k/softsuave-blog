@@ -58,8 +58,12 @@ export const xamMeta = {
 } as const;
 
 export const xamHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Xamarin Development", "Company in India"],
+  accent: "Xamarin",
   body: [
     "Get the best Xamarin app development services to create flexible, high-performance, next-gen cross-platform apps with native UI and API access.",
     "Are you planning to Outsource Xamarin Development in India? Get in touch for a free quote!",
@@ -70,9 +74,10 @@ export const xamHero: HeroContent = {
   // The four trust badges this surface shows beside every enquiry form.
   badges: partnerHeroBadges,
   form: {
-    // The live page's own form heading and sub-line. No `eyebrow`: the review
-    // asked for the hero's kicker to go, and the card's is the only one the
-    // hero renders. Same correction the React Native and Ionic pages took.
+    // The live page's own form heading and sub-line, with the card's
+    // "Let’s Discuss Your Project" heading the other development pages
+    // carry (13 Oct review: "in some pages the form is missing a heading").
+    eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
     alert: sharedHeroAlert,
     submit: "Submit",
@@ -128,6 +133,9 @@ export const xamOverview: OverviewContent = {
     height: 1200,
     aspect: "14 / 16",
     alt: "A developer writing C# for a cross-platform application at a desktop workstation",
+    // Centred against the copy beside it rather than pinned to the top of a
+    // taller column (13 Oct review: "align the image with the section").
+    align: "center",
   },
 };
 
@@ -141,9 +149,6 @@ export const xamServices: ServiceBoardContent = {
   eyebrow: "Xamarin App Development",
   title: "Our Strength in Xamarin App Development Services",
   body: "We specialize in building top-quality cross-platform mobile apps with innovative functionality and perform like native apps. As a leading Xamarin development company, we offer these diverse Xamarin services,",
-  // /contact, not this page's `#enquiry` anchor — the review asked for this
-  // button to reach the contact page.
-  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "Xamarin Development Consulting",

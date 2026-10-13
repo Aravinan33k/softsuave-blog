@@ -731,7 +731,9 @@
   margin-top: 8px;
   font-family: var(--font-eyebrow);
   font-size: var(--fs-label);
-  letter-spacing: 0.15em;
+  /* Tighter on the narrowest phones, where a long single word
+     ("SUCCESSFULLY") outran its half-width cell at 0.15em. */
+  letter-spacing: clamp(0.08em, 2.2vw - 0.5em, 0.15em);
   text-transform: uppercase;
   line-height: 1.5;
   color: var(--muted);
@@ -1238,6 +1240,11 @@
 
 .ctaInner {
   display: grid;
+  /* One track no wider than the band. Left to size itself, the implicit
+     column took the button's nowrap width, so on a 320px phone a long label
+     ("Plan Your GraphQL Architecture") pushed the copy and button past the
+     band's right edge, where `overflow: hidden` cut them off. */
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(22px, 2.8vw, 40px);
   align-items: center;
   max-width: 1500px;
@@ -1285,6 +1292,15 @@
   padding: 1.05em 2.1em;
   font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
   letter-spacing: 0.1em;
+}
+
+/* On the narrowest phones a long band label is wider than the band itself;
+   there it may wrap onto a second line rather than run off the edge. */
+@media (max-width: 400px) {
+  .ctaActions .btn {
+    white-space: normal;
+    text-align: center;
+  }
 }
 
 /* ============================================================
@@ -3272,15 +3288,16 @@
 }
 /* `titleFit`: sized so the longest title line fills the copy column (100cqi)
    and no more. `--title-chars` is that line's length (set by the hero), and
-   0.51em is a little over the widest average advance per character measured
+   0.53em is a little over the widest average advance per character measured
    for this face at the H1's -0.045em tracking (0.42em for "From Pilot to
-   Production" up to 0.50em for the capital-heavy "PostgreSQL Development
-   Company"), so the estimate errs towards fitting. It was a fixed 6.4cqi, which suited
+   Production" up to 0.52em for the capital-heavy "GraphQL Development
+   Company", which at 0.51em overran a laptop's column by ~10px and wrapped
+   to three lines — 13 Oct review), so the estimate errs towards fitting. It was a fixed 6.4cqi, which suited
    the 30-character PostgreSQL title but wrapped the 36-character Computer
    Vision one. Never above the standard size; at the 34px floor a line too long
    for a narrow column wraps rather than overflowing. */
 .heroCopyFit .heroTitle.heroTitleFit {
-  font-size: clamp(34px, calc(100cqi / (var(--title-chars, 33) * 0.51)), var(--fs-h1));
+  font-size: clamp(34px, calc(100cqi / (var(--title-chars, 33) * 0.53)), var(--fs-h1));
   max-width: none;
 }
 
@@ -5461,8 +5478,19 @@
     opacity: 1;
   }
 
+  /* Light at the top, where only the title sits, and near-solid across the
+     lower half, where the description runs over the artwork (13 Oct review,
+     Mobile App: "increase the gradient in the lower part so that the text is
+     clearly visible"). A straight two-stop ramp left the copy on a mid-grey
+     band with code and screens showing through it. */
   .slatFigure::after {
-    background: linear-gradient(to bottom, rgba(4, 5, 8, 0.2), rgba(4, 5, 8, 0.88));
+    background: linear-gradient(
+      to bottom,
+      rgba(4, 5, 8, 0.2) 0%,
+      rgba(4, 5, 8, 0.42) 34%,
+      rgba(4, 5, 8, 0.9) 56%,
+      rgba(4, 5, 8, 0.98) 100%
+    );
   }
 
   .slatHead {
@@ -6183,6 +6211,11 @@
 
 .stcImage {
   object-fit: cover;
+}
+
+/* `image.fit: "contain"` — the whole asset, centred, on the frame's own fill. */
+.stcImage.stcImageContain {
+  object-fit: contain;
 }
 
 /* Proof counters under an overview's copy (`OverviewContent.stats`). The panel

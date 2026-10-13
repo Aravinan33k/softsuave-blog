@@ -71,8 +71,12 @@ export const phpMeta = {
 } as const;
 
 export const phpHero: HeroContent = {
-  // The live H1, split so the last line takes the coral accent.
+  // The live H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["PHP Development", "Company in India"],
+  accent: "PHP",
   body: [
     "Tired of searching for a reliable & trustworthy PHP Web Development Company In India? Soft Suave is your one-stop solution for all your PHP application development needs.",
     "Are you looking to Outsource PHP Development Services? Get in touch for a free quote!",
@@ -117,6 +121,9 @@ export const phpOverview: OverviewContent = {
     height: 1050,
     alt: "Two programmers working together at a desk in a modern office",
     blurDataURL: "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAwAgCdASoQAAwAA4BaJZQC7AD/SedtwrrMgAD+5vqgH9qp35mxsI/sL7ckv+4NilkblUpaTfGIAO4YAVXwUrxCnV/YTW5ZKJAD+vFccywkVzG3RN1ImxoIGP1nMVBOfopOjAAA",
+    // Centred against the copy beside it rather than pinned to the top of a
+    // taller column (13 Oct review: "align the image with the section").
+    align: "center",
   },
 };
 
@@ -134,7 +141,6 @@ export const phpServices: ServiceBoardContent = {
   // The live page links this phrase in the "Dedicated PHP Developer Team"
   // copy (review: "the internal link is not properly mentioned").
   links: [{ text: "Hire PHP developers", href: "/hire-php-developers" }],
-  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "PHP Web App Development",

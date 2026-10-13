@@ -79,13 +79,14 @@ const OG_IMAGE = {
 };
 
 export const metadata: Metadata = {
-  // The root layout's title template is "%s", so this renders verbatim.
-  title: `${madMeta.title} | Soft Suave`,
+  // The root layout's title template is "%s", so this renders verbatim —
+  // the live page's full title, brand included (see `madMeta`).
+  title: madMeta.title,
   description: madMeta.description,
   alternates: { canonical: madMeta.path },
   robots: pageRobots,
   openGraph: {
-    title: `${madMeta.title} | Soft Suave`,
+    title: madMeta.title,
     description: madMeta.description,
     url: absoluteUrl(madMeta.path),
     siteName: 'Soft Suave',
@@ -94,7 +95,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${madMeta.title} | Soft Suave`,
+    title: madMeta.title,
     description: madMeta.description,
     images: [OG_IMAGE.url],
   },

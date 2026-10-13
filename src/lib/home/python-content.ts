@@ -53,18 +53,22 @@ export const pyMeta = {
   slug: "python-application-development-company",
   path: "/python-application-development-company",
   /**
-   * The live page's `<title>` is "Python Development Company India - Soft
-   * Suave Technologies". The route appends " | Soft Suave" as every page on
-   * this surface does, so the brand is dropped here rather than shipped twice.
+   * The live page's `<title>`, verbatim and in full (13 Oct review: "need to
+   * update the title"). It carries its own brand, so the route renders it as
+   * is rather than appending " | Soft Suave".
    */
-  title: "Python Development Company in India",
+  title: "Python Development Company India - Soft Suave Technologies",
   description:
     "Outsource python web development in India With a leading python development company in India and save upto 60% python development costs.",
 } as const;
 
 export const pyHero: HeroContent = {
-  // The live H1, split so the last line takes the coral accent.
+  // The live H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Best Python Development", "Company in India"],
+  accent: "Python",
   body: [
     "Tired of searching for a trustworthy Python Web Development Company in India? Soft Suave is your one-stop destination for all your Python application development needs.",
     "Want to Outsource Python Development Project? Get in touch for a free quote!",
@@ -109,6 +113,9 @@ export const pyOverview: OverviewContent = {
     height: 1050,
     alt: "Developer in headphones coding on a laptop in a modern office",
     blurDataURL: "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwAgCdASoQAAwAA4BaJZwAD5Yxe+9i0yO0IAD8As32dTEPYFivRzQqfbHDKDb4hVYkOqp33Esjky6gBIZx79kUf/B3imvj8Dwg3nZnbHXrpr77akfFOsy0I58J+P4YG+zCeRidAFgAAA==",
+    // Centred against the copy beside it rather than pinned to the top of a
+    // taller column (13 Oct review: "align the image with the section").
+    align: "center",
   },
 };
 
@@ -123,7 +130,6 @@ export const pyServices: ServiceBoardContent = {
   eyebrow: "Python Development Services",
   title: "Our Innovative Python Development Services",
   body: "We are a reliable custom Python Web Development Company operating more than 13+ successful years. Our best-in-class Python services include,",
-  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "Custom Python Development",

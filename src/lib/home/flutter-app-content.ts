@@ -48,8 +48,12 @@ export const flMeta = {
 } as const;
 
 export const flHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Flutter App", "Development Services"],
+  accent: "Flutter",
   body: [
     "Are you struggling to find a reliable Flutter App Development Company in India? Your search ends here! Soft Suave is your one-stop destination to obtain comprehensive Flutter development services.",
     "Want to join hands with a reliable Flutter Development Team? Get in touch for a free quote!",

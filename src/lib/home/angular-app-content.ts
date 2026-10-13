@@ -60,8 +60,12 @@ export const ngMeta = {
 } as const;
 
 export const ngHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Angular Development", "Company In India"],
+  accent: "Angular",
   body: [
     "Soft Suave offers exceptional Angular development services, crafting web applications that deliver agility, scalability, and a dynamic user experience. Let us help you access the full potential of Angular for your next project.",
   ],
@@ -75,10 +79,10 @@ export const ngHero: HeroContent = {
   // The four trust badges this surface shows beside every enquiry form.
   badges: partnerHeroBadges,
   form: {
-    // The live page's own form heading and sub-line.
-    // No `eyebrow`: the review asked for the hero's kicker to go, and the
-    // card's is the only one the hero renders. Same correction every other
-    // corrected page on this surface took.
+    // The live page's own form heading and sub-line, with the card's
+    // "Let’s Discuss Your Project" heading the other development pages
+    // carry (13 Oct review: "in some pages the form is missing a heading").
+    eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
     alert: sharedHeroAlert,
     submit: "Submit",
@@ -253,9 +257,6 @@ export const ngStrengths: CardGridContent = {
 };
 
 export const ngWhyUs: CardGridContent = {
-  // The section made its case and then offered nothing to do about it
-  // (review: "cta button missing").
-  cta: { label: "Talk To Our Experts", href: "/contact" },
   eyebrow: "Why Choose Soft Suave",
   title: "Why Choose Soft Suave For Angular Development?",
   body: "Empower your web applications with Soft Suave's expert Angular development services. Here's why you should choose us:",
@@ -294,9 +295,14 @@ export const ngStories: StoryCardsContent = {
       industry: "Healthcare",
       name: "Telehealth App For Doctor Consultation",
       body: "Soft Suave developed a custom telehealth app for a MedTech start-up, aiming to simplify healthcare management with mobile solutions. The app allows doctors to register, connect with patients via video, and manage appointments. Hire mobile app developers and procure similar apps for your business requirements.",
+      // The live page's own case-study artwork (13 Oct review: "use the same
+      // images for the case studies from the old page"), shown whole on its
+      // own ground rather than cropped into the 16:9 frame.
       image: {
-        src: "/images/four/ng-work-health.webp",
-        alt: "A doctor consulting a patient over video on a tablet",
+        src: "/images/landing/angular/case-health-care-app.webp",
+        alt: "Telehealth app screens showing appointments and medicine intake",
+        fit: "contain",
+        background: "#1f1344",
       },
       href: "/case-study-telehealth-consultation-platform-for-doctors",
     },
@@ -305,8 +311,10 @@ export const ngStories: StoryCardsContent = {
       name: "Multi-Vendor Marketplace App",
       body: "Soft Suave developed a customized multi-vendor eCommerce platform for an eCommerce start-up to deliver a superior online shopping experience. The platform includes multiple payment options, real-time inventory management, and different user panels to ensure smoother operation. Hire app developers and improve your business operations.",
       image: {
-        src: "/images/four/ng-work-retail.webp",
-        alt: "A shopper browsing a multi-vendor marketplace on a laptop",
+        src: "/images/landing/angular/case-shopping-app.webp",
+        alt: "Shopping app screens with a product listing and checkout",
+        fit: "contain",
+        background: "#010101",
       },
       href: "/case-study-ecommerce-platform",
     },
@@ -315,8 +323,10 @@ export const ngStories: StoryCardsContent = {
       name: "Tool For Project Progress Tracking",
       body: "Soft Suave created a job progress tracking application for a consulting company focused on the construction and real estate industries in New York City. The app facilitates project management by breaking large tasks into smaller, manageable units, and providing tools for task assignment, progress tracking, and resource allocation. Scale up your app performance by hiring mobile app developers.",
       image: {
-        src: "/images/four/ng-work-consulting.webp",
-        alt: "A consulting team tracking project progress on a planning board",
+        src: "/images/landing/angular/case-project-tracking-app.webp",
+        alt: "Project tracking app screens with progress charts and statistics",
+        fit: "contain",
+        background: "#1f1344",
       },
       href: "/case-study-job-progress-tracking",
     },

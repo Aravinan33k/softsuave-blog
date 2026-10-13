@@ -48,8 +48,12 @@ export const andMeta = {
 } as const;
 
 export const andHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Android Application", "Development Service"],
+  accent: "Android",
   body: [
     "As a top Android app development company, we provide user-friendly and innovative solutions across industries. We design, develop, and improve apps for all Android OS versions. Get the best mobile experience with over a decade of reliable service.",
     "Want to onboard the Android app development team? Or Looking for an Android App Development agency in India? Get in touch for a free quote!",
@@ -91,7 +95,9 @@ export const andHero: HeroContent = {
 };
 
 export const andOverview: OverviewContent = {
-  image: overviewImage("android-application-development-company"),
+  // Centred against the copy beside it rather than pinned to the top of a
+  // taller column (13 Oct review: "align the image with the section").
+  image: { ...overviewImage("android-application-development-company")!, align: "center" },
   eyebrow: "Android App Development Service",
   title: "Best Android App Development Service in India",
   paragraphs: [
@@ -113,7 +119,6 @@ export const andServices: ServiceBoardContent = {
   eyebrow: "Android Development Services",
   title: "Android Development Services Soft Suave Offers",
   body: "Soft Suave provides best-in-class Android app development services and advanced solutions. Our mobile app development team can provide you with expert support.",
-  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "Custom Android App Development",

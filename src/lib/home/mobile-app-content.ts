@@ -39,16 +39,21 @@ import { sharedHeroAlert } from "./delivery-shared";
 export const madMeta = {
   slug: "mobile-application-development-company",
   path: "/mobile-application-development-company",
-  // The live page's own <title> and meta description. The route appends
-  // " | Soft Suave" to the title, as every page on this surface does.
-  title: "Mobile App Development Company in India",
+  // The live page's own <title> (verbatim and in full — 13 Oct review: "need
+  // to update the title"; the route renders it as is, no " | Soft Suave"
+  // suffix) and meta description.
+  title: "Mobile App Development Company in India: Scalable & Secure",
   description:
     "Soft Suave is a top mobile app development company in India, building scalable Android, iOS, and cross-platform apps for global clients.",
 } as const;
 
 export const madHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Mobile App Development", "Company in India"],
+  accent: "Mobile App",
   body: [
     "With 13+ years of expertise, Soft Suave Technologies is a powerhouse in mobile app development. We create high-performance Android, iOS, and cross-platform apps for global clients across the US, EU, and MEA regions, delivering unbeatable quality and exceptional offshore advantages.",
   ],
@@ -198,7 +203,9 @@ export const madProcess: ReleaseTrackContent = {
   eyebrow: "Process",
   title: "Our Mobile App Development Process",
   body: "We follow a clear, transparent, agile process from idea to launch, reducing risks and ensuring predictable delivery for high-quality, scalable mobile apps that meet your business goals.",
-  cta: { label: "Book a Consultation", href: "/contact" },
+  // The free 30-minute consultation page (13 Oct review: "the Book a
+  // consultation button must be linked to the consultation page").
+  cta: { label: "Book a Consultation", href: "/30-min-free-consultation" },
   steps: [
     {
       n: "01",

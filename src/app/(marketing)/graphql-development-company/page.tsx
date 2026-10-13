@@ -141,9 +141,12 @@ export default function GraphQLDevelopmentCompanyPage() {
         {/* The homepage's marquee tech rows, one per group, rather than the
             landing set's static panel grid. Dark, as on the homepage;
             `.techCompact` only clears the homepage's full-viewport
-            min-height for this content-height page. */}
+            min-height for this content-height page. `loopShortRows`: rows
+            too short to overflow (Backend Platforms, DevOps and Deployment)
+            sat still while the others scrolled (13 Oct review: "last 2
+            column are not scrolling"), so they repeat their chips to fill. */}
         <div className={home.techCompact}>
-          <TechStack content={gqTech} />
+          <TechStack content={gqTech} loopShortRows />
         </div>
 
         {/* Client stories ahead of the FAQ (review: "move the testimonials

@@ -46,8 +46,15 @@ export const txMeta = {
 } as const;
 
 export const txHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["TypeScript Development Company", "for Business-Critical Applications"],
+  accent: "TypeScript",
+  // Sized to fit the copy column so each title line holds one line (13 Oct
+  // review: the H1 broke into 3-4 lines on laptops).
+  titleFit: true,
   body: [
     "As applications grow, inconsistent data handling and complex code patterns can slow development. Soft Suave is a reliable TypeScript development company that improves code structure, strengthens type safety, simplifies maintenance, and aligns implementation with your application architecture and established engineering standards.",
     "Explain your current challenges or product plans, and we will recommend a practical TypeScript development path for your application.",
