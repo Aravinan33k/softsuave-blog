@@ -16,8 +16,9 @@ import { focusAtEnd } from "@/lib/forms/focus";
 import { THANK_YOU_PATH } from "@/lib/forms/thank-you";
 import { useClearOnClick } from "@/lib/forms/use-clear-on-click";
 import PhoneField from "@/components/common/phone-field";
-import { contactForm, scheduleMeeting } from "@/lib/home/contact-content";
+import { CONTACT_FORM_ID, contactForm, scheduleMeeting } from "@/lib/home/contact-content";
 import CardHead from "./card-head";
+import EmailQuestion from "./email-question";
 import styles from "./contact.module.css";
 
 /**
@@ -136,13 +137,14 @@ export default function ContactScheduler() {
 
       <div className={styles.scheduleBody}>
         {load.status === "error" ? (
-          // BUG-019: the calendar could not load, so the card's job becomes
-          // getting the visitor to the NeetoCal booking page, which has the
-          // same meeting, its own calendar and its own time-zone picker.
+          // The calendar could not load. The reader stays on this page: the
+          // Contact Form beside this card takes the same details, and the team
+          // sets the time up. A plain `#` link, so the site's smooth-scroll
+          // handler carries the reader there and moves focus to the form.
           <div className={styles.calState} role="status">
             <p>{scheduleMeeting.error}</p>
-            <a className={styles.stepNext} href={scheduleMeeting.fallback.href} target="_blank" rel="noopener noreferrer">
-              {scheduleMeeting.fallback.unavailableLabel}
+            <a className={styles.stepNext} href={`#${CONTACT_FORM_ID}`}>
+              {scheduleMeeting.messageInstead}
             </a>
             {load.retry && (
               <button
@@ -160,8 +162,8 @@ export default function ContactScheduler() {
         ) : load.status === "ready" && days.length === 0 ? (
           <div className={styles.calState}>
             <p>{scheduleMeeting.empty}</p>
-            <a className={styles.stepNext} href={scheduleMeeting.fallback.href} target="_blank" rel="noopener noreferrer">
-              {scheduleMeeting.fallback.label}
+            <a className={styles.stepNext} href={`#${CONTACT_FORM_ID}`}>
+              {scheduleMeeting.messageInstead}
             </a>
           </div>
         ) : (
@@ -418,7 +420,7 @@ function MeetingForm({
         </div>
 
         <label className={styles.stepQuestion} htmlFor={fieldId}>
-          {questions[step]}
+          {step === 1 ? <EmailQuestion name={form.name} /> : questions[step]}
         </label>
 
         <div className={styles.stepField} ref={fieldRef}>

@@ -44,7 +44,13 @@ export const contactForm = {
     // Name, email and phone messages come from the shared rules
     // (lib/forms/enquiry-rules.ts), as on every other form.
     name: { question: "Hey there! What’s your name?", placeholder: "Full Name" },
-    email: { question: "Great! Let’s get your email!", placeholder: "Email ID" },
+    email: {
+      question: "Great! Let’s get your email!",
+      /** With the name the reader just gave, as the live page greets them:
+       *  "Great <name>! Let’s get your email!" (the name in bold). */
+      named: ["Great ", "! Let’s get your email!"],
+      placeholder: "Email ID",
+    },
     phone: { question: "Got a number we can reach you at?", placeholder: "Phone Number" },
     service: {
       question: "What brings you here?",
@@ -81,27 +87,25 @@ export const scheduleMeeting = {
   // Not on the live page (it shows no copy for these states); written here
   // for this app. A booking redirects to /thank-you, as the live page does.
   loading: "Loading available slots…",
-  empty: "No open slots right now.",
-  // BUG-019: "Unable to load slots." read as a dead end. The card now says
-  // where to book instead, and leads with the button that does it.
-  error: "Our calendar couldn’t load here. Pick a time on our booking page instead.",
+  empty: "No open slots right now. Send us a message and we’ll set up a time with you.",
+  // The live page shows "Unable to load slots." and stops. Here the card
+  // keeps the reader on the page with a way forward: try again, or use the
+  // Contact Form beside it. It used to send them off to the NeetoCal booking
+  // page instead, which the team did not want (14 Oct).
+  error: "Our calendar couldn’t load just now. Try again, or send us a message and we’ll set up a time with you.",
   retry: "Try again",
-  /** The NeetoCal booking page the calendar draws from, linked when it cannot show slots itself. */
-  fallback: {
-    href: "https://softsuave.neetocal.com/meeting-with-softsuave",
-    /** Under "No open slots" — the live page's own label for this link. */
-    label: "View More Slots ➡",
-    /** When the calendar did not load at all, "View More Slots" promises slots the card never showed. */
-    unavailableLabel: "Book a Meeting ➡",
-  },
+  /** Takes the reader to this page's Contact Form (`CONTACT_FORM_ID`). */
+  messageInstead: "Send us a message",
 } as const;
+
+/** The Contact Form's element id, which the meeting card links to. */
+export const CONTACT_FORM_ID = "contact-form";
 
 export const quickContact = {
   icon: "/images/contact/icon-quick-contact.webp",
   title: "Quick Contact",
   subtitle: "Connect with us instantly!",
   whatsapp: { label: "WhatsApp", href: "https://wa.me/918220362113", icon: "/images/contact/icon-whatsapp.webp" },
-  teams: { label: "Teams", href: "https://teams.live.com/l/invite/FEA1DKBQ1Hy8Kng9QE", icon: "/images/contact/icon-teams.webp" },
   email: { label: "contact@softsuave.com", text: "Drop us an email", href: "mailto:contact@softsuave.com" },
   /**
    * The live "Live Chat" row opens softsuave.com's own AI assistant ("Soft

@@ -256,7 +256,7 @@
      negative-z-index child climbs to the nearest ancestor that *does* open
      one and paints behind the whole page, not just this section. */
   isolation: isolate;
-  padding: clamp(96px, 11vw, 150px) var(--gutter) clamp(40px, 5vw, 76px);
+  padding: max(clamp(96px, 11vw, 150px), var(--hero-top)) var(--gutter) clamp(40px, 5vw, 76px);
   border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
@@ -3167,7 +3167,7 @@
    The masthead's kicker rendered on top of the logo. This is the hero's own top
    clearance (`.hero`), applied to the one other thing that can open a page. */
 .indexHead {
-  padding: clamp(96px, 11vw, 150px) var(--gutter) clamp(20px, 2.4vw, 36px);
+  padding: max(clamp(96px, 11vw, 150px), var(--hero-top)) var(--gutter) clamp(20px, 2.4vw, 36px);
   position: relative;
 }
 
@@ -3199,7 +3199,8 @@
    look already.
    ============================================================ */
 .heroCompact {
-  padding: clamp(78px, 6.6vw, 98px) var(--gutter) clamp(32px, 3.4vw, 52px);
+  /* At least `--hero-top` (home.css): clear of the fixed bar with a gap. */
+  padding: max(clamp(78px, 6.6vw, 98px), var(--hero-top)) var(--gutter) clamp(32px, 3.4vw, 52px);
 }
 
 /* Backdrop: near-full opacity, no drift, and the gen-ai two-pass veil — a
@@ -8125,7 +8126,7 @@
        screen this short the display hero adopts the compact variant's vertical
        rhythm, which is already proven to fit its card here. Keeping them
        identical means one number to change if that rhythm is ever retuned. */
-    padding-top: clamp(78px, 6.6vw, 98px);
+    padding-top: max(clamp(78px, 6.6vw, 98px), var(--hero-top));
     padding-bottom: clamp(32px, 3.4vw, 52px);
   }
 }

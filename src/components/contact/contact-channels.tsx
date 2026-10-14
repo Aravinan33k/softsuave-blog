@@ -11,8 +11,9 @@ import { THANK_YOU_PATH } from "@/lib/forms/thank-you";
 import { useClearOnClick } from "@/lib/forms/use-clear-on-click";
 import PhoneField from "@/components/common/phone-field";
 import FadeUp from "@/components/home/fade-up";
-import { contactForm, quickContact, serviceOptions } from "@/lib/home/contact-content";
+import { CONTACT_FORM_ID, contactForm, quickContact, serviceOptions } from "@/lib/home/contact-content";
 import CardHead from "./card-head";
+import EmailQuestion from "./email-question";
 import ContactScheduler from "./contact-scheduler";
 import LiveChat from "./live-chat";
 import styles from "./contact.module.css";
@@ -43,7 +44,6 @@ export default function ContactChannels() {
 }
 
 /** The Contact Form card's id — the Live Chat row brings the reader here. */
-const CONTACT_FORM_ID = "contact-form";
 
 type Step = 0 | 1 | 2 | 3;
 
@@ -179,7 +179,7 @@ function SteppedForm() {
 
       <div className={styles.stepBody}>
         <label className={styles.stepQuestion} htmlFor={fieldId}>
-          {current.question}
+          {step === 1 ? <EmailQuestion name={form.name} /> : current.question}
         </label>
 
         <div className={styles.stepField} ref={fieldRef}>
@@ -301,17 +301,13 @@ function QuickContactCard() {
   const [chatOpen, setChatOpen] = useState(false);
   const closeChat = useCallback(() => setChatOpen(false), []);
   return (
-    <div className={styles.channelCard}>
+    <div className={`${styles.channelCard} ${styles.quickCard}`}>
       <CardHead icon={q.icon} title={q.title} subtitle={q.subtitle} level={3} />
 
       <div className={styles.quickPair}>
         <a className={styles.quickWhatsapp} href={q.whatsapp.href} target="_blank" rel="noopener noreferrer">
           <Image src={publicMediaUrl(q.whatsapp.icon)} alt="" width={34} height={34} />
           <span>{q.whatsapp.label}</span>
-        </a>
-        <a className={styles.quickTeams} href={q.teams.href} target="_blank" rel="noopener noreferrer">
-          <Image src={publicMediaUrl(q.teams.icon)} alt="" width={34} height={34} className={styles.teamsIcon} />
-          <span>{q.teams.label}</span>
         </a>
       </div>
 
@@ -323,7 +319,7 @@ function QuickContactCard() {
           </svg>
         </span>
         <span className={styles.quickText}>
-          <span className={styles.quickTitle}>{q.email.label}</span>
+          <span className={`${styles.quickTitle} ${styles.quickTitleEmail}`}>{q.email.label}</span>
           <span className={styles.quickSub}>{q.email.text}</span>
         </span>
         <Arrow />

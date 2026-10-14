@@ -352,8 +352,7 @@
 .stepBack:focus-visible,
 .stepNext:focus-visible,
 .quickRow:focus-visible,
-.quickWhatsapp:focus-visible,
-.quickTeams:focus-visible {
+.quickWhatsapp:focus-visible {
   outline: 2px solid var(--brand-500);
   outline-offset: 3px;
 }
@@ -611,15 +610,15 @@
 
 /* ---- Quick contact ---- */
 
+/* WhatsApp alone since Teams was dropped (14 Oct), so it spans the card. */
 .quickPair {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 10px;
   padding-top: clamp(18px, 1.8vw, 26px);
 }
 
-.quickWhatsapp,
-.quickTeams {
+.quickWhatsapp {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -636,18 +635,9 @@
   background: #1f9d55;
 }
 
-.quickTeams {
-  background: #4b53bc;
-}
-
-.quickWhatsapp:hover,
-.quickTeams:hover {
+.quickWhatsapp:hover {
   filter: brightness(1.08);
   transform: translateY(-1px);
-}
-
-.teamsIcon {
-  border-radius: 3px;
 }
 
 .quickRow {
@@ -702,6 +692,49 @@
   gap: 8px;
   font-weight: 600;
   overflow-wrap: anywhere;
+}
+
+/* The address on one line (14 Oct): the title's `overflow-wrap: anywhere`
+   broke it after the dot, "contact@softsuave. / com".
+
+   It needs about 11.9x its font size across, and the column it gets runs
+   from 96px (a 320px phone) to 700px+, so it is sized from the card's width
+   (`.quickCard` is the container; 100cqi = a row's width). Beside the icon
+   and arrow the column is the row less 136px; it fills that, up to 17px. */
+.quickCard {
+  container: quick / inline-size;
+}
+
+.quickTitleEmail {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  font-size: clamp(14px, calc((100cqi - 136px) / 11.9), 17px);
+}
+
+/* Too narrow for the address at 14px beside the arrow (row < 136 + 14 x 11.9
+   = 302px, phones under ~390px): the rows tighten and drop the decorative
+   arrow — the whole row is the link — so the address has the line to itself,
+   at 13.5px and up. Both rows, so they stay alike. */
+@container quick (max-width: 302px) {
+  .quickRow {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px 10px;
+  }
+
+  .quickRow > .quickArrow {
+    display: none;
+  }
+
+  .mailIcon,
+  .quickRowImg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .quickTitleEmail {
+    font-size: clamp(13.5px, calc((100cqi - 80px) / 11.9), 17px);
+  }
 }
 
 .quickSub {
@@ -925,8 +958,7 @@
   }
 
   .award,
-  .quickWhatsapp,
-  .quickTeams {
+  .quickWhatsapp {
     transition: none;
   }
 }

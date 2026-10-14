@@ -11,7 +11,7 @@
   isolation: isolate;
   overflow: hidden;
   min-height: clamp(260px, 26vw, 380px);
-  padding-top: clamp(88px, 6.8vw, 98px);
+  padding-top: max(clamp(88px, 6.8vw, 98px), var(--hero-top));
 }
 
 .bg {
