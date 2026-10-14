@@ -329,12 +329,19 @@ export default function WorkGrid({
   }, []);
 
   /** A drag that ends over a link must not also follow it. `hasMoved` is
-   *  still set when this click arrives (the next press clears it). */
+   *  still set when the click that ends the drag arrives; that click is the
+   *  only one it may cancel, so it is consumed there.
+   *
+   *  Keyboard and assistive-tech activations (Enter on a focused link) arrive
+   *  as clicks with `detail === 0` and are never the end of a drag, so they
+   *  always go through. Before, the flag stayed set until the next press:
+   *  drag the lane, then press Enter on "Start a project", and nothing
+   *  happened (QA BUG-012). */
   const onClickCapture = useCallback((e: React.MouseEvent) => {
-    if (hasMoved.current) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+    if (!hasMoved.current || e.detail === 0) return;
+    hasMoved.current = false;
+    e.preventDefault();
+    e.stopPropagation();
   }, []);
 
   /** Prevent native image/text drag from the browser during pointer drag. */
