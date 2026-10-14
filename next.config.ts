@@ -109,6 +109,11 @@ const nextConfig: NextConfig = {
   experimental: { cpus: buildCpus },
   reactStrictMode: true,
   poweredByHeader: false,
+  // `next dev` serves its scripts, fonts and live-reload only to localhost. An
+  // ngrok tunnel (`ngrok http 3100`, for showing work to the team) is another
+  // origin, so without this the page arrives with no JavaScript. Dev only;
+  // the wildcard covers the new subdomain each free ngrok session gets.
+  allowedDevOrigins: ['*.ngrok-free.app'],
   // Pin the workspace root. Turbopack otherwise walks up looking for one and
   // latches onto whatever stray package.json lives in the user's home directory
   // — it warns and ignores it, but leaving the root ambiguous means file

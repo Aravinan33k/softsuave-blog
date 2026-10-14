@@ -7,14 +7,14 @@ import Preloader from '@/components/home/preloader';
 // import Cursor from '@/components/home/cursor';
 import Nav from '@/components/home/nav';
 import ChapterNav from '@/components/home/chapter-nav';
-import Hero from '@/components/home/hero';
+import Hero from '@/components/home-v2/hero';
 import Manifesto from '@/components/home/manifesto';
 import Stats from '@/components/home/stats';
 import Clients from '@/components/home/clients';
 import WorkGrid from '@/components/home/work-grid';
 import Services from '@/components/home/services';
-import Journey from '@/components/home/journey';
-import Industries from '@/components/home/industries';
+import Journey from '@/components/home-v2/journey';
+import Industries from '@/components/home-v2/industries';
 import Awards from '@/components/home/awards';
 import Recognitions from '@/components/home/recognitions';
 import TechStack from '@/components/home/tech-stack';
@@ -31,6 +31,12 @@ import Footer from '@/components/home/footer';
  * JSON-LD block. Every section below is a client component and behaves exactly
  * as before — nothing here uses state, effects or handlers, so there was never
  * anything for `'use client'` to buy.
+ *
+ * The hero, Industries and AI Transformation Journey are the redesigned
+ * versions in `components/home-v2` (reviewed at /home-v2 first, then swapped
+ * in). The versions they replaced still live in `components/home` — other
+ * pages reuse that Industries and Journey — and /home-v2 now shows the
+ * previous homepage with them, for comparison.
  */
 export const metadata = homeMetadata;
 
