@@ -108,6 +108,12 @@
   line-height: 1.24;
   letter-spacing: -0.015em;
   color: #0b0d11;
+  /* Even out the lines when the title wraps, so it never leaves a single
+     word on a line of its own ("Assess your Computer Vision use / case").
+     The card is narrow, so most titles wrap somewhere between 320px phones
+     and wide screens; 59 of the 82 did so with an orphan (QA BUG-013).
+     Browsers without `text-wrap` keep the normal wrapping. */
+  text-wrap: balance;
 }
 
 /* Supporting sentence under the title, where a page supplies one. */
