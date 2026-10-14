@@ -54,7 +54,7 @@ describe('footer office microdata', () => {
       postalCode: 'DC 20007',
       addressCountry: 'USA',
       email: 'contact@softsuave.com',
-      telephone: ['+1 (410) 220-6301', '+44 7403 646450', '+91 8015159981 (HR)'],
+      telephone: ['+14102206301', '+447403646450', '+918015159981'],
     });
   });
 });

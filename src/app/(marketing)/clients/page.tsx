@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { organizationLd } from '@/lib/seo/organization';
 import {
   clientsPageBrands,
   clientsPageHero,
@@ -43,7 +41,7 @@ import landing from '@/components/landing/landing.module.css';
  * The homepage's integrations marquee and a "Your company here next" band used
  * to sit between them; the review removed both because live runs neither.
  *
- * A SERVER component so the route owns its `metadata` and JSON-LD; every
+ * A SERVER component so the route owns its `metadata`; every
  * section below is a client component. Fonts, `.theme-four` tokens and Lenis
  * smooth scroll come from `app/(marketing)/layout.tsx`.
  */
@@ -75,42 +73,16 @@ export const metadata: Metadata = {
 
 const HOME_HREF = BASE_PATH || '/';
 
-/**
- * A `CollectionPage` over the client roster, not a `Service`.
- *
- * Built here rather than through `pageSchemaGraph` for the same reason
- * `app/(marketing)/about/page.tsx` builds its own: that helper always emits a
- * `Service` node and points the `WebPage`'s `mainEntity` at it. This page sells
- * nothing — it lists who we have worked for — so a `Service` here would be a
- * claim the page does not make. The organization is referenced by `@id` so the
- * canonical node the layout emits stays the only description of the company.
- *
- * `hasPart` names the roster the page actually renders — the same
- * `clientsPageBrands.logos` the band below is handed — which is what keeps
- * schema and markup from drifting.
- */
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    '@id': `${absoluteUrl(clientsPageMeta.path)}#webpage`,
-    name: clientsPageMeta.title,
-    description: clientsPageMeta.description,
-    url: absoluteUrl(clientsPageMeta.path),
-    inLanguage: 'en',
-    about: { '@id': organizationLd['@id'] },
-    publisher: { '@id': organizationLd['@id'] },
-    hasPart: clientsPageBrands.logos.map((l) => ({
-      '@type': 'Organization',
-      name: l.name,
-    })),
-  },
-];
-
 export default function ClientsPage() {
   return (
     <div className={home.page}>
-      <JsonLd data={structuredData} />
+      {/* No JSON-LD, matching softsuave.com/clients, which serves none: its
+          only structured data is the footer's PostalAddress microdata, which
+          the shared footer carries here too. The route is in
+          PAGES_WITH_OWN_SITE_GRAPH, so the layout adds no Organization or
+          WebSite either. The CollectionPage this used to emit listed each
+          client logo under `hasPart` as an Organization, which schema.org
+          only allows to hold CreativeWorks: one validator error per logo. */}
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">

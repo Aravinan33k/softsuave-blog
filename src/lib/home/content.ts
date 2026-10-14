@@ -747,6 +747,8 @@ export const footer = {
    * footer, which marks up the USA office only — field mapping included
    * (street in `postOfficeBoxNumber`, suite in `addressLocality`, "DC 20007"
    * as the postcode). Mirrored on purpose; do not correct it here alone.
+   * The telephones are live's `content` values, digits only: the footer's
+   * visible phone lines are formatted separately.
    */
   offices: [
     {
@@ -760,7 +762,7 @@ export const footer = {
         postalCode: "DC 20007",
         addressCountry: "USA",
         email: "contact@softsuave.com",
-        telephone: ["+1 (410) 220-6301", "+44 7403 646450", "+91 8015159981 (HR)"],
+        telephone: ["+14102206301", "+447403646450", "+918015159981"],
       },
     },
     {
