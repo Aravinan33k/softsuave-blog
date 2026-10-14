@@ -3,7 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import { appPath } from "@/lib/media-url";
 import { PHONE_DIGITS, PHONE_HINT, PHONE_PATTERN } from "@/lib/forms/enquiry-rules";
-import { DEFAULT_DIAL, DIAL_CODES, detectDialCode, splitPhone } from "@/lib/forms/dial-codes";
+import {
+  DEFAULT_COUNTRY,
+  DEFAULT_DIAL,
+  DIAL_CODES,
+  detectCountry,
+  dialForCountry,
+  knownCountry,
+  splitPhone,
+} from "@/lib/forms/dial-codes";
 import fx from "./enquiry-form.module.css";
 
 /**
@@ -33,10 +41,18 @@ import fx from "./enquiry-form.module.css";
  *
  * ## the code is a guess, and says so by being changeable
  * The select is a real, always-enabled control, not a display of a detected
- * value. `detectDialCode` only ever supplies its INITIAL setting, and only
+ * value. `detectCountry` only ever supplies its INITIAL setting, and only
  * while the reader has not touched it — a VPN, a work laptop bought abroad or
  * a traveller all defeat any detection method there is, so the override is the
  * feature and the guess is the convenience.
+ *
+ * ## the select holds a COUNTRY, not a code
+ * Thirteen countries share +1 and two share +7. With the code as each
+ * option's value, every +1 option had the same value, so the select showed
+ * the first of them alphabetically: choosing the United States or Canada
+ * displayed Antigua and Barbuda (QA BUG-015). The options are keyed and
+ * valued by ISO country instead, and the calling code is read off the chosen
+ * country — the emitted number ("+1 2025550123") is unchanged.
  */
 export default function PhoneField({
   id,
@@ -63,7 +79,8 @@ export default function PhoneField({
   /** Id of the element carrying this field's error message. */
   describedBy?: string;
 }) {
-  const [dial, setDial] = useState(DEFAULT_DIAL);
+  const [country, setCountry] = useState(DEFAULT_COUNTRY);
+  const dial = dialForCountry(country) ?? DEFAULT_DIAL;
   const [national, setNational] = useState(() => splitPhone(value).national);
   /** Set once the reader picks a code themselves, so detection can't overrule them. */
   const chosen = useRef(false);
@@ -72,7 +89,7 @@ export default function PhoneField({
   // static/ISR, so the server has no timezone to read and guessing during
   // render would mean hydrating a bar the server could not have produced.
   //
-  // Two passes, cheapest first. `detectDialCode` is synchronous and lands in
+  // Two passes, cheapest first. `detectCountry` is synchronous and lands in
   // the first commit, so the field is never wrong-then-right in front of the
   // reader for longer than a frame. `/api/v1/geo` then refines it from the IP,
   // which is the one signal the browser cannot produce itself — it catches the
@@ -80,17 +97,19 @@ export default function PhoneField({
   // allowed to overrule the timezone guess, but never the reader.
   useEffect(() => {
     if (chosen.current) return;
-    setDial(detectDialCode());
+    setCountry(detectCountry());
 
-    const CACHE_KEY = "ss:enquiry-dial";
+    // A country, not a code (see above) — hence a new key: the old
+    // "ss:enquiry-dial" held a bare code, which cannot name one.
+    const CACHE_KEY = "ss:enquiry-country";
     let alive = true;
 
-    const apply = (next: string) => {
-      if (alive && !chosen.current) setDial(next);
+    const apply = (next: string | null) => {
+      if (next && alive && !chosen.current) setCountry(next);
     };
 
     try {
-      const cached = sessionStorage.getItem(CACHE_KEY);
+      const cached = knownCountry(sessionStorage.getItem(CACHE_KEY));
       if (cached) {
         apply(cached);
         return;
@@ -105,14 +124,20 @@ export default function PhoneField({
     // over. `appPath` because `fetch` does not apply `basePath`.
     fetch(appPath("/api/v1/geo"))
       .then((r) => (r.ok ? r.json() : null))
-      .then((d: { dial?: string } | null) => {
-        if (!d?.dial) return;
+      .then((d: { country?: string | null } | null) => {
+        // Only an answer that names a country may overrule the timezone. The
+        // route still replies `{ country: null, dial: "+91" }` when it cannot
+        // place the IP — which, with no GeoLite2 database installed, was every
+        // request — and taking that "+91" set every reader to India, a New
+        // Yorker included, a moment after the right guess had appeared.
+        const next = knownCountry(d?.country);
+        if (!next) return;
         try {
-          sessionStorage.setItem(CACHE_KEY, d.dial);
+          sessionStorage.setItem(CACHE_KEY, next);
         } catch {
           /* the answer is already in hand; caching it is the optional part */
         }
-        apply(d.dial);
+        apply(next);
       })
       .catch(() => {});
 
@@ -159,18 +184,19 @@ export default function PhoneField({
       <span className={fx.dialWrap}>
         <select
           className={fx.dialSelect}
-          value={dial}
+          value={country}
           aria-label="Country calling code"
           onChange={(e) => {
             chosen.current = true;
-            setDial(e.target.value);
-            emit(e.target.value, national);
+            const next = e.target.value;
+            setCountry(next);
+            emit(dialForCountry(next) ?? DEFAULT_DIAL, national);
           }}
         >
           {DIAL_CODES.map((c) => (
-            // `iso` as the key and `dial` as the value: +1 alone is eight
-            // countries, so the code cannot identify the option.
-            <option key={c.iso} value={c.dial}>
+            // `iso` as both key and value: +1 alone is thirteen countries, so
+            // the code cannot identify the option (QA BUG-015).
+            <option key={c.iso} value={c.iso}>
               {c.name} ({c.dial})
             </option>
           ))}

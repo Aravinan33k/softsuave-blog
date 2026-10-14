@@ -1,11 +1,14 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import {
+  DEFAULT_COUNTRY,
   DEFAULT_DIAL,
   DIAL_CODES,
   TZ_COUNTRY,
+  detectCountry,
   detectDialCode,
   dialForCountry,
+  knownCountry,
   splitPhone,
 } from './dial-codes';
 
@@ -142,5 +145,64 @@ describe('detectDialCode', () => {
     });
     vi.stubGlobal('navigator', { language: 'en-IN' });
     expect(detectDialCode()).toBe('+91');
+  });
+});
+
+/**
+ * The select is valued by COUNTRY, because a calling code cannot identify one:
+ * valued by code, every +1 option was the same option and choosing the United
+ * States showed Antigua and Barbuda (QA BUG-015).
+ */
+describe('countries that share a calling code', () => {
+  it('lists the countries that share +1 and +7 separately, so each can be chosen', () => {
+    const shared = (dial: string) => DIAL_CODES.filter((c) => c.dial === dial).map((c) => c.iso);
+    expect(shared('+1')).toEqual(expect.arrayContaining(['US', 'CA', 'AG', 'JM', 'PR']));
+    expect(shared('+7')).toEqual(expect.arrayContaining(['RU', 'KZ']));
+  });
+
+  it('keeps each +1 country its own code', () => {
+    for (const iso of ['US', 'CA', 'AG', 'PR', 'JM']) expect(dialForCountry(iso), iso).toBe('+1');
+  });
+
+  it('accepts only countries the list carries', () => {
+    expect(knownCountry('us')).toBe('US');
+    expect(knownCountry('ZZ')).toBeNull();
+    expect(knownCountry(null)).toBeNull();
+    expect(knownCountry('+1')).toBeNull();
+  });
+
+  it('has a default country whose code is the default code', () => {
+    expect(dialForCountry(DEFAULT_COUNTRY)).toBe(DEFAULT_DIAL);
+  });
+});
+
+describe('detectCountry', () => {
+  const { Locale } = Intl;
+  const withEnv = (timeZone: string, language: string) => {
+    vi.stubGlobal('Intl', {
+      Locale,
+      DateTimeFormat: () => ({ resolvedOptions: () => ({ timeZone }) }),
+    });
+    vi.stubGlobal('navigator', { language });
+  };
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  // The point of guessing a country rather than a code: a reader in New York
+  // and one in Toronto both get +1, but each sees their own country selected.
+  it('tells +1 countries apart', () => {
+    withEnv('America/New_York', 'en-US');
+    expect(detectCountry()).toBe('US');
+    withEnv('America/Toronto', 'en-CA');
+    expect(detectCountry()).toBe('CA');
+  });
+
+  it('falls back to the locale region, then the default', () => {
+    withEnv('Antarctica/Troll', 'en-CA');
+    expect(detectCountry()).toBe('CA');
+    withEnv('Antarctica/Troll', '');
+    expect(detectCountry()).toBe(DEFAULT_COUNTRY);
   });
 });

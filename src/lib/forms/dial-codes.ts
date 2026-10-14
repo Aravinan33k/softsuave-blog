@@ -43,6 +43,9 @@ export type DialCountry = {
  */
 export const DEFAULT_DIAL = "+91";
 
+/** The country `DEFAULT_DIAL` belongs to — where the select starts. */
+export const DEFAULT_COUNTRY = "IN";
+
 /**
  * Calling codes by country, sorted by name so the select reads alphabetically.
  * Shared codes are listed per country (+1 for the US, Canada and the
@@ -464,6 +467,12 @@ export function dialForCountry(iso: string): string | null {
   return BY_ISO.get(iso.toUpperCase())?.dial ?? null;
 }
 
+/** `iso` itself when the list carries that country, else `null`. */
+export function knownCountry(iso: string | null | undefined): string | null {
+  const key = iso?.toUpperCase();
+  return key && BY_ISO.has(key) ? key : null;
+}
+
 /** The browser's IANA timezone, or "" where the API is missing or throws. */
 function readTimeZone(): string {
   try {
@@ -487,6 +496,21 @@ function readLocaleRegion(): string {
   } catch {
     return "";
   }
+}
+
+/**
+ * Best guess at the reader's COUNTRY, as an ISO code the list carries. This is
+ * what the phone field selects: a calling code alone cannot say which country
+ * the reader is in once several share it (+1 is thirteen of them), and
+ * selecting by code showed the first of them alphabetically — choosing the
+ * United States displayed Antigua and Barbuda (QA BUG-015). Browser-only —
+ * on the server it returns `DEFAULT_COUNTRY`.
+ */
+export function detectCountry(): string {
+  const zone = readTimeZone();
+  const fromZone = knownCountry(zone ? TZ_COUNTRY[zone] : undefined);
+  if (fromZone) return fromZone;
+  return knownCountry(readLocaleRegion()) ?? DEFAULT_COUNTRY;
 }
 
 /**
