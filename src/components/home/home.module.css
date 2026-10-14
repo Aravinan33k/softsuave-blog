@@ -855,47 +855,6 @@ h1.h2 {
   transform: translateY(-3.25px) rotate(-45deg);
 }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 110;
-  background: var(--bg);
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1);
-  display: grid;
-  place-items: center;
-}
-
-.overlayOpen {
-  clip-path: inset(0 0 0% 0);
-}
-
-.overlayNav {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: center;
-}
-
-.overlayNav a {
-  font-family: var(--font-heading);
-  font-weight: 300;
-  font-size: clamp(2rem, 8vw, 3.4rem);
-  letter-spacing: -0.03em;
-  color: var(--text-bright);
-  line-height: 1.1;
-  transition: color 0.3s ease;
-}
-
-.overlayNav a:hover {
-  color: var(--accent);
-}
-
-.overlayCta {
-  margin-top: 22px;
-  color: var(--accent) !important;
-}
-
 /* ============================================================
    HERO
    ============================================================ */
@@ -7032,98 +6991,6 @@ h1.h2 {
   white-space: nowrap;
 }
 
-/* ---- burger overlay: the same four divisions as accordions ---- */
-.overlayNav {
-  width: min(560px, 92vw);
-  max-height: 86vh;
-  overflow-y: auto;
-}
-
-.mobDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.mobDivHead {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  font-family: var(--font-heading);
-  font-weight: 300;
-  font-size: clamp(2rem, 8vw, 3.4rem);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  color: var(--text-bright);
-  transition: color 0.3s ease;
-}
-
-.mobDivHead[aria-expanded="true"] {
-  color: var(--accent);
-}
-
-.mobChev {
-  width: 9px;
-  height: 9px;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: translateY(-3px) rotate(45deg);
-  transition: transform 0.3s ease;
-}
-
-.mobDivHead[aria-expanded="true"] .mobChev {
-  transform: translateY(0) rotate(-135deg);
-}
-
-.mobPanel {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding: 14px 0 22px;
-  text-align: center;
-}
-
-.mobGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.mobGroupName {
-  font-family: var(--font-eyebrow);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: var(--muted);
-}
-
-/* two classes, so this beats `.overlayNav a`'s display serif */
-.overlayNav .mobItem {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  letter-spacing: 0;
-  color: var(--text);
-}
-
-.overlayNav .mobItem:hover {
-  color: var(--text-bright);
-}
-
-.overlayNav .mobItemCta {
-  margin-top: 4px;
-  font-family: var(--font-eyebrow);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--accent);
-}
-
 @media (min-width: 1000px) {
   .megaPanel {
     display: block;
@@ -7204,36 +7071,6 @@ h1.h2 {
 
 .megaSubGroup .megaSubList {
   margin-top: 6px;
-}
-
-/* mobile: the third level indents under its parent */
-.mobEntry {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.overlayNav .mobSubItem {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.85rem;
-  line-height: 1.35;
-  letter-spacing: 0;
-  color: var(--muted);
-}
-
-.overlayNav .mobSubItem:hover {
-  color: var(--text-bright);
-}
-
-/* Fourth level: Native / Hybrid App Development head their own indented list. */
-.overlayNav .mobSubHead {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.85rem;
-  line-height: 1.35;
-  letter-spacing: 0;
-  color: var(--text);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -7469,49 +7306,6 @@ h1.h2 {
   }
 }
 
-/* ---- the burger overlay ----------------------------------------------------
-   `.overlay` is `display: grid; place-items: center`, so the menu is centred in
-   the viewport — correct while it is four words tall, wrong the moment a
-   division is expanded into its accordion. At 320x568 the expanded Services
-   panel is 488px tall, which centred its first rows underneath the fixed header
-   and put the word "Services" straight through the logo lockup.
-
-   Grid centring happens inside the PADDING box, so reserving the header's own
-   height as padding-top fixes the collision without giving up the centring: a
-   short menu still reads as centred, a tall one starts below the bar and
-   scrolls. The nav keeps `overflow-y: auto`; it just gets a real budget now
-   (`max-height: 100%` of the padded box) instead of 86vh of the whole screen.
-   The overlay is only ever the mobile menu — from 1000px up `.burger` is
-   `display: none` — but the query keeps it symmetrical with the rest. */
-@media (max-width: 999px) {
-  .overlay {
-    /* header = 20px padding + 48px lockup + 20px padding, then breathing room */
-    padding: 104px clamp(16px, 5vw, 28px)
-      calc(clamp(20px, 5vh, 40px) + env(safe-area-inset-bottom, 0px));
-  }
-
-  .overlayNav {
-    width: 100%;
-    max-height: 100%;
-    /* momentum scroll for the long Services panel, and no rubber-banding of the
-       page behind it */
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-  }
-
-  /* The division headings are the overlay's display type, at up to 8vw. With an
-     accordion open they compete with the panel under them for the same screen,
-     so they step down a size here. */
-  .mobDivHead {
-    font-size: clamp(1.65rem, 6.6vw, 2.4rem);
-  }
-
-  .mobPanel {
-    padding: 10px 0 18px;
-    gap: 14px;
-  }
-}
-
 /* ---- hero -------------------------------------------------------------------
    `clamp(2.75rem, 6.5vw, 6rem)` never leaves its 44px floor below a 677px
    viewport, so every phone got the same 44px display serif: "Empowering
@@ -7618,5 +7412,383 @@ h1.h2 {
   }
   .techWideLabels .techGroupName {
     white-space: nowrap;
+  }
+}
+
+/* ============================================================
+   MOBILE MENU (below 1000px) — components/home/nav.tsx
+   A full-height sheet under the fixed bar: the four divisions as full-width
+   rows that open in place, the CTA pinned at the foot, contacts at the end.
+   Replaced a centred cluster of display-serif headings floating in an empty
+   screen, whose open divisions centred four levels of links in one column.
+   ============================================================ */
+.mnav {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  /* The bar sits above this sheet (z-index 120): 83px tall at the top of a
+     page, 71px once scrolled. The list starts a little below the taller. */
+  padding-top: 84px;
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition: clip-path 0.55s cubic-bezier(0.76, 0, 0.24, 1), visibility 0s linear 0.55s;
+}
+
+.mnavOpen {
+  clip-path: inset(0 0 0% 0);
+  visibility: visible;
+  transition: clip-path 0.55s cubic-bezier(0.76, 0, 0.24, 1), visibility 0s;
+}
+
+@media (min-width: 1000px) {
+  .mnav {
+    display: none;
+  }
+}
+
+.mnavScroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px var(--gutter) 28px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+
+/* One reading column: full width on phones, centred on tablets. */
+.mnavList {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ---- division rows ---- */
+.mnavRow {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+/* Rows rise in, one after another, as the sheet opens. */
+.mnavOpen .mnavRow {
+  animation: mnavRowIn 0.5s cubic-bezier(0.22, 0.8, 0.24, 1) both;
+  animation-delay: calc(0.14s + var(--i, 0) * 0.05s);
+}
+
+@keyframes mnavRowIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.mnavHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 68px;
+  padding: 10px 0;
+  border: 0;
+  background: none;
+  color: var(--text-bright);
+  text-align: left;
+  cursor: pointer;
+}
+
+.mnavLabel {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.65rem, 6.6vw, 2.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.mnavHead:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* A round toggle: a plus that turns into a minus. */
+.mnavToggle {
+  position: relative;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.4s ease;
+}
+
+.mnavToggle::before,
+.mnavToggle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 13px;
+  height: 1.5px;
+  margin: -0.75px 0 0 -6.5px;
+  background: currentColor;
+  transition: transform 0.35s ease;
+}
+
+.mnavToggle::after {
+  transform: rotate(90deg);
+}
+
+.mnavRow[data-open="true"] .mnavToggle {
+  background: var(--brand-500);
+  border-color: var(--brand-500);
+  color: #ffffff;
+}
+
+.mnavRow[data-open="true"] .mnavToggle::after {
+  transform: rotate(0deg);
+}
+
+/* ---- the open division ---- */
+.mnavPanel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+
+.mnavRow[data-open="true"] .mnavPanel {
+  grid-template-rows: 1fr;
+}
+
+.mnavPanelInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mnavRow[data-open="true"] .mnavPanelInner {
+  padding-bottom: 22px;
+}
+
+.mnavGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.mnavGroup + .mnavGroup {
+  margin-top: 18px;
+}
+
+/* The site's eyebrow: mono, wide-tracked, behind a short coral rule. */
+.mnavGroupName {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 6px;
+  font-family: var(--font-eyebrow);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.mnavGroupName::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--brand-500);
+}
+
+.mnavItem,
+.mnavSub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 46px;
+  padding: 10px 0;
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--text-bright);
+  transition: color 0.25s ease;
+}
+
+.mnavItem:focus-visible,
+.mnavSub:focus-visible {
+  color: var(--brand-coral);
+}
+
+/* A small arrow at a row's end, so a row reads as a link to tap. */
+.mnavGo {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  opacity: 0.45;
+}
+
+.mnavHead .mnavGo {
+  width: 11px;
+  height: 11px;
+  margin-right: 14px;
+}
+
+.mnavEntry {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Children of a row: indented under a hairline. */
+.mnavSubs {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 6px 2px;
+  padding-left: 16px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mnavSub {
+  min-height: 42px;
+  font-size: 15px;
+  color: var(--text);
+}
+
+/* A short-named list (technologies) as a grid of chips. */
+.mnavChips {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 2px 0 12px;
+}
+
+@media (min-width: 560px) {
+  .mnavChips {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.mnavChip {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 14px;
+  line-height: 1.25;
+  color: var(--text);
+  transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+}
+
+.mnavChip:focus-visible {
+  border-color: var(--brand-500);
+  background: rgba(255, 84, 54, 0.08);
+  color: var(--text-bright);
+}
+
+.mnavNested + .mnavNested {
+  margin-top: 4px;
+}
+
+.mnavSubHead {
+  display: block;
+  margin: 6px 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--text-bright);
+}
+
+/* The division's own page ("All services →"). */
+.mnavPanelCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-family: var(--font-eyebrow);
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-coral);
+}
+
+/* ---- pinned foot ---- */
+.mnavFoot {
+  flex: none;
+  padding: 14px var(--gutter) calc(16px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  background: var(--bg);
+}
+
+.mnavFoot > * {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mnavCta {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  font-size: 12px;
+}
+
+.mnavContact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  width: 100%;
+  max-width: 600px;
+  margin: 26px auto 0;
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.mnavContact a {
+  padding: 4px 0;
+  color: var(--muted);
+}
+
+
+/* Short landscape phones: slimmer rows and foot, so the list keeps the room. */
+@media (max-height: 520px) {
+  .mnavHead {
+    min-height: 54px;
+  }
+
+  .mnavFoot {
+    padding-top: 10px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mnavCta {
+    min-height: 46px;
+  }
+}
+
+/* Hover colours only where there is a real pointer: on a touch screen :hover
+   sticks to whatever was last tapped, so a row stayed coral after the tap. */
+@media (hover: hover) {
+  .mnavItem:hover,
+  .mnavSub:hover,
+  a.mnavSubHead:hover {
+    color: var(--brand-coral);
+  }
+
+  .mnavChip:hover {
+    border-color: var(--brand-500);
+    background: rgba(255, 84, 54, 0.08);
+    color: var(--text-bright);
+  }
+
+  .mnavContact a:hover {
+    color: var(--text-bright);
   }
 }
