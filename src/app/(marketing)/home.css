@@ -28,6 +28,44 @@ html:has(.theme-four) {
   scroll-padding-top: 96px;
 }
 
+/* ---- Lenis's own stylesheet (lenis/dist/lenis.css), which it requires ----
+   Lenis (ScrollProvider) caches the page's scroll height and re-measures only
+   when <html> resizes. The root layout's `h-full` pinned <html> at 100% of the
+   viewport, so it never resized: whenever the page grew after load — fonts
+   swapping in, pinned sections re-measuring, the contact calendar's slots
+   arriving — the wheel stopped dead at the old bottom until a refresh
+   (15 Oct: "sometimes while scrolling it suddenly stops"). `height: auto` lets
+   <html> grow with the page, so Lenis sees every change. The rules only apply
+   while Lenis runs (it adds `.lenis` to <html>). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+/* `min-h-full` on <body> resolved against the fixed-height <html>; against an
+   auto one it resolves to nothing, so state the one-viewport floor directly. */
+html.lenis body {
+  min-height: 100vh;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior: contain;
+}
+
+/* Only mid-scroll (`lenis-smooth` is set while a smooth scroll runs): an
+   iframe under the pointer would otherwise swallow the wheel and stall it. */
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 /* An in-page jump moves keyboard focus to its target (scroll-provider.tsx),
    giving a non-focusable section `tabindex="-1"`. The scroll itself is the
    visible cue there, so no focus ring is drawn around a whole section. */
