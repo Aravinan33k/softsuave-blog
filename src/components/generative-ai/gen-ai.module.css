@@ -2554,3 +2554,42 @@
   height: clamp(20px, 2vw, 24px);
   object-fit: contain;
 }
+
+/* ============================================================
+   LEGAL PROSE (/privacy-policy — `legal-prose.tsx`)
+   `.prose` as the Overview sets it, plus the headings and address lines of a
+   policy document. Headings take extra space above them so each clause reads
+   as its own block, and sit tight to the paragraph they introduce.
+   ============================================================ */
+/* The full content width, gutter to gutter — the same edges as the nav and
+   the hero above it, rather than the Overview's 76ch measure. */
+.legalProse {
+  max-width: none;
+}
+
+.legalH2 {
+  margin: clamp(14px, 1.8vw, 26px) 0 0;
+  color: var(--text-bright);
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-h3);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+}
+
+.legalH3 {
+  margin: clamp(10px, 1.2vw, 18px) 0 -0.35em;
+  color: var(--text-bright);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(17px, 0.5vw + 13.6px, 20px);
+  line-height: 1.35;
+}
+
+.legalAddress {
+  display: grid;
+  font-style: normal;
+  font-size: var(--fs-body);
+  line-height: 1.68;
+  color: var(--text);
+}

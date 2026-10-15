@@ -11,6 +11,14 @@
   overflow-x: clip;
 }
 
+/* Homepage only: eyebrow/label text in Inter instead of JetBrains Mono.
+   `--font-eyebrow` is resolved where `.theme-four` declares it, so both
+   aliases are overridden here rather than just `--font-mono-label`. */
+.homePage {
+  --font-mono-label: var(--font-body);
+  --font-eyebrow: var(--font-body);
+}
+
 /* ---- light band ----
    Wraps alternating sections in a warm-white theme by re-pointing the same
    CSS variables every component already reads (--bg/--text/--surface/--accent/…).

@@ -171,146 +171,150 @@ export default function Listing({
         )}
       </div>
 
-      <div className={listClassName ? `${styles.listBand} ${listClassName}` : undefined}>
-        {/* Target for `headCta`'s in-page jump: the filters and the grid. */}
-        <span id={`${id}-items`} className={styles.listAnchor} aria-hidden="true" />
+      {/* No items is a masthead on its own — /privacy-policy uses this hero
+          for a page whose body is not a collection. */}
+      {content.items.length > 0 && (
+        <div className={listClassName ? `${styles.listBand} ${listClassName}` : undefined}>
+          {/* Target for `headCta`'s in-page jump: the filters and the grid. */}
+          <span id={`${id}-items`} className={styles.listAnchor} aria-hidden="true" />
 
-        {tags.length > 1 && (
+          {tags.length > 1 && (
+            <FadeUp>
+              <div
+                className={styles.listFilters}
+                role="group"
+                aria-label={`Filter by ${content.filterLabel ?? "industry"}`}
+              >
+                <button
+                  type="button"
+                  className={`${styles.listChip}${active === null ? ` ${styles.listChipOn}` : ""}`}
+                  aria-pressed={active === null}
+                  onClick={() => setActive(null)}
+                >
+                  {allLabel}
+                </button>
+                {tags.map((tag) => (
+                  <button
+                    key={tag}
+                    type="button"
+                    className={`${styles.listChip}${active === tag ? ` ${styles.listChipOn}` : ""}`}
+                    aria-pressed={active === tag}
+                    onClick={() => setActive(tag)}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            </FadeUp>
+          )}
+
           <FadeUp>
             <div
-              className={styles.listFilters}
-              role="group"
-              aria-label={`Filter by ${content.filterLabel ?? "industry"}`}
+              className={`${styles.caseGrid}${content.itemCtaLabel ? ` ${styles.caseGridRows}` : ""}`}
+              aria-live="polite"
             >
-              <button
-                type="button"
-                className={`${styles.listChip}${active === null ? ` ${styles.listChipOn}` : ""}`}
-                aria-pressed={active === null}
-                onClick={() => setActive(null)}
-              >
-                {allLabel}
-              </button>
-              {tags.map((tag) => (
-                <button
-                  key={tag}
-                  type="button"
-                  className={`${styles.listChip}${active === tag ? ` ${styles.listChipOn}` : ""}`}
-                  aria-pressed={active === tag}
-                  onClick={() => setActive(tag)}
-                >
-                  {tag}
-                </button>
-              ))}
-            </div>
-          </FadeUp>
-        )}
-
-        <FadeUp>
-          <div
-            className={`${styles.caseGrid}${content.itemCtaLabel ? ` ${styles.caseGridRows}` : ""}`}
-            aria-live="polite"
-          >
-            {shown.map((item) => {
-              if (item.href && content.itemCtaLabel) {
-                return (
-                  <article key={item.key} className={`${styles.caseCard} ${styles.caseCardRich}`}>
-                    {item.image && (
-                      /* Same destination as the title and button; kept out of the
-                       tab order and the accessibility tree so a keyboard or
-                       screen-reader user meets each study's link once, not thrice. */
-                      <SiteLink
-                        href={item.href}
-                        className={styles.caseMedia}
-                        tabIndex={-1}
-                        aria-hidden="true"
-                      >
-                        <Image
-                          src={item.image.src}
-                          alt=""
-                          width={item.image.width}
-                          height={item.image.height}
-                          sizes="(min-width: 1000px) 40vw, 92vw"
-                          className={styles.caseMediaImg}
-                        />
-                      </SiteLink>
-                    )}
-                    <div className={styles.caseContent}>
-                      <h2 className={styles.caseTitleRich}>
-                        <SiteLink href={item.href} className={styles.caseTitleLink}>
-                          {item.title}
+              {shown.map((item) => {
+                if (item.href && content.itemCtaLabel) {
+                  return (
+                    <article key={item.key} className={`${styles.caseCard} ${styles.caseCardRich}`}>
+                      {item.image && (
+                        /* Same destination as the title and button; kept out of the
+                         tab order and the accessibility tree so a keyboard or
+                         screen-reader user meets each study's link once, not thrice. */
+                        <SiteLink
+                          href={item.href}
+                          className={styles.caseMedia}
+                          tabIndex={-1}
+                          aria-hidden="true"
+                        >
+                          <Image
+                            src={item.image.src}
+                            alt=""
+                            width={item.image.width}
+                            height={item.image.height}
+                            sizes="(min-width: 1000px) 40vw, 92vw"
+                            className={styles.caseMediaImg}
+                          />
                         </SiteLink>
-                      </h2>
-                      {item.body && <p className={styles.caseBody}>{item.body}</p>}
-                      {item.platforms && item.platforms.length > 0 && (
-                        <div className={styles.caseMeta}>
-                          <span className={styles.caseMetaLabel}>Platform :</span>
-                          <ul className={styles.casePlatforms}>
-                            {item.platforms.map((p) => (
-                              <li key={p.name} className={styles.casePlatform}>
-                                {p.icon ? (
-                                  <Image
-                                    src={p.icon}
-                                    alt={p.name}
-                                    title={p.name}
-                                    width={48}
-                                    height={48}
-                                  />
-                                ) : (
-                                  p.name
-                                )}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
                       )}
-                      <div className={styles.caseMeta}>
-                        <span className={styles.caseMetaLabel}>Category :</span>
-                        <span className={styles.caseMetaValue}>{item.tag}</span>
+                      <div className={styles.caseContent}>
+                        <h2 className={styles.caseTitleRich}>
+                          <SiteLink href={item.href} className={styles.caseTitleLink}>
+                            {item.title}
+                          </SiteLink>
+                        </h2>
+                        {item.body && <p className={styles.caseBody}>{item.body}</p>}
+                        {item.platforms && item.platforms.length > 0 && (
+                          <div className={styles.caseMeta}>
+                            <span className={styles.caseMetaLabel}>Platform :</span>
+                            <ul className={styles.casePlatforms}>
+                              {item.platforms.map((p) => (
+                                <li key={p.name} className={styles.casePlatform}>
+                                  {p.icon ? (
+                                    <Image
+                                      src={p.icon}
+                                      alt={p.name}
+                                      title={p.name}
+                                      width={48}
+                                      height={48}
+                                    />
+                                  ) : (
+                                    p.name
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        <div className={styles.caseMeta}>
+                          <span className={styles.caseMetaLabel}>Category :</span>
+                          <span className={styles.caseMetaValue}>{item.tag}</span>
+                        </div>
+                        <div className={styles.caseCta}>
+                          <SiteLink href={item.href} className={`${styles.btn} ${styles.btnPrimary}`}>
+                            {content.itemCtaLabel} <span aria-hidden="true">→</span>
+                          </SiteLink>
+                        </div>
                       </div>
-                      <div className={styles.caseCta}>
-                        <SiteLink href={item.href} className={`${styles.btn} ${styles.btnPrimary}`}>
-                          {content.itemCtaLabel} <span aria-hidden="true">→</span>
-                        </SiteLink>
-                      </div>
-                    </div>
+                    </article>
+                  );
+                }
+
+                const inner = (
+                  <>
+                    <span className={styles.caseTag}>{item.tag}</span>
+                    {item.metricValue && (
+                      <span className={styles.caseMetric}>{item.metricValue}</span>
+                    )}
+                    {item.metricLabel && (
+                      <span className={styles.caseMetricLabel}>{item.metricLabel}</span>
+                    )}
+                    <h2 className={styles.caseTitle}>{item.title}</h2>
+                    {item.body && <p className={styles.caseBody}>{item.body}</p>}
+                    {item.year && <span className={styles.caseYear}>{item.year}</span>}
+                  </>
+                );
+
+                /* A linked card is an anchor wrapping the whole tile, so the target
+                 is the tile rather than a "read more" the pointer has to find. */
+                return item.href ? (
+                  <SiteLink
+                    key={item.key}
+                    href={item.href}
+                    className={`${styles.caseCard} ${styles.caseCardLink}`}
+                  >
+                    {inner}
+                  </SiteLink>
+                ) : (
+                  <article key={item.key} className={styles.caseCard}>
+                    {inner}
                   </article>
                 );
-              }
-
-              const inner = (
-                <>
-                  <span className={styles.caseTag}>{item.tag}</span>
-                  {item.metricValue && (
-                    <span className={styles.caseMetric}>{item.metricValue}</span>
-                  )}
-                  {item.metricLabel && (
-                    <span className={styles.caseMetricLabel}>{item.metricLabel}</span>
-                  )}
-                  <h2 className={styles.caseTitle}>{item.title}</h2>
-                  {item.body && <p className={styles.caseBody}>{item.body}</p>}
-                  {item.year && <span className={styles.caseYear}>{item.year}</span>}
-                </>
-              );
-
-              /* A linked card is an anchor wrapping the whole tile, so the target
-               is the tile rather than a "read more" the pointer has to find. */
-              return item.href ? (
-                <SiteLink
-                  key={item.key}
-                  href={item.href}
-                  className={`${styles.caseCard} ${styles.caseCardLink}`}
-                >
-                  {inner}
-                </SiteLink>
-              ) : (
-                <article key={item.key} className={styles.caseCard}>
-                  {inner}
-                </article>
-              );
-            })}
-          </div>
-        </FadeUp>
-      </div>
+              })}
+            </div>
+          </FadeUp>
+        </div>
+      )}
     </section>
   );
 }

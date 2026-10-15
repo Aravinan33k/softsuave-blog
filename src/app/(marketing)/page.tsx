@@ -36,8 +36,17 @@ export const metadata = homeMetadata;
 
 export default function HomePage() {
   return (
+<<<<<<< Updated upstream
     <div className={styles.page}>
       <JsonLd data={homeJsonLd()} />
+=======
+    <div className={`${styles.page} ${styles.homePage}`}>
+      {/* softsuave.com's homepage schema, verbatim: one <script> per block,
+          as live serves them — see `lib/home/home-live-schema.ts`. */}
+      {homeJsonLd().map((node) => (
+        <JsonLd key={String(node['@type'])} data={node} />
+      ))}
+>>>>>>> Stashed changes
       <Preloader />
       {/* <Cursor /> */}
       <Nav />
