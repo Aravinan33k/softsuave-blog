@@ -60,7 +60,9 @@ const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+  // `microphone=(self)`: the chat widget's mic and voice chat record on this
+  // origin only (components/chatbot/voice.ts); no embedded frame may.
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(self), geolocation=()' },
   // noindex, nofollow on EVERY response — pages, feeds, images, files — until
   // the site is opened to search engines (`siteIndexable`, lib/flags.ts). A
   // header, not just the robots meta, because it covers non-HTML responses too

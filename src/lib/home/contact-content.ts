@@ -109,21 +109,13 @@ export const quickContact = {
   email: { label: "contact@softsuave.com", text: "Drop us an email", href: "mailto:contact@softsuave.com" },
   /**
    * The live "Live Chat" row opens softsuave.com's own AI assistant ("Soft
-   * Suave - Live Chat"), not WhatsApp — which has its own button above. This
-   * app opens the same assistant in `components/contact/live-chat`, talking to
-   * it through `/api/v1/chat`. `panel` is the panel's own copy, verbatim from
-   * the live widget.
+   * Suave - Live Chat"), not WhatsApp — which has its own button above. Here
+   * it opens the same assistant in the site-wide chat widget (components/chatbot).
    */
   liveChat: {
     label: "Live Chat",
     text: "Instant answers - Real time support.",
     icon: "/images/contact/icon-live-chat.png",
-    panel: {
-      title: "Soft Suave - Live Chat",
-      greeting: "Hey there! Let’s get started now, feel free to share what you’re looking for.",
-      placeholder: "Enter your message",
-      error: "Sorry — the assistant can’t reply right now. Please try again, or use the contact form.",
-    },
   },
 } as const;
 

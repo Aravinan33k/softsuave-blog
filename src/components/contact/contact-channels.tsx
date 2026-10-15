@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,7 +15,7 @@ import { CONTACT_FORM_ID, contactForm, quickContact, serviceOptions } from "@/li
 import CardHead from "./card-head";
 import EmailQuestion from "./email-question";
 import ContactScheduler from "./contact-scheduler";
-import LiveChat from "./live-chat";
+import { openChatBot } from "@/components/chatbot/open-chatbot";
 import styles from "./contact.module.css";
 
 /**
@@ -298,8 +298,6 @@ function SteppedForm() {
 
 function QuickContactCard() {
   const q = quickContact;
-  const [chatOpen, setChatOpen] = useState(false);
-  const closeChat = useCallback(() => setChatOpen(false), []);
   return (
     <div className={`${styles.channelCard} ${styles.quickCard}`}>
       <CardHead icon={q.icon} title={q.title} subtitle={q.subtitle} level={3} />
@@ -325,15 +323,9 @@ function QuickContactCard() {
         <Arrow />
       </a>
 
-      {/* Opens the Soft Suave assistant panel — the live page's Live Chat —
-          rather than an external app: see `quickContact.liveChat`. */}
-      <button
-        type="button"
-        className={styles.quickRow}
-        onClick={() => setChatOpen(true)}
-        aria-haspopup="dialog"
-        aria-expanded={chatOpen}
-      >
+      {/* Opens the site-wide chat widget (components/chatbot) — the live
+          page's Live Chat — rather than an external app: see `quickContact.liveChat`. */}
+      <button type="button" className={styles.quickRow} onClick={openChatBot} aria-haspopup="dialog">
         <Image src={publicMediaUrl(q.liveChat.icon)} alt="" width={46} height={46} className={styles.quickRowImg} />
         <span className={styles.quickText}>
           <span className={styles.quickTitle}>
@@ -344,7 +336,6 @@ function QuickContactCard() {
         </span>
         <Arrow />
       </button>
-      <LiveChat open={chatOpen} onClose={closeChat} />
     </div>
   );
 }

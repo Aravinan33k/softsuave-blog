@@ -3,6 +3,7 @@ import { Lato, PT_Serif } from "next/font/google";
 import { env } from "@/lib/env";
 import { pageRobots } from "@/lib/flags";
 import GoogleTagManager from "@/components/analytics/google-tag-manager";
+import ChatBot from "@/components/chatbot/chatbot";
 import "./globals.css";
 
 // Only the two brand fonts are loaded. Fonts declared in the root layout are
@@ -61,6 +62,9 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        {/* The "Soft Suave - Live Chat" widget, on every public page as on
+            softsuave.com (it hides itself on /admin and previews). */}
+        <ChatBot />
         {/* Last in the body: the container is `afterInteractive`, so its
             position here only decides where the noscript fallback lands. */}
         <GoogleTagManager />
