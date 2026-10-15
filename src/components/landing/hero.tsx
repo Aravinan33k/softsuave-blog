@@ -256,6 +256,20 @@ export default function Hero({
   const lastLine = content.titleLines.length - 1;
   const accents = accentSlices(content.titleLines, content.accent);
 
+  // What sits above the H1. Beside a form it gets a row of its own above the
+  // grid, so the copy column opens on the H1 and the form's top edge lines up
+  // with the H1's (15 Oct review: "Hero H1 name & forms horizontally aligned in
+  // the same line") — inside the column, a breadcrumb or kicker pushed the H1
+  // 25-45px below the card. The `aside` variant keeps it in the column, centred
+  // against its image as before.
+  const head = (
+    <>
+      {/* "Home › <page>", named from the route — see common/breadcrumb. */}
+      {breadcrumb && <Breadcrumb />}
+      {content.eyebrow && <span className={`${styles.kicker} ${styles.heroEyebrow}`}>{content.eyebrow}</span>}
+    </>
+  );
+
   return (
     <section
       ref={root}
@@ -291,11 +305,11 @@ export default function Hero({
         <div className={styles.heroGlow} aria-hidden />
       )}
 
+      {!content.aside && <div className={styles.heroHead}>{head}</div>}
+
       <div className={content.aside ? `${styles.heroGrid} ${styles.heroGridAside}` : styles.heroGrid}>
         <div className={content.titleFit || content.titleOneLine ? styles.heroCopyFit : undefined}>
-          {/* "Home › <page>", named from the route — see common/breadcrumb. */}
-          {breadcrumb && <Breadcrumb />}
-          {content.eyebrow && <span className={`${styles.kicker} ${styles.heroEyebrow}`}>{content.eyebrow}</span>}
+          {content.aside && head}
           <h1
             className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}${
               content.titleOneLine ? ` ${styles.heroTitleOneLine}` : ""

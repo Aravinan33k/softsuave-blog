@@ -163,10 +163,16 @@ export default function Hero({
 
       <div className={styles.heroGlow} aria-hidden />
 
+      {/* "Home › <page>", named from the route — see common/breadcrumb. A row
+          of its own above the grid, so the copy column opens on the H1 and the
+          form's top edge lines up with it (15 Oct review: "Hero H1 name &
+          forms horizontally aligned in the same line"). */}
+      <div className={styles.heroHead}>
+        <Breadcrumb />
+      </div>
+
       <div className={styles.heroGrid}>
         <div className={content.titleFit ? styles.heroCopyFit : undefined}>
-          {/* "Home › <page>", named from the route — see common/breadcrumb. */}
-          <Breadcrumb />
           <h1
             className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}`}
             style={content.titleFit ? titleFitStyle(content.titleLines) : undefined}

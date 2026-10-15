@@ -240,7 +240,9 @@ export default function ContactScheduler() {
               </button>
             </div>
 
-            <div className={styles.calSlots} role="group" aria-label="Choose a time">
+            {/* `data-lenis-prevent`: the page's smooth scroll would otherwise
+                take the wheel, and the slot list must scroll on its own. */}
+            <div className={styles.calSlots} role="group" aria-label="Choose a time" data-lenis-prevent>
               {load.status === "loading" ? (
                 <p className={styles.calLoading}>{scheduleMeeting.loading}</p>
               ) : (

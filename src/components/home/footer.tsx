@@ -57,8 +57,8 @@ export default function Footer({ addressMicrodata = true }: { addressMicrodata?:
       <div className={styles.footerGrid}>
         {/* Brand block order is load-bearing and was called out in review:
             lockup first, then the tagline, then the social marks. The email
-            used to sit between the tagline and the marks, which split the
-            brand's own three-part stack — it now follows them. */}
+            that used to close the block was removed on review (15 Oct); the
+            mobile menu still lists it. */}
         <div className={styles.footerBrand}>
           <Logo tone="light" size={44} className={styles.footerLogo} />
           <p className={styles.footerTag}>{footer.tagline}</p>
@@ -81,14 +81,6 @@ export default function Footer({ addressMicrodata = true }: { addressMicrodata?:
               );
             })}
           </ul>
-
-          <a
-            href={`mailto:${footer.contact.email}`}
-            className={styles.footerEmail}
-            data-cursor="Email"
-          >
-            {footer.contact.email}
-          </a>
         </div>
 
         {footer.columns.map((col) => (

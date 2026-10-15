@@ -323,6 +323,21 @@
   margin: 0 auto;
 }
 
+/* The breadcrumb's row above `.heroGrid` (see hero.tsx). It carries the H1's
+   old 0.5em top margin, so the gap beneath the breadcrumb is unchanged while
+   the H1 now opens the copy column, level with the form's top edge. Same rule
+   as landing.module.css's `.heroHead`. */
+.heroHead {
+  position: relative;
+  z-index: 2;
+  max-width: 1500px;
+  margin: 0 auto calc(var(--fs-h1) * 0.5);
+}
+
+.heroHead + .heroGrid .heroTitle {
+  margin-top: 0;
+}
+
 /* The homepage's display headline — same face, weight and tracking. Only the
    clamp is scaled down: the homepage caps at 6rem for a full-bleed headline,
    while this hero gives ~45% of the row to the enquiry form.
@@ -2134,7 +2149,10 @@
   .heroGrid {
     grid-template-columns: minmax(0, 1fr) var(--enquiry-col);
     gap: clamp(48px, 5vw, 88px);
-    align-items: center;
+    /* Form pinned to the copy column's top edge — the H1's (`.heroHead`) — so
+       the card and the headline start on one line. Centred, it landed 30-100px
+       below the H1 depending on the copy's length (15 Oct review). */
+    align-items: start;
   }
 
   /* Prose + masthead lead, illustration supports. `end`, not `start` or

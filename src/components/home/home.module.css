@@ -3063,10 +3063,14 @@ h1.h2 {
 }
 
 /* ---- prominent enquiry CTA ----
-   The site CTA at a larger size: same orange plate and the same hover as
-   `.pillFilled` above — the --cta-hover-bg fill wipes in from the left (white
-   on the dark canvas, near-black in a `.light` band) and the label inks over
-   to --cta-hover-ink. No lift and no glow, per the pill-button note. */
+   The site CTA: same orange plate and the same hover as `.pillFilled` above —
+   the --cta-hover-bg fill wipes in from the left (white on the dark canvas,
+   near-black in a `.light` band) and the label inks over to --cta-hover-ink.
+   No lift and no glow, per the pill-button note.
+   Sized as every other section CTA (`.pillLg`, landing's `.btnLg`): 51px tall,
+   13.7px type at desktop. It used to be a larger 68px / 16px plate (1.3em 3.4em
+   padding), which outweighed the band's own heading (15 Oct review: "decrease
+   the size of the BOOK A FREE CONSULTATION button in all pages"). */
 .holdBtn {
   position: relative;
   overflow: hidden;
@@ -3076,11 +3080,11 @@ h1.h2 {
   background: var(--cta-bg, #ff5436);
   /* The fixed button orange and its ink, as .pillFilled above. */
   color: var(--cta-ink, #ffffff);
-  padding: 1.3em 3.4em;
+  padding: 1.05em 2.1em;
   font-family: var(--font-eyebrow);
-  font-size: clamp(13px, 1.15vw, 16px);
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
   /* background snaps (see the hover rule) rather than fading under the wipe */
@@ -3204,13 +3208,6 @@ h1.h2 {
   line-height: 1.55;
   color: var(--muted);
   margin: 0;
-}
-
-.footerEmail {
-  font-family: var(--font-eyebrow);
-  font-size: 13px;
-  letter-spacing: 0.12em;
-  color: var(--accent);
 }
 
 .soundToggle {
@@ -7274,8 +7271,7 @@ h1.h2 {
     padding: 9px 12px;
   }
 
-  .footerCol a,
-  .footerEmail {
+  .footerCol a {
     padding: 5px 0;
   }
 

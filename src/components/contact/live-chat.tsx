@@ -93,7 +93,9 @@ export default function LiveChat({ open, onClose }: { open: boolean; onClose: ()
         </button>
       </div>
 
-      <div ref={listRef} className={styles.list} aria-live="polite">
+      {/* `data-lenis-prevent`, as the scheduler's slot list: without it the
+          page's smooth scroll takes the wheel and the thread never scrolls. */}
+      <div ref={listRef} className={styles.list} aria-live="polite" data-lenis-prevent>
         {messages.map((m, i) => (
           <p key={i} className={m.from === "user" ? styles.user : styles.bot}>
             {m.from === "bot" ? withLinks(m.text) : m.text}

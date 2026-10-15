@@ -349,6 +349,25 @@
   margin: 0 auto;
 }
 
+/* Breadcrumb + optional kicker, in a row of their own above `.heroGrid` (see
+   hero.tsx), so the copy column opens on the H1 and the form's top edge meets
+   the H1's (15 Oct review). The row carries the H1's old top margin — 0.5em,
+   0.3em under a kicker — so the gap beneath the breadcrumb is unchanged. */
+.heroHead {
+  position: relative;
+  z-index: 2;
+  max-width: 1500px;
+  margin: 0 auto calc(var(--fs-h1) * 0.5);
+}
+
+.heroHead:has(> .heroEyebrow) {
+  margin-bottom: calc(var(--fs-h1) * 0.3);
+}
+
+.heroHead + .heroGrid .heroTitle {
+  margin-top: 0;
+}
+
 /* Extra legibility margin for text sitting directly over the now-vibrant
    image — the veil is kept light on purpose so the photo stays the
    punchiest thing in the section, so the text carries its own contrast
@@ -2719,9 +2738,11 @@
        the same value, so the card is one size on every page. */
     grid-template-columns: minmax(0, 1fr) var(--enquiry-col);
     gap: clamp(48px, 5vw, 88px);
-    /* The enquiry form is the shorter column — floats centered in the row
-       instead of pinned to the copy column's top edge. */
-    align-items: center;
+    /* The form is pinned to the copy column's top edge, which is the H1's
+       (`.heroHead` above), so the card and the headline start on one line on
+       every page. It used to float centred in the row, landing 30-135px below
+       the H1 depending on how long the copy ran (15 Oct review). */
+    align-items: start;
   }
 
   .overviewGrid {
@@ -3345,11 +3366,6 @@
 @media (min-width: 1000px) {
   .heroCompact .heroBg {
     object-position: center 38%;
-  }
-
-  /* Form pinned to the copy column's top edge rather than centred in the row. */
-  .heroCompact .heroGrid {
-    align-items: start;
   }
 }
 
