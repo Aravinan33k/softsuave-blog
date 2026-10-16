@@ -51,7 +51,7 @@ const sizes: Record<ButtonSize, string> = {
 
 // Mono, uppercase and tracked — the site's button voice (`.btn`, landing).
 const baseStyles =
-  "inline-flex items-center justify-center rounded-full font-mono font-normal uppercase tracking-[0.1em] whitespace-nowrap active:scale-[0.98] disabled:pointer-events-none disabled:opacity-60";
+  "inline-flex items-center justify-center rounded-[var(--btn-radius)] font-mono font-normal uppercase tracking-[0.1em] whitespace-nowrap active:scale-[0.98] disabled:pointer-events-none disabled:opacity-60";
 
 type SharedProps = {
   variant?: ButtonVariant;

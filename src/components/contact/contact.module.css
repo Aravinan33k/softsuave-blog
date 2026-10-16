@@ -313,7 +313,7 @@
   justify-content: center;
   gap: 0.5em;
   padding: 0.8em 1.5em;
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   font-family: var(--font-eyebrow);
   font-size: var(--fs-label);
   letter-spacing: 0.12em;
@@ -424,7 +424,7 @@
   width: 32px;
   height: 32px;
   border: 1px solid transparent;
-  border-radius: 50%;
+  border-radius: var(--btn-radius);
   background: transparent;
   color: var(--card-accent);
   font-size: 1.25rem;

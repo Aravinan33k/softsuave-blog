@@ -433,7 +433,7 @@
   margin-top: 10px;
   padding: 0.85em 1.4em;
   border: 1px solid var(--accent, #ff5436);
-  border-radius: var(--fx-radius);
+  border-radius: var(--btn-radius, 6px);
   background: var(--accent, #ff5436);
   color: var(--on-accent, #140b08);
   font-family: var(--font-body);

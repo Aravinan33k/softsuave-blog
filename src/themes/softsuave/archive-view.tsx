@@ -10,7 +10,7 @@ export function SoftSuaveArchiveView({ site, heading, description, posts, total,
   // The tabs moved onto the dark hero, so the resting state is a translucent
   // white instead of the light grey it wore against the white page body.
   const pill = (active: boolean) =>
-    `ss-heading rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+    `ss-heading rounded-[6px] px-5 py-2 text-sm font-semibold transition-colors ${
       active ? 'bg-[#ff0042] text-white' : 'border border-white/20 bg-white/10 text-white hover:bg-white/20'
     }`;
 

@@ -447,7 +447,7 @@
   gap: 10px;
   min-height: 46px;
   padding: 0 20px 0 22px;
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   background: var(--cta-bg, #ff5436);
   color: var(--cta-ink, #ffffff);
   font-family: var(--font-eyebrow);

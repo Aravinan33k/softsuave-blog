@@ -149,7 +149,7 @@ export function SoftSuavePostView({ post, relatedPosts }: PostViewProps) {
             <p className="mt-1 text-sm text-white/90">Hire vetted developers & AI experts with Soft Suave.</p>
             <a
               href="https://www.softsuave.com/contact"
-              className="ss-heading mt-4 inline-block rounded-full bg-white px-4 py-2 text-sm font-bold text-[#ff0042] transition-transform hover:scale-105"
+              className="ss-heading mt-4 inline-block rounded-[6px] bg-white px-4 py-2 text-sm font-bold text-[#ff0042] transition-transform hover:scale-105"
             >
               Let&apos;s Connect →
             </a>

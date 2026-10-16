@@ -227,6 +227,12 @@ html.lenis body {
   --section-y: clamp(30px, 3.4vw + 2px, 56px);
   --section-head-gap: clamp(20px, 1.6vw + 8px, 36px);
 
+  /* Every button's corner (16 Oct): a rectangle with softly rounded corners,
+     in place of the 999px capsule (and the round icon buttons). Text and icon
+     buttons, filled and outlined, all read it — chips, tags, badges, dots and
+     avatars are not buttons and keep their own shapes. */
+  --btn-radius: 6px;
+
   min-height: 100vh;
   background: var(--bg);
   color: var(--text);
