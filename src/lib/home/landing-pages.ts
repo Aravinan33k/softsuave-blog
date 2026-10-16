@@ -305,6 +305,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/faqs', title: 'Frequently Asked Questions' },
   { path: '/case-studies', title: 'Case Studies' },
   { path: '/success-stories', title: 'Success Stories' },
+  { path: '/privacy-policy', title: 'Privacy Policy' },
   // The three Company-menu routes that had no page until now. Every hero
   // enquiry form on the surface links to /career-overview (see
   // `delivery-shared.ts`'s `sharedHeroAlert`), so leaving it unregistered sent
