@@ -99,6 +99,7 @@ const HOMEPAGE_WORK: WorkCarouselContent = {
     imageId: c.img,
     metric: `${c.metricValue} ${c.metricLabel}`,
     year: c.year,
+    href: c.href,
   })),
 };
 

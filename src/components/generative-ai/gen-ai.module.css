@@ -123,6 +123,10 @@
   }
 
   .head:has(> .intro) > .intro {
+    /* Readable measure (800px), held to the END of its column: on a wide
+       screen the intro and its rule close on the frame's right edge with
+       every other band instead of stopping short of it (16 Oct, 1920px). */
+    justify-self: end;
     align-self: stretch;
     display: flex;
     align-items: center;

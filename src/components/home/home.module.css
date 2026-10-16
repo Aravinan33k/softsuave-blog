@@ -209,7 +209,7 @@ h1.h2 {
 @media (min-width: 900px) {
   .sectionHead:has(> :is(h2, div.h2)):has(> .lead) {
     --split-gap: clamp(28px, 3vw, 44px);
-    max-width: 1400px;
+    max-width: none;
     display: grid;
     grid-template-columns: fit-content(60%) minmax(0, 1fr);
     grid-template-rows: auto auto;
@@ -236,6 +236,10 @@ h1.h2 {
 
   .sectionHead:has(> :is(h2, div.h2)):has(> .lead) > .lead {
     grid-column: 2;
+    /* Readable measure (800px), held to the END of its column: on a wide
+       screen the intro and its rule close on the frame's right edge with
+       every other band instead of stopping short of it (16 Oct, 1920px). */
+    justify-self: end;
     grid-row: 1 / span 2;
     align-self: stretch;
     display: flex;
@@ -1276,17 +1280,33 @@ h1.h2 {
   mix-blend-mode: difference;
 }
 
+/* Tag and metric share the foot's first row, the title runs the full width
+   under them, and the rule closes the foot (16 Oct review: "the cards are
+   coming in different sizes … looking misaligned"). The title used to share
+   its row with the metric, a no-wrap phrase that left it 140-190px on a laptop
+   lane, so titles wrapped to anything from one to four lines. The wrapper div
+   only keeps the markup order; `display: contents` lets its tag and title
+   join this row directly. A metric too long to sit beside the tag drops to a
+   line of its own, still right-aligned. Lines pack at the top: on the desktop
+   lane the foot is stretched to the lane's tallest (see ALIGNED TILES), and
+   the slack belongs above the rule, not between the tag and the title. */
 .tileFoot {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 16px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  align-content: flex-start;
+  gap: 4px 16px;
   margin-top: 14px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--line);
 }
 
+.tileFoot > div {
+  display: contents;
+}
+
 .tileTag {
+  order: 1;
   font-family: var(--font-eyebrow);
   font-size: clamp(10px, 0.72vw, 11px);
   letter-spacing: 0.18em;
@@ -1295,26 +1315,29 @@ h1.h2 {
 }
 
 .tileTitle {
-  margin: 7px 0 0;
+  order: 3;
+  flex: 1 0 100%;
+  margin: 3px 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
   font-size: var(--fs-card-title);
   line-height: 1.24;
   letter-spacing: -0.02em;
   color: var(--text-bright);
-  max-width: 18ch;
 }
 
 .tileMetric {
+  order: 2;
+  margin-left: auto;
   font-size: clamp(0.75rem, 0.85vw, 0.8125rem);
   color: var(--muted);
   text-align: right;
-  white-space: nowrap;
 }
 
 /* Case-study summary, under the foot rule. Shown in full — a truncated
-   outcome is the one line of a case study that has to land. Tiles are
-   top-aligned in the lane instead of matched in height (see .hTrack). */
+   outcome is the one line of a case study that has to land. On the desktop
+   lane every summary starts at the same height (ALIGNED TILES); a longer
+   one just runs further down its own tile. */
 .tileBody {
   margin: 12px 0 0;
   font-size: clamp(0.8125rem, 0.92vw, 0.875rem);
@@ -1950,7 +1973,6 @@ h1.h2 {
    a column with real margins either side rather than running to the gutters —
    which is what makes the surrounding ground read as deliberate space. */
 .reviewsInner {
-  max-width: 1180px;
   margin-inline: auto;
 }
 
@@ -3782,6 +3804,35 @@ h1.h2 {
     scroll-snap-align: start;
   }
 
+  /* ALIGNED TILES (16 Oct review: "the cards are coming in different sizes
+     … looking misaligned"). The tiles stand side by side here, so their rows
+     are matched across the lane: the track is a single row of grid columns,
+     one card wide each, and every tile a subgrid over three shared rows —
+     image, foot, summary. A foot is then as tall as the lane's longest title,
+     and every tag, title, rule and summary starts at the same height. Column
+     width, gap, padding and snapping are unchanged, so the lane scrolls and
+     frames exactly as before (work-grid.tsx measures tiles by their boxes).
+     Not under reduced motion: there the lane is one stacked column (see the
+     REDUCED MOTION block), with nothing beside a tile to line up with. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hTrack {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: var(--lane-card);
+      grid-template-rows: repeat(3, auto);
+      row-gap: 0;
+      align-items: stretch;
+    }
+    .hTile {
+      grid-row: span 3;
+      display: grid;
+      grid-template-rows: subgrid;
+    }
+    .hOutro {
+      grid-row: span 3;
+    }
+  }
+
   .hControls {
     display: flex;
     align-items: center;
@@ -5208,7 +5259,6 @@ h1.h2 {
   padding: var(--section-y) var(--gutter) clamp(6px, 1vw, 14px);
 }
 .whyIntroInner {
-  max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
@@ -5263,6 +5313,9 @@ h1.h2 {
     padding-right: clamp(28px, 3vw, 44px);
   }
   .whyIntroFoot {
+    /* Held to the end of its column (the 46ch body sets its width), so the
+       intro closes on the frame's right edge with every other band. */
+    justify-self: end;
     margin-top: 0;
     padding-top: 0;
     padding-left: clamp(28px, 3vw, 44px);
@@ -5309,7 +5362,6 @@ h1.h2 {
    capped by viewport height (not just width), so a short window shrinks them
    instead of cutting them off. */
 .stackWrap {
-  max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -5470,11 +5522,13 @@ h1.h2 {
 }
 
 @media (min-width: 1000px) {
-  .whyIntroInner {
-    max-width: 1400px;
-  }
+  /* One row of four, spread edge to edge: the first card starts on the
+     frame's left edge and the last ends on its right one, in line with the
+     bands above and below (16 Oct, 1920px). The cards keep their size; the
+     gaps between them take up the rest of the width. */
   .stackWrap {
-    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
   }
   .stackTilt {
     max-width: min(370px, 38vh);
@@ -5540,7 +5594,6 @@ h1.h2 {
   padding-bottom: var(--section-y);
 }
 .clientsHead {
-  max-width: 1400px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
@@ -5584,6 +5637,9 @@ h1.h2 {
     max-width: min(20ch, var(--fit-width, 20ch));
   }
   .clientsHeadAside {
+    /* Held to the end of its column, so the intro closes on the frame's
+       right edge on a wide screen (16 Oct, 1920px) — see `.sectionHead`. */
+    justify-self: end;
     align-self: stretch;
     display: flex;
     align-items: center;
@@ -5601,7 +5657,6 @@ h1.h2 {
    full-width lines between sections to go. `.clientsMarquee` keeps its own
    vertical padding, so the logos still sit in a band of their own. */
 .clientsRow {
-  max-width: 1400px;
   margin: var(--section-head-gap) auto 0;
 }
 /* `Marquee` renders its own track — this only sizes the strip and fades its
@@ -6414,7 +6469,6 @@ h1.h2 {
    section's copy on the left, the badge strip and its dots on the right. Below
    900px they simply stack, copy first. */
 .recogLayout {
-  max-width: 1400px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
@@ -6581,7 +6635,6 @@ h1.h2 {
 
 .recogWall {
   list-style: none;
-  max-width: 1400px;
   margin: var(--section-head-gap) auto 0;
   padding: 0;
   display: grid;
@@ -7191,19 +7244,11 @@ h1.h2 {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* The tile foot is the specific thing that could not shrink: an uppercase
-     wide-tracked tag and a `white-space: nowrap` metric, side by side on one
-     line. The tag is a single word and cannot break, so the metric is the one
-     that has to give — it wraps here and keeps the pair on one row. Desktop
-     keeps `nowrap`, where the tile is 300-440px and the pair always fits. */
+  /* The tile foot wraps at every width now (tag and metric on one row, the
+     title under them — see `.tileFoot`), so a long metric already gives way
+     to the tag; only the gap is a touch wider on a phone. */
   .tileFoot {
-    flex-wrap: wrap;
-    gap: 6px 14px;
-  }
-
-  .tileMetric {
-    white-space: normal;
-    text-align: left;
+    column-gap: 14px;
   }
 
   /* ---- 2. viewport-height shells ------------------------------------------

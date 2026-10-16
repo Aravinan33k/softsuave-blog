@@ -311,7 +311,9 @@ export const caseStudies = {
   cta: { label: "View Case Study", href: "/case-studies" },
   // `img` is an explicit BrandImage id (page "four") rather than an index-derived
   // one, so reordering or adding a case study can't silently pair a study with
-  // another industry's photograph.
+  // another industry's photograph. `href` is the study's softsuave.com page,
+  // written as a site path like the case-study index (`case-studies-data.ts`):
+  // SiteLink sends it to the live site until this app serves that route.
   items: [
     {
       key: "logistics",
@@ -322,6 +324,7 @@ export const caseStudies = {
       metricValue: "95%+",
       metricLabel: "detection accuracy",
       year: "2025",
+      href: "/case-study-vehicle-intelligence",
     },
     {
       key: "ecommerce",
@@ -332,6 +335,7 @@ export const caseStudies = {
       metricValue: "$10M+",
       metricLabel: "ARR growth",
       year: "2026",
+      href: "/case-study-subscription-management-for-customer-growth",
     },
     {
       key: "healthtech",
@@ -342,6 +346,7 @@ export const caseStudies = {
       metricValue: "90%",
       metricLabel: "less manual record work",
       year: "2026",
+      href: "/case-study-wellpet-ai-smart-wellness-platform",
     },
     {
       key: "edtech",
@@ -352,6 +357,7 @@ export const caseStudies = {
       metricValue: "Real-time",
       metricLabel: "feedback & dashboards",
       year: "2025",
+      href: "/case-study-ai-powered-education-solutions",
     },
   ],
 } as const;

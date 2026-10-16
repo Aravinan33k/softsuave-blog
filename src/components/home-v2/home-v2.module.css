@@ -265,8 +265,6 @@
   display: grid;
   gap: 0 64px;
   align-items: end;
-  max-width: 1600px;
-  margin: 0 auto;
 }
 
 /* Two columns from laptops up: the heading left, the intro right. */
@@ -292,7 +290,6 @@
 .panels {
   /* The expanded panel's final width, read by its copy (see .panelBody). */
   container-type: inline-size;
-  max-width: 1600px;
   margin: var(--section-head-gap) auto 0;
   display: flex;
   flex-direction: column;
@@ -688,7 +685,6 @@
 
 .jrRail {
   position: relative;
-  max-width: 1600px;
   margin: var(--section-head-gap) auto 0;
 }
 
