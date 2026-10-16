@@ -1,6 +1,7 @@
 // Full Soft Suave navigation, mirroring the live mega-menu. Relative hrefs point
 // at the main marketing site; the Blog link is local.
 import { homepageEnabled } from '@/lib/flags';
+import { MARKETING_ROUTES } from '@/lib/home/landing-pages';
 
 export const SITE = 'https://www.softsuave.com';
 
@@ -20,7 +21,6 @@ export type NavItem =
   | { label: string; href: string; kind: 'groups'; groups: NavGroup[] };
 
 const INDUSTRIES: NavLink[] = [
-  { label: 'Aviation', href: '/ai-in-aviation', desc: 'Enhancing Aviation with Tech' },
   { label: 'EduTech', href: '/ai-solutions-in-edutech', desc: 'Transforming Education' },
   { label: 'FinTech', href: '/fintech-ai-solutions', desc: 'Shaping Financial Futures' },
   { label: 'Construction', href: '/ai-solutions-for-construction', desc: "Building Tomorrow's World" },
@@ -38,7 +38,10 @@ const SERVICE_GROUPS: NavGroup[] = [
       { label: 'AI Solutions', href: '/ai-development-service' },
       { label: 'Offshore Development', href: '/offshore-software-development-company' },
       { label: 'IT Staff Augmentation', href: '/it-staff-augmentation-services' },
-      { label: 'IT Outsourcing', href: '/it-outsourcing-services' },
+      // Not '/it-outsourcing-services' — that route doesn't exist. The
+      // registered page is '/it-outsourcing-company-india' (see
+      // lib/home/landing-pages.ts); the old href 404'd.
+      { label: 'IT Outsourcing', href: '/it-outsourcing-company-india' },
       { label: 'Legacy Modernization', href: '/legacy-modernization-services' },
       { label: 'Product Engineering', href: '/product-engineering-services' },
       { label: 'Cloud Computing', href: '/cloud-computing' },
@@ -71,6 +74,17 @@ const SERVICE_GROUPS: NavGroup[] = [
     ],
   },
   {
+    /**
+     * Nine entries, not thirteen — this used to also carry Android, iOS,
+     * Salesforce and Blockchain, mirroring softsuave.com's own menu. The
+     * planning sheet's "Landing Page Structure" tab files those four under
+     * "Hire by Skill" instead (its items 21–24 of 24), so they moved there —
+     * see `lib/home/nav-menu.ts`, the marketing surface's mega-menu, which
+     * carries the same nine/twenty-four split for the same reason. This file
+     * is a second, independent nav data source (rendered by
+     * `themes/softsuave/header.tsx` for the blog/CMS theme) that had drifted
+     * from that fix until now; keep the two in step.
+     */
     title: 'Hire by Role',
     links: [
       { label: 'Software Developer', href: '/hire-software-developers' },
@@ -78,15 +92,14 @@ const SERVICE_GROUPS: NavGroup[] = [
       { label: 'Mobile App Developer', href: '/hire-mobile-app-developers' },
       { label: 'Frontend Developer', href: '/hire-frontend-application-developer' },
       { label: 'Backend Developer', href: '/hire-backend-application-developer' },
-      { label: 'Dedicated Developer', href: '/hire-dedicated-developers' },
       { label: 'AI Developer', href: '/hire-ai-developer' },
       { label: 'QA Engineer', href: '/hire-qa-testers-india' },
-      { label: 'Android Developer', href: '/hire-android-developers' },
-      { label: 'iOS Developer', href: '/hire-ios-developers' },
       { label: 'DevOps Developer', href: '/hire-devops-developers' },
+      { label: 'Dedicated Developer', href: '/hire-dedicated-developers' },
     ],
   },
   {
+    // Twenty-four entries — see the note on "Hire by Role" above.
     title: 'Hire by Skill',
     links: [
       { label: 'React', href: '/hire-reactjs-developers' },
@@ -109,6 +122,10 @@ const SERVICE_GROUPS: NavGroup[] = [
       { label: 'MERN', href: '/hire-mern-stack-developers-india' },
       { label: 'Drupal', href: '/hire-drupal-developer' },
       { label: 'MEAN', href: '/hire-mean-stack-developers-india' },
+      { label: 'Android', href: '/hire-android-developers' },
+      { label: 'iOS', href: '/hire-ios-developers' },
+      { label: 'Salesforce', href: '/hire-salesforce-developer' },
+      { label: 'Blockchain', href: '/hire-blockchain-developer' },
     ],
   },
 ];
@@ -137,18 +154,77 @@ export const NAV: NavItem[] = [
 ];
 
 /**
- * Paths this app serves itself. The blog archive always; the marketing homepage
- * only once it is released — until then `/` belongs to the live site, so "home"
- * links go straight there rather than bouncing off our redirect to /blog.
+ * Paths this app serves itself. Everything else on this list of nav hrefs still
+ * belongs to the live marketing site, so it renders as an absolute link out.
+ *
+ * The blog archive is always ours. The marketing homepage and the landing pages
+ * that live in `app/(marketing)` (the registry in `lib/home/landing-pages.ts`)
+ * are ours only once the homepage is released: they share its route group, its
+ * theme and its release flag, so while `/` redirects to `/blog` these links go
+ * to the live site rather than to pages that are built but deliberately
+ * unreachable.
  */
-const LOCAL_PATHS = new Set(homepageEnabled ? ['/', '/blog'] : ['/blog']);
+
+// The list is the registry itself, not a copy of it: a landing page left off a
+// hand-kept list here had every link to it sent out to the live site, where
+// pages that exist only in this app 404 — silently, because `navHref` has no
+// way to know a path is ours unless it is named. Registering a route once in
+// `lib/home/landing-pages.ts` now covers the release gate, the sitemap and
+// these links together.
+const LOCAL_PATHS = new Set(homepageEnabled ? ['/blog', ...MARKETING_ROUTES] : ['/blog']);
+
+
+/**
+ * Whether we serve the page a nav href points at.
+ *
+ * A fragment is part of the link, not part of the route: the mega menu's sector
+ * items are "/industries#sector-fintech", and judging those by the whole string
+ * would miss the set and send every one of them out to softsuave.com — a page
+ * we serve ourselves. So the lookup is on the path alone.
+ */
+function isLocal(href: string): boolean {
+  return LOCAL_PATHS.has(href.split('#')[0]);
+}
+
+/**
+ * An href that is already a complete destination: an absolute URL, a
+ * protocol-relative one, or a non-http scheme such as `mailto:` / `tel:`.
+ *
+ * These must never be treated as site paths. `navHref` below prefixes
+ * anything it does not recognise with `SITE`, which turned
+ * `mailto:careers@softsuave.com` into
+ * `https://www.softsuave.commailto:careers@softsuave.com` — a dead link that
+ * fails silently, because nothing here validates the result. Content has
+ * carried absolute hrefs for a while (the construction page's FAQ links one);
+ * it only escaped this because that particular consumer renders a plain
+ * anchor rather than going through `SiteLink`.
+ */
+function isCompleteUrl(href: string): boolean {
+  return /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(href);
+}
 
 /** Absolute URL: local for our own routes, otherwise the marketing site. */
 export function navHref(href: string): string {
-  return LOCAL_PATHS.has(href) ? href : `${SITE}${href}`;
+  if (isCompleteUrl(href)) return href;
+  return isLocal(href) ? href : `${SITE}${href}`;
 }
 
-/** True when `navHref` sent this path off to the marketing site. */
+/** True when this href leaves the app — a complete URL, or a path `navHref`
+ *  sent off to the marketing site. Either way it needs a plain anchor. */
 export function isExternalHref(href: string): boolean {
-  return !LOCAL_PATHS.has(href);
+  return isCompleteUrl(href) || !isLocal(href);
+}
+
+/**
+ * App-internal route for a nav path, for use with `next/link`.
+ *
+ * The app owns the domain root, so every local path is already its own route and
+ * this is `navHref`. It stays a separate function because the two diverge under a
+ * subpath mount: `navHref` returns a PUBLIC url, which is what a plain `<a>`
+ * needs, while `next/link` applies `basePath` itself — under the old /blog mount,
+ * handing it the public "/blog" produced "/blog/blog", which only resolved via a
+ * 301 and downgraded client-side RSC navigation to a full page reload.
+ */
+export function navRoute(href: string): string {
+  return navHref(href);
 }

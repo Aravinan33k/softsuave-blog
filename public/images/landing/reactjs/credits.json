@@ -1,0 +1,74 @@
+[
+  {
+    "file": "/images/landing/reactjs/hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "An open laptop with React code on screen in a modern workspace",
+    "pexelsId": "34803986",
+    "source": "https://www.pexels.com/photo/34803986/",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAwAgCdASoQAAkAA4BaJaACdH8AFdYsmB5gAAD+80xs9dxYMB/Y2ej7T3eWbnMM5tybuVv3vm1D9VVtrjKW++9B0Trc/px8bB0fvII3H6m1eDKLnrIFAAAA"
+  },
+  {
+    "file": "/images/landing/reactjs/overview.webp",
+    "width": 1400,
+    "height": 1050,
+    "alt": "A focused view of a developer's screen showing application code",
+    "pexelsId": "34803998",
+    "source": "https://www.pexels.com/photo/34803998/",
+    "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAAAwAgCdASoQAAwAA4BaJbACdAEO//hMMUSkAAD+0PFD3LSHwqwTwYv6UN5+L2B8Sru0fQFaEWHK93s2eX2AAA=="
+  },
+  {
+    "file": "/images/landing/reactjs/svc-frontend.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "JSX code on a monitor, the syntax used in ReactJS development",
+    "pexelsId": "29459444",
+    "source": "https://www.pexels.com/photo/29459444/",
+    "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAAAQAgCdASoQAAwAA4BaJYwCdAEO+alH32BgAP727akXwU2fATm3SpQQbmcruTIh6OiFQ58xQZwAAA=="
+  },
+  {
+    "file": "/images/landing/reactjs/svc-uiux.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A laptop showing design tools used to build a user interface",
+    "pexelsId": "12760383",
+    "source": "https://www.pexels.com/photo/12760383/",
+    "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADQAQCdASoQAAwAA4BaJZgAAudFYYe5cAD+7VvjQDg+BY/h/tdRjJsdvyuDGKm4Ihx6EZzFpt6LT0MMKojloAAA"
+  },
+  {
+    "file": "/images/landing/reactjs/svc-api.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A developer working on an API integration across multiple devices",
+    "pexelsId": "2102416",
+    "source": "https://www.pexels.com/photo/2102416/",
+    "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAwAgCdASoQAAwAA4BaJYgAD5LPOg7dOZpAAAD+7e4zR0hlGFGjD5qNlR8OsJqms2bbPeNaWwApfSxlpu2J3esKQLh4ZisGLXnk+RX5mLFyMu9ixFT33VmLoTYV6GUo2vO6b6ipML7mrdfbKaAAAA=="
+  },
+  {
+    "file": "/images/landing/reactjs/svc-migration.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A program being run and reviewed on screen during a migration",
+    "pexelsId": "3888149",
+    "source": "https://www.pexels.com/photo/3888149/",
+    "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoQAAwAA4BaJZQAAh/A3byRQTAA/tJem1NIkGxXWB/nWe6/paVcS9jTRjfJCO9CWER+LNtEtrw7XP6AduMOOtRRmjCd4uAA"
+  },
+  {
+    "file": "/images/landing/reactjs/svc-plugin.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Custom code on screen, the kind a plugin build is written in",
+    "pexelsId": "2764993",
+    "source": "https://www.pexels.com/photo/2764993/",
+    "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADQAQCdASoQAAwAA4BaJQBOgCG8FjiUAAD+8YbQZuxo3Nmys4Ks15M+RYFdoW3oog3DkVtrOXPTpBoxrIAAAA=="
+  },
+  {
+    "file": "/images/landing/reactjs/svc-maintenance.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Hands maintaining hardware components, the ongoing upkeep behind a live application",
+    "pexelsId": "4705618",
+    "source": "https://www.pexels.com/photo/4705618/",
+    "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAABQAgCdASoQAAwAA4BaJYgCdAYuHgIIxhy1U2AAzKKuRIPnakwUgFons3+2PqfTbjf0/fjaGVhuyvF3UPlhg0IvK3Pl4P/Qb77exVLLJpvdVxin4Mh9xWwNNbtc2OeNKsKUI1JTHEmAAA=="
+  }
+]

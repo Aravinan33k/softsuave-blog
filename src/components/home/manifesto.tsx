@@ -10,7 +10,8 @@ import styles from "./home.module.css";
 /**
  * "Why Soft Suave" intro — an editorial header that sits directly above the
  * stacking proof cards. A one-shot masked word reveal (no pin, so the cards are
- * only a short scroll away), then the est. line + supporting paragraph rise in.
+ * only a short scroll away), then the supporting paragraph rises in. The years
+ * figure lives in the stat cards below, so it isn't repeated here.
  * Reduced motion leaves the text static.
  */
 export default function Manifesto() {
@@ -22,6 +23,8 @@ export default function Manifesto() {
       if (prefersReducedMotion() || !stmt.current) return;
 
       const split = new SplitType(stmt.current, { types: "lines,words" });
+      // Restore the space SplitType drops at each line wrap — see SplitReveal.
+      split.lines?.slice(0, -1).forEach((line) => line.after(" "));
       gsap.set(split.lines, {
         overflow: "hidden",
         clipPath: "inset(-12% 0% -40% 0%)",
@@ -47,17 +50,14 @@ export default function Manifesto() {
     <section ref={section} className={styles.whyIntro}>
       <div className={styles.whyIntroInner}>
         <div className={styles.whyIntroMain}>
-          <span className={styles.eyebrow}>{why.eyebrow}</span>
+          {/* light-band variant: the section sits in the page's `.light` wrapper */}
+          <span className={styles.eyebrowDark}>{why.eyebrow}</span>
           <h2 ref={stmt} className={styles.whyStatement}>
-            {why.title}.
+            {why.title}
           </h2>
         </div>
         <div className={styles.whyIntroFoot}>
-          <FadeUp className={styles.whyEst}>
-            <span>13+ Years of Experience</span>
-            <span className={styles.whyEstSub}>Est. 2012</span>
-          </FadeUp>
-          <FadeUp className={styles.whyIntroBody} delay={0.1}>
+          <FadeUp className={styles.whyIntroBody}>
             <p>{why.body}</p>
           </FadeUp>
         </div>
