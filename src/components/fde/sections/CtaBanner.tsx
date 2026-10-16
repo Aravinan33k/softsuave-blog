@@ -36,7 +36,7 @@ type CtaBannerProps = {
 
 export function CtaBanner({ content = ctaBannerContent }: CtaBannerProps) {
   return (
-    <section className="bg-background pb-10 pt-4 sm:pb-12 lg:pb-[60px]">
+    <section className="bg-background pt-4 pb-[var(--section-y)]">
       <Container size="wide">
         <div className="relative isolate mx-auto max-w-[1024px] overflow-hidden rounded-[1rem] border border-ink-border bg-ink px-6 py-12 text-center sm:px-12 sm:py-14">
           {/*

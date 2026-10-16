@@ -74,16 +74,18 @@
   text-align: center;
 }
 
-/* The same mono eyebrow the dark sections use, re-inked for this white card —
-   the theme's --muted grey is far too low-contrast here. */
+/* The same section eyebrow the dark sections use (Inter, see
+   `--font-section-label` in home.css), re-inked for this white card — the
+   theme's --muted grey is far too low-contrast here. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.7em;
-  font-family: var(--font-eyebrow);
+  font-family: var(--font-section-label);
+  font-weight: var(--section-label-weight);
   font-size: clamp(10px, 0.78vw, 12px);
   text-transform: uppercase;
-  letter-spacing: 0.28em;
+  letter-spacing: var(--section-label-tracking);
   color: #16181d;
 }
 

@@ -285,15 +285,15 @@
    INDUSTRIES — expanding image panels
    ============================================================ */
 .ind {
-  padding-top: clamp(64px, 8vw, 120px);
-  padding-bottom: clamp(64px, 8vw, 120px);
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
 }
 
 .panels {
   /* The expanded panel's final width, read by its copy (see .panelBody). */
   container-type: inline-size;
   max-width: 1600px;
-  margin: clamp(36px, 5vw, 64px) auto 0;
+  margin: var(--section-head-gap) auto 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -656,8 +656,8 @@
    ============================================================ */
 .jr {
   overflow: hidden;
-  padding-top: clamp(64px, 8vw, 120px);
-  padding-bottom: clamp(64px, 8vw, 120px);
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
   isolation: isolate;
 }
 
@@ -689,7 +689,7 @@
 .jrRail {
   position: relative;
   max-width: 1600px;
-  margin: clamp(40px, 5.5vw, 72px) auto 0;
+  margin: var(--section-head-gap) auto 0;
 }
 
 /* Placed and sized from the first and last node in JS (journey.tsx), so it

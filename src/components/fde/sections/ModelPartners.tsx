@@ -18,7 +18,7 @@ export function ModelPartners({
   partners = modelPartners,
 }: ModelPartnersProps) {
   return (
-    <section className="border-y border-border/60 bg-muted/40 py-10 sm:py-12 lg:py-[60px]">
+    <section className="border-y border-border/60 bg-muted/40 py-[var(--section-y)]">
       <Container size="wide">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <Badge variant="soft" icon={<ShieldCheckIcon />}>
@@ -34,13 +34,13 @@ export function ModelPartners({
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:mt-16 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">
+        <div className="mt-[var(--section-head-gap)] grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">
           {partners.map((partner) => (
             <PartnerCard key={partner.name} partner={partner} />
           ))}
         </div>
 
-        <p className="mx-auto mt-12 max-w-2xl text-center text-[length:var(--fs-body-sm)] leading-relaxed text-muted-foreground sm:mt-14">
+        <p className="mx-auto mt-[var(--section-head-gap)] max-w-2xl text-center text-[length:var(--fs-body-sm)] leading-relaxed text-muted-foreground">
           {content.footnote}
         </p>
       </Container>

@@ -35,10 +35,10 @@ export function TrustedBy({
       aria-label={label}
       className="relative border-t border-border/60 bg-gradient-to-b from-muted/35 via-background to-background"
     >
-      <Container size="wide" className="py-12 sm:py-14 lg:py-16">
+      <Container size="wide" className="pt-[var(--section-y)] pb-[var(--section-head-gap)]">
         <div className="flex items-center justify-center gap-4 sm:gap-6">
           <span aria-hidden className="hidden h-px w-10 bg-border sm:block lg:w-16" />
-          <h2 className="text-center font-mono text-[0.6875rem] uppercase tracking-[0.22em] text-muted-foreground sm:text-xs sm:tracking-[0.28em]">
+          <h2 className="text-center font-[family-name:var(--font-section-label)] text-[0.6875rem] font-[number:var(--section-label-weight)] uppercase tracking-[0.16em] text-muted-foreground sm:text-xs sm:tracking-[var(--section-label-tracking)]">
             {label}
           </h2>
           <span aria-hidden className="hidden h-px w-10 bg-border sm:block lg:w-16" />
@@ -46,7 +46,7 @@ export function TrustedBy({
       </Container>
 
       {reel.length > 0 ? (
-        <div className="pb-14 sm:pb-16 lg:pb-20">
+        <div className="pb-[var(--section-y)]">
           <Marquee duration={duration}>
             {reel.map((logo, index) => (
               <ClientLogoItem key={`${logo.src}-${index}`} logo={logo} />

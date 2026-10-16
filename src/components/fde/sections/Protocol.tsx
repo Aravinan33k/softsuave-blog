@@ -12,11 +12,12 @@ export function Protocol({
   steps = protocolSteps,
 }: ProtocolProps) {
   return (
-    <section className="bg-background py-10 sm:py-12 lg:py-[60px]">
+    <section className="bg-background py-[var(--section-y)]">
       <Container size="wide">
         <div className="flex flex-col items-center text-center">
-          {/* The site's section eyebrow: 12px mono, uppercase, wide-tracked. */}
-          <p className="font-mono text-xs uppercase tracking-[0.28em] text-primary-deep">
+          {/* The site's section eyebrow: 12px Inter, uppercase, wide-tracked
+              (`--font-section-label` in home.css). */}
+          <p className="font-[family-name:var(--font-section-label)] text-xs font-[number:var(--section-label-weight)] uppercase tracking-[var(--section-label-tracking)] text-primary-deep">
             {content.eyebrow}
           </p>
 
@@ -42,7 +43,7 @@ export function Protocol({
           role="region"
           aria-label={content.headline}
           tabIndex={0}
-          className="relative mt-14 -mx-4 overflow-x-auto px-4 sm:mt-16 sm:mx-0 sm:px-0"
+          className="relative mt-[var(--section-head-gap)] -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0"
         >
           <ol
             className="mx-auto grid min-w-[44rem] max-w-5xl"

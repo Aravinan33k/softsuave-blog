@@ -38,16 +38,18 @@
    This surface's answer to home.module.css `.section` / `.sectionHead` /
    `.eyebrow` / `.h2` / `.lead`.
    ============================================================ */
+/* Band padding and masthead gap come from the shared section rhythm
+   (`--section-y` / `--section-head-gap` in app/(marketing)/home.css). */
 .sectionShell {
-  padding: clamp(44px, 5.2vw, 84px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
   position: relative;
 }
 
 /* Two sections stacked directly — which is what a shared `.light` band is —
-   otherwise meet with BOTH of their paddings, around 150px of empty ground
-   between the end of one grid and the next heading (review: "too much gap
-   after the section"). The first section's padding-bottom already separates
-   them amply, so the second drops its own. */
+   otherwise meet with BOTH of their paddings, doubling the gap between the
+   end of one grid and the next heading (review: "too much gap after the
+   section"). The first section's padding-bottom already separates them, so
+   the second drops its own. */
 .sectionShell + .sectionShell {
   padding-top: 0;
 }
@@ -65,17 +67,19 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(12px, 1.4vw, 20px);
-  margin-bottom: clamp(26px, 4vw, 56px);
+  margin-bottom: var(--section-head-gap);
 }
 
+/* Section eyebrow: Inter since 16 Oct (`--font-section-label` in home.css). */
 .kicker {
   display: inline-flex;
   align-items: center;
   gap: 0.7em;
-  font-family: var(--font-eyebrow);
+  font-family: var(--font-section-label);
+  font-weight: var(--section-label-weight);
   font-size: var(--fs-label);
   text-transform: uppercase;
-  letter-spacing: 0.28em;
+  letter-spacing: var(--section-label-tracking);
   color: var(--muted);
 }
 
@@ -256,7 +260,7 @@
      negative-z-index child climbs to the nearest ancestor that *does* open
      one and paints behind the whole page, not just this section. */
   isolation: isolate;
-  padding: max(clamp(96px, 11vw, 150px), var(--hero-top)) var(--gutter) clamp(40px, 5vw, 76px);
+  padding: max(clamp(96px, 11vw, 150px), var(--hero-top)) var(--gutter) var(--section-y);
   border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
@@ -713,7 +717,7 @@
    A bordered proof panel — replaces the homepage's giant dual marquee.
    ============================================================ */
 .trustBar {
-  padding: clamp(40px, 4.6vw, 72px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
   border-bottom: 1px solid var(--line);
 }
 
@@ -1247,7 +1251,7 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  padding: clamp(44px, 5.2vw, 80px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
   /* No top/bottom rule. The band is its own dark surface, so the change of
      ground already marks its edges; the full-width hairlines on top of that
      read as stray divider lines (review: remove the section lines). */
@@ -2444,7 +2448,7 @@
    (The homepage's Contact is a scroll-scrubbed cinematic focus pull.)
    ============================================================ */
 .finalCta {
-  padding: clamp(48px, 6vw, 96px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
   border-top: 1px solid var(--line);
 }
 
@@ -3225,7 +3229,7 @@
    hero. Vertical clearance belongs to `.indexHead` above, not here — this
    class also renders inside sections that set their own. */
 .headPage {
-  margin-bottom: clamp(34px, 4.6vw, 64px);
+  margin-bottom: var(--section-y);
 }
 
 .headPage .title {
@@ -3403,7 +3407,7 @@
    compact hero. The masthead scale is scoped to this section only.
    ============================================================ */
 .overviewCompact {
-  padding: clamp(34px, 4vw, 64px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
 }
 
 .overviewCompact .head {
@@ -7631,7 +7635,7 @@
    continuous rather than as a list that stops short of the margin.
    ============================================================ */
 .exploreBand {
-  padding: clamp(44px, 5.2vw, 84px) 0;
+  padding: var(--section-y) 0;
   position: relative;
 }
 
@@ -7649,7 +7653,7 @@
   display: flex;
   flex-direction: column;
   gap: clamp(10px, 1.4vw, 20px);
-  margin-top: clamp(28px, 3.4vw, 48px);
+  margin-top: var(--section-head-gap);
 }
 
 /* Both chips are the homepage `.awardChip` scale — the display serif is the
@@ -7710,7 +7714,7 @@
 
 @media (max-width: 700px) {
   .exploreBand {
-    padding: clamp(36px, 9vw, 60px) 0;
+    padding: var(--section-y) 0;
   }
 
   /* 3.2vw is 12px at 375, so every phone sat on the 1.5rem floor — a 24px
@@ -7804,7 +7808,7 @@
 }
 
 .listHeadCta {
-  margin: calc(clamp(34px, 4.6vw, 64px) * -0.5) 0 clamp(28px, 3.6vw, 48px);
+  margin: calc(var(--section-y) * -0.5) 0 var(--section-head-gap);
 }
 
 /* Links live inside, so the tile itself does not lift on hover — the image
@@ -7903,8 +7907,8 @@
 
 .listBand {
   --list-card: #ffffff;
-  margin: clamp(40px, 5vw, 72px) calc(var(--gutter) * -1) 0;
-  padding: clamp(40px, 5vw, 80px) var(--gutter);
+  margin: var(--section-y) calc(var(--gutter) * -1) 0;
+  padding: var(--section-y) var(--gutter);
 }
 
 .listBand > * {
@@ -8109,7 +8113,7 @@
    16:9 frame and a play badge; the whole tile is the link to YouTube.
    ============================================================ */
 .videoStories {
-  padding: clamp(28px, 3.6vw, 56px) var(--gutter) clamp(56px, 7vw, 110px);
+  padding: clamp(28px, 3.6vw, 56px) var(--gutter) var(--section-y);
 }
 
 .videoCard {
@@ -8348,7 +8352,7 @@
   justify-content: center;
   min-height: min(78vh, 760px);
   padding-top: clamp(110px, 10vw, 150px);
-  padding-bottom: clamp(56px, 6vw, 96px);
+  padding-bottom: var(--section-y);
 }
 
 .thanksTitle {
@@ -8363,7 +8367,7 @@
   gap: clamp(32px, 4vw, 56px);
   width: 100%;
   max-width: 1080px;
-  margin-top: clamp(36px, 4.4vw, 64px);
+  margin-top: var(--section-head-gap);
 }
 
 .thanksPerson {

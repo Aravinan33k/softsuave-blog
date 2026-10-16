@@ -22,7 +22,7 @@ export function EngagementModels({
   return (
     // `data-nav-tone="dark"`: the site header turns black over this dark
     // section, white over the rest of the page (see the page's <main>).
-    <section data-nav-tone="dark" className="relative overflow-hidden bg-ink py-10 sm:py-12 lg:py-[60px]">
+    <section data-nav-tone="dark" className="relative overflow-hidden bg-ink py-[var(--section-y)]">
       {/* Faint brand glow keeps the flat black from reading as dead space */}
       <div
         aria-hidden
@@ -44,7 +44,7 @@ export function EngagementModels({
         </div>
 
         {/* pt-4 reserves room for the featured card's ribbon to overhang */}
-        <div className="mt-16 grid grid-cols-1 gap-6 pt-4 sm:mt-20 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">
+        <div className="mt-[var(--section-head-gap)] grid grid-cols-1 gap-6 pt-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">
           {models.map((model) => (
             <EngagementCard
               key={model.title}
@@ -54,7 +54,7 @@ export function EngagementModels({
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col items-center gap-6 sm:mt-20">
+        <div className="mt-[var(--section-head-gap)] flex flex-col items-center gap-6">
           <p className="text-center text-[length:var(--fs-body-sm)] text-ink-muted">
             {content.footerPrompt}
           </p>

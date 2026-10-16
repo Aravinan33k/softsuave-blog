@@ -18,7 +18,7 @@ export function Hero({ content = heroContent }: { content?: HeroContent }) {
     <section className="relative isolate overflow-hidden">
       <HeroBackdrop />
 
-      <Container size="wide" className="pt-10 pb-16 sm:pt-14 sm:pb-20 lg:pt-16 lg:pb-24">
+      <Container size="wide" className="pt-10 pb-[var(--section-y)] sm:pt-14 lg:pt-16">
         <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
           <Badge
             tag={content.badge.tag}

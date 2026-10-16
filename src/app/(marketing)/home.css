@@ -153,6 +153,14 @@ html.lenis body {
 
   --font-heading: var(--font-display-serif);
   --font-eyebrow: var(--font-mono-label);
+  /* Section eyebrows — the small label over each section's heading ("Why Soft
+     Suave", "Clients", "Industries"…) — are set in Inter (16 Oct review: from
+     JetBrains Mono to Inter), a step heavier and a little less tracked than
+     the mono so the capitals hold up at 11-12px. Buttons, chips, counters and
+     the other one-line labels keep the mono above. */
+  --font-section-label: var(--font-body);
+  --section-label-weight: 500;
+  --section-label-tracking: 0.2em;
 
   /* One heading scale for every landing surface (landing kit, hire pages,
      generative-AI pages). The Sep review found H1/H2/H3 sizes differing
@@ -202,6 +210,22 @@ html.lenis body {
   --nav-h: 83px;
   --hero-gap: clamp(18px, 1.5vw + 12px, 24px);
   --hero-top: calc(var(--nav-h) + var(--hero-gap));
+
+  /* SECTION RHYTHM — one spacing scale for every band on every page (16 Oct
+     review: "too much gap between the sections", inside and outside them).
+     Each kit used to set its own: 44-84px of padding a side on the landing
+     pages, up to 96-168px on some homepage bands, plus whole screens of
+     centring on the bands that held `100vh`.
+       --section-y         a band's top and bottom padding: 30px up to tablet
+                           width, easing to 56px at 1600px and above — at
+                           or under the smallest padding any band had
+                           before (`.section`'s), at every width;
+       --section-head-gap  a section's masthead (eyebrow, heading, intro) to
+                           what follows it: 20px easing to 36px.
+     Two sections inside one band share a single --section-y between them
+     (`.sectionShell + .sectionShell` drops the second's top padding). */
+  --section-y: clamp(30px, 3.4vw + 2px, 56px);
+  --section-head-gap: clamp(20px, 1.6vw + 8px, 36px);
 
   min-height: 100vh;
   background: var(--bg);

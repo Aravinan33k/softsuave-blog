@@ -21,7 +21,7 @@ export function WhyFde({
   rows = whyFdeRows,
 }: WhyFdeProps) {
   return (
-    <section className="bg-background py-10 sm:py-12 lg:py-[60px]">
+    <section className="bg-background py-[var(--section-y)]">
       <Container size="wide">
         <div className="flex flex-col items-center text-center">
           <Badge variant="soft">{content.badge}</Badge>
@@ -35,7 +35,7 @@ export function WhyFde({
           </p>
         </div>
 
-        <div className="mx-auto mt-12 max-w-5xl sm:mt-14">
+        <div className="mx-auto mt-[var(--section-head-gap)] max-w-5xl">
           <ComparisonTable
             columns={columns}
             rows={rows}

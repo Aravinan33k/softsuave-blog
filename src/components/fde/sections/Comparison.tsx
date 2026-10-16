@@ -19,7 +19,7 @@ export function Comparison({
   columns = comparisonColumns,
 }: ComparisonProps) {
   return (
-    <section className="bg-surface py-10 sm:py-12 lg:py-[60px]">
+    <section className="bg-surface py-[var(--section-y)]">
       <Container size="wide">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <Badge variant="soft" icon={<ShieldCheckIcon />} className="mb-7">
@@ -36,7 +36,7 @@ export function Comparison({
           </p>
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-6 sm:mt-14 md:grid-cols-2 lg:gap-8">
+        <div className="mx-auto mt-[var(--section-head-gap)] grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
           {columns.map((column) => (
             <ComparisonCard key={column.title} column={column} />
           ))}

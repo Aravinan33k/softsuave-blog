@@ -16,7 +16,7 @@ export function Faq({ content = faqContent, items = faqItems }: FaqProps) {
   }));
 
   return (
-    <section className="bg-background py-10 sm:py-12 lg:py-[60px]">
+    <section className="bg-background py-[var(--section-y)]">
       <Container size="wide">
         {/*
           Two columns from lg: the intro holds a left rail and the accordion

@@ -68,15 +68,17 @@
 }
 
 /* ---- shared type / layout primitives ---- */
+/* Section eyebrow: Inter since 16 Oct (`--font-section-label` in home.css). */
 .eyebrow,
 .eyebrowDark {
   display: inline-flex;
   align-items: center;
   gap: 0.6em;
-  font-family: var(--font-eyebrow);
+  font-family: var(--font-section-label);
+  font-weight: var(--section-label-weight);
   font-size: clamp(10px, 0.78vw, 12px);
   text-transform: uppercase;
-  letter-spacing: 0.28em;
+  letter-spacing: var(--section-label-tracking);
   color: var(--muted);
 }
 
@@ -158,36 +160,35 @@ h1.h2 {
   display: block;
 }
 
+/* Band padding and masthead gap come from the shared section rhythm
+   (`--section-y` / `--section-head-gap` in app/(marketing)/home.css). */
 .section {
-  padding: clamp(30px, 3.6vw, 58px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
   position: relative;
 }
 
+/* Sized by its content (16 Oct). It used to hold a full screen and centre the
+   rows in it, which left a band of empty canvas above and below the heading
+   on every screen taller than the rows — most of a screen on a wide monitor
+   and on the seven landing pages whose opt-out below never matched. */
 .techSection {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-/* Lets a page outside the homepage reuse `TechStack` without inheriting its
-   full-viewport height — the homepage's own sections are each near one
-   screen tall, but a landing page's bands are sized to their content. */
+/* Both opt-outs below predate the change above and are now no-ops; kept so
+   the pages that pass them need no edit. */
 .techCompact #tech {
   min-height: 0;
 }
-/* What `.techCompact` means to do, written so it applies: CSS Modules hash
-   `#tech` like a class, so the rule above compiles to an id no element has and
-   every page using it still gets the full-viewport min-height. Opted into per
-   page (Android) rather than fixed in place, which would reflow the tech band
-   on the nine pages that have shipped with the tall section. */
 .techFit .techSection {
   min-height: 0;
 }
 
 .sectionHead {
   max-width: 60rem;
-  margin-bottom: clamp(26px, 4vw, 56px);
+  margin-bottom: var(--section-head-gap);
 }
 
 /* ---- split section head ----
@@ -1336,14 +1337,11 @@ h1.h2 {
 /* ============================================================
    WORK — HORIZONTAL SCROLL-SNAP GALLERY
    ============================================================ */
+/* The section rhythm's padding only (16 Oct). The extra 8-24px top margin it
+   carried is gone with the rest of the surplus gap between bands. */
 .workH {
   position: relative;
-  padding: clamp(40px, 5vw, 84px) var(--gutter);
-  /* on top of the section's own padding — the pair only has to read as a break
-     between two dark sections, not as an empty screen. Kept small: stacked on
-     the padding above, the old value left a screen of dead ground over the
-     eyebrow (review: "large gap before the heading"). */
-  margin-top: clamp(8px, 1.5vw, 24px);
+  padding: var(--section-y) var(--gutter);
 }
 
 .hInner {
@@ -1353,7 +1351,7 @@ h1.h2 {
 .hTrack {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(44px, 7vw, 96px);
+  gap: clamp(32px, 4vw, 48px);
 }
 
 /* Stacked (below 1000px, and reduced motion) the intro sits directly on top
@@ -1363,7 +1361,7 @@ h1.h2 {
    the intro is a column beside the lane. */
 .hIntro {
   max-width: 40rem;
-  margin-bottom: clamp(28px, 6vw, 48px);
+  margin-bottom: var(--section-head-gap);
 }
 
 /* "View Case Study" — links out to the full case-study index. */
@@ -1685,12 +1683,14 @@ h1.h2 {
 /* ============================================================
    AWARDS / FEATURED
    ============================================================ */
+/* Sized by its content at every width (16 Oct): on desktop it held a full
+   screen and centred a heading and two marquee rows in it — about 290px of
+   empty band above the eyebrow and 250px under the last row at 1440x900. */
 .awards {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(32px, 4vw, 60px) 0;
+  padding: var(--section-y) 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
@@ -1698,7 +1698,7 @@ h1.h2 {
 .awardsHead {
   padding: 0 var(--gutter);
   max-width: 60rem;
-  margin-bottom: clamp(28px, 3.4vw, 48px);
+  margin-bottom: var(--section-head-gap);
 }
 
 .awardsMarquees {
@@ -2870,15 +2870,16 @@ h1.h2 {
   --band-muted: #bdb3b0;
 
   position: relative;
-  /* Not a full viewport: with the brand crystal gone the section is a headline,
-     a line of copy and one button, and 100vh left most of the band empty. */
-  min-height: 64vh;
+  /* Sized by its content (16 Oct): a headline, a line of copy and one button.
+     It held 64vh (100vh before that), which still centred about 150px of
+     empty band above and below the copy on every screen. As the page's
+     closing band it keeps a little more room than an ordinary section. */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: clamp(12px, 2vh, 24px);
-  padding: clamp(56px, 8vh, 104px) var(--gutter);
+  padding: calc(var(--section-y) * 1.5) var(--gutter);
   overflow: hidden;
   isolation: isolate;
 }
@@ -3159,14 +3160,14 @@ h1.h2 {
    ============================================================ */
 .footer {
   background: var(--bg);
-  padding: clamp(32px, 4vw, 56px) 0 28px;
+  padding: var(--section-y) 0 28px;
   border-top: 1px solid var(--line);
 }
 
 .footerMarquee {
   border-bottom: 1px solid var(--line);
   padding-bottom: clamp(20px, 3vw, 36px);
-  margin-bottom: clamp(28px, 4vw, 48px);
+  margin-bottom: var(--section-head-gap);
 }
 
 .footerBig {
@@ -3380,7 +3381,7 @@ h1.h2 {
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(26px, 3vw, 44px);
-  margin-top: clamp(32px, 4vw, 56px);
+  margin-top: var(--section-head-gap);
   padding: clamp(26px, 3vw, 40px) var(--gutter) 0;
   border-top: 1px solid var(--line);
 }
@@ -3625,8 +3626,7 @@ h1.h2 {
      above it (the AI pages' Why Us) opened onto most of a screen of black
      before the eyebrow. */
   .workH {
-    padding: clamp(48px, 4vw, 64px) 0;
-    margin-top: 0;
+    padding: var(--section-y) 0;
   }
 
   .hInner {
@@ -3827,7 +3827,7 @@ h1.h2 {
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   .workH {
-    padding: clamp(72px, 11vw, 168px) var(--gutter) !important;
+    padding: var(--section-y) var(--gutter) !important;
   }
 
   .hInner {
@@ -3839,7 +3839,7 @@ h1.h2 {
   .hTrack {
     display: grid !important;
     grid-template-columns: 1fr !important;
-    gap: clamp(44px, 7vw, 96px) !important;
+    gap: clamp(32px, 4vw, 48px) !important;
     padding: 0 !important;
     transform: none !important;
   }
@@ -3853,7 +3853,7 @@ h1.h2 {
   /* Stacked here at every width, so the gap under the intro comes back even
      where the desktop rule zeroed it (BUG-025). */
   .hIntro {
-    margin-bottom: clamp(28px, 6vw, 48px) !important;
+    margin-bottom: var(--section-head-gap) !important;
   }
 
   .hMedia {
@@ -4100,16 +4100,15 @@ h1.h2 {
 /* ============================================================
    JOURNEY (AI TRANSFORMATION JOURNEY)
    ============================================================ */
-/* No margin here on desktop: this section is GSAP-pinned (`journeyPin`, start
+/* No margin: on desktop this section is GSAP-pinned (`journeyPin`, start
    "top top") and sized to exactly 100vh for that pin, so a margin lands on the
    pin-spacer and shows up as a dead band before a scene that already carries
-   its own vignette. The seam with the section AFTER it is spaced from that
-   section's own margin-top instead — see .workH. */
+   its own vignette. Stacked, `.section`'s padding is the whole gap (the extra
+   48-80px margin it had went with the 16 Oct spacing pass). */
 .journeySection {
   position: relative;
   overflow: hidden;
   width: 100%;
-  margin-top: clamp(48px, 6vw, 80px);
 }
 @media (min-width: 1000px) {
   .journeySection {
@@ -4546,7 +4545,7 @@ h1.h2 {
   .journeySection {
     height: auto !important;
     min-height: 0 !important;
-    padding: clamp(72px, 11vw, 168px) var(--gutter) !important;
+    padding: var(--section-y) var(--gutter) !important;
   }
   .journeyDesktopContainer {
     display: none !important;
@@ -5206,7 +5205,7 @@ h1.h2 {
 /* The top padding is the whole gap under the hero now that `.whySection` no
    longer centres the block in a full screen (BUG-021). */
 .whyIntro {
-  padding: clamp(48px, 6vw, 96px) var(--gutter) clamp(6px, 1vw, 14px);
+  padding: var(--section-y) var(--gutter) clamp(6px, 1vw, 14px);
 }
 .whyIntroInner {
   max-width: 1200px;
@@ -5301,7 +5300,7 @@ h1.h2 {
      The bottom padding was 4-8px for the same reason: the centring supplied
      the room under the cards. With `.whySection` sized by its content
      (BUG-021) this padding is that room. */
-  padding: clamp(32px, 5.5vw, 88px) var(--gutter) clamp(24px, 4vw, 64px);
+  padding: var(--section-head-gap) var(--gutter) var(--section-y);
 }
 /* four square stat cards, uniform, one single row so the whole grid — title
    included — sits inside one screen, no scrolling needed to see it all and no
@@ -5537,8 +5536,8 @@ h1.h2 {
    hands off to a full-width hairline-ruled logo row.
    ============================================================ */
 .clients {
-  padding-top: clamp(40px, 5vw, 76px);
-  padding-bottom: clamp(40px, 5vw, 76px);
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
 }
 .clientsHead {
   max-width: 1400px;
@@ -5603,13 +5602,13 @@ h1.h2 {
    vertical padding, so the logos still sit in a band of their own. */
 .clientsRow {
   max-width: 1400px;
-  margin: clamp(32px, 4.5vw, 64px) auto 0;
+  margin: var(--section-head-gap) auto 0;
 }
 /* `Marquee` renders its own track — this only sizes the strip and fades its
    edges into the section background so marks appear to scroll in/out of the
    canvas rather than getting cut off mid-logo. */
 .clientsMarquee {
-  padding: clamp(22px, 3vw, 40px) 0;
+  padding: clamp(10px, 1.2vw, 18px) 0;
   mask-image: linear-gradient(
     90deg,
     transparent 0,
@@ -5682,12 +5681,11 @@ h1.h2 {
    ============================================================ */
 .servicesCarousel {
   position: relative;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  padding: clamp(40px, 5vw, 84px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
 }
 
 /* desktop section header (eyebrow + heading + standfirst). Two columns from
@@ -5798,13 +5796,13 @@ h1.h2 {
 }
 
 @media (min-width: 1000px) {
+  /* Sized by its content (16 Oct). It held exactly one screen and centred
+     the header and stage in it, so every screen taller than the stage showed
+     the slack as empty band above the eyebrow and below the controls (the
+     carousel never pins, so the height bought nothing). The stage keeps its
+     own `min(52vh, 540px)`, so it still fits inside one screen. */
   .servicesCarousel {
-    height: 100vh;
-    min-height: 720px;
-    /* top padding trimmed from the old 84–122px: the section header that now
-       sits inside .carDesktop needs that vertical budget more than the gutter
-       does, and the stage still has to finish inside one screen. */
-    padding: clamp(56px, 7vh, 84px) var(--gutter) clamp(40px, 6vh, 64px);
+    padding: var(--section-y) var(--gutter);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -5969,7 +5967,7 @@ h1.h2 {
   .servicesCarousel {
     height: auto !important;
     min-height: 0 !important;
-    padding: clamp(72px, 11vw, 168px) var(--gutter) !important;
+    padding: var(--section-y) var(--gutter) !important;
     display: block !important;
   }
   .carDesktop {
@@ -5995,7 +5993,7 @@ h1.h2 {
 /* Mobile-first: clean wrapped grid when the fan no longer fits. */
 .indFanStage {
   position: relative;
-  margin-top: clamp(32px, 5vw, 60px);
+  margin-top: var(--section-head-gap);
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
@@ -6175,7 +6173,7 @@ h1.h2 {
 /* reduced motion: static grid, no fan */
 @media (prefers-reduced-motion: reduce) {
   .industriesFan {
-    padding: clamp(40px, 5vw, 84px) var(--gutter) !important;
+    padding: var(--section-y) var(--gutter) !important;
   }
   .indFanStage,
   .fanLayout {
@@ -6184,7 +6182,7 @@ h1.h2 {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 18px !important;
     min-height: 0 !important;
-    margin-top: clamp(32px, 5vw, 56px);
+    margin-top: var(--section-head-gap);
   }
   .indFanCard {
     position: relative !important;
@@ -6364,7 +6362,7 @@ h1.h2 {
 .industriesFan.gridMode {
   height: auto !important;
   min-height: 0 !important;
-  padding: clamp(60px, 8vh, 100px) var(--gutter) !important;
+  padding: var(--section-y) var(--gutter) !important;
 }
 
 .industriesFan.gridMode .indFanStage {
@@ -6374,7 +6372,7 @@ h1.h2 {
   flex-wrap: wrap !important;
   justify-content: center !important;
   gap: 24px !important;
-  margin-top: clamp(32px, 5vw, 60px) !important;
+  margin-top: var(--section-head-gap) !important;
   width: 100% !important;
   max-width: 1400px !important;
 }
@@ -6578,13 +6576,13 @@ h1.h2 {
    band never has to do because sections above it provide the runway. */
 .awardsPageSection {
   padding-top: clamp(120px, 16vh, 190px) !important;
-  padding-bottom: clamp(56px, 8vh, 100px) !important;
+  padding-bottom: var(--section-y) !important;
 }
 
 .recogWall {
   list-style: none;
   max-width: 1400px;
-  margin: clamp(32px, 4.5vw, 64px) auto 0;
+  margin: var(--section-head-gap) auto 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
@@ -7137,10 +7135,7 @@ h1.h2 {
   display: none;
 }
 
-/* The lead already carries the page's top padding; the band below it does not
-   need a second full-height stage on a page this short. */
 .contactLight .contact {
-  min-height: 0;
   /* The band trial is a dark-surface treatment. On the light page the veil is
      gone with `.contactBg`, so the tint would only survive as body copy the
      warm white cannot carry — hand it back to the light band's own muted. */
@@ -7212,22 +7207,10 @@ h1.h2 {
   }
 
   /* ---- 2. viewport-height shells ------------------------------------------
-     These three centre their content inside `100vh`. On a phone that is a
-     screen of canvas above and below a heading — 487px of the integrations
-     band's 844px was empty at 375px. Height comes from content here; the
-     padding still keeps them reading as distinct bands. */
-  .awards {
-    min-height: 0;
-    padding: clamp(40px, 9vw, 64px) 0;
-  }
-
-  .techSection {
-    min-height: 0;
-  }
-
-  .servicesCarousel {
-    min-height: 0;
-  }
+     The integrations, tech and services bands used to centre their content
+     inside `100vh`; on a phone that was a screen of canvas above and below a
+     heading. All three are now sized by their content at every width (16 Oct),
+     so nothing is left to undo here. */
 
   /* ---- 3. stacked-section height budget -----------------------------------
      Services is eleven rows of image + copy + CTA and Industries eight portrait

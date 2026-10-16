@@ -28,7 +28,7 @@ export function Testimonials({
   items = testimonials.items,
 }: TestimonialsProps) {
   return (
-    <section className="bg-surface py-10 sm:py-12 lg:py-[60px]">
+    <section className="bg-surface py-[var(--section-y)]">
       <Container size="wide">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <Badge variant="soft">{content.badge}</Badge>
@@ -42,11 +42,11 @@ export function Testimonials({
           </p>
         </div>
 
-        <div className={`${home.light} fde-reviews mx-auto mt-10 max-w-[1180px] sm:mt-12`}>
+        <div className={`${home.light} fde-reviews mx-auto mt-[var(--section-head-gap)] max-w-[1180px]`}>
           <ReviewArchive reviews={items.map((review, i) => ({ ...review, ordinal: i + 1 }))} />
         </div>
 
-        <div className="mt-16 flex flex-col items-center sm:mt-20">
+        <div className="mt-[var(--section-head-gap)] flex flex-col items-center">
           <p className="text-center text-[length:var(--fs-body-sm)] text-muted-foreground">
             {content.segmentsPrompt}
           </p>
