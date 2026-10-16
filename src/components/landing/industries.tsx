@@ -574,6 +574,9 @@ export default function Industries({
                   {href ? (
                     <Link href={href} className={styles.featLink}>
                       Learn more
+                      {/* Says where it goes for screen readers and crawlers; a
+                          bare "Learn more" fails Lighthouse's link-text audit. */}
+                      <span className={styles.srOnly}> about {item.name}</span>
                       <svg {...iconProps} className={styles.featLinkIcon}>
                         <path d="M4 12h15M13 6l6 6-6 6" />
                       </svg>

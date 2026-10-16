@@ -46,8 +46,12 @@ export function MenuLink({
   if (href === undefined) return <span className={className}>{children}</span>;
   const resolved = navHrefForPage(href, onHome);
 
+  // No prefetch: every one of these sits in a closed drawer, hidden but laid
+  // out under the bar, and `next/link` counts that as on screen — /blog
+  // fetched 17 routes on a phone and 49 on a laptop while still loading
+  // (15 Oct). The route loads on the click instead.
   return resolved.startsWith("/") ? (
-    <SiteLink href={resolved} className={className} onClick={onNavigate}>
+    <SiteLink href={resolved} className={className} onClick={onNavigate} prefetch={false}>
       {children}
     </SiteLink>
   ) : (

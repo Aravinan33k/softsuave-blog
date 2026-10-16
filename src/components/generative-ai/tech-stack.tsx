@@ -1,5 +1,3 @@
-"use client";
-
 import { techStack as homeTechStack } from "@/lib/home/content";
 import TechLogo from "@/components/home/tech-logo";
 import FadeUp from "@/components/home/fade-up";

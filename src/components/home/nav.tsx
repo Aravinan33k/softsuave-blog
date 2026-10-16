@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import Logo from "./logo";
 import { footer, nav } from "@/lib/home/content";
 import { navPanels, navHrefForPage, type NavMenuItem } from "@/lib/home/nav-menu";
-import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import MegaPanel, { MenuLink } from "./mega-menu";
 import { useSurfaceTone, type SurfaceTone } from "./use-surface-tone";
 import styles from "./home.module.css";
@@ -138,19 +137,10 @@ export default function Nav({
   }));
   const ctaHref = resolve(nav.cta.href);
 
-  useGSAP(
-    () => {
-      if (prefersReducedMotion() || !bar.current) return;
-      gsap.from(bar.current, {
-        yPercent: -120,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        delay: prefersReducedMotion() ? 0 : 0.3,
-      });
-    },
-    { scope: bar },
-  );
+  // The bar's slide-in is CSS (`.nav` in home.module.css), from the first
+  // paint. As a GSAP tween at hydration it re-hid the already-painted bar, so
+  // the logo — often the page's largest image — only counted as painted once
+  // every script had loaded (PageSpeed LCP, 15 Oct).
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";

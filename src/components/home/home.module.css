@@ -617,6 +617,18 @@ h1.h2 {
      instead of the bar jumping 1px taller. */
   border-bottom: 1px solid transparent;
   box-shadow: none;
+  /* Slides down into place from the first paint (was a GSAP tween at
+     hydration). `backwards`: once it lands, nothing of it lingers to fight the
+     bar's own transitions. Starts at 0.01, not 0 — Chrome never counts what
+     first paints at opacity 0, which kept the logo out of LCP until JS ran. */
+  animation: navSlideIn 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.3s backwards;
+}
+
+@keyframes navSlideIn {
+  from {
+    opacity: 0.01;
+    transform: translateY(-120%);
+  }
 }
 
 /* Legibility scrim. The bar paints no background while it is hero-locked, and
@@ -2882,8 +2894,16 @@ h1.h2 {
 .contactPoster {
   position: absolute;
   inset: 0;
-  background: #050609 url("/brand/contact-light-poster.jpg") center / cover no-repeat;
+  background: #050609 center / cover no-repeat;
   will-change: filter, transform;
+}
+
+/* The still loads once the band nears the viewport (`data-near`, set with the
+   video's mount). As a plain background it was fetched with the page's first
+   layout on every page that ends in this band — far below the fold, competing
+   with what the first screen needs (PageSpeed, 15 Oct). */
+.contactPoster[data-near] {
+  background-image: url("/brand/contact-light-poster.jpg");
 }
 
 .contactVideo {
@@ -2938,7 +2958,12 @@ h1.h2 {
 .lfPoster {
   position: absolute;
   inset: 0;
-  background: #050609 url("/brand/contact-light-poster.jpg") center / cover no-repeat;
+  background: #050609 center / cover no-repeat;
+}
+
+/* As `.contactPoster`: the still loads as the band nears the viewport. */
+.lfPoster[data-near] {
+  background-image: url("/brand/contact-light-poster.jpg");
 }
 
 .lfVideo {

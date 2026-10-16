@@ -1,13 +1,11 @@
 "use client";
 
-import { Fragment, useRef } from "react";
+import { Fragment, useRef, type CSSProperties } from "react";
 import Image from "next/image";
 import { hero as generativeAiHero } from "@/lib/home/generative-ai";
-import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
-import { isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
+import { heroBadgeSizes, isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import styles from "./gen-ai.module.css";
-import fx from "@/components/common/enquiry-form.module.css";
 import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
 import Breadcrumb from "@/components/common/breadcrumb";
 import { titleFitStyle } from "@/components/landing/hero";
@@ -113,32 +111,11 @@ export default function Hero({
 } = {}) {
   const root = useRef<HTMLElement | null>(null);
 
-  useGSAP(
-    () => {
-      if (prefersReducedMotion() || !root.current) return;
-      const tl = gsap.timeline({ delay: 0.15 });
-      tl.from(`.${styles.heroTitleLine}`, {
-        yPercent: 40,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power3.out",
-        stagger: 0.09,
-      }, 0.1)
-        .from(`.${styles.heroBody}`, { opacity: 0, y: 20, duration: 0.7, ease: "power2.out", stagger: 0.08 }, "-=0.5")
-        .from(`.${styles.heroPoint}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.05 }, "-=0.4")
-        // Once only: a second `.from()` on the same badges records the first
-        // one's opacity 0 as its END value, so they finish invisible.
-        .from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3")
-        .from(`.${fx.card}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
-
-      // Backdrop lifts out of black underneath all of that — the same hand-off
-      // the homepage hero gives its video frame. Added last, at an absolute
-      // position, so the relative offsets above keep their original timing;
-      // a no-op on pages that supply no background.
-      tl.from(`.${styles.heroMedia}`, { opacity: 0, duration: 1.3, ease: "power2.out" }, 0);
-    },
-    { scope: root },
-  );
+  // The entrance plays in CSS (the hero-entrance block in gen-ai.module.css)
+  // from the first paint, with the timeline's own delays. As a GSAP timeline
+  // at hydration it re-hid copy already on screen, so Chrome took the page's
+  // main content (LCP) as appearing only once every script had loaded
+  // (PageSpeed, 15 Oct).
 
   const lastLine = content.titleLines.length - 1;
 
@@ -183,6 +160,7 @@ export default function Hero({
               <Fragment key={line}>
                 {i > 0 ? " " : null}
                 <span
+                  style={{ ["--i" as string]: i } as CSSProperties}
                   className={`${styles.heroTitleLine}${
                     !content.accent && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
                   }`}
@@ -193,15 +171,15 @@ export default function Hero({
             ))}
           </h1>
 
-          {content.body.map((p) => (
-            <p key={p.slice(0, 24)} className={styles.heroBody}>
+          {content.body.map((p, i) => (
+            <p key={p.slice(0, 24)} className={styles.heroBody} style={{ ["--i" as string]: i } as CSSProperties}>
               {p}
             </p>
           ))}
 
           <ul className={styles.heroPoints}>
-            {content.points.map((point) => (
-              <li key={point} className={styles.heroPoint}>
+            {content.points.map((point, i) => (
+              <li key={point} className={styles.heroPoint} style={{ ["--i" as string]: i } as CSSProperties}>
                 <svg
                   className={styles.heroPointMark}
                   viewBox="0 0 20 20"
@@ -253,19 +231,20 @@ export default function Hero({
 
           {content.badges && content.badges.length > 0 && (
             <ul className={styles.badges} aria-label="Credentials">
-              {content.badges.map((b) =>
+              {content.badges.map((b, i) =>
                 isHeroBadge(b) ? (
-                  <li key={b.src} className={`${styles.badge} ${styles.badgeLogo}`}>
+                  <li key={b.src} className={`${styles.badge} ${styles.badgeLogo}`} style={{ ["--i" as string]: i } as CSSProperties}>
                     <Image
                       src={publicMediaUrl(b.src)}
                       alt={b.alt}
                       width={b.width}
                       height={b.height}
+                      sizes={heroBadgeSizes(b)}
                       className={styles.badgeLogoImg}
                     />
                   </li>
                 ) : (
-                  <li key={b} className={styles.badge}>
+                  <li key={b} className={styles.badge} style={{ ["--i" as string]: i } as CSSProperties}>
                     <span className={styles.badgeDot} aria-hidden />
                     {b}
                   </li>

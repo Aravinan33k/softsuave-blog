@@ -3,7 +3,9 @@ import { Lato, PT_Serif } from "next/font/google";
 import { env } from "@/lib/env";
 import { pageRobots } from "@/lib/flags";
 import GoogleTagManager from "@/components/analytics/google-tag-manager";
-import ChatBot from "@/components/chatbot/chatbot";
+import ChatBotLoader from "@/components/chatbot/chatbot-loader";
+import { PAINT_NUDGE } from "@/lib/paint-nudge";
+import { WEB_FONTS } from "@/lib/web-fonts";
 import "./globals.css";
 
 // Only the two brand fonts are loaded. Fonts declared in the root layout are
@@ -52,19 +54,26 @@ export default function RootLayout({
       className={`${lato.variable} ${ptSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/* Gets the first paint onto the screen — see lib/paint-nudge. */}
+        <script dangerouslySetInnerHTML={{ __html: PAINT_NUDGE }} />
+        {/* The marketing label font, switched on after the first paint — see lib/web-fonts. */}
+        <script dangerouslySetInnerHTML={{ __html: WEB_FONTS }} />
         {/* z-[1000]: the marketing header is z-index 120, so at 100 the
             focused link sat UNDER the bar and its logo (BUG-022). `fixed`, not
-            `absolute`, so it shows wherever the page is scrolled to. */}
+            `absolute`, so it shows wherever the page is scrolled to. The
+            system face: in the inherited Lato, this one hidden link made every
+            marketing page — which draws nothing else in Lato — download it. */}
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[1000] focus:rounded-full focus:bg-[#ff0042] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+          className="sr-only [font-family:system-ui,sans-serif] focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[1000] focus:rounded-full focus:bg-[#ff0042] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
         >
           Skip to content
         </a>
         {children}
         {/* The "Soft Suave - Live Chat" widget, on every public page as on
-            softsuave.com (it hides itself on /admin and previews). */}
-        <ChatBot />
+            softsuave.com (it hides itself on /admin and previews). Loaded
+            after the page — see chatbot-loader. */}
+        <ChatBotLoader />
         {/* Last in the body: the container is `afterInteractive`, so its
             position here only decides where the noscript fallback lands. */}
         <GoogleTagManager />

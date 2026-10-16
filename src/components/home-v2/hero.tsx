@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { hero } from "@/lib/home/content";
 import { publicMediaUrl } from "@/lib/media-url";
+import { useAfterLoad } from "@/components/home/use-deferred-media";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import home from "@/components/home/home.module.css";
 import styles from "./home-v2.module.css";
@@ -53,22 +54,13 @@ export default function Hero() {
   const frame = useRef<HTMLDivElement | null>(null);
   const content = useRef<HTMLDivElement | null>(null);
 
-  // Mount the video after hydration, as the homepage does, so it never
-  // competes with the critical assets.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    let active = true;
-    requestAnimationFrame(() => {
-      if (active) setMounted(true);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
+  // Mount the video once the page has loaded and gone idle: its 2.2 MB must
+  // never compete with the hero's CSS, fonts and copy (PageSpeed, 15 Oct). The
+  // poster underneath is its first frame, so the swap is invisible.
+  const mounted = useAfterLoad();
 
   useGSAP(
     () => {
-      const lines = gsap.utils.toArray<HTMLElement>(`.${styles.heroLineInner}`);
       const words = gsap.utils.toArray<HTMLElement>(`.${styles.rotWord}`);
 
       if (prefersReducedMotion()) {
@@ -79,15 +71,10 @@ export default function Hero() {
       const covered = introRemainingMs();
       const reveal = covered > 150;
       const startDelay = reveal ? Math.max(0, covered / 1000 - 0.25) : 0;
-      if (reveal) {
-        gsap
-          .timeline({ delay: startDelay })
-          .from(frame.current, { opacity: 0, duration: 1.4, ease: "power2.out" })
-          .from(`.${styles.heroKicker}`, { opacity: 0, y: 14, duration: 0.6, ease: "power2.out" }, 0.2)
-          .from(lines, { yPercent: 118, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.08 }, 0.3)
-          .from(`.${styles.heroSub}`, { opacity: 0, y: 20, duration: 0.7, ease: "power2.out" }, "-=0.4")
-          .from(`.${styles.heroCtas}`, { opacity: 0, y: 20, duration: 0.7, ease: "power2.out" }, "-=0.5");
-      }
+      // The frame, kicker, lines, subtitle and CTAs reveal in CSS from the first
+      // paint, timed to the preloader's own CSS fade (home-v2.module.css). As
+      // this timeline at hydration they kept the page's main content hidden
+      // until every script had loaded (PageSpeed LCP, 15 Oct).
 
       // Rotating word: in from below, hold, out the top — inside its clip.
       gsap.set(words, { yPercent: 105, opacity: 0 });
@@ -112,7 +99,7 @@ export default function Hero() {
 
   return (
     <section ref={root} className={styles.hero} id="top">
-      <div ref={frame} className={home.videoHeroFrame}>
+      <div ref={frame} className={`${home.videoHeroFrame} ${styles.heroFrame}`}>
         <div className={styles.heroPoster} style={{ backgroundImage: `url(${POSTER})` }} aria-hidden />
         {mounted && (
           <video

@@ -216,8 +216,14 @@
 
 .heroGlow {
   position: absolute;
-  inset: -30% -10% auto -10%;
+  /* Pinned to the hero's top edge and lifted by a transform — the same place
+     as `top: -30%` (a third of its own 90% height) — so it holds still while
+     the hero below the fold is still being parsed. As `top: -30%` it moved
+     with every pixel the hero grew, and the whole viewport-sized glow counted
+     as a layout shift (CLS 0.08 on the hire and AI pages, 15 Oct). */
+  inset: 0 -10% auto -10%;
   height: 90%;
+  translate: 0 -33.333%;
   background: radial-gradient(
     55% 55% at 22% 30%,
     rgba(255, 84, 54, 0.14) 0%,
@@ -1054,35 +1060,55 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  /* Each dot is a 24px target now (below); the gap that spaced 9px dots goes. */
+  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* A 24px button — the touch-target minimum (Lighthouse target-size) — with
+   the 9px dot drawn inside it, so the row looks as it did. */
 .svcDot {
+  position: relative;
   display: block;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.svcDot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 9px;
   height: 9px;
-  padding: 0;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: transparent;
-  cursor: pointer;
+  transform: translate(-50%, -50%);
   transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
 }
 
-.svcDot:hover {
+.svcDot:hover::before {
   border-color: var(--accent);
 }
 
-.svcDot[aria-current="true"] {
+.svcDot[aria-current="true"]::before {
   background: var(--accent);
   border-color: var(--accent);
-  transform: scale(1.35);
+  transform: translate(-50%, -50%) scale(1.35);
 }
 
 .svcDot:focus-visible {
+  outline: none;
+}
+
+.svcDot:focus-visible::before {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
@@ -2776,4 +2802,59 @@
      those turn to texture, and a trust mark nobody can read is decoration. */
   height: clamp(20px, 2vw, 24px);
   object-fit: contain;
+}
+
+/* ============================================================
+   HERO ENTRANCE — in CSS, from the first paint (15 Oct, PageSpeed)
+   hero.tsx's former GSAP timeline, value for value (delays include its 0.15s
+   start; `--i` is each item's index). At hydration that timeline re-hid copy
+   already on screen, so the page's main content (LCP) only counted once every
+   script had loaded. Fades start at 0.01: Chrome never counts what first
+   paints at opacity 0. `backwards`: nothing lingers once each lands.
+   ============================================================ */
+@keyframes heroRise {
+  from {
+    opacity: 0.01;
+    translate: 0 var(--rise, 20px);
+  }
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0.01;
+  }
+}
+
+.hero .heroTitleLine {
+  --rise: 40%;
+  animation: heroRise 0.9s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+  animation-delay: calc(0.25s + var(--i, 0) * 0.09s);
+}
+
+.hero .heroBody {
+  --rise: 20px;
+  animation: heroRise 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: calc(0.74s + var(--i, 0) * 0.08s);
+}
+
+.hero .heroPoint {
+  --rise: 16px;
+  animation: heroRise 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: calc(1.04s + var(--i, 0) * 0.05s);
+}
+
+.hero .badge {
+  --rise: 12px;
+  animation: heroRise 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: calc(1.44s + var(--i, 0) * 0.04s);
+}
+
+/* The enquiry card: the grid's second column. */
+.hero .heroGrid > :nth-child(2) {
+  --rise: 28px;
+  animation: heroRise 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s backwards;
+}
+
+.hero .heroMedia {
+  animation: heroFadeIn 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s backwards;
 }

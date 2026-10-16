@@ -266,8 +266,14 @@
    see hero.tsx. */
 .heroGlow {
   position: absolute;
-  inset: -30% -10% auto -10%;
+  /* Pinned to the hero's top edge and lifted by a transform — the same place
+     as `top: -30%` (a third of its own 90% height) — so it holds still while
+     the hero below the fold is still being parsed. As `top: -30%` it moved
+     with every pixel the hero grew, and the whole viewport-sized glow counted
+     as a layout shift (CLS 0.08 on the hire and AI pages, 15 Oct). */
+  inset: 0 -10% auto -10%;
   height: 90%;
+  translate: 0 -33.333%;
   background: radial-gradient(
     55% 55% at 22% 30%,
     rgba(255, 84, 54, 0.14) 0%,
@@ -1883,6 +1889,26 @@
 
 .stackItem:hover .stackItemLogo {
   transform: scale(1.18);
+}
+
+/* The entrance's start state (`tech-stack-client.tsx` sets `data-armed` when
+   it arms the reveal and removes it when the reveal ends). From CSS, it is one
+   attribute write for the whole stack; set per element with `gsap.set`, it
+   was a style read and write per chip — ~160 forced style recalculations on a
+   long hire-page stack while the page loaded (PageSpeed, 15 Oct). */
+.stackList[data-armed] .stackGroup {
+  --rule: 0;
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.stackList[data-armed] .stackItem {
+  opacity: 0;
+  transform: translateY(12px) scale(0.96);
+}
+
+.stackList[data-armed] .stackItemLogo {
+  filter: grayscale(1) brightness(0.6);
 }
 
 /* `largeLogos` on landing/tech-stack.tsx. The box above is 36px, but every
@@ -3920,35 +3946,55 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  /* Each dot is a 24px target now (below); the gap that spaced 9px dots goes. */
+  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* A 24px button — the touch-target minimum (Lighthouse target-size) — with
+   the 9px dot drawn inside it, so the row looks as it did. */
 .carouselDot {
+  position: relative;
   display: block;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.carouselDot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 9px;
   height: 9px;
-  padding: 0;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: transparent;
-  cursor: pointer;
+  transform: translate(-50%, -50%);
   transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
 }
 
-.carouselDot:hover {
+.carouselDot:hover::before {
   border-color: var(--accent);
 }
 
-.carouselDot[aria-current="true"] {
+.carouselDot[aria-current="true"]::before {
   background: var(--accent);
   border-color: var(--accent);
-  transform: scale(1.35);
+  transform: translate(-50%, -50%) scale(1.35);
 }
 
 .carouselDot:focus-visible {
+  outline: none;
+}
+
+.carouselDot:focus-visible::before {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
@@ -8474,4 +8520,82 @@
       rgba(4, 5, 8, 0.92) 100%
     );
   }
+}
+
+/* ============================================================
+   HERO ENTRANCE — in CSS, from the first paint (15 Oct, PageSpeed)
+   The same rise-and-fade the GSAP timeline in hero.tsx used to play, with its
+   delays, durations and staggers (`--i` is each item's index). As a JS tween it
+   ran at hydration and re-hid copy that was already on screen, so Chrome took
+   the page's main content as appearing only once every script had loaded
+   (LCP ~7 s on mobile). As CSS it needs no JavaScript at all.
+   `backwards`: each holds its start state through its delay, then lets go,
+   so no finished animation overrides the element's own styles.
+   Moves with `translate`, not `transform`, so it composes with any transform
+   the element has of its own.
+   `prefers-reduced-motion` collapses these through home.css's blanket rule.
+   ============================================================ */
+/* From 0.01, not 0: Chrome never counts text that first paints at opacity 0
+   as the page's main content, so a fade from 0 hid the hero from LCP entirely
+   (measured 15 Oct). 0.01 is invisible to the eye. */
+@keyframes heroRise {
+  from {
+    opacity: 0.01;
+    translate: 0 var(--rise, 20px);
+  }
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0.01;
+  }
+}
+
+.hero .heroTitleLine {
+  --rise: 40%;
+  animation: heroRise 0.9s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+  animation-delay: calc(0.15s + var(--i, 0) * 0.09s);
+}
+
+.hero .heroBody {
+  --rise: 20px;
+  animation: heroRise 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: calc(0.64s + var(--i, 0) * 0.08s);
+}
+
+.hero .heroPoint {
+  --rise: 16px;
+  animation: heroRise 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: calc(0.95s + var(--i, 0) * 0.05s);
+}
+
+.hero .heroStat {
+  --rise: 16px;
+  animation: heroRise 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: calc(1.1s + var(--i, 0) * 0.06s);
+}
+
+.hero .badge {
+  --rise: 12px;
+  animation: heroRise 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: calc(1.2s + var(--i, 0) * 0.04s);
+}
+
+/* The form card or the aside image: the grid's second column. */
+.hero .heroGrid > :nth-child(2) {
+  --rise: 28px;
+  animation: heroRise 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: 0.4s;
+}
+
+/* Fades in alongside the display hero's slow drift; the compact hero keeps no
+   drift (`.heroCompact .heroBg`), so it takes the fade alone. */
+.hero .heroBg {
+  animation:
+    heroFadeIn 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s backwards,
+    heroBgDrift 26s ease-in-out infinite alternate;
+}
+
+.hero.heroCompact .heroBg {
+  animation: heroFadeIn 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s backwards;
 }

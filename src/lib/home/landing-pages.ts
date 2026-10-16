@@ -52,19 +52,15 @@ export interface LandingPage {
   readonly breadcrumbCurrentLabel?: string;
 }
 
-import { HIRE_SKILLS } from './hire-skills';
+import { HIRE_SKILL_ROUTES } from './hire-skill-routes';
 import { HIRE_ROLE_ROUTES } from './hire-roles/slugs';
 
 /**
- * The 24 hire-by-skill pages, derived from their own registry rather than
- * listed again here. They are generated from one template
- * (`components/landing/hire-page.tsx`), so a hand-maintained copy of the list
- * would be a second place to forget when a skill is added.
+ * The hire-by-skill pages, from their route list (`hire-skill-routes.ts`) —
+ * not from `HIRE_SKILLS`, whose page copy would ride into every page's
+ * client bundle with this module. A test keeps the two in step.
  */
-const HIRE_LANDING_PAGES: readonly LandingPage[] = HIRE_SKILLS.map((s) => ({
-  path: `/${s.slug}`,
-  title: s.metaTitle,
-}));
+const HIRE_LANDING_PAGES: readonly LandingPage[] = HIRE_SKILL_ROUTES.map(({ path, title }) => ({ path, title }));
 
 export const LANDING_PAGES: readonly LandingPage[] = [
   // Listed here because the sitemap now derives from this registry: it was in

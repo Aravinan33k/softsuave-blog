@@ -1,5 +1,3 @@
-"use client";
-
 import { techStack as homeTechStack } from "@/lib/home/content";
 import Marquee from "./marquee";
 import SplitReveal from "./split-reveal";

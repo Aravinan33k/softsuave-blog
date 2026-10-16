@@ -260,12 +260,27 @@ export default function ScrollProvider({ children }: { children: React.ReactNode
       });
 
     // ---- Refresh choreography (measure after everything loads) ---------
+    // After the first, each check refreshes only if the page has changed
+    // height since the last refresh — ScrollTrigger's own included (it refreshes
+    // itself on `load`). A refresh re-measures every trigger on the page; run
+    // unconditionally at each of these moments, they were several of the
+    // longest tasks of a phone's page load (PageSpeed, 15 Oct).
+    const root = document.documentElement;
+    let measured = -1;
+    const record = () => {
+      measured = root.scrollHeight;
+    };
+    ScrollTrigger.addEventListener("refresh", record);
     const refresh = () => ScrollTrigger.refresh();
+    // -1: the first refresh (next frame) has not run yet and will measure.
+    const refreshIfMoved = () => {
+      if (measured !== -1 && root.scrollHeight !== measured) refresh();
+    };
     const raf = requestAnimationFrame(refresh);
-    const settle = window.setTimeout(refresh, 600);
-    const late = window.setTimeout(refresh, 1600);
-    window.addEventListener("load", refresh);
-    if (document.fonts?.ready) document.fonts.ready.then(refresh).catch(() => {});
+    const settle = window.setTimeout(refreshIfMoved, 600);
+    const late = window.setTimeout(refreshIfMoved, 1600);
+    window.addEventListener("load", refreshIfMoved);
+    if (document.fonts?.ready) document.fonts.ready.then(refreshIfMoved).catch(() => {});
     // Refresh when the viewport/layout changes (Lenis re-measures too).
     let resizeTimer = 0;
     const onResize = () => {
@@ -283,7 +298,8 @@ export default function ScrollProvider({ children }: { children: React.ReactNode
       window.clearTimeout(late);
       window.clearTimeout(resizeTimer);
       window.clearTimeout(programmaticReset);
-      window.removeEventListener("load", refresh);
+      window.removeEventListener("load", refreshIfMoved);
+      ScrollTrigger.removeEventListener("refresh", record);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("wheel", onWheelProbe);
       document.removeEventListener("click", onAnchorClick);

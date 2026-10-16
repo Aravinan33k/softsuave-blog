@@ -55,7 +55,7 @@ export function Testimonials({
             {content.segments.map((segment) => (
               <li
                 key={segment}
-                className="text-[length:var(--fs-body-sm)] text-muted-foreground/75"
+                className="text-[length:var(--fs-body-sm)] text-muted-foreground"
               >
                 {segment}
               </li>

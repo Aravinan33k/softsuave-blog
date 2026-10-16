@@ -16,6 +16,7 @@ import { industries } from "@/lib/home/content";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import SplitReveal from "@/components/home/split-reveal";
 import BrandImage from "@/components/home/brand-image";
+import { useNearViewport } from "@/components/home/use-deferred-media";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import home from "@/components/home/home.module.css";
 import styles from "./home-v2.module.css";
@@ -50,6 +51,11 @@ export default function Industries() {
   const root = useRef<HTMLElement | null>(null);
   const [active, setActive] = useState(0);
   const total = pad(industries.items.length);
+  // The six photographs mount as the section nears the viewport. On a phone
+  // it sits just under the hero, inside the browser's lazy-load distance, so
+  // all six (~180 KB) loaded with the first screen and competed with what it
+  // needs (PageSpeed, 15 Oct). Until then each panel shows its dark ground.
+  const near = useNearViewport(root);
 
   useGSAP(
     () => {
@@ -91,13 +97,15 @@ export default function Industries() {
               onMouseEnter={() => setActive(i)}
             >
               <div className={styles.panelImg}>
-                <BrandImage
-                  page="four"
-                  id={it.img}
-                  fill
-                  sizes="(min-width: 1000px) 50vw, 100vw"
-                  className="object-cover"
-                />
+                {near && (
+                  <BrandImage
+                    page="four"
+                    id={it.img}
+                    fill
+                    sizes="(min-width: 1000px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                )}
               </div>
               <div className={styles.panelShade} aria-hidden />
 

@@ -290,7 +290,10 @@ function SteppedForm() {
 
       <p className={styles.formAlert}>
         <strong>{contactForm.alert.label}</strong> {contactForm.alert.text}{" "}
-        <Link href={contactForm.alert.href}>{contactForm.alert.linkLabel}</Link>.
+        <Link href={contactForm.alert.href}>
+          {contactForm.alert.linkLabel}
+          <span className="sr-only"> to see open jobs at Soft Suave</span>
+        </Link>.
       </p>
     </form>
   );

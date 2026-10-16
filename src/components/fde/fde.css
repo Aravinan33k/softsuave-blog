@@ -126,9 +126,12 @@
   --fde-gradient-to: #fb3b5c;
 }
 
+/* From 0.01, not 0: Chrome never counts text that first paints at opacity 0
+   as the page's main content, so a fade from 0 kept the whole FDE hero out of
+   LCP (PageSpeed, 15 Oct). 0.01 is invisible to the eye. */
 @keyframes fde-fade-up {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(18px);
   }
   to {
@@ -169,7 +172,7 @@
 /* `font-mono` in this app's theme is a system stack; the page used JetBrains
    Mono, which the marketing layout already loads. */
 .fde .font-mono {
-  font-family: var(--font-jbmono), ui-monospace, SFMono-Regular, monospace;
+  font-family: var(--wf-jbmono, "JetBrains Mono Fallback"), ui-monospace, SFMono-Regular, monospace;
 }
 
 /* The site's header is fixed (out of flow) and 77px tall at the top of the

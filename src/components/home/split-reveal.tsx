@@ -3,6 +3,7 @@
 import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 import SplitType from "split-type";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { isOnScreen } from "@/lib/home/on-screen";
 
 /*
  * `--fit-width` measuring, batched across every heading on the page
@@ -108,6 +109,9 @@ export default function SplitReveal({
     (_context, contextSafe) => {
       const el = ref.current;
       if (prefersReducedMotion() || !el) return;
+      // Already on screen at hydration: leave the heading as painted rather
+      // than splitting it into fresh, hidden words (see on-screen.ts).
+      if (isOnScreen(el)) return;
       let split: SplitType | null = null;
 
       const arm = () => {

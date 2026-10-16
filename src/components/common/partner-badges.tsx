@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { partnerHeroBadges } from "@/lib/home/hero-badges";
+import { heroBadgeSizes, partnerHeroBadges } from "@/lib/home/hero-badges";
 import { publicMediaUrl } from "@/lib/media-url";
 import styles from "@/components/landing/landing.module.css";
 
@@ -23,6 +23,7 @@ export default function PartnerBadges({ className }: { className?: string }) {
             alt={b.alt}
             width={b.width}
             height={b.height}
+            sizes={heroBadgeSizes(b)}
             className={styles.badgeLogoImg}
           />
         </li>

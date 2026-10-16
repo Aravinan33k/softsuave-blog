@@ -108,7 +108,14 @@ const securityHeaders = [
 const buildCpus = Number(process.env.NEXT_BUILD_CPUS) || 2;
 
 const nextConfig: NextConfig = {
-  experimental: { cpus: buildCpus },
+  experimental: {
+    cpus: buildCpus,
+    // Group CSS by which routes actually import it. The default merge put the
+    // landing, Generative AI, home-v2 and contact modules into chunks every
+    // marketing page loaded — ~94 KB gzipped of render-blocking CSS on each,
+    // half of it unused, ahead of the first paint on a phone (PageSpeed, 15 Oct).
+    cssChunking: 'graph',
+  },
   reactStrictMode: true,
   poweredByHeader: false,
   // `next dev` serves its scripts, fonts and live-reload only to localhost. An

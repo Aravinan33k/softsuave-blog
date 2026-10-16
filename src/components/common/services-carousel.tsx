@@ -240,7 +240,7 @@ export default function ServicesCarousel({
           const isNear = Math.abs(off) === 1;
           const href = hrefFor(s.name, s.href);
           return (
-            <article
+            <div
               key={s.name}
               className={`${styles.carouselSlide}${off === 0 ? ` ${styles.carouselSlideActive}` : ""}${
                 isNear ? ` ${styles.carouselSlideNear}` : ""
@@ -270,7 +270,7 @@ export default function ServicesCarousel({
                   <ServiceLink href={href} label={s.name} tabIndex={onScreen ? undefined : -1} />
                 )}
               </div>
-            </article>
+            </div>
           );
         })}
       </div>

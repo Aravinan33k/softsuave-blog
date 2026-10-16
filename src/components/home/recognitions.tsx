@@ -175,7 +175,8 @@ export default function Recognitions() {
             ref={viewport}
             className={styles.recogStrip}
             tabIndex={0}
-            role="group"
+            /* A labelled list, not role="group": that role stripped the list
+               semantics and left every <li> orphaned (Lighthouse listitem). */
             aria-label="Industry recognitions"
             /* Which edges are clipped, so the fade mask only covers an edge
                that actually has more badges behind it. */

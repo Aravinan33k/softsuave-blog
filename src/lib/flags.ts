@@ -79,6 +79,24 @@ const gtmEnv = (process.env.NEXT_PUBLIC_GTM_ID ?? '').trim();
 export const gtmContainerId: string = gtmEnv === 'off' ? '' : gtmEnv || GTM_DEFAULT;
 
 /**
+ * When the GTM container loads (`components/analytics/google-tag-manager`).
+ *
+ * `deferred` (the default): on the visitor's first scroll, tap, click, key or
+ * mouse move, or a few seconds after the page has loaded if none comes. The
+ * container pulls in ~680 KB of tags — Analytics, two Google Ads tags,
+ * LinkedIn, Clarity, OptinMonster, Leadfeeder, Factors — and running them
+ * while the page starts up cost PageSpeed 15–20 points on mobile (/contact
+ * 80 → 63, /generative-ai-development-company 75 → 55, 15 Oct), which no
+ * first-party trimming makes back. Visits are still recorded: the fallback
+ * fires for a visitor who reads without touching the page.
+ *
+ * `eager`: the stock snippet's timing, right after hydration. `NEXT_PUBLIC_*`,
+ * so changing it needs a rebuild.
+ */
+export const gtmLoad: 'deferred' | 'eager' =
+  (process.env.NEXT_PUBLIC_GTM_LOAD ?? '').trim() === 'eager' ? 'eager' : 'deferred';
+
+/**
  * Subpath this app is mounted at, mirroring `basePath` in `next.config.ts`.
  *
  * Empty: the app owns the domain root, so `/` is the marketing homepage, `/blog`

@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { finalCta } from "@/lib/home/content";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import HoldButton from "./hold-button";
 import styles from "./home.module.css";
+import { useNearViewport } from "./use-deferred-media";
 
 /**
  * Contact / business enquiry — a cinematic scroll-scrubbed FOCUS PULL. As you
@@ -56,19 +57,11 @@ export default function Contact({
    * lazy mount is worth restoring too — this is the LAST section on 53 pages,
    * so most visits never reach it.
    *
-   * `mounted` only defers to the client, matching how `hero.tsx` mounts its own
-   * video; it is not a capability gate.
+   * The video mounts only as the band nears the viewport (`useNearViewport`):
+   * it used to load with every page, competing with the first screen for
+   * bandwidth (PageSpeed, 15 Oct). It is not a capability gate.
    */
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    let active = true;
-    requestAnimationFrame(() => {
-      if (active) setMounted(true);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
+  const mounted = useNearViewport(root);
 
   // Split the headline so the last keyword can carry the drawn underline.
   const m = content.title.match(/^([\s\S]*?)([A-Za-z0-9]+)(\W*)$/);
@@ -166,7 +159,7 @@ export default function Contact({
       <div className={styles.contactBg}>
         {/* The still is the base layer in every case — it is a frame of the
             video, so the switch between the two is invisible. */}
-        <div className={styles.contactPoster} />
+        <div className={styles.contactPoster} data-near={mounted || undefined} />
         {mounted && (
           <video
             className={styles.contactVideo}

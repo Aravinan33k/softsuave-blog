@@ -1164,3 +1164,56 @@
     grid-template-columns: 4rem minmax(0, 0.95fr) minmax(0, 1.5fr);
   }
 }
+
+/* ============================================================
+   HERO ENTRANCE — in CSS, from the first paint (15 Oct, PageSpeed)
+   hero.tsx's former GSAP timeline, value for value (delays include its 0.15s
+   start; `--i` is each item's index). At hydration it re-hid copy already on
+   screen, so the page's main content (LCP) only counted once every script had
+   loaded. Fades start at 0.01 — Chrome never counts what first paints at
+   opacity 0 — move with `translate` (composes with the frames' own
+   transforms) and fill `backwards`, so nothing lingers once each lands.
+   ============================================================ */
+@keyframes heroRise {
+  from {
+    opacity: 0.01;
+    translate: 0 var(--rise, 20px);
+  }
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0.01;
+  }
+}
+
+.hero .heroLine {
+  --rise: 40%;
+  animation: heroRise 0.9s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+  animation-delay: calc(0.25s + var(--i, 0) * 0.09s);
+}
+
+.hero .heroBody {
+  --rise: 20px;
+  animation: heroRise 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.69s backwards;
+}
+
+.hero .heroAside {
+  --rise: 16px;
+  animation: heroRise 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.94s backwards;
+}
+
+.hero .heroCtas {
+  --rise: 16px;
+  animation: heroRise 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.14s backwards;
+}
+
+.hero .heroFrame {
+  --rise: 34px;
+  animation: heroRise 0.9s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+  animation-delay: calc(0.35s + var(--i, 0) * 0.08s);
+}
+
+.hero .heroPlate {
+  animation: heroFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.34s backwards;
+}

@@ -276,7 +276,7 @@ export default function Services({
           const isNear = Math.abs(off) === 1;
           const href = content.links === false ? undefined : hrefFor(s.name, s.href);
           return (
-            <article
+            <div
               key={s.name}
               className={`${styles.svcSlide}${off === 0 ? ` ${styles.svcSlideActive}` : ""}${
                 isNear ? ` ${styles.svcSlideNear}` : ""
@@ -305,7 +305,7 @@ export default function Services({
                   <ServiceLink href={href} label={s.name} tabIndex={onScreen ? undefined : -1} />
                 )}
               </div>
-            </article>
+            </div>
           );
         })}
       </div>

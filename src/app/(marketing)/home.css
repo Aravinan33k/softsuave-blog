@@ -83,10 +83,14 @@ html.lenis body {
   --brand-ink: #0b1020;
   --brand-gradient: linear-gradient(135deg, #ff7a45 0%, #fb3b5c 100%);
 
-  /* Readable aliases for the next/font variables attached to this element. */
+  /* Readable aliases for the next/font variables attached to this element.
+     The mono label face names next/font's metric-matched fallback until
+     `--wf-jbmono` is defined — which `lib/web-fonts` does once the page has
+     painted, so JetBrains Mono loads after the first paint, not ahead of it.
+     Inter and the display serif load first (see `lib/home/marketing-fonts`). */
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display-serif: var(--font-fraunces), Georgia, serif;
-  --font-mono-label: var(--font-jbmono), ui-monospace, monospace;
+  --font-mono-label: var(--wf-jbmono, "JetBrains Mono Fallback"), ui-monospace, monospace;
 
   /* Cinematic / award-show surface palette */
   --bg: #040508;

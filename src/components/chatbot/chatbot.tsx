@@ -26,7 +26,7 @@ const ChatPanel = lazy(() => import("./chat-panel"));
 
 const HIDDEN_ON = /^\/(admin|preview)(\/|$)/;
 
-export default function ChatBot() {
+export default function ChatBot({ openOnMount = false }: { openOnMount?: boolean } = {}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [panelLoaded, setPanelLoaded] = useState(false);
@@ -77,9 +77,12 @@ export default function ChatBot() {
       if (e.key === UNREAD_KEY || e.key === null) syncUnread();
     };
     window.addEventListener(OPEN_CHAT_EVENT, openChat);
+    // Asked for before the widget had loaded (see chatbot-loader).
+    const openNow = openOnMount ? window.setTimeout(openChat, 0) : undefined;
     window.addEventListener("storage", onStorage);
     return () => {
       window.clearTimeout(id);
+      window.clearTimeout(openNow);
       if (idle !== undefined) {
         if (hasIdle) window.cancelIdleCallback(idle);
         else window.clearTimeout(idle);
@@ -87,7 +90,7 @@ export default function ChatBot() {
       window.removeEventListener(OPEN_CHAT_EVENT, openChat);
       window.removeEventListener("storage", onStorage);
     };
-  }, [loadPanel, openChat]);
+  }, [loadPanel, openChat, openOnMount]);
 
   if (HIDDEN_ON.test(pathname)) return null;
 

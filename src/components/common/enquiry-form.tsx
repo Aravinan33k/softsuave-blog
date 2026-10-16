@@ -330,6 +330,7 @@ export default function EnquiryForm({
               {" "}
               <SiteLink href={content.noteLink.href} className={fx.noteLink}>
                 {content.noteLink.label}
+                <span className="sr-only"> to see open jobs at Soft Suave</span>
               </SiteLink>
             </>
           )}
@@ -341,8 +342,11 @@ export default function EnquiryForm({
           <span className={fx.alertLabel}>{content.alert.label}</span> {content.alert.text}{" "}
           {/* `SiteLink`: the href is usually /career-overview, a live-site path
               this app does not serve, so a plain next/link 404s on it. */}
+          {/* The live copy's "click here" says nothing on its own: the hidden
+              rest names the destination (Lighthouse link-text, screen readers). */}
           <SiteLink className={fx.alertLink} href={content.alert.href}>
             {content.alert.linkLabel}
+            <span className="sr-only"> to see open jobs at Soft Suave</span>
           </SiteLink>
         </p>
       )}

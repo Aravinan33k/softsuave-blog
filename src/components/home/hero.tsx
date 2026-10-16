@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { hero } from "@/lib/home/content";
 import { publicMediaUrl } from "@/lib/media-url";
+import { useAfterLoad } from "./use-deferred-media";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import styles from "./home.module.css";
 
@@ -42,19 +43,10 @@ export default function Hero() {
   const content = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  // Mount the 6 MB background video only after hydration so it never competes
-  // with the document/critical assets for initial-load bandwidth (keeps LCP/FCP
-  // low). The frame + veil render immediately as the poster.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    let active = true;
-    requestAnimationFrame(() => {
-      if (active) setMounted(true);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
+  // Mount the background video only once the page has loaded and gone idle, so
+  // it never competes with the document/critical assets for bandwidth (keeps
+  // LCP/FCP low). The frame + veil render immediately as the poster.
+  const mounted = useAfterLoad();
 
   useGSAP(
     () => {

@@ -63,10 +63,12 @@ export function ContactAwards() {
           {a.items.map((item) => (
             <li key={item.key} className={styles.award}>
               <span className={styles.awardArt}>
-                {/* SVG art: served as-is, the optimizer does not rasterise SVG. */}
+                {/* SVG art: served as-is, the optimizer does not rasterise SVG.
+                    Decorative: the title beside it names the award, and the
+                    same words as alt made screen readers say it twice. */}
                 <Image
                   src={publicMediaUrl(item.src)}
-                  alt={item.title}
+                  alt=""
                   width={160}
                   height={92}
                   unoptimized

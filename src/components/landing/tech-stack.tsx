@@ -1,11 +1,5 @@
-"use client";
-
-import { useRef } from "react";
 import TechLogo from "@/components/home/tech-logo";
-import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
-import CardIconBadge from "@/components/common/card-icon-badge";
-import SectionHead from "./section-head";
-import styles from "./landing.module.css";
+import TechStackClient from "./tech-stack-client";
 
 export interface TechStackContent {
   eyebrow: string;
@@ -39,6 +33,11 @@ export interface TechStackContent {
  * The grey is applied by GSAP, never in CSS, so reduced motion (and any
  * failure to run) leaves every mark in full colour rather than grey. Nothing
  * here is scrubbed or pinned — this surface stays reveals-and-staggers only.
+ *
+ * Split in two: this server half draws the marks and hands them to the
+ * animated client half (`./tech-stack-client`) ready-made. `TechLogo` is ~30 KB
+ * gzipped of SVG; rendered inside the client half it shipped to every page with
+ * a stack as JavaScript, ahead of the first paint (PageSpeed, 15 Oct).
  */
 export default function TechStack({
   content,
@@ -66,118 +65,11 @@ export default function TechStack({
    */
   largeLogos?: boolean;
 }) {
-  const root = useRef<HTMLDivElement | null>(null);
+  const logoMarks = logos
+    ? Object.fromEntries(
+        [...new Set(content.groups.flatMap((g) => g.items))].map((item) => [item, <TechLogo key={item} name={item} />]),
+      )
+    : undefined;
 
-  useGSAP(
-    () => {
-      if (prefersReducedMotion() || !root.current) return;
-      const el = root.current;
-      const groups = gsap.utils.toArray<HTMLElement>(`.${styles.stackGroup}`, el);
-      const chips = gsap.utils.toArray<HTMLElement>(`.${styles.stackItem}`, el);
-      const marks = gsap.utils.toArray<HTMLElement>(`.${styles.stackItemLogo}`, el);
-      if (!groups.length) return;
-
-      gsap.set(groups, { opacity: 0, y: 24, "--rule": 0 });
-      gsap.set(chips, { opacity: 0, y: 12, scale: 0.96 });
-      if (marks.length) gsap.set(marks, { filter: "grayscale(1) brightness(0.6)" });
-
-      // A detached timeline played once by a bare trigger — NOT a timeline
-      // owned by a ScrollTrigger, which a `ScrollTrigger.refresh()` landing
-      // mid-play would restore at its interrupted progress, paused (see
-      // why-us.tsx).
-      const tl = gsap.timeline({ paused: true });
-
-      tl.to(groups, {
-        opacity: 1,
-        y: 0,
-        duration: 0.55,
-        ease: "power2.out",
-        stagger: 0.06,
-        clearProps: "transform,opacity",
-      })
-        .to(groups, { "--rule": 1, duration: 0.5, ease: "power2.out", stagger: 0.06 }, 0.1)
-        .to(
-          chips,
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.45,
-            ease: "back.out(1.6)",
-            stagger: 0.02,
-            clearProps: "transform,opacity",
-          },
-          0.2,
-        );
-
-      if (marks.length) {
-        tl.to(
-          marks,
-          {
-            filter: "grayscale(0) brightness(1)",
-            duration: 0.55,
-            ease: "power2.out",
-            stagger: 0.025,
-            // Leave no inline filter behind, so the hover transition owns it.
-            clearProps: "filter",
-          },
-          0.38,
-        );
-      }
-
-      const st = ScrollTrigger.create({
-        trigger: el,
-        start: "top 82%",
-        once: true,
-        onEnter: () => tl.play(0),
-      });
-
-      return () => {
-        st.kill();
-        tl.kill();
-      };
-    },
-    { scope: root },
-  );
-
-  return (
-    <section
-      className={largeLogos ? `${styles.sectionShell} ${styles.stackLargeLogos}` : styles.sectionShell}
-      id={id}
-    >
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
-
-      <div ref={root} className={styles.stackList}>
-        {content.groups.map((group) => (
-          <div key={group.name || "list"} className={styles.stackGroup}>
-            {/* A nameless group is one flat list under the section heading (the
-                QA page's label-only bands) — no head row to invent. */}
-            {group.name && (
-              <div className={styles.stackGroupHead}>
-                {/* An icon picked from the group's name, not a "01" ordinal: the
-                    Sep corrections review asked for icons in place of numbers. */}
-                <CardIconBadge title={group.name} size="sm" className={styles.stackGroupIndex} />
-                <h3 className={styles.stackGroupName}>{group.name}</h3>
-              </div>
-            )}
-
-            <ul className={styles.stackItems}>
-              {group.items.map((item) => (
-                <li key={item} className={styles.stackItem}>
-                  {logos ? (
-                    <span className={styles.stackItemLogo} aria-hidden>
-                      <TechLogo name={item} />
-                    </span>
-                  ) : (
-                    <span className={styles.stackItemBullet} aria-hidden />
-                  )}
-                  <span className={styles.stackItemName}>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+  return <TechStackClient content={content} id={id} logoMarks={logoMarks} largeLogos={largeLogos} />;
 }

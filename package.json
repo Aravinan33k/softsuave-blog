@@ -21,6 +21,7 @@
     "images:home": "node scripts/generate-home-images.mjs",
     "images:ai": "node scripts/generate-ai-images.mjs",
     "images:import": "node scripts/import-image.mjs",
+    "images:brand": "node scripts/brand-images.mjs",
     "images:gemini": "node scripts/gemini-image.mjs",
     "verify:content": "node --conditions=react-server --import tsx scripts/verify-content.ts",
     "relink:media": "node --conditions=react-server --import tsx scripts/relink-media-refs.ts",

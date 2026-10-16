@@ -16,7 +16,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteInfo();
   // `home: true` uses the bare site title rather than the "… | site" template:
   // this is the blog's own landing page, even though "/" is the site's.
-  return buildMetadata({ site, title: site.title, description: site.description, path: '/blog', home: true, type: 'website' });
+  // A description even when the CMS settings carry none: a page without one
+  // fails Lighthouse's SEO audit and leaves search engines to improvise a snippet.
+  const description =
+    site.description || 'Insights from Soft Suave on AI, software development, and building and hiring engineering teams.';
+  return buildMetadata({ site, title: site.title, description, path: '/blog', home: true, type: 'website' });
 }
 
 export default async function BlogIndexPage() {

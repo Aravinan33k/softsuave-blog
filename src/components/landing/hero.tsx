@@ -4,11 +4,9 @@ import { Fragment, useRef, type CSSProperties } from "react";
 import Image from "next/image";
 import { Globe, SquareTerminal, Users } from "lucide-react";
 import { publicMediaUrl } from "@/lib/media-url";
-import { isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
-import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { heroBadgeSizes, isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./landing.module.css";
-import fx from "@/components/common/enquiry-form.module.css";
 import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
 import Breadcrumb from "@/components/common/breadcrumb";
 
@@ -222,36 +220,11 @@ export default function Hero({
   const root = useRef<HTMLElement | null>(null);
   const compact = variant === "compact";
 
-  useGSAP(
-    () => {
-      if (prefersReducedMotion() || !root.current) return;
-      const tl = gsap.timeline({ delay: 0.15 });
-      tl.from(`.${styles.heroTitleLine}`, {
-        yPercent: 40,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power3.out",
-        stagger: 0.09,
-      })
-        .from(`.${styles.heroBody}`, { opacity: 0, y: 20, duration: 0.7, ease: "power2.out", stagger: 0.08 }, "-=0.5")
-        .from(`.${styles.heroPoint}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.05 }, "-=0.4");
-      if (content.stats?.length) {
-        tl.from(`.${styles.heroStat}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.06 }, "-=0.3");
-      }
-      if (content.badges?.length) {
-        tl.from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3");
-      }
-      tl.from(content.aside ? `.${styles.heroAside}` : `.${fx.card}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
-
-      // Backdrop lifts out of black underneath all of that — the same hand-off
-      // the homepage hero gives its video frame. Added last, at an absolute
-      // position, so the relative offsets above keep their original timing.
-      if (content.image) {
-        tl.from(`.${styles.heroBg}`, { opacity: 0, duration: 1.3, ease: "power2.out" }, 0);
-      }
-    },
-    { scope: root },
-  );
+  // The entrance plays in CSS (`.hero` intro block in landing.module.css), from
+  // the first paint. It used to be a GSAP timeline that ran at hydration and
+  // re-hid the already-painted H1 and body copy to fade them back in — so
+  // Chrome counted the page's main content (LCP) as appearing only after all
+  // the JavaScript had loaded: ~7 s on PageSpeed's mobile run (15 Oct).
 
   const lastLine = content.titleLines.length - 1;
   const accents = accentSlices(content.titleLines, content.accent);
@@ -322,6 +295,7 @@ export default function Hero({
               <Fragment key={line}>
                 {i > 0 ? " " : null}
                 <span
+                  style={{ ["--i" as string]: i } as CSSProperties}
                   className={`${styles.heroTitleLine}${
                     !content.accent && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
                   }`}
@@ -332,8 +306,8 @@ export default function Hero({
             ))}
           </h1>
 
-          {content.body.map((p) => (
-            <p key={p.slice(0, 24)} className={styles.heroBody}>
+          {content.body.map((p, i) => (
+            <p key={p.slice(0, 24)} className={styles.heroBody} style={{ ["--i" as string]: i } as CSSProperties}>
               {p}
             </p>
           ))}
@@ -344,10 +318,10 @@ export default function Hero({
           {content.stats && content.stats.length > 0 && (
             <div className={styles.heroStatsWrap}>
             <ul className={styles.heroStats}>
-              {content.stats.map((stat) => {
+              {content.stats.map((stat, i) => {
                 const Icon = STAT_ICONS[stat.icon];
                 return (
-                  <li key={stat.title} className={styles.heroStat}>
+                  <li key={stat.title} className={styles.heroStat} style={{ ["--i" as string]: i } as CSSProperties}>
                     <span className={styles.heroStatIcon} aria-hidden>
                       <Icon strokeWidth={1.6} />
                     </span>
@@ -364,8 +338,8 @@ export default function Hero({
 
           {content.points.length > 0 && (
           <ul className={styles.heroPoints}>
-            {content.points.map((point) => (
-              <li key={point} className={styles.heroPoint}>
+            {content.points.map((point, i) => (
+              <li key={point} className={styles.heroPoint} style={{ ["--i" as string]: i } as CSSProperties}>
                 <svg
                   className={styles.heroPointMark}
                   viewBox="0 0 20 20"
@@ -423,9 +397,9 @@ export default function Hero({
           )}
           {content.badges && content.badges.length > 0 && (
             <ul className={styles.badges} aria-label={content.badgesLabel ?? "Credentials"}>
-              {content.badges.map((b) =>
+              {content.badges.map((b, i) =>
                 isHeroBadge(b) ? (
-                  <li key={b.src} className={`${styles.badge} ${styles.badgeLogo}`}>
+                  <li key={b.src} className={`${styles.badge} ${styles.badgeLogo}`} style={{ ["--i" as string]: i } as CSSProperties}>
                     {/* The mark is the whole point here, so unlike the awards
                         strip it carries its own name — nothing else in the
                         hero says "Clutch". */}
@@ -434,11 +408,12 @@ export default function Hero({
                       alt={b.alt}
                       width={b.width}
                       height={b.height}
+                      sizes={heroBadgeSizes(b)}
                       className={styles.badgeLogoImg}
                     />
                   </li>
                 ) : (
-                  <li key={b} className={styles.badge}>
+                  <li key={b} className={styles.badge} style={{ ["--i" as string]: i } as CSSProperties}>
                     <span className={styles.badgeDot} aria-hidden />
                     {b}
                   </li>

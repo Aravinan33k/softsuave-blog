@@ -11,9 +11,14 @@ import { isExternalHref, navHref, navRoute } from './nav-data';
  */
 export function SiteLink({
   href,
+  prefetch,
   children,
   ...rest
-}: Omit<React.ComponentProps<'a'>, 'href'> & { href: string }) {
+}: Omit<React.ComponentProps<'a'>, 'href'> & {
+  href: string;
+  /** `next/link`'s, for an in-app route; ignored for the live site's pages. */
+  prefetch?: boolean;
+}) {
   // The two branches take different forms of the same destination: an anchor gets
   // the public url, <Link> the app-internal route. They coincide while the app is
   // served from the domain root, and diverge under a subpath mount — see
@@ -23,7 +28,7 @@ export function SiteLink({
       {children}
     </a>
   ) : (
-    <Link href={navRoute(href)} {...rest}>
+    <Link href={navRoute(href)} prefetch={prefetch} {...rest}>
       {children}
     </Link>
   );

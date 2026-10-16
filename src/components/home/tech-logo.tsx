@@ -1,9 +1,12 @@
-"use client";
-
 import React, { useId } from "react";
 
 /**
  * Returns a high-quality inline SVG logo/icon for the given technology name.
+ *
+ * No "use client": the marks are ~30 KB gzipped of SVG, so the stacks render
+ * them on the server — `landing/tech-stack` passes them into its client half
+ * pre-rendered — and none of it ships as JavaScript. A client component that
+ * still imports this bundles it (PageSpeed, 15 Oct).
  */
 /**
  * Product names that share a mark with an entry below — the product's brand,
