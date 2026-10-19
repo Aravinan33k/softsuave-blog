@@ -270,9 +270,9 @@ export const iosStories: StoryCardsContent = {
       },
     },
     {
-      industry: "eCommerce",
-      name: "Personalized One-Stop Solution for eCommerce Industry",
-      body: "Soft Suave created an app to satisfy multiple needs to seamlessly give effective eCommerce solutions to customers. Specifically, the client wanted mobile applications that would enable customers to make fast decisions and lead them to make a purchase.",
+      industry: "E-commerce",
+      name: "Personalized One-Stop Solution for E-commerce Industry",
+      body: "Soft Suave created an app to satisfy multiple needs to seamlessly give effective e-commerce solutions to customers. Specifically, the client wanted mobile applications that would enable customers to make fast decisions and lead them to make a purchase.",
       image: {
         src: "/images/landing/ios-story-shopping-app.webp",
         alt: "Hands browsing new clothing in a shopping app on an iPhone",

@@ -274,7 +274,7 @@ export const cvIndustries: CardGridContent = {
   body: "Computer Vision can support industry-specific visual workflows by interpreting images, video, camera feeds, and documents, then directing validated outputs into operational systems responsible for action. These are some of the industries where Computer Vision can be applied. The right approach is confirmed against the visual inputs and operational requirements of each engagement.",
   items: [
     {
-      name: "eCommerce",
+      name: "E-commerce",
       body: "Analyze product imagery, monitor visual inventory workflows, and extract document information for catalog operations, order processing, and quality review tasks.",
     },
     {

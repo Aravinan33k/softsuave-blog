@@ -292,7 +292,7 @@ export const madIndustries: CardGridContent = {
       body: "Creating construction management apps for project tracking, resource allocation, scheduling, and team collaboration, enhancing project efficiency and timely delivery.",
     },
     {
-      name: "E-Commerce & Retail Apps",
+      name: "E-commerce & Retail Apps",
       body: "Create shopping apps with features like catalogs, wishlists, payments, loyalty programs, and omnichannel integration for seamless customer experiences.",
     },
     {
@@ -370,7 +370,7 @@ export const madHireCta: CtaBandContent = {
 export const madCaseStudies: WorkCarouselContent = {
   eyebrow: "Case Studies",
   title: "Mobile Apps We've Built",
-  body: "A look at real mobile products we've shipped for clients across logistics, eCommerce, entertainment, and healthcare.",
+  body: "A look at real mobile products we've shipped for clients across logistics, e-commerce, entertainment, and healthcare.",
   items: [
     {
       title: "Logistics Ride Hailing Application",
@@ -381,7 +381,7 @@ export const madCaseStudies: WorkCarouselContent = {
     },
     {
       title: "Grabcery",
-      tag: "eCommerce",
+      tag: "E-commerce",
       body: "A multi-vendor grocery delivery platform with dedicated shopper, vendor, and admin apps — GPS-enabled delivery tracking, real-time cart customization, and multiple payment gateways.",
       // No case-study artwork exists for Grabcery, so a grocery-delivery photo
       // pinned in the image manifest (`four/mad-cs-grocery`).

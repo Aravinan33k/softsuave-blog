@@ -42,7 +42,7 @@ export function Testimonials({
           </p>
         </div>
 
-        <div className={`${home.light} fde-reviews mx-auto mt-[var(--section-head-gap)] max-w-[1180px]`}>
+        <div className={`${home.light} fde-reviews mx-auto mt-[var(--section-head-gap)]`}>
           <ReviewArchive reviews={items.map((review, i) => ({ ...review, ordinal: i + 1 }))} />
         </div>
 

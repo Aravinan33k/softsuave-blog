@@ -12,12 +12,12 @@
    ============================================================ */
 
 /* ---- hero ---- */
-/* Same frame as the landing hero: content capped at 1500px and centred, and
-   the enquiry card in the shared `--enquiry-col` (globals.css). The
+/* Same frame as the landing hero: content runs gutter to gutter, on the
+   nav's lines (it was capped at 1500px and centred), and the enquiry card
+   in the shared `--enquiry-col` (globals.css). The
    proportional 0.85fr it had before made the card 706px wide on a 1920px
    screen, half as wide again as on every other page. */
 .hero {
-  max-width: calc(1500px + 2 * var(--gutter));
   margin-inline: auto;
   padding: clamp(104px, 12vw, 168px) var(--gutter) var(--section-y);
 }
@@ -45,7 +45,10 @@
    1025px here, so a 1024px laptop got the card stacked at full width. */
 @media (min-width: 1000px) {
   .heroGrid {
-    grid-template-columns: minmax(0, 1fr) var(--enquiry-col);
+    /* The fallback is the same value as globals.css's --enquiry-col, so the
+       form keeps its column beside the H1 even if that variable is ever
+       missing (a stale dev stylesheet once dropped it under the copy). */
+    grid-template-columns: minmax(0, 1fr) var(--enquiry-col, clamp(380px, 37vw, 470px));
   }
 }
 

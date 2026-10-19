@@ -46,7 +46,7 @@ export function Protocol({
           className="relative mt-[var(--section-head-gap)] -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0"
         >
           <ol
-            className="mx-auto grid min-w-[44rem] max-w-5xl"
+            className="mx-auto grid min-w-[44rem]"
             style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}
           >
             {steps.map((step) => (

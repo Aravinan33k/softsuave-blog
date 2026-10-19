@@ -122,7 +122,7 @@ export const dedicated: HireRolePageContent = {
     title: 'Why Hire Dedicated Developers from Soft Suave?',
     paragraphs: [
       'Scale faster with expert developers who integrate seamlessly, deliver consistently, and adapt to your evolving business needs without hiring delays.',
-      `Soft Suave ${SPECIALISTS_PLUS} dedicated developers in India help businesses scale with skilled talent across 30+ technology stacks, including web, mobile, cloud, DevOps, QA, eCommerce, and emerging technologies. Each developer is assessed for technical depth, communication skills, project experience, and team compatibility before joining client projects.`,
+      `Soft Suave ${SPECIALISTS_PLUS} dedicated developers in India help businesses scale with skilled talent across 30+ technology stacks, including web, mobile, cloud, DevOps, QA, e-commerce, and emerging technologies. Each developer is assessed for technical depth, communication skills, project experience, and team compatibility before joining client projects.`,
       'Our engagements are built for long-term value, not short-term staffing gaps. With a 97% client retention rate, Soft Suave gives businesses reliable development support backed by consistent delivery, clear communication, and developers who adapt to changing project needs.',
       'You can hire developers through flexible engagement models such as dedicated team, fixed-price, and time and material models. Expand your team on demand and keep projects moving without slow recruitment cycles.',
     ],
@@ -131,7 +131,7 @@ export const dedicated: HireRolePageContent = {
   specialisations: {
     eyebrow: 'Developer Roles',
     title: 'What Dedicated Developer Roles Does Soft Suave Offer?',
-    body: 'Soft Suave helps you hire dedicated developers across 9 key role categories, from software and web development to DevOps, QA, and eCommerce. Choose individual developers or build a multi-role team based on your project scope, technology needs, and delivery goals.',
+    body: 'Soft Suave helps you hire dedicated developers across 9 key role categories, from software and web development to DevOps, QA, and e-commerce. Choose individual developers or build a multi-role team based on your project scope, technology needs, and delivery goals.',
     items: [
       {
         key: 'software',
@@ -182,7 +182,7 @@ export const dedicated: HireRolePageContent = {
       },
       {
         key: 'ecommerce',
-        name: 'eCommerce Developers',
+        name: 'E-commerce Developers',
         body: 'Build and optimize online stores with custom features, payment flows, product catalogs, checkout improvements, third-party integrations, admin workflows, mobile-friendly design, and conversion-focused shopping experiences for growing businesses.',
       },
     ],
@@ -319,7 +319,7 @@ export const dedicated: HireRolePageContent = {
   techStack: {
     eyebrow: 'Expertise',
     title: "Tech Stack Soft Suave's Dedicated Developers Work With",
-    body: "Soft Suave's dedicated developers work across 30+ stacks for web, mobile, cloud, DevOps, QA, backend, frontend, full-stack, and eCommerce development, building scalable, secure, high-performance products.",
+    body: "Soft Suave's dedicated developers work across 30+ stacks for web, mobile, cloud, DevOps, QA, backend, frontend, full-stack, and e-commerce development, building scalable, secure, high-performance products.",
     groups: [
       {
         name: 'Frontend Frameworks',
@@ -359,13 +359,13 @@ export const dedicated: HireRolePageContent = {
         ],
       },
       {
-        name: 'eCommerce Platforms',
+        name: 'E-commerce Platforms',
         items: [
           'Shopify',
           'Magento',
           'WooCommerce',
           'BigCommerce',
-          'Custom eCommerce solutions',
+          'Custom e-commerce solutions',
         ],
       },
       {

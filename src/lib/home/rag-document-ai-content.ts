@@ -231,7 +231,7 @@ export const ragIndustries: CardGridContent = {
   body: "Apply RAG and Document AI across industries where teams rely on large volumes of documents, technical information, and frequently changing business data that must be searched and used efficiently.",
   items: [
     {
-      name: "eCommerce",
+      name: "E-commerce",
       body: "Connect product catalogs, supplier agreements, returns policies, warranty information, and support content to AI applications that help customers and support teams find accurate information faster.",
     },
     {

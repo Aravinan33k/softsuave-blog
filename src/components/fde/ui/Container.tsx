@@ -9,10 +9,14 @@ type ContainerProps = {
   size?: "default" | "wide" | "narrow";
 };
 
+// `default` and `wide` run gutter to gutter on the site's own frame (the
+// marketing `--gutter`), so every FDE section starts and ends on the same
+// vertical lines as the header, footer and every other page at 1920px.
+// They were 1152px and 1280px columns centred in the page.
 const sizes = {
-  narrow: "max-w-3xl",
-  default: "max-w-6xl",
-  wide: "max-w-7xl",
+  narrow: "max-w-3xl px-4 sm:px-6 lg:px-8",
+  default: "max-w-none px-[var(--gutter)]",
+  wide: "max-w-none px-[var(--gutter)]",
 };
 
 export function Container({
@@ -22,7 +26,7 @@ export function Container({
   size = "default",
 }: ContainerProps) {
   return (
-    <Tag className={cn("mx-auto w-full px-4 sm:px-6 lg:px-8", sizes[size], className)}>
+    <Tag className={cn("mx-auto w-full", sizes[size], className)}>
       {children}
     </Tag>
   );

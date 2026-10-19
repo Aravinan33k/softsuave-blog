@@ -331,7 +331,7 @@ export const qa: HireRolePageContent = {
         {
           name: '',
           items: [
-            'eCommerce',
+            'E-commerce',
             'ELearning',
             'Healthcare',
             'Logistics',

@@ -23,7 +23,7 @@ export const successStoriesPageMeta = {
    * one on softsuave.com; it is matched here as asked, not corrected.
    */
   description:
-    "Partner with a leading Magento development company in India for custom eCommerce solutions who build high-performance Magento stores.",
+    "Partner with a leading Magento development company in India for custom e-commerce solutions who build high-performance Magento stores.",
 } as const;
 
 /** The live banner's only content is its "Success Stories" title. */

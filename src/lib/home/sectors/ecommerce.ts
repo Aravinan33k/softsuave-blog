@@ -3,8 +3,8 @@ import type { SectorPageContent } from './types';
 export const ecommerce: SectorPageContent = {
   key: 'ecommerce',
   slug: '/ai-solutions-for-ecommerce',
-  name: 'eCommerce',
-  capabilityTag: 'eCommerce',
+  name: 'E-commerce',
+  capabilityTag: 'E-commerce',
   meta: {
     title: 'AI Solutions for Ecommerce | Boost Sales and Automate Growth',
     description:
@@ -55,7 +55,7 @@ export const ecommerce: SectorPageContent = {
   },
   proof: {
     eyebrow: 'Proof',
-    title: 'Ecommerce work we have shipped',
+    title: 'E-commerce work we have shipped',
     body:
       'One study from this sector, with the figure the client measured. The rail beneath it is the company’s own record.',
     caseStudyKey: 'ecommerce',

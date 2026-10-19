@@ -117,7 +117,7 @@ export const frontend: HireRolePageContent = {
     items: [
       {
         name: 'Custom Interface Development',
-        body: 'Develop user-facing interfaces for SaaS products, dashboards, portals, ecommerce platforms, internal systems, and other web applications using reusable components and established frontend architecture.',
+        body: 'Develop user-facing interfaces for SaaS products, dashboards, portals, e-commerce platforms, internal systems, and other web applications using reusable components and established frontend architecture.',
         image: '/images/landing/hr-fe-cap-interface.webp',
       },
       {
@@ -178,7 +178,7 @@ export const frontend: HireRolePageContent = {
         ],
       },
       {
-        head: 'Ecommerce interface',
+        head: 'E-commerce interface',
         cells: [
           'React, Next.js, performance optimization',
           'Product discovery, checkout and Core Web Vitals',

@@ -272,7 +272,7 @@ export const staffIndustries: CardGridContent = {
       body: "Enhancing project management through workflow automation and system integration to boost efficiency and reduce costs.",
     },
     {
-      name: "Retail & E-Commerce",
+      name: "Retail & E-commerce",
       body: "Streamlining automation and system integrations to enhance customer experience, boost sales, and optimize operations for growth.",
     },
     {

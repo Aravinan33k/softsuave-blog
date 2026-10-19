@@ -954,7 +954,6 @@ h1.h2 {
 .heroContent {
   position: relative;
   z-index: 2;
-  max-width: 1400px;
 }
 
 .heroEyebrow {
@@ -4176,7 +4175,9 @@ h1.h2 {
   /* ONE source of truth for where the text column ends and the animated stage
      begins. The rail's own left/width read from these too, so the stage edge
      can never drift out of step with the column it exists to clear. */
-  --journey-rail-x: clamp(40px, 6vw, 120px);
+  /* The page gutter, so the rail starts on the same vertical line as the
+     nav and every other band (it was clamp(40px, 6vw, 120px)). */
+  --journey-rail-x: var(--gutter);
   --journey-rail-w: min(46vw, 560px);
   /* Clearing the rail is the hard floor; 42% is the ceiling on how far right
      the stage may start. Without the 42% the rail's px cap stops growing past
@@ -6053,7 +6054,6 @@ h1.h2 {
   grid-template-columns: 1fr;
   gap: 18px;
   width: 100%;
-  max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -6429,7 +6429,6 @@ h1.h2 {
   gap: 24px !important;
   margin-top: var(--section-head-gap) !important;
   width: 100% !important;
-  max-width: 1400px !important;
 }
 
 .industriesFan.gridMode .indFanCard {

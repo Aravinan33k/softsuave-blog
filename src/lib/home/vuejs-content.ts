@@ -90,7 +90,7 @@ export const vueOverview: OverviewContent = {
   eyebrow: "Overview",
   title: "Vue.js Development for Business-Focused Web Products",
   paragraphs: [
-    "Vue.js is a JavaScript framework for building user interfaces and web applications. Its component-based structure helps teams create reusable interface elements and maintain consistent experiences across dashboards, portals, ecommerce platforms, and other interactive systems.",
+    "Vue.js is a JavaScript framework for building user interfaces and web applications. Its component-based structure helps teams create reusable interface elements and maintain consistent experiences across dashboards, portals, e-commerce platforms, and other interactive systems.",
     "As a leading Vue.js development company, Soft Suave supports technical planning, interface development, API integration, testing, deployment, and ongoing improvement. We can build new applications, introduce Vue.js into existing systems, or modernize frontends that have become difficult to maintain.",
     `With ${YEARS_PLUS} years of technology expertise and delivery presence across Chennai, Bengaluru, and the United States, Soft Suave works closely with your product and engineering teams. Our developers follow your engineering standards and align frontend work with APIs, data flows, and user needs.`,
   ],
@@ -115,8 +115,8 @@ export const vueServices: ServicesCarouselContent = {
       image: landingImage("vue-svc-spa"),
     },
     {
-      name: "Vue.js Ecommerce Frontend Development",
-      body: "Create Vue.js ecommerce frontends with intuitive product discovery, customer accounts, responsive checkout experiences, and reliable connections to existing commerce platforms.",
+      name: "Vue.js E-commerce Frontend Development",
+      body: "Create Vue.js e-commerce frontends with intuitive product discovery, customer accounts, responsive checkout experiences, and reliable connections to existing commerce platforms.",
       image: landingImage("vue-svc-ecommerce"),
     },
     {
@@ -202,7 +202,7 @@ export const vueFaqs: FaqContent = {
   items: [
     {
       q: "What applications can a Vue.js development company build?",
-      a: "A Vue.js development company can build single-page applications, SaaS interfaces, ecommerce storefronts, customer portals, internal dashboards, and administration systems. The right application structure depends on your users, workflows, data sources, integrations, rendering requirements, and plans for future development over time.",
+      a: "A Vue.js development company can build single-page applications, SaaS interfaces, e-commerce storefronts, customer portals, internal dashboards, and administration systems. The right application structure depends on your users, workflows, data sources, integrations, rendering requirements, and plans for future development over time.",
     },
     {
       q: "How should I choose a Vue.js app development company?",

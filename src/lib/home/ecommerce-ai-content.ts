@@ -42,13 +42,13 @@ export const ecommerceMeta = {
 } as const;
 
 export const ecommerceHero: HeroContent = {
-  titleLines: ["AI Solutions for eCommerce", "to Boost Sales & Automate Growth"],
+  titleLines: ["AI Solutions for E-commerce", "to Boost Sales & Automate Growth"],
   // 13 Oct review: the industry name is the highlighted phrase in the H1
   // ("eg for Ecommerce page - ecommerce in H1 must be highlighted").
-  accent: "eCommerce",
+  accent: "E-commerce",
   body: [
     "Predict intent, personalise the journey, and automate the operations behind it. We build recommendation, pricing, search, and forecasting systems that run against your own catalogue and behavioural data, inside the platform you already sell on.",
-    "eCommerce is the sector where AI is easiest to evaluate honestly: conversion, average order value, return rate, and stock position are all measured already, so a model either moves a number you track or it does not.",
+    "E-commerce is the sector where AI is easiest to evaluate honestly: conversion, average order value, return rate, and stock position are all measured already, so a model either moves a number you track or it does not.",
   ],
   points: [
     "Recommendation and personalisation engines",
@@ -59,11 +59,11 @@ export const ecommerceHero: HeroContent = {
   ],
   badges: industryHeroBadges,
   form: industryEnquiryForm({
-    title: "Plan your eCommerce AI build",
+    title: "Plan your e-commerce AI build",
     requirementLabel: "What should the system do?",
     requirementPlaceholder:
       "The metric you want to move, your platform and catalogue size, order volumes, and the systems the solution would need to integrate with.",
-    subject: "eCommerce AI solutions enquiry",
+    subject: "E-commerce AI solutions enquiry",
   }),
   // The live page's own hero artwork (13 Oct review: "use the existing images
   // from the respective pages for the hero"), under the strong veil ("increase
@@ -214,7 +214,7 @@ export const ecommerceSuccessStories: WorkCarouselContent = {
       body: "+85% Improvement In Inventory Precision · +70% Onboarding & Product Approval · +60% Offer & Coupon Management · -50% Reduction In Workload · +40% Boost In Sales & Customer Retention",
       image: {
         src: "/images/industries/ecommerce/case-1.webp",
-        alt: "A shopper on a laptop surrounded by floating eCommerce icons",
+        alt: "A shopper on a laptop surrounded by floating e-commerce icons",
       },
     },
     {
@@ -236,7 +236,7 @@ export const ecommerceSuccessStories: WorkCarouselContent = {
  * /contact, as every consultation CTA here does.
  */
 export const ecommerceCta: CtaBandContent = {
-  title: "Ready to Transform Your eCommerce Strategy with AI?",
+  title: "Ready to Transform Your E-commerce Strategy with AI?",
   body: "Let Soft Suave power your growth with intelligent, scalable solutions tailored for tomorrow’s digital marketplace.",
   cta: { label: "Request a Consultation", href: "/contact" },
 };
@@ -257,7 +257,7 @@ export const ecommerceFaqs: FaqContent = {
     },
     {
       q: "What AI solutions are most commonly used in e-commerce?",
-      a: "Common AI solutions in eCommerce include product recommendations, advanced search functionality, dynamic pricing, demand forecasting, and customer behavior analysis to enhance user experience and drive sales.",
+      a: "Common AI solutions in e-commerce include product recommendations, advanced search functionality, dynamic pricing, demand forecasting, and customer behavior analysis to enhance user experience and drive sales.",
     },
     {
       q: "How does AI improve product recommendations on an e-commerce website?",
@@ -286,8 +286,8 @@ export const ecommerceFaqs: FaqContent = {
       a: "AI automates product tagging and catalog management by analyzing product attributes, categorizing items, and generating relevant tags based on images, descriptions, and historical data, reducing manual effort and errors",
     },
     {
-      q: "Can AI integrate with Shopify, Magento, WooCommerce, BigCommerce, or custom eCommerce platforms?",
-      a: "Yes, AI solutions can integrate with platforms like Shopify, Magento, WooCommerce, BigCommerce, and custom eCommerce platforms through APIs and plugins, enhancing functionalities like recommendations, search, and pricing.",
+      q: "Can AI integrate with Shopify, Magento, WooCommerce, BigCommerce, or custom e-commerce platforms?",
+      a: "Yes, AI solutions can integrate with platforms like Shopify, Magento, WooCommerce, BigCommerce, and custom e-commerce platforms through APIs and plugins, enhancing functionalities like recommendations, search, and pricing.",
     },
     {
       q: "How do you ensure data security and privacy when implementing AI in e-commerce?",
@@ -306,8 +306,8 @@ export const ecommerceFaqs: FaqContent = {
       a: "AI helps recover abandoned carts by analyzing customer behavior, sending personalized reminders or offers, and optimizing conversion rates by offering dynamic discounts or incentives based on customer activity and preferences.",
     },
     {
-      q: "Can small or mid-size eCommerce stores benefit from AI solutions, or is AI only for enterprise brands?",
-      a: "Small and mid-size eCommerce stores can also benefit from AI solutions, including personalized recommendations, customer support chatbots, and inventory forecasting, which are available at affordable price points and scalable to their needs.",
+      q: "Can small or mid-size e-commerce stores benefit from AI solutions, or is AI only for enterprise brands?",
+      a: "Small and mid-size e-commerce stores can also benefit from AI solutions, including personalized recommendations, customer support chatbots, and inventory forecasting, which are available at affordable price points and scalable to their needs.",
     },
   ],
 };

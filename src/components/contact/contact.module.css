@@ -20,7 +20,6 @@
   padding: clamp(118px, 15vh, 180px) var(--gutter) clamp(28px, 4vw, 48px);
   /* The same measure as `.channels`, so the breadcrumb's left edge lines up
      with the first card's at every width. */
-  max-width: 1440px;
   margin: 0 auto;
 }
 
@@ -70,7 +69,6 @@
   grid-template-columns: minmax(0, 1fr);
   gap: clamp(14px, 1.6vw, 22px);
   padding: 0 var(--gutter) var(--section-y);
-  max-width: 1440px;
   margin: 0 auto;
 }
 
@@ -809,7 +807,6 @@
   grid-template-columns: 1fr;
   gap: clamp(14px, 1.6vw, 22px);
   padding: var(--section-y) var(--gutter);
-  max-width: 1440px;
   margin: 0 auto;
 }
 

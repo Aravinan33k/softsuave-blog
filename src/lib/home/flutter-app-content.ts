@@ -273,8 +273,8 @@ export const flProjects: StoryCardsContent = {
   body: "How Soft Suave helped clients empower their business with our flutter app development services.",
   items: [
     {
-      industry: "eCommerce",
-      name: "Ultimate Water delivery solution: An E-Commerce success",
+      industry: "E-commerce",
+      name: "Ultimate Water delivery solution: An e-commerce success",
       body: "Soft Suave successfully designed a water delivery app for a well-known e-commerce platform. This app can be accessed in multiple countries, supports various currencies, and has multi-language support. With real-time tracking and flexible payment methods, the app was received well.",
       image: {
         src: "/images/landing/flutter/proj-ecommerce.webp",

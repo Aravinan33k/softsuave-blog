@@ -288,7 +288,7 @@ export const industries = {
     },
     {
       key: "ecommerce",
-      name: "eCommerce",
+      name: "E-commerce",
       image: "/images/landing/industries/ind-ecommerce.webp",
       body: "Generate product descriptions across your full catalog, synthesize reviews into actionable insights, and power conversational search that understands intent rather than simply matching keywords.",
     },

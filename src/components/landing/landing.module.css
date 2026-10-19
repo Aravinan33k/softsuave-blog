@@ -359,7 +359,6 @@
   grid-template-columns: 1fr;
   gap: clamp(34px, 4vw, 64px);
   align-items: start;
-  max-width: 1500px;
   margin: 0 auto;
 }
 
@@ -370,7 +369,6 @@
 .heroHead {
   position: relative;
   z-index: 2;
-  max-width: 1500px;
   margin: 0 auto calc(var(--fs-h1) * 0.5);
 }
 
@@ -1280,7 +1278,6 @@
   grid-template-columns: minmax(0, 1fr);
   gap: clamp(22px, 2.8vw, 40px);
   align-items: center;
-  max-width: 1500px;
   margin: 0 auto;
 }
 
@@ -2458,7 +2455,6 @@
 
 .finalPanel {
   position: relative;
-  max-width: 1500px;
   margin: 0 auto;
   padding: clamp(28px, 3.4vw, 56px);
   border: 1px solid var(--line);
@@ -2770,7 +2766,10 @@
        470px but eases down to 380px on a 1000-1270px laptop, where a fixed 470
        squeezed the headline column. The generative-ai and services heroes read
        the same value, so the card is one size on every page. */
-    grid-template-columns: minmax(0, 1fr) var(--enquiry-col);
+    /* The fallback is the same value as globals.css's --enquiry-col, so the
+       form keeps its column beside the H1 even if that variable is ever
+       missing (a stale dev stylesheet once dropped it under the copy). */
+    grid-template-columns: minmax(0, 1fr) var(--enquiry-col, clamp(380px, 37vw, 470px));
     gap: clamp(48px, 5vw, 88px);
     /* The form is pinned to the copy column's top edge, which is the H1's
        (`.heroHead` above), so the card and the headline start on one line on
@@ -7059,8 +7058,12 @@
     flex: 0 1 calc((100% - 2 * clamp(14px, 1.6vw, 22px)) / 3);
   }
 
-  /* `columns={2}`: stays two across, so four cards are a 2x2 square. */
-  .featGrid2 > * {
+  /* `columns={2}`: stays two across, so four cards are a 2x2 square. A grid
+     of exactly two cards takes the same halves, so the pair spans the band
+     edge to edge instead of sitting as two thirds in the middle of it (16 Oct,
+     1920px). */
+  .featGrid2 > *,
+  .featGrid:has(> :nth-child(2):last-child) > * {
     flex: 0 1 calc((100% - clamp(14px, 1.6vw, 22px)) / 2);
   }
 }
@@ -7916,7 +7919,6 @@
 }
 
 .listBand > * {
-  max-width: 1180px;
   margin-inline: auto;
 }
 
@@ -8481,6 +8483,23 @@
   object-fit: contain;
 }
 
+/* On a two-column overview the capped cut-out sits at the OUTER edge of its
+   column — flush with the frame's right edge when it follows the copy — so
+   the band ends on the same vertical line as every other one (16 Oct, 1920px:
+   it stopped 190-430px short). */
+@media (min-width: 1000px) {
+  .overviewGrid > .overviewMediaCutout:last-child {
+    justify-self: end;
+    /* Not shrink-to-fit: the image inside is sized as a percentage of this
+       box, so a fitted figure collapses to nothing. The box spans the column
+       and the `contain`ed artwork is drawn against its right edge instead. */
+    width: 100%;
+  }
+  .overviewGrid > .overviewMediaCutout:last-child img {
+    object-position: right center;
+  }
+}
+
 /* A centred cut-out can be the taller column (a portrait collage beside a
    short block of copy); then the copy centres against it in turn, so neither
    column hangs off the other's top edge. */
@@ -8499,6 +8518,14 @@
   width: 100%;
   max-width: 640px;
   justify-self: center;
+}
+
+/* Beside the copy, the picture closes on the frame's right edge like the
+   enquiry card it stands in for (16 Oct, 1920px). */
+@media (min-width: 1000px) {
+  .heroAside {
+    justify-self: end;
+  }
 }
 
 .heroAsideImg {

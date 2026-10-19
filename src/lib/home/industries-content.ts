@@ -85,7 +85,7 @@ export const sectors = {
     },
     {
       key: 'ecommerce',
-      name: 'eCommerce',
+      name: 'E-commerce',
       tagline: 'Boosting Online Sales',
       body: 'AI enhances customer experiences, improves inventory management, and drives targeted marketing for e-commerce.',
       href: '/ai-solutions-for-ecommerce',
@@ -122,7 +122,7 @@ export const capabilities = {
       n: '01',
       name: 'Forecasting and optimization',
       body: 'Demand forecasting, route and freight optimization, dynamic pricing and resource scheduling, trained on your own operational history.',
-      sectors: ['Logistics', 'eCommerce', 'Construction'],
+      sectors: ['Logistics', 'E-commerce', 'Construction'],
     },
     {
       n: '02',
@@ -146,7 +146,7 @@ export const capabilities = {
       n: '05',
       name: 'Vision AI',
       body: 'Detection, classification and visual search running in production, from catalogue imagery to lane classification and axle counting.',
-      sectors: ['eCommerce', 'Logistics', 'Construction'],
+      sectors: ['E-commerce', 'Logistics', 'Construction'],
     },
     {
       n: '06',

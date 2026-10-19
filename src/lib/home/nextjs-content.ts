@@ -146,8 +146,8 @@ export const nxServices: ServicesCarouselContent = {
       },
     },
     {
-      name: "Next.js Ecommerce Development",
-      body: "Build responsive Next.js ecommerce applications with product catalogs, search, customer accounts, checkout workflows, content systems, and commerce API integrations.",
+      name: "Next.js E-commerce Development",
+      body: "Build responsive Next.js e-commerce applications with product catalogs, search, customer accounts, checkout workflows, content systems, and commerce API integrations.",
       image: {
         src: "/images/landing/nextjs/svc-ecommerce.webp",
         alt: "An online checkout screen on a laptop",
@@ -257,7 +257,7 @@ export const nxFaqs: FaqContent = {
   items: [
     {
       q: "What types of products are suitable for Next.js?",
-      a: "Next.js suits content platforms, ecommerce applications, SaaS products, portals, dashboards, and other React-based web experiences. Suitability depends on required rendering behavior, content changes, user interactions, integrations, deployment constraints, available team skills, and how the application will be maintained over time.",
+      a: "Next.js suits content platforms, e-commerce applications, SaaS products, portals, dashboards, and other React-based web experiences. Suitability depends on required rendering behavior, content changes, user interactions, integrations, deployment constraints, available team skills, and how the application will be maintained over time.",
     },
     {
       q: "What should I evaluate in a Next.js web development company?",

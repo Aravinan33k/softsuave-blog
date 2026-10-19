@@ -264,7 +264,7 @@ const INDUSTRIES: NavMenuPanel = {
         { name: "FinTech", href: "/fintech-ai-solutions" },
         { name: "HealthTech", href: "/ai-solutions-in-healthtech" },
         { name: "EdTech", href: "/ai-solutions-in-edutech" },
-        { name: "eCommerce", href: "/ai-solutions-for-ecommerce" },
+        { name: "E-commerce", href: "/ai-solutions-for-ecommerce" },
         { name: "Logistics", href: "/ai-in-logistics" },
         { name: "Telecom", href: "/ai-solutions-for-telecom" },
       ],

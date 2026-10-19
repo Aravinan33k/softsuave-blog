@@ -186,9 +186,9 @@ export const webServices: ServiceBoardContent = {
    * 404ing — see `components/common/linkify`.
    */
   links: [
-    { text: "eCommerce web app", href: "/ecommerce-mobile-app-development-company" },
+    { text: "E-commerce web app", href: "/ecommerce-mobile-app-development-company" },
     { text: "Education Portals", href: "/education-app-development-company" },
-    { text: "eCommerce Portals", href: "/multi-vendor-marketplace-platform" },
+    { text: "E-commerce Portals", href: "/multi-vendor-marketplace-platform" },
     { text: "Healthcare Portals", href: "/healthcare-mobile-app-development-company" },
     { text: "WordPress", href: "/wordpress-development-company" },
     { text: "Modernizing legacy applications", href: "/legacy-modernization-services" },
@@ -209,9 +209,9 @@ export const webServices: ServiceBoardContent = {
       image: { src: "/images/four/web-dynamic.webp", alt: "" },
     },
     {
-      name: "eCommerce Web App Development",
+      name: "E-commerce Web App Development",
       paragraphs: [
-        "An e-commerce web application is a web app that allows users to buy and sell products or services from your business. An eCommerce web app looks like an online shopping store, but it is more than that. It can include new products and remove outdated or old products.",
+        "An e-commerce web application is a web app that allows users to buy and sell products or services from your business. An e-commerce web app looks like an online shopping store, but it is more than that. It can include new products and remove outdated or old products.",
         "It can also manage payments and facilitate electronic payments. And an effective management panel is very necessary for all of these tasks. Users can customize such applications with the help of dedicated web developers. Some of the most familiar examples of e-commerce web applications are Flipkart, Amazon, Ajio, and so on.",
       ],
       image: { src: "/images/landing/web-app/svc-ecommerce.webp", alt: "" },
@@ -228,7 +228,7 @@ export const webServices: ServiceBoardContent = {
       name: "Web Portal Development Company",
       paragraphs: [
         "A portal web application provides a direct link to important data, like product catalogs and guides, that a particular type of user would want to access. Portals are the best option for organizations or businesses that prefer to build customized interfaces to suit their target audience's needs. Only registered users can access and their activities can be monitored by the service provider once they log in.",
-        "This facilitates the creation of a useful, secure, and personalized access point for organizing information according to the specific needs of users. When you check your purchase order online, you are using a customer portal. The different types of web portals include Customer Portals, Corporate Portals, Education Portals, Information Portals, HR Portals, eCommerce Portals, Government Portals, and Healthcare Portals.",
+        "This facilitates the creation of a useful, secure, and personalized access point for organizing information according to the specific needs of users. When you check your purchase order online, you are using a customer portal. The different types of web portals include Customer Portals, Corporate Portals, Education Portals, Information Portals, HR Portals, E-commerce Portals, Government Portals, and Healthcare Portals.",
       ],
       image: { src: "/images/landing/web-app/svc-portal.webp", alt: "" },
     },

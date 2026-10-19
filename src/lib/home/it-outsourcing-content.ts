@@ -387,7 +387,7 @@ export const itoIndustries: CardGridContent = {
     {
       name: "E-commerce",
       icon: "chart",
-      body: "We develop storefronts, marketplaces, product catalogs, ordering systems, payment integrations, and fulfillment connections that help Ecommerce businesses improve customer journeys and support daily commerce operations.",
+      body: "We develop storefronts, marketplaces, product catalogs, ordering systems, payment integrations, and fulfillment connections that help e-commerce businesses improve customer journeys and support daily commerce operations.",
     },
   ],
 };

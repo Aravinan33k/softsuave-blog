@@ -275,7 +275,7 @@ export const industries = {
   items: [
     {
       key: "ecommerce",
-      name: "eCommerce",
+      name: "E-commerce",
       image: "/images/landing/industries/ind-ecommerce.webp",
       body: "Streamline order exceptions, returns, supplier inquiries, and catalog enrichment across storefront, inventory, product data, and customer support systems.",
     },

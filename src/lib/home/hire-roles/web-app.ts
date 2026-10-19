@@ -94,7 +94,7 @@ export const webApp: HireRolePageContent = {
     paragraphs: [
       'Hiring web application developers gives your business additional engineering capacity for building, modernizing, and maintaining browser-based products. The right developer should match your architecture, technologies, delivery process, security requirements, and the responsibilities involved in your project.',
       'Soft Suave helps you identify web app developers for hire based on the technical skills, experience, availability, and collaboration model your project requires. Review relevant profiles, interview shortlisted specialists, and use the 40-hour trial to evaluate technical skills, communication, and team fit before continuing the engagement.',
-      'Our developers build SaaS platforms, customer portals, internal business applications, ecommerce applications, and API-integrated systems. They can also support application modernization, feature delivery, ongoing maintenance, and longer-term web application requirements.',
+      'Our developers build SaaS platforms, customer portals, internal business applications, e-commerce applications, and API-integrated systems. They can also support application modernization, feature delivery, ongoing maintenance, and longer-term web application requirements.',
       `Our developer rates start at ${HOURLY_RATE} and vary by skill, experience, engagement model, and project requirements.`,
     ],
   },
@@ -122,7 +122,7 @@ export const webApp: HireRolePageContent = {
         image: '/images/landing/hr-web-cap-enterprise.webp',
       },
       {
-        name: 'Ecommerce Applications',
+        name: 'E-commerce Applications',
         body: 'Build storefronts, marketplaces, ordering platforms, payment workflows, product-management systems, and customer experiences that connect with your business applications and external services.',
         image: '/images/landing/hr-web-cap-ecommerce.webp',
       },
@@ -234,7 +234,7 @@ export const webApp: HireRolePageContent = {
       {
         key: 'php',
         name: 'Hire PHP Developers',
-        body: 'Develop custom platforms, ecommerce applications, portals, APIs, and content-driven systems using PHP and its established ecosystem.',
+        body: 'Develop custom platforms, e-commerce applications, portals, APIs, and content-driven systems using PHP and its established ecosystem.',
         href: '/hire-php-developers',
       },
       {
@@ -264,7 +264,7 @@ export const webApp: HireRolePageContent = {
       {
         key: 'laravel',
         name: 'Hire Laravel Developers',
-        body: 'Create maintainable PHP applications, APIs, admin systems, ecommerce platforms, and business workflows using the Laravel framework.',
+        body: 'Create maintainable PHP applications, APIs, admin systems, e-commerce platforms, and business workflows using the Laravel framework.',
         href: '/hire-laravel-developer',
       },
       {

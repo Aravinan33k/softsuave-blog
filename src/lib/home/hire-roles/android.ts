@@ -231,7 +231,7 @@ export const android: HireRolePageContent = {
       },
       {
         q: 'What are the industries that are served by your Android developers?',
-        a: 'Android app developer from Soft Suave are skilled in a wide array of industry verticals like Healthcare, Education, eCommerce & Retail, Construction, Travel & Tourism, Media & Entertainment, and Banking.',
+        a: 'Android app developer from Soft Suave are skilled in a wide array of industry verticals like Healthcare, Education, E-commerce & Retail, Construction, Travel & Tourism, Media & Entertainment, and Banking.',
       },
       {
         q: 'Java or Kotlin - which language do you prefer for Android app development?',

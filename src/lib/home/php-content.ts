@@ -155,10 +155,10 @@ export const phpServices: ServiceBoardContent = {
       },
     },
     {
-      name: "Custom eCommerce Development",
+      name: "Custom E-commerce Development",
       paragraphs: [
-        "If you are looking to build a highly-innovative, attractive, user-friendly eCommerce web App, you've come to the right place. Building an eCommerce web application that's unique for each business is no easy task. Fred not, eCommerce development is one of our core competencies where we craft Apps with an easy-to-use interface and rich UI/UX design.",
-        "As an elite PHP Development Company in India, we can work with any complex business process and design eCommerce Apps to help our clients achieve the maximum ROI. Moreover, our outputs offer a magnificent user experience to the visitors.",
+        "If you are looking to build a highly-innovative, attractive, user-friendly e-commerce web App, you've come to the right place. Building an e-commerce web application that's unique for each business is no easy task. Fred not, e-commerce development is one of our core competencies where we craft Apps with an easy-to-use interface and rich UI/UX design.",
+        "As an elite PHP Development Company in India, we can work with any complex business process and design e-commerce Apps to help our clients achieve the maximum ROI. Moreover, our outputs offer a magnificent user experience to the visitors.",
       ],
       image: {
         src: "/images/landing/php/svc-ecommerce.webp",

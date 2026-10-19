@@ -104,8 +104,8 @@ const react: HireSkill = {
         body: "Hire top-notch ReactJS programmers from Soft Suave to get the most beneficial and customized React web development at a competitive cost. Develop SPAs and real-time data exchange applications seamlessly with 100% guaranteed success.",
       },
       {
-        name: "ReactJS CMS & eCommerce Development",
-        body: "CMS and eCommerce development can turn into misery if the right developers do not handle it. Soft Suave has the perfect pool of ReactJS developers that develop innovative yet user-friendly CMS and eCommerce apps.",
+        name: "ReactJS CMS & E-commerce Development",
+        body: "CMS and e-commerce development can turn into misery if the right developers do not handle it. Soft Suave has the perfect pool of ReactJS developers that develop innovative yet user-friendly CMS and e-commerce apps.",
       },
       {
         name: "ReactJS Support & Maintenance",
@@ -275,8 +275,8 @@ const angular: HireSkill = {
         body: "They are cutting-edge software solutions for big companies, using Angular for smooth interfaces and better performance. It allows for cost and time savings for modern businesses.",
       },
       {
-        name: "eCommerce Platforms",
-        body: "ECommerce platforms are online stores powered by Angular, which load fast and update content dynamically for great user experiences. Allows a faster buying process, is flexible for customers, and is affordable for businesses.",
+        name: "E-commerce Platforms",
+        body: "E-commerce platforms are online stores powered by Angular, which load fast and update content dynamically for great user experiences. Allows a faster buying process, is flexible for customers, and is affordable for businesses.",
       },
       {
         name: "Content Management Systems",
@@ -539,7 +539,7 @@ const mern: HireSkill = {
     eyebrow: "Overview",
     title: "Why Use the MERN Stack for Your Next Web App?",
     paragraphs: [
-      "MERN stack brings MongoDB, Express.js, React, and Node.js into one full-stack JavaScript environment. This helps businesses build web applications faster, reduce dependency on multiple technology teams, and keep development more consistent from frontend to backend. At Soft Suave, our MERN stack developers build scalable web apps across SaaS, fintech, healthcare, eCommerce, logistics, edtech, and more. They work on React-based interfaces, Node.js APIs, real-time applications, headless commerce platforms, and cloud-ready microservices.",
+      "MERN stack brings MongoDB, Express.js, React, and Node.js into one full-stack JavaScript environment. This helps businesses build web applications faster, reduce dependency on multiple technology teams, and keep development more consistent from frontend to backend. At Soft Suave, our MERN stack developers build scalable web apps across SaaS, fintech, healthcare, e-commerce, logistics, edtech, and more. They work on React-based interfaces, Node.js APIs, real-time applications, headless commerce platforms, and cloud-ready microservices.",
       "With one JavaScript-based stack across the application, MERN helps reduce onboarding time, improve team collaboration, and speed up feature delivery.",
       "Here's what each component of the MERN stack handles:",
     ],
@@ -561,8 +561,8 @@ const mern: HireSkill = {
         body: "Soft Suave builds custom MERN apps for SaaS, marketplaces, dashboards, bookings, and tools, delivering scalable, high-performance solutions.",
       },
       {
-        name: "MERN Stack eCommerce Platforms",
-        body: "Our MERN developers build fast, scalable eCommerce platforms with catalogs, carts, checkout, payments, search, orders, and admin dashboards.",
+        name: "MERN Stack E-commerce Platforms",
+        body: "Our MERN developers build fast, scalable e-commerce platforms with catalogs, carts, checkout, payments, search, orders, and admin dashboards.",
       },
       {
         name: "Custom CMS Built on MERN",
@@ -728,8 +728,8 @@ const mean: HireSkill = {
     body: "Having the best MEAN stack programmers in India, Soft Suave developers are great at these following MEAN stack development services and solutions.",
     items: [
       {
-        name: "MEAN Stack eCommerce Development",
-        body: "Our eCommerce app development is instinctive and responsive to improve your business productivity by using a document-oriented NoSQL database and JS. Our MEAN stack developers excelled in it.",
+        name: "MEAN Stack E-commerce Development",
+        body: "Our e-commerce app development is instinctive and responsive to improve your business productivity by using a document-oriented NoSQL database and JS. Our MEAN stack developers excelled in it.",
       },
       {
         name: "MEAN Stack Web Development",

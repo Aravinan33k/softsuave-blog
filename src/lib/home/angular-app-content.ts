@@ -308,9 +308,9 @@ export const ngStories: StoryCardsContent = {
       href: "/case-study-telehealth-consultation-platform-for-doctors",
     },
     {
-      industry: "Retail & eCommerce",
+      industry: "Retail & E-commerce",
       name: "Multi-Vendor Marketplace App",
-      body: "Soft Suave developed a customized multi-vendor eCommerce platform for an eCommerce start-up to deliver a superior online shopping experience. The platform includes multiple payment options, real-time inventory management, and different user panels to ensure smoother operation. Hire app developers and improve your business operations.",
+      body: "Soft Suave developed a customized multi-vendor e-commerce platform for an e-commerce start-up to deliver a superior online shopping experience. The platform includes multiple payment options, real-time inventory management, and different user panels to ensure smoother operation. Hire app developers and improve your business operations.",
       image: {
         src: "/images/landing/angular/case-shopping-app.webp",
         alt: "Shopping app screens with a product listing and checkout",

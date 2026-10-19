@@ -278,7 +278,7 @@ export const dsIndustries: CardGridContent = {
       body: "Analyze learner activity, engagement, performance, and product data to uncover patterns that inform educational products and learning decisions.",
     },
     {
-      name: "Ecommerce",
+      name: "E-commerce",
       body: "Study customer, product, transaction, and behavioral data to understand user patterns and support merchandising, engagement, and commercial decision-making.",
     },
     {

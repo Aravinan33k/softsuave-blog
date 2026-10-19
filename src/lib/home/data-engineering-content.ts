@@ -297,7 +297,7 @@ export const deIndustries: CardGridContent = {
       body: "Connect learning platforms, applications, and databases so educational data can support reporting, personalization, analytics, and digital learning experiences.",
     },
     {
-      name: "Ecommerce",
+      name: "E-commerce",
       body: "Connect product, customer, order, and operational data across platforms to support reporting, applications, analytics, and business workflows.",
     },
     {

@@ -35,7 +35,7 @@ export function WhyFde({
           </p>
         </div>
 
-        <div className="mx-auto mt-[var(--section-head-gap)] max-w-5xl">
+        <div className="mx-auto mt-[var(--section-head-gap)]">
           <ComparisonTable
             columns={columns}
             rows={rows}

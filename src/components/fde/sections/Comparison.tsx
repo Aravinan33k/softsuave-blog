@@ -36,7 +36,7 @@ export function Comparison({
           </p>
         </div>
 
-        <div className="mx-auto mt-[var(--section-head-gap)] grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
+        <div className="mx-auto mt-[var(--section-head-gap)] grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
           {columns.map((column) => (
             <ComparisonCard key={column.title} column={column} />
           ))}

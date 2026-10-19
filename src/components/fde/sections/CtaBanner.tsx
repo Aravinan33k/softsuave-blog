@@ -38,7 +38,7 @@ export function CtaBanner({ content = ctaBannerContent }: CtaBannerProps) {
   return (
     <section className="bg-background pt-4 pb-[var(--section-y)]">
       <Container size="wide">
-        <div className="relative isolate mx-auto max-w-[1024px] overflow-hidden rounded-[1rem] border border-ink-border bg-ink px-6 py-12 text-center sm:px-12 sm:py-14">
+        <div className="relative isolate mx-auto overflow-hidden rounded-[1rem] border border-ink-border bg-ink px-6 py-12 text-center sm:px-12 sm:py-14">
           {/*
            * Negative z-index paints these three layers above the card's own
            * background but below the in-flow copy, so the card keeps its

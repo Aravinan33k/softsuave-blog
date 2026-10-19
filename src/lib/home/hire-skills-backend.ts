@@ -426,7 +426,7 @@ const nestjs: HireSkill = {
         body: "Soft Suave's NodeJS developers utilize a variety of tools and plugins from the NodeJS ecosystem to create scalable and efficient server-side applications.",
       },
       {
-        name: "NestJS eCommerce",
+        name: "NestJS E-commerce",
         body: "Elevate the backend of your online store by hiring NestJS developers who excel at leveraging its powerful architecture.",
       },
       {
@@ -560,8 +560,8 @@ const java: HireSkill = {
         body: "Java experts at Soft Suave are capable of developing astounding APIs and integrating them into different software applications. They also build successful custom API for clients based on their business requirement.",
       },
       {
-        name: "Java-based eCommerce Development",
-        body: "Hire our Java developers to develop innovative Java-based eCommerce applications that steer your business towards success and growth. Moreover, our developers hold excellent domain expertise in developing eCommerce apps that are secure and user-friendly.",
+        name: "Java-based E-commerce Development",
+        body: "Hire our Java developers to develop innovative Java-based e-commerce applications that steer your business towards success and growth. Moreover, our developers hold excellent domain expertise in developing e-commerce apps that are secure and user-friendly.",
       },
       {
         name: "Java-based CMS Development",
@@ -799,7 +799,7 @@ const python: HireSkill = {
       },
       {
         q: "What type of web applications can be developed using Python?",
-        a: "We build web applications in Blockchain, Audio & Video, System administration, Games, Machine learning, Data Science & Analytics, eCommerce, and Entertainment. However, when you hire Python developer from India, we help you to develop any type of app customized for your business goals and needs.",
+        a: "We build web applications in Blockchain, Audio & Video, System administration, Games, Machine learning, Data Science & Analytics, E-commerce, and Entertainment. However, when you hire Python developer from India, we help you to develop any type of app customized for your business goals and needs.",
       },
     ],
   },
@@ -1093,7 +1093,7 @@ const php: HireSkill = {
     paragraphs: [
       "Join hands with our dedicated PHP developers who are flexible with modern development methodologies.",
       "Soft Suave offers the dedicated PHP developers in India that support start-ups and SMBs to develop quality PHP programming solutions. Our PHP coders are expert in all PHP frameworks like Laravel, CodeIgniter, and CakePHP. When you hire PHP developers from Soft Suave, you get the roadmap to deliver PHP development projects 2X faster and 50% cheaper than your competitors do.",
-      "Our team of dedicated PHP developers work together to seamlessly transform your business requirements into thriving reality at your affordable cost. Our full-time PHP web developers are well-versed in handling enterprise-grade websites, eCommerce solutions, web applications, and content management sites.",
+      "Our team of dedicated PHP developers work together to seamlessly transform your business requirements into thriving reality at your affordable cost. Our full-time PHP web developers are well-versed in handling enterprise-grade websites, e-commerce solutions, web applications, and content management sites.",
       "Soft Suave handles simple and complex requirements of your business with the help of all the latest technologies and trends. Our expert PHP app programmers have an average of 5+ years of experience to handle high-quality development and save operational costs simultaneously. Moreover, you get a competitive edge in the market when you hire PHP developers from Soft Suave and even get the privilege to work with the top 2% of India's PHP developers.",
     ],
   },
@@ -1112,8 +1112,8 @@ const php: HireSkill = {
         body: "We have a team of elite PHP developers that have hands-on experience in developing CMS for several tech giants across the globe. We leverage PHP to develop advanced CMS features that add value to your CMS system and make it user-friendly.",
       },
       {
-        name: "PHP eCommerce Application",
-        body: "Hire PHP developers from Soft Suave to have a competitive edge in the current eCommerce market. They build eCommerce applications with high-standard and make them versatile, user-friendly, and compatible with all devices.",
+        name: "PHP E-commerce Application",
+        body: "Hire PHP developers from Soft Suave to have a competitive edge in the current e-commerce market. They build e-commerce applications with high-standard and make them versatile, user-friendly, and compatible with all devices.",
       },
       {
         name: "PHP Integration & Upgradation",
@@ -1168,7 +1168,7 @@ const php: HireSkill = {
       },
       {
         q: "What type of software applications can be created with PHP?",
-        a: "PHP is a programming language that is versatile and robust. You can develop feature-rich and dynamic Content Management System, eCommerce apps, Web page applications, Graphical User Interface applications (GUI) and many more.",
+        a: "PHP is a programming language that is versatile and robust. You can develop feature-rich and dynamic Content Management System, E-commerce apps, Web page applications, Graphical User Interface applications (GUI) and many more.",
       },
       {
         q: "Will the hired remote PHP developer work dedicated only for me?",
@@ -1203,7 +1203,7 @@ const laravel: HireSkill = {
     titleLines: ["Hire Laravel Developers", "in India within 48 hours"],
     accent: "Laravel Developers",
     body: [
-      "Soft Suave provides experienced Laravel developers from India for rapid hiring needs. Hire experts in Laravel, PHP, MySQL, REST APIs, SaaS platforms, eCommerce systems, and custom web applications – contract-ready and onboarded fast.",
+      "Soft Suave provides experienced Laravel developers from India for rapid hiring needs. Hire experts in Laravel, PHP, MySQL, REST APIs, SaaS platforms, e-commerce systems, and custom web applications – contract-ready and onboarded fast.",
       "See why businesses choose Soft Suave for Laravel hiring.",
     ],
     points: [
@@ -1814,7 +1814,7 @@ const rails: HireSkill = {
         body: "Soft Suave ensures peak RoR performance with 24/7 support and tailored maintenance, covering upgrades, bug fixes, security patches, and backups. A dedicated team handles client needs seamlessly, keeping applications efficient, reliable, and aligned with evolving business goals.",
       },
       {
-        name: "ROR eCommerce Solutions",
+        name: "ROR E-commerce Solutions",
         body: "Use Ruby on Rails to turn your e-commerce idea into a reality. We design and build feature-rich, secure, and scalable online stores that offer seamless user experiences, robust payment gateways, and effortless product management, driving business growth.",
       },
       {

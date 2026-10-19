@@ -135,7 +135,7 @@ export const aboutMilestones: ProcessContent = {
     },
     {
       n: "2017",
-      name: "Launched an eCommerce Product",
+      name: "Launched an E-commerce Product",
       body: "Launched a grocery delivery application solution.",
     },
     {

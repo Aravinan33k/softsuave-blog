@@ -48,7 +48,7 @@ const magento: HireSkill = {
     titleLines: ["Hire Magento Developers", "in India on Contract"],
     accent: "Magento Developers",
     body: [
-      "Soft Suave helps companies hire Magento developers from India for custom eCommerce growth. Our experts work in Magento 2, Adobe Commerce, payment gateway integration, custom modules, migrations, and high-performance online stores. Scale teams quickly with flexible hiring models.",
+      "Soft Suave helps companies hire Magento developers from India for custom e-commerce growth. Our experts work in Magento 2, Adobe Commerce, payment gateway integration, custom modules, migrations, and high-performance online stores. Scale teams quickly with flexible hiring models.",
       "See why businesses choose Soft Suave for their Magento developer hiring.",
     ],
     /* Four points, not five — the Magento hero omits the delivery-governance one. */
@@ -148,7 +148,7 @@ const magento: HireSkill = {
   expertise: {
     eyebrow: "Technical Expertise",
     title: "Technical Expertise of Our Magento Developers",
-    body: "When you hire remote Magento developers from Soft Suave, you get deep technical skills, proven eCommerce expertise, reliable delivery, and a partner ready to help your store thrive and scale fast.",
+    body: "When you hire remote Magento developers from Soft Suave, you get deep technical skills, proven e-commerce expertise, reliable delivery, and a partner ready to help your store thrive and scale fast.",
     items: [
       {
         name: "Magento Custom Extension Development",
@@ -184,7 +184,7 @@ const magento: HireSkill = {
       },
       {
         name: "Magento PWA Development",
-        body: "Our developers build Progressive Web Apps with Magento PWA Studio, delivering app-like speed, offline capabilities, and seamless mobile UX, ideal for future-proofing your eCommerce presence.",
+        body: "Our developers build Progressive Web Apps with Magento PWA Studio, delivering app-like speed, offline capabilities, and seamless mobile UX, ideal for future-proofing your e-commerce presence.",
       },
       {
         name: "Magento Data Modeling & EAV Mastery",
@@ -198,7 +198,7 @@ const magento: HireSkill = {
     cta: { label: "Talk to Our Experts", href: "/contact" },
     eyebrow: "Services",
     title: "Magento Development Services We Offer",
-    body: "We craft, optimize, and scale powerful Magento stores - delivering seamless user experiences, lightning-fast performance, secure integrations, and flexible solutions tailored to your business needs, so your eCommerce thrives globally.",
+    body: "We craft, optimize, and scale powerful Magento stores - delivering seamless user experiences, lightning-fast performance, secure integrations, and flexible solutions tailored to your business needs, so your e-commerce thrives globally.",
     items: [
       {
         name: "Customized Magento Web Development",
@@ -209,12 +209,12 @@ const magento: HireSkill = {
         body: "Our expert Magento team builds responsive, customer-focused stores with smart customization and seamless integration, transforming ideas into success through an efficient, flexible process trusted by businesses of all sizes.",
       },
       {
-        name: "Magento eCommerce Development",
-        body: "Hire remote Magento developers who can develop powerful, feature-rich Magento platforms - from mobile optimization to AI and chatbots - delivering custom, high-performance eCommerce solutions that drive engagement, efficiency, and a seamless shopping experience.",
+        name: "Magento E-commerce Development",
+        body: "Hire remote Magento developers who can develop powerful, feature-rich Magento platforms - from mobile optimization to AI and chatbots - delivering custom, high-performance e-commerce solutions that drive engagement, efficiency, and a seamless shopping experience.",
       },
       {
         name: "Front-End Magento Development",
-        body: "Our Magento front-end developers craft fast, SEO-friendly eCommerce stores with stunning design, custom themes, smooth UI, and interactive features, ensuring an engaging user experience that drives retention and growth",
+        body: "Our Magento front-end developers craft fast, SEO-friendly e-commerce stores with stunning design, custom themes, smooth UI, and interactive features, ensuring an engaging user experience that drives retention and growth",
       },
       {
         name: "Magento Migration & Upgradation",
@@ -230,7 +230,7 @@ const magento: HireSkill = {
       },
       {
         name: "Offshore Magento development",
-        body: "Our offshore software development service for Magento delivers complete solutions — from design and development to optimization and maintenance — combining skilled expertise, flexible engagement, and cost-effective delivery for fast, scalable, global eCommerce success.",
+        body: "Our offshore software development service for Magento delivers complete solutions — from design and development to optimization and maintenance — combining skilled expertise, flexible engagement, and cost-effective delivery for fast, scalable, global e-commerce success.",
       },
     ],
   },

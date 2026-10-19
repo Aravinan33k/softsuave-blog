@@ -843,7 +843,7 @@ const reactNative: HireSkill = {
     // Matches the live page's own links, inside the industries-experience
     // answer (review: "internal links missing in the FAQs").
     links: [
-      { text: "eCommerce", href: "https://www.softsuave.com/ecommerce-mobile-app-development-company" },
+      { text: "E-commerce", href: "https://www.softsuave.com/ecommerce-mobile-app-development-company" },
       { text: "Healthcare", href: "https://www.softsuave.com/healthcare-mobile-app-development-company" },
       { text: "Education", href: "https://www.softsuave.com/education-app-development-company" },
       { text: "Construction", href: "https://www.softsuave.com/construction-employee-time-tracking-app" },
@@ -890,7 +890,7 @@ const reactNative: HireSkill = {
       },
       {
         q: "What are the industries that are served by your React Native app developers?",
-        a: "Our developers have vast experience in all the growing industries like eCommerce, Healthcare, Education, Telecom and Construction.",
+        a: "Our developers have vast experience in all the growing industries like E-commerce, Healthcare, Education, Telecom and Construction.",
       },
       {
         q: "How do I test your React Native developer's expertise?",

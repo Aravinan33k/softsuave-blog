@@ -362,13 +362,13 @@ export const javaSuccessStories: WorkCarouselContent = {
       body: "Soft Suave has a long partnership with the client — the world's leading freelancer website, having millions of registered freelancers and clients with plenty of jobs posted annually.",
     },
     {
-      title: "Multi-vendor eCommerce Marketplace Application",
-      tag: "eCommerce",
+      title: "Multi-vendor E-commerce Marketplace Application",
+      tag: "E-commerce",
       image: {
         src: "/images/landing/java/case-ecommerce-marketplace.webp",
         alt: "Grocery marketplace app screens with categories and a product page",
       },
-      body: "Our client was a start-up eCommerce company that wanted to offer an unmatched online shopping experience to customers and provide door delivery under 60 minutes for a vast range of products such as groceries, farm-fresh vegetables & fruits, beverages, personal & baby care, meat, fish and home essentials.",
+      body: "Our client was a start-up e-commerce company that wanted to offer an unmatched online shopping experience to customers and provide door delivery under 60 minutes for a vast range of products such as groceries, farm-fresh vegetables & fruits, beverages, personal & baby care, meat, fish and home essentials.",
     },
     {
       title: "Logistics Supported Ride Hailing Mobile Application",

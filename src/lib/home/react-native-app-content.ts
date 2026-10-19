@@ -134,7 +134,7 @@ export const rnServices: ServiceBoardContent = {
       name: "React Native App Development",
       paragraphs: [
         "React Native is one of the dominant frameworks in the technology industry with great sets of features like live & hot reloading, responsive and quick user interface, intuitive & modular architecture, etc. With our world-class React Native Development Services, Soft Suave develops high functionality Apps compatible with iOS and Android.",
-        "Our top-of-the-line designers, developers, and consultants have years of experience and extensive knowledge through which we build React Native apps that target specific business models and help achieve increased performance. Besides, we are recognized for serving modern business needs from almost all types of industries including eCommerce, Construction, Healthcare, Education, etc.",
+        "Our top-of-the-line designers, developers, and consultants have years of experience and extensive knowledge through which we build React Native apps that target specific business models and help achieve increased performance. Besides, we are recognized for serving modern business needs from almost all types of industries including E-commerce, Construction, Healthcare, Education, etc.",
       ],
       image: { src: "/images/four/svc-mobile.webp", alt: "" },
     },

@@ -342,7 +342,7 @@ export const caIndustries: CardGridContent = {
       body: "Personalize digital learning through adaptive learning and AI tutors that guide students, support educators, improve engagement, and create more responsive learning experiences at scale globally.",
     },
     {
-      name: "eCommerce",
+      name: "E-commerce",
       body: "Increase conversions and planning accuracy with recommendations and forecasting that personalize shopping, predict demand, improve inventory decisions, and strengthen performance across digital channels at scale.",
     },
     {

@@ -281,7 +281,7 @@ export const piIndustries: CardGridContent = {
       body: "Models could identify changing health patterns, anticipate service needs, prioritize cases, and provide timely signals using relevant clinical and operational information under human review controls.",
     },
     {
-      name: "Ecommerce",
+      name: "E-commerce",
       body: "Forecasting and recommendation models could anticipate order patterns, identify customer interests, prioritize relevant products, and support inventory, engagement, and retention decisions across digital commerce workflows.",
     },
     {
