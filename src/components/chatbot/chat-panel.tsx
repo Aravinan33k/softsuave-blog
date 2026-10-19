@@ -266,7 +266,8 @@ export default function ChatPanel({ open, onMinimize, onEnded, onUnread }: Props
   }, [voiceChat, voiceInput]);
 
   // Focus follows the conversation: the message box when the panel opens, the
-  // first time slot while a picker holds the (disabled) box, the box again after.
+  // first time slot while a picker is open (the box still takes a typed
+  // "Cancel"), the box again after.
   useEffect(() => {
     if (!open) return;
     if (!store.lastActivity()) store.touch();
@@ -336,15 +337,32 @@ export default function ChatPanel({ open, onMinimize, onEnded, onUnread }: Props
     onMinimize();
   }
 
+  /**
+   * The slot prompt says "Type 'Cancel' to quit booking" (BUG-034), so the box
+   * stays usable while a picker is open. Typing "cancel" there takes the same
+   * path as "Skip for now" — the picker retires and the assistant gets the
+   * "CANCEL" it already handles — with the visitor's own word in the thread.
+   * Anything else is sent as an ordinary message.
+   */
+  function submitDraft() {
+    const openPicker = locked ? entries.find((e) => e.kind === "slots" && !e.disabled) : undefined;
+    if (openPicker && draft.trim().toLowerCase() === "cancel") {
+      retire(openPicker.id);
+      void send("CANCEL", draft.trim());
+      return;
+    }
+    void send(draft);
+  }
+
   function onSubmit(e: FormEvent) {
     e.preventDefault();
-    void send(draft);
+    submitDraft();
   }
 
   function onKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
     if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
-      void send(draft);
+      submitDraft();
     }
   }
 
@@ -388,7 +406,9 @@ export default function ChatPanel({ open, onMinimize, onEnded, onUnread }: Props
   const hasText = draft.trim() !== "";
   const showMic = supports.mic && !voiceOn && !locked;
   const showVoice = supports.voiceChat && !voiceOn && !locked && !hasText;
-  const showSend = !voiceOn && !locked && !showVoice;
+  // Send stays available while a slot picker is open, so "Cancel" can be typed
+  // and sent (BUG-034); the mic and voice chat stay hidden until it closes.
+  const showSend = !voiceOn && !showVoice;
 
   return (
     <div
@@ -466,14 +486,13 @@ export default function ChatPanel({ open, onMinimize, onEnded, onUnread }: Props
           ) : (
             <textarea
               ref={textareaRef}
-              className={`${styles.input} ${locked ? styles.inputLocked : ""}`}
+              className={styles.input}
               rows={1}
               value={draft}
               onChange={(e) => onDraftChange(e.target.value)}
               onKeyDown={onKeyDown}
               placeholder={locked ? CHAT_COPY.lockedPlaceholder : (micPlaceholder ?? CHAT_COPY.placeholder)}
               aria-label={CHAT_COPY.placeholder}
-              disabled={locked}
             />
           )}
 

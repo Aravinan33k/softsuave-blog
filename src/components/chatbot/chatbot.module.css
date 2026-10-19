@@ -664,11 +664,6 @@
   color: #6c757d;
 }
 
-.inputLocked {
-  color: grey;
-  font-style: italic;
-}
-
 .micButton,
 .sendButton {
   display: flex;

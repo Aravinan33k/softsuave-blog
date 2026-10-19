@@ -10,7 +10,9 @@ export const CHAT_COPY = {
   tooltip: "💬 Hi there! Need help?",
   unread: "You’ve got a message!",
   placeholder: "Enter your message",
-  lockedPlaceholder: "Please schedule or skip to continue...",
+  // Shown while a slot picker is open; the box stays usable there so the
+  // slot prompt's "Type 'Cancel'" can be followed (BUG-034).
+  lockedPlaceholder: "Pick a slot, or type 'Cancel' to quit booking",
   endConfirm: "Are you sure you want to end the session?",
   yes: "Yes",
   no: "No",
