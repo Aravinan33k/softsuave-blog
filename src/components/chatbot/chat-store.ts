@@ -1,11 +1,12 @@
 /**
- * The chat thread and its session, kept in localStorage so a conversation
- * follows the visitor from page to page and tab to tab — as on softsuave.com,
- * whose widget does the same with the same rules (one hour of inactivity ends
- * a session; one silent follow-up probe per session).
- *
- * Every read and write is guarded: storage can be blocked (private windows,
- * site data off), and the widget must still work, just without memory.
+ * The chat thread and its session, kept IN MEMORY for the life of the page
+ * (BUG-035). The widget lives in the root layout, so the conversation follows
+ * the visitor from page to page while they browse; a refresh, a new tab or a
+ * new visit starts an empty chat with a new session. softsuave.com's widget
+ * keeps both in localStorage instead, which showed a previous conversation
+ * again after a refresh — on a shared computer, to the next person too.
+ * Within a page the live widget's rules still hold: one hour of inactivity
+ * ends a session; one silent follow-up probe per session.
  */
 
 export type ButtonKind = "yesno" | "skip" | "optout" | "editfields";
@@ -24,28 +25,30 @@ const KEYS = {
   unread: "ss-chat:unread",
 } as const;
 
-export const HISTORY_KEY = KEYS.history;
-export const UNREAD_KEY = KEYS.unread;
 
 /** An hour without activity ends the session (live widget: 3 600 000 ms). */
 export const SESSION_TIMEOUT_MS = 60 * 60 * 1000;
 /** Two quiet minutes trigger the one follow-up probe. */
 export const FOLLOW_UP_AFTER_MS = 2 * 60 * 1000;
 
+const memory = new Map<string, string>();
+
 function read(key: string): string | null {
-  try {
-    return localStorage.getItem(key);
-  } catch {
-    return null;
-  }
+  return memory.get(key) ?? null;
 }
 
 function write(key: string, value: string | null) {
+  if (value === null) memory.delete(key);
+  else memory.set(key, value);
+}
+
+// Conversations the previous version saved in the browser: removed once, on
+// the first page load after this change, so an old thread cannot linger there.
+if (typeof window !== "undefined") {
   try {
-    if (value === null) localStorage.removeItem(key);
-    else localStorage.setItem(key, value);
+    for (const key of Object.values(KEYS)) localStorage.removeItem(key);
   } catch {
-    // storage blocked: the widget works, it just forgets
+    // storage blocked: nothing was saved there either
   }
 }
 

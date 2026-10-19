@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { publicMediaUrl } from "@/lib/media-url";
 import { closeSession } from "./close-session";
 import { CHAT_COPY } from "./chat-copy";
-import { SESSION_TIMEOUT_MS, UNREAD_KEY, store } from "./chat-store";
+import { SESSION_TIMEOUT_MS, store } from "./chat-store";
 import { OPEN_CHAT_EVENT } from "./open-chatbot";
 import styles from "./chatbot.module.css";
 
@@ -73,13 +73,9 @@ export default function ChatBot({ openOnMount = false }: { openOnMount?: boolean
     if (store.sessionId()) {
       idle = hasIdle ? window.requestIdleCallback(loadPanel, { timeout: 4000 }) : window.setTimeout(loadPanel, 2000);
     }
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === UNREAD_KEY || e.key === null) syncUnread();
-    };
     window.addEventListener(OPEN_CHAT_EVENT, openChat);
     // Asked for before the widget had loaded (see chatbot-loader).
     const openNow = openOnMount ? window.setTimeout(openChat, 0) : undefined;
-    window.addEventListener("storage", onStorage);
     return () => {
       window.clearTimeout(id);
       window.clearTimeout(openNow);
@@ -88,7 +84,6 @@ export default function ChatBot({ openOnMount = false }: { openOnMount?: boolean
         else window.clearTimeout(idle);
       }
       window.removeEventListener(OPEN_CHAT_EVENT, openChat);
-      window.removeEventListener("storage", onStorage);
     };
   }, [loadPanel, openChat, openOnMount]);
 

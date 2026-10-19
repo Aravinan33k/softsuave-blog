@@ -4,7 +4,7 @@ import { useEffect, useEffectEvent, useLayoutEffect, useRef, useState, type Form
 import { bookingTimeZone, fetchSlots, readableDate, requestAnswer, type SlotDay } from "./chat-api";
 import { CHAT_COPY, FOLLOW_UP_QUERY, MARKERS } from "./chat-copy";
 import { buttonsFor, fieldLabel, retireOnSend } from "./chat-flow";
-import { FOLLOW_UP_AFTER_MS, HISTORY_KEY, SESSION_TIMEOUT_MS, newId, store, type ChatEntry } from "./chat-store";
+import { FOLLOW_UP_AFTER_MS, SESSION_TIMEOUT_MS, newId, store, type ChatEntry } from "./chat-store";
 import { closeSession } from "./close-session";
 import { CloseRing, LogoMark, MicIcon, MicMuteIcon, ScrollDownIcon, SendIcon, StopIcon, WaveIcon } from "./icons";
 import { Markdown, UserText } from "./markdown";
@@ -194,28 +194,12 @@ export default function ChatPanel({ open, onMinimize, onEnded, onUnread }: Props
     lockedRef.current = locked;
   });
 
-  // The thread is shared: every change is stored, and other tabs' changes land here.
+  // Every change is kept in the (in-memory) store, so the thread survives the
+  // panel closing and reopening while the visitor browses; a refresh starts a
+  // new chat (BUG-035).
   useEffect(() => {
     store.saveHistory(entries);
   }, [entries]);
-
-  useEffect(() => {
-    const onStorage = (e: StorageEvent) => {
-      if (e.key !== HISTORY_KEY && e.key !== null) return;
-      if (e.newValue === null) {
-        // The session was ended in another tab.
-        voiceChat.end();
-        voiceInput.discard();
-        onEnded();
-        return;
-      }
-      setEntries(store.history());
-      const cached = store.slots();
-      if (Array.isArray(cached)) setSlots(cached as SlotDay[]);
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, [onEnded, voiceChat, voiceInput]);
 
   // A restored thread with a slot picker but no cached slots: fetch them again.
   const needsSlots = slots === null && entries.some((e) => e.kind === "slots");
