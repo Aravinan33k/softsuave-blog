@@ -3035,26 +3035,6 @@ h1.h2 {
   max-width: 18ch;
 }
 
-/* the underlined keyword + its self-drawing coral underline */
-.contactKey {
-  position: relative;
-  display: inline-block;
-  white-space: nowrap;
-}
-.contactUnderline {
-  position: absolute;
-  left: -0.04em;
-  right: -0.04em;
-  bottom: -0.16em;
-  width: calc(100% + 0.08em);
-  height: 0.34em;
-  overflow: visible;
-}
-.contactUnderline path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-
 .contactBody {
   margin-top: 0.85em;
   max-width: 52ch;

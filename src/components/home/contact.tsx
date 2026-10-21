@@ -10,8 +10,9 @@ import { useNearViewport } from "./use-deferred-media";
 /**
  * Contact / business enquiry — a cinematic scroll-scrubbed FOCUS PULL. As you
  * scroll, the dark backdrop resolves from blur → sharp and the "Business
- * Enquiry" copy resolves in with a self-drawing coral underline under the
- * keyword, and the CTA + email fade up. Reduced motion renders it static.
+ * Enquiry" copy resolves in, and the CTA + email fade up. Reduced motion
+ * renders it static. (The coral squiggle that used to draw itself under the
+ * heading's last word was removed in the 21 Oct review.)
  */
 export default function Contact({
   ctaHref = finalCta.cta.href,
@@ -63,12 +64,6 @@ export default function Contact({
    */
   const mounted = useNearViewport(root);
 
-  // Split the headline so the last keyword can carry the drawn underline.
-  const m = content.title.match(/^([\s\S]*?)([A-Za-z0-9]+)(\W*)$/);
-  const beforeKey = m ? m[1] : content.title;
-  const key = m ? m[2] : "";
-  const afterKey = m ? m[3] : "";
-
   useGSAP(
     () => {
       if (prefersReducedMotion() || !root.current) return;
@@ -101,8 +96,8 @@ export default function Contact({
         },
       );
 
-      // Copy resolves in, then the underline draws itself — a plain once-through
-      // reveal on enter, so it cannot be stranded mid-scrub.
+      // Copy resolves in — a plain once-through reveal on enter, so it cannot
+      // be stranded mid-scrub.
       //
       // The timeline is PAUSED and played by a trigger of its own rather than
       // handed to `scrollTrigger:`, because this band is the last thing above
@@ -118,12 +113,6 @@ export default function Contact({
         `.${styles.contactInner}`,
         { autoAlpha: 0, y: 36, filter: "blur(10px)" },
         { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power2.out" },
-      );
-      tl.fromTo(
-        `.${styles.contactUnderline} path`,
-        { strokeDashoffset: 1 },
-        { strokeDashoffset: 0, duration: 0.8, ease: "power1.inOut" },
-        "-=0.35",
       );
 
       const play = () => {
@@ -180,29 +169,7 @@ export default function Contact({
 
       <div className={styles.contactInner}>
         {eyebrow ? <span className={styles.eyebrow}>{eyebrow}</span> : null}
-        <h2 className={styles.contactH}>
-          {beforeKey}
-          <span className={styles.contactKey}>
-            {key}
-            <svg
-              className={styles.contactUnderline}
-              viewBox="0 0 200 14"
-              preserveAspectRatio="none"
-              aria-hidden
-            >
-              <path
-                d="M3 9 C 45 3, 80 13, 120 7 S 180 4, 197 9"
-                fill="none"
-                stroke="var(--accent)"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                pathLength={1}
-              />
-            </svg>
-          </span>
-          {afterKey}
-        </h2>
+        <h2 className={styles.contactH}>{content.title}</h2>
         <p className={styles.contactBody}>{content.body}</p>
 
         <div className={styles.contactActions}>
