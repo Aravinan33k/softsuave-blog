@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { env } from './env';
+import { isDatabaseNotConfigured } from './db-errors';
 
 // Response + request helpers. Error responses are deliberately generic — details
 // are logged server-side, never leaked to the client.
@@ -14,6 +15,11 @@ export function jsonError(status: number, code: string, message: string, extra?:
 
 /** Catch-all for unexpected route errors: log server-side, return opaque 500. */
 export function handleRouteError(err: unknown, context: string): NextResponse {
+  // No database configured (see lib/env.ts): an expected state, not a fault —
+  // answer 503 without logging a stack trace per request.
+  if (isDatabaseNotConfigured(err)) {
+    return jsonError(503, 'database_unavailable', 'This feature is not available right now.');
+  }
   console.error(`[route error] ${context}:`, err);
   return jsonError(500, 'internal_error', 'Something went wrong.');
 }

@@ -1,0 +1,450 @@
+/* ============================================================
+   CASE STUDY template — components/case-study/case-study.tsx
+   softsuave.com's case-study layout (contents column beside numbered
+   sections) in this site's landing-page language: the landing kit's kicker,
+   H2 and cards over the `.theme-four` tokens, so the light band re-tints it.
+   ============================================================ */
+
+/* ---- Contents column + article ---- */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(22px, 3vw, 36px);
+}
+
+@media (min-width: 1000px) {
+  .layout {
+    grid-template-columns: clamp(190px, 17vw, 250px) minmax(0, 1fr);
+    gap: clamp(40px, 5vw, 96px);
+    align-items: start;
+  }
+}
+
+/* The article column is a size container: its cards, figures and checklist
+   lay out by the column's own width, which the contents column narrows. */
+.article {
+  min-width: 0;
+  container-type: inline-size;
+}
+
+/* ---- Contents list ---- */
+.toc {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.tocTitle {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.6vw, 1.6rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+}
+
+.tocList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tocLink {
+  display: block;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.tocLink:hover {
+  color: var(--text-bright);
+}
+
+.tocLink[aria-current] {
+  color: var(--accent);
+}
+
+.tocDownload {
+  justify-self: start;
+}
+
+/* Phones and tablets: the links run as one scrolling row of chips above the
+   article, with the Download button under them. */
+@media (max-width: 999px) {
+  .tocTitle {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .tocList {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    /* bleed to the gutters so the row reads as scrollable */
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+
+  .tocList::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tocLink {
+    padding: 0.6em 0.95em;
+    border: 1px solid var(--line);
+    border-radius: var(--btn-radius);
+    font-size: var(--fs-label);
+    white-space: nowrap;
+  }
+
+  .tocLink[aria-current] {
+    border-color: var(--accent);
+  }
+}
+
+/* Desktop: a sticky column, the links on a rail with the current one marked
+   by an accent bar on it — the live page's arrangement. */
+@media (min-width: 1000px) {
+  .toc {
+    position: sticky;
+    top: calc(var(--nav-h, 89px) + 28px);
+    gap: 18px;
+  }
+
+  .tocList {
+    border-left: 1px solid var(--line);
+  }
+
+  .tocLink {
+    position: relative;
+    padding: 0.55em 0 0.55em 18px;
+    font-size: clamp(0.875rem, 0.95vw, 0.975rem);
+    line-height: 1.4;
+  }
+
+  .tocLink[aria-current]::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 0.35em;
+    bottom: 0.35em;
+    width: 2px;
+    background: var(--accent);
+  }
+}
+
+/* ---- Sections ---- */
+.section {
+  padding-block: clamp(26px, 3.2vw, 52px);
+}
+
+.section:first-child {
+  padding-top: 0;
+}
+
+.section:last-child {
+  padding-bottom: 0;
+}
+
+.sectionTitle {
+  max-width: 28ch;
+}
+
+.para {
+  margin: clamp(14px, 1.4vw, 20px) 0 0;
+  max-width: 78ch;
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--text);
+}
+
+/* ---- Cards ---- */
+.plainCards,
+.iconCards {
+  list-style: none;
+  margin: clamp(22px, 2.4vw, 32px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+@container (min-width: 620px) {
+  .plainCards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Very wide columns (2K and up): one row of four rather than two cards a
+   thousand pixels wide. */
+@container (min-width: 1440px) {
+  .plainCards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@container (min-width: 900px) {
+  .iconCards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.card {
+  margin: 0;
+}
+
+/* ---- Pull quote ---- */
+.quote {
+  margin: clamp(24px, 2.6vw, 36px) 0 0;
+  padding: clamp(20px, 2.4vw, 30px) clamp(22px, 2.6vw, 34px);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: var(--surface);
+}
+
+.quote p {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--text-bright);
+}
+
+/* ---- Feature checklist ---- */
+.features {
+  list-style: none;
+  margin: clamp(22px, 2.4vw, 32px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px clamp(20px, 3vw, 40px);
+}
+
+@container (min-width: 540px) {
+  .features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (min-width: 1100px) {
+  .features {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65em;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--text-bright);
+}
+
+.featureMark {
+  flex: none;
+  width: 1.05em;
+  height: 1.05em;
+  margin-top: 0.22em;
+  color: var(--accent);
+}
+
+/* ---- Figure ---- */
+.figure {
+  max-width: 1240px;
+  margin: clamp(26px, 3vw, 40px) 0 0;
+  border-radius: 14px;
+  overflow: hidden;
+  /* The artwork has a transparent ground; the live page sets it on a deep
+     navy panel, and so does this. */
+  background: radial-gradient(120% 90% at 50% 20%, #13244a 0%, #0b1020 70%);
+}
+
+.figureImg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- Headline figures ---- */
+.stats {
+  list-style: none;
+  margin: clamp(22px, 2.4vw, 32px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+@container (min-width: 420px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (min-width: 1100px) {
+  .stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.stat {
+  padding: clamp(20px, 2.2vw, 28px);
+  border: 1px solid var(--card-line, var(--line));
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.statFigure {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.statLabel {
+  display: block;
+  margin-top: 12px;
+  font-size: var(--fs-body-sm);
+  line-height: 1.55;
+  color: var(--text);
+}
+
+/* ---- Download band ---- */
+.downloadBand {
+  text-align: center;
+}
+
+.downloadPanel {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: clamp(28px, 4vw, 56px) clamp(20px, 4vw, 56px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background:
+    radial-gradient(70% 120% at 50% 0%, rgba(255, 84, 54, 0.14) 0%, rgba(255, 84, 54, 0) 70%),
+    var(--surface);
+}
+
+.downloadBody {
+  margin: 0 auto clamp(22px, 2.4vw, 30px);
+  max-width: 46ch;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.2rem, 1.9vw, 1.65rem);
+  line-height: 1.4;
+  color: var(--text-bright);
+}
+
+.downloadGlyph {
+  flex: none;
+  width: 1.15em;
+  height: 1.15em;
+}
+
+/* ---- Download dialog ---- */
+.dialog {
+  width: min(460px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.dialog::backdrop {
+  background: rgba(4, 5, 8, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.dialogBox {
+  position: relative;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  border-radius: 16px;
+}
+
+.dialogClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: var(--btn-radius);
+  background: transparent;
+  color: #16181d;
+  cursor: pointer;
+}
+
+.dialogClose:hover,
+.dialogClose:focus-visible {
+  background: #f1efec;
+}
+
+.dialogClose svg {
+  width: 20px;
+  height: 20px;
+}
+
+.dialogDone {
+  padding: clamp(32px, 5vw, 44px) clamp(24px, 4vw, 36px);
+  border-radius: 16px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.dialogDoneTitle {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+  line-height: 1.2;
+  color: #16181d;
+}
+
+.dialogDoneBody {
+  margin: 12px auto 24px;
+  max-width: 32ch;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: #4b4f58;
+}
+
+.dialogDoneCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 1em 1.9em;
+  border-radius: var(--btn-radius);
+  background: var(--cta-bg, #ff5436);
+  color: var(--cta-ink, #ffffff);
+  font-family: var(--font-eyebrow);
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.dialogDoneCta:hover,
+.dialogDoneCta:focus-visible {
+  background: #16181d;
+}

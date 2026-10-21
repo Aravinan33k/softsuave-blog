@@ -4,6 +4,9 @@ import { getSiteInfo, getPublishedPosts, getTagBySlug, getTaxonomySlugs } from '
 import { ARCHIVE_PAGE_SIZE } from '@/lib/pagination';
 import { getActiveTheme } from '@/lib/public/theme';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { blogArchiveLd } from '@/lib/seo/blog-graph';
+import { MARKETING_SITE_GRAPH } from '@/lib/seo/page-graph';
+import { JsonLd } from '@/components/seo/json-ld';
 
 export const revalidate = 300;
 
@@ -37,9 +40,29 @@ export default async function TagPage({ params }: { params: Promise<{ slug: stri
   ]);
   const { Layout, ArchiveView } = theme;
 
+  // A filtered archive is a CollectionPage, not a Blog: typing it `Blog` would
+  // claim one blog per tag. It hangs off /blog in the trail, and its
+  // ItemList names the posts this page lists. These routes emitted no
+  // structured data at all before.
+  const ld = [
+    ...blogArchiveLd({
+      path: `/tag/${slug}`,
+      name: `#${tag.name}`,
+      description: tag.description,
+      posts,
+      total,
+      type: 'CollectionPage',
+      parents: [{ name: 'Blog', path: '/blog' }],
+    }),
+    ...MARKETING_SITE_GRAPH,
+  ];
+
   return (
-    <Layout site={site}>
-      <ArchiveView site={site} heading={`#${tag.name}`} description={tag.description} posts={posts} total={total} filter={{ tag: slug }} />
-    </Layout>
+    <>
+      <JsonLd data={ld} />
+      <Layout site={site}>
+        <ArchiveView site={site} heading={`#${tag.name}`} description={tag.description} posts={posts} total={total} filter={{ tag: slug }} />
+      </Layout>
+    </>
   );
 }

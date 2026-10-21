@@ -6,21 +6,30 @@ import SplitReveal from "./split-reveal";
 import FadeUp from "./fade-up";
 import styles from "./home.module.css";
 
-// Tasteful, clearly-generic placeholders (not copied from the inspiration).
-const recognitions = [
-  "Clutch Top B2B",
-  "GoodFirms Leader",
-  "ISO 27001",
-  "Great Place to Work",
-  "CMMI Level 3",
-  "SOC 2 Type II",
-  "Google Cloud Partner",
-  "Microsoft Azure Partner",
+const integrations = [
+  "Salesforce",
+  "SAP",
+  "Oracle",
+  "Microsoft",
+  "HubSpot",
+  "Slack",
+  "Google",
+  "AWS",
+  "Azure",
+  "Snowflake",
+  "Zoho",
+  "ServiceNow",
+  "Shopify",
+  "WhatsApp",
+  "CRM",
+  "ERP",
+  "API",
+  "Cloud",
 ];
 
 /**
- * Featured & Awards strip: enterprise recognitions rendered as dual infinite
- * marquees. Copy comes from the enterprise block.
+ * Enterprise AI Integrations strip: the tools/platforms we connect AI into,
+ * rendered as dual infinite marquees. Copy comes from the enterprise block.
  */
 export default function Awards() {
   return (
@@ -37,14 +46,14 @@ export default function Awards() {
 
       <div className={styles.awardsMarquees}>
         <Marquee speed={26}>
-          {recognitions.map((r) => (
+          {integrations.map((r) => (
             <span key={r} className={styles.awardChip}>
               {r}
             </span>
           ))}
         </Marquee>
         <Marquee speed={22} reverse>
-          {[...recognitions].reverse().map((r) => (
+          {[...integrations].reverse().map((r) => (
             <span key={r} className={styles.awardChipGhost}>
               {r}
             </span>

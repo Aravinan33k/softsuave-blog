@@ -1,37 +1,60 @@
 import 'server-only';
 import type { Metadata } from 'next';
 import { env } from '../env';
-import { BASE_PATH } from '../flags';
+import { BASE_PATH, pageRobots } from '../flags';
 import type { SiteInfo } from '@/themes/_contract';
 
 // Central metadata builder for public pages: canonical URLs, Open Graph, Twitter
 // cards, and robots directives, all from a single call.
 
-// Includes the mount subpath, because the app is served under one: NEXT_PUBLIC_SITE_URL
-// is "https://www.softsuave.com/blog", not the bare origin. `basePath` in
-// next.config prefixes routes and assets but does NOT reach this helper, so without
-// the subpath here every canonical, sitemap and feed URL would point one level too
-// high — at the existing website, which does not serve them.
+// The app owns the domain root, so NEXT_PUBLIC_SITE_URL is the bare origin
+// ("https://www.softsuave.com"). It must carry BASE_PATH if the app is ever mounted
+// under a subpath again: `basePath` in next.config prefixes routes and assets but
+// does NOT reach this helper, so without the subpath there every canonical, sitemap
+// and feed URL would point one level too high — at whatever serves the root instead.
 const SITE_URL = env.NEXT_PUBLIC_SITE_URL.replace(/\/+$/, '');
 
 export function absoluteUrl(path: string): string {
   if (/^https?:\/\//.test(path)) return path; // already absolute (e.g. S3/R2 URL)
   let p = path.startsWith('/') ? path : `/${path}`;
-  // Idempotent in the mount subpath. SITE_URL already ends with it, so a path that
-  // also carries it — anything through publicMediaUrl, e.g. post.coverImageUrl —
-  // must have it stripped or the result doubles to …/blog/blog/uploads/x.webp.
-  if (p === BASE_PATH) return SITE_URL;
-  if (p.startsWith(`${BASE_PATH}/`)) p = p.slice(BASE_PATH.length);
-  // The mount root is SITE_URL itself; appending "/" would emit a trailing slash
+  // Idempotent in the mount subpath. SITE_URL would already end with it, so a path
+  // that also carries it — anything through publicMediaUrl, e.g. post.coverImageUrl
+  // — must have it stripped or the result doubles to …/blog/blog/uploads/x.webp.
+  if (BASE_PATH) {
+    if (p === BASE_PATH) return SITE_URL;
+    if (p.startsWith(`${BASE_PATH}/`)) p = p.slice(BASE_PATH.length);
+  }
+  // The site root is SITE_URL itself; appending "/" would emit a trailing slash
   // that redirects, and a canonical must never point at a redirect.
   return p === '/' ? SITE_URL : `${SITE_URL}${p}`;
+}
+
+/**
+ * Origin that actually serves this deployment's files, for link-preview
+ * images. Canonicals and `og:url` must name the public site (SITE_URL), but a
+ * crawler has to be able to FETCH an `og:image` — and while the site runs on
+ * its Vercel address ahead of launch, SITE_URL (www.softsuave.com) is still
+ * the old site, where none of these images exist, so every share preview came
+ * back empty ("Social Share Preview is not coming"). On a Vercel deployment
+ * with no custom domain yet, `VERCEL_PROJECT_PRODUCTION_URL` is that
+ * `*.vercel.app` address; anywhere else — or once the project has its real
+ * domain — this is SITE_URL, so nothing changes after launch.
+ */
+const VERCEL_HOST = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const ASSET_ORIGIN =
+  VERCEL_HOST && /\.vercel\.app$/.test(VERCEL_HOST) ? `https://${VERCEL_HOST}` : SITE_URL;
+
+/** Absolute URL of a link-preview image this app serves — see `ASSET_ORIGIN`. */
+export function ogImageUrl(path: string): string {
+  if (/^https?:\/\//.test(path)) return path;
+  return absoluteUrl(path).replace(SITE_URL, ASSET_ORIGIN);
 }
 
 /** URL of the dynamically-generated OG image for content without a custom one. */
 export function dynamicOgImage(title: string, subtitle?: string): string {
   const q = new URLSearchParams({ title });
   if (subtitle) q.set('subtitle', subtitle);
-  return absoluteUrl(`/og?${q.toString()}`);
+  return ogImageUrl(`/og?${q.toString()}`);
 }
 
 interface BuildArgs {
@@ -74,9 +97,9 @@ export function buildMetadata(a: BuildArgs): Metadata {
     title,
     description,
     alternates: { canonical },
-    robots: a.noIndex
-      ? { index: false, follow: false }
-      : { index: true, follow: true },
+    // `pageRobots` is noindex too while the site is closed to search engines
+    // (`siteIndexable`, lib/flags.ts).
+    robots: a.noIndex ? { index: false, follow: false } : pageRobots,
     openGraph: {
       title,
       description,

@@ -1,0 +1,1022 @@
+/* ============================================================
+   CHAT WIDGET — softsuave.com's "Soft Suave - Live Chat", value for value
+   (its chatbot.css and slot-picker rules, inspected 15 Oct 2026), with the
+   live #ff0042 swapped for this site's CTA orange: --chat-accent is
+   `--brand-500` (#ff5436), the "Book AI Strategy Call" button's colour.
+
+   Mounted once in the root layout, outside `.theme-four`, so it sets its own
+   type (the live widget's system-ui stack) and never reads the page's tokens.
+
+   Stacking: under the header bar (120) and the mobile menu sheet (110), over
+   page content — so an open menu covers it, and the panel's max-height keeps
+   it clear of the bar (--chat-top-clear).
+   ============================================================ */
+.root {
+  --chat-accent: #ff5436;
+  --chat-accent-rgb: 255, 84, 54;
+  --chat-accent-soft: #fff0eb;
+  /* Link text on white: the site's own deep orange (small text on light,
+     ~5.6:1) — the CTA orange is too light to read at 14px. */
+  --chat-link: #b8341a;
+  --chat-navy: #09244c;
+  --chat-top-clear: 96px;
+  --chat-edge: 20px;
+
+  position: fixed;
+  right: var(--chat-edge);
+  bottom: var(--chat-edge);
+  z-index: 105;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  text-align: start;
+}
+
+@media (max-width: 480px) {
+  .root {
+    --chat-edge: 10px;
+  }
+}
+
+/* Tall screens get the live widget's larger type. */
+@media (min-height: 1080px) {
+  .root {
+    font-size: 18px;
+  }
+}
+
+.root button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.root button:disabled {
+  cursor: not-allowed;
+}
+
+.root :focus-visible {
+  outline: 2px solid var(--chat-accent);
+  outline-offset: 2px;
+}
+
+/* ---- launcher ---- */
+.launcherRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.launcher {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  line-height: 0;
+  border-radius: 50%;
+  /* The live icon's one-off "blink" a second after load, eased out at its end. */
+  animation: launcherPop 1.4s 1s ease-in-out both;
+}
+
+.launcher img {
+  display: block;
+  width: 45px;
+  height: 50px;
+}
+
+@keyframes launcherPop {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(0.5);
+  }
+  60% {
+    transform: scale(1.2);
+  }
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--chat-accent);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.6;
+  box-shadow: 7px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* "💬 Hi there! Need help?" — a white bubble pointing at the launcher. */
+.tooltip {
+  position: relative;
+  max-width: 260px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: #fff;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: start;
+  box-shadow: 7px 4px 15px rgba(0, 0, 0, 0.2);
+  animation: chatFadeIn 1s ease;
+  transition: box-shadow 0.3s ease;
+}
+
+.tooltip:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  right: -19px;
+  bottom: 9px;
+  border: 10px solid transparent;
+  border-left-color: #fff;
+  pointer-events: none;
+}
+
+@keyframes chatFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ---- panel ---- */
+.panel {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  max-width: calc(100vw - 2 * var(--chat-edge));
+  max-height: calc(100dvh - var(--chat-edge) - var(--chat-top-clear));
+  overflow: hidden;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+  animation: chatSlideUp 0.3s ease both;
+}
+
+@media (max-width: 480px) {
+  .panel {
+    width: 300px;
+  }
+}
+
+@keyframes chatSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.head {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  height: 60px;
+  padding: 8px;
+  background: var(--chat-accent);
+  color: #fff;
+}
+
+.headLogo {
+  flex: none;
+  width: 25px;
+  height: 25px;
+  margin-left: 7px;
+  color: #fff;
+}
+
+.headTitle {
+  margin: 0 0 0 8px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .headTitle {
+    font-size: 17px;
+  }
+}
+
+.onlineDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-left: 4px;
+  border-radius: 50%;
+  background: #4caf50;
+  vertical-align: super;
+}
+
+.headClose {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  width: 35px;
+  height: 35px;
+  padding: 3px;
+  border: 0;
+  border-radius: var(--btn-radius, 6px);
+  background: none;
+  color: #fff;
+  line-height: 0;
+  transition: transform 0.1s ease;
+}
+
+.headClose:hover {
+  transform: scale(1.1);
+}
+
+.headClose svg {
+  width: 100%;
+  height: 100%;
+}
+
+.body {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.list {
+  position: relative;
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  gap: 10px;
+  height: 50vh;
+  min-height: 96px;
+  max-height: 60dvh;
+  padding: 22px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.list::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .list {
+    height: 40vh;
+  }
+}
+
+@media (min-height: 1080px) {
+  .list {
+    height: 35vh;
+  }
+}
+
+/* ---- messages ---- */
+.ai,
+.user {
+  flex: none;
+  max-width: 90%;
+  padding: 5px 10px;
+  overflow-wrap: break-word;
+  animation: chatFadeIn 0.25s ease-in-out both;
+}
+
+.ai {
+  align-self: flex-start;
+  width: fit-content;
+  border-radius: 10px 10px 10px 0;
+  background: #fff;
+  color: #000;
+  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.133);
+}
+
+.user {
+  align-self: flex-end;
+  border-radius: 15px;
+  background: var(--chat-accent);
+  color: #fff;
+  white-space: pre-wrap;
+}
+
+.ai p,
+.ai ul,
+.ai ol,
+.ai blockquote,
+.ai pre {
+  margin: 0;
+}
+
+.ai > * + * {
+  margin-top: 0.5em;
+}
+
+.ai li > * + * {
+  margin-top: 0.2em;
+}
+
+.ai ul,
+.ai ol {
+  padding-left: 1.25em;
+}
+
+.ai ul {
+  list-style: disc;
+}
+
+.ai ol {
+  list-style: decimal;
+}
+
+.ai li + li {
+  margin-top: 0.2em;
+}
+
+.ai blockquote {
+  padding-left: 0.75em;
+  border-left: 3px solid #e5e5e5;
+  color: #333;
+}
+
+.ai code {
+  padding: 0 0.25em;
+  border-radius: 4px;
+  background: #f2f2f2;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.92em;
+}
+
+.ai pre {
+  padding: 0.5em;
+  overflow-x: auto;
+  border-radius: 6px;
+  background: #f2f2f2;
+}
+
+.ai pre code {
+  padding: 0;
+  background: none;
+}
+
+.ai hr {
+  margin: 0.5em 0;
+  border: 0;
+  border-top: 1px solid #e5e5e5;
+}
+
+.link {
+  color: var(--chat-link);
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+}
+
+.userLink {
+  color: inherit;
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+}
+
+.aiForm {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* A blinking caret at the end of an answer that's still arriving. */
+.streaming > :last-child::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  background: var(--chat-navy);
+  animation: caretBlink 0.9s steps(1) infinite;
+}
+
+@keyframes caretBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.loading {
+  width: fit-content;
+}
+
+.dots {
+  display: inline-flex;
+  align-items: center;
+  height: 1.6em;
+}
+
+.dots span {
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--chat-accent);
+  animation: dotPulse 1.4s infinite ease-in-out;
+}
+
+.dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dots span:nth-child(3) {
+  margin-right: 0;
+  animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* ---- answer buttons (Confirm / Edit / Cancel, Skip, Opt Out, fields) ---- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.chip {
+  padding: 4px 8px;
+  border: 0;
+  border-radius: var(--btn-radius, 6px);
+  background: #e5e5e5;
+  color: #000;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.chip:hover:not(:disabled) {
+  background: var(--chat-accent);
+  color: #fff;
+}
+
+.chip:disabled {
+  opacity: 0.6;
+}
+
+/* ---- slot picker ---- */
+.slotPicker {
+  display: flex;
+  flex-direction: column;
+}
+
+.slotPickerDone {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.monthHeader {
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  align-items: center;
+  gap: 8px;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: var(--chat-accent-soft);
+  font-size: 1.15em;
+  font-weight: 600;
+}
+
+.monthLabel {
+  grid-column: 2;
+  text-align: center;
+}
+
+.slotArrow {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--chat-accent);
+}
+
+.slotArrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.slotArrow:disabled {
+  opacity: 0.5;
+  filter: grayscale(100%);
+}
+
+.dayRow {
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  align-items: center;
+  padding: 8px 8px 10px;
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.dayList {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  margin: auto;
+  padding: 5px 0;
+  font-size: 0.9em;
+}
+
+.dayChip {
+  display: flex;
+  flex: 1 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 2px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  color: #000;
+}
+
+.dayChipSelected {
+  border: 2px solid var(--chat-accent);
+  font-weight: 700;
+}
+
+.dayName {
+  font-weight: 550;
+}
+
+.timeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-height: 118px;
+  margin-top: 1rem;
+  padding-right: 2px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+@media (max-width: 768px) {
+  .timeGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.timeSlot {
+  padding: 6px 10px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 5px;
+  background: #dcf6e9;
+  color: #0a0a0a;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.timeSlot:hover:not(:disabled) {
+  background: var(--chat-accent);
+  color: #fff;
+}
+
+.slotFoot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.slotFoot .chip {
+  padding: 3px 13px;
+  font-size: 12px;
+}
+
+.slotEmpty {
+  margin: 0;
+}
+
+/* ---- composer ---- */
+.composer {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 150px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: auto;
+  padding: 0.5rem;
+  border: 0;
+  outline: none;
+  resize: none;
+  overflow-y: auto;
+  background: transparent;
+  color: #000;
+  font: inherit;
+  line-height: 1.6;
+  scrollbar-width: thin;
+}
+
+.root .input:focus-visible {
+  outline: none;
+}
+
+.input::placeholder {
+  color: #6c757d;
+}
+
+.micButton,
+.sendButton {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: 0;
+  border-radius: var(--btn-radius, 6px);
+  background: #fff;
+  color: var(--chat-navy);
+  transition: transform 0.1s ease;
+}
+
+.micButton svg,
+.sendButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.sendButton {
+  margin-right: 5px;
+  color: var(--chat-accent);
+}
+
+.micButton:hover:not(:disabled),
+.sendButton:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.micButton:disabled,
+.sendButton:disabled {
+  opacity: 0.5;
+}
+
+.micRecording {
+  background: var(--chat-accent);
+  color: #fff;
+  animation: micPulse 1.2s infinite ease-in-out;
+}
+
+.micBusy {
+  cursor: progress;
+}
+
+.spinner {
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 1px;
+  border: 2px solid #d9d9d9;
+  border-top-color: var(--chat-accent);
+  border-radius: 50%;
+  animation: chatSpin 0.8s linear infinite;
+}
+
+@keyframes micPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--chat-accent-rgb), 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(var(--chat-accent-rgb), 0);
+  }
+}
+
+@keyframes chatSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* An orange disc with a white waveform: in place of the send arrow while the box is empty. */
+.voiceButton {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-right: 5px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--btn-radius, 6px);
+  background: var(--chat-accent);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(var(--chat-accent-rgb), 0.35);
+  transition: transform 0.1s ease;
+}
+
+.voiceButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.voiceButton:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.voiceButton:disabled {
+  opacity: 0.5;
+}
+
+/* ---- voice chat bar ---- */
+.voiceBar {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 40px;
+  padding-left: 2px;
+}
+
+@media (max-width: 480px) {
+  .voiceBar {
+    gap: 6px;
+  }
+}
+
+.voiceStatus {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--chat-navy);
+  font-size: 13px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* The orb: listening swells with the voice, thinking spins a navy ring, speaking bounces bars. */
+.orb {
+  --level: 0;
+  position: relative;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff8a6e, var(--chat-accent) 70%);
+  box-shadow: 0 0 0 0 rgba(var(--chat-accent-rgb), 0.4);
+  transition: transform 0.1s ease-out, background 0.2s;
+}
+
+.orb_listening {
+  transform: scale(calc(1 + var(--level) * 0.35));
+  animation: orbBreathe 2s infinite ease-in-out;
+}
+
+.orb_thinking::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 2px solid transparent;
+  border-top-color: var(--chat-navy);
+  border-right-color: var(--chat-navy);
+  border-radius: 50%;
+  animation: chatSpin 0.9s linear infinite;
+}
+
+.orb_muted,
+.orb_paused {
+  background: radial-gradient(circle at 35% 30%, #c9ced6, #9aa3b0 70%);
+}
+
+.orbBars {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.orb_speaking .orbBars {
+  display: flex;
+}
+
+.orbBars i {
+  display: block;
+  width: 3px;
+  height: 12px;
+  border-radius: 2px;
+  background: #fff;
+  animation: orbBars 0.9s infinite ease-in-out;
+}
+
+.orbBars i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.orbBars i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes orbBreathe {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--chat-accent-rgb), 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(var(--chat-accent-rgb), 0);
+  }
+}
+
+@keyframes orbBars {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.muteButton {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid #d9dde3;
+  border-radius: var(--btn-radius, 6px);
+  background: #fff;
+  color: var(--chat-navy);
+}
+
+.muteButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.muteButtonOn {
+  border-color: var(--chat-accent);
+  background: var(--chat-accent-soft);
+  color: var(--chat-accent);
+}
+
+.endButton {
+  flex: none;
+  margin-right: 4px;
+  padding: 5px 16px;
+  border: 0;
+  border-radius: var(--btn-radius, 6px);
+  background: var(--chat-navy);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+  transition: background-color 0.2s ease;
+}
+
+.endButton:hover {
+  background: var(--chat-accent);
+}
+
+@media (max-width: 480px) {
+  .endButton {
+    padding: 4px 12px;
+  }
+}
+
+/* ---- jump to latest ---- */
+.toBottom {
+  position: absolute;
+  right: 20px;
+  bottom: 74px;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--btn-radius, 6px);
+  background: none;
+  line-height: 0;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.toBottom:hover {
+  opacity: 1;
+}
+
+.toBottom svg {
+  width: 30px;
+  height: 30px;
+}
+
+/* ---- "end the session?" ---- */
+.confirmOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.confirmBox {
+  width: 80%;
+  max-width: 250px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.confirmBox p {
+  margin: 0 0 20px;
+}
+
+.confirmActions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.confirmYes,
+.confirmNo {
+  padding: 6px 14px;
+  border: 0;
+  border-radius: var(--btn-radius, 6px);
+  color: #fff;
+  font-weight: 500;
+}
+
+.confirmYes {
+  background: var(--chat-accent);
+}
+
+.confirmNo {
+  background: #6c757d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root *,
+  .root *::before,
+  .root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .root {
+    display: none;
+  }
+}
