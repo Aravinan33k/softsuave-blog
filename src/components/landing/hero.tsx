@@ -100,6 +100,12 @@ export interface HeroContent {
     readonly external?: boolean;
   }[];
   /**
+   * Optional label/value pairs under the body copy — a case study's
+   * "Industry: Transportation" and "Platform: Web" (the live case-study
+   * hero's tag and platform line). Rendered as a definition list of chips.
+   */
+  facts?: readonly { readonly label: string; readonly value: string }[];
+  /**
    * Optional full-bleed background image behind the *whole* hero section —
    * veiled for contrast, the same "image behind the text" treatment as the
    * homepage hero (`components/home/hero.tsx`'s `.videoHeroFrame`/
@@ -311,6 +317,17 @@ export default function Hero({
               {p}
             </p>
           ))}
+
+          {content.facts && content.facts.length > 0 && (
+            <dl className={styles.heroFacts}>
+              {content.facts.map((fact) => (
+                <div key={fact.label} className={styles.heroFact}>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
 
           {/* The wrapper is a size container, so the cards lay out by the
               copy column's own width — it narrows sharply once the form

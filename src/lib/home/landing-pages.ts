@@ -304,6 +304,15 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/clients', title: 'Our Clients' },
   { path: '/faqs', title: 'Frequently Asked Questions' },
   { path: '/case-studies', title: 'Case Studies' },
+  // Case-study pages, under the index in their breadcrumb. Registering one
+  // here also turns every existing link to it (the index cards, the homepage
+  // and landing-page case-study lanes) from softsuave.com into this route.
+  {
+    path: '/case-study-vehicle-intelligence',
+    title: 'Vehicle Intelligence',
+    parent: '/case-studies',
+    breadcrumbLabel: 'Vehicle Intelligence',
+  },
   { path: '/success-stories', title: 'Success Stories' },
   { path: '/privacy-policy', title: 'Privacy Policy' },
   // The three Company-menu routes that had no page until now. Every hero

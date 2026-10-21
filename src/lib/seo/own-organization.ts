@@ -108,6 +108,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/agentic-ai-development-services',
   '/android-application-development-company',
   '/awards-recognition',
+  '/case-study-vehicle-intelligence',
   '/clients',
   '/cloud-computing',
   '/computer-vision-development-services',

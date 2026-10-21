@@ -642,6 +642,40 @@
   background: var(--accent);
 }
 
+/* --- `HeroContent.facts`: label/value chips ("Industry  Transportation"),
+   the case-study hero's tag and platform line, in the trust badges' squared
+   tag style. --- */
+.heroFacts {
+  margin: clamp(22px, 2.6vw, 32px) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.heroFact {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.7em;
+  padding: 0.55em 0.9em;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.heroFact dt {
+  color: var(--muted);
+}
+
+.heroFact dd {
+  margin: 0;
+  color: #ffffff;
+}
+
 /* Partner standing (Upwork, Clutch, Microsoft, AWS) runs as the issuers' own
    lockups rather than as our paraphrase of them — a reader recognises the
    Clutch wordmark without reading it. Each file has a transparent ground and a

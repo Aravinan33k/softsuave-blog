@@ -72,6 +72,13 @@ export interface WorkCarouselContent {
     readonly cta: { readonly label: string; readonly href: string };
   };
   items: readonly WorkCarouselItem[];
+  /**
+   * A visible label at the foot of each linked tile ("View Case Study"), for a
+   * lane whose live counterpart prints one on every card — the case study's
+   * related-work carousel. The tile is already one link named by its title, so
+   * the label is decoration; omitted, tiles carry none, as before.
+   */
+  tileCta?: string;
 }
 
 /**
@@ -616,6 +623,12 @@ export default function WorkGrid({
                     {t.metric ? <span className={styles.tileMetric}>{t.metric}</span> : null}
                   </div>
                   <p className={styles.tileBody}>{t.body}</p>
+                  {content.tileCta && t.href ? (
+                    <span className={styles.tileCta} aria-hidden>
+                      {content.tileCta}
+                      <span className={styles.tileCtaArrow}>&rarr;</span>
+                    </span>
+                  ) : null}
                   {/* Last in the tile so it paints over everything; the name is
                       the tile's own title, so the link reads as the card. */}
                   {t.href ? (

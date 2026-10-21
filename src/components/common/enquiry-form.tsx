@@ -90,15 +90,34 @@ const RULES: Record<Field, (value: string) => string | null> = {
 export default function EnquiryForm({
   content,
   idPrefix,
+  fixedRequirement,
+  onSent,
+  cardId = "enquiry",
 }: {
   content: EnquiryFormContent;
   idPrefix: string;
+  /**
+   * Send this as the requirement and leave the requirement field out — for a
+   * card that asks only who the reader is, such as a case study's download
+   * form, where what they want is already known.
+   */
+  fixedRequirement?: string;
+  /**
+   * Called once the lead is accepted, in place of the redirect to
+   * `/thank-you` — for a card whose job continues on the same page (the case
+   * study's PDF download).
+   */
+  onSent?: () => void;
+  /** The card's id; `enquiry` is what the pages' "#enquiry" CTAs jump to. */
+  cardId?: string;
 }) {
   const pathname = usePathname();
   const router = useRouter();
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", requirement: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", requirement: fixedRequirement ?? "" });
+  // A fixed requirement is never typed, so it is never checked either.
+  const fields = fixedRequirement ? FIELDS.filter((key) => key !== "requirement") : FIELDS;
   const [errors, setErrors] = useState<FieldErrors>({});
   const formRef = useRef<HTMLFormElement>(null);
   useClearOnClick(FIELDS.some((key) => errors[key]), () => setErrors({}), formRef);
@@ -142,9 +161,9 @@ export default function EnquiryForm({
     // focus on the first. The server applies the same rules; this is the fast
     // half, not the authority.
     const found: FieldErrors = {};
-    for (const key of FIELDS) found[key] = RULES[key](form[key]) ?? undefined;
+    for (const key of fields) found[key] = RULES[key](form[key]) ?? undefined;
     setErrors(found);
-    const first = FIELDS.find((key) => found[key]);
+    const first = fields.find((key) => found[key]);
     if (first) {
       setStatus("idle");
       setError(null);
@@ -180,6 +199,11 @@ export default function EnquiryForm({
       }
 
       // Stays "sending" — the form is about to be replaced by the page.
+      if (onSent) {
+        setStatus("idle");
+        onSent();
+        return;
+      }
       router.push(THANK_YOU_PATH);
     } catch (err) {
       setStatus("error");
@@ -188,7 +212,7 @@ export default function EnquiryForm({
   };
 
   return (
-    <div className={fx.card} id="enquiry">
+    <div className={fx.card} id={cardId}>
       <div className={fx.header}>
         {content.eyebrow ? <span className={fx.eyebrow}>{content.eyebrow}</span> : null}
         {content.titleAs === "h2" ? (
@@ -290,26 +314,28 @@ export default function EnquiryForm({
           {message("phone")}
         </div>
 
-        <div className={fieldClass("requirement", fx.fieldArea)}>
-          <FieldIcon name="doc" />
-          <textarea
-            id={`${idPrefix}-requirement`}
-            className={fx.textarea}
-            name="requirement"
-            required
-            rows={1}
-            maxLength={REQUIREMENT_MAX}
-            value={form.requirement}
-            onChange={set("requirement")}
-            {...a11y("requirement")}
-            placeholder={content.requirementPlaceholder}
-          />
-          <label className={fx.label} htmlFor={`${idPrefix}-requirement`}>
-            <RequiredMark />
-            {content.requirementLabel}
-          </label>
-          {message("requirement")}
-        </div>
+        {!fixedRequirement && (
+          <div className={fieldClass("requirement", fx.fieldArea)}>
+            <FieldIcon name="doc" />
+            <textarea
+              id={`${idPrefix}-requirement`}
+              className={fx.textarea}
+              name="requirement"
+              required
+              rows={1}
+              maxLength={REQUIREMENT_MAX}
+              value={form.requirement}
+              onChange={set("requirement")}
+              {...a11y("requirement")}
+              placeholder={content.requirementPlaceholder}
+            />
+            <label className={fx.label} htmlFor={`${idPrefix}-requirement`}>
+              <RequiredMark />
+              {content.requirementLabel}
+            </label>
+            {message("requirement")}
+          </div>
+        )}
 
         {status === "error" && error && (
           <p className={fx.error} role="alert">

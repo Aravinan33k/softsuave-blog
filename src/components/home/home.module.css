@@ -1332,6 +1332,27 @@ h1.h2 {
   color: var(--muted);
 }
 
+/* `tileCta`: the "View Case Study →" label at a linked tile's foot. */
+.tileCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 14px;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label, 0.75rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.tileCtaArrow {
+  transition: transform 0.3s ease;
+}
+
+.hTile:hover .tileCtaArrow {
+  transform: translateX(4px);
+}
+
 .tileNum {
   position: absolute;
   top: 14px;
