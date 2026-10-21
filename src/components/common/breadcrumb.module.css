@@ -9,7 +9,7 @@
 .breadcrumb {
   position: relative;
   z-index: 1;
-  font-family: var(--font-mono-label, ui-monospace, monospace);
+  font-family: var(--font-eyebrow, ui-sans-serif, system-ui, sans-serif);
   font-size: 0.8rem;
   line-height: 1.4;
   letter-spacing: 0.02em;

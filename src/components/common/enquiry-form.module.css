@@ -89,13 +89,6 @@
   color: #16181d;
 }
 
-.eyebrow::before {
-  content: "";
-  width: 26px;
-  height: 1px;
-  background: var(--accent, #ff5436);
-}
-
 /* Leads the header where the card carries no eyebrow above it
    (/ai-development-service is the case), so it does not open on stray space. */
 .header .title:first-child {

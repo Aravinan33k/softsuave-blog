@@ -99,47 +99,8 @@
   max-width: 1400px;
 }
 
-/* "AI-Enabled Engineering" as a glass pill with a live dot. */
-.heroKicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0;
-  padding: 8px 16px 8px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 999px;
-  background: rgba(10, 11, 14, 0.5);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  font-family: var(--font-eyebrow);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #ececec;
-}
-
-.heroKickerDot {
-  width: 8px;
-  height: 8px;
-  flex: none;
-  border-radius: 50%;
-  background: var(--brand-500);
-  animation: heroPulse 2.4s ease-out infinite;
-}
-
-@keyframes heroPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255, 84, 54, 0.6);
-  }
-
-  70%,
-  100% {
-    box-shadow: 0 0 0 10px rgba(255, 84, 54, 0);
-  }
-}
-
 .heroTitle {
-  margin: clamp(18px, 2.4vh, 28px) 0 0;
+  margin: 0;
   font-family: var(--font-heading);
   font-weight: 300;
   font-size: var(--fs-h1-home);
@@ -194,6 +155,12 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  /* The gradient only paints inside this box, and Space Grotesk has no italic,
+     so the browser slants it and the last letter leans past its own advance —
+     "Scalable" lost the top of its "e". Grow the painted box over that lean,
+     then pull the layout back so the slot keeps its width. */
+  padding-right: 0.12em;
+  margin-right: -0.12em;
 }
 
 /* Until the script runs only the first word shows. */
@@ -247,11 +214,6 @@
 }
 
 @media (max-width: 699px) {
-  .heroKicker {
-    font-size: 10px;
-    letter-spacing: 0.16em;
-  }
-
   .heroCtas > a {
     flex: 1 1 100%;
     justify-content: center;
@@ -927,11 +889,6 @@
 
 .heroFrame {
   animation: heroRevealFade 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.79s backwards;
-}
-
-.heroKicker {
-  --rise: 14px;
-  animation: heroRevealRise 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.99s backwards;
 }
 
 .heroTitle > .heroLine .heroLineInner {

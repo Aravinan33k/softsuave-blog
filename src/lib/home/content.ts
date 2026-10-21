@@ -15,7 +15,6 @@ export const brand = {
 } as const;
 
 export const hero = {
-  eyebrow: "AI-Enabled Engineering",
   title: "Empowering Businesses with Scalable AI, Automation & Integrations",
   // words for the rotating-word treatment on /three
   rotatingWords: ["Scalable", "Intelligent"],
@@ -656,27 +655,24 @@ export const testimonials: {
   ],
 };
 
-/** The site's four top-level divisions, in order. Services and Company are
- *  section anchors on this page (and on every landing page, which share those
- *  ids); Industries is the sector index route. Resources has no destination of
- *  its own (`href: null`) — its label only opens its panel, so the blog is
- *  reached from the panel's Blog entry rather than by clicking the division.
+/** A top-level division on the bar. `href: null` means it has no destination
+ *  of its own: its label only opens its panel and never navigates. */
+export type NavDivision = { readonly label: string; readonly href: string | null };
+
+/** The site's four top-level divisions, in order. None of them links anywhere
+ *  (21 Oct review: clicking Services, Industries or Company took the reader to
+ *  a homepage section or the sector index, which read as a stray redirect) —
+ *  each label only opens its panel, as Resources always did, and every page is
+ *  reached from inside the panels (their items and their CTA line).
  *  Contact is deliberately absent — the CTA pill next to these links is the
  *  contact path. */
 export const nav = {
   links: [
-    { label: "Services", href: "#services" },
-    // The sector index, not this page's industries band: it is the canonical
-    // page for the seven sectors, and the one the band omits (Construction)
-    // exists only there. Every page that renders the default nav has
-    // its own `#industries` section still — the band stays, the nav bar just
-    // stops treating it as the destination. Being a route rather than an
-    // anchor, this link also drops out of the bar's "you are here" highlight,
-    // which only tracks `#` links.
-    { label: "Industries", href: "/industries" },
-    { label: "Company", href: "#why" },
+    { label: "Services", href: null },
+    { label: "Industries", href: null },
+    { label: "Company", href: null },
     { label: "Resources", href: null },
-  ],
+  ] as readonly NavDivision[],
   cta: { label: "Book AI Strategy Call", href: "/contact" },
 } as const;
 

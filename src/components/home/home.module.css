@@ -68,7 +68,9 @@
 }
 
 /* ---- shared type / layout primitives ---- */
-/* Section eyebrow: Inter since 16 Oct (`--font-section-label` in home.css). */
+/* Section eyebrow: Inter since 16 Oct (`--font-section-label` in home.css).
+   No orange dash before the label since the 21 Oct review — in every kit
+   (landing/gen-ai/industries `.kicker`, the enquiry card's `.eyebrow`). */
 .eyebrow,
 .eyebrowDark {
   display: inline-flex;
@@ -82,25 +84,11 @@
   color: var(--muted);
 }
 
-.eyebrow::before {
-  content: "";
-  width: 26px;
-  height: 1px;
-  background: var(--accent);
-}
-
 /* No hardcoded ink here any more. #54524f was chosen for a light ground, but
    this variant also renders on the DARK band (the client-stories masthead on
    ten routes), where it measured 2.62:1 on near-black. The --muted declared
    above is band-aware and passes both ways: 5.15:1 light, 7.42:1 dark.
    NOTE: this makes .eyebrowDark identical to .eyebrow - worth consolidating. */
-
-.eyebrowDark::before {
-  content: "";
-  width: 26px;
-  height: 1px;
-  background: var(--accent);
-}
 
 /* Section H2. Held at the same scale as `.title` in
    landing/landing.module.css — the tech-stack, case-study and clients bands
@@ -6490,27 +6478,10 @@ h1.h2 {
   max-width: 42ch;
 }
 
-/* Link out to the full wall at /awards-recognition. */
+/* Link out to the full wall at /awards-recognition — an orange `.pillFilled`
+   `.pillLg` button; this only spaces it from the lead above. */
 .recogViewAll {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
   margin-top: clamp(4px, 0.8vw, 10px);
-  font-family: var(--font-eyebrow);
-  font-size: clamp(10px, 0.72vw, 11px);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
-  text-decoration: none;
-  transition: color 0.35s ease;
-}
-
-.recogViewAll:hover {
-  color: var(--text-bright);
-}
-
-.recogViewAll:hover .recogArrow {
-  transform: translateX(6px);
 }
 
 .recogShowcase {
@@ -6613,15 +6584,6 @@ h1.h2 {
 
 /* GSAP tweens this between height 0 and auto, so no padding here — padding
    would keep rendering while the panel is closed. */
-
-/* footer link out to the full awards page */
-
-.recogArrow {
-  width: 34px;
-  height: 8px;
-  color: var(--accent);
-  transition: transform 0.35s ease;
-}
 
 /* the wall: hairline cells that reflow from four columns to one without a
    layout decision, so adding a recognition is a content-only change. */

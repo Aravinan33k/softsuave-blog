@@ -181,12 +181,14 @@ export default function DataEngineeringServicesPage() {
         </div>
 
         {/* The homepage's tech rows, one per group, on the dark band. Every
-            row holds still and wraps from tablet width up, the Android page's
-            treatment (1 Oct review: the last two rows stood still while the
-            rest scrolled). `.techFit` clears the full-viewport min-height
+            row scrolls at every width (21 Oct review: the section had no
+            scrolling effect), short rows repeating their chips until they
+            fill the strip — the RAG and GraphQL pages' treatment, so no row
+            stands still beside moving ones (the 1 Oct complaint that had made
+            them all static). `.techFit` clears the full-viewport min-height
             that `.techCompact` never reaches. */}
         <div className={home.techFit}>
-          <TechStack content={deTech} staticFrom={768} />
+          <TechStack content={deTech} loopShortRows />
         </div>
 
         {/* Homepage client stories, on the warm-white band as they are there. */}

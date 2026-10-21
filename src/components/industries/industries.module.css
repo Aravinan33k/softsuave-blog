@@ -91,14 +91,6 @@
   color: var(--muted);
 }
 
-.kicker::before,
-.kickerDark::before {
-  content: "";
-  width: 26px;
-  height: 1px;
-  background: var(--accent);
-}
-
 /* Light/cream bands need the darker label colour — the homepage's
    `.eyebrowDark` contract. */
 .kickerDark {

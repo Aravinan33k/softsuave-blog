@@ -19,8 +19,8 @@
    primitives, so they read as the same brand. Everything structural is their
    own, deliberately NOT the homepage's:
 
-   TYPOGRAPHY IS THE HOMEPAGE'S, verbatim: Fraunces ultralight serif headings
-   (--font-heading) at the homepage's own scales, JetBrains Mono eyebrows at
+   TYPOGRAPHY IS THE HOMEPAGE'S, verbatim: Space Grotesk light headings
+   (--font-heading) at the homepage's own scales, Inter eyebrows at
    0.28em (--font-eyebrow), Inter body copy (--font-body), and 999px capsule
    pills. The values below are lifted from `home.module.css` .h2 / .lead /
    .eyebrow / .pill / .bentoName / .svcName / .techGroupName so a heading here
@@ -81,14 +81,6 @@
   text-transform: uppercase;
   letter-spacing: var(--section-label-tracking);
   color: var(--muted);
-}
-
-/* The homepage eyebrow's own accent rule. */
-.kicker::before {
-  content: "";
-  width: 26px;
-  height: 1px;
-  background: var(--accent);
 }
 
 /* Section H2. Was clamp(2.25rem, 4.6vw, 4rem) — 64px at desktop, which is
@@ -7308,7 +7300,7 @@
    full width instead of stranding itself next to a gap.
    The structure is borrowed from a reference comp — mixed card sizes, a pill
    label, generous card padding — but every value here is this system's own:
-   Fraunces name, coral pill, surface/line tokens, so it inherits the light and
+   heading-face name, coral pill, surface/line tokens, so it inherits the light and
    dark bands like everything else.
    Body copy is deliberately NOT justified. `.processBody` above still is, and
    at these column widths that is what produces the stretched word gaps.

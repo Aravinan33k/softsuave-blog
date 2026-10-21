@@ -66,11 +66,11 @@
 
   /* Type: the site's own faces (the marketing layout's next/font variables),
      in place of the DM Sans / Outfit / DM Serif Display the page shipped
-     with — headings and the italic accents in Fraunces, text in Inter. Sizes
-     come from the site scale (`--fs-*`, home.css) in the components. */
+     with — headings and the italic accents in Space Grotesk, text in Inter.
+     Sizes come from the site scale (`--fs-*`, home.css) in the components. */
   --fde-font-sans: var(--font-inter);
-  --fde-font-display: var(--font-fraunces);
-  --fde-font-serif: var(--font-fraunces);
+  --fde-font-display: var(--font-space-grotesk);
+  --fde-font-serif: var(--font-space-grotesk);
 
   /* This app's theme names, inside the page only. */
   --background: hsl(var(--fde-background));
@@ -169,10 +169,10 @@
   }
 }
 
-/* `font-mono` in this app's theme is a system stack; the page used JetBrains
-   Mono, which the marketing layout already loads. */
+/* `font-mono` in this app's theme is a system stack; the page's labels and
+   buttons use it, and take the site's label face instead (Inter, home.css). */
 .fde .font-mono {
-  font-family: var(--wf-jbmono, "JetBrains Mono Fallback"), ui-monospace, SFMono-Regular, monospace;
+  font-family: var(--font-eyebrow);
 }
 
 /* The site's header is fixed (out of flow) and 77px tall at the top of the

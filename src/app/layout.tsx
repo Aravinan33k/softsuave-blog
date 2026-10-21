@@ -5,7 +5,6 @@ import { pageRobots } from "@/lib/flags";
 import GoogleTagManager from "@/components/analytics/google-tag-manager";
 import ChatBotLoader from "@/components/chatbot/chatbot-loader";
 import { PAINT_NUDGE } from "@/lib/paint-nudge";
-import { WEB_FONTS } from "@/lib/web-fonts";
 import "./globals.css";
 
 // Only the two brand fonts are loaded. Fonts declared in the root layout are
@@ -56,8 +55,6 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {/* Gets the first paint onto the screen — see lib/paint-nudge. */}
         <script dangerouslySetInnerHTML={{ __html: PAINT_NUDGE }} />
-        {/* The marketing label font, switched on after the first paint — see lib/web-fonts. */}
-        <script dangerouslySetInnerHTML={{ __html: WEB_FONTS }} />
         {/* z-[1000]: the marketing header is z-index 120, so at 100 the
             focused link sat UNDER the bar and its logo (BUG-022). `fixed`, not
             `absolute`, so it shows wherever the page is scrolled to. The

@@ -83,14 +83,9 @@ html.lenis body {
   --brand-ink: #0b1020;
   --brand-gradient: linear-gradient(135deg, #ff7a45 0%, #fb3b5c 100%);
 
-  /* Readable aliases for the next/font variables attached to this element.
-     The mono label face names next/font's metric-matched fallback until
-     `--wf-jbmono` is defined — which `lib/web-fonts` does once the page has
-     painted, so JetBrains Mono loads after the first paint, not ahead of it.
-     Inter and the display serif load first (see `lib/home/marketing-fonts`). */
+  /* Readable alias for the next/font variable attached to this element (see
+     `lib/home/marketing-fonts`). The heading face is `--font-heading` below. */
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display-serif: var(--font-fraunces), Georgia, serif;
-  --font-mono-label: var(--wf-jbmono, "JetBrains Mono Fallback"), ui-monospace, monospace;
 
   /* Cinematic / award-show surface palette */
   --bg: #040508;
@@ -151,13 +146,15 @@ html.lenis body {
      where only a dense shadow separates a card from the ground at all. */
   --card-lift: 0 1px 2px rgb(0 0 0 / 30%), 0 20px 40px -20px rgb(0 0 0 / 65%);
 
-  --font-heading: var(--font-display-serif);
-  --font-eyebrow: var(--font-mono-label);
+  /* 21 Oct review: every heading in Space Grotesk (was Fraunces), and the
+     one-line labels — buttons, chips, counters, breadcrumbs — in Inter (were
+     JetBrains Mono). */
+  --font-heading: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-eyebrow: var(--font-body);
   /* Section eyebrows — the small label over each section's heading ("Why Soft
-     Suave", "Clients", "Industries"…) — are set in Inter (16 Oct review: from
-     JetBrains Mono to Inter), a step heavier and a little less tracked than
-     the mono so the capitals hold up at 11-12px. Buttons, chips, counters and
-     the other one-line labels keep the mono above. */
+     Suave", "Clients", "Industries"…) — have been Inter since the 16 Oct
+     review, a step heavier and a little less tracked than the other labels so
+     the capitals hold up at 11-12px. */
   --font-section-label: var(--font-body);
   --section-label-weight: 500;
   --section-label-tracking: 0.2em;

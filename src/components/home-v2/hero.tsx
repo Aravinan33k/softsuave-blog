@@ -45,9 +45,10 @@ function introRemainingMs(): number {
  *
  * - Its own single, seamless video (see VIDEO), dimmed under a veil weighted
  *   to the copy's side, so the headline reads first.
- * - A kicker pill, the headline with the rotating word in the brand gradient
- *   (clipped to its own slot, so a word in transit never draws over the lines
- *   around it), and larger CTAs.
+ * - The headline with the rotating word in the brand gradient (clipped to its
+ *   own slot, so a word in transit never draws over the lines around it), and
+ *   larger CTAs. No kicker pill over the headline since the 21 Oct review (it
+ *   read "AI-Enabled Engineering").
  */
 export default function Hero() {
   const root = useRef<HTMLElement | null>(null);
@@ -71,7 +72,7 @@ export default function Hero() {
       const covered = introRemainingMs();
       const reveal = covered > 150;
       const startDelay = reveal ? Math.max(0, covered / 1000 - 0.25) : 0;
-      // The frame, kicker, lines, subtitle and CTAs reveal in CSS from the first
+      // The frame, lines, subtitle and CTAs reveal in CSS from the first
       // paint, timed to the preloader's own CSS fade (home-v2.module.css). As
       // this timeline at hydration they kept the page's main content hidden
       // until every script had loaded (PageSpeed LCP, 15 Oct).
@@ -124,11 +125,6 @@ export default function Hero() {
       </div>
 
       <div ref={content} className={styles.heroInner}>
-        <p className={styles.heroKicker}>
-          <span className={styles.heroKickerDot} aria-hidden />
-          {hero.eyebrow}
-        </p>
-
         <h1 className={styles.heroTitle}>
           <span className={styles.heroLine}>
             <span className={styles.heroLineInner}>Empowering businesses</span>

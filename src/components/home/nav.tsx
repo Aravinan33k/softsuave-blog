@@ -128,8 +128,9 @@ export default function Nav({
   // `id` keeps the original anchor for the active-section highlight — where the
   // page doesn't have the section, that id isn't in the DOM and nothing
   // highlights, which is correct.
-  // A null `href` is a division with no page of its own (Resources): its label
-  // only opens its panel, and it never navigates.
+  // A null `href` is a division with no destination of its own — all four
+  // since the 21 Oct review (`nav` in content.ts): its label only opens its
+  // panel, and it never navigates.
   const items = nav.links.map((l) => ({
     label: l.label,
     href: l.href === null ? null : resolve(l.href),

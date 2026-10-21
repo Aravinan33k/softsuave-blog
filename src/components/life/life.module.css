@@ -128,6 +128,15 @@
   gap: clamp(10px, 1.2vw, 16px);
 }
 
+/* Below 375px two columns leave a card ~90-110px for its name, and in the
+   Space Grotesk headings (21 Oct) "Opportunities" alone is ~116px — it ran out
+   of the card. One column there. */
+@media (max-width: 374px) {
+  .perkGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (min-width: 1000px) {
   .perkGrid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
