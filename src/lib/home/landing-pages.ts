@@ -298,6 +298,9 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   // nav's `hire-skill` group (see `nav-menu.ts`) starts resolving locally the
   // moment these paths are covered by MARKETING_ROUTES below.
   ...HIRE_LANDING_PAGES,
+  // Not in HIRE_SKILLS: its brief composes sections neither hire template
+  // renders, so the route is hand-built and registered here directly.
+  { path: '/hire-xamarin-developer', title: 'Hire Xamarin Developer for High-Performance Apps' },
 
   // Company pages. Slugs match the live marketing site's existing URLs, so
   // search equity and inbound links resolve to our routes rather than 404.

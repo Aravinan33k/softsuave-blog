@@ -132,7 +132,7 @@
   gap: 0.6em;
   padding: 0.85em 1.6em;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 6px;
   background: transparent;
   font-family: var(--font-eyebrow);
   font-size: var(--fs-label);
@@ -211,6 +211,36 @@
   padding: clamp(78px, 6.6vw, 98px) var(--gutter) clamp(32px, 3.4vw, 52px);
   border-bottom: 1px solid var(--line);
   overflow: hidden;
+}
+
+/* `wide` hero (opt-in, see hero.tsx): full-gutter width, and the breadcrumb
+   in its own row so the grid's two columns share a top edge. The top padding
+   takes the larger of the default clamp and the page's `--hero-top` (nav
+   height + gap), when a page defines it. */
+.heroWide {
+  padding-top: max(clamp(78px, 6.6vw, 98px), var(--hero-top, 0px));
+}
+
+.heroWide .heroGrid {
+  max-width: none;
+}
+
+.heroHead {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 calc(var(--fs-h1) * 0.5);
+}
+
+.heroHead + .heroGrid .heroTitle {
+  margin-top: 0;
+}
+
+@media (min-width: 1000px) {
+  .heroWide .heroGrid {
+    grid-template-columns: minmax(0, 1fr) var(--enquiry-col, clamp(380px, 37vw, 470px));
+    align-items: start;
+    gap: clamp(48px, 5vw, 88px);
+  }
 }
 
 .heroGlow {
@@ -1817,7 +1847,7 @@
    ============================================================ */
 .faqList {
   border-top: 1px solid var(--line);
-  max-width: 62rem;
+  max-width: unset;
   /* Question numbers come from CSS, not from a span inside the `<h3>` —
      generated content is not in the DOM, so the heading text a crawler reads
      is the question alone. Mirrors `landing.module.css`. */
@@ -2592,4 +2622,27 @@
   font-size: var(--fs-body);
   line-height: 1.68;
   color: var(--text);
+}
+
+/* ============================================================
+   REFERENCE TYPE SCALE — opt-in, only under [data-type-scale="hire"]
+   (set by app/(marketing)/hire-xamarin-developer). Matches the deployed
+   hire-software-developers page: section labels in Inter 500 at .2em, and
+   the FAQ at its smaller question/answer sizes. No other page sets the
+   attribute, so nothing else changes.
+   ============================================================ */
+[data-type-scale="hire"] .kicker {
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+
+[data-type-scale="hire"] .faqQuestion {
+  font-size: clamp(17px, 0.6vw + 12.8px, 20px);
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+}
+
+[data-type-scale="hire"] .faqAnswer {
+  font-size: 16px;
 }

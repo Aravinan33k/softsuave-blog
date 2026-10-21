@@ -269,7 +269,7 @@ h1.h2 {
   align-items: center;
   gap: 0.6em;
   padding: 0.85em 1.6em;
-  border-radius: 999px;
+  border-radius: 6px;
   border: 1px solid var(--line);
   font-family: var(--font-eyebrow);
   font-size: clamp(10px, 0.8vw, 12px);
@@ -2740,7 +2740,6 @@ h1.h2 {
   position: relative;
   /* Not a full viewport: with the brand crystal gone the section is a headline,
      a line of copy and one button, and 100vh left most of the band empty. */
-  min-height: 64vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2952,7 +2951,7 @@ h1.h2 {
   overflow: hidden;
   isolation: isolate;
   border: 1.5px solid var(--cta-bg, #ff5436);
-  border-radius: 999px;
+  border-radius: 6px;
   background: var(--cta-bg, #ff5436);
   /* The fixed button orange and its ink, as .pillFilled above. */
   color: var(--cta-ink, #ffffff);
@@ -7306,4 +7305,22 @@ h1.h2 {
   .industriesFan.gridMode .indFanCard {
     aspect-ratio: 4 / 3 !important;
   }
+}
+
+/* REFERENCE TYPE SCALE — opt-in, only under [data-type-scale="hire"] (set by
+   app/(marketing)/hire-xamarin-developer): section labels in Inter 500 at
+   .2em, as on the deployed hire-software-developers page. */
+[data-type-scale="hire"] .eyebrow,
+[data-type-scale="hire"] .eyebrowDark {
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+
+/* The closing band's CTA at the reference page's size — the deployed
+   hire-web-app-developers button, not the oversized default plate. */
+[data-type-scale="hire"] .holdBtn {
+  padding: 1.05em 2.1em;
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  letter-spacing: 0.1em;
 }

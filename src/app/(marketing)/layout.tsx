@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Fraunces, JetBrains_Mono } from 'next/font/google';
+import { Inter, Space_Grotesk } from 'next/font/google';
 import ScrollProvider from '@/components/home/scroll-provider';
 import { JsonLd } from '@/components/seo/json-ld';
 import { SiteGraph } from '@/components/seo/site-graph';
@@ -11,9 +11,9 @@ import './home.css';
 // the `.theme-four` tokens and the Lenis scroll provider, which is what makes a
 // service page able to reuse the homepage's own sections verbatim.
 //
-// The three display fonts and the homepage stylesheet are declared here rather
+// The display fonts and the homepage stylesheet are declared here rather
 // than in the root layout on purpose: fonts declared at the root are preloaded
-// on *every* route, so the blog and admin would pay for three webfonts they
+// on *every* route, so the blog and admin would pay for webfonts they
 // never render. Declaring them here scopes both the preload and the CSS to this
 // route group, and puts the font variables on the same element as the
 // `.theme-four` tokens that reference them.
@@ -24,18 +24,11 @@ const inter = Inter({
   display: 'swap',
 });
 
-// Ultralight editorial serif for the display headlines.
-const fraunces = Fraunces({
-  variable: '--font-fraunces',
+// Geometric grotesk for the display headlines.
+const spaceGrotesk = Space_Grotesk({
+  variable: '--font-space-grotesk',
   subsets: ['latin'],
   weight: ['300', '400', '500'],
-  style: ['normal', 'italic'],
-  display: 'swap',
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: '--font-jbmono',
-  subsets: ['latin'],
   display: 'swap',
 });
 
@@ -48,7 +41,7 @@ export const metadata: Metadata = {
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable} theme-four`}>
+    <div className={`${inter.variable} ${spaceGrotesk.variable} theme-four`}>
       {/*
        * Who publishes this surface, declared once for every page under it.
        *

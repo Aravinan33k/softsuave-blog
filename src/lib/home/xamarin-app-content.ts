@@ -183,9 +183,8 @@ export const xamServices: ServiceBoardContent = {
  * No `eyebrow`: the review asked for the CTA's kicker to go, so the heading
  * stands on its own — which is what `CtaBandContent.eyebrow` is optional for.
  *
- * `/hire-xamarin-developer` is a page softsuave.com publishes and this app does
- * not, so `SiteLink` resolves it to the live site. Building it here is its own
- * piece of work (see PAGE-TEMPLATES.md), not part of these corrections.
+ * `/hire-xamarin-developer` is served by this app (app/(marketing)/
+ * hire-xamarin-developer), so `SiteLink` resolves it locally.
  */
 export const xamHireCta: CtaBandContent = {
   title: "Need Xamarin Developers On Contract?",

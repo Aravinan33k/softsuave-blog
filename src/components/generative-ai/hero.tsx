@@ -66,13 +66,20 @@ export interface HeroContent {
  *
  * The enquiry card is `common/enquiry-form`; `idPrefix` namespaces its field
  * ids and doubles as the lead's `sourceKey`.
+ *
+ * `wide` (opt-in, off by default) is the full-gutter layout: no 1500px cap on
+ * the grid, a fixed-width enquiry column, and the breadcrumb lifted into its
+ * own row above the grid so the form's top edge lines up with the H1. The
+ * top padding then also honours `--hero-top` where the page defines it.
  */
 export default function Hero({
   content = generativeAiHero,
   idPrefix = "genai",
+  wide = false,
 }: {
   content?: HeroContent;
   idPrefix?: string;
+  wide?: boolean;
 } = {}) {
   const root = useRef<HTMLElement | null>(null);
 
@@ -106,7 +113,7 @@ export default function Hero({
   const lastLine = content.titleLines.length - 1;
 
   return (
-    <section ref={root} className={styles.hero} id="top">
+    <section ref={root} className={wide ? `${styles.hero} ${styles.heroWide}` : styles.hero} id="top">
       {content.background && (
         <div className={styles.heroMedia} aria-hidden>
           <Image
@@ -126,10 +133,16 @@ export default function Hero({
 
       <div className={styles.heroGlow} aria-hidden />
 
+      {wide && (
+        <div className={styles.heroHead}>
+          <Breadcrumb />
+        </div>
+      )}
+
       <div className={styles.heroGrid}>
         <div>
           {/* "Home › <page>", named from the route — see common/breadcrumb. */}
-          <Breadcrumb />
+          {!wide && <Breadcrumb />}
           <h1 className={styles.heroTitle}>
             {/* The spans are display:block, so the spaces between them only
                 matter to the text content crawlers and screen readers see. */}

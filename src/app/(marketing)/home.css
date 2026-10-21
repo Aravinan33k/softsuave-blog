@@ -27,8 +27,8 @@
 
   /* Readable aliases for the next/font variables attached to this element. */
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display-serif: var(--font-fraunces), Georgia, serif;
-  --font-mono-label: var(--font-jbmono), ui-monospace, monospace;
+  --font-display-serif: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono-label: var(--font-body);
 
   /* Cinematic / award-show surface palette */
   --bg: #040508;
@@ -134,6 +134,20 @@
    below it expose <body>, which Tailwind's base layer paints white. */
 body:has(.theme-four) {
   background: #040508;
+}
+
+/* One weight per heading level for Space Grotesk: H1 500, H2 400, H3 500.
+   The section modules each set their own heading weight on class rules of
+   varying specificity, so these are !important to hold the levels to one
+   weight on every page. Only the weights loaded in layout.tsx (300-500). */
+.theme-four h1 {
+  font-weight: 500 !important;
+}
+.theme-four h2 {
+  font-weight: 400 !important;
+}
+.theme-four h3 {
+  font-weight: 500 !important;
 }
 
 /* Kill the UA stylesheet's link blue and underline, WITHOUT outranking the
