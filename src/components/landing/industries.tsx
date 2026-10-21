@@ -396,6 +396,7 @@ export default function Industries({
   columns = 4,
   variant = "cards",
   autoLink: autoLinkProp,
+  span,
   cardCta,
 }: {
   content: CardGridContent;
@@ -440,6 +441,12 @@ export default function Industries({
    * is missing in these cards"). Its accessible name carries the card's title.
    */
   cardCta?: { readonly label: string; readonly href: string };
+  /**
+   * `bold` only: one desktop column span (of 12) for every card, in place of
+   * the rows `gridSpansFor` composes from the count. `3` puts four cards in
+   * one row.
+   */
+  span?: 3 | 4 | 6 | 12;
 }) {
   const grid = [
     styles.cardGrid,
@@ -454,7 +461,11 @@ export default function Industries({
   const list = variant === "list";
   /* Derived from the item count alone, so a section that gains or loses a card
      re-composes itself with no layout prop to keep in sync. */
-  const spans = bold ? gridSpansFor(content.items.length) : [];
+  const spans = !bold
+    ? []
+    : span
+      ? content.items.map(() => span)
+      : gridSpansFor(content.items.length);
   /* One set for the whole grid: a phrase in `content.links` is linked in
      whichever card's body it appears in first. */
   const usedLinks = new Set<string>();

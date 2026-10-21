@@ -7807,3 +7807,21 @@ h1.h2 {
     color: var(--text-bright);
   }
 }
+
+/* REFERENCE TYPE SCALE — opt-in, only under [data-type-scale="hire"] (set by
+   app/(marketing)/hire-xamarin-developer): section labels in Inter 500 at
+   .2em, as on the deployed hire-software-developers page. */
+[data-type-scale="hire"] .eyebrow,
+[data-type-scale="hire"] .eyebrowDark {
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+
+/* The closing band's CTA at the reference page's size — the deployed
+   hire-web-app-developers button, not the oversized default plate. */
+[data-type-scale="hire"] .holdBtn {
+  padding: 1.05em 2.1em;
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  letter-spacing: 0.1em;
+}

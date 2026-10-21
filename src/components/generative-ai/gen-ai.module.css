@@ -2904,3 +2904,26 @@
   line-height: 1.68;
   color: var(--text);
 }
+
+/* ============================================================
+   REFERENCE TYPE SCALE — opt-in, only under [data-type-scale="hire"]
+   (set by app/(marketing)/hire-xamarin-developer). Matches the deployed
+   hire-software-developers page: section labels in Inter 500 at .2em, and
+   the FAQ at its smaller question/answer sizes. No other page sets the
+   attribute, so nothing else changes.
+   ============================================================ */
+[data-type-scale="hire"] .kicker {
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+
+[data-type-scale="hire"] .faqQuestion {
+  font-size: clamp(17px, 0.6vw + 12.8px, 20px);
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+}
+
+[data-type-scale="hire"] .faqAnswer {
+  font-size: 16px;
+}

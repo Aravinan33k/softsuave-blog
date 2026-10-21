@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import CardIconBadge from "@/components/common/card-icon-badge";
+import { linkify } from "@/components/common/linkify";
 import SectionHead from "./section-head";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./landing.module.css";
@@ -75,6 +76,11 @@ export default function WhyUs({
     );
   };
 
+  /* `content.links`, threaded across the grid as `industries.tsx` does, so a
+     card carrying a live in-sentence link keeps it. Absent, bodies render as
+     plain text exactly as before. */
+  const usedLinks = new Set<string>();
+
   return (
     <section className={styles.sectionShell} id={id}>
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
@@ -84,7 +90,9 @@ export default function WhyUs({
           <li key={item.name} className={styles.proofItem} onClick={bounce}>
             <CardIconBadge title={item.name} body={item.body} />
             <h3 className={styles.proofName}>{item.name}</h3>
-            <p className={styles.proofBody}>{item.body}</p>
+            <p className={styles.proofBody}>
+              {item.body && linkify(item.body, content.links, usedLinks, styles.proseLink)}
+            </p>
           </li>
         ))}
       </ul>

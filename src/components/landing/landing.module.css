@@ -8672,3 +8672,49 @@
 .indexHead:has(> .listMast):not(:has(> .listBand)) .headPage {
   margin-bottom: 0;
 }
+
+/* ============================================================
+   REFERENCE TYPE SCALE — opt-in, only under [data-type-scale="hire"]
+   (set by app/(marketing)/hire-xamarin-developer). Brings these landing
+   sections to the deployed hire-software-developers page's sizes: Inter
+   section labels, its masthead line-heights, 22px/400 card titles over 16px
+   card copy, and serif group names in the stack. Nothing else sets it.
+   ============================================================ */
+[data-type-scale="hire"] .kicker {
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+
+[data-type-scale="hire"] .title {
+  line-height: 1.14;
+}
+
+[data-type-scale="hire"] .intro {
+  line-height: 1.62;
+}
+
+[data-type-scale="hire"] .proofName,
+[data-type-scale="hire"] .cardName,
+[data-type-scale="hire"] .carouselTitle {
+  font-size: var(--fs-card-title);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+[data-type-scale="hire"] .proofBody,
+[data-type-scale="hire"] .cardBody,
+[data-type-scale="hire"] .carouselText {
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+[data-type-scale="hire"] .clusName {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-card-title);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}

@@ -685,3 +685,12 @@
 .phoneRow .input::placeholder {
   color: var(--fx-placeholder);
 }
+
+/* REFERENCE TYPE SCALE — opt-in, only under [data-type-scale="hire"] (set by
+   app/(marketing)/hire-xamarin-developer): the card's label in Inter 500 at
+   .2em, as on the deployed hire-software-developers page. */
+[data-type-scale="hire"] .eyebrow {
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}

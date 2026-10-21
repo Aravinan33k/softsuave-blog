@@ -149,6 +149,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/hire-software-developers',
   '/hire-swift-developers',
   '/hire-web-app-developers',
+  '/hire-xamarin-developer',
   '/ionic-app-development-company',
   '/ios-application-development-company',
   '/it-outsourcing-company-india',
