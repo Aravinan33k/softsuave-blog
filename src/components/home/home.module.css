@@ -2775,6 +2775,9 @@ h1.h2 {
   transform: translate(2px, -2px);
 }
 
+/* No rule above the attribution any more: right under the "Watch on YouTube"
+   underline it read as a stray double line on phones and tablets (BUG-040).
+   The spacing is unchanged. */
 .rStoryFoot {
   display: flex;
   flex-wrap: wrap;
@@ -2782,7 +2785,6 @@ h1.h2 {
   gap: 10px;
   margin-top: clamp(4px, 0.8vw, 9px);
   padding-top: clamp(10px, 1.2vw, 15px);
-  border-top: 1px solid var(--line);
   max-width: 58ch;
 }
 

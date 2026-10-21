@@ -356,10 +356,11 @@
   outline-offset: 3px;
 }
 
+/* Plain centred small print under the step buttons, like the hero enquiry
+   card's alert. The hairline that used to sit above it read as a stray line
+   across the card (BUG-039), so the gap alone separates it now. */
 .formAlert {
   margin: 20px 0 0;
-  padding-top: 14px;
-  border-top: 1px solid var(--fx-line);
   font-size: 0.8125rem;
   line-height: 1.55;
   text-align: center;
