@@ -12,12 +12,44 @@
    ============================================================ */
 
 /* ---- hero ---- */
+/* Same frame as the landing hero: content runs gutter to gutter, on the
+   nav's lines (it was capped at 1500px and centred), and the enquiry card
+   in the shared `--enquiry-col` (globals.css). The
+   proportional 0.85fr it had before made the card 706px wide on a 1920px
+   screen, half as wide again as on every other page. */
 .hero {
-  padding: clamp(104px, 12vw, 168px) var(--gutter) clamp(48px, 6vw, 88px);
+  margin-inline: auto;
+  padding: clamp(104px, 12vw, 168px) var(--gutter) var(--section-y);
+}
+
+/* The breadcrumb's row, above the grid, as the other two heroes have it: the
+   copy column then opens on the H1, level with the card's top edge (15 Oct
+   review: "Hero H1 name & forms horizontally aligned in the same line"). It
+   carries the H1's old 0.4em top margin, so the gap under it is unchanged. */
+.heroHead {
+  margin-bottom: calc(var(--fs-h1) * 0.4);
+}
+
+.heroGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(32px, 5vw, 80px);
   align-items: start;
+}
+
+.heroHead + .heroGrid .heroTitle {
+  margin-top: 0;
+}
+
+/* Side by side from 1000px, the breakpoint the other two heroes use. It was
+   1025px here, so a 1024px laptop got the card stacked at full width. */
+@media (min-width: 1000px) {
+  .heroGrid {
+    /* The fallback is the same value as globals.css's --enquiry-col, so the
+       form keeps its column beside the H1 even if that variable is ever
+       missing (a stale dev stylesheet once dropped it under the copy). */
+    grid-template-columns: minmax(0, 1fr) var(--enquiry-col, clamp(380px, 37vw, 470px));
+  }
 }
 
 .heroTitle {
@@ -231,17 +263,24 @@
   border-radius: 20px;
   /* Base only — <LightFieldBackdrop> paints over this; the radius clips it. */
   background: #050609;
-}
 
-/* Above <LightFieldBackdrop>: this variant is a grid, so its direct children
-   are the content rather than a single inner wrapper. */
-.ctaBand > * {
-  position: relative;
-  z-index: 1;
+  /* Copy on the left, button on the right. The grid belongs to the band: when
+     the backdrop went in, these four lines moved onto `.ctaBand > *`, which
+     made the copy wrapper a grid of its own (the H2 squeezed into one-word
+     lines beside the paragraph from 1000px down) and stretched the button into
+     a full-width bar with its label pushed left. */
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: clamp(20px, 3vw, 48px);
   align-items: center;
+}
+
+/* Above <LightFieldBackdrop>. Grid items stack by z-index without a position
+   of their own — and setting one here would tie with the backdrop's
+   `position: absolute` (same specificity) and could drop it into the flow.
+   Absolutely positioned, the backdrop takes no grid cell. */
+.ctaBand > * {
+  z-index: 1;
 }
 
 .ctaTitle {
@@ -435,12 +474,12 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 20px;
-  padding: clamp(18px, 2vw, 26px) 0;
+  padding: clamp(16px, 1.8vw, 22px) 0;
   cursor: pointer;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(1.0625rem, 1.5vw, 1.3125rem);
-  line-height: 1.35;
+  font-size: var(--fs-faq-q);
+  line-height: 1.32;
   letter-spacing: -0.015em;
   color: var(--text-bright);
   list-style: none;
@@ -494,7 +533,7 @@
 .faqA {
   padding: 0 0 clamp(20px, 2.2vw, 28px);
   max-width: 76ch;
-  font-size: 0.9375rem;
+  font-size: var(--fs-faq-a);
   line-height: 1.75;
   color: var(--muted);
 }
@@ -513,7 +552,6 @@
 
 /* ---- responsive ---- */
 @media (max-width: 1024px) {
-  .hero,
   .ctaBand,
   .stackGroup {
     grid-template-columns: minmax(0, 1fr);
@@ -521,6 +559,20 @@
 
   .ctaBand {
     align-items: start;
+  }
+
+  /* Stacked under the copy, the button keeps its own width. */
+  .ctaBand > a {
+    justify-self: start;
+  }
+}
+
+/* "Book a Free Consultation" is wider than the band on the narrowest phones
+   (246px against ~230px at 320px), so there the label may wrap. */
+@media (max-width: 400px) {
+  .ctaBand > a {
+    white-space: normal;
+    text-align: center;
   }
 }
 
@@ -548,10 +600,11 @@
   font: inherit;
   letter-spacing: inherit;
   color: inherit;
-  font-size: var(--fs-h3);
+  /* The FAQ size (home.css), not the section-level H3 it used to share. */
+  font-size: var(--fs-faq-q);
 }
 
 .faqA p {
   margin: 0;
-  font-size: var(--fs-body);
+  font-size: var(--fs-faq-a);
 }

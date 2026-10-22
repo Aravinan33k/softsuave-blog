@@ -55,6 +55,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { ProcessContent } from "@/components/landing/process";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroAlert } from "./delivery-shared";
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 export const webMeta = {
   slug: "web-application-development-company",
@@ -71,7 +72,10 @@ export const webMeta = {
 
 export const webHero: HeroContent = {
   // The H1, split so the last line takes the coral accent.
+  // 8 Oct review: "highlight 'Web App Development' in the H1" — the phrase
+  // runs across the line break, which the hero's accent handles.
   titleLines: ["Custom Web App", "Development Services"],
+  accent: "Web App Development",
   body: [
     "Let’s build your next-gen Web Apps with the crackerjack web application development company in India",
     "Want to Outsource Web Application Development Agency? Get in touch for a free quote!",
@@ -82,10 +86,10 @@ export const webHero: HeroContent = {
   // The four trust badges this surface shows beside every enquiry form.
   badges: partnerHeroBadges,
   form: {
-    // The live page's own form heading and sub-line.
-    // No `eyebrow`: the review asked for the hero's kicker to go, and the
-    // card's is the only one the hero renders. Same correction every other
-    // corrected page on this surface took.
+    // The live page's own form heading and sub-line, with the card's
+    // "Let’s Discuss Your Project" heading the other development pages
+    // carry (13 Oct review: "in some pages the form is missing a heading").
+    eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
     alert: sharedHeroAlert,
     submit: "Submit",
@@ -129,6 +133,10 @@ export const webOverview: OverviewContent = {
     width: 1400,
     height: 1050,
     alt: "A laptop showing application code on a desk in a bright studio",
+    // The four paragraphs run well past the frame's height cap, which left
+    // the image at the top of the row (8 Oct review: "align the image to the
+    // center of the section").
+    align: "center",
   },
 };
 
@@ -153,7 +161,7 @@ export const webSpecialties: IntegrationContent = {
     },
     {
       name: "Back End Web Development",
-      body: "With 13+ experience, we specialize in developing backend systems using strong microservices-based architecture. Also, our web expert's knowledge in back end development ensures our Apps render flawless speed & performance by leveraging multi-tenancy, scalability, and third-party integration.",
+      body: `With ${YEARS_PLUS} experience, we specialize in developing backend systems using strong microservices-based architecture. Also, our web expert's knowledge in back end development ensures our Apps render flawless speed & performance by leveraging multi-tenancy, scalability, and third-party integration.`,
       tools: [
         { name: "Nodejs", href: "/nodejs-development-company" },
         { name: "Laravel", href: "/hire-laravel-developer" },
@@ -178,9 +186,9 @@ export const webServices: ServiceBoardContent = {
    * 404ing — see `components/common/linkify`.
    */
   links: [
-    { text: "eCommerce web app", href: "/ecommerce-mobile-app-development-company" },
+    { text: "E-commerce web app", href: "/ecommerce-mobile-app-development-company" },
     { text: "Education Portals", href: "/education-app-development-company" },
-    { text: "eCommerce Portals", href: "/multi-vendor-marketplace-platform" },
+    { text: "E-commerce Portals", href: "/multi-vendor-marketplace-platform" },
     { text: "Healthcare Portals", href: "/healthcare-mobile-app-development-company" },
     { text: "WordPress", href: "/wordpress-development-company" },
     { text: "Modernizing legacy applications", href: "/legacy-modernization-services" },
@@ -201,9 +209,9 @@ export const webServices: ServiceBoardContent = {
       image: { src: "/images/four/web-dynamic.webp", alt: "" },
     },
     {
-      name: "eCommerce Web App Development",
+      name: "E-commerce Web App Development",
       paragraphs: [
-        "An e-commerce web application is a web app that allows users to buy and sell products or services from your business. An eCommerce web app looks like an online shopping store, but it is more than that. It can include new products and remove outdated or old products.",
+        "An e-commerce web application is a web app that allows users to buy and sell products or services from your business. An e-commerce web app looks like an online shopping store, but it is more than that. It can include new products and remove outdated or old products.",
         "It can also manage payments and facilitate electronic payments. And an effective management panel is very necessary for all of these tasks. Users can customize such applications with the help of dedicated web developers. Some of the most familiar examples of e-commerce web applications are Flipkart, Amazon, Ajio, and so on.",
       ],
       image: { src: "/images/landing/web-app/svc-ecommerce.webp", alt: "" },
@@ -220,7 +228,7 @@ export const webServices: ServiceBoardContent = {
       name: "Web Portal Development Company",
       paragraphs: [
         "A portal web application provides a direct link to important data, like product catalogs and guides, that a particular type of user would want to access. Portals are the best option for organizations or businesses that prefer to build customized interfaces to suit their target audience's needs. Only registered users can access and their activities can be monitored by the service provider once they log in.",
-        "This facilitates the creation of a useful, secure, and personalized access point for organizing information according to the specific needs of users. When you check your purchase order online, you are using a customer portal. The different types of web portals include Customer Portals, Corporate Portals, Education Portals, Information Portals, HR Portals, eCommerce Portals, Government Portals, and Healthcare Portals.",
+        "This facilitates the creation of a useful, secure, and personalized access point for organizing information according to the specific needs of users. When you check your purchase order online, you are using a customer portal. The different types of web portals include Customer Portals, Corporate Portals, Education Portals, Information Portals, HR Portals, E-commerce Portals, Government Portals, and Healthcare Portals.",
       ],
       image: { src: "/images/landing/web-app/svc-portal.webp", alt: "" },
     },
@@ -429,8 +437,8 @@ export const webFaqs: FaqContent = {
   /**
    * The live page links "free consultation" in the third answer; that was
    * missing here (review: "highlight the text and add the link in 3rd FAQ
-   * answer"). `/30-min-free-consultation` is a page softsuave.com publishes
-   * and this app does not, so `SiteLink` resolves it to the live site.
+   * answer"). `/30-min-free-consultation` is served by this app, so
+   * `SiteLink` routes it in-app.
    */
   links: [{ text: "free consultation", href: "/30-min-free-consultation" }],
   eyebrow: "Ask Us",

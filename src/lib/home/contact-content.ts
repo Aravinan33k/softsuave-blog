@@ -41,17 +41,17 @@ export const contactForm = {
   title: "Contact Form",
   subtitle: "Let's talk! Fill out the form",
   steps: {
-    name: { question: "Hey there! What’s your name?", placeholder: "Full Name", error: "Please enter a valid name." },
+    // Name, email and phone messages come from the shared rules
+    // (lib/forms/enquiry-rules.ts), as on every other form.
+    name: { question: "Hey there! What’s your name?", placeholder: "Full Name" },
     email: {
       question: "Great! Let’s get your email!",
+      /** With the name the reader just gave, as the live page greets them:
+       *  "Great <name>! Let’s get your email!" (the name in bold). */
+      named: ["Great ", "! Let’s get your email!"],
       placeholder: "Email ID",
-      error: "Please enter a valid email address.",
     },
-    phone: {
-      question: "Got a number we can reach you at?",
-      placeholder: "Phone Number",
-      error: "Please enter a valid phone number.",
-    },
+    phone: { question: "Got a number we can reach you at?", placeholder: "Phone Number" },
     service: {
       question: "What brings you here?",
       placeholder: "Select your service",
@@ -62,8 +62,6 @@ export const contactForm = {
   back: "Back",
   submit: "Submit ➣",
   sending: "Sending…",
-  /** The live form redirects to a thank-you page this app does not have, so the card confirms in place. */
-  success: "Thank you! Your enquiry has been received. Our team will get back to you shortly.",
   alert: {
     label: "Alert:",
     text: "This form is for business, not candidates. To apply for jobs,",
@@ -86,40 +84,38 @@ export const scheduleMeeting = {
     messagePlaceholder: "Type here...",
     messageError: "Please tell us what the meeting is about.",
   },
-  // Not on the live page (it shows no copy for these states, and redirects to
-  // a thank-you page on success); written here for this app.
+  // Not on the live page (it shows no copy for these states); written here
+  // for this app. A booking redirects to /thank-you, as the live page does.
   loading: "Loading available slots…",
-  empty: "No open slots right now.",
-  error: "Unable to load slots.",
-  success: "Your meeting is booked. A calendar invite is on its way to your inbox.",
-  /** Fallback when the live calendar cannot load — the NeetoCal booking page it draws from ("View More Slots" is the live page's label). */
-  fallback: { label: "View More Slots ➡", href: "https://softsuave.neetocal.com/meeting-with-softsuave" },
+  empty: "No open slots right now. Send us a message and we’ll set up a time with you.",
+  // The live page shows "Unable to load slots." and stops. Here the card
+  // keeps the reader on the page with a way forward: try again, or use the
+  // Contact Form beside it. It used to send them off to the NeetoCal booking
+  // page instead, which the team did not want (14 Oct).
+  error: "Our calendar couldn’t load just now. Try again, or send us a message and we’ll set up a time with you.",
+  retry: "Try again",
+  /** Takes the reader to this page's Contact Form (`CONTACT_FORM_ID`). */
+  messageInstead: "Send us a message",
 } as const;
+
+/** The Contact Form's element id, which the meeting card links to. */
+export const CONTACT_FORM_ID = "contact-form";
 
 export const quickContact = {
   icon: "/images/contact/icon-quick-contact.webp",
   title: "Quick Contact",
   subtitle: "Connect with us instantly!",
   whatsapp: { label: "WhatsApp", href: "https://wa.me/918220362113", icon: "/images/contact/icon-whatsapp.webp" },
-  teams: { label: "Teams", href: "https://teams.live.com/l/invite/FEA1DKBQ1Hy8Kng9QE", icon: "/images/contact/icon-teams.webp" },
   email: { label: "contact@softsuave.com", text: "Drop us an email", href: "mailto:contact@softsuave.com" },
   /**
    * The live "Live Chat" row opens softsuave.com's own AI assistant ("Soft
-   * Suave - Live Chat"), not WhatsApp — which has its own button above. This
-   * app opens the same assistant in `components/contact/live-chat`, talking to
-   * it through `/api/v1/chat`. `panel` is the panel's own copy, verbatim from
-   * the live widget.
+   * Suave - Live Chat"), not WhatsApp — which has its own button above. Here
+   * it opens the same assistant in the site-wide chat widget (components/chatbot).
    */
   liveChat: {
     label: "Live Chat",
     text: "Instant answers - Real time support.",
     icon: "/images/contact/icon-live-chat.png",
-    panel: {
-      title: "Soft Suave - Live Chat",
-      greeting: "Hey there! Let’s get started now, feel free to share what you’re looking for.",
-      placeholder: "Enter your message",
-      error: "Sorry — the assistant can’t reply right now. Please try again, or use the contact form.",
-    },
   },
 } as const;
 

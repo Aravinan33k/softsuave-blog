@@ -35,7 +35,6 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
 import { industryHeroBadges, industryEnquiryForm } from "./industry-shared";
-import { overviewImage } from "./overview-images";
 
 export const constructionMeta = {
   slug: "ai-solutions-for-construction",
@@ -48,6 +47,9 @@ export const constructionMeta = {
 
 export const constructionHero: HeroContent = {
   titleLines: ["AI-Driven Innovation", "for the Future of Construction"],
+  // 13 Oct review: the industry name is the highlighted phrase in the H1
+  // ("eg for Ecommerce page - ecommerce in H1 must be highlighted").
+  accent: "Construction",
   body: [
     "Redefine on-site efficiency with AI that anticipates risk, optimises workflows, and supports safer, faster, more cost-predictable delivery. We build construction software that works from initial design through to final handover.",
     "Construction is the sector where the cost of finding out late is highest. A schedule slip identified in week four is a resequencing decision; the same slip found in week twenty is a claim.",
@@ -67,11 +69,17 @@ export const constructionHero: HeroContent = {
       "The project or site problem you want solved, the ERP and project management tools you run, portfolio size, and what site data you already capture.",
     subject: "Construction AI solutions enquiry",
   }),
+  // The live page's own hero artwork (13 Oct review: "use the existing images
+  // from the respective pages for the hero"), under the strong veil ("increase
+  // the black gradient in the hero section to make the text more readable").
   image: {
-    src: "/images/four/ind-construction-hero.webp",
-    width: 1200,
-    height: 860,
-    alt: "Construction site planning and progress supported by AI monitoring technology",
+    src: "/images/industries/construction/hero.webp",
+    width: 997,
+    height: 563,
+    alt: "A digital city skyline rising from a circuit-board base",
+    blurDataURL:
+      "data:image/webp;base64,UklGRmoAAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSBIAAAABD9D/iAiIBZP8pXemENH/bAFWUDggMgAAAJABAJ0BKhAACQADgFolAABbVS5EAAD++ce02+wftfVEF4NGyyMvoLYykPwPu/rV7QAA",
+    veil: "strong",
   },
 };
 
@@ -90,7 +98,20 @@ export const constructionOverview: OverviewContent = {
     "Smart Resource Allocation",
     "Quality Control & Defect Detection",
   ],
-  image: overviewImage("ai-solutions-for-construction"),
+  // The live page's own artwork for this section (13 Oct review: "use the
+  // existing images from the respective pages ... wherever possible"): a
+  // transparent cut-out collage, shown whole and centred against the copy.
+  image: {
+    src: "/images/industries/construction/overview.webp",
+    width: 1097,
+    height: 1245,
+    aspect: "1097 / 1245",
+    fit: "cutout",
+    align: "center",
+    alt: "A collage of a robot in a hard hat on a building site and a hand above a holographic city model",
+    blurDataURL:
+      "data:image/webp;base64,UklGRgwBAABXRUJQVlA4WAoAAAAQAAAADwAAEQAAQUxQSFsAAAABcFtr29J8uK3grh0VW9A6FRuwBANQpfqnyAbps0TSU8cFHyAiJgAiG8ar9wEfF17P9V/xq3uObGZgyQlC0brjwIiTCZIMEwDGnRBC/ajv2/6kx5+Xf/D78GcAAFZQOCCKAAAAMAQAnQEqEAASAD7tYqlNqaWjojAIATAdiWwAtOggUrHeTxgBW0a/QWJAAP66f+RgvwL7By5AZ2jUjuw2L5WdaNdPjFQFd2JiwV6/Jv+OyNZdsb/6HmwAxGNlyPce/OcKZ/rwz4SKKmKYaGV5snUVEKQXCWrrleyh8u26nF0U35ScVOjXUprBA4AA",
+  },
 };
 
 /**
@@ -181,14 +202,24 @@ export const constructionSuccessStories: WorkCarouselContent = {
   // Live reads "transformed financial operations" — the same FinTech
   // copy-paste; corrected to "construction operations".
   body: "Explore how our AI-driven solutions have transformed construction operations and delivered measurable results for our clients. These case studies highlight the power of innovation and efficiency in driving business growth.",
+  // Each card wears the live page's own artwork for that story (13 Oct
+  // review: "update the case study images same as the old page").
   items: [
     {
       title: "CRM Application for Real Estate Management",
+      image: {
+        src: "/images/industries/construction/case-1.webp",
+        alt: "A hand touching a CRM dashboard surrounded by customer-relationship icons",
+      },
       tag: "Real Estate",
       body: "Delivered a 360-degree digital view of real estate properties · Developed separate web apps for internal and external stakeholders · Enabled offline functionality using SQLite for seamless access · Implemented automated loggers to track database changes via cloud functions · Created lightweight iOS apps for real-time activity tracking",
     },
     {
       title: "Job Progress Tracking: Task Completion & Performance Insights",
+      image: {
+        src: "/images/industries/construction/case-2.webp",
+        alt: "A construction site interior with digital progress-tracking overlays",
+      },
       tag: "Project Management",
       // Live's last result reads "Scalable & Secure Banking Solution for
       // Corporates" — FinTech copy-paste; "Banking" corrected to "Construction".

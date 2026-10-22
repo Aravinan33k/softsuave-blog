@@ -11,7 +11,7 @@
  * carry no filters here either and show under "All" only, as they do live.
  */
 
-export const caseStudyFacets = ["Healthcare","eCommerce & Marketing","Construction & Manufacturing","Logistics & Transportation","Education & HR Tech","Finance","Telecom","Oil & Gas","On-Demand"] as const;
+export const caseStudyFacets = ["Healthcare","E-commerce & Marketing","Construction & Manufacturing","Logistics & Transportation","Education & HR Tech","Finance","Telecom","Oil & Gas","On-Demand"] as const;
 
 export type CaseStudyFacet = (typeof caseStudyFacets)[number];
 
@@ -101,7 +101,7 @@ export const caseStudyEntries: readonly CaseStudyEntry[] = [
   {
     key: "post-guard-cs",
     tag: "Marketing & Advertising",
-    filters: ["eCommerce & Marketing"],
+    filters: ["E-commerce & Marketing"],
     title: "An AI-Powered Compliance Analysis Platform for Influencer Marketing",
     body: "Soft Suave built an AI-powered compliance platform that automatically evaluates sponsored social media content — text, images, and video — against an organization's ingested rulebook, returning a clear verdict with cited violations in seconds instead of days of manual review.",
     image: { src: "/images/case-studies/post-guard-cs.webp", alt: "AI-Powered Influencer Marketing Platform", width: 642, height: 642 },
@@ -134,14 +134,14 @@ export const caseStudyEntries: readonly CaseStudyEntry[] = [
     filters: ["Education & HR Tech"],
     title: "Hire Voice — An AI-Powered Voice Interview Platform for Scalable Technical Hiring",
     body: "Soft Suave built an AI bot that conducts spoken technical interviews end-to-end in the browser — asking questions aloud, understanding answers in real time, and scoring every transcript into a shareable PDF report — while interviewers stay in control throughout.",
-    image: { src: "/images/case-studies/hire-voice-cs.webp", alt: "Personalized eCommerce Platform", width: 642, height: 642 },
+    image: { src: "/images/case-studies/hire-voice-cs.webp", alt: "Personalized E-commerce Platform", width: 642, height: 642 },
     platforms: ["Web"],
     href: "/case-study-hire-voice",
   },
   {
     key: "ecommerce-3",
-    tag: "eCommerce",
-    filters: ["eCommerce & Marketing"],
+    tag: "E-commerce",
+    filters: ["E-commerce & Marketing"],
     title: "Subscription Management for Customer Growth",
     body: "Soft Suave offers a powerful platform that streamlines subscription workflows, analyzes customer behavior, and automates renewals—helping businesses boost retention, drive growth, and deliver seamless subscription experiences.",
     image: { src: "/images/case-studies/ecommerce-3.webp", alt: "Subscription Management Platform", width: 618, height: 571 },
@@ -150,18 +150,18 @@ export const caseStudyEntries: readonly CaseStudyEntry[] = [
   },
   {
     key: "ecommerce-1",
-    tag: "eCommerce",
-    filters: ["eCommerce & Marketing"],
-    title: "Comprehensive eCommerce for Retail",
-    body: "Soft Suave delivered an end-to-end eCommerce solution tailored for the retail industry—enabling seamless product management, secure transactions, personalized shopping experiences, and real-time analytics to drive growth and customer engagement.",
-    image: { src: "/images/case-studies/ecommerce-1.webp", alt: "Comprehensive eCommerce Platform for Retail", width: 642, height: 593 },
+    tag: "E-commerce",
+    filters: ["E-commerce & Marketing"],
+    title: "Comprehensive E-commerce for Retail",
+    body: "Soft Suave delivered an end-to-end e-commerce solution tailored for the retail industry—enabling seamless product management, secure transactions, personalized shopping experiences, and real-time analytics to drive growth and customer engagement.",
+    image: { src: "/images/case-studies/ecommerce-1.webp", alt: "Comprehensive E-commerce Platform for Retail", width: 642, height: 593 },
     platforms: ["Android","iOS"],
     href: "/case-study-comprehensive-ecommerce-for-retail",
   },
   {
     key: "ecommerce-2",
-    tag: "eCommerce",
-    filters: ["eCommerce & Marketing"],
+    tag: "E-commerce",
+    filters: ["E-commerce & Marketing"],
     title: "Intuitive Online Shopping Platform",
     body: "Soft Suave built a user-friendly online shopping platform that offers smooth navigation, personalized recommendations, and secure checkout—enhancing the customer experience and boosting conversion rates for retailers.",
     image: { src: "/images/case-studies/ecommerce-2.webp", alt: "Intuitive Online Shopping Platform", width: 642, height: 593 },
@@ -170,11 +170,11 @@ export const caseStudyEntries: readonly CaseStudyEntry[] = [
   },
   {
     key: "ecommerce-p",
-    tag: "eCommerce",
-    filters: ["eCommerce & Marketing"],
-    title: "Personalized One-Stop Solution for eCommerce Industry",
-    body: "Soft Suave created an app to satisfy multiple needs to seamlessly give effective eCommerce solutions to customers. Specifically, the client wanted mobile applications that would enable customers to make fast decisions and lead them to make a purchase.",
-    image: { src: "/images/case-studies/ecommerce-p.png", alt: "Personalized eCommerce Platform", width: 600, height: 496 },
+    tag: "E-commerce",
+    filters: ["E-commerce & Marketing"],
+    title: "Personalized One-Stop Solution for E-commerce Industry",
+    body: "Soft Suave created an app to satisfy multiple needs to seamlessly give effective e-commerce solutions to customers. Specifically, the client wanted mobile applications that would enable customers to make fast decisions and lead them to make a purchase.",
+    image: { src: "/images/case-studies/ecommerce-p.png", alt: "Personalized E-commerce Platform", width: 600, height: 496 },
     platforms: ["Android","iOS"],
     href: "/case-study-personalized-ecommerce-platform",
   },

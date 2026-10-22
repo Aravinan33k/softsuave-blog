@@ -1,8 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
+import {
+  iosBreadcrumbLd,
+  iosFaqLd,
+  iosProductLd,
+  iosServiceLd,
+} from '@/lib/seo/ios-application-development-company';
 import {
   iosBenefits,
   iosDevelopersCta,
@@ -35,6 +40,7 @@ import Clients from '@/components/home/clients';
 import Recognitions from '@/components/home/recognitions';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -65,6 +71,19 @@ import home from '@/components/home/home.module.css';
 // Matches the marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
+/**
+ * The page's link-preview image: the hero's photograph (an iPhone on its iOS
+ * home screen in front of a laptop) cropped to 1200×630, as the Android and
+ * Mobile App pages do. softsuave.com's own card carries the retired "The
+ * smart way..." tagline and Apple-logo shapes, so it is not reused.
+ */
+const OG_IMAGE = {
+  url: ogImageUrl('/assets/images/ios-application-development-company-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'iOS App Development Services - Soft Suave',
+};
+
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: `${iosMeta.title} | Soft Suave`,
@@ -77,11 +96,13 @@ export const metadata: Metadata = {
     url: absoluteUrl(iosMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${iosMeta.title} | Soft Suave`,
     description: iosMeta.description,
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -92,45 +113,15 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/** FAQPage + Service structured data — this page's answers are its SEO surface. */
-
-/**
- * This page's JSON-LD, from the shared builder.
- *
- * It replaces a hand-written `Service` whose `provider` was an inline
- * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
- * repeated on every page of this surface rather than the canonical one — with
- * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
- * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
- * at the organization `app/(marketing)/layout.tsx` declares once.
- */
-const LD = pageSchemaGraph({
-  path: iosMeta.path,
-  title: iosMeta.title,
-  description: iosMeta.description,
-  serviceType: 'iOS app development',
-  // The page's own short name for what it sells, not its `<title>`, which is
-  // written to win the click.
-  serviceName: 'iOS App Development',
-  // Matches the live page's own breadcrumb trail exactly: Home › Mobile App —
-  // the live trail stops at the parent and never names this page itself.
-  showBreadcrumb: true,
-  parents: [{ name: 'Mobile App', path: '/mobile-application-development-company' }],
-  breadcrumbEndsAtParent: true,
-  offerCatalogName: iosServices.title,
-  offers: iosServices.items.map((i) => ({ name: i.name, description: i.body })),
-  faqName: iosFaqs.title,
-  faqs: iosFaqs.items,
-});
-
 export default function IosAppDevelopmentPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect — which leaves a
-  // single-item trail, so the schema is omitted rather than emitted empty.
-
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* softsuave.com's own schema for this page, verbatim — see
+          `lib/seo/ios-application-development-company.ts`. */}
+      <JsonLd data={iosServiceLd} />
+      <JsonLd data={iosBreadcrumbLd} />
+      <JsonLd data={iosFaqLd} />
+      <JsonLd data={iosProductLd} />
       <Nav logoHref={HOME_HREF} />
 
       {/*
@@ -187,7 +178,7 @@ export default function IosAppDevelopmentPage() {
 
         <Faq content={iosFaqs} idPrefix="ios-faq" />
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

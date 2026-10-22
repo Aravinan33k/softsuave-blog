@@ -21,27 +21,34 @@ export interface ServiceHeroProps {
 export default function ServiceHero({ title, body, badges, form }: ServiceHeroProps) {
   return (
     <section className={styles.hero} id="top">
-      <div>
+      {/* Its own row, so the copy column opens on the H1 and the card's top
+          edge lines up with it. */}
+      <div className={styles.heroHead}>
         <Breadcrumb />
-        <SplitReveal as="h1" className={styles.heroTitle} type="words">
-          {title}
-        </SplitReveal>
-        <FadeUp delay={0.1}>
-          <p className={styles.heroBody}>{body}</p>
-          <ul className={styles.badges}>
-            {badges.map((b) => (
-              <li key={b} className={styles.badge}>
-                {b}
-              </li>
-            ))}
-          </ul>
-          <PartnerBadges />
-        </FadeUp>
       </div>
 
-      <FadeUp delay={0.18}>
-        <EnquiryForm content={form} idPrefix="ai-development-service" />
-      </FadeUp>
+      <div className={styles.heroGrid}>
+        <div>
+          <SplitReveal as="h1" className={styles.heroTitle} type="words">
+            {title}
+          </SplitReveal>
+          <FadeUp delay={0.1}>
+            <p className={styles.heroBody}>{body}</p>
+            <ul className={styles.badges}>
+              {badges.map((b) => (
+                <li key={b} className={styles.badge}>
+                  {b}
+                </li>
+              ))}
+            </ul>
+            <PartnerBadges />
+          </FadeUp>
+        </div>
+
+        <FadeUp delay={0.18}>
+          <EnquiryForm content={form} idPrefix="ai-development-service" />
+        </FadeUp>
+      </div>
     </section>
   );
 }

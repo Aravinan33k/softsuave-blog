@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
+import { phpFaqLd, phpServiceLd } from '@/lib/seo/php-application-development-company';
 import {
   phpFaqs,
   phpHero,
@@ -32,6 +32,7 @@ import Faq from '@/components/landing/faq';
 // Us" with the same standfirst.
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -66,6 +67,19 @@ import home from '@/components/home/home.module.css';
 // Matches the marketing cadence; nothing here is request-dependent.
 export const revalidate = 300;
 
+/**
+ * The page's link-preview image: the hero's photograph (PHP source on screen)
+ * cropped to 1200×630. softsuave.com's own og:image is a 717×523
+ * illustration carrying other brands' logos (Java, jQuery, Magento), too small
+ * and too square for the large preview card, so it is not reused.
+ */
+const OG_IMAGE = {
+  url: ogImageUrl('/assets/images/php-application-development-company-og.webp'),
+  width: 1200,
+  height: 630,
+  alt: 'PHP Development Company in India - Soft Suave',
+};
+
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: `${phpMeta.title} | Soft Suave`,
@@ -78,11 +92,13 @@ export const metadata: Metadata = {
     url: absoluteUrl(phpMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${phpMeta.title} | Soft Suave`,
     description: phpMeta.description,
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -93,34 +109,13 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/**
- * This page's JSON-LD, from the shared builder: `Service`, `WebPage`,
- * `FAQPage` and a `BreadcrumbList`, `@id`-linked and pointing provider and
- * publisher at the organization `app/(marketing)/layout.tsx` declares once.
- *
- * The builder folds each answer's bulleted `points` into its text, so the
- * schema says what the page shows rather than dropping the third answer's
- * list.
- */
-const LD = pageSchemaGraph({
-  path: phpMeta.path,
-  title: phpMeta.title,
-  description: phpMeta.description,
-  serviceType: 'PHP application development',
-  // The page's own short name for what it sells, not its `<title>`, which is
-  // written to win the click.
-  serviceName: 'PHP Development',
-  breadcrumbName: 'PHP Development',
-  offerCatalogName: phpServices.title,
-  offers: phpServices.items.map((i) => ({ name: i.name, description: i.paragraphs[0] })),
-  faqName: phpFaqs.title,
-  faqs: phpFaqs.items,
-});
-
 export default function PhpApplicationDevelopmentCompanyPage() {
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* softsuave.com's own schema for this page, verbatim — see
+          `lib/seo/php-application-development-company.ts`. */}
+      <JsonLd data={phpServiceLd} />
+      <JsonLd data={phpFaqLd} />
       <Nav logoHref={HOME_HREF} />
 
       {/*
@@ -159,7 +154,7 @@ export default function PhpApplicationDevelopmentCompanyPage() {
           <Faq content={phpFaqs} idPrefix="php-faq" />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

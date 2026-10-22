@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { rjFaqLd, rjServiceLd } from '@/lib/seo/reactjs-app-development-company';
 import {
   rjAudience,
   rjBenefits,
@@ -38,6 +38,7 @@ import Faq from '@/components/landing/faq';
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -98,43 +99,13 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-/** FAQPage + Service structured data — this page's answers are its SEO surface. */
-
-/**
- * This page's JSON-LD, from the shared builder.
- *
- * It replaces a hand-written `Service` whose `provider` was an inline
- * `{'@type': 'Organization', name: 'Soft Suave'}` — an unidentified company
- * repeated on every page of this surface rather than the canonical one — with
- * no `WebPage` node and nothing joining the Service, the FAQ and the trail.
- * `pageSchemaGraph` emits those `@id`-linked and points provider and publisher
- * at the organization `app/(marketing)/layout.tsx` declares once.
- */
-const LD = pageSchemaGraph({
-  path: rjMeta.path,
-  title: rjMeta.title,
-  description: rjMeta.description,
-  serviceType: 'ReactJS application development',
-  // The page's own short name for what it sells, not its `<title>`, which is
-  // written to win the click.
-  serviceName: 'ReactJS App Development',
-  breadcrumbName: 'ReactJS App Development',
-  offerCatalogName: rjServices.title,
-  offers: rjServices.items.map((i) => ({ name: i.name, description: i.paragraphs[0] })),
-  faqName: rjFaqs.title,
-  // The builder folds each answer's bulleted `points` into its text, as the
-  // hand-written block here did — the schema must say what the page shows.
-  faqs: rjFaqs.items,
-});
-
 export default function ReactjsAppDevelopmentPage() {
-  // "/" is only a page this app serves once the marketing homepage ships; until
-  // then the trail must not point Google at a redirect — which leaves a
-  // single-item trail, so the schema is omitted rather than emitted empty.
-
   return (
     <div className={home.page}>
-      <JsonLd data={LD} />
+      {/* softsuave.com's own schema for this page, one <script> per block —
+          see `lib/seo/reactjs-app-development-company.ts`. */}
+      <JsonLd data={rjServiceLd} />
+      <JsonLd data={rjFaqLd} />
       <Nav logoHref={HOME_HREF} />
 
       {/*
@@ -190,7 +161,7 @@ export default function ReactjsAppDevelopmentPage() {
           <Faq content={rjFaqs} idPrefix="rj-faq" />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

@@ -90,6 +90,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroAlert } from "./delivery-shared";
+import { FIGURES } from "@/lib/company-figures";
 
 export const rjMeta = {
   slug: "reactjs-app-development-company",
@@ -101,12 +102,16 @@ export const rjMeta = {
    */
   title: "ReactJS Development Company in India",
   description:
-    "Looking for React.js app development company in India that suits your budget. We are the leading development company with 13 Yrs of experience.",
+    `Looking for React.js app development company in India that suits your budget. We are the leading development company with ${FIGURES.years} Yrs of experience.`,
 } as const;
 
 export const rjHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["React Js App", "Development Company"],
+  accent: "React Js",
   body: [
     "Build futuristic, dynamic web apps with a best-in-class ReactJS app development Company in India.",
     "Looking for custom React development partner in India that suits your budget? Get in touch for a free quote!",
@@ -153,6 +158,9 @@ export const rjOverview: OverviewContent = {
     alt: "A focused view of a developer's screen showing application code",
     blurDataURL:
       "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAAAwAgCdASoQAAwAA4BaJbACdAEO//hMMUSkAAD+0PFD3LSHwqwTwYv6UN5+L2B8Sru0fQFaEWHK93s2eX2AAA==",
+    // Centred against the copy beside it rather than pinned to the top of a
+    // taller column (13 Oct review: "align the image with the section").
+    align: "center",
   },
 };
 
@@ -168,7 +176,6 @@ export const rjServices: ServiceBoardContent = {
   title: "Services We Offer ReactJS",
   body: "From front-end builds to plugin development, integration, and long-term support, our ReactJS team covers every stage of your application.",
   links: [{ text: "software development services", href: "/" }],
-  cta: { label: "Talk to Experts", href: "/contact" },
   items: [
     {
       name: "React Front-End Development Services",
@@ -334,8 +341,8 @@ export const rjFaqs: FaqContent = {
   body: "Know more about our processes and how we work, with the help of the following FAQs our clients ask.",
   // Three phrases the live page links inside its FAQ answers (review: "few
   // FAQs do not have an internal link"). `/cross-platform-application-development-company`
-  // and `/30-min-free-consultation` are not routes this app serves yet, so
-  // `SiteLink` (via `linkify`) resolves them to softsuave.com instead of 404ing.
+  // is not a route this app serves yet, so `SiteLink` (via `linkify`) resolves
+  // it to softsuave.com instead of 404ing; `/30-min-free-consultation` is ours.
   links: [
     { text: "cross-platform mobile", href: "/cross-platform-application-development-company" },
     { text: "single-page applications,", href: "/angularjs-development-company" },

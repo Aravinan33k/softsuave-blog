@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { organizationLd } from '@/lib/seo/organization';
-import { marketingWebSiteLd, SCHEMA_DATE_MODIFIED } from '@/lib/seo/page-graph';
+import { aboutMadhuLd, aboutManoharLd, aboutRameshLd, aboutSudhendraLd } from '@/lib/seo/about';
 import {
   aboutHero,
   aboutLeadership,
@@ -20,6 +19,7 @@ import Footer from '@/components/home/footer';
 import Recognitions from '@/components/home/recognitions';
 import Clients from '@/components/home/clients';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 // SHARED LANDING SECTIONS, taking this page's copy.
 import Hero from '@/components/landing/hero';
@@ -72,60 +72,15 @@ export const metadata: Metadata = {
  *  does. */
 const HOME_HREF = BASE_PATH || '/';
 
-/**
- * AboutPage, plus one Person per leader.
- *
- * This page is ABOUT the organization, so its schema is an `AboutPage` over
- * people rather than a `Service` over offerings — which is why it is built here
- * and not through `pageSchemaGraph`.
- *
- * It no longer describes the company a second time. This used to open with its
- * own `Organization` — no `@id`, its own description, a single `sameAs` —
- * competing with the canonical `organizationLd` that
- * `app/(marketing)/layout.tsx` now emits on every page of this surface. Two
- * Organization nodes for one company is worse than none: a consumer has to pick
- * one. The leadership is attached to the canonical node by `@id` instead, and
- * every `worksFor` points at that same identifier.
- *
- * The live page ships four Person blocks and nothing else — no Organization, no
- * AboutPage, no breadcrumb — and those four are stale against its own markup:
- * they name people with job titles the rendered cards no longer show, point at
- * an older asset directory, and spell the property `worksfor`, which is not a
- * schema.org property (it is `worksFor`, and a search engine drops the
- * unrecognised key). Generating all of them from `aboutLeadership` fixes the
- * casing and makes drift between the cards and the schema impossible.
- */
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'AboutPage',
-    '@id': `${absoluteUrl(aboutMeta.path)}#webpage`,
-    name: aboutMeta.title,
-    description: aboutMeta.description,
-    url: absoluteUrl(aboutMeta.path),
-    inLanguage: 'en',
-    dateModified: SCHEMA_DATE_MODIFIED,
-    about: { '@id': organizationLd['@id'] },
-    mainEntity: { '@id': organizationLd['@id'] },
-    publisher: { '@id': organizationLd['@id'] },
-    isPartOf: { '@id': marketingWebSiteLd['@id'] },
-  },
-  ...aboutLeadership.members.map((m) => ({
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    '@id': `${absoluteUrl(aboutMeta.path)}#${m.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
-    name: m.name,
-    jobTitle: m.role,
-    image: absoluteUrl(m.image),
-    ...(m.linkedin ? { sameAs: [m.linkedin] } : {}),
-    worksFor: { '@id': organizationLd['@id'] },
-  })),
-];
-
 export default function AboutPage() {
   return (
     <div className={home.page}>
-      <JsonLd data={structuredData} />
+      {/* softsuave.com's own schema for this page, one <script> per block —
+          see `lib/seo/about.ts`. */}
+      <JsonLd data={aboutRameshLd} />
+      <JsonLd data={aboutManoharLd} />
+      <JsonLd data={aboutMadhuLd} />
+      <JsonLd data={aboutSudhendraLd} />
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
@@ -156,7 +111,7 @@ export default function AboutPage() {
           />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

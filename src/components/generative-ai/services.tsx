@@ -6,7 +6,9 @@ import { services as generativeAiServices } from "@/lib/home/generative-ai";
 import { ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
 import ServiceLink, { useServiceHref } from "@/components/common/service-link";
+import { linkify, type InlineLink } from "@/components/common/linkify";
 import SectionHead from "./section-head";
+import SectionCta from "./section-cta";
 import styles from "./gen-ai.module.css";
 
 /** Horizontal travel a pointer drag needs before it counts as a swipe, in px. */
@@ -30,6 +32,15 @@ export interface ServicesContent {
      */
     readonly href?: string;
   }[];
+  /** Phrases in `body` to link, as the live page links them. */
+  bodyLinks?: readonly InlineLink[];
+  /**
+   * `false` drops every card's "Learn more" — the cards stop linking out
+   * (hire-by-skill review: "Remove the links from the service cards").
+   */
+  links?: boolean;
+  /** Optional button under the carousel (review: "a CTA button is missing"). */
+  cta?: { readonly label: string; readonly href: string };
 }
 
 /**
@@ -213,7 +224,11 @@ export default function Services({
 
   return (
     <section ref={root} className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead
+        kicker={content.eyebrow}
+        title={content.title}
+        intro={linkify(content.body, content.bodyLinks, new Set(), styles.proseLink)}
+      />
 
       <div
         className={styles.svcStage}
@@ -259,9 +274,9 @@ export default function Services({
           const off = offsetOf(i);
           const onScreen = Math.abs(off) <= 1;
           const isNear = Math.abs(off) === 1;
-          const href = hrefFor(s.name, s.href);
+          const href = content.links === false ? undefined : hrefFor(s.name, s.href);
           return (
-            <article
+            <div
               key={s.name}
               className={`${styles.svcSlide}${off === 0 ? ` ${styles.svcSlideActive}` : ""}${
                 isNear ? ` ${styles.svcSlideNear}` : ""
@@ -290,7 +305,7 @@ export default function Services({
                   <ServiceLink href={href} label={s.name} tabIndex={onScreen ? undefined : -1} />
                 )}
               </div>
-            </article>
+            </div>
           );
         })}
       </div>
@@ -346,6 +361,7 @@ export default function Services({
           </svg>
         </button>
       </div>
+      <SectionCta cta={content.cta} />
     </section>
   );
 }

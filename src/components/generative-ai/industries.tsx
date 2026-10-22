@@ -1,15 +1,6 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
 import { industries as generativeAiIndustries } from "@/lib/home/generative-ai";
-import { publicMediaUrl } from "@/lib/media-url";
-import { gridSpansFor } from "@/components/landing/card-spans";
-import FadeUp from "@/components/home/fade-up";
-import SectionHead from "./section-head";
-import { useServiceHref } from "@/components/common/service-link";
 import CardIcon, { isBrandIcon } from "./card-icon";
-import styles from "./gen-ai.module.css";
+import IndustriesClient from "./industries-client";
 
 // `CardIcon` holds the glyph vocabulary; see that file for why it is not here.
 // The "01"-style ordinals these cards used to carry are gone (review: icons
@@ -35,55 +26,20 @@ export interface CardGridContent {
      * navigation between the nine role pages rather than nine dead ends.
      */
     readonly href?: string;
+    /**
+     * `false` keeps this one card unlinked even where its name matches one of
+     * our pages — for a card whose right destination does not exist yet
+     * (hire-by-role review: "Hire Xamarin Developers - remove the link from
+     * this card for now").
+     */
+    readonly link?: false;
   }[];
-}
-
-
-/**
- * The card's "Know More".
- *
- * An in-page `#anchor` has to stay a plain `<a>` so the Lenis handler in
- * `ScrollProvider` intercepts it; a real route goes through `next/link` for
- * client-side navigation. The accessible name carries the card's own title,
- * because a grid of nine identically-labelled "Know More" links tells a screen
- * reader nothing about where any of them lead.
- */
-function CardLink({
-  href,
-  label,
-  className = styles.indCardLink,
-}: {
-  href: string;
-  label: string;
-  /** The card variant's own link class. Defaults to the picture card's. */
-  className?: string;
-}) {
-  const inner = (
-    <>
-      Know More
-      <span className={styles.srOnly}> about {label}</span>
-      <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden>
-        <path
-          d="M5 12H19M19 12L13 6M19 12L13 18"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </>
-  );
-
-  return href.startsWith("/") ? (
-    <Link className={className} href={href}>
-      {inner}
-    </Link>
-  ) : (
-    <a className={className} href={href}>
-      {inner}
-    </a>
-  );
+  /**
+   * Optional button under the grid — the live hire pages close some of these
+   * sections on one ("Ready to discuss? Contact us"; review: "a CTA button is
+   * missing"). Same size as the mid-page conversion band's button.
+   */
+  cta?: { readonly label: string; readonly href: string };
 }
 
 /**
@@ -98,12 +54,18 @@ function CardLink({
  * it. `:focus-within` drives the same reveal as `:hover` so the link is
  * reachable without a pointer, and both the rest face and the overlay stay
  * mounted throughout so the transition is a plain opacity/transform tween.
+ *
+ * Split in two: this server half draws each card's badge (`CardIcon`, which
+ * holds the brand marks of `TechLogo` and the drawn glyphs — tens of KB) and
+ * hands the glyphs to the interactive client half ready-made, so none of that
+ * ships as JavaScript (PageSpeed, 15 Oct).
  */
 export default function Industries({
   content = generativeAiIndustries,
   id = "industries",
   variant = "photo",
   links = true,
+  cardLinks = false,
 }: {
   content?: CardGridContent;
   id?: string;
@@ -119,157 +81,48 @@ export default function Industries({
    * off `gridSpansFor()` and a per-card accent rule along the top edge. It is
    * what every hire page uses, so the two families read as one design system.
    * See the CARD GRID — BOLD VARIANT block in gen-ai.module.css.
+   *
+   * `tiles` is the bold card cut down to a badge and a name, for a section
+   * that lists labels with no description of their own (the QA page's testing
+   * types, domains and approach). An even grid rather than the asymmetric
+   * spans, because every tile carries the same amount: four across, or three
+   * where the count divides by three and not four. A body, if an item has
+   * one, still renders.
    */
-  variant?: "photo" | "compact" | "bold";
+  variant?: "photo" | "compact" | "bold" | "tiles";
   /**
    * `false` drops every card's "Know More", `href`s included. The AI service
    * pages' industry grids run without it: the sectors are context for the
    * service, not destinations of their own.
    */
   links?: boolean;
+  /**
+   * The whole card is the link instead of a "Know More" inside it.
+   *
+   * `bold`: the "Know More" under the copy goes (hire-by-role review: "remove
+   * the 'Know More' buttons; the entire cards must be clickable"); the card
+   * title carries the link, stretched over the card, so the accessible name is
+   * the card's own name.
+   *
+   * `photo`: a link layer over the whole card, named for the card, above the
+   * hover overlay; the overlay keeps its "Know More" as a cue, no longer a link
+   * of its own (7 Oct review, Generative AI and Agentic AI industries: "link
+   * the cards with respective industry pages and make the whole cards
+   * clickable").
+   */
+  cardLinks?: boolean;
 } = {}) {
-  /* Links: a card's own `href` wins; a grid of services or sectors also links
-     cards whose name matches one of our pages (`lib/home/service-href.ts`).
-     Never to the page the card is on. */
-  const resolveHref = useServiceHref();
-  const autoLink = /service|industr|sector|offering|solution/i.test(id);
-  const hrefOf = (item: CardGridContent["items"][number]) =>
-    links && (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
-  const textOf = (item: CardGridContent["items"][number]) => `${item.name}. ${item.body}`;
-
-  if (variant === "bold") {
-    /* Derived from the item count alone, so a section that gains or loses a
-       card re-composes itself with no layout prop to keep in sync. */
-    const spans = gridSpansFor(content.items.length);
-
-    return (
-      <section className={styles.sectionShell} id={id}>
-        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
-
-        <FadeUp>
-          <div className={styles.indGridBold}>
-            {content.items.map((item, i) => {
-              const href = hrefOf(item);
-              return (
-              <article
-                key={item.name}
-                className={styles.indBoldCard}
-                /* A data attribute rather than an inline style: the span values
-                   are a small fixed set, so CSS can hold them and the markup
-                   stays free of style attributes. */
-                data-span={spans[i]}
-              >
-                {/* `data-brand` drops the accent tint behind a full-colour
-                    brand mark, which has its own palette and is fought by the
-                    ring's accent wash. A drawn glyph is `currentColor` and
-                    wants that tint, so it keeps it. */}
-                <span
-                  className={styles.indBoldIcon}
-                  data-brand={isBrandIcon(item.key) ? "true" : undefined}
-                  aria-hidden
-                >
-                  <CardIcon iconKey={item.key} text={textOf(item)} />
-                </span>
-                <h3 className={styles.indBoldName}>{item.name}</h3>
-                <p className={styles.indBoldBody}>{item.body}</p>
-                {/* Only where the card names a page of ours — same rule as the
-                    compact card. This is what keeps the hire-by-role
-                    specialisation grids working as navigation between the nine
-                    role pages. */}
-                {href && (
-                  <CardLink
-                    href={href}
-                    label={item.name}
-                    className={`${styles.textCardLink} ${styles.indBoldLink}`}
-                  />
-                )}
-              </article>
-              );
-            })}
-          </div>
-        </FadeUp>
-      </section>
-    );
-  }
-
-  if (variant === "compact") {
-    return (
-      <section className={styles.sectionShell} id={id}>
-        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
-
-        <FadeUp>
-          <div className={styles.indGridCompact}>
-            {content.items.map((item) => {
-              const href = hrefOf(item);
-              return (
-              <article key={item.name} className={styles.compactCard}>
-                <span className={styles.compactIcon} aria-hidden>
-                  <CardIcon iconKey={item.key} text={textOf(item)} />
-                </span>
-                <h3 className={styles.compactName}>{item.name}</h3>
-                <p className={styles.compactBody}>{item.body}</p>
-                {/* Only where the card names a page of ours. On a text card
-                    that already says everything, a link back to the enquiry
-                    form is noise — the section's own CTAs cover that. */}
-                {href && (
-                  <CardLink href={href} label={item.name} className={styles.textCardLink} />
-                )}
-              </article>
-              );
-            })}
-          </div>
-        </FadeUp>
-      </section>
-    );
-  }
-
   return (
-    <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
-
-      <FadeUp>
-        <div className={styles.indGrid}>
-          {content.items.map((item) => {
-            const href = hrefOf(item);
-            return (
-            <article key={item.name} className={styles.indCard}>
-              {item.image && (
-                <Image
-                  src={publicMediaUrl(item.image)}
-                  alt=""
-                  fill
-                  sizes="(max-width: 699px) 92vw, (max-width: 999px) 46vw, 23vw"
-                  className={styles.indCardImg}
-                />
-              )}
-              <div className={styles.indCardScrim} aria-hidden />
-
-              <div className={styles.indCardFace}>
-                <span className={styles.indCardIcon} aria-hidden>
-                  <CardIcon iconKey={item.key} text={textOf(item)} />
-                </span>
-                <h3 className={styles.indCardName}>{item.name}</h3>
-              </div>
-
-              {/* The hover/focus reveal: a full inverted rectangle over the photo
-                  (not a strip growing from the bottom), so it's bounded by the
-                  card's own box at every grid size instead of risking overflow
-                  when the description runs long on a short 4-up card. */}
-              <div className={styles.indCardOverlay}>
-                <span className={styles.indCardIcon} aria-hidden>
-                  <CardIcon iconKey={item.key} text={textOf(item)} />
-                </span>
-                <span className={styles.indCardName} aria-hidden>
-                  {item.name}
-                </span>
-                <p className={styles.indCardBody}>{item.body}</p>
-                {href && <CardLink href={href} label={item.name} />}
-              </div>
-            </article>
-            );
-          })}
-        </div>
-      </FadeUp>
-    </section>
+    <IndustriesClient
+      content={content}
+      id={id}
+      variant={variant}
+      links={links}
+      cardLinks={cardLinks}
+      icons={content.items.map((item) => (
+        <CardIcon key={item.name} iconKey={item.key} text={`${item.name}. ${item.body}`} />
+      ))}
+      brand={content.items.map((item) => isBrandIcon(item.key))}
+    />
   );
 }

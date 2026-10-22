@@ -142,8 +142,51 @@ export interface OverviewContent {
      * inset. For a drawn diagram or illustration, cropping removes content:
      * the Ionic page's own one was losing the figure on its right and the top
      * and bottom of its phone mockup (review: "need to resize the image").
+     *
+     * `"cutout"` is `contain` with no frame at all — no surface ground, no
+     * inset, no crop — for transparent cut-out artwork (the live industry and
+     * About pages' collages), which a panel behind it would box in.
      */
-    fit?: "cover" | "contain";
+    fit?: "cover" | "contain" | "cutout";
+    /**
+     * A fixed frame ratio (CSS `aspect-ratio`, e.g. `"14 / 16"`) at every
+     * width. Without it the frame is 4:3 (compact) or 3:2 below 1000px and
+     * stretches to the prose's height above it; with it the frame keeps this
+     * shape and sits at the top of its column instead (Ionic review: "need to
+     * resize the image | aspect-ratio: 14 / 16").
+     */
+    aspect?: string;
+    /**
+     * Gives the image the larger column from 1000px up (about 57/43 instead
+     * of the prose leading) and centres it against the prose, for a diagram
+     * whose labels need the room (RAG review: "the image is really small").
+     * Pair it with `aspect` at the asset's own ratio so nothing is cropped.
+     */
+    wide?: boolean;
+    /**
+     * From 1000px, run the frame the full height of the heading + prose (and
+     * any `points`, which move into that column) beside it, with no height cap — for an overview whose copy runs far longer than
+     * the capped frame, which otherwise leaves the image stranded at the top
+     * (hire-by-skill review: "resize the image to fit the height of the
+     * section"). Pair it with a portrait asset, so the crop stays generous.
+     */
+    column?: boolean;
+    /**
+     * From 1000px, centre the frame vertically against the heading + prose
+     * beside it — for an overview whose copy runs taller than the frame's
+     * height cap, which otherwise leaves the image at the top of the row with
+     * empty band under it (Web App review: "align the image to the center of
+     * the section"). The frame keeps its size; only its position changes.
+     * With `aspect` the frame keeps that ratio too.
+     */
+    align?: "center";
+    /**
+     * Equal columns from 1000px on the compact variant, in place of its
+     * 1.1 / 0.9 split — a step up in image size that stops well short of
+     * `wide`, which narrowed the prose too far (RAG review, 13 Oct: "make it
+     * bigger slightly").
+     */
+    even?: boolean;
   };
 }
 
@@ -251,6 +294,17 @@ export default function Overview({
   const showImage = Boolean(image) && !asideStats;
   /** Whether the heading/prose share a row with something to their right. */
   const twoColumn = showImage || asideStats;
+  /**
+   * The claim list joins the left column when the right-hand block is meant
+   * to run its whole height — the stats panel, or an `image.column` frame,
+   * which otherwise stopped at the prose and left the list beside empty
+   * ground (MERN review, 13 Oct: "resize the image to match the section") —
+   * or to sit centred against it (`image.align: "center"`), so the image
+   * centres on the whole block, list included, rather than on the prose
+   * above it (Logistics/Telecom review: "center align the image").
+   */
+  const pointsInColumn =
+    asideStats || (showImage && Boolean(image?.column || image?.align === "center"));
 
   /** The claim list, rendered either inside the left column or below the grid. */
   const pointsList =
@@ -320,21 +374,41 @@ export default function Overview({
       {!twoColumn && <SectionHead kicker={content.eyebrow} title={content.title} />}
 
       <FadeUp>
-        <div className={twoColumn ? styles.overviewGrid : undefined}>
+        <div
+          className={
+            twoColumn
+              ? showImage && image?.wide
+                ? `${styles.overviewGrid} ${styles.overviewGridWideImage}`
+                : showImage && image?.even
+                  ? `${styles.overviewGrid} ${styles.overviewGridEven}`
+                  : styles.overviewGrid
+              : undefined
+          }
+        >
           <div>
             {twoColumn && <SectionHead kicker={content.eyebrow} title={content.title} />}
 
             {prose}
 
-            {asideStats && pointsList}
+            {pointsInColumn && pointsList}
           </div>
 
           {showImage && image && (
             <figure
-              className={
-                image.fit === "contain"
-                  ? `${styles.overviewMedia} ${styles.overviewMediaContain}`
-                  : styles.overviewMedia
+              className={[
+                styles.overviewMedia,
+                image.fit === "contain" ? styles.overviewMediaContain : "",
+                image.fit === "cutout" ? styles.overviewMediaCutout : "",
+                image.aspect ? styles.overviewMediaFixed : "",
+                image.column ? styles.overviewMediaColumn : "",
+                image.align === "center" ? styles.overviewMediaCenter : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              style={
+                image.aspect
+                  ? ({ "--overview-media-aspect": image.aspect } as CSSProperties)
+                  : undefined
               }
             >
               <Image
@@ -352,11 +426,12 @@ export default function Overview({
           {asideStats && <div className={styles.overviewStatsAside}>{statsPanel}</div>}
         </div>
 
-        {/* With the counters beside the copy the points move up into the left
-            column (see above), so the row is the whole block and the panel
-            centres against all of it rather than leaving the column empty
-            under itself. Everywhere else they stay here, below the grid. */}
-        {!asideStats && pointsList}
+        {/* With the counters (or a full-height `image.column` frame) beside the
+            copy the points move up into the left column (see above), so the
+            row is the whole block and the right-hand side matches all of it
+            rather than leaving the column empty under itself. Everywhere else
+            they stay here, below the grid. */}
+        {!pointsInColumn && pointsList}
         {content.cta &&
           (content.ctaAlign === "center" ? (
             <div className={styles.overviewCtaCenter}>

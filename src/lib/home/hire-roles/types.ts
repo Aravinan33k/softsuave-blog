@@ -27,6 +27,7 @@ import type { OverviewContent } from '@/components/generative-ai/overview';
 import type { ServicesContent } from '@/components/generative-ai/services';
 import type { CardGridContent } from '@/components/generative-ai/industries';
 import type { ProblemsContent } from '@/components/generative-ai/problems';
+import type { FitTableContent } from '@/components/generative-ai/fit-table';
 import type { ComparisonContent } from '@/components/generative-ai/comparison';
 import type { ProcessContent } from '@/components/generative-ai/process';
 import type { IntegrationContent } from '@/components/generative-ai/integration';
@@ -87,6 +88,15 @@ export type HireBand =
 export interface HireListBand extends TechStackContent {
   /** Names this band in `order` as `list:<key>`. Unique within the page. */
   readonly key: string;
+  /**
+   * `tiles` renders the labels as the card grid's badge-and-name tiles rather
+   * than a row of chips (QA review: "Need to change this section design").
+   */
+  readonly display?: 'tiles';
+  /** Icon key per label, for `tiles` — see `CARD_ICON_KEYS`. Unlisted labels pick from their words. */
+  readonly tileIcons?: Readonly<Record<string, string>>;
+  /** Optional button under the band, as the live page runs one. */
+  readonly cta?: { readonly label: string; readonly href: string };
 }
 
 export interface HireRolePageContent {
@@ -140,6 +150,12 @@ export interface HireRolePageContent {
    * decision table. Omitted on roles whose live page has none.
    */
   readonly fit?: ProblemsContent;
+  /**
+   * The same band as a plain table, for the pages whose live decision table
+   * has three columns — the selector above can only show two. Rendered at the
+   * `fit` position in `order`, in place of `fit`.
+   */
+  readonly fitTable?: FitTableContent;
   /**
    * What the role can own, as the centre-focused carousel. Optional: several of
    * the live pages carry only one "what you can hire" section, and where that
@@ -207,6 +223,14 @@ export interface HireRolePageContent {
   readonly caseStudies?: WorkCarouselContent;
   /** This role's stack, rendered through the homepage's technology band. */
   readonly techStack?: TechStackContent;
+  /** Render the stack's logos at the Custom AI page's larger size. */
+  readonly techStackLargeLogos?: boolean;
+  /**
+   * `rows` renders the stack as the Android page's labelled rows (the
+   * homepage's band, held static) instead of the grouped panels (QA review:
+   * "Powerful Tools and Technologies ... need to change the design").
+   */
+  readonly techStackStyle?: 'rows';
   /**
    * Further label-only bands, each placed by `order` as `list:<key>`.
    *

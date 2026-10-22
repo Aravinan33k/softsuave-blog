@@ -24,8 +24,9 @@
    SECTION SHELL + MASTHEAD
    ============================================================ */
 
+/* Band padding and masthead gap: the shared section rhythm (home.css). */
 .shell {
-  padding: clamp(52px, 6vw, 104px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
   position: relative;
 }
 
@@ -37,7 +38,7 @@
   gap: clamp(14px, 2vw, 28px);
   padding-top: clamp(16px, 2vw, 26px);
   border-top: 1px solid var(--line);
-  margin-bottom: clamp(30px, 4vw, 60px);
+  margin-bottom: var(--section-head-gap);
 }
 
 /* From 900px a head with an intro splits the way the homepage's Clients band
@@ -64,6 +65,10 @@
   }
 
   .head > :nth-child(2) {
+    /* Readable measure (800px), held to the END of its column: on a wide
+       screen the intro and its rule close on the frame's right edge with
+       every other band instead of stopping short of it (16 Oct, 1920px). */
+    justify-self: end;
     align-self: stretch;
     display: flex;
     align-items: center;
@@ -72,24 +77,18 @@
   }
 }
 
+/* Section eyebrow: Inter since 16 Oct (`--font-section-label` in home.css). */
 .kicker,
 .kickerDark {
   display: inline-flex;
   align-items: center;
   gap: 0.6em;
-  font-family: var(--font-eyebrow);
+  font-family: var(--font-section-label);
+  font-weight: var(--section-label-weight);
   font-size: clamp(10px, 0.78vw, 12px);
   text-transform: uppercase;
-  letter-spacing: 0.28em;
+  letter-spacing: var(--section-label-tracking);
   color: var(--muted);
-}
-
-.kicker::before,
-.kickerDark::before {
-  content: "";
-  width: 26px;
-  height: 1px;
-  background: var(--accent);
 }
 
 /* Light/cream bands need the darker label colour — the homepage's
@@ -126,7 +125,7 @@
 
 .hero {
   position: relative;
-  padding: calc(clamp(96px, 13vh, 168px) + 40px) var(--gutter) clamp(48px, 6vw, 96px);
+  padding: calc(clamp(96px, 13vh, 168px) + 40px) var(--gutter) var(--section-y);
   display: grid;
   gap: clamp(36px, 5vw, 72px);
 }
@@ -198,7 +197,7 @@
   align-items: center;
   gap: 0.6em;
   padding: 0.85em 1.6em;
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   border: 1px solid var(--line);
   font-family: var(--font-eyebrow);
   font-size: clamp(10px, 0.8vw, 12px);
@@ -468,9 +467,8 @@
   min-height: clamp(320px, 42vw, 460px);
   padding: clamp(18px, 2vw, 28px);
   /* Each card is a hash target for the nav's Industries panel
-     (`/industries#sector-<key>`). Without this the native hash scroll puts the
-     card's top edge at the viewport top, under the fixed bar. */
-  scroll-margin-top: clamp(104px, 12vh, 136px);
+     (`/industries#sector-<key>`); the root's `scroll-padding-top` (home.css)
+     lands it clear of the fixed bar. */
   overflow: hidden;
   border-radius: 14px;
   border: 1px solid var(--line);
@@ -491,6 +489,16 @@
    taller than the numeral it replaced. */
 .sectorFlat .sectorBody {
   padding-top: calc(36px + clamp(12px, 1.2vw, 16px));
+}
+
+/* The photo cards need the same clearance (BUG-023). Their copy is pinned to
+   the card's foot, which hides the problem while it is short — but on a
+   narrow phone the tagline, body and chips wrap long enough to fill the card,
+   and the title then slid up under the badge (6 of 7 cards at 320px, Telecom
+   up to 768px). As a margin it is only a floor: short copy still sits at the
+   foot, and long copy grows the card instead of reaching the badge. */
+.sectorMediaCard .sectorBody {
+  margin-top: calc(36px + clamp(12px, 1.2vw, 16px));
 }
 
 .sectorCard:hover {
@@ -960,7 +968,7 @@
   align-items: center;
   gap: 0.5em;
   padding: 0.7em 1.15em;
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   border: 1px solid var(--line);
   font-family: var(--font-eyebrow);
   font-size: clamp(9px, 0.72vw, 11px);
@@ -989,7 +997,7 @@
 .closing {
   position: relative;
   overflow: hidden;
-  padding: clamp(64px, 9vw, 140px) var(--gutter);
+  padding: calc(var(--section-y) * 1.5) var(--gutter);
   isolation: isolate;
   /* Literal rather than `var(--bg)`: this panel stays dark whichever band
      precedes it, so it must not follow the surface tokens. Same reason the
@@ -1154,4 +1162,57 @@
   .ledgerRowWide {
     grid-template-columns: 4rem minmax(0, 0.95fr) minmax(0, 1.5fr);
   }
+}
+
+/* ============================================================
+   HERO ENTRANCE — in CSS, from the first paint (15 Oct, PageSpeed)
+   hero.tsx's former GSAP timeline, value for value (delays include its 0.15s
+   start; `--i` is each item's index). At hydration it re-hid copy already on
+   screen, so the page's main content (LCP) only counted once every script had
+   loaded. Fades start at 0.01 — Chrome never counts what first paints at
+   opacity 0 — move with `translate` (composes with the frames' own
+   transforms) and fill `backwards`, so nothing lingers once each lands.
+   ============================================================ */
+@keyframes heroRise {
+  from {
+    opacity: 0.01;
+    translate: 0 var(--rise, 20px);
+  }
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0.01;
+  }
+}
+
+.hero .heroLine {
+  --rise: 40%;
+  animation: heroRise 0.9s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+  animation-delay: calc(0.25s + var(--i, 0) * 0.09s);
+}
+
+.hero .heroBody {
+  --rise: 20px;
+  animation: heroRise 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.69s backwards;
+}
+
+.hero .heroAside {
+  --rise: 16px;
+  animation: heroRise 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.94s backwards;
+}
+
+.hero .heroCtas {
+  --rise: 16px;
+  animation: heroRise 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.14s backwards;
+}
+
+.hero .heroFrame {
+  --rise: 34px;
+  animation: heroRise 0.9s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+  animation-delay: calc(0.35s + var(--i, 0) * 0.08s);
+}
+
+.hero .heroPlate {
+  animation: heroFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.34s backwards;
 }

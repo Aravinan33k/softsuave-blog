@@ -22,6 +22,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import type { FinalCtaContent } from "@/components/landing/final-cta";
 import type { TestimonialsContent } from "@/components/landing/testimonials";
+import { CLIENTS_PLUS, COUNTRIES_PLUS, FIGURES, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const caMeta = {
   slug: "custom-ai-development-services",
@@ -32,8 +33,9 @@ export const caMeta = {
 } as const;
 
 export const caHero: HeroContent = {
-  // The last line takes the coral accent.
+  // 7 Oct review: "Highlight 'Custom AI' in the h1".
   titleLines: ["Custom AI Development", "Services"],
+  accent: "Custom AI",
   body: [
     "Build custom AI solutions around your business data, workflows, and goals, taking your idea from proof of concept to secure, production-ready deployment.",
     "From strategy to ongoing optimization, every step is built around how your business actually works.",
@@ -43,7 +45,7 @@ export const caHero: HeroContent = {
     "25× AI-Accelerated Delivery",
     "ISO-Certified Processes",
     "Flexible Engagement Models",
-    "13+ Years of Tech Expertise",
+    `${YEARS_PLUS} Years of Tech Expertise`,
   ],
   // The four partner lockups as artwork, like every other hero on the
   // surface — the review asked for the image badges here, not text tags.
@@ -52,7 +54,7 @@ export const caHero: HeroContent = {
     eyebrow: "Business Enquiry",
     title: "Get a custom AI project estimate",
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What do you want to build?",
     requirementPlaceholder:
       "The problem, the data you have, the systems it needs to touch, and what a good outcome looks like.",
@@ -74,12 +76,12 @@ export const caHero: HeroContent = {
 export const caClients = {
   eyebrow: "Our Clients",
   title: "Trusted by teams running AI in production",
-  body: "Thirteen years of delivery across 21+ countries, with AI and engineering teams that scale with the work.",
+  body: `${FIGURES.years} years of delivery across ${COUNTRIES_PLUS} countries, with AI and engineering teams that scale with the work.`,
   proof: [
-    { value: "150+", label: "Global Clients" },
-    { value: "21+", label: "Countries" },
-    { value: "400+", label: "AI & Engineering Specialists" },
-    { value: "13+", label: "Years of Experience" },
+    { value: `${CLIENTS_PLUS}`, label: "Global Clients" },
+    { value: `${COUNTRIES_PLUS}`, label: "Countries" },
+    { value: `${SPECIALISTS_PLUS}`, label: "AI & Engineering Specialists" },
+    { value: `${YEARS_PLUS}`, label: "Years of Experience" },
   ],
   logoSlots: 6,
 } as const;
@@ -109,6 +111,7 @@ export const caOfferings: ServicesContent = {
   items: [
     {
       name: "Generative AI Development",
+      href: "/generative-ai-development-company",
       body: "Build custom Generative AI solutions using LLMs to create and transform content, code, and images, supporting copilots, automation, and enterprise applications tailored to specific business needs and workflows at scale.",
       // Hand-placed assets (not the Pexels pipeline) — filenames name the card
       // they belong to.
@@ -121,6 +124,7 @@ export const caOfferings: ServicesContent = {
     },
     {
       name: "Agentic AI Development",
+      href: "/agentic-ai-development-services",
       body: "Develop Agentic AI solutions that enable autonomous, multi-step workflows with tool use, helping systems plan, reason, act, and coordinate tasks across business applications while maintaining human oversight and operational control.",
       image: {
         src: "/images/four/ajentic.jpg",
@@ -131,6 +135,7 @@ export const caOfferings: ServicesContent = {
     },
     {
       name: "RAG and Document AI Solutions",
+      href: "/rag-development-services",
       body: "Create RAG and Document AI solutions for retrieval, knowledge access, and document extraction, helping teams find trusted answers, process information, and automate document-heavy workflows securely across enterprise systems and applications.",
       image: {
         src: "/images/four/rag.png",
@@ -141,6 +146,7 @@ export const caOfferings: ServicesContent = {
     },
     {
       name: "Computer Vision Development",
+      href: "/computer-vision-development-services",
       body: "Build Computer Vision solutions for detection, OCR, video analysis, and visual inspection, helping businesses recognize patterns, monitor operations, identify anomalies, and improve quality across real-world environments and workflows at scale.",
       image: {
         src: "/images/four/vision.webp",
@@ -151,6 +157,7 @@ export const caOfferings: ServicesContent = {
     },
     {
       name: "Predictive Intelligence Solutions",
+      href: "/predictive-intelligence-services",
       body: "Develop Predictive Intelligence solutions for forecasting, anomaly detection, and recommendations, using historical and real-time data to anticipate outcomes, identify risks, optimize planning, and support smarter decisions across business operations effectively.",
       image: {
         src: "/images/four/predective.jpg",
@@ -169,14 +176,13 @@ export const caOfferings: ServicesContent = {
 export const caComparison = {
   eyebrow: "Decide With Clarity",
   title: "Custom AI Solutions vs. Off-the-Shelf AI Tools",
-  body: "Off-the-shelf AI tools suit standard needs and quick deployment, while custom AI solutions support tailored workflows, proprietary data, deeper integrations, control, and scalability.",
+  // Verbatim from Custom_AI_Development_Services_Content.md, closing sentence
+  // included (1 Oct review: "need to update the subtext (one line missing)").
+  // The table has no closing note: the "Custom is the answer when…" line under
+  // it was not in the content doc and is gone (same review: "additional text at
+  // the end of the bottom (need to remove it)").
+  body: "Off-the-shelf AI tools suit standard needs and quick deployment, while custom AI solutions support tailored workflows, proprietary data, deeper integrations, control, and scalability. The table below compares both options.",
   columns: { area: "Comparison Area", custom: "Custom AI Solutions", offTheShelf: "Off-the-Shelf AI Tools" },
-  /* Closes the table. Says what the eight rows add up to WITHOUT overclaiming
-     — off-the-shelf genuinely wins on speed to deploy, which the table's own
-     "Implementation" row states, so the note concedes it rather than pretending
-     the comparison is one-sided. */
-  verdictNote:
-    "Custom is the answer when the requirement is unique to your business, your data, or your systems. Where the need is common and speed matters more than fit, an off-the-shelf tool will get you there sooner.",
   rows: [
     {
       area: "Customization",
@@ -230,10 +236,10 @@ export const caApproachCta: CtaBandContent = {
 export const caWhyUs: CardGridContent = {
   eyebrow: "Why Soft Suave",
   title: "Why Choose Soft Suave for AI Development",
-  body: "Soft Suave is a reliable custom AI development company helping businesses turn complex AI ideas into secure, scalable solutions built around real operational needs and measurable outcomes. Here are a few reasons why 150+ clients have chosen to work with us.",
+  body: `Soft Suave is a reliable custom AI development company helping businesses turn complex AI ideas into secure, scalable solutions built around real operational needs and measurable outcomes. Here are a few reasons why ${CLIENTS_PLUS} clients have chosen to work with us.`,
   items: [
     {
-      name: "13+ Years of Technology Expertise",
+      name: `${YEARS_PLUS} Years of Technology Expertise`,
       body: "Over a decade of software development experience gives our AI team the engineering discipline needed to build reliable, production-grade systems.",
     },
     {
@@ -242,7 +248,7 @@ export const caWhyUs: CardGridContent = {
     },
     {
       name: "Global Delivery Experience",
-      body: "We have delivered AI and software projects for clients across 20+ countries, adapting to different time zones and business requirements.",
+      body: `We have delivered AI and software projects for clients across ${COUNTRIES_PLUS} countries, adapting to different time zones and business requirements.`,
     },
     {
       name: "Measurable Business Value",
@@ -336,7 +342,7 @@ export const caIndustries: CardGridContent = {
       body: "Personalize digital learning through adaptive learning and AI tutors that guide students, support educators, improve engagement, and create more responsive learning experiences at scale globally.",
     },
     {
-      name: "eCommerce",
+      name: "E-commerce",
       body: "Increase conversions and planning accuracy with recommendations and forecasting that personalize shopping, predict demand, improve inventory decisions, and strengthen performance across digital channels at scale.",
     },
     {
@@ -417,19 +423,19 @@ export const caFaqs: FaqContent = {
   items: [
     {
       q: "Why work with a custom AI development company in India?",
-      a: "India gives you access to a deep AI engineering talent pool at 40–60% below equivalent US or EU rates, which is why a large share of global AI delivery runs from here. We work from development centres in Chennai and Bangalore with a US office, maintain a 4–6 hour overlap with US and EU teams, and have delivered software for global clients for over 13 years. Engagement terms, security controls, and delivery milestones are agreed in writing before work starts.",
+      a: `India gives you access to a deep AI engineering talent pool at 40–60% below equivalent US or EU rates, which is why a large share of global AI delivery runs from here. We work from development centres in Chennai and Bangalore with a US office, maintain a 4–6 hour overlap with US and EU teams, and have delivered software for global clients for over ${FIGURES.years} years. Engagement terms, security controls, and delivery milestones are agreed in writing before work starts.`,
     },
     {
       q: "How much does it cost to build an AI solution with a team in India?",
       a: "AI development in India typically costs 40–60% less than equivalent US or EU rates, which is the main reason global teams build here. Beyond location, four factors move the price: project complexity, model selection, the state of your data, and the engagement model you choose. Because those vary sharply between projects, we give you a realistic figure rather than a range that fits nobody.",
-      link: { label: "Get a rough quote in 24 hours", href: "https://www.softsuave.com/free-quote" },
+      link: { label: "Get a rough quote in 24 hours", href: "/free-quote" },
     },
     {
       q: "How long does it take to develop a production-ready AI solution?",
       a: "It depends on your data and integration needs, so we structure it in stages rather than guessing upfront. Discovery maps the use case and validates your data. A POC then proves one high-value case against defined KPIs. Only after that do we commit to a full build timeline, because by then we know what the data can actually support. Timelines stretch most when data needs cleaning or labeling, or when compliance review is involved.",
       link: {
         label: "Talk to our experts",
-        href: "https://www.softsuave.com/30-min-free-consultation",
+        href: "/30-min-free-consultation",
         tail: "for an estimate against your specific use case.",
       },
     },

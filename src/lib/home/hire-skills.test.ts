@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { HIRE_PATHS, HIRE_SKILLS, hireSkill } from './hire-skills';
 import { LANDING_PAGES } from './landing-pages';
+import { HIRE_SKILL_ROUTES } from './hire-skill-routes';
 import type { HireBand } from './hire-skill';
 import { HIRE_CLIENT_LOGOS, HIRE_CLOSING_BAND } from './hire-blocks';
 import { finalCta } from './content';
@@ -54,6 +55,16 @@ describe('hire skill registry', () => {
     for (const path of HIRE_PATHS) {
       expect(registered.has(path), `${path} missing from LANDING_PAGES`).toBe(true);
     }
+  });
+
+  it('keeps the light route list (nav, breadcrumb) in step with the registry', () => {
+    expect(HIRE_SKILL_ROUTES).toEqual(
+      HIRE_SKILLS.map((s) => ({
+        path: `/${s.slug}`,
+        title: s.metaTitle,
+        crumb: s.breadcrumbLabel ?? `Hire ${s.role}`,
+      })),
+    );
   });
 });
 
@@ -216,7 +227,7 @@ describe('hire page copy', () => {
       expect(skill.hero.titleLines.length, skill.slug).toBe(2);
       expect(skill.hero.body.length, skill.slug).toBeGreaterThanOrEqual(2);
       expect(skill.hero.points.length, skill.slug).toBeGreaterThanOrEqual(4);
-      expect(skill.hero.form.title, skill.slug).toBe('Get Skilled Remote Developers');
+      expect(skill.hero.form?.title, skill.slug).toBe('Get Skilled Remote Developers');
     }
   });
 
@@ -229,7 +240,10 @@ describe('hire page copy', () => {
 
   it('points every hero image at a real asset path', () => {
     for (const skill of HIRE_SKILLS) {
-      expect(skill.hero.image?.src, skill.slug).toMatch(/^\/images\/four\/[\w.-]+$/);
+      // The hire-by-skill review gave every page its own photo under
+      // /images/landing; the file must exist, or the hero renders a broken image.
+      expect(skill.hero.image?.src, skill.slug).toMatch(/^\/images\/landing\/[\w.-]+$/);
+      expect(existsSync(join(process.cwd(), 'public', skill.hero.image!.src)), skill.slug).toBe(true);
       expect(skill.hero.image?.alt.length ?? 0, skill.slug).toBeGreaterThan(20);
     }
   });

@@ -27,6 +27,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
+import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const frontend: HireRolePageContent = {
   key: 'hire-frontend',
@@ -52,13 +53,14 @@ export const frontend: HireRolePageContent = {
   ],
 
   meta: {
-    title: 'Hire Frontend Developers From $14/Hour | 40-Hour Trial',
+    title: `Hire Frontend Developers From ${HOURLY_RATE} | 40-Hour Trial`,
     description:
       'Hire frontend developers skilled in React, Angular, Vue.js, Next.js, and TypeScript. Evaluate matched talent through a 40-hour risk-free trial.',
   },
 
   hero: {
     titleLines: ['Hire Frontend Developers', 'for Modern Web Applications'],
+    accent: 'Frontend Developers',
     body: [
       'Add experienced front end developers to your product team for new interface development, modernization, performance improvement, and ongoing feature delivery. Our developers work across React, Angular, Vue.js, Next.js, JavaScript, and TypeScript while fitting into your existing tools, standards, and sprint routines.',
       'Share your frontend requirements, review matched developers, and assess practical work through a 40-hour risk-free trial before making a commitment.',
@@ -67,13 +69,15 @@ export const frontend: HireRolePageContent = {
       src: '/images/landing/hire-roles/hire-frontend-developer-cover.webp',
       blurDataURL:
         'data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADwAQCdASoQAAgAA4BaJbACdADRk42YpgAA/vMNaj+rXs0c4fzYGrlDF0eR0iic+gMwPdFU3VEiSdxrjx99mEWCUIUOS90l5UcqaF8GYerQNCAA',
+      // Review: "increase the black gradient ... the text is not clearly visible".
+      veil: 'strong',
     },
     points: [
       'Vetted Talent On Contract',
       'React, Angular & Vue.js Skills',
       'Direct Developer Collaboration',
       'Flexible Engagement Models',
-      '400+ AI & Engineering Specialists',
+      `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     ],
     form: heroForm({
       title: 'Get Skilled Remote Developers',
@@ -85,13 +89,24 @@ export const frontend: HireRolePageContent = {
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: '/images/landing/ov-hire-frontend-application-developer-tall.webp',
+      width: 1000,
+      height: 1250,
+      alt: 'Frontend developer designing a web interface',
+      blurDataURL:
+        'data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAABwAQCdASoQAAsAA4BaJZVefAHJgAD+80KUupaBYIFis8C3qB9ioAAA',
+      fit: 'column',
+    },
     eyebrow: 'Overview',
     title: 'Why Hire a Frontend Developer for Your Product Team?',
     paragraphs: [
       'Frontend developers build and maintain the user-facing parts of websites and web applications. Their work includes creating interfaces, developing reusable components, integrating APIs, supporting responsive experiences, and improving frontend performance.',
       'You should hire a frontend developer when your team needs additional delivery capacity, specialized framework knowledge, help modernizing an existing interface, or continued support for a growing product. The developer can work independently or collaborate with designers, backend engineers, QA specialists, and product managers.',
       'Soft Suave provides front end developers for hire across React, Angular, Vue.js, Next.js, JavaScript, and TypeScript requirements. Developers join your existing tools and processes, including source control, sprint planning, code review, testing, documentation, and deployment workflows.',
-      'Our developer rates start at $14 per hour and vary by skill, experience, engagement model, and project requirements.',
+      `Our developer rates start at ${HOURLY_RATE} and vary by skill, experience, engagement model, and project requirements.`,
     ],
   },
 
@@ -102,79 +117,90 @@ export const frontend: HireRolePageContent = {
     items: [
       {
         name: 'Custom Interface Development',
-        body: 'Develop user-facing interfaces for SaaS products, dashboards, portals, ecommerce platforms, internal systems, and other web applications using reusable components and established frontend architecture.',
-        image: '/images/landing/services/svc-application-development.webp',
+        body: 'Develop user-facing interfaces for SaaS products, dashboards, portals, e-commerce platforms, internal systems, and other web applications using reusable components and established frontend architecture.',
+        image: '/images/landing/hr-fe-cap-interface.webp',
       },
       {
         name: 'Design-to-Code Implementation',
         body: 'Convert approved designs into responsive interfaces while maintaining visual consistency, reusable patterns, accessibility considerations, browser compatibility, and alignment with the intended user journey.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        image: '/images/landing/hr-fe-cap-design-to-code.webp',
       },
       {
         name: 'Component and Design Systems',
         body: 'Create and maintain reusable component libraries that support consistent behavior across screens, reduce duplicated implementation, and make future interface changes easier to manage.',
-        image: '/images/landing/services/svc-dedicated-teams.webp',
+        image: '/images/landing/hr-fe-cap-components.webp',
       },
       {
         name: 'API and Backend Integration',
         body: 'Connect frontend applications with REST and GraphQL APIs, authentication services, backend workflows, and third-party platforms while managing loading states, errors, permissions, and application data.',
-        image: '/images/landing/services/svc-integration.webp',
+        image: '/images/landing/hr-fe-cap-api.webp',
       },
       {
         name: 'Frontend Modernization',
         body: 'Replace outdated interface patterns, migrate legacy code incrementally, introduce modern frameworks, improve component structure, and add testing without unnecessarily rebuilding the entire application.',
-        image: '/images/landing/services/svc-product-modernisation.webp',
+        image: '/images/landing/hr-fe-cap-modernization.webp',
       },
       {
         name: 'Performance, Testing and Maintenance',
         body: 'Improve rendering, bundle size, responsive behavior, Core Web Vitals, and browser compatibility while using tools such as Jest, Cypress, or Playwright to protect important workflows.',
-        image: '/images/landing/services/svc-support-optimisation.webp',
+        image: '/images/landing/hr-fe-cap-performance.webp',
       },
     ],
   },
 
-  fit: {
+  // The live page's three-column table, as a table (review: "Skill Matching
+  // ... it is a table with 3 columns"), with the paragraph it closes on.
+  fitTable: {
     eyebrow: 'Skill Matching',
     title: 'Find the Frontend Skills Your Product Requires',
     body: 'The right framework is only one part of the decision. Product type, existing architecture, user workflows, testing expectations, performance requirements, and team structure should also guide developer matching.',
-    columns: ['Product Need', 'Suitable Frontend Skills'],
+    columns: ['Product Need', 'Suitable Frontend Skills', 'What to Evaluate'],
     rows: [
       {
-        problem: 'SaaS product interface',
-        solution:
-          'React, Next.js, TypeScript, state management. Evaluate component structure and maintainability.',
-        image: '/images/landing/services/svc-application-development.webp',
+        head: 'SaaS product interface',
+        cells: [
+          'React, Next.js, TypeScript, state management',
+          'Component structure and maintainability',
+        ],
       },
       {
-        problem: 'Enterprise dashboard',
-        solution:
-          'Angular, TypeScript, data visualization. Evaluate complex state and workflow handling.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        head: 'Enterprise dashboard',
+        cells: [
+          'Angular, TypeScript, data visualization',
+          'Complex state and workflow handling',
+        ],
       },
       {
-        problem: 'Customer portal',
-        solution:
-          'React or Vue.js, API integration. Evaluate authentication and responsive behavior.',
-        image: '/images/landing/services/svc-dedicated-teams.webp',
+        head: 'Customer portal',
+        cells: [
+          'React or Vue.js, API integration',
+          'Authentication and responsive behavior',
+        ],
       },
       {
-        problem: 'Ecommerce interface',
-        solution:
-          'React, Next.js, performance optimization. Evaluate product discovery, checkout and Core Web Vitals.',
-        image: '/images/landing/services/svc-proof-of-concept.webp',
+        head: 'E-commerce interface',
+        cells: [
+          'React, Next.js, performance optimization',
+          'Product discovery, checkout and Core Web Vitals',
+        ],
       },
       {
-        problem: 'Legacy modernization',
-        solution:
-          'Modern frameworks, testing, migration planning. Evaluate incremental migration and regression control.',
-        image: '/images/landing/services/svc-product-modernisation.webp',
+        head: 'Legacy modernization',
+        cells: [
+          'Modern frameworks, testing, migration planning',
+          'Incremental migration and regression control',
+        ],
       },
       {
-        problem: 'Design-system implementation',
-        solution:
-          'Component libraries and accessibility. Evaluate consistency, documentation and reusable patterns.',
-        image: '/images/landing/services/svc-model-selection.webp',
+        head: 'Design-system implementation',
+        cells: [
+          'Component libraries and accessibility',
+          'Consistency, documentation and reusable patterns',
+        ],
       },
+    ],
+    after: [
+      'Your matched developer should understand both the technology and the work around it. That may include collaborating with designers, consuming backend APIs, reviewing existing code, following release processes, and maintaining functionality while the interface evolves.',
     ],
   },
 
@@ -295,12 +321,12 @@ export const frontend: HireRolePageContent = {
       },
       {
         key: 'specialists',
-        name: '400+ AI & Engineering Specialists',
+        name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
         body: 'Access broader engineering expertise when frontend delivery requires support across connected technical disciplines.',
       },
       {
         key: 'experience',
-        name: '13+ Years of Technology Expertise',
+        name: `${YEARS_PLUS} Years of Technology Expertise`,
         body: 'Work with an experienced engineering partner across development, modernization, maintenance, and changing technical requirements.',
       },
       {
@@ -414,7 +440,7 @@ export const frontend: HireRolePageContent = {
       },
       {
         q: 'How much does it cost to hire frontend developers?',
-        a: 'Our developer rates start at $14 per hour and vary by skill, experience, engagement model, and project requirements. Framework specialization, application complexity, architecture ownership, testing responsibilities, integration requirements, and engagement duration can all influence the applicable rate.',
+        a: `Our developer rates start at ${HOURLY_RATE} and vary by skill, experience, engagement model, and project requirements. Framework specialization, application complexity, architecture ownership, testing responsibilities, integration requirements, and engagement duration can all influence the applicable rate.`,
       },
       {
         q: 'Can frontend developers work with our backend team?',

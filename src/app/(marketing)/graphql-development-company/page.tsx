@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import { gqFaqLd, gqServiceLd, gqWebPageLd } from '@/lib/seo/graphql-development-company';
 import {
@@ -36,6 +36,7 @@ import Clients from '@/components/home/clients';
 import TechStack from '@/components/home/tech-stack';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -70,7 +71,7 @@ export const revalidate = 300;
 // A 1200×630 crop of the page's resolver-code artwork, served from the exact
 // path the schema spec names, so the Service `image`, the WebPage
 // `primaryImageOfPage` and the og:image are one file.
-const ogImage = absoluteUrl('/path-to-final-graphql-og-image.webp');
+const ogImage = ogImageUrl('/path-to-final-graphql-og-image.webp');
 
 export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
@@ -140,9 +141,12 @@ export default function GraphQLDevelopmentCompanyPage() {
         {/* The homepage's marquee tech rows, one per group, rather than the
             landing set's static panel grid. Dark, as on the homepage;
             `.techCompact` only clears the homepage's full-viewport
-            min-height for this content-height page. */}
+            min-height for this content-height page. `loopShortRows`: rows
+            too short to overflow (Backend Platforms, DevOps and Deployment)
+            sat still while the others scrolled (13 Oct review: "last 2
+            column are not scrolling"), so they repeat their chips to fill. */}
         <div className={home.techCompact}>
-          <TechStack content={gqTech} />
+          <TechStack content={gqTech} loopShortRows />
         </div>
 
         {/* Client stories ahead of the FAQ (review: "move the testimonials
@@ -153,7 +157,7 @@ export default function GraphQLDevelopmentCompanyPage() {
           <Faq content={gqFaqs} idPrefix="gq-faq" />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer addressMicrodata={false} />

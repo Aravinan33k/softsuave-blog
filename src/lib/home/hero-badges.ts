@@ -45,6 +45,17 @@ export const partnerHeroBadges: readonly HeroBadge[] = [
   { src: "/brand/awards/aws-color.webp", alt: "AWS Partner Network", width: 1025, height: 281 },
 ] as const;
 
+/**
+ * `sizes` for a badge drawn at the heroes' badge height (`.badgeLogoImg`: at
+ * most 24px tall, width following the aspect). Without it `next/image` sized
+ * the request by the intrinsic width — a 1,080px or 3,840px file, 40–50 KB,
+ * for a mark 50–90px wide; four of them loading with the hero on a phone
+ * (PageSpeed, 15 Oct). With it the browser takes a 128–256px rendition.
+ */
+export function heroBadgeSizes(badge: HeroBadge, height = 24): string {
+  return `${Math.ceil((height * badge.width) / badge.height)}px`;
+}
+
 /** Narrowing helper for heroes that accept both forms in one list. */
 export function isHeroBadge(badge: string | HeroBadge): badge is HeroBadge {
   return typeof badge !== "string";

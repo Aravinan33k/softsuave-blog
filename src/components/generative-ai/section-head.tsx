@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import SplitReveal from "@/components/home/split-reveal";
 import styles from "./gen-ai.module.css";
 
@@ -22,7 +23,8 @@ export default function SectionHead({
 }: {
   kicker?: string;
   title: string;
-  intro?: string;
+  /** Usually a string; a node when the intro carries inline links. */
+  intro?: ReactNode;
 }) {
   return (
     <div className={styles.head}>
@@ -32,7 +34,14 @@ export default function SectionHead({
           {title}
         </SplitReveal>
       </div>
-      {intro && <p className={styles.intro}>{intro}</p>}
+      {/* One child for the split head's centring flex box: bare, an intro that
+          carries a link became three flex items — text, link, text — set side
+          by side as columns (hire-by-role review: "major ui issue"). */}
+      {intro && (
+        <p className={styles.intro}>
+          <span>{intro}</span>
+        </p>
+      )}
     </div>
   );
 }

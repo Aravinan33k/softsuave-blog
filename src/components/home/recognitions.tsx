@@ -34,7 +34,7 @@ import styles from "./home.module.css";
  *
  * The full wall used to live here, collapsed to `height: 0` behind a "View All"
  * toggle. It has its own page now (`/awards-recognition`), so "View All" is a
- * link to it and the collapse — with the GSAP timeline that drove it — is gone.
+ * button-styled link to it and the collapse — with the GSAP timeline that drove it — is gone.
  *
  * Each badge is real directory artwork (bundled under /public/brand/awards) with
  * a white ground baked in, so it sits on a light plaque rather than being
@@ -155,18 +155,14 @@ export default function Recognitions() {
             {recognitions.title}
           </SplitReveal>
           <p className={styles.lead}>{recognitions.body}</p>
-          <Link className={styles.recogViewAll} href={recognitions.cta.href} data-cursor="Open">
+          {/* The site's orange section button (21 Oct review: was an orange
+              text link with a drawn arrow), sized like "View all Case Studies". */}
+          <Link
+            className={`${styles.pillFilled} ${styles.pillLg} ${styles.recogViewAll}`}
+            href={recognitions.cta.href}
+            data-cursor="Open"
+          >
             {recognitions.cta.label}
-            <svg viewBox="0 0 34 8" aria-hidden className={styles.recogArrow}>
-              <path
-                d="M0 4h31M27 1l4 3-4 3"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
           </Link>
         </div>
 
@@ -175,7 +171,8 @@ export default function Recognitions() {
             ref={viewport}
             className={styles.recogStrip}
             tabIndex={0}
-            role="group"
+            /* A labelled list, not role="group": that role stripped the list
+               semantics and left every <li> orphaned (Lighthouse listitem). */
             aria-label="Industry recognitions"
             /* Which edges are clipped, so the fade mask only covers an edge
                that actually has more badges behind it. */

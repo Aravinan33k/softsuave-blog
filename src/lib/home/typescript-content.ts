@@ -36,18 +36,26 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { TechStackContent } from "@/components/home/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const txMeta = {
   slug: "typescript-development-company",
   path: "/typescript-development-company",
   title: "TypeScript Development Company for Web Apps",
   description:
-    "Work with a TypeScript development company backed by 13+ years of technology expertise for application development, migration, integration, and support.",
+    `Work with a TypeScript development company backed by ${YEARS_PLUS} years of technology expertise for application development, migration, integration, and support.`,
 } as const;
 
 export const txHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["TypeScript Development Company", "for Business-Critical Applications"],
+  accent: "TypeScript",
+  // Sized to fit the copy column so each title line holds one line (13 Oct
+  // review: the H1 broke into 3-4 lines on laptops).
+  titleFit: true,
   body: [
     "As applications grow, inconsistent data handling and complex code patterns can slow development. Soft Suave is a reliable TypeScript development company that improves code structure, strengthens type safety, simplifies maintenance, and aligns implementation with your application architecture and established engineering standards.",
     "Explain your current challenges or product plans, and we will recommend a practical TypeScript development path for your application.",
@@ -199,12 +207,12 @@ export const txWhyUs: CardGridContent = {
   body: "Work with a team that understands how TypeScript decisions affect application structure, developer collaboration, API contracts, testing, and maintenance across frontend and backend systems throughout an evolving long-term product lifecycle.",
   items: [
     {
-      name: "13+ Years Supporting Technology Delivery",
-      body: "Use 13+ years of technology expertise when planning and delivering TypeScript application work.",
+      name: `${YEARS_PLUS} Years Supporting Technology Delivery`,
+      body: `Use ${YEARS_PLUS} years of technology expertise when planning and delivering TypeScript application work.`,
     },
     {
-      name: "400+ AI & Engineering Specialists",
-      body: "Reach 400+ AI & Engineering Specialists for additional frontend, backend, data, cloud, or testing knowledge.",
+      name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+      body: `Reach ${SPECIALISTS_PLUS} AI & Engineering Specialists for additional frontend, backend, data, cloud, or testing knowledge.`,
     },
     {
       name: "Support for Gradual TypeScript Adoption",

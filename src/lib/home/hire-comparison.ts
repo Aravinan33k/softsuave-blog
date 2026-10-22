@@ -27,13 +27,21 @@ const ROWS: ComparisonContent["rows"] = [
 ];
 
 /**
+ * The intro the live pages run over this table when they have no wording of
+ * their own — Angular, Node, NestJS, Ionic and React Native all carry it
+ * verbatim (hire-by-skill review: "subtext is missing").
+ */
+export const PARTNER_TABLE_INTRO =
+  "Should you use an in-house team, hire a freelancer, or utilize developers from Soft Suave? Learn the best choice by reading this comparison chart";
+
+/**
  * The standard partner table under this page's own heading.
  *
- * `body` is optional because most live pages run this section with a heading
- * and no intro paragraph; passing one that the page does not have would be
- * copy we wrote.
+ * `body` defaults to the live pages' shared intro; a page whose live table
+ * carries its own wording passes that instead. The first column is headed
+ * "Factor", as on every live table of this kind.
  */
-export function partnerTable(title: string, body = ""): ComparisonContent {
+export function partnerTable(title: string, body = PARTNER_TABLE_INTRO): ComparisonContent {
   /* `verdict` paints the Soft Suave column as the recommended option. The
      per-row tick is NOT blanket: `leadWinsRow` in the table component drops it
      on the two rows where in-house matches us ("Dedicated resources: Yes / Yes"
@@ -42,5 +50,13 @@ export function partnerTable(title: string, body = ""): ComparisonContent {
 
      No `verdictNote`: the live pages close this band on the table, and a line
      here would be copy we wrote rather than copy they publish. */
-  return { eyebrow: "Compare", title, body, columns: [...COLUMNS], rows: ROWS, verdict: true };
+  return {
+    eyebrow: "Compare",
+    title,
+    body,
+    areaLabel: "Factor",
+    columns: [...COLUMNS],
+    rows: ROWS,
+    verdict: true,
+  };
 }

@@ -60,7 +60,7 @@ export const cloudHero: HeroContent = {
     titleAs: "h2",
     alert: sharedHeroAlert,
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What do you need from the cloud?",
     requirementPlaceholder:
       "Your current infrastructure, the applications involved, what is driving the change — cost, scale, resilience — and any compliance constraints.",
@@ -79,7 +79,8 @@ export const cloudIntro: OverviewContent = {
   eyebrow: "Benefits of Cloud Computing",
   title: "Best-in-class Cloud Computing Services",
   paragraphs: [
-    "Softsuave is one of the Best cloud computing service providers in India that delivers hosted services to save cost, better scaling and access to data all around the world.",
+    // 13 Oct review: the company name as "Soft Suave" (live reads "Softsuave").
+    "Soft Suave is one of the Best cloud computing service providers in India that delivers hosted services to save cost, better scaling and access to data all around the world.",
     "To support the critical operations of your business, use cloud computing services which avail instant access to flexible and low cost IT resources. Say no to large upfront investments in hardware and start moving your data to the cloud as it acts as a virtual storage for all your data with limited investments. You can access as many resources as you require, almost rapidly, and just pay for what you use. Benefit by operating your IT services in a more simple and effective way by leveraging the cloud services.",
     "Launching a product in the market is critical in today's competitive environment. It is a must to build new, revenue-generating applications that will increase the business value. We are partnered with prominent cloud service providers which take you to the next level of your business with a wide range of services designed to help you develop the applications required to stay ahead of the curve.",
   ],

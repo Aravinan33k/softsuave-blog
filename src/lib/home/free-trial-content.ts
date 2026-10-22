@@ -9,17 +9,19 @@
  * clients, awards and testimonials bands render the homepage components'
  * own copy (which already matches the live page).
  *
- * The hero's enquiry card is the Anthropic page's (`anthropicHero.form`),
- * reused as-is rather than restated.
+ * The hero's enquiry card copy was taken from the Anthropic page's form and is
+ * written out in full below (that page is not on this branch).
  */
 
 import type { HeroContent } from "@/components/landing/hero";
 import type { ProcessContent } from "@/components/landing/process";
-import { anthropicHero } from "./anthropic-content";
+import { CLIENTS_PLUS, COUNTRIES_PLUS, SPECIALISTS_PLUS } from "@/lib/company-figures";
 
 export const freeTrialMeta = {
   path: "/free-7-days-trial",
-  title: "Book a Risk-free 40 Hours Trail to Test Our Developers | Soft Suave",
+  // The live page's <title> and description, verbatim (13 Oct review: "need
+  // to update the title and description").
+  title: "Book a Risk-free 40 Hours Trial to Test Our Developers - Soft Suave",
   description:
     "Fill the form below to book a Risk-free 7 Days Trial to test our developers.",
 } as const;
@@ -34,17 +36,17 @@ export const freeTrialHero: HeroContent = {
   points: [],
   stats: [
     {
-      title: "150+ Clients",
+      title: `${CLIENTS_PLUS} Clients`,
       body: "World wide country-focused and industry-specific AI solutions.",
       icon: "clients",
     },
     {
-      title: "400+ Experts",
+      title: `${SPECIALISTS_PLUS} Experts`,
       body: "A power-packed team of experienced AI and app developers.",
       icon: "experts",
     },
     {
-      title: "20+ Countries Served",
+      title: `${COUNTRIES_PLUS} Countries Served`,
       body: "Serving businesses worldwide with tailored AI solutions.",
       icon: "countries",
     },
@@ -61,7 +63,10 @@ export const freeTrialHero: HeroContent = {
     sending: "Sending...",
     requirementLabel: "Requirements",
     requirementPlaceholder: "Tell us about your requirements",
-    subject: "Free Consultation enquiry",
+    // Stored on the lead so the team can tell trial requests from
+    // consultation ones (it was "Free Consultation enquiry", the same as
+    // /30-min-free-consultation's).
+    subject: "40-Hour Free Trial enquiry",
   },
 };
 

@@ -43,6 +43,7 @@ import type { WorkCarouselContent } from "@/components/home/work-grid";
 import type { InlineLink } from "@/components/common/linkify";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { overviewImage } from "./overview-images";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const itoMeta = {
   slug: "it-outsourcing-company-india",
@@ -55,7 +56,9 @@ export const itoMeta = {
 } as const;
 
 export const itoHero: HeroContent = {
+  // 8 Oct review: "highlight 'IT Outsourcing Company' in the H1".
   titleLines: ["IT Outsourcing Company", "in India"],
+  accent: "IT Outsourcing Company",
   body: [
     "Move critical technology initiatives forward with a reliable IT outsourcing company in India. Soft Suave combines software, AI, QA, cloud, and modernization expertise with flexible engagement models shaped around your roadmap, systems, and delivery priorities.",
     "Discuss your scope, delivery responsibilities, and internal capacity before choosing the engagement structure that best fits your specific outsourcing requirement.",
@@ -63,7 +66,7 @@ export const itoHero: HeroContent = {
   points: [
     "Software, AI, QA & Modernization",
     "Flexible Engagement Models",
-    "400+ AI & Engineering Specialists",
+    `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     "ISO/IEC 27001:2022 Certified",
     "4–6 Hour Global Work Overlap",
   ],
@@ -73,7 +76,7 @@ export const itoHero: HeroContent = {
     // The live hero form's own heading.
     title: "Let's Discuss Your Project",
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What do you want to outsource?",
     requirementPlaceholder:
       "The initiative, the systems involved, which responsibilities stay in-house, and the timeline you are working to.",
@@ -96,7 +99,7 @@ export const itoOverview: OverviewContent = {
   paragraphs: [
     "IT outsourcing assigns defined technology responsibilities to an external partner while the buyer retains agreed strategic and operational control. India offers broad engineering talent, a mature technology ecosystem, flexible engagement options, and working-hour overlap for global collaboration.",
     "Soft Suave is an IT outsourcing company in India offering complete project outsourcing, dedicated development teams, and staff augmentation models. Businesses can select a model based on scope, skills, internal capacity, and delivery ownership.",
-    "With 13+ years of experience delivering software solutions across industries, Soft Suave provides reliable IT outsourcing support through skilled professionals, clear processes, and open communication. Its teams deliver quality work, reduce technology risks, and help businesses maintain visibility and control throughout the engagement.",
+    `With ${YEARS_PLUS} years of experience delivering software solutions across industries, Soft Suave provides reliable IT outsourcing support through skilled professionals, clear processes, and open communication. Its teams deliver quality work, reduce technology risks, and help businesses maintain visibility and control throughout the engagement.`,
   ],
 };
 
@@ -123,6 +126,10 @@ export const itoServices: ServicesContent = {
     },
     {
       name: "AI Development and Integration",
+      // Named rather than matched: the name alone resolves to
+      // /ai-development-service (8 Oct review: "replace the link with this
+      // page: /custom-ai-development-services").
+      href: "/custom-ai-development-services",
       body: "Apply AI to appropriate business workflows through custom models, generative AI, intelligent automation, predictive systems, and application integrations, with requirements and implementation boundaries defined during discovery.",
     },
     {
@@ -175,6 +182,9 @@ export const itoFit: OverviewContent = {
 export const itoDestinations: ComparisonContent = {
   eyebrow: "Global Outsourcing Comparison",
   title: "How Does India Compare With Other IT Outsourcing Destinations?",
+  // The live table's first heading (review: "First heading in the table is
+  // missing").
+  areaLabel: "Country",
   body: "Compare India with other leading IT outsourcing destinations across talent availability, cost positioning, working-hour overlap, and common delivery strengths before choosing the market that best fits your project requirements.",
   /* DELIBERATELY NO `verdict`. The table is the live page's own, one row per
      country, and it is not an argument for India: Mexico wins the working-hour
@@ -256,6 +266,9 @@ export const itoModels: ComparisonContent = {
   eyebrow: "Engagement Models",
   title: "Choose the Right IT Outsourcing Model",
   body: "The appropriate model depends on scope clarity, delivery ownership, internal capacity, and how often priorities may change. Compare the working structures before choosing between complete project outsourcing, a dedicated development team, or a staff augmentation arrangement.",
+  // The live table's first heading (review: "First heading in the table is
+  // missing").
+  areaLabel: "Engagement model",
   columns: ["Suitable when", "Working structure"],
   rows: [
     {
@@ -374,7 +387,7 @@ export const itoIndustries: CardGridContent = {
     {
       name: "E-commerce",
       icon: "chart",
-      body: "We develop storefronts, marketplaces, product catalogs, ordering systems, payment integrations, and fulfillment connections that help Ecommerce businesses improve customer journeys and support daily commerce operations.",
+      body: "We develop storefronts, marketplaces, product catalogs, ordering systems, payment integrations, and fulfillment connections that help e-commerce businesses improve customer journeys and support daily commerce operations.",
     },
   ],
 };
@@ -385,12 +398,12 @@ export const itoWhyUs: CardGridContent = {
   body: "Soft Suave combines technology experience, multidisciplinary capabilities, flexible delivery structures, and defined controls for outsourced engineering.",
   items: [
     {
-      name: "13+ Years of Technology Expertise",
+      name: `${YEARS_PLUS} Years of Technology Expertise`,
       icon: "layers",
       body: "Apply experience spanning software delivery, product engineering, modernization, integration, testing, cloud, and emerging technologies.",
     },
     {
-      name: "400+ AI & Engineering Specialists",
+      name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
       icon: "users",
       body: "Access capabilities across application development, quality engineering, DevOps, data, AI, and integrations.",
     },
@@ -424,7 +437,7 @@ export const itoWhyUs: CardGridContent = {
 export const itoTech: TechStackContent = {
   eyebrow: "Technology Stack",
   title: "Transforming Ideas with Next-Gen Tech",
-  body: "Our 400+ AI & Engineering specialists specialize in cutting-edge technologies and platforms. Our comprehensive tech stack covers everything from design to testing, ensuring seamless and efficient development.",
+  body: `Our ${SPECIALISTS_PLUS} AI & Engineering specialists specialize in cutting-edge technologies and platforms. Our comprehensive tech stack covers everything from design to testing, ensuring seamless and efficient development.`,
   groups: [
     {
       name: "Frontend",

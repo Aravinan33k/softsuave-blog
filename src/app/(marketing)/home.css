@@ -15,6 +15,64 @@
    are dropped).
    ============================================================ */
 
+/* FIXED-NAV CLEARANCE (BUG-018). The nav is `position: fixed` and 77px tall,
+   so anything the page JUMPS to — an in-page link, the chapter nav, a #hash
+   arriving from another page, `scrollIntoView` — used to land with its top
+   under the bar, cutting off the heading. Scroll padding on the root lands
+   every such target 96px down instead: native fragment navigation and
+   scrollIntoView honour it, and so does Lenis's `scrollTo` (see
+   components/home/scroll-provider.tsx). The one root-level rule in this file,
+   scoped by `:has()` to documents that render the marketing theme, so the
+   blog and admin keep their own behaviour even after a client navigation. */
+html:has(.theme-four) {
+  scroll-padding-top: 96px;
+}
+
+/* ---- Lenis's own stylesheet (lenis/dist/lenis.css), which it requires ----
+   Lenis (ScrollProvider) caches the page's scroll height and re-measures only
+   when <html> resizes. The root layout's `h-full` pinned <html> at 100% of the
+   viewport, so it never resized: whenever the page grew after load — fonts
+   swapping in, pinned sections re-measuring, the contact calendar's slots
+   arriving — the wheel stopped dead at the old bottom until a refresh
+   (15 Oct: "sometimes while scrolling it suddenly stops"). `height: auto` lets
+   <html> grow with the page, so Lenis sees every change. The rules only apply
+   while Lenis runs (it adds `.lenis` to <html>). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+/* `min-h-full` on <body> resolved against the fixed-height <html>; against an
+   auto one it resolves to nothing, so state the one-viewport floor directly. */
+html.lenis body {
+  min-height: 100vh;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior: contain;
+}
+
+/* Only mid-scroll (`lenis-smooth` is set while a smooth scroll runs): an
+   iframe under the pointer would otherwise swallow the wheel and stall it. */
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* An in-page jump moves keyboard focus to its target (scroll-provider.tsx),
+   giving a non-focusable section `tabindex="-1"`. The scroll itself is the
+   visible cue there, so no focus ring is drawn around a whole section. */
+.theme-four [tabindex="-1"]:focus {
+  outline: none;
+}
+
 .theme-four {
   /* Shared brand tokens */
   --brand-coral: #ff7a45;
@@ -25,10 +83,9 @@
   --brand-ink: #0b1020;
   --brand-gradient: linear-gradient(135deg, #ff7a45 0%, #fb3b5c 100%);
 
-  /* Readable aliases for the next/font variables attached to this element. */
+  /* Readable alias for the next/font variable attached to this element (see
+     `lib/home/marketing-fonts`). The heading face is `--font-heading` below. */
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display-serif: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-  --font-mono-label: var(--font-body);
 
   /* Cinematic / award-show surface palette */
   --bg: #040508;
@@ -89,8 +146,18 @@
      where only a dense shadow separates a card from the ground at all. */
   --card-lift: 0 1px 2px rgb(0 0 0 / 30%), 0 20px 40px -20px rgb(0 0 0 / 65%);
 
-  --font-heading: var(--font-display-serif);
-  --font-eyebrow: var(--font-mono-label);
+  /* 21 Oct review: every heading in Space Grotesk (was Fraunces), and the
+     one-line labels — buttons, chips, counters, breadcrumbs — in Inter (were
+     JetBrains Mono). */
+  --font-heading: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-eyebrow: var(--font-body);
+  /* Section eyebrows — the small label over each section's heading ("Why Soft
+     Suave", "Clients", "Industries"…) — have been Inter since the 16 Oct
+     review, a step heavier and a little less tracked than the other labels so
+     the capitals hold up at 11-12px. */
+  --font-section-label: var(--font-body);
+  --section-label-weight: 500;
+  --section-label-tracking: 0.2em;
 
   /* One heading scale for every landing surface (landing kit, hire pages,
      generative-AI pages). The Sep review found H1/H2/H3 sizes differing
@@ -106,7 +173,7 @@
      there below it.
 
      Headings read these everywhere. `--fs-body` is only for plain text
-     content (heroes, section intros, prose, FAQs, CTAs, simple cards); the
+     content (heroes, section intros, prose, CTAs, simple cards); the
      animated / interactive scenes keep their own paragraph sizes. */
   --fs-h1-home: clamp(40px, 6vw - 2px, 70px);
   --fs-h1: clamp(34px, 3.2vw + 11.6px, 50px);
@@ -118,9 +185,50 @@
   --fs-card-title: clamp(18px, 0.8vw + 12.4px, 22px);
   --fs-body: clamp(16px, 0.4vw + 13.2px, 18px);
   --fs-hero-point: clamp(15px, 0.2vw + 13.6px, 16px);
+  /* FAQ accordions — every kit's (landing, generative-AI, services, the FDE
+     page). Questions used to take the section-level --fs-h3 (28px), so a list
+     of eight read as eight headings and wrapped to three lines on phones (13 Oct
+     review: "the size of the faq seems too big"). A question now sits a step
+     under a card title, 20px easing to 17px on phones; an answer is 16px
+     everywhere, the readable floor the body copy also holds on phones. */
+  --fs-faq-q: clamp(17px, 0.6vw + 12.8px, 20px);
+  --fs-faq-a: 16px;
   /* Card body copy and the smallest readable label size. */
   --fs-body-sm: clamp(0.9rem, 0.95vw, 1rem);
   --fs-label: 0.75rem;
+
+  /* Where a page's content may start under the fixed bar. `--nav-h` is the
+     bar's height at the top of a page (components/home/nav.tsx): 83px below
+     1000px, 89px from there (see the media rule after this block). Every
+     hero's top padding is at least `--hero-top`, so its first line — the
+     "Home › Page" breadcrumb — always keeps a clear gap under the logo: 18px
+     on phones easing to 24px on desktop. The heroes' own paddings were tuned
+     before the bar grew, and left the breadcrumb tucked under it (14 Oct). */
+  --nav-h: 83px;
+  --hero-gap: clamp(18px, 1.5vw + 12px, 24px);
+  --hero-top: calc(var(--nav-h) + var(--hero-gap));
+
+  /* SECTION RHYTHM — one spacing scale for every band on every page (16 Oct
+     review: "too much gap between the sections", inside and outside them).
+     Each kit used to set its own: 44-84px of padding a side on the landing
+     pages, up to 96-168px on some homepage bands, plus whole screens of
+     centring on the bands that held `100vh`.
+       --section-y         a band's top and bottom padding: 30px up to tablet
+                           width, easing to 56px at 1600px and above — at
+                           or under the smallest padding any band had
+                           before (`.section`'s), at every width;
+       --section-head-gap  a section's masthead (eyebrow, heading, intro) to
+                           what follows it: 20px easing to 36px.
+     Two sections inside one band share a single --section-y between them
+     (`.sectionShell + .sectionShell` drops the second's top padding). */
+  --section-y: clamp(30px, 3.4vw + 2px, 56px);
+  --section-head-gap: clamp(20px, 1.6vw + 8px, 36px);
+
+  /* Every button's corner (16 Oct): a rectangle with softly rounded corners,
+     in place of the 999px capsule (and the round icon buttons). Text and icon
+     buttons, filled and outlined, all read it — chips, tags, badges, dots and
+     avatars are not buttons and keep their own shapes. */
+  --btn-radius: 6px;
 
   min-height: 100vh;
   background: var(--bg);
@@ -130,24 +238,55 @@
   text-rendering: optimizeLegibility;
 }
 
+@media (min-width: 1000px) {
+  .theme-four {
+    --nav-h: 89px;
+  }
+}
+
+/* A short laptop screen (1280x720 and the like) has little height to spare
+   above a hero's enquiry form, so the breadcrumb keeps a smaller, still clear,
+   gap there. */
+@media (min-width: 1000px) and (max-height: 760px) {
+  .theme-four {
+    --hero-gap: 14px;
+  }
+}
+
 /* The page background is painted on .theme-four, but overscroll and any gap
    below it expose <body>, which Tailwind's base layer paints white. */
 body:has(.theme-four) {
   background: #040508;
 }
 
-/* One weight per heading level for Space Grotesk: H1 500, H2 400, H3 500.
-   The section modules each set their own heading weight on class rules of
-   varying specificity, so these are !important to hold the levels to one
-   weight on every page. Only the weights loaded in layout.tsx (300-500). */
-.theme-four h1 {
-  font-weight: 500 !important;
+/* The marketing header and footer on the blog (themes/softsuave/layout.tsx):
+   each sits in its own `.theme-four` box for the tokens and fonts it is styled
+   with, but that box must not be a page — no full-viewport height, no dark
+   ground — and the page under it keeps the blog's white rather than the dark
+   overscroll this surface paints. */
+.theme-four.theme-four-chrome {
+  /* The marketing pages' `.page` gutter (home.module.css), which the bar and
+     footer pad themselves with. */
+  --gutter: clamp(20px, 5vw, 90px);
+  min-height: 0;
+  background: transparent;
 }
-.theme-four h2 {
-  font-weight: 400 !important;
+
+body:has(.ss-theme) {
+  background: #ffffff;
 }
-.theme-four h3 {
-  font-weight: 500 !important;
+
+/* The bar is fixed, so the blog content starts below it: the bar's own height
+   at the top of the page (`.nav` in home.module.css), 77px, and 71px below
+   1000px, where its logo is smaller. */
+.ss-theme-main {
+  padding-top: 77px;
+}
+
+@media (max-width: 999px) {
+  .ss-theme-main {
+    padding-top: 71px;
+  }
 }
 
 /* Kill the UA stylesheet's link blue and underline, WITHOUT outranking the

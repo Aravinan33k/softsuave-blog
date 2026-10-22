@@ -21,6 +21,16 @@ export interface StoryCardsContent {
     readonly image?: {
       readonly src: string;
       readonly alt: string;
+      /**
+       * `"contain"` shows the whole asset inside the 16:9 frame instead of
+       * cropping it to fill — for a near-square app mockup, which `cover`
+       * cut down to the middle of its phones. Pair it with `background`, the
+       * asset's own flat ground, so the frame's sides read as part of the
+       * picture rather than as letterbox bars.
+       */
+      readonly fit?: "contain";
+      /** The frame's fill behind a `contain`ed asset (its own edge colour). */
+      readonly background?: string;
     };
     /**
      * The case study this card summarises. Renders a "View More" link under
@@ -90,13 +100,20 @@ export default function StoryCards({
         {content.items.map((item) => (
           <article key={item.name} className={styles.stcCard}>
             {item.image && (
-              <div className={styles.stcImageFrame}>
+              <div
+                className={styles.stcImageFrame}
+                style={item.image.background ? { background: item.image.background } : undefined}
+              >
                 <Image
                   src={publicMediaUrl(item.image.src)}
                   alt={item.image.alt}
                   fill
                   sizes="(max-width: 699px) 92vw, (max-width: 999px) 46vw, 24vw"
-                  className={styles.stcImage}
+                  className={
+                    item.image.fit === "contain"
+                      ? `${styles.stcImage} ${styles.stcImageContain}`
+                      : styles.stcImage
+                  }
                 />
               </div>
             )}

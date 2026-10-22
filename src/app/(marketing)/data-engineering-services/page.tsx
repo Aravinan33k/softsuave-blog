@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { aiPageJsonLd, softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import {
   deEngagement,
@@ -69,7 +69,7 @@ export const revalidate = 300;
  * WebPage `primaryImageOfPage` and the og:image are one file.
  */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/data-engineering-services-og.webp'),
+  url: ogImageUrl('/assets/images/data-engineering-services-og.webp'),
   width: 1200,
   height: 630,
   alt: 'Data Engineering Services and Solutions by Soft Suave',
@@ -121,7 +121,10 @@ export default function DataEngineeringServicesPage() {
           even its WebSite, and the footer's PostalAddress microdata is off —
           see PAGES_WITH_OWN_SITE_GRAPH. */}
       <JsonLd data={softSuaveOrganizationLd} />
-      <JsonLd data={LD} />
+      {/* One <script> per block, as the spec lays them out (1 Oct check). */}
+      {LD.map((node) => (
+        <JsonLd key={String((node as { '@type': string })['@type'])} data={node} />
+      ))}
       <Nav logoHref={HOME_HREF} />
 
       {/*
@@ -177,12 +180,15 @@ export default function DataEngineeringServicesPage() {
           <CaseStudies />
         </div>
 
-        {/* Same layout as /rag-development-services: the homepage's marquee
-            rows, one per group, alternating direction. Dark, as on the
-            homepage; `.techCompact` only clears its full-viewport
-            min-height. */}
-        <div className={home.techCompact}>
-          <TechStack content={deTech} />
+        {/* The homepage's tech rows, one per group, on the dark band. Every
+            row scrolls at every width (21 Oct review: the section had no
+            scrolling effect), short rows repeating their chips until they
+            fill the strip — the RAG and GraphQL pages' treatment, so no row
+            stands still beside moving ones (the 1 Oct complaint that had made
+            them all static). `.techFit` clears the full-viewport min-height
+            that `.techCompact` never reaches. */}
+        <div className={home.techFit}>
+          <TechStack content={deTech} loopShortRows />
         </div>
 
         {/* Homepage client stories, on the warm-white band as they are there. */}

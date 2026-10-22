@@ -1,14 +1,12 @@
 "use client";
 
-import { Fragment, useRef } from "react";
+import { Fragment, useRef, type CSSProperties } from "react";
 import Image from "next/image";
 import { Globe, SquareTerminal, Users } from "lucide-react";
 import { publicMediaUrl } from "@/lib/media-url";
-import { isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
-import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { heroBadgeSizes, isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./landing.module.css";
-import fx from "@/components/common/enquiry-form.module.css";
 import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
 import Breadcrumb from "@/components/common/breadcrumb";
 
@@ -23,8 +21,18 @@ export interface HeroContent {
    * own accent-ruled mono style. Omitted on every page whose hero has none.
    */
   eyebrow?: string;
-  /** The H1, split into lines. The last line takes the accent. */
+  /** The H1, split into lines. The last line takes the accent unless `accent` is set. */
   titleLines: readonly string[];
+  /**
+   * The phrase in the H1 to colour, wherever it falls — the technology the
+   * page hires for ("ReactJS Developers"), rather than whatever words sit on
+   * the last line (hire-by-skill review: "the wrong words are being
+   * highlighted"). May run across a line break — "Custom Web App" /
+   * "Development Services" takes "Web App Development" (Web App review:
+   * "highlight 'Web App Development' in the H1"). Omitted keeps the
+   * last-line accent.
+   */
+  accent?: string;
   /**
    * Size the H1 to its column so each of `titleLines` fits on one line — for
    * a headline whose first line is too long for the standard H1 size (the
@@ -32,6 +40,13 @@ export interface HeroContent {
    * the column, never above the standard size, never below 34px.
    */
   titleFit?: boolean;
+  /**
+   * Sets every title line on ONE line from 1200px up, sized to the copy
+   * column (the last line keeps its accent colour inline), and lets it wrap
+   * normally below that, where one line cannot fit at a readable size.
+   * Computer Vision review, 1 Oct: "make sure the H1 comes in a single line".
+   */
+  titleOneLine?: boolean;
   body: readonly string[];
   points: readonly string[];
   /**
@@ -52,8 +67,25 @@ export interface HeroContent {
    * pass these with an empty `points` list, or both.
    */
   stats?: readonly HeroStat[];
-  /** Copy for the enquiry card; the card itself is `common/enquiry-form`. */
-  form: EnquiryFormContent;
+  /**
+   * Copy for the enquiry card; the card itself is `common/enquiry-form`.
+   * Omitted only on a hero whose `aside` image takes the card's column.
+   */
+  form?: EnquiryFormContent;
+  /**
+   * An image in the enquiry card's column instead of the card — for a page
+   * whose hero is an introduction rather than a lead form (About review, 13
+   * Oct: "remove the form instead use the image"). Shown whole (`contain`),
+   * so transparent cut-out artwork keeps its own shape; beside the copy from
+   * 1000px, under it below that.
+   */
+  aside?: {
+    src: string;
+    width: number;
+    height: number;
+    alt: string;
+    blurDataURL?: string;
+  };
   /**
    * Optional button row under the points list, separate from the enquiry
    * form beside it — the live "Start X Trial" / "Book a Meeting" pair
@@ -67,6 +99,12 @@ export interface HeroContent {
     readonly href: string;
     readonly external?: boolean;
   }[];
+  /**
+   * Optional label/value pairs under the body copy — a case study's
+   * "Industry: Transportation" and "Platform: Web" (the live case-study
+   * hero's tag and platform line). Rendered as a definition list of chips.
+   */
+  facts?: readonly { readonly label: string; readonly value: string }[];
   /**
    * Optional full-bleed background image behind the *whole* hero section —
    * veiled for contrast, the same "image behind the text" treatment as the
@@ -89,6 +127,13 @@ export interface HeroContent {
     alt: string;
     /** 16px placeholder of the same frame, as the overview illustration has. */
     blurDataURL?: string;
+    /**
+     * `strong` lays a near-black gradient under the copy column, fading out
+     * towards the form — for pages whose photo competes with the text
+     * (hire-by-skill review: "add a black gradient to increase visibility in
+     * the hero section"). Omitted keeps the default even veil.
+     */
+    veil?: "strong";
   };
 }
 
@@ -100,6 +145,44 @@ export interface HeroStat {
   readonly title: string;
   readonly body: string;
   readonly icon: keyof typeof STAT_ICONS;
+}
+
+/**
+ * `titleFit` sizes the H1 from its longest line: `--title-chars` is that
+ * line's length, and the stylesheet turns it into a font size that fits the
+ * line to the copy column. See `.heroTitleFit` in landing.module.css.
+ */
+export function titleFitStyle(lines: readonly string[]) {
+  return { "--title-chars": Math.max(...lines.map((l) => l.length)) } as CSSProperties;
+}
+
+/**
+ * Where `accent` falls on each title line, as a `[start, end)` slice of that
+ * line, or `null` for a line it misses. The phrase is looked up in the lines
+ * joined by single spaces — the text the H1 actually reads as — so a phrase
+ * that runs across a line break colours its part on each line.
+ */
+function accentSlices(lines: readonly string[], accent: string | undefined) {
+  const at = accent ? lines.join(" ").indexOf(accent) : -1;
+  let offset = 0;
+  return lines.map((line) => {
+    const start = Math.max(at, offset) - offset;
+    const end = Math.min(at + (accent?.length ?? 0), offset + line.length) - offset;
+    offset += line.length + 1;
+    return at >= 0 && end > start ? ([start, end] as const) : null;
+  });
+}
+
+/** `line` with its `[start, end)` slice wrapped in the accent colour. */
+function accentWithin(line: string, slice: readonly [number, number] | null) {
+  if (!slice) return line;
+  return (
+    <>
+      {line.slice(0, slice[0])}
+      <span className={styles.heroTitleAccent}>{line.slice(slice[0], slice[1])}</span>
+      {line.slice(slice[1])}
+    </>
+  );
 }
 
 /**
@@ -143,38 +226,28 @@ export default function Hero({
   const root = useRef<HTMLElement | null>(null);
   const compact = variant === "compact";
 
-  useGSAP(
-    () => {
-      if (prefersReducedMotion() || !root.current) return;
-      const tl = gsap.timeline({ delay: 0.15 });
-      tl.from(`.${styles.heroTitleLine}`, {
-        yPercent: 40,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power3.out",
-        stagger: 0.09,
-      })
-        .from(`.${styles.heroBody}`, { opacity: 0, y: 20, duration: 0.7, ease: "power2.out", stagger: 0.08 }, "-=0.5")
-        .from(`.${styles.heroPoint}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.05 }, "-=0.4");
-      if (content.stats?.length) {
-        tl.from(`.${styles.heroStat}`, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.06 }, "-=0.3");
-      }
-      if (content.badges?.length) {
-        tl.from(`.${styles.badge}`, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out", stagger: 0.04 }, "-=0.3");
-      }
-      tl.from(`.${fx.card}`, { opacity: 0, y: 28, duration: 0.8, ease: "power2.out" }, 0.25);
-
-      // Backdrop lifts out of black underneath all of that — the same hand-off
-      // the homepage hero gives its video frame. Added last, at an absolute
-      // position, so the relative offsets above keep their original timing.
-      if (content.image) {
-        tl.from(`.${styles.heroBg}`, { opacity: 0, duration: 1.3, ease: "power2.out" }, 0);
-      }
-    },
-    { scope: root },
-  );
+  // The entrance plays in CSS (`.hero` intro block in landing.module.css), from
+  // the first paint. It used to be a GSAP timeline that ran at hydration and
+  // re-hid the already-painted H1 and body copy to fade them back in — so
+  // Chrome counted the page's main content (LCP) as appearing only after all
+  // the JavaScript had loaded: ~7 s on PageSpeed's mobile run (15 Oct).
 
   const lastLine = content.titleLines.length - 1;
+  const accents = accentSlices(content.titleLines, content.accent);
+
+  // What sits above the H1. Beside a form it gets a row of its own above the
+  // grid, so the copy column opens on the H1 and the form's top edge lines up
+  // with the H1's (15 Oct review: "Hero H1 name & forms horizontally aligned in
+  // the same line") — inside the column, a breadcrumb or kicker pushed the H1
+  // 25-45px below the card. The `aside` variant keeps it in the column, centred
+  // against its image as before.
+  const head = (
+    <>
+      {/* "Home › <page>", named from the route — see common/breadcrumb. */}
+      {breadcrumb && <Breadcrumb />}
+      {content.eyebrow && <span className={`${styles.kicker} ${styles.heroEyebrow}`}>{content.eyebrow}</span>}
+    </>
+  );
 
   return (
     <section
@@ -201,7 +274,7 @@ export default function Hero({
               ? { placeholder: "blur" as const, blurDataURL: content.image.blurDataURL }
               : {})}
           />
-          <div className={styles.heroBgVeil} aria-hidden />
+          <div className={styles.heroBgVeil} data-veil={content.image.veil} aria-hidden />
           {/* The compact look layers the coral glow over the photo as well,
               the way the generative-AI hero does; the display look drops it
               (the photo is the accent there). */}
@@ -211,33 +284,50 @@ export default function Hero({
         <div className={styles.heroGlow} aria-hidden />
       )}
 
-      <div className={styles.heroGrid}>
-        <div className={content.titleFit ? styles.heroCopyFit : undefined}>
-          {/* "Home › <page>", named from the route — see common/breadcrumb. */}
-          {breadcrumb && <Breadcrumb />}
-          {content.eyebrow && <span className={`${styles.kicker} ${styles.heroEyebrow}`}>{content.eyebrow}</span>}
-          <h1 className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}`}>
+      {!content.aside && <div className={styles.heroHead}>{head}</div>}
+
+      <div className={content.aside ? `${styles.heroGrid} ${styles.heroGridAside}` : styles.heroGrid}>
+        <div className={content.titleFit || content.titleOneLine ? styles.heroCopyFit : undefined}>
+          {content.aside && head}
+          <h1
+            className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}${
+              content.titleOneLine ? ` ${styles.heroTitleOneLine}` : ""
+            }`}
+            style={content.titleFit ? titleFitStyle(content.titleLines) : undefined}
+          >
             {/* The spans are display:block, so the spaces between them only
                 matter to the text content crawlers and screen readers see. */}
             {content.titleLines.map((line, i) => (
               <Fragment key={line}>
                 {i > 0 ? " " : null}
                 <span
+                  style={{ ["--i" as string]: i } as CSSProperties}
                   className={`${styles.heroTitleLine}${
-                    i === lastLine ? ` ${styles.heroTitleAccent}` : ""
+                    !content.accent && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
                   }`}
                 >
-                  {line}
+                  {accentWithin(line, accents[i])}
                 </span>
               </Fragment>
             ))}
           </h1>
 
-          {content.body.map((p) => (
-            <p key={p.slice(0, 24)} className={styles.heroBody}>
+          {content.body.map((p, i) => (
+            <p key={p.slice(0, 24)} className={styles.heroBody} style={{ ["--i" as string]: i } as CSSProperties}>
               {p}
             </p>
           ))}
+
+          {content.facts && content.facts.length > 0 && (
+            <dl className={styles.heroFacts}>
+              {content.facts.map((fact) => (
+                <div key={fact.label} className={styles.heroFact}>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
 
           {/* The wrapper is a size container, so the cards lay out by the
               copy column's own width — it narrows sharply once the form
@@ -245,10 +335,10 @@ export default function Hero({
           {content.stats && content.stats.length > 0 && (
             <div className={styles.heroStatsWrap}>
             <ul className={styles.heroStats}>
-              {content.stats.map((stat) => {
+              {content.stats.map((stat, i) => {
                 const Icon = STAT_ICONS[stat.icon];
                 return (
-                  <li key={stat.title} className={styles.heroStat}>
+                  <li key={stat.title} className={styles.heroStat} style={{ ["--i" as string]: i } as CSSProperties}>
                     <span className={styles.heroStatIcon} aria-hidden>
                       <Icon strokeWidth={1.6} />
                     </span>
@@ -265,8 +355,8 @@ export default function Hero({
 
           {content.points.length > 0 && (
           <ul className={styles.heroPoints}>
-            {content.points.map((point) => (
-              <li key={point} className={styles.heroPoint}>
+            {content.points.map((point, i) => (
+              <li key={point} className={styles.heroPoint} style={{ ["--i" as string]: i } as CSSProperties}>
                 <svg
                   className={styles.heroPointMark}
                   viewBox="0 0 20 20"
@@ -324,9 +414,9 @@ export default function Hero({
           )}
           {content.badges && content.badges.length > 0 && (
             <ul className={styles.badges} aria-label={content.badgesLabel ?? "Credentials"}>
-              {content.badges.map((b) =>
+              {content.badges.map((b, i) =>
                 isHeroBadge(b) ? (
-                  <li key={b.src} className={`${styles.badge} ${styles.badgeLogo}`}>
+                  <li key={b.src} className={`${styles.badge} ${styles.badgeLogo}`} style={{ ["--i" as string]: i } as CSSProperties}>
                     {/* The mark is the whole point here, so unlike the awards
                         strip it carries its own name — nothing else in the
                         hero says "Clutch". */}
@@ -335,11 +425,12 @@ export default function Hero({
                       alt={b.alt}
                       width={b.width}
                       height={b.height}
+                      sizes={heroBadgeSizes(b)}
                       className={styles.badgeLogoImg}
                     />
                   </li>
                 ) : (
-                  <li key={b} className={styles.badge}>
+                  <li key={b} className={styles.badge} style={{ ["--i" as string]: i } as CSSProperties}>
                     <span className={styles.badgeDot} aria-hidden />
                     {b}
                   </li>
@@ -349,7 +440,24 @@ export default function Hero({
           )}
         </div>
 
-        <EnquiryForm content={content.form} idPrefix={idPrefix} />
+        {content.aside ? (
+          <figure className={styles.heroAside}>
+            <Image
+              src={publicMediaUrl(content.aside.src)}
+              alt={content.aside.alt}
+              width={content.aside.width}
+              height={content.aside.height}
+              sizes="(max-width: 999px) 92vw, 46vw"
+              priority
+              className={styles.heroAsideImg}
+              {...(content.aside.blurDataURL
+                ? { placeholder: "blur" as const, blurDataURL: content.aside.blurDataURL }
+                : {})}
+            />
+          </figure>
+        ) : content.form ? (
+          <EnquiryForm content={content.form} idPrefix={idPrefix} />
+        ) : null}
       </div>
     </section>
   );

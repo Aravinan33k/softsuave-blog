@@ -13,11 +13,12 @@
  */
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const meta = {
   title: "Agentic AI Development Services | Soft Suave",
   description:
-    "Transform complex workflows with our agentic AI development services backed by 13+ years of expertise and 400+ AI & engineering specialists.",
+    `Transform complex workflows with our agentic AI development services backed by ${YEARS_PLUS} years of expertise and ${SPECIALISTS_PLUS} AI & engineering specialists.`,
   path: "/agentic-ai-development-services",
 } as const;
 
@@ -28,6 +29,8 @@ export const hero = {
    * screen readers see — is the approved headline, unchanged.
    */
   titleLines: ["Custom Agentic AI Development", "Services for Complex Workflows"],
+  /** 7 Oct review: "Highlight 'Agentic AI Development' in the h1". */
+  accent: "Agentic AI Development",
   body: [
     "Soft Suave designs and builds custom agentic AI systems that plan multi-step work, use your business tools, and complete tasks under human oversight. From architecture and orchestration to enterprise integration, we take agentic workflows from proof of concept into daily operations.",
     "Tell us which workflow is slowing your team down, and we will map a practical agentic AI approach around it.",
@@ -47,13 +50,16 @@ export const hero = {
    */
   background: {
     src: "/images/four/svc-ai-agents.webp",
+    // 7 Oct review: "make the hero section content more visible by adding a
+    // dark gradient" — the robot photo competed with the body copy.
+    veil: "strong",
   },
   /** Requirement form, reused from the existing AI landing pages. */
   form: {
     eyebrow: "Business Enquiry",
     title: "Get Your FREE Quote Now!",
     submit: "Request Consultation",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "Your agentic AI use case",
     requirementPlaceholder:
       "What should the system do, and which data or systems does it need to reach?",
@@ -79,13 +85,20 @@ export const overview = {
    * frame, matching how the generated homepage manifest supplies placeholders.
    * `public/images/**` is allow-listed for the optimizer in next.config.ts.
    */
+  //
+  // A diagram of exactly what the prose describes (1 Oct review: "use a better
+  // & suited / more relevant & accurate to content image"): an AI agent that
+  // plans, uses tools (CRM, ERP, APIs), decides and acts, with the human
+  // approval checkpoint the third paragraph sets before it acts. Drawn in the
+  // site's own fonts and warm-white band colours, replacing a humanoid-robot
+  // render. Manifest slot `agentic-ai-overview-workflow` (`source: hand-placed`).
   image: {
-    src: "/images/landing/agentic-ai-overview.webp",
+    src: "/images/landing/agentic-ai-overview-workflow.webp",
     width: 1536,
     height: 1024,
-    alt: "An agentic AI system map: planning, memory, knowledge, and tools feed a central AI core that drives decision-making and action, with a human oversight checkpoint alongside it.",
+    alt: "An AI agent at the centre of a loop: it plans, uses tools such as CRM, ERP and APIs, decides, and acts, with a human approval checkpoint before it acts.",
     blurDataURL:
-      "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADwAQCdASoQAAsAA8BmJZwAAuQDH4S94EAA/vWVv+Tn+e7LJ8O997ODVKgPFgTKgvoQBSXFaHwLwbMKhgA=",
+      "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoQAAsAA4BaJZwAD4QwkfHvGgAA/vcI20FPqRq/VPDM3+/4x8kkn/3rlnfxlNtTzqLCC3WCGsL9YC5QUAA=",
   },
 } as const;
 
@@ -160,6 +173,12 @@ export const services = {
   ],
 } as const;
 
+/**
+ * Each card's photo is its own pinned Pexels slot (`ag-app-*` in the image
+ * manifest). They were borrowed from the Generative AI page's service art and
+ * matched poorly — a coder for Customer Operations, an AI shield for HR (7 Oct
+ * review: "update the images in the Business Applications section").
+ */
 export const applications = {
   eyebrow: "Key Business Applications",
   title: "Where Agentic AI Creates Business Value",
@@ -168,43 +187,43 @@ export const applications = {
     {
       key: "team",
       name: "Customer Operations",
-      image: "/images/landing/problems/support-capacity.webp",
+      image: "/images/landing/ag-app-customer-ops.webp",
       body: "Agents handle requests, fetch data, draft responses, and resolve routine issues, escalating complex cases with full context.",
     },
     {
       key: "performance",
       name: "Sales and Revenue Operations",
-      image: "/images/landing/services/svc-consulting-discovery.webp",
+      image: "/images/landing/ag-app-sales.webp",
       body: "Agents research accounts, update CRM data, prepare briefs, and track opportunities, ensuring timely follow-ups and deal visibility.",
     },
     {
       key: "fintech",
       name: "Finance and Back-Office Operations",
-      image: "/images/landing/problems/document-processing.webp",
+      image: "/images/landing/ag-app-finance.webp",
       body: "Agents process documents, match invoices, reconcile data, detect anomalies, and support workflows under human approval for sensitive actions.",
     },
     {
       key: "devops",
       name: "IT and Engineering Support",
-      image: "/images/landing/services/svc-application-development.webp",
+      image: "/images/landing/ag-app-it-support.webp",
       body: "Agents manage tickets, analyze logs, monitor systems, run approved tasks, and escalate high-risk or production issues quickly.",
     },
     {
       key: "logistics",
       name: "Supply Chain and Logistics",
-      image: "/images/landing/services/svc-integration.webp",
+      image: "/images/landing/ag-app-supply-chain.webp",
       body: "Agents track demand, inventory, orders, and suppliers, recommend actions, and alert planners when conditions change significantly.",
     },
     {
       key: "data",
       name: "Data, Reporting, and Research",
-      image: "/images/landing/problems/analyst-research.webp",
+      image: "/images/landing/ag-app-data-research.webp",
       body: "Agents gather data, compare sources, generate reports, and support analysis with transparent, verifiable, and well-cited outputs.",
     },
     {
       key: "team",
       name: "HR and Employee Services",
-      image: "/images/landing/services/svc-dedicated-teams.webp",
+      image: "/images/landing/ag-app-hr.webp",
       body: "Agents assist with onboarding, answer policy questions, manage access requests, and escalate sensitive employee matters to HR teams.",
     },
   ],
@@ -256,7 +275,7 @@ export const industries = {
   items: [
     {
       key: "ecommerce",
-      name: "eCommerce",
+      name: "E-commerce",
       image: "/images/landing/industries/ind-ecommerce.webp",
       body: "Streamline order exceptions, returns, supplier inquiries, and catalog enrichment across storefront, inventory, product data, and customer support systems.",
     },
@@ -303,8 +322,8 @@ export const whyUs = {
       body: "Each engagement begins with clear goals, success measures, and boundaries.",
     },
     {
-      name: "13+ Years of Technology Expertise",
-      body: "13+ years of engineering experience guide reliable, production-ready agentic AI.",
+      name: `${YEARS_PLUS} Years of Technology Expertise`,
+      body: `${YEARS_PLUS} years of engineering experience guide reliable, production-ready agentic AI.`,
     },
     {
       name: "Risk-Aligned Autonomy",

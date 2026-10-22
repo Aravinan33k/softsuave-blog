@@ -35,22 +35,28 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
 import { sharedHeroAlert } from "./delivery-shared";
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 export const madMeta = {
   slug: "mobile-application-development-company",
   path: "/mobile-application-development-company",
-  // The live page's own <title> and meta description. The route appends
-  // " | Soft Suave" to the title, as every page on this surface does.
-  title: "Mobile App Development Company in India",
+  // The live page's own <title> (verbatim and in full — 13 Oct review: "need
+  // to update the title"; the route renders it as is, no " | Soft Suave"
+  // suffix) and meta description.
+  title: "Mobile App Development Company in India: Scalable & Secure",
   description:
     "Soft Suave is a top mobile app development company in India, building scalable Android, iOS, and cross-platform apps for global clients.",
 } as const;
 
 export const madHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Mobile App Development", "Company in India"],
+  accent: "Mobile App",
   body: [
-    "With 13+ years of expertise, Soft Suave Technologies is a powerhouse in mobile app development. We create high-performance Android, iOS, and cross-platform apps for global clients across the US, EU, and MEA regions, delivering unbeatable quality and exceptional offshore advantages.",
+    `With ${YEARS_PLUS} years of expertise, Soft Suave Technologies is a powerhouse in mobile app development. We create high-performance Android, iOS, and cross-platform apps for global clients across the US, EU, and MEA regions, delivering unbeatable quality and exceptional offshore advantages.`,
   ],
   points: [
     "Custom Native & Cross-Platform Apps",
@@ -198,7 +204,9 @@ export const madProcess: ReleaseTrackContent = {
   eyebrow: "Process",
   title: "Our Mobile App Development Process",
   body: "We follow a clear, transparent, agile process from idea to launch, reducing risks and ensuring predictable delivery for high-quality, scalable mobile apps that meet your business goals.",
-  cta: { label: "Book a Consultation", href: "/contact" },
+  // The free 30-minute consultation page (13 Oct review: "the Book a
+  // consultation button must be linked to the consultation page").
+  cta: { label: "Book a Consultation", href: "/30-min-free-consultation" },
   steps: [
     {
       n: "01",
@@ -239,8 +247,8 @@ export const madWhyUs: CardGridContent = {
   body: "At Soft Suave, we’re more than just coders; we’re partners dedicated to delivering impactful product outcomes and long-term value, ensuring your app’s success every step of the way.",
   items: [
     {
-      name: "13+ Years of Mobile App Development Experience",
-      body: "With 13+ years of experience, we’ve built numerous apps for clients across the USA, Europe, and the Middle East in diverse industries.",
+      name: `${YEARS_PLUS} Years of Mobile App Development Experience`,
+      body: `With ${YEARS_PLUS} years of experience, we’ve built numerous apps for clients across the USA, Europe, and the Middle East in diverse industries.`,
     },
     {
       name: "India-Based Team with Global Delivery Standards",
@@ -284,7 +292,7 @@ export const madIndustries: CardGridContent = {
       body: "Creating construction management apps for project tracking, resource allocation, scheduling, and team collaboration, enhancing project efficiency and timely delivery.",
     },
     {
-      name: "E-Commerce & Retail Apps",
+      name: "E-commerce & Retail Apps",
       body: "Create shopping apps with features like catalogs, wishlists, payments, loyalty programs, and omnichannel integration for seamless customer experiences.",
     },
     {
@@ -362,7 +370,7 @@ export const madHireCta: CtaBandContent = {
 export const madCaseStudies: WorkCarouselContent = {
   eyebrow: "Case Studies",
   title: "Mobile Apps We've Built",
-  body: "A look at real mobile products we've shipped for clients across logistics, eCommerce, entertainment, and healthcare.",
+  body: "A look at real mobile products we've shipped for clients across logistics, e-commerce, entertainment, and healthcare.",
   items: [
     {
       title: "Logistics Ride Hailing Application",
@@ -373,7 +381,7 @@ export const madCaseStudies: WorkCarouselContent = {
     },
     {
       title: "Grabcery",
-      tag: "eCommerce",
+      tag: "E-commerce",
       body: "A multi-vendor grocery delivery platform with dedicated shopper, vendor, and admin apps — GPS-enabled delivery tracking, real-time cart customization, and multiple payment gateways.",
       // No case-study artwork exists for Grabcery, so a grocery-delivery photo
       // pinned in the image manifest (`four/mad-cs-grocery`).

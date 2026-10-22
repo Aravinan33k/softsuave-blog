@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { aiPageJsonLd, softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import {
   piApplications,
@@ -69,7 +69,7 @@ export const revalidate = 300;
  * WebPage `primaryImageOfPage` and the og:image are one file.
  */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/predictive-intelligence-services-og.webp'),
+  url: ogImageUrl('/assets/images/predictive-intelligence-services-og.webp'),
   width: 1200,
   height: 630,
   alt: 'Predictive Intelligence Services and Solutions by Soft Suave',
@@ -119,9 +119,12 @@ export default function PredictiveIntelligenceServicesPage() {
           Organization (verbatim — no Facebook profile, unlike the site-wide
           node) + Service, WebPage, FAQPage. The layout adds nothing here, not
           even its WebSite, and the footer's PostalAddress microdata is off —
-          see PAGES_WITH_OWN_SITE_GRAPH. */}
+          see PAGES_WITH_OWN_SITE_GRAPH. Each block is its own <script>, as
+          the spec lays them out (1 Oct check), not one array of three. */}
       <JsonLd data={softSuaveOrganizationLd} />
-      <JsonLd data={LD} />
+      {LD.map((node) => (
+        <JsonLd key={String((node as { '@type': string })['@type'])} data={node} />
+      ))}
       <Nav logoHref={HOME_HREF} />
 
       {/*
@@ -155,9 +158,10 @@ export default function PredictiveIntelligenceServicesPage() {
         />
 
         {/* Every capability on screen at once, each card wearing its own
-            artwork in its top corner — the GCC page's feature card. */}
+            artwork in its top corner — the GCC page's feature card. Two
+            across, so the four capabilities are a 2x2 grid (7 Oct review). */}
         <div className={home.light}>
-          <ServicesGrid content={piCapabilities} />
+          <ServicesGrid content={piCapabilities} columns={2} />
         </div>
 
         <Industries content={piApplications} id="use-cases" />
@@ -181,8 +185,13 @@ export default function PredictiveIntelligenceServicesPage() {
             `techCompact` only clears the band's full-viewport min-height.
             Ahead of the case studies, in the order the Sep 23 sheet lists the
             three sections that follow "Why choose us". */}
-        <div className={home.techCompact}>
-          <TechStack content={piTech} />
+        {/* Every row holds still and wraps, the Android page's treatment
+            (1 Oct review: two of the eight rows were static while the rest
+            scrolled, so the section read as half-finished). Kept on its dark
+            band; group names wrap as they do there. `.techFit` clears the
+            full-viewport min-height that `.techCompact` never reaches. */}
+        <div className={home.techFit}>
+          <TechStack content={piTech} staticFrom={768} />
         </div>
 
         {/* Homepage case-study gallery, on the warm-white band as it is there. */}

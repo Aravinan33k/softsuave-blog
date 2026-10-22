@@ -69,7 +69,7 @@ export default function LifeGallery({
       </div>
 
       <div className={styles.ctaRow}>
-        <SiteLink href={content.cta.href} className={`${landing.btn} ${landing.btnPrimary}`}>
+        <SiteLink href={content.cta.href} className={`${landing.btn} ${landing.btnPrimary} ${landing.btnLg}`}>
           {content.cta.label}
         </SiteLink>
       </div>

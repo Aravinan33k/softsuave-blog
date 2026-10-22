@@ -15,6 +15,7 @@ import type { HireSkill } from "./hire-skill";
 import { sharedHeroAlert } from "./delivery-shared";
 import { webExplore } from "./hire-explore";
 import { partnerTable } from "./hire-comparison";
+import { FIGURES, HOURLY_RATE, SPECIALISTS_PLUS } from "../company-figures";
 
 /** The newer pages' running order, with the prose expertise band. */
 const PLATFORM_ORDER = [
@@ -37,7 +38,7 @@ const magento: HireSkill = {
   role: "Magento Developers",
   metaTitle: "Hire Magento Developer in India with Soft Suave",
   metaDescription:
-    "Hire Magento developers from India for custom eCommerce growth. Experts in Magento 2, Adobe Commerce, payment gateway integration, custom modules and migrations.",
+    "Want to hire Magento developers in India quickly? Onboard them in just 48 hours & create feature-packed e-commerce site for your business.",
   serviceType: "Magento development staffing",
   ctaLabel: "Hire Magento developers",
 
@@ -45,8 +46,9 @@ const magento: HireSkill = {
 
   hero: {
     titleLines: ["Hire Magento Developers", "in India on Contract"],
+    accent: "Magento Developers",
     body: [
-      "Soft Suave helps companies hire Magento developers from India for custom eCommerce growth. Our experts work in Magento 2, Adobe Commerce, payment gateway integration, custom modules, migrations, and high-performance online stores. Scale teams quickly with flexible hiring models.",
+      "Soft Suave helps companies hire Magento developers from India for custom e-commerce growth. Our experts work in Magento 2, Adobe Commerce, payment gateway integration, custom modules, migrations, and high-performance online stores. Scale teams quickly with flexible hiring models.",
       "See why businesses choose Soft Suave for their Magento developer hiring.",
     ],
     /* Four points, not five — the Magento hero omits the delivery-governance one. */
@@ -57,7 +59,6 @@ const magento: HireSkill = {
       "Airtight NDA & IP Protection",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -66,11 +67,15 @@ const magento: HireSkill = {
       subject: "Magento Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/svc-web.webp",
-      width: 1200,
-      height: 860,
-      alt: "A Magento commerce storefront with catalogue, checkout, and admin views",
+      src: "/images/landing/hs-magento-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Miniature shopping cart in front of sales charts",
+      blurDataURL:
+        "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAwAgCdASoQAAsAA4BaJbACdAYvDqvP6MgUAAD+6hAcni9sRuGAXAEzOyJTfvceBO6TIpIK8pqdt6d0wvtXNqSOApwG5ukRulN2jsWdmCulqAHrX9WKvXvidmPHrOdvzKKTgAAA",
     },
   },
 
@@ -143,7 +148,7 @@ const magento: HireSkill = {
   expertise: {
     eyebrow: "Technical Expertise",
     title: "Technical Expertise of Our Magento Developers",
-    body: "When you hire remote Magento developers from Soft Suave, you get deep technical skills, proven eCommerce expertise, reliable delivery, and a partner ready to help your store thrive and scale fast.",
+    body: "When you hire remote Magento developers from Soft Suave, you get deep technical skills, proven e-commerce expertise, reliable delivery, and a partner ready to help your store thrive and scale fast.",
     items: [
       {
         name: "Magento Custom Extension Development",
@@ -179,7 +184,7 @@ const magento: HireSkill = {
       },
       {
         name: "Magento PWA Development",
-        body: "Our developers build Progressive Web Apps with Magento PWA Studio, delivering app-like speed, offline capabilities, and seamless mobile UX, ideal for future-proofing your eCommerce presence.",
+        body: "Our developers build Progressive Web Apps with Magento PWA Studio, delivering app-like speed, offline capabilities, and seamless mobile UX, ideal for future-proofing your e-commerce presence.",
       },
       {
         name: "Magento Data Modeling & EAV Mastery",
@@ -189,25 +194,27 @@ const magento: HireSkill = {
   },
 
   services: {
+    // Live closes this band on "Talk to Our Experts" (review: "missing a CTA button").
+    cta: { label: "Talk to Our Experts", href: "/contact" },
     eyebrow: "Services",
     title: "Magento Development Services We Offer",
-    body: "We craft, optimize, and scale powerful Magento stores - delivering seamless user experiences, lightning-fast performance, secure integrations, and flexible solutions tailored to your business needs, so your eCommerce thrives globally.",
+    body: "We craft, optimize, and scale powerful Magento stores - delivering seamless user experiences, lightning-fast performance, secure integrations, and flexible solutions tailored to your business needs, so your e-commerce thrives globally.",
     items: [
       {
         name: "Customized Magento Web Development",
-        body: "Soft Suave crafts powerful Magento web apps with custom extensions, smart design, and flawless performance, delivering engaging, scalable B2B and B2C solutions trusted by clients for over 12 years.",
+        body: `Soft Suave crafts powerful Magento web apps with custom extensions, smart design, and flawless performance, delivering engaging, scalable B2B and B2C solutions trusted by clients for over ${FIGURES.years} years.`,
       },
       {
         name: "Dedicated Magento Developers Team",
         body: "Our expert Magento team builds responsive, customer-focused stores with smart customization and seamless integration, transforming ideas into success through an efficient, flexible process trusted by businesses of all sizes.",
       },
       {
-        name: "Magento eCommerce Development",
-        body: "Hire remote Magento developers who can develop powerful, feature-rich Magento platforms - from mobile optimization to AI and chatbots - delivering custom, high-performance eCommerce solutions that drive engagement, efficiency, and a seamless shopping experience.",
+        name: "Magento E-commerce Development",
+        body: "Hire remote Magento developers who can develop powerful, feature-rich Magento platforms - from mobile optimization to AI and chatbots - delivering custom, high-performance e-commerce solutions that drive engagement, efficiency, and a seamless shopping experience.",
       },
       {
         name: "Front-End Magento Development",
-        body: "Our Magento front-end developers craft fast, SEO-friendly eCommerce stores with stunning design, custom themes, smooth UI, and interactive features, ensuring an engaging user experience that drives retention and growth",
+        body: "Our Magento front-end developers craft fast, SEO-friendly e-commerce stores with stunning design, custom themes, smooth UI, and interactive features, ensuring an engaging user experience that drives retention and growth",
       },
       {
         name: "Magento Migration & Upgradation",
@@ -223,7 +230,7 @@ const magento: HireSkill = {
       },
       {
         name: "Offshore Magento development",
-        body: "Our offshore software development service for Magento delivers complete solutions — from design and development to optimization and maintenance — combining skilled expertise, flexible engagement, and cost-effective delivery for fast, scalable, global eCommerce success.",
+        body: "Our offshore software development service for Magento delivers complete solutions — from design and development to optimization and maintenance — combining skilled expertise, flexible engagement, and cost-effective delivery for fast, scalable, global e-commerce success.",
       },
     ],
   },
@@ -270,7 +277,7 @@ const magento: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire Magento developers?",
-        a: "The price of Magento developers depends on the experience, project complexity, and work engagement model. At Soft Suave, we provide cost-efficient pricing solutions that start from $14/hour.",
+        a: `The price of Magento developers depends on the experience, project complexity, and work engagement model. At Soft Suave, we provide cost-efficient pricing solutions that start from ${HOURLY_RATE}.`,
       },
       {
         q: "Is there any free trial period available?",
@@ -299,7 +306,7 @@ const drupal: HireSkill = {
   role: "Drupal Developers",
   metaTitle: "Hire Dedicated Drupal Developer India with 40 Hours Trial",
   metaDescription:
-    "Hire dedicated Drupal developers from India who build secure, scalable, content-rich platforms. Experts in Drupal CMS, custom modules, migrations and multisite.",
+    `Hire expert Drupal developers from India with 40 hours of free trial. Get access to top-tier developers and leverage ${SPECIALISTS_PLUS} in-house resources.`,
   serviceType: "Drupal development staffing",
   ctaLabel: "Hire Drupal developers",
 
@@ -307,6 +314,7 @@ const drupal: HireSkill = {
 
   hero: {
     titleLines: ["Hire Drupal Developers", "in India on Contract"],
+    accent: "Drupal Developers",
     body: [
       "Soft Suave helps businesses hire dedicated Drupal developers from India who build secure, scalable, and content-rich digital platforms. Access pre-vetted experts in Drupal CMS, custom module development, migrations, API integrations, multisite setups, and enterprise web solutions with fast onboarding.",
       "See why businesses choose Soft Suave for their Drupal developer hiring.",
@@ -319,7 +327,6 @@ const drupal: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -328,11 +335,15 @@ const drupal: HireSkill = {
       subject: "Drupal Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-3.webp",
-      width: 1200,
-      height: 860,
-      alt: "A Drupal content platform showing structured content types and editorial workflow",
+      src: "/images/landing/hs-drupal-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Person building a website on a laptop in a blue-lit room",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAQAgCdASoQAAsAA4BaJbACdAEURwEW2IOAAP70fgohl+v0CQws01FCtqsiMTT6Xe6A5t5DFMzsHyXW/IDhDa8hSVc/h0yZvStXyYAA",
     },
   },
 
@@ -451,6 +462,8 @@ const drupal: HireSkill = {
   },
 
   services: {
+    // Live closes this band on "Talk to Our Experts" (review: "missing a CTA button").
+    cta: { label: "Talk to Our Experts", href: "/contact" },
     eyebrow: "Services",
     title: "Drupal Development Services We Offer",
     body: "Whatever your Drupal needs, Soft Suave has you covered. From concept to deployment and beyond, our comprehensive suite of services ensures your project thrives, delivering innovation and reliability.",
@@ -536,7 +549,7 @@ const drupal: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire Drupal developer?",
-        a: "Our transparent pricing starts from just $14/hour, varying by experience and engagement model. Request a custom quote today and discover the exceptional value we offer.",
+        a: `Our transparent pricing starts from just ${HOURLY_RATE}, varying by experience and engagement model. Request a custom quote today and discover the exceptional value we offer.`,
       },
       {
         q: "Is there any free trial period available?",

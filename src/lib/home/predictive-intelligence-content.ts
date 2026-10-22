@@ -25,6 +25,7 @@ import type { TechStackContent } from "@/components/landing/tech-stack";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { landingImage } from "./overview-images";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const piMeta = {
   slug: "predictive-intelligence-services",
@@ -37,15 +38,17 @@ export const piMeta = {
 } as const;
 
 export const piHero: HeroContent = {
-  // The last line takes the coral accent.
+  // 7 Oct review: the colon was missing, and "Predictive Intelligence
+  // Services" is the phrase to highlight.
   titleLines: ["Predictive Intelligence Services:", "From Prediction to Action"],
+  accent: "Predictive Intelligence Services",
   body: [
     "Soft Suave develops custom systems that turn business data into forecasts, risk signals, recommendations, alerts, and workflow actions. We help product, operations, finance, customer, and technology teams apply predictive capabilities to specific decisions within their existing processes.",
     "Bring predictions into your daily operations through practical signals, recommendations, alerts, and actions aligned with your business decisions.",
   ],
   points: [
-    "13+ Years of Technology Expertise",
-    "400+ AI & Engineering Specialists",
+    `${YEARS_PLUS} Years of Technology Expertise`,
+    `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     "Forecasting & Predictive Models",
     "Anomaly Detection & Risk Signals",
     "Recommendations & Workflow Actions",
@@ -142,18 +145,21 @@ export const piComparison: ComparisonContent = {
  */
 /**
  * Capability-card artwork for this page, from the image pipeline
- * (`landing/pi-svc-*` slots in content/images.manifest.json).
+ * (`landing/pi-cap-*` slots in content/images.manifest.json).
  *
- * The cards used to borrow the generic service photographs every AI page
- * shares. The Sep 23 review asked for relevant images, so each card now shows
- * its own subject: a forecast chart, model development, an anomaly in a
- * monitoring feed, and a recommendation in a shopping app.
+ * Replaced again on 1 Oct ("update relevant / more accurate with text
+ * images"): a product-trends-by-month chart for forecasting, an analyst on a
+ * model's distribution curve for modeling, a drawn metric with its adaptive
+ * threshold band and one flagged point for anomaly detection (no photograph
+ * shows that), and a shopper choosing between suggested products for
+ * recommendations. The previous set showed a stock-trading chart for
+ * anomalies and a laptop of code for modeling.
  */
 const PI_SVC = {
-  forecasting: landingImage("pi-svc-forecasting"),
-  modeling: landingImage("pi-svc-modeling"),
-  anomaly: landingImage("pi-svc-anomaly"),
-  recommendation: landingImage("pi-svc-recommendation"),
+  forecasting: landingImage("pi-cap-forecasting"),
+  modeling: landingImage("pi-cap-modeling"),
+  anomaly: landingImage("pi-cap-anomaly-flag"),
+  recommendation: landingImage("pi-cap-recommendation"),
 };
 
 export const piCapabilities: ServicesCarouselContent = {
@@ -275,7 +281,7 @@ export const piIndustries: CardGridContent = {
       body: "Models could identify changing health patterns, anticipate service needs, prioritize cases, and provide timely signals using relevant clinical and operational information under human review controls.",
     },
     {
-      name: "Ecommerce",
+      name: "E-commerce",
       body: "Forecasting and recommendation models could anticipate order patterns, identify customer interests, prioritize relevant products, and support inventory, engagement, and retention decisions across digital commerce workflows.",
     },
     {
@@ -316,7 +322,7 @@ export const piWhyUs: CardGridContent = {
     },
     {
       name: "Technology Experience at Scale",
-      body: "Bring 13+ years of technology expertise and 400+ AI & Engineering Specialists to implementation requirements.",
+      body: `Bring ${YEARS_PLUS} years of technology expertise and ${SPECIALISTS_PLUS} AI & Engineering Specialists to implementation requirements.`,
     },
     {
       name: "Structured Global Delivery",

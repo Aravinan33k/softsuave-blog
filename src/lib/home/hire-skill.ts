@@ -145,6 +145,12 @@ export interface HireSkill {
   /** `.technology_tech_stack_section` — the developer's own skillset, as tool chips. */
   readonly techStack?: TechStackContent;
   /**
+   * `rows` renders `techStack` as the Android page's labelled rows instead of
+   * grouped panels — for a stack of a few tools per group, which leaves most
+   * of a panel grid's cells empty.
+   */
+  readonly techStackStyle?: "rows";
+  /**
    * The same live band where it carries prose cards instead of tool chips.
    *
    * The Magento and Drupal pages publish their "Technical Expertise of Our X

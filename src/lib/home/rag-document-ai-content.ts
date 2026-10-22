@@ -22,6 +22,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const ragMeta = {
   slug: "rag-development-services",
@@ -34,15 +35,16 @@ export const ragMeta = {
 } as const;
 
 export const ragHero: HeroContent = {
-  // The last line takes the coral accent.
+  // 7 Oct review: "Highlight 'RAG Development' in the H1".
   titleLines: ["RAG Development Services", "for Knowledge Retrieval"],
+  accent: "RAG Development",
   body: [
     "Build custom RAG systems that connect your business documents, knowledge bases, and approved data sources with large language models. Soft Suave combines retrieval engineering with Document AI because the way documents are extracted, structured, and chunked directly affects what a RAG system can retrieve.",
     "Turn scattered business knowledge into AI answers grounded in information retrieved from the original source.",
   ],
   points: [
-    "13+ Years of Technology Expertise",
-    "400+ AI & Engineering Specialists",
+    `${YEARS_PLUS} Years of Technology Expertise`,
+    `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     "Document AI & Knowledge Extraction",
     "Enterprise RAG & Knowledge Retrieval",
     "Vector Database & LLM Expertise",
@@ -92,10 +94,21 @@ export const ragOverview: OverviewContent = {
   },
   // Hand-placed asset — the RAG architecture illustration already shipped for
   // the generative-AI page; its subject is exactly this section's.
+  // Uncropped at the diagram's own 4:3 (1 Oct review: "the image is really
+  // small"), so the CRM / ERP / Documents labels at its edges are not cut off
+  // by a near-square frame. In the standard column, not the wider one it had
+  // then: 7 Oct review, "the text width is very low, and the image width is
+  // high ... update it to be similar to other pages". 13 Oct review: "align
+  // the image properly, make it bigger slightly and center align" — equal
+  // columns, and the frame centred against the prose rather than stranded at
+  // the top of it.
   image: {
     src: "/images/landing/generative-ai-rag-architecture.webp",
     width: 1448,
     height: 1086,
+    aspect: "1448 / 1086",
+    even: true,
+    align: "center",
     alt: "How a RAG solution fits together: documents, knowledge bases, and cloud storage feed a retrieval layer that grounds a central AI model, which connects out to CRM, ERP, APIs, and ticketing systems.",
     blurDataURL:
       "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAAAQAgCdASoQAAwAAwBSJQBOgCHw35H/X5wAAP75+5o1KWhylCAGLAV8fi2WhvhAXHsUdEL5/sjZZAf0swAAAA==",
@@ -218,7 +231,7 @@ export const ragIndustries: CardGridContent = {
   body: "Apply RAG and Document AI across industries where teams rely on large volumes of documents, technical information, and frequently changing business data that must be searched and used efficiently.",
   items: [
     {
-      name: "eCommerce",
+      name: "E-commerce",
       body: "Connect product catalogs, supplier agreements, returns policies, warranty information, and support content to AI applications that help customers and support teams find accurate information faster.",
     },
     {
@@ -262,12 +275,12 @@ export const ragWhyUs: CardGridContent = {
       body: "Combine RAG and Document AI expertise to design retrieval systems around complex enterprise documents and knowledge.",
     },
     {
-      name: "13+ Years of Engineering Experience",
-      body: "13+ years of engineering experience, with capabilities across AI, full-stack applications, cloud platforms, APIs, and integrations.",
+      name: `${YEARS_PLUS} Years of Engineering Experience`,
+      body: `${YEARS_PLUS} years of engineering experience, with capabilities across AI, full-stack applications, cloud platforms, APIs, and integrations.`,
     },
     {
-      name: "400+ AI & Engineering Specialists",
-      body: "400+ AI and engineering specialists support architecture, development, integration, testing, and production delivery across complex projects.",
+      name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+      body: `${SPECIALISTS_PLUS} AI and engineering specialists support architecture, development, integration, testing, and production delivery across complex projects.`,
     },
     {
       name: "Retrieval Quality Evaluation",

@@ -24,6 +24,7 @@ import Faq from '@/components/landing/faq';
 // conversion page on this surface ends on.
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -116,7 +117,7 @@ export default function FreeCostEstimationPage() {
           <Testimonials />
         </div>
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

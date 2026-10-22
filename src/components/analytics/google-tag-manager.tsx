@@ -1,5 +1,5 @@
-import Script from 'next/script';
-import { gtmContainerId } from '@/lib/flags';
+import { gtmContainerId, gtmLoad } from '@/lib/flags';
+import GtmLoader from './gtm-loader';
 
 /**
  * Google Tag Manager, the way softsuave.com loads it — the container is the
@@ -12,11 +12,11 @@ import { gtmContainerId } from '@/lib/flags';
  * nothing only when `NEXT_PUBLIC_GTM_ID=off`. The same constant gates the CSP
  * in `next.config.ts`.
  *
- * `afterInteractive` rather than `beforeInteractive`: the container is not
- * needed to render the page, and loading it ahead of hydration would put a
- * third-party request in front of the first paint on every route. The
- * `dataLayer` bootstrap runs inline first, so tags pushed by the page are
- * queued whether or not the container has arrived.
+ * `GtmLoader` injects the snippet — by default on the visitor's first
+ * interaction or a few seconds after load (`gtmLoad`, `lib/flags.ts`), never
+ * ahead of the page's own scripts. It is not a `next/script`: that would also
+ * put a `<link rel="preload">` for gtm.js in every page's head, fetching the
+ * container alongside the render-blocking CSS whenever it is going to run.
  *
  * The `<noscript>` iframe is GTM's own fallback, kept because it is the half of
  * the snippet that records a visit from a client that never runs the script.
@@ -30,14 +30,7 @@ export default function GoogleTagManager() {
 
   return (
     <>
-      <Script id="gtm-init" strategy="afterInteractive">
-        {`window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});`}
-      </Script>
-      <Script
-        id="gtm-loader"
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtm.js?id=${id}`}
-      />
+      <GtmLoader id={gtmContainerId} deferred={gtmLoad === 'deferred'} />
       <noscript>
         <iframe
           src={`https://www.googletagmanager.com/ns.html?id=${id}`}

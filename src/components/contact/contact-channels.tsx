@@ -1,17 +1,21 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { appPath, publicMediaUrl } from "@/lib/media-url";
-import { isValidName, isValidPhone } from "@/lib/forms/enquiry-rules";
+import { EMAIL_MAX, NAME_MAX, emailError, nameError, phoneError } from "@/lib/forms/enquiry-rules";
+import { focusAtEnd } from "@/lib/forms/focus";
+import { THANK_YOU_PATH } from "@/lib/forms/thank-you";
+import { useClearOnClick } from "@/lib/forms/use-clear-on-click";
 import PhoneField from "@/components/common/phone-field";
 import FadeUp from "@/components/home/fade-up";
-import { contactForm, quickContact, serviceOptions } from "@/lib/home/contact-content";
+import { CONTACT_FORM_ID, contactForm, quickContact, serviceOptions } from "@/lib/home/contact-content";
 import CardHead from "./card-head";
+import EmailQuestion from "./email-question";
 import ContactScheduler from "./contact-scheduler";
-import LiveChat from "./live-chat";
+import { openChatBot } from "@/components/chatbot/open-chatbot";
 import styles from "./contact.module.css";
 
 /**
@@ -40,49 +44,69 @@ export default function ContactChannels() {
 }
 
 /** The Contact Form card's id — the Live Chat row brings the reader here. */
-const CONTACT_FORM_ID = "contact-form";
 
 type Step = 0 | 1 | 2 | 3;
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 /**
  * The live page's four-step form — name, email, phone, service — one question
  * at a time with Back / Next, submitting on the last step. It POSTs to the
  * same `/api/v1/enquiry` endpoint as every other enquiry card, so a lead from
  * here lands in the `Enquiry` table with `sourceKey: "contact"`; the chosen
- * service is stored as the requirement.
+ * service is stored as the requirement. Once accepted, the reader is sent to
+ * `/thank-you`, as on the live page.
  */
 function SteppedForm() {
   const pathname = usePathname();
+  const router = useRouter();
   const [step, setStep] = useState<Step>(0);
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "" });
   const [website, setWebsite] = useState("");
   const [fieldError, setFieldError] = useState<string | null>(null);
-  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  // A step's message goes on the next click or tap anywhere (the form's own
+  // Next / Submit aside), as on every enquiry card.
+  useClearOnClick(Boolean(fieldError), () => setFieldError(null), formRef);
 
   const s = contactForm.steps;
   const questions = [s.name, s.email, s.phone, s.service] as const;
   const current = questions[step];
 
-  /** Validates the current step; returns its error message, or null when it passes. */
-  const check = (at: Step): string | null => {
-    if (at === 0) return form.name.trim().length >= 2 && isValidName(form.name) ? null : s.name.error;
-    if (at === 1) return EMAIL_RE.test(form.email.trim()) ? null : s.email.error;
-    // Required here, as on the live form. PhoneField emits "" until digits are
-    // typed, and `isValidPhone` alone treats "" as a valid (optional) value.
-    if (at === 2) return form.phone.trim() && isValidPhone(form.phone) ? null : s.phone.error;
-    return form.service ? null : s.service.error;
+  /**
+   * The rule for each step, from the shared `lib/forms/enquiry-rules.ts` (the
+   * same ones every enquiry card and the API use): a name of letters, a valid
+   * email, a ten-digit phone. Returns the message to show, or null.
+   */
+  const rule = (at: Step, f: typeof form): string | null => {
+    if (at === 0) return nameError(f.name);
+    if (at === 1) return emailError(f.email);
+    if (at === 2) return phoneError(f.phone);
+    return f.service ? null : s.service.error;
+  };
+  const check = (at: Step) => rule(at, form);
+
+  /** Updates a value; once this step has shown a message, re-checks as the reader types. */
+  const edit = (key: keyof typeof form, value: string) => {
+    const nextForm = { ...form, [key]: value };
+    setForm(nextForm);
+    if (fieldError) setFieldError(rule(step, nextForm));
   };
 
   const focusField = () =>
-    requestAnimationFrame(() => fieldRef.current?.querySelector<HTMLElement>("input:not([type=hidden]), select")?.focus());
+    requestAnimationFrame(() => {
+      // The text box first: on the phone step the country-code select comes
+      // before the number in the DOM, and the number is what needs fixing.
+      const box = fieldRef.current?.querySelector("input:not([type=hidden])");
+      focusAtEnd(box ?? fieldRef.current?.querySelector("select"));
+    });
 
   const next = () => {
     const err = check(step);
     setFieldError(err);
-    if (err) return;
+    // Back into the field to fix it, rather than leaving focus on Next.
+    if (err) return focusField();
     setStep((n) => (n < 3 ? ((n + 1) as Step) : n));
     focusField();
   };
@@ -133,7 +157,8 @@ function SteppedForm() {
               : "Something went wrong. Please try again."),
         );
       }
-      setStatus("ok");
+      // Stays "sending" until the thank-you page replaces this one.
+      router.push(THANK_YOU_PATH);
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -149,125 +174,126 @@ function SteppedForm() {
   const fieldId = `contact-${["name", "email", "phone", "service"][step]}`;
 
   return (
-    <form id={CONTACT_FORM_ID} className={`${styles.channelCard} ${styles.formCard}`} onSubmit={onSubmit} noValidate>
+    <form ref={formRef} id={CONTACT_FORM_ID} className={`${styles.channelCard} ${styles.formCard}`} onSubmit={onSubmit} noValidate>
       <CardHead icon={contactForm.icon} title={contactForm.title} subtitle={contactForm.subtitle} />
 
-      {status === "ok" ? (
-        <p className={styles.formSuccess} role="status">
-          {contactForm.success}
-        </p>
-      ) : (
-        <div className={styles.stepBody}>
-          <label className={styles.stepQuestion} htmlFor={fieldId}>
-            {current.question}
-          </label>
+      <div className={styles.stepBody}>
+        <label className={styles.stepQuestion} htmlFor={fieldId}>
+          {step === 1 ? <EmailQuestion name={form.name} /> : current.question}
+        </label>
 
-          <div className={styles.stepField} ref={fieldRef}>
-            {step === 0 && (
-              <input
+        <div className={styles.stepField} ref={fieldRef}>
+          {step === 0 && (
+            <input
+              id={fieldId}
+              className={styles.textInput}
+              type="text"
+              name="name"
+              autoComplete="name"
+              maxLength={NAME_MAX}
+              placeholder={s.name.placeholder}
+              value={form.name}
+              onChange={(e) => edit("name", e.target.value)}
+              aria-invalid={Boolean(fieldError)}
+              aria-describedby={fieldError ? "contact-step-error" : undefined}
+            />
+          )}
+          {step === 1 && (
+            <input
+              id={fieldId}
+              className={styles.textInput}
+              type="email"
+              name="email"
+              autoComplete="email"
+              maxLength={EMAIL_MAX}
+              placeholder={s.email.placeholder}
+              value={form.email}
+              onChange={(e) => edit("email", e.target.value)}
+              aria-invalid={Boolean(fieldError)}
+              aria-describedby={fieldError ? "contact-step-error" : undefined}
+            />
+          )}
+          {step === 2 && (
+            <div className={styles.phoneWrap}>
+              <PhoneField
                 id={fieldId}
-                className={styles.textInput}
-                type="text"
-                name="name"
-                autoComplete="name"
-                placeholder={s.name.placeholder}
-                value={form.name}
-                onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                aria-invalid={Boolean(fieldError)}
-                aria-describedby={fieldError ? "contact-step-error" : undefined}
+                value={form.phone}
+                placeholder={s.phone.placeholder}
+                onChange={(phone) => edit("phone", phone)}
+                invalid={Boolean(fieldError)}
+                describedBy={fieldError ? "contact-step-error" : undefined}
               />
-            )}
-            {step === 1 && (
-              <input
-                id={fieldId}
-                className={styles.textInput}
-                type="email"
-                name="email"
-                autoComplete="email"
-                placeholder={s.email.placeholder}
-                value={form.email}
-                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                aria-invalid={Boolean(fieldError)}
-                aria-describedby={fieldError ? "contact-step-error" : undefined}
-              />
-            )}
-            {step === 2 && (
-              <div className={styles.phoneWrap}>
-                <PhoneField
-                  id={fieldId}
-                  value={form.phone}
-                  placeholder={s.phone.placeholder}
-                  onChange={(phone) => setForm((f) => ({ ...f, phone }))}
-                />
-              </div>
-            )}
-            {step === 3 && (
-              <select
-                id={fieldId}
-                className={styles.selectInput}
-                name="service"
-                value={form.service}
-                onChange={(e) => setForm((f) => ({ ...f, service: e.target.value }))}
-                aria-invalid={Boolean(fieldError)}
-                aria-describedby={fieldError ? "contact-step-error" : undefined}
-              >
-                <option value="" disabled hidden>
-                  {s.service.placeholder}
+            </div>
+          )}
+          {step === 3 && (
+            <select
+              id={fieldId}
+              className={styles.selectInput}
+              name="service"
+              value={form.service}
+              onChange={(e) => edit("service", e.target.value)}
+              aria-invalid={Boolean(fieldError)}
+              aria-describedby={fieldError ? "contact-step-error" : undefined}
+            >
+              <option value="" disabled hidden>
+                {s.service.placeholder}
+              </option>
+              {serviceOptions.map((o) => (
+                <option key={o} value={o}>
+                  {o}
                 </option>
-                {serviceOptions.map((o) => (
-                  <option key={o} value={o}>
-                    {o}
-                  </option>
-                ))}
-              </select>
-            )}
-          </div>
-
-          {fieldError && (
-            <p id="contact-step-error" className={styles.fieldError} role="alert">
-              {fieldError}
-            </p>
+              ))}
+            </select>
           )}
-          {status === "error" && error && (
-            <p className={styles.formError} role="alert">
-              {error}
-            </p>
-          )}
-
-          {/* Honeypot — hidden from people and from assistive tech. */}
-          <input
-            className={styles.honeypot}
-            type="text"
-            name="website"
-            tabIndex={-1}
-            autoComplete="off"
-            aria-hidden
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-          />
-
-          <div className={step === 0 ? styles.stepActionsEnd : styles.stepActions}>
-            {step > 0 && (
-              <button type="button" className={styles.stepBack} onClick={back}>
-                ‹ {contactForm.back}
-              </button>
-            )}
-            {step < 3 ? (
-              <button type="submit" className={styles.stepNext}>
-                {contactForm.next} ›
-              </button>
-            ) : (
-              <button type="submit" className={styles.stepNext} disabled={status === "sending"}>
-                {status === "sending" ? contactForm.sending : contactForm.submit}
-              </button>
-            )}
-          </div>
         </div>
-      )}
+
+        {fieldError && (
+          <p id="contact-step-error" className={styles.fieldError} role="alert">
+            {fieldError}
+          </p>
+        )}
+        {status === "error" && error && (
+          <p className={styles.formError} role="alert">
+            {error}
+          </p>
+        )}
+
+        {/* Honeypot — hidden from people and from assistive tech. */}
+        <input
+          className={styles.honeypot}
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+
+        <div className={step === 0 ? styles.stepActionsEnd : styles.stepActions}>
+          {step > 0 && (
+            <button type="button" className={styles.stepBack} onClick={back}>
+              ‹ {contactForm.back}
+            </button>
+          )}
+          {step < 3 ? (
+            <button type="submit" className={styles.stepNext}>
+              {contactForm.next} ›
+            </button>
+          ) : (
+            <button type="submit" className={styles.stepNext} disabled={status === "sending"}>
+              {status === "sending" ? contactForm.sending : contactForm.submit}
+            </button>
+          )}
+        </div>
+      </div>
 
       <p className={styles.formAlert}>
         <strong>{contactForm.alert.label}</strong> {contactForm.alert.text}{" "}
-        <Link href={contactForm.alert.href}>{contactForm.alert.linkLabel}</Link>.
+        <Link href={contactForm.alert.href}>
+          {contactForm.alert.linkLabel}
+          <span className="sr-only"> to see open jobs at Soft Suave</span>
+        </Link>.
       </p>
     </form>
   );
@@ -275,20 +301,14 @@ function SteppedForm() {
 
 function QuickContactCard() {
   const q = quickContact;
-  const [chatOpen, setChatOpen] = useState(false);
-  const closeChat = useCallback(() => setChatOpen(false), []);
   return (
-    <div className={styles.channelCard}>
+    <div className={`${styles.channelCard} ${styles.quickCard}`}>
       <CardHead icon={q.icon} title={q.title} subtitle={q.subtitle} level={3} />
 
       <div className={styles.quickPair}>
         <a className={styles.quickWhatsapp} href={q.whatsapp.href} target="_blank" rel="noopener noreferrer">
           <Image src={publicMediaUrl(q.whatsapp.icon)} alt="" width={34} height={34} />
           <span>{q.whatsapp.label}</span>
-        </a>
-        <a className={styles.quickTeams} href={q.teams.href} target="_blank" rel="noopener noreferrer">
-          <Image src={publicMediaUrl(q.teams.icon)} alt="" width={34} height={34} className={styles.teamsIcon} />
-          <span>{q.teams.label}</span>
         </a>
       </div>
 
@@ -300,21 +320,15 @@ function QuickContactCard() {
           </svg>
         </span>
         <span className={styles.quickText}>
-          <span className={styles.quickTitle}>{q.email.label}</span>
+          <span className={`${styles.quickTitle} ${styles.quickTitleEmail}`}>{q.email.label}</span>
           <span className={styles.quickSub}>{q.email.text}</span>
         </span>
         <Arrow />
       </a>
 
-      {/* Opens the Soft Suave assistant panel — the live page's Live Chat —
-          rather than an external app: see `quickContact.liveChat`. */}
-      <button
-        type="button"
-        className={styles.quickRow}
-        onClick={() => setChatOpen(true)}
-        aria-haspopup="dialog"
-        aria-expanded={chatOpen}
-      >
+      {/* Opens the site-wide chat widget (components/chatbot) — the live
+          page's Live Chat — rather than an external app: see `quickContact.liveChat`. */}
+      <button type="button" className={styles.quickRow} onClick={openChatBot} aria-haspopup="dialog">
         <Image src={publicMediaUrl(q.liveChat.icon)} alt="" width={46} height={46} className={styles.quickRowImg} />
         <span className={styles.quickText}>
           <span className={styles.quickTitle}>
@@ -325,7 +339,6 @@ function QuickContactCard() {
         </span>
         <Arrow />
       </button>
-      <LiveChat open={chatOpen} onClose={closeChat} />
     </div>
   );
 }

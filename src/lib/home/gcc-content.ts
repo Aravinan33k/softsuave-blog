@@ -17,12 +17,14 @@
  * strip, testimonials, process or FAQs, so this page has none.
  */
 
+import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { overviewImage } from "./overview-images";
+import { SPECIALISTS_PLUS } from "@/lib/company-figures";
 
 export const gccMeta = {
   slug: "global-capability-center",
@@ -34,7 +36,10 @@ export const gccMeta = {
 } as const;
 
 export const gccHero: HeroContent = {
+  // 13 Oct review: highlight "Global Capability Center" in the H1 — the
+  // coral accent used to fall on the last line.
   titleLines: ["Global Capability Center", "Services"],
+  accent: "Global Capability Center",
   body: [
     "Build your own offshore engineering centre in India without standing up a legal entity, an office, and a hiring function from scratch. Soft Suave handles company registration, infrastructure, recruitment, and daily operations, while the team works to your roadmap and your standards.",
     "You get the cost base and talent depth of an India delivery centre with the control of an in-house team — and a defined path to taking the centre fully in-house when you are ready.",
@@ -42,7 +47,7 @@ export const gccHero: HeroContent = {
   points: [
     "End-to-end GCC setup and operations",
     "Legal, tax and statutory compliance handled",
-    "400+ AI & engineering specialists to recruit from",
+    `${SPECIALISTS_PLUS} AI & engineering specialists to recruit from`,
     "Chennai, Bengaluru and US delivery presence",
     "Build-Operate-Transfer path to full ownership",
   ],
@@ -53,7 +58,7 @@ export const gccHero: HeroContent = {
     // The live form's business-only notice (review: "Form needs to be updated").
     alert: sharedHeroAlert,
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What do you want your GCC to do?",
     requirementPlaceholder:
       "Functions you want to move offshore, roles and headcount, target timeline, and where your existing teams sit.",
@@ -81,9 +86,8 @@ export const gccIntro: OverviewContent = {
     "Our GCC solutions are specifically designed to align with your software development goals, ensuring seamless integration with your existing systems. We help businesses optimize workflows, enhance development teams, and reduce operational costs while maintaining high quality.",
     "By leveraging AI technologies, we empower businesses to automate development processes, improve decision-making, and foster continuous growth. With Soft Suave, your company gains the strategic edge needed to succeed in the competitive software development landscape.",
   ],
-  // The live strip's "Contact with us" button; /contact, as the reviews ask of
-  // every consultation CTA.
-  cta: { label: "Contact with us", href: "/contact" },
+  // No button here (review: "no need for a contact button in this section");
+  // the closing "Talk To Us" band carries the page's consultation CTA.
   // Stands in for the live page's team illustration (gcc-second-section.webp),
   // which sits beside the "Why Choose" copy there; the card grid that section
   // renders as here carries no image.
@@ -203,16 +207,15 @@ export const gccAudience: CardGridContent = {
 };
 
 /**
- * The live page's closing consultation band. It runs straight into the dark
- * closing enquiry section, and the landing `CtaBand` always paints its own dark
- * ground, so it renders as a light prose block with its button instead.
+ * The live page's closing consultation band, as the mid-page CTA band every
+ * other page runs — copy on the left, the button on the right (review: "update
+ * the CTA design like in other pages; button must be in the right corner and
+ * not at the bottom").
  */
-export const gccClosingCta: OverviewContent = {
+export const gccClosingCta: CtaBandContent = {
   eyebrow: "Talk To Us",
   title: "Transform Your Business with our GCC-as-a-Service",
-  paragraphs: [
-    "Collaborate with us and experience seamless scalability and reduced operational costs with our tailored GCC-as-a-Service solutions.",
-  ],
+  body: "Collaborate with us and experience seamless scalability and reduced operational costs with our tailored GCC-as-a-Service solutions.",
   // The live band's "Request a Consultation" button; /contact, as the reviews
   // ask of every consultation CTA.
   cta: { label: "Request a Consultation", href: "/contact" },

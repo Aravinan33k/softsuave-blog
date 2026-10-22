@@ -1,11 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import Link from "next/link";
 import BrandImage from "@/components/home/brand-image";
 import Breadcrumb from "@/components/common/breadcrumb";
 import PartnerBadges from "@/components/common/partner-badges";
-import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { why } from "@/lib/home/content";
 import { hero, sectors } from "@/lib/home/industries-content";
 import styles from "./industries.module.css";
@@ -29,39 +28,10 @@ const years = why.stats.find((s) => s.icon === "years");
 export default function Hero() {
   const root = useRef<HTMLElement | null>(null);
 
-  useGSAP(
-    () => {
-      if (prefersReducedMotion() || !root.current) return;
-      const tl = gsap.timeline({ delay: 0.15 });
-      tl.from(
-        `.${styles.heroLine}`,
-        { yPercent: 40, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.09 },
-        0.1,
-      )
-        .from(
-          `.${styles.heroBody}`,
-          { opacity: 0, y: 20, duration: 0.7, ease: "power2.out" },
-          "-=0.55",
-        )
-        .from(
-          `.${styles.heroAside}`,
-          { opacity: 0, y: 16, duration: 0.6, ease: "power2.out" },
-          "-=0.45",
-        )
-        .from(
-          `.${styles.heroCtas}`,
-          { opacity: 0, y: 16, duration: 0.6, ease: "power2.out" },
-          "-=0.4",
-        )
-        .from(
-          `.${styles.heroFrame}`,
-          { opacity: 0, y: 34, duration: 0.9, ease: "power3.out", stagger: 0.08 },
-          0.2,
-        )
-        .from(`.${styles.heroPlate}`, { opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.4");
-    },
-    { scope: root },
-  );
+  // The entrance plays in CSS (the hero-entrance block in industries.module.css)
+  // from the first paint, with this hero's former GSAP timings. At hydration
+  // that timeline re-hid copy already on screen, delaying the page's measured
+  // main content (LCP) to the end of every script (PageSpeed, 15 Oct).
 
   return (
     <section ref={root} className={styles.hero} id="top">
@@ -71,6 +41,7 @@ export default function Hero() {
           {hero.titleLines.map((line, i) => (
             <span
               key={line}
+              style={{ ["--i" as string]: i } as CSSProperties}
               className={`${styles.heroLine} ${
                 i === hero.titleLines.length - 1 ? styles.heroTitleAccent : ""
               }`}
@@ -102,7 +73,7 @@ export default function Hero() {
 
       <div className={styles.heroFrames}>
         {hero.frames.map((frame, i) => (
-          <div key={frame.id} className={styles.heroFrame}>
+          <div key={frame.id} className={styles.heroFrame} style={{ ["--i" as string]: i } as CSSProperties}>
             <BrandImage
               page="four"
               id={frame.id}

@@ -16,8 +16,8 @@ import type { OverviewContent } from "@/components/landing/overview";
 import type { ProcessContent } from "@/components/landing/process";
 import type { TeamContent } from "@/components/landing/team";
 
-import { sharedHeroBadges, sharedHeroAlert } from "./delivery-shared";
-import { overviewImage } from "./overview-images";
+import { sharedHeroBadges } from "./delivery-shared";
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 export const aboutMeta = {
   slug: "about",
@@ -43,16 +43,16 @@ export const aboutHero: HeroContent = {
   ],
   points: [],
   badges: sharedHeroBadges,
-  form: {
-    eyebrow: "Talk to us",
-    title: "Book a free consultation",
-    alert: sharedHeroAlert,
-    submit: "Book free consultation",
-    sending: "Sending…",
-    requirementLabel: "What are you building?",
-    requirementPlaceholder:
-      "A short description of the product, the team you need, or the problem you want solved.",
-    subject: "Consultation request — About page",
+  // The live hero's office collage in the form's place (13 Oct review: "need
+  // to remove the form instead use the image" / "use the same images in hero
+  // and our mission and vision section").
+  aside: {
+    src: "/images/about/about-hero-collage.webp",
+    width: 1000,
+    height: 537,
+    alt: "The Soft Suave office entrance and the team at work on the engineering floor",
+    blurDataURL:
+      "data:image/webp;base64,UklGRtYAAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSFUAAAABcFrbthpdFxnNVUSlAi6EXdpJARw1jkFOBcySC8APLUTEBIBsFtXyenUBqLqu61rw/jcA6U3sCCKgkt67+ajfExj2rwtxYZGKN/nm5f5/RgM55QpoAFZQOCBaAAAAMAIAnQEqEAAJAAOAWiWMAnQGLLbdhwBH1AAA/sBLAMB5B6lw4xjtDeTi8a1GM2/dCr/Fbl0yNM0Q6FJMhXNFAdk7PyOXtXJRS+T0dYxJc61ydo9Knm29twAA",
   },
 };
 
@@ -61,11 +61,32 @@ export const aboutHero: HeroContent = {
    same section. The review asked for the two to be one section rather than a
    separate card grid after this one, so they are this section's two cards. */
 export const aboutOverview: OverviewContent = {
-  image: overviewImage("about"),
+  // The live section's own photograph of the team, shown whole and centred
+  // against the copy (13 Oct review: "use the same images in hero and our
+  // mission and vision section").
+  image: {
+    src: "/images/about/about-mission-team.webp",
+    width: 1100,
+    height: 1093,
+    aspect: "1100 / 1093",
+    fit: "cutout",
+    align: "center",
+    alt: "The Soft Suave team working at their desks on the engineering floor",
+    blurDataURL:
+      "data:image/webp;base64,UklGRuYAAABXRUJQVlA4WAoAAAAQAAAADwAADwAAQUxQSDsAAAABYBTJVqOnCQlgBjcYQcE3AAq4YSGfNue8AiJiArBl0/EISUTmlJrWbxL6yjT9S+VXAl7UuLXFeOyxBQBWUDgghAAAAJACAJ0BKhAAEAADgFolsAKwB3At82o2dqMMJjoAAM1uU/EU7xAyPYIxQdAzRjDFNurBWtUk5hnaYLGZLwMbyuKmneDWginak3NKknaa01idnmgQs/3DbwQo7PSGPMZ+KNAHXuHquAYA4iXuKZioVJfT4crTmslEz5XxucwT1nGkjQQAAA==",
+  },
+  // The live paragraph's link, on the same words (13 Oct review: "add the
+  // blog link for our mission and vision section").
+  links: [
+    {
+      text: "our strategic partnership with KiwiTech",
+      href: "https://www.softsuave.com/blog/soft-suave-and-kiwitech-partner-to-accelerate-innovation/",
+    },
+  ],
   eyebrow: "Our Mission And Vision",
   title: "Your Trusted AI-Enabled Product Engineering Partner",
   paragraphs: [
-    "Soft Suave is a leading AI-enabled product engineering partner with 13+ years of experience delivering scalable technology solutions for global enterprises across diverse industries.",
+    `Soft Suave is a leading AI-enabled product engineering partner with ${YEARS_PLUS} years of experience delivering scalable technology solutions for global enterprises across diverse industries.`,
     "From enterprise modernization to augmented engineering teams, we help businesses accelerate innovation, improve operational efficiency, and build future-ready digital ecosystems.",
     "Today, Soft Suave’s capabilities are further amplified through our strategic partnership with KiwiTech. This collaboration expands our innovation ecosystem, strengthens our global reach, and unlocks new opportunities for clients seeking transformative digital solutions.",
   ],
@@ -114,7 +135,7 @@ export const aboutMilestones: ProcessContent = {
     },
     {
       n: "2017",
-      name: "Launched an eCommerce Product",
+      name: "Launched an E-commerce Product",
       body: "Launched a grocery delivery application solution.",
     },
     {

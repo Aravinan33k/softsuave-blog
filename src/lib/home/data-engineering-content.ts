@@ -25,6 +25,7 @@ import type { FaqContent } from "@/components/landing/faq";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { landingImage } from "./overview-images";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const deMeta = {
   slug: "data-engineering-services",
@@ -37,17 +38,19 @@ export const deMeta = {
 } as const;
 
 export const deHero: HeroContent = {
-  // The last line takes the coral accent.
+  // 13 Oct review: highlight "Data Engineering Services" in the H1 — the
+  // coral accent used to fall on the last line.
   titleLines: ["Data Engineering Services", "for Analytics and AI"],
+  accent: "Data Engineering Services",
   body: [
     "Build connected data foundations that move information reliably across applications, databases, cloud environments, and business systems. Create consistent, accessible data that supports reporting, analytics, artificial intelligence, and informed decision-making as your business requirements continue to grow.",
     "Soft Suave provides data engineering services to structure data flows, build reliable pipelines, integrate systems, and support analytics and AI.",
   ],
   points: [
-    "13+ Years of Technology Expertise",
+    `${YEARS_PLUS} Years of Technology Expertise`,
     "Time-Zone & Language Aligned Teams",
     "AWS, Azure & Google Cloud Expertise",
-    "400+ AI & Engineering Specialists",
+    `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     "ISO/IEC 27001:2022 Certified",
   ],
   badges: sharedHeroBadges,
@@ -97,21 +100,23 @@ export const deOverview: OverviewContent = {
  */
 /**
  * Solution-card artwork for this page, from the image pipeline
- * (`landing/de-svc-*` slots in content/images.manifest.json).
+ * (`landing/de-card-*` slots in content/images.manifest.json).
  *
- * The cards used to borrow the generic service photographs every AI page
- * shares. The Sep 23 review asked for relevant images, so each card now shows
- * its own subject: patch cabling for pipelines, storage hardware for the data
- * foundation, racks for connectivity, a connected network for cloud, a
- * reporting dashboard for analytics, and a team working the data for AI.
+ * One drawn diagram per card, showing the flow its text describes (1 Oct
+ * review: "update relevant / accurate to text images"): a database feeding a
+ * pipeline out to applications, stacked data layers, a database linking four
+ * systems, databases in a cloud serving an application, a dashboard, and data
+ * feeding an AI system. They replace cabling, server-rack and robot-hand
+ * photographs that showed infrastructure rather than these services, and stay
+ * readable at the cards' 130px thumbnail size, where a photograph does not.
  */
 const DE_SVC = {
-  pipeline: landingImage("de-svc-pipeline"),
-  foundation: landingImage("de-svc-foundation"),
-  connectivity: landingImage("de-svc-connectivity"),
-  cloud: landingImage("de-svc-cloud"),
-  analytics: landingImage("de-svc-analytics"),
-  ai: landingImage("de-svc-ai"),
+  pipeline: landingImage("de-card-pipeline"),
+  foundation: landingImage("de-card-foundation"),
+  connectivity: landingImage("de-card-connectivity"),
+  cloud: landingImage("de-card-cloud"),
+  analytics: landingImage("de-card-analytics"),
+  ai: landingImage("de-card-ai"),
 };
 
 export const deSolutions: ShowcaseContent = {
@@ -292,7 +297,7 @@ export const deIndustries: CardGridContent = {
       body: "Connect learning platforms, applications, and databases so educational data can support reporting, personalization, analytics, and digital learning experiences.",
     },
     {
-      name: "Ecommerce",
+      name: "E-commerce",
       body: "Connect product, customer, order, and operational data across platforms to support reporting, applications, analytics, and business workflows.",
     },
     {
@@ -312,12 +317,12 @@ export const deWhyUs: CardGridContent = {
   body: "Soft Suave brings together data foundations, application engineering, cloud technologies, and AI capabilities to support connected data initiatives across modern technology environments. As a data engineering services company, we help businesses build data systems that work effectively with the applications, platforms, and workflows that depend on them.",
   items: [
     {
-      name: "13+ Years of Technology Expertise",
-      body: "Bring 13+ years of technology engineering experience across applications, cloud environments, databases, and connected systems.",
+      name: `${YEARS_PLUS} Years of Technology Expertise`,
+      body: `Bring ${YEARS_PLUS} years of technology engineering experience across applications, cloud environments, databases, and connected systems.`,
     },
     {
-      name: "400+ AI & Engineering Specialists",
-      body: "Work with 400+ AI & Engineering Specialists across applications, backend, cloud technologies, and data foundations.",
+      name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+      body: `Work with ${SPECIALISTS_PLUS} AI & Engineering Specialists across applications, backend, cloud technologies, and data foundations.`,
     },
     {
       name: "Connected Engineering Capabilities",

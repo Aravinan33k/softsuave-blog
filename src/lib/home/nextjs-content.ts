@@ -41,18 +41,23 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const nxMeta = {
   slug: "nextjs-development-company",
   path: "/nextjs-development-company",
   title: "Next.js Development Company for Modern Web Apps",
   description:
-    "Build and improve React-based web products with a Next.js development company backed by 13+ years of technology expertise. Plan your project with Soft Suave.",
+    `Build and improve React-based web products with a Next.js development company backed by ${YEARS_PLUS} years of technology expertise. Plan your project with Soft Suave.`,
 } as const;
 
 export const nxHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Next.js Development Company", "for Flexible Web Platforms"],
+  accent: "Next.js",
   body: [
     "As a reliable Next.js development company, Soft Suave builds web apps for businesses that need flexible rendering, organized React architecture, and dependable connections with existing systems. Our team combines Next.js, TypeScript, server-side rendering, REST APIs, and GraphQL to shape web products around your users, content, and specific operational workflows.",
     "Tell us what you plan to build, and we will outline a suitable path for your Next.js product development.",
@@ -62,7 +67,7 @@ export const nxHero: HeroContent = {
     "Flexible Rendering Strategies",
     "Structured Application Routing",
     "Connected Backend Systems",
-    "13+ Years of Technology Expertise",
+    `${YEARS_PLUS} Years of Technology Expertise`,
   ],
   badges: partnerHeroBadges,
   form: {
@@ -102,7 +107,7 @@ export const nxOverview: OverviewContent = {
   paragraphs: [
     "Next.js is a React framework supporting server-rendered, statically generated, and interactive experiences. Teams use it to organize routes, manage data delivery, build reusable interfaces, and handle products where content, performance, and maintainability influence planning.",
     "Our Next.js development services cover the complete project lifecycle, from planning and architecture to development, integrations, testing, deployment, and continued support. We tailor the approach to your application requirements, existing systems, technical priorities, and preferred way of working.",
-    "Your product team receives direct coordination throughout planning and delivery. Backed by 13+ years of technology expertise and delivery presence across Chennai, Bengaluru, and the United States, our developers adapt to your workflows, technical standards, review practices, and release expectations during development.",
+    `Your product team receives direct coordination throughout planning and delivery. Backed by ${YEARS_PLUS} years of technology expertise and delivery presence across Chennai, Bengaluru, and the United States, our developers adapt to your workflows, technical standards, review practices, and release expectations during development.`,
   ],
   image: {
     src: "/images/landing/nextjs/overview.webp",
@@ -141,8 +146,8 @@ export const nxServices: ServicesCarouselContent = {
       },
     },
     {
-      name: "Next.js Ecommerce Development",
-      body: "Build responsive Next.js ecommerce applications with product catalogs, search, customer accounts, checkout workflows, content systems, and commerce API integrations.",
+      name: "Next.js E-commerce Development",
+      body: "Build responsive Next.js e-commerce applications with product catalogs, search, customer accounts, checkout workflows, content systems, and commerce API integrations.",
       image: {
         src: "/images/landing/nextjs/svc-ecommerce.webp",
         alt: "An online checkout screen on a laptop",
@@ -192,11 +197,11 @@ export const nxWhyUs: CardGridContent = {
   items: [
     {
       name: "Experience Across Technology Projects",
-      body: "Benefit from 13+ years of experience supporting technology projects from planning through delivery.",
+      body: `Benefit from ${YEARS_PLUS} years of experience supporting technology projects from planning through delivery.`,
     },
     {
       name: "Cross-Functional Engineering Support",
-      body: "Work with 400+ AI & Engineering Specialists covering diverse technologies and project requirements.",
+      body: `Work with ${SPECIALISTS_PLUS} AI & Engineering Specialists covering diverse technologies and project requirements.`,
     },
     {
       name: "Support Across the Product Lifecycle",
@@ -252,7 +257,7 @@ export const nxFaqs: FaqContent = {
   items: [
     {
       q: "What types of products are suitable for Next.js?",
-      a: "Next.js suits content platforms, ecommerce applications, SaaS products, portals, dashboards, and other React-based web experiences. Suitability depends on required rendering behavior, content changes, user interactions, integrations, deployment constraints, available team skills, and how the application will be maintained over time.",
+      a: "Next.js suits content platforms, e-commerce applications, SaaS products, portals, dashboards, and other React-based web experiences. Suitability depends on required rendering behavior, content changes, user interactions, integrations, deployment constraints, available team skills, and how the application will be maintained over time.",
     },
     {
       q: "What should I evaluate in a Next.js web development company?",

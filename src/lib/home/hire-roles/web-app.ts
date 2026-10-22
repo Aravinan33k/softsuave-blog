@@ -23,6 +23,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
+import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const webApp: HireRolePageContent = {
   key: 'hire-web',
@@ -55,15 +56,16 @@ export const webApp: HireRolePageContent = {
 
   hero: {
     titleLines: ['Hire Web App Developers', 'for Scalable Digital Products'],
+    accent: 'Web App Developers',
     body: [
       'Hire web app developers matched to your technology stack, product requirements, and delivery process. Build new applications, modernize existing platforms, complete integrations, or add engineering capacity with specialists selected for the work your team needs to deliver.',
       'Review relevant profiles, interview specialists directly, and evaluate their technical execution through a 40-hour risk-free trial before extending the engagement.',
     ],
     points: [
       'Project-Ready Developer Profiles',
-      '400+ AI & Engineering Specialists',
+      `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
       '40-Hour Risk-Free Trial',
-      'Flexible Hiring from $14/Hour',
+      `Flexible Hiring from ${HOURLY_RATE}`,
       'Direct Developer Collaboration',
     ],
     form: heroForm({
@@ -76,13 +78,24 @@ export const webApp: HireRolePageContent = {
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: '/images/landing/ov-hire-web-app-developers-tall.webp',
+      width: 1000,
+      height: 1250,
+      alt: 'Web application developer working on a laptop',
+      blurDataURL:
+        'data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAQAgCdASoQAAsAA4BaJYwCdAEPPND78MMkAP7f9P8T+Bny0/Eh0KgWDycbfTPZEFsacddULmUHPRH+jWI7RGyC8TP2bUNgQfkXv2XWgAA=',
+      fit: 'column',
+    },
     eyebrow: 'Overview',
     title: 'Hire Web Application Developers for Your Product',
     paragraphs: [
       'Hiring web application developers gives your business additional engineering capacity for building, modernizing, and maintaining browser-based products. The right developer should match your architecture, technologies, delivery process, security requirements, and the responsibilities involved in your project.',
       'Soft Suave helps you identify web app developers for hire based on the technical skills, experience, availability, and collaboration model your project requires. Review relevant profiles, interview shortlisted specialists, and use the 40-hour trial to evaluate technical skills, communication, and team fit before continuing the engagement.',
-      'Our developers build SaaS platforms, customer portals, internal business applications, ecommerce applications, and API-integrated systems. They can also support application modernization, feature delivery, ongoing maintenance, and longer-term web application requirements.',
-      'Our developer rates start at $14 per hour and vary by skill, experience, engagement model, and project requirements.',
+      'Our developers build SaaS platforms, customer portals, internal business applications, e-commerce applications, and API-integrated systems. They can also support application modernization, feature delivery, ongoing maintenance, and longer-term web application requirements.',
+      `Our developer rates start at ${HOURLY_RATE} and vary by skill, experience, engagement model, and project requirements.`,
     ],
   },
 
@@ -90,46 +103,48 @@ export const webApp: HireRolePageContent = {
     eyebrow: 'Capabilities',
     title: 'Web App Developers for Your Product Requirements',
     body: 'Hire web application developers who turn your requirements into reliable digital products, strengthen existing systems, and help your business scale confidently and adapt as priorities evolve over time.',
+    // Review: "Capabilities - In this section, a CTA button is missing".
+    cta: { label: 'Talk to Our Experts', href: '/contact' },
     items: [
       {
         name: 'SaaS Application Development',
         body: 'Build and expand subscription-based applications with account management, user permissions, dashboards, workflow automation, billing integrations, reporting, and product features aligned with your operating model.',
-        image: '/images/landing/services/svc-application-development.webp',
+        image: '/images/landing/hr-web-cap-saas.webp',
       },
       {
         name: 'Customer and Partner Portals',
         body: 'Develop secure web portals for customers, employees, vendors, and partners. Support account access, document sharing, communication, transactions, approvals, and self-service workflows within one application.',
-        image: '/images/landing/services/svc-dedicated-teams.webp',
+        image: '/images/landing/hr-web-cap-portals.webp',
       },
       {
         name: 'Enterprise Web Applications',
         body: 'Create internal platforms that support operational workflows, reporting, resource management, data access, and collaboration across departments, systems, and distributed business teams.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        image: '/images/landing/hr-web-cap-enterprise.webp',
       },
       {
-        name: 'Ecommerce Applications',
+        name: 'E-commerce Applications',
         body: 'Build storefronts, marketplaces, ordering platforms, payment workflows, product-management systems, and customer experiences that connect with your business applications and external services.',
-        image: '/images/landing/services/svc-proof-of-concept.webp',
+        image: '/images/landing/hr-web-cap-ecommerce.webp',
       },
       {
         name: 'API and System Integrations',
         body: 'Connect your web application with PostgreSQL, MySQL, MongoDB, SQL Server, payment gateways, CRMs, ERPs, analytics platforms, identity providers, and third-party services through REST APIs, GraphQL, and integration workflows.',
-        image: '/images/landing/services/svc-integration.webp',
+        image: '/images/landing/hr-web-cap-api.webp',
       },
       {
         name: 'Web Application Modernization',
         body: 'Update legacy applications, replace outdated frameworks, and migrate workloads to AWS, Azure, or Google Cloud. Improve architecture and containerization with Docker and Kubernetes while supporting delivery through CI/CD pipelines.',
-        image: '/images/landing/services/svc-product-modernisation.webp',
+        image: '/images/landing/hr-web-cap-modernization.webp',
       },
       {
         name: 'Performance and Scalability Engineering',
         body: 'Improve application responsiveness, database performance, caching, infrastructure use, code quality, and system behavior as user demand and operational complexity increase.',
-        image: '/images/landing/services/svc-support-optimisation.webp',
+        image: '/images/landing/hr-web-cap-performance.webp',
       },
       {
         name: 'Application Maintenance and Enhancement',
         body: 'Add features, resolve technical issues, update dependencies, and strengthen automated testing, integration testing, and performance testing while supporting the continuous development of existing web applications.',
-        image: '/images/landing/services/svc-security-governance.webp',
+        image: '/images/landing/hr-web-cap-maintenance.webp',
       },
     ],
   },
@@ -167,6 +182,13 @@ export const webApp: HireRolePageContent = {
     paragraphs: [
       'Soft Suave supports distributed collaboration through agreed meetings, shared development tools, sprint routines, task tracking, and documentation, with 4 - 6 hours of overlap with US and UK business hours.',
       'Our web app developers in India work from Chennai and Bengaluru, supported by our delivery presence in the United States. They work within your existing tools and workflows, including source control, project management, sprint routines, code review, and deployment.',
+      'Not sure India is right for your project? Our guide to hiring web developers in India covers what to check first.',
+    ],
+    links: [
+      {
+        text: 'guide to hiring web developers in India',
+        href: '/blog/how-to-hire-a-web-developer-in-india',
+      },
     ],
   },
 
@@ -212,7 +234,7 @@ export const webApp: HireRolePageContent = {
       {
         key: 'php',
         name: 'Hire PHP Developers',
-        body: 'Develop custom platforms, ecommerce applications, portals, APIs, and content-driven systems using PHP and its established ecosystem.',
+        body: 'Develop custom platforms, e-commerce applications, portals, APIs, and content-driven systems using PHP and its established ecosystem.',
         href: '/hire-php-developers',
       },
       {
@@ -242,7 +264,7 @@ export const webApp: HireRolePageContent = {
       {
         key: 'laravel',
         name: 'Hire Laravel Developers',
-        body: 'Create maintainable PHP applications, APIs, admin systems, ecommerce platforms, and business workflows using the Laravel framework.',
+        body: 'Create maintainable PHP applications, APIs, admin systems, e-commerce platforms, and business workflows using the Laravel framework.',
         href: '/hire-laravel-developer',
       },
       {
@@ -290,7 +312,7 @@ export const webApp: HireRolePageContent = {
       },
       {
         key: 'specialists',
-        name: '400+ AI & Engineering Specialists',
+        name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
         body: 'Access developers across web application engineering, cloud, DevOps, testing, integrations, data, and AI capabilities for your requirements.',
       },
       {
@@ -305,8 +327,8 @@ export const webApp: HireRolePageContent = {
       },
       {
         key: 'experience',
-        name: '13+ Years of Technology Expertise',
-        body: 'Apply 13+ years of technology expertise to application development, modernization, integrations, and long-term engineering requirements.',
+        name: `${YEARS_PLUS} Years of Technology Expertise`,
+        body: `Apply ${YEARS_PLUS} years of technology expertise to application development, modernization, integrations, and long-term engineering requirements.`,
       },
       {
         key: 'contracts',
@@ -325,26 +347,31 @@ export const webApp: HireRolePageContent = {
     items: [
       {
         title: 'A Vision AI Platform for Real-Time Axle Counting & Traffic Monitoring',
+        image: { src: '/images/case-studies/vehicle-intelligence-cs.webp', alt: 'A Vision AI Platform for Real-Time Axle Counting & Traffic Monitoring' },
         tag: 'Transportation',
         body: 'Soft Suave built a real-time computer-vision pipeline for accurate axle counting, lane-level vehicle tracking, congestion insights, and lifted/floating axle detection across high-traffic highway sites.',
       },
       {
         title: 'A Platform for Driver Attention, Stress and Safety',
+        image: { src: '/images/case-studies/neurora-intelligence-cs.webp', alt: 'A Platform for Driver Attention, Stress and Safety' },
         tag: 'Automotive',
         body: 'Soft Suave built an AI-powered Behavioral Intelligence web app that combines driving video, eye-gaze, and heart-rate data to deliver automated safety, focus, and stress scores.',
       },
       {
         title: 'AI-Powered Contract & Tender Management Lifecycle Platform',
+        image: { src: '/images/case-studies/tender-intelligence-cs.webp', alt: 'AI-Powered Contract & Tender Management Lifecycle Platform' },
         tag: 'Energy',
         body: 'Soft Suave built an AI-powered web app automating the contract and tender lifecycle with secure evaluation, audit trails, sealed-bid integrity, and English/Arabic support, fully on-premises for a leading LNG operator in Oman.',
       },
       {
         title: 'An AI-Powered Shift Intelligence and Digital Logbook Platform for LNG Operations',
+        image: { src: '/images/case-studies/shift-sense-cs.webp', alt: 'An AI-Powered Shift Intelligence and Digital Logbook Platform for LNG Operations' },
         tag: 'Energy',
         body: 'Soft Suave delivered ShiftSense, an air-gapped AI platform transforming LNG operational logs into instant, source-cited shift insights with English/Arabic support and full auditability.',
       },
       {
         title: 'AI-Powered Onboarding and Configuration Assist for a Logistics Management Platform',
+        image: { src: '/images/case-studies/ai-assist-cs.webp', alt: 'AI-Powered Onboarding and Configuration Assist for a Logistics Management Platform' },
         tag: 'Logistics',
         body: 'Soft Suave built an AI assistant for logistics onboarding that guides setup, validates steps in real time, cuts onboarding time by half, and reduces support tickets.',
       },
@@ -475,7 +502,7 @@ export const webApp: HireRolePageContent = {
       },
       {
         q: 'How much does it cost to hire web app developers?',
-        a: 'Developer rates start at $14 per hour and vary by skill, experience, engagement model, and project requirements. The final rate also depends on responsibilities, duration, team composition, and collaboration needs. Request a tailored rate card for your required role.',
+        a: `Developer rates start at ${HOURLY_RATE} and vary by skill, experience, engagement model, and project requirements. The final rate also depends on responsibilities, duration, team composition, and collaboration needs. Request a tailored rate card for your required role.`,
       },
       {
         q: 'How quickly can I receive matched developer profiles?',

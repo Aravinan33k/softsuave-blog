@@ -43,11 +43,28 @@ export function MenuLink({
   // anchor is resolved against the homepage instead, so the same menu works on
   // every page rather than dead-ending on two dozen items.
   const onHome = usePathname() === "/";
+  // Prefetch on intent only (BUG-033). Every one of these sits in a closed
+  // drawer, hidden but laid out under the bar, and `next/link` counts that as
+  // on screen — with the default, /blog fetched 17 routes on a phone and 49 on
+  // a laptop while still loading (15 Oct), so viewport prefetch stays off. But
+  // with none at all, a click waited on the whole route before anything
+  // changed. Hovering or focusing an item now starts its route (Next's
+  // documented hover-prefetch pattern), so it is usually ready by the click.
+  const [intent, setIntent] = useState(false);
+  const warm = () => setIntent(true);
   if (href === undefined) return <span className={className}>{children}</span>;
   const resolved = navHrefForPage(href, onHome);
 
   return resolved.startsWith("/") ? (
-    <SiteLink href={resolved} className={className} onClick={onNavigate}>
+    <SiteLink
+      href={resolved}
+      className={className}
+      onClick={onNavigate}
+      prefetch={intent ? null : false}
+      onMouseEnter={warm}
+      onFocus={warm}
+      onTouchStart={warm}
+    >
       {children}
     </SiteLink>
   ) : (

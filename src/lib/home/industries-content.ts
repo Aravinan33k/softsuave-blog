@@ -30,7 +30,7 @@ export const hero = {
   titleLines: ['Industry-specific AI solutions', 'for strategic advancement'],
   body: 'We build AI around the way an industry actually runs — its data, its systems, its regulations and its people — so operations get leaner, costs come down, and performance compounds.',
   aside:
-    'Seven sectors, one engineering bench. Every engagement starts with the business problem and ends in a production system your teams keep using.',
+    'Six sectors, one engineering bench. Every engagement starts with the business problem and ends in a production system your teams keep using.',
   primaryCta: { label: 'Book AI Strategy Call', href: '/contact' },
   secondaryCta: { label: 'See all sectors', href: '#sectors' },
   /**
@@ -50,13 +50,10 @@ export const sectors = {
   title: 'Enhancing industries with custom AI solutions',
   body: 'Each sector has its own solution set, its own regulatory shape and its own page. Start where your business already is.',
   /**
-   * `img` names a generated portrait slot (`four/ind-<key>`). Construction has
-   * none: the image pipeline has no `ind-construction` frame yet, and
-   * `getImage` throws rather than ship an empty <img>. It renders in the grid's
-   * typographic treatment instead of borrowing a photograph of another
-   * industry — the slot is declared in `content/images.manifest.json` for the
-   * next `npm run images:home` run, and adding the art is then a one-word
-   * change here.
+   * `img` names a generated portrait slot (`four/ind-<key>`). Six sectors, in
+   * two rows of three: Construction's card is not listed (13 Oct review:
+   * "Sectors: Remove the construction card"), matching the site's own
+   * Industries menu and footer, which run these six. Its page is unchanged.
    */
   items: [
     {
@@ -88,7 +85,7 @@ export const sectors = {
     },
     {
       key: 'ecommerce',
-      name: 'eCommerce',
+      name: 'E-commerce',
       tagline: 'Boosting Online Sales',
       body: 'AI enhances customer experiences, improves inventory management, and drives targeted marketing for e-commerce.',
       href: '/ai-solutions-for-ecommerce',
@@ -113,15 +110,6 @@ export const sectors = {
       img: 'ind-telecom',
       solutions: ['Predictive maintenance', 'Automated fault resolution', 'Revenue assurance'],
     },
-    {
-      key: 'construction',
-      name: 'Construction',
-      tagline: 'Building Tomorrow’s World',
-      body: 'AI streamlines project management, predicts risks, and enhances safety protocols in the construction industry.',
-      href: '/ai-solutions-for-construction',
-      img: null,
-      solutions: ['Smart scheduling', 'Site safety monitoring', 'Inventory and downtime control'],
-    },
   ],
 } as const;
 
@@ -134,7 +122,7 @@ export const capabilities = {
       n: '01',
       name: 'Forecasting and optimization',
       body: 'Demand forecasting, route and freight optimization, dynamic pricing and resource scheduling, trained on your own operational history.',
-      sectors: ['Logistics', 'eCommerce', 'Construction'],
+      sectors: ['Logistics', 'E-commerce', 'Construction'],
     },
     {
       n: '02',
@@ -158,7 +146,7 @@ export const capabilities = {
       n: '05',
       name: 'Vision AI',
       body: 'Detection, classification and visual search running in production, from catalogue imagery to lane classification and axle counting.',
-      sectors: ['eCommerce', 'Logistics', 'Construction'],
+      sectors: ['E-commerce', 'Logistics', 'Construction'],
     },
     {
       n: '06',
@@ -193,8 +181,8 @@ export const closing = {
   /** The live `/industries` closing band, verbatim. */
   title: 'Ready to Unlock Tailored AI Solutions for Your Industry?',
   body: 'Leverage our industry-specific AI solutions to drive innovation, optimize processes, and scale business growth.',
+  // One button: the "Explore AI services" link came off (13 Oct review).
   primaryCta: { label: 'Book a Free Consultation', href: '/contact' },
-  secondaryCta: { label: 'Explore AI services', href: '/ai-development-service' },
 } as const;
 
 export type Sector = (typeof sectors)['items'][number];

@@ -17,12 +17,15 @@
 
 import type { HeroContent } from "@/components/landing/hero";
 import type { ProcessContent } from "@/components/landing/process";
+import { CLIENTS_PLUS, COUNTRIES_PLUS, SPECIALISTS_PLUS } from "@/lib/company-figures";
 
 export const consultationMeta = {
   path: "/30-min-free-consultation",
-  title: "Book a 30 Minute FREE Consultation For Your Business Needs | Soft Suave",
+  // The live page's <title> and description, verbatim (13 Oct review: "need
+  // to update the title and description").
+  title: "Book a 30 Minute FREE Consultation For Your Business Needs",
   description:
-    "Skip the guesswork – get a free expert consultation within 24 hours. Whether you're building a new app or enhancing an existing one, our specialists will guide you every step of the way.",
+    "Fill the form below to book a 30 Minute FREE Consultation for your business needs",
 } as const;
 
 export const consultationHero: HeroContent = {
@@ -34,17 +37,17 @@ export const consultationHero: HeroContent = {
   points: [],
   stats: [
     {
-      title: "150+ Clients",
+      title: `${CLIENTS_PLUS} Clients`,
       body: "World wide country-focused and industry-specific app solutions.",
       icon: "clients",
     },
     {
-      title: "400+ Experts",
+      title: `${SPECIALISTS_PLUS} Experts`,
       body: "A power-packed team of experienced app developers.",
       icon: "experts",
     },
     {
-      title: "20+ Countries Served",
+      title: `${COUNTRIES_PLUS} Countries Served`,
       body: "Serving businesses worldwide with tailored app solutions.",
       icon: "countries",
     },

@@ -1,0 +1,915 @@
+/* ============================================================
+   Homepage (`/`) — the redesigned hero, Industries and AI Transformation
+   Journey.
+
+   First reviewed at /home-v2, then swapped into `/`; /home-v2 now shows the
+   previous homepage. Every other band on the homepage is its own component in
+   components/home. These rules read the same `.theme-four` tokens (fonts,
+   --gutter, --fs-*, brand colours) and reuse home.module.css's shared pieces
+   (eyebrow, h2, lead, pills, the hero video frame) by composing classes in the
+   components, never by editing them.
+   ============================================================ */
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Top padding clears the fixed nav (77px) with room to breathe. */
+  padding: clamp(118px, 15vh, 176px) var(--gutter) clamp(44px, 7vh, 84px);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* A hairline of brand light along the hero's foot, where it meets the next
+   band. */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  z-index: 2;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 84, 54, 0.55) 30%, rgba(255, 84, 54, 0.55) 70%, transparent 100%);
+}
+
+/* The hero's own video and, until it has frames, its first frame blurred.
+   Dimmed so the footage sits behind the copy; the veil below does the rest. */
+.heroPoster,
+.heroVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+}
+
+.heroPoster {
+  background-size: cover;
+  background-position: center;
+  filter: blur(14px);
+  transform: scale(1.08);
+}
+
+.heroVideo {
+  object-fit: cover;
+}
+
+/* The veil does the rest: darkest behind the copy on the left, easing off to
+   the right where the footage has the frame to itself, and a deep fade at the
+   foot so the hero settles into the page. */
+.heroVeil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(4, 5, 8, 0.84) 0%, rgba(4, 5, 8, 0.66) 40%, rgba(4, 5, 8, 0.28) 76%, rgba(4, 5, 8, 0.38) 100%),
+    linear-gradient(180deg, rgba(4, 5, 8, 0.66) 0%, rgba(4, 5, 8, 0) 26%, rgba(4, 5, 8, 0) 58%, rgba(4, 5, 8, 0.96) 100%);
+}
+
+/* A faint warm bloom behind the headline — the brand's colour, barely there. */
+.heroVeil::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(48% 52% at 14% 52%, rgba(255, 84, 54, 0.1) 0%, rgba(255, 84, 54, 0) 70%);
+}
+
+/* On phones and portrait tablets the copy spans the full width, so the veil
+   is even across it rather than heaviest on the left. */
+@media (max-width: 999px) {
+  .heroVeil {
+    background:
+      linear-gradient(180deg, rgba(4, 5, 8, 0.78) 0%, rgba(4, 5, 8, 0.6) 40%, rgba(4, 5, 8, 0.7) 70%, rgba(4, 5, 8, 0.96) 100%);
+  }
+
+  .heroVeil::after {
+    background: radial-gradient(80% 40% at 30% 40%, rgba(255, 84, 54, 0.1) 0%, rgba(255, 84, 54, 0) 70%);
+  }
+}
+
+.heroInner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.heroTitle {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-h1-home);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  color: #f6f4f1;
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.45);
+}
+
+.heroLine {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.22em;
+  margin-bottom: -0.22em;
+}
+
+.heroLineInner {
+  display: block;
+  will-change: transform;
+}
+
+.heroItalic {
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* The rotating word. Every word shares one grid cell, so the slot is as wide as
+   the longest word and nothing after it moves; the cell clips, so a word in
+   transit is cut at the slot's edge instead of drawing over the line above or
+   below. The padding/negative-margin pairs give descenders and the italic's
+   overhang room inside that clip without changing the line's layout. */
+.rot {
+  position: relative;
+  display: inline-grid;
+  vertical-align: baseline;
+  overflow: hidden;
+  padding: 0 0.12em 0.22em 0.02em;
+  margin: 0 -0.12em -0.22em -0.02em;
+  font-style: italic;
+}
+
+.rotWord {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+/* Drawn from `data-word` (see hero.tsx) in the brand gradient. */
+.rotWord::before {
+  content: attr(data-word);
+  background: linear-gradient(92deg, #ff8a52 0%, #ff5436 45%, #fb3b5c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* The gradient only paints inside this box, and Space Grotesk has no italic,
+     so the browser slants it and the last letter leans past its own advance —
+     "Scalable" lost the top of its "e". Grow the painted box over that lean,
+     then pull the layout back so the slot keeps its width. */
+  padding-right: 0.12em;
+  margin-right: -0.12em;
+}
+
+/* Until the script runs only the first word shows. */
+.rotWord + .rotWord {
+  opacity: 0;
+}
+
+.heroSub {
+  margin: clamp(18px, 2.4vh, 28px) 0 0;
+  max-width: 760px;
+  font-size: clamp(1.0625rem, 1.25vw, 1.25rem);
+  line-height: 1.62;
+  color: #ffffff;
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5);
+}
+
+.heroCtas {
+  margin-top: clamp(24px, 3.2vh, 36px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* Both buttons a touch larger than the homepage's, 2px borders as there. */
+.heroCtas > a {
+  min-height: 52px;
+  padding: 0 1.9em;
+  border-width: 2px;
+  font-size: 12px;
+}
+
+.heroCtas > a:last-child {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(10, 11, 14, 0.35);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.heroCtas > a:last-child:hover {
+  border-color: var(--cta-bg, #ff5436);
+}
+
+.heroCtaArrow {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+.heroCtas > a:hover .heroCtaArrow {
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 699px) {
+  .heroCtas > a {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   SHARED SECTION HEAD (Industries, Journey)
+   ============================================================ */
+.head {
+  display: grid;
+  gap: 0 64px;
+  align-items: end;
+}
+
+/* Two columns from laptops up: the heading left, the intro right. */
+@media (min-width: 1000px) {
+  .head {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+
+  .head > p {
+    margin-top: 0;
+    padding-bottom: 0.35em;
+  }
+}
+
+/* ============================================================
+   INDUSTRIES — expanding image panels
+   ============================================================ */
+.ind {
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+}
+
+.panels {
+  /* The expanded panel's final width, read by its copy (see .panelBody). */
+  container-type: inline-size;
+  margin: var(--section-head-gap) auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  background: #0d0e11;
+  transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.panel[data-active="true"] {
+  border-color: rgba(255, 84, 54, 0.5);
+  box-shadow: 0 30px 60px -30px rgba(255, 84, 54, 0.35);
+}
+
+.panelImg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.panelImg img {
+  transform: scale(1.08);
+  filter: saturate(0.6) brightness(0.7);
+  transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.7s ease;
+}
+
+.panel[data-active="true"] .panelImg img {
+  transform: scale(1);
+  filter: saturate(1) brightness(0.95);
+}
+
+.panelShade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(6, 7, 10, 0.72);
+  transition: background 0.6s ease;
+}
+
+.panel[data-active="true"] .panelShade {
+  background: linear-gradient(180deg, rgba(6, 7, 10, 0.12) 0%, rgba(6, 7, 10, 0.35) 38%, rgba(6, 7, 10, 0.9) 72%, rgba(6, 7, 10, 0.97) 100%);
+}
+
+/* The panel's heading is its toggle — a button inside the H3. */
+.panelHeading {
+  margin: 0;
+  font: inherit;
+}
+
+.panelToggle {
+  appearance: none;
+  border: 0;
+  background: none;
+  color: #ffffff;
+  font: inherit;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.panelToggle:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: -4px;
+  border-radius: 20px;
+}
+
+.panelIcon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  background: rgba(10, 11, 14, 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.panelIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.panel[data-active="true"] .panelIcon {
+  background: var(--brand-500);
+  border-color: var(--brand-500);
+}
+
+.panelIndex {
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.panelLabel {
+  font-family: var(--font-eyebrow);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.panelChevron {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: rgba(255, 255, 255, 0.7);
+  transition: transform 0.45s ease;
+}
+
+.panel[data-active="true"] .panelChevron {
+  transform: rotate(180deg);
+}
+
+.panelBodyTop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.panelTitle {
+  margin: 18px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(28px, 2.6vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.panelText {
+  margin: 12px 0 0;
+  font-size: 16px;
+  line-height: 1.62;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.panelCta {
+  position: relative;
+  z-index: 2;
+  margin-top: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 20px 0 22px;
+  border-radius: var(--btn-radius);
+  background: var(--cta-bg, #ff5436);
+  color: var(--cta-ink, #ffffff);
+  font-family: var(--font-eyebrow);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.panelCta svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+.panelCta:hover {
+  background: #ffffff;
+  color: #140b08;
+}
+
+.panelCta:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.panelCta:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* The expanded panel is one big link (desktop): a duplicate of its CTA,
+   out of the tab order, under the copy. */
+.panelHit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: none;
+}
+
+/* ---- phones & portrait tablets: a vertical accordion ---- */
+@media (max-width: 999px) {
+  .panelToggle {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 80px;
+    padding: 16px 18px;
+  }
+
+  .panelToggle .panelLabel {
+    flex: 1;
+    font-family: var(--font-heading);
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    text-transform: none;
+  }
+
+  .panelToggle .panelIndex {
+    display: none;
+  }
+
+  /* The open panel's heading row already names it; the body's big title is
+     the desktop layout's. */
+  .panelTitle {
+    display: none;
+  }
+
+  .panelBodyTop {
+    display: none;
+  }
+
+  .panelCollapse {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.55s cubic-bezier(0.22, 0.8, 0.24, 1);
+  }
+
+  .panel[data-active="true"] .panelCollapse {
+    grid-template-rows: 1fr;
+  }
+
+  .panelCollapseInner {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* The top padding is a window onto the photograph. */
+  .panelBody {
+    padding: clamp(110px, 30vw, 200px) 18px 22px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .panel[data-active="true"] .panelBody {
+    opacity: 1;
+    transition-delay: 0.15s;
+  }
+
+  .panelText {
+    margin-top: 0;
+  }
+
+  /* The open panel's heading row sits on the photograph's top edge, so the
+     shade stays dark there, opens up over the picture, then deepens under
+     the copy. */
+  .panel[data-active="true"] .panelShade {
+    background: linear-gradient(180deg, rgba(6, 7, 10, 0.8) 0px, rgba(6, 7, 10, 0.25) 100px, rgba(6, 7, 10, 0.35) 24%, rgba(6, 7, 10, 0.86) 44%, rgba(6, 7, 10, 0.96) 100%);
+  }
+}
+
+/* ---- laptops and up: a row of panels, the open one wide ---- */
+@media (min-width: 1000px) {
+  .panels {
+    flex-direction: row;
+    height: clamp(500px, 66vh, 620px);
+    gap: 12px;
+  }
+
+  .panel {
+    flex: 1 1 0;
+    min-width: 0;
+    transition: flex-grow 0.75s cubic-bezier(0.22, 0.8, 0.24, 1), border-color 0.5s ease, box-shadow 0.5s ease;
+  }
+
+  .panel[data-active="true"] {
+    flex-grow: 4.4;
+  }
+
+  /* Collapsed: icon at the top, the name running up the foot. */
+  .panelToggle {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 0 26px;
+    transition: opacity 0.3s ease;
+  }
+
+  .panelToggle .panelIndex {
+    order: 1;
+  }
+
+  .panelToggle .panelLabel {
+    order: 2;
+    margin-top: auto;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  .panelChevron {
+    display: none;
+  }
+
+  /* Open: the collapsed column steps aside for the copy. It stays in the
+     accessibility tree and the tab order — only its ink goes. */
+  .panel[data-active="true"] .panelToggle {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .panelHit {
+    display: block;
+  }
+
+  /* Laid out at the OPEN panel's width from the start (100cqi is the panel
+     row), so the copy never re-wraps while its panel widens — it is clipped
+     until there is room, then fades in. */
+  .panelBody {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    width: calc((100cqi - 60px) * 4.4 / 9.4);
+    padding: 0 clamp(26px, 2.6vw, 40px) clamp(26px, 2.6vw, 38px);
+    opacity: 0;
+    transform: translateY(14px);
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+    pointer-events: none;
+  }
+
+  .panel[data-active="true"] .panelBody {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition: opacity 0.5s ease 0.28s, transform 0.5s ease 0.28s, visibility 0s;
+  }
+
+  /* Only the copy's own link takes clicks; the rest falls through to the
+     panel-wide link underneath. */
+  .panel[data-active="true"] .panelCta {
+    pointer-events: auto;
+  }
+
+  .panelText {
+    max-width: 520px;
+  }
+}
+
+/* ============================================================
+   AI TRANSFORMATION JOURNEY — a lit timeline
+   ============================================================ */
+.jr {
+  overflow: hidden;
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+  isolation: isolate;
+}
+
+/* A dot field that fades out at the band's edges, and a warm glow at the
+   "impact" end of the route. */
+.jr::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1.2px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+}
+
+.jr::after {
+  content: "";
+  position: absolute;
+  right: -10%;
+  bottom: -20%;
+  width: 60%;
+  height: 70%;
+  z-index: -1;
+  background: radial-gradient(closest-side, rgba(255, 84, 54, 0.14), rgba(255, 84, 54, 0));
+  pointer-events: none;
+}
+
+.jrRail {
+  position: relative;
+  margin: var(--section-head-gap) auto 0;
+}
+
+/* Placed and sized from the first and last node in JS (journey.tsx), so it
+   runs exactly node to node in either orientation. */
+.jrTrack {
+  position: absolute;
+  left: var(--track-x, 0);
+  top: var(--track-y, 0);
+  width: var(--track-w, 2px);
+  height: var(--track-h, 2px);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.jrFill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(var(--fill-dir, 90deg), #ff8a52 0%, #ff5436 50%, #fb3b5c 100%);
+  box-shadow: 0 0 14px rgba(255, 84, 54, 0.55);
+  transform-origin: left top;
+  /* Empty until the script measures and scrubs it. */
+  transform: scaleX(0);
+}
+
+.jrList {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 14px;
+}
+
+.jrStep {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.jrNode {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+  background: #0b0c0f;
+  color: rgba(255, 255, 255, 0.55);
+  transition: background 0.5s ease, border-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.jrNode svg {
+  width: 22px;
+  height: 22px;
+}
+
+.jrStep[data-on="true"] .jrNode {
+  border-color: transparent;
+  background: var(--brand-500);
+  color: #ffffff;
+  box-shadow: 0 0 0 6px rgba(255, 84, 54, 0.14), 0 0 34px rgba(255, 84, 54, 0.5);
+}
+
+.jrCard {
+  position: relative;
+  height: 100%;
+  padding: 22px 22px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.012) 100%);
+  transition: border-color 0.5s ease, background 0.5s ease;
+}
+
+/* The card's top edge lights when the route reaches it. */
+.jrCard::before {
+  content: "";
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  top: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #ff8a52, #fb3b5c);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+
+.jrStep[data-on="true"] .jrCard {
+  border-color: rgba(255, 84, 54, 0.32);
+  background: linear-gradient(180deg, rgba(255, 84, 54, 0.1) 0%, rgba(255, 255, 255, 0.015) 65%);
+}
+
+.jrStep[data-on="true"] .jrCard::before {
+  transform: scaleX(1);
+}
+
+.jrPhase {
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--brand-500);
+}
+
+.jrName {
+  margin: 10px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: var(--fs-card-title);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.jrBody {
+  margin: 10px 0 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ---- wide screens: the route runs left to right ----
+   Cards alternate above and below it, each two columns wide, so a phase gets
+   twice a sixth of the row. Seven columns: card i spans columns i+1 and i+2,
+   its node sits at the centre of column i+1 — so every node is the same
+   half-column in from its card's left edge, and the steps stay evenly spaced.
+   Each step is a subgrid over the whole list, which lets its node and card
+   land in different rows while the list keeps one <li> per phase. */
+@media (min-width: 1200px) {
+  .jrList {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-rows: auto 56px auto;
+    column-gap: 16px;
+    row-gap: 24px;
+  }
+
+  .jrStep {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+    gap: inherit;
+    align-items: stretch;
+  }
+
+  .jrNode {
+    grid-row: 2;
+    justify-self: center;
+  }
+
+  .jrCard {
+    height: auto;
+    padding: 22px 24px 24px;
+  }
+
+  /* Stretched, so the three cards on each side of the route share a height
+     and their stems line up. */
+  .jrStep:nth-child(odd) .jrCard {
+    grid-row: 1;
+    align-self: stretch;
+  }
+
+  .jrStep:nth-child(even) .jrCard {
+    grid-row: 3;
+    align-self: stretch;
+  }
+
+  .jrStep:nth-child(1) .jrNode { grid-column: 1; }
+  .jrStep:nth-child(2) .jrNode { grid-column: 2; }
+  .jrStep:nth-child(3) .jrNode { grid-column: 3; }
+  .jrStep:nth-child(4) .jrNode { grid-column: 4; }
+  .jrStep:nth-child(5) .jrNode { grid-column: 5; }
+  .jrStep:nth-child(6) .jrNode { grid-column: 6; }
+
+  .jrStep:nth-child(1) .jrCard { grid-column: 1 / span 2; }
+  .jrStep:nth-child(2) .jrCard { grid-column: 2 / span 2; }
+  .jrStep:nth-child(3) .jrCard { grid-column: 3 / span 2; }
+  .jrStep:nth-child(4) .jrCard { grid-column: 4 / span 2; }
+  .jrStep:nth-child(5) .jrCard { grid-column: 5 / span 2; }
+  .jrStep:nth-child(6) .jrCard { grid-column: 6 / span 2; }
+
+  /* A stem from each card to its node, a half-column in from the card's left
+     edge — the node's centre. It lights with the card. */
+  .jrCard::after {
+    content: "";
+    position: absolute;
+    left: calc((100% - 16px) / 4 - 1px);
+    width: 2px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.12);
+    transition: background 0.5s ease;
+  }
+
+  .jrStep:nth-child(odd) .jrCard::after {
+    top: 100%;
+  }
+
+  .jrStep:nth-child(even) .jrCard::after {
+    bottom: 100%;
+  }
+
+  .jrStep[data-on="true"] .jrCard::after {
+    background: #ff5436;
+  }
+
+  /* The lit top edge, on the side that faces the route. */
+  .jrStep:nth-child(odd) .jrCard::before {
+    top: auto;
+    bottom: -1px;
+  }
+}
+
+/* ============================================================
+   HERO REVEAL — in CSS, from the first paint (15 Oct, PageSpeed)
+   The timeline hero.tsx used to play at hydration, value for value. Its start
+   was the moment the preloader (pure CSS: fades 0.8s → 1.04s) began to lift,
+   0.79s in; every delay below counts from page start. As a JS timeline it hid
+   the copy until every script had loaded, which is when Chrome counted the
+   page's main content (LCP). Fades start at 0.01 — Chrome never counts what
+   first paints at opacity 0 — and fill `backwards` so nothing lingers.
+   ============================================================ */
+@keyframes heroRevealRise {
+  from {
+    opacity: 0.01;
+    translate: 0 var(--rise, 20px);
+  }
+}
+
+@keyframes heroRevealFade {
+  from {
+    opacity: 0.01;
+  }
+}
+
+.heroFrame {
+  animation: heroRevealFade 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.79s backwards;
+}
+
+.heroTitle > .heroLine .heroLineInner {
+  --rise: 118%;
+  animation: heroRevealRise 0.9s cubic-bezier(0.215, 0.61, 0.355, 1) 1.09s backwards;
+}
+
+.heroTitle > .heroLine:nth-of-type(2) .heroLineInner {
+  animation-delay: 1.17s;
+}
+
+.heroTitle > .heroLine:nth-of-type(3) .heroLineInner {
+  animation-delay: 1.25s;
+}
+
+.heroSub {
+  --rise: 20px;
+  animation: heroRevealRise 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.75s backwards;
+}
+
+.heroCtas {
+  --rise: 20px;
+  animation: heroRevealRise 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.95s backwards;
+}

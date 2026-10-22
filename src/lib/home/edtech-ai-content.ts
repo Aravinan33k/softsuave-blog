@@ -34,8 +34,8 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
 import type { ProblemsContent } from "@/components/generative-ai/problems";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
+import type { CtaBandContent } from "@/components/landing/cta-band";
 import { industryHeroBadges, industryEnquiryForm } from "./industry-shared";
-import { overviewImage } from "./overview-images";
 
 export const edtechMeta = {
   slug: "ai-solutions-in-edutech",
@@ -48,6 +48,9 @@ export const edtechMeta = {
 
 export const edtechHero: HeroContent = {
   titleLines: ["AI-Driven EdTech", "for the Digital Era"],
+  // 13 Oct review: the industry name is the highlighted phrase in the H1
+  // ("eg for Ecommerce page - ecommerce in H1 must be highlighted").
+  accent: "EdTech",
   body: [
     "Build learning experiences that adapt to the individual student, mark work the moment it is submitted, and give teachers back the hours currently spent on administration. We build EdTech AI that plugs into the LMS you already run.",
     "The gains here are measurable in a way they are not in every sector: completion rates, time-to-mastery, and staff hours reclaimed are all things a platform already tracks, so a model either moves them or it does not.",
@@ -67,11 +70,17 @@ export const edtechHero: HeroContent = {
       "The learning or administrative workflow you want to improve, your LMS and student information systems, learner volumes, and the data rules you operate under.",
     subject: "EdTech AI solutions enquiry",
   }),
+  // The live page's own hero artwork (13 Oct review: "use the existing images
+  // from the respective pages for the hero"), under the strong veil ("increase
+  // the black gradient in the hero section to make the text more readable").
   image: {
-    src: "/images/four/ind-edtech-hero.webp",
-    width: 1200,
-    height: 860,
-    alt: "Students learning on a digital platform driven by adaptive AI recommendations",
+    src: "/images/industries/edtech/hero.webp",
+    width: 1920,
+    height: 1035,
+    alt: "A hand touching a glowing digital book surrounded by learning icons",
+    blurDataURL:
+      "data:image/webp;base64,UklGRnYAAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSBIAAAABD9D/iAiIBZP8pXemENH/bAFWUDggPgAAANABAJ0BKhAACQADgFolsAJ0AQ74JRhAAP75E+vwQZ1WZ5gVLbxEQJFsGmbaiwJmPavOln2W95go+XGCwAAA",
+    veil: "strong",
   },
 };
 
@@ -90,7 +99,20 @@ export const edtechOverview: OverviewContent = {
     "Immersive Learning with AI-Driven Engagement",
     "Predictive Analytics for Data-Driven Decision Making",
   ],
-  image: overviewImage("ai-solutions-in-edutech"),
+  // The live page's own artwork for this section (13 Oct review: "use the
+  // existing images from the respective pages ... wherever possible"): a
+  // transparent cut-out collage, shown whole and centred against the copy.
+  image: {
+    src: "/images/industries/edtech/overview.webp",
+    width: 1100,
+    height: 837,
+    aspect: "1100 / 837",
+    fit: "cutout",
+    align: "center",
+    alt: "A collage of a student on a tablet, a child at a laptop wearing a VR headset, and a robot reading among flying pages",
+    blurDataURL:
+      "data:image/webp;base64,UklGRuIAAABXRUJQVlA4WAoAAAAQAAAADwAACwAAQUxQSFcAAAABcBvbtlKdGUKLyRg6oBv31NojtQLInJwhgy8Zri1ExAT813OG+/WyetU5juNwYs7fXLq0xrwA8KxN0zQMoyhqrs4TAATPWOENSYAzTdPsb+7bV9l0HgAAVlA4IGQAAAAwAgCdASoQAAwAA4BaJQBOgMVulhkq4sMaQAD+z2SQ7U1ALdrjQzoYY+Wm9IAOpHogQCuUS7hY8lXvUO1YmndFuUzZYLbPIv29UaXb5HdOCAPrN4V4G+C/0FmPgdTq2aKJngAA",
+  },
 };
 
 /**
@@ -180,7 +202,9 @@ export const edtechBenefits: CardGridContent = {
  * its intro "reshaping logistics ... and optimized supply chains". Both are
  * corrected to EdTech here ("supply chains" → "learning platforms"). The
  * campus-management story's results also list "55% Enhancement in Remote
- * Learning" twice; it appears once.
+ * Learning" twice; it appears once. The card artwork is the live EdTech
+ * page's own (13 Oct review: "use the existing images from the respective
+ * pages ... wherever possible").
  */
 export const edtechSuccessStories: WorkCarouselContent = {
   eyebrow: "Success Stories",
@@ -192,8 +216,8 @@ export const edtechSuccessStories: WorkCarouselContent = {
       tag: "AI Learning",
       body: "Enhanced Student Engagement · Improved Writing & Critical Thinking · Seamless Classroom Management · Transformative Learning",
       image: {
-        src: "/images/case-studies/education-1.webp",
-        alt: "Students on tablets in a classroom guided by an AI teaching assistant",
+        src: "/images/industries/edtech/case-1.webp",
+        alt: "A girl working on a tablet in a classroom",
       },
     },
     {
@@ -201,8 +225,8 @@ export const edtechSuccessStories: WorkCarouselContent = {
       tag: "LMS",
       body: "50% Reduction in Administrative Workload · Increased Student Engagement · Enhanced Teaching Efficiency · High-Performance Learning Platform",
       image: {
-        src: "/images/case-studies/education-2.webp",
-        alt: "High-performance learning management system for modern education",
+        src: "/images/industries/edtech/case-2.webp",
+        alt: "A boy looking up at a glowing digital rocket surrounded by learning icons",
       },
     },
     {
@@ -210,11 +234,23 @@ export const edtechSuccessStories: WorkCarouselContent = {
       tag: "Campus Management",
       body: "50% Increase in Operational Efficiency · 60% Improved Decision-Making · 55% Enhancement in Remote Learning · 40% Stronger Data Security & Compliance",
       image: {
-        src: "/images/case-studies/education-3.webp",
-        alt: "Cloud-integrated campus management system",
+        src: "/images/industries/edtech/case-3.webp",
+        alt: "Hands typing on a laptop beneath holographic education icons",
       },
     },
   ],
+};
+
+/**
+ * The mid-page call to action (13 Oct review: "CTA section is missing - must
+ * be updated"), the band the Telecom and Construction pages already run. The
+ * live page's band after the success stories, verbatim. Its "Request a
+ * Consultation" goes to /contact, as every consultation CTA here does.
+ */
+export const edtechCta: CtaBandContent = {
+  title: "AI Solutions for Next-Gen Learning & Development",
+  body: "Revolutionize education by integrating AI-driven automation, adaptive learning models, & intelligent analytics to enhance student engagement & optimize operational efficiency.",
+  cta: { label: "Request a Consultation", href: "/contact" },
 };
 
 /** The live page's sixteen FAQs, questions and answers verbatim. */

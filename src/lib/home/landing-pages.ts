@@ -52,19 +52,15 @@ export interface LandingPage {
   readonly breadcrumbCurrentLabel?: string;
 }
 
-import { HIRE_SKILLS } from './hire-skills';
+import { HIRE_SKILL_ROUTES } from './hire-skill-routes';
 import { HIRE_ROLE_ROUTES } from './hire-roles/slugs';
 
 /**
- * The 24 hire-by-skill pages, derived from their own registry rather than
- * listed again here. They are generated from one template
- * (`components/landing/hire-page.tsx`), so a hand-maintained copy of the list
- * would be a second place to forget when a skill is added.
+ * The hire-by-skill pages, from their route list (`hire-skill-routes.ts`) —
+ * not from `HIRE_SKILLS`, whose page copy would ride into every page's
+ * client bundle with this module. A test keeps the two in step.
  */
-const HIRE_LANDING_PAGES: readonly LandingPage[] = HIRE_SKILLS.map((s) => ({
-  path: `/${s.slug}`,
-  title: s.metaTitle,
-}));
+const HIRE_LANDING_PAGES: readonly LandingPage[] = HIRE_SKILL_ROUTES.map(({ path, title }) => ({ path, title }));
 
 export const LANDING_PAGES: readonly LandingPage[] = [
   // Listed here because the sitemap now derives from this registry: it was in
@@ -87,7 +83,6 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/custom-ai-development-services', title: 'Custom AI Development Services' },
   { path: '/generative-ai-development-company', title: 'Generative AI Development Company' },
   { path: '/agentic-ai-development-services', title: 'Agentic AI Development Services' },
-  { path: '/hire-anthropic-developers', title: 'Hire Anthropic Developers' },
   { path: '/free-7-days-trial', title: '40-Hour Free Trial' },
   { path: '/30-min-free-consultation', title: 'Free Consultation' },
   { path: '/free-quote', title: 'Free Quote' },
@@ -254,7 +249,9 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   {
     path: '/it-staff-augmentation-services',
     title: 'IT Staff Augmentation Services',
-    breadcrumbLabel: 'IT Staff Augmentation Services',
+    // softsuave.com's own trail label (review: "update the breadcrumb exactly
+    // like in the original page")
+    breadcrumbLabel: 'Staff Augmentation Service',
     parent: '/software-development-company',
   },
   {
@@ -299,8 +296,15 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   // moment these paths are covered by MARKETING_ROUTES below.
   ...HIRE_LANDING_PAGES,
   // Not in HIRE_SKILLS: its brief composes sections neither hire template
-  // renders, so the route is hand-built and registered here directly.
-  { path: '/hire-xamarin-developer', title: 'Hire Xamarin Developer for High-Performance Apps' },
+  // renders, so the route is hand-built and registered here directly — with
+  // the parent and short name the hire-skill pages get automatically, so its
+  // trail reads "Home › Hire Dedicated Developer › Hire Xamarin Developers".
+  {
+    path: '/hire-xamarin-developer',
+    title: 'Hire Xamarin Developer for High-Performance Apps',
+    parent: '/hire-dedicated-developers',
+    breadcrumbLabel: 'Hire Xamarin Developers',
+  },
 
   // Company pages. Slugs match the live marketing site's existing URLs, so
   // search equity and inbound links resolve to our routes rather than 404.
@@ -310,6 +314,15 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/clients', title: 'Our Clients' },
   { path: '/faqs', title: 'Frequently Asked Questions' },
   { path: '/case-studies', title: 'Case Studies' },
+  // Case-study pages, under the index in their breadcrumb. Registering one
+  // here also turns every existing link to it (the index cards, the homepage
+  // and landing-page case-study lanes) from softsuave.com into this route.
+  {
+    path: '/case-study-vehicle-intelligence',
+    title: 'Vehicle Intelligence',
+    parent: '/case-studies',
+    breadcrumbLabel: 'Vehicle Intelligence',
+  },
   { path: '/success-stories', title: 'Success Stories' },
   { path: '/privacy-policy', title: 'Privacy Policy' },
   // The three Company-menu routes that had no page until now. Every hero

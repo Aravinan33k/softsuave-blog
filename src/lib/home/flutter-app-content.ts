@@ -33,6 +33,7 @@ import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { StoryCardsContent } from "@/components/common/story-cards";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroAlert } from "./delivery-shared";
+import { CLIENTS_PLUS, COUNTRIES_PLUS, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const flMeta = {
   slug: "flutter-application-development-company",
@@ -48,8 +49,12 @@ export const flMeta = {
 } as const;
 
 export const flHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Flutter App", "Development Services"],
+  accent: "Flutter",
   body: [
     "Are you struggling to find a reliable Flutter App Development Company in India? Your search ends here! Soft Suave is your one-stop destination to obtain comprehensive Flutter development services.",
     "Want to join hands with a reliable Flutter Development Team? Get in touch for a free quote!",
@@ -116,10 +121,10 @@ export const flOverview: OverviewContent = {
    * label reads "Year of Experience", singular, and is kept as written.
    */
   stats: [
-    { figure: "400+", label: "Experts" },
-    { figure: "21+", label: "Countries" },
-    { figure: "150+", label: "Clients" },
-    { figure: "13+", label: "Year of Experience" },
+    { figure: `${SPECIALISTS_PLUS}`, label: "Experts" },
+    { figure: `${COUNTRIES_PLUS}`, label: "Countries" },
+    { figure: `${CLIENTS_PLUS}`, label: "Clients" },
+    { figure: `${YEARS_PLUS}`, label: "Year of Experience" },
   ],
   /**
    * Counters to the right of the prose, in the column the illustration used to
@@ -143,12 +148,14 @@ export const flOverview: OverviewContent = {
  * The button goes to the Flutter hiring page rather than back up to this
  * page's own enquiry form, as the review asked. `/hire-flutter-developers` is
  * a route this app serves, so `CtaBand` resolves it through `SiteLink` to a
- * local `<Link>`.
+ * local `<Link>`. Its label names that page (30 Sep review: "need to change
+ * the text in the button to 'hire flutter app developers'"), where it read
+ * "Hire a Mobile Developer Today".
  */
 export const flIdeaCta: CtaBandContent = {
   title: "Have a Mobile App Idea Using Flutter?",
-  body: "With our talented 400+ App Developers, we guarantee you a quality App Development Service.",
-  cta: { label: "Hire a Mobile Developer Today", href: "/hire-flutter-developers" },
+  body: `With our talented ${SPECIALISTS_PLUS} App Developers, we guarantee you a quality App Development Service.`,
+  cta: { label: "Hire Flutter App Developers", href: "/hire-flutter-developers" },
 };
 
 /**
@@ -156,6 +163,13 @@ export const flIdeaCta: CtaBandContent = {
  * cards and too long to run down the page, so they render as a board: the six
  * names to pick from, one stage to read on. Same section the Android and React
  * Native pages use.
+ *
+ * Three images were swapped for ones that show their item (30 Sep review:
+ * "images needs to be updated with most relevant ones"): an iPhone beside an
+ * Android phone for iOS and Android (was a row of people on their phones), one
+ * web app on a phone and a laptop for Web (was a Google results page), and a
+ * plain chat thread for Chat (was the DeepSeek app). The other three already
+ * showed their subject and stay.
  */
 export const flBenefits: ServiceBoardContent = {
   // Was "Flutter App Development" — byte-for-byte the overview's own kicker,
@@ -184,14 +198,14 @@ export const flBenefits: ServiceBoardContent = {
         "Many businesses try to develop Apps that run on both iOS and Android. This helps them to target a wider range of customers compared to developing just one native App. However, obtaining the same look and feel for an app on both platforms is not easy as it sounds. This is where our competent Flutter App development team comes into play.",
         "As a leading Flutter mobile app development company, we craft the most appealing cross-platform Apps that behave as smoothly as native ones. Moreover, we are known for our ability in working with reasonable costs and offering great speed and usability at the same time.",
       ],
-      image: { src: "/images/four/fl-ios-android.webp", alt: "" },
+      image: { src: "/images/four/fl-both-platforms.webp", alt: "" },
     },
     {
       name: "Flutter Web Development",
       paragraphs: [
         "Flutter is a known mobile development tool, but it can also be used for building web apps. Flutter can be used for increasing users for an application, but its fast web development and its ‘widgets’ allow for unique interfaces, making it very useful. With its shared codebase, flutter allows easy web app development, as the same code is applied for both mobile and desktop apps. Using Flutter is thus perfect for single-page applications and progressive web apps, and also to improve the functionalities of existing applications. Soft Suave’s Flutter Web Development solutions are affordable, offer consistent UI across platforms, and offer high performance for a smooth user experience.",
       ],
-      image: { src: "/images/four/fl-web.webp", alt: "" },
+      image: { src: "/images/four/fl-web-app.webp", alt: "" },
     },
     {
       name: "Dart Application Development",
@@ -213,7 +227,7 @@ export const flBenefits: ServiceBoardContent = {
       paragraphs: [
         "Our Flutter App Development Team offers a comprehensive Chat Development service using Flutter, and this Chat App allows for easy sharing of documents and images. Flutter usage for Chat Development allows for rapid development, simpler maintenance, and more.",
       ],
-      image: { src: "/images/four/fl-chat.webp", alt: "" },
+      image: { src: "/images/four/fl-chat-app.webp", alt: "" },
     },
   ],
 };
@@ -259,8 +273,8 @@ export const flProjects: StoryCardsContent = {
   body: "How Soft Suave helped clients empower their business with our flutter app development services.",
   items: [
     {
-      industry: "eCommerce",
-      name: "Ultimate Water delivery solution: An E-Commerce success",
+      industry: "E-commerce",
+      name: "Ultimate Water delivery solution: An e-commerce success",
       body: "Soft Suave successfully designed a water delivery app for a well-known e-commerce platform. This app can be accessed in multiple countries, supports various currencies, and has multi-language support. With real-time tracking and flexible payment methods, the app was received well.",
       image: {
         src: "/images/landing/flutter/proj-ecommerce.webp",

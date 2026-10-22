@@ -24,7 +24,8 @@ import type { HireSkill } from "./hire-skill";
 import { sharedHeroAlert } from "./delivery-shared";
 import { webExplore } from "./hire-explore";
 import { partnerTable } from "./hire-comparison";
-import { MERN_STEPS, MERN_WHY, CURATED_STEPS } from "./hire-blocks";
+import { CURATED_STEPS, techSteps, techWhy } from "./hire-blocks";
+import { CLIENTS_PLUS, HOURLY_RATE, YEARS_PLUS } from "../company-figures";
 
 /** The older pages' shared running order, oldest layout first. */
 const CLASSIC_ORDER = [
@@ -68,9 +69,9 @@ const nodejs: HireSkill = {
   key: "nodejs",
   name: "Node.js",
   role: "Node.js Developers",
-  metaTitle: "Hire NodeJS Developers in India - Trusted By 150+ Clients",
+  metaTitle: `Hire NodeJS Developers in India - Trusted By ${CLIENTS_PLUS} Clients`,
   metaDescription:
-    "Hire dedicated Node.js developers for scalable APIs and backend systems. Onboard in 48 hours with a 40-hour risk-free trial. Rates from $14/hr.",
+    `Hire dedicated Node.js developers for scalable APIs and backend systems. Onboard in 48 hours with a 40-hour risk-free trial. Rates from ${HOURLY_RATE}.`,
   serviceType: "Node.js development staffing",
   // Matches the live page's own breadcrumb trail exactly: Home › Hire
   // Developers › Node.js Developers.
@@ -94,8 +95,9 @@ const nodejs: HireSkill = {
 
   hero: {
     titleLines: ["Hire Node.js Developers", "In India"],
+    accent: "Node.js Developers",
     body: [
-      "Soft Suave provides pre-vetted Node.js developers experienced in Express.js, NestJS, MongoDB, and scalable backend systems, matched to your project within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
+      `Soft Suave provides pre-vetted Node.js developers experienced in Express.js, NestJS, MongoDB, and scalable backend systems, matched to your project within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from ${HOURLY_RATE} and no long-term contract required until you're satisfied.`,
       "Here is how Soft Suave engineers your Node.js success.",
     ],
     points: [
@@ -106,7 +108,6 @@ const nodejs: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -115,11 +116,15 @@ const nodejs: HireSkill = {
       subject: "Node.js Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/svc-custom-software.webp",
-      width: 1200,
-      height: 860,
-      alt: "A Node.js service architecture showing APIs, queues, and connected data stores",
+      src: "/images/landing/hs-node-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Server chassis lit blue in a dark data center",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoQAAsAA4BaJbACdADc+C+SAAD+waGZnhnehndSF3yKlj7JcDWA8FgVzTWdvkXYeEP02Uv+zU1KH95F+HZAAA==",
     },
   },
 
@@ -238,7 +243,7 @@ const nodejs: HireSkill = {
   midCta: {
     title: "Looking for offshore NodeJS developers?",
     body: "Soft Suave offers a team of experts to fit your needs. Get a free 7-day trial today!",
-    cta: { label: "Request Rate Card", href: "#enquiry" },
+    cta: { label: "Request Rate Card", href: "/contact" },
   },
 
   techStack: {
@@ -276,7 +281,7 @@ const nodejs: HireSkill = {
     body: "Using the skills of dedicated NodeJS developers in India can be highly beneficial for your web application needs. Let us tell you why",
     items: [
       {
-        name: "13+ Years of Average Experience",
+        name: `${YEARS_PLUS} Years of Average Experience`,
         body: "Our seasoned NodeJS developers make use of their in-depth knowledge to deliver exceptional applications, on time, every time.",
         icon: "book",
       },
@@ -311,7 +316,7 @@ const nodejs: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire a Node.js developer from Soft Suave?",
-        a: "Rates start from $14/hour, below the $25/hour median rate for Node.js developers on Upwork ($18–$38/hr typical range). Every engagement starts with a 40-hour risk-free trial before any monthly commitment.",
+        a: `Rates start from ${HOURLY_RATE}, below the $25/hour median rate for Node.js developers on Upwork ($18–$38/hr typical range). Every engagement starts with a 40-hour risk-free trial before any monthly commitment.`,
       },
       {
         q: "Is there a free trial period available?",
@@ -352,7 +357,7 @@ const nestjs: HireSkill = {
   role: "NestJS Developers",
   metaTitle: "Hire NestJS Developers | 7-Day Risk-Free Trial",
   metaDescription:
-    "Hire NestJS developers from Soft Suave without long hiring cycles. Vetted experts from $14/hr, ready to build scalable applications with flexible engagement.",
+    "Hire NestJS Developers in India on an hourly or monthly basis. Try our certified NestJS developers for 7 days free to ensure your project’s success.",
   serviceType: "NestJS development staffing",
   ctaLabel: "Hire NestJS developers",
 
@@ -369,8 +374,9 @@ const nestjs: HireSkill = {
 
   hero: {
     titleLines: ["Hire Remote NestJS Developers", "in India on Contract"],
+    accent: "NestJS Developers",
     body: [
-      "Hire NestJS developers from Soft Suave without long hiring cycles. As a specialized development agency, we deliver vetted experts starting at $14/hr, ready to build scalable applications fast while ensuring flexibility, strong quality standards, and complete project control.",
+      `Hire NestJS developers from Soft Suave without long hiring cycles. As a specialized development agency, we deliver vetted experts starting at ${HOURLY_RATE}, ready to build scalable applications fast while ensuring flexibility, strong quality standards, and complete project control.`,
       "Skip hiring delays. Start building with NestJS experts today.",
     ],
     points: [
@@ -381,7 +387,6 @@ const nestjs: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -390,11 +395,15 @@ const nestjs: HireSkill = {
       subject: "NestJS Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-5.webp",
-      width: 1200,
-      height: 860,
-      alt: "A modular TypeScript service architecture with clearly separated layers",
+      src: "/images/landing/hs-nestjs-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Code on a dark monitor with a warm red tint",
+      blurDataURL:
+        "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAADQAQCdASoQAAwAA4BaJZwAAqH3U5OgAAD++RhtTWhkBP0ebOK5EUsEsEx+RP4zgnSQ1/gAAAA=",
     },
   },
 
@@ -417,7 +426,7 @@ const nestjs: HireSkill = {
         body: "Soft Suave's NodeJS developers utilize a variety of tools and plugins from the NodeJS ecosystem to create scalable and efficient server-side applications.",
       },
       {
-        name: "NestJS eCommerce",
+        name: "NestJS E-commerce",
         body: "Elevate the backend of your online store by hiring NestJS developers who excel at leveraging its powerful architecture.",
       },
       {
@@ -442,7 +451,7 @@ const nestjs: HireSkill = {
   midCta: {
     title: "Are you ready to take your backend development to the next level?",
     body: "Partner with Soft Suave to hire dedicated NestJS developers and gain scalable, secure, and high-performing applications tailored to your needs.",
-    cta: { label: "Request Rate Card", href: "#enquiry" },
+    cta: { label: "Request Rate Card", href: "/contact" },
   },
 
   comparison: partnerTable("Choose the Right NestJS Development Partner"),
@@ -463,8 +472,11 @@ const java: HireSkill = {
   name: "Java",
   role: "Java Developers",
   metaTitle: "Hire Java Developer India with 40 Hours Risk-free Trial",
+  // Live's own description, with its price filled in: the meta tag there
+  // reads "starting at /hour" (Java: "0/hour"), while the page quotes
+  // $14/hour throughout.
   metaDescription:
-    "Hire pre-vetted Java developers from India without long hiring delays. Experts in Spring Boot, Hibernate, microservices, REST APIs, AWS and enterprise apps.",
+    `Hire Java developers India - Outsource dedicated java application developers in USA to build high-quality web applications starting at ${HOURLY_RATE}.`,
   serviceType: "Java development staffing",
   ctaLabel: "Hire Java developers",
 
@@ -472,6 +484,7 @@ const java: HireSkill = {
 
   hero: {
     titleLines: ["Hire Java Developers", "in India on Contract"],
+    accent: "Java Developers",
     body: [
       "Soft Suave provides pre-vetted Java developers from India without long hiring delays. Hire experts in Spring Boot, Hibernate, microservices, REST APIs, AWS, and enterprise application development – contract-ready and fast to onboard.",
       "See why businesses choose Soft Suave for Java hiring.",
@@ -484,7 +497,6 @@ const java: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -493,15 +505,37 @@ const java: HireSkill = {
       subject: "Java Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-3.webp",
-      width: 1200,
-      height: 860,
-      alt: "An enterprise Java service estate with layered architecture and integration points",
+      src: "/images/landing/hs-java-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Java code glowing on an angled monitor",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADQAQCdASoQAAsAA4BaJQBOgBucfuOEgAD++FZrqKCrrBzfWrb/3SsVy2QacR40+SUoKSTfAla68ZTma/SOB/l/518IGOgA",
     },
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: "/images/landing/ov-hire-java-developers-tall.webp",
+      width: 1000,
+      height: 1250,
+      alt: "Java developer focused on code at a workstation",
+      blurDataURL:
+        "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoQAAsAA4BaJZACdAEO9oMYRgAA/r4ciaQw9ZHpmttgeAoSRefWARcN2eARB1MbQdAdRpV+r7xEAAAA",
+      column: true,
+    },
+    // Internal links in the second paragraph (review: "internal link missing
+    // in the 2nd paragraph"). The live page has none to copy, so each is a
+    // phrase already in the copy, pointed at the matching service page.
+    links: [
+      { text: "web app development services", href: "/web-application-development-company" },
+      { text: "Java solutions", href: "/java-application-development-company" },
+    ],
     eyebrow: "Overview",
     title: "Hire Top-notch Remote Java Developers from Soft Suave",
     paragraphs: [
@@ -526,8 +560,8 @@ const java: HireSkill = {
         body: "Java experts at Soft Suave are capable of developing astounding APIs and integrating them into different software applications. They also build successful custom API for clients based on their business requirement.",
       },
       {
-        name: "Java-based eCommerce Development",
-        body: "Hire our Java developers to develop innovative Java-based eCommerce applications that steer your business towards success and growth. Moreover, our developers hold excellent domain expertise in developing eCommerce apps that are secure and user-friendly.",
+        name: "Java-based E-commerce Development",
+        body: "Hire our Java developers to develop innovative Java-based e-commerce applications that steer your business towards success and growth. Moreover, our developers hold excellent domain expertise in developing e-commerce apps that are secure and user-friendly.",
       },
       {
         name: "Java-based CMS Development",
@@ -545,23 +579,23 @@ const java: HireSkill = {
   },
 
   midCta: {
-    title: "Hire Java Developers Starting from $14/hour",
+    title: `Hire Java Developers Starting from ${HOURLY_RATE}`,
     body: "We will provide you with remote Java developers that work from India. Contact us to take a look at CVs.",
-    cta: { label: "Request Rate Card", href: "#enquiry" },
+    cta: { label: "Request Rate Card", href: "/contact" },
   },
 
   process: {
     eyebrow: "Hiring Process",
     title: "Hire Java Developers in 4 easy steps",
     body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
-    steps: MERN_STEPS,
+    steps: techSteps("Java"),
   },
 
   whyUs: {
     eyebrow: "Why Soft Suave",
     title: "Why Are Our Java Developers Considered the Best?",
     body: "We have dedicated Java developers with exceptional technical knowledge to deliver secure Java solutions.",
-    items: MERN_WHY,
+    items: techWhy("Java", "Spring Boot, Hibernate, microservices, REST APIs, and AWS"),
   },
 
   exploreMore: webExplore,
@@ -591,6 +625,8 @@ const java: HireSkill = {
         q: "What are the various hiring models offered by you to hire Java developers?",
         a: [
           "Soft Suave has curated three client-friendly hiring models to help you hire dedicated Java developers from us. We also prefer customizing plans according to your budget",
+        ],
+        points: [
           "Full-time basis",
           "Part-time basis",
           "Milestone basis",
@@ -605,9 +641,9 @@ const python: HireSkill = {
   key: "python",
   name: "Python",
   role: "Python Developers",
-  metaTitle: "Hire Offshore Python Developers from India from $14/hr",
+  metaTitle: `Hire Offshore Python Developers from India from ${HOURLY_RATE}`,
   metaDescription:
-    "Hire skilled Python developers from India, ready to join quickly. Experts in Django, Flask, FastAPI, AI/ML, automation and data engineering.",
+    "Hire top software developers in India with 40 hours of free trial, risk-free. Get access to the top 3% of developers for scalable and custom solutions.",
   serviceType: "Python development staffing",
   ctaLabel: "Hire Python developers",
 
@@ -615,6 +651,7 @@ const python: HireSkill = {
 
   hero: {
     titleLines: ["Hire Python Developers", "in India On Contract"],
+    accent: "Python Developers",
     body: [
       "Soft Suave offers skilled Python developers from India ready to join quickly. Hire experts in Django, Flask, FastAPI, AI/ML, automation, data engineering, and backend development – pre-vetted and deployment-ready.",
       "See why businesses choose Soft Suave for Python hiring.",
@@ -627,7 +664,6 @@ const python: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -636,22 +672,37 @@ const python: HireSkill = {
       subject: "Python Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-9.png",
-      width: 1200,
-      height: 860,
-      alt: "A Python system spanning API services, data pipelines, and model serving",
+      src: "/images/landing/hs-python-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Python code in bright syntax colours on screen",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAQAgCdASoQAAwAA4BaJaACdADwgHCslqcAAP7l9McYOg3scOg/fuc1nQxao76E+tUa791S/X8Vtcj11DYOKXQgpQZJrLNdbqpG0gAA",
     },
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: "/images/landing/ov-hire-python-developers-tall.webp",
+      width: 1000,
+      height: 1250,
+      alt: "Python programmer writing code on a laptop",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoQAAsAA4BaJQBOgBrZdLY/AAD+7Mecp03BGQbJESRK+CEARPKyVO9EOCeWu0z2ifyYnXCTDNzLmpWDlEAAAA==",
+      column: true,
+    },
     eyebrow: "Overview",
     title: "Multiskilled Team of Dedicated Python Developers",
     paragraphs: [
       "Leverage the expertise of our experienced Python developers to build technology-rich Apps.",
       "Do you need a skilled remote Python developer to develop a top-notch web application? or do you want to transform/improve your existing app effortlessly? Hire Python developers from us who have in-depth knowledge and expertise working with the programming language. Also, they have the capacity to work with any complex development projects and bring in desired results.",
       "Our developers build intuitive applications as they are experts in development tools & frameworks including Django, Turbogears, Pylons, Web2py, Flask, and Pyramid. And, our Python web developer's unique specialty is building powerful apps with seamless & complex functionalities that improve client's business efficiency and offer engaging user experience.",
-      "Our developer's competency in working with Python language helps us to execute complicated tasks with a few lines of code. This will be greatly convenient to maintain the application effectively after successful deployment in the market. Develop feature-packed, scalable, customizable, and responsive web apps by partnering with our trusted Python app development team who has 13+ years of experience. Also, our simple yet efficient app constructing methods assist us to reduce up to 60% development cost which is loved by many start-ups and SMBs.",
+      `Our developer's competency in working with Python language helps us to execute complicated tasks with a few lines of code. This will be greatly convenient to maintain the application effectively after successful deployment in the market. Develop feature-packed, scalable, customizable, and responsive web apps by partnering with our trusted Python app development team who has ${YEARS_PLUS} years of experience. Also, our simple yet efficient app constructing methods assist us to reduce up to 60% development cost which is loved by many start-ups and SMBs.`,
     ],
   },
 
@@ -688,23 +739,23 @@ const python: HireSkill = {
   },
 
   midCta: {
-    title: "Hire Python Developers Starting from $14/hour",
+    title: `Hire Python Developers Starting from ${HOURLY_RATE}`,
     body: "We will provide you with remote python developers that work from India. Contact us to take a look at CVs.",
-    cta: { label: "Request Rate Card", href: "#enquiry" },
+    cta: { label: "Request Rate Card", href: "/contact" },
   },
 
   process: {
     eyebrow: "Hiring Process",
     title: "Hire Python Developers in 4 easy steps",
     body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
-    steps: MERN_STEPS,
+    steps: techSteps("Python"),
   },
 
   whyUs: {
     eyebrow: "Why Soft Suave",
     title: "What Makes Our Python Developers Unique and Trustworthy?",
     body: "Hire Python developers from us having 5+ years of average experience to build expressive, scalable, & visually appealing web applications.",
-    items: MERN_WHY,
+    items: techWhy("Python", "Django, Flask, FastAPI, AI/ML, automation, and data engineering"),
   },
 
   exploreMore: webExplore,
@@ -719,6 +770,8 @@ const python: HireSkill = {
         a: [
           "To hire a Python developer who perfectly fits your start-up, you can get in touch with companies like us that offer proficient Python professionals at an affordable cost.",
           "You should also check the below factors or parameters before you start the hiring process;",
+        ],
+        points: [
           "Level of experience",
           "Expertise",
           "Reviews from past clients & projects",
@@ -726,6 +779,7 @@ const python: HireSkill = {
           "Offering enterprise solutions for SMBs and Start-ups at affordable cost",
           "Privacy and security measures",
         ],
+        pointsAfter: 1,
       },
       {
         q: "How long does it take to build a web application with Python?",
@@ -745,7 +799,7 @@ const python: HireSkill = {
       },
       {
         q: "What type of web applications can be developed using Python?",
-        a: "We build web applications in Blockchain, Audio & Video, System administration, Games, Machine learning, Data Science & Analytics, eCommerce, and Entertainment. However, when you hire Python developer from India, we help you to develop any type of app customized for your business goals and needs.",
+        a: "We build web applications in Blockchain, Audio & Video, System administration, Games, Machine learning, Data Science & Analytics, E-commerce, and Entertainment. However, when you hire Python developer from India, we help you to develop any type of app customized for your business goals and needs.",
       },
     ],
   },
@@ -760,7 +814,7 @@ const django: HireSkill = {
   // together with no space.
   metaTitle: "Hire Django Developer India with 40 Hours Risk-freeTrial",
   metaDescription:
-    "Hire pre-vetted Django developers from India for faster backend delivery and lower hiring costs. Experts in Django, DRF, Python, PostgreSQL, APIs and SaaS platforms.",
+    "Hire Django Developer India for your custom projects and experience top-tier talent. Enjoy a risk-free 40-hour trial with our expert teams today!",
   serviceType: "Django development staffing",
   ctaLabel: "Hire Django developers",
 
@@ -768,6 +822,7 @@ const django: HireSkill = {
 
   hero: {
     titleLines: ["Hire Django Developers", "On Contract"],
+    accent: "Django Developers",
     body: [
       "Soft Suave helps businesses hire pre-vetted Django developers from India for faster backend delivery and lower hiring costs. Our developers specialize in Django, Django REST Framework, Python, PostgreSQL, APIs, SaaS platforms, and scalable web applications. Get contract-ready talent onboarded quickly with flexible engagement models.",
       "See why businesses choose Soft Suave for their Django developer hiring.",
@@ -780,7 +835,6 @@ const django: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -789,11 +843,15 @@ const django: HireSkill = {
       subject: "Django Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-6.webp",
-      width: 1200,
-      height: 860,
-      alt: "A Django application showing admin tooling, models, and API surface",
+      src: "/images/landing/hs-django-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Developer typing code on a laptop in low light",
+      blurDataURL:
+        "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADwAQCdASoQAAsAA4BaJYwCdACUharmZQAA/un95NvH6n9se7haclIklOm3SaZ5+0Mh9op3OsPdIR8AAAA=",
     },
   },
 
@@ -948,7 +1006,7 @@ const django: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire Django developer?",
-        a: "Hire dedicated Django developer starting at just $14/hour. Pricing that is transparent and adaptable to your project's scope and budget.",
+        a: `Hire dedicated Django developer starting at just ${HOURLY_RATE}. Pricing that is transparent and adaptable to your project's scope and budget.`,
       },
       {
         q: "Is there any free trial period available?",
@@ -977,7 +1035,7 @@ const php: HireSkill = {
   role: "PHP Developers",
   metaTitle: "Hire PHP Developers in India from Soft Suave",
   metaDescription:
-    "Hire dedicated PHP developers from India who build secure, scalable web platforms. Pre-vetted experts in PHP, Laravel, CodeIgniter, MySQL, APIs and CMS.",
+    "Hire PHP developers in India from the top 3% talent pool with 40-hour free trial. Get high-performance, custom solutions tailored to business needs.",
   serviceType: "PHP development staffing",
   ctaLabel: "Hire PHP developers",
 
@@ -985,6 +1043,7 @@ const php: HireSkill = {
 
   hero: {
     titleLines: ["Hire PHP Developers", "in India on Contract"],
+    accent: "PHP Developers",
     body: [
       "Soft Suave helps businesses hire dedicated PHP developers from India who build secure and scalable web platforms. Access pre-vetted experts in PHP, Laravel, CodeIgniter, MySQL, APIs, CMS development, and custom web solutions with fast onboarding.",
       "See why businesses choose Soft Suave for their PHP developer hiring.",
@@ -997,7 +1056,6 @@ const php: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -1006,21 +1064,36 @@ const php: HireSkill = {
       subject: "PHP Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/story.webp",
-      width: 1200,
-      height: 860,
-      alt: "A PHP application being modernized, showing legacy and current code paths side by side",
+      src: "/images/landing/hs-php-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "PHP configuration code on a dark screen",
+      blurDataURL:
+        "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAABwAQCdASoQAAkAA4BaJZ12AAHJgAD+9CRbkJCtfLkqH0JhU2LgAA==",
     },
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: "/images/landing/ov-hire-php-developers-tall.webp",
+      width: 1000,
+      height: 1250,
+      alt: "PHP web developer coding a website",
+      blurDataURL:
+        "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAAAwAgCdASoQAAsAA4BaJQBOj+ADMgCN09icYAD+6jW94N/JYuDKmFBmkWUi5cYXV4neSEvcZ8Z23H3sRqp6P+xbkn3dvZbi3I9QApRB1J+gLWNoAAA=",
+      column: true,
+    },
     eyebrow: "Overview",
     title: "Hire Remote PHP Developers 2X Faster",
     paragraphs: [
       "Join hands with our dedicated PHP developers who are flexible with modern development methodologies.",
       "Soft Suave offers the dedicated PHP developers in India that support start-ups and SMBs to develop quality PHP programming solutions. Our PHP coders are expert in all PHP frameworks like Laravel, CodeIgniter, and CakePHP. When you hire PHP developers from Soft Suave, you get the roadmap to deliver PHP development projects 2X faster and 50% cheaper than your competitors do.",
-      "Our team of dedicated PHP developers work together to seamlessly transform your business requirements into thriving reality at your affordable cost. Our full-time PHP web developers are well-versed in handling enterprise-grade websites, eCommerce solutions, web applications, and content management sites.",
+      "Our team of dedicated PHP developers work together to seamlessly transform your business requirements into thriving reality at your affordable cost. Our full-time PHP web developers are well-versed in handling enterprise-grade websites, e-commerce solutions, web applications, and content management sites.",
       "Soft Suave handles simple and complex requirements of your business with the help of all the latest technologies and trends. Our expert PHP app programmers have an average of 5+ years of experience to handle high-quality development and save operational costs simultaneously. Moreover, you get a competitive edge in the market when you hire PHP developers from Soft Suave and even get the privilege to work with the top 2% of India's PHP developers.",
     ],
   },
@@ -1039,8 +1112,8 @@ const php: HireSkill = {
         body: "We have a team of elite PHP developers that have hands-on experience in developing CMS for several tech giants across the globe. We leverage PHP to develop advanced CMS features that add value to your CMS system and make it user-friendly.",
       },
       {
-        name: "PHP eCommerce Application",
-        body: "Hire PHP developers from Soft Suave to have a competitive edge in the current eCommerce market. They build eCommerce applications with high-standard and make them versatile, user-friendly, and compatible with all devices.",
+        name: "PHP E-commerce Application",
+        body: "Hire PHP developers from Soft Suave to have a competitive edge in the current e-commerce market. They build e-commerce applications with high-standard and make them versatile, user-friendly, and compatible with all devices.",
       },
       {
         name: "PHP Integration & Upgradation",
@@ -1061,21 +1134,21 @@ const php: HireSkill = {
   midCta: {
     title: "Download PHP Developers Profile!",
     body: "Download our PHP engineer's profile within a few seconds and try risk free 1-week trial to test their skills.",
-    cta: { label: "Download Now", href: "#enquiry" },
+    cta: { label: "Download Now", href: "/contact" },
   },
 
   process: {
     eyebrow: "Hiring Process",
     title: "Hire PHP Developers in 4 easy steps",
     body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
-    steps: MERN_STEPS,
+    steps: techSteps("PHP"),
   },
 
   whyUs: {
     eyebrow: "Why Soft Suave",
     title: "Why Are Our PHP Developers Considered the Best?",
     body: "When you hire PHP developers, you can fulfill all your requirements effectively, be it e-commerce solutions or web Apps.",
-    items: MERN_WHY,
+    items: techWhy("PHP", "PHP, Laravel, CodeIgniter, MySQL, APIs, and CMS development"),
   },
 
   exploreMore: webExplore,
@@ -1095,7 +1168,7 @@ const php: HireSkill = {
       },
       {
         q: "What type of software applications can be created with PHP?",
-        a: "PHP is a programming language that is versatile and robust. You can develop feature-rich and dynamic Content Management System, eCommerce apps, Web page applications, Graphical User Interface applications (GUI) and many more.",
+        a: "PHP is a programming language that is versatile and robust. You can develop feature-rich and dynamic Content Management System, E-commerce apps, Web page applications, Graphical User Interface applications (GUI) and many more.",
       },
       {
         q: "Will the hired remote PHP developer work dedicated only for me?",
@@ -1120,7 +1193,7 @@ const laravel: HireSkill = {
   role: "Laravel Developers",
   metaTitle: "Hire Laravel Developer India - Top 1% Programmers",
   metaDescription:
-    "Hire experienced Laravel developers from India. Experts in Laravel, PHP, MySQL, REST APIs, SaaS platforms, eCommerce systems and custom web applications.",
+    "Looking to hire laravel developer india? Get vetted experts on-demand for custom web apps. Flexible hiring, 40 hrs free trial & cost-effective pricing.",
   serviceType: "Laravel development staffing",
   ctaLabel: "Hire Laravel developers",
 
@@ -1128,8 +1201,9 @@ const laravel: HireSkill = {
 
   hero: {
     titleLines: ["Hire Laravel Developers", "in India within 48 hours"],
+    accent: "Laravel Developers",
     body: [
-      "Soft Suave provides experienced Laravel developers from India for rapid hiring needs. Hire experts in Laravel, PHP, MySQL, REST APIs, SaaS platforms, eCommerce systems, and custom web applications – contract-ready and onboarded fast.",
+      "Soft Suave provides experienced Laravel developers from India for rapid hiring needs. Hire experts in Laravel, PHP, MySQL, REST APIs, SaaS platforms, e-commerce systems, and custom web applications – contract-ready and onboarded fast.",
       "See why businesses choose Soft Suave for Laravel hiring.",
     ],
     points: [
@@ -1140,7 +1214,6 @@ const laravel: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -1149,11 +1222,15 @@ const laravel: HireSkill = {
       subject: "Laravel Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-10.png",
-      width: 1200,
-      height: 860,
-      alt: "A Laravel SaaS application showing queued jobs, billing, and tenant separation",
+      src: "/images/landing/hs-laravel-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Developer coding on a laptop by lamplight at night",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAAAQAgCdASoQAAsAA4BaJZACdADxAEr7uZCAAP7hc6ZDvCwinQZ700j7TJfq6fAyKoWTGD9b7LgFWdHI/SlIwGRVSKoAAA==",
     },
   },
 
@@ -1346,7 +1423,10 @@ const laravel: HireSkill = {
     ]),
   },
 
-  comparison: partnerTable("Choosing the Right Laravel Partner for Your Specific Needs"),
+  comparison: partnerTable(
+    "Choosing the Right Laravel Partner for Your Specific Needs",
+    "Explore how to choose the right fit for your business by comparing an in-house team, freelancers, & Soft Suave’s experts. Check out this detailed comparison chart for valuable insights.",
+  ),
 
   exploreMore: webExplore,
 
@@ -1357,7 +1437,7 @@ const laravel: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire a Laravel developer?",
-        a: "Our prices begin at $14/hour, and based on the level of experience of the developer, it may increase.",
+        a: `Our prices begin at ${HOURLY_RATE}, and based on the level of experience of the developer, it may increase.`,
       },
       {
         q: "Is there any free trial period available?",
@@ -1371,6 +1451,8 @@ const laravel: HireSkill = {
         q: "Do you provide support and maintenance services after deployment?",
         a: [
           "Yes, we offer dedicated support, maintenance, and performance enhancement services once the project goes live.",
+        ],
+        points: [
           "Full-time Basis",
           "Part-time Basis",
           "Milestone Basis",
@@ -1390,8 +1472,11 @@ const dotnet: HireSkill = {
   name: ".NET",
   role: ".NET Developers",
   metaTitle: "Hire Dot Net Developers India with 40 Hours Risk-free Trial",
+  // Live's own description, with its price filled in: the meta tag there
+  // reads "starting at /hour" (Java: "0/hour"), while the page quotes
+  // $14/hour throughout.
   metaDescription:
-    "Hire skilled .NET developers from India for secure, scalable software. Experts in ASP.NET, .NET Core, C#, Azure, MVC, APIs and cloud applications.",
+    `Looking to hire .Net developers India ? Outsource ASP.Net application developer to build high-quality web applications starting at ${HOURLY_RATE}.`,
   serviceType: ".NET development staffing",
   ctaLabel: "Hire .NET developers",
 
@@ -1399,6 +1484,7 @@ const dotnet: HireSkill = {
 
   hero: {
     titleLines: ["Hire .NET Developers", "in India on Contract"],
+    accent: ".NET Developers",
     body: [
       "Soft Suave provides skilled .NET developers from India for startups and enterprises needing secure, scalable software solutions. Hire experts in ASP.NET, .NET Core, C#, Azure, MVC, enterprise systems, APIs, and cloud applications. Fast onboarding with cost-effective engagement options.",
       "See why businesses choose Soft Suave for their .NET developer hiring.",
@@ -1411,7 +1497,6 @@ const dotnet: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -1420,15 +1505,26 @@ const dotnet: HireSkill = {
       subject: ".NET Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/svc-modernization.webp",
-      width: 1200,
-      height: 860,
-      alt: "An enterprise .NET estate showing modern services alongside legacy Framework applications",
+      src: "/images/landing/hs-dotnet-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "C# project files and version history open in an IDE",
+      blurDataURL:
+        "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADQAQCdASoQAAsAA4BaJZQAAug7L2HQAAD+7ydkqmjuNB6VEDOd86EsWXe/h9+DjVcbiX7/AKYAAA==",
     },
   },
 
   overview: {
+    // Internal links in the second paragraph (review: "internal link missing
+    // in the 2nd paragraph"). The live page has none to copy, so each is a
+    // phrase already in the copy, pointed at the matching service page.
+    links: [
+      { text: "Web App Development Company", href: "/web-application-development-company" },
+      { text: "ASP.NET development services", href: "/dot-net-application-development-company" },
+    ],
     eyebrow: "Overview",
     title: "Hire Remote .NET Developer At The Right Place",
     paragraphs: [
@@ -1471,23 +1567,23 @@ const dotnet: HireSkill = {
   },
 
   midCta: {
-    title: "Hire .Net Developers Starting from $14/hour",
+    title: `Hire .Net Developers Starting from ${HOURLY_RATE}`,
     body: "We will provide you with remote .Net developers that work from India. Contact us to take a look at CVs.",
-    cta: { label: "Request Rate Card", href: "#enquiry" },
+    cta: { label: "Request Rate Card", href: "/contact" },
   },
 
   process: {
     eyebrow: "Hiring Process",
     title: "Hire .Net Developers in 4 easy steps",
     body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
-    steps: MERN_STEPS,
+    steps: techSteps(".NET"),
   },
 
   whyUs: {
     eyebrow: "Why Soft Suave",
     title: "Why Are Our .Net Programmers Considered the Best?",
     body: "Clients all around the world trust our .NET developers to acquire industry-specific .NET solutions with quality.",
-    items: MERN_WHY,
+    items: techWhy(".NET", "ASP.NET, .NET Core, C#, Azure, MVC, and APIs"),
   },
 
   exploreMore: webExplore,
@@ -1501,6 +1597,8 @@ const dotnet: HireSkill = {
         q: "What are the various hiring models offered by you to hire .NET developers?",
         a: [
           "Soft Suave has designed three flexible hiring models to help you hire .NET developers who are experts in providing .NET solutions. We also offer customized plans fit that your budget and requirement.",
+        ],
+        points: [
           "Full-time Hiring",
           "Part-time Hiring",
           "Milestone Hiring",
@@ -1533,7 +1631,7 @@ const rails: HireSkill = {
   role: "Ruby on Rails Developers",
   metaTitle: "Hire Ruby on Rails Developers | Dedicated Devs on Demand",
   metaDescription:
-    "Hire Ruby on Rails developers through Soft Suave — dedicated teams or individual developers, vetted, contract-ready, and built to deliver scalable web applications.",
+    "Hire Ruby on Rails developers and onboard in 48 hours. Start building secure, fast, & scalable web apps with the flexibility of a remote team.",
   serviceType: "Ruby on Rails development staffing",
   ctaLabel: "Hire Rails developers",
 
@@ -1541,6 +1639,7 @@ const rails: HireSkill = {
 
   hero: {
     titleLines: ["Hire Ruby on Rails Developers", "in India On Contract"],
+    accent: "Ruby on Rails Developers",
     body: [
       "Faster builds. Cleaner code. Quicker launches. Hire Ruby on Rails developers through Soft Suave, a specialized staffing agency offering dedicated teams or individual developers - vetted, contract-ready, and built to deliver scalable web applications that move as fast as your business does.",
       "Great Rails apps start with the right developer - find yours here.",
@@ -1553,7 +1652,6 @@ const rails: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
-      eyebrow: "*Satisfaction Guaranteed - Get 40-hour Free Trial",
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -1562,11 +1660,15 @@ const rails: HireSkill = {
       subject: "Ruby on Rails Developers enquiry",
       alert: sharedHeroAlert,
     },
+    // A photo for this technology, darkened by the strong veil `HirePage`
+    // applies (review: "update the images and add a black gradient").
     image: {
-      src: "/images/four/work-7.png",
-      width: 1200,
-      height: 860,
-      alt: "A Ruby on Rails application showing convention-driven structure and background processing",
+      src: "/images/landing/hs-ror-hero.webp",
+      width: 1800,
+      height: 900,
+      alt: "Ruby test configuration code on a dark screen",
+      blurDataURL:
+        "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoQAAsAA4BaJZACdADRX8B2AAD+8t8XPptbdpovW9Fu0vJkPi49a7TKcmABFmSiCc6v8bXNiAApUG4zdwAAAA==",
     },
   },
 
@@ -1689,6 +1791,8 @@ const rails: HireSkill = {
   },
 
   services: {
+    // Live closes this band on "Talk to Our Experts" (review: "CTA button missing").
+    cta: { label: "Talk to Our Experts", href: "/contact" },
     eyebrow: "Services",
     title: "Ruby on Rails Development Services We Offer",
     body: "From app development to performance tuning and long-term maintenance, we offer full-stack Ruby on Rails services that launch quickly, scale effortlessly, and address real-world business challenges with precision. All of this comes at affordable rates. Our offshore software development service connects you with expert Ruby on Rails developers, delivering high-quality solutions without compromising on cost.",
@@ -1710,7 +1814,7 @@ const rails: HireSkill = {
         body: "Soft Suave ensures peak RoR performance with 24/7 support and tailored maintenance, covering upgrades, bug fixes, security patches, and backups. A dedicated team handles client needs seamlessly, keeping applications efficient, reliable, and aligned with evolving business goals.",
       },
       {
-        name: "ROR eCommerce Solutions",
+        name: "ROR E-commerce Solutions",
         body: "Use Ruby on Rails to turn your e-commerce idea into a reality. We design and build feature-rich, secure, and scalable online stores that offer seamless user experiences, robust payment gateways, and effortless product management, driving business growth.",
       },
       {
@@ -1750,7 +1854,7 @@ const rails: HireSkill = {
     items: [
       {
         q: "How much does it cost to hire Ruby on Rails developer?",
-        a: "Costs depend on skills and the engagement model. We offer affordable rates starting from $14/hour when you hire expert Ruby on Rails developer talent.",
+        a: `Costs depend on skills and the engagement model. We offer affordable rates starting from ${HOURLY_RATE} when you hire expert Ruby on Rails developer talent.`,
       },
       {
         q: "Is there any free trial period available?",

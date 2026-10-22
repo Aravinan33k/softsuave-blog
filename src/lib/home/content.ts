@@ -5,6 +5,7 @@
  */
 
 import { navPanels, type NavMenuPanel } from "./nav-menu";
+import { FIGURES, YEARS_PLUS } from "../company-figures";
 
 export const brand = {
   name: "Soft Suave",
@@ -14,7 +15,6 @@ export const brand = {
 } as const;
 
 export const hero = {
-  eyebrow: "AI-Enabled Engineering",
   title: "Empowering Businesses with Scalable AI, Automation & Integrations",
   // words for the rotating-word treatment on /three
   rotatingWords: ["Scalable", "Intelligent"],
@@ -42,28 +42,28 @@ export const why = {
    */
   stats: [
     {
-      value: 400,
+      value: FIGURES.specialists,
       suffix: "+",
       label: "Engineering Specialists",
       icon: "specialists",
       line: "AI and engineering specialists building scalable systems in-house.",
     },
     {
-      value: 13,
+      value: FIGURES.years,
       suffix: "+",
       label: "Proven Delivery",
       icon: "years",
       line: "Years of delivering reliable software and production-ready AI solutions.",
     },
     {
-      value: 150,
+      value: FIGURES.clients,
       suffix: "+",
       label: "Global Clients",
       icon: "clients",
       line: "Startups, SMBs, and enterprises supported from concept to launch.",
     },
     {
-      value: 20,
+      value: FIGURES.countries,
       suffix: "+",
       label: "Countries",
       icon: "countries",
@@ -99,7 +99,7 @@ export const clients: {
 } = {
   eyebrow: "Clients",
   title: "Preferred AI-Enabled Technology Partner for Startups and SMBs",
-  body: "We combine AI-enabled engineering with 13+ years of product development expertise to help clients build scalable AI solutions, automate complex workflows, and integrate systems for measurable business outcomes.",
+  body: `We combine AI-enabled engineering with ${YEARS_PLUS} years of product development expertise to help clients build scalable AI solutions, automate complex workflows, and integrate systems for measurable business outcomes.`,
   logos: [
     // The three testimonial clients. Their marks are not in softsuave.com's own
     // homepage carousel — they are published on its /clients index instead,
@@ -141,39 +141,49 @@ export const industries = {
   eyebrow: "Industries",
   title: "AI-Driven Efficiency and Growth Across Industries",
   body: "Our AI-driven solutions help industries improve efficiency, scale operations, and accelerate transformation. By making business systems smarter and more connected, we help organizations modernize faster and stay competitive in a digital-first world.",
+  // `img` is the card's `four` image slot. FinTech, EdTech, eCommerce and
+  // Telecom have their own `-home` art (7 Oct review: "update relevant images in
+  // the industry section") — the shared `ind-<key>` frames they replace are
+  // still the FinTech page's and /industries'.
   items: [
     {
       key: "fintech",
+      img: "ind-fintech-home",
       href: "/fintech-ai-solutions",
       name: "FinTech",
       body: "Redefining FinTech with AI-powered intelligence by enhancing security, automating decisions, and unlocking new financial possibilities. From real-time fraud detection to hyper-personalized banking, we drive the future of digital finance.",
     },
     {
       key: "healthtech",
+      img: "ind-healthtech",
       href: "/ai-solutions-in-healthtech",
       name: "HealthTech",
       body: "Elevate healthcare with next-gen advanced AI solutions that refine patient outcomes, optimize clinical workflows, and streamline operations. We deliver intelligent automation and data-driven insights for transformative health tech innovation.",
     },
     {
       key: "edtech",
+      img: "ind-edtech-home",
       href: "/ai-solutions-in-edutech",
       name: "EdTech",
       body: "Reimagining education with next-gen AI solutions, creating personalized learning experiences, and smart content curation. From adaptive learning support to insightful analytics, we're pioneering the evolution of education.",
     },
     {
       key: "ecommerce",
+      img: "ind-ecommerce-home",
       href: "/ai-solutions-for-ecommerce",
-      name: "eCommerce",
+      name: "E-commerce",
       body: "Transforming e-commerce with AI-driven solutions for smarter selling, faster operations, and better customer experiences. From personalized recommendations to inventory automation and real-time analytics, we help businesses grow efficiently.",
     },
     {
       key: "logistics",
+      img: "ind-logistics",
       href: "/ai-in-logistics",
       name: "Logistics",
       body: "Optimizing logistics with AI-powered solutions for smarter supply chains, real-time tracking, and operational efficiency. From demand forecasting to automated route optimization, we drive seamless and cost-effective logistics management.",
     },
     {
       key: "telecom",
+      img: "ind-telecom-home",
       href: "/ai-solutions-for-telecom",
       name: "Telecom",
       body: "Advancing telecom with AI-driven solutions for smarter networks, automated operations, and better customer experiences. From predictive maintenance to intelligent network optimization, we help providers improve reliability and efficiency.",
@@ -209,14 +219,14 @@ export const services = {
     {
       key: "custom-ai-development-services",
       href: "/custom-ai-development-services",
-      img: "px-custom-ai",
+      img: "px-custom-ai-v2",
       name: "Custom AI Development",
       body: "Create tailored solutions using generative AI, agentic AI, RAG, and more to automate workflows and solve complex business challenges.",
     },
     {
       key: "data-engineering",
       href: "/data-engineering-services",
-      img: "px-data-engineering",
+      img: "px-data-engineering-v2",
       name: "Data Engineering",
       body: "Build reliable data foundations with ETL and ELT pipelines, orchestration, data quality controls, and real-time streaming.",
     },
@@ -230,21 +240,21 @@ export const services = {
     {
       key: "generative-ai",
       href: "/generative-ai-development-company",
-      img: "px-generative-ai",
+      img: "px-generative-ai-v2",
       name: "Generative AI",
       body: "Build tailored generative AI solutions using LLMs to create content, code, images, and intelligent experiences aligned with diverse business needs.",
     },
     {
       key: "agentic-ai",
       href: "/agentic-ai-development-services",
-      img: "px-agentic-ai",
+      img: "px-agentic-ai-v2",
       name: "Agentic AI",
       body: "Develop autonomous AI agents that reason, use tools, and execute multi-step workflows to support complex business processes and decisions efficiently.",
     },
     {
       key: "rag-document-ai",
       href: "/rag-development-services",
-      img: "px-rag",
+      img: "px-rag-v2",
       name: "RAG and Document AI",
       body: "Create RAG and Document AI solutions that retrieve trusted knowledge, extract information, and deliver accurate, context-aware responses from enterprise data.",
     },
@@ -272,7 +282,7 @@ export const services = {
     {
       key: "forward-deployed-engineers",
       href: "/hire-forward-deployed-engineer",
-      img: "px-fde",
+      img: "px-fde-v2",
       name: "Forward Deployed Engineers",
       body: "Hire forward-deployed engineers who work with customers to understand requirements, develop integrations, solve challenges, and deploy production-ready solutions efficiently.",
     },
@@ -300,7 +310,9 @@ export const caseStudies = {
   cta: { label: "View Case Study", href: "/case-studies" },
   // `img` is an explicit BrandImage id (page "four") rather than an index-derived
   // one, so reordering or adding a case study can't silently pair a study with
-  // another industry's photograph.
+  // another industry's photograph. `href` is the study's softsuave.com page,
+  // written as a site path like the case-study index (`case-studies-data.ts`):
+  // SiteLink sends it to the live site until this app serves that route.
   items: [
     {
       key: "logistics",
@@ -311,6 +323,7 @@ export const caseStudies = {
       metricValue: "95%+",
       metricLabel: "detection accuracy",
       year: "2025",
+      href: "/case-study-vehicle-intelligence",
     },
     {
       key: "ecommerce",
@@ -321,6 +334,7 @@ export const caseStudies = {
       metricValue: "$10M+",
       metricLabel: "ARR growth",
       year: "2026",
+      href: "/case-study-subscription-management-for-customer-growth",
     },
     {
       key: "healthtech",
@@ -331,6 +345,7 @@ export const caseStudies = {
       metricValue: "90%",
       metricLabel: "less manual record work",
       year: "2026",
+      href: "/case-study-wellpet-ai-smart-wellness-platform",
     },
     {
       key: "edtech",
@@ -341,6 +356,7 @@ export const caseStudies = {
       metricValue: "Real-time",
       metricLabel: "feedback & dashboards",
       year: "2025",
+      href: "/case-study-ai-powered-education-solutions",
     },
   ],
 } as const;
@@ -375,7 +391,7 @@ export const recognitions = {
     { key: "allaboutapps", org: "All About Apps", title: "Top Web Development Firms", year: "2023", src: "/brand/awards/allaboutapps.webp" },
     { key: "techimply", org: "Techimply", title: "Top Mobile App Development Company", year: "2022", src: "/brand/awards/techimply.webp" },
     { key: "goodfirms", org: "GoodFirms", title: "Top Mobile App Development Company", year: null, src: "/brand/awards/goodfirms.webp" },
-    { key: "selectedfirms", org: "SelectedFirms", title: "Top eCommerce Development Company", year: null, src: "/brand/awards/selectedfirms.webp" },
+    { key: "selectedfirms", org: "SelectedFirms", title: "Top E-commerce Development Company", year: null, src: "/brand/awards/selectedfirms.webp" },
     { key: "extract", org: "Extract", title: "Top Software App Development Company in USA", year: null, src: "/brand/awards/extract.webp" },
     { key: "wadline", org: "Wadline", title: "Top Mobile App Developers", year: null, src: "/brand/awards/wadline.webp" },
     { key: "nasscom", org: "NASSCOM", title: "Rewarded With Membership", year: null, src: "/brand/awards/nasscom.webp" },
@@ -400,7 +416,7 @@ export const awardsPage = {
   /** Live's meta description verbatim, less the doubled period it ends on. */
   metaDescription:
     "Explore Soft Suave's prestigious awards and recognition for exceptional performance in delivering innovative software solutions, AI advancements, etc.",
-  body: "The 13+ years of remarkable journey accompanied by accolades and awards is always motivational. The reputation Soft Suave earned worldwide as the best web and mobile app development company in India is because of the love, feedback, and appreciation of our invaluable clients. The stature of Soft Suave has grown exponentially since we established our company. Over the past few glorious years, we headquartered in one of the largest tech hubs in India - Chennai, established our development center in Bangalore, and expanded our global presence to almost all tier 1 & 2 countries worldwide.",
+  body: `The ${YEARS_PLUS} years of remarkable journey accompanied by accolades and awards is always motivational. The reputation Soft Suave earned worldwide as the best web and mobile app development company in India is because of the love, feedback, and appreciation of our invaluable clients. The stature of Soft Suave has grown exponentially since we established our company. Over the past few glorious years, we headquartered in one of the largest tech hubs in India - Chennai, established our development center in Bangalore, and expanded our global presence to almost all tier 1 & 2 countries worldwide.`,
   /**
    * The wall, in live's order. `title` and `description` are live's wording
    * verbatim, with two slips corrected: the Wadline description named the
@@ -419,7 +435,7 @@ export const awardsPage = {
     { key: "techreviewer-2022", org: "Techreviewer", year: "2022", src: "/brand/awards/techreviewer-2022.webp", title: "Top Software Development Company 2022 – Techreviewer", description: "Soft Suave is ranked as one of the top Software Development companies in 2022, verified by Techreviewer." },
     { key: "techimply", org: "Techimply", year: "2022", src: "/brand/awards/techimply.webp", title: "Top Mobile App Development Company – Techimply", description: "Soft Suave is ranked among the world’s top mobile app companies in 2022 in the list released by techimply." },
     { key: "goodfirms", org: "GoodFirms", year: null, src: "/brand/awards/goodfirms.webp", title: "Top Mobile App Development Company – GoodFirms", description: "Soft Suave was rated as one of the finest mobile app development company in the list verified by GoodFirms." },
-    { key: "selectedfirms", org: "SelectedFirms", year: null, src: "/brand/awards/selectedfirms.webp", title: "Top eCommerce Development Company - SelectedFirms", description: "Soft Suave was ranked among the top 10 eCommerce development company in the USA, verified by SelectedFirms." },
+    { key: "selectedfirms", org: "SelectedFirms", year: null, src: "/brand/awards/selectedfirms.webp", title: "Top E-commerce Development Company - SelectedFirms", description: "Soft Suave was ranked among the top 10 e-commerce development company in the USA, verified by SelectedFirms." },
     { key: "develop4u", org: "Develop4u", year: null, src: "/brand/awards/developer4u.webp", title: "Best Mobile App Developers - Develop4u", description: "Soft Suave ranks as one of the best Mobile App Developers in the list released by Develop4u." },
     { key: "extract", org: "Extract", year: null, src: "/brand/awards/extract.webp", title: "Top Software App Development Company in USA – Extract", description: "Soft Suave is ranked as one of the top Software App Development companies in the USA by Extract." },
     { key: "wadline", org: "Wadline", year: null, src: "/brand/awards/wadline.webp", title: "Top Mobile App Developers - Wadline", description: "Soft Suave ranks as one of the Top Mobile App Developers in the list released by Wadline." },
@@ -639,27 +655,24 @@ export const testimonials: {
   ],
 };
 
-/** The site's four top-level divisions, in order. Services and Company are
- *  section anchors on this page (and on every landing page, which share those
- *  ids); Industries is the sector index route. Resources has no destination of
- *  its own (`href: null`) — its label only opens its panel, so the blog is
- *  reached from the panel's Blog entry rather than by clicking the division.
+/** A top-level division on the bar. `href: null` means it has no destination
+ *  of its own: its label only opens its panel and never navigates. */
+export type NavDivision = { readonly label: string; readonly href: string | null };
+
+/** The site's four top-level divisions, in order. None of them links anywhere
+ *  (21 Oct review: clicking Services, Industries or Company took the reader to
+ *  a homepage section or the sector index, which read as a stray redirect) —
+ *  each label only opens its panel, as Resources always did, and every page is
+ *  reached from inside the panels (their items and their CTA line).
  *  Contact is deliberately absent — the CTA pill next to these links is the
  *  contact path. */
 export const nav = {
   links: [
-    { label: "Services", href: "#services" },
-    // The sector index, not this page's industries band: it is the canonical
-    // page for the seven sectors, and the one the band omits (Construction)
-    // exists only there. Every page that renders the default nav has
-    // its own `#industries` section still — the band stays, the nav bar just
-    // stops treating it as the destination. Being a route rather than an
-    // anchor, this link also drops out of the bar's "you are here" highlight,
-    // which only tracks `#` links.
-    { label: "Industries", href: "/industries" },
-    { label: "Company", href: "#why" },
+    { label: "Services", href: null },
+    { label: "Industries", href: null },
+    { label: "Company", href: null },
     { label: "Resources", href: null },
-  ],
+  ] as readonly NavDivision[],
   cta: { label: "Book AI Strategy Call", href: "/contact" },
 } as const;
 
@@ -736,6 +749,8 @@ export const footer = {
    * footer, which marks up the USA office only — field mapping included
    * (street in `postOfficeBoxNumber`, suite in `addressLocality`, "DC 20007"
    * as the postcode). Mirrored on purpose; do not correct it here alone.
+   * The telephones are live's `content` values, digits only: the footer's
+   * visible phone lines are formatted separately.
    */
   offices: [
     {
@@ -749,7 +764,7 @@ export const footer = {
         postalCode: "DC 20007",
         addressCountry: "USA",
         email: "contact@softsuave.com",
-        telephone: ["+1 (410) 220-6301", "+44 7403 646450", "+91 8015159981 (HR)"],
+        telephone: ["+14102206301", "+447403646450", "+918015159981"],
       },
     },
     {

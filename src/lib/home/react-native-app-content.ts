@@ -48,8 +48,12 @@ export const rnMeta = {
 } as const;
 
 export const rnHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["React Native App Development", "Company In India"],
+  accent: "React Native",
   body: [
     "Are you in a desperate search for a reliable React Native mobile app development company in India? Soft Suave is your ultimate place to get comprehensive React Native app development services.",
     "Want to outsource react native development in India? Get in touch for a free quote!",
@@ -60,11 +64,10 @@ export const rnHero: HeroContent = {
   // The four trust badges the live page shows beside its enquiry form.
   badges: partnerHeroBadges,
   form: {
-    // The live page's own form heading and sub-line. No `eyebrow`: the review
-    // asked for the hero's kicker to go, and the card's is the only one the
-    // hero renders — `HeroContent` has no eyebrow field of its own. Matches the
-    // AI pages (custom-ai, computer-vision, data-science), whose cards already
-    // open on the title.
+    // The live page's own form heading and sub-line, with the card's
+    // "Let’s Discuss Your Project" heading the other development pages
+    // carry (13 Oct review: "in some pages the form is missing a heading").
+    eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
     alert: sharedHeroAlert,
     submit: "Submit",
@@ -102,6 +105,9 @@ export const rnOverview: OverviewContent = {
     width: 2048,
     height: 944,
     alt: "A single React Native codebase rendering as a native app on both iOS and Android",
+    // Centred against the copy beside it rather than pinned to the top of a
+    // taller column (13 Oct review: "align the image with the section").
+    align: "center",
   },
 };
 
@@ -115,11 +121,6 @@ export const rnServices: ServiceBoardContent = {
   eyebrow: "React Native Development",
   title: "Extensible React Native Development Services",
   body: "Soft Suave is your destination to create intuitive and engaging applications. Our range of custom React Native App Development Services includes;",
-  // /contact, not the hero's own `#enquiry` anchor: the review asked for this
-  // button to reach the contact page. This is the first board CTA to name a
-  // route rather than an anchor, which is why `ServiceBoard` now branches
-  // between a plain <a> and SiteLink the way `landing/cta-band` already did.
-  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "React Native UI/UX App Design",
@@ -133,7 +134,7 @@ export const rnServices: ServiceBoardContent = {
       name: "React Native App Development",
       paragraphs: [
         "React Native is one of the dominant frameworks in the technology industry with great sets of features like live & hot reloading, responsive and quick user interface, intuitive & modular architecture, etc. With our world-class React Native Development Services, Soft Suave develops high functionality Apps compatible with iOS and Android.",
-        "Our top-of-the-line designers, developers, and consultants have years of experience and extensive knowledge through which we build React Native apps that target specific business models and help achieve increased performance. Besides, we are recognized for serving modern business needs from almost all types of industries including eCommerce, Construction, Healthcare, Education, etc.",
+        "Our top-of-the-line designers, developers, and consultants have years of experience and extensive knowledge through which we build React Native apps that target specific business models and help achieve increased performance. Besides, we are recognized for serving modern business needs from almost all types of industries including E-commerce, Construction, Healthcare, Education, etc.",
       ],
       image: { src: "/images/four/svc-mobile.webp", alt: "" },
     },

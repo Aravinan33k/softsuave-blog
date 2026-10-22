@@ -25,7 +25,7 @@ const INDUSTRIES: NavLink[] = [
   { label: 'FinTech', href: '/fintech-ai-solutions', desc: 'Shaping Financial Futures' },
   { label: 'Construction', href: '/ai-solutions-for-construction', desc: "Building Tomorrow's World" },
   { label: 'HealthTech', href: '/ai-solutions-in-healthtech', desc: 'Optimizing Health Solutions' },
-  { label: 'eCommerce', href: '/ai-solutions-for-ecommerce', desc: 'Boosting Online Sales' },
+  { label: 'E-commerce', href: '/ai-solutions-for-ecommerce', desc: 'Boosting Online Sales' },
   { label: 'Logistics', href: '/ai-in-logistics', desc: 'Streamlining Supply Chains' },
   { label: 'Telecom', href: '/ai-solutions-for-telecom', desc: 'Connecting Global Networks' },
 ];

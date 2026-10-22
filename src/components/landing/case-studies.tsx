@@ -66,18 +66,20 @@ export default function CaseStudies({
             {/* A new tab is right for a destination off this app, and wrong for
                 one of our own routes — this used to be hardcoded to
                 softsuave.com/case-studies and so always opened a tab, even now
-                that we serve /case-studies ourselves. */}
+                that we serve /case-studies ourselves. Filled, with the nav's
+                "Book AI Strategy Call" hover (13 Oct review, Custom AI: "make
+                the button colour filled"). */}
             {/^https?:\/\//.test(content.allCta.href) ? (
               <a
                 href={content.allCta.href}
-                className={styles.btn}
+                className={`${styles.btn} ${styles.btnPrimary}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 {content.allCta.label}
               </a>
             ) : (
-              <SiteLink href={content.allCta.href} className={styles.btn}>
+              <SiteLink href={content.allCta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
                 {content.allCta.label}
               </SiteLink>
             )}

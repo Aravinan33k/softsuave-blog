@@ -1,7 +1,9 @@
 import { z } from 'zod';
 import {
+  EMAIL_MESSAGE,
   NAME_MESSAGE,
   PHONE_MESSAGE,
+  isValidEmail,
   isValidName,
   isValidPhone,
 } from '@/lib/forms/enquiry-rules';
@@ -88,10 +90,9 @@ export const enquiryInput = z.object({
     .min(1, 'Please enter your name.')
     .max(191)
     .refine(isValidName, NAME_MESSAGE),
-  email: z.email('Please enter a valid email address.').trim().max(191),
-  // Required. Not a country-specific shape — the form takes international
-  // numbers in whatever form the reader writes them — but it does have to be a
-  // number: digits and the punctuation people write them with, nothing else.
+  email: z.email(EMAIL_MESSAGE).trim().max(191).refine(isValidEmail, EMAIL_MESSAGE),
+  // Required: a country calling code and exactly ten digits, as the form's
+  // phone field produces them ("+91 9876543210").
   phone: z
     .string()
     .trim()

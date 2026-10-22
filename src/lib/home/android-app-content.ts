@@ -29,7 +29,7 @@ import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
-import type { TechStackContent } from "@/components/landing/tech-stack";
+import type { TechStackContent } from "@/components/home/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
 import { overviewImage } from "./overview-images";
 import { sharedHeroAlert } from "./delivery-shared";
@@ -48,8 +48,12 @@ export const andMeta = {
 } as const;
 
 export const andHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Android Application", "Development Service"],
+  accent: "Android",
   body: [
     "As a top Android app development company, we provide user-friendly and innovative solutions across industries. We design, develop, and improve apps for all Android OS versions. Get the best mobile experience with over a decade of reliable service.",
     "Want to onboard the Android app development team? Or Looking for an Android App Development agency in India? Get in touch for a free quote!",
@@ -73,22 +77,27 @@ export const andHero: HeroContent = {
       "The app you have in mind, the Android versions and devices it must support, any systems it has to talk to, and whether this is a new build or an existing app.",
     subject: "Android App Development enquiry",
   },
-  // This page's own photography, via the Pexels pipeline
-  // (`content/images.manifest.json`) — the previous asset was shared with 4
-  // other pages and was dark enough to read as barely-there (review: "need
-  // to update the image and the visibility of the section is low").
+  // An Android handset showing an app's `strings.xml` resources — Android
+  // development specifically, not a generic laptop of code (review: "change
+  // the background hero image with more better & accurate one"). Pexels
+  // #33797245, placed by hand (manifest slot `and-hero-strings`,
+  // `source: "hand-placed"`): the photo's plain concrete is extended on the
+  // left so the phone sits in the gap between the copy and the form rather
+  // than under the paragraph, where the veil hid every centred subject tried.
   image: {
-    src: "/images/four/and-hero.webp",
+    src: "/images/four/and-hero-strings.webp",
     width: 1920,
     height: 1080,
-    alt: "A developer testing an Android app on a smartphone",
+    alt: "A hand holding an Android phone showing an app's string resources in code",
     blurDataURL:
-      "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABwAgCdASoQAAsAA4BaJZQAD49u4amjptnJCWgAAP7wsNOyawMJiV6ON+LOZe0Vp2mfa9Rw40k7RuZ9kYl3sB2vPSkO/7l4O3j2uVYv6oWFTv3iJjek4q8FPX9Xd9NMoQfkKBIGzSMea6rqC/OgoAAA",
+      "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoQAAkAA4BaJQBdgBTFt+IAAAD+w/JQGYzDhjzGChoUuPA1MczvcvWFoyWlyiGgRnNhczb789arTfkAAAA=",
   },
 };
 
 export const andOverview: OverviewContent = {
-  image: overviewImage("android-application-development-company"),
+  // Centred against the copy beside it rather than pinned to the top of a
+  // taller column (13 Oct review: "align the image with the section").
+  image: { ...overviewImage("android-application-development-company")!, align: "center" },
   eyebrow: "Android App Development Service",
   title: "Best Android App Development Service in India",
   paragraphs: [
@@ -110,7 +119,6 @@ export const andServices: ServiceBoardContent = {
   eyebrow: "Android Development Services",
   title: "Android Development Services Soft Suave Offers",
   body: "Soft Suave provides best-in-class Android app development services and advanced solutions. Our mobile app development team can provide you with expert support.",
-  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "Custom Android App Development",
@@ -171,15 +179,15 @@ export const andHireCta: CtaBandContent = {
 };
 
 /**
- * The four technology groups, rendered through the shared
- * `landing/tech-stack.tsx` — the plain static-panel treatment every other
- * page on this surface uses (review: "update the tech stack section like in
- * other pages, current design not suitable"). This page's own bespoke
- * `android-app/stack-layers.tsx` (four card "slabs", one paragraph per
- * technology) read as a one-off next to every sibling page's simpler grouped
- * chip grid. Names go straight to `components/home/tech-logo.tsx`; the
- * per-technology descriptions the old layout carried are dropped, the same
- * way every other TechStackContent-driven page already presents its stack.
+ * The live page's four technology groups, verbatim, rendered as the homepage's
+ * tech rows (`components/home/tech-stack.tsx`) — the treatment the recent
+ * service pages use (Vue.js, PostgreSQL, TypeScript, GraphQL). The review
+ * asked twice to "update the tech stack section like in other pages, current
+ * design not suitable": first this page's bespoke card slabs went to the
+ * landing set's static panel grid, whose four-column cells left most of each
+ * panel empty with only one to three names per group. Names go straight to
+ * `components/home/tech-logo.tsx`. "Google Cloud" is spaced as the live
+ * page's own image label has it (its heading runs the words together).
  */
 export const andStack: TechStackContent = {
   eyebrow: "Some Modern & Futuristic Technologies",
@@ -187,7 +195,7 @@ export const andStack: TechStackContent = {
   body: "To offer start-to-end mobile app development services, our Android professionals at our mobile app development company use the following state-of-the-art technologies",
   groups: [
     { name: "Frontend", items: ["Kotlin", "Java", "XML"] },
-    { name: "Platforms", items: ["AWS", "Azure", "GoogleCloud"] },
+    { name: "Platforms", items: ["AWS", "Azure", "Google Cloud"] },
     { name: "Tools", items: ["Android Studio"] },
     { name: "Database", items: ["SQLite"] },
   ],

@@ -23,6 +23,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm, hiringComparison } from './shared';
+import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const software: HireRolePageContent = {
   key: 'hire-software',
@@ -52,14 +53,15 @@ export const software: HireRolePageContent = {
   },
 
   hero: {
-    titleLines: ['Hire Software Developers:', 'Get the Right Talent for Your Next Project'],
+    titleLines: ['Hire Software Developers', 'Get the Right Talent for Your Next Project'],
+    accent: 'Software Developers',
     body: [
       'Hire experienced software developers from India, matched to your technology stack, project requirements, and team needs. Add the right expertise to accelerate development, strengthen delivery, and support your business goals.',
       'Review relevant profiles, interview developers directly, and use a 40-hour risk-free trial to evaluate fit before extending the engagement.',
     ],
     points: [
       'Project-Ready Developer Profiles',
-      '400+ AI & Engineering Specialists',
+      `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
       '40-Hour Risk-Free Trial',
       'Flexible Hiring Options',
       'Direct Developer Collaboration',
@@ -160,6 +162,10 @@ export const software: HireRolePageContent = {
       {
         key: 'fullstack',
         name: 'Hire Fullstack Developers',
+        // Unlinked for now: live's target (/hire-full-stack-developers-in-india)
+        // has no page here, and the review wants these cards to stay on the new
+        // site rather than send readers to softsuave.com.
+        link: false,
         body: 'Get versatile, well-rounded full-stack developers who manage both front-end and back-end development with expertise. They seamlessly integrate your application layers, ensuring scalability, security, and efficiency for end-to-end solutions.',
       },
       {
@@ -195,6 +201,8 @@ export const software: HireRolePageContent = {
         body: 'Build innovative financial solutions with experienced fintech developers. We specialize in secure, high-impact apps that streamline financial operations, enhance user experience, and integrate cutting-edge tech to support the future of finance.',
       },
     ],
+    // Live closes the section on "Ready to discuss? Contact us".
+    cta: { label: 'Contact us', href: '/contact' },
   },
 
   whyRole: {
@@ -204,13 +212,13 @@ export const software: HireRolePageContent = {
     items: [
       {
         key: 'experience',
-        name: '13+ Years of Technology Expertise',
-        body: 'Bring 13+ years of technology expertise into software development requirements across applications, integrations, modernization, and ongoing engineering work.',
+        name: `${YEARS_PLUS} Years of Technology Expertise`,
+        body: `Bring ${YEARS_PLUS} years of technology expertise into software development requirements across applications, integrations, modernization, and ongoing engineering work.`,
       },
       {
         key: 'specialists',
-        name: '400+ AI & Engineering Specialists',
-        body: 'Soft Suave is backed by 400+ AI & Engineering Specialists across multiple development disciplines and technology areas.',
+        name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+        body: `Soft Suave is backed by ${SPECIALISTS_PLUS} AI & Engineering Specialists across multiple development disciplines and technology areas.`,
       },
       {
         key: 'trial',
@@ -308,7 +316,7 @@ export const software: HireRolePageContent = {
     items: [
       {
         q: 'How much does it cost to hire a software developer?',
-        a: "The cost depends on the developer's experience, technology stack, specialization, engagement duration, required capacity, and project responsibilities. Once we understand your requirements, we'll recommend the right developer and engagement model for your project. At Soft Suave, software developer rates start from $14/hour.",
+        a: `The cost depends on the developer's experience, technology stack, specialization, engagement duration, required capacity, and project responsibilities. Once we understand your requirements, we'll recommend the right developer and engagement model for your project. At Soft Suave, software developer rates start from ${HOURLY_RATE}.`,
       },
       {
         q: 'Can I interview a software developer before hiring?',

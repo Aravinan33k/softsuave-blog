@@ -44,6 +44,13 @@ export interface WorkCarouselItem {
    * generated blurDataURL a loose file has no equivalent for.
    */
   readonly image?: { readonly src: string; readonly alt?: string };
+  /**
+   * Makes the whole tile a link to this route (Custom AI review, 1 Oct: "link
+   * the cards to their relevant pages"). Optional: case-study lanes have no
+   * page per tile and stay unlinked. A drag that ends over the tile does not
+   * follow it — see `onClickCapture`.
+   */
+  readonly href?: string;
 }
 
 /** Everything the lane renders. See `WorkCarouselItem` for the cards. */
@@ -65,6 +72,13 @@ export interface WorkCarouselContent {
     readonly cta: { readonly label: string; readonly href: string };
   };
   items: readonly WorkCarouselItem[];
+  /**
+   * A visible label at the foot of each linked tile ("View Case Study"), for a
+   * lane whose live counterpart prints one on every card — the case study's
+   * related-work carousel. The tile is already one link named by its title, so
+   * the label is decoration; omitted, tiles carry none, as before.
+   */
+  tileCta?: string;
 }
 
 /**
@@ -92,8 +106,21 @@ const HOMEPAGE_WORK: WorkCarouselContent = {
     imageId: c.img,
     metric: `${c.metricValue} ${c.metricLabel}`,
     year: c.year,
+    href: c.href,
   })),
 };
+
+/**
+ * The lane `scrollLeft` that frames `el` as snapping does: its left edge at
+ * the lane's `scroll-padding-left` (the track's own left padding — see
+ * `.hLane`), not flush with the lane's edge. Measuring to the bare edge sent
+ * the arrows and drag a padding's width past the snap point, and native snap
+ * then jerked the lane back once the tween ended.
+ */
+function snapLeftOf(lane: HTMLElement, el: HTMLElement) {
+  const pad = parseFloat(getComputedStyle(lane).scrollPaddingLeft) || 0;
+  return el.getBoundingClientRect().left - lane.getBoundingClientRect().left + lane.scrollLeft - pad;
+}
 
 /**
  * Selected work — a horizontal scroll-snap gallery. On desktop the lane is a
@@ -166,14 +193,11 @@ export default function WorkGrid({
     const snapChildren = lane.querySelectorAll<HTMLElement>(
       `.${styles.hTile}, .${styles.hOutro}`,
     );
-    const laneRect = lane.getBoundingClientRect();
     let closestIndex = 0;
     let minDist = Infinity;
 
     snapChildren.forEach((el, index) => {
-      const elRect = el.getBoundingClientRect();
-      const elScrollLeft = elRect.left - laneRect.left + lane.scrollLeft;
-      const dist = Math.abs(lane.scrollLeft - elScrollLeft);
+      const dist = Math.abs(lane.scrollLeft - snapLeftOf(lane, el));
       if (dist < minDist) {
         minDist = dist;
         closestIndex = index;
@@ -184,9 +208,7 @@ export default function WorkGrid({
     if (targetIndex < 0) targetIndex = 0;
     if (targetIndex >= snapChildren.length) targetIndex = snapChildren.length - 1;
 
-    const targetEl = snapChildren[targetIndex] as HTMLElement;
-    const targetElRect = targetEl.getBoundingClientRect();
-    const targetScrollLeft = targetElRect.left - laneRect.left + lane.scrollLeft;
+    const targetScrollLeft = snapLeftOf(lane, snapChildren[targetIndex] as HTMLElement);
 
     const maxScroll = lane.scrollWidth - lane.clientWidth;
     const finalScrollLeft = Math.max(0, Math.min(targetScrollLeft, maxScroll));
@@ -284,13 +306,11 @@ export default function WorkGrid({
       const snapChildren = lane.querySelectorAll<HTMLElement>(
         `.${styles.hTile}, .${styles.hOutro}`,
       );
-      const laneRect = lane.getBoundingClientRect();
       let closestLeft = 0;
       let minDist = Infinity;
 
       snapChildren.forEach((el) => {
-        const elRect = el.getBoundingClientRect();
-        const elScrollLeft = elRect.left - laneRect.left + lane.scrollLeft;
+        const elScrollLeft = snapLeftOf(lane, el);
         const dist = Math.abs(targetScrollLeft - elScrollLeft);
         if (dist < minDist) {
           minDist = dist;
@@ -317,12 +337,19 @@ export default function WorkGrid({
   }, []);
 
   /** A drag that ends over a link must not also follow it. `hasMoved` is
-   *  still set when this click arrives (the next press clears it). */
+   *  still set when the click that ends the drag arrives; that click is the
+   *  only one it may cancel, so it is consumed there.
+   *
+   *  Keyboard and assistive-tech activations (Enter on a focused link) arrive
+   *  as clicks with `detail === 0` and are never the end of a drag, so they
+   *  always go through. Before, the flag stayed set until the next press:
+   *  drag the lane, then press Enter on "Start a project", and nothing
+   *  happened (QA BUG-012). */
   const onClickCapture = useCallback((e: React.MouseEvent) => {
-    if (hasMoved.current) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+    if (!hasMoved.current || e.detail === 0) return;
+    hasMoved.current = false;
+    e.preventDefault();
+    e.stopPropagation();
   }, []);
 
   /** Prevent native image/text drag from the browser during pointer drag. */
@@ -596,6 +623,17 @@ export default function WorkGrid({
                     {t.metric ? <span className={styles.tileMetric}>{t.metric}</span> : null}
                   </div>
                   <p className={styles.tileBody}>{t.body}</p>
+                  {content.tileCta && t.href ? (
+                    <span className={styles.tileCta} aria-hidden>
+                      {content.tileCta}
+                      <span className={styles.tileCtaArrow}>&rarr;</span>
+                    </span>
+                  ) : null}
+                  {/* Last in the tile so it paints over everything; the name is
+                      the tile's own title, so the link reads as the card. */}
+                  {t.href ? (
+                    <SiteLink href={t.href} className={styles.hTileLink} aria-label={t.title} draggable={false} />
+                  ) : null}
                 </article>
               );
             })}

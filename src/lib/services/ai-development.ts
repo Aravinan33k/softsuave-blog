@@ -12,11 +12,12 @@
  */
 
 import { sharedHeroAlert } from '@/lib/home/delivery-shared';
+import { CLIENTS_PLUS, COUNTRIES_PLUS, FIGURES, YEARS_PLUS } from '@/lib/company-figures';
 
 export const meta = {
   title: 'Custom AI Development Services',
   description:
-    'Build custom AI solutions around your business data, workflows and goals — from proof of concept to production-ready deployment. ISO-certified, 13+ years.',
+    `Build custom AI solutions around your business data, workflows and goals — from proof of concept to production-ready deployment. ISO-certified, ${YEARS_PLUS} years.`,
   path: '/ai-development-service',
 } as const;
 
@@ -36,7 +37,7 @@ export const hero = {
     '25× AI-Accelerated Delivery',
     'ISO-Certified Processes',
     'Flexible Engagement Models',
-    '13+ Years of Tech Expertise',
+    `${YEARS_PLUS} Years of Tech Expertise`,
   ],
   form: {
     title: 'Tell us what you need',
@@ -105,10 +106,10 @@ export const ctaBands = {
 export const whyChoose = {
   eyebrow: 'Why Soft Suave',
   title: 'Why Choose Soft Suave for AI Development',
-  body: 'Soft Suave is a reliable custom AI development company helping businesses turn complex AI ideas into secure, scalable solutions built around real operational needs and measurable outcomes. Here are a few reasons why 150+ clients have chosen to work with us.',
+  body: `Soft Suave is a reliable custom AI development company helping businesses turn complex AI ideas into secure, scalable solutions built around real operational needs and measurable outcomes. Here are a few reasons why ${CLIENTS_PLUS} clients have chosen to work with us.`,
   items: [
     {
-      name: '13+ Years of Technology Expertise',
+      name: `${YEARS_PLUS} Years of Technology Expertise`,
       body: 'Over a decade of software development experience gives our AI team the engineering discipline needed to build reliable, production-grade systems.',
     },
     {
@@ -117,7 +118,7 @@ export const whyChoose = {
     },
     {
       name: 'Global Delivery Experience',
-      body: 'We have delivered AI and software projects for clients across 20+ countries, adapting to different time zones and business requirements.',
+      body: `We have delivered AI and software projects for clients across ${COUNTRIES_PLUS} countries, adapting to different time zones and business requirements.`,
     },
     {
       name: 'Measurable Business Value',
@@ -176,7 +177,7 @@ export const industries = {
       body: 'Personalize digital learning through adaptive learning and AI tutors that guide students, support educators, improve engagement, and create more responsive learning experiences at scale globally.',
     },
     {
-      name: 'eCommerce',
+      name: 'E-commerce',
       body: 'Increase conversions and planning accuracy with recommendations and forecasting that personalize shopping, predict demand, improve inventory decisions, and strengthen performance across digital channels at scale.',
     },
     {
@@ -225,7 +226,7 @@ export const faq = {
   items: [
     {
       q: 'Why work with a custom AI development company in India?',
-      a: 'India gives you access to a deep AI engineering talent pool at 40–60% below equivalent US or EU rates, which is why a large share of global AI delivery runs from here. We work from development centres in Chennai and Bangalore with a US office, maintain a 4-6 hour overlap with US and EU teams, and have delivered software for global clients for over 13 years. Engagement terms, security controls, and delivery milestones are agreed in writing before work starts.',
+      a: `India gives you access to a deep AI engineering talent pool at 40–60% below equivalent US or EU rates, which is why a large share of global AI delivery runs from here. We work from development centres in Chennai and Bangalore with a US office, maintain a 4-6 hour overlap with US and EU teams, and have delivered software for global clients for over ${FIGURES.years} years. Engagement terms, security controls, and delivery milestones are agreed in writing before work starts.`,
     },
     {
       q: 'How much does it cost to build an AI solution with a team in India?',

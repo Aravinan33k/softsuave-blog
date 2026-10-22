@@ -104,6 +104,47 @@ const schema = z
     // softsuave.com lead endpoint its own contact forms post to (see
     // lib/leads/forward.ts). Override only to point at a different collector.
     LEAD_FORWARD_URL: z.string().url().default('https://www.softsuave.com/forms/enquires/developer'),
+
+    // Email notification for every lead stored in the database (enquiry forms
+    // and meeting bookings; see lib/leads/notify.ts). Off until SMTP_HOST is
+    // set — any SMTP account works (Google Workspace, Microsoft 365, SES…).
+    // Not used in the no-database mode, where the live site's own endpoint
+    // already handles the lead.
+    SMTP_HOST: z.string().default(''),
+    SMTP_PORT: z.coerce.number().int().positive().default(587),
+    // TLS from the first byte. Unset follows the port: on for 465, otherwise
+    // STARTTLS is negotiated on the plain connection.
+    SMTP_SECURE: z
+      .string()
+      .optional()
+      .transform((v) => (v === undefined || v === '' ? undefined : v === 'true' || v === '1')),
+    SMTP_USER: z.string().default(''),
+    SMTP_PASS: z.string().default(''),
+    // Who receives the notification: one address or a comma-separated list.
+    // Defaults to the address the site itself publishes for enquiries.
+    LEAD_NOTIFY_TO: z.string().default('contact@softsuave.com'),
+    // The From address. Unset uses SMTP_USER — most providers only relay mail
+    // "from" the account that authenticated.
+    LEAD_NOTIFY_FROM: z.string().default(''),
+    // The timezone the email's "Received" time is written in. The server's own
+    // clock is UTC, which put an IST team's leads hours off their inbox time.
+    LEAD_NOTIFY_TIMEZONE: z.string().default('Asia/Kolkata'),
+    // City / region / country in the lead email, looked up from the visitor's
+    // IP through ipinfo.io once per lead (lib/leads/ip-location.ts) — the same
+    // service the live site's forms use. Optional token for its higher limits;
+    // "false" on LEAD_GEO_LOOKUP leaves the three fields blank instead.
+    IPINFO_TOKEN: z.string().default(''),
+    LEAD_GEO_LOOKUP: z
+      .string()
+      .optional()
+      .transform((v) => !(v === 'false' || v === '0')),
+    // The visitor's automatic "thank you for getting in touch" email
+    // (lib/leads/auto-reply.ts), sent alongside the team notification. On
+    // whenever SMTP is configured; "false" turns it off on its own.
+    LEAD_AUTOREPLY: z
+      .string()
+      .optional()
+      .transform((v) => !(v === 'false' || v === '0')),
     NEETOCAL_BASE_URL: z.string().default('https://softsuave.neetocal.com'),
     NEETOCAL_MEETING_SLUG: z.string().default('meeting-with-softsuave'),
 

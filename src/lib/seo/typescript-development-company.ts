@@ -1,4 +1,5 @@
 import 'server-only';
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 /**
  * Service, WebPage and FAQPage JSON-LD for `/typescript-development-company`,
@@ -95,7 +96,7 @@ export const txWebPageLd = {
   "@id": "https://www.softsuave.com/typescript-development-company#webpage",
   "url": "https://www.softsuave.com/typescript-development-company",
   "name": "TypeScript Development Company for Web Apps | Soft Suave",
-  "description": "Work with a TypeScript development company backed by 13+ years of technology expertise for application development, migration, integration, and support.",
+  "description": `Work with a TypeScript development company backed by ${YEARS_PLUS} years of technology expertise for application development, migration, integration, and support.`,
   "inLanguage": "en",
   "dateModified": "2026-09-15",
   "primaryImageOfPage": {

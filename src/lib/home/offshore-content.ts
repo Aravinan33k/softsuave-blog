@@ -37,6 +37,7 @@ import type { CardGridContent as PhotoGridContent } from "@/components/generativ
 import type { WorkCarouselContent } from "@/components/home/work-grid";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { overviewImage } from "./overview-images";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const offMeta = {
   slug: "offshore-software-development-company",
@@ -45,18 +46,20 @@ export const offMeta = {
   // carries the brand, so the route adds no " | Soft Suave" suffix.
   title: "Offshore Software Development Company | Soft Suave",
   description:
-    "Partner with an offshore software development company bringing 13+ years of expertise in custom software, web, mobile, AI, integration, and modernization.",
+    `Partner with an offshore software development company bringing ${YEARS_PLUS} years of expertise in custom software, web, mobile, AI, integration, and modernization.`,
 } as const;
 
 export const offHero: HeroContent = {
+  // 8 Oct review: "highlight 'Offshore Software Development' in the H1".
   titleLines: ["Offshore Software Development", "Company for Global Businesses"],
+  accent: "Offshore Software Development",
   body: [
     "Soft Suave is an offshore software company that builds and modernizes software for startups, scaling businesses, and established organizations worldwide. We combine experienced engineering capabilities with flexible delivery models to address your project requirements.",
     "Share your requirements, and we'll outline the capabilities, delivery approach, and next steps for your project.",
   ],
   points: [
-    "13+ Years of Technology Expertise",
-    "400+ AI & Engineering Specialists",
+    `${YEARS_PLUS} Years of Technology Expertise`,
+    `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     "Flexible Engagement Models",
     "ISO/IEC 27001:2022-Certified",
     "Web, Mobile, AI & Modernization Capabilities",
@@ -67,7 +70,7 @@ export const offHero: HeroContent = {
     // The live hero form's own heading.
     title: "Let's Discuss Your Project",
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "What do you need built?",
     requirementPlaceholder:
       "The product or system, the platforms it runs on, what it has to integrate with, and your target timeline.",
@@ -106,7 +109,9 @@ export const offServices: ServicesContent = {
   items: [
     {
       name: "Custom AI Services",
-      href: "/ai-development-service",
+      // 8 Oct review: "replace the link to this page -
+      // /custom-ai-development-services".
+      href: "/custom-ai-development-services",
       body: "Build tailored AI solutions across generative AI, machine learning, natural language processing, LLM fine-tuning, predictive analytics, and computer vision based on your specific business requirements.",
     },
     {
@@ -283,12 +288,12 @@ export const offWhyUs: CardGridContent = {
   body: "Ranked among the top offshore software development companies by Clutch and GoodFirms, Soft Suave helps global businesses advance software initiatives from initial development through ongoing modernization with experienced engineering teams and flexible engagement models.",
   items: [
     {
-      name: "13+ Years of Technology Expertise",
-      body: "Soft Suave brings 13+ years of technology expertise to software development, modernization, integration, testing, and continuing engineering requirements across different project stages.",
+      name: `${YEARS_PLUS} Years of Technology Expertise`,
+      body: `Soft Suave brings ${YEARS_PLUS} years of technology expertise to software development, modernization, integration, testing, and continuing engineering requirements across different project stages.`,
     },
     {
-      name: "400+ AI & Engineering Specialists",
-      body: "Access capabilities across software applications, mobile development, cloud, DevOps, data, testing, and AI through 400+ AI & Engineering Specialists.",
+      name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+      body: `Access capabilities across software applications, mobile development, cloud, DevOps, data, testing, and AI through ${SPECIALISTS_PLUS} AI & Engineering Specialists.`,
     },
     {
       name: "Flexible Engagement Structures",
@@ -317,7 +322,7 @@ export const offWhyUs: CardGridContent = {
 export const offTech: TechStackContent = {
   eyebrow: "Technology Stack",
   title: "Transforming Ideas with Next-Gen Tech",
-  body: "Our 400+ AI-enabled developers specialize in cutting-edge technologies and platforms. Our comprehensive tech stack covers everything from design to testing, ensuring seamless and efficient development.",
+  body: `Our ${SPECIALISTS_PLUS} AI-enabled developers specialize in cutting-edge technologies and platforms. Our comprehensive tech stack covers everything from design to testing, ensuring seamless and efficient development.`,
   groups: [
     {
       name: "Frontend",

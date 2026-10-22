@@ -89,13 +89,16 @@ export default function Comparison() {
         title: caComparison.title,
         body: caComparison.body,
         columns: [columns.custom, columns.offTheShelf],
+        // "Comparison Area", from the content doc. Left out, the first header
+        // cell rendered empty (7 Oct review: "the first table column heading
+        // is missing").
+        areaLabel: columns.area,
         rows: rows.map((r) => ({ area: r.area, values: [r.custom, r.offTheShelf] })),
         icons: ROW_ICONS,
         /* This page exists to argue for custom, and every row here favours it
            — so the table says so rather than laying eight rows out neutrally
            and leaving the reader to total them up. */
         verdict: true,
-        verdictNote: caComparison.verdictNote,
       }}
     />
   );

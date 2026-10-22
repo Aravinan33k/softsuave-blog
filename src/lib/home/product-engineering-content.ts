@@ -58,7 +58,7 @@ export const prodHero: HeroContent = {
     title: "Get free rough quote in 24 hrs",
     alert: sharedHeroAlert,
     submit: "Send requirements",
-    sending: "Opening your mail…",
+    sending: "Sending…",
     requirementLabel: "Tell us about your product",
     requirementPlaceholder:
       "What it does, who it is for, what exists already, and what you are trying to reach — a first release, a rebuild, or the next stage of growth.",

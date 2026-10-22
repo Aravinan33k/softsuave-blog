@@ -267,8 +267,8 @@ export interface CardGridContent {
    * Optional button under the grid, for a section whose cards make a case the
    * reader should be able to act on — the Angular page's "Why Choose Soft
    * Suave" closes on six reasons and then offered no way forward (review:
-   * "CTA button missing"). Rendered by `landing/why-us`; the card grids that
-   * are pure statements simply omit it.
+   * "CTA button missing"). Rendered under the grid here and by
+   * `landing/why-us`; the card grids that are pure statements simply omit it.
    */
   cta?: { readonly label: string; readonly href: string };
   /**
@@ -309,6 +309,13 @@ export interface CardGridContent {
      * statements, not gateways, and a link that goes nowhere is worse than none.
      */
     readonly href?: string;
+    /**
+     * `false` keeps this one card unlinked even in an auto-linked grid whose
+     * other cards match a page — the generative-AI grid's opt-out of the same
+     * name (Software Development review: "remove the link from the blockchain
+     * development service card").
+     */
+    readonly link?: false;
     /**
      * Pexels slot id for the card thumbnail, `feature` variant only. Set this
      * ONLY once `content/images.manifest.json` holds the slot and
@@ -369,8 +376,8 @@ export interface CardGridContent {
  * - `feature` — light cards lifted off the dark band: a tinted icon badge, a
  *   ghosted ordinal, a short accent rule under the name, and optional
  *   thumbnail and "Learn more" link. Both of those are per-item and optional,
- *   so the layout is correct before any art or link targets exist. Ignores
- *   `columns`.
+ *   so the layout is correct before any art or link targets exist. Three
+ *   across; `columns={2}` holds it at two, any other value is ignored.
  * - `list` — a stacked row per item: the thumbnail (or icon badge, if no
  *   image) on one side, the name and body on the other, alternating sides
  *   down the list on desktop. For a card set the source page shows as a
@@ -390,6 +397,7 @@ export default function Industries({
   variant = "cards",
   autoLink: autoLinkProp,
   span,
+  cardCta,
 }: {
   content: CardGridContent;
   id?: string;
@@ -397,10 +405,13 @@ export default function Industries({
    * Desktop column count, chosen to fill the rows the list actually has.
    * Four is the default (eight cards read as two rows of four); three suits
    * a multiple of three; five puts an awkward five-item list in one row
-   * instead of four plus a lone card. Ignored by `bold` and `feature`, which
-   * set their own composition.
+   * instead of four plus a lone card. Ignored by `bold`, which sets its own
+   * composition, and by `feature` except for `2`: a feature grid otherwise
+   * runs three across, and `2` holds it at two so four cards make a 2x2
+   * square rather than three plus a lone one (Predictive Intelligence review,
+   * 7 Oct: "align the cards in a 2x2 grid").
    */
-  columns?: 3 | 4 | 5;
+  columns?: 2 | 3 | 4 | 5;
   /**
    * `watermark` swaps the small mono index for a large translucent serif
    * numeral behind the card's text. Use it when a page carries two of these
@@ -424,6 +435,12 @@ export default function Industries({
    * destination.
    */
   autoLink?: boolean;
+  /**
+   * `feature` only: the same button at the foot of every card — the
+   * engagement-model cards' "Hire Now" (Offshore review: "the hire now button
+   * is missing in these cards"). Its accessible name carries the card's title.
+   */
+  cardCta?: { readonly label: string; readonly href: string };
   /**
    * `bold` only: one desktop column span (of 12) for every card, in place of
    * the rows `gridSpansFor` composes from the count. `3` puts four cards in
@@ -462,7 +479,7 @@ export default function Industries({
   const resolveHref = useServiceHref();
   const autoLink = autoLinkProp ?? /service|industr|sector|offering|solution/i.test(id);
   const hrefOf = (item: CardGridContent["items"][number]) =>
-    (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
+    item.link !== false && (item.href || autoLink) ? resolveHref(item.name, item.href) : undefined;
 
   if (list) {
     return (
@@ -509,6 +526,13 @@ export default function Industries({
             })}
           </div>
         </FadeUp>
+        {content.cta && (
+          <div className={styles.gridCtaRow}>
+            <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}>
+              {content.cta.label}
+            </SiteLink>
+          </div>
+        )}
       </section>
     );
   }
@@ -519,7 +543,7 @@ export default function Industries({
         <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
         <FadeUp>
-          <div className={styles.featGrid}>
+          <div className={`${styles.featGrid}${columns === 2 ? ` ${styles.featGrid2}` : ""}`}>
             {content.items.map((item) => {
               /* Resolved before the badge is drawn, not inside it. The disc used
                  to render whether or not a glyph came back, so an item with no
@@ -548,9 +572,22 @@ export default function Industries({
                   <span className={styles.featRule} aria-hidden />
                   {item.body ? <p className={styles.featText}>{item.body}</p> : null}
 
+                  {cardCta ? (
+                    <SiteLink
+                      href={cardCta.href}
+                      className={`${styles.btn} ${styles.btnPrimary} ${styles.featCta}`}
+                      aria-label={`${cardCta.label}: ${item.name}`}
+                    >
+                      {cardCta.label}
+                    </SiteLink>
+                  ) : null}
+
                   {href ? (
                     <Link href={href} className={styles.featLink}>
                       Learn more
+                      {/* Says where it goes for screen readers and crawlers; a
+                          bare "Learn more" fails Lighthouse's link-text audit. */}
+                      <span className={styles.srOnly}> about {item.name}</span>
                       <svg {...iconProps} className={styles.featLinkIcon}>
                         <path d="M4 12h15M13 6l6 6-6 6" />
                       </svg>
@@ -586,6 +623,13 @@ export default function Industries({
             })}
           </div>
         </FadeUp>
+        {content.cta && (
+          <div className={styles.gridCtaRow}>
+            <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}>
+              {content.cta.label}
+            </SiteLink>
+          </div>
+        )}
       </section>
     );
   }
@@ -667,6 +711,13 @@ export default function Industries({
           })}
         </div>
       </FadeUp>
+    {content.cta && (
+      <div className={styles.gridCtaRow}>
+        <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}>
+          {content.cta.label}
+        </SiteLink>
+      </div>
+    )}
     </section>
   );
 }

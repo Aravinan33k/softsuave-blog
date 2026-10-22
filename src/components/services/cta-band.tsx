@@ -27,7 +27,7 @@ export default function CtaBand({ title, body, cta, href = '#contact' }: CtaBand
           <h2 className={styles.ctaTitle}>{title}</h2>
           <p className={styles.ctaBody}>{body}</p>
         </div>
-        <a href={href} className={`${home.pill} ${home.pillFilled}`} data-cursor="Book">
+        <a href={href} className={`${home.pill} ${home.pillFilled} ${home.pillLg}`} data-cursor="Book">
           {cta}
         </a>
       </FadeUp>

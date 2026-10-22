@@ -32,18 +32,16 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm, onboardingComparison, rateTiers } from './shared';
+import { HOURLY_RATE, SPECIALISTS_PLUS } from '@/lib/company-figures';
 
 export const dedicated: HireRolePageContent = {
   key: 'hire-dedicated',
   slug: '/hire-dedicated-developers',
   name: 'Hire Dedicated Developers',
   serviceType: 'Dedicated development team staffing',
-  // Matches the live page's own breadcrumb trail: Home › Hire Developers —
-  // this page IS the "Hire Developers" parent live's own trails point at, so
-  // its own trail stops there rather than naming itself a second time.
-  showBreadcrumb: true,
-  breadcrumbParents: [{ name: 'Hire Developers', path: '/hire-dedicated-developers' }],
-  breadcrumbEndsAtParent: true,
+  // No breadcrumb schema: the live page's BreadcrumbList sits inside an HTML
+  // comment, so it is not part of the page (review: "BreadcrumbList - need to
+  // remove the additional schemas").
 
   /**
    * Live order: clients, why hire (with its figures), developer roles, CTA,
@@ -68,25 +66,37 @@ export const dedicated: HireRolePageContent = {
   ],
 
   meta: {
-    title: 'Hire Dedicated Developers India From $14/hr',
+    title: `Hire Dedicated Developers India From ${HOURLY_RATE}`,
     description:
-      'Looking to hire dedicated developers in India On Contract? We offers a 40-hour free trial and pricing beginning at $14. Connect with us!',
+      `Looking to hire dedicated developers in India On Contract? We offers a 40-hour free trial and pricing beginning at ${HOURLY_RATE}. Connect with us!`,
   },
 
   hero: {
-    titleLines: ['Hire Dedicated Developers in India', 'Vetted Teams from $14/hour'],
+    titleLines: ['Hire Dedicated Developers in India', `Vetted Teams from ${HOURLY_RATE}`],
+    accent: 'Dedicated Developers',
+    // Sized so each line fits the column — both wrapped on a laptop, leaving
+    // three or four lines (8 Oct review: "H1 is in 3 lines even though there
+    // is space; ensure it doesn't break").
+    titleFit: true,
+    // A full-bleed backdrop like the Frontend page's (review: "No image is
+    // visible in the background in the hero section").
+    background: {
+      src: '/images/landing/hire-dedicated-hero.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoQAAkAA4BaJQBdgCHfJOkM28AA/vMllO5K/ddrMcgttHe6QFHOs+ml5u97RyhURxbHyRmzmuLSbYtAAAA=',
+      veil: 'strong',
+    },
     body: [
-      'Soft Suave offers dedicated developers from India who can join your team within 48 hours and work as an extension of your in-house team. Hire experts in web, mobile, full-stack, DevOps, QA, and more with flexible models, hourly rates starting at $14/hour, and a 40-hour risk-free trial.',
+      `Soft Suave offers dedicated developers from India who can join your team within 48 hours and work as an extension of your in-house team. Hire experts in web, mobile, full-stack, DevOps, QA, and more with flexible models, hourly rates starting at ${HOURLY_RATE}, and a 40-hour risk-free trial.`,
     ],
     points: [
       '40-Hour Risk-Free Trial',
-      'Dedicated Developers from $14/hour',
+      `Dedicated Developers from ${HOURLY_RATE}`,
       'Hire Within 48 Hours',
       'Time-Zone & Language Aligned Teams',
       'Airtight NDA & IP Protection',
       'Strong Delivery Governance from Day One',
     ],
-    badges: ['*Satisfaction Guaranteed – Get 40-hour Free Trial'],
     form: heroForm({
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
@@ -97,11 +107,22 @@ export const dedicated: HireRolePageContent = {
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: '/images/landing/ov-hire-dedicated-developers-tall.webp',
+      width: 1000,
+      height: 1250,
+      alt: 'Dedicated development team working at their desks',
+      blurDataURL:
+        'data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAQAgCdASoQAAsAA4BaJZQAD45O61xiokCwAP7raFqv6IHiv5LhUdViF4/GphMEF3T7/lJzvwhsWx0TpIeOY3dXHpjdOQPONuHViKcMPj72cj7scpL/vj8EafTe/6K+4AAAAA==',
+      fit: 'column',
+    },
     eyebrow: 'Smart Choice',
     title: 'Why Hire Dedicated Developers from Soft Suave?',
     paragraphs: [
       'Scale faster with expert developers who integrate seamlessly, deliver consistently, and adapt to your evolving business needs without hiring delays.',
-      'Soft Suave 400+ dedicated developers in India help businesses scale with skilled talent across 30+ technology stacks, including web, mobile, cloud, DevOps, QA, eCommerce, and emerging technologies. Each developer is assessed for technical depth, communication skills, project experience, and team compatibility before joining client projects.',
+      `Soft Suave ${SPECIALISTS_PLUS} dedicated developers in India help businesses scale with skilled talent across 30+ technology stacks, including web, mobile, cloud, DevOps, QA, e-commerce, and emerging technologies. Each developer is assessed for technical depth, communication skills, project experience, and team compatibility before joining client projects.`,
       'Our engagements are built for long-term value, not short-term staffing gaps. With a 97% client retention rate, Soft Suave gives businesses reliable development support backed by consistent delivery, clear communication, and developers who adapt to changing project needs.',
       'You can hire developers through flexible engagement models such as dedicated team, fixed-price, and time and material models. Expand your team on demand and keep projects moving without slow recruitment cycles.',
     ],
@@ -110,7 +131,7 @@ export const dedicated: HireRolePageContent = {
   specialisations: {
     eyebrow: 'Developer Roles',
     title: 'What Dedicated Developer Roles Does Soft Suave Offer?',
-    body: 'Soft Suave helps you hire dedicated developers across 9 key role categories, from software and web development to DevOps, QA, and eCommerce. Choose individual developers or build a multi-role team based on your project scope, technology needs, and delivery goals.',
+    body: 'Soft Suave helps you hire dedicated developers across 9 key role categories, from software and web development to DevOps, QA, and e-commerce. Choose individual developers or build a multi-role team based on your project scope, technology needs, and delivery goals.',
     items: [
       {
         key: 'software',
@@ -161,7 +182,7 @@ export const dedicated: HireRolePageContent = {
       },
       {
         key: 'ecommerce',
-        name: 'eCommerce Developers',
+        name: 'E-commerce Developers',
         body: 'Build and optimize online stores with custom features, payment flows, product catalogs, checkout improvements, third-party integrations, admin workflows, mobile-friendly design, and conversion-focused shopping experiences for growing businesses.',
       },
     ],
@@ -183,37 +204,37 @@ export const dedicated: HireRolePageContent = {
         problem: 'Focused Expertise',
         solution:
           'Get developers with skills that match your exact project needs, technology stack, and development goals.',
-        image: '/images/landing/services/svc-application-development.webp',
+        image: '/images/landing/hr-ded-fit-expertise.webp',
       },
       {
         problem: 'Full-Time Project Focus',
         solution:
           'Dedicated developers stay aligned with your project priorities instead of splitting time across multiple clients.',
-        image: '/images/landing/services/svc-dedicated-teams.webp',
+        image: '/images/landing/hr-ded-fit-full-time.webp',
       },
       {
         problem: 'Smooth Team Integration',
         solution:
           'They work with your tools, workflows, communication channels, and internal processes for easier collaboration.',
-        image: '/images/landing/services/svc-integration.webp',
+        image: '/images/landing/hr-ded-fit-integration.webp',
       },
       {
         problem: 'Flexible Scaling',
         solution:
           'Add or reduce developers based on project demand without the delays of traditional hiring.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        image: '/images/landing/hr-ded-fit-scaling.webp',
       },
       {
         problem: 'Clear Communication',
         solution:
           'Regular updates, progress tracking, and review calls help keep your team informed and aligned.',
-        image: '/images/landing/services/svc-proof-of-concept.webp',
+        image: '/images/landing/hr-ded-fit-communication.webp',
       },
       {
         problem: 'Cost Efficiency',
         solution:
           'Reduce recruitment, training, infrastructure, and long-term employment costs while accessing skilled development talent.',
-        image: '/images/landing/services/svc-support-optimisation.webp',
+        image: '/images/landing/hr-ded-fit-cost.webp',
       },
     ],
   },
@@ -292,13 +313,13 @@ export const dedicated: HireRolePageContent = {
 
   rates: rateTiers({
     title: 'How Much Does It Cost to Hire Dedicated Developers in India?',
-    body: "Soft Suave's dedicated developers in India are available at flexible hourly rates starting from $14/hour. The final cost depends on the developer's experience, skill level, technology stack, and project requirements. An approximate pricing breakdown is listed below to help you plan your hiring budget.",
+    body: `Soft Suave's dedicated developers in India are available at flexible hourly rates starting from ${HOURLY_RATE}. The final cost depends on the developer's experience, skill level, technology stack, and project requirements. An approximate pricing breakdown is listed below to help you plan your hiring budget.`,
   }),
 
   techStack: {
     eyebrow: 'Expertise',
     title: "Tech Stack Soft Suave's Dedicated Developers Work With",
-    body: "Soft Suave's dedicated developers work across 30+ stacks for web, mobile, cloud, DevOps, QA, backend, frontend, full-stack, and eCommerce development, building scalable, secure, high-performance products.",
+    body: "Soft Suave's dedicated developers work across 30+ stacks for web, mobile, cloud, DevOps, QA, backend, frontend, full-stack, and e-commerce development, building scalable, secure, high-performance products.",
     groups: [
       {
         name: 'Frontend Frameworks',
@@ -338,13 +359,13 @@ export const dedicated: HireRolePageContent = {
         ],
       },
       {
-        name: 'eCommerce Platforms',
+        name: 'E-commerce Platforms',
         items: [
           'Shopify',
           'Magento',
           'WooCommerce',
           'BigCommerce',
-          'Custom eCommerce solutions',
+          'Custom e-commerce solutions',
         ],
       },
       {
@@ -411,7 +432,7 @@ export const dedicated: HireRolePageContent = {
       },
       {
         q: 'How much does it cost to hire dedicated developers from India?',
-        a: "The cost to hire dedicated developers from India starts at $14/hour. The final pricing may vary based on the developer's experience, role, technology stack, engagement model, and overall project requirements.",
+        a: `The cost to hire dedicated developers from India starts at ${HOURLY_RATE}. The final pricing may vary based on the developer's experience, role, technology stack, engagement model, and overall project requirements.`,
       },
       {
         q: 'How fast can Soft Suave onboard a dedicated developer?',
@@ -421,7 +442,7 @@ export const dedicated: HireRolePageContent = {
         // Live answer repeats the onboarding-speed answer above; answered here
         // from this page's own offshore rate, overlap hours and cost claims.
         q: 'What is the difference between onshore and offshore dedicated hiring?',
-        a: 'Onshore hiring places developers in your own country, at your local cost base and with recruitment, training, infrastructure and long-term employment costs carried by you. Offshore hiring — what Soft Suave provides from India — starts at $14/hour and removes those costs, with developers working flexible schedules that overlap your core business hours so daily communication, meetings and progress updates continue as normal.',
+        a: `Onshore hiring places developers in your own country, at your local cost base and with recruitment, training, infrastructure and long-term employment costs carried by you. Offshore hiring — what Soft Suave provides from India — starts at ${HOURLY_RATE} and removes those costs, with developers working flexible schedules that overlap your core business hours so daily communication, meetings and progress updates continue as normal.`,
       },
       {
         // Live answer repeats the onboarding-speed answer too; answered here

@@ -54,8 +54,12 @@ export const rorMeta = {
 } as const;
 
 export const rorHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["Result-Driven Ruby on Rails", "Development Company"],
+  accent: "Ruby on Rails",
   body: [
     "Tired of searching for a trustworthy ROR Development Company in India? Soft Suave is your one-stop solution for all your Ruby on Rails development needs.",
     "Are you looking to Outsource Ruby on Rails Development Agency? Get in touch for a free quote!",
@@ -66,9 +70,10 @@ export const rorHero: HeroContent = {
   // The four trust badges this surface shows beside every enquiry form.
   badges: partnerHeroBadges,
   form: {
-    // The live page's own form heading and sub-line.
-    // No `eyebrow`: the review asked for the form's text to be updated, and
-    // the card's kicker is what every other page on this surface has dropped.
+    // The live page's own form heading and sub-line, with the card's
+    // "Let’s Discuss Your Project" heading the other development pages
+    // carry (13 Oct review: "in some pages the form is missing a heading").
+    eyebrow: "Let’s Discuss Your Project",
     title: "Get free rough quote in 24 hrs",
     alert: sharedHeroAlert,
     submit: "Submit",
@@ -116,6 +121,9 @@ export const rorOverview: OverviewContent = {
     alt: "A team collaborating around a laptop in a modern office",
     blurDataURL:
       "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAwAgCdASoQAAwAA4BaJQBdgB9x/jrtFqsZ4AD82L3Ui1LQ01nE3zESMze36bNVz7wGg+I1sTLGpMHDxrxMt/wV6QBpmHtmeUw5ZLUJH9H5Bb4X8bAkJa6b50XDWTIneDLO3atwAAA=",
+    // Centred against the copy beside it rather than pinned to the top of a
+    // taller column (13 Oct review: "align the image with the section").
+    align: "center",
   },
 };
 
@@ -131,9 +139,6 @@ export const rorServices: ServiceBoardContent = {
   // The live page's own standfirst for this section (review: "subtext needs
   // to be updated").
   body: "We are an expert Ruby on Rails Development Services delivering efficient, secure, scalable, portable, and responsive apps tailored to client's business needs. Our custom ROR services include;",
-  // /contact, not this page's `#enquiry` anchor — the review asked for this
-  // button to be linked.
-  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "ROR Application Development",

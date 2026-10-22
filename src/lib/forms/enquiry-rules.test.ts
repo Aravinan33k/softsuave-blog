@@ -3,8 +3,13 @@ import { describe, expect, it } from 'vitest';
 import {
   NAME_PATTERN,
   PHONE_PATTERN,
+  emailError,
+  isValidEmail,
   isValidName,
   isValidPhone,
+  nameError,
+  phoneError,
+  requirementError,
 } from './enquiry-rules';
 
 /**
@@ -57,37 +62,73 @@ describe('isValidName', () => {
   });
 });
 
-describe('isValidPhone', () => {
-  it('is optional — an empty value is valid', () => {
-    expect(isValidPhone('')).toBe(true);
-    expect(isValidPhone('   ')).toBe(true);
-  });
-
-  it('takes international numbers in the shapes people write them', () => {
-    for (const phone of [
-      '+1 555 000 1234',
-      '+44 7700 900000',
-      '+91 98765 43210',
-      '(044) 4855 6789',
-      '044-4855-6789',
-      '9876543210',
-      '+1.555.000.1234',
-    ]) {
+describe('isValidPhone — a calling code and exactly ten digits', () => {
+  it('takes ten digits, with or without the code the phone field adds', () => {
+    for (const phone of ['+91 9876543210', '+1 5550001234', '+971 5012345678', '9876543210']) {
       expect(isValidPhone(phone), phone).toBe(true);
     }
   });
 
-  it('rejects the reported case and lengths no number has', () => {
+  it('rejects empty, short, long, and anything that is not digits', () => {
     for (const phone of [
+      '',
+      '   ',
       'abcdef', // the bug as filed
-      '555 CALL NOW',
-      '+44 7700 90000x',
-      '12345', // too few digits to be a number
-      '1234567890123456', // more digits than E.164 allows
+      '+91 987654321', // nine digits
+      '+91 98765432101', // eleven
+      '+91 98765 43210', // spaces inside the number
+      '98765-43210',
+      '(044) 4855 6789',
+      '+91 98765abcde',
       'jane@company.com',
     ]) {
       expect(isValidPhone(phone), phone).toBe(false);
     }
+  });
+
+  it('says what is wrong', () => {
+    expect(phoneError('')).toBe('Please enter your phone number.');
+    expect(phoneError('+91 12345')).toBe('Please enter a 10-digit phone number.');
+    expect(phoneError('+91 9876543210')).toBeNull();
+  });
+});
+
+describe('isValidEmail', () => {
+  it('takes ordinary work and personal addresses', () => {
+    for (const email of ['jane@company.com', 'jane.doe+leads@mail.co.uk', 'j_d-1@sub.domain.io', '  jane@company.com  ']) {
+      expect(isValidEmail(email), email).toBe(true);
+    }
+  });
+
+  it('rejects what the browser lets through and plain mistakes', () => {
+    for (const email of ['', 'jane', 'jane@', '@company.com', 'jane@company', 'jane@company.', 'jane@@company.com', 'jane..doe@company.com', '.jane@company.com', 'jane doe@company.com', 'jane@company.c', 'jane@-company.com']) {
+      expect(isValidEmail(email), email).toBe(false);
+    }
+  });
+
+  it('says what is wrong', () => {
+    expect(emailError('')).toBe('Please enter your email address.');
+    expect(emailError('jane@company')).toBe('Please enter a valid email address, e.g. name@company.com.');
+  });
+});
+
+describe('nameError', () => {
+  it('distinguishes empty, symbols and too short', () => {
+    expect(nameError('')).toBe('Please enter your full name.');
+    expect(nameError('Jane2')).toBe('Please use letters only — no numbers or symbols.');
+    expect(nameError('J')).toBe('Please enter at least 2 letters.');
+    expect(nameError('Jane Doe')).toBeNull();
+    expect(nameError('A'.repeat(61))).toBe('Please keep your name under 60 characters.');
+  });
+});
+
+describe('requirementError', () => {
+  it('asks for a real description, within limits', () => {
+    expect(requirementError('')).toBe('Please tell us about your requirements.');
+    expect(requirementError('   ')).toBe('Please tell us about your requirements.');
+    expect(requirementError('App')).toBe('Please add a little more detail (at least 10 characters).');
+    expect(requirementError('A mobile app for our clinic bookings')).toBeNull();
+    expect(requirementError('x'.repeat(2001))).toBe('Please keep it under 2000 characters.');
   });
 });
 

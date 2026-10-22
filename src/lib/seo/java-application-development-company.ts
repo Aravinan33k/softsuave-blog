@@ -1,94 +1,164 @@
 import 'server-only';
-import { absoluteUrl, dynamicOgImage } from './metadata';
-import { organizationLd } from './organization';
-import { javaFaqs, javaMeta, javaServices } from '@/lib/home/java-content';
 
 /**
- * Service, WebPage and FAQPage JSON-LD for
- * `/java-application-development-company`, built from the same content the
- * page renders (`javaServices`, `javaFaqs`) so the structured data can never
- * drift from what a visitor actually sees.
+ * JSON-LD for `/java-application-development-company`: softsuave.com's own schema for this page, verbatim (13 Oct review: "need
+ * to update the schema and remove the excess ones"). The live page's HTML
+ * carries four JSON-LD blocks — Service, FAQPage, BreadcrumbList and Product —
+ * copied here as served. The schema this replaced was generated (Service,
+ * WebPage, FAQPage and a breadcrumb, plus the surface's Organization and
+ * WebSite); none of it is on the live page, so none of it is kept.
  *
- * These reference `organizationLd`'s `@id` for `provider`/`publisher` rather
- * than repeating that object. The node itself is emitted once for the whole
- * surface by `app/(marketing)/layout.tsx`, so the reference resolves without
- * this route carrying its own copy — one Organization node per document, every
- * schema pointing at it, which is how a linked JSON-LD graph is meant to work.
- *
- * The page has no bundled Open Graph image of its own, so `dynamicOgImage`
- * generates one from the title through the existing `/og` route.
+ * The rest of what an SEO tool reports on the live page is not the page's
+ * own: its Organization is injected by the shared GTM container (which this
+ * site loads too), and its address microdata sits in the footer. So the route
+ * is in `PAGES_WITH_OWN_SITE_GRAPH` (the layout adds no Organization or
+ * WebSite) and the footer keeps its address microdata, as live's does.
  */
 
-const pageUrl = absoluteUrl(javaMeta.path);
-const ogImage = dynamicOgImage(javaMeta.title, 'Soft Suave');
-
 export const javaServiceLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  '@id': `${pageUrl}#service`,
-  name: 'Java Application Development Services',
-  serviceType: 'Java Application Development',
-  description:
-    'Java development services covering cloud-native development, Java-based SaaS applications, application migration, REST API development, maintenance and support, and dedicated Java teams.',
-  url: pageUrl,
-  image: ogImage,
-  provider: { '@id': organizationLd['@id'] },
-  areaServed: 'Worldwide',
-  audience: {
-    '@type': 'BusinessAudience',
-    name: 'Startups, SMBs, and enterprises building, migrating, or maintaining Java applications',
-  },
-  mainEntityOfPage: { '@id': `${pageUrl}#webpage` },
-  hasOfferCatalog: {
-    '@type': 'OfferCatalog',
-    name: 'Java Application Development Services',
-    itemListElement: javaServices.items.map((item) => ({
-      '@type': 'Offer',
-      itemOffered: {
-        '@type': 'Service',
-        name: item.name,
-        description: item.body,
-      },
-    })),
-  },
-} as const;
-
-export const javaWebPageLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  '@id': `${pageUrl}#webpage`,
-  url: pageUrl,
-  name: `${javaMeta.title} | Soft Suave`,
-  description: javaMeta.description,
-  inLanguage: 'en',
-  // Bump this when the page's own copy changes; today's date at authoring.
-  dateModified: '2026-09-18',
-  primaryImageOfPage: {
-    '@type': 'ImageObject',
-    '@id': `${pageUrl}#primaryimage`,
-    url: ogImage,
-    contentUrl: ogImage,
-    caption: 'Java Development Company in India',
-  },
-  mainEntity: { '@id': `${pageUrl}#service` },
-  about: { '@id': `${pageUrl}#service` },
-  publisher: { '@id': organizationLd['@id'] },
-} as const;
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "ServiceType": "Software",
+      "name": "Custom Java Development Services",
+      "url": "https://www.softsuave.com/java-application-development-company",
+      "description": "Elevate your business with our specialized Java development services. Soft Suave is a top Java development company that ensures high-quality, scalable, and efficient solutions for your enterprise.",
+      "image": "https://www.softsuave.com/assets/new-formate/java/new-Java-img.svg",
+      "areaServed": [
+        "US",
+        "CA",
+        "UK",
+        "AU",
+        "FR",
+        "IT",
+        "DE",
+        "ES"
+      ],
+      "provider": {
+        "@type": "Organization",
+        "name": "Soft Suave Technologies",
+        "@id": "https://www.softsuave.com/"
+      }
+    }
+  ]
+};
 
 export const javaFaqLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  '@id': `${pageUrl}#faq`,
-  url: pageUrl,
-  name: javaFaqs.title,
-  isPartOf: { '@id': `${pageUrl}#webpage` },
-  about: { '@id': `${pageUrl}#service` },
-  mainEntity: javaFaqs.items.map((item) => ({
-    '@type': 'Question',
-    name: item.q,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: typeof item.a === 'string' ? item.a : item.a.join(' '),
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does Java application development cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our costs depend on the application's requirements, features, and complexities. We recommend contacting our experts for a precise quote."
+      }
     },
-  })),
-} as const;
+    {
+      "@type": "Question",
+      "name": "How long does it take to go live with a custom Java development project?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our timeline varies based on project needs, but our use of Agile methodologies helps speed up development, including accommodating changes during the process."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What kind of applications can we build using Java?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We utilize Java's versatility to develop web apps, desktop apps, mobile apps, and more, across multiple platforms."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the benefits of using Java for application development?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our Java development offers robust security, scalability, and cross-platform capabilities, making it suitable for a wide range of applications. However, before you start a Java development project, consider the risks and rewards of outsourcing Java development to determine the best approach for your needs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can Java be used for mobile app development?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, we commonly use Java for developing mobile applications, especially for Android platforms."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does outsourcing to our Java development company work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We bring the expertise and resources, you bring the vision. Together, we'll deliver efficient and cost-effective results. Outsource your Java developers and partner with our team to create custom solutions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can you monitor the progress of your Java development project?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We utilize project management tools and provide regular updates to keep our clients informed of progress."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does our Java software development company offer post-development support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, we offer ongoing support and maintenance as part of our services to ensure applications remain up-to-date and perform optimally."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What types of Java development services do we offer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our services include cloud-based solutions, migrations, integrations, mobile and web application development, and Java consulting. So when you are planning to hire a Java developer, make sure to know your project requirements before making decisions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Java still a good option for software development?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, Java is a good choice for software development, all thanks to its powerful security, scalability, and cross-platform abilities. For your next project, make sure to choose the best Java development framework as it builds reliable and high-performance applications. We ensure Java's large community and ongoing updates keep it relevant and powerful in the evolving tech landscape."
+      }
+    }
+  ]
+};
+
+export const javaBreadcrumbLd = {
+  "@context": "https://schema.org/",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.softsuave.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Web App",
+      "item": "https://www.softsuave.com/web-application-development-company"
+    }
+  ]
+};
+
+export const javaProductLd = {
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": "Soft Suave Technologies",
+  "description": "Elevate your business with our specialized Java development services. Soft Suave is a top Java development company that ensures high-quality, scalable, and efficient solutions for your enterprise.",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "bestRating": "5",
+    "ratingCount": "40"
+  }
+};

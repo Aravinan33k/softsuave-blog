@@ -23,6 +23,7 @@ import type { FaqContent } from "@/components/landing/faq";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
 import { landingImage, overviewImage } from "./overview-images";
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const dsMeta = {
   slug: "data-science-services",
@@ -35,15 +36,17 @@ export const dsMeta = {
 } as const;
 
 export const dsHero: HeroContent = {
-  // The last line takes the coral accent.
+  // 13 Oct review: highlight "Data Science Services" in the H1 — the
+  // coral accent used to fall on the last line.
   titleLines: ["Data Science Services", "for Smarter Business Decisions"],
+  accent: "Data Science Services",
   body: [
     "Turn business data into useful insights, validated models, and better-informed decisions. Soft Suave provides data science services covering strategy, exploratory analysis, statistical experimentation, model development, and evaluation based on your specific business problem and available data.",
     "Define your business question, assess whether your data supports it, and choose the right analytical or modeling approach before implementation begins.",
   ],
   points: [
-    "13+ Years of Technology Expertise",
-    "400+ AI & Engineering Specialists",
+    `${YEARS_PLUS} Years of Technology Expertise`,
+    `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     "Data Science Consulting & Development",
     "Analysis, Modeling & Validation Expertise",
     "ISO/IEC 27001:2022 Information Security",
@@ -78,6 +81,10 @@ export const dsOverview: OverviewContent = {
     "Soft Suave approaches Data Science around the business question first. We assess the available data, identify what can reasonably be learned from it, and determine whether analysis, experimentation, statistical modeling, or machine learning is suitable.",
     "Once the data and analytical approach are validated, the engagement can move toward the most suitable outcome. This may be a set of validated findings, a feasibility decision, an analytical model, or a foundation for a broader AI development initiative.",
   ],
+  // The last paragraph's internal link (1 Oct review: "one internal link
+  // missing in the last para"): "AI development" leads on to the Custom AI
+  // Development page, the parent service these AI pages sit under.
+  links: [{ text: "AI development", href: "/custom-ai-development-services" }],
   image: overviewImage("data-science-services"),
 };
 
@@ -144,21 +151,25 @@ export const dsFit: FitGuideContent = {
  */
 /**
  * Service-card artwork for this page, from the image pipeline
- * (`landing/ds-svc-*` slots in content/images.manifest.json).
+ * (`landing/ds-card-*` slots in content/images.manifest.json).
  *
- * The cards used to borrow the generic service photographs every AI page
- * shares. The Sep 23 review asked for relevant images, so each card now shows
- * its own subject: a strategy whiteboard, dataset exploration, statistics
- * worked out on a board, model code, printed result comparisons, and a
- * monitoring wall for MLOps.
+ * One drawn diagram per card, showing the method its text describes (1 Oct
+ * review: "update relevant / accurate to respective text images"): a business
+ * question leading along a roadmap, a scatter plot with its pattern under the
+ * lens, an A/B experiment's two distributions, a small validated model, an
+ * ROC curve above the chance line, and the deploy–monitor–retrain loop around
+ * a versioned model. They replace photographs of a stock trader, a calculus
+ * board, marketing printouts and sci-fi control panels, and stay readable at
+ * the cards' 130px thumbnail size — the same treatment as the Data
+ * Engineering page.
  */
 const DS_SVC = {
-  consulting: landingImage("ds-svc-consulting"),
-  exploration: landingImage("ds-svc-exploration"),
-  statistics: landingImage("ds-svc-statistics"),
-  modeling: landingImage("ds-svc-modeling"),
-  evaluation: landingImage("ds-svc-evaluation"),
-  mlops: landingImage("ds-svc-mlops"),
+  consulting: landingImage("ds-card-consulting"),
+  exploration: landingImage("ds-card-exploration"),
+  statistics: landingImage("ds-card-statistics"),
+  modeling: landingImage("ds-card-modeling"),
+  evaluation: landingImage("ds-card-evaluation"),
+  mlops: landingImage("ds-card-mlops"),
 };
 
 export const dsServices: ServicesCarouselContent = {
@@ -267,7 +278,7 @@ export const dsIndustries: CardGridContent = {
       body: "Analyze learner activity, engagement, performance, and product data to uncover patterns that inform educational products and learning decisions.",
     },
     {
-      name: "Ecommerce",
+      name: "E-commerce",
       body: "Study customer, product, transaction, and behavioral data to understand user patterns and support merchandising, engagement, and commercial decision-making.",
     },
     {
@@ -287,12 +298,12 @@ export const dsWhyUs: CardGridContent = {
   body: "Choosing a data science company requires more than comparing modeling technologies. The engagement should connect business questions, available data, analytical methods, validation requirements, information security, and the wider software environment in which the results may eventually be used.",
   items: [
     {
-      name: "13+ Years of Technology Expertise",
-      body: "Bring Data Science initiatives into an engineering environment shaped by 13+ years of delivery experience.",
+      name: `${YEARS_PLUS} Years of Technology Expertise`,
+      body: `Bring Data Science initiatives into an engineering environment shaped by ${YEARS_PLUS} years of delivery experience.`,
     },
     {
-      name: "400+ AI & Engineering Specialists",
-      body: "Access 400+ AI and engineering specialists to connect Data Science with applications, APIs, and systems.",
+      name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+      body: `Access ${SPECIALISTS_PLUS} AI and engineering specialists to connect Data Science with applications, APIs, and systems.`,
     },
     {
       name: "Data Science Consulting & Development",

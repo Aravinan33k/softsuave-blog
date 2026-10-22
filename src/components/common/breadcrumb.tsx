@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LANDING_PAGES } from "@/lib/home/landing-pages";
-import { HIRE_SKILLS } from "@/lib/home/hire-skills";
+import { HIRE_SKILL_ROUTES } from "@/lib/home/hire-skill-routes";
 import { HIRE_ROLE_ROUTES } from "@/lib/home/hire-roles/slugs";
 import { navPanels, type NavMenuItem } from "@/lib/home/nav-menu";
 import { SiteLink } from "@/themes/softsuave/site-link";
@@ -79,9 +79,8 @@ const PAGE_LABELS: ReadonlyMap<string, string> = (() => {
   for (const page of LANDING_PAGES) {
     if (page.breadcrumbLabel) labels.set(page.path, page.breadcrumbLabel);
   }
-  for (const skill of HIRE_SKILLS) {
-    if (labels.has(`/${skill.slug}`)) continue;
-    labels.set(`/${skill.slug}`, skill.breadcrumbLabel ?? `Hire ${skill.role}`);
+  for (const skill of HIRE_SKILL_ROUTES) {
+    if (!labels.has(skill.path)) labels.set(skill.path, skill.crumb);
   }
   for (const route of HIRE_ROLE_ROUTES) {
     if (!labels.has(route.path)) labels.set(route.path, route.title);
@@ -129,7 +128,7 @@ const PAGE_PARENTS: ReadonlyMap<string, readonly string[]> = (() => {
   for (const page of LANDING_PAGES) {
     if (page.parent) parents.set(page.path, typeof page.parent === "string" ? [page.parent] : page.parent);
   }
-  const hirePaths = [...HIRE_SKILLS.map((s) => `/${s.slug}`), ...HIRE_ROLE_ROUTES.map((r) => r.path)];
+  const hirePaths = [...HIRE_SKILL_ROUTES.map((s) => s.path), ...HIRE_ROLE_ROUTES.map((r) => r.path)];
   for (const path of hirePaths) {
     if (path !== HIRE_INDEX && !parents.has(path)) parents.set(path, [HIRE_INDEX]);
   }

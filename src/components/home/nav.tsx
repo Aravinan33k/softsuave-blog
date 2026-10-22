@@ -4,9 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./logo";
-import { nav } from "@/lib/home/content";
-import { navPanels, navHrefForPage } from "@/lib/home/nav-menu";
-import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { footer, nav } from "@/lib/home/content";
+import { navPanels, navHrefForPage, type NavMenuItem } from "@/lib/home/nav-menu";
 import MegaPanel, { MenuLink } from "./mega-menu";
 import { useSurfaceTone, type SurfaceTone } from "./use-surface-tone";
 import styles from "./home.module.css";
@@ -129,8 +128,9 @@ export default function Nav({
   // `id` keeps the original anchor for the active-section highlight — where the
   // page doesn't have the section, that id isn't in the DOM and nothing
   // highlights, which is correct.
-  // A null `href` is a division with no page of its own (Resources): its label
-  // only opens its panel, and it never navigates.
+  // A null `href` is a division with no destination of its own — all four
+  // since the 21 Oct review (`nav` in content.ts): its label only opens its
+  // panel, and it never navigates.
   const items = nav.links.map((l) => ({
     label: l.label,
     href: l.href === null ? null : resolve(l.href),
@@ -138,19 +138,10 @@ export default function Nav({
   }));
   const ctaHref = resolve(nav.cta.href);
 
-  useGSAP(
-    () => {
-      if (prefersReducedMotion() || !bar.current) return;
-      gsap.from(bar.current, {
-        yPercent: -120,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        delay: prefersReducedMotion() ? 0 : 0.3,
-      });
-    },
-    { scope: bar },
-  );
+  // The bar's slide-in is CSS (`.nav` in home.module.css), from the first
+  // paint. As a GSAP tween at hydration it re-hid the already-painted bar, so
+  // the logo — often the page's largest image — only counted as painted once
+  // every script had loaded (PageSpeed LCP, 15 Oct).
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -181,6 +172,19 @@ export default function Nav({
     setMenu(null);
   };
 
+  // Escape closes the mobile menu, as it does the desktop panels.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        setExpanded(null);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   const panel = menu ? navPanels[menu] : undefined;
 
   const ctaShared = {
@@ -193,7 +197,10 @@ export default function Nav({
     <>
       <header
         ref={bar}
-        className={`${styles.nav} ${TONE_CLASS[tone]} ${panel ? styles.navPanelOpen : ""}`}
+        // While the mobile menu is open the bar sits on the menu's own dark
+        // ground, so it takes the dark paint whatever band is under it — a
+        // light bar over the dark menu read as two different surfaces.
+        className={`${styles.nav} ${open && tone !== "hero" ? styles.navDark : TONE_CLASS[tone]} ${panel ? styles.navPanelOpen : ""}`}
         data-tone={tone}
         onMouseLeave={() => setMenu(null)}
         // focus leaving the header entirely (Tab past the last item) closes it
@@ -269,6 +276,7 @@ export default function Nav({
             className={`${styles.burger} ${open ? styles.burgerOpen : ""}`}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
+            aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
           >
             <span />
@@ -277,111 +285,165 @@ export default function Nav({
         </div>
       </header>
 
-      <div className={`${styles.overlay} ${open ? styles.overlayOpen : ""}`} aria-hidden={!open}>
-        <nav className={styles.overlayNav}>
-          {items.map((l) => {
-            const menuPanel = navPanels[l.label];
-            // A division with a panel becomes an accordion rather than a link;
-            // its own destination stays reachable as the panel's CTA.
-            if (!menuPanel) {
-              if (l.href === null) return null;
-              return l.href.startsWith("/") ? (
-                <Link key={l.label} href={l.href} onClick={close}>
-                  {l.label}
-                </Link>
-              ) : (
-                <a key={l.label} href={l.href} onClick={close}>
-                  {l.label}
-                </a>
-              );
-            }
-            const isOpen = expanded === l.label;
-            return (
-              <div key={l.label} className={styles.mobDiv}>
-                <button
-                  type="button"
-                  className={styles.mobDivHead}
-                  aria-expanded={isOpen}
-                  onClick={() => setExpanded(isOpen ? null : l.label)}
-                >
-                  {l.label}
-                  <span className={styles.mobChev} aria-hidden />
-                </button>
-                {isOpen && (
-                  <div className={styles.mobPanel}>
-                    {menuPanel.groups.map((g) => (
-                      <div key={g.key} className={styles.mobGroup}>
-                        {/* A one-group panel's group name only repeats the
-                            division label the reader just tapped. */}
-                        {menuPanel.groups.length > 1 && (
-                          <span className={styles.mobGroupName}>{g.name}</span>
-                        )}
-                        {g.items.map((it) => (
-                          <span key={it.name} className={styles.mobEntry}>
-                            <MenuLink href={it.href} className={styles.mobItem} onNavigate={close}>
-                              {it.name}
-                            </MenuLink>
-                            {it.items?.map((sub) =>
-                              sub.items?.length ? (
-                                <span key={sub.name} className={styles.mobEntry}>
-                                  <MenuLink href={sub.href} className={styles.mobSubHead} onNavigate={close}>
-                                    {sub.name}
-                                  </MenuLink>
-                                  {sub.items.map((leaf) => (
-                                    <MenuLink
-                                      key={leaf.name}
-                                      href={leaf.href}
-                                      className={styles.mobSubItem}
-                                      onNavigate={close}
-                                    >
-                                      {leaf.name}
-                                    </MenuLink>
-                                  ))}
-                                </span>
-                              ) : (
-                                <MenuLink
-                                  key={sub.name}
-                                  href={sub.href}
-                                  className={styles.mobSubItem}
-                                  onNavigate={close}
-                                >
-                                  {sub.name}
-                                </MenuLink>
-                              ),
-                            )}
-                          </span>
-                        ))}
-                      </div>
-                    ))}
-                    <MenuLink
-                      href={menuPanel.cta.href}
-                      className={`${styles.mobItem} ${styles.mobItemCta}`}
-                      onNavigate={close}
-                    >
-                      {menuPanel.cta.label} &rarr;
+      {/* The mobile menu (below 1000px). A full-height sheet under the bar:
+          the four divisions as full-width rows, each opening in place into its
+          panel's groups, with the CTA pinned at the
+          foot so it never scrolls away. `inert` while closed keeps its links
+          out of the tab order and the accessibility tree. */}
+      <div
+        id="mobile-menu"
+        className={`${styles.mnav} ${open ? styles.mnavOpen : ""}`}
+        aria-hidden={!open}
+        inert={!open}
+      >
+        {/* `data-lenis-prevent`: the page's smooth scroll would otherwise take
+            the wheel, and this list must scroll on its own. */}
+        <div className={styles.mnavScroll} data-lenis-prevent>
+          <nav className={styles.mnavList} aria-label="Mobile">
+            {items.map((l, i) => {
+              const menuPanel = navPanels[l.label];
+              const style = { ["--i" as string]: i } as React.CSSProperties;
+              // A division with no panel is a plain row link.
+              if (!menuPanel) {
+                if (l.href === null) return null;
+                return (
+                  <div key={l.label} className={styles.mnavRow} style={style}>
+                    <MenuLink href={l.href} className={styles.mnavHead} onNavigate={close}>
+                      <span className={styles.mnavLabel}>{l.label}</span>
+                      <span className={styles.mnavGo} aria-hidden />
                     </MenuLink>
                   </div>
-                )}
-              </div>
-            );
-          })}
+                );
+              }
+              const isOpen = expanded === l.label;
+              const panelId = `mnav-${l.label.toLowerCase()}`;
+              return (
+                <div key={l.label} className={styles.mnavRow} style={style} data-open={isOpen}>
+                  <button
+                    type="button"
+                    className={styles.mnavHead}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => setExpanded(isOpen ? null : l.label)}
+                  >
+                    <span className={styles.mnavLabel}>{l.label}</span>
+                    <span className={styles.mnavToggle} aria-hidden />
+                  </button>
+                  {/* Always rendered, so it can open and close with a height
+                      transition; `inert` while shut. */}
+                  <div id={panelId} className={styles.mnavPanel} inert={!isOpen}>
+                    <div className={styles.mnavPanelInner}>
+                      {menuPanel.groups.map((g) => (
+                        <div key={g.key} className={styles.mnavGroup}>
+                          {/* A one-group panel's name only repeats the division. */}
+                          {menuPanel.groups.length > 1 && <p className={styles.mnavGroupName}>{g.name}</p>}
+                          {g.items.map((it) => (
+                            <MobileItem key={it.name} item={it} onNavigate={close} />
+                          ))}
+                        </div>
+                      ))}
+                      <MenuLink href={menuPanel.cta.href} className={styles.mnavPanelCta} onNavigate={close}>
+                        {menuPanel.cta.label}
+                        <span aria-hidden>&rarr;</span>
+                      </MenuLink>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </nav>
+          {/* The published lines, as the footer lists them (the HR line is for
+              candidates, not a sales enquiry). At the end of the list rather
+              than pinned: wrapped onto three lines on a small phone they took
+              the room the menu itself needs. */}
+          <div className={styles.mnavContact}>
+            <a href={`mailto:${footer.contact.email}`}>{footer.contact.email}</a>
+            {footer.contact.phones
+              .filter((p) => !("note" in p))
+              .map((p) => (
+                <a key={p.href} href={p.href}>
+                  {p.display}
+                </a>
+              ))}
+          </div>
+        </div>
+
+        <div className={styles.mnavFoot}>
           {/* `ctaHref`, not `MenuLink`: this is the PAGE's own CTA, and
               `MenuLink` resolves anchors against the homepage on purpose —
-              right for the mega-menu items it was written for, wrong here,
-              where `#enquiry` is a section of the page the reader is on.
-              Same two branches as the desktop CTA above, over the same
-              already-resolved href. */}
+              right for the menu items, wrong here, where `#enquiry` is a
+              section of the page the reader is on. */}
           {ctaHref.startsWith("/") ? (
-            <Link href={ctaHref} className={styles.overlayCta} onClick={close}>
+            <Link href={ctaHref} className={`${styles.pill} ${styles.pillFilled} ${styles.mnavCta}`} onClick={close}>
               {nav.cta.label}
             </Link>
           ) : (
-            <a href={ctaHref} className={styles.overlayCta} onClick={close}>
+            <a href={ctaHref} className={`${styles.pill} ${styles.pillFilled} ${styles.mnavCta}`} onClick={close}>
               {nav.cta.label}
             </a>
           )}
-        </nav>
+        </div>
       </div>
     </>
+  );
+}
+
+/**
+ * One entry of an open mobile division. A plain item is a full-width row; an
+ * item with children is its own row followed by them — a short-named list
+ * (`terse`: the web and mobile technologies) as a two-column grid of chips,
+ * anything else as indented rows. A child with children of its own (Native /
+ * Hybrid App Development) is a small heading over its chips.
+ */
+function MobileItem({ item, onNavigate }: { item: NavMenuItem; onNavigate: () => void }) {
+  const head = item.href ? (
+    <MenuLink href={item.href} className={styles.mnavItem} onNavigate={onNavigate}>
+      {item.name}
+      <span className={styles.mnavGo} aria-hidden />
+    </MenuLink>
+  ) : (
+    <p className={styles.mnavSubHead}>{item.name}</p>
+  );
+  if (!item.items?.length) return head;
+
+  const children = item.items;
+  const nested = children.some((c) => c.items?.length);
+  const chip = (c: NavMenuItem) =>
+    c.href ? (
+      <MenuLink key={c.name} href={c.href} className={styles.mnavChip} onNavigate={onNavigate}>
+        {c.name}
+      </MenuLink>
+    ) : null;
+
+  return (
+    <div className={styles.mnavEntry}>
+      {head}
+      {nested ? (
+        children.map((c) => (
+          <div key={c.name} className={styles.mnavNested}>
+            {c.href ? (
+              <MenuLink href={c.href} className={styles.mnavSubHead} onNavigate={onNavigate}>
+                {c.name}
+              </MenuLink>
+            ) : (
+              <p className={styles.mnavSubHead}>{c.name}</p>
+            )}
+            <div className={styles.mnavChips}>{c.items?.map(chip)}</div>
+          </div>
+        ))
+      ) : item.terse ? (
+        <div className={styles.mnavChips}>{children.map(chip)}</div>
+      ) : (
+        <div className={styles.mnavSubs}>
+          {children.map((c) =>
+            c.href ? (
+              <MenuLink key={c.name} href={c.href} className={styles.mnavSub} onNavigate={onNavigate}>
+                {c.name}
+              </MenuLink>
+            ) : null,
+          )}
+        </div>
+      )}
+    </div>
   );
 }

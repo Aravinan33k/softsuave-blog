@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { getImage } from "@/lib/home/images";
 import { publicMediaUrl } from "@/lib/media-url";
-import type { PageKey } from "@/lib/home/content";
 
 type Props = {
-  page: PageKey;
+  /** Only the homepage design's slots ship to the browser (lib/home/images). */
+  page: "four";
   id: string;
   /** override alt from manifest if a more specific one is desired */
   alt?: string;

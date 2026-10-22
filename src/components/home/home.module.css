@@ -63,24 +63,33 @@
   color: var(--text);
 }
 
+/* Two light bands back to back (BUG-020) — the homepage's "Why Soft Suave"
+   and Clients. They meet at a fractional y, and on a phone whose pixel ratio
+   is not a whole number (2.625, 2.75 — most Android handsets) that edge falls
+   mid-pixel: each band covers only part of the row, and the near-black page
+   behind them shows through as a grey hairline across the screen (worst in
+   landscape). A 1px shadow in the band's own colour, cast upward from the
+   second band, covers that row whole; it lies on the first band's identical
+   ground, so it is invisible wherever there is no seam to fill. */
+.light + .light {
+  box-shadow: 0 -1px 0 var(--bg);
+}
+
 /* ---- shared type / layout primitives ---- */
+/* Section eyebrow: Inter since 16 Oct (`--font-section-label` in home.css).
+   No orange dash before the label since the 21 Oct review — in every kit
+   (landing/gen-ai/industries `.kicker`, the enquiry card's `.eyebrow`). */
 .eyebrow,
 .eyebrowDark {
   display: inline-flex;
   align-items: center;
   gap: 0.6em;
-  font-family: var(--font-eyebrow);
+  font-family: var(--font-section-label);
+  font-weight: var(--section-label-weight);
   font-size: clamp(10px, 0.78vw, 12px);
   text-transform: uppercase;
-  letter-spacing: 0.28em;
+  letter-spacing: var(--section-label-tracking);
   color: var(--muted);
-}
-
-.eyebrow::before {
-  content: "";
-  width: 26px;
-  height: 1px;
-  background: var(--accent);
 }
 
 /* No hardcoded ink here any more. #54524f was chosen for a light ground, but
@@ -88,13 +97,6 @@
    ten routes), where it measured 2.62:1 on near-black. The --muted declared
    above is band-aware and passes both ways: 5.15:1 light, 7.42:1 dark.
    NOTE: this makes .eyebrowDark identical to .eyebrow - worth consolidating. */
-
-.eyebrowDark::before {
-  content: "";
-  width: 26px;
-  height: 1px;
-  background: var(--accent);
-}
 
 /* Section H2. Held at the same scale as `.title` in
    landing/landing.module.css — the tech-stack, case-study and clients bands
@@ -154,28 +156,35 @@ h1.h2 {
   display: block;
 }
 
+/* Band padding and masthead gap come from the shared section rhythm
+   (`--section-y` / `--section-head-gap` in app/(marketing)/home.css). */
 .section {
-  padding: clamp(30px, 3.6vw, 58px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
   position: relative;
 }
 
+/* Sized by its content (16 Oct). It used to hold a full screen and centre the
+   rows in it, which left a band of empty canvas above and below the heading
+   on every screen taller than the rows — most of a screen on a wide monitor
+   and on the seven landing pages whose opt-out below never matched. */
 .techSection {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-/* Lets a page outside the homepage reuse `TechStack` without inheriting its
-   full-viewport height — the homepage's own sections are each near one
-   screen tall, but a landing page's bands are sized to their content. */
+/* Both opt-outs below predate the change above and are now no-ops; kept so
+   the pages that pass them need no edit. */
 .techCompact #tech {
+  min-height: 0;
+}
+.techFit .techSection {
   min-height: 0;
 }
 
 .sectionHead {
   max-width: 60rem;
-  margin-bottom: clamp(26px, 4vw, 56px);
+  margin-bottom: var(--section-head-gap);
 }
 
 /* ---- split section head ----
@@ -196,7 +205,7 @@ h1.h2 {
 @media (min-width: 900px) {
   .sectionHead:has(> :is(h2, div.h2)):has(> .lead) {
     --split-gap: clamp(28px, 3vw, 44px);
-    max-width: 1400px;
+    max-width: none;
     display: grid;
     grid-template-columns: fit-content(60%) minmax(0, 1fr);
     grid-template-rows: auto auto;
@@ -223,6 +232,10 @@ h1.h2 {
 
   .sectionHead:has(> :is(h2, div.h2)):has(> .lead) > .lead {
     grid-column: 2;
+    /* Readable measure (800px), held to the END of its column: on a wide
+       screen the intro and its rule close on the frame's right edge with
+       every other band instead of stopping short of it (16 Oct, 1920px). */
+    justify-self: end;
     grid-row: 1 / span 2;
     align-self: stretch;
     display: flex;
@@ -269,7 +282,7 @@ h1.h2 {
   align-items: center;
   gap: 0.6em;
   padding: 0.85em 1.6em;
-  border-radius: 6px;
+  border-radius: var(--btn-radius);
   border: 1px solid var(--line);
   font-family: var(--font-eyebrow);
   font-size: clamp(10px, 0.8vw, 12px);
@@ -362,6 +375,12 @@ h1.h2 {
   height: 100vh;
 }
 
+/* The intro plays in CSS from the first paint and clears itself at ~1s
+   (BUG-026). It used to be a GSAP timeline, which could only start once the
+   page's JavaScript had loaded and hydrated — on a mid-range phone that is
+   several seconds, all of them spent behind this opaque layer: PageSpeed put
+   the hero's first paint 3.7s late and Speed Index at 11s. Same beats, same
+   timings as that timeline; preloader.tsx now only unmounts it. */
 .preloader {
   position: fixed;
   inset: 0;
@@ -373,6 +392,69 @@ h1.h2 {
   justify-content: center;
   gap: clamp(24px, 4vh, 40px);
   will-change: opacity;
+  animation: preOut 0.24s ease-out 0.8s forwards;
+}
+
+/* `visibility` ends hidden too, so the faded layer stops catching taps even
+   before React removes it. */
+@keyframes preOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* starter dot: pulses in and out at the centre */
+.preDot {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: preDot 0.24s ease-in-out forwards;
+}
+
+@keyframes preDot {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+/* main mark traces its outline, then the gradient fill blooms in */
+.preMark {
+  animation:
+    preTrace 0.45s ease-in-out 0.12s forwards,
+    preFill 0.22s ease-out 0.42s forwards;
+}
+
+/* twin echo traces alongside, a beat behind and faint */
+.preTwin {
+  animation: preTrace 0.5s ease-in-out 0.14s forwards;
+}
+
+@keyframes preTrace {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes preFill {
+  to {
+    fill-opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    display: none;
+  }
 }
 
 /* the crest: logo wrapped in a heartbeat glow + emitted radar rings */
@@ -383,6 +465,15 @@ h1.h2 {
   display: grid;
   place-items: center;
   will-change: opacity, transform;
+  /* brief hold after the fill, then the crest shrinks away */
+  animation: preCrestOut 0.2s ease-in-out 0.68s forwards;
+}
+
+@keyframes preCrestOut {
+  to {
+    opacity: 0;
+    transform: scale(0.92);
+  }
 }
 .preGlow {
   position: absolute;
@@ -527,6 +618,18 @@ h1.h2 {
      instead of the bar jumping 1px taller. */
   border-bottom: 1px solid transparent;
   box-shadow: none;
+  /* Slides down into place from the first paint (was a GSAP tween at
+     hydration). `backwards`: once it lands, nothing of it lingers to fight the
+     bar's own transitions. Starts at 0.01, not 0 — Chrome never counts what
+     first paints at opacity 0, which kept the logo out of LCP until JS ran. */
+  animation: navSlideIn 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.3s backwards;
+}
+
+@keyframes navSlideIn {
+  from {
+    opacity: 0.01;
+    transform: translateY(-120%);
+  }
 }
 
 /* Legibility scrim. The bar paints no background while it is hero-locked, and
@@ -624,6 +727,15 @@ h1.h2 {
 .navLogo {
   position: relative;
   display: inline-flex;
+}
+
+/* With the logo's transparent margin trimmed (BUG-024, see logo.tsx) the
+   48px lockup is softsuave.com's desktop size. On phones live drops it to
+   42px; so does this, so it does not crowd the menu button. */
+@media (max-width: 999px) {
+  .navLogo {
+    --logo-h: 42px;
+  }
 }
 
 .navLogoOnDark,
@@ -731,7 +843,7 @@ h1.h2 {
 .burger {
   width: 42px;
   height: 42px;
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   border: 1px solid var(--line);
   background: transparent;
   display: grid;
@@ -754,47 +866,6 @@ h1.h2 {
 
 .burgerOpen span:last-child {
   transform: translateY(-3.25px) rotate(-45deg);
-}
-
-.overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 110;
-  background: var(--bg);
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1);
-  display: grid;
-  place-items: center;
-}
-
-.overlayOpen {
-  clip-path: inset(0 0 0% 0);
-}
-
-.overlayNav {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: center;
-}
-
-.overlayNav a {
-  font-family: var(--font-heading);
-  font-weight: 300;
-  font-size: clamp(2rem, 8vw, 3.4rem);
-  letter-spacing: -0.03em;
-  color: var(--text-bright);
-  line-height: 1.1;
-  transition: color 0.3s ease;
-}
-
-.overlayNav a:hover {
-  color: var(--accent);
-}
-
-.overlayCta {
-  margin-top: 22px;
-  color: var(--accent) !important;
 }
 
 /* ============================================================
@@ -853,6 +924,20 @@ h1.h2 {
   object-fit: cover;
   opacity: 0.55;
 }
+
+/* The video's first frame, tiny and inlined (hero.tsx), blurred under the
+   video until the video has frames of its own (BUG-026). Same opacity as the
+   video, so the hero is already the colour it will be; the slight scale
+   hides the soft edge the blur leaves at the frame's border. */
+.videoHeroPoster {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(14px);
+  transform: scale(1.08);
+  opacity: 0.55;
+}
 .videoHeroVeil {
   position: absolute;
   inset: 0;
@@ -865,7 +950,6 @@ h1.h2 {
 .heroContent {
   position: relative;
   z-index: 2;
-  max-width: 1400px;
 }
 
 .heroEyebrow {
@@ -926,6 +1010,14 @@ h1.h2 {
   content: attr(data-word);
 }
 
+/* Before the hero's script runs, only the first word shows — the rest share
+   its grid cell and would print on top of it. Once the intro clears on its own
+   (BUG-026) a slow phone can show the hero before that script has loaded.
+   GSAP's inline styles take over from here. */
+.rotWord + .rotWord {
+  opacity: 0;
+}
+
 /* Hero body copy is white site-wide: the muted greys these paragraphs used to
    inherit were tuned for flat panels and washed out against the hero
    backdrops. See the same treatment on every other hero. */
@@ -942,6 +1034,24 @@ h1.h2 {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
+}
+
+/* "Explore AI Solutions": a 2px, brighter outline (7 Oct review: "make the
+   button outline more visible by increasing the border size") — the 1px
+   --line hairline all but vanished over the hero video. The filled button
+   beside it takes the same 2px, in its own fill colour, so the pair stay one
+   height. */
+.heroCtaRow .pill,
+.heroCtaRow .pillFilled {
+  border-width: 2px;
+}
+
+.heroCtaRow .pill {
+  border-color: rgba(255, 255, 255, 0.78);
+}
+
+.heroCtaRow .pill:hover {
+  border-color: var(--cta-bg, #ff5436);
 }
 
 .heroScroll {
@@ -1165,17 +1275,33 @@ h1.h2 {
   mix-blend-mode: difference;
 }
 
+/* Tag and metric share the foot's first row, the title runs the full width
+   under them, and the rule closes the foot (16 Oct review: "the cards are
+   coming in different sizes … looking misaligned"). The title used to share
+   its row with the metric, a no-wrap phrase that left it 140-190px on a laptop
+   lane, so titles wrapped to anything from one to four lines. The wrapper div
+   only keeps the markup order; `display: contents` lets its tag and title
+   join this row directly. A metric too long to sit beside the tag drops to a
+   line of its own, still right-aligned. Lines pack at the top: on the desktop
+   lane the foot is stretched to the lane's tallest (see ALIGNED TILES), and
+   the slack belongs above the rule, not between the tag and the title. */
 .tileFoot {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 16px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  align-content: flex-start;
+  gap: 4px 16px;
   margin-top: 14px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--line);
 }
 
+.tileFoot > div {
+  display: contents;
+}
+
 .tileTag {
+  order: 1;
   font-family: var(--font-eyebrow);
   font-size: clamp(10px, 0.72vw, 11px);
   letter-spacing: 0.18em;
@@ -1184,31 +1310,55 @@ h1.h2 {
 }
 
 .tileTitle {
-  margin: 7px 0 0;
+  order: 3;
+  flex: 1 0 100%;
+  margin: 3px 0 0;
   font-family: var(--font-heading);
   font-weight: 300;
   font-size: var(--fs-card-title);
   line-height: 1.24;
   letter-spacing: -0.02em;
   color: var(--text-bright);
-  max-width: 18ch;
 }
 
 .tileMetric {
+  order: 2;
+  margin-left: auto;
   font-size: clamp(0.75rem, 0.85vw, 0.8125rem);
   color: var(--muted);
   text-align: right;
-  white-space: nowrap;
 }
 
 /* Case-study summary, under the foot rule. Shown in full — a truncated
-   outcome is the one line of a case study that has to land. Tiles are
-   top-aligned in the lane instead of matched in height (see .hTrack). */
+   outcome is the one line of a case study that has to land. On the desktop
+   lane every summary starts at the same height (ALIGNED TILES); a longer
+   one just runs further down its own tile. */
 .tileBody {
   margin: 12px 0 0;
   font-size: clamp(0.8125rem, 0.92vw, 0.875rem);
   line-height: 1.5;
   color: var(--muted);
+}
+
+/* `tileCta`: the "View Case Study →" label at a linked tile's foot. */
+.tileCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 14px;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label, 0.75rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.tileCtaArrow {
+  transition: transform 0.3s ease;
+}
+
+.hTile:hover .tileCtaArrow {
+  transform: translateX(4px);
 }
 
 .tileNum {
@@ -1226,14 +1376,11 @@ h1.h2 {
 /* ============================================================
    WORK — HORIZONTAL SCROLL-SNAP GALLERY
    ============================================================ */
+/* The section rhythm's padding only (16 Oct). The extra 8-24px top margin it
+   carried is gone with the rest of the surplus gap between bands. */
 .workH {
   position: relative;
-  padding: clamp(40px, 5vw, 84px) var(--gutter);
-  /* on top of the section's own padding — the pair only has to read as a break
-     between two dark sections, not as an empty screen. Kept small: stacked on
-     the padding above, the old value left a screen of dead ground over the
-     eyebrow (review: "large gap before the heading"). */
-  margin-top: clamp(8px, 1.5vw, 24px);
+  padding: var(--section-y) var(--gutter);
 }
 
 .hInner {
@@ -1243,11 +1390,17 @@ h1.h2 {
 .hTrack {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(44px, 7vw, 96px);
+  gap: clamp(32px, 4vw, 48px);
 }
 
+/* Stacked (below 1000px, and reduced motion) the intro sits directly on top
+   of the first card, so the bottom margin is the only thing between the
+   "View Case Study" button and that card's image — it was 0, and the button
+   sat flush on the picture (BUG-025). The desktop rule below zeroes it: there
+   the intro is a column beside the lane. */
 .hIntro {
   max-width: 40rem;
+  margin-bottom: var(--section-head-gap);
 }
 
 /* "View Case Study" — links out to the full case-study index. */
@@ -1263,6 +1416,22 @@ h1.h2 {
 .hTile img {
   -webkit-user-drag: none;
   user-drag: none;
+}
+
+/* `WorkCarouselItem.href`: the whole tile is the link, painted over it. The
+   focus ring sits inside the tile so the lane's overflow does not clip it. */
+.hTileLink {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 14px;
+}
+.hTileLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.hTile:has(.hTileLink):hover .tileTitle {
+  color: var(--accent);
 }
 
 .hMedia {
@@ -1553,12 +1722,14 @@ h1.h2 {
 /* ============================================================
    AWARDS / FEATURED
    ============================================================ */
+/* Sized by its content at every width (16 Oct): on desktop it held a full
+   screen and centred a heading and two marquee rows in it — about 290px of
+   empty band above the eyebrow and 250px under the last row at 1440x900. */
 .awards {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(32px, 4vw, 60px) 0;
+  padding: var(--section-y) 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
@@ -1566,7 +1737,7 @@ h1.h2 {
 .awardsHead {
   padding: 0 var(--gutter);
   max-width: 60rem;
-  margin-bottom: clamp(28px, 3.4vw, 48px);
+  margin-bottom: var(--section-head-gap);
 }
 
 .awardsMarquees {
@@ -1818,7 +1989,6 @@ h1.h2 {
    a column with real margins either side rather than running to the gutters —
    which is what makes the surrounding ground read as deliberate space. */
 .reviewsInner {
-  max-width: 1180px;
   margin-inline: auto;
 }
 
@@ -2132,7 +2302,7 @@ h1.h2 {
   gap: 6px;
   padding: 6px 11px;
   border: 1px solid rgba(247, 244, 237, 0.3);
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   background: rgba(4, 5, 8, 0.62);
   backdrop-filter: blur(3px);
   font-family: var(--font-eyebrow);
@@ -2322,7 +2492,7 @@ h1.h2 {
   height: 34px;
   padding: 0;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   background: none;
   color: var(--text-bright);
   cursor: pointer;
@@ -2634,6 +2804,9 @@ h1.h2 {
   transform: translate(2px, -2px);
 }
 
+/* No rule above the attribution any more: right under the "Watch on YouTube"
+   underline it read as a stray double line on phones and tablets (BUG-040).
+   The spacing is unchanged. */
 .rStoryFoot {
   display: flex;
   flex-wrap: wrap;
@@ -2641,7 +2814,6 @@ h1.h2 {
   gap: 10px;
   margin-top: clamp(4px, 0.8vw, 9px);
   padding-top: clamp(10px, 1.2vw, 15px);
-  border-top: 1px solid var(--line);
   max-width: 58ch;
 }
 
@@ -2738,14 +2910,16 @@ h1.h2 {
   --band-muted: #bdb3b0;
 
   position: relative;
-  /* Not a full viewport: with the brand crystal gone the section is a headline,
-     a line of copy and one button, and 100vh left most of the band empty. */
+  /* Sized by its content (16 Oct): a headline, a line of copy and one button.
+     It held 64vh (100vh before that), which still centred about 150px of
+     empty band above and below the copy on every screen. As the page's
+     closing band it keeps a little more room than an ordinary section. */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: clamp(12px, 2vh, 24px);
-  padding: clamp(56px, 8vh, 104px) var(--gutter);
+  padding: calc(var(--section-y) * 1.5) var(--gutter);
   overflow: hidden;
   isolation: isolate;
 }
@@ -2761,8 +2935,16 @@ h1.h2 {
 .contactPoster {
   position: absolute;
   inset: 0;
-  background: #050609 url("/brand/contact-light-poster.jpg") center / cover no-repeat;
+  background: #050609 center / cover no-repeat;
   will-change: filter, transform;
+}
+
+/* The still loads once the band nears the viewport (`data-near`, set with the
+   video's mount). As a plain background it was fetched with the page's first
+   layout on every page that ends in this band — far below the fold, competing
+   with what the first screen needs (PageSpeed, 15 Oct). */
+.contactPoster[data-near] {
+  background-image: url("/brand/contact-light-poster.jpg");
 }
 
 .contactVideo {
@@ -2817,7 +2999,12 @@ h1.h2 {
 .lfPoster {
   position: absolute;
   inset: 0;
-  background: #050609 url("/brand/contact-light-poster.jpg") center / cover no-repeat;
+  background: #050609 center / cover no-repeat;
+}
+
+/* As `.contactPoster`: the still loads as the band nears the viewport. */
+.lfPoster[data-near] {
+  background-image: url("/brand/contact-light-poster.jpg");
 }
 
 .lfVideo {
@@ -2877,26 +3064,6 @@ h1.h2 {
   max-width: 18ch;
 }
 
-/* the underlined keyword + its self-drawing coral underline */
-.contactKey {
-  position: relative;
-  display: inline-block;
-  white-space: nowrap;
-}
-.contactUnderline {
-  position: absolute;
-  left: -0.04em;
-  right: -0.04em;
-  bottom: -0.16em;
-  width: calc(100% + 0.08em);
-  height: 0.34em;
-  overflow: visible;
-}
-.contactUnderline path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-
 .contactBody {
   margin-top: 0.85em;
   max-width: 52ch;
@@ -2942,24 +3109,28 @@ h1.h2 {
 }
 
 /* ---- prominent enquiry CTA ----
-   The site CTA at a larger size: same orange plate and the same hover as
-   `.pillFilled` above — the --cta-hover-bg fill wipes in from the left (white
-   on the dark canvas, near-black in a `.light` band) and the label inks over
-   to --cta-hover-ink. No lift and no glow, per the pill-button note. */
+   The site CTA: same orange plate and the same hover as `.pillFilled` above —
+   the --cta-hover-bg fill wipes in from the left (white on the dark canvas,
+   near-black in a `.light` band) and the label inks over to --cta-hover-ink.
+   No lift and no glow, per the pill-button note.
+   Sized as every other section CTA (`.pillLg`, landing's `.btnLg`): 51px tall,
+   13.7px type at desktop. It used to be a larger 68px / 16px plate (1.3em 3.4em
+   padding), which outweighed the band's own heading (15 Oct review: "decrease
+   the size of the BOOK A FREE CONSULTATION button in all pages"). */
 .holdBtn {
   position: relative;
   overflow: hidden;
   isolation: isolate;
   border: 1.5px solid var(--cta-bg, #ff5436);
-  border-radius: 6px;
+  border-radius: var(--btn-radius);
   background: var(--cta-bg, #ff5436);
   /* The fixed button orange and its ink, as .pillFilled above. */
   color: var(--cta-ink, #ffffff);
-  padding: 1.3em 3.4em;
+  padding: 1.05em 2.1em;
   font-family: var(--font-eyebrow);
-  font-size: clamp(13px, 1.15vw, 16px);
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
   /* background snaps (see the hover rule) rather than fading under the wipe */
@@ -3009,14 +3180,14 @@ h1.h2 {
    ============================================================ */
 .footer {
   background: var(--bg);
-  padding: clamp(32px, 4vw, 56px) 0 28px;
+  padding: var(--section-y) 0 28px;
   border-top: 1px solid var(--line);
 }
 
 .footerMarquee {
   border-bottom: 1px solid var(--line);
   padding-bottom: clamp(20px, 3vw, 36px);
-  margin-bottom: clamp(28px, 4vw, 48px);
+  margin-bottom: var(--section-head-gap);
 }
 
 .footerBig {
@@ -3085,13 +3256,6 @@ h1.h2 {
   margin: 0;
 }
 
-.footerEmail {
-  font-family: var(--font-eyebrow);
-  font-size: 13px;
-  letter-spacing: 0.12em;
-  color: var(--accent);
-}
-
 .soundToggle {
   display: inline-flex;
   align-items: center;
@@ -3099,7 +3263,7 @@ h1.h2 {
   margin-top: 6px;
   padding: 0.6em 1.1em;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   background: transparent;
   color: var(--muted);
   font-family: var(--font-eyebrow);
@@ -3216,7 +3380,7 @@ h1.h2 {
   width: 34px;
   height: 34px;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   color: var(--muted);
   transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
@@ -3237,7 +3401,7 @@ h1.h2 {
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(26px, 3vw, 44px);
-  margin-top: clamp(32px, 4vw, 56px);
+  margin-top: var(--section-head-gap);
   padding: clamp(26px, 3vw, 40px) var(--gutter) 0;
   border-top: 1px solid var(--line);
 }
@@ -3482,8 +3646,7 @@ h1.h2 {
      above it (the AI pages' Why Us) opened onto most of a screen of black
      before the eyebrow. */
   .workH {
-    padding: clamp(48px, 4vw, 64px) 0;
-    margin-top: 0;
+    padding: var(--section-y) 0;
   }
 
   .hInner {
@@ -3506,6 +3669,7 @@ h1.h2 {
     flex: 0 0 auto;
     width: min(34vw, 460px);
     max-width: none;
+    margin-bottom: 0;
     padding-left: var(--gutter);
     padding-right: clamp(24px, 3vw, 56px);
     align-self: center;
@@ -3540,6 +3704,24 @@ h1.h2 {
     cursor: grab;
     user-select: none;
     touch-action: pan-y;
+
+    /* WHOLE CARDS + ONE PREVIEW (BUG-017). Tiles used to be `32vw` wide
+       whatever space the lane had, so beside the intro column the row summed
+       to ~105vw below 1350px: the second card ran past the viewport edge and
+       its metric and summary stopped mid-word (at 1920px the third did).
+       The lane is now a size container and the tiles divide ITS width:
+       `--lane-cols` whole cards, then a `--lane-peek` strip of the next one,
+       faded by the mask so it reads as a preview rather than a cut-off. */
+    container-type: inline-size;
+    --lane-pad: clamp(24px, 3vw, 60px);
+    --lane-gap: clamp(32px, 4vw, 84px);
+    --lane-peek: clamp(40px, 4.5vw, 80px);
+    /* Snap (and the arrows, and drag — see work-grid.tsx) put a card at the
+       track's own left padding, so every position frames the same way: no
+       sliver of the previous card at the left, the preview at the right. */
+    scroll-padding-left: var(--lane-pad);
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - var(--lane-peek)), transparent);
+    mask-image: linear-gradient(90deg, #000 calc(100% - var(--lane-peek)), transparent);
   }
   .hLane::-webkit-scrollbar {
     display: none;
@@ -3553,20 +3735,46 @@ h1.h2 {
   }
 
   .hTrack {
+    /* Whole cards in view, by the lane's own width — a card stays at least
+       ~280px wide, so the title and its metric still share a row. */
+    --lane-cols: 1;
+    /* pad + cols × (card + gap) + peek = the lane's width, exactly. */
+    --lane-card: calc(
+      (100cqi - var(--lane-pad) - var(--lane-cols) * var(--lane-gap) - var(--lane-peek)) /
+        var(--lane-cols)
+    );
     width: max-content;
     display: flex;
     flex-wrap: nowrap;
     grid-template-columns: none;
-    gap: clamp(32px, 4vw, 84px);
+    gap: var(--lane-gap);
     /* tops line up so a longer summary just runs further down its own tile */
     align-items: flex-start;
-    padding: 0 12vw 0 clamp(24px, 3vw, 60px);
+    /* The end padding is one gap + the preview strip, so the lane's last
+       scroll position is itself a snap point: it frames the final cards
+       whole, where the old 12vw left the card before them cut at the left. */
+    padding: 0 calc(var(--lane-gap) + var(--lane-peek)) 0 var(--lane-pad);
     user-select: none;
+  }
+  @container (min-width: 740px) {
+    .hTrack {
+      --lane-cols: 2;
+    }
+  }
+  @container (min-width: 1180px) {
+    .hTrack {
+      --lane-cols: 3;
+    }
+  }
+  @container (min-width: 1900px) {
+    .hTrack {
+      --lane-cols: 4;
+    }
   }
 
   .hTile {
     flex: 0 0 auto;
-    width: clamp(300px, 32vw, 440px);
+    width: var(--lane-card);
     scroll-snap-align: start;
     user-select: none;
   }
@@ -3586,10 +3794,41 @@ h1.h2 {
 
   .hOutro {
     flex: 0 0 auto;
-    width: min(34vw, 460px);
+    /* One card wide, so it takes a card's slot in the last frame (see the
+       track's end padding) instead of leaving a fraction of one. */
+    width: var(--lane-card);
     /* the closing panel is short — keep it centred against the tile tops */
     align-self: center;
     scroll-snap-align: start;
+  }
+
+  /* ALIGNED TILES (16 Oct review: "the cards are coming in different sizes
+     … looking misaligned"). The tiles stand side by side here, so their rows
+     are matched across the lane: the track is a single row of grid columns,
+     one card wide each, and every tile a subgrid over three shared rows —
+     image, foot, summary. A foot is then as tall as the lane's longest title,
+     and every tag, title, rule and summary starts at the same height. Column
+     width, gap, padding and snapping are unchanged, so the lane scrolls and
+     frames exactly as before (work-grid.tsx measures tiles by their boxes).
+     Not under reduced motion: there the lane is one stacked column (see the
+     REDUCED MOTION block), with nothing beside a tile to line up with. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hTrack {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: var(--lane-card);
+      grid-template-rows: repeat(3, auto);
+      row-gap: 0;
+      align-items: stretch;
+    }
+    .hTile {
+      grid-row: span 3;
+      display: grid;
+      grid-template-rows: subgrid;
+    }
+    .hOutro {
+      grid-row: span 3;
+    }
   }
 
   .hControls {
@@ -3637,7 +3876,7 @@ h1.h2 {
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   .workH {
-    padding: clamp(72px, 11vw, 168px) var(--gutter) !important;
+    padding: var(--section-y) var(--gutter) !important;
   }
 
   .hInner {
@@ -3649,7 +3888,7 @@ h1.h2 {
   .hTrack {
     display: grid !important;
     grid-template-columns: 1fr !important;
-    gap: clamp(44px, 7vw, 96px) !important;
+    gap: clamp(32px, 4vw, 48px) !important;
     padding: 0 !important;
     transform: none !important;
   }
@@ -3658,6 +3897,12 @@ h1.h2 {
   .hTile,
   .hOutro {
     width: auto !important;
+  }
+
+  /* Stacked here at every width, so the gap under the intro comes back even
+     where the desktop rule zeroed it (BUG-025). */
+  .hIntro {
+    margin-bottom: var(--section-head-gap) !important;
   }
 
   .hMedia {
@@ -3904,16 +4149,15 @@ h1.h2 {
 /* ============================================================
    JOURNEY (AI TRANSFORMATION JOURNEY)
    ============================================================ */
-/* No margin here on desktop: this section is GSAP-pinned (`journeyPin`, start
+/* No margin: on desktop this section is GSAP-pinned (`journeyPin`, start
    "top top") and sized to exactly 100vh for that pin, so a margin lands on the
    pin-spacer and shows up as a dead band before a scene that already carries
-   its own vignette. The seam with the section AFTER it is spaced from that
-   section's own margin-top instead — see .workH. */
+   its own vignette. Stacked, `.section`'s padding is the whole gap (the extra
+   48-80px margin it had went with the 16 Oct spacing pass). */
 .journeySection {
   position: relative;
   overflow: hidden;
   width: 100%;
-  margin-top: clamp(48px, 6vw, 80px);
 }
 @media (min-width: 1000px) {
   .journeySection {
@@ -3930,7 +4174,9 @@ h1.h2 {
   /* ONE source of truth for where the text column ends and the animated stage
      begins. The rail's own left/width read from these too, so the stage edge
      can never drift out of step with the column it exists to clear. */
-  --journey-rail-x: clamp(40px, 6vw, 120px);
+  /* The page gutter, so the rail starts on the same vertical line as the
+     nav and every other band (it was clamp(40px, 6vw, 120px)). */
+  --journey-rail-x: var(--gutter);
   --journey-rail-w: min(46vw, 560px);
   /* Clearing the rail is the hard floor; 42% is the ceiling on how far right
      the stage may start. Without the 42% the rail's px cap stops growing past
@@ -4350,7 +4596,7 @@ h1.h2 {
   .journeySection {
     height: auto !important;
     min-height: 0 !important;
-    padding: clamp(72px, 11vw, 168px) var(--gutter) !important;
+    padding: var(--section-y) var(--gutter) !important;
   }
   .journeyDesktopContainer {
     display: none !important;
@@ -5007,11 +5253,12 @@ h1.h2 {
    WHY SOFT SUAVE — STICKY STACKING CARDS
    ============================================================ */
 /* ---- intro header (sits directly above the stacking cards) ---- */
+/* The top padding is the whole gap under the hero now that `.whySection` no
+   longer centres the block in a full screen (BUG-021). */
 .whyIntro {
-  padding: clamp(24px, 3.2vw, 44px) var(--gutter) clamp(6px, 1vw, 14px);
+  padding: var(--section-y) var(--gutter) clamp(6px, 1vw, 14px);
 }
 .whyIntroInner {
-  max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
@@ -5066,6 +5313,9 @@ h1.h2 {
     padding-right: clamp(28px, 3vw, 44px);
   }
   .whyIntroFoot {
+    /* Held to the end of its column (the 46ch body sets its width), so the
+       intro closes on the frame's right edge with every other band. */
+    justify-self: end;
     margin-top: 0;
     padding-top: 0;
     padding-left: clamp(28px, 3vw, 44px);
@@ -5079,11 +5329,16 @@ h1.h2 {
   }
 }
 
+/* Sized by its content (BUG-021). It used to be `min-height: 100vh` with the
+   intro + cards centred inside, so every pixel of screen the content did not
+   fill became two empty bands above and below it — ~200px each on an iPad mini
+   in landscape, ~480px on an iPad Pro in portrait, 500px+ on a 2560px monitor
+   — and the stat cards were pushed half off the bottom of the screen. The
+   spacing is now the intro's top padding and the cards' bottom padding, which
+   scale with width instead of with the height of whatever screen it is on. */
 .whySection {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .whyStackSection {
@@ -5094,8 +5349,11 @@ h1.h2 {
      pair, not between them. Raising this block's own top padding eats into
      that leftover from the section's centered midpoint, pulling the gap above
      and below the cards back toward parity without touching `.whySection`
-     itself or any other section. */
-  padding: clamp(32px, 5.5vw, 88px) var(--gutter) clamp(4px, 0.6vw, 8px);
+     itself or any other section.
+     The bottom padding was 4-8px for the same reason: the centring supplied
+     the room under the cards. With `.whySection` sized by its content
+     (BUG-021) this padding is that room. */
+  padding: var(--section-head-gap) var(--gutter) var(--section-y);
 }
 /* four square stat cards, uniform, one single row so the whole grid — title
    included — sits inside one screen, no scrolling needed to see it all and no
@@ -5104,7 +5362,6 @@ h1.h2 {
    capped by viewport height (not just width), so a short window shrinks them
    instead of cutting them off. */
 .stackWrap {
-  max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -5240,12 +5497,38 @@ h1.h2 {
   right: clamp(14px, 2.2vw, 20px);
 }
 
-@media (min-width: 1000px) {
-  .whyIntroInner {
-    max-width: 1400px;
+/* A narrow card — two across on a small phone (134px at 320px wide) — has
+   too little room between its points for "ENGINEERING" at the full 0.22em
+   tracking, and a single word cannot wrap, so it ran under them (BUG-028).
+   Measured on the card itself, so it applies wherever a card is this narrow:
+   the points tuck closer to the corners and the tracking tightens, which
+   fits the longest word with room either side. */
+.stackCard {
+  container-type: inline-size;
+}
+@container (max-width: 200px) {
+  .stackTab {
+    padding-inline: 22px;
   }
+  .stackTabTitle {
+    letter-spacing: 0.12em;
+  }
+  .stackTabDot:first-child {
+    left: 9px;
+  }
+  .stackTabDot:last-child {
+    right: 9px;
+  }
+}
+
+@media (min-width: 1000px) {
+  /* One row of four, spread edge to edge: the first card starts on the
+     frame's left edge and the last ends on its right one, in line with the
+     bands above and below (16 Oct, 1920px). The cards keep their size; the
+     gaps between them take up the rest of the width. */
   .stackWrap {
-    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
   }
   .stackTilt {
     max-width: min(370px, 38vh);
@@ -5307,11 +5590,10 @@ h1.h2 {
    hands off to a full-width hairline-ruled logo row.
    ============================================================ */
 .clients {
-  padding-top: clamp(40px, 5vw, 76px);
-  padding-bottom: clamp(40px, 5vw, 76px);
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
 }
 .clientsHead {
-  max-width: 1400px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
@@ -5355,6 +5637,9 @@ h1.h2 {
     max-width: min(20ch, var(--fit-width, 20ch));
   }
   .clientsHeadAside {
+    /* Held to the end of its column, so the intro closes on the frame's
+       right edge on a wide screen (16 Oct, 1920px) — see `.sectionHead`. */
+    justify-self: end;
     align-self: stretch;
     display: flex;
     align-items: center;
@@ -5372,14 +5657,13 @@ h1.h2 {
    full-width lines between sections to go. `.clientsMarquee` keeps its own
    vertical padding, so the logos still sit in a band of their own. */
 .clientsRow {
-  max-width: 1400px;
-  margin: clamp(32px, 4.5vw, 64px) auto 0;
+  margin: var(--section-head-gap) auto 0;
 }
 /* `Marquee` renders its own track — this only sizes the strip and fades its
    edges into the section background so marks appear to scroll in/out of the
    canvas rather than getting cut off mid-logo. */
 .clientsMarquee {
-  padding: clamp(22px, 3vw, 40px) 0;
+  padding: clamp(10px, 1.2vw, 18px) 0;
   mask-image: linear-gradient(
     90deg,
     transparent 0,
@@ -5452,12 +5736,11 @@ h1.h2 {
    ============================================================ */
 .servicesCarousel {
   position: relative;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  padding: clamp(40px, 5vw, 84px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
 }
 
 /* desktop section header (eyebrow + heading + standfirst). Two columns from
@@ -5568,13 +5851,13 @@ h1.h2 {
 }
 
 @media (min-width: 1000px) {
+  /* Sized by its content (16 Oct). It held exactly one screen and centred
+     the header and stage in it, so every screen taller than the stage showed
+     the slack as empty band above the eyebrow and below the controls (the
+     carousel never pins, so the height bought nothing). The stage keeps its
+     own `min(52vh, 540px)`, so it still fits inside one screen. */
   .servicesCarousel {
-    height: 100vh;
-    min-height: 720px;
-    /* top padding trimmed from the old 84–122px: the section header that now
-       sits inside .carDesktop needs that vertical budget more than the gutter
-       does, and the stage still has to finish inside one screen. */
-    padding: clamp(56px, 7vh, 84px) var(--gutter) clamp(40px, 6vh, 64px);
+    padding: var(--section-y) var(--gutter);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -5599,11 +5882,22 @@ h1.h2 {
     grid-template-columns: 0.82fr 1.18fr;
     gap: clamp(40px, 5vw, 90px);
     align-items: center;
-    /* Reserves the control row. `.carControls` is absolutely positioned at the
-       bottom of `.carDesktop`, so it takes no flow space of its own — without
-       this the stage centres into the full height and the active card (inline
-       `z-index: 30` from `cardStyle`) paints straight over the arrows. */
-    padding-bottom: clamp(64px, 8vh, 88px);
+  }
+
+  /* The stack and its controls, one column (BUG-027). The controls used to be
+     absolutely positioned in the section's bottom-right corner with this grid
+     padded to keep the cards off them — so on a tablet (1024×768, 1180×820)
+     they overlapped the card's foot, and on a tall screen they floated
+     50–120px below it, the gap set by the screen's height rather than the
+     design. In one flex column the gap is fixed, and the stage shrinks (it
+     may, `min-height: 0`) before it can reach them. */
+  .carStageCol {
+    align-self: stretch;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(16px, 2.2vh, 24px);
   }
   .carText {
     max-width: 32rem;
@@ -5625,8 +5919,9 @@ h1.h2 {
      overflowed the row and painted over the controls. */
   .carStage {
     position: relative;
+    flex: 0 1 auto;
+    min-height: 0;
     height: min(52vh, 540px);
-    max-height: 100%;
   }
   .carCard {
     position: absolute;
@@ -5657,13 +5952,14 @@ h1.h2 {
   }
 
   .carControls {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    /* Above the cards, which stack up to `z-index: 30` inline from `cardStyle`.
-       The padding on `.carGrid` already keeps the stage clear of this row; this
-       is what stops the arrows being buried again if the stage ever grows. */
+    /* Under the stack, flush with its right edge (see `.carStageCol`). Still
+       above the cards — they stack to `z-index: 30` inline from `cardStyle`,
+       and the side cards lean out past the stage — so it needs a stacking
+       position of its own. */
+    position: relative;
     z-index: 40;
+    flex: 0 0 auto;
+    align-self: flex-end;
     display: inline-flex;
     align-items: center;
     gap: 22px;
@@ -5677,10 +5973,13 @@ h1.h2 {
     letter-spacing: 0.18em;
     color: var(--muted);
   }
+  /* The rule between "04" and "10". It was `--line`, which on the warm-white
+     band is nearly the band's own colour — the numbers read as stranded with a
+     gap between them (BUG-027). */
   .carCounter i {
     width: 40px;
     height: 1px;
-    background: var(--line);
+    background: color-mix(in srgb, var(--muted) 60%, transparent);
   }
   .carArrows {
     display: inline-flex;
@@ -5690,7 +5989,7 @@ h1.h2 {
   .carArrowBtn {
     width: 48px;
     height: 48px;
-    border-radius: 999px;
+    border-radius: var(--btn-radius);
     border: 1px solid var(--accent-border);
     background: var(--surface);
     color: var(--text-bright);
@@ -5723,7 +6022,7 @@ h1.h2 {
   .servicesCarousel {
     height: auto !important;
     min-height: 0 !important;
-    padding: clamp(72px, 11vw, 168px) var(--gutter) !important;
+    padding: var(--section-y) var(--gutter) !important;
     display: block !important;
   }
   .carDesktop {
@@ -5749,12 +6048,11 @@ h1.h2 {
 /* Mobile-first: clean wrapped grid when the fan no longer fits. */
 .indFanStage {
   position: relative;
-  margin-top: clamp(32px, 5vw, 60px);
+  margin-top: var(--section-head-gap);
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
   width: 100%;
-  max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -5813,7 +6111,7 @@ h1.h2 {
   place-items: center;
   width: 28px;
   height: 28px;
-  border-radius: 50%;
+  border-radius: var(--btn-radius);
   background: #0a0a0a;
   color: #ffffff;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
@@ -5929,7 +6227,7 @@ h1.h2 {
 /* reduced motion: static grid, no fan */
 @media (prefers-reduced-motion: reduce) {
   .industriesFan {
-    padding: clamp(40px, 5vw, 84px) var(--gutter) !important;
+    padding: var(--section-y) var(--gutter) !important;
   }
   .indFanStage,
   .fanLayout {
@@ -5938,7 +6236,7 @@ h1.h2 {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 18px !important;
     min-height: 0 !important;
-    margin-top: clamp(32px, 5vw, 56px);
+    margin-top: var(--section-head-gap);
   }
   .indFanCard {
     position: relative !important;
@@ -5963,7 +6261,9 @@ h1.h2 {
 .chapNav {
   position: fixed;
   right: clamp(16px, 2vw, 34px);
-  bottom: clamp(16px, 2vw, 32px);
+  /* Above the chat widget's launcher row (components/chatbot: 50px tall, 20px
+     off the bottom), which now owns the corner on every page. */
+  bottom: 84px;
   z-index: 70;
   display: flex;
   flex-direction: column;
@@ -5978,7 +6278,7 @@ h1.h2 {
   align-items: center;
   gap: 10px;
   padding: 9px 15px;
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   border: 1px solid var(--line);
   background: rgba(19, 20, 21, 0.72);
   backdrop-filter: blur(10px);
@@ -6116,7 +6416,7 @@ h1.h2 {
 .industriesFan.gridMode {
   height: auto !important;
   min-height: 0 !important;
-  padding: clamp(60px, 8vh, 100px) var(--gutter) !important;
+  padding: var(--section-y) var(--gutter) !important;
 }
 
 .industriesFan.gridMode .indFanStage {
@@ -6126,9 +6426,8 @@ h1.h2 {
   flex-wrap: wrap !important;
   justify-content: center !important;
   gap: 24px !important;
-  margin-top: clamp(32px, 5vw, 60px) !important;
+  margin-top: var(--section-head-gap) !important;
   width: 100% !important;
-  max-width: 1400px !important;
 }
 
 .industriesFan.gridMode .indFanCard {
@@ -6168,7 +6467,6 @@ h1.h2 {
    section's copy on the left, the badge strip and its dots on the right. Below
    900px they simply stack, copy first. */
 .recogLayout {
-  max-width: 1400px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
@@ -6191,27 +6489,10 @@ h1.h2 {
   max-width: 42ch;
 }
 
-/* Link out to the full wall at /awards-recognition. */
+/* Link out to the full wall at /awards-recognition — an orange `.pillFilled`
+   `.pillLg` button; this only spaces it from the lead above. */
 .recogViewAll {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
   margin-top: clamp(4px, 0.8vw, 10px);
-  font-family: var(--font-eyebrow);
-  font-size: clamp(10px, 0.72vw, 11px);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
-  text-decoration: none;
-  transition: color 0.35s ease;
-}
-
-.recogViewAll:hover {
-  color: var(--text-bright);
-}
-
-.recogViewAll:hover .recogArrow {
-  transform: translateX(6px);
 }
 
 .recogShowcase {
@@ -6315,28 +6596,18 @@ h1.h2 {
 /* GSAP tweens this between height 0 and auto, so no padding here — padding
    would keep rendering while the panel is closed. */
 
-/* footer link out to the full awards page */
-
-.recogArrow {
-  width: 34px;
-  height: 8px;
-  color: var(--accent);
-  transition: transform 0.35s ease;
-}
-
 /* the wall: hairline cells that reflow from four columns to one without a
    layout decision, so adding a recognition is a content-only change. */
 /* Standalone /awards-recognition page: clears the fixed nav, which the homepage
    band never has to do because sections above it provide the runway. */
 .awardsPageSection {
   padding-top: clamp(120px, 16vh, 190px) !important;
-  padding-bottom: clamp(56px, 8vh, 100px) !important;
+  padding-bottom: var(--section-y) !important;
 }
 
 .recogWall {
   list-style: none;
-  max-width: 1400px;
-  margin: clamp(32px, 4.5vw, 64px) auto 0;
+  margin: var(--section-head-gap) auto 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
@@ -6767,98 +7038,6 @@ h1.h2 {
   white-space: nowrap;
 }
 
-/* ---- burger overlay: the same four divisions as accordions ---- */
-.overlayNav {
-  width: min(560px, 92vw);
-  max-height: 86vh;
-  overflow-y: auto;
-}
-
-.mobDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.mobDivHead {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  font-family: var(--font-heading);
-  font-weight: 300;
-  font-size: clamp(2rem, 8vw, 3.4rem);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  color: var(--text-bright);
-  transition: color 0.3s ease;
-}
-
-.mobDivHead[aria-expanded="true"] {
-  color: var(--accent);
-}
-
-.mobChev {
-  width: 9px;
-  height: 9px;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: translateY(-3px) rotate(45deg);
-  transition: transform 0.3s ease;
-}
-
-.mobDivHead[aria-expanded="true"] .mobChev {
-  transform: translateY(0) rotate(-135deg);
-}
-
-.mobPanel {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding: 14px 0 22px;
-  text-align: center;
-}
-
-.mobGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.mobGroupName {
-  font-family: var(--font-eyebrow);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: var(--muted);
-}
-
-/* two classes, so this beats `.overlayNav a`'s display serif */
-.overlayNav .mobItem {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  letter-spacing: 0;
-  color: var(--text);
-}
-
-.overlayNav .mobItem:hover {
-  color: var(--text-bright);
-}
-
-.overlayNav .mobItemCta {
-  margin-top: 4px;
-  font-family: var(--font-eyebrow);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--accent);
-}
-
 @media (min-width: 1000px) {
   .megaPanel {
     display: block;
@@ -6941,36 +7120,6 @@ h1.h2 {
   margin-top: 6px;
 }
 
-/* mobile: the third level indents under its parent */
-.mobEntry {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.overlayNav .mobSubItem {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.85rem;
-  line-height: 1.35;
-  letter-spacing: 0;
-  color: var(--muted);
-}
-
-.overlayNav .mobSubItem:hover {
-  color: var(--text-bright);
-}
-
-/* Fourth level: Native / Hybrid App Development head their own indented list. */
-.overlayNav .mobSubHead {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.85rem;
-  line-height: 1.35;
-  letter-spacing: 0;
-  color: var(--text);
-}
-
 /* ─────────────────────────────────────────────────────────────────────────────
    CONTACT PAGE MASTHEAD (/contact)
    Sits above the shared `.contact` finale on the standalone contact page. Its
@@ -7011,10 +7160,7 @@ h1.h2 {
   display: none;
 }
 
-/* The lead already carries the page's top padding; the band below it does not
-   need a second full-height stage on a page this short. */
 .contactLight .contact {
-  min-height: 0;
   /* The band trial is a dark-surface treatment. On the light page the veil is
      gone with `.contactBg`, so the tint would only survive as body copy the
      warm white cannot carry — hand it back to the light band's own muted. */
@@ -7057,42 +7203,31 @@ h1.h2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  /* Capped by width alone here (BUG-028). The base `min(320px, 34vh)` sizes
+     the cards by the screen's HEIGHT so the row fits one desktop screen; on a
+     phone turned sideways (360-430px tall) that made them 122-146px wide,
+     floating in 340px columns, and "Engineering Specialists" ran under the
+     coral points of its header. A phone scrolls; the cards can be their size. */
+  .stackTilt {
+    max-width: 320px;
+  }
+
   .recogLayout {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* The tile foot is the specific thing that could not shrink: an uppercase
-     wide-tracked tag and a `white-space: nowrap` metric, side by side on one
-     line. The tag is a single word and cannot break, so the metric is the one
-     that has to give — it wraps here and keeps the pair on one row. Desktop
-     keeps `nowrap`, where the tile is 300-440px and the pair always fits. */
+  /* The tile foot wraps at every width now (tag and metric on one row, the
+     title under them — see `.tileFoot`), so a long metric already gives way
+     to the tag; only the gap is a touch wider on a phone. */
   .tileFoot {
-    flex-wrap: wrap;
-    gap: 6px 14px;
-  }
-
-  .tileMetric {
-    white-space: normal;
-    text-align: left;
+    column-gap: 14px;
   }
 
   /* ---- 2. viewport-height shells ------------------------------------------
-     These three centre their content inside `100vh`. On a phone that is a
-     screen of canvas above and below a heading — 487px of the integrations
-     band's 844px was empty at 375px. Height comes from content here; the
-     padding still keeps them reading as distinct bands. */
-  .awards {
-    min-height: 0;
-    padding: clamp(40px, 9vw, 64px) 0;
-  }
-
-  .techSection {
-    min-height: 0;
-  }
-
-  .servicesCarousel {
-    min-height: 0;
-  }
+     The integrations, tech and services bands used to centre their content
+     inside `100vh`; on a phone that was a screen of canvas above and below a
+     heading. All three are now sized by their content at every width (16 Oct),
+     so nothing is left to undo here. */
 
   /* ---- 3. stacked-section height budget -----------------------------------
      Services is eleven rows of image + copy + CTA and Industries eight portrait
@@ -7163,17 +7298,16 @@ h1.h2 {
     padding: 9px 12px;
   }
 
-  .footerCol a,
-  .footerEmail {
+  .footerCol a {
     padding: 5px 0;
   }
 
   /* The scroll counter is fixed to the bottom-right corner, where it sat on top
-     of the footer's link columns. Tucked tighter into the corner and held clear
-     of the home-indicator inset. */
+     of the footer's link columns. Tucked tighter into the corner, above the
+     chat launcher, and held clear of the home-indicator inset. */
   .chapNav {
     right: 10px;
-    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px));
     gap: 8px;
   }
 
@@ -7192,49 +7326,6 @@ h1.h2 {
      in view — so this is only about the device inset.) */
   .footer {
     padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
-  }
-}
-
-/* ---- the burger overlay ----------------------------------------------------
-   `.overlay` is `display: grid; place-items: center`, so the menu is centred in
-   the viewport — correct while it is four words tall, wrong the moment a
-   division is expanded into its accordion. At 320x568 the expanded Services
-   panel is 488px tall, which centred its first rows underneath the fixed header
-   and put the word "Services" straight through the logo lockup.
-
-   Grid centring happens inside the PADDING box, so reserving the header's own
-   height as padding-top fixes the collision without giving up the centring: a
-   short menu still reads as centred, a tall one starts below the bar and
-   scrolls. The nav keeps `overflow-y: auto`; it just gets a real budget now
-   (`max-height: 100%` of the padded box) instead of 86vh of the whole screen.
-   The overlay is only ever the mobile menu — from 1000px up `.burger` is
-   `display: none` — but the query keeps it symmetrical with the rest. */
-@media (max-width: 999px) {
-  .overlay {
-    /* header = 20px padding + 48px lockup + 20px padding, then breathing room */
-    padding: 104px clamp(16px, 5vw, 28px)
-      calc(clamp(20px, 5vh, 40px) + env(safe-area-inset-bottom, 0px));
-  }
-
-  .overlayNav {
-    width: 100%;
-    max-height: 100%;
-    /* momentum scroll for the long Services panel, and no rubber-banding of the
-       page behind it */
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-  }
-
-  /* The division headings are the overlay's display type, at up to 8vw. With an
-     accordion open they compete with the panel under them for the same screen,
-     so they step down a size here. */
-  .mobDivHead {
-    font-size: clamp(1.65rem, 6.6vw, 2.4rem);
-  }
-
-  .mobPanel {
-    padding: 10px 0 18px;
-    gap: 14px;
   }
 }
 
@@ -7304,6 +7395,424 @@ h1.h2 {
 @media (max-width: 499px) {
   .industriesFan.gridMode .indFanCard {
     aspect-ratio: 4 / 3 !important;
+  }
+}
+
+/* ============================================================
+   MID-PAGE CTA SIZE (1 Oct review: "the cta button size in the middle of the
+   pages is small, so slightly increase it like in other pages")
+   The section CTAs — the services carousel's "Know More", the case-study
+   gallery's "View Case Study" and its closing "Start a project" — used the
+   shared pill at 39px with 11.5px type. The landing pages' conversion band
+   sizes its button up to 51px / 13.7px (`.ctaActions .btn` in
+   landing.module.css); these now match it. Scoped to those three, so the nav
+   and hero pills keep their size.
+   ============================================================ */
+.carPill,
+.hIntroCta .pillFilled,
+.hOutro .pillFilled {
+  padding: 1.05em 2.1em;
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  letter-spacing: 0.1em;
+}
+
+/* The same size for a homepage-style pill used as a section CTA elsewhere
+   (the services pages' conversion band — `components/services/cta-band.tsx`). */
+.pillLg {
+  padding: 1.05em 2.1em;
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  letter-spacing: 0.1em;
+}
+
+/* Opt-in for a tech-rows section whose group names are long (Computer Vision:
+   "Model Inference & Optimization"): from 1000px up the label column widens so
+   every name sits on one line (1 Oct review: "align them in a single line").
+   330–400px holds the longest name at every desktop width; the default 280px
+   cap wrapped seven of them onto two lines. */
+@media (min-width: 1000px) {
+  .techWideLabels .techGroup {
+    grid-template-columns: clamp(330px, 33vw, 400px) 1fr;
+  }
+  .techWideLabels .techGroupName {
+    white-space: nowrap;
+  }
+}
+
+/* ============================================================
+   MOBILE MENU (below 1000px) — components/home/nav.tsx
+   A full-height sheet under the fixed bar: the four divisions as full-width
+   rows that open in place, the CTA pinned at the foot, contacts at the end.
+   Replaced a centred cluster of display-serif headings floating in an empty
+   screen, whose open divisions centred four levels of links in one column.
+   ============================================================ */
+.mnav {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  /* The bar sits above this sheet (z-index 120): 83px tall at the top of a
+     page, 71px once scrolled. The list starts a little below the taller. */
+  padding-top: 84px;
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition: clip-path 0.55s cubic-bezier(0.76, 0, 0.24, 1), visibility 0s linear 0.55s;
+}
+
+.mnavOpen {
+  clip-path: inset(0 0 0% 0);
+  visibility: visible;
+  transition: clip-path 0.55s cubic-bezier(0.76, 0, 0.24, 1), visibility 0s;
+}
+
+@media (min-width: 1000px) {
+  .mnav {
+    display: none;
+  }
+}
+
+.mnavScroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px var(--gutter) 28px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+
+/* One reading column: full width on phones, centred on tablets. */
+.mnavList {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ---- division rows ---- */
+.mnavRow {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+/* Rows rise in, one after another, as the sheet opens. */
+.mnavOpen .mnavRow {
+  animation: mnavRowIn 0.5s cubic-bezier(0.22, 0.8, 0.24, 1) both;
+  animation-delay: calc(0.14s + var(--i, 0) * 0.05s);
+}
+
+@keyframes mnavRowIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.mnavHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 68px;
+  padding: 10px 0;
+  border: 0;
+  background: none;
+  color: var(--text-bright);
+  text-align: left;
+  cursor: pointer;
+}
+
+.mnavLabel {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.65rem, 6.6vw, 2.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.mnavHead:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* A round toggle: a plus that turns into a minus. */
+.mnavToggle {
+  position: relative;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--btn-radius);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.4s ease;
+}
+
+.mnavToggle::before,
+.mnavToggle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 13px;
+  height: 1.5px;
+  margin: -0.75px 0 0 -6.5px;
+  background: currentColor;
+  transition: transform 0.35s ease;
+}
+
+.mnavToggle::after {
+  transform: rotate(90deg);
+}
+
+.mnavRow[data-open="true"] .mnavToggle {
+  background: var(--brand-500);
+  border-color: var(--brand-500);
+  color: #ffffff;
+}
+
+.mnavRow[data-open="true"] .mnavToggle::after {
+  transform: rotate(0deg);
+}
+
+/* ---- the open division ---- */
+.mnavPanel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+
+.mnavRow[data-open="true"] .mnavPanel {
+  grid-template-rows: 1fr;
+}
+
+.mnavPanelInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mnavRow[data-open="true"] .mnavPanelInner {
+  padding-bottom: 22px;
+}
+
+.mnavGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.mnavGroup + .mnavGroup {
+  margin-top: 18px;
+}
+
+/* The site's eyebrow: mono, wide-tracked, behind a short coral rule. */
+.mnavGroupName {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 6px;
+  font-family: var(--font-eyebrow);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.mnavGroupName::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--brand-500);
+}
+
+.mnavItem,
+.mnavSub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 46px;
+  padding: 10px 0;
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--text-bright);
+  transition: color 0.25s ease;
+}
+
+.mnavItem:focus-visible,
+.mnavSub:focus-visible {
+  color: var(--brand-coral);
+}
+
+/* A small arrow at a row's end, so a row reads as a link to tap. */
+.mnavGo {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  opacity: 0.45;
+}
+
+.mnavHead .mnavGo {
+  width: 11px;
+  height: 11px;
+  margin-right: 14px;
+}
+
+.mnavEntry {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Children of a row: indented under a hairline. */
+.mnavSubs {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 6px 2px;
+  padding-left: 16px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mnavSub {
+  min-height: 42px;
+  font-size: 15px;
+  color: var(--text);
+}
+
+/* A short-named list (technologies) as a grid of chips. */
+.mnavChips {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 2px 0 12px;
+}
+
+@media (min-width: 560px) {
+  .mnavChips {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.mnavChip {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 14px;
+  line-height: 1.25;
+  color: var(--text);
+  transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+}
+
+.mnavChip:focus-visible {
+  border-color: var(--brand-500);
+  background: rgba(255, 84, 54, 0.08);
+  color: var(--text-bright);
+}
+
+.mnavNested + .mnavNested {
+  margin-top: 4px;
+}
+
+.mnavSubHead {
+  display: block;
+  margin: 6px 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--text-bright);
+}
+
+/* The division's own page ("All services →"). */
+.mnavPanelCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-family: var(--font-eyebrow);
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-coral);
+}
+
+/* ---- pinned foot ---- */
+.mnavFoot {
+  flex: none;
+  padding: 14px var(--gutter) calc(16px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  background: var(--bg);
+}
+
+.mnavFoot > * {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mnavCta {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  font-size: 12px;
+}
+
+.mnavContact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  width: 100%;
+  max-width: 600px;
+  margin: 26px auto 0;
+  font-family: var(--font-eyebrow);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.mnavContact a {
+  padding: 4px 0;
+  color: var(--muted);
+}
+
+
+/* Short landscape phones: slimmer rows and foot, so the list keeps the room. */
+@media (max-height: 520px) {
+  .mnavHead {
+    min-height: 54px;
+  }
+
+  .mnavFoot {
+    padding-top: 10px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mnavCta {
+    min-height: 46px;
+  }
+}
+
+/* Hover colours only where there is a real pointer: on a touch screen :hover
+   sticks to whatever was last tapped, so a row stayed coral after the tap. */
+@media (hover: hover) {
+  .mnavItem:hover,
+  .mnavSub:hover,
+  a.mnavSubHead:hover {
+    color: var(--brand-coral);
+  }
+
+  .mnavChip:hover {
+    border-color: var(--brand-500);
+    background: rgba(255, 84, 54, 0.08);
+    color: var(--text-bright);
+  }
+
+  .mnavContact a:hover {
+    color: var(--text-bright);
   }
 }
 

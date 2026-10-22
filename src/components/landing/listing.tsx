@@ -213,7 +213,7 @@ export default function Listing({
               className={`${styles.caseGrid}${content.itemCtaLabel ? ` ${styles.caseGridRows}` : ""}`}
               aria-live="polite"
             >
-              {shown.map((item) => {
+              {shown.map((item, index) => {
                 if (item.href && content.itemCtaLabel) {
                   return (
                     <article key={item.key} className={`${styles.caseCard} ${styles.caseCardRich}`}>
@@ -234,6 +234,11 @@ export default function Listing({
                             height={item.image.height}
                             sizes="(min-width: 1000px) 40vw, 92vw"
                             className={styles.caseMediaImg}
+                            /* The first studies are on the first screen
+                               (BUG-033): fetch them with the page instead
+                               of after the lazy-load check, so their frames
+                               are not left empty while the rest arrive. */
+                            {...(index < 2 ? { loading: "eager" as const, fetchPriority: "high" as const } : {})}
                           />
                         </SiteLink>
                       )}

@@ -26,6 +26,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { writeBrandImages } from "./brand-images.mjs";
 import sharp from "sharp";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -147,6 +148,7 @@ async function main() {
   // No trailing newline: matches what the other two scripts write, so importing
   // one image does not show up as a whole-file diff.
   fs.writeFileSync(GENERATED, JSON.stringify(generated, null, 2));
+  await writeBrandImages(generated);
 
   const bytes = fs.statSync(outFile).size;
   log(`✓ written (${(bytes / 1024).toFixed(0)} KB) and registered as "${page}/${args.id}"`);

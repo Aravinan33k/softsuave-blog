@@ -25,6 +25,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
+import { HOURLY_RATE, YEARS_PLUS } from '@/lib/company-figures';
 
 export const devops: HireRolePageContent = {
   key: 'hire-devops',
@@ -47,13 +48,15 @@ export const devops: HireRolePageContent = {
   meta: {
     title: 'Hire DevOps Engineers in India | 40-Hour Trial – Soft Suave',
     description:
-      'Hire pre-vetted DevOps engineers for CI/CD, Kubernetes, Docker, AWS & Azure. Onboard in 48 hours with a 40-hour risk-free trial. Rates from $14/hr.',
+      `Hire pre-vetted DevOps engineers for CI/CD, Kubernetes, Docker, AWS & Azure. Onboard in 48 hours with a 40-hour risk-free trial. Rates from ${HOURLY_RATE}.`,
   },
 
   hero: {
     titleLines: ['Hire DevOps Developers', 'from India in 48 hours'],
+    accent: 'DevOps Developers',
     body: [
-      "Soft Suave provides pre-vetted DevOps engineers experienced in CI/CD, Kubernetes, Docker, AWS and Azure, matched to your project within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
+      `Soft Suave provides pre-vetted DevOps engineers experienced in CI/CD, Kubernetes, Docker, AWS and Azure, matched to your project within 48 hours. Every engagement starts with a 40-hour risk-free trial, with rates from ${HOURLY_RATE} and no long-term contract required until you're satisfied.`,
+      'See why businesses choose Soft Suave for their DevOps hiring.',
     ],
     points: [
       '40-Hour Risk-Free Trial',
@@ -62,7 +65,6 @@ export const devops: HireRolePageContent = {
       'Airtight NDA & IP Protection',
       'Strong Delivery Governance from Day One',
     ],
-    badges: ['*Satisfaction Guaranteed – Get 40-hour Free Trial'],
     form: heroForm({
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
@@ -75,10 +77,22 @@ export const devops: HireRolePageContent = {
   overview: {
     eyebrow: 'Overview',
     title: 'Hire Remote DevOps Engineers Within 48 Hours',
+    // Portrait, stretched to the prose column's height (review: "resize the
+    // image to fit the section height") — the 4:3 default sat under a
+    // long column with a gap above it.
+    image: {
+      src: '/images/landing/ov-hire-devops-developers-tall.webp',
+      width: 1000,
+      height: 1250,
+      alt: 'DevOps engineer working in terminals across a laptop and monitor',
+      blurDataURL:
+        'data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADwAQCdASoLABAAA4BaJZwC7ADc90aEZbAA/vV/5uj+ob5IIfrjyjqGP+8PyHKYK0AwLobr2KEmEXtsY08FxV0Ge+JBZAAA',
+      fit: 'column',
+    },
     paragraphs: [
       'Redefine your software delivery & deployment strategy to the next level by hiring our DevOps developers.',
       'Do your development and operational environment need to be automated? Hire Remote DevOps Developers from a leading DevOps development company like us for better integration. Our dedicated developers team would conduct a complete analysis of your business to integrate DevOps automation into your IT ecosystem. For this, we create and follow a detailed roadmap. We have helped many Startups and SMBs to accelerate time-to-market, increase efficiency and add value to their organization with our exceptional services. Our dedicated DevOps engineers (Amazon AWS or Microsoft Azure) focus on controlling the entire software implementation and delivery process to automate hefty workflow activities.',
-      'Our offshore DevOps programmers are delivering successful projects for more than 13+ years which helped them to gain immense knowledge to solve any issue. Since, our developers have hands-on experience working with robust DevOps tools like Gradle, Git, Jenkins, Bamboo, etc., they have the capability to achieve world-class IT service delivery.',
+      `Our offshore DevOps programmers are delivering successful projects for more than ${YEARS_PLUS} years which helped them to gain immense knowledge to solve any issue. Since, our developers have hands-on experience working with robust DevOps tools like Gradle, Git, Jenkins, Bamboo, etc., they have the capability to achieve world-class IT service delivery.`,
       "As an expert DevOps consulting company, we help businesses to realize the full potential of collaborated performance, software quality & delivery speed. Also, our senior DevOps engineers upgrade enterprise Apps, improve IT security, and utilize infrastructure resources with a motive to increase our client's customer satisfaction, retention, and business efficiency.",
     ],
   },
@@ -91,32 +105,32 @@ export const devops: HireRolePageContent = {
       {
         name: 'Enterprise DevOps Solutions',
         body: 'Our offshore DevOps Engineers can effectively manage your entire management tasks through scalable enterprise solutions. Be it performance optimization, release management, new server setup, or change management, we have a solid workflow for continuous delivery and deployment for these tasks.',
-        image: '/images/landing/services/svc-application-development.webp',
+        image: '/images/landing/hr-devops-cap-enterprise.webp',
       },
       {
         name: 'Dedicated DevOps Developers',
         body: 'We help you to minimize the incidents of failures, rollbacks and get strong source control, and elasticity in cloud computing. Also, we attain better scalability and availability of your DevOps infrastructure by executing top cloud platforms like Amazon AWS, Google Cloud, and Microsoft Azure.',
-        image: '/images/landing/services/svc-dedicated-teams.webp',
+        image: '/images/landing/hr-devops-cap-dedicated.webp',
       },
       {
         name: 'DevOps PAAS',
         body: "Implementing a framework to develop, customize and deploy apps for our client's business needs related to API management, seamless integration, strategy execution, and support across multi-cloud environments. Also, our developer's knowledge makes sure continuous DevOps software development services.",
-        image: '/images/landing/services/svc-integration.webp',
+        image: '/images/landing/hr-devops-cap-paas.webp',
       },
       {
         name: 'DevOps Automation',
         body: "Our DevOps specialist's automation services include installing, configuring servers, and establishing communication across different software. Also, we take care of security, testing, operations, integration, and development pipelines to ensure top-class codes and speed up your software operations.",
-        image: '/images/landing/services/svc-support-optimisation.webp',
+        image: '/images/landing/hr-devops-cap-automation.webp',
       },
       {
         name: 'DevOps Consulting Services',
         body: 'Streamline and boost your development process by partnering with our strong consulting team. We have helped many businesses to bring DevOps from designing, assessment, development, overall management, implementation to automation.',
-        image: '/images/landing/services/svc-consulting-discovery.webp',
+        image: '/images/landing/hr-devops-cap-consulting.webp',
       },
       {
         name: 'Configuration & Integration',
         body: 'Our team of skilled programmers offers comprehensive configuration management and integration solutions. We improve your IT structure by utilizing components such as Artifact, source code repository, and continuous CI/CD integration with Jenkins, Azure DevOps Server.',
-        image: '/images/landing/services/svc-security-governance.webp',
+        image: '/images/landing/hr-devops-cap-config.webp',
       },
     ],
   },
@@ -304,7 +318,7 @@ export const devops: HireRolePageContent = {
     items: [
       {
         q: 'How much does it cost to hire a DevOps engineer from Soft Suave?',
-        a: 'Rates start from $14/hour (Junior $14/hr, Mid-level $18/hr, Senior $25/hr) — well below the $60/hour median rate for DevOps engineers on Upwork. Every hire starts with a 40-hour risk-free trial before any monthly commitment.',
+        a: `Rates start from ${HOURLY_RATE} (Junior ${HOURLY_RATE}, Mid-level $18/hour, Senior $25/hour) — well below the $60/hour median rate for DevOps engineers on Upwork. Every hire starts with a 40-hour risk-free trial before any monthly commitment.`,
       },
       {
         q: 'How long does it take to hire a DevOps engineer?',

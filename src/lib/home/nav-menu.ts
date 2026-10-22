@@ -1,3 +1,4 @@
+import { YEARS_PLUS } from "../company-figures";
 /**
  * Mega-menu content for the nav's four divisions.
  *
@@ -263,7 +264,7 @@ const INDUSTRIES: NavMenuPanel = {
         { name: "FinTech", href: "/fintech-ai-solutions" },
         { name: "HealthTech", href: "/ai-solutions-in-healthtech" },
         { name: "EdTech", href: "/ai-solutions-in-edutech" },
-        { name: "eCommerce", href: "/ai-solutions-for-ecommerce" },
+        { name: "E-commerce", href: "/ai-solutions-for-ecommerce" },
         { name: "Logistics", href: "/ai-in-logistics" },
         { name: "Telecom", href: "/ai-solutions-for-telecom" },
       ],
@@ -274,7 +275,7 @@ const INDUSTRIES: NavMenuPanel = {
 const COMPANY: NavMenuPanel = {
   eyebrow: "Company",
   title: "Practical AI, built by a team that ships",
-  body: "13+ years of product development, an AI-first engineering bench, and the recognition to back it up.",
+  body: `${YEARS_PLUS} years of product development, an AI-first engineering bench, and the recognition to back it up.`,
   cta: { label: "Talk to us", href: "#contact" },
   groups: [
     {
@@ -293,17 +294,25 @@ const COMPANY: NavMenuPanel = {
   ],
 };
 
+/**
+ * The blog links (this panel's CTA and its "Blog" item, which the footer's
+ * Resources column also renders) go to the current softsuave.com blog, as is
+ * (13 Oct review: "Link the current blog in the header and footer - no changes
+ * in this link"). This app's own `/blog` has no posts until they are imported.
+ */
+export const CURRENT_BLOG = "https://www.softsuave.com/blog/";
+
 const RESOURCES: NavMenuPanel = {
   eyebrow: "Resources",
   title: "Field notes from building AI systems",
   body: "Engineering write-ups, delivery playbooks and the case studies behind them.",
-  cta: { label: "Read the blog", href: "/blog" },
+  cta: { label: "Read the blog", href: CURRENT_BLOG },
   groups: [
     {
       key: "resources",
       name: "Resources",
       items: [
-        { name: "Blog", href: "/blog" },
+        { name: "Blog", href: CURRENT_BLOG },
         { name: "Case Studies", href: "/case-studies" },
       ],
     },

@@ -44,6 +44,7 @@ import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
 import { overviewImage } from "./overview-images";
 import { sharedHeroAlert } from "./delivery-shared";
+import { SPECIALISTS_PLUS } from "@/lib/company-figures";
 
 export const sdMeta = {
   slug: "software-development-company",
@@ -61,13 +62,15 @@ export const sdMeta = {
 
 export const sdHero: HeroContent = {
   // The H1, split so the last line takes the coral accent.
+  // 8 Oct review: "highlight 'Software Development' in the H1".
   titleLines: ["Software Development", "Company"],
+  accent: "Software Development",
   body: [
     "Unleash creativity and power up your enterprise with Soft Suave, a leading software development company. Ramp up your project with cutting-edge technology and unmatched expertise.",
   ],
   // The three claims the live hero prints beside its headline.
   points: [
-    "400+ AI-powered experts",
+    `${SPECIALISTS_PLUS} AI-powered experts`,
     "Risk-free 40-hour trial",
     "Agile methodology for rapid results",
   ],
@@ -103,7 +106,7 @@ export const sdHero: HeroContent = {
 export const sdServices: ServicesCarouselContent = {
   eyebrow: "Our Services",
   title: "Our Software Development Services",
-  body: "Experience unparalleled quality with Soft Suave. Our expert team of 400+ developers is ready to transform your ideas into custom software solutions using cutting-edge technology.",
+  body: `Experience unparalleled quality with Soft Suave. Our expert team of ${SPECIALISTS_PLUS} developers is ready to transform your ideas into custom software solutions using cutting-edge technology.`,
   items: [
     {
       name: "Mobile App Development Service",
@@ -139,6 +142,10 @@ export const sdServices: ServicesCarouselContent = {
     },
     {
       name: "AI Development Service",
+      // Named rather than matched: the name alone resolves to
+      // /ai-development-service (8 Oct review: "replace the link to this
+      // page - /custom-ai-development-services").
+      href: "/custom-ai-development-services",
       body: "Soft Suave builds intelligent AI solutions for businesses. Our AI models enhance automation, decision-making, and digital transformation. We develop custom AI applications tailored to industry-specific needs.",
       image: {
         src: "/images/landing/software-development/svc-ai.webp",
@@ -181,7 +188,7 @@ export const sdWhyUs: OverviewContent = {
   pointIcons: ["piggy", "users", "workflow", "award", "rocket", "globe"],
   points: [
     "Budget-friendly solutions",
-    "400+ Expert programmers",
+    `${SPECIALISTS_PLUS} Expert programmers`,
     "Agile workflows",
     "40-hour free trial",
     "Quick team setup",
@@ -279,6 +286,10 @@ export const sdIndustries: CardGridContent = {
     },
     {
       name: "Blockchain Software Development Service",
+      // Its name matches /hire-blockchain-developer, a hiring page rather than
+      // an industry one (8 Oct review: "remove the link from the blockchain
+      // development service card").
+      link: false,
       body: "Leverage the power of blockchain with our custom blockchain development service. We build secure, transparent, and decentralized applications that disrupt traditional industries like finance, finance, healthcare, logistics, and so on.",
     },
     {

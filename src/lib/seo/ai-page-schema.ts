@@ -1,3 +1,4 @@
+import { FIGURES, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 /**
  * Structured data for the AI service pages, transcribed from the approved SEO
  * specification (the "Schemas" block each page carries in the content doc).
@@ -268,7 +269,7 @@ export const aiPageSchemas = {
                 "name": "Why work with a custom AI development company in India?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "India gives you access to a deep AI engineering talent pool at 40–60% below equivalent US or EU rates, which is why a large share of global AI delivery runs from here. We work from development centres in Chennai and Bangalore with a US office, maintain a 4–6 hour overlap with US and EU teams, and have delivered software for global clients for over 13 years. Engagement terms, security controls, and delivery milestones are agreed in writing before work starts."
+                    "text": `India gives you access to a deep AI engineering talent pool at 40–60% below equivalent US or EU rates, which is why a large share of global AI delivery runs from here. We work from development centres in Chennai and Bangalore with a US office, maintain a 4–6 hour overlap with US and EU teams, and have delivered software for global clients for over ${FIGURES.years} years. Engagement terms, security controls, and delivery milestones are agreed in writing before work starts.`
                 }
             },
             {
@@ -477,7 +478,7 @@ export const aiPageSchemas = {
         "@id": "https://www.softsuave.com/generative-ai-development-company#webpage",
         "url": "https://www.softsuave.com/generative-ai-development-company",
         "name": "Generative AI Development Company | Soft Suave",
-        "description": "Choose Soft Suave, a generative AI development company with 13+ years of experience and 400+ AI experts, for secure, production-ready solutions.",
+        "description": `Choose Soft Suave, a generative AI development company with ${YEARS_PLUS} years of experience and ${SPECIALISTS_PLUS} AI experts, for secure, production-ready solutions.`,
         "inLanguage": "en",
         "dateModified": "2026-09-15",
         "primaryImageOfPage": {
@@ -675,7 +676,7 @@ export const aiPageSchemas = {
         "@id": "https://www.softsuave.com/agentic-ai-development-services#webpage",
         "url": "https://www.softsuave.com/agentic-ai-development-services",
         "name": "Agentic AI Development Services | Soft Suave",
-        "description": "Transform complex workflows with our agentic AI development services backed by 13+ years of expertise and 400+ AI & engineering specialists.",
+        "description": `Transform complex workflows with our agentic AI development services backed by ${YEARS_PLUS} years of expertise and ${SPECIALISTS_PLUS} AI & engineering specialists.`,
         "inLanguage": "en",
         "dateModified": "2026-09-15",
         "primaryImageOfPage": {

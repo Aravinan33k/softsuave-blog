@@ -33,6 +33,7 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { StoryCardsContent } from "@/components/common/story-cards";
 import type { FaqContent } from "@/components/landing/faq";
 import { sharedHeroAlert } from "./delivery-shared";
+import { CLIENTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const iosMeta = {
   slug: "ios-application-development-company",
@@ -48,8 +49,12 @@ export const iosMeta = {
 } as const;
 
 export const iosHero: HeroContent = {
-  // The H1, split so the last line takes the coral accent.
+  // The H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["iOS App", "Development Services"],
+  accent: "iOS",
   body: [
     "As a top-tier iOS app development company in India, Soft Suave has successfully delivered over 120+ iOS apps. Our iOS developers specialize in using Swift and SwiftUI to build robust and scalable applications for all iOS devices. Whether you need an MVP or a custom application, we offer complete end-to-end iOS app development services to fulfill your requirements.",
   ],
@@ -74,14 +79,19 @@ export const iosHero: HeroContent = {
       "The app you have in mind, the Apple platforms it must run on, whether this is an MVP or a full build, and any existing app or designs you already hold.",
     subject: "iOS App Development enquiry",
   },
-  // Replaces a generic Android-phone/social-media stock photo (review: "update
-  // the image") with a Pexels frame generated via content/images.manifest.json
-  // (id: ios-hero, page: landing) — see images.generated.json for credit.
+  // An iPhone on its iOS home screen, held in front of a bright laptop (30 Sep
+  // review: "update the hero background image with more suited one"). The
+  // previous frame, a dark stopwatch close-up, all but vanished under the
+  // hero's veil; this one is bright and puts the phone in the gap between the
+  // copy and the form, and its screen shows only Apple's own apps. Pexels
+  // #887751, pinned in content/images.manifest.json (id: ios-hero-iphone).
   image: {
-    src: "/images/landing/ios-hero.webp",
+    src: "/images/landing/ios-hero-iphone.webp",
     width: 1920,
     height: 1200,
-    alt: "A person holding an iPhone with an app open on the screen",
+    alt: "A hand holding an iPhone showing the iOS home screen in front of a laptop",
+    blurDataURL:
+      "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoQAAsAA4BaJYwAAujEgm1HAAD+9kpOpuEFD7/S/H8pfGIjkJDwlQBGQzHT9PjgD6PsqxLEd1vuiDmJw+Ffa4Zn3EnfwAAA",
   },
 };
 
@@ -94,7 +104,7 @@ export const iosHero: HeroContent = {
 export const iosServices: SpringboardContent = {
   eyebrow: "Services",
   title: "iOS Application Development Services We Offer",
-  body: "SoftSuave's team of iPhone app experts uses the latest tools to build awesome iPhone apps. Here are the iPhone app development services we offer:",
+  body: "Soft Suave's team of iPhone app experts uses the latest tools to build awesome iPhone apps. Here are the iPhone app development services we offer:",
   items: [
     {
       name: "Custom iOS App Development",
@@ -167,8 +177,8 @@ export const iosLaunchCta: CtaBandContent = {
   cta: { label: "Talk to an iOS expert", href: "/contact" },
   stats: [
     { figure: "1250+", label: "Projects" },
-    { figure: "13+", label: "Year of Experience" },
-    { figure: "150+", label: "Clients Globally" },
+    { figure: `${YEARS_PLUS}`, label: "Year of Experience" },
+    { figure: `${CLIENTS_PLUS}`, label: "Clients Globally" },
   ],
 };
 
@@ -238,6 +248,13 @@ export const iosDevelopersCta: CtaBandContent = {
   cta: { label: "Hire iOS Developer", href: "/hire-ios-developers" },
 };
 
+/**
+ * Each story's image shows the app it describes, on an iPhone (review: "update
+ * the Success Stories images with most relevant ones"): a patient video-calling
+ * a doctor, a shopping app, and a progress-stages screen for the job tracker.
+ * Pexels photos pinned in content/images.manifest.json (ios-story-telehealth,
+ * ios-story-shopping-app, ios-story-job-tracking).
+ */
 export const iosStories: StoryCardsContent = {
   eyebrow: "Success Stories",
   title: "Success Stories",
@@ -248,17 +265,17 @@ export const iosStories: StoryCardsContent = {
       name: "Cloud-based Secured Communication App for Patient Care",
       body: "Soft Suave developed a cross-platform healthcare app that simplifies doctor-patient communication and helps during emergency situations. The app made Professionals and patients interact online using the latest technology, offering quality, safety, and reliability.",
       image: {
-        src: "/images/landing/ios-story-healthcare.webp",
-        alt: "A healthcare professional using a mobile app on a smartphone",
+        src: "/images/landing/ios-story-telehealth.webp",
+        alt: "A patient on a video call with a doctor from his iPhone",
       },
     },
     {
-      industry: "eCommerce",
-      name: "Personalized One-Stop Solution for eCommerce Industry",
-      body: "Soft Suave created an app to satisfy multiple needs to seamlessly give effective eCommerce solutions to customers. Specifically, the client wanted mobile applications that would enable customers to make fast decisions and lead them to make a purchase.",
+      industry: "E-commerce",
+      name: "Personalized One-Stop Solution for E-commerce Industry",
+      body: "Soft Suave created an app to satisfy multiple needs to seamlessly give effective e-commerce solutions to customers. Specifically, the client wanted mobile applications that would enable customers to make fast decisions and lead them to make a purchase.",
       image: {
-        src: "/images/landing/ios-story-ecommerce.webp",
-        alt: "A person shopping online with a smartphone and shopping bags",
+        src: "/images/landing/ios-story-shopping-app.webp",
+        alt: "Hands browsing new clothing in a shopping app on an iPhone",
       },
     },
     {
@@ -266,8 +283,8 @@ export const iosStories: StoryCardsContent = {
       name: "Effective Tool to track the Jobs or Projects for the Customers",
       body: "A standout job tracking solution app made by Soft Suave to ease the complex processes, for the customers to use and track the individual projects and Jobs more flexibly.",
       image: {
-        src: "/images/landing/ios-story-consulting.webp",
-        alt: "A consultant reviewing project and job tracking data on a laptop",
+        src: "/images/landing/ios-story-job-tracking.webp",
+        alt: "Hands holding an iPhone that shows a project's progress stages",
       },
     },
   ],

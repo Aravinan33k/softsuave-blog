@@ -29,6 +29,15 @@ const GTM_CONNECT = [
   'https://*.g.doubleclick.net',
 ];
 const gtmOn = Boolean(gtmContainerId);
+
+// `upgrade-insecure-requests` makes the browser fetch every asset over https —
+// right for the real site, fatal on a plain-http deployment (a bare server IP),
+// where each CSS/JS/font request is rewritten to a port nothing answers and the
+// page never finishes loading. So it follows the site URL's scheme (same default
+// as env.ts).
+const siteIsHttps = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.softsuave.com').startsWith(
+  'https://',
+);
 const extra = (on: boolean, origins: string[]) => (on ? ` ${origins.join(' ')}` : '');
 
 const csp = [
@@ -43,7 +52,7 @@ const csp = [
   "font-src 'self' data:",
   `connect-src 'self'${extra(gtmOn, GTM_CONNECT)}`,
   ...(gtmOn ? [`frame-src 'self' ${GTM_SCRIPT[0]}`] : []),
-  'upgrade-insecure-requests',
+  ...(siteIsHttps ? ['upgrade-insecure-requests'] : []),
 ].join('; ');
 
 const securityHeaders = [
@@ -51,7 +60,9 @@ const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+  // `microphone=(self)`: the chat widget's mic and voice chat record on this
+  // origin only (components/chatbot/voice.ts); no embedded frame may.
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(self), geolocation=()' },
   // noindex, nofollow on EVERY response — pages, feeds, images, files — until
   // the site is opened to search engines (`siteIndexable`, lib/flags.ts). A
   // header, not just the robots meta, because it covers non-HTML responses too
@@ -97,9 +108,21 @@ const securityHeaders = [
 const buildCpus = Number(process.env.NEXT_BUILD_CPUS) || 2;
 
 const nextConfig: NextConfig = {
-  experimental: { cpus: buildCpus },
+  experimental: {
+    cpus: buildCpus,
+    // Group CSS by which routes actually import it. The default merge put the
+    // landing, Generative AI, home-v2 and contact modules into chunks every
+    // marketing page loaded — ~94 KB gzipped of render-blocking CSS on each,
+    // half of it unused, ahead of the first paint on a phone (PageSpeed, 15 Oct).
+    cssChunking: 'graph',
+  },
   reactStrictMode: true,
   poweredByHeader: false,
+  // `next dev` serves its scripts, fonts and live-reload only to localhost. An
+  // ngrok tunnel (`ngrok http 3100`, for showing work to the team) is another
+  // origin, so without this the page arrives with no JavaScript. Dev only;
+  // the wildcard covers the new subdomain each free ngrok session gets.
+  allowedDevOrigins: ['*.ngrok-free.app'],
   // Pin the workspace root. Turbopack otherwise walks up looking for one and
   // latches onto whatever stray package.json lives in the user's home directory
   // — it warns and ignores it, but leaving the root ambiguous means file

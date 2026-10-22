@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { aiPageJsonLd, softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import {
   meta,
@@ -67,7 +67,7 @@ export const revalidate = 300;
  * WebPage `primaryImageOfPage` and the og:image are one file.
  */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/agentic-ai-development-services-og.webp'),
+  url: ogImageUrl('/assets/images/agentic-ai-development-services-og.webp'),
   width: 1200,
   height: 630,
   alt: 'Agentic AI Development Services by Soft Suave',
@@ -128,12 +128,18 @@ export default function AgenticAiDevelopmentServicesPage() {
         {/* Every service on screen at once, each card wearing its own
             artwork in its top corner — the GCC page's feature card. */}
         <ServicesGrid content={servicesContent} />
-        <Industries content={applicationsContent} id="applications" />
+        {/* Light, not dark (1 Oct review: "black colour sections are more on
+            this page"): services, applications and the CTA band ran ~3,300px
+            of unbroken black. The page now alternates dark / light / dark
+            through this stretch. */}
+        <div className={styles.light}>
+          <Industries content={applicationsContent} id="applications" />
+        </div>
         <CtaBand content={midCtaContent} />
 
         <div className={styles.light}>
           <Process content={processContent} />
-          <Industries content={industriesContent} id="industries" links={false} />
+          <Industries content={industriesContent} id="industries" cardLinks />
         </div>
 
         <WhyUs content={whyUsContent} />

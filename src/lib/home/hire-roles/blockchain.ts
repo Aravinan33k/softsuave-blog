@@ -26,6 +26,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm, onboardingComparison } from './shared';
+import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const blockchain: HireRolePageContent = {
   key: 'hire-blockchain',
@@ -54,9 +55,17 @@ export const blockchain: HireRolePageContent = {
 
   hero: {
     titleLines: ['Hire Blockchain Developers', 'from India'],
+    accent: 'Blockchain Developers',
+    // A full-bleed backdrop (review: "No image is in the hero section").
+    background: {
+      src: '/images/landing/hire-blockchain-hero.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoQAAkAA4BaJaQAAueJX19kAP73u7YuO/Sa07+XZ4AAAA==',
+      veil: 'strong',
+    },
     body: [
       'Soft Suave provides pre-vetted blockchain developers skilled in Ethereum, Solidity, smart contracts, and DeFi/Web3 development, matched to your project within 48 hours.',
-      "Every engagement starts with a 40-hour risk-free trial, with rates from $14/hour and no long-term contract required until you're satisfied.",
+      `Every engagement starts with a 40-hour risk-free trial, with rates from ${HOURLY_RATE} and no long-term contract required until you're satisfied.`,
       'See why businesses choose Soft Suave for their blockchain hiring.',
     ],
     points: [
@@ -72,6 +81,8 @@ export const blockchain: HireRolePageContent = {
       requirementPlaceholder:
         'The chain and contracts involved, what the system has to do, audit or compliance needs, and when you need to start.',
       subject: 'Blockchain developer hiring enquiry',
+      // Review: "remove the additional heading from the form".
+      noEyebrow: true,
     }),
   },
 
@@ -142,6 +153,11 @@ export const blockchain: HireRolePageContent = {
   },
 
   capabilities: {
+    // Review: "Remove the links from the service cards".
+    links: false,
+    // Live closes this band on "Talk to Our Experts" (review: "missing a CTA
+    // button").
+    cta: { label: 'Talk to Our Experts', href: '/contact' },
     eyebrow: 'What We Do',
     title: 'Blockchain Development Services We Offer',
     body: 'Our blockchain services span industries, offering tailored solutions for every project. Hire remote blockchain developers, ensuring a perfect fit for all your development needs.',
@@ -301,7 +317,7 @@ export const blockchain: HireRolePageContent = {
     items: [
       {
         q: 'How much does it cost to hire a Blockchain developer?',
-        a: 'Cost starts at $14/hour depending on project scope and developer expertise — well below the $40/hour median rate for blockchain developers on Upwork ($30–$59/hr typical range). For a quote customized to your requirements, get in touch with us.',
+        a: `Cost starts at ${HOURLY_RATE} depending on project scope and developer expertise — well below the $40/hour median rate for blockchain developers on Upwork ($30–$59/hr typical range). For a quote customized to your requirements, get in touch with us.`,
       },
       {
         q: 'Is there any free trial period available?',

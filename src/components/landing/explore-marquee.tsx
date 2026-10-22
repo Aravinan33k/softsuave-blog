@@ -31,6 +31,28 @@ import styles from "./landing.module.css";
  * both rows, because a row of display serif is wide enough to loop from seven
  * or eight words.
  */
+/**
+ * Chips a row needs before `Marquee` will loop it. The marquee only scrolls a
+ * row whose single copy is wider than the strip, and the mobile roster splits
+ * into rows of five and four, which fit a desktop strip — so those rows sat
+ * still while the web rows scrolled (review: "the tech stack section is not
+ * scrolling"). A short row is therefore repeated up to this many chips; ten
+ * display-serif words overflow even a wide desktop strip.
+ */
+const MIN_ROW_CHIPS = 10;
+
+/**
+ * `row` repeated until it holds at least `MIN_ROW_CHIPS`, with every repeat
+ * flagged so it can be hidden from assistive tech and the tab order — the first
+ * pass stays the one real link per technology.
+ */
+function fillRow<T>(row: readonly T[]): { item: T; repeat: boolean }[] {
+  if (row.length === 0) return [];
+  const out = row.map((item) => ({ item, repeat: false }));
+  while (out.length < MIN_ROW_CHIPS) out.push(...row.map((item) => ({ item, repeat: true })));
+  return out;
+}
+
 export default function ExploreMarquee({
   content,
   id = "explore",
@@ -48,15 +70,22 @@ export default function ExploreMarquee({
   const bottom = items.slice(split);
 
   const chip = (
-    item: CardGridContent["items"][number],
+    { item, repeat }: { item: CardGridContent["items"][number]; repeat: boolean },
     className: string,
+    i: number,
   ) =>
     item.href ? (
-      <SiteLink key={item.name} href={item.href} className={className}>
+      <SiteLink
+        key={`${item.name}-${i}`}
+        href={item.href}
+        className={className}
+        aria-hidden={repeat || undefined}
+        tabIndex={repeat ? -1 : undefined}
+      >
         {item.name}
       </SiteLink>
     ) : (
-      <span key={item.name} className={className}>
+      <span key={`${item.name}-${i}`} className={className} aria-hidden={repeat || undefined}>
         {item.name}
       </span>
     );
@@ -68,10 +97,12 @@ export default function ExploreMarquee({
       </div>
 
       <FadeUp className={styles.exploreRows}>
-        <Marquee speed={26}>{top.map((item) => chip(item, styles.exploreChip))}</Marquee>
+        <Marquee speed={26}>
+          {fillRow(top).map((c, i) => chip(c, styles.exploreChip, i))}
+        </Marquee>
         {bottom.length > 0 && (
           <Marquee speed={22} reverse>
-            {bottom.map((item) => chip(item, styles.exploreChipGhost))}
+            {fillRow(bottom).map((c, i) => chip(c, styles.exploreChipGhost, i))}
           </Marquee>
         )}
       </FadeUp>

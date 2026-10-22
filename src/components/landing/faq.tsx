@@ -4,6 +4,7 @@ import { Fragment, useState } from "react";
 import FadeUp from "@/components/home/fade-up";
 import SectionHead from "./section-head";
 import { linkify, type InlineLink } from "@/components/common/linkify";
+import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./landing.module.css";
 
 export interface FaqAnswerLink {
@@ -24,6 +25,13 @@ export interface FaqItem {
    * paragraphs follow underneath as the closing remark.
    */
   readonly points?: readonly string[];
+  /**
+   * Which paragraph (0-based) the list follows, for an answer that runs two
+   * lines of introduction before it ("…you can get in touch with us." / "You
+   * should also check the below factors:"). Defaults to 0. An answer that is
+   * nothing but the list passes an empty `a`.
+   */
+  readonly pointsAfter?: number;
   /** Closes the last paragraph with a link, for answers that point somewhere. */
   readonly link?: FaqAnswerLink;
 }
@@ -103,6 +111,18 @@ export default function Faq({
                     role="region"
                     aria-labelledby={`${idPrefix}-trigger-${i}`}
                   >
+                    {/* An answer that is only a list has no paragraph to hang it from. */}
+                    {(typeof item.a === "string" ? [item.a] : item.a).length === 0 &&
+                      item.points &&
+                      item.points.length > 0 && (
+                        <ul className={styles.tickList}>
+                          {item.points.map((point) => (
+                            <li key={point} className={styles.tickItem}>
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     {(typeof item.a === "string" ? [item.a] : item.a).map((para, pi, all) => (
                       <Fragment key={pi}>
                         <p className={styles.faqAnswer}>
@@ -110,21 +130,31 @@ export default function Faq({
                           {pi === all.length - 1 && item.link ? (
                             <>
                               {" "}
-                              <a
-                                className={styles.faqAnswerLink}
-                                href={item.link.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {item.link.label}
-                              </a>
+                              {/* A page of ours opens in place (SiteLink routes
+                                  it in-app, or out to softsuave.com if we do
+                                  not serve it); only a full URL to another
+                                  site opens a new tab. */}
+                              {/^https?:\/\//.test(item.link.href) ? (
+                                <a
+                                  className={styles.faqAnswerLink}
+                                  href={item.link.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {item.link.label}
+                                </a>
+                              ) : (
+                                <SiteLink className={styles.faqAnswerLink} href={item.link.href}>
+                                  {item.link.label}
+                                </SiteLink>
+                              )}
                               {item.link.tail ? ` ${item.link.tail}` : "."}
                             </>
                           ) : null}
                         </p>
-                        {/* Slots in after the opening line, which is the one
-                            that introduces the list. */}
-                        {pi === 0 && item.points && item.points.length > 0 && (
+                        {/* Slots in after the line that introduces the list —
+                            the opening one unless `pointsAfter` says otherwise. */}
+                        {pi === (item.pointsAfter ?? 0) && item.points && item.points.length > 0 && (
                           <ul className={styles.tickList}>
                             {item.points.map((point) => (
                               <li key={point} className={styles.tickItem}>

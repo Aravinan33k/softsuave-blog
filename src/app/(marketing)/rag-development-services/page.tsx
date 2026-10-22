@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { aiPageJsonLd, softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import {
   ragComparison,
@@ -69,7 +69,7 @@ export const revalidate = 300;
  * WebPage `primaryImageOfPage` and the og:image are one file.
  */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/rag-development-services-og.webp'),
+  url: ogImageUrl('/assets/images/rag-development-services-og.webp'),
   width: 1200,
   height: 630,
   alt: 'RAG Development Services and Document AI Solutions by Soft Suave',
@@ -140,10 +140,10 @@ export default function RagDocumentAiServicePage() {
           <Clients />
         </div>
 
-        {/* Four paragraphs of definition — clipped to the first few lines
-            behind "View more" so the illustration and pull quote stay in
-            reach without the reader scrolling past a wall of prose. */}
-        <Overview content={ragOverview} variant="compact" clampLines={6} />
+        {/* All four paragraphs shown in full: the "View more / View less"
+            clamp is gone (1 Oct review: "remove the View More and View Less
+            options in this section"). */}
+        <Overview content={ragOverview} variant="compact" />
 
         <div className={home.light}>
           {/* Every service on screen at once, each card wearing its own
@@ -151,8 +151,10 @@ export default function RagDocumentAiServicePage() {
           <ServicesGrid content={ragServices} />
         </div>
 
-        {/* Same bordered card grid as Industries, filled with use cases. */}
-        <Industries content={ragUseCases} id="use-cases" />
+        {/* Same bordered card grid as Industries, filled with use cases —
+            three across (1 Oct review: "we can try 3x2 alignments"), so the
+            five cards sit 3 + 2 instead of 4 + 1. */}
+        <Industries content={ragUseCases} id="use-cases" columns={3} />
 
         <div className={home.light}>
           <CtaBand content={ragProjectCta} />
@@ -174,9 +176,13 @@ export default function RagDocumentAiServicePage() {
         </div>
 
         {/* Dark, as on the homepage and the generative-AI page. `.techCompact`
-            only clears the homepage's full-viewport min-height. */}
+            only clears the homepage's full-viewport min-height.
+            `loopShortRows`: rows of five (Evaluation & Monitoring,
+            Infrastructure) fit a wide screen and held still while the longer
+            rows scrolled (7 Oct review: "the technologies under 'Evaluation &
+            Monitoring' are not scrolling"). */}
         <div className={home.techCompact}>
-          <TechStack content={ragTech} />
+          <TechStack content={ragTech} loopShortRows />
         </div>
 
         {/* Homepage client stories, on the warm-white band as they are there. */}

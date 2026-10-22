@@ -1,4 +1,5 @@
 import 'server-only';
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 /**
  * Service, WebPage and FAQPage JSON-LD for `/nextjs-development-company`,
@@ -95,7 +96,7 @@ export const nxWebPageLd = {
   "@id": "https://www.softsuave.com/nextjs-development-company#webpage",
   "url": "https://www.softsuave.com/nextjs-development-company",
   "name": "Next.js Development Company for Modern Web Apps | Soft Suave",
-  "description": "Build and improve React-based web products with a Next.js development company backed by 13+ years of technology expertise. Plan your project with Soft Suave.",
+  "description": `Build and improve React-based web products with a Next.js development company backed by ${YEARS_PLUS} years of technology expertise. Plan your project with Soft Suave.`,
   "inLanguage": "en",
   "dateModified": "2026-09-15",
   "primaryImageOfPage": {

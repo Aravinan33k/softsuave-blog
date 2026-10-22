@@ -15,6 +15,7 @@
 
 import type { ComparisonContent } from '@/components/generative-ai/comparison';
 import type { HeroContent } from '@/components/generative-ai/hero';
+import { HOURLY_RATE } from '@/lib/company-figures';
 
 /**
  * The hero's enquiry form.
@@ -33,9 +34,15 @@ export function heroForm(args: {
   readonly requirementPlaceholder: string;
   /** Mail subject, e.g. "Backend developer hiring enquiry". */
   readonly subject: string;
+  /**
+   * Drop the "40-Hour Risk-Free Trial" line above the form title, for the
+   * pages reviewed with the hire-by-skill set (review: "remove the additional
+   * heading from the form").
+   */
+  readonly noEyebrow?: boolean;
 }): HeroContent['form'] {
   return {
-    eyebrow: '40-Hour Risk-Free Trial',
+    eyebrow: args.noEyebrow ? undefined : '40-Hour Risk-Free Trial',
     title: args.title,
     // An H2 on every live role page, so part of the page outline here too.
     titleAs: 'h2',
@@ -202,7 +209,7 @@ export function rateTiers(args: {
     body: args.body,
     columns: ['Tier', 'Hourly Rate', 'Experience'],
     rows: [
-      { criterion: 'Junior Developer', values: ['Starts from $14/hour', '0–2 years'] },
+      { criterion: 'Junior Developer', values: [`Starts from ${HOURLY_RATE}`, '0–2 years'] },
       { criterion: 'Mid-Level Developer', values: ['Starts from $18/hour', '2–5 years'] },
       { criterion: 'Senior Developer', values: ['Starts from $25/hour', '5+ years'] },
     ],

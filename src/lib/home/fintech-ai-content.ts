@@ -19,8 +19,9 @@
  *   "What Our Clients Say About Us"                     → homepage `Testimonials`
  *   "Frequently Asked Questions"                        → `fintechFaqs` (8)
  *
- * The copy is the live page's own, verbatim, eyebrows included. The live page
- * runs no client logo strip, so this page has none.
+ * The copy is the live page's own, verbatim, eyebrows included. The live
+ * page's client strip ("Preferred Technology Partner for World-Class
+ * Enterprises Globally") runs under the hero, as the route renders it.
  */
 
 import type { HeroContent } from "@/components/landing/hero";
@@ -31,6 +32,7 @@ import type { ProcessContent } from "@/components/landing/process";
 import type { FaqContent } from "@/components/landing/faq";
 import type { ProblemsContent } from "@/components/generative-ai/problems";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
+import type { CtaBandContent } from "@/components/landing/cta-band";
 import { industryHeroBadges, industryEnquiryForm } from "./industry-shared";
 import { overviewImage } from "./overview-images";
 
@@ -45,6 +47,9 @@ export const fintechMeta = {
 
 export const fintechHero: HeroContent = {
   titleLines: ["Fintech AI Development Services", "to Power Digital Innovation"],
+  // 13 Oct review: the industry name is the highlighted phrase in the H1
+  // ("eg for Ecommerce page - ecommerce in H1 must be highlighted").
+  accent: "Fintech",
   body: [
     "Unlock smarter financial products through AI that works on your own data. We build credit scoring, fraud detection, and customer-facing assistants that run inside your existing core banking, payments, and compliance stack rather than alongside it.",
     "Every model ships with the monitoring, audit trail, and regulatory reporting a financial institution has to be able to show — because in this sector an accurate model you cannot evidence is not a shippable model.",
@@ -64,18 +69,25 @@ export const fintechHero: HeroContent = {
       "The decision or workflow you want to automate, the core systems it has to talk to, your data volumes, and the regulations you operate under.",
     subject: "FinTech AI solutions enquiry",
   }),
+  // The live page's own hero artwork (13 Oct review: "use the existing images
+  // from the respective pages for the hero"), under the strong veil ("increase
+  // the black gradient in the hero section to make the text more readable").
   image: {
-    src: "/images/four/ind-fintech-hero.webp",
-    width: 1200,
-    height: 860,
-    alt: "Financial analysts reviewing AI-driven risk and transaction data on trading screens",
+    src: "/images/industries/fintech/hero.webp",
+    width: 1920,
+    height: 873,
+    alt: "A glowing digital bank icon over a circuit-board floor",
+    blurDataURL:
+      "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAACwAQCdASoQAAcAA4BaJQBOgB6PpFCwAP75GHJ/I1tKwt0MpsSf+vFMDLLLzsNtY4AAAA==",
+    veil: "strong",
   },
 };
 
 /**
  * The live page's ten solution blocks, each a title, a line and an image: the
- * title selects, its line fills the panel. The live illustrations are not in
- * this repo, so each panel wears one of the fintech photographs already here.
+ * title selects, its line fills the panel. Each panel wears the live page's
+ * own illustration for that solution, in its order (13 Oct review: "use the
+ * existing images from the respective pages ... wherever possible").
  */
 export const fintechSolutions: ProblemsContent = {
   eyebrow: "AI Solutions",
@@ -87,61 +99,61 @@ export const fintechSolutions: ProblemsContent = {
       problem: "Intelligent Credit Risk & Underwriting Frameworks",
       solution:
         "AI-driven credit scoring and underwriting accelerate approvals while reducing defaults and bias across portfolios.",
-      image: "/images/four/fintech-step-1.webp",
+      image: "/images/industries/fintech/solution-1.webp",
     },
     {
       problem: "Real-Time Fraud Detection & Transaction Monitoring Engines",
       solution:
         "Monitor every transaction in real time, flag anomalies instantly, and stop fraud before it impacts customers.",
-      image: "/images/four/fintech-step-6.webp",
+      image: "/images/industries/fintech/solution-2.webp",
     },
     {
       problem: "Conversational AI & Virtual Financial Assistants",
       solution:
         "Deliver 24/7 intelligent support with AI assistants that answer, assist, and guide customers across channels.",
-      image: "/images/four/fintech-step-2.webp",
+      image: "/images/industries/fintech/solution-3.webp",
     },
     {
       problem: "Personalized Financial Product Recommendation Platforms",
       solution:
         "Analyze behavior and goals to recommend tailored financial products, boosting conversions and long-term customer loyalty.",
-      image: "/images/four/ind-fintech.webp",
+      image: "/images/industries/fintech/solution-4.webp",
     },
     {
       problem: "Algorithmic Trading & Portfolio Optimization Suites",
       solution:
         "Leverage AI strategies that react to markets instantly, optimizing portfolios for returns and controlled risk.",
-      image: "/images/four/sec-hero-fintech.webp",
+      image: "/images/industries/fintech/solution-5.webp",
     },
     {
       problem: "Big Data Analytics & Financial Insight Dashboards",
       solution:
         "Turn complex financial data into real-time visual dashboards, empowering faster, smarter decision-making organization-wide.",
-      image: "/images/four/fintech-step-5.webp",
+      image: "/images/industries/fintech/solution-6.webp",
     },
     {
       problem: "AI-Powered Compliance & Regulatory Automation (RegTech)",
       solution:
         "Automate monitoring, reporting, and alerts to stay aligned with evolving regulations and audit requirements.",
-      image: "/images/four/fintech-step-4.webp",
+      image: "/images/industries/fintech/solution-7.webp",
     },
     {
       problem: "Robotic Process Automation (RPA) with Intelligent Augmentation",
       solution:
         "Combine bots and AI to automate document-heavy workflows, reducing errors and freeing teams for strategic tasks.",
-      image: "/images/four/fintech-step-3.webp",
+      image: "/images/industries/fintech/solution-8.webp",
     },
     {
       problem: "Smart Risk Management & Predictive Stress-Testing Systems",
       solution:
         "Simulate scenarios, forecast risks, and stress-test portfolios using predictive models for resilient financial planning.",
-      image: "/images/four/sec-hero-fintech.webp",
+      image: "/images/industries/fintech/solution-9.webp",
     },
     {
       problem: "Embedded Finance & Smart Payment Platforms",
       solution:
         "Embed secure, intelligent payments into any journey, enabling smoother checkouts and contextual financial experiences.",
-      image: "/images/four/ind-fintech.webp",
+      image: "/images/industries/fintech/solution-10.webp",
     },
   ],
 };
@@ -423,33 +435,70 @@ export const fintechSuccessStories: WorkCarouselContent = {
     // of every consultation CTA.
     cta: { label: "Request a Consultation", href: "/contact" },
   },
+  // Each card wears the live page's own artwork for that story (13 Oct
+  // review: "update the case study images same as the old page").
   items: [
     {
       title: "Integrating Financial and Healthcare Services in One Platform A Health Subscription Success Story",
+      image: {
+        src: "/images/industries/fintech/case-1.webp",
+        alt: "A banker and a client reviewing financial and health subscription plans at a desk",
+      },
       tag: "Health Subscription",
       body: "Seamless Integration of Health & Banking Services · Flexible Subscription Plans for Individuals & Families · Comprehensive Health Benefits with Personalized Care Options · Secure Payment & Easy Member Management · Enhanced User Convenience & Financial Control",
     },
     {
       title: "Automating Fund Management for Smarter Corporate Banking: A Financial Management Success Story",
+      image: {
+        src: "/images/industries/fintech/case-2.webp",
+        alt: "A finance team reviewing automated fund-management dashboards",
+      },
       tag: "Financial Management",
       body: "Automated Fund Management for Maximized Earnings · Seamless Fixed Deposit Sweeps to Optimize Liquidity · Detailed Financial Insights with Weekly & Monthly Reports · Enhanced User Engagement with an Intuitive Interface · Scalable & Secure Banking Solution for Corporates",
     },
     {
       title: "A Scalable Corporate Banking Platform for Seamless Financial Operations: A SaaS Banking Success Story",
+      image: {
+        src: "/images/industries/fintech/case-3.webp",
+        alt: "Traders monitoring corporate banking and investment screens",
+      },
       tag: "SaaS Banking",
       body: "Seamless Management of Corporate Accounts & Transactions · Automated Fund Sweeps to Optimize Cash Flow · Secure & Compliant Payment Processing with Multi-Layer Authentication · Real-Time Loan & Investment Tracking for Better Financial Control · Scalable & Adaptable Banking Solution for Large Enterprises",
     },
     {
       title: "Transforming Digital Transactions with Blockchain-Powered Finance",
+      image: {
+        src: "/images/industries/fintech/case-4.webp",
+        alt: "A hand holding a phone with holographic blockchain finance charts",
+      },
       tag: "Blockchain",
       body: "Enhanced Security & Compliance for Digital Currency Transactions · Real-Time Settlements for Faster Fund Transfers · Multi-Token Support for Stablecoins, CBDCs & Utility Tokens · Automated KYC & AML for Regulatory Adherence · Scalable & Future-Ready Financial Platform",
     },
     {
       title: "Empowering Smart Savings with Automated Financial Planning",
+      image: {
+        src: "/images/industries/fintech/case-5.webp",
+        alt: "Planning savings with a notebook, coins and a toy car beside a laptop",
+      },
       tag: "Savings",
       body: "Automated Savings Transfers for Effortless Financial Management · Group Savings Feature to Encourage Collective Goal Achievement · Seamless Bank API Integration for Secure Transactions · Real-Time Dashboard for Tracking Savings Progress & Rewards · Personalised Saving Challenges with Incentives & Gamification",
     },
   ],
+};
+
+/**
+ * The mid-page call to action (13 Oct review: "CTA section is missing - must
+ * be updated"), the band the Telecom and Construction pages already run. The
+ * live page's band after the success stories. Its line was pasted from the
+ * HealthTech page ("...into your healthcare processes to enhance efficiency
+ * and patient care"); corrected to this page's industry, the way the other
+ * copy-paste slips on these pages are. Its "Request a Consultation" goes to
+ * /contact, as every consultation CTA here does.
+ */
+export const fintechCta: CtaBandContent = {
+  title: "See how AI can fit into your workflow",
+  body: "Discover how our AI solutions can seamlessly integrate into your financial processes to enhance efficiency and customer experience.",
+  cta: { label: "Request a Consultation", href: "/contact" },
 };
 
 export const fintechFaqs: FaqContent = {

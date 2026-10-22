@@ -27,8 +27,8 @@ import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
+import type { CtaBandContent } from "@/components/landing/cta-band";
 import { industryHeroBadges, industryEnquiryForm } from "./industry-shared";
-import { overviewImage } from "./overview-images";
 
 export const logisticsMeta = {
   slug: "ai-in-logistics",
@@ -41,6 +41,9 @@ export const logisticsMeta = {
 
 export const logisticsHero: HeroContent = {
   titleLines: ["AI in Logistics:", "Transforming Supply Chain Efficiency"],
+  // 13 Oct review: the industry name is the highlighted phrase in the H1
+  // ("eg for Ecommerce page - ecommerce in H1 must be highlighted").
+  accent: "Logistics",
   body: [
     "Optimise routes, predict demand, and see where every shipment actually is. We build logistics AI that integrates with the WMS, TMS, and ERP systems already running your operation, rather than asking you to replace them.",
     "This is a sector where the returns are unusually easy to verify: fuel, miles, dwell time, on-time delivery, and stock cover are all measured already, so an optimisation either shows up in them or it does not.",
@@ -60,11 +63,17 @@ export const logisticsHero: HeroContent = {
       "The operational problem you want solved, your fleet or network size, the WMS/TMS/ERP systems in use, and the volumes involved.",
     subject: "Logistics AI solutions enquiry",
   }),
+  // The live page's own hero artwork (13 Oct review: "use the existing images
+  // from the respective pages for the hero"), under the strong veil ("increase
+  // the black gradient in the hero section to make the text more readable").
   image: {
-    src: "/images/four/ind-logistics-hero.webp",
-    width: 1200,
-    height: 860,
-    alt: "Warehouse and freight operations coordinated through AI-driven logistics systems",
+    src: "/images/industries/logistics/hero.webp",
+    width: 1920,
+    height: 923,
+    alt: "Trucks on a highway connected by a digital logistics network",
+    blurDataURL:
+      "data:image/webp;base64,UklGRmoAAABXRUJQVlA4WAoAAAAQAAAADwAABwAAQUxQSBIAAAABD9D/iAiIBZP8pXemENH/bABWUDggMgAAANABAJ0BKhAACAADgFolAF2AIWvXW9OAAP74UVKjUtJKNZbDD1MLsK6d1v4pn7SvrYAA",
+    veil: "strong",
   },
 };
 
@@ -83,7 +92,20 @@ export const logisticsOverview: OverviewContent = {
     "Real-Time Shipment Tracking",
     "Fraud Detection & Security",
   ],
-  image: overviewImage("ai-in-logistics"),
+  // The live page's own artwork for this section (13 Oct review: "use the
+  // existing images from the respective pages ... wherever possible"): a
+  // transparent cut-out collage, shown whole and centred against the copy and slightly bigger (13 Oct review: "center align the image and make it slightly bigger").
+  image: {
+    src: "/images/industries/logistics/overview.webp",
+    width: 1100,
+    height: 1147,
+    aspect: "1100 / 1147",
+    fit: "cutout",
+    align: "center",
+    alt: "A collage of an AI brain over a freight truck and warehouse robot arm, with a cargo plane and trucks inset",
+    blurDataURL:
+      "data:image/webp;base64,UklGRg4BAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSFwAAAABcFvbthI9aMRdY1IWEYU4VMD6HSGjVUwBHrpGk7pgFUTEBIBBQ3XifsWqCZuJ81f/Kp8V1yYG0K+ysjO12hLccR0Ia+G1oNoFIZRU+n50z0p/3/7A30Ot6f3nGVZQOCCMAAAAUAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWoAUwG8ACILg1d675eiqZWEAAD+zGWsQ20EJZMtvYB4QMqRpY0hV6H6CNAYWYJ8yJUaGuSyDBz57DAhA1CLZVzjD/emVNxB2DQ5sioi+o6sniMuY30aSfUf9Reu6DergUypv2OP0d9HLXmPA4cg8AGKAAA=",
+  },
 };
 
 /**
@@ -174,23 +196,49 @@ export const logisticsSuccessStories: WorkCarouselContent = {
     line: "Enhance operational speed, improve accuracy, and drive smarter decision-making with advanced AI solutions for seamless logistics management.",
     cta: { label: "Request a Consultation", href: "/contact" },
   },
+  // Each card wears the live page's own artwork for that story (13 Oct
+  // review: "update the case study images same as the old page").
   items: [
     {
       title: "Optimizing Global Logistics: A Shipment Tracking Success Story",
+      image: {
+        src: "/images/industries/logistics/case-1.webp",
+        alt: "A hand on a tablet showing a world map for shipment tracking",
+      },
       tag: "Shipment Tracking",
       body: "85% Improvement in Logistics Efficiency · 65% Enhanced Real-Time Shipment Tracking · 50% Reduction in Operational Costs · 70% Increase in Team Collaboration · Scalable & Integrated Shipment Management System",
     },
     {
       title: "Enhancing Vehicle Safety: A Smart Parking Success Story",
+      image: {
+        src: "/images/industries/logistics/case-2.webp",
+        alt: "A driver checking a phone app while at the wheel of a car",
+      },
       tag: "Smart Parking",
       body: "Real-Time Vehicle Safety Alerts via SMS · QR Code-Based Anonymous Incident Reporting · Incentive System for Community Engagement · Reduction in Tickets, Towing, & Parking Violations · Seamless & Secure Vehicle Monitoring Platform",
     },
     {
       title: "Optimizing Logistics: A Scalable Delivery Management Success Story",
+      image: {
+        src: "/images/industries/logistics/case-3.webp",
+        alt: "A container ship loaded with cargo at sea",
+      },
       tag: "Delivery Management",
       body: "Real-Time Shipment Tracking & Monitoring · Seamless Barcode & Document Scanning for Loaders · Automated Alerts for Delays & Delivery Issues · Improved Workflow Efficiency Across Logistics Teams · Scalable & Integrated Multi-App Ecosystem",
     },
   ],
+};
+
+/**
+ * The mid-page call to action (13 Oct review: "CTA section is missing - must
+ * be updated"), the band the Telecom and Construction pages already run. The
+ * live page's band after the success stories, verbatim. Its "Request a
+ * Consultation" goes to /contact, as every consultation CTA here does.
+ */
+export const logisticsCta: CtaBandContent = {
+  title: "Elevate Logistics with AI-Powered Precision",
+  body: "Enhance operational speed, improve accuracy, and drive smarter decision-making with advanced AI solutions for seamless logistics management.",
+  cta: { label: "Request a Consultation", href: "/contact" },
 };
 
 export const logisticsFaqs: FaqContent = {

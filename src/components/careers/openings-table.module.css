@@ -4,7 +4,6 @@
 /* Full gutter width, like every other landing section, so the heading and
    table line up with the masthead above. */
 .inner {
-  max-width: 1500px;
 }
 
 /* Tabs: the squared-label look of `landing/listing`'s filter chips. */

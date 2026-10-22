@@ -23,6 +23,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
+import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const android: HireRolePageContent = {
   key: 'hire-android',
@@ -48,9 +49,19 @@ export const android: HireRolePageContent = {
 
   hero: {
     titleLines: ['Hire Android Developers', 'in India On Contract'],
+    accent: 'Android Developers',
+    // A full-bleed backdrop (review: "No image is in the hero section").
+    background: {
+      src: '/images/landing/hire-android-hero.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADQAQCdASoQAAsAA4BaJZwAAudN9GJFQAD++FKkv32ySgLfEcAAAA==',
+      veil: 'strong',
+    },
+    // The live hero's copy as it stands: one paragraph, then its "See why"
+    // line (review: "Need to update the content in the hero section").
     body: [
-      'Soft Suave offers Android developers from India skilled in Kotlin, Java, Android Studio, Jetpack, API integrations, enterprise mobility, and custom mobile app development.',
-      'Hire trusted experts quickly for scalable Android applications with flexible engagement models.',
+      'Soft Suave offers Android developers from India skilled in Kotlin, Java, Android Studio, Jetpack, API integrations, enterprise mobility, and custom mobile app development. Hire trusted experts quickly for scalable Android applications with flexible engagement models.',
+      'See why businesses choose Soft Suave for their Android developer hiring.',
     ],
     points: [
       '40-Hour Risk-Free Trial',
@@ -59,13 +70,14 @@ export const android: HireRolePageContent = {
       'Airtight NDA & IP Protection',
       'Strong Delivery Governance from Day One',
     ],
-    badges: ['*Satisfaction Guaranteed – Get 40-hour Free Trial'],
     form: heroForm({
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
         'Your Android app, the existing codebase if there is one, the responsibilities involved, and when you need to start.',
       subject: 'Android developer hiring enquiry',
+      // Review: "remove the additional heading from the form".
+      noEyebrow: true,
     }),
   },
 
@@ -81,6 +93,8 @@ export const android: HireRolePageContent = {
   },
 
   capabilities: {
+    // Review: "Remove the links from the service cards".
+    links: false,
     eyebrow: 'Expertise',
     title: 'Our Android Developers Expertise',
     body: 'Our Android developers have a proven track record of developing top-grade Apps for clients all over the world.',
@@ -120,7 +134,7 @@ export const android: HireRolePageContent = {
 
   midCta: {
     eyebrow: 'Rates',
-    title: 'Hire Android Developers Starting from $14/hour',
+    title: `Hire Android Developers Starting from ${HOURLY_RATE}`,
     body: 'We will provide you with remote Android App developers that work from India. Contact us to take a look at CVs.',
     cta: { label: 'Request Rate Card', href: '/contact' },
   },
@@ -217,7 +231,7 @@ export const android: HireRolePageContent = {
       },
       {
         q: 'What are the industries that are served by your Android developers?',
-        a: 'Android app developer from Soft Suave are skilled in a wide array of industry verticals like Healthcare, Education, eCommerce & Retail, Construction, Travel & Tourism, Media & Entertainment, and Banking.',
+        a: 'Android app developer from Soft Suave are skilled in a wide array of industry verticals like Healthcare, Education, E-commerce & Retail, Construction, Travel & Tourism, Media & Entertainment, and Banking.',
       },
       {
         q: 'Java or Kotlin - which language do you prefer for Android app development?',

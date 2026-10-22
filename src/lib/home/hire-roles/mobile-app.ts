@@ -25,17 +25,16 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm, hiringComparison } from './shared';
+import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const mobileApp: HireRolePageContent = {
   key: 'hire-mobile',
   slug: '/hire-mobile-app-developers',
   name: 'Hire Mobile App Developers',
   serviceType: 'Mobile application development staffing',
-  // Matches the live page's own breadcrumb trail: Home › Hire Developers —
-  // the live trail stops at the parent and never names this page itself.
-  showBreadcrumb: true,
-  breadcrumbParents: [{ name: 'Hire Developers', path: '/hire-dedicated-developers' }],
-  breadcrumbEndsAtParent: true,
+  // No breadcrumb schema: the live page's BreadcrumbList sits inside an HTML
+  // comment, so it is not part of the page (review: "BreadcrumbList - remove
+  // this extra schema").
 
   /** Live order: clients, overview, mobile expertise, developer selection, consultation CTA, global delivery, evaluation, why choose us, comparison, tech stack, success stories, testimonials, FAQ. */
   order: [
@@ -62,15 +61,16 @@ export const mobileApp: HireRolePageContent = {
 
   hero: {
     titleLines: ['Hire Mobile App Developers:', 'Build the Right Team'],
+    accent: 'Mobile App Developers',
     body: [
       'Hire mobile app developers experienced in Android, iOS, Flutter, React Native, and other mobile technologies. Review relevant profiles, interview developers directly, and choose specialists who fit your product and existing codebase.',
       'Evaluate technical execution, communication, and workflow fit through real project work with a 40-hour trial before you onboard.',
     ],
     points: [
       'Android, iOS & Cross-Platform Expertise',
-      '400+ AI & Engineering Specialists',
+      `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
       'Vetted Talent On Contract',
-      'Flexible Hiring from $14/Hour',
+      `Flexible Hiring from ${HOURLY_RATE}`,
       'Global Delivery from India',
     ],
     form: heroForm({
@@ -83,58 +83,82 @@ export const mobileApp: HireRolePageContent = {
   },
 
   overview: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: '/images/landing/ov-hire-mobile-app-developers-tall.webp',
+      width: 1000,
+      height: 1250,
+      alt: 'Mobile app developers testing apps on phones',
+      blurDataURL:
+        'data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAABQAgCdASoQAAsAA4BaJbACdAYt9vPNftaaTIAA/vTFl2nlUNjvSykha/vqPIB7/Xv1+28xK9bQ6X7QBsq6ntlSHoqd5Fmejmh+8clBDBYx154vgoJHQ58tOB8t57/y+uQ4AkRdS7wg96Aw3m4AW6XgAN0pAAAA',
+      fit: 'column',
+    },
     eyebrow: 'Overview',
     title: 'Hire Mobile App Developers for Your Product and Team Needs',
     paragraphs: [
       'Whether you are building a new mobile product, extending an existing application, or adding development capacity to your team, the right developer needs to match both your technology requirements and the way your team works.',
       'Soft Suave helps you hire mobile application developers based on your platform, technology stack, product requirements, existing codebase, and expected responsibilities. We shortlist relevant profiles so you can focus on developers whose experience aligns with the work you need to deliver.',
-      "You can review developer experience, interview shortlisted candidates directly, and assess their technical and communication skills before making a longer-term hiring decision. A 40-hour risk-free trial also gives you the opportunity to evaluate how the developer performs within your actual project environment. Soft Suave's mobile developer rates start at $14/hour, with final pricing based on experience, technology specialization, and engagement requirements.",
-      'With 13+ years of software development experience and 400+ AI & Engineering Specialists, Soft Suave gives you more than a CV-based hiring process. Your decision can be based on relevant experience, direct interaction, and how well the developer performs within your team and project environment.',
+      `You can review developer experience, interview shortlisted candidates directly, and assess their technical and communication skills before making a longer-term hiring decision. A 40-hour risk-free trial also gives you the opportunity to evaluate how the developer performs within your actual project environment. Soft Suave's mobile developer rates start at ${HOURLY_RATE}, with final pricing based on experience, technology specialization, and engagement requirements.`,
+      `With ${YEARS_PLUS} years of software development experience and ${SPECIALISTS_PLUS} AI & Engineering Specialists, Soft Suave gives you more than a CV-based hiring process. Your decision can be based on relevant experience, direct interaction, and how well the developer performs within your team and project environment.`,
     ],
   },
 
-  fit: {
+  // The live page's three-column table, as a table (review: "Developer
+  // Selection ... it is a table with 3 columns, and it's not clear in the
+  // current design"), with the two paragraphs it runs after it.
+  fitTable: {
     eyebrow: 'Developer Selection',
     title: 'Which Mobile Developer Does Your Project Need?',
     body: 'The right choice depends on your existing architecture, target platforms, internal engineering skills, and product roadmap. Use these common scenarios to identify the expertise that best fits your project.',
-    columns: ['Your Situation', 'Developer to Consider'],
+    columns: ['Your Situation', 'Developer to Consider', 'Why This Fits'],
     rows: [
       {
-        problem: 'Android-only product or Android-first roadmap',
-        solution:
-          'Android / Kotlin Developer — direct access to platform APIs, background processing, and device features without an additional abstraction layer.',
-        image: '/images/landing/services/svc-application-development.webp',
+        head: 'Android-only product or Android-first roadmap',
+        cells: [
+          'Android / Kotlin Developer',
+          'Direct access to platform APIs, background processing, and device features without an additional abstraction layer',
+        ],
       },
       {
-        problem: 'iPhone or iPad product, or App Store-first launch',
-        solution:
-          'iOS / Swift Developer — native performance, Apple ecosystem integrations, and faster adoption of new iOS capabilities.',
-        image: '/images/landing/services/svc-proof-of-concept.webp',
+        head: 'iPhone or iPad product, or App Store-first launch',
+        cells: [
+          'iOS / Swift Developer',
+          'Native performance, Apple ecosystem integrations, and faster adoption of new iOS capabilities',
+        ],
       },
       {
-        problem: 'One codebase for both platforms with no existing mobile code',
-        solution:
-          'Flutter Developer — consistent UI rendering across platforms and a strong fit for design-led products.',
-        image: '/images/landing/services/svc-model-selection.webp',
+        head: 'One codebase for both platforms with no existing mobile code',
+        cells: [
+          'Flutter Developer',
+          'Consistent UI rendering across platforms and a strong fit for design-led products',
+        ],
       },
       {
-        problem: 'One codebase and a web team already using React or TypeScript',
-        solution:
-          'React Native Developer — shared language and tooling with existing engineers, making collaboration and internal handover easier.',
-        image: '/images/landing/services/svc-integration.webp',
+        head: 'One codebase and a web team already using React or TypeScript',
+        cells: [
+          'React Native Developer',
+          'Shared language and tooling with existing engineers, making collaboration and internal handover easier',
+        ],
       },
       {
-        problem: 'Hybrid application already in production',
-        solution:
-          'Ionic Developer — maintains continuity with your current web-based architecture without forcing an unnecessary rebuild.',
-        image: '/images/landing/services/svc-support-optimisation.webp',
+        head: 'Hybrid application already in production',
+        cells: [
+          'Ionic Developer',
+          'Maintains continuity with your current web-based architecture without forcing an unnecessary rebuild',
+        ],
       },
       {
-        problem: 'Mature native codebase you want to extend',
-        solution:
-          'Kotlin or Swift Specialist — extends the existing architecture without adding a cross-platform layer that could increase complexity.',
-        image: '/images/landing/services/svc-product-modernisation.webp',
+        head: 'Mature native codebase you want to extend',
+        cells: [
+          'Kotlin or Swift Specialist',
+          'Extends the existing architecture without adding a cross-platform layer that could increase complexity',
+        ],
       },
+    ],
+    after: [
+      'The technology choice should follow the product you already have or intend to build. Existing code, platform-specific functionality, internal expertise, and long-term maintenance requirements should guide which developer you hire.',
+      'If your requirement spans more than one discipline, the mobile developer may also need to coordinate with backend engineers, QA, DevOps, designers, or product stakeholders. Review those dependencies before selecting profiles so the developer matches your actual engineering environment rather than a framework name alone.',
     ],
   },
 
@@ -146,6 +170,17 @@ export const mobileApp: HireRolePageContent = {
   },
 
   globalDelivery: {
+    // Portrait, run the full height of the copy beside it (8 Oct review:
+    // "resize the image to match the section") — the same photo, cut taller.
+    image: {
+      src: '/images/landing/dl-hire-mobile-app-developers-tall.webp',
+      width: 1000,
+      height: 1250,
+      alt: 'Developer on a video call with a headset at a laptop',
+      blurDataURL:
+        'data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADwAQCdASoQAAsAA4BaJbACdAEUu/NkAIgA+UGylZxof7KpY3V9EiWXRfqSOElZvn8vd+dweBg/M8gX4JyB7WaB6SaFsJxufMzLf/2I2jwOAAAA',
+      fit: 'column',
+    },
     eyebrow: 'Global Delivery',
     title: 'Hire Mobile App Developers in India for Global Teams',
     paragraphs: [
@@ -159,7 +194,7 @@ export const mobileApp: HireRolePageContent = {
   process: {
     eyebrow: 'Developer Evaluation',
     title: 'Evaluate Your Mobile Developer Before You Onboard',
-    body: 'Review relevant profiles, interview the developers you shortlist, and assess the selected developer through real project work before the engagement is extended.',
+    body: 'Make a more confident hiring decision with a process designed to reduce uncertainty and help you choose the right developer for your team.',
     steps: [
       {
         n: '01',
@@ -245,6 +280,9 @@ export const mobileApp: HireRolePageContent = {
       {
         key: 'xamarin',
         name: 'Hire Xamarin Developers',
+        // Unlinked for now (review) — there is no hire-Xamarin page, and the
+        // name would otherwise auto-link to the Xamarin development company page.
+        link: false,
         body: 'Support existing Xamarin applications with maintenance, feature updates, and migration to .NET MAUI. Best suited to businesses modernizing legacy Xamarin codebases rather than starting new Xamarin projects.',
       },
     ],
@@ -257,12 +295,12 @@ export const mobileApp: HireRolePageContent = {
     items: [
       {
         key: 'experience',
-        name: '13+ Years of Technology Expertise',
-        body: 'Bring 13+ years of software engineering experience to your project, supported by established delivery practices and technical expertise.',
+        name: `${YEARS_PLUS} Years of Technology Expertise`,
+        body: `Bring ${YEARS_PLUS} years of software engineering experience to your project, supported by established delivery practices and technical expertise.`,
       },
       {
         key: 'specialists',
-        name: '400+ AI & Engineering Specialists',
+        name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
         body: 'Access specialists across mobile, backend, cloud, DevOps, data, and AI to support broader product and engineering requirements.',
       },
       {
@@ -303,26 +341,31 @@ export const mobileApp: HireRolePageContent = {
     items: [
       {
         title: 'ParkSafe Community Vehicle Alert App',
+        image: { src: '/images/case-studies/logistics-3.webp', alt: 'ParkSafe Community Vehicle Alert App' },
         tag: 'Community Safety',
         body: 'A mobile app that spots suspicious vehicles, sends real-time alerts, and improves community safety.',
       },
       {
         title: 'Smart Movie Ticketing app with Real-Time Booking',
+        image: { src: '/images/case-studies/on-demand-5.webp', alt: 'Smart Movie Ticketing app with Real-Time Booking' },
         tag: 'Entertainment',
         body: 'A ticketing app with live seat availability, secure payments, and a smooth booking flow.',
       },
       {
         title: 'Time-saving Video Calling App for Healthcare Industry',
+        image: { src: '/images/case-studies/telemedicine-2.png', alt: 'Time-saving Video Calling App for Healthcare Industry' },
         tag: 'HealthTech',
         body: 'Soft Suave developed an efficient Video calling app for instant consultations, to save time, and to get fast solutions.',
       },
       {
         title: 'HealthPass Wellness Subscriptions in Banking App',
+        image: { src: '/images/case-studies/finance-6.webp', alt: 'HealthPass Wellness Subscriptions in Banking App' },
         tag: 'Banking',
         body: 'Soft Suave helps banks boost customer loyalty with personalized wellness benefits and engagement insights.',
       },
       {
         title: 'All-in-One Financial Management App',
+        image: { src: '/images/case-studies/finance-4.webp', alt: 'All-in-One Financial Management App' },
         tag: 'FinTech',
         body: 'Soft Suave built an all-in-one app that simplifies budgeting, expenses, investments, and bills.',
       },
@@ -380,7 +423,7 @@ export const mobileApp: HireRolePageContent = {
       },
       {
         q: 'How much does it cost to hire a mobile app developer?',
-        a: "Soft Suave's mobile developer rates start at $14/hour. Final pricing depends on the developer's experience, technology specialization, engagement model, and project requirements. Pricing is confirmed after your requirements are reviewed so the proposed developer and commercial structure align with the actual work, collaboration model, and project needs.",
+        a: `Soft Suave's mobile developer rates start at ${HOURLY_RATE}. Final pricing depends on the developer's experience, technology specialization, engagement model, and project requirements. Pricing is confirmed after your requirements are reviewed so the proposed developer and commercial structure align with the actual work, collaboration model, and project needs.`,
       },
       {
         q: 'Should I hire an Android, iOS, Flutter, or React Native developer?',

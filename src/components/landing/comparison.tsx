@@ -29,6 +29,12 @@ export interface ComparisonContent {
    */
   columns: readonly string[];
   /**
+   * Heading of the first (row-label) column — "Factor", "Criteria". Omitted
+   * leaves it blank on screen (hire-by-skill review: "the first column heading
+   * is missing", which these pages' live tables name).
+   */
+  areaLabel?: string;
+  /**
    * One row per comparison area. `values` is positional against `columns`, so
    * the two arrays must be the same length.
    */
@@ -73,7 +79,7 @@ export default function Comparison({
 
       <SimpleTable
         caption={content.title}
-        columns={["", ...content.columns]}
+        columns={[content.areaLabel ?? "", ...content.columns]}
         rows={content.rows.map((r) => ({ head: r.area, cells: r.values }))}
         lead={content.verdict === true ? 0 : undefined}
       />

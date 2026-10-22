@@ -19,8 +19,8 @@
    primitives, so they read as the same brand. Everything structural is their
    own, deliberately NOT the homepage's:
 
-   TYPOGRAPHY IS THE HOMEPAGE'S, verbatim: Fraunces ultralight serif headings
-   (--font-heading) at the homepage's own scales, JetBrains Mono eyebrows at
+   TYPOGRAPHY IS THE HOMEPAGE'S, verbatim: Space Grotesk light headings
+   (--font-heading) at the homepage's own scales, Inter eyebrows at
    0.28em (--font-eyebrow), Inter body copy (--font-body), and 999px capsule
    pills. The values below are lifted from `home.module.css` .h2 / .lead /
    .eyebrow / .pill / .bentoName / .svcName / .techGroupName so a heading here
@@ -38,16 +38,18 @@
    This surface's answer to home.module.css `.section` / `.sectionHead` /
    `.eyebrow` / `.h2` / `.lead`.
    ============================================================ */
+/* Band padding and masthead gap come from the shared section rhythm
+   (`--section-y` / `--section-head-gap` in app/(marketing)/home.css). */
 .sectionShell {
-  padding: clamp(44px, 5.2vw, 84px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
   position: relative;
 }
 
 /* Two sections stacked directly — which is what a shared `.light` band is —
-   otherwise meet with BOTH of their paddings, around 150px of empty ground
-   between the end of one grid and the next heading (review: "too much gap
-   after the section"). The first section's padding-bottom already separates
-   them amply, so the second drops its own. */
+   otherwise meet with BOTH of their paddings, doubling the gap between the
+   end of one grid and the next heading (review: "too much gap after the
+   section"). The first section's padding-bottom already separates them, so
+   the second drops its own. */
 .sectionShell + .sectionShell {
   padding-top: 0;
 }
@@ -65,26 +67,20 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(12px, 1.4vw, 20px);
-  margin-bottom: clamp(26px, 4vw, 56px);
+  margin-bottom: var(--section-head-gap);
 }
 
+/* Section eyebrow: Inter since 16 Oct (`--font-section-label` in home.css). */
 .kicker {
   display: inline-flex;
   align-items: center;
   gap: 0.7em;
-  font-family: var(--font-eyebrow);
+  font-family: var(--font-section-label);
+  font-weight: var(--section-label-weight);
   font-size: var(--fs-label);
   text-transform: uppercase;
-  letter-spacing: 0.28em;
+  letter-spacing: var(--section-label-tracking);
   color: var(--muted);
-}
-
-/* The homepage eyebrow's own accent rule. */
-.kicker::before {
-  content: "";
-  width: 26px;
-  height: 1px;
-  background: var(--accent);
 }
 
 /* Section H2. Was clamp(2.25rem, 4.6vw, 4rem) — 64px at desktop, which is
@@ -149,6 +145,10 @@
   }
 
   .head:has(> .intro):not(.headSub):not(.headPage) > .intro {
+    /* Readable measure (800px), held to the END of its column: on a wide
+       screen the intro and its rule close on the frame's right edge with
+       every other band instead of stopping short of it (16 Oct, 1920px). */
+    justify-self: end;
     align-self: stretch;
     display: flex;
     align-items: center;
@@ -168,7 +168,7 @@
   gap: 0.6em;
   padding: 0.85em 1.6em;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: var(--btn-radius);
   background: transparent;
   font-family: var(--font-eyebrow);
   font-size: var(--fs-label);
@@ -256,7 +256,7 @@
      negative-z-index child climbs to the nearest ancestor that *does* open
      one and paints behind the whole page, not just this section. */
   isolation: isolate;
-  padding: clamp(96px, 11vw, 150px) var(--gutter) clamp(40px, 5vw, 76px);
+  padding: max(clamp(96px, 11vw, 150px), var(--hero-top)) var(--gutter) var(--section-y);
   border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
@@ -266,8 +266,14 @@
    see hero.tsx. */
 .heroGlow {
   position: absolute;
-  inset: -30% -10% auto -10%;
+  /* Pinned to the hero's top edge and lifted by a transform — the same place
+     as `top: -30%` (a third of its own 90% height) — so it holds still while
+     the hero below the fold is still being parsed. As `top: -30%` it moved
+     with every pixel the hero grew, and the whole viewport-sized glow counted
+     as a layout shift (CLS 0.08 on the hire and AI pages, 15 Oct). */
+  inset: 0 -10% auto -10%;
   height: 90%;
+  translate: 0 -33.333%;
   background: radial-gradient(
     55% 55% at 22% 30%,
     rgba(255, 84, 54, 0.14) 0%,
@@ -323,6 +329,21 @@
   );
 }
 
+/* Opt-in heavier veil (`image.veil: "strong"`): near-solid black under the
+   copy column, easing off towards the form, so the photograph reads as
+   atmosphere behind the text rather than texture inside it. */
+.heroBgVeil[data-veil="strong"] {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 5, 8, 0.92) 0%,
+      rgba(4, 5, 8, 0.8) 45%,
+      rgba(4, 5, 8, 0.5) 75%,
+      rgba(4, 5, 8, 0.6) 100%
+    ),
+    linear-gradient(180deg, rgba(4, 5, 8, 0.45) 0%, rgba(4, 5, 8, 0.2) 40%, rgba(4, 5, 8, 0.9) 100%);
+}
+
 .heroGrid {
   position: relative;
   z-index: 2;
@@ -330,8 +351,25 @@
   grid-template-columns: 1fr;
   gap: clamp(34px, 4vw, 64px);
   align-items: start;
-  max-width: 1500px;
   margin: 0 auto;
+}
+
+/* Breadcrumb + optional kicker, in a row of their own above `.heroGrid` (see
+   hero.tsx), so the copy column opens on the H1 and the form's top edge meets
+   the H1's (15 Oct review). The row carries the H1's old top margin — 0.5em,
+   0.3em under a kicker — so the gap beneath the breadcrumb is unchanged. */
+.heroHead {
+  position: relative;
+  z-index: 2;
+  margin: 0 auto calc(var(--fs-h1) * 0.5);
+}
+
+.heroHead:has(> .heroEyebrow) {
+  margin-bottom: calc(var(--fs-h1) * 0.3);
+}
+
+.heroHead + .heroGrid .heroTitle {
+  margin-top: 0;
 }
 
 /* Extra legibility margin for text sitting directly over the now-vibrant
@@ -424,6 +462,23 @@
 
 /* --- hero CTA row: the "Start Trial" / "Book a Meeting" pair, separate
    from the enquiry form beside it --- */
+/* The hero's outlined button ("Book a Meeting") — a dark plate with a clearly
+   drawn outline, so it holds its shape over the hero photo instead of
+   dissolving into it at the default hairline (hire-by-skill review: "make the
+   outline of the 'book a meeting' button darker"). */
+.heroCtas .btn:not(.btnPrimary) {
+  border: 1.5px solid rgba(255, 255, 255, 0.72);
+  background: rgba(4, 5, 8, 0.6);
+}
+
+/* Keep the shared outline-button hover (accent fill), which the rule above
+   would otherwise outrank. */
+.heroCtas .btn:not(.btnPrimary):hover,
+.heroCtas .btn:not(.btnPrimary):focus-visible {
+  background: var(--cta-bg, #ff5436);
+  border-color: var(--cta-bg, #ff5436);
+}
+
 .heroCtas {
   display: flex;
   flex-wrap: wrap;
@@ -587,6 +642,40 @@
   background: var(--accent);
 }
 
+/* --- `HeroContent.facts`: label/value chips ("Industry  Transportation"),
+   the case-study hero's tag and platform line, in the trust badges' squared
+   tag style. --- */
+.heroFacts {
+  margin: clamp(22px, 2.6vw, 32px) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.heroFact {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.7em;
+  padding: 0.55em 0.9em;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.heroFact dt {
+  color: var(--muted);
+}
+
+.heroFact dd {
+  margin: 0;
+  color: #ffffff;
+}
+
 /* Partner standing (Upwork, Clutch, Microsoft, AWS) runs as the issuers' own
    lockups rather than as our paraphrase of them — a reader recognises the
    Clutch wordmark without reading it. Each file has a transparent ground and a
@@ -656,7 +745,7 @@
    A bordered proof panel — replaces the homepage's giant dual marquee.
    ============================================================ */
 .trustBar {
-  padding: clamp(40px, 4.6vw, 72px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
   border-bottom: 1px solid var(--line);
 }
 
@@ -699,7 +788,9 @@
   margin-top: 8px;
   font-family: var(--font-eyebrow);
   font-size: var(--fs-label);
-  letter-spacing: 0.15em;
+  /* Tighter on the narrowest phones, where a long single word
+     ("SUCCESSFULLY") outran its half-width cell at 0.15em. */
+  letter-spacing: clamp(0.08em, 2.2vw - 0.5em, 0.15em);
   text-transform: uppercase;
   line-height: 1.5;
   color: var(--muted);
@@ -1188,7 +1279,7 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  padding: clamp(44px, 5.2vw, 80px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
   /* No top/bottom rule. The band is its own dark surface, so the change of
      ground already marks its edges; the full-width hairlines on top of that
      read as stray divider lines (review: remove the section lines). */
@@ -1206,9 +1297,13 @@
 
 .ctaInner {
   display: grid;
+  /* One track no wider than the band. Left to size itself, the implicit
+     column took the button's nowrap width, so on a 320px phone a long label
+     ("Plan Your GraphQL Architecture") pushed the copy and button past the
+     band's right edge, where `overflow: hidden` cut them off. */
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(22px, 2.8vw, 40px);
   align-items: center;
-  max-width: 1500px;
   margin: 0 auto;
 }
 
@@ -1245,10 +1340,23 @@
    button measured 196x40 with 12px type beside a heading four times that,
    reading as a footnote rather than the point (review: "make the button
    bigger"). Scoped to the band, so nothing else on the surface changes. */
-.ctaActions .btn {
+.ctaActions .btn,
+/* The case-study grid's closing "View all Case Studies" is the section's one
+   call to action, the same as the case-study gallery's "View Case Study" on the
+   other AI pages, which is sized to this band (1 Oct review). */
+.caseFoot .btn {
   padding: 1.05em 2.1em;
   font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
   letter-spacing: 0.1em;
+}
+
+/* On the narrowest phones a long band label is wider than the band itself;
+   there it may wrap onto a second line rather than run off the edge. */
+@media (max-width: 400px) {
+  .ctaActions .btn {
+    white-space: normal;
+    text-align: center;
+  }
 }
 
 /* ============================================================
@@ -1814,6 +1922,34 @@
   transform: scale(1.18);
 }
 
+/* The entrance's start state (`tech-stack-client.tsx` sets `data-armed` when
+   it arms the reveal and removes it when the reveal ends). From CSS, it is one
+   attribute write for the whole stack; set per element with `gsap.set`, it
+   was a style read and write per chip — ~160 forced style recalculations on a
+   long hire-page stack while the page loaded (PageSpeed, 15 Oct). */
+.stackList[data-armed] .stackGroup {
+  --rule: 0;
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.stackList[data-armed] .stackItem {
+  opacity: 0;
+  transform: translateY(12px) scale(0.96);
+}
+
+.stackList[data-armed] .stackItemLogo {
+  filter: grayscale(1) brightness(0.6);
+}
+
+/* `largeLogos` on landing/tech-stack.tsx. The box above is 36px, but every
+   mark in tech-logo.tsx is a fixed 22px SVG, so the mark itself never grew
+   with it. This sizes the SVG to 28px inside the same box. */
+.stackLargeLogos .stackItemLogo svg {
+  width: 28px;
+  height: 28px;
+}
+
 /* Stands in for the brand mark when a stack renders without logos
    (`logos={false}`), so the names keep the same left rhythm as a logo row. */
 .stackItemBullet {
@@ -2339,13 +2475,12 @@
    (The homepage's Contact is a scroll-scrubbed cinematic focus pull.)
    ============================================================ */
 .finalCta {
-  padding: clamp(48px, 6vw, 96px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
   border-top: 1px solid var(--line);
 }
 
 .finalPanel {
   position: relative;
-  max-width: 1500px;
   margin: 0 auto;
   padding: clamp(28px, 3.4vw, 56px);
   border: 1px solid var(--line);
@@ -2448,7 +2583,7 @@
   align-items: center;
   gap: clamp(12px, 1.6vw, 22px);
   width: 100%;
-  padding: clamp(18px, 2.2vw, 26px) 0;
+  padding: clamp(16px, 1.8vw, 22px) 0;
   border: 0;
   background: none;
   text-align: left;
@@ -2474,9 +2609,10 @@
 .faqQuestion {
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--fs-h3);
-  line-height: 1.22;
-  letter-spacing: -0.02em;
+  /* Its own FAQ size (home.css), not the section-level H3 it used to share. */
+  font-size: var(--fs-faq-q);
+  line-height: 1.32;
+  letter-spacing: -0.01em;
   color: var(--text-bright);
   transition: color 0.4s ease;
 }
@@ -2553,7 +2689,7 @@
   margin: 0;
   padding: 0 0 clamp(20px, 2.4vw, 28px) calc(2.5rem + clamp(12px, 1.6vw, 22px));
   max-width: 78ch;
-  font-size: var(--fs-body);
+  font-size: var(--fs-faq-a);
   line-height: 1.68;
   color: var(--text);
   opacity: 0;
@@ -2652,11 +2788,20 @@
        is around 760px tall, and beside it a 420px card read as stranded. 470
        is still well short of the 600px+ the proportional share used to give
        it, so the headline stays the page's main event. */
-    grid-template-columns: minmax(0, 1fr) minmax(0, 470px);
+    /* Now the shared `--enquiry-col` (globals.css), which tops out at that same
+       470px but eases down to 380px on a 1000-1270px laptop, where a fixed 470
+       squeezed the headline column. The generative-ai and services heroes read
+       the same value, so the card is one size on every page. */
+    /* The fallback is the same value as globals.css's --enquiry-col, so the
+       form keeps its column beside the H1 even if that variable is ever
+       missing (a stale dev stylesheet once dropped it under the copy). */
+    grid-template-columns: minmax(0, 1fr) var(--enquiry-col, clamp(380px, 37vw, 470px));
     gap: clamp(48px, 5vw, 88px);
-    /* The enquiry form is the shorter column — floats centered in the row
-       instead of pinned to the copy column's top edge. */
-    align-items: center;
+    /* The form is pinned to the copy column's top edge, which is the H1's
+       (`.heroHead` above), so the card and the headline start on one line on
+       every page. It used to float centred in the row, landing 30-135px below
+       the H1 depending on how long the copy ran (15 Oct review). */
+    align-items: start;
   }
 
   .overviewGrid {
@@ -2794,6 +2939,12 @@
   max-width: 78ch;
 }
 
+/* The list reads at the answer's own size (`--fs-faq-a`), not the shared
+   tick list's smaller card size, so it stays part of the answer. */
+.faqPanel .tickItem {
+  font-size: var(--fs-faq-a);
+}
+
 /* ============================================================
    CLIENT LOGO RAIL
    Slots held open at the final aspect ratio so real logos drop straight in:
@@ -2842,7 +2993,11 @@
 }
 
 /* Link out to the full case-study index, below the grid. */
+/* Centred under the cards, like the closing button of every other card grid
+   (7 Oct review, Custom AI: "move the view case study button to the center"). */
 .caseFoot {
+  display: flex;
+  justify-content: center;
   margin-top: clamp(20px, 2.4vw, 32px);
 }
 
@@ -2920,16 +3075,19 @@
    Closing guidance under the comparison rows ("when to pick which") — a
    short prose block in the section's measure, ruled off from the rows.
    ============================================================ */
+/* The closing note under a comparison table. No rule above it and 18px type
+   (7 Oct review, RAG and Data Engineering: "at the end of the table, remove
+   the line and update the font size to 18 px") — the hairline read as a
+   second table border, and the note sat smaller than the table above it.
+   Predictive Intelligence shares it and changes with them. */
 .cmpNotes {
   max-width: 68ch;
   margin-top: clamp(24px, 3vw, 40px);
-  padding-top: clamp(18px, 2vw, 26px);
-  border-top: 1px solid var(--line);
 }
 
 .cmpNotes p {
   margin: 0;
-  font-size: clamp(0.94rem, 1.08vw, 1.05rem);
+  font-size: 1.125rem;
   line-height: 1.65;
   color: var(--text);
 }
@@ -3089,7 +3247,7 @@
    The masthead's kicker rendered on top of the logo. This is the hero's own top
    clearance (`.hero`), applied to the one other thing that can open a page. */
 .indexHead {
-  padding: clamp(96px, 11vw, 150px) var(--gutter) clamp(20px, 2.4vw, 36px);
+  padding: max(clamp(96px, 11vw, 150px), var(--hero-top)) var(--gutter) clamp(20px, 2.4vw, 36px);
   position: relative;
 }
 
@@ -3100,7 +3258,7 @@
    hero. Vertical clearance belongs to `.indexHead` above, not here — this
    class also renders inside sections that set their own. */
 .headPage {
-  margin-bottom: clamp(34px, 4.6vw, 64px);
+  margin-bottom: var(--section-y);
 }
 
 .headPage .title {
@@ -3121,7 +3279,8 @@
    look already.
    ============================================================ */
 .heroCompact {
-  padding: clamp(78px, 6.6vw, 98px) var(--gutter) clamp(32px, 3.4vw, 52px);
+  /* At least `--hero-top` (home.css): clear of the fixed bar with a gap. */
+  padding: max(clamp(78px, 6.6vw, 98px), var(--hero-top)) var(--gutter) clamp(32px, 3.4vw, 52px);
 }
 
 /* Backdrop: near-full opacity, no drift, and the gen-ai two-pass veil — a
@@ -3208,9 +3367,36 @@
 .heroCopyFit {
   container-type: inline-size;
 }
+/* `titleFit`: sized so the longest title line fills the copy column (100cqi)
+   and no more. `--title-chars` is that line's length (set by the hero), and
+   0.53em is a little over the widest average advance per character measured
+   for this face at the H1's -0.045em tracking (0.42em for "From Pilot to
+   Production" up to 0.52em for the capital-heavy "GraphQL Development
+   Company", which at 0.51em overran a laptop's column by ~10px and wrapped
+   to three lines — 13 Oct review), so the estimate errs towards fitting. It was a fixed 6.4cqi, which suited
+   the 30-character PostgreSQL title but wrapped the 36-character Computer
+   Vision one. Never above the standard size; at the 34px floor a line too long
+   for a narrow column wraps rather than overflowing. */
 .heroCopyFit .heroTitle.heroTitleFit {
-  font-size: clamp(34px, 6.4cqi, var(--fs-h1));
+  font-size: clamp(34px, calc(100cqi / (var(--title-chars, 33) * 0.53)), var(--fs-h1));
   max-width: none;
+}
+
+/* `titleOneLine`: every title line inline, on one line, from 1200px up. The
+   copy column is the size container (`.heroCopyFit`), and 6cqi is the size at
+   which a ~16.4em title fills it, so the H1 is 50px on a wide screen and steps
+   down to fit a laptop's narrower column instead of wrapping. Below 1200px it
+   wraps normally at the standard size; one line would need type smaller than
+   the H2s beneath it. */
+.heroTitleOneLine .heroTitleLine {
+  display: inline;
+}
+@media (min-width: 1200px) {
+  .heroCopyFit .heroTitle.heroTitleOneLine {
+    white-space: nowrap;
+    max-width: none;
+    font-size: clamp(30px, 6cqi, var(--fs-h1));
+  }
 }
 
 .heroCompact .heroBody {
@@ -3240,11 +3426,6 @@
   .heroCompact .heroBg {
     object-position: center 38%;
   }
-
-  /* Form pinned to the copy column's top edge rather than centred in the row. */
-  .heroCompact .heroGrid {
-    align-items: start;
-  }
 }
 
 /* ============================================================
@@ -3255,7 +3436,7 @@
    compact hero. The masthead scale is scoped to this section only.
    ============================================================ */
 .overviewCompact {
-  padding: clamp(34px, 4vw, 64px) var(--gutter);
+  padding: var(--section-y) var(--gutter);
 }
 
 .overviewCompact .head {
@@ -3335,6 +3516,13 @@
     aspect-ratio: auto;
     min-height: 320px;
     max-height: 560px;
+    align-self: stretch;
+  }
+
+  /* `image.column` — no cap: the frame runs the whole heading + prose block. */
+  .overviewCompact .overviewMedia.overviewMediaColumn,
+  .overviewMedia.overviewMediaColumn {
+    max-height: none;
     align-self: stretch;
   }
 }
@@ -3764,7 +3952,7 @@
   height: 38px;
   padding: 0;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   background: transparent;
   color: var(--text-bright);
   cursor: pointer;
@@ -3791,35 +3979,55 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  /* Each dot is a 24px target now (below); the gap that spaced 9px dots goes. */
+  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* A 24px button — the touch-target minimum (Lighthouse target-size) — with
+   the 9px dot drawn inside it, so the row looks as it did. */
 .carouselDot {
+  position: relative;
   display: block;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.carouselDot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 9px;
   height: 9px;
-  padding: 0;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: transparent;
-  cursor: pointer;
+  transform: translate(-50%, -50%);
   transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
 }
 
-.carouselDot:hover {
+.carouselDot:hover::before {
   border-color: var(--accent);
 }
 
-.carouselDot[aria-current="true"] {
+.carouselDot[aria-current="true"]::before {
   background: var(--accent);
   border-color: var(--accent);
-  transform: scale(1.35);
+  transform: translate(-50%, -50%) scale(1.35);
 }
 
 .carouselDot:focus-visible {
+  outline: none;
+}
+
+.carouselDot:focus-visible::before {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
@@ -5315,7 +5523,7 @@
   gap: 8px;
   padding: 13px 26px;
   border: 1px solid var(--accent);
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   font-family: var(--font-eyebrow);
   font-size: 12px;
   letter-spacing: 0.12em;
@@ -5366,8 +5574,19 @@
     opacity: 1;
   }
 
+  /* Light at the top, where only the title sits, and near-solid across the
+     lower half, where the description runs over the artwork (13 Oct review,
+     Mobile App: "increase the gradient in the lower part so that the text is
+     clearly visible"). A straight two-stop ramp left the copy on a mid-grey
+     band with code and screens showing through it. */
   .slatFigure::after {
-    background: linear-gradient(to bottom, rgba(4, 5, 8, 0.2), rgba(4, 5, 8, 0.88));
+    background: linear-gradient(
+      to bottom,
+      rgba(4, 5, 8, 0.2) 0%,
+      rgba(4, 5, 8, 0.42) 34%,
+      rgba(4, 5, 8, 0.9) 56%,
+      rgba(4, 5, 8, 0.98) 100%
+    );
   }
 
   .slatHead {
@@ -6088,6 +6307,11 @@
 
 .stcImage {
   object-fit: cover;
+}
+
+/* `image.fit: "contain"` — the whole asset, centred, on the frame's own fill. */
+.stcImage.stcImageContain {
+  object-fit: contain;
 }
 
 /* Proof counters under an overview's copy (`OverviewContent.stats`). The panel
@@ -6859,6 +7083,15 @@
   .featGrid > * {
     flex: 0 1 calc((100% - 2 * clamp(14px, 1.6vw, 22px)) / 3);
   }
+
+  /* `columns={2}`: stays two across, so four cards are a 2x2 square. A grid
+     of exactly two cards takes the same halves, so the pair spans the band
+     edge to edge instead of sitting as two thirds in the middle of it (16 Oct,
+     1920px). */
+  .featGrid2 > *,
+  .featGrid:has(> :nth-child(2):last-child) > * {
+    flex: 0 1 calc((100% - clamp(14px, 1.6vw, 22px)) / 2);
+  }
 }
 
 /* These were hardcoded light values — a near-white card that stayed near-white
@@ -7101,7 +7334,7 @@
    full width instead of stranding itself next to a gap.
    The structure is borrowed from a reference comp — mixed card sizes, a pill
    label, generous card padding — but every value here is this system's own:
-   Fraunces name, coral pill, surface/line tokens, so it inherits the light and
+   heading-face name, coral pill, surface/line tokens, so it inherits the light and
    dark bands like everything else.
    Body copy is deliberately NOT justified. `.processBody` above still is, and
    at these column widths that is what produces the stretched word gaps.
@@ -7435,7 +7668,7 @@
    continuous rather than as a list that stops short of the margin.
    ============================================================ */
 .exploreBand {
-  padding: clamp(44px, 5.2vw, 84px) 0;
+  padding: var(--section-y) 0;
   position: relative;
 }
 
@@ -7453,7 +7686,7 @@
   display: flex;
   flex-direction: column;
   gap: clamp(10px, 1.4vw, 20px);
-  margin-top: clamp(28px, 3.4vw, 48px);
+  margin-top: var(--section-head-gap);
 }
 
 /* Both chips are the homepage `.awardChip` scale — the display serif is the
@@ -7514,7 +7747,7 @@
 
 @media (max-width: 700px) {
   .exploreBand {
-    padding: clamp(36px, 9vw, 60px) 0;
+    padding: var(--section-y) 0;
   }
 
   /* 3.2vw is 12px at 375, so every phone sat on the 1.5rem floor — a 24px
@@ -7601,14 +7834,14 @@
    CASE-STUDY INDEX CARD — the live index's card (image, category, title,
    summary, platform, "View Case Study") on the `.caseCard` shell.
    ============================================================ */
-/* Clears the fixed nav when the masthead button jumps here. */
+/* The masthead button's jump target. The fixed nav's clearance comes from the
+   root's `scroll-padding-top` (home.css) — a margin here too would double it. */
 .listAnchor {
   display: block;
-  scroll-margin-top: clamp(80px, 8vw, 110px);
 }
 
 .listHeadCta {
-  margin: calc(clamp(34px, 4.6vw, 64px) * -0.5) 0 clamp(28px, 3.6vw, 48px);
+  margin: calc(var(--section-y) * -0.5) 0 var(--section-head-gap);
 }
 
 /* Links live inside, so the tile itself does not lift on hover — the image
@@ -7707,12 +7940,11 @@
 
 .listBand {
   --list-card: #ffffff;
-  margin: clamp(40px, 5vw, 72px) calc(var(--gutter) * -1) 0;
-  padding: clamp(40px, 5vw, 80px) var(--gutter);
+  margin: var(--section-y) calc(var(--gutter) * -1) 0;
+  padding: var(--section-y) var(--gutter);
 }
 
 .listBand > * {
-  max-width: 1180px;
   margin-inline: auto;
 }
 
@@ -7913,7 +8145,7 @@
    16:9 frame and a play badge; the whole tile is the link to YouTube.
    ============================================================ */
 .videoStories {
-  padding: clamp(28px, 3.6vw, 56px) var(--gutter) clamp(56px, 7vw, 110px);
+  padding: clamp(28px, 3.6vw, 56px) var(--gutter) var(--section-y);
 }
 
 .videoCard {
@@ -7943,7 +8175,7 @@
   place-items: center;
   width: clamp(48px, 4.4vw, 60px);
   aspect-ratio: 1;
-  border-radius: 50%;
+  border-radius: var(--btn-radius);
   background: var(--accent);
   color: #fff;
   transform: translate(-50%, -50%);
@@ -7992,7 +8224,7 @@
        screen this short the display hero adopts the compact variant's vertical
        rhythm, which is already proven to fit its card here. Keeping them
        identical means one number to change if that rhythm is ever retuned. */
-    padding-top: clamp(78px, 6.6vw, 98px);
+    padding-top: max(clamp(78px, 6.6vw, 98px), var(--hero-top));
     padding-bottom: clamp(32px, 3.4vw, 52px);
   }
 }
@@ -8121,6 +8353,20 @@
     align-self: center;
     height: 100%;
   }
+
+  /* With `aspect` as well, the frame keeps that ratio while it centres: the
+     row-height `height: 100%` above would otherwise stretch it to the prose
+     and crop the diagram (RAG, 13 Oct: "center align the images"). */
+  .overviewGrid .overviewMedia.overviewMediaFixed.overviewMediaCenter {
+    height: auto;
+  }
+
+  /* `OverviewContent.image.even` — equal columns instead of the compact
+     variant's 1.1 / 0.9 (RAG review, 13 Oct: "make it bigger slightly"). */
+  .overviewCompact .overviewGrid.overviewGridEven,
+  .overviewGrid.overviewGridEven {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
 }
 
 /* ============================================================
@@ -8138,7 +8384,7 @@
   justify-content: center;
   min-height: min(78vh, 760px);
   padding-top: clamp(110px, 10vw, 150px);
-  padding-bottom: clamp(56px, 6vw, 96px);
+  padding-bottom: var(--section-y);
 }
 
 .thanksTitle {
@@ -8153,7 +8399,7 @@
   gap: clamp(32px, 4vw, 56px);
   width: 100%;
   max-width: 1080px;
-  margin-top: clamp(36px, 4.4vw, 64px);
+  margin-top: var(--section-head-gap);
 }
 
 .thanksPerson {
@@ -8242,6 +8488,177 @@
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
     align-items: start;
   }
+}
+
+/* `OverviewContent.image.fit: "cutout"` — transparent cut-out artwork (the
+   live industry and About pages' collages) shown whole on the band's own
+   ground: no surface panel, no border, no inset, no crop. Capped so a tall
+   collage beside a short block of copy cannot run away with the row; the
+   image is `contain`ed inside the cap. Last in the file and three classes, so
+   it outranks `.overviewMediaFixed`'s `max-height: none` and the compact
+   variant's bordered frame. */
+.overviewGrid .overviewMedia.overviewMediaCutout {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  max-height: 560px;
+}
+
+.overviewGrid .overviewMediaCutout img {
+  object-fit: contain;
+}
+
+/* On a two-column overview the capped cut-out sits at the OUTER edge of its
+   column — flush with the frame's right edge when it follows the copy — so
+   the band ends on the same vertical line as every other one (16 Oct, 1920px:
+   it stopped 190-430px short). */
+@media (min-width: 1000px) {
+  .overviewGrid > .overviewMediaCutout:last-child {
+    justify-self: end;
+    /* Not shrink-to-fit: the image inside is sized as a percentage of this
+       box, so a fitted figure collapses to nothing. The box spans the column
+       and the `contain`ed artwork is drawn against its right edge instead. */
+    width: 100%;
+  }
+  .overviewGrid > .overviewMediaCutout:last-child img {
+    object-position: right center;
+  }
+}
+
+/* A centred cut-out can be the taller column (a portrait collage beside a
+   short block of copy); then the copy centres against it in turn, so neither
+   column hangs off the other's top edge. */
+@media (min-width: 1000px) {
+  .overviewGrid:has(> .overviewMediaCutout.overviewMediaCenter) {
+    align-items: center;
+  }
+}
+
+/* `HeroContent.aside` — an image in the enquiry card's column (About). The
+   column is wider than the card's `--enquiry-col`, since a picture, unlike a
+   form, gains from the room; the image keeps its own shape (`contain`), so
+   transparent cut-out artwork reads as artwork, not as a cropped photo. */
+.heroAside {
+  margin: 0;
+  width: 100%;
+  max-width: 640px;
+  justify-self: center;
+}
+
+/* Beside the copy, the picture closes on the frame's right edge like the
+   enquiry card it stands in for (16 Oct, 1920px). */
+@media (min-width: 1000px) {
+  .heroAside {
+    justify-self: end;
+  }
+}
+
+.heroAsideImg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 1000px) {
+  .heroGrid.heroGridAside {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+    align-items: center;
+  }
+}
+
+/* The stronger hero veil once the copy runs the full width (under 1000px,
+   where the form or image drops below it): the desktop veil fades from left
+   to right, which leaves the photo's lit right half under the stacked copy,
+   so here it darkens evenly instead (industry review, 13 Oct: "increase the
+   black gradient in the hero section to make the text more readable"). */
+@media (max-width: 999px) {
+  .heroBgVeil[data-veil="strong"] {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 5, 8, 0.82) 0%,
+      rgba(4, 5, 8, 0.74) 45%,
+      rgba(4, 5, 8, 0.92) 100%
+    );
+  }
+}
+
+/* ============================================================
+   HERO ENTRANCE — in CSS, from the first paint (15 Oct, PageSpeed)
+   The same rise-and-fade the GSAP timeline in hero.tsx used to play, with its
+   delays, durations and staggers (`--i` is each item's index). As a JS tween it
+   ran at hydration and re-hid copy that was already on screen, so Chrome took
+   the page's main content as appearing only once every script had loaded
+   (LCP ~7 s on mobile). As CSS it needs no JavaScript at all.
+   `backwards`: each holds its start state through its delay, then lets go,
+   so no finished animation overrides the element's own styles.
+   Moves with `translate`, not `transform`, so it composes with any transform
+   the element has of its own.
+   `prefers-reduced-motion` collapses these through home.css's blanket rule.
+   ============================================================ */
+/* From 0.01, not 0: Chrome never counts text that first paints at opacity 0
+   as the page's main content, so a fade from 0 hid the hero from LCP entirely
+   (measured 15 Oct). 0.01 is invisible to the eye. */
+@keyframes heroRise {
+  from {
+    opacity: 0.01;
+    translate: 0 var(--rise, 20px);
+  }
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0.01;
+  }
+}
+
+.hero .heroTitleLine {
+  --rise: 40%;
+  animation: heroRise 0.9s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+  animation-delay: calc(0.15s + var(--i, 0) * 0.09s);
+}
+
+.hero .heroBody {
+  --rise: 20px;
+  animation: heroRise 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: calc(0.64s + var(--i, 0) * 0.08s);
+}
+
+.hero .heroPoint {
+  --rise: 16px;
+  animation: heroRise 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: calc(0.95s + var(--i, 0) * 0.05s);
+}
+
+.hero .heroStat {
+  --rise: 16px;
+  animation: heroRise 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: calc(1.1s + var(--i, 0) * 0.06s);
+}
+
+.hero .badge {
+  --rise: 12px;
+  animation: heroRise 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: calc(1.2s + var(--i, 0) * 0.04s);
+}
+
+/* The form card or the aside image: the grid's second column. */
+.hero .heroGrid > :nth-child(2) {
+  --rise: 28px;
+  animation: heroRise 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: 0.4s;
+}
+
+/* Fades in alongside the display hero's slow drift; the compact hero keeps no
+   drift (`.heroCompact .heroBg`), so it takes the fade alone. */
+.hero .heroBg {
+  animation:
+    heroFadeIn 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s backwards,
+    heroBgDrift 26s ease-in-out infinite alternate;
+}
+
+.hero.heroCompact .heroBg {
+  animation: heroFadeIn 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s backwards;
 }
 
 /* A masthead used on its own, with no list band under it (/privacy-policy):

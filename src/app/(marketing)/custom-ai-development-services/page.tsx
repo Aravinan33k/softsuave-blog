@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { aiPageJsonLd, softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import {
   caApproachCta,
   caCaseStudies,
@@ -74,7 +74,7 @@ export const revalidate = 300;
  * WebPage `primaryImageOfPage` and the og:image are one file.
  */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/custom-ai-development-services-og.webp'),
+  url: ogImageUrl('/assets/images/custom-ai-development-services-og.webp'),
   width: 1200,
   height: 630,
   alt: 'Custom AI Development Services by Soft Suave',
@@ -185,6 +185,8 @@ export default function CustomAiDevelopmentPage() {
                 // so the intrinsic width/height on the source asset are not
                 // carried across.
                 image: s.image ? { src: s.image.src, alt: s.image.alt } : undefined,
+                // Each card opens its own service page (1 Oct review).
+                href: s.href,
               })),
             }}
           />
@@ -211,7 +213,7 @@ export default function CustomAiDevelopmentPage() {
         <CaseStudies content={caCaseStudies} />
 
         <div className={home.light}>
-          <TechStack content={caTech} />
+          <TechStack content={caTech} largeLogos />
         </div>
 
         {/* Client stories and the FAQ share the closing warm-white band, so

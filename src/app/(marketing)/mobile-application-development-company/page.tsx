@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
-import { absoluteUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { madFaqLd } from '@/lib/seo/mobile-application-development-company';
 import {
   madCaseStudies,
@@ -41,6 +41,7 @@ import Clients from '@/components/home/clients';
 import CaseStudies from '@/components/home/work-grid';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
 
@@ -71,20 +72,21 @@ export const revalidate = 300;
 
 /** The hero artwork cropped to 1200×630 — the page's link-preview image. */
 const OG_IMAGE = {
-  url: absoluteUrl('/assets/images/mobile-application-development-company-og.webp'),
+  url: ogImageUrl('/assets/images/mobile-application-development-company-og.webp'),
   width: 1200,
   height: 630,
   alt: 'Mobile App Development Company in India - Soft Suave',
 };
 
 export const metadata: Metadata = {
-  // The root layout's title template is "%s", so this renders verbatim.
-  title: `${madMeta.title} | Soft Suave`,
+  // The root layout's title template is "%s", so this renders verbatim —
+  // the live page's full title, brand included (see `madMeta`).
+  title: madMeta.title,
   description: madMeta.description,
   alternates: { canonical: madMeta.path },
   robots: pageRobots,
   openGraph: {
-    title: `${madMeta.title} | Soft Suave`,
+    title: madMeta.title,
     description: madMeta.description,
     url: absoluteUrl(madMeta.path),
     siteName: 'Soft Suave',
@@ -93,7 +95,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${madMeta.title} | Soft Suave`,
+    title: madMeta.title,
     description: madMeta.description,
     images: [OG_IMAGE.url],
   },
@@ -172,7 +174,7 @@ export default function MobileAppDevelopmentPage() {
 
         <Faq content={madFaqs} idPrefix="mad-faq" />
 
-        <Contact />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
       </main>
 
       <Footer />

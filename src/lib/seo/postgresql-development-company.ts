@@ -1,4 +1,5 @@
 import 'server-only';
+import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 /**
  * Service, WebPage and FAQPage JSON-LD for `/postgresql-development-company`,
@@ -96,7 +97,7 @@ export const pgWebPageLd = {
   "@id": "https://www.softsuave.com/postgresql-development-company#webpage",
   "url": "https://www.softsuave.com/postgresql-development-company",
   "name": "PostgreSQL Development Company for Reliable Databases",
-  "description": "Build dependable databases with Soft Suave, a PostgreSQL development company backed by 13+ years of technology expertise and 400+ AI & Engineering Specialists.",
+  "description": `Build dependable databases with Soft Suave, a PostgreSQL development company backed by ${YEARS_PLUS} years of technology expertise and ${SPECIALISTS_PLUS} AI & Engineering Specialists.`,
   "inLanguage": "en",
   "dateModified": "2026-09-15",
   "primaryImageOfPage": {

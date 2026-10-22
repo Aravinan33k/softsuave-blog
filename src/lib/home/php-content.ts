@@ -56,6 +56,7 @@ import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 export const phpMeta = {
   slug: "php-application-development-company",
@@ -71,8 +72,12 @@ export const phpMeta = {
 } as const;
 
 export const phpHero: HeroContent = {
-  // The live H1, split so the last line takes the coral accent.
+  // The live H1, split into its display lines.
+  // 13 Oct review: the tech name is the highlighted phrase in every
+  // development page H1 ("for each development page h1, the respective
+  // tech name must be highlighted").
   titleLines: ["PHP Development", "Company in India"],
+  accent: "PHP",
   body: [
     "Tired of searching for a reliable & trustworthy PHP Web Development Company In India? Soft Suave is your one-stop solution for all your PHP application development needs.",
     "Are you looking to Outsource PHP Development Services? Get in touch for a free quote!",
@@ -107,7 +112,7 @@ export const phpOverview: OverviewContent = {
   title: "PHP Development Services To Maximize Your Business Growth",
   paragraphs: [
     "With our best-in-class PHP web development services we cater to the needs of global as well as domestic clients.",
-    "Soft Suave is a top-of-the-line PHP Web Development Company in India operating for more than 13+ years winning the trust and loyalty of our respectful customers. Being an experienced PHP development company, we leverage the power of this server-side scripting language and combine our HTML5 skills with PHP knowledge to create responsive and secure applications.",
+    `Soft Suave is a top-of-the-line PHP Web Development Company in India operating for more than ${YEARS_PLUS} years winning the trust and loyalty of our respectful customers. Being an experienced PHP development company, we leverage the power of this server-side scripting language and combine our HTML5 skills with PHP knowledge to create responsive and secure applications.`,
     "We consistently craft creative, unique, and attractive solutions, thanks to our skillful development team of qualified PHP developers, designers, analysts, and project managers. Besides, having a strong team specialized in PHP assists us to develop web Apps with superior performance, greater reliability, and scalable functionality. To achieve such results, we always utilize a range of PHP extensions and libraries so we can integrate all the latest extensions in our client's projects.",
     "To ensure our PHP Application Development Solutions attracts end-users, we pay special attention to our PHP professionals and constantly nourish them with personnel training, motivation, knowledge sharing, and performance monitoring.",
   ],
@@ -117,6 +122,9 @@ export const phpOverview: OverviewContent = {
     height: 1050,
     alt: "Two programmers working together at a desk in a modern office",
     blurDataURL: "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAwAgCdASoQAAwAA4BaJZQC7AD/SedtwrrMgAD+5vqgH9qp35mxsI/sL7ckv+4NilkblUpaTfGIAO4YAVXwUrxCnV/YTW5ZKJAD+vFccywkVzG3RN1ImxoIGP1nMVBOfopOjAAA",
+    // Centred against the copy beside it rather than pinned to the top of a
+    // taller column (13 Oct review: "align the image with the section").
+    align: "center",
   },
 };
 
@@ -134,7 +142,6 @@ export const phpServices: ServiceBoardContent = {
   // The live page links this phrase in the "Dedicated PHP Developer Team"
   // copy (review: "the internal link is not properly mentioned").
   links: [{ text: "Hire PHP developers", href: "/hire-php-developers" }],
-  cta: { label: "Talk To Experts", href: "/contact" },
   items: [
     {
       name: "PHP Web App Development",
@@ -148,10 +155,10 @@ export const phpServices: ServiceBoardContent = {
       },
     },
     {
-      name: "Custom eCommerce Development",
+      name: "Custom E-commerce Development",
       paragraphs: [
-        "If you are looking to build a highly-innovative, attractive, user-friendly eCommerce web App, you've come to the right place. Building an eCommerce web application that's unique for each business is no easy task. Fred not, eCommerce development is one of our core competencies where we craft Apps with an easy-to-use interface and rich UI/UX design.",
-        "As an elite PHP Development Company in India, we can work with any complex business process and design eCommerce Apps to help our clients achieve the maximum ROI. Moreover, our outputs offer a magnificent user experience to the visitors.",
+        "If you are looking to build a highly-innovative, attractive, user-friendly e-commerce web App, you've come to the right place. Building an e-commerce web application that's unique for each business is no easy task. Fred not, e-commerce development is one of our core competencies where we craft Apps with an easy-to-use interface and rich UI/UX design.",
+        "As an elite PHP Development Company in India, we can work with any complex business process and design e-commerce Apps to help our clients achieve the maximum ROI. Moreover, our outputs offer a magnificent user experience to the visitors.",
       ],
       image: {
         src: "/images/landing/php/svc-ecommerce.webp",
@@ -172,7 +179,7 @@ export const phpServices: ServiceBoardContent = {
     {
       name: "OpenSource CMS Development",
       paragraphs: [
-        "Soft Suave, with its combined experience of 13+ years, has dealt with a plethora of PHP Web Application Development projects including CMS solutions. We have the expertise and experience to deal with any Open Source CMS regardless of its complexity or duration. Whether you require a small and compact web App or a complex e-commerce web application, we can address all your requirements. Soft Suave would be honored to start a business relationship with you.",
+        `Soft Suave, with its combined experience of ${YEARS_PLUS} years, has dealt with a plethora of PHP Web Application Development projects including CMS solutions. We have the expertise and experience to deal with any Open Source CMS regardless of its complexity or duration. Whether you require a small and compact web App or a complex e-commerce web application, we can address all your requirements. Soft Suave would be honored to start a business relationship with you.`,
         "Our PHP experts have the knowledge and experience to provide you with matchless PHP-based CMS development, ensuring that your final PHP-based output is in line with your business plan.",
       ],
       image: {

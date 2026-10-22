@@ -38,6 +38,7 @@ import type { ProcessContent } from "@/components/landing/process";
 import type { FaqContent } from "@/components/landing/faq";
 import { partnerHeroBadges } from "./hero-badges";
 import { sharedHeroAlert } from "./delivery-shared";
+import { HOURLY_RATE } from "@/lib/company-figures";
 
 export const estimateMeta = {
   slug: "free-cost-estimation",
@@ -152,7 +153,7 @@ export const estimateFaq: FaqContent = {
     },
     {
       q: "Do you publish rates?",
-      a: "Dedicated hire rates start at $14/hour and vary by role and seniority; the hire pages state the range per skill. A product build is not costed hourly, so it is estimated per phase instead.",
+      a: `Dedicated hire rates start at ${HOURLY_RATE} and vary by role and seniority; the hire pages state the range per skill. A product build is not costed hourly, so it is estimated per phase instead.`,
       link: {
         label: "See hire rates by role",
         href: "/hire-dedicated-developers",

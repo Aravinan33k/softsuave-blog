@@ -5,6 +5,7 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
+import { HIRE_SKILL_LIVE_SCHEMA } from '@/lib/seo/hire-skills-live-schema';
 import type { HireBand, HireSkill } from '@/lib/home/hire-skill';
 import { HIRE_CLIENT_LOGOS, HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 import { partnerHeroBadges } from '@/lib/home/hero-badges';
@@ -38,6 +39,9 @@ import CardGrid from '@/components/landing/industries';
 import WorkCarousel from '@/components/home/work-grid';
 import ExploreMarquee from '@/components/landing/explore-marquee';
 import TechStack from '@/components/landing/tech-stack';
+// The Android page's labelled rows, for a page whose grouped panels are too
+// sparse to read as a grid (Kotlin: "need to change the design of the tech stack").
+import TechRows from '@/components/home/tech-stack';
 import CtaBand from '@/components/landing/cta-band';
 import Process from '@/components/landing/process';
 import Comparison from '@/components/landing/comparison';
@@ -84,6 +88,7 @@ function asCardGrid(content: ServicesContent): CardGridContent {
     eyebrow: content.eyebrow,
     title: content.title,
     body: content.body,
+    cta: content.cta,
     items: content.items.map((item) => ({
       name: item.name,
       tag: item.tag,
@@ -176,7 +181,9 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
             content={asCardGrid(skill.applications)}
             id="applications"
             variant="bold"
-            autoLink
+            // No card links (hire-by-skill review: "Remove the links from the
+            // service cards").
+            autoLink={false}
           />
         ) : null;
       case 'combinations':
@@ -185,9 +192,28 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
         ) : null;
       case 'services':
         return skill.services ? (
-          <CardGrid key={band} content={asCardGrid(skill.services)} id="services" variant="bold" />
+          // `autoLink={false}`: the `services` id would otherwise link every card
+          // whose name matches a page (review: "Remove the links from the
+          // service cards").
+          <CardGrid
+            key={band}
+            content={asCardGrid(skill.services)}
+            id="services"
+            variant="bold"
+            autoLink={false}
+          />
         ) : null;
       case 'techStack':
+        if (skill.techStack && skill.techStackStyle === 'rows') {
+          // `.techFit` drops the homepage band's full-viewport height and
+          // `staticFrom` holds the rows still from tablet up — the Android
+          // page's pairing.
+          return (
+            <div key={band} className={home.techFit}>
+              <TechRows content={skill.techStack} staticFrom={768} />
+            </div>
+          );
+        }
         return skill.techStack ? <TechStack key={band} content={skill.techStack} /> : null;
       case 'expertise':
         /*
@@ -271,7 +297,13 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
 
   return (
     <div className={home.page}>
-      <JsonLd data={structuredData} />
+      {/* The live page's own blocks, one <script> each, where it has any —
+          see lib/seo/hire-skills-live-schema; otherwise the graph built above. */}
+      {HIRE_SKILL_LIVE_SCHEMA[path] ? (
+        HIRE_SKILL_LIVE_SCHEMA[path].map((block, i) => <JsonLd key={i} data={block} />)
+      ) : (
+        <JsonLd data={structuredData} />
+      )}
       <Nav logoHref={BASE_PATH || '/'} />
 
       <main id="main">
@@ -280,7 +312,14 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
             standing, not the skill's, and every live role page runs the same
             two buttons beside the same four lockups. */}
         <Hero
-          content={{ ...skill.hero, badges: partnerHeroBadges, ctas: sharedHeroCtas }}
+          content={{
+            ...skill.hero,
+            // The heavier veil on every skill hero (review: "add a black
+            // gradient to increase visibility in the hero section").
+            image: skill.hero.image && { ...skill.hero.image, veil: 'strong' },
+            badges: partnerHeroBadges,
+            ctas: sharedHeroCtas,
+          }}
           idPrefix={skill.key}
         />
         {groups.map((g, i) =>
@@ -311,7 +350,10 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
  * Console.
  */
 export function hireMetadata(skill: HireSkill): Metadata {
-  const title = `${skill.metaTitle} | Soft Suave`;
+  // The live page's title exactly — no " | Soft Suave" suffix, which live
+  // does not carry (review: "the title and description have been changed, so
+  // they need to be updated"). The root layout's title template is "%s".
+  const title = skill.metaTitle;
   const path = `/${skill.slug}`;
   const image = dynamicOgImage(skill.metaTitle, 'Soft Suave');
 

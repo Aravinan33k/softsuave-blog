@@ -1,4 +1,5 @@
 import 'server-only';
+import { YEARS_PLUS } from "@/lib/company-figures";
 
 /**
  * Service, WebPage and FAQPage JSON-LD for `/vuejs-development-company`,
@@ -96,7 +97,7 @@ export const vueWebPageLd = {
   "@id": "https://www.softsuave.com/vuejs-development-company#webpage",
   "url": "https://www.softsuave.com/vuejs-development-company",
   "name": "Vue.js Development Company for Web Apps | Soft Suave",
-  "description": "Build modern web applications with a Vue.js development company backed by 13+ years of technology expertise. Discuss your project with Soft Suave.",
+  "description": `Build modern web applications with a Vue.js development company backed by ${YEARS_PLUS} years of technology expertise. Discuss your project with Soft Suave.`,
   "inLanguage": "en",
   "dateModified": "2026-09-15",
   "primaryImageOfPage": {

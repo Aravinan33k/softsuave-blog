@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 import styles from "./home.module.css";
+import { useNearViewport } from "./use-deferred-media";
 
 /**
  * The generated light-field backdrop, as a drop-in layer.
@@ -21,29 +22,21 @@ import styles from "./home.module.css";
  * `isolation: isolate`, and give its own content a stacking context above this
  * one. See `.ctaBand` in each module.
  *
- * `mounted` only defers the <video> to the client, matching `hero.tsx` and the
- * closing band; the poster underneath is a frame of the same loop, so there is
- * nothing to see happen when it swaps in.
+ * The <video> mounts only as the band nears the viewport (`useNearViewport`),
+ * as the closing band's does; the poster underneath is a frame of the same
+ * loop, so there is nothing to see happen when it swaps in.
  *
  * UNGATED, TEMPORARILY — same as the closing band, and the same caveat applies:
  * the `prefers-reduced-motion` check and the lazy mount both need restoring
  * before this ships, and doing it here now fixes every band at once.
  */
 export default function LightFieldBackdrop() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    let active = true;
-    requestAnimationFrame(() => {
-      if (active) setMounted(true);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const mounted = useNearViewport(ref);
 
   return (
-    <div className={styles.lfBackdrop} aria-hidden>
-      <div className={styles.lfPoster} />
+    <div ref={ref} className={styles.lfBackdrop} aria-hidden>
+      <div className={styles.lfPoster} data-near={mounted || undefined} />
       {mounted && (
         <video className={styles.lfVideo} autoPlay muted loop playsInline preload="auto">
           <source src="/videos/contact-light.webm" type="video/webm" />

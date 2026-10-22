@@ -106,7 +106,8 @@ describe('hire-by-role pages', () => {
       overview: (p: (typeof HIRE_ROLE_PAGES)[number]) => p.overview,
       capabilities: (p: (typeof HIRE_ROLE_PAGES)[number]) => p.capabilities,
       specialisations: (p: (typeof HIRE_ROLE_PAGES)[number]) => p.specialisations,
-      fit: (p: (typeof HIRE_ROLE_PAGES)[number]) => p.fit,
+      // Either rendering fills the band: the selector or the three-column table.
+      fit: (p: (typeof HIRE_ROLE_PAGES)[number]) => p.fit ?? p.fitTable,
       engagement: (p: (typeof HIRE_ROLE_PAGES)[number]) => p.engagement,
       globalDelivery: (p: (typeof HIRE_ROLE_PAGES)[number]) => p.globalDelivery,
       midCta: (p: (typeof HIRE_ROLE_PAGES)[number]) => p.midCta,
@@ -209,12 +210,18 @@ describe('hire-by-role pages', () => {
     // hover — the failure mode `MARKETING_PATHS` exists to prevent, except that
     // these hrefs bypass `navHref` entirely and so are not covered by it.
     const ours = new Set(LANDING_PAGES.map((p) => p.path));
+    // The one exception: a live softsuave.com page this app does not serve
+    // (checked 200 on 1 Oct), which the specialisation grid's whole-card link
+    // reaches through `SiteLink` — it resolves an unserved path to the live
+    // site rather than to a 404 here.
+    const liveOnly = new Set(['/hire-full-stack-developers-in-india']);
     for (const page of HIRE_ROLE_PAGES) {
       for (const item of page.specialisations?.items ?? []) {
         if (!item.href) continue;
-        expect(ours.has(item.href), `${page.key}/${item.name}: ${item.href} is not our route`).toBe(
-          true,
-        );
+        expect(
+          ours.has(item.href) || liveOnly.has(item.href),
+          `${page.key}/${item.name}: ${item.href} is not our route`,
+        ).toBe(true);
       }
     }
   });

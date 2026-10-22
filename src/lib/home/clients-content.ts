@@ -13,6 +13,7 @@
 
 import type { ClientLogo } from "@/lib/home/content";
 import type { PhotoMastheadContent } from "@/components/common/photo-masthead";
+import { FIGURES } from "@/lib/company-figures";
 
 export const clientsPageMeta = {
   slug: "clients",
@@ -20,7 +21,7 @@ export const clientsPageMeta = {
   // Title and description are the live page's, verbatim.
   title: "Know the Trusted Clients of Soft Suave Technologies Team",
   description:
-    "For over 13 years, Soft Suave have been the trusted partner to startups and SMBs, achieving a 97% retention rate with results that speak for themselves.",
+    `For over ${FIGURES.years} years, Soft Suave have been the trusted partner to startups and SMBs, achieving a 97% retention rate with results that speak for themselves.`,
 } as const;
 
 /** Page masthead. The live hero is the one word — no eyebrow, no paragraph. */

@@ -31,7 +31,7 @@ import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import Services from '@/components/landing/services';
 import CardGrid from '@/components/landing/industries';
-import TechStack from '@/components/landing/tech-stack';
+import TechStack from '@/components/home/tech-stack';
 import CtaBand from '@/components/landing/cta-band';
 import Faq from '@/components/landing/faq';
 
@@ -120,7 +120,10 @@ export default function ConstructionAiSolutionsPage() {
         <CardGrid content={constructionBenefits} id="benefits" variant="feature" />
 
         <div className={home.light}>
-          <TechStack content={industryTechApproach} />
+          {/* The homepage's technology rows under this section's live heading. */}
+          <div className={home.techFit}>
+            <TechStack content={industryTechApproach} />
+          </div>
           <WorkGrid
             content={constructionSuccessStories}
             id="success-stories"
