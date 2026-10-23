@@ -37,7 +37,7 @@
 .tocTitle {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: 500;
   font-size: clamp(1.25rem, 1.6vw, 1.6rem);
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -153,12 +153,11 @@
 }
 
 .sectionTitle {
-  max-width: 28ch;
+  max-width: 35ch;
 }
 
 .para {
   margin: clamp(14px, 1.4vw, 20px) 0 0;
-  max-width: 78ch;
   font-size: var(--fs-body);
   line-height: 1.7;
   color: var(--text);
@@ -197,6 +196,13 @@
 
 .card {
   margin: 0;
+}
+
+/* Case-study H3s — section card names and the related lane's tile titles —
+   at 400, a step up from the kit's 300. */
+.card h3,
+.related h3 {
+  font-weight: 400;
 }
 
 /* ---- Pull quote ---- */
@@ -307,7 +313,7 @@
   display: block;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  font-size: clamp(1.875rem, 3vw, 2.5rem);
   line-height: 1;
   letter-spacing: -0.03em;
   color: var(--accent);
@@ -322,30 +328,98 @@
   color: var(--text);
 }
 
-/* ---- Download band ---- */
+/* ---- Download panel (the article's last section, `#section7`) ---- */
 .downloadBand {
   text-align: center;
 }
 
+/* Spans the article column, so its edges line up with the cards and figures
+   above it. Dressed as the /hire-forward-deployed-engineer closing banner
+   (`components/fde/sections/CtaBanner.tsx`), with the FDE ink tokens'
+   values written out, since `--fde-*` is only defined on that page. It stays
+   dark on the light article band, so its colours are fixed, not themed.
+
+   Layers, bottom to top, all under the in-flow copy (negative z-index inside
+   the panel's own stacking context): the ember wash below as a fallback for
+   the artwork, the artwork (`.downloadArt`), then the scrim (`::after`). */
 .downloadPanel {
-  max-width: 980px;
-  margin: 0 auto;
-  padding: clamp(28px, 4vw, 56px) clamp(20px, 4vw, 56px);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background:
-    radial-gradient(70% 120% at 50% 0%, rgba(255, 84, 54, 0.14) 0%, rgba(255, 84, 54, 0) 70%),
-    var(--surface);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin: 0;
+  padding: clamp(40px, 5vw, 56px) clamp(24px, 4vw, 48px);
+  border: 1px solid #434343;
+  border-radius: 1rem;
+  /* The panel is dark on the light article band, so its CTA takes the dark
+     canvas's hover — a white wipe with dark ink — not `.light`'s near-black. */
+  --cta-hover-bg: #ffffff;
+  --cta-hover-ink: #140b08;
+  background-color: #040508;
+  background-image:
+    radial-gradient(ellipse 24% 32% at 1% 30%, hsl(41 74% 74% / 0.8), transparent 64%),
+    linear-gradient(
+      120deg,
+      hsl(40 68% 72%) 0%,
+      hsl(28 92% 50%) 8%,
+      hsl(20 88% 30%) 17%,
+      hsl(12 78% 11%) 28%,
+      hsl(0 32% 3%) 43%,
+      hsl(0 32% 3%) 58%,
+      hsl(10 74% 10%) 72%,
+      hsl(22 88% 36%) 84%,
+      hsl(27 92% 48%) 94%,
+      hsl(30 88% 43%) 100%
+    );
+}
+
+/* The download CTA's hover, pinned to white outright: the plate and its wipe
+   go white and the label inks dark, whatever band tokens are in scope.
+   `.downloadPanel button` outranks `.pillFilled:hover`. */
+.downloadPanel button::before {
+  background: #ffffff;
+}
+
+.downloadPanel button:hover,
+.downloadPanel button:focus-visible {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #140b08;
+}
+
+/* The artwork is 16:9 and the panel is wider than that on desktop, taller on
+   phones; `left` keeps the ember bands in frame when the crop is narrow. */
+.downloadArt {
+  z-index: -1;
+  object-fit: cover;
+  object-position: left;
+}
+
+/* A vignette, not a flat wash: a light veil under the copy, thinning to
+   almost nothing at the edges so the amber bands stay vivid. */
+.downloadPanel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse 95% 130% at 50% 50%,
+    rgba(4, 5, 8, 0.58) 0%,
+    rgba(4, 5, 8, 0.48) 58%,
+    rgba(4, 5, 8, 0.22) 86%,
+    rgba(4, 5, 8, 0.06) 100%
+  );
 }
 
 .downloadBody {
-  margin: 0 auto clamp(22px, 2.4vw, 30px);
+  margin: 0 auto clamp(26px, 2.6vw, 32px);
   max-width: 46ch;
   font-family: var(--font-heading);
   font-weight: 300;
   font-size: clamp(1.2rem, 1.9vw, 1.65rem);
   line-height: 1.4;
-  color: var(--text-bright);
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+  color: #e8e8e8;
 }
 
 .downloadGlyph {

@@ -47,6 +47,13 @@ export interface HeroContent {
    * Computer Vision review, 1 Oct: "make sure the H1 comes in a single line".
    */
   titleOneLine?: boolean;
+  /**
+   * Sets the last of `titleLines` as a smaller subline under the headline
+   * (25px on desktop, scaling down on smaller screens) — for a long
+   * descriptive tail such as the Vehicle Intelligence case study's "for
+   * Real-Time Axle Counting & Traffic Monitoring".
+   */
+  titleSubLast?: boolean;
   body: readonly string[];
   points: readonly string[];
   /**
@@ -103,8 +110,14 @@ export interface HeroContent {
    * Optional label/value pairs under the body copy — a case study's
    * "Industry: Transportation" and "Platform: Web" (the live case-study
    * hero's tag and platform line). Rendered as a definition list of chips.
+   * A fact with `icons` shows them in place of its `value` text (each icon's
+   * alt names it) — the case-study platform line's Android / iOS / Web marks.
    */
-  facts?: readonly { readonly label: string; readonly value: string }[];
+  facts?: readonly {
+    readonly label: string;
+    readonly value: string;
+    readonly icons?: readonly { readonly src: string; readonly alt: string }[];
+  }[];
   /**
    * Optional full-bleed background image behind the *whole* hero section —
    * veiled for contrast, the same "image behind the text" treatment as the
@@ -293,7 +306,13 @@ export default function Hero({
             className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}${
               content.titleOneLine ? ` ${styles.heroTitleOneLine}` : ""
             }`}
-            style={content.titleFit ? titleFitStyle(content.titleLines) : undefined}
+            style={
+              content.titleFit
+                ? // A `titleSubLast` subline has its own size, so only the
+                  // headline lines above it set the fit.
+                  titleFitStyle(content.titleSubLast ? content.titleLines.slice(0, -1) : content.titleLines)
+                : undefined
+            }
           >
             {/* The spans are display:block, so the spaces between them only
                 matter to the text content crawlers and screen readers see. */}
@@ -304,7 +323,7 @@ export default function Hero({
                   style={{ ["--i" as string]: i } as CSSProperties}
                   className={`${styles.heroTitleLine}${
                     !content.accent && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
-                  }`}
+                  }${content.titleSubLast && i === lastLine ? ` ${styles.heroTitleSub}` : ""}`}
                 >
                   {accentWithin(line, accents[i])}
                 </span>
@@ -323,7 +342,24 @@ export default function Hero({
               {content.facts.map((fact) => (
                 <div key={fact.label} className={styles.heroFact}>
                   <dt>{fact.label}</dt>
-                  <dd>{fact.value}</dd>
+                  {fact.icons && fact.icons.length > 0 ? (
+                    <dd className={styles.heroFactIcons}>
+                      {fact.icons.map((icon) => (
+                        <Image
+                          key={icon.src}
+                          src={publicMediaUrl(icon.src)}
+                          alt={icon.alt}
+                          title={icon.alt}
+                          width={96}
+                          height={96}
+                          sizes="22px"
+                          className={styles.heroFactIcon}
+                        />
+                      ))}
+                    </dd>
+                  ) : (
+                    <dd>{fact.value}</dd>
+                  )}
                 </div>
               ))}
             </dl>

@@ -323,6 +323,42 @@ export const LANDING_PAGES: readonly LandingPage[] = [
     parent: '/case-studies',
     breadcrumbLabel: 'Vehicle Intelligence',
   },
+  {
+    path: '/case-study-neurora-behavioral-intelligence',
+    title: 'Neurora Behavioral Intelligence',
+    parent: '/case-studies',
+    breadcrumbLabel: 'Neurora Behavioral Intelligence',
+  },
+  {
+    path: '/case-study-tender-intelligence',
+    title: 'Tender Intelligence',
+    parent: '/case-studies',
+    breadcrumbLabel: 'Tender Intelligence',
+  },
+  {
+    path: '/case-study-shiftsense-ai-shift-intelligence',
+    title: 'ShiftSense AI Shift Intelligence',
+    parent: '/case-studies',
+    breadcrumbLabel: 'ShiftSense AI Shift Intelligence',
+  },
+  {
+    path: '/case-study-ai-assist-logistics-onboarding',
+    title: 'AI Assist Logistics Onboarding',
+    parent: '/case-studies',
+    breadcrumbLabel: 'AI Assist Logistics Onboarding',
+  },
+  {
+    path: '/case-study-safeops-ai-incident-management',
+    title: 'SafeOps AI Incident Management',
+    parent: '/case-studies',
+    breadcrumbLabel: 'SafeOps AI Incident Management',
+  },
+  {
+    path: '/case-study-wellpet-ai-smart-wellness-platform',
+    title: 'WellPet AI Smart Wellness Platform',
+    parent: '/case-studies',
+    breadcrumbLabel: 'WellPet AI Smart Wellness Platform',
+  },
   { path: '/success-stories', title: 'Success Stories' },
   { path: '/privacy-policy', title: 'Privacy Policy' },
   // The three Company-menu routes that had no page until now. Every hero

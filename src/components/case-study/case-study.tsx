@@ -16,8 +16,8 @@ import styles from "./case-study.module.css";
 
 /**
  * The case-study page template — softsuave.com's `/case-study-*` pages
- * (hero, a contents column beside six numbered sections, a download band,
- * related case studies and the consultation band), set in this site's own
+ * (hero, a contents column beside six numbered sections and a closing
+ * download panel, related case studies and the consultation band), set in this site's own
  * surface. The copy is the live page's; the look is the landing pages'.
  *
  * A SERVER component: the article is static markup, so it ships no script of
@@ -168,23 +168,38 @@ export default function CaseStudy({ content, idPrefix }: { content: CaseStudyCon
                 )}
               </section>
             ))}
+
+            {/* The live page's closing download panel, set as the article's
+                last section so it sits in the body column under section 6. */}
+            <section
+              id="section7"
+              className={`${styles.section} ${styles.downloadBand}`}
+              aria-label={content.download.label}
+            >
+              {/* The /hire-forward-deployed-engineer closing banner's dress
+                  (`components/fde/sections/CtaBanner.tsx`): a CSS ember wash
+                  as the fallback, its artwork over that, a scrim over both. */}
+              <div className={styles.downloadPanel}>
+                <Image
+                  src={publicMediaUrl("/images/fde/cta-background-one.webp")}
+                  alt=""
+                  fill
+                  sizes="(max-width: 999px) 92vw, 62vw"
+                  className={styles.downloadArt}
+                />
+                <p className={styles.downloadBody}>{content.download.body}</p>
+                <DownloadButton
+                  label={content.download.label}
+                  className={`${home.pill} ${home.pillFilled} ${home.pillLg}`}
+                />
+              </div>
+            </section>
           </article>
         </div>
       </div>
 
-      {/* The live page's closing download panel. */}
-      <section className={`${landing.sectionShell} ${styles.downloadBand}`} aria-label={content.download.label}>
-        <div className={styles.downloadPanel}>
-          <p className={styles.downloadBody}>{content.download.body}</p>
-          <DownloadButton
-            label={content.download.label}
-            className={`${home.pill} ${home.pillFilled} ${home.pillLg}`}
-          />
-        </div>
-      </section>
-
       {/* Related case studies — the homepage's case-study lane, on its band. */}
-      <div className={home.light}>
+      <div className={`${home.light} ${styles.related}`}>
         <WorkGrid content={content.related} id="related" countLabel="case studies" />
       </div>
 

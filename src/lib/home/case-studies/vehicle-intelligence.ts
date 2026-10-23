@@ -1,4 +1,5 @@
 import type { CaseStudyContent } from "@/components/case-study/case-study";
+import { HERO_PLATFORM_ICONS as P } from "./platform-icons";
 
 /**
  * `/case-study-vehicle-intelligence` — softsuave.com's Vehicle Intelligence
@@ -33,13 +34,14 @@ export const vehicleCaseStudy: CaseStudyContent = {
   hero: {
     titleLines: ["A Vision AI Platform", "for Real-Time Axle Counting & Traffic Monitoring"],
     accent: "AI Platform",
+    titleSubLast: true,
     body: [
-      "Turning top-view highway camera feeds into accurate axle counts, lane-level vehicle tracking and live congestion insight — with specialised recognition of lifted and floating axles on commercial vehicles, deployed in production across multiple high-traffic sites along a busy highway corridor.",
+      "Turning top-view highway camera feeds into accurate axle counts, lane-level vehicle tracking and live congestion insight - with specialised recognition of lifted and floating axles on commercial vehicles, deployed in production across multiple high-traffic sites along a busy highway corridor.",
     ],
     points: [],
     facts: [
-      { label: "Industry", value: "Transportation" },
-      { label: "Platform", value: "Web" },
+      { label: "Industry :", value: "Transportation" },
+      { label: "Platform : ", value: "Web", icons: [P.Web] },
     ],
     aside: {
       src: `${IMG}/dashboard.webp`,

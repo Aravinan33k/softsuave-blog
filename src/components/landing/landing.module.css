@@ -98,12 +98,12 @@
 .title {
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: 400;
   font-size: var(--fs-h2);
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text-bright);
-  max-width: 26ch;
+  max-width: 30ch;
 }
 
 /* --text rather than --muted, here and on the section body copy (prose,
@@ -400,7 +400,7 @@
 .heroTitle {
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: 500;
   font-size: var(--fs-h1);
   line-height: 1.05;
   letter-spacing: -0.045em;
@@ -414,6 +414,16 @@
 
 .heroTitleAccent {
   color: var(--accent);
+}
+
+/* `titleSubLast`: the H1's last line as a smaller subline — 25px on desktop,
+   down to ~19px on a phone. */
+.heroTitleSub {
+  margin-top: 0.5em;
+  font-size: clamp(20px, 1.1rem + 0.65vw, 30px);
+  font-weight:400;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
 }
 
 /* Hero body copy is white site-wide: the muted greys these paragraphs used to
@@ -674,6 +684,25 @@
 .heroFact dd {
   margin: 0;
   color: #ffffff;
+}
+
+/* A fact shown as icons (a case study's Android / iOS / Web marks): centred
+   in the chip, since an icon row has no text baseline to line up on. */
+.heroFact:has(.heroFactIcons) {
+  align-items: center;
+}
+
+.heroFactIcons {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65em;
+}
+
+.heroFactIcon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
 }
 
 /* Partner standing (Upwork, Clutch, Microsoft, AWS) runs as the issuers' own
