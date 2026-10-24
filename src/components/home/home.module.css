@@ -1963,6 +1963,12 @@ h1.h2 {
   padding-bottom: clamp(28px, 3vw, 48px) !important;
 }
 
+/* Followed by another section (the FAQ), its own bottom padding would double
+   with that section's top padding. The next one supplies the gap. */
+.reviewsSection:has(+ section) {
+  padding-bottom: 0 !important;
+}
+
 /* Scoped tighter than the page-wide `.sectionHead` (26-56px): this section runs
    a long list of stories under its head, so it earns less of a gap than a
    section with one block of content below it. Scoped, not global, so every
@@ -7341,28 +7347,6 @@ h1.h2 {
 
   .heroCtaRow {
     gap: 12px;
-  }
-}
-
-/* Both hero CTAs are mono uppercase pills with wide tracking. Side by side they
-   need ~330px, so on the narrow phones they wrapped to two rows of unequal
-   width. One per line, each full-width, so neither can be clipped and both are
-   a comfortable tap target. */
-@media (max-width: 420px) {
-  .heroCtaRow {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .heroCtaRow > * {
-    width: 100%;
-  }
-
-  .heroCtaRow .pill,
-  .heroCtaRow .pillFilled {
-    display: block;
-    width: 100%;
-    text-align: center;
   }
 }
 

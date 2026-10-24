@@ -216,7 +216,6 @@
   position: relative;
   /* At least `--hero-top` (home.css): clear of the fixed bar with a gap. */
   padding: max(clamp(78px, 6.6vw, 98px), var(--hero-top)) var(--gutter) clamp(32px, 3.4vw, 52px);
-  border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
 

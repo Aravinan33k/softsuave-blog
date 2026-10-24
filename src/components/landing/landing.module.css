@@ -257,7 +257,6 @@
      one and paints behind the whole page, not just this section. */
   isolation: isolate;
   padding: max(clamp(96px, 11vw, 150px), var(--hero-top)) var(--gutter) var(--section-y);
-  border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
 
@@ -8717,4 +8716,19 @@
   line-height: 1.15;
   letter-spacing: -0.02em;
   text-transform: none;
+}
+
+/* Phones: title lines flow inline so the heading wraps to the real width. */
+@media (max-width: 767px) {
+  .heroTitle .heroTitleLine {
+    display: inline;
+  }
+}
+
+/* Narrow phones: smaller H1 so long words can share a row. */
+@media (max-width: 379px) {
+  .hero .heroTitle,
+  .heroCopyFit .heroTitle.heroTitleFit {
+    font-size: clamp(27px, 8.6vw, 34px);
+  }
 }
