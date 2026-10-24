@@ -29,6 +29,9 @@
   border-radius: 14px;
   background: var(--surface);
   transition: border-color 0.3s ease;
+  /* The type below is sized by the card's own width (see the @container rules),
+     not the page's: three-, four- and five-up the cards run 190-300px wide. */
+  container-type: inline-size;
 }
 
 .step:hover {
@@ -52,7 +55,7 @@
 .name {
   margin: 4px 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -64,6 +67,30 @@
   font-size: var(--fs-body);
   line-height: 1.62;
   color: var(--text);
+}
+
+/* Narrow cards (four- and five-up, or three-up on a laptop): the body copy at the
+   full page size runs to ten-plus lines and the title wraps, so the row looks
+   uneven. Step down with the card, floor at 14px. */
+@container (max-width: 290px) {
+  .name {
+    font-size: 1.125rem;
+  }
+
+  .body {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+}
+
+@container (max-width: 215px) {
+  .name {
+    font-size: 1.0625rem;
+  }
+
+  .body {
+    font-size: 0.875rem;
+  }
 }
 
 /* ---- Connectors -------------------------------------------------------

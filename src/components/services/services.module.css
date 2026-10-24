@@ -54,7 +54,7 @@
 
 .heroTitle {
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h1);
   line-height: 1.04;
   letter-spacing: -0.035em;
@@ -164,7 +164,7 @@
 
 .cardName {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.02em;
@@ -285,7 +285,7 @@
 
 .ctaTitle {
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h2);
   line-height: 1.14;
   letter-spacing: -0.03em;
@@ -315,7 +315,7 @@
 
 .stepNum {
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(2.25rem, 3.6vw, 3.25rem);
   line-height: 1;
   letter-spacing: -0.04em;
@@ -377,7 +377,7 @@
 
 .caseMetric {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.5rem, 2.3vw, 2rem);
   line-height: 1;
   letter-spacing: -0.03em;
@@ -397,7 +397,7 @@
 
 .caseName {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.1875rem, 1.6vw, 1.4375rem);
   line-height: 1.25;
   letter-spacing: -0.02em;
@@ -477,7 +477,7 @@
   padding: clamp(16px, 1.8vw, 22px) 0;
   cursor: pointer;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-faq-q);
   line-height: 1.32;
   letter-spacing: -0.015em;

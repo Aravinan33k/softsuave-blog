@@ -100,7 +100,7 @@
 .title {
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h2);
   line-height: 1.08;
   letter-spacing: -0.03em;
@@ -145,7 +145,7 @@
 .heroTitle {
   margin: 0.35em 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h1);
   line-height: 1.02;
   letter-spacing: -0.035em;
@@ -347,7 +347,7 @@
 .heroPlateFigure {
   font-family: var(--font-heading);
   font-size: clamp(1.5rem, 2vw, 2rem);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   letter-spacing: -0.02em;
   color: var(--text-bright);
   text-transform: none;
@@ -385,7 +385,7 @@
 .proofFigure {
   display: block;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(2.25rem, 4vw, 3.4rem);
   line-height: 1;
   letter-spacing: -0.03em;
@@ -565,7 +565,7 @@
 .sectorName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.06;
   letter-spacing: -0.03em;
@@ -705,7 +705,7 @@
 .ledgerName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.14;
   letter-spacing: -0.02em;
@@ -826,7 +826,7 @@
 
 .workMetricValue {
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(2rem, 3.4vw, 3rem);
   line-height: 1;
   letter-spacing: -0.03em;
@@ -844,7 +844,7 @@
 .workTitle {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.16;
   letter-spacing: -0.02em;
@@ -905,7 +905,7 @@
 .modelName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.12;
   letter-spacing: -0.02em;
@@ -1035,7 +1035,7 @@
 .closingTitle {
   margin: 0.4em 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h2);
   line-height: 1.06;
   letter-spacing: -0.03em;
@@ -1130,7 +1130,7 @@
 .heroBriefLine {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.5rem, 2.6vw, 2.25rem);
   line-height: 1.14;
   letter-spacing: -0.02em;
