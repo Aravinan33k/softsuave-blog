@@ -289,7 +289,7 @@ export default function Services() {
         </div>
       </div>
 
-      {/* ---------- Mobile: vertical stack ---------- */}
+      {/* ---------- Mobile: horizontal swipe rail ---------- */}
       <div className={styles.carMobile}>
         <div className={styles.sectionHead}>
           <span className={styles.eyebrow}>{services.eyebrow}</span>
@@ -299,6 +299,7 @@ export default function Services() {
           <p className={styles.lead}>{services.body}</p>
         </div>
 
+        <div className={styles.carMobRail}>
         {items.map((s, i) => (
           <article key={s.key} className={styles.carMobRow}>
             <div className={styles.carMobCard}>
@@ -320,6 +321,8 @@ export default function Services() {
             </div>
           </article>
         ))}
+        </div>
+
       </div>
     </section>
   );
