@@ -3797,8 +3797,10 @@ h1.h2 {
   /* ALIGNED TILES (16 Oct review: "the cards are coming in different sizes
      … looking misaligned"). The tiles stand side by side here, so their rows
      are matched across the lane: the track is a single row of grid columns,
-     one card wide each, and every tile a subgrid over three shared rows —
-     image, foot, summary. A foot is then as tall as the lane's longest title,
+     one card wide each, and every tile a subgrid over four shared rows —
+     image, foot, summary, "View Case Study" (empty on a lane without one; a
+     subgrid can't add rows, so with three the label was clamped into the
+     summary's row and painted over it). A foot is then as tall as the lane's longest title,
      and every tag, title, rule and summary starts at the same height. Column
      width, gap, padding and snapping are unchanged, so the lane scrolls and
      frames exactly as before (work-grid.tsx measures tiles by their boxes).
@@ -3809,17 +3811,17 @@ h1.h2 {
       display: grid;
       grid-auto-flow: column;
       grid-auto-columns: var(--lane-card);
-      grid-template-rows: repeat(3, auto);
+      grid-template-rows: repeat(4, auto);
       row-gap: 0;
       align-items: stretch;
     }
     .hTile {
-      grid-row: span 3;
+      grid-row: span 4;
       display: grid;
       grid-template-rows: subgrid;
     }
     .hOutro {
-      grid-row: span 3;
+      grid-row: span 4;
     }
   }
 
