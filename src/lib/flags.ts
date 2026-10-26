@@ -81,20 +81,24 @@ export const gtmContainerId: string = gtmEnv === 'off' ? '' : gtmEnv || GTM_DEFA
 /**
  * When the GTM container loads (`components/analytics/google-tag-manager`).
  *
- * `deferred` (the default): on the visitor's first scroll, tap, click, key or
- * mouse move, or a few seconds after the page has loaded if none comes. The
- * container pulls in ~680 KB of tags — Analytics, two Google Ads tags,
- * LinkedIn, Clarity, OptinMonster, Leadfeeder, Factors — and running them
- * while the page starts up cost PageSpeed 15–20 points on mobile (/contact
- * 80 → 63, /generative-ai-development-company 75 → 55, 15 Oct), which no
- * first-party trimming makes back. Visits are still recorded: the fallback
- * fires for a visitor who reads without touching the page.
+ * `eager` (the default): the stock snippet's timing, right after hydration —
+ * as softsuave.com loads it. The container is also what injects the site's
+ * Organization JSON-LD (live's pages carry none of their own), so loading it
+ * late left a page with no Organization for its first seconds, which schema
+ * checkers and crawlers that don't wait reported as missing (review, ParkSafe
+ * case study, 26 Oct).
  *
- * `eager`: the stock snippet's timing, right after hydration. `NEXT_PUBLIC_*`,
- * so changing it needs a rebuild.
+ * `deferred`: on the visitor's first scroll, tap, click, key or mouse move,
+ * or a few seconds after the page has loaded if none comes. The container
+ * pulls in ~680 KB of tags — Analytics, two Google Ads tags, LinkedIn,
+ * Clarity, OptinMonster, Leadfeeder, Factors — and running them while the
+ * page starts up cost PageSpeed 15–20 points on mobile (/contact 80 → 63,
+ * /generative-ai-development-company 75 → 55, 15 Oct). Opt in with
+ * `NEXT_PUBLIC_GTM_LOAD=deferred` to trade the Organization's timing for
+ * that score. `NEXT_PUBLIC_*`, so changing it needs a rebuild.
  */
 export const gtmLoad: 'deferred' | 'eager' =
-  (process.env.NEXT_PUBLIC_GTM_LOAD ?? '').trim() === 'eager' ? 'eager' : 'deferred';
+  (process.env.NEXT_PUBLIC_GTM_LOAD ?? '').trim() === 'deferred' ? 'deferred' : 'eager';
 
 /**
  * Subpath this app is mounted at, mirroring `basePath` in `next.config.ts`.

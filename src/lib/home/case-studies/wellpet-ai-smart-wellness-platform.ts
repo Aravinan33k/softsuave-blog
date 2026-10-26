@@ -1,5 +1,6 @@
 import type { CaseStudyContent } from "@/components/case-study/case-study";
-import { HERO_PLATFORM_ICONS as P } from "./platform-icons";
+import { HERO_PLATFORM_ICONS as P, platformFact } from "./platform-icons";
+import { relatedCaseStudies } from "./related";
 
 /**
  * `/case-study-wellpet-ai-smart-wellness-platform` — softsuave.com's WellPet
@@ -10,8 +11,7 @@ import { HERO_PLATFORM_ICONS as P } from "./platform-icons";
  *
  * Every line of copy is the live page's, verbatim: hero, the six numbered
  * sections and their cards, the pull quote, the twelve features, the four
- * figures, the download panel and modal, and the related-case-study heading
- * and card blurbs (live's own five, which leave WellPet out). Section ids are
+ * figures, the download panel and modal, and the related-case-study heading. Section ids are
  * live's (`#section1`…`#section6`). The images and the PDF are live's,
  * self-hosted (`public/images/case-studies/wellpet-ai-smart-wellness-platform/`,
  * `public/assets/case-studies/`); the PDF keeps live's path.
@@ -45,7 +45,7 @@ export const wellPetCaseStudy: CaseStudyContent = {
     points: [],
     facts: [
       { label: "Industry :", value: "Healthcare" },
-      { label: "Platform : ", value: "Android, iOS, Web", icons: [P.Android, P.iOS, P.Web] },
+      platformFact([P.Android, P.iOS, P.Web]),
     ],
     aside: {
       src: `${IMG}/dashboard.webp`,
@@ -214,45 +214,7 @@ export const wellPetCaseStudy: CaseStudyContent = {
     },
   },
 
-  // Live's "Related Case Studies" carousel: its heading, standfirst and five
-  // cards (WellPet itself is not among them), each with live's own short
-  // blurb. The images are the ones the case-study index already ships.
-  related: {
-    eyebrow: "Related Case Studies",
-    title: "Real-World Impact Through Digital Transformation",
-    body: "Explore how we help startups and SMBs grow, launch successful products, and solve challenges with tech and strategy—backed by real results in every case study.",
-    tileCta: "View Case Study",
-    items: [
-      {
-        title: "An AI-Powered Compliance Analysis Platform for Influencer Marketing",
-        body: "Soft Suave built an AI platform that checks sponsored influencer content against compliance rules and returns a verdict in seconds.",
-        image: { src: "/images/case-studies/post-guard-cs.webp", alt: "AI-Powered Influencer Marketing Platform" },
-        href: "/case-study-postguard-compliance-ai",
-      },
-      {
-        title: "AI-Native Multi-Tenant Market Intelligence for Traders and Analysts",
-        body: "Soft Suave lets traders and analysts ask plain-English questions and get answers grounded in their firm's own data, with strict tenant isolation.",
-        image: { src: "/images/case-studies/marketmind-cs.webp", alt: "Multi-Tenant Market Intelligence Platform" },
-        href: "/case-study-marketmind-ai-market-intelligence",
-      },
-      {
-        title: "An AI Content Production Programme for Enterprise Strategic Communications",
-        body: "Soft Suave built an AI content programme that speeds up campaign production and delivers bilingual English-Arabic content at scale.",
-        image: { src: "/images/case-studies/brand-forge-cs.webp", alt: "AI Content Production Programme" },
-        href: "/case-study-brand-forge",
-      },
-      {
-        title: "Hire Voice An AI-Powered Voice Interview Platform for Scalable Technical Hiring",
-        body: "Soft Suave built an AI bot that conducts spoken technical interviews and scores every transcript into a shareable report.",
-        image: { src: "/images/case-studies/hire-voice-cs.webp", alt: "AI-Powered Voice Interview Platform" },
-        href: "/case-study-hire-voice",
-      },
-      {
-        title: "A Vision AI Platform for Real-Time Axle Counting & Traffic Monitoring",
-        body: "Soft Suave built a vision AI platform that counts axles and tracks vehicles in real time from live highway camera feeds.",
-        image: { src: "/images/case-studies/vehicle-intelligence-cs.webp", alt: "Vehicle Intelligence Platform" },
-        href: "/case-study-vehicle-intelligence",
-      },
-    ],
-  },
+  // The previous study and the next four in the case-study listing
+  // (see `related.ts`).
+  related: relatedCaseStudies(wellPetMeta.path),
 };

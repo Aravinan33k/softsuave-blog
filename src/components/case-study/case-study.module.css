@@ -156,6 +156,32 @@
   max-width: 35ch;
 }
 
+/* A sub-section (`sub`): it continues the section above, so it sits close
+   under it with a heading a step down. */
+.section.sub {
+  padding-top: clamp(4px, 0.6vw, 10px);
+}
+
+/* An untitled sub-section runs straight on from the block above. */
+.section.sub:not(:has(.subTitle)) {
+  padding-top: 0;
+}
+
+.section.sub + .section:not(.sub) {
+  padding-top: clamp(26px, 3.2vw, 52px);
+}
+
+.subTitle {
+  margin: 0;
+  max-width: 40ch;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--fs-card-title);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
 .para {
   margin: clamp(14px, 1.4vw, 20px) 0 0;
   font-size: var(--fs-body);
@@ -203,6 +229,14 @@
 .card h3,
 .related h3 {
   font-weight: 400;
+}
+
+/* A card with no name: its sentence stands in the heading's place, so it
+   takes the body size and the bright ink rather than the small-print grey. */
+.cardLead {
+  margin-top: 14px;
+  font-size: var(--fs-body);
+  color: var(--text-bright);
 }
 
 /* ---- Pull quote ---- */
@@ -263,6 +297,176 @@
   color: var(--accent);
 }
 
+/* A list item's bold lead-in label ("Performance Optimization - "). */
+.featureLead {
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+/* Sentence-length items read as one column at every width. Two classes, so
+   it outranks the container queries' column counts above. */
+.features.featuresSingle {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.featuresSingle .feature {
+  line-height: 1.6;
+}
+
+/* ---- Technology tiles ---- */
+.tech {
+  list-style: none;
+  margin: clamp(22px, 2.4vw, 32px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: clamp(10px, 1.2vw, 16px);
+  max-width: unset;
+}
+
+.techTile {
+  margin: 0;
+  padding: 0;
+}
+
+/* A tile is either a link wrapping logo + name, or the bare logo + name. */
+.techTile,
+.techLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.techTile:not(:has(.techLink)) {
+  padding: clamp(18px, 2vw, 26px) 12px;
+}
+
+.techLink {
+  width: 100%;
+  height: 100%;
+  padding: clamp(18px, 2vw, 26px) 12px;
+  color: inherit;
+}
+
+/* Every logo gets the same 56px box, centred, whatever its artwork's shape.
+   `flex: none` matters: as a column flex item an image may shrink down to its
+   intrinsic size, which for some SVGs (Node's is 20×22) is far below 56px —
+   so in a tight tile that one logo shrank and sat off-centre from the rest. */
+.techLogo {
+  flex: none;
+  width: auto;
+  height: 56px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.techName {
+  font-size: var(--fs-body);
+  color: var(--text-bright);
+}
+
+/* ---- Table (`table`) ---- */
+.tableWrap {
+  margin: clamp(18px, 2vw, 26px) 0 0;
+  overflow-x: auto;
+  border: 1px solid color-mix(in srgb, var(--text-bright) 12%, var(--line));
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  text-align: left;
+}
+
+.table th,
+.table td {
+  padding: clamp(12px, 1.3vw, 16px) clamp(16px, 1.8vw, 24px);
+  vertical-align: top;
+}
+
+/* Header cells a weight up from the body (review: "increase the font-weight"),
+   over a hairline in a soft tint of the accent rather than a full-strength
+   rule (review: "reduce that stroke"). */
+.table th {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--fs-card-title);
+  letter-spacing: -0.01em;
+  color: var(--text-bright);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+}
+
+.table td {
+  color: var(--text-bright);
+  border-top: 1px solid color-mix(in srgb, var(--text-bright) 10%, var(--line));
+}
+
+.table tbody tr:first-child td {
+  border-top: 0;
+}
+
+.table th + th,
+.table td + td {
+  border-left: 1px solid color-mix(in srgb, var(--text-bright) 10%, var(--line));
+}
+
+/* A tile's group label (`group`) — the stack layer over its logo. */
+.techGroup {
+  font-size: var(--fs-body-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.techLink:hover .techName {
+  color: var(--accent);
+}
+
+/* Wide variant (`techWide`): icon beside a sentence, two cards to a row; a
+   lone last card takes the whole row rather than sitting half-empty. */
+.techWide {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .techWide {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .techWide > .techTile:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+.techWide .techTile,
+.techWide .techLink {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 18px;
+  text-align: left;
+}
+
+.techWide .techTile:not(:has(.techLink)),
+.techWide .techLink {
+  padding: clamp(18px, 2vw, 24px);
+}
+
+.techWide .techLogo {
+  width: 48px;
+  height: 48px;
+}
+
+.techWide .techName {
+  line-height: 1.55;
+}
+
 /* ---- Figure ---- */
 .figure {
   max-width: 1240px;
@@ -271,13 +475,18 @@
   overflow: hidden;
   /* The artwork has a transparent ground; the live page sets it on a deep
      navy panel, and so does this. */
-  background: radial-gradient(120% 90% at 50% 20%, #13244a 0%, #0b1020 70%);
+  /* background: radial-gradient(120% 90% at 50% 20%, #13244a 0%, #0b1020 70%); */
 }
 
+/* Fills the column, but never past the artwork's own width: the older case
+   studies' phone mock-ups are ~500px and would blur scaled up, so they sit
+   centred on the panel instead. */
 .figureImg {
   display: block;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
+  margin: 0 auto;
 }
 
 /* ---- Headline figures ---- */
@@ -328,7 +537,8 @@
   color: var(--text);
 }
 
-/* ---- Download panel (the article's last section, `#section7`) ---- */
+/* ---- Download panel (the article's last section, `#case-study-download-panel`;
+   not `#section7`, which an older case study uses for a section of its own) ---- */
 .downloadBand {
   text-align: center;
 }

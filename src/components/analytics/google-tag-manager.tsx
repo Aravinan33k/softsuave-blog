@@ -12,9 +12,9 @@ import GtmLoader from './gtm-loader';
  * nothing only when `NEXT_PUBLIC_GTM_ID=off`. The same constant gates the CSP
  * in `next.config.ts`.
  *
- * `GtmLoader` injects the snippet — by default on the visitor's first
- * interaction or a few seconds after load (`gtmLoad`, `lib/flags.ts`), never
- * ahead of the page's own scripts. It is not a `next/script`: that would also
+ * `GtmLoader` injects the snippet — by default right after hydration, or,
+ * with `deferred`, on the visitor's first interaction or a few seconds after
+ * load (`gtmLoad`, `lib/flags.ts`) — never ahead of the page's own scripts. It is not a `next/script`: that would also
  * put a `<link rel="preload">` for gtm.js in every page's head, fetching the
  * container alongside the render-blocking CSS whenever it is going to run.
  *
