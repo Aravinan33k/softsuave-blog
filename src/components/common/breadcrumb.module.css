@@ -16,9 +16,15 @@
   color: #c8c8c8;
 }
 
+/* One row, always. A wrapping list dropped the current page onto a row of its
+   own the moment "Home › Parent ›" left it less room than its full name — a
+   second line of height and a gap on the right while there was still room for
+   the trail. Instead the middle (parent) crumbs give way first, with an
+   ellipsis; "Home" never shrinks; the current page shrinks last, and wraps
+   its own text only when even that is not enough. */
 .list {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 0.5em;
   margin: 0;
@@ -31,6 +37,44 @@
   align-items: center;
   gap: 0.5em;
   min-width: 0;
+  flex: 0 1 auto;
+}
+
+.item:first-child {
+  flex-shrink: 0;
+}
+
+.item:not(:first-child):not(:last-child) {
+  flex-shrink: 1;
+}
+
+/* The page you are on is never the one cut short. `max-width` lets it wrap
+   inside the row only when it alone is wider than the row. */
+.item:last-child:not(:first-child) {
+  flex-shrink: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 480px) {
+  .breadcrumb {
+    font-size: 0.74rem;
+  }
+
+  .list,
+  .item {
+    gap: 0.4em;
+  }
+}
+
+.item:not(:first-child):not(:last-child) .link {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sep {
+  flex: none;
 }
 
 .link {

@@ -37,7 +37,7 @@
 .tocTitle {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.25rem, 1.6vw, 1.6rem);
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -211,7 +211,7 @@
 .quote p {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.15rem, 1.5vw, 1.4rem);
   line-height: 1.45;
   letter-spacing: -0.01em;
@@ -306,7 +306,7 @@
 .statFigure {
   display: block;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(2.25rem, 4vw, 3.25rem);
   line-height: 1;
   letter-spacing: -0.03em;
@@ -342,7 +342,7 @@
   margin: 0 auto clamp(22px, 2.4vw, 30px);
   max-width: 46ch;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.2rem, 1.9vw, 1.65rem);
   line-height: 1.4;
   color: var(--text-bright);
@@ -414,7 +414,7 @@
 .dialogDoneTitle {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.5rem, 2.4vw, 1.9rem);
   line-height: 1.2;
   color: #16181d;

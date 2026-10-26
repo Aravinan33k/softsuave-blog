@@ -6,6 +6,7 @@ import { hero as generativeAiHero } from "@/lib/home/generative-ai";
 import { publicMediaUrl } from "@/lib/media-url";
 import { heroBadgeSizes, isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import styles from "./gen-ai.module.css";
+import cta from "@/components/common/cta-row.module.css";
 import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
 import Breadcrumb from "@/components/common/breadcrumb";
 import { titleFitStyle } from "@/components/landing/hero";
@@ -198,7 +199,7 @@ export default function Hero({
           </ul>
 
           {content.ctas && content.ctas.length > 0 && (
-            <div className={styles.heroCtas}>
+            <div className={`${styles.heroCtas} ${cta.ctaPair}`}>
               {content.ctas.map((cta, i) => {
                 const className = i === 0 ? `${styles.btn} ${styles.btnPrimary}` : styles.btn;
                 if (cta.external) {
