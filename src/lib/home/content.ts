@@ -31,7 +31,7 @@ export const why = {
   eyebrow: "Why Soft Suave",
   /* The full stop is part of the title so the heading's word-splitter keeps it
      attached to "Launch" rather than floating it as a word of its own. */
-  title: "Your AI Growth Partner, From Idea to Launch.",
+  title: "Your AI Growth Partner, From Idea to Launch",
   body: "With years of AI and software engineering experience, Soft Suave helps startups, SMBs, and enterprises build practical AI solutions backed by proven delivery strength.",
   /**
    * The proof cards. `label` is the kicker over the figure and must read with
@@ -119,7 +119,7 @@ export const clients: {
     { name: "The 2020 Diet", src: "/brand/clients/the-2020-diet.webp" },
     { name: "Teamicate", src: "/brand/clients/teamicate.webp" },
     { name: "Sulekha", src: "/brand/clients/sulekha.webp" },
-    { name: "PromosTV", src: "/brand/clients/promostv.webp" },
+    // PromosTV removed (26 Oct): its pale lockup was illegible on the band.
     { name: "Poorvika", src: "/brand/clients/poorvika.webp" },
     { name: "PaceWisdom", src: "/brand/clients/pacewisdom.webp" },
     { name: "Outsource", src: "/brand/clients/outsource.webp" },

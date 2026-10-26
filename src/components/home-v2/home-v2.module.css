@@ -122,9 +122,11 @@
   will-change: transform;
 }
 
+/* "AI" in the H1: italic, at the heading's own weight (`--heading-weight`) —
+   a fixed 300 left it the one thin word in a bold headline. */
 .heroItalic {
   font-style: italic;
-  font-weight: 300;
+  font-weight: inherit;
 }
 
 /* The rotating word. Every word shares one grid cell, so the slot is as wide as

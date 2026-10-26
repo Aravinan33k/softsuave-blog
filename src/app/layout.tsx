@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Lato, PT_Serif } from "next/font/google";
-import { env } from "@/lib/env";
 import { pageRobots } from "@/lib/flags";
+import { CANONICAL_ORIGIN } from "@/lib/seo/metadata";
 import GoogleTagManager from "@/components/analytics/google-tag-manager";
 import ChatBotLoader from "@/components/chatbot/chatbot-loader";
 import { PAINT_NUDGE } from "@/lib/paint-nudge";
@@ -34,7 +34,10 @@ const ptSerif = PT_Serif({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+  // Canonicals always name the public domain — see CANONICAL_ORIGIN. Every
+  // other absolute URL (og:url, share images) is built with absoluteUrl /
+  // ogImageUrl and does not depend on this.
+  metadataBase: new URL(CANONICAL_ORIGIN),
   title: { default: "Softsuave Blog", template: "%s" },
   description: "A fast, SEO-first blog.",
   // Site-wide default for any page that sets no robots of its own — noindex,

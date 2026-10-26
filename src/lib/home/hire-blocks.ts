@@ -164,8 +164,8 @@ export const CURATED_STEPS: ProcessContent["steps"] = [
  *
  * The homepage strip opens with Phoenix Technologies, AMD Telecom and Perkypet,
  * added here from softsuave.com's /clients index because they are the three
- * clients its testimonials quote. The hire pages' live band runs the other
- * nineteen and not those three, so they are filtered out rather than left to
+ * clients its testimonials quote. The hire pages' live band runs the others
+ * (eighteen since PromosTV's illegible logo was dropped, 26 Oct) and not those three, so they are filtered out rather than left to
  * claim three clients the source page does not.
  */
 const NOT_ON_HIRE_PAGES = new Set(["Phoenix Technologies", "AMD Telecom", "Perkypet"]);
