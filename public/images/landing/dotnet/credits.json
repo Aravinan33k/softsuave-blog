@@ -1,0 +1,74 @@
+[
+  {
+    "file": "/images/landing/dotnet/hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A developer building a .NET application across dual monitors",
+    "pexelsId": "9553905",
+    "source": "https://www.pexels.com/photo/9553905/",
+    "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAACwAQCdASoQAAkAA4BaJZwAAl26d+/wAP71vOPu8ybHM7E14mg8K2jsKC6nhAEsIxNdDMHPveG8gDhgUo4AAA=="
+  },
+  {
+    "file": "/images/landing/dotnet/overview.webp",
+    "width": 1400,
+    "height": 1050,
+    "alt": "Source code on a dark screen, the C# a .NET application is written in",
+    "pexelsId": "12081657",
+    "source": "https://www.pexels.com/photo/12081657/",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAABwAQCdASoQAAwAA4BaJYwC7AGIQAD+8fPftHP8UkfoOTXyX7DxL2U/swAAAA=="
+  },
+  {
+    "file": "/images/landing/dotnet/svc-custom.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "An engineer writing a custom application in a modern office",
+    "pexelsId": "3861951",
+    "source": "https://www.pexels.com/photo/3861951/",
+    "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAQAgCdASoQAAsAA4BaJZACdAERHE/JeIqAAP4nrw08i+vnOGWAqzOpbbpjPGLDe1mvaxkHYppsjJ0jHRxuUZ5JEkUqDWGKCZZygUwdIqICTuqDQgAAAA=="
+  },
+  {
+    "file": "/images/landing/dotnet/svc-team.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A dedicated team working together on a project in an open office",
+    "pexelsId": "7654168",
+    "source": "https://www.pexels.com/photo/7654168/",
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADwAQCdASoQAAsAA4BaJYwCdAD8LkTiF4AA/upJXX4l6eJRlDdT3lCWZtso8CZIFQ892Szze+L/jjW3xVxLLa3bALzRIyao3Xu0aKiO3KfmJQYqLShe+kWneh8eJEAA"
+  },
+  {
+    "file": "/images/landing/dotnet/svc-customization.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "Application code on screen during an integration fix",
+    "pexelsId": "6212801",
+    "source": "https://www.pexels.com/photo/6212801/",
+    "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAAAwAgCdASoQAAsAA4BaJZQCdAERH5NNGNgUAAD+5us6lM3vVe/n6UU7RuMYRm76yAiDwAAA"
+  },
+  {
+    "file": "/images/landing/dotnet/svc-consulting.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "Consultants advising a client team in a meeting room",
+    "pexelsId": "20752572",
+    "source": "https://www.pexels.com/photo/20752572/",
+    "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAABQAgCdASoQAAsAA4BaJYwC/OYsPvoahzymS4AA/thBQE7/qyfdFneuWDu67+zbE12f60ZMnEgBzw3kTfIzDIzPh3KBo6H1s8YhcGD4jBF9ukh8KlMMRzLWetvBY7R12qjqnSWIeAAAAA=="
+  },
+  {
+    "file": "/images/landing/dotnet/svc-enterprise.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A team working through enterprise requirements around a table",
+    "pexelsId": "36765719",
+    "source": "https://www.pexels.com/photo/36765719/",
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAACwAQCdASoQAAsAA4BaJQBOgBRzcAtAAP7zUQ1YebwymOJ4gl+EuefLrBLJXS13h0YvyMWi/N+NNJO0u7y7CD12MJMgqlwW1CLDBCpT9s7V4lqTMc0laXkLxU+RgAAA"
+  },
+  {
+    "file": "/images/landing/dotnet/svc-support.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "An engineer maintaining a live application at a dual-monitor desk",
+    "pexelsId": "36706459",
+    "source": "https://www.pexels.com/photo/36706459/",
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAADwAQCdASoQAAsAA4BaJQAB8inWTpq0lfAA/uRmWarGpWsggqPwfWmTW2fVStlo9lgnp1RkjjJR7PCTvXv/MoA4HHAmF8PlmndlJKZ9yV7Zgug9GUAQV0He5n3/6L1tUgynixYgAAA="
+  }
+]

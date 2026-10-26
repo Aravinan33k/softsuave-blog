@@ -1,0 +1,74 @@
+[
+  {
+    "file": "/images/landing/nextjs/hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A developer coding a Next.js application on a laptop",
+    "pexelsId": "37085302",
+    "source": "https://www.pexels.com/photo/37085302/",
+    "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADwAQCdASoQAAkAA4BaJYwCdAEN5vpjuCAA/u5uJUr7L/jKufs4mwK21tkyNuKa9kIPjZ76kQgiNcLpSa9EmzZp+UvFf4PBshrjHVE4tAYbSAAA"
+  },
+  {
+    "file": "/images/landing/nextjs/overview.webp",
+    "width": 1400,
+    "height": 1050,
+    "alt": "A workflow view across tablet and screens, connected systems feeding one product",
+    "pexelsId": "38984817",
+    "source": "https://www.pexels.com/photo/38984817/",
+    "blurDataURL": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAQAgCdASoQAAwAA4BaJbACdH8AENk+k5NAAP7qIgNiWp7Kilef4vmxcrl/9SaL3puErUMoyZEW7jHLemk2LhxHNkONX35n7QB7H4+CEIr2WkiO2DhQOeOGO4pirEJgsJ4iP4ry/GaQAAAA"
+  },
+  {
+    "file": "/images/landing/nextjs/svc-custom.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Application code in an editor during a Next.js build",
+    "pexelsId": "4164418",
+    "source": "https://www.pexels.com/photo/4164418/",
+    "blurDataURL": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAACQAQCdASoQAAwAA4BaJZQAAWTtsYAA/vR0sWKCHbHups0r0RLIwqr4IZPpjoTFK36WdRLwAAA="
+  },
+  {
+    "file": "/images/landing/nextjs/svc-ssr.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A content-rich website design open on screen",
+    "pexelsId": "326514",
+    "source": "https://www.pexels.com/photo/326514/",
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQAgCdASoQAAwAA4BaJZwAD48OL0yFX0fgAOA36cP2bzoJbkNiCyL2LMo64HQA8vzWBb5Wv/NjzO4OJvIjiv9BCsDTsjys1ab0/aXwT66YBquKtGvzJ6b83QjRzGaTMMFgb8QAAAA="
+  },
+  {
+    "file": "/images/landing/nextjs/svc-ecommerce.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "An online checkout screen on a laptop",
+    "pexelsId": "7191162",
+    "source": "https://www.pexels.com/photo/7191162/",
+    "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAACwAQCdASoQAAwAA4BaJZwAAuaGqLgAAP7gzdwhQdSm7PyKZHtJCoODTXbPAMwDv7cfkRVDFnOWqnO2wF6CpwAA"
+  },
+  {
+    "file": "/images/landing/nextjs/svc-saas.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A tablet showing a web analytics dashboard with graphs and charts",
+    "pexelsId": "10020092",
+    "source": "https://www.pexels.com/photo/10020092/",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAQCdASoQAAwAA4BaJYgCdADiXIkF1oAA/HkmFtYDH798NrW1l3ztMhVArjfnQnFo4fKG6XBob8ZHuPUaL95OLrXwJBfYUWC1L6+LE7SYDUiKYgy0rAAA"
+  },
+  {
+    "file": "/images/landing/nextjs/svc-migration.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Two developers reviewing code on a large screen during a migration",
+    "pexelsId": "7988747",
+    "source": "https://www.pexels.com/photo/7988747/",
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQAgCdASoQAAwAA4BaJZQCw7Yt9sYX9rGIAM4Cqz8qeo0+wDxHZAj+yi0cGtYWj7z2M+42z79iX7GxYQL5LK9PXnOnV2hXFyEVto81cIufJjoXgEJ2IM0XT5IfqIrmgAA="
+  },
+  {
+    "file": "/images/landing/nextjs/svc-support.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "An engineer monitoring live systems on a laptop in a server room",
+    "pexelsId": "1181354",
+    "source": "https://www.pexels.com/photo/1181354/",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAQCdASoQAAwAA4BaJYgCdH8AF+J7a2AA/vDoRl3yNfidP8jPv2iuLSIAZBiZKu96m6z1+gNqBlwF3NPvUXAIhYHWBSuxOn4Qs7JxqSIOHNjYcsAsAAAA"
+  }
+]
