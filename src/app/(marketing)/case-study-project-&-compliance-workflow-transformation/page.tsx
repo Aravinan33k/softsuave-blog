@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import {
-  projectComplianceCaseStudy,
-  projectComplianceMeta,
-} from '@/lib/home/case-studies/project-compliance-workflow-transformation';
+import { projectComplianceMeta } from '@/lib/home/case-studies/project-compliance-workflow-transformation';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Project & Compliance Workflow Transformation, rebuilt from
@@ -60,10 +57,7 @@ export default function ProjectComplianceCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={projectComplianceCaseStudy}
-          idPrefix="case-study-project-compliance-workflow-transformation"
-        />
+        <Sections />
       </main>
 
       <Footer />

@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import { areaMappingCaseStudy, areaMappingMeta } from '@/lib/home/case-studies/area-mapping-solution';
+import { areaMappingMeta } from '@/lib/home/case-studies/area-mapping-solution';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Area Mapping Solution For A Solar Business, rebuilt from
@@ -56,7 +56,7 @@ export default function AreaMappingCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={areaMappingCaseStudy} idPrefix="case-study-area-mapping-solution" />
+        <Sections />
       </main>
 
       <Footer />

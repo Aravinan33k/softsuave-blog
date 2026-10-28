@@ -3,13 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { hireVoiceArticleLd } from '@/lib/seo/case-study-hire-voice';
-import { hireVoiceCaseStudy, hireVoiceMeta } from '@/lib/home/case-studies/hire-voice';
+import { hireVoiceMeta } from '@/lib/home/case-studies/hire-voice';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * HireVoice, rebuilt from https://www.softsuave.com/case-study-hire-voice on
@@ -75,7 +75,7 @@ export default function HireVoiceCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={hireVoiceCaseStudy} idPrefix="case-study-hire-voice" />
+        <Sections />
       </main>
 
       <Footer />

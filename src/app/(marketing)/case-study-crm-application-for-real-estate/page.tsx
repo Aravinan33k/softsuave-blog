@@ -1,16 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
-import {
-  crmRealEstateCaseStudy,
-  crmRealEstateMeta,
-} from '@/lib/home/case-studies/crm-application-for-real-estate';
+import { crmRealEstateMeta } from '@/lib/home/case-studies/crm-application-for-real-estate';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Real Estate CRM Platform for better Process Tracking, rebuilt from
@@ -74,7 +71,7 @@ export default function CrmRealEstateCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={crmRealEstateCaseStudy} idPrefix="case-study-crm-application-for-real-estate" />
+        <Sections />
       </main>
 
       <Footer />

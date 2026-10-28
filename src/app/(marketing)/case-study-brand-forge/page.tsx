@@ -3,13 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { brandForgeArticleLd } from '@/lib/seo/case-study-brand-forge';
-import { brandForgeCaseStudy, brandForgeMeta } from '@/lib/home/case-studies/brand-forge';
+import { brandForgeMeta } from '@/lib/home/case-studies/brand-forge';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * BrandForge, rebuilt from https://www.softsuave.com/case-study-brand-forge on
@@ -75,7 +75,7 @@ export default function BrandForgeCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={brandForgeCaseStudy} idPrefix="case-study-brand-forge" />
+        <Sections />
       </main>
 
       <Footer />

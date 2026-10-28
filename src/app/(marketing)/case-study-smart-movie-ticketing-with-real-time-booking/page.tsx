@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import {
-  movieTicketingCaseStudy,
-  movieTicketingMeta,
-} from '@/lib/home/case-studies/smart-movie-ticketing-real-time-booking';
+import { movieTicketingMeta } from '@/lib/home/case-studies/smart-movie-ticketing-real-time-booking';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Smart Movie Ticketing with Real-Time Booking, rebuilt from
@@ -51,10 +48,7 @@ export default function MovieTicketingCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={movieTicketingCaseStudy}
-          idPrefix="case-study-smart-movie-ticketing-with-real-time-booking"
-        />
+        <Sections />
       </main>
 
       <Footer />

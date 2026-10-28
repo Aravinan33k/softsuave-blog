@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import {
-  digitalSignageCaseStudy,
-  digitalSignageMeta,
-} from '@/lib/home/case-studies/smart-digital-signage-ad-scheduling';
+import { digitalSignageMeta } from '@/lib/home/case-studies/smart-digital-signage-ad-scheduling';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Smart Digital Signage with Advanced Ad Scheduling, rebuilt from
@@ -51,10 +48,7 @@ export default function DigitalSignageCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={digitalSignageCaseStudy}
-          idPrefix="case-study-smart-digital-signage-with-advanced-ad-scheduling"
-        />
+        <Sections />
       </main>
 
       <Footer />

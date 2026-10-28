@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import {
-  digitalAdvertisingCaseStudy,
-  digitalAdvertisingMeta,
-} from '@/lib/home/case-studies/digital-advertising-in-public-spaces';
+import { digitalAdvertisingMeta } from '@/lib/home/case-studies/digital-advertising-in-public-spaces';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Digital Advertising in Public Spaces, rebuilt from
@@ -58,10 +55,7 @@ export default function DigitalAdvertisingCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={digitalAdvertisingCaseStudy}
-          idPrefix="case-study-digital-advertising-in-public-spaces"
-        />
+        <Sections />
       </main>
 
       <Footer />

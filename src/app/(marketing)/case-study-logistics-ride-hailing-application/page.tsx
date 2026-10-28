@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import { rideHailingCaseStudy, rideHailingMeta } from '@/lib/home/case-studies/logistics-ride-hailing-application';
+import { rideHailingMeta } from '@/lib/home/case-studies/logistics-ride-hailing-application';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Logistics Ride Hailing Application, rebuilt from
@@ -56,7 +56,7 @@ export default function RideHailingCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={rideHailingCaseStudy} idPrefix="case-study-logistics-ride-hailing-application" />
+        <Sections />
       </main>
 
       <Footer />

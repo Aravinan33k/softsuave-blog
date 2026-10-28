@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import {
-  aiChatbotCaseStudy,
-  aiChatbotMeta,
-} from '@/lib/home/case-studies/ai-chatbot-engagement-secure-transactions';
+import { aiChatbotMeta } from '@/lib/home/case-studies/ai-chatbot-engagement-secure-transactions';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * AI Chatbot for Engagement and Secure Transactions, rebuilt from
@@ -51,10 +48,7 @@ export default function AiChatbotCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={aiChatbotCaseStudy}
-          idPrefix="case-study-ai-chatbot-for-engagement-and-secure-transactions"
-        />
+        <Sections />
       </main>
 
       <Footer />

@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import {
-  smartWarrantyCaseStudy,
-  smartWarrantyMeta,
-} from '@/lib/home/case-studies/smart-warranty-document-management';
+import { smartWarrantyMeta } from '@/lib/home/case-studies/smart-warranty-document-management';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Smart Warranty and Document Management App, rebuilt from
@@ -63,10 +60,7 @@ export default function SmartWarrantyCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={smartWarrantyCaseStudy}
-          idPrefix="case-study-smart-warranty-and-document-management-app"
-        />
+        <Sections />
       </main>
 
       <Footer />
