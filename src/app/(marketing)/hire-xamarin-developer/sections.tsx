@@ -47,6 +47,7 @@ export default function Sections() {
       <Hero
         content={{ ...hxHero, badges: partnerHeroBadges, ctas: sharedHeroCtas }}
         idPrefix="hire-xamarin"
+        wide
       />
 
       <div className={home.light}>
