@@ -3,36 +3,14 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
-import {
-  rorHero,
-  rorHireCta,
-  rorMeta,
-  rorOverview,
-  rorServices,
-  rorTech,
-} from '@/lib/home/ruby-on-rails-content';
+import { rorMeta, rorServices, rorTech } from '@/lib/home/ruby-on-rails-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-
-// Shared landing-page surface — `components/landing` plus the newer sections
-// in `components/common`, over the homepage's typography and `.theme-four`
-// tokens. This page adds none of its own; every section the live page carries
-// already had a home here.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import ServiceBoard from '@/components/common/service-board';
-import CtaBand from '@/components/landing/cta-band';
 import TechStack from '@/components/landing/tech-stack';
 
-// Reused from the homepage verbatim. Not a stylistic choice: the live page's
-// reviews band IS the homepage's, to the word — "What Our Clients Say About
-// Us" with the same standfirst.
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
-
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Ruby on Rails Development landing page.
@@ -140,30 +118,9 @@ export default function RubyOnRailsDevelopmentPage() {
        * the rhythm.
        */}
       <main id="main">
-        {/* Compact look — the same hero as the rest of the surface. */}
-        <Hero content={rorHero} idPrefix="ror" variant="compact" />
-
-        <div className={home.light}>
-          <Overview content={rorOverview} variant="compact" />
-        </div>
-
-        {/* Four names to pick from, one stage to read on. Their copy is too
-            long to sit on cards and too long to run down the page. */}
-        <ServiceBoard content={rorServices} />
-
-        <div className={home.light}>
-          <CtaBand content={rorHireCta} />
-        </div>
-
-        <TechStack content={rorTech} />
-
-        {/* Homepage client stories, on the warm-white band as they are there —
-            the live page's band carries the same heading and standfirst. */}
-        <div className={home.light}>
-          <Testimonials />
-        </div>
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections
+          techStack={<TechStack content={rorTech} />}
+        />
       </main>
 
       <Footer />

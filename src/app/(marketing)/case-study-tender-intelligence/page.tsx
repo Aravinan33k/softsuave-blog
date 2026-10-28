@@ -3,13 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { tenderIntelligenceArticleLd } from '@/lib/seo/case-study-tender-intelligence';
-import { tenderCaseStudy, tenderMeta } from '@/lib/home/case-studies/tender-intelligence';
+import { tenderMeta } from '@/lib/home/case-studies/tender-intelligence';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Tender Intelligence, rebuilt from
@@ -76,7 +76,7 @@ export default function TenderIntelligenceCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={tenderCaseStudy} idPrefix="case-study-tender-intelligence" />
+        <Sections />
       </main>
 
       <Footer />

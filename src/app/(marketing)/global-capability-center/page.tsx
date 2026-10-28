@@ -3,36 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { GCC_LIVE_LD } from '@/lib/seo/global-capability-center';
-import {
-  gccAudience,
-  gccBenefits,
-  gccClosingCta,
-  gccHero,
-  gccIntro,
-  gccMeta,
-  gccServices,
-  gccWhyUs,
-} from '@/lib/home/gcc-content';
+import { gccMeta } from '@/lib/home/gcc-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-// COMPANY-LEVEL SECTION — the homepage's own closing enquiry band, standing in
-// for the live page's "Book Free Consultation" form block.
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
-
-// SERVICE-SPECIFIC SECTIONS — shared landing components taking this page's copy.
-// `CardGrid` is `components/landing/industries`, a generic bordered card grid
-// despite the filename.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import WhyUs from '@/components/landing/why-us';
-import Services from '@/components/landing/services';
-import CardGrid from '@/components/landing/industries';
-import CtaBand from '@/components/landing/cta-band';
-
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Global Capability Center landing page.
@@ -90,7 +67,6 @@ export const metadata: Metadata = {
  */
 const HOME_HREF = BASE_PATH || '/';
 
-
 export default function GlobalCapabilityCenterPage() {
   return (
     <div className={home.page}>
@@ -102,27 +78,7 @@ export default function GlobalCapabilityCenterPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <Hero content={gccHero} idPrefix="gcc" />
-
-        <div className={home.light}>
-          <Overview content={gccIntro} id="overview" />
-        </div>
-
-        <WhyUs content={gccWhyUs} id="why" />
-
-        <div className={home.light}>
-          <Services content={gccServices} variant="bold" />
-        </div>
-
-        <CardGrid content={gccBenefits} id="benefits" variant="feature" />
-
-        <div className={home.light}>
-          <CardGrid content={gccAudience} id="audience" variant="bold" />
-        </div>
-
-        <CtaBand content={gccClosingCta} />
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections />
       </main>
 
       <Footer />

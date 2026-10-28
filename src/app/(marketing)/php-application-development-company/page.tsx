@@ -3,38 +3,14 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { phpFaqLd, phpServiceLd } from '@/lib/seo/php-application-development-company';
-import {
-  phpFaqs,
-  phpHero,
-  phpHireCta,
-  phpMeta,
-  phpOverview,
-  phpServices,
-  phpTech,
-} from '@/lib/home/php-content';
+import { phpMeta, phpTech } from '@/lib/home/php-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-
-// Shared landing-page surface — `components/landing` plus the newer sections
-// in `components/common`, over the homepage's typography and `.theme-four`
-// tokens. This page adds none of its own; every section the live page carries
-// already had a home here.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import ServiceBoard from '@/components/common/service-board';
-import CtaBand from '@/components/landing/cta-band';
 import TechStack from '@/components/landing/tech-stack';
-import Faq from '@/components/landing/faq';
-
-// Reused from the homepage verbatim. Not a stylistic choice: the live page's
-// reviews band IS the homepage's, to the word — "What Our Clients Say About
-// Us" with the same standfirst.
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * PHP Development landing page.
@@ -128,33 +104,9 @@ export default function PhpApplicationDevelopmentCompanyPage() {
        * carries the same section set including the FAQ.
        */}
       <main id="main">
-        {/* Compact look — the same hero as the rest of the surface. */}
-        <Hero content={phpHero} idPrefix="php" variant="compact" />
-
-        <div className={home.light}>
-          <Overview content={phpOverview} variant="compact" />
-        </div>
-
-        {/* Six names to pick from, one stage to read on. Their copy is too
-            long to sit on cards and too long to run down the page. */}
-        <ServiceBoard content={phpServices} />
-
-        <CtaBand content={phpHireCta} />
-
-        <div className={home.light}>
-          <TechStack content={phpTech} />
-        </div>
-
-        {/* Homepage client stories — the live page's band carries the same
-            heading and standfirst. Ahead of the FAQ, and on the dark ground
-            between two light bands, as on the AI and industry pages. */}
-        <Testimonials />
-
-        <div className={home.light}>
-          <Faq content={phpFaqs} idPrefix="php-faq" />
-        </div>
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections
+          techStack={<TechStack content={phpTech} />}
+        />
       </main>
 
       <Footer />

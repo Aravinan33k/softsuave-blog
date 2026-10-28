@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { HIRE_ROLE_PAGES, HIRE_ROLE_ROUTES } from './index';
 import { assignGrounds } from './band-grounds';
 import { LANDING_PAGES } from '../landing-pages';
+import { overviewImage } from '../overview-images';
 import { CARD_ICON_KEYS, isBrandIcon } from '@/components/generative-ai/card-icon';
 
 /**
@@ -81,6 +82,19 @@ describe('hire-by-role pages', () => {
         expect(path.startsWith('/'), `${page.key}: "${path}" is not root-relative`).toBe(true);
         expect(existsSync(join(PUBLIC_DIR, path)), `${page.key}: missing ${path}`).toBe(true);
       }
+    }
+  });
+
+  it('has a pipeline photo for every overview that leaves its image to the template', () => {
+    // A page with no `overview.image` of its own gets `overviewImage(<slug>)`,
+    // resolved on the server by `HireRolePage`; a page that only states how to
+    // align it (`overviewImageAlign`) depends on that photo existing.
+    for (const page of HIRE_ROLE_PAGES) {
+      if (!page.overviewImageAlign) continue;
+      expect(page.overview?.image, `${page.key}: has its own image, so no align is needed`).toBeUndefined();
+      const photo = overviewImage(page.slug.replace(/^\//, ''));
+      expect(photo, `${page.key}: no pipeline photo`).toBeDefined();
+      expect(existsSync(join(PUBLIC_DIR, photo!.src)), `${page.key}: missing ${photo!.src}`).toBe(true);
     }
   });
 

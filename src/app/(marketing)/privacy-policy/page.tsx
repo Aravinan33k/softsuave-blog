@@ -3,19 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/organization';
-import {
-  privacyPolicyBody,
-  privacyPolicyHero,
-  privacyPolicyPageMeta,
-} from '@/lib/home/privacy-policy-content';
+import { privacyPolicyPageMeta } from '@/lib/home/privacy-policy-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-import Listing from '@/components/landing/listing';
-import LegalProse from '@/components/generative-ai/legal-prose';
-
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Privacy Policy.
@@ -73,11 +67,7 @@ export default function PrivacyPolicyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id='main'>
-        <Listing content={privacyPolicyHero} id='top' />
-
-        <div className={home.light}>
-          <LegalProse content={privacyPolicyBody} />
-        </div>
+        <Sections />
       </main>
 
       <Footer />

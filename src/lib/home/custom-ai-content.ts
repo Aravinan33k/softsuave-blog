@@ -17,7 +17,6 @@ import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { ProcessContent } from "@/components/landing/process";
 import type { CaseStudiesContent } from "@/components/landing/case-studies";
-import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 import type { FinalCtaContent } from "@/components/landing/final-cta";
@@ -392,30 +391,7 @@ export const caCaseStudies: CaseStudiesContent = {
   ],
 };
 
-export const caTech: TechStackContent = {
-  eyebrow: "Technology Stack",
-  title: "Our AI Technology Stack",
-  body: "Our AI development services use proven models, frameworks, cloud platforms, and MLOps tools to deliver secure, scalable, production-ready solutions for diverse business requirements.",
-  groups: [
-    {
-      name: "Foundation Models",
-      items: ["GPT", "Claude", "Gemini", "Llama", "Mistral", "DeepSeek", "OpenAI", "Anthropic"],
-    },
-    {
-      name: "AI Frameworks",
-      items: ["LangChain", "LangGraph", "CrewAI", "AutoGen", "LlamaIndex", "Semantic Kernel"],
-    },
-    {
-      name: "Vector Databases and Search",
-      items: ["Pinecone", "Weaviate", "Qdrant", "Milvus", "FAISS", "Chroma"],
-    },
-    {
-      name: "Cloud AI and Data Platforms",
-      items: ["Azure AI", "Amazon Bedrock", "Google Vertex AI", "Databricks", "Snowflake", "Hugging Face"],
-    },
-  ],
-};
-
+export { caTech } from "./custom-ai-tech";
 export const caFaqs: FaqContent = {
   eyebrow: "FAQs",
   title: "FAQs About Custom AI Development Services",

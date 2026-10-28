@@ -3,13 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { vehicleIntelligenceArticleLd } from '@/lib/seo/case-study-vehicle-intelligence';
-import { vehicleCaseStudy, vehicleMeta } from '@/lib/home/case-studies/vehicle-intelligence';
+import { vehicleMeta } from '@/lib/home/case-studies/vehicle-intelligence';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Vehicle Intelligence — the first case study served by this app, rebuilt
@@ -76,7 +76,7 @@ export default function VehicleIntelligenceCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={vehicleCaseStudy} idPrefix="case-study-vehicle-intelligence" />
+        <Sections />
       </main>
 
       <Footer />

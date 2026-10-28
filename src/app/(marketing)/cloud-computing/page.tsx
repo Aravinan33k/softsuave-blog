@@ -1,34 +1,14 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
-import {
-  cloudAbout,
-  cloudApproach,
-  cloudApproachSteps,
-  cloudHero,
-  cloudIntro,
-  cloudMeta,
-  cloudModels,
-  cloudPlatforms,
-  cloudServices,
-} from '@/lib/home/cloud-computing-content';
+import { cloudMeta, cloudPlatforms } from '@/lib/home/cloud-computing-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-
-// COMPANY-LEVEL SECTIONS — the homepage's closing enquiry band, which stands
-// in for the live page's "Book Free Consultation" form.
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
-
-// SERVICE-SPECIFIC SECTIONS — shared landing components taking this page's copy.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import Process from '@/components/landing/process';
-import CardGrid from '@/components/landing/industries';
 import TechStack from '@/components/landing/tech-stack';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Cloud Computing Services landing page.
@@ -93,28 +73,9 @@ export default function CloudComputingPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <Hero content={cloudHero} idPrefix="cloud" variant="compact" />
-
-        <div className={home.light}>
-          <Overview content={cloudIntro} id="overview" />
-        </div>
-
-        <Overview content={cloudAbout} id="about" />
-
-        <div className={home.light}>
-          <Overview content={cloudApproach} id="approach" />
-          <Process content={cloudApproachSteps} id="approach-steps" />
-        </div>
-
-        {/* Live cards carry no links, so none are inferred from their names. */}
-        <CardGrid content={cloudServices} id="services" variant="bold" autoLink={false} />
-
-        <div className={home.light}>
-          <CardGrid content={cloudModels} id="models" variant="bold" autoLink={false} />
-          <TechStack content={cloudPlatforms} id="platforms" />
-        </div>
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections
+          techStack={<TechStack content={cloudPlatforms} id="platforms" />}
+        />
       </main>
 
       <Footer />

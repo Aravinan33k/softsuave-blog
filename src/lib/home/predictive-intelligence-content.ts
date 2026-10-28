@@ -24,8 +24,11 @@ import type { FaqContent } from "@/components/landing/faq";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
-import { landingImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/predictive-intelligence.generated.json";
 import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
+
+const { landingImage } = imageSlots(shard);
 
 export const piMeta = {
   slug: "predictive-intelligence-services",

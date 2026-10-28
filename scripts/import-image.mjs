@@ -27,6 +27,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { writeBrandImages } from "./brand-images.mjs";
+import { writeImageShards } from "./image-shards.mjs";
 import sharp from "sharp";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -149,6 +150,7 @@ async function main() {
   // one image does not show up as a whole-file diff.
   fs.writeFileSync(GENERATED, JSON.stringify(generated, null, 2));
   await writeBrandImages(generated);
+  writeImageShards(generated);
 
   const bytes = fs.statSync(outFile).size;
   log(`✓ written (${(bytes / 1024).toFixed(0)} KB) and registered as "${page}/${args.id}"`);

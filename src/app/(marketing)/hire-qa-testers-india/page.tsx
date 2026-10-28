@@ -4,12 +4,15 @@ import { JsonLd } from '@/components/seo/json-ld';
 import HireRolePage from '@/components/hire/hire-role-page';
 import { qa as content } from '@/lib/home/hire-roles';
 import { hireRoleJsonLd, hireRoleMetadata } from '@/lib/home/hire-roles/page-meta';
+import Sections from './sections';
 
 /**
  * Hire QA Engineers — one of the nine "Hire Developers by Role" pages.
  *
  * A server component so the route can own its `metadata` and emit JSON-LD; the
- * animated sections underneath are the client components. The surrounding
+ * animated sections underneath are the client components. They live in
+ * `./sections.tsx`, which imports this role's copy itself: handed down as props
+ * it was serialized into the RSC payload as well as rendered. The surrounding
  * `(marketing)` layout supplies the display fonts, the `.theme-four` tokens and
  * the Lenis `ScrollProvider`, exactly as it does for the homepage.
  *
@@ -29,7 +32,7 @@ export default function HireQaEngineersPage() {
       {hireRoleJsonLd(content).map((block, i) => (
         <JsonLd key={i} data={block} />
       ))}
-      <HireRolePage content={content} />
+      <HireRolePage content={content} Sections={Sections} />
     </>
   );
 }

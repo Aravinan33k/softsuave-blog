@@ -3,38 +3,14 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { njFaqLd, njServiceLd } from '@/lib/seo/nodejs-development-company';
-import {
-  njFaqs,
-  njHero,
-  njHireCta,
-  njMeta,
-  njOverview,
-  njServices,
-  njTech,
-} from '@/lib/home/nodejs-content';
+import { njMeta, njTech } from '@/lib/home/nodejs-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-
-// Shared landing-page surface — `components/landing` plus the newer sections
-// in `components/common`, over the homepage's typography and `.theme-four`
-// tokens. This page adds none of its own; every section the live page carries
-// already had a home here.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import ServiceBoard from '@/components/common/service-board';
-import CtaBand from '@/components/landing/cta-band';
 import TechStack from '@/components/landing/tech-stack';
-import Faq from '@/components/landing/faq';
-
-// Reused from the homepage verbatim. Not a stylistic choice: the live page's
-// reviews band IS the homepage's, to the word — "What Our Clients Say About Us"
-// with the same standfirst.
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * NodeJS Development landing page.
@@ -112,33 +88,9 @@ export default function NodejsDevelopmentPage() {
        * nothing is invented to fill the rhythm.
        */}
       <main id="main">
-        {/* Compact look — the same hero as the rest of the surface. */}
-        <Hero content={njHero} idPrefix="nj" variant="compact" />
-
-        <div className={home.light}>
-          <Overview content={njOverview} variant="compact" />
-        </div>
-
-        {/* Six names to pick from, one stage to read on. Their copy is too
-            long to sit on cards and too long to run down the page. */}
-        <ServiceBoard content={njServices} />
-
-        <CtaBand content={njHireCta} />
-
-        {/* Client stories ahead of the FAQ (review: "move the testimonials
-            before the FAQ"). TechStack, Testimonials and the FAQ are all
-            light bands once reordered, so they share one wrapper rather than
-            alternating light/dark three times in five sections — the FAQ
-            sat dark on its own before, between two light bands either side
-            of it. Homepage client stories carry the same heading and
-            standfirst as the live page's own band. */}
-        <div className={home.light}>
-          <TechStack content={njTech} />
-          <Testimonials />
-          <Faq content={njFaqs} idPrefix="nj-faq" />
-        </div>
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections
+          techStack={<TechStack content={njTech} />}
+        />
       </main>
 
       <Footer />

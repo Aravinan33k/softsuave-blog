@@ -3,39 +3,15 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
-import {
-  telecomBenefits,
-  telecomCta,
-  telecomFaqs,
-  telecomHero,
-  telecomIndustryOverview,
-  telecomMeta,
-  telecomSolutions,
-  telecomSuccessStories,
-} from '@/lib/home/telecom-ai-content';
+import { telecomFaqs, telecomMeta, telecomSolutions } from '@/lib/home/telecom-ai-content';
 import { industryTechApproach } from '@/lib/home/industry-shared';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-
-// COMPANY-LEVEL SECTIONS — the homepage's own components and content: the
-// client strip the live page opens on, its testimonials, and the closing
-// enquiry band. The success-story lane is the homepage's, fed this page's copy.
-import Clients from '@/components/home/clients';
-import WorkGrid from '@/components/home/work-grid';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-
-// SECTOR-SPECIFIC SECTIONS — shared landing components taking this page's copy.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import Services from '@/components/landing/services';
-import CardGrid from '@/components/landing/industries';
 import TechStack from '@/components/home/tech-stack';
-import CtaBand from '@/components/landing/cta-band';
-import Faq from '@/components/landing/faq';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Telecom AI Solutions landing page.
@@ -107,38 +83,9 @@ export default function TelecomAiSolutionsPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <Hero content={telecomHero} idPrefix="telecom" />
-
-        <div className={home.light}>
-          <Clients />
-        </div>
-
-        <Overview content={telecomIndustryOverview} id="industry-overview" />
-
-        <div className={home.light}>
-          <Services content={telecomSolutions} variant="bold" />
-        </div>
-
-        <CardGrid content={telecomBenefits} id="benefits" variant="feature" />
-
-        <div className={home.light}>
-          {/* The homepage's technology rows under this section's live heading. */}
-          <div className={home.techFit}>
-            <TechStack content={industryTechApproach} />
-          </div>
-          <WorkGrid content={telecomSuccessStories} id="success-stories" countLabel="success stories" />
-        </div>
-
-        {/* The consultation band draws its own dark ground whatever wraps it,
-            so it takes the dark slot between the two light pairs. */}
-        <CtaBand content={telecomCta} />
-
-        <div className={home.light}>
-          <Testimonials />
-          <Faq content={telecomFaqs} idPrefix="telecom-faq" />
-        </div>
-
-        <Contact />
+        <Sections
+          techStack={<TechStack content={industryTechApproach} />}
+        />
       </main>
 
       <Footer />

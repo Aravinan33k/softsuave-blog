@@ -51,9 +51,12 @@ import type { ServicesCarouselContent } from "@/components/common/services-carou
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { FaqContent } from "@/components/landing/faq";
-import { overviewImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/java.generated.json";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
 import { CLIENTS_PLUS, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
+
+const { overviewImage } = imageSlots(shard);
 
 export const javaMeta = {
   slug: "java-application-development-company",

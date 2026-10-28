@@ -1,24 +1,14 @@
 import type { Metadata } from 'next';
 
 import Nav from '@/components/home/nav';
-import Clients from '@/components/home/clients';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
 import Footer from '@/components/home/footer';
 import home from '@/components/home/home.module.css';
-
-import ServiceHero from '@/components/services/hero';
-import Definition from '@/components/services/definition';
-import CardSection from '@/components/services/card-section';
-import CtaBand from '@/components/services/cta-band';
-import Process from '@/components/services/process';
-import TechStack from '@/components/services/tech-stack';
-import Faq from '@/components/services/faq';
 
 import { JsonLd } from '@/components/seo/json-ld';
 import { BASE_PATH } from '@/lib/flags';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import * as copy from '@/lib/services/ai-development';
+import Sections from './sections';
 
 /**
  * Custom AI Development Services — /ai-development-service.
@@ -91,45 +81,7 @@ export default function AiDevelopmentServicePage() {
       <Nav ownsAnchors logoHref={HOME_HREF} />
 
       <main id="main">
-        <ServiceHero {...copy.hero} />
-
-        {/* Client proof immediately under the hero, on the light band it wears
-            on the homepage — the names are the first answer to "who are you". */}
-        <div className={home.light}>
-          <Clients />
-        </div>
-
-        <Definition {...copy.definition} />
-
-        <div className={home.light}>
-          <CardSection id="services" {...copy.offerings} />
-        </div>
-
-        <CardSection id="why" {...copy.whyChoose} />
-
-        <div className={home.light}>
-          <CtaBand {...copy.ctaBands.approach} />
-        </div>
-
-        <Process {...copy.process} />
-
-        <div className={home.light}>
-          <CardSection id="industries" {...copy.industries} />
-        </div>
-
-        <CtaBand {...copy.ctaBands.estimate} />
-
-        <div className={home.light}>
-          <TechStack {...copy.techStack} />
-        </div>
-
-        <Testimonials />
-
-        <div className={home.light}>
-          <Faq {...copy.faq} />
-        </div>
-
-        <Contact />
+        <Sections />
       </main>
 
       <Footer />

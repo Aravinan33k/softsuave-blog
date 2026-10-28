@@ -22,7 +22,7 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm, onboardingComparison } from './shared';
-import { caTech } from '@/lib/home/custom-ai-content';
+import { caTech } from '@/lib/home/custom-ai-tech';
 import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const ai: HireRolePageContent = {
