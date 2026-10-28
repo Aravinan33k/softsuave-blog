@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Lato, PT_Serif } from "next/font/google";
 import { pageRobots } from "@/lib/flags";
 import { CANONICAL_ORIGIN } from "@/lib/seo/metadata";
-import GoogleTagManager from "@/components/analytics/google-tag-manager";
+import {
+  GoogleTagManagerBody,
+  GoogleTagManagerHead,
+} from "@/components/analytics/google-tag-manager";
 import ChatBotLoader from "@/components/chatbot/chatbot-loader";
 import { PAINT_NUDGE } from "@/lib/paint-nudge";
 import "./globals.css";
@@ -55,7 +58,14 @@ export default function RootLayout({
       lang="en"
       className={`${lato.variable} ${ptSerif.variable} h-full antialiased`}
     >
+      <head>
+        {/* GTM's stock snippet, as high in <head> as it goes — see
+            components/analytics/google-tag-manager. */}
+        <GoogleTagManagerHead />
+      </head>
       <body className="min-h-full flex flex-col">
+        {/* GTM's <noscript> iframe: first thing in <body>, as GTM specifies. */}
+        <GoogleTagManagerBody />
         {/* Gets the first paint onto the screen — see lib/paint-nudge. */}
         <script dangerouslySetInnerHTML={{ __html: PAINT_NUDGE }} />
         {/* z-[1000]: the marketing header is z-index 120, so at 100 the
@@ -74,9 +84,6 @@ export default function RootLayout({
             softsuave.com (it hides itself on /admin and previews). Loaded
             after the page — see chatbot-loader. */}
         <ChatBotLoader />
-        {/* Last in the body: the container is `afterInteractive`, so its
-            position here only decides where the noscript fallback lands. */}
-        <GoogleTagManager />
       </body>
     </html>
   );

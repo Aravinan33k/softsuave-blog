@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import BrandImage from "./brand-image";
@@ -127,8 +127,10 @@ function snapLeftOf(lane: HTMLElement, el: HTMLElement) {
  * native `overflow-x` scroller (drag/swipe/trackpad/shift-wheel all just
  * work) with a snap point per tile, plus explicit arrow buttons and a thin
  * progress tick — no page-scroll hijacking, so the section is a fixed one
- * screen tall no matter how many tiles it holds. Below 1000px it falls back
- * to a plain vertical stack. Reduced motion renders everything static.
+ * screen tall no matter how many tiles it holds. Below 1000px the same lane is
+ * a swipe rail (one card per swipe, the next peeking in): a finger scrolls it
+ * natively, while the arrows and a mouse drag cover pointer users. Reduced
+ * motion renders everything as a static vertical stack.
  */
 export default function WorkGrid({
   content = HOMEPAGE_WORK,
@@ -168,23 +170,6 @@ export default function WorkGrid({
      list rather than per tile, so a list is either an image lane or a text
      lane and never a ragged mix. */
   const hasArt = tiles.some((t) => t.imageId || t.image);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    let active = true;
-    const mql = window.matchMedia("(min-width: 1000px)");
-    requestAnimationFrame(() => {
-      if (active) setIsDesktop(mql.matches);
-    });
-    const onChange = (e: MediaQueryListEvent) => {
-      if (active) setIsDesktop(e.matches);
-    };
-    mql.addEventListener("change", onChange);
-    return () => {
-      active = false;
-      mql.removeEventListener("change", onChange);
-    };
-  }, []);
 
   const scrollByTiles = (dir: 1 | -1) => {
     const lane = laneRef.current;
@@ -241,6 +226,11 @@ export default function WorkGrid({
     if (!lane) return;
     // Only intercept primary button / touch
     if (e.pointerType === "mouse" && e.button !== 0) return;
+    // Below 1000px the lane is a native swipe rail (see `.hLane` in the CSS),
+    // so a finger scrolls it by itself and must not be taken over here. A mouse
+    // can't drag a native scroller, so it still gets the drag at every width —
+    // that is what lets a desktop browser's phone view change cards.
+    if (e.pointerType !== "mouse" && !window.matchMedia("(min-width: 1000px)").matches) return;
 
     gsap.killTweensOf(lane);
 
@@ -555,11 +545,11 @@ export default function WorkGrid({
         <div
           ref={laneRef}
           className={styles.hLane}
-          onPointerDown={isDesktop ? onPointerDown : undefined}
-          onPointerMove={isDesktop ? onPointerMove : undefined}
-          onPointerUp={isDesktop ? onPointerUp : undefined}
-          onDragStart={isDesktop ? onDragStart : undefined}
-          onClickCapture={isDesktop ? onClickCapture : undefined}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onDragStart={onDragStart}
+          onClickCapture={onClickCapture}
           /* Autoplay pauses while the lane is hovered or focused, so it never
              pulls a card away from someone reading or tabbing through it. */
           onMouseEnter={() => (heldRef.current = true)}
