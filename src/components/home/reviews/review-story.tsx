@@ -100,7 +100,6 @@ export default function ReviewStory({
           review={review}
           sizes={frame.sizes}
           ratio={frame.ratio}
-          overlay={review.category}
           href={review.videoUrl}
           className={styles.rStoryImage}
         />
@@ -114,13 +113,27 @@ export default function ReviewStory({
             <VerifiedMark className={styles.rStoryVerified} />
           </h3>
 
+          {/* The attribution sits directly under the name, so who said it is
+              read before what they said. */}
+          <p className={styles.rStoryFoot}>
+            {designation || company ? (
+              <span className={styles.rStoryRole}>
+                {[designation, company].filter(Boolean).join(" · ")}
+              </span>
+            ) : (
+              /* Two of the reviews state neither a title nor a company at
+                 source. Rather than invent one, the line says what it is. */
+              <span className={styles.rStoryRole}>Client review</span>
+            )}
+          </p>
+
           <blockquote className={styles.rStoryQuoteWrap}>
             <p
               ref={quoteRef}
               className={styles.rStoryQuote}
               data-expanded={open || undefined}
             >
-              &ldquo;{review.quote}&rdquo;
+              {review.quote}
             </p>
           </blockquote>
 
@@ -170,22 +183,6 @@ export default function ReviewStory({
               ) : null}
             </div>
           ) : null}
-
-          <footer className={styles.rStoryFoot}>
-            {designation || company ? (
-              <span className={styles.rStoryRole}>
-                {[designation, company].filter(Boolean).join(" · ")}
-              </span>
-            ) : (
-              /* Two of the reviews state neither a title nor a company at
-                 source. Rather than invent one, the foot says what it is. */
-              <span className={styles.rStoryRole}>Client review</span>
-            )}
-            {/* The category no longer prints beside the designation — a
-                "Technology" / "Mobile" chip next to a job title read as part of
-                the person's role. It still labels the photograph's hover veil,
-                which is where it belongs. */}
-          </footer>
         </div>
       </article>
     </Wrap>
