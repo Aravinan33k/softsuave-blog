@@ -81,6 +81,9 @@ export const ICON_KEYS = [
   "boxes",
   "scale",
   "link",
+  // No rule picks this one; a card names it with an `iconKey` (live's
+  // "notification alerts" challenge on the Job Progress Tracking page).
+  "bell",
 ] as const;
 
 export type IconKey = (typeof ICON_KEYS)[number];

@@ -1,5 +1,6 @@
 import type { CaseStudyContent } from "@/components/case-study/case-study";
-import { HERO_PLATFORM_ICONS as P } from "./platform-icons";
+import { HERO_PLATFORM_ICONS as P, platformFact } from "./platform-icons";
+import { relatedCaseStudies } from "./related";
 
 /**
  * `/case-study-safeops-ai-incident-management` — softsuave.com's SafeOps case
@@ -11,7 +12,7 @@ import { HERO_PLATFORM_ICONS as P } from "./platform-icons";
  * sub-tag "and Compliance Optimization for Offshore Operations"), the six
  * numbered sections and their cards, the pull quote, the twelve features, the
  * four figures, the download panel and modal, and the related-case-study
- * heading and card blurbs (live's own five, which leave SafeOps out). Live's
+ * heading. Live's
  * Results section has no intro paragraph, so neither does this one. Section
  * ids are live's (`#section1`…`#section6`). The images and the PDF are live's,
  * self-hosted (`public/images/case-studies/safeops-ai-incident-management/`,
@@ -46,7 +47,7 @@ export const safeOpsCaseStudy: CaseStudyContent = {
     points: [],
     facts: [
       { label: "Industry :", value: "Oil and Gas" },
-      { label: "Platform : ", value: "Android, iOS, Web", icons: [P.Android, P.iOS, P.Web] },
+      platformFact([P.Android, P.iOS, P.Web]),
     ],
     aside: {
       src: `${IMG}/dashboard.webp`,
@@ -214,45 +215,7 @@ export const safeOpsCaseStudy: CaseStudyContent = {
     },
   },
 
-  // Live's "Related Case Studies" carousel: its heading, standfirst and five
-  // cards (SafeOps itself is not among them), each with live's own short
-  // blurb. The images are the ones the case-study index already ships.
-  related: {
-    eyebrow: "Related Case Studies",
-    title: "Real-World Impact Through Digital Transformation",
-    body: "Explore how we help startups and SMBs grow, launch successful products, and solve challenges with tech and strategy—backed by real results in every case study.",
-    tileCta: "View Case Study",
-    items: [
-      {
-        title: "AI-Powered Contract & Tender Management Lifecycle Platform",
-        body: "Soft Suave built an AI platform that automates tender evaluation and keeps an immutable audit trail for enterprise procurement.",
-        image: { src: "/images/case-studies/tender-intelligence-cs.webp", alt: "Tender Intelligence Platform" },
-        href: "/case-study-tender-intelligence",
-      },
-      {
-        title: "An AI-Powered Shift Intelligence and Digital Logbook Platform for LNG Operations",
-        body: "Soft Suave built an on-premises AI platform that turns free-text operational logs into instant shift summaries and source-cited answers, in English and Arabic.",
-        image: { src: "/images/case-studies/shift-sense-cs.webp", alt: "AI-Powered Shift Intelligence & Digital Logbook Platform" },
-        href: "/case-study-shiftsense-ai-shift-intelligence",
-      },
-      {
-        title: "An AI Content Production Programme for Enterprise Strategic Communications",
-        body: "Soft Suave built an AI content programme that speeds up campaign production and delivers bilingual English-Arabic content at scale.",
-        image: { src: "/images/case-studies/brand-forge-cs.webp", alt: "AI Content Production Programme" },
-        href: "/case-study-brand-forge",
-      },
-      {
-        title: "An AI-Powered Smart Wellness Platform Revolutionizing Pet Healthcare",
-        body: "Soft Suave brings AI health assessments, digital records, and preventive care together to help pet parents and vets catch concerns early.",
-        image: { src: "/images/case-studies/well-pet-cs.webp", alt: "Pet Care Application" },
-        href: "/case-study-wellpet-ai-smart-wellness-platform",
-      },
-      {
-        title: "An AI-Powered Compliance Analysis Platform for Influencer Marketing",
-        body: "Soft Suave built an AI platform that checks sponsored influencer content against compliance rules and returns a verdict in seconds.",
-        image: { src: "/images/case-studies/post-guard-cs.webp", alt: "AI-Powered Influencer Marketing Platform" },
-        href: "/case-study-postguard-compliance-ai",
-      },
-    ],
-  },
+  // The previous study and the next four in the case-study listing
+  // (see `related.ts`).
+  related: relatedCaseStudies(safeOpsMeta.path),
 };
