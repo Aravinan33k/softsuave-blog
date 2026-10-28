@@ -7,30 +7,49 @@ import GtmLoader from './gtm-loader';
  * inside it rather than pasted into the page. So there is one snippet here, not
  * one per tool.
  *
- * Mounted once, in the root layout, so it is on every page. The container ID
- * comes from `lib/flags.ts` (GTM-TWMFSDC unless overridden); this renders
- * nothing only when `NEXT_PUBLIC_GTM_ID=off`. The same constant gates the CSP
- * in `next.config.ts`.
+ * Both halves of GTM's install instructions, mounted once from the root layout
+ * so they are on every page. The container ID comes from `lib/flags.ts`
+ * (GTM-TWMFSDC unless overridden); nothing renders when `NEXT_PUBLIC_GTM_ID=off`.
+ * The same constant gates the CSP in `next.config.ts`.
  *
- * `GtmLoader` injects the snippet — by default on the visitor's first
- * interaction or a few seconds after load (`gtmLoad`, `lib/flags.ts`), never
- * ahead of the page's own scripts. It is not a `next/script`: that would also
- * put a `<link rel="preload">` for gtm.js in every page's head, fetching the
- * container alongside the render-blocking CSS whenever it is going to run.
+ * - `GoogleTagManagerHead` is the stock `<script>` snippet, verbatim, as high in
+ *   `<head>` as the layout allows. It is in the served HTML, so GTM checkers and
+ *   Tag Assistant find it exactly as they do on the old PHP pages.
+ * - `GoogleTagManagerBody` is GTM's `<noscript>` iframe, the first thing in
+ *   `<body>` as GTM specifies — the half that records a visit from a client that
+ *   never runs the script. It needs `frame-src` for googletagmanager.com, which
+ *   the CSP adds alongside `script-src` when the container is configured.
  *
- * The `<noscript>` iframe is GTM's own fallback, kept because it is the half of
- * the snippet that records a visit from a client that never runs the script.
- * It needs `frame-src` for googletagmanager.com, which the CSP adds alongside
- * `script-src` when the container is configured.
+ * `NEXT_PUBLIC_GTM_LOAD=deferred` swaps the head snippet for `GtmLoader`, which
+ * injects the same container on the first interaction instead (see `gtmLoad` in
+ * `lib/flags.ts` for why that exists). The container is then not in the HTML.
  */
-export default function GoogleTagManager() {
-  if (!gtmContainerId) return null;
+
+// The container ID reaches an inline script, so only a plain GTM-style ID is let
+// through; anything else (a typo in NEXT_PUBLIC_GTM_ID) renders no snippet.
+const SAFE_ID = /^[\w-]+$/;
+
+/** Google's snippet, as given in GTM's install instructions, with the ID filled in. */
+const headSnippet = (id: string) =>
+  `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${id}');`;
+
+export function GoogleTagManagerHead() {
+  if (!gtmContainerId || gtmLoad !== 'eager' || !SAFE_ID.test(gtmContainerId)) return null;
+  return <script dangerouslySetInnerHTML={{ __html: headSnippet(gtmContainerId) }} />;
+}
+
+export function GoogleTagManagerBody() {
+  if (!gtmContainerId || !SAFE_ID.test(gtmContainerId)) return null;
 
   const id = encodeURIComponent(gtmContainerId);
 
   return (
     <>
-      <GtmLoader id={gtmContainerId} deferred={gtmLoad === 'deferred'} />
+      {gtmLoad === 'deferred' && <GtmLoader id={gtmContainerId} deferred />}
       <noscript>
         <iframe
           src={`https://www.googletagmanager.com/ns.html?id=${id}`}
