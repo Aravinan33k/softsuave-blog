@@ -36,8 +36,11 @@ import type { FaqContent } from "@/components/landing/faq";
 import type { CardGridContent as PhotoGridContent } from "@/components/generative-ai/industries";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
-import { overviewImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/offshore.generated.json";
 import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
+
+const { overviewImage } = imageSlots(shard);
 
 export const offMeta = {
   slug: "offshore-software-development-company",

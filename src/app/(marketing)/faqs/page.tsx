@@ -4,26 +4,13 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { faqPageLd } from '@/lib/seo/jsonld';
 import { organizationLd } from '@/lib/seo/organization';
-import {
-  faqsGeneral,
-  faqsHire,
-  faqsPageCta,
-  faqsPageHero,
-  faqsPageMeta,
-  faqsProject,
-} from '@/lib/home/faqs-content';
+import { faqsGeneral, faqsHire, faqsPageMeta, faqsProject } from '@/lib/home/faqs-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
-
-import SectionHead from '@/components/landing/section-head';
-import Faq from '@/components/landing/faq';
-import CtaBand from '@/components/landing/cta-band';
 
 import home from '@/components/home/home.module.css';
-import landing from '@/components/landing/landing.module.css';
+import Sections from './sections';
 
 /**
  * Frequently Asked Questions — softsuave.com's /faqs page.
@@ -103,28 +90,7 @@ export default function FaqsPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <section className={landing.indexHead} id="top">
-          <SectionHead
-            level={1}
-            kicker={faqsPageHero.eyebrow}
-            title={faqsPageHero.title}
-            intro={faqsPageHero.intro}
-          />
-        </section>
-
-        <div className={home.light}>
-          <Faq content={faqsGeneral} idPrefix="faq-general" />
-        </div>
-
-        <Faq content={faqsProject} idPrefix="faq-project" />
-
-        <div className={home.light}>
-          <Faq content={faqsHire} idPrefix="faq-hire" />
-        </div>
-
-        <CtaBand content={faqsPageCta} />
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections />
       </main>
 
       <Footer />

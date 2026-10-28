@@ -22,8 +22,11 @@ import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
-import { landingImage, overviewImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/data-science.generated.json";
 import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
+
+const { landingImage, overviewImage } = imageSlots(shard);
 
 export const dsMeta = {
   slug: "data-science-services",

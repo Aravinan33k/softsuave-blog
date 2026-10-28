@@ -4,18 +4,13 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/organization';
 import { marketingWebSiteLd, SCHEMA_DATE_MODIFIED } from '@/lib/seo/page-graph';
-import { careersHero, careersMeta, careersOpenings } from '@/lib/home/careers-content';
+import { careersMeta } from '@/lib/home/careers-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-import SectionHead from '@/components/landing/section-head';
-// PAGE-SPECIFIC SECTION — the live page's location tabs over a table of roles,
-// which no shared landing component renders.
-import OpeningsTable from '@/components/careers/openings-table';
-
 import home from '@/components/home/home.module.css';
-import landing from '@/components/landing/landing.module.css';
+import Sections from './sections';
 
 /**
  * Careers — rebuilt from https://www.softsuave.com/career-overview.
@@ -97,13 +92,7 @@ export default function CareerOverviewPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <section className={landing.indexHead} id="top">
-          <SectionHead level={1} title={careersHero.title} intro={careersHero.intro} />
-        </section>
-
-        <div className={home.light}>
-          <OpeningsTable content={careersOpenings} id="openings" />
-        </div>
+        <Sections />
       </main>
 
       <Footer />

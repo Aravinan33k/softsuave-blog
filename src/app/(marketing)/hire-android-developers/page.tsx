@@ -4,6 +4,7 @@ import { JsonLd } from '@/components/seo/json-ld';
 import HireRolePage from '@/components/hire/hire-role-page';
 import { android as content } from '@/lib/home/hire-roles';
 import { hireRoleJsonLd, hireRoleMetadata } from '@/lib/home/hire-roles/page-meta';
+import Sections from './sections';
 
 /**
  * Hire Android Developers — one of the thirteen "Hire Developers by Role" pages.
@@ -14,7 +15,9 @@ import { hireRoleJsonLd, hireRoleMetadata } from '@/lib/home/hire-roles/page-met
  * page here too, sharing `HireRolePage` with the other twelve.
  *
  * A server component so the route can own its `metadata` and emit JSON-LD; the
- * animated sections underneath are the client components.
+ * animated sections underneath are the client components. They live in
+ * `./sections.tsx`, which imports this role's copy itself: handed down as props
+ * it was serialized into the RSC payload as well as rendered.
  */
 
 // Matches the homepage/marketing cadence; nothing here is request-dependent.
@@ -29,7 +32,7 @@ export default function HireAndroidDevelopersPage() {
       {hireRoleJsonLd(content).map((block, i) => (
         <JsonLd key={i} data={block} />
       ))}
-      <HireRolePage content={content} />
+      <HireRolePage content={content} Sections={Sections} />
     </>
   );
 }

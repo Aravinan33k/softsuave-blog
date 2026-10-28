@@ -19,19 +19,9 @@ import {
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-import { Hero } from '@/components/fde/sections/Hero';
-import { TrustedBy } from '@/components/fde/sections/TrustedBy';
-import { ModelPartners } from '@/components/fde/sections/ModelPartners';
-import { Comparison } from '@/components/fde/sections/Comparison';
-import { EngagementModels } from '@/components/fde/sections/EngagementModels';
-import { Protocol } from '@/components/fde/sections/Protocol';
-import { WhyFde } from '@/components/fde/sections/WhyFde';
-import { CtaBanner } from '@/components/fde/sections/CtaBanner';
-import { Testimonials } from '@/components/fde/sections/Testimonials';
-import { Faq } from '@/components/fde/sections/Faq';
-
 import home from '@/components/home/home.module.css';
 import '@/components/fde/fde.css';
+import Sections from './sections';
 
 /**
  * Hire Forward Deployed Engineers.
@@ -122,16 +112,7 @@ export default function HireForwardDeployedEngineerPage() {
           header takes its white ground while scrolling over it — the one
           dark section opts back to the black bar (EngagementModels). */}
       <main id="main" className="fde" data-nav-tone="light">
-        <Hero />
-        <TrustedBy />
-        <ModelPartners />
-        <Comparison />
-        <EngagementModels />
-        <Protocol />
-        <WhyFde />
-        <CtaBanner />
-        <Testimonials />
-        <Faq />
+        <Sections />
       </main>
 
       <Footer />

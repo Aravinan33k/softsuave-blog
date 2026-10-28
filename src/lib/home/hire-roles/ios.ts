@@ -24,7 +24,6 @@
 
 import type { HireRolePageContent } from './types';
 import { heroForm } from './shared';
-import { overviewImage } from '../overview-images';
 import { HOURLY_RATE, YEARS_PLUS } from '@/lib/company-figures';
 
 export const ios: HireRolePageContent = {
@@ -81,10 +80,12 @@ export const ios: HireRolePageContent = {
     }),
   },
 
+  // The pipeline's photo, centred against the copy rather than sitting on
+  // the row's bottom edge (13 Oct review: "center align the image"). Resolved
+  // by `HireRolePage` on the server — this module reaches the browser too, and
+  // the image record must not.
+  overviewImageAlign: 'center',
   overview: {
-    // The pipeline's photo, centred against the copy rather than sitting on
-    // the row's bottom edge (13 Oct review: "center align the image").
-    image: { ...overviewImage('hire-ios-developers')!, align: 'center' },
     eyebrow: 'Overview',
     title: 'Hire iOS Developers At The Right Place',
     paragraphs: [

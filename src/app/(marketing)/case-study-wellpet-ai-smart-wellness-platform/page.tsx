@@ -3,13 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { wellPetArticleLd } from '@/lib/seo/case-study-wellpet-ai-smart-wellness-platform';
-import { wellPetCaseStudy, wellPetMeta } from '@/lib/home/case-studies/wellpet-ai-smart-wellness-platform';
+import { wellPetMeta } from '@/lib/home/case-studies/wellpet-ai-smart-wellness-platform';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * WellPet AI Smart Wellness Platform, rebuilt from
@@ -76,7 +76,7 @@ export default function WellPetCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={wellPetCaseStudy} idPrefix="case-study-wellpet-ai-smart-wellness-platform" />
+        <Sections />
       </main>
 
       <Footer />

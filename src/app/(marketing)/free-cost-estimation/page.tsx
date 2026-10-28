@@ -3,30 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
-import {
-  estimateFaq,
-  estimateHero,
-  estimateMeta,
-  estimatePaths,
-  estimateProcess,
-} from '@/lib/home/cost-estimation-content';
+import { estimateFaq, estimateMeta, estimatePaths } from '@/lib/home/cost-estimation-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-// SHARED LANDING SECTIONS, taking this page's copy. Nothing bespoke here.
-import Hero from '@/components/landing/hero';
-import CardGrid from '@/components/landing/industries';
-import Process from '@/components/landing/process';
-import Faq from '@/components/landing/faq';
-
-// Reused from the homepage: company-level proof, and the closing CTA every
-// conversion page on this surface ends on.
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
-
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Free Cost Estimation — served at `/free-cost-estimation`, the same path the
@@ -103,21 +86,7 @@ export default function FreeCostEstimationPage() {
           closing warm-white run, which is the pattern the Java and Python
           pages use for a stretch of more than one section before the close. */}
       <main id="main">
-        <Hero content={estimateHero} idPrefix="estimate" variant="compact" />
-
-        <div className={home.light}>
-          <CardGrid content={estimatePaths} id="paths" variant="feature" columns={3} />
-        </div>
-
-        <Process content={estimateProcess} id="journey" />
-
-        <div className={home.light}>
-          <Faq content={estimateFaq} idPrefix="estimate-faq" />
-
-          <Testimonials />
-        </div>
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections />
       </main>
 
       <Footer />

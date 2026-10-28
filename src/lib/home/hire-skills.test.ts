@@ -141,10 +141,12 @@ describe('section order follows each live page', () => {
 });
 
 describe('no homepage content on a hire page', () => {
-  const template = readFileSync(
-    join(process.cwd(), 'src', 'components', 'landing', 'hire-page.tsx'),
-    'utf8',
-  );
+  // The template is two files since the split: `hire-page.tsx` (the server
+  // shell) and `hire-bands.tsx` (the client bands, which import every band
+  // component and the closing enquiry band).
+  const template = ['hire-page.tsx', 'hire-bands.tsx']
+    .map((f) => readFileSync(join(process.cwd(), 'src', 'components', 'landing', f), 'utf8'))
+    .join('\n');
 
   /**
    * The homepage's "Why Soft Suave" manifesto used to render on all twenty of

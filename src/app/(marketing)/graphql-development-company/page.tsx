@@ -4,41 +4,14 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import { gqFaqLd, gqServiceLd, gqWebPageLd } from '@/lib/seo/graphql-development-company';
-import {
-  gqFaqs,
-  gqHero,
-  gqMeta,
-  gqOverview,
-  gqPlanCta,
-  gqServices,
-  gqTech,
-  gqWhyUs,
-} from '@/lib/home/graphql-content';
+import { gqMeta, gqTech } from '@/lib/home/graphql-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-
-// Shared landing-page surface — every section the brief calls for already had
-// a home here; this page adds none of its own.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import ServicesCarousel from '@/components/common/services-carousel';
-import CtaBand from '@/components/landing/cta-band';
-import WhyUs from '@/components/landing/why-us';
-import Faq from '@/components/landing/faq';
-
-// Reused from the homepage verbatim, as the brief asks for both explicitly:
-// the clients logo band, the testimonials band, and the closing enquiry CTA.
-// TechStack is the homepage's own marquee too — the same choice made for the
-// Next.js and TypeScript pages, so the three closest sibling pages on this
-// surface read as a matched set rather than one using the static panel grid.
-import Clients from '@/components/home/clients';
 import TechStack from '@/components/home/tech-stack';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * GraphQL Development landing page.
@@ -117,47 +90,9 @@ export default function GraphQLDevelopmentCompanyPage() {
        * two dark sections anywhere on the page.
        */}
       <main id="main">
-        {/* Compact look — the same hero as the rest of the surface. */}
-        <Hero content={gqHero} idPrefix="gq" variant="compact" />
-
-        <div className={home.light}>
-          <Clients />
-        </div>
-
-        <Overview content={gqOverview} variant="compact" />
-
-        {/* Centre-focused carousel — one service in focus with its neighbours
-            as context, each card wearing its own artwork. */}
-        <div className={home.light}>
-          <ServicesCarousel content={gqServices} />
-        </div>
-
-        <CtaBand content={gqPlanCta} />
-
-        <div className={home.light}>
-          <WhyUs content={gqWhyUs} />
-        </div>
-
-        {/* The homepage's marquee tech rows, one per group, rather than the
-            landing set's static panel grid. Dark, as on the homepage;
-            `.techCompact` only clears the homepage's full-viewport
-            min-height for this content-height page. `loopShortRows`: rows
-            too short to overflow (Backend Platforms, DevOps and Deployment)
-            sat still while the others scrolled (13 Oct review: "last 2
-            column are not scrolling"), so they repeat their chips to fill. */}
-        <div className={home.techCompact}>
-          <TechStack content={gqTech} loopShortRows />
-        </div>
-
-        {/* Client stories ahead of the FAQ (review: "move the testimonials
-            before the FAQ") — both are light bands, so they share one
-            wrapper rather than reopening the same surface twice in a row. */}
-        <div className={home.light}>
-          <Testimonials />
-          <Faq content={gqFaqs} idPrefix="gq-faq" />
-        </div>
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections
+          techStack={<TechStack content={gqTech} loopShortRows />}
+        />
       </main>
 
       <Footer addressMicrodata={false} />

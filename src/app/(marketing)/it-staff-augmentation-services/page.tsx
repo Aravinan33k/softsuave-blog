@@ -3,38 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { STAFF_AUG_LIVE_LD } from '@/lib/seo/it-staff-augmentation-services';
-import {
-  staffBenefits,
-  staffFaqs,
-  staffHero,
-  staffIndustries,
-  staffMeta,
-  staffModels,
-  staffProcess,
-  staffRoles,
-  staffTechnologies,
-  staffWhyUs,
-} from '@/lib/home/staff-augmentation-content';
+import { staffMeta } from '@/lib/home/staff-augmentation-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-// COMPANY-LEVEL SECTIONS — the homepage's own components and content: the
-// client strip the live page opens on, its testimonials, and the closing
-// enquiry band. Their copy already matches the live page's word for word.
-import Clients from '@/components/home/clients';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
-
-// SERVICE-SPECIFIC SECTIONS — shared landing components taking this page's copy.
-import Hero from '@/components/landing/hero';
-import Services from '@/components/landing/services';
-import Process from '@/components/landing/process';
-import CardGrid from '@/components/landing/industries';
-import Faq from '@/components/landing/faq';
-
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * IT Staff Augmentation Services landing page.
@@ -87,7 +62,6 @@ export const metadata: Metadata = {
 
 const HOME_HREF = BASE_PATH || '/';
 
-
 export default function ItStaffAugmentationPage() {
   return (
     <div className={home.page}>
@@ -99,40 +73,7 @@ export default function ItStaffAugmentationPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <Hero content={staffHero} idPrefix="staff-aug" />
-
-        <div className={home.light}>
-          <Clients />
-        </div>
-
-        <CardGrid content={staffWhyUs} id="why" columns={4} />
-
-        <div className={home.light}>
-          <CardGrid content={staffModels} id="models" variant="bold" />
-        </div>
-
-        <Process content={staffProcess} />
-
-        <div className={home.light}>
-          {/* Whole cards link (review: "remove the 'learn more' and make the
-              whole cards clickable"). */}
-          <Services content={staffRoles} variant="bold" cardLinks />
-        </div>
-
-        <CardGrid content={staffTechnologies} id="technologies" columns={4} />
-
-        <div className={home.light}>
-          <CardGrid content={staffIndustries} id="industries" columns={5} />
-        </div>
-
-        <CardGrid content={staffBenefits} id="benefits" columns={5} />
-
-        <div className={home.light}>
-          <Testimonials />
-          <Faq content={staffFaqs} idPrefix="staff-aug-faq" />
-        </div>
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections />
       </main>
 
       <Footer />

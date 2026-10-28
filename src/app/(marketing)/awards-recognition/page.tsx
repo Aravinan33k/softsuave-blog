@@ -1,17 +1,12 @@
-import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import { BASE_PATH } from '@/lib/flags';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { publicMediaUrl } from '@/lib/media-url';
 import { awardsPage } from '@/lib/home/content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
-import Breadcrumb from '@/components/common/breadcrumb';
 import styles from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Awards and Recognition — the destination for the homepage band's "View All",
@@ -64,58 +59,6 @@ export const metadata: Metadata = {
  *  does. */
 const HOME_HREF = BASE_PATH || '/';
 
-/*
- * Page-local layout for the wall. The shared `.recog*` rules in
- * home.module.css also serve the homepage band, so this page's differences
- * are stated here rather than there:
- *
- * - three columns, as live runs them (the shared wall's 240px minimum packs
- *   five, too narrow for a long title plus a sentence);
- * - each cell is a subgrid of three shared rows (badge / title / description),
- *   so in any visual row the titles top-align and every description starts on
- *   the same line however many lines its neighbour's title wraps to;
- * - the plaque runs square and larger, as in the homepage strip, since here it
- *   heads a wide card rather than sitting beside a short label.
- */
-const wallStyle: CSSProperties = {
-  gridTemplateColumns: 'repeat(auto-fill, minmax(min(340px, 100%), 1fr))',
-};
-
-const cellStyle: CSSProperties = {
-  display: 'grid',
-  gridRow: 'span 3',
-  gridTemplateRows: 'subgrid',
-};
-
-const cardStyle: CSSProperties = {
-  display: 'grid',
-  gridRow: '1 / -1',
-  gridTemplateRows: 'subgrid',
-  rowGap: 0,
-  alignContent: 'start',
-};
-
-const badgeStyle: CSSProperties = {
-  width: 'clamp(112px, 10vw, 148px)',
-  height: 'clamp(112px, 10vw, 148px)',
-  borderRadius: 16,
-};
-
-const badgeImgStyle: CSSProperties = {
-  padding: 'clamp(10px, 1vw, 16px)',
-};
-
-const titleStyle: CSSProperties = {
-  marginTop: 22,
-};
-
-const descStyle: CSSProperties = {
-  margin: '12px 0 0',
-  fontSize: 'clamp(0.875rem, 0.95vw, 0.95rem)',
-  lineHeight: 1.6,
-  color: 'var(--muted)',
-};
-
 export default function AwardsRecognitionPage() {
   return (
     <div className={styles.page}>
@@ -129,47 +72,7 @@ export default function AwardsRecognitionPage() {
           The nav, the closing band and the footer stay on the dark canvas,
           exactly as they do around the homepage's light bands. */}
       <main id="main">
-        <div className={styles.light}>
-          <section className={`${styles.section} ${styles.awardsPageSection}`} id="awards">
-            <div className={styles.sectionHead}>
-              {/* light-band variant, per the band's contract */}
-              <Breadcrumb tone="band" />
-              <h1 className={styles.h2}>{awardsPage.title}</h1>
-              <p className={styles.lead}>{awardsPage.body}</p>
-            </div>
-
-            <ul className={styles.recogWall} style={wallStyle}>
-              {awardsPage.items.map((item) => (
-                <li key={item.key} className={styles.recogCell} style={cellStyle}>
-                  <article className={styles.recogCard} style={cardStyle}>
-                    <span className={styles.recogBadge} style={badgeStyle}>
-                      {/* the title right below names the award and its
-                          issuer, so the artwork adds nothing for a screen
-                          reader */}
-                      <Image
-                        src={publicMediaUrl(item.src)}
-                        alt=""
-                        fill
-                        sizes="148px"
-                        className={styles.recogBadgeImg}
-                        style={badgeImgStyle}
-                      />
-                    </span>
-                    <h2 className={styles.recogTitle} style={titleStyle}>
-                      {item.title}
-                    </h2>
-                    <p style={descStyle}>{item.description}</p>
-                  </article>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </div>
-
-        {/* The hire pages' "Book Free Consultation" close, on its default
-            /contact destination (13 Oct review: one final CTA for every page
-            but the homepage, the AI service pages and the industry pages). */}
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections />
       </main>
 
       <Footer />
