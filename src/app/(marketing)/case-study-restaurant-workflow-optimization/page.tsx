@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import {
-  restaurantWorkflowCaseStudy,
-  restaurantWorkflowMeta,
-} from '@/lib/home/case-studies/restaurant-workflow-optimization';
+import { restaurantWorkflowMeta } from '@/lib/home/case-studies/restaurant-workflow-optimization';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Restaurant Workflow Optimization, rebuilt from
@@ -58,10 +55,7 @@ export default function RestaurantWorkflowCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={restaurantWorkflowCaseStudy}
-          idPrefix="case-study-restaurant-workflow-optimization"
-        />
+        <Sections />
       </main>
 
       <Footer />

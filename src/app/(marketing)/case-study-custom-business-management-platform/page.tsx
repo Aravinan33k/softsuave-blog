@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import {
-  businessManagementCaseStudy,
-  businessManagementMeta,
-} from '@/lib/home/case-studies/custom-business-management-platform';
+import { businessManagementMeta } from '@/lib/home/case-studies/custom-business-management-platform';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Custom Business Management Platform, rebuilt from
@@ -51,10 +48,7 @@ export default function BusinessManagementCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={businessManagementCaseStudy}
-          idPrefix="case-study-custom-business-management-platform"
-        />
+        <Sections />
       </main>
 
       <Footer />

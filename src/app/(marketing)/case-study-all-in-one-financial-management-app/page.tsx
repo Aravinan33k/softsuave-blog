@@ -2,16 +2,13 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { liveSiteOrganizationLd } from '@/lib/seo/live-site-organization';
-import {
-  financialManagementAppCaseStudy,
-  financialManagementAppMeta,
-} from '@/lib/home/case-studies/all-in-one-financial-management-app';
+import { financialManagementAppMeta } from '@/lib/home/case-studies/all-in-one-financial-management-app';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * All-in-One Financial Management App, rebuilt from
@@ -64,10 +61,7 @@ export default function FinancialManagementAppCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={financialManagementAppCaseStudy}
-          idPrefix="case-study-all-in-one-financial-management-app"
-        />
+        <Sections />
       </main>
 
       <Footer />

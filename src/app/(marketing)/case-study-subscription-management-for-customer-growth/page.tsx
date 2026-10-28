@@ -1,16 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import {
-  subscriptionManagementCaseStudy,
-  subscriptionManagementMeta,
-} from '@/lib/home/case-studies/subscription-management-for-customer-growth';
+import { subscriptionManagementMeta } from '@/lib/home/case-studies/subscription-management-for-customer-growth';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Subscription Management for Customer Growth, rebuilt from
@@ -62,10 +59,7 @@ export default function SubscriptionManagementCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={subscriptionManagementCaseStudy}
-          idPrefix="case-study-subscription-management-for-customer-growth"
-        />
+        <Sections />
       </main>
 
       <Footer />

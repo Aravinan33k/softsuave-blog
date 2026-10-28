@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import {
-  deliveryManagementCaseStudy,
-  deliveryManagementMeta,
-} from '@/lib/home/case-studies/scalable-delivery-management-for-logistics';
+import { deliveryManagementMeta } from '@/lib/home/case-studies/scalable-delivery-management-for-logistics';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Scalable Delivery Management for Logistics, rebuilt from
@@ -61,10 +58,7 @@ export default function DeliveryManagementCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={deliveryManagementCaseStudy}
-          idPrefix="case-study-scalable-delivery-mangement-for-logistics"
-        />
+        <Sections />
       </main>
 
       <Footer />

@@ -1,16 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
-import {
-  telehealthCaseStudy,
-  telehealthMeta,
-} from '@/lib/home/case-studies/telehealth-consultation-platform-for-doctors';
+import { telehealthMeta } from '@/lib/home/case-studies/telehealth-consultation-platform-for-doctors';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Custom Telehealth App for Doctor Consultation, rebuilt from
@@ -74,10 +71,7 @@ export default function TelehealthCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={telehealthCaseStudy}
-          idPrefix="case-study-telehealth-consultation-platform-for-doctors"
-        />
+        <Sections />
       </main>
 
       <Footer />

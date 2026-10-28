@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
-import { jobProgressCaseStudy, jobProgressMeta } from '@/lib/home/case-studies/job-progress-tracking';
+import { jobProgressMeta } from '@/lib/home/case-studies/job-progress-tracking';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Effective Tool to track the Jobs or Projects for the Customers, rebuilt
@@ -71,7 +71,7 @@ export default function JobProgressCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={jobProgressCaseStudy} idPrefix="case-study-job-progress-tracking" />
+        <Sections />
       </main>
 
       <Footer />

@@ -2,16 +2,13 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { liveSiteOrganizationLd } from '@/lib/seo/live-site-organization';
-import {
-  tradingPlatformCaseStudy,
-  tradingPlatformMeta,
-} from '@/lib/home/case-studies/high-performance-trading-platform';
+import { tradingPlatformMeta } from '@/lib/home/case-studies/high-performance-trading-platform';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * High-Performance Trading Platform, rebuilt from
@@ -64,7 +61,7 @@ export default function TradingPlatformCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={tradingPlatformCaseStudy} idPrefix="case-study-high-performance-trading-platform" />
+        <Sections />
       </main>
 
       <Footer />

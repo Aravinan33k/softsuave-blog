@@ -2,13 +2,13 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { liveSiteOrganizationLd } from '@/lib/seo/live-site-organization';
-import { rocketAccountCaseStudy, rocketAccountMeta } from '@/lib/home/case-studies/corporate-banking-solution';
+import { rocketAccountMeta } from '@/lib/home/case-studies/corporate-banking-solution';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Optimizing Corporate Banking with the Rocket Account Solution, rebuilt from
@@ -61,7 +61,7 @@ export default function RocketAccountCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={rocketAccountCaseStudy} idPrefix="case-study-corporate-banking-solution" />
+        <Sections />
       </main>
 
       <Footer />

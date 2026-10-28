@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import { cyberThreatCaseStudy, cyberThreatMeta } from '@/lib/home/case-studies/ai-powered-cyber-threat-detection';
+import { cyberThreatMeta } from '@/lib/home/case-studies/ai-powered-cyber-threat-detection';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * AI-Powered Cyber Threat Detection, rebuilt from
@@ -49,7 +49,7 @@ export default function CyberThreatCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={cyberThreatCaseStudy} idPrefix="case-study-ai-powered-cyber-theart-detection" />
+        <Sections />
       </main>
 
       <Footer />

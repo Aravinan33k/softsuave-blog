@@ -2,13 +2,13 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { liveSiteOrganizationLd } from '@/lib/seo/live-site-organization';
-import { aiEducationCaseStudy, aiEducationMeta } from '@/lib/home/case-studies/ai-powered-education-solutions';
+import { aiEducationMeta } from '@/lib/home/case-studies/ai-powered-education-solutions';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * AI-Powered Education Solutions, rebuilt from
@@ -61,7 +61,7 @@ export default function AiEducationCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={aiEducationCaseStudy} idPrefix="case-study-ai-powered-education-solutions" />
+        <Sections />
       </main>
 
       <Footer />
