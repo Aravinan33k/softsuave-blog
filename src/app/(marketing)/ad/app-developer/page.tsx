@@ -91,11 +91,10 @@ export default function AdAppDeveloperPage() {
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         <Hero content={adHero} idPrefix="ad-app-developer" breadcrumb={false} />
 
-        {/* The live page's client logos sit inside its hero section, so they stay
-            on the hero's dark ground rather than opening the light band. */}
-        <Clients logos={HIRE_CLIENT_LOGOS} title={adClients.title} body={adClients.body} />
-
         <div className={home.light}>
+          {/* The live page's client logos sit inside its hero section; here they
+              open the white band that follows it. */}
+          <Clients logos={HIRE_CLIENT_LOGOS} title={adClients.title} body={adClients.body} />
           <TopTalent content={adTalent} />
           <CardGrid content={adMobile} id="services" variant="bold" span={4} autoLink={false} />
           <CtaRow {...adMobileCta} />

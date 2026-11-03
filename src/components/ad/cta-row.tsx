@@ -8,8 +8,9 @@ export default function CtaRow({
   wipe = false,
 }: {
   lead?: string;
-  label: string;
-  href: string;
+  /** Omit with `href` for a closing line on its own, no button. */
+  label?: string;
+  href?: string;
   /** The black left-to-right hover fill (see `.btnWipe`). */
   wipe?: boolean;
 }) {
@@ -18,9 +19,11 @@ export default function CtaRow({
       <div className={styles.cta} style={{ marginTop: 0 }}>
         {lead && <p className={styles.ctaLead}>{lead}</p>}
         {/* Plain anchor: the trial modal (and Lenis) listen for in-page links. */}
-        <a className={wipe ? `${styles.btn} ${styles.btnWipe}` : styles.btn} href={href}>
-          {label}
-        </a>
+        {label && href && (
+          <a className={wipe ? `${styles.btn} ${styles.btnWipe}` : styles.btn} href={href}>
+            {label}
+          </a>
+        )}
       </div>
     </section>
   );

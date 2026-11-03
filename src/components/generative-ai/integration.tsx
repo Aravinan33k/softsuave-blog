@@ -33,6 +33,7 @@ export default function Integration({
   id = "integrations",
   variant = "panels",
   blockCta,
+  span,
 }: {
   content?: IntegrationContent;
   id?: string;
@@ -50,12 +51,20 @@ export default function Integration({
    * the Engagement Options section").
    */
   blockCta?: { readonly label: string; readonly href: string };
+  /**
+   * `bold` only: one desktop column span (of 12) for every card — `4` keeps three
+   * across however many cards there are, where the default composition varies
+   * the row widths.
+   */
+  span?: 3 | 4 | 6 | 12;
 } = {}) {
   if (variant === "bold") {
     /* Two blocks compose 6 + 6, three compose 4 + 4 + 4 — the same function the
        reference section and the specialisations grid call, so all three
        compose their rows identically. */
-    const spans = gridSpansFor(content.blocks.length);
+    // `span` holds every card to one width (4 = three across); omitted, the rows
+    // are composed to fill, as before.
+    const spans = span ? content.blocks.map(() => span) : gridSpansFor(content.blocks.length);
 
     return (
       <section className={styles.sectionShell} id={id}>
@@ -69,16 +78,28 @@ export default function Integration({
                     choice, not one of a numbered set, and the reference band's
                     own cards carry neither. */}
                 <h3 className={styles.indBoldName}>{b.label}</h3>
-                <p className={styles.indBoldBody}>{b.body}</p>
-                {blockCta && (
-                  <SiteLink
-                    href={blockCta.href}
-                    className={`${styles.btn} ${styles.btnPrimary} ${styles.indBoldCta}`}
-                    aria-label={`${blockCta.label}: ${b.label}`}
-                  >
-                    {blockCta.label}
-                  </SiteLink>
-                )}
+                {b.body ? <p className={styles.indBoldBody}>{b.body}</p> : null}
+                {blockCta &&
+                  (blockCta.href.startsWith("#") ? (
+                    // An in-page target stays a plain <a>: ScrollProvider's Lenis
+                    // handler (and the ad pages' popup) listen for those, whereas
+                    // SiteLink reads "#trial" as a site path and sends it away.
+                    <a
+                      href={blockCta.href}
+                      className={`${styles.btn} ${styles.btnPrimary} ${styles.indBoldCta}`}
+                      aria-label={`${blockCta.label}: ${b.label}`}
+                    >
+                      {blockCta.label}
+                    </a>
+                  ) : (
+                    <SiteLink
+                      href={blockCta.href}
+                      className={`${styles.btn} ${styles.btnPrimary} ${styles.indBoldCta}`}
+                      aria-label={`${blockCta.label}: ${b.label}`}
+                    >
+                      {blockCta.label}
+                    </SiteLink>
+                  ))}
               </article>
             ))}
           </div>

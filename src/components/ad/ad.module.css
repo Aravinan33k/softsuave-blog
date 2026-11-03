@@ -669,3 +669,93 @@
   max-width: 520px;
   justify-self: center;
 }
+
+/* ---------- Two-column popup (FDE page): side copy + logo rail beside the form ---------- */
+.modalWide {
+  width: min(980px, calc(100vw - 32px));
+}
+
+/* Below 1000px the side column is hidden, as on the live popup, and the form
+   stands alone at the single-column width. */
+.modalSide {
+  display: none;
+}
+
+@media (min-width: 1000px) {
+  .modalSplit {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    background: #fff;
+    color: #0f1115;
+  }
+
+  .modalSplit > :global(div[id]) {
+    box-shadow: none;
+  }
+
+  .modalSide {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: clamp(28px, 3vw, 44px);
+    min-width: 0;
+  }
+}
+
+.modalSideTitle {
+  margin: 0;
+  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.modalSideBody {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #3f434d;
+}
+
+.logoRail {
+  overflow: hidden;
+  margin-top: 6px;
+  padding: 6px 0;
+  border-top: 1px solid #0f1115;
+  border-bottom: 1px solid #0f1115;
+}
+
+.logoTrack {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: max-content;
+  animation: logoScroll 24s linear infinite;
+}
+
+.logoImg {
+  flex: none;
+  width: 110px;
+  height: auto;
+  filter: grayscale(1);
+}
+
+@keyframes logoScroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoTrack {
+    animation: none;
+  }
+}
+
+/* Below 1000px the two-column popup is the form alone, and its long title would
+   run under the close button — so the card gets room above it. */
+@media (max-width: 999px) {
+  .modalWide .modalInner > :global(div[id]) {
+    padding-top: 52px;
+  }
+}
