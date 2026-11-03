@@ -13,6 +13,11 @@ export interface CtaBandContent {
   body: string;
   cta: { readonly label: string; readonly href: string };
   /**
+   * Optional second action, set after an "OR" beside the primary one — the ad
+   * landing page's "Start 40 Hours Free Trial → OR Book a Meeting".
+   */
+  secondary?: { readonly label: string; readonly href: string; readonly external?: boolean };
+  /**
    * Optional counters under the band, for a CTA the page backs with numbers.
    * Figures are strings, not numbers: they arrive already written ("1250+",
    * "13+") and are not ours to reformat.
@@ -72,6 +77,20 @@ export default function CtaBand({
             <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
               {content.cta.label}
             </SiteLink>
+          )}
+          {content.secondary && (
+            <>
+              <span className={styles.ctaOr}>OR</span>
+              <a
+                href={content.secondary.href}
+                className={styles.btn}
+                {...(content.secondary.external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+              >
+                {content.secondary.label}
+              </a>
+            </>
           )}
         </div>
       </FadeUp>

@@ -8747,3 +8747,14 @@
   letter-spacing: -0.02em;
   text-transform: none;
 }
+
+/* "OR" between two calls to action (the ad landing page's hero and trial band). */
+.heroCtaOr,
+.ctaOr {
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  align-self: center;
+}

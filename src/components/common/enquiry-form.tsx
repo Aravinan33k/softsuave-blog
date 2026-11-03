@@ -45,6 +45,12 @@ export interface EnquiryFormContent {
   sending: string;
   requirementLabel: string;
   requirementPlaceholder: string;
+  /**
+   * Optional required dropdown under the requirement ("What is the tech stack
+   * you are looking for?"). The chosen option is appended to the requirement
+   * text the API receives — the lead has no field of its own for it.
+   */
+  select?: { label: string; options: readonly string[]; error?: string };
   /** The lead's subject line, written per page and stored on the `Enquiry` row for triage. */
   subject: string;
   /** Notice under the form steering job applicants away from the sales inbox. */
@@ -119,6 +125,8 @@ export default function EnquiryForm({
   // A fixed requirement is never typed, so it is never checked either.
   const fields = fixedRequirement ? FIELDS.filter((key) => key !== "requirement") : FIELDS;
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [choice, setChoice] = useState("");
+  const [choiceError, setChoiceError] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   useClearOnClick(FIELDS.some((key) => errors[key]), () => setErrors({}), formRef);
   // Honeypot: React owns the input like any other, but it is never shown and
@@ -164,6 +172,14 @@ export default function EnquiryForm({
     for (const key of fields) found[key] = RULES[key](form[key]) ?? undefined;
     setErrors(found);
     const first = fields.find((key) => found[key]);
+    const missingChoice = Boolean(content.select && !choice);
+    setChoiceError(missingChoice ? (content.select?.error ?? "Please select an option.") : null);
+    if (!first && missingChoice) {
+      setStatus("idle");
+      setError(null);
+      document.getElementById(`${idPrefix}-select`)?.focus();
+      return;
+    }
     if (first) {
       setStatus("idle");
       setError(null);
@@ -181,6 +197,9 @@ export default function EnquiryForm({
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           ...form,
+          requirement: content.select
+            ? `${form.requirement}\n\n${content.select.label}: ${choice}`
+            : form.requirement,
           website,
           subject: content.subject,
           sourcePath: pathname,
@@ -334,6 +353,43 @@ export default function EnquiryForm({
               {content.requirementLabel}
             </label>
             {message("requirement")}
+          </div>
+        )}
+
+        {content.select && (
+          <div className={`${fx.field} ${choiceError ? fx.fieldInvalid : ""}`}>
+            <FieldIcon name="doc" />
+            <select
+              id={`${idPrefix}-select`}
+              className={`${fx.input} ${fx.select}`}
+              name="stack"
+              required
+              value={choice}
+              onChange={(e) => {
+                setChoice(e.target.value);
+                setChoiceError(null);
+              }}
+              aria-invalid={choiceError ? true : undefined}
+              aria-describedby={choiceError ? `${idPrefix}-select-error` : undefined}
+            >
+              <option value="" disabled>
+                Select…
+              </option>
+              {content.select.options.map((o) => (
+                <option key={o} value={o}>
+                  {o}
+                </option>
+              ))}
+            </select>
+            <label className={`${fx.label} ${fx.labelFloat}`} htmlFor={`${idPrefix}-select`}>
+              <RequiredMark />
+              {content.select.label}
+            </label>
+            {choiceError && (
+              <p id={`${idPrefix}-select-error`} className={fx.fieldMessage}>
+                {choiceError}
+              </p>
+            )}
           </div>
         )}
 

@@ -106,6 +106,8 @@ export interface HeroContent {
     readonly href: string;
     readonly external?: boolean;
   }[];
+  /** Text set between the CTAs ("OR") — the ad landing page's pair reads "Start … OR Book a Meeting". */
+  ctaSeparator?: string;
   /**
    * Optional label/value pairs under the body copy — a case study's
    * "Industry: Transportation" and "Platform: Web" (the live case-study
@@ -415,31 +417,30 @@ export default function Hero({
             <div className={styles.heroCtas}>
               {content.ctas.map((cta, i) => {
                 const className = i === 0 ? `${styles.btn} ${styles.btnPrimary}` : styles.btn;
-                if (cta.external) {
-                  return (
-                    <a
-                      key={cta.label}
-                      href={cta.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={className}
-                    >
-                      {cta.label}
-                    </a>
-                  );
-                }
                 // An in-page target stays a plain <a> so ScrollProvider's
                 // Lenis handler intercepts it; anything else goes through
                 // SiteLink, which resolves a live-only path (like the trial
                 // page) to softsuave.com instead of 404ing.
-                return cta.href.startsWith("#") ? (
-                  <a key={cta.label} href={cta.href} className={className}>
+                const button = cta.external ? (
+                  <a href={cta.href} target="_blank" rel="noopener noreferrer" className={className}>
+                    {cta.label}
+                  </a>
+                ) : cta.href.startsWith("#") ? (
+                  <a href={cta.href} className={className}>
                     {cta.label}
                   </a>
                 ) : (
-                  <SiteLink key={cta.label} href={cta.href} className={className}>
+                  <SiteLink href={cta.href} className={className}>
                     {cta.label}
                   </SiteLink>
+                );
+                return (
+                  <Fragment key={cta.label}>
+                    {i > 0 && content.ctaSeparator && (
+                      <span className={styles.heroCtaOr}>{content.ctaSeparator}</span>
+                    )}
+                    {button}
+                  </Fragment>
                 );
               })}
             </div>
