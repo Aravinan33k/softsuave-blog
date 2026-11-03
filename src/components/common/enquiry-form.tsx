@@ -40,7 +40,9 @@ export interface EnquiryFormContent {
   body?: string;
   note?: string;
   /** Optional trailing link appended to the note ("...To apply for jobs, click here."). */
-  noteLink?: { readonly label: string; readonly href: string };
+  noteLink?: { readonly label: string; readonly href: string; readonly srText?: string };
+  /** Text that continues the note after its link ("…privacy policy[ and we will never spam you]"). */
+  noteAfter?: string;
   submit: string;
   sending: string;
   requirementLabel: string;
@@ -467,8 +469,11 @@ export default function EnquiryForm({
               {" "}
               <SiteLink href={content.noteLink.href} className={fx.noteLink}>
                 {content.noteLink.label}
-                <span className="sr-only"> to see open jobs at Soft Suave</span>
+                {/* The hidden tail names where the link goes; the default is the
+                    careers link every note used to carry. */}
+                <span className="sr-only">{content.noteLink.srText ?? " to see open jobs at Soft Suave"}</span>
               </SiteLink>
+              {content.noteAfter}
             </>
           )}
         </p>

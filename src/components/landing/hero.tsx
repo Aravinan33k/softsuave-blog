@@ -69,6 +69,13 @@ export interface HeroContent {
    */
   badgesLabel?: string;
   /**
+   * Draw the `HeroBadge` marks bare, with no white plaque — for artwork made for
+   * a dark ground (white lettering), which would vanish on white. The files should
+   * be exported at about 3x their shown height (180px is plenty for the 42px marks): they are
+   * served unoptimized, and the browser scales them down.
+   */
+  badgesBare?: boolean;
+  /**
    * Optional icon stat cards under the body ("150+ CLIENTS" + a line), the
    * live trial page's two-up grid. Rendered in place of nothing: a page can
    * pass these with an empty `points` list, or both.
@@ -460,7 +467,7 @@ export default function Hero({
             <ul className={styles.badges} aria-label={content.badgesLabel ?? "Credentials"}>
               {content.badges.map((b, i) =>
                 isHeroBadge(b) ? (
-                  <li key={b.src} className={`${styles.badge} ${styles.badgeLogo}`} style={{ ["--i" as string]: i } as CSSProperties}>
+                  <li key={b.src} className={`${styles.badge} ${content.badgesBare ? styles.badgeBare : styles.badgeLogo}`} style={{ ["--i" as string]: i } as CSSProperties}>
                     {/* The mark is the whole point here, so unlike the awards
                         strip it carries its own name — nothing else in the
                         hero says "Clutch". */}
@@ -469,8 +476,13 @@ export default function Hero({
                       alt={b.alt}
                       width={b.width}
                       height={b.height}
-                      sizes={heroBadgeSizes(b)}
-                      className={styles.badgeLogoImg}
+                      // A bare mark is drawn up to 42px high (`.badgeBareImg`), a plaque one 24px.
+                      // Bare marks are small, pre-sized files (see `badgesBare`), so they are served
+                      // as they are: the optimizer handed back a ~80px thumbnail that the browser then
+                      // stretched, which is what made them blurry.
+                      sizes={heroBadgeSizes(b, content.badgesBare ? 42 : 24)}
+                      unoptimized={content.badgesBare}
+                      className={content.badgesBare ? styles.badgeBareImg : styles.badgeLogoImg}
                     />
                   </li>
                 ) : (

@@ -720,6 +720,27 @@
   border-color: rgba(0, 0, 0, 0.12);
 }
 
+/* `badgesBare`: marks drawn for a dark ground, with no plaque. */
+.badgeBare {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.badgeBareImg {
+  display: block;
+  width: auto;
+  height: clamp(32px, 3vw, 42px);
+  object-fit: contain;
+}
+
+/* Bare marks have no plaque to space them, so the row gets real room between
+   them instead of the plaques' 8px. */
+.badges:has(.badgeBare) {
+  gap: clamp(20px, 2.6vw, 36px);
+  align-items: center;
+}
+
 .badgeLogoImg {
   display: block;
   width: auto;

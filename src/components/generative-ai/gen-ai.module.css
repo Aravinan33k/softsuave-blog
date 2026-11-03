@@ -2523,6 +2523,21 @@
   transition: border-color 0.35s ease;
 }
 
+/* A combination card: each technology's own mark in a row, with no badge ring
+   around them — the ring is a single-icon device. */
+.indBoldIcon[data-multi="true"] {
+  width: fit-content;
+  align-self: flex-start;
+  height: auto;
+  min-height: 40px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 14px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
 .indBoldCard:hover .indBoldIcon,
 .indBoldCard:focus-within .indBoldIcon {
   border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 55%, var(--line));

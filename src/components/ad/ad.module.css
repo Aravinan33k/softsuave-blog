@@ -759,3 +759,25 @@
     padding-top: 52px;
   }
 }
+
+/* The logo above a closing band's heading, and its mail button. */
+.enqLogo {
+  margin-bottom: clamp(20px, 2.6vw, 34px);
+}
+
+.enqMail {
+  /* Fully rounded ends; the black hover wipe inherits the shape. */
+  border-radius: 999px;
+  padding-inline: 1.7em;
+  gap: 0.7em;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: clamp(0.875rem, 1.05vw, 1rem);
+  word-break: break-word;
+}
+
+.enqMailIcon {
+  width: 1.25em;
+  height: 1.25em;
+  flex: none;
+}

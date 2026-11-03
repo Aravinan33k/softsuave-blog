@@ -88,6 +88,7 @@ export default function IndustriesClient({
   cardLinks,
   icons,
   brand,
+  multi,
 }: {
   content: CardGridContent;
   id: string;
@@ -96,6 +97,8 @@ export default function IndustriesClient({
   cardLinks: boolean;
   icons: readonly ReactNode[];
   brand: readonly boolean[];
+  /** Cards whose icon slot holds a row of images rather than one badge. */
+  multi?: readonly boolean[];
 }) {
   /* Links: a card's own `href` wins; a grid of services or sectors also links
      cards whose name matches one of our pages (`lib/home/service-href.ts`).
@@ -135,6 +138,7 @@ export default function IndustriesClient({
                 <span
                   className={styles.indBoldIcon}
                   data-brand={brand[i] ? "true" : undefined}
+                  data-multi={multi?.[i] ? "true" : undefined}
                   aria-hidden
                 >
                   {icons[i]}

@@ -29,9 +29,12 @@ export default function Clients({
   body = clients.body,
   loopShortRows = false,
   noFade = false,
+  eyebrow = clients.eyebrow,
 }: {
   /** Drops the soft fade on the strip's left and right ends; logos keep their usual look. */
   noFade?: boolean;
+  /** The small label above the heading; `""` drops it (a page whose live band has none). */
+  eyebrow?: string;
   /**
    * Keep the strip scrolling when its marks are too few to overflow the row —
    * `Marquee`'s `fill` repeats them until they do. Omitted, the strip is
@@ -61,7 +64,7 @@ export default function Clients({
     <section className={`${styles.section} ${styles.clients}`} id="clients">
       <div className={styles.clientsHead}>
         <div className={styles.clientsHeadMain}>
-          <span className={styles.eyebrow}>{clients.eyebrow}</span>
+          {eyebrow && <span className={styles.eyebrow}>{eyebrow}</span>}
           <SplitReveal as="h2" className={styles.h2} type="words">
             {title}
           </SplitReveal>
