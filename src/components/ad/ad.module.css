@@ -580,11 +580,14 @@
 }
 
 /* ---------- Fill-wipe hover — the nav "Book AI Strategy Call" button's ----------
-   On hover a black layer wipes across the plate from the left and the label turns white. Same easing, timing and tokens as `.pillFilled` in
-   home.module.css. Used by the closing band's "Schedule a Call" and its form's
-   "Submit", and by nothing else. */
+   On hover a black layer wipes across the plate from the left and the label
+   turns white. Same easing and timing as `.pillFilled` in home.module.css.
+   `.btnWipe` is a link button; `.enqForm` / `.wipeForm` give the same hover to
+   the submit button of an enquiry card inside them (the card's own stylesheet
+   is another module, so it is reached by selector). */
 .btnWipe,
-.enqForm button[type="submit"] {
+.enqForm button[type="submit"],
+.wipeForm button[type="submit"] {
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -592,7 +595,8 @@
 }
 
 .btnWipe::before,
-.enqForm button[type="submit"]::before {
+.enqForm button[type="submit"]::before,
+.wipeForm button[type="submit"]::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -607,7 +611,9 @@
 .btnWipe:hover,
 .btnWipe:focus-visible,
 .enqForm button[type="submit"]:hover:not(:disabled),
-.enqForm button[type="submit"]:focus-visible {
+.enqForm button[type="submit"]:focus-visible,
+.wipeForm button[type="submit"]:hover:not(:disabled),
+.wipeForm button[type="submit"]:focus-visible {
   background: #000;
   transition: background 0s 0.4s, color 0.3s ease, border-color 0.3s ease, box-shadow 0.35s ease;
   border-color: #000;
@@ -618,13 +624,48 @@
 .btnWipe:hover::before,
 .btnWipe:focus-visible::before,
 .enqForm button[type="submit"]:hover:not(:disabled)::before,
-.enqForm button[type="submit"]:focus-visible::before {
+.enqForm button[type="submit"]:focus-visible::before,
+.wipeForm button[type="submit"]:hover:not(:disabled)::before,
+.wipeForm button[type="submit"]:focus-visible::before {
   transform: scaleX(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .btnWipe::before,
-  .enqForm button[type="submit"]::before {
+  .enqForm button[type="submit"]::before,
+  .wipeForm button[type="submit"]::before {
     transition: none;
   }
+}
+
+/* ---------- Why hire: list beside a photo ---------- */
+.whyWithImage {
+  display: grid;
+  gap: clamp(22px, 3vw, 48px);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+@media (min-width: 1000px) {
+  .whyWithImage {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+}
+
+/* With a photo beside it the list drops to two columns, one on a phone. */
+.whyList[data-narrow="true"] {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .whyList[data-narrow="true"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.whyImage {
+  width: 100%;
+  height: auto;
+  max-width: 520px;
+  justify-self: center;
 }

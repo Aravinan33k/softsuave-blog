@@ -38,8 +38,11 @@ export interface CtaBandContent {
 export default function CtaBand({
   content,
   backdrop = true,
+  ctaClassName,
 }: {
   content: CtaBandContent;
+  /** Extra class on the primary button — lets a page restyle its hover without a new variant. */
+  ctaClassName?: string;
   /**
    * The coral light-field loop behind the band. `false` drops it, leaving the
    * band on the page's own near-black ground — the Sep 23 review read the lit
@@ -70,11 +73,11 @@ export default function CtaBand({
               serve (Xamarin hiring, say) would 404 here instead of resolving to
               softsuave.com. */}
           {content.cta.href.startsWith("#") ? (
-            <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
+            <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}${ctaClassName ? ` ${ctaClassName}` : ""}`}>
               {content.cta.label}
             </a>
           ) : (
-            <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
+            <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}${ctaClassName ? ` ${ctaClassName}` : ""}`}>
               {content.cta.label}
             </SiteLink>
           )}

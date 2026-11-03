@@ -17,9 +17,18 @@ import styles from "./ad.module.css";
 export default function TrialModal({
   form,
   href = "#trial",
+  idPrefix = "ad-trial",
+  fixedRequirement,
+  wipe = false,
 }: {
   form: EnquiryFormContent;
   href?: string;
+  /** Namespaces the form's field ids and doubles as the lead's `sourceKey`. */
+  idPrefix?: string;
+  /** Sent as the requirement, with that field left out — a name/email/phone-only card (the rate-card popup). */
+  fixedRequirement?: string;
+  /** The black left-to-right hover fill on the form's submit button. */
+  wipe?: boolean;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
 
@@ -44,7 +53,7 @@ export default function TrialModal({
         if (e.target === e.currentTarget) dialog.current?.close();
       }}
     >
-      <div className={styles.modalInner}>
+      <div className={wipe ? `${styles.modalInner} ${styles.wipeForm}` : styles.modalInner}>
         <button
           type="button"
           className={styles.modalClose}
@@ -53,7 +62,12 @@ export default function TrialModal({
         >
           ×
         </button>
-        <EnquiryForm content={form} idPrefix="ad-trial" cardId="trial-form" />
+        <EnquiryForm
+          content={form}
+          idPrefix={idPrefix}
+          fixedRequirement={fixedRequirement}
+          cardId={`${idPrefix}-form`}
+        />
       </div>
     </dialog>
   );
