@@ -23,7 +23,6 @@ import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { ProcessContent } from "@/components/landing/process";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { EnquiryFormContent } from "@/components/common/enquiry-form";
-import { partnerHeroBadges } from "@/lib/home/hero-badges";
 import { testimonials } from "@/lib/home/content";
 import { CLIENTS_PLUS, FIGURES, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
@@ -65,20 +64,16 @@ export const adHero: HeroContent = {
     "*Satisfaction Guaranteed – Get 40-hour Free Trial",
   ],
   points: [],
-  // "RATED ★★★★★ ON" over Microsoft, Upwork and Clutch — the live page's marks.
-  // The live page shows two Clutch lockups (rating_img2 / rating_img1): the
-  // rating badge and the "Top B2B Companies Global 2024" award. No AWS here.
+  // "RATED ★★★★★ ON" over the live hero's four marks, as its own files — in its
+  // order: Clutch, Upwork, GoodFirms, AWS Partner Network. (Their alt text on the
+  // live page reads "Microsoft / Upwork / Clutch / Clutch", which is not what the
+  // artwork shows.) Dark wordmarks, so they sit on the hero's white plaques.
   badgesLabel: "Rated ★★★★★ on",
   badges: [
-    ...["Microsoft", "Upwork", "Clutch"].map(
-      (name) => partnerHeroBadges.find((b) => b.alt.includes(name))!,
-    ),
-    {
-      src: "/brand/awards/clutch.webp",
-      alt: "Clutch Top B2B Companies Global 2024",
-      width: 250,
-      height: 215,
-    },
+    { src: "/brand/ad/badge-clutch.webp", alt: "Clutch", width: 218, height: 64 },
+    { src: "/brand/ad/badge-upwork.webp", alt: "Upwork", width: 215, height: 64 },
+    { src: "/brand/ad/badge-goodfirms.webp", alt: "GoodFirms", width: 426, height: 64 },
+    { src: "/brand/ad/badge-aws.webp", alt: "AWS Partner Network", width: 234, height: 64 },
   ],
   ctas: [AD_TRIAL_CTA, BOOK_MEETING],
   ctaSeparator: "OR",

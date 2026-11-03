@@ -5,7 +5,7 @@ import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquir
 import styles from "./ad.module.css";
 
 /**
- * The modal every "Start 40 Hours Free Trial" button opens, as on the live page
+ * The modal every "Start … Free Trial" button opens, as on the live ad pages
  * (where all of them target one Bootstrap modal).
  *
  * The buttons are ordinary `<a href="#trial">` links rendered by shared

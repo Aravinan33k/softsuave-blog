@@ -5673,6 +5673,11 @@ h1.h2 {
     transparent 100%
   );
 }
+/* `Clients noFade`: no soft edge fade on the strip. */
+.clientsMarqueeNoFade {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
 .clientsItem {
   display: flex;
   align-items: center;

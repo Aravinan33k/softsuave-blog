@@ -110,13 +110,16 @@
 }
 
 .model {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 14px;
   padding: clamp(20px, 2.2vw, 32px);
-  border: 1px solid var(--line);
-  border-top: 3px solid var(--accent);
+  border: 1px solid var(--card-line, var(--line));
+  border-radius: 12px;
   background: var(--surface);
+  transition: border-color 0.4s ease;
 }
 
 .modelName {
@@ -210,14 +213,52 @@
 }
 
 .plan {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 10px;
   height: 100%;
   padding: clamp(22px, 2.4vw, 36px);
-  border: 1px solid var(--line);
+  border: 1px solid var(--card-line, var(--line));
+  border-radius: 12px;
   background: var(--surface);
-  border-top: 3px solid var(--accent);
+  transition: border-color 0.4s ease;
+}
+
+/* Hover card — the same effect as the Angular page's stack cards
+   (`.card` in landing.module.css): a short accent line sits at the top-left of
+   the card and draws across to the full width on hover while the border takes
+   the accent colour. Shared by the engagement cards and the pricing cards. */
+.model::before,
+.plan::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.model:hover,
+.plan:hover {
+  border-color: var(--accent);
+}
+
+.model:hover::before,
+.plan:hover::before {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .model,
+  .plan,
+  .model::before,
+  .plan::before {
+    transition: none;
+  }
 }
 
 .planPrice {
@@ -297,4 +338,293 @@
 .modalClose:hover,
 .modalClose:focus-visible {
   background: rgba(15, 17, 21, 0.14);
+}
+
+/* ---------- Hero testimonial card (right column of the AI-developer hero) ---------- */
+.heroSide {
+  display: grid;
+  gap: clamp(16px, 2vw, 26px);
+  width: 100%;
+  max-width: 560px;
+}
+
+.quoteCard {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: clamp(22px, 2.6vw, 36px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  text-align: center;
+  justify-items: center;
+}
+
+.quotePhoto {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--brand-coral, #ff7a45);
+}
+
+.quoteText {
+  margin: 0;
+  color: #d8d8d8;
+  font-size: clamp(0.98rem, 1.15vw, 1.1rem);
+  line-height: 1.6;
+}
+
+.quoteName {
+  margin: 0;
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+}
+
+.quoteRole {
+  color: #9c9c9c;
+  font-size: 0.9rem;
+}
+
+.heroBadges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(18px, 3vw, 40px);
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* The seals are transparent artwork made for a dark ground: no plaque. */
+.heroBadge {
+  display: flex;
+  align-items: center;
+}
+
+.heroBadgeImg {
+  height: clamp(72px, 7vw, 96px);
+  width: auto;
+}
+
+/* ---------- Closing "Start Your 40 Hours Trial" band ---------- */
+.enq {
+  display: grid;
+  gap: clamp(28px, 4vw, 64px);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+@media (min-width: 1000px) {
+  .enq {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+}
+
+.enqTitle {
+  margin: 0 0 14px;
+  font-family: var(--font-display-serif);
+  font-weight: 300;
+  font-size: clamp(2.25rem, 4.6vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+}
+
+.enqSub {
+  margin: 0 0 clamp(22px, 3vw, 36px);
+  max-width: 46ch;
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.enqSteps {
+  display: grid;
+  gap: 18px;
+  margin-bottom: clamp(22px, 3vw, 36px);
+}
+
+.enqStepTitle {
+  margin: 0 0 4px;
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.enqStepBody {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.manager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+  padding: clamp(16px, 2vw, 24px);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  margin-bottom: clamp(18px, 2.4vw, 28px);
+}
+
+.managerWho {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.managerPhoto {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.managerName {
+  margin: 0;
+  font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.managerRole {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.enqBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.enqBadge {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+/* ---------- Trusted-partner card (straddles the hero's bottom edge) ---------- */
+.trusted {
+  --overlap: clamp(36px, 4.4vw, 64px);
+  position: relative;
+  z-index: 2;
+  /* Lifted over the hero with `top`, not a negative margin: a negative margin on
+     the first child of the `.light` band collapses through it and drags the whole
+     band's background up over the hero. `top` moves only the card; the negative
+     bottom margin takes back the gap it leaves. */
+  top: calc(-1 * var(--overlap));
+  margin-bottom: calc(-1 * var(--overlap));
+  padding: 0 var(--gutter, clamp(20px, 5vw, 90px)) var(--section-y, clamp(44px, 5vw, 84px));
+}
+
+.trustedCard {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(18px, 2vw, 28px) clamp(16px, 3vw, 48px) clamp(22px, 2.6vw, 36px);
+  border-radius: clamp(26px, 3.4vw, 44px);
+  background: #fff;
+  box-shadow: 0 10px 34px -12px rgba(15, 17, 21, 0.28);
+}
+
+.trustedTitle {
+  margin: 0 0 clamp(14px, 2vw, 26px);
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+  line-height: 1.3;
+  color: #0f1115;
+}
+
+.trustedRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: clamp(12px, 2vw, 28px) clamp(8px, 1.5vw, 24px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Two to a row on a phone (the live page's `col-6`), five across from tablet. */
+.trustedItem {
+  flex: 0 0 calc(50% - 8px);
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 700px) {
+  .trustedItem {
+    flex: 1 1 0;
+  }
+}
+
+.trustedLogo {
+  position: relative;
+  display: block;
+  width: clamp(104px, 11vw, 168px);
+  height: clamp(44px, 5vw, 72px);
+  filter: grayscale(1);
+}
+
+/* ---------- Fill-wipe hover — the nav "Book AI Strategy Call" button's ----------
+   On hover a black layer wipes across the plate from the left and the label turns white. Same easing, timing and tokens as `.pillFilled` in
+   home.module.css. Used by the closing band's "Schedule a Call" and its form's
+   "Submit", and by nothing else. */
+.btnWipe,
+.enqForm button[type="submit"] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: background 0s, color 0.3s ease, border-color 0.3s ease, box-shadow 0.35s ease;
+}
+
+.btnWipe::before,
+.enqForm button[type="submit"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: #000;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.btnWipe:hover,
+.btnWipe:focus-visible,
+.enqForm button[type="submit"]:hover:not(:disabled),
+.enqForm button[type="submit"]:focus-visible {
+  background: #000;
+  transition: background 0s 0.4s, color 0.3s ease, border-color 0.3s ease, box-shadow 0.35s ease;
+  border-color: #000;
+  color: #fff;
+  box-shadow: none;
+}
+
+.btnWipe:hover::before,
+.btnWipe:focus-visible::before,
+.enqForm button[type="submit"]:hover:not(:disabled)::before,
+.enqForm button[type="submit"]:focus-visible::before {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btnWipe::before,
+  .enqForm button[type="submit"]::before {
+    transition: none;
+  }
 }

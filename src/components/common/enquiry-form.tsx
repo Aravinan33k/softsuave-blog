@@ -51,6 +51,11 @@ export interface EnquiryFormContent {
    * text the API receives — the lead has no field of its own for it.
    */
   select?: { label: string; options: readonly string[]; error?: string };
+  /**
+   * Optional required "Company" row between the email and phone rows. Like
+   * `select`, its value rides in the requirement text ("Company: Acme").
+   */
+  company?: { label: string; error?: string };
   /** The lead's subject line, written per page and stored on the `Enquiry` row for triage. */
   subject: string;
   /** Notice under the form steering job applicants away from the sales inbox. */
@@ -125,6 +130,8 @@ export default function EnquiryForm({
   // A fixed requirement is never typed, so it is never checked either.
   const fields = fixedRequirement ? FIELDS.filter((key) => key !== "requirement") : FIELDS;
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [company, setCompany] = useState("");
+  const [companyError, setCompanyError] = useState<string | null>(null);
   const [choice, setChoice] = useState("");
   const [choiceError, setChoiceError] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -172,8 +179,16 @@ export default function EnquiryForm({
     for (const key of fields) found[key] = RULES[key](form[key]) ?? undefined;
     setErrors(found);
     const first = fields.find((key) => found[key]);
+    const missingCompany = Boolean(content.company && !company.trim());
+    setCompanyError(missingCompany ? (content.company?.error ?? "Please enter your company.") : null);
     const missingChoice = Boolean(content.select && !choice);
     setChoiceError(missingChoice ? (content.select?.error ?? "Please select an option.") : null);
+    if (!first && missingCompany) {
+      setStatus("idle");
+      setError(null);
+      document.getElementById(`${idPrefix}-company`)?.focus();
+      return;
+    }
     if (!first && missingChoice) {
       setStatus("idle");
       setError(null);
@@ -197,9 +212,13 @@ export default function EnquiryForm({
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           ...form,
-          requirement: content.select
-            ? `${form.requirement}\n\n${content.select.label}: ${choice}`
-            : form.requirement,
+          requirement: [
+            form.requirement,
+            content.company ? `${content.company.label}: ${company.trim()}` : "",
+            content.select ? `${content.select.label}: ${choice}` : "",
+          ]
+            .filter(Boolean)
+            .join("\n\n"),
           website,
           subject: content.subject,
           sourcePath: pathname,
@@ -232,16 +251,20 @@ export default function EnquiryForm({
 
   return (
     <div className={fx.card} id={cardId}>
-      <div className={fx.header}>
-        {content.eyebrow ? <span className={fx.eyebrow}>{content.eyebrow}</span> : null}
-        {content.titleAs === "h2" ? (
-          <h2 className={fx.title}>{content.title}</h2>
-        ) : (
-          <p className={fx.title}>{content.title}</p>
-        )}
-        <span className={fx.accent} aria-hidden />
-        {content.body ? <p className={fx.body}>{content.body}</p> : null}
-      </div>
+      {/* A card with no title, eyebrow or body (the ad page's closing form, whose
+          heading sits beside it) drops the header block altogether. */}
+      {(content.title || content.eyebrow || content.body) && (
+        <div className={fx.header}>
+          {content.eyebrow ? <span className={fx.eyebrow}>{content.eyebrow}</span> : null}
+          {content.titleAs === "h2" ? (
+            <h2 className={fx.title}>{content.title}</h2>
+          ) : (
+            <p className={fx.title}>{content.title}</p>
+          )}
+          <span className={fx.accent} aria-hidden />
+          {content.body ? <p className={fx.body}>{content.body}</p> : null}
+        </div>
+      )}
 
       <form ref={formRef} className={fx.fields} onSubmit={onSubmit} noValidate>
         {/* `noValidate`: the browser's own bubbles are replaced by the
@@ -311,6 +334,38 @@ export default function EnquiryForm({
           </label>
           {message("email")}
         </div>
+
+        {content.company && (
+          <div className={`${fx.field} ${companyError ? fx.fieldInvalid : ""}`}>
+            <FieldIcon name="person" />
+            <input
+              id={`${idPrefix}-company`}
+              className={fx.input}
+              type="text"
+              name="company"
+              autoComplete="organization"
+              required
+              maxLength={NAME_MAX * 2}
+              value={company}
+              onChange={(e) => {
+                setCompany(e.target.value);
+                setCompanyError(null);
+              }}
+              aria-invalid={companyError ? true : undefined}
+              aria-describedby={companyError ? `${idPrefix}-company-error` : undefined}
+              placeholder="Acme Inc."
+            />
+            <label className={fx.label} htmlFor={`${idPrefix}-company`}>
+              <RequiredMark />
+              {content.company.label}
+            </label>
+            {companyError && (
+              <p id={`${idPrefix}-company-error`} className={fx.fieldMessage}>
+                {companyError}
+              </p>
+            )}
+          </div>
+        )}
 
         {/* The only two-control row: a calling code beside the number. The
             label stays risen (`labelFloat`) rather than resting on the line

@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useRef, type CSSProperties } from "react";
+import { Fragment, useRef, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
 import { Globe, SquareTerminal, Users } from "lucide-react";
 import { publicMediaUrl } from "@/lib/media-url";
@@ -231,8 +231,15 @@ export default function Hero({
   idPrefix = "landing",
   variant = "display",
   breadcrumb = true,
+  slot,
 }: {
   content: HeroContent;
+  /**
+   * Anything to put in the form's column when the hero has neither a `form` nor
+   * an `aside` image — the ad landing page's testimonial card. Ignored when
+   * either is set.
+   */
+  slot?: ReactNode;
   idPrefix?: string;
   variant?: HeroVariant;
   /** `false` drops the "Home › <page>" trail for a page that shows none. */
@@ -494,7 +501,9 @@ export default function Hero({
           </figure>
         ) : content.form ? (
           <EnquiryForm content={content.form} idPrefix={idPrefix} />
-        ) : null}
+        ) : (
+          (slot ?? null)
+        )}
       </div>
     </section>
   );
