@@ -88,7 +88,7 @@ export default function AdRemoteDeveloperPage() {
         <div className={home.light}>
           {/* The live page's client logos sit inside its hero section; here they
               open the white band that follows it. */}
-          <Clients logos={HIRE_CLIENT_LOGOS} title={rdClients.title} body={rdClients.body} />
+          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={rdClients.title} body={rdClients.body} />
           <CardGrid content={rdWhy} id="why" variant="bold" />
           <CtaRow lead={rdWhyClosing} />
           <CardGrid content={rdServices} id="services" variant="bold" />

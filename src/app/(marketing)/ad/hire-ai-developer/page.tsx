@@ -93,6 +93,7 @@ export default function AdHireAiDeveloperPage() {
             logos={[...aiClients.logos]}
             title={aiClients.title}
             body=""
+            eyebrow=""
             loopShortRows
             noFade
           />
