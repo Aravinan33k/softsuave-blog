@@ -3,8 +3,10 @@
  *
  * GENERATED from the live page's markup — title, summary, image, platform and
  * category are the live copy verbatim. Images are mirrored into
- * `public/images/case-studies/`; the detail pages are NOT rebuilt here, so
- * each `href` is a live-site path that `SiteLink` sends to softsuave.com.
+ * `public/images/case-studies/`. Each `href` is the live-site path; `SiteLink`
+ * sends it to softsuave.com unless this app builds that detail page — those
+ * are the `/case-study-*` routes registered in `LANDING_PAGES`
+ * (`lib/home/landing-pages.ts`), which then open here instead.
  *
  * `filters` are the live page's tabs each study appears under. The live page
  * lists two studies (AI Assist, MarketMind) under no tab at all, so they

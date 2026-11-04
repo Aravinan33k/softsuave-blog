@@ -2,6 +2,7 @@
 
 import { Fragment, useRef, type CSSProperties } from "react";
 import Image from "next/image";
+import { CalendarDays } from "lucide-react";
 import { hero as generativeAiHero } from "@/lib/home/generative-ai";
 import { publicMediaUrl } from "@/lib/media-url";
 import { heroBadgeSizes, isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
@@ -102,13 +103,20 @@ function accentWithin(line: string, accent: string | undefined) {
  *
  * The enquiry card is `common/enquiry-form`; `idPrefix` namespaces its field
  * ids and doubles as the lead's `sourceKey`.
+ *
+ * `wide` (opt-in, off by default) is the full-gutter layout: no 1500px cap on
+ * the grid, a fixed-width enquiry column, and the breadcrumb lifted into its
+ * own row above the grid so the form's top edge lines up with the H1. The
+ * top padding then also honours `--hero-top` where the page defines it.
  */
 export default function Hero({
   content = generativeAiHero,
   idPrefix = "genai",
+  wide = false,
 }: {
   content?: HeroContent;
   idPrefix?: string;
+  wide?: boolean;
 } = {}) {
   const root = useRef<HTMLElement | null>(null);
 
@@ -121,7 +129,7 @@ export default function Hero({
   const lastLine = content.titleLines.length - 1;
 
   return (
-    <section ref={root} className={styles.hero} id="top">
+    <section ref={root} className={wide ? `${styles.hero} ${styles.heroWide}` : styles.hero} id="top">
       {content.background && (
         <div className={styles.heroMedia} aria-hidden>
           <Image
@@ -210,7 +218,14 @@ export default function Hero({
                       target="_blank"
                       rel="noopener noreferrer"
                       className={className}
+                      // The booking button leads with a calendar icon, as on the live pages.
+                      style={
+                        cta.href.includes("calendly.com")
+                          ? { display: "inline-flex", alignItems: "center", gap: 10 }
+                          : undefined
+                      }
                     >
+                      {cta.href.includes("calendly.com") && <CalendarDays size={18} aria-hidden />}
                       {cta.label}
                     </a>
                   );

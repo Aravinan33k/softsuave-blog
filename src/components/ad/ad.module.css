@@ -1,0 +1,925 @@
+/* ============================================================
+   AD LANDING PAGES — the sections the shared landing set lacks:
+   top-talent block, why-hire list, pricing plans, the standalone CTA row
+   and the trial modal. Reads the theme's semantic tokens only, so a `.light`
+   band re-points all of it.
+   ============================================================ */
+.shell {
+  padding: var(--section-y, clamp(44px, 5vw, 84px)) var(--gutter, clamp(20px, 5vw, 90px));
+  position: relative;
+}
+
+.shell + .shell {
+  padding-top: 0;
+}
+
+/* Squared primary button — the same values as `landing.module.css .btn`/`.btnPrimary`. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95em 1.7em;
+  background: var(--accent);
+  color: var(--on-accent, #fff);
+  font-family: var(--font-mono-label);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  text-align: center;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: var(--accent-border);
+  border-color: var(--accent-border);
+}
+
+/* ---------- Top talent ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 2.4vw, 36px);
+  margin: clamp(26px, 3.4vw, 48px) 0 0;
+  padding: clamp(22px, 2.8vw, 36px) 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 760px) {
+  .stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.stat {
+  display: grid;
+  gap: 6px;
+  text-align: center;
+}
+
+.statFigure {
+  margin: 0;
+  font-family: var(--font-display-serif);
+  font-weight: 300;
+  font-size: clamp(2.2rem, 4.4vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.statLabel {
+  margin: 0;
+  font-family: var(--font-mono-label);
+  font-size: clamp(0.62rem, 0.8vw, 0.75rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cta {
+  margin-top: clamp(22px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.ctaLead {
+  margin: 0;
+  font-family: var(--font-display-serif);
+  font-weight: 300;
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.models {
+  display: grid;
+  gap: clamp(14px, 1.6vw, 24px);
+  grid-template-columns: 1fr;
+  margin-top: clamp(26px, 3.4vw, 48px);
+}
+
+@media (min-width: 900px) {
+  .models {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.model {
+  position: relative;
+  overflow: hidden;
+  /* Fill the grid cell so the three cards are one height. */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(20px, 2.2vw, 32px);
+  border: 1px solid var(--card-line, var(--line));
+  border-radius: 12px;
+  background: var(--surface);
+  transition: border-color 0.4s ease;
+}
+
+.modelName {
+  margin: 0;
+  font-family: var(--font-display-serif);
+  font-weight: 300;
+  font-size: clamp(1.35rem, 1.9vw, 1.75rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-bright);
+}
+
+.modelPoints {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.modelPoints li {
+  position: relative;
+  padding-left: 1.5em;
+  color: var(--text);
+  line-height: 1.55;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+}
+
+.modelPoints li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.7em;
+  height: 0.38em;
+  border-left: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(-45deg) translateY(-50%);
+}
+
+.modelBody {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.6;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+}
+
+/* ---------- Why hire (a list under a heading) ---------- */
+.whyList {
+  display: grid;
+  gap: clamp(10px, 1.2vw, 16px);
+  grid-template-columns: 1fr;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 700px) {
+  .whyList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .whyList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.whyItem {
+  padding: clamp(16px, 1.6vw, 22px) clamp(18px, 1.8vw, 26px);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+  color: var(--text-bright);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.4;
+}
+
+/* ---------- Pricing ---------- */
+.plans {
+  display: grid;
+  gap: clamp(14px, 1.6vw, 24px);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 760px) {
+  .plans {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.plan {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  padding: clamp(22px, 2.4vw, 36px);
+  border: 1px solid var(--card-line, var(--line));
+  border-radius: 12px;
+  background: var(--surface);
+  transition: border-color 0.4s ease;
+}
+
+/* Hover card — the same effect as the Angular page's stack cards
+   (`.card` in landing.module.css): a short accent line sits at the top-left of
+   the card and draws across to the full width on hover while the border takes
+   the accent colour. Shared by the engagement cards and the pricing cards. */
+.model::before,
+.plan::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.model:hover,
+.plan:hover {
+  border-color: var(--accent);
+}
+
+.model:hover::before,
+.plan:hover::before {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .model,
+  .plan,
+  .model::before,
+  .plan::before {
+    transition: none;
+  }
+}
+
+.planPrice {
+  font-family: var(--font-display-serif);
+  font-weight: 300;
+  font-size: clamp(2.5rem, 4.4vw, 3.75rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--text-bright);
+}
+
+.planUnit {
+  font-family: var(--font-mono-label);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.planBody {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+  max-width: 34ch;
+}
+
+.planTitle {
+  margin: 0;
+  font-family: var(--font-display-serif);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--text-bright);
+}
+
+/* ---------- Trial modal ---------- */
+.modal {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  width: min(560px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100vh - 32px);
+  overflow: visible;
+  margin: auto;
+}
+
+.modal::backdrop {
+  background: rgba(4, 5, 8, 0.72);
+  backdrop-filter: blur(3px);
+}
+
+.modalInner {
+  position: relative;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  border-radius: 16px;
+}
+
+.modalClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(15, 17, 21, 0.06);
+  color: #0f1115;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modalClose:hover,
+.modalClose:focus-visible {
+  background: rgba(15, 17, 21, 0.14);
+}
+
+/* ---------- Hero testimonial card (right column of the AI-developer hero) ---------- */
+.heroSide {
+  display: grid;
+  gap: clamp(16px, 2vw, 26px);
+  width: 100%;
+  max-width: 560px;
+}
+
+.quoteCard {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: clamp(22px, 2.6vw, 36px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  text-align: center;
+  justify-items: center;
+}
+
+.quotePhoto {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--brand-coral, #ff7a45);
+}
+
+.quoteText {
+  margin: 0;
+  color: #d8d8d8;
+  font-size: clamp(0.98rem, 1.15vw, 1.1rem);
+  line-height: 1.6;
+}
+
+.quoteName {
+  margin: 0;
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+}
+
+.quoteRole {
+  color: #9c9c9c;
+  font-size: 0.9rem;
+}
+
+.heroBadges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(18px, 3vw, 40px);
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* The seals are transparent artwork made for a dark ground: no plaque. */
+.heroBadge {
+  display: flex;
+  align-items: center;
+}
+
+.heroBadgeImg {
+  height: clamp(72px, 7vw, 96px);
+  width: auto;
+}
+
+/* ---------- Closing "Start Your 40 Hours Trial" band ---------- */
+.enq {
+  display: grid;
+  gap: clamp(28px, 4vw, 64px);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+@media (min-width: 1000px) {
+  .enq {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+}
+
+.enqTitle {
+  margin: 0 0 14px;
+  font-family: var(--font-display-serif);
+  font-weight: 300;
+  font-size: clamp(2.25rem, 4.6vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+}
+
+.enqSub {
+  margin: 0 0 clamp(22px, 3vw, 36px);
+  max-width: 46ch;
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.enqSteps {
+  display: grid;
+  gap: 18px;
+  margin-bottom: clamp(22px, 3vw, 36px);
+}
+
+.enqStepTitle {
+  margin: 0 0 4px;
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.enqStepBody {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.manager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+  padding: clamp(16px, 2vw, 24px);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  margin-bottom: clamp(18px, 2.4vw, 28px);
+}
+
+.managerWho {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.managerPhoto {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.managerName {
+  margin: 0;
+  font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.managerRole {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.enqBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.enqBadge {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+/* ---------- Trusted-partner card (straddles the hero's bottom edge) ---------- */
+.trusted {
+  --overlap: clamp(36px, 4.4vw, 64px);
+  position: relative;
+  z-index: 2;
+  /* Lifted over the hero with `top`, not a negative margin: a negative margin on
+     the first child of the `.light` band collapses through it and drags the whole
+     band's background up over the hero. `top` moves only the card; the negative
+     bottom margin takes back the gap it leaves. */
+  top: calc(-1 * var(--overlap));
+  margin-bottom: calc(-1 * var(--overlap));
+  padding: 0 var(--gutter, clamp(20px, 5vw, 90px)) var(--section-y, clamp(44px, 5vw, 84px));
+}
+
+.trustedCard {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(18px, 2vw, 28px) clamp(16px, 3vw, 48px) clamp(22px, 2.6vw, 36px);
+  border-radius: clamp(26px, 3.4vw, 44px);
+  background: #fff;
+  box-shadow: 0 10px 34px -12px rgba(15, 17, 21, 0.28);
+}
+
+.trustedTitle {
+  margin: 0 0 clamp(14px, 2vw, 26px);
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+  line-height: 1.3;
+  color: #0f1115;
+}
+
+.trustedRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: clamp(12px, 2vw, 28px) clamp(8px, 1.5vw, 24px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Two to a row on a phone (the live page's `col-6`), five across from tablet. */
+.trustedItem {
+  flex: 0 0 calc(50% - 8px);
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 700px) {
+  .trustedItem {
+    flex: 1 1 0;
+  }
+}
+
+.trustedLogo {
+  position: relative;
+  display: block;
+  width: clamp(104px, 11vw, 168px);
+  height: clamp(44px, 5vw, 72px);
+  filter: grayscale(1);
+}
+
+/* ---------- Fill-wipe hover — the nav "Book AI Strategy Call" button's ----------
+   On hover a black layer wipes across the plate from the left and the label
+   turns white. Same easing and timing as `.pillFilled` in home.module.css.
+   `.btnWipe` is a link button; `.enqForm` / `.wipeForm` give the same hover to
+   the submit button of an enquiry card inside them (the card's own stylesheet
+   is another module, so it is reached by selector). */
+.btnWipe,
+.enqForm button[type="submit"],
+.wipeForm button[type="submit"] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: background 0s, color 0.3s ease, border-color 0.3s ease, box-shadow 0.35s ease;
+}
+
+.btnWipe::before,
+.enqForm button[type="submit"]::before,
+.wipeForm button[type="submit"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: #000;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.btnWipe:hover,
+.btnWipe:focus-visible,
+.enqForm button[type="submit"]:hover:not(:disabled),
+.enqForm button[type="submit"]:focus-visible,
+.wipeForm button[type="submit"]:hover:not(:disabled),
+.wipeForm button[type="submit"]:focus-visible {
+  background: #000;
+  transition: background 0s 0.4s, color 0.3s ease, border-color 0.3s ease, box-shadow 0.35s ease;
+  border-color: #000;
+  color: #fff;
+  box-shadow: none;
+}
+
+.btnWipe:hover::before,
+.btnWipe:focus-visible::before,
+.enqForm button[type="submit"]:hover:not(:disabled)::before,
+.enqForm button[type="submit"]:focus-visible::before,
+.wipeForm button[type="submit"]:hover:not(:disabled)::before,
+.wipeForm button[type="submit"]:focus-visible::before {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btnWipe::before,
+  .enqForm button[type="submit"]::before,
+  .wipeForm button[type="submit"]::before {
+    transition: none;
+  }
+}
+
+/* ---------- Why hire: list beside a photo ---------- */
+.whyWithImage {
+  display: grid;
+  gap: clamp(22px, 3vw, 48px);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+@media (min-width: 1000px) {
+  .whyWithImage {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+}
+
+/* With a photo beside it the list drops to two columns, one on a phone. */
+.whyList[data-narrow="true"] {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .whyList[data-narrow="true"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.whyImage {
+  width: 100%;
+  height: auto;
+  max-width: 520px;
+  justify-self: center;
+}
+
+/* ---------- Two-column popup (FDE page): side copy + logo rail beside the form ---------- */
+.modalWide {
+  width: min(980px, calc(100vw - 32px));
+}
+
+/* Below 1000px the side column is hidden, as on the live popup, and the form
+   stands alone at the single-column width. */
+.modalSide {
+  display: none;
+}
+
+@media (min-width: 1000px) {
+  .modalSplit {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    background: #fff;
+    color: #0f1115;
+  }
+
+  .modalSplit > :global(div[id]) {
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .modalSide {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: clamp(28px, 3vw, 44px);
+    min-width: 0;
+  }
+}
+
+.modalSideTitle {
+  margin: 0;
+  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.modalSideBody {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #3f434d;
+}
+
+.logoRail {
+  overflow: hidden;
+  margin-top: 6px;
+  padding: 6px 0;
+  border-top: 1px solid #0f1115;
+  border-bottom: 1px solid #0f1115;
+}
+
+.logoTrack {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: max-content;
+  animation: logoScroll 24s linear infinite;
+}
+
+.logoImg {
+  flex: none;
+  width: 110px;
+  height: auto;
+  filter: grayscale(1);
+}
+
+/* The popup's testimonial stack: the front card, with the two before it behind. */
+.tStack {
+  position: relative;
+  height: 188px;
+  margin-top: 18px;
+}
+
+.tCard {
+  position: absolute;
+  inset: 0 0 auto 0;
+  padding: 16px 20px 18px;
+  border: 1px solid #e3dfd8;
+  border-radius: 14px;
+  background: #f6f4f1;
+  box-shadow: 0 8px 22px rgba(15, 17, 21, 0.1);
+  transform-origin: bottom center;
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.6s ease;
+  animation: tCardIn 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+}
+
+.tCard[data-pos="0"] {
+  z-index: 3;
+}
+
+.tCard[data-pos="1"] {
+  z-index: 2;
+  transform: translateY(14px) scale(0.94);
+  opacity: 0.75;
+}
+
+.tCard[data-pos="2"] {
+  z-index: 1;
+  transform: translateY(26px) scale(0.88);
+  opacity: 0.5;
+}
+
+@keyframes tCardIn {
+  from {
+    transform: translateY(-14px);
+    opacity: 0;
+  }
+}
+
+.tQuote {
+  display: block;
+  font-size: 2rem;
+  line-height: 0.8;
+  color: var(--accent, #ff5436);
+}
+
+.tText {
+  margin: 8px 0 12px;
+  min-height: 3em;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #0f1115;
+}
+
+.tUser {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tPhoto {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.tName {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #0f1115;
+}
+
+.tTitle {
+  margin: 2px 0 0;
+  font-size: 0.8125rem;
+  color: #3f434d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tCard {
+    transition: none;
+    animation: none;
+  }
+}
+
+@keyframes logoScroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoTrack {
+    animation: none;
+  }
+}
+
+/* Below 1000px the two-column popup is the form alone, and its long title would
+   run under the close button — so the card gets room above it. */
+@media (max-width: 999px) {
+  .modalWide .modalInner > :global(div[id]) {
+    padding-top: 52px;
+  }
+}
+
+/* The logo above a closing band's heading, and its mail button. */
+.enqLogo {
+  margin-bottom: clamp(20px, 2.6vw, 34px);
+}
+
+.enqMail {
+  /* Fully rounded ends; the black hover wipe inherits the shape. */
+  border-radius: 999px;
+  padding-inline: 1.7em;
+  gap: 0.7em;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: clamp(0.875rem, 1.05vw, 1rem);
+  word-break: break-word;
+}
+
+.enqMailIcon {
+  width: 1.25em;
+  height: 1.25em;
+  flex: none;
+}
+
+/* ---------- Engagement-model box: icon, name, Duration / Billing / Timeline ---------- */
+.modelCentered {
+  align-items: center;
+  text-align: center;
+}
+
+.modelImg {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+}
+
+.modelFacts {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding-top: 14px;
+  border-top: 1px solid var(--card-line, var(--line));
+}
+
+.modelFact {
+  display: block;
+  color: var(--text);
+  line-height: 1.5;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+}
+
+.modelFact dt,
+.modelFact dd {
+  display: inline;
+  margin: 0;
+}
+
+.modelFact dt {
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+/* The ad pages' H1 takes the homepage hero's display size (70px at desktop). */
+.adMain {
+  --fs-h1: var(--fs-h1-home);
+}

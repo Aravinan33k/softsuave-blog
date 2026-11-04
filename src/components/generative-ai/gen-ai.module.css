@@ -219,6 +219,36 @@
   overflow: hidden;
 }
 
+/* `wide` hero (opt-in, see hero.tsx): full-gutter width, and the breadcrumb
+   in its own row so the grid's two columns share a top edge. The top padding
+   takes the larger of the default clamp and the page's `--hero-top` (nav
+   height + gap), when a page defines it. */
+.heroWide {
+  padding-top: max(clamp(78px, 6.6vw, 98px), var(--hero-top, 0px));
+}
+
+.heroWide .heroGrid {
+  max-width: none;
+}
+
+.heroHead {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 calc(var(--fs-h1) * 0.5);
+}
+
+.heroHead + .heroGrid .heroTitle {
+  margin-top: 0;
+}
+
+@media (min-width: 1000px) {
+  .heroWide .heroGrid {
+    grid-template-columns: minmax(0, 1fr) var(--enquiry-col, clamp(380px, 37vw, 470px));
+    align-items: start;
+    gap: clamp(48px, 5vw, 88px);
+  }
+}
+
 .heroGlow {
   position: absolute;
   /* Pinned to the hero's top edge and lifted by a transform — the same place
@@ -2490,6 +2520,21 @@
   color: var(--card-accent, var(--accent));
   background: color-mix(in srgb, var(--card-accent, var(--accent)) 9%, transparent);
   transition: border-color 0.35s ease;
+}
+
+/* A combination card: each technology's own mark in a row, with no badge ring
+   around them — the ring is a single-icon device. */
+.indBoldIcon[data-multi="true"] {
+  width: fit-content;
+  align-self: flex-start;
+  height: auto;
+  min-height: 40px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 14px;
+  border: 0;
+  border-radius: 0;
+  background: none;
 }
 
 .indBoldCard:hover .indBoldIcon,

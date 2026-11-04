@@ -620,7 +620,7 @@ export const testimonials: {
     },
     {
       quote:
-        "Their 40-hour free trial isn't just a marketing promise — it's a genuine opportunity to experience top-notch developer skills. I was beyond impressed with what they delivered.",
+        "Their 40-hour free trial isn't just a marketing promise; it's a genuine opportunity to experience top-notch developer skills. I was beyond impressed with what they delivered.",
       name: "Dr. Dara Huang",
       role: "Co-Founder, Perkypet",
       rating: "5.0",
@@ -634,6 +634,7 @@ export const testimonials: {
       quote:
         "Soft Suave provides amazing service. I am completely satisfied with the projects and look forward to continuing my relationship. I will also recommend their services without question.",
       name: "Aaron. G",
+      role: "Founder, Beautiful Mind",
       rating: "5.0",
       photo: "/brand/testimonials/aaron-g.webp",
       category: "Technology",
@@ -646,6 +647,7 @@ export const testimonials: {
       quote:
         "I've been asking Soft Suave to help me develop a mobile app. The team is available right from the start. They're nice guys to work with and highly recommend them. Thanks.",
       name: "Roland White",
+      role: "CTO, Ginger Guru",
       rating: "5.0",
       photo: "/brand/testimonials/roland-white.webp",
       category: "Mobile",

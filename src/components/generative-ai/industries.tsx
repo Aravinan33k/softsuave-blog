@@ -1,5 +1,7 @@
 import { industries as generativeAiIndustries } from "@/lib/home/generative-ai";
 import CardIcon, { isBrandIcon } from "./card-icon";
+import Image from "next/image";
+import { publicMediaUrl } from "@/lib/media-url";
 import IndustriesClient from "./industries-client";
 
 // `CardIcon` holds the glyph vocabulary; see that file for why it is not here.
@@ -14,6 +16,18 @@ export interface CardGridContent {
   body: string;
   items: readonly {
     readonly key?: string;
+    /**
+     * A row of artwork shown in place of the single icon — a card that stands
+     * for a combination of technologies ("Angular + MongoDB + Express + Node")
+     * shows each of its marks. Root-relative under /public.
+     */
+    readonly images?: readonly {
+      readonly src: string;
+      readonly alt: string;
+      /** Natural size, for a mark that is not square — the width follows the 40px height. */
+      readonly width?: number;
+      readonly height?: number;
+    }[];
     readonly name: string;
     readonly body: string;
     /** Decorative backdrop shown at rest with the icon and name. */
@@ -40,6 +54,8 @@ export interface CardGridContent {
    * missing"). Same size as the mid-page conversion band's button.
    */
   cta?: { readonly label: string; readonly href: string };
+  /** `bold` only: draw no icon on any card — a section whose live cards are a name and a line of copy. */
+  noIcons?: boolean;
 }
 
 /**
@@ -119,10 +135,28 @@ export default function Industries({
       variant={variant}
       links={links}
       cardLinks={cardLinks}
-      icons={content.items.map((item) => (
-        <CardIcon key={item.name} iconKey={item.key} text={`${item.name}. ${item.body}`} />
-      ))}
-      brand={content.items.map((item) => isBrandIcon(item.key))}
+      noIcons={content.noIcons}
+      icons={content.items.map((item) =>
+        item.images ? (
+          <span key={item.name} style={{ display: "contents" }}>
+            {item.images.map((img, n) => (
+              <Image
+                key={`${img.alt}-${n}`}
+                src={publicMediaUrl(img.src)}
+                alt=""
+                width={img.width && img.height ? Math.round((40 * img.width) / img.height) : 40}
+                height={40}
+                unoptimized
+                style={{ height: 40, width: "auto" }}
+              />
+            ))}
+          </span>
+        ) : (
+          <CardIcon key={item.name} iconKey={item.key} text={`${item.name}. ${item.body}`} />
+        ),
+      )}
+      brand={content.items.map((item) => !item.images && isBrandIcon(item.key))}
+      multi={content.items.map((item) => Boolean(item.images))}
     />
   );
 }

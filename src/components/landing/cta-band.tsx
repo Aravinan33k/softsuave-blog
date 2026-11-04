@@ -1,5 +1,6 @@
 "use client";
 
+import { CalendarDays } from "lucide-react";
 import FadeUp from "@/components/home/fade-up";
 import SplitReveal from "@/components/home/split-reveal";
 import styles from "./landing.module.css";
@@ -12,6 +13,11 @@ export interface CtaBandContent {
   title: string;
   body: string;
   cta: { readonly label: string; readonly href: string };
+  /**
+   * Optional second action, set after an "OR" beside the primary one — the ad
+   * landing page's "Start 40 Hours Free Trial → OR Book a Meeting".
+   */
+  secondary?: { readonly label: string; readonly href: string; readonly external?: boolean };
   /**
    * Optional counters under the band, for a CTA the page backs with numbers.
    * Figures are strings, not numbers: they arrive already written ("1250+",
@@ -33,8 +39,11 @@ export interface CtaBandContent {
 export default function CtaBand({
   content,
   backdrop = true,
+  ctaClassName,
 }: {
   content: CtaBandContent;
+  /** Extra class on the primary button — lets a page restyle its hover without a new variant. */
+  ctaClassName?: string;
   /**
    * The coral light-field loop behind the band. `false` drops it, leaving the
    * band on the page's own near-black ground — the Sep 23 review read the lit
@@ -65,13 +74,36 @@ export default function CtaBand({
               serve (Xamarin hiring, say) would 404 here instead of resolving to
               softsuave.com. */}
           {content.cta.href.startsWith("#") ? (
-            <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
+            <a href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}${ctaClassName ? ` ${ctaClassName}` : ""}`}>
               {content.cta.label}
             </a>
           ) : (
-            <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
+            <SiteLink href={content.cta.href} className={`${styles.btn} ${styles.btnPrimary}${ctaClassName ? ` ${ctaClassName}` : ""}`}>
               {content.cta.label}
             </SiteLink>
+          )}
+          {content.secondary && (
+            <>
+              <span className={styles.ctaOr}>OR</span>
+              <a
+                href={content.secondary.href}
+                className={styles.btn}
+                {...(content.secondary.external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                // The live booking button leads with a calendar icon.
+                style={
+                  content.secondary.href.includes("calendly.com")
+                    ? { display: "inline-flex", alignItems: "center", gap: 10 }
+                    : undefined
+                }
+              >
+                {content.secondary.href.includes("calendly.com") && (
+                  <CalendarDays size={18} aria-hidden />
+                )}
+                {content.secondary.label}
+              </a>
+            </>
           )}
         </div>
       </FadeUp>

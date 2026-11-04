@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
+import { JsonLd } from '@/components/seo/json-ld';
+import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
+import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import { partnerHeroBadges } from '@/lib/home/hero-badges';
 import { sharedHeroCtas } from '@/lib/home/delivery-shared';
 import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
@@ -59,26 +61,13 @@ import page from './page.module.css';
 
 export const revalidate = 300;
 
-/**
- * The link-preview image. softsuave.com names one for this page
- * (/assets/new-formate/xamarin-developer.jpg) but the file 404s, so this is a
- * branded 1200×630 card in the style of the other hire pages': the logo and
- * the H1 on the site's dark ground.
- */
-const OG_IMAGE = {
-  url: ogImageUrl('/assets/images/hire-xamarin-developer-og.webp'),
-  width: 1200,
-  height: 630,
-  alt: 'Hire Xamarin Developers in India on Contract - Soft Suave',
-};
+const ogImage = dynamicOgImage(hxMeta.title, 'Soft Suave');
 
 export const metadata: Metadata = {
   // The live page's own title, verbatim; the root title template is "%s".
-  // (Live's og:title reads "Hire Kotlin Developer…", a copy-paste slip, so
-  // the share title is the page title instead.)
   title: hxMeta.title,
   description: hxMeta.description,
-  alternates: { canonical: hxMeta.path },
+  alternates: { canonical: 'https://www.softsuave.com/hire-xamarin-developer' },
   robots: pageRobots,
   openGraph: {
     title: hxMeta.title,
@@ -86,23 +75,36 @@ export const metadata: Metadata = {
     url: absoluteUrl(hxMeta.path),
     siteName: 'Soft Suave',
     type: 'website',
-    images: [OG_IMAGE],
+    images: [ogImage],
   },
   twitter: {
     card: 'summary_large_image',
     title: hxMeta.title,
     description: hxMeta.description,
-    images: [OG_IMAGE.url],
+    images: [ogImage],
   },
 };
 
-/*
- * Structured data: none of the page's own, as on softsuave.com — the live
- * page's HTML carries no JSON-LD (the one Organization an SEO tool reports
- * there is injected by the shared GTM container, which this site loads too).
- * The route is in `PAGES_WITH_OWN_SITE_GRAPH`, so the layout adds no
- * Organization or WebSite either, and the footer keeps its address microdata.
+/**
+ * Service + WebPage + FAQPage, `@id`-linked, from the same helper the hire
+ * templates use. The FAQPage is built from the accordion's own items, so the
+ * schema can never state an answer the page does not show. The live page
+ * publishes no breadcrumb, so none is emitted.
  */
+const LD = pageSchemaGraph({
+  path: hxMeta.path,
+  title: hxMeta.title,
+  description: hxMeta.description,
+  serviceType: hxMeta.serviceType,
+  serviceName: hxMeta.role,
+  showBreadcrumb: false,
+  caption: hxHero.titleLines.join(' '),
+  audience: `Startups, SMBs and enterprises hiring ${hxMeta.role}`,
+  offerCatalogName: hxServices.title,
+  offers: hxServices.items.map((i) => ({ name: i.name, description: i.body })),
+  faqName: hxFaqs.title,
+  faqs: hxFaqs.items,
+});
 
 const HOME_HREF = BASE_PATH || '/';
 
@@ -111,6 +113,7 @@ export default function HireXamarinDeveloperPage() {
     // `data-type-scale` opts this page into the deployed reference's type
     // sizes; each section's stylesheet scopes its overrides to it.
     <div className={`${home.page} ${page.root}`} data-type-scale="hire">
+      <JsonLd data={LD} />
       <Nav logoHref={HOME_HREF} />
 
       {/*
@@ -125,6 +128,7 @@ export default function HireXamarinDeveloperPage() {
         <Hero
           content={{ ...hxHero, badges: partnerHeroBadges, ctas: sharedHeroCtas }}
           idPrefix="hire-xamarin"
+          wide
         />
 
         <div className={home.light}>

@@ -251,7 +251,11 @@ export default function Listing({
                         {item.body && <p className={styles.caseBody}>{item.body}</p>}
                         {item.platforms && item.platforms.length > 0 && (
                           <div className={styles.caseMeta}>
-                            <span className={styles.caseMetaLabel}>Platform :</span>
+                            {/* Singular for one platform, plural for more — as the
+                                case-study heroes label theirs (`platformFact`). */}
+                            <span className={styles.caseMetaLabel}>
+                              {item.platforms.length > 1 ? "Platforms :" : "Platform :"}
+                            </span>
                             <ul className={styles.casePlatforms}>
                               {item.platforms.map((p) => (
                                 <li key={p.name} className={styles.casePlatform}>

@@ -1,6 +1,6 @@
 import type { CaseStudyContent } from "@/components/case-study/case-study";
-import { YEARS_PLUS } from "@/lib/company-figures";
-import { HERO_PLATFORM_ICONS as P } from "./platform-icons";
+import { HERO_PLATFORM_ICONS as P, platformFact } from "./platform-icons";
+import { relatedCaseStudies } from "./related";
 
 /**
  * `/case-study-neurora-behavioral-intelligence` — softsuave.com's Neurora
@@ -11,8 +11,7 @@ import { HERO_PLATFORM_ICONS as P } from "./platform-icons";
  *
  * Every line of copy is the live page's, verbatim: hero, the six numbered
  * sections and their cards, the pull quote, the twelve features, the four
- * figures, the download panel and modal, and the related-case-study heading
- * and card blurbs (live's own five, which leave Neurora out). Section ids are
+ * figures, the download panel and modal, and the related-case-study heading. Section ids are
  * live's (`#section1`…`#section6`). The images and the PDF are live's,
  * self-hosted (`public/images/case-studies/neurora-behavioral-intelligence/`,
  * `public/assets/case-studies/`); the PDF keeps live's path.
@@ -47,7 +46,7 @@ export const neuroraCaseStudy: CaseStudyContent = {
     points: [],
     facts: [
       { label: "Industry :", value: "Transportation" },
-      { label: "Platform : ", value: "Android, iOS, Web", icons: [P.Android, P.iOS, P.Web] },
+      platformFact([P.Android, P.iOS, P.Web]),
     ],
     aside: {
       src: `${IMG}/dashboard.webp`,
@@ -189,7 +188,7 @@ export const neuroraCaseStudy: CaseStudyContent = {
       kicker: "06 — Why Soft Suave",
       title: "Multi-sensor AI, delivered on a proven cadence",
       body: [
-        `This is not a dashboard project—it is sensor fusion, computer vision, gaze mapping, and behavioral modeling delivered as one production platform. Soft Suave brings ${YEARS_PLUS} years of engineering depth and a milestone-driven agile cadence: a no-cost proof of concept first, followed by parallel AI and application streams tracked in Jira and Confluence with full client visibility. Every milestone ships to a client-owned repository, backed by layered functional, integration, and regression testing, along with a 90-day post-deployment support period.`,
+        "This is not a dashboard project—it is sensor fusion, computer vision, gaze mapping, and behavioral modeling delivered as one production platform. Soft Suave brings 13+ years of engineering depth and a milestone-driven agile cadence: a no-cost proof of concept first, followed by parallel AI and application streams tracked in Jira and Confluence with full client visibility. Every milestone ships to a client-owned repository, backed by layered functional, integration, and regression testing, along with a 90-day post-deployment support period.",
       ],
     },
   ],
@@ -218,45 +217,7 @@ export const neuroraCaseStudy: CaseStudyContent = {
     },
   },
 
-  // Live's "Related Case Studies" carousel: its heading, standfirst and five
-  // cards (Neurora itself is not among them), each with live's own short
-  // blurb. The images are the ones the case-study index already ships.
-  related: {
-    eyebrow: "Related Case Studies",
-    title: "Real-World Impact Through Digital Transformation",
-    body: "Explore how we help startups and SMBs grow, launch successful products, and solve challenges with tech and strategy—backed by real results in every case study.",
-    tileCta: "View Case Study",
-    items: [
-      {
-        title: "A Vision AI Platform for Real-Time Axle Counting & Traffic Monitoring",
-        body: "Soft Suave built a vision AI platform that counts axles and tracks vehicles in real time from live highway camera feeds.",
-        image: { src: "/images/case-studies/vehicle-intelligence-cs.webp", alt: "Vehicle Intelligence Platform" },
-        href: "/case-study-vehicle-intelligence",
-      },
-      {
-        title: "AI-Powered Contract & Tender Management Lifecycle Platform",
-        body: "Soft Suave built an AI platform that automates tender evaluation and keeps an immutable audit trail for enterprise procurement.",
-        image: { src: "/images/case-studies/tender-intelligence-cs.webp", alt: "Tender Intelligence Platform" },
-        href: "/case-study-tender-intelligence",
-      },
-      {
-        title: "An AI-Powered Shift Intelligence and Digital Logbook Platform for LNG Operations",
-        body: "Soft Suave built an on-premises AI platform that turns free-text operational logs into instant shift summaries and source-cited answers, in English and Arabic.",
-        image: { src: "/images/case-studies/shift-sense-cs.webp", alt: "AI-Powered Shift Intelligence & Digital Logbook Platform" },
-        href: "/case-study-shiftsense-ai-shift-intelligence",
-      },
-      {
-        title: "AI-Powered Onboarding and Configuration Assist for a Logistics Management Platform",
-        body: "Soft Suave embeds an always-available AI assistant that guides logistics customers through setup, validates inputs, and cuts onboarding time in half.",
-        image: { src: "/images/case-studies/ai-assist-cs.webp", alt: "Logistics Management Platform" },
-        href: "/case-study-ai-assist-logistics-onboarding",
-      },
-      {
-        title: "AI-Driven Incident Management and Compliance Optimization for Offshore Operations",
-        body: "Soft Suave automates incident classification, emergency response, and compliance tracking to keep offshore operations faster, safer, and audit-ready.",
-        image: { src: "/images/case-studies/safe-ops-cs.webp", alt: "AI-Driven Incident Management Platform" },
-        href: "/case-study-safeops-ai-incident-management",
-      },
-    ],
-  },
+  // The previous study and the next four in the case-study listing
+  // (see `related.ts`).
+  related: relatedCaseStudies(neuroraMeta.path),
 };

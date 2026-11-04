@@ -1,5 +1,6 @@
 import type { CaseStudyContent } from "@/components/case-study/case-study";
-import { HERO_PLATFORM_ICONS as P } from "./platform-icons";
+import { HERO_PLATFORM_ICONS as P, platformFact } from "./platform-icons";
+import { relatedCaseStudies } from "./related";
 
 /**
  * `/case-study-tender-intelligence` — softsuave.com's Tender Intelligence case
@@ -8,8 +9,7 @@ import { HERO_PLATFORM_ICONS as P } from "./platform-icons";
  *
  * Every line of copy is the live page's, verbatim: hero, the six numbered
  * sections and their cards, the pull quote, the twelve features, the four
- * figures, the download panel and modal, and the related-case-study heading
- * and card blurbs (live's own five, which leave Tender out). That includes the
+ * figures, the download panel and modal, and the related-case-study heading. That includes the
  * Challenge heading, which live shares with the Neurora page. Section ids are
  * live's (`#section1`…`#section6`). The images and the PDF are live's,
  * self-hosted (`public/images/case-studies/tender-intelligence/`,
@@ -44,7 +44,7 @@ export const tenderCaseStudy: CaseStudyContent = {
     points: [],
     facts: [
       { label: "Industry :", value: "Energy / Oil & Gas" },
-      { label: "Platform : ", value: "Web", icons: [P.Web] },
+      platformFact([P.Web]),
     ],
     aside: {
       src: `${IMG}/dashboard.webp`,
@@ -215,45 +215,7 @@ export const tenderCaseStudy: CaseStudyContent = {
     },
   },
 
-  // Live's "Related Case Studies" carousel: its heading, standfirst and five
-  // cards (Tender itself is not among them), each with live's own short
-  // blurb. The images are the ones the case-study index already ships.
-  related: {
-    eyebrow: "Related Case Studies",
-    title: "Real-World Impact Through Digital Transformation",
-    body: "Explore how we help startups and SMBs grow, launch successful products, and solve challenges with tech and strategy—backed by real results in every case study.",
-    tileCta: "View Case Study",
-    items: [
-      {
-        title: "An AI-Powered Shift Intelligence and Digital Logbook Platform for LNG Operations",
-        body: "Soft Suave built an on-premises AI platform that turns free-text operational logs into instant shift summaries and source-cited answers, in English and Arabic.",
-        image: { src: "/images/case-studies/shift-sense-cs.webp", alt: "AI-Powered Shift Intelligence & Digital Logbook Platform" },
-        href: "/case-study-shiftsense-ai-shift-intelligence",
-      },
-      {
-        title: "An AI Content Production Programme for Enterprise Strategic Communications",
-        body: "Soft Suave built an AI content programme that speeds up campaign production and delivers bilingual English-Arabic content at scale.",
-        image: { src: "/images/case-studies/brand-forge-cs.webp", alt: "AI Content Production Programme" },
-        href: "/case-study-brand-forge",
-      },
-      {
-        title: "AI-Driven Incident Management and Compliance Optimization for Offshore Operations",
-        body: "Soft Suave automates incident classification, emergency response, and compliance tracking to keep offshore operations faster, safer, and audit-ready.",
-        image: { src: "/images/case-studies/safe-ops-cs.webp", alt: "AI-Driven Incident Management Platform" },
-        href: "/case-study-safeops-ai-incident-management",
-      },
-      {
-        title: "AI-Powered Onboarding and Configuration Assist for a Logistics Management Platform",
-        body: "Soft Suave embeds an always-available AI assistant that guides logistics customers through setup, validates inputs, and cuts onboarding time in half.",
-        image: { src: "/images/case-studies/ai-assist-cs.webp", alt: "Logistics Management Platform" },
-        href: "/case-study-ai-assist-logistics-onboarding",
-      },
-      {
-        title: "An AI-Powered Smart Wellness Platform Revolutionizing Pet Healthcare",
-        body: "Soft Suave brings AI health assessments, digital records, and preventive care together to help pet parents and vets catch concerns early.",
-        image: { src: "/images/case-studies/well-pet-cs.webp", alt: "Pet Care Application" },
-        href: "/case-study-wellpet-ai-smart-wellness-platform",
-      },
-    ],
-  },
+  // The previous study and the next four in the case-study listing
+  // (see `related.ts`).
+  related: relatedCaseStudies(tenderMeta.path),
 };

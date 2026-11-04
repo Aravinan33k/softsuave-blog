@@ -2,6 +2,7 @@ import {
   Award,
   BadgeDollarSign,
   BarChart3,
+  Bell,
   Bot,
   Boxes,
   Brain,
@@ -115,6 +116,7 @@ export const ICON_COMPONENTS: Readonly<Record<IconKey, LucideIcon>> = {
   boxes: Boxes,
   scale: Scale,
   link: Link2,
+  bell: Bell,
 };
 
 /**

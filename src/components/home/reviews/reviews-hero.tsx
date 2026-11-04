@@ -38,11 +38,11 @@ export default function ReviewsHero({
       {/* `eyebrowDark` is the light-band variant of `.eyebrow` — the section
           sits in a `.light` wrapper on the homepage. Flip it back if the
           section ever returns to the dark canvas. */}
-      <span className={styles.eyebrowDark}>{eyebrow}</span>
+      {eyebrow && <span className={styles.eyebrowDark}>{eyebrow}</span>}
       <SplitReveal as="h2" className={styles.h2} type="words">
         {title}
       </SplitReveal>
-      <p className={styles.lead}>{body}</p>
+      {body && <p className={styles.lead}>{body}</p>}
     </div>
   );
 }

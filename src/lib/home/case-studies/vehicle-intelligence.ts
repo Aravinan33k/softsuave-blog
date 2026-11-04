@@ -1,5 +1,6 @@
 import type { CaseStudyContent } from "@/components/case-study/case-study";
-import { HERO_PLATFORM_ICONS as P } from "./platform-icons";
+import { HERO_PLATFORM_ICONS as P, platformFact } from "./platform-icons";
+import { relatedCaseStudies } from "./related";
 
 /**
  * `/case-study-vehicle-intelligence` — softsuave.com's Vehicle Intelligence
@@ -9,7 +10,7 @@ import { HERO_PLATFORM_ICONS as P } from "./platform-icons";
  * Every line of copy is the live page's, verbatim: hero, the six numbered
  * sections and their cards, the pull quote, the twelve features, the four
  * figures, the download panel and modal ("Download Case Study!!!", "Download",
- * "Sending..."), and the related-case-study heading and card blurbs. Section
+ * "Sending..."), and the related-case-study heading. Section
  * ids are live's own (`#section1`…`#section6`). The images and the PDF are
  * live's, self-hosted (`public/images/case-studies/vehicle-intelligence/`,
  * `public/assets/case-studies/`); the PDF keeps live's path.
@@ -41,7 +42,7 @@ export const vehicleCaseStudy: CaseStudyContent = {
     points: [],
     facts: [
       { label: "Industry :", value: "Transportation" },
-      { label: "Platform : ", value: "Web", icons: [P.Web] },
+      platformFact([P.Web]),
     ],
     aside: {
       src: `${IMG}/dashboard.webp`,
@@ -212,45 +213,7 @@ export const vehicleCaseStudy: CaseStudyContent = {
     },
   },
 
-  // Live's "Related Case Studies" carousel: its heading, standfirst and five
-  // cards, each with live's own short blurb. The images are the ones the
-  // case-study index already ships.
-  related: {
-    eyebrow: "Related Case Studies",
-    title: "Real-World Impact Through Digital Transformation",
-    body: "Explore how we help startups and SMBs grow, launch successful products, and solve challenges with tech and strategy—backed by real results in every case study.",
-    tileCta: "View Case Study",
-    items: [
-      {
-        title: "A Platform for Driver Attention, Stress and Safety",
-        body: "Soft Suave fuses driving video, eye-gaze, and heart-rate data into automated scores that reveal driver attention, stress, and safety in real time.",
-        image: { src: "/images/case-studies/neurora-intelligence-cs.webp", alt: "Neurora Behavioral Intelligence Platform" },
-        href: "/case-study-neurora-behavioral-intelligence",
-      },
-      {
-        title: "AI-Powered Contract & Tender Management Lifecycle Platform",
-        body: "Soft Suave built an AI platform that automates tender evaluation and keeps an immutable audit trail for enterprise procurement.",
-        image: { src: "/images/case-studies/tender-intelligence-cs.webp", alt: "Tender Intelligence Platform" },
-        href: "/case-study-tender-intelligence",
-      },
-      {
-        title: "An AI-Powered Shift Intelligence and Digital Logbook Platform for LNG Operations",
-        body: "Soft Suave built an on-premises AI platform that turns free-text operational logs into instant shift summaries and source-cited answers, in English and Arabic.",
-        image: { src: "/images/case-studies/shift-sense-cs.webp", alt: "AI-Powered Shift Intelligence & Digital Logbook Platform" },
-        href: "/case-study-shiftsense-ai-shift-intelligence",
-      },
-      {
-        title: "AI-Powered Onboarding and Configuration Assist for a Logistics Management Platform",
-        body: "Soft Suave embeds an always-available AI assistant that guides logistics customers through setup, validates inputs, and cuts onboarding time in half.",
-        image: { src: "/images/case-studies/ai-assist-cs.webp", alt: "Logistics Management Platform" },
-        href: "/case-study-ai-assist-logistics-onboarding",
-      },
-      {
-        title: "AI-Driven Incident Management and Compliance Optimization for Offshore Operations",
-        body: "Soft Suave automates incident classification, emergency response, and compliance tracking to keep offshore operations faster, safer, and audit-ready.",
-        image: { src: "/images/case-studies/safe-ops-cs.webp", alt: "AI-Driven Incident Management Platform" },
-        href: "/case-study-safeops-ai-incident-management",
-      },
-    ],
-  },
+  // The previous study and the next four in the case-study listing
+  // (see `related.ts`).
+  related: relatedCaseStudies(vehicleMeta.path),
 };

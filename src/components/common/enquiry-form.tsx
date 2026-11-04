@@ -40,11 +40,24 @@ export interface EnquiryFormContent {
   body?: string;
   note?: string;
   /** Optional trailing link appended to the note ("...To apply for jobs, click here."). */
-  noteLink?: { readonly label: string; readonly href: string };
+  noteLink?: { readonly label: string; readonly href: string; readonly srText?: string };
+  /** Text that continues the note after its link ("…privacy policy[ and we will never spam you]"). */
+  noteAfter?: string;
   submit: string;
   sending: string;
   requirementLabel: string;
   requirementPlaceholder: string;
+  /**
+   * Optional required dropdown under the requirement ("What is the tech stack
+   * you are looking for?"). The chosen option is appended to the requirement
+   * text the API receives — the lead has no field of its own for it.
+   */
+  select?: { label: string; options: readonly string[]; error?: string };
+  /**
+   * Optional required "Company" row between the email and phone rows. Like
+   * `select`, its value rides in the requirement text ("Company: Acme").
+   */
+  company?: { label: string; error?: string };
   /** The lead's subject line, written per page and stored on the `Enquiry` row for triage. */
   subject: string;
   /** Notice under the form steering job applicants away from the sales inbox. */
@@ -119,6 +132,10 @@ export default function EnquiryForm({
   // A fixed requirement is never typed, so it is never checked either.
   const fields = fixedRequirement ? FIELDS.filter((key) => key !== "requirement") : FIELDS;
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [company, setCompany] = useState("");
+  const [companyError, setCompanyError] = useState<string | null>(null);
+  const [choice, setChoice] = useState("");
+  const [choiceError, setChoiceError] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   useClearOnClick(FIELDS.some((key) => errors[key]), () => setErrors({}), formRef);
   // Honeypot: React owns the input like any other, but it is never shown and
@@ -164,6 +181,22 @@ export default function EnquiryForm({
     for (const key of fields) found[key] = RULES[key](form[key]) ?? undefined;
     setErrors(found);
     const first = fields.find((key) => found[key]);
+    const missingCompany = Boolean(content.company && !company.trim());
+    setCompanyError(missingCompany ? (content.company?.error ?? "Please enter your company.") : null);
+    const missingChoice = Boolean(content.select && !choice);
+    setChoiceError(missingChoice ? (content.select?.error ?? "Please select an option.") : null);
+    if (!first && missingCompany) {
+      setStatus("idle");
+      setError(null);
+      document.getElementById(`${idPrefix}-company`)?.focus();
+      return;
+    }
+    if (!first && missingChoice) {
+      setStatus("idle");
+      setError(null);
+      document.getElementById(`${idPrefix}-select`)?.focus();
+      return;
+    }
     if (first) {
       setStatus("idle");
       setError(null);
@@ -181,6 +214,13 @@ export default function EnquiryForm({
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           ...form,
+          requirement: [
+            form.requirement,
+            content.company ? `${content.company.label}: ${company.trim()}` : "",
+            content.select ? `${content.select.label}: ${choice}` : "",
+          ]
+            .filter(Boolean)
+            .join("\n\n"),
           website,
           subject: content.subject,
           sourcePath: pathname,
@@ -213,16 +253,20 @@ export default function EnquiryForm({
 
   return (
     <div className={fx.card} id={cardId}>
-      <div className={fx.header}>
-        {content.eyebrow ? <span className={fx.eyebrow}>{content.eyebrow}</span> : null}
-        {content.titleAs === "h2" ? (
-          <h2 className={fx.title}>{content.title}</h2>
-        ) : (
-          <p className={fx.title}>{content.title}</p>
-        )}
-        <span className={fx.accent} aria-hidden />
-        {content.body ? <p className={fx.body}>{content.body}</p> : null}
-      </div>
+      {/* A card with no title, eyebrow or body (the ad page's closing form, whose
+          heading sits beside it) drops the header block altogether. */}
+      {(content.title || content.eyebrow || content.body) && (
+        <div className={fx.header}>
+          {content.eyebrow ? <span className={fx.eyebrow}>{content.eyebrow}</span> : null}
+          {content.titleAs === "h2" ? (
+            <h2 className={fx.title}>{content.title}</h2>
+          ) : (
+            <p className={fx.title}>{content.title}</p>
+          )}
+          <span className={fx.accent} aria-hidden />
+          {content.body ? <p className={fx.body}>{content.body}</p> : null}
+        </div>
+      )}
 
       <form ref={formRef} className={fx.fields} onSubmit={onSubmit} noValidate>
         {/* `noValidate`: the browser's own bubbles are replaced by the
@@ -293,6 +337,38 @@ export default function EnquiryForm({
           {message("email")}
         </div>
 
+        {content.company && (
+          <div className={`${fx.field} ${companyError ? fx.fieldInvalid : ""}`}>
+            <FieldIcon name="person" />
+            <input
+              id={`${idPrefix}-company`}
+              className={fx.input}
+              type="text"
+              name="company"
+              autoComplete="organization"
+              required
+              maxLength={NAME_MAX * 2}
+              value={company}
+              onChange={(e) => {
+                setCompany(e.target.value);
+                setCompanyError(null);
+              }}
+              aria-invalid={companyError ? true : undefined}
+              aria-describedby={companyError ? `${idPrefix}-company-error` : undefined}
+              placeholder="Acme Inc."
+            />
+            <label className={fx.label} htmlFor={`${idPrefix}-company`}>
+              <RequiredMark />
+              {content.company.label}
+            </label>
+            {companyError && (
+              <p id={`${idPrefix}-company-error`} className={fx.fieldMessage}>
+                {companyError}
+              </p>
+            )}
+          </div>
+        )}
+
         {/* The only two-control row: a calling code beside the number. The
             label stays risen (`labelFloat`) rather than resting on the line
             the way the other rows' do — the code is painted from first
@@ -337,6 +413,43 @@ export default function EnquiryForm({
           </div>
         )}
 
+        {content.select && (
+          <div className={`${fx.field} ${choiceError ? fx.fieldInvalid : ""}`}>
+            <FieldIcon name="doc" />
+            <select
+              id={`${idPrefix}-select`}
+              className={`${fx.input} ${fx.select}`}
+              name="stack"
+              required
+              value={choice}
+              onChange={(e) => {
+                setChoice(e.target.value);
+                setChoiceError(null);
+              }}
+              aria-invalid={choiceError ? true : undefined}
+              aria-describedby={choiceError ? `${idPrefix}-select-error` : undefined}
+            >
+              <option value="" disabled>
+                Select…
+              </option>
+              {content.select.options.map((o) => (
+                <option key={o} value={o}>
+                  {o}
+                </option>
+              ))}
+            </select>
+            <label className={`${fx.label} ${fx.labelFloat}`} htmlFor={`${idPrefix}-select`}>
+              <RequiredMark />
+              {content.select.label}
+            </label>
+            {choiceError && (
+              <p id={`${idPrefix}-select-error`} className={fx.fieldMessage}>
+                {choiceError}
+              </p>
+            )}
+          </div>
+        )}
+
         {status === "error" && error && (
           <p className={fx.error} role="alert">
             {error}
@@ -356,8 +469,11 @@ export default function EnquiryForm({
               {" "}
               <SiteLink href={content.noteLink.href} className={fx.noteLink}>
                 {content.noteLink.label}
-                <span className="sr-only"> to see open jobs at Soft Suave</span>
+                {/* The hidden tail names where the link goes; the default is the
+                    careers link every note used to carry. */}
+                <span className="sr-only">{content.noteLink.srText ?? " to see open jobs at Soft Suave"}</span>
               </SiteLink>
+              {content.noteAfter}
             </>
           )}
         </p>
