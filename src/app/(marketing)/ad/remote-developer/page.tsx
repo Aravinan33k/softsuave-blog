@@ -95,7 +95,7 @@ export default function AdRemoteDeveloperPage() {
           <CtaRow {...rdServicesCta} wipe />
         </div>
 
-        <TechStack content={rdTech} />
+        <TechStack content={rdTech} largeLogos />
 
         <div className={home.light}>
           <CardGrid content={rdPractice} id="practice" variant="bold" />

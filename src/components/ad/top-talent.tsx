@@ -8,6 +8,8 @@ export interface TopTalentContent {
   readonly body: string;
   readonly stats: readonly { readonly figure: string; readonly label: string }[];
   readonly cta: { readonly label: string; readonly href: string };
+  /** Set the figures after the button rather than before the models (the live /ad/remote-developers order). */
+  readonly statsLast?: boolean;
   readonly models: readonly {
     readonly name: string;
     readonly points?: readonly string[];
@@ -27,10 +29,11 @@ export default function TopTalent({
   content: TopTalentContent;
   id?: string;
 }) {
-  return (
-    <section className={styles.shell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+  // Models that are a single line each (no points, no copy) are set as compact
+  // ticked cards rather than the full-size headed ones.
+  const plain = content.models.every((m) => !m.points && !m.body);
 
+  const statsBlock = (
       <FadeUp>
         <dl className={styles.stats}>
           {content.stats.map((s) => (
@@ -41,11 +44,18 @@ export default function TopTalent({
           ))}
         </dl>
       </FadeUp>
+  );
 
-      <div className={styles.models}>
+  return (
+    <section className={styles.shell} id={id}>
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+
+      {!content.statsLast && statsBlock}
+
+      <div className={plain ? `${styles.models} ${styles.modelsPlain}` : styles.models}>
         {content.models.map((m, i) => (
           <FadeUp key={m.name} delay={i * 0.08}>
-            <article className={styles.model}>
+            <article className={plain ? `${styles.model} ${styles.modelPlain}` : styles.model}>
               <h3 className={styles.modelName}>{m.name}</h3>
               {m.points && (
                 <ul className={styles.modelPoints}>
@@ -65,6 +75,8 @@ export default function TopTalent({
           {content.cta.label}
         </a>
       </div>
+
+      {content.statsLast && statsBlock}
     </section>
   );
 }

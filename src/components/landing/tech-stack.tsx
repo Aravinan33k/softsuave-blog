@@ -1,3 +1,5 @@
+import Image from "next/image";
+import { publicMediaUrl } from "@/lib/media-url";
 import TechLogo from "@/components/home/tech-logo";
 import TechStackClient from "./tech-stack-client";
 
@@ -6,6 +8,12 @@ export interface TechStackContent {
   title: string;
   body: string;
   groups: readonly { readonly name: string; readonly items: readonly string[] }[];
+  /**
+   * A mark of the page's own for a tool, by its name as written in `items` — drawn
+   * instead of the `TechLogo` lookup (the live ad pages' stack shows an image for
+   * every tool, including the ones `TechLogo` has no mark for).
+   */
+  readonly images?: Readonly<Record<string, string>>;
 }
 
 /**
@@ -67,7 +75,22 @@ export default function TechStack({
 }) {
   const logoMarks = logos
     ? Object.fromEntries(
-        [...new Set(content.groups.flatMap((g) => g.items))].map((item) => [item, <TechLogo key={item} name={item} />]),
+        [...new Set(content.groups.flatMap((g) => g.items))].map((item) => [
+          item,
+          content.images?.[item] ? (
+            <Image
+              key={item}
+              src={publicMediaUrl(content.images[item])}
+              alt=""
+              width={56}
+              height={56}
+              unoptimized
+              style={{ width: largeLogos ? 28 : 22, height: largeLogos ? 28 : 22, objectFit: "contain" }}
+            />
+          ) : (
+            <TechLogo key={item} name={item} />
+          ),
+        ]),
       )
     : undefined;
 

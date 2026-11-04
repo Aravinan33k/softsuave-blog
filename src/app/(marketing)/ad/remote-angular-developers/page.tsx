@@ -87,7 +87,7 @@ export default function AdRemoteAngularDevelopersPage() {
           <CtaRow {...raServicesCta} wipe />
         </div>
 
-        <TechStack content={raTech} />
+        <TechStack content={raTech} largeLogos />
 
         {/* The site's warm-white band, so the dark tech stack above it is not
             followed by a second dark section. */}

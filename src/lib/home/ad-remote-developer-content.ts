@@ -103,6 +103,36 @@ export const rdTech: TechStackContent = {
     { name: "AI/ML", items: ["Tensorflow", "Pytorch", "Deep Learning", "AI/ML", "Computer Vision", "RPA", "Business Intelligence"] },
     { name: "Cloud", items: ["Aws", "Azure", "Cloud"] },
   ],
+  // The live stack shows an image for every tool, as its own files (under /public/brand/ad/tech).
+  images: Object.fromEntries(
+    Object.entries({
+      "React Js": "react",
+      "Angular Js": "angular",
+      "UI UX": "uiux",
+      "Vue Js": "vue-9-1",
+      Javascript: "javascript-1",
+      HTML: "html-5",
+      CSS: "css3",
+      PHP: "php-logo-1",
+      Java: "java",
+      Python: "python",
+      "Node JS": "nodejs",
+      ".Net": "dotnet-1",
+      ROR: "ror-2",
+      Laravel: "laravel",
+      Golang: "golang",
+      Tensorflow: "tensorflow",
+      Pytorch: "pytorch",
+      "Deep Learning": "deep_learning",
+      "AI/ML": "ai_ml",
+      "Computer Vision": "computer_vision",
+      RPA: "rpa",
+      "Business Intelligence": "business_intelligence",
+      Aws: "aws",
+      Azure: "azure",
+      Cloud: "google-cloud",
+    }).map(([name, file]) => [name, `/brand/ad/tech/${file}.webp`]),
+  ),
 };
 
 export const rdPractice: CardGridContent = {

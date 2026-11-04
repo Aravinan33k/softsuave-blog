@@ -134,6 +134,63 @@
   color: var(--text-bright);
 }
 
+/* Text-only models (the live remote-developers "Top Talent" list): compact ticked
+   cards, as many across as fit, the last row centred. */
+.modelsPlain {
+  --plain-gap: clamp(12px, 1.4vw, 20px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--plain-gap);
+}
+
+.modelsPlain > * {
+  display: flex;
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .modelsPlain > * {
+    flex: 0 1 calc((100% - var(--plain-gap)) / 2);
+  }
+}
+
+@media (min-width: 1000px) {
+  .modelsPlain > * {
+    flex: 0 1 calc((100% - 2 * var(--plain-gap)) / 3);
+  }
+}
+
+.modelPlain {
+  flex: 1;
+  height: auto;
+  justify-content: center;
+  padding: clamp(16px, 1.6vw, 22px) clamp(18px, 1.8vw, 26px);
+}
+
+.modelPlain .modelName {
+  position: relative;
+  padding-left: 1.7em;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  letter-spacing: 0;
+  line-height: 1.45;
+}
+
+.modelPlain .modelName::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.8em;
+  height: 0.42em;
+  border-left: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(-45deg) translateY(-50%);
+}
+
 .modelPoints {
   margin: 0;
   padding: 0;
@@ -922,4 +979,9 @@
 /* The ad pages' H1 takes the homepage hero's display size (70px at desktop). */
 .adMain {
   --fs-h1: var(--fs-h1-home);
+}
+
+/* Dark-lettered line-art marks (made for a light card) turned white, for a section set on the dark ground. */
+.markOnDark img {
+  filter: invert(1);
 }

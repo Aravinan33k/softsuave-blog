@@ -119,6 +119,11 @@ export interface HeroContent {
   /** Text set between the CTAs ("OR") — the ad landing page's pair reads "Start … OR Book a Meeting". */
   ctaSeparator?: string;
   /**
+   * A button at the top right of the logo row (`noNav` pages), from 768px up — the
+   * live /ad/remote-developers masthead's own "Start 40 Hours Free Trial →".
+   */
+  logoCta?: { readonly label: string; readonly href: string };
+  /**
    * A small note beside the CTAs with a hover/focus tip — the live Java page's
    * "No Payment Required ?" whose popover explains the free trial. The tip is a
    * title and a paragraph, shown on hover and on keyboard focus (and so on tap).
@@ -331,6 +336,11 @@ export default function Hero({
           <a href="#top" aria-label="Soft Suave logo">
             <Logo tone="light" size={48} />
           </a>
+          {content.logoCta && (
+            <a href={content.logoCta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.heroLogoCta}`}>
+              {content.logoCta.label}
+            </a>
+          )}
         </div>
       )}
 

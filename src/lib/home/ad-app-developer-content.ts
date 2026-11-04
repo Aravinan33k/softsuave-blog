@@ -43,7 +43,7 @@ export const TRIAL_HREF = "#trial";
 
 const TRIAL_LABEL = "Start 40 Hours Free Trial →";
 export const AD_TRIAL_CTA = { label: TRIAL_LABEL, href: TRIAL_HREF } as const;
-const BOOK_MEETING = {
+export const BOOK_MEETING = {
   label: "Book a Meeting",
   href: "https://calendly.com/soft_suave/dedicated-teams",
   external: true,

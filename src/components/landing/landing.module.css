@@ -276,6 +276,24 @@
   display: inline-flex;
 }
 
+/* A masthead button opposite the logo (`logoCta`), from tablet up. */
+.heroLogo:has(.heroLogoCta) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.heroLogo .heroLogoCta {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .heroLogo .heroLogoCta {
+    display: inline-flex;
+  }
+}
+
 /* The breadcrumb row is empty on these pages; drop its reserved gap too. */
 .hero.heroNoNav .heroHead:empty {
   display: none;
