@@ -116,6 +116,12 @@ export interface HeroContent {
   /** Text set between the CTAs ("OR") — the ad landing page's pair reads "Start … OR Book a Meeting". */
   ctaSeparator?: string;
   /**
+   * A small note beside the CTAs with a hover/focus tip — the live Java page's
+   * "No Payment Required ?" whose popover explains the free trial. The tip is a
+   * title and a paragraph, shown on hover and on keyboard focus (and so on tap).
+   */
+  ctaNote?: { readonly label: string; readonly tipTitle: string; readonly tipBody: string };
+  /**
    * Optional label/value pairs under the body copy — a case study's
    * "Industry: Transportation" and "Platform: Web" (the live case-study
    * hero's tag and platform line). Rendered as a definition list of chips.
@@ -457,6 +463,25 @@ export default function Hero({
                   </Fragment>
                 );
               })}
+              {content.ctaNote && (
+                <span className={styles.heroTip}>
+                  <button
+                    type="button"
+                    className={styles.heroTipBtn}
+                    aria-describedby={`${idPrefix}-cta-tip`}
+                  >
+                    {content.ctaNote.label}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .8-1 1.5M12 16.6h.01" />
+                    </svg>
+                  </button>
+                  <span role="tooltip" id={`${idPrefix}-cta-tip`} className={styles.heroTipBubble}>
+                    <strong>{content.ctaNote.tipTitle}</strong>
+                    <span>{content.ctaNote.tipBody}</span>
+                  </span>
+                </span>
+              )}
             </div>
           )}
 

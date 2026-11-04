@@ -8779,3 +8779,74 @@
   color: var(--muted);
   align-self: center;
 }
+
+/* The hero's "No Payment Required ?" note and its tip (`ctaNote`). The tip opens on
+   hover and on keyboard focus, above the button. */
+.heroTip {
+  position: relative;
+  display: inline-flex;
+}
+
+.heroTipBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.4em 0.2em;
+  border: 0;
+  background: none;
+  color: var(--muted, #9c9c9c);
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  cursor: help;
+}
+
+.heroTipBtn svg {
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.heroTipBtn:hover,
+.heroTipBtn:focus-visible {
+  color: var(--text-bright, #fff);
+}
+
+.heroTipBubble {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 10px);
+  z-index: 5;
+  display: grid;
+  gap: 6px;
+  width: min(340px, calc(100vw - 2 * var(--gutter, 20px)));
+  padding: 14px 16px;
+  border: 1px solid var(--line, #434343);
+  border-radius: 10px;
+  background: #fff;
+  color: #3f434d;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  box-shadow: 0 14px 34px -12px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  pointer-events: none;
+}
+
+.heroTipBubble strong {
+  color: #0f1115;
+  font-weight: 700;
+}
+
+.heroTip:hover .heroTipBubble,
+.heroTip:focus-within .heroTipBubble {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroTipBubble {
+    transition: none;
+  }
+}

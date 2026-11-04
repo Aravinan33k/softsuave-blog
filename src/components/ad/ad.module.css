@@ -781,3 +781,43 @@
   height: 1.25em;
   flex: none;
 }
+
+/* ---------- Engagement-model box: icon, name, Duration / Billing / Timeline ---------- */
+.modelCentered {
+  align-items: center;
+  text-align: center;
+}
+
+.modelImg {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+}
+
+.modelFacts {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding-top: 14px;
+  border-top: 1px solid var(--card-line, var(--line));
+}
+
+.modelFact {
+  display: block;
+  color: var(--text);
+  line-height: 1.5;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+}
+
+.modelFact dt,
+.modelFact dd {
+  display: inline;
+  margin: 0;
+}
+
+.modelFact dt {
+  font-weight: 600;
+  color: var(--text-bright);
+}
