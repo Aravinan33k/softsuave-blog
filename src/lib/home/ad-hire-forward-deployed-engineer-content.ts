@@ -50,8 +50,8 @@ export const fdeHero: HeroContent = {
     noteLink: { label: "click here", href: "/career-overview" },
     submit: "Submit",
     sending: "Sending...",
-    requirementLabel: "How Can We Help (Requirement)",
-    requirementPlaceholder: "Please tell us your requirements.",
+    requirementLabel: "Requirements",
+    requirementPlaceholder: "Tell us about your requirements",
     subject: "Ad landing: 40-Hour Free Trial (forward deployed engineer)",
   },
 };
@@ -200,8 +200,8 @@ export const fdePopup = {
     noteLink: { label: "click here", href: "/career-overview" },
     submit: "Submit",
     sending: "Sending...",
-    requirementLabel: "How Can We Help (Requirement)",
-    requirementPlaceholder: "Please tell us your requirements.",
+    requirementLabel: "Requirements",
+    requirementPlaceholder: "Tell us about your requirements",
     subject: "Ad landing: Staffing gaps enquiry (forward deployed engineer)",
   } satisfies EnquiryFormContent,
 } as const;

@@ -58,8 +58,8 @@ export const jvHero: HeroContent = {
     noteAfter: " and we will never spam you",
     submit: "Hire Developers Now",
     sending: "Sending...",
-    requirementLabel: "Your Requirements",
-    requirementPlaceholder: "Your Requirements",
+    requirementLabel: "Requirements",
+    requirementPlaceholder: "Tell us about your requirements",
     subject: "Ad landing: Hire Java Developers (hero form)",
   },
 };

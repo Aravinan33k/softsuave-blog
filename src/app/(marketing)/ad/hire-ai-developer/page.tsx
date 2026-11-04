@@ -1,6 +1,5 @@
-import type { Metadata } from 'next';
-import { BASE_PATH } from '@/lib/flags';
-import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
+import type { Metadata } from "next";
+import { absoluteUrl, dynamicOgImage } from "@/lib/seo/metadata";
 import {
   aiClients,
   aiEnquiry,
@@ -14,25 +13,24 @@ import {
   aiTrialBand,
   aiTrialForm,
   aiWhy,
-} from '@/lib/home/ad-hire-ai-developer-content';
+} from "@/lib/home/ad-hire-ai-developer-content";
 
-import Nav from '@/components/home/nav';
-import Footer from '@/components/home/footer';
-import TechRows from '@/components/home/tech-stack';
+import TechRows from "@/components/home/tech-stack";
 
-import Hero from '@/components/landing/hero';
-import CtaBand from '@/components/landing/cta-band';
-import Process from '@/components/landing/process';
+import Hero from "@/components/landing/hero";
+import CtaBand from "@/components/landing/cta-band";
+import Process from "@/components/landing/process";
 
-import Clients from '@/components/home/clients';
-import TopTalent from '@/components/ad/top-talent';
-import WhyList from '@/components/ad/why-list';
-import PricingPlans from '@/components/ad/pricing-plans';
-import HeroTestimonial from '@/components/ad/hero-testimonial';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
-import TrialModal from '@/components/ad/trial-modal';
+import Clients from "@/components/home/clients";
+import TopTalent from "@/components/ad/top-talent";
+import WhyList from "@/components/ad/why-list";
+import PricingPlans from "@/components/ad/pricing-plans";
+import HeroTestimonial from "@/components/ad/hero-testimonial";
+import ManagerEnquiry from "@/components/ad/manager-enquiry";
+import TrialModal from "@/components/ad/trial-modal";
 
-import home from '@/components/home/home.module.css';
+import home from "@/components/home/home.module.css";
+import styles from "@/components/ad/ad.module.css";
 
 /**
  * Hire AI Developers on Contract — a clone of softsuave.com/ad/hire-ai-developer,
@@ -55,7 +53,7 @@ import home from '@/components/home/home.module.css';
 
 export const revalidate = 300;
 
-const ogImage = dynamicOgImage(aiMeta.title, 'Soft Suave');
+const ogImage = dynamicOgImage(aiMeta.title, "Soft Suave");
 
 export const metadata: Metadata = {
   title: aiMeta.title,
@@ -66,28 +64,24 @@ export const metadata: Metadata = {
     title: aiMeta.title,
     description: aiMeta.description,
     url: absoluteUrl(aiMeta.path),
-    siteName: 'Soft Suave',
-    type: 'website',
+    siteName: "Soft Suave",
+    type: "website",
     images: [ogImage],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
     title: aiMeta.title,
     description: aiMeta.description,
     images: [ogImage],
   },
 };
 
-const HOME_HREF = BASE_PATH || '/';
-
 export default function AdHireAiDeveloperPage() {
   return (
     <div className={home.page}>
-      <Nav logoHref={HOME_HREF} />
-
-      <main id="main">
+      <main id="main" className={styles.adMain}>
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
-        <Hero
+        <Hero noNav
           content={aiHero}
           idPrefix="ad-hire-ai"
           breadcrumb={false}
@@ -95,7 +89,13 @@ export default function AdHireAiDeveloperPage() {
         />
 
         <div className={home.light}>
-          <Clients logos={[...aiClients.logos]} title={aiClients.title} body="" loopShortRows noFade />
+          <Clients
+            logos={[...aiClients.logos]}
+            title={aiClients.title}
+            body=""
+            loopShortRows
+            noFade
+          />
           <TopTalent content={aiTalent} />
         </div>
 
@@ -115,9 +115,8 @@ export default function AdHireAiDeveloperPage() {
         <ManagerEnquiry content={aiEnquiry} />
       </main>
 
-      <Footer />
 
-      {/* Every "Start 7-day Free Trial" button opens this. */}
+      {/* Every "Start 40 hours Free Trial" button opens this. */}
       <TrialModal form={aiTrialForm} />
     </div>
   );

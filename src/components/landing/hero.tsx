@@ -2,7 +2,7 @@
 
 import { Fragment, useRef, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
-import { Globe, SquareTerminal, Users } from "lucide-react";
+import { CalendarDays, Globe, SquareTerminal, Users } from "lucide-react";
 import { publicMediaUrl } from "@/lib/media-url";
 import { heroBadgeSizes, isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import { SiteLink } from "@/themes/softsuave/site-link";
@@ -246,7 +246,10 @@ export default function Hero({
   variant = "display",
   breadcrumb = true,
   slot,
+  noNav = false,
 }: {
+  /** The page has no top navigation, so the hero drops the space reserved for it. */
+  noNav?: boolean;
   content: HeroContent;
   /**
    * Anything to put in the form's column when the hero has neither a `form` nor
@@ -292,6 +295,7 @@ export default function Hero({
         styles.hero,
         content.image ? styles.heroWithBg : "",
         compact ? styles.heroCompact : "",
+        noNav ? styles.heroNoNav : "",
       ]
         .filter(Boolean)
         .join(" ")}
@@ -355,7 +359,10 @@ export default function Hero({
           </h1>
 
           {content.body.map((p, i) => (
-            <p key={p.slice(0, 24)} className={styles.heroBody} style={{ ["--i" as string]: i } as CSSProperties}>
+            <p
+              key={p.slice(0, 24)}
+              className={`${styles.heroBody}${p.startsWith("*") ? ` ${styles.heroBodyNote}` : ""}`}
+              style={{ ["--i" as string]: i } as CSSProperties}>
               {p}
             </p>
           ))}
@@ -443,7 +450,18 @@ export default function Hero({
                 // SiteLink, which resolves a live-only path (like the trial
                 // page) to softsuave.com instead of 404ing.
                 const button = cta.external ? (
-                  <a href={cta.href} target="_blank" rel="noopener noreferrer" className={className}>
+                  <a
+                    href={cta.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={className}
+                    // The live booking button leads with a calendar icon.
+                    style={
+                      cta.href.includes("calendly.com")
+                        ? { display: "inline-flex", alignItems: "center", gap: 10 }
+                        : undefined
+                    }>
+                    {cta.href.includes("calendly.com") && <CalendarDays size={18} aria-hidden />}
                     {cta.label}
                   </a>
                 ) : cta.href.startsWith("#") ? (

@@ -6,7 +6,7 @@
  * commented-out HTML — the "Trusted Offshore Software Development Firm Since
  * 2012" kicker, "Save up to 40% on Development…", the form's "Take Our 7-day
  * Free Trial before Hire." line, the "Some of Our Expert Software Developers"
- * profiles, the Vendor Transition model, a "Start 7-day Free Trial" header
+ * profiles, the Vendor Transition model, a "Start 40 hours Free Trial" header
  * button — and none of it is on the page, so none of it is here.
  *
  * Section order is the live order: hero (+ clients) · top talent · mobile
@@ -24,14 +24,18 @@ import type { ProcessContent } from "@/components/landing/process";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { EnquiryFormContent } from "@/components/common/enquiry-form";
 import { testimonials } from "@/lib/home/content";
-import { CLIENTS_PLUS, FIGURES, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
+import {
+  CLIENTS_PLUS,
+  FIGURES,
+  SPECIALISTS_PLUS,
+  YEARS_PLUS,
+} from "@/lib/company-figures";
 
 export const adMeta = {
   path: "/ad/app-developer",
-  // The live page's <title>, verbatim.
+  // The live page's <title> and meta description, verbatim.
   title: "Hire Remote App Developers on Contract",
-  description:
-    "Need top-rated remote app developers on contract? Hire remote app developers from India and enjoy the 40-hour free trial to experience their expertise!",
+  description: `Looking to hire dedicated developers in India On Contract? Soft Suave offers a 40-hour free trial and pricing beginning at $${FIGURES.hourlyRate}. Connect with us to get started!`,
 } as const;
 
 /** The in-page target every "Start 40 Hours Free Trial" button uses — `TrialModal` opens on it. */
@@ -70,10 +74,30 @@ export const adHero: HeroContent = {
   // artwork shows.) Dark wordmarks, so they sit on the hero's white plaques.
   badgesLabel: "Rated ★★★★★ on",
   badges: [
-    { src: "/brand/ad/badge-clutch.webp", alt: "Clutch", width: 218, height: 64 },
-    { src: "/brand/ad/badge-upwork.webp", alt: "Upwork", width: 215, height: 64 },
-    { src: "/brand/ad/badge-goodfirms.webp", alt: "GoodFirms", width: 426, height: 64 },
-    { src: "/brand/ad/badge-aws.webp", alt: "AWS Partner Network", width: 234, height: 64 },
+    {
+      src: "/brand/ad/badge-clutch.webp",
+      alt: "Clutch",
+      width: 218,
+      height: 64,
+    },
+    {
+      src: "/brand/ad/badge-upwork.webp",
+      alt: "Upwork",
+      width: 215,
+      height: 64,
+    },
+    {
+      src: "/brand/ad/badge-goodfirms.webp",
+      alt: "GoodFirms",
+      width: 426,
+      height: 64,
+    },
+    {
+      src: "/brand/ad/badge-aws.webp",
+      alt: "AWS Partner Network",
+      width: 234,
+      height: 64,
+    },
   ],
   ctas: [AD_TRIAL_CTA, BOOK_MEETING],
   ctaSeparator: "OR",
@@ -83,13 +107,8 @@ export const adHero: HeroContent = {
     noteLink: { label: "click here", href: "/career-overview" },
     submit: "Start My FREE Trial",
     sending: "Sending...",
-    requirementLabel: "How Can We Help (Requirement)",
-    requirementPlaceholder: "Please tell us your requirements.",
-  select: {
-    label: "What is the tech stack you are looking for?",
-    error: "Please select a service.",
-    options: TECH_STACK_OPTIONS,
-  },
+    requirementLabel: "Requirements",
+    requirementPlaceholder: "Tell us about your requirements",
     subject: "Ad landing: 40-Hour Free Trial (app developer)",
   },
 };
@@ -174,7 +193,11 @@ export const adMobile: CardGridContent = {
 };
 
 /** "Ready to discuss?" — the line the live page puts above its Hire Developers Now button. */
-export const adMobileCta = { lead: "Ready to discuss?", label: "Hire Developers Now →", href: TRIAL_HREF } as const;
+export const adMobileCta = {
+  lead: "Ready to discuss?",
+  label: "Hire Developers Now →",
+  href: TRIAL_HREF,
+} as const;
 
 export const adExperts: TechStackContent = {
   eyebrow: "Experts",
@@ -183,15 +206,40 @@ export const adExperts: TechStackContent = {
   groups: [
     {
       name: "Front End",
-      items: ["Angular", "Vue", "React", "UI/UX", "HTML 5", "CSS3", "Javascript"],
+      items: [
+        "Angular",
+        "Vue",
+        "React",
+        "UI/UX",
+        "HTML 5",
+        "CSS3",
+        "Javascript",
+      ],
     },
     {
       name: "Back End",
-      items: ["Node", ".NET", "PHP", "Laravel", "Java", "Python", "Golang", "Ruby On Rails"],
+      items: [
+        "Node",
+        ".NET",
+        "PHP",
+        "Laravel",
+        "Java",
+        "Python",
+        "Golang",
+        "Ruby On Rails",
+      ],
     },
     {
       name: "AI/ML",
-      items: ["Tensorflow", "Pytorch", "Deep Learning", "AI/ML", "Computer Vision", "RPA", "Business Intelligence"],
+      items: [
+        "Tensorflow",
+        "Pytorch",
+        "Deep Learning",
+        "AI/ML",
+        "Computer Vision",
+        "RPA",
+        "Business Intelligence",
+      ],
     },
     { name: "Cloud", items: ["Google Cloud", "AWS", "Microsoft Azure"] },
   ],
@@ -276,7 +324,8 @@ export const adProcess: ProcessContent = {
  * and video links come from the homepage's records of the same people; the live
  * page gives Roland White and Aaron G. no role, so none is shown.
  */
-const byName = (name: string) => testimonials.items.find((t) => t.name.includes(name))!;
+const byName = (name: string) =>
+  testimonials.items.find((t) => t.name.includes(name))!;
 
 export const adTestimonials = {
   eyebrow: "Testimonials",
@@ -328,12 +377,7 @@ export const adTrialForm: EnquiryFormContent = {
   noteLink: { label: "click here", href: "/career-overview" },
   submit: "Submit",
   sending: "Sending...",
-  requirementLabel: "How Can We Help (Requirement)",
-  requirementPlaceholder: "Please tell us your requirements.",
-  select: {
-    label: "What role are you looking to hire?",
-    error: "Please select a service.",
-    options: TECH_STACK_OPTIONS,
-  },
+  requirementLabel: "Requirements",
+  requirementPlaceholder: "Tell us about your requirements",
   subject: "Ad landing: 40-Hour Free Trial modal (app developer)",
 };

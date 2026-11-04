@@ -1,5 +1,6 @@
 "use client";
 
+import { CalendarDays } from "lucide-react";
 import FadeUp from "@/components/home/fade-up";
 import SplitReveal from "@/components/home/split-reveal";
 import styles from "./landing.module.css";
@@ -90,7 +91,16 @@ export default function CtaBand({
                 {...(content.secondary.external
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
+                // The live booking button leads with a calendar icon.
+                style={
+                  content.secondary.href.includes("calendly.com")
+                    ? { display: "inline-flex", alignItems: "center", gap: 10 }
+                    : undefined
+                }
               >
+                {content.secondary.href.includes("calendly.com") && (
+                  <CalendarDays size={18} aria-hidden />
+                )}
                 {content.secondary.label}
               </a>
             </>

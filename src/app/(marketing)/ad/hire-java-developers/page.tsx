@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { BASE_PATH } from '@/lib/flags';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import {
   jvClosing,
@@ -12,8 +11,6 @@ import {
   jvTestimonials,
 } from '@/lib/home/ad-hire-java-developers-content';
 
-import Nav from '@/components/home/nav';
-import Footer from '@/components/home/footer';
 import Testimonials from '@/components/home/testimonials';
 
 import Hero from '@/components/landing/hero';
@@ -68,17 +65,13 @@ export const metadata: Metadata = {
   },
 };
 
-const HOME_HREF = BASE_PATH || '/';
-
 export default function AdHireJavaDevelopersPage() {
   return (
     <div className={home.page}>
-      <Nav logoHref={HOME_HREF} />
-
-      <main id="main">
+      <main id="main" className={styles.adMain}>
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         <div className={styles.wipeForm}>
-          <Hero content={jvHero} idPrefix="ad-java" breadcrumb={false} />
+          <Hero noNav content={jvHero} idPrefix="ad-java" breadcrumb={false} />
         </div>
 
         <div className={home.light}>
@@ -103,7 +96,6 @@ export default function AdHireJavaDevelopersPage() {
         />
       </main>
 
-      <Footer />
     </div>
   );
 }

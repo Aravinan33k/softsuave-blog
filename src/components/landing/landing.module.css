@@ -261,6 +261,17 @@
   overflow: hidden;
 }
 
+/* No top navigation above the hero: keep only a modest top gap. */
+.hero.heroNoNav,
+.hero.heroNoNav:not(.heroCompact) {
+  padding-top: clamp(28px, 3.2vw, 56px);
+}
+
+/* The breadcrumb row is empty on these pages; drop its reserved gap too. */
+.hero.heroNoNav .heroHead:empty {
+  display: none;
+}
+
 /* Decorative accent for the flat (no `image`) hero. Redundant once there's a
    real photo behind the section, so `image` pages render `.heroBg` instead —
    see hero.tsx. */
@@ -439,6 +450,12 @@
 
 .heroBody + .heroBody {
   margin-top: 1em;
+}
+
+/* A "*"-led footnote line under the hero copy ("*Satisfaction Guaranteed – Get
+   40-hour Free Trial") is a fixed 16px, not the body size. */
+.hero .heroBody.heroBodyNote {
+  font-size: 16px;
 }
 
 /* --- supporting points: hairline-separated rows, not a bulleted list --- */

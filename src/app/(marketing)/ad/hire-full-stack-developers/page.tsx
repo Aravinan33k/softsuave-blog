@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { BASE_PATH } from '@/lib/flags';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import {
   fsClosing,
@@ -12,8 +11,6 @@ import {
   fsTrusted,
 } from '@/lib/home/ad-hire-full-stack-developers-content';
 
-import Nav from '@/components/home/nav';
-import Footer from '@/components/home/footer';
 import Clients from '@/components/home/clients';
 
 import Hero from '@/components/landing/hero';
@@ -71,17 +68,13 @@ export const metadata: Metadata = {
   },
 };
 
-const HOME_HREF = BASE_PATH || '/';
-
 export default function AdHireFullStackDevelopersPage() {
   return (
     <div className={home.page}>
-      <Nav logoHref={HOME_HREF} />
-
-      <main id="main">
+      <main id="main" className={styles.adMain}>
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         <div className={styles.wipeForm}>
-          <Hero content={fsHero} idPrefix="ad-full-stack" breadcrumb={false} />
+          <Hero noNav content={fsHero} idPrefix="ad-full-stack" breadcrumb={false} />
         </div>
 
         <div className={home.light}>
@@ -118,7 +111,6 @@ export default function AdHireFullStackDevelopersPage() {
         />
       </main>
 
-      <Footer />
     </div>
   );
 }

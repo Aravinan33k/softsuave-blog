@@ -3,12 +3,12 @@
  * the paid-traffic landing page for hiring AI developers on contract.
  *
  * Same rule as `ad-app-developer-content.ts`: only what the live page RENDERS.
- * Its markup comments out a "Start 7-day Free Trial" header button, the Vendor
+ * Its markup comments out a "Start 40 hours Free Trial" header button, the Vendor
  * Transition model, a testimonials block and a few buttons, so none of that is
  * here. Section order is the live order: hero · trusted clients · top talent ·
  * technology stack · why hire + trial band · plans · process · closing form.
  *
- * The trial buttons carry the live label, "Start 7-day Free Trial", and open the
+ * The trial buttons carry the live label, "Start 40 hours Free Trial", and open the
  * shared `TrialModal`, which shows the site's existing free-trial form.
  */
 
@@ -21,7 +21,12 @@ import type { ManagerEnquiryContent } from "@/components/ad/manager-enquiry";
 import { partnerHeroBadges } from "@/lib/home/hero-badges";
 import { TRIAL_HREF } from "@/lib/home/ad-app-developer-content";
 import { freeTrialHero } from "@/lib/home/free-trial-content";
-import { CLIENTS_PLUS, FIGURES, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
+import {
+  CLIENTS_PLUS,
+  FIGURES,
+  SPECIALISTS_PLUS,
+  YEARS_PLUS,
+} from "@/lib/company-figures";
 
 export const aiMeta = {
   path: "/ad/hire-ai-developer",
@@ -31,14 +36,18 @@ export const aiMeta = {
     "Looking to hire dedicated developers in India On Contract? Soft Suave offers a 40-hour free trial and pricing beginning at $14. Connect with us to get started!",
 } as const;
 
-const TRIAL_CTA = { label: "Start 7-day Free Trial →", href: TRIAL_HREF } as const;
+const TRIAL_CTA = {
+  label: "Start 40 hours Free Trial →",
+  href: TRIAL_HREF,
+} as const;
 const BOOK_APPOINTMENT = {
   label: "Book a appointment", // sic — the live label
   href: "https://calendly.com/soft_suave/dedicated-teams",
   external: true,
 } as const;
 
-const badge = (name: string) => partnerHeroBadges.find((b) => b.alt.includes(name))!;
+const badge = (name: string) =>
+  partnerHeroBadges.find((b) => b.alt.includes(name))!;
 
 export const aiHero: HeroContent = {
   eyebrow: "Top-rated AI Development Company Since 2012",
@@ -58,15 +67,33 @@ export const aiHeroTestimonial: HeroTestimonialContent = {
     "Soft Suave's 40-hour free trial helped me hand-pick top developers who exceeded expectations. A year of dedication, and my project was deployed on time – beyond expectations!",
   name: "Dara Huang MD",
   role: "Co-Founder - Perkypet",
-  photo: { src: "/brand/testimonials/dara-huang.webp", alt: "Dara Huang MD, Co-Founder of Perkypet" },
+  photo: {
+    src: "/brand/testimonials/dara-huang.webp",
+    alt: "Dara Huang MD, Co-Founder of Perkypet",
+  },
   // The live hero's three marks, as its own files: the "13 Years of Success"
   // seal, Upwork Top Rated (with its stars) and Clutch 4.8. They are drawn for a
   // dark ground, so they sit bare — no white plaque (their alt text on the live
   // page says "Microsoft / Upwork / Clutch", which is not what the files show).
   badges: [
-    { src: "/brand/ad/seal-13-years.webp", alt: "13 years of success", width: 220, height: 220 },
-    { src: "/brand/ad/upwork-top-rated.webp", alt: "Upwork Top Rated", width: 220, height: 220 },
-    { src: "/brand/ad/clutch-4-8.webp", alt: "Clutch rated 4.8 based on Clutch reviews", width: 277, height: 220 },
+    {
+      src: "/brand/ad/seal-14-years.webp",
+      alt: "13 years of success",
+      width: 220,
+      height: 220,
+    },
+    {
+      src: "/brand/ad/upwork-top-rated.webp",
+      alt: "Upwork Top Rated",
+      width: 220,
+      height: 220,
+    },
+    {
+      src: "/brand/ad/clutch-4-8.webp",
+      alt: "Clutch rated 4.8 based on Clutch reviews",
+      width: 277,
+      height: 220,
+    },
   ],
 };
 
@@ -92,7 +119,7 @@ export const aiTalent = {
     { figure: SPECIALISTS_PLUS, label: "AI-Powered Developers" },
     { figure: "97%", label: "Client Retention Rate" },
   ],
-  cta: { label: "Start 7-day Free Trial", href: TRIAL_HREF },
+  cta: { label: "Start 40 hours Free Trial", href: TRIAL_HREF },
   models: [
     {
       name: "Add Resources in Your Existing Team",
@@ -130,8 +157,32 @@ export const aiTech = {
   title: "Our Technology Stack",
   body: "",
   groups: [
-    { name: "", items: ["Python", "spaCy", "PyTorch", "PySpark", "pandas", "MediaPipe", "Keras", "Google Cloud Vision"] },
-    { name: "", items: ["Azure ML", "OpenCV", "TensorFlow", "OpenPose", "NLTK", "scikit-learn", "Google BERT", "ChatGPT"] },
+    {
+      name: "",
+      items: [
+        "Python",
+        "spaCy",
+        "PyTorch",
+        "PySpark",
+        "pandas",
+        "MediaPipe",
+        "Keras",
+        "Google Cloud Vision",
+      ],
+    },
+    {
+      name: "",
+      items: [
+        "Azure ML",
+        "OpenCV",
+        "TensorFlow",
+        "OpenPose",
+        "NLTK",
+        "scikit-learn",
+        "Google BERT",
+        "ChatGPT",
+      ],
+    },
   ],
 } as const;
 
@@ -154,7 +205,7 @@ export const aiWhy = {
 export const aiTrialBand: CtaBandContent = {
   title: "Try Now, Pay Later",
   body: "Start your 40 Hours risk free trial and get perfect fit for your project or book a free consultation for your project planning, time & budget estimation.",
-  cta: { label: "Start 7-day Free Trial →", href: TRIAL_HREF },
+  cta: { label: "Start 40 hours Free Trial →", href: TRIAL_HREF },
   secondary: { ...BOOK_APPOINTMENT, label: "Book a Call" },
 };
 
@@ -175,14 +226,14 @@ export const aiPricing = {
     },
   ],
   fixed: { title: "Looking For a Fixed Price?", body: "On Time Delivery" },
-  cta: { label: "Start 7-day Free Trial →", href: TRIAL_HREF },
+  cta: { label: "Start 40 hours Free Trial →", href: TRIAL_HREF },
 } as const;
 
 export const aiProcess: ProcessContent = {
   eyebrow: "",
   title: "Hire Dedicated AI Developer in 4 Steps",
   body: "Onboarding remote AI developers gets easier with our simple 4-step hiring process!",
-  cta: { label: "Start 7-day Free Trial →", href: TRIAL_HREF },
+  cta: { label: "Start 40 hours Free Trial →", href: TRIAL_HREF },
   steps: [
     {
       n: "01",
@@ -212,8 +263,14 @@ export const aiEnquiry: ManagerEnquiryContent = {
   title: "Start Your 40 Hours Trial",
   body: "Choose our offshore developers from our extensive talent tool and begin your 40 Hours risk-free trial today!",
   steps: [
-    { title: "Fill up your details", body: "Let us know your developer requirement." },
-    { title: "What's next?", body: "One of our Account Managers will contact you shortly." },
+    {
+      title: "Fill up your details",
+      body: "Let us know your developer requirement.",
+    },
+    {
+      title: "What's next?",
+      body: "One of our Account Managers will contact you shortly.",
+    },
   ],
   manager: {
     name: "Madhu Kadiyala",
@@ -227,15 +284,14 @@ export const aiEnquiry: ManagerEnquiryContent = {
     title: "",
     submit: "Submit",
     sending: "Sending...",
-    requirementLabel: "Brief about the project",
-    requirementPlaceholder: "Brief about the project",
-    company: { label: "Company", error: "Please enter your company." },
+    requirementLabel: "Requirements",
+    requirementPlaceholder: "Tell us about your requirements",
     subject: "Ad landing: Start Your 40 Hours Trial (AI developer)",
   },
 };
 
 /**
- * What every "Start 7-day Free Trial" button opens: the form this site already
+ * What every "Start 40 hours Free Trial" button opens: the form this site already
  * has on /free-7-days-trial ("Start Your 40-Hour Trial" — name, email, phone,
  * requirements), reused as-is rather than written again. The live page's own
  * "how would you prefer to talk to us?" step is not carried over.

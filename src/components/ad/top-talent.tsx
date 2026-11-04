@@ -42,12 +42,6 @@ export default function TopTalent({
         </dl>
       </FadeUp>
 
-      <div className={styles.cta}>
-        <a className={styles.btn} href={content.cta.href}>
-          {content.cta.label}
-        </a>
-      </div>
-
       <div className={styles.models}>
         {content.models.map((m, i) => (
           <FadeUp key={m.name} delay={i * 0.08}>
@@ -64,6 +58,12 @@ export default function TopTalent({
             </article>
           </FadeUp>
         ))}
+      </div>
+
+      <div className={styles.cta}>
+        <a className={styles.btn} href={content.cta.href}>
+          {content.cta.label}
+        </a>
       </div>
     </section>
   );

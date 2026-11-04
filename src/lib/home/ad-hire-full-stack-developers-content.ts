@@ -65,8 +65,8 @@ export const fsHero: HeroContent = {
     noteAfter: " and we will never spam you",
     submit: "Hire Now",
     sending: "Sending...",
-    requirementLabel: "Your Requirements",
-    requirementPlaceholder: "Your Requirements",
+    requirementLabel: "Requirements",
+    requirementPlaceholder: "Tell us about your requirements",
     subject: "Ad landing: Build Your Remote Team (full-stack developers)",
   },
 };
@@ -177,8 +177,8 @@ export const fsClosing = {
     title: "Start Risk-FREE Trial!",
     submit: "Start Now",
     sending: "Sending...",
-    requirementLabel: "Your Requirements",
-    requirementPlaceholder: "Your Requirements",
+    requirementLabel: "Requirements",
+    requirementPlaceholder: "Tell us about your requirements",
     subject: "Ad landing: Start Risk-FREE Trial (full-stack developers)",
   } satisfies EnquiryFormContent,
 } as const;

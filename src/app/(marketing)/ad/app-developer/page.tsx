@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { BASE_PATH } from '@/lib/flags';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
@@ -18,8 +17,6 @@ import {
   adWhy,
 } from '@/lib/home/ad-app-developer-content';
 
-import Nav from '@/components/home/nav';
-import Footer from '@/components/home/footer';
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 
@@ -36,6 +33,7 @@ import PricingPlans from '@/components/ad/pricing-plans';
 import TrialModal from '@/components/ad/trial-modal';
 
 import home from '@/components/home/home.module.css';
+import styles from '@/components/ad/ad.module.css';
 
 /**
  * Hire Remote App Developers on Contract — a clone of
@@ -80,16 +78,12 @@ export const metadata: Metadata = {
   },
 };
 
-const HOME_HREF = BASE_PATH || '/';
-
 export default function AdAppDeveloperPage() {
   return (
     <div className={home.page}>
-      <Nav logoHref={HOME_HREF} />
-
-      <main id="main">
+      <main id="main" className={styles.adMain}>
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
-        <Hero content={adHero} idPrefix="ad-app-developer" breadcrumb={false} />
+        <Hero noNav content={adHero} idPrefix="ad-app-developer" breadcrumb={false} />
 
         <div className={home.light}>
           {/* The live page's client logos sit inside its hero section; here they
@@ -117,7 +111,6 @@ export default function AdAppDeveloperPage() {
         <Testimonials content={adTestimonials} />
       </main>
 
-      <Footer />
 
       {/* Every "Start 40 Hours Free Trial" button opens this. */}
       <TrialModal form={adTrialForm} />

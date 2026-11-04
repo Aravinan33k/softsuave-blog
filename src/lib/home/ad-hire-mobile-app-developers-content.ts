@@ -9,7 +9,7 @@
  * trusted logos · top talent + engagement models · skills · why hire + trial
  * band · plans · 4 steps · closing form.
  *
- * Every "Start 7-day Free Trial" button opens one popup (the live page's first
+ * Every "Start 40 hours Free Trial" button opens one popup (the live page's first
  * `#modalDownload`): an untitled form, "How can we help?", with a "100% Privacy
  * Guaranteed" line. The live page's rate-card form shares that id and so can
  * never be opened; it is not built. The clients, steps and closing "Start Your 40
@@ -24,8 +24,17 @@ import type { ProcessContent } from "@/components/landing/process";
 import type { EnquiryFormContent } from "@/components/common/enquiry-form";
 import type { ManagerEnquiryContent } from "@/components/ad/manager-enquiry";
 import { TRIAL_HREF, adExperts } from "@/lib/home/ad-app-developer-content";
-import { aiClients, aiEnquiry, aiProcess } from "@/lib/home/ad-hire-ai-developer-content";
-import { CLIENTS_PLUS, FIGURES, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
+import {
+  aiClients,
+  aiEnquiry,
+  aiProcess,
+} from "@/lib/home/ad-hire-ai-developer-content";
+import {
+  CLIENTS_PLUS,
+  FIGURES,
+  SPECIALISTS_PLUS,
+  YEARS_PLUS,
+} from "@/lib/company-figures";
 
 export const mbMeta = {
   path: "/ad/hire-mobile-app-developers",
@@ -36,7 +45,10 @@ export const mbMeta = {
 
 export { TRIAL_HREF as MB_TRIAL_HREF };
 
-const TRIAL_CTA = { label: "Start 7-day Free Trial →", href: TRIAL_HREF } as const;
+const TRIAL_CTA = {
+  label: "Start 40 hours Free Trial →",
+  href: TRIAL_HREF,
+} as const;
 
 export const mbHero: HeroContent = {
   eyebrow: "Get Access to Pre-Vetted Developers FREE for 40 Hours",
@@ -50,9 +62,24 @@ export const mbHero: HeroContent = {
   // Upwork Top Rated and Clutch. Drawn for a dark ground, so they sit bare.
   badgesBare: "large",
   badges: [
-    { src: "/brand/ad/seal-13-years.webp", alt: "13 years of success", width: 220, height: 220 },
-    { src: "/brand/ad/upwork-top-rated.webp", alt: "Upwork Top Rated", width: 220, height: 220 },
-    { src: "/brand/ad/clutch-new.webp", alt: "Clutch", width: 401, height: 300 },
+    {
+      src: "/brand/ad/seal-14-years.webp",
+      alt: "13 years of success",
+      width: 220,
+      height: 220,
+    },
+    {
+      src: "/brand/ad/upwork-top-rated.webp",
+      alt: "Upwork Top Rated",
+      width: 220,
+      height: 220,
+    },
+    {
+      src: "/brand/ad/clutch-new.webp",
+      alt: "Clutch",
+      width: 401,
+      height: 300,
+    },
   ],
   form: {
     title: "Share Your Requirements",
@@ -60,8 +87,8 @@ export const mbHero: HeroContent = {
     noteLink: { label: "click here", href: "/career-overview" },
     submit: "Submit",
     sending: "Sending...",
-    requirementLabel: "How Can We Help (Requirement)",
-    requirementPlaceholder: "Please tell us your requirements.",
+    requirementLabel: "Requirements",
+    requirementPlaceholder: "Tell us about your requirements",
     subject: "Ad landing: Share Your Requirements (mobile app developers)",
   },
 };
@@ -78,7 +105,7 @@ export const mbTalent = {
     { figure: SPECIALISTS_PLUS, label: "AI-Powered Developers" },
     { figure: "97%", label: "Client Retention Rate" },
   ],
-  cta: { label: "Start 7-day Free Trial", href: TRIAL_HREF },
+  cta: { label: "Start 40 hours Free Trial", href: TRIAL_HREF },
   models: [
     {
       name: "Add Resources in Your Existing Team",
@@ -114,7 +141,10 @@ export const mbSkills: TechStackContent = {
   title: "We Have The Skills You're Looking For",
   body: "Soft Suave is committed to delivering optimal technology solutions for global clients, with expertise in diverse areas such as mobility, web development, Blockchain, AI, and more. Our experienced offshore developers cater to all your development needs.",
 };
-export const mbSkillsCta = { label: "Start 7-day Free Trial →", href: TRIAL_HREF } as const;
+export const mbSkillsCta = {
+  label: "Start 40 hours Free Trial →",
+  href: TRIAL_HREF,
+} as const;
 
 export const mbWhy = {
   title: "Why Hire Mobile App Developers from Soft Suave",
@@ -174,17 +204,23 @@ export const mbProcess: ProcessContent = {
 export const mbEnquiry: ManagerEnquiryContent = {
   ...aiEnquiry,
   // The hero form owns `#enquiry` on this page, so the closing form has its own id.
-  manager: { ...aiEnquiry.manager, cta: { ...aiEnquiry.manager.cta, href: "#ad-contact-form" } },
-  form: { ...aiEnquiry.form, subject: "Ad landing: Start Your 40 Hours Trial (mobile app developers)" },
+  manager: {
+    ...aiEnquiry.manager,
+    cta: { ...aiEnquiry.manager.cta, href: "#ad-contact-form" },
+  },
+  form: {
+    ...aiEnquiry.form,
+    subject: "Ad landing: Start Your 40 Hours Trial (mobile app developers)",
+  },
 };
 
-/** What every "Start 7-day Free Trial" button opens: the live untitled form, "How can we help?". */
+/** What every "Start 40 hours Free Trial" button opens: the live untitled form, "How can we help?". */
 export const mbTrialForm: EnquiryFormContent = {
   title: "",
   note: "100% Privacy Guaranteed",
   submit: "Submit",
   sending: "Sending...",
-  requirementLabel: "How can we help?",
-  requirementPlaceholder: "How can we help?",
+  requirementLabel: "Requirements",
+  requirementPlaceholder: "Tell us about your requirements",
   subject: "Ad landing: Free Trial popup (mobile app developers)",
 };

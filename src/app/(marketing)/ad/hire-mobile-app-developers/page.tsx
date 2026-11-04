@@ -1,6 +1,5 @@
-import type { Metadata } from 'next';
-import { BASE_PATH } from '@/lib/flags';
-import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
+import type { Metadata } from "next";
+import { absoluteUrl, dynamicOgImage } from "@/lib/seo/metadata";
 import {
   mbClients,
   mbEnquiry,
@@ -14,26 +13,24 @@ import {
   mbTrialBand,
   mbTrialForm,
   mbWhy,
-} from '@/lib/home/ad-hire-mobile-app-developers-content';
+} from "@/lib/home/ad-hire-mobile-app-developers-content";
 
-import Nav from '@/components/home/nav';
-import Footer from '@/components/home/footer';
-import Clients from '@/components/home/clients';
+import Clients from "@/components/home/clients";
 
-import Hero from '@/components/landing/hero';
-import CtaBand from '@/components/landing/cta-band';
-import Process from '@/components/landing/process';
-import TechCluster from '@/components/data-science/tech-cluster';
+import Hero from "@/components/landing/hero";
+import CtaBand from "@/components/landing/cta-band";
+import Process from "@/components/landing/process";
+import TechCluster from "@/components/data-science/tech-cluster";
 
-import TopTalent from '@/components/ad/top-talent';
-import WhyList from '@/components/ad/why-list';
-import CtaRow from '@/components/ad/cta-row';
-import PricingPlans from '@/components/ad/pricing-plans';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
-import TrialModal from '@/components/ad/trial-modal';
+import TopTalent from "@/components/ad/top-talent";
+import WhyList from "@/components/ad/why-list";
+import CtaRow from "@/components/ad/cta-row";
+import PricingPlans from "@/components/ad/pricing-plans";
+import ManagerEnquiry from "@/components/ad/manager-enquiry";
+import TrialModal from "@/components/ad/trial-modal";
 
-import home from '@/components/home/home.module.css';
-import styles from '@/components/ad/ad.module.css';
+import home from "@/components/home/home.module.css";
+import styles from "@/components/ad/ad.module.css";
 
 /**
  * Hire Mobile App Developers on Contract — a clone of
@@ -41,7 +38,7 @@ import styles from '@/components/ad/ad.module.css';
  * served at /ad/hire-mobile-app-developers.
  *
  * The same ad-page kit as the other /ad pages, with this page's own content
- * (`lib/home/ad-hire-mobile-app-developers-content.ts`). Every "Start 7-day Free
+ * (`lib/home/ad-hire-mobile-app-developers-content.ts`). Every "Start 40 hours Free
  * Trial" button opens the popup form, as on the live page.
  *
  * `noindex, nofollow` like the live page — in its metadata here, and as an
@@ -52,7 +49,7 @@ import styles from '@/components/ad/ad.module.css';
 
 export const revalidate = 300;
 
-const ogImage = dynamicOgImage(mbMeta.title, 'Soft Suave');
+const ogImage = dynamicOgImage(mbMeta.title, "Soft Suave");
 
 export const metadata: Metadata = {
   title: mbMeta.title,
@@ -63,29 +60,25 @@ export const metadata: Metadata = {
     title: mbMeta.title,
     description: mbMeta.description,
     url: absoluteUrl(mbMeta.path),
-    siteName: 'Soft Suave',
-    type: 'website',
+    siteName: "Soft Suave",
+    type: "website",
     images: [ogImage],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
     title: mbMeta.title,
     description: mbMeta.description,
     images: [ogImage],
   },
 };
 
-const HOME_HREF = BASE_PATH || '/';
-
 export default function AdHireMobileAppDevelopersPage() {
   return (
     <div className={home.page}>
-      <Nav logoHref={HOME_HREF} />
-
-      <main id="main">
+      <main id="main" className={styles.adMain}>
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         <div className={styles.wipeForm}>
-          <Hero content={mbHero} idPrefix="ad-mobile" breadcrumb={false} />
+          <Hero noNav content={mbHero} idPrefix="ad-mobile" breadcrumb={false} />
         </div>
 
         <div className={home.light}>
@@ -115,12 +108,15 @@ export default function AdHireMobileAppDevelopersPage() {
           <Process content={mbProcess} id="journey" />
         </div>
 
-        <ManagerEnquiry content={mbEnquiry} id="ad-contact-form" idPrefix="ad-mobile-contact" />
+        <ManagerEnquiry
+          content={mbEnquiry}
+          id="ad-contact-form"
+          idPrefix="ad-mobile-contact"
+        />
       </main>
 
-      <Footer />
 
-      {/* Every "Start 7-day Free Trial" button opens this. */}
+      {/* Every "Start 40 hours Free Trial" button opens this. */}
       <TrialModal form={mbTrialForm} idPrefix="ad-mobile-trial" wipe />
     </div>
   );

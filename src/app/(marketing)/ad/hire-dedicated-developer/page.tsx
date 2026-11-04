@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { BASE_PATH } from '@/lib/flags';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import {
   DED_RATECARD_REQUIREMENT,
@@ -16,8 +15,6 @@ import {
   dedWhy,
 } from '@/lib/home/ad-hire-dedicated-developer-content';
 
-import Nav from '@/components/home/nav';
-import Footer from '@/components/home/footer';
 import Clients from '@/components/home/clients';
 
 import Hero from '@/components/landing/hero';
@@ -63,7 +60,8 @@ export const metadata: Metadata = {
   alternates: { canonical: dedMeta.path },
   robots: { index: false, follow: false },
   openGraph: {
-    title: dedMeta.title,
+    // The live og:title drops the "from $…/hr" the <title> carries.
+    title: 'Hire Dedicated Developers in India On Contract',
     description: dedMeta.description,
     url: absoluteUrl(dedMeta.path),
     siteName: 'Soft Suave',
@@ -78,17 +76,13 @@ export const metadata: Metadata = {
   },
 };
 
-const HOME_HREF = BASE_PATH || '/';
-
 export default function AdHireDedicatedDeveloperPage() {
   return (
     <div className={home.page}>
-      <Nav logoHref={HOME_HREF} />
-
-      <main id="main">
+      <main id="main" className={styles.adMain}>
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         <div className={styles.wipeForm}>
-          <Hero content={dedHero} idPrefix="ad-hire-dedicated" breadcrumb={false} />
+          <Hero noNav content={dedHero} idPrefix="ad-hire-dedicated" breadcrumb={false} />
         </div>
 
         <div className={home.light}>
@@ -112,7 +106,6 @@ export default function AdHireDedicatedDeveloperPage() {
         <ManagerEnquiry content={dedEnquiry} id="ad-contact-form" idPrefix="ad-dedicated-contact" />
       </main>
 
-      <Footer />
 
       {/* "Request Rate Card" opens this. */}
       <TrialModal

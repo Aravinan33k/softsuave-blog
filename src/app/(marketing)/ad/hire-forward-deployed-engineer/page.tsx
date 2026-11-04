@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { BASE_PATH } from '@/lib/flags';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
@@ -17,8 +16,6 @@ import {
   fdeWhyClosing,
 } from '@/lib/home/ad-hire-forward-deployed-engineer-content';
 
-import Nav from '@/components/home/nav';
-import Footer from '@/components/home/footer';
 import Clients from '@/components/home/clients';
 
 import Hero from '@/components/landing/hero';
@@ -74,17 +71,13 @@ export const metadata: Metadata = {
   },
 };
 
-const HOME_HREF = BASE_PATH || '/';
-
 export default function AdHireForwardDeployedEngineerPage() {
   return (
     <div className={home.page}>
-      <Nav logoHref={HOME_HREF} />
-
-      <main id="main">
+      <main id="main" className={styles.adMain}>
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         <div className={styles.wipeForm}>
-          <Hero content={fdeHero} idPrefix="ad-hire-fde" breadcrumb={false} />
+          <Hero noNav content={fdeHero} idPrefix="ad-hire-fde" breadcrumb={false} />
         </div>
 
         <div className={home.light}>
@@ -115,7 +108,6 @@ export default function AdHireForwardDeployedEngineerPage() {
 
       </main>
 
-      <Footer />
 
       {/* Every "Start 40 Hours Free Trial" and "Hire Now" button opens this. */}
       <TrialModal form={fdePopup.form} side={fdePopup.side} idPrefix="ad-fde-trial" wipe />

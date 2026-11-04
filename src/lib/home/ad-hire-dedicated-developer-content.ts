@@ -5,7 +5,7 @@
  *
  * Only what the live page RENDERS is here — its markup comments out a
  * testimonials block, a "Meet Soft Suave Dedicated Developers" profile band and
- * a "Start 7-day Free Trial" button. Live order: hero (+ form, + clients) ·
+ * a "Start 40 hours Free Trial" button. Live order: hero (+ form, + clients) ·
  * technologies · why hire · rate-card banner · comparison · process · closing
  * form. The page has no "free trial" button: its one popup is the rate-card
  * form, opened by "Request Rate Card".
@@ -22,7 +22,12 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { EnquiryFormContent } from "@/components/common/enquiry-form";
 import type { ManagerEnquiryContent } from "@/components/ad/manager-enquiry";
 import { aiEnquiry } from "@/lib/home/ad-hire-ai-developer-content";
-import { CLIENTS_PLUS, FIGURES, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
+import {
+  CLIENTS_PLUS,
+  FIGURES,
+  SPECIALISTS_PLUS,
+  YEARS_PLUS,
+} from "@/lib/company-figures";
 
 export const dedMeta = {
   path: "/ad/hire-dedicated-developer",
@@ -47,9 +52,21 @@ export const dedHero: HeroContent = {
   ],
   // The live hero's three spinning rings, as the surface's stat cards.
   stats: [
-    { title: "1250+ Projects", body: "Projects Executed Successfully", icon: "experts" },
-    { title: `${YEARS_PLUS} Year of Experience`, body: "Years of Experience in this Field", icon: "countries" },
-    { title: `${CLIENTS_PLUS} Clients Globally`, body: "Total No. of Satisfied Customers", icon: "clients" },
+    {
+      title: "1250+ Projects",
+      body: "Projects Executed Successfully",
+      icon: "experts",
+    },
+    {
+      title: `${YEARS_PLUS} Year of Experience`,
+      body: "Years of Experience in this Field",
+      icon: "countries",
+    },
+    {
+      title: `${CLIENTS_PLUS} Clients Globally`,
+      body: "Total No. of Satisfied Customers",
+      icon: "clients",
+    },
   ],
   form: {
     title: "40-hour Trial, 100% Risk Free",
@@ -57,8 +74,8 @@ export const dedHero: HeroContent = {
     noteLink: { label: "click here", href: "/career-overview" },
     submit: "Submit",
     sending: "Sending...",
-    requirementLabel: "How Can We Help (Requirement)",
-    requirementPlaceholder: "Please tell us your requirements.",
+    requirementLabel: "Requirements",
+    requirementPlaceholder: "Tell us about your requirements",
     subject: "Ad landing: 40-hour Trial (dedicated developers)",
   },
 };
@@ -88,12 +105,46 @@ export const dedTech: TechStackContent = {
   title: "Choose Experts in Various Technologies",
   body: "Our Offshore app developers excel in various technologies and frameworks and are known to blend with the project and technology easily to get great outcomes.",
   groups: [
-    { name: "Front-End", items: ["React Js", "Angular Js", "Bootstrap", "Vue Js", "Javascript", "HTML", "CSS"] },
-    { name: "Back-End", items: ["PHP", "Java", "Python", "Node JS", ".Net", "ROR"] },
-    { name: "Mobile App", items: ["Swift", "Kotlin", "Java", "React", "Flutter", "Ionic"] },
-    { name: "Quality Assurance", items: ["Selenium", "Cypress", "Manaul Testing"] },
-    { name: "DevOps/Clouds", items: ["Aws", "Azure", "Cloud", "Docker", "Jenkin", "Anisible", "Kubernets"] },
-    { name: "Design", items: ["Photoshop", "Illustrator", "Adobe-XD", "Figma"] },
+    {
+      name: "Front-End",
+      items: [
+        "React Js",
+        "Angular Js",
+        "Bootstrap",
+        "Vue Js",
+        "Javascript",
+        "HTML",
+        "CSS",
+      ],
+    },
+    {
+      name: "Back-End",
+      items: ["PHP", "Java", "Python", "Node JS", ".Net", "ROR"],
+    },
+    {
+      name: "Mobile App",
+      items: ["Swift", "Kotlin", "Java", "React", "Flutter", "Ionic"],
+    },
+    {
+      name: "Quality Assurance",
+      items: ["Selenium", "Cypress", "Manaul Testing"],
+    },
+    {
+      name: "DevOps/Clouds",
+      items: [
+        "Aws",
+        "Azure",
+        "Cloud",
+        "Docker",
+        "Jenkin",
+        "Anisible",
+        "Kubernets",
+      ],
+    },
+    {
+      name: "Design",
+      items: ["Photoshop", "Illustrator", "Adobe-XD", "Figma"],
+    },
   ],
 };
 
@@ -128,12 +179,24 @@ export const dedComparison: ComparisonContent = {
   // `[row-header column, ...option columns]` — the same table /hire-dedicated-developers renders.
   columns: ["Factor", "Soft Suave", "In-house", "Freelancer"],
   rows: [
-    { criterion: "Time to get right developers", values: ["Within 48 hours", "4 - 8 Weeks", "2 - 4 Weeks"] },
-    { criterion: "Time to start a project", values: ["Within 48 hours", "4 - 8 Weeks", "2 - 4 Weeks"] },
+    {
+      criterion: "Time to get right developers",
+      values: ["Within 48 hours", "4 - 8 Weeks", "2 - 4 Weeks"],
+    },
+    {
+      criterion: "Time to start a project",
+      values: ["Within 48 hours", "4 - 8 Weeks", "2 - 4 Weeks"],
+    },
     { criterion: "Recurring cost", values: ["0", "$2000 to $3000", "0"] },
-    { criterion: "Project failure risk", values: ["Extremely Low", "Low", "High"] },
+    {
+      criterion: "Project failure risk",
+      values: ["Extremely Low", "Low", "High"],
+    },
     { criterion: "Dedicated resources", values: ["Yes", "Yes", "No"] },
-    { criterion: "Communications", values: ["Seamless", "Seamless", "Uncertain"] },
+    {
+      criterion: "Communications",
+      values: ["Seamless", "Seamless", "Uncertain"],
+    },
   ],
 };
 
@@ -168,8 +231,14 @@ export const dedProcess: ProcessContent = {
 /** The closing "Start Your 40 Hours Trial" band — the same block as the AI page. */
 export const dedEnquiry: ManagerEnquiryContent = {
   ...aiEnquiry,
-  manager: { ...aiEnquiry.manager, cta: { ...aiEnquiry.manager.cta, href: "#ad-contact-form" } },
-  form: { ...aiEnquiry.form, subject: "Ad landing: Start Your 40 Hours Trial (dedicated developers)" },
+  manager: {
+    ...aiEnquiry.manager,
+    cta: { ...aiEnquiry.manager.cta, href: "#ad-contact-form" },
+  },
+  form: {
+    ...aiEnquiry.form,
+    subject: "Ad landing: Start Your 40 Hours Trial (dedicated developers)",
+  },
 };
 
 /** What "Request Rate Card" opens: name, email and phone only. */
@@ -178,8 +247,9 @@ export const dedRateCardForm: EnquiryFormContent = {
   body: "Choose the right developer to start your 1-week Free Trial.",
   submit: "Download Now",
   sending: "Sending...",
-  requirementLabel: "Requirement",
-  requirementPlaceholder: "",
+  requirementLabel: "Requirements",
+  requirementPlaceholder: "Tell us about your requirements",
   subject: "Ad landing: Developer ratecard request (dedicated developers)",
 };
-export const DED_RATECARD_REQUIREMENT = "Requested the developers' ratecard (dedicated developers ad landing page).";
+export const DED_RATECARD_REQUIREMENT =
+  "Requested the developers' ratecard (dedicated developers ad landing page).";
