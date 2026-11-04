@@ -30,11 +30,20 @@ export default function Clients({
   loopShortRows = false,
   noFade = false,
   eyebrow = clients.eyebrow,
+  badges = false,
+  id = "clients",
 }: {
   /** Drops the soft fade on the strip's left and right ends; logos keep their usual look. */
   noFade?: boolean;
   /** The small label above the heading; `""` drops it (a page whose live band has none). */
   eyebrow?: string;
+  /**
+   * Draw the marks as full-colour badges, larger — for certifications rather than client
+   * logos, which the strip otherwise shows small and in grey.
+   */
+  badges?: boolean;
+  /** The section id; give a second strip on one page its own. */
+  id?: string;
   /**
    * Keep the strip scrolling when its marks are too few to overflow the row —
    * `Marquee`'s `fill` repeats them until they do. Omitted, the strip is
@@ -61,7 +70,7 @@ export default function Clients({
   logos?: typeof clients.logos;
 } = {}) {
   return (
-    <section className={`${styles.section} ${styles.clients}`} id="clients">
+    <section className={`${styles.section} ${styles.clients}`} id={id}>
       <div className={styles.clientsHead}>
         <div className={styles.clientsHeadMain}>
           {eyebrow && <span className={styles.eyebrow}>{eyebrow}</span>}
@@ -80,7 +89,7 @@ export default function Clients({
       <FadeUp className={styles.clientsRow} delay={0.08}>
         <Marquee
           speed={30}
-          className={`${styles.clientsMarquee}${noFade ? ` ${styles.clientsMarqueeNoFade}` : ""}`}
+          className={`${styles.clientsMarquee}${noFade ? ` ${styles.clientsMarqueeNoFade}` : ""}${badges ? ` ${styles.clientsMarqueeBadges}` : ""}`}
           separator={<span aria-hidden />}
           fill={loopShortRows}
         >

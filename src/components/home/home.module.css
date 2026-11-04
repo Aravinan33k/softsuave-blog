@@ -5678,6 +5678,16 @@ h1.h2 {
   -webkit-mask-image: none;
   mask-image: none;
 }
+/* `Clients badges`: certification badges — bigger than a client logo, in colour. */
+.clientsMarqueeBadges .clientLogo {
+  width: clamp(88px, 9vw, 130px);
+  height: clamp(88px, 9vw, 130px);
+  opacity: 1;
+  filter: none;
+}
+.clientsMarqueeBadges .clientsItem {
+  min-height: clamp(88px, 9vw, 130px);
+}
 .clientsItem {
   display: flex;
   align-items: center;

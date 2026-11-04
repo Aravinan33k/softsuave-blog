@@ -34,7 +34,7 @@ export const rdHero: HeroContent = {
   accent: "Remote Tech Experts",
   body: ["Choosing the RIGHT Developers is not Easy, We Can HELP."],
   points: [
-    "We Offer 7 Days Trial, NO CATCH!",
+    "We Offer 40 Hours Trial, NO CATCH!",
     "100% Own Team, No Freelancers",
     "Interview before Hire, No Hiring Fees",
     "Hire on Fixed, Hourly or Monthly Basis",
