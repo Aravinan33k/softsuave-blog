@@ -72,9 +72,10 @@ export interface HeroContent {
    * Draw the `HeroBadge` marks bare, with no white plaque — for artwork made for
    * a dark ground (white lettering), which would vanish on white. The files should
    * be exported at about 3x their shown height (180px is plenty for the 42px marks): they are
-   * served unoptimized, and the browser scales them down.
+   * served unoptimized, and the browser scales them down. `"large"` draws round seals and
+   * other square marks up to 96px high instead of 42px.
    */
-  badgesBare?: boolean;
+  badgesBare?: boolean | "large";
   /**
    * Optional icon stat cards under the body ("150+ CLIENTS" + a line), the
    * live trial page's two-up grid. Rendered in place of nothing: a page can
@@ -505,9 +506,15 @@ export default function Hero({
                       // Bare marks are small, pre-sized files (see `badgesBare`), so they are served
                       // as they are: the optimizer handed back a ~80px thumbnail that the browser then
                       // stretched, which is what made them blurry.
-                      sizes={heroBadgeSizes(b, content.badgesBare ? 42 : 24)}
-                      unoptimized={content.badgesBare}
-                      className={content.badgesBare ? styles.badgeBareImg : styles.badgeLogoImg}
+                      sizes={heroBadgeSizes(b, content.badgesBare === "large" ? 96 : content.badgesBare ? 42 : 24)}
+                      unoptimized={Boolean(content.badgesBare)}
+                      className={
+                        content.badgesBare === "large"
+                          ? `${styles.badgeBareImg} ${styles.badgeBareImgLg}`
+                          : content.badgesBare
+                            ? styles.badgeBareImg
+                            : styles.badgeLogoImg
+                      }
                     />
                   </li>
                 ) : (

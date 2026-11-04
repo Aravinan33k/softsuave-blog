@@ -734,6 +734,11 @@
   object-fit: contain;
 }
 
+/* `badgesBare: "large"`: round seals and other square marks, which need more height. */
+.badgeBareImgLg {
+  height: clamp(64px, 6.5vw, 96px);
+}
+
 /* Bare marks have no plaque to space them, so the row gets real room between
    them instead of the plaques' 8px. */
 .badges:has(.badgeBare) {

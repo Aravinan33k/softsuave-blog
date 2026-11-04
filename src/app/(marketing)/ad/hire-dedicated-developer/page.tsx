@@ -109,7 +109,7 @@ export default function AdHireDedicatedDeveloperPage() {
           <Process content={dedProcess} id="journey" />
         </div>
 
-        <ManagerEnquiry content={dedEnquiry} id="ad-contact-form" />
+        <ManagerEnquiry content={dedEnquiry} id="ad-contact-form" idPrefix="ad-dedicated-contact" />
       </main>
 
       <Footer />

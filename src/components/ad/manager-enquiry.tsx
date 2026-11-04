@@ -25,9 +25,12 @@ export interface ManagerEnquiryContent {
 export default function ManagerEnquiry({
   content,
   id = "enquiry",
+  idPrefix = "ad-ai-contact",
 }: {
   content: ManagerEnquiryContent;
   id?: string;
+  /** Namespaces the form's field ids and is stored on the lead as its `sourceKey`, so it names the page. */
+  idPrefix?: string;
 }) {
   const { manager } = content;
   return (
@@ -83,7 +86,7 @@ export default function ManagerEnquiry({
         </div>
 
         <div className={styles.enqForm}>
-          <EnquiryForm content={content.form} idPrefix="ad-ai-contact" cardId={id} />
+          <EnquiryForm content={content.form} idPrefix={idPrefix} cardId={id} />
         </div>
       </div>
     </section>
