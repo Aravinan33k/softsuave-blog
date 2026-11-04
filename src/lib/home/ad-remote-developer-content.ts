@@ -202,6 +202,33 @@ export const rdPopup = {
       { name: "Warm Point", src: "/brand/clients/warmpoint.webp" },
       { name: "Utiliko", src: "/brand/clients/utiliko.webp" },
     ],
+    /** The live popup's four cards, word for word (they are shorter than the page's testimonials). */
+    testimonials: [
+      {
+        text: "Their 40-hour free trial truly proves their skill—I was very impressed with the results.",
+        name: "Tim Maliyil",
+        title: "COO - Phoenix Technologies",
+        photo: "/brand/testimonials/tim-maliyil.webp",
+      },
+      {
+        text: "Soft Suave has been a great 3-year partner, helping us cut costs and speed delivery.",
+        name: "Dara Huang MD",
+        title: "Co-Founder- Perkypet",
+        photo: "/brand/testimonials/dara-huang.webp",
+      },
+      {
+        text: "Soft Suave has been a solid partner, helping us cut costs and speed up delivery.",
+        name: "Dimitris Rokos",
+        title: "Founder, CEO - AMD telecom",
+        photo: "/brand/testimonials/dimitris-rokos.webp",
+      },
+      {
+        text: "Exceptional service and great results. Highly satisfied and happy to recommend Soft Suave.",
+        name: "Aaron. G",
+        title: " ",
+        photo: "/brand/testimonials/aaron-g.webp",
+      },
+    ],
   },
   form: {
     title: "Staffing gaps? We fix. Let's discuss!",

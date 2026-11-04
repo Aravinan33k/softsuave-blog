@@ -261,10 +261,20 @@
   overflow: hidden;
 }
 
-/* No top navigation above the hero: keep only a modest top gap. */
+/* No top navigation above the hero: a modest top gap, then the logo. */
 .hero.heroNoNav,
 .hero.heroNoNav:not(.heroCompact) {
-  padding-top: clamp(28px, 3.2vw, 56px);
+  padding-top: clamp(16px, 2vw, 28px);
+}
+
+.heroLogo {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 clamp(20px, 2.4vw, 36px);
+}
+
+.heroLogo a {
+  display: inline-flex;
 }
 
 /* The breadcrumb row is empty on these pages; drop its reserved gap too. */

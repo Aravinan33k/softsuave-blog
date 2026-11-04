@@ -6,6 +6,7 @@ import { CalendarDays, Globe, SquareTerminal, Users } from "lucide-react";
 import { publicMediaUrl } from "@/lib/media-url";
 import { heroBadgeSizes, isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import { SiteLink } from "@/themes/softsuave/site-link";
+import Logo from "@/components/home/logo";
 import styles from "./landing.module.css";
 import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
 import Breadcrumb from "@/components/common/breadcrumb";
@@ -248,7 +249,7 @@ export default function Hero({
   slot,
   noNav = false,
 }: {
-  /** The page has no top navigation, so the hero drops the space reserved for it. */
+  /** The page has no top navigation: the hero drops the space reserved for it and opens on the logo instead. */
   noNav?: boolean;
   content: HeroContent;
   /**
@@ -322,6 +323,14 @@ export default function Hero({
         </>
       ) : (
         <div className={styles.heroGlow} aria-hidden />
+      )}
+
+      {noNav && (
+        <div className={styles.heroLogo}>
+          <a href="#top" aria-label="Soft Suave logo">
+            <Logo tone="light" size={48} />
+          </a>
+        </div>
       )}
 
       {!content.aside && <div className={styles.heroHead}>{head}</div>}

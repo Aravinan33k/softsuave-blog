@@ -2,6 +2,7 @@
 
 import { Fragment, useRef, type CSSProperties } from "react";
 import Image from "next/image";
+import { CalendarDays } from "lucide-react";
 import { hero as generativeAiHero } from "@/lib/home/generative-ai";
 import { publicMediaUrl } from "@/lib/media-url";
 import { heroBadgeSizes, isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
@@ -216,7 +217,14 @@ export default function Hero({
                       target="_blank"
                       rel="noopener noreferrer"
                       className={className}
+                      // The booking button leads with a calendar icon, as on the live pages.
+                      style={
+                        cta.href.includes("calendly.com")
+                          ? { display: "inline-flex", alignItems: "center", gap: 10 }
+                          : undefined
+                      }
                     >
+                      {cta.href.includes("calendly.com") && <CalendarDays size={18} aria-hidden />}
                       {cta.label}
                     </a>
                   );
