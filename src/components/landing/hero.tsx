@@ -329,7 +329,11 @@ export default function Hero({
       <div className={content.aside ? `${styles.heroGrid} ${styles.heroGridAside}` : styles.heroGrid}>
         <div className={content.titleFit || content.titleOneLine ? styles.heroCopyFit : undefined}>
           {content.aside && head}
+          {/* `suppressHydrationWarning`: the root layout's paint-nudge script
+              (lib/paint-nudge.ts) flips a transparent text-shadow on this H1 while
+              the page waits for its first paint; hydration can land mid-flip. */}
           <h1
+            suppressHydrationWarning
             className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}${
               content.titleOneLine ? ` ${styles.heroTitleOneLine}` : ""
             }`}

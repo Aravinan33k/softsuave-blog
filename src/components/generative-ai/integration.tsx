@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import { publicMediaUrl } from "@/lib/media-url";
 import { integration as generativeAiIntegration } from "@/lib/home/generative-ai";
 import { gridSpansFor } from "@/components/landing/card-spans";
 import FadeUp from "@/components/home/fade-up";
@@ -16,7 +18,12 @@ export interface IntegrationContent {
   readonly eyebrow: string;
   readonly title: string;
   readonly body: string;
-  readonly blocks: readonly { readonly label: string; readonly body: string }[];
+  readonly blocks: readonly {
+    readonly label: string;
+    readonly body: string;
+    /** Optional mark above the label, `bold` cards only — the live expert cards' technology logo. */
+    readonly image?: { readonly src: string; readonly alt: string };
+  }[];
 }
 
 /**
@@ -77,6 +84,18 @@ export default function Integration({
                 {/* No glyph and no ordinal: an engagement model is a named
                     choice, not one of a numbered set, and the reference band's
                     own cards carry neither. */}
+                {b.image && (
+                  <span className={styles.indBoldIcon} data-multi="true" aria-hidden>
+                    <Image
+                      src={publicMediaUrl(b.image.src)}
+                      alt=""
+                      width={40}
+                      height={40}
+                      unoptimized
+                      style={{ height: 40, width: "auto" }}
+                    />
+                  </span>
+                )}
                 <h3 className={styles.indBoldName}>{b.label}</h3>
                 {b.body ? <p className={styles.indBoldBody}>{b.body}</p> : null}
                 {blockCta &&

@@ -21,7 +21,13 @@ export interface CardGridContent {
      * for a combination of technologies ("Angular + MongoDB + Express + Node")
      * shows each of its marks. Root-relative under /public.
      */
-    readonly images?: readonly { readonly src: string; readonly alt: string }[];
+    readonly images?: readonly {
+      readonly src: string;
+      readonly alt: string;
+      /** Natural size, for a mark that is not square — the width follows the 40px height. */
+      readonly width?: number;
+      readonly height?: number;
+    }[];
     readonly name: string;
     readonly body: string;
     /** Decorative backdrop shown at rest with the icon and name. */
@@ -48,6 +54,8 @@ export interface CardGridContent {
    * missing"). Same size as the mid-page conversion band's button.
    */
   cta?: { readonly label: string; readonly href: string };
+  /** `bold` only: draw no icon on any card — a section whose live cards are a name and a line of copy. */
+  noIcons?: boolean;
 }
 
 /**
@@ -127,6 +135,7 @@ export default function Industries({
       variant={variant}
       links={links}
       cardLinks={cardLinks}
+      noIcons={content.noIcons}
       icons={content.items.map((item) =>
         item.images ? (
           <span key={item.name} style={{ display: "contents" }}>
@@ -135,7 +144,7 @@ export default function Industries({
                 key={`${img.alt}-${n}`}
                 src={publicMediaUrl(img.src)}
                 alt=""
-                width={40}
+                width={img.width && img.height ? Math.round((40 * img.width) / img.height) : 40}
                 height={40}
                 unoptimized
                 style={{ height: 40, width: "auto" }}
