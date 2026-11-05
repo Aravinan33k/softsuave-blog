@@ -77,12 +77,24 @@ export default function Process({
       <SimpleProcess steps={content.steps} label={label} />
       {content.cta && (
         <div className={styles.gridCtaRow}>
-          <SiteLink
-            href={content.cta.href}
-            className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}
-          >
-            {content.cta.label}
-          </SiteLink>
+          {/* An in-page target stays a plain <a>: ScrollProvider's Lenis handler
+              (and the ad pages' trial modal) listen for those, whereas SiteLink
+              reads "#trial" as a site path and sends it to softsuave.com. */}
+          {content.cta.href.startsWith("#") ? (
+            <a
+              href={content.cta.href}
+              className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}
+            >
+              {content.cta.label}
+            </a>
+          ) : (
+            <SiteLink
+              href={content.cta.href}
+              className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}
+            >
+              {content.cta.label}
+            </SiteLink>
+          )}
         </div>
       )}
     </section>

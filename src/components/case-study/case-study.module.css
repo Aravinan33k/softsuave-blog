@@ -175,7 +175,7 @@
   margin: 0;
   max-width: 40ch;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.15;
   letter-spacing: -0.02em;

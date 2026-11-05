@@ -1,11 +1,12 @@
 "use client";
 
-import { Fragment, useRef, type CSSProperties } from "react";
+import { Fragment, useRef, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
-import { Globe, SquareTerminal, Users } from "lucide-react";
+import { CalendarDays, Globe, SquareTerminal, Users } from "lucide-react";
 import { publicMediaUrl } from "@/lib/media-url";
 import { heroBadgeSizes, isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import { SiteLink } from "@/themes/softsuave/site-link";
+import Logo from "@/components/home/logo";
 import styles from "./landing.module.css";
 import cta from "@/components/common/cta-row.module.css";
 import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
@@ -70,6 +71,14 @@ export interface HeroContent {
    */
   badgesLabel?: string;
   /**
+   * Draw the `HeroBadge` marks bare, with no white plaque — for artwork made for
+   * a dark ground (white lettering), which would vanish on white. The files should
+   * be exported at about 3x their shown height (180px is plenty for the 42px marks): they are
+   * served unoptimized, and the browser scales them down. `"large"` draws round seals and
+   * other square marks up to 96px high instead of 42px.
+   */
+  badgesBare?: boolean | "large";
+  /**
    * Optional icon stat cards under the body ("150+ CLIENTS" + a line), the
    * live trial page's two-up grid. Rendered in place of nothing: a page can
    * pass these with an empty `points` list, or both.
@@ -107,6 +116,14 @@ export interface HeroContent {
     readonly href: string;
     readonly external?: boolean;
   }[];
+  /** Text set between the CTAs ("OR") — the ad landing page's pair reads "Start … OR Book a Meeting". */
+  ctaSeparator?: string;
+  /**
+   * A small note beside the CTAs with a hover/focus tip — the live Java page's
+   * "No Payment Required ?" whose popover explains the free trial. The tip is a
+   * title and a paragraph, shown on hover and on keyboard focus (and so on tap).
+   */
+  ctaNote?: { readonly label: string; readonly tipTitle: string; readonly tipBody: string };
   /**
    * Optional label/value pairs under the body copy — a case study's
    * "Industry: Transportation" and "Platform: Web" (the live case-study
@@ -230,8 +247,18 @@ export default function Hero({
   idPrefix = "landing",
   variant = "display",
   breadcrumb = true,
+  slot,
+  noNav = false,
 }: {
+  /** The page has no top navigation: the hero drops the space reserved for it and opens on the logo instead. */
+  noNav?: boolean;
   content: HeroContent;
+  /**
+   * Anything to put in the form's column when the hero has neither a `form` nor
+   * an `aside` image — the ad landing page's testimonial card. Ignored when
+   * either is set.
+   */
+  slot?: ReactNode;
   idPrefix?: string;
   variant?: HeroVariant;
   /** `false` drops the "Home › <page>" trail for a page that shows none. */
@@ -270,6 +297,7 @@ export default function Hero({
         styles.hero,
         content.image ? styles.heroWithBg : "",
         compact ? styles.heroCompact : "",
+        noNav ? styles.heroNoNav : "",
       ]
         .filter(Boolean)
         .join(" ")}
@@ -298,12 +326,24 @@ export default function Hero({
         <div className={styles.heroGlow} aria-hidden />
       )}
 
+      {noNav && (
+        <div className={styles.heroLogo}>
+          <a href="#top" aria-label="Soft Suave logo">
+            <Logo tone="light" size={48} />
+          </a>
+        </div>
+      )}
+
       {!content.aside && <div className={styles.heroHead}>{head}</div>}
 
       <div className={content.aside ? `${styles.heroGrid} ${styles.heroGridAside}` : styles.heroGrid}>
         <div className={content.titleFit || content.titleOneLine ? styles.heroCopyFit : undefined}>
           {content.aside && head}
+          {/* `suppressHydrationWarning`: the root layout's paint-nudge script
+              (lib/paint-nudge.ts) flips a transparent text-shadow on this H1 while
+              the page waits for its first paint; hydration can land mid-flip. */}
           <h1
+            suppressHydrationWarning
             className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}${
               content.titleOneLine ? ` ${styles.heroTitleOneLine}` : ""
             }`}
@@ -333,7 +373,10 @@ export default function Hero({
           </h1>
 
           {content.body.map((p, i) => (
-            <p key={p.slice(0, 24)} className={styles.heroBody} style={{ ["--i" as string]: i } as CSSProperties}>
+            <p
+              key={p.slice(0, 24)}
+              className={`${styles.heroBody}${p.startsWith("*") ? ` ${styles.heroBodyNote}` : ""}`}
+              style={{ ["--i" as string]: i } as CSSProperties}>
               {p}
             </p>
           ))}
@@ -416,33 +459,62 @@ export default function Hero({
             <div className={`${styles.heroCtas} ${cta.ctaPair}`}>
               {content.ctas.map((cta, i) => {
                 const className = i === 0 ? `${styles.btn} ${styles.btnPrimary}` : styles.btn;
-                if (cta.external) {
-                  return (
-                    <a
-                      key={cta.label}
-                      href={cta.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={className}
-                    >
-                      {cta.label}
-                    </a>
-                  );
-                }
                 // An in-page target stays a plain <a> so ScrollProvider's
                 // Lenis handler intercepts it; anything else goes through
                 // SiteLink, which resolves a live-only path (like the trial
                 // page) to softsuave.com instead of 404ing.
-                return cta.href.startsWith("#") ? (
-                  <a key={cta.label} href={cta.href} className={className}>
+                const button = cta.external ? (
+                  <a
+                    href={cta.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={className}
+                    // The live booking button leads with a calendar icon.
+                    style={
+                      cta.href.includes("calendly.com")
+                        ? { display: "inline-flex", alignItems: "center", gap: 10 }
+                        : undefined
+                    }>
+                    {cta.href.includes("calendly.com") && <CalendarDays size={18} aria-hidden />}
+                    {cta.label}
+                  </a>
+                ) : cta.href.startsWith("#") ? (
+                  <a href={cta.href} className={className}>
                     {cta.label}
                   </a>
                 ) : (
-                  <SiteLink key={cta.label} href={cta.href} className={className}>
+                  <SiteLink href={cta.href} className={className}>
                     {cta.label}
                   </SiteLink>
                 );
+                return (
+                  <Fragment key={cta.label}>
+                    {i > 0 && content.ctaSeparator && (
+                      <span className={styles.heroCtaOr}>{content.ctaSeparator}</span>
+                    )}
+                    {button}
+                  </Fragment>
+                );
               })}
+              {content.ctaNote && (
+                <span className={styles.heroTip}>
+                  <button
+                    type="button"
+                    className={styles.heroTipBtn}
+                    aria-describedby={`${idPrefix}-cta-tip`}
+                  >
+                    {content.ctaNote.label}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .8-1 1.5M12 16.6h.01" />
+                    </svg>
+                  </button>
+                  <span role="tooltip" id={`${idPrefix}-cta-tip`} className={styles.heroTipBubble}>
+                    <strong>{content.ctaNote.tipTitle}</strong>
+                    <span>{content.ctaNote.tipBody}</span>
+                  </span>
+                </span>
+              )}
             </div>
           )}
 
@@ -453,7 +525,7 @@ export default function Hero({
             <ul className={styles.badges} aria-label={content.badgesLabel ?? "Credentials"}>
               {content.badges.map((b, i) =>
                 isHeroBadge(b) ? (
-                  <li key={b.src} className={`${styles.badge} ${styles.badgeLogo}`} style={{ ["--i" as string]: i } as CSSProperties}>
+                  <li key={b.src} className={`${styles.badge} ${content.badgesBare ? styles.badgeBare : styles.badgeLogo}`} style={{ ["--i" as string]: i } as CSSProperties}>
                     {/* The mark is the whole point here, so unlike the awards
                         strip it carries its own name — nothing else in the
                         hero says "Clutch". */}
@@ -462,8 +534,19 @@ export default function Hero({
                       alt={b.alt}
                       width={b.width}
                       height={b.height}
-                      sizes={heroBadgeSizes(b)}
-                      className={styles.badgeLogoImg}
+                      // A bare mark is drawn up to 42px high (`.badgeBareImg`), a plaque one 24px.
+                      // Bare marks are small, pre-sized files (see `badgesBare`), so they are served
+                      // as they are: the optimizer handed back a ~80px thumbnail that the browser then
+                      // stretched, which is what made them blurry.
+                      sizes={heroBadgeSizes(b, content.badgesBare === "large" ? 96 : content.badgesBare ? 42 : 24)}
+                      unoptimized={Boolean(content.badgesBare)}
+                      className={
+                        content.badgesBare === "large"
+                          ? `${styles.badgeBareImg} ${styles.badgeBareImgLg}`
+                          : content.badgesBare
+                            ? styles.badgeBareImg
+                            : styles.badgeLogoImg
+                      }
                     />
                   </li>
                 ) : (
@@ -494,7 +577,9 @@ export default function Hero({
           </figure>
         ) : content.form ? (
           <EnquiryForm content={content.form} idPrefix={idPrefix} />
-        ) : null}
+        ) : (
+          (slot ?? null)
+        )}
       </div>
     </section>
   );
