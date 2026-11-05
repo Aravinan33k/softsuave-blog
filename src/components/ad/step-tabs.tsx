@@ -9,6 +9,7 @@ import landing from "@/components/landing/landing.module.css";
 import styles from "./ad.module.css";
 
 export interface StepTabsContent {
+  readonly eyebrow?: string;
   readonly title: string;
   readonly intro: string;
   readonly steps: readonly {
@@ -55,7 +56,7 @@ export default function StepTabs({ content, id = "why" }: { content: StepTabsCon
 
   return (
     <section className={styles.shell} id={id}>
-      <SectionHead title={content.title} intro={content.intro} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.intro} />
 
       <div className={landing.sbWrap}>
         <div className={landing.sbGrid} role="tablist" aria-label={content.title} onKeyDown={onKeyDown}>
