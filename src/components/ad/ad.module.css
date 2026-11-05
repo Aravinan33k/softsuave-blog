@@ -1350,3 +1350,91 @@
   line-height: 1.6;
   color: var(--muted);
 }
+
+/* ---------- Audience cards ---------- */
+.audGrid {
+  list-style: none;
+  margin: clamp(20px, 3vw, 36px) 0 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(12px, 1.4vw, 20px);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .audGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* The card style /custom-ai-development-services uses (`.proofItem` in landing.module.css): a short
+   orange rule at the top-left that runs across the whole top edge on hover, while the border turns
+   orange and the card lifts a little. */
+.audCard {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: clamp(22px, 2.4vw, 32px);
+  transition: border-color 0.4s ease, transform 0.35s ease;
+}
+
+.audCard:hover,
+.audCard:focus-within {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.audCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.audCard:hover::before,
+.audCard:focus-within::before {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audCard,
+  .audCard::before {
+    transition: none;
+  }
+}
+
+.audIcon {
+  display: block;
+  height: 56px;
+  width: auto;
+  margin-bottom: 18px;
+}
+
+.audName {
+  margin: 0 0 8px;
+  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.audLead {
+  margin: 0 0 14px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.audPoints {
+  margin: 0;
+  padding-left: 1.2em;
+  display: grid;
+  gap: 8px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
