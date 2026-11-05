@@ -1184,3 +1184,169 @@
     transition: none;
   }
 }
+
+/* ---------- Stats story (the "Analysis" block) ---------- */
+.storyGrid {
+  display: grid;
+  gap: clamp(24px, 4vw, 64px);
+  grid-template-columns: 1fr;
+  align-items: center;
+  margin-top: clamp(20px, 3vw, 36px);
+}
+
+@media (min-width: 1000px) {
+  .storyGrid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+}
+
+.storyImage {
+  width: 100%;
+  height: auto;
+  max-width: 520px;
+  justify-self: center;
+}
+
+.storyStats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(12px, 1.4vw, 18px);
+}
+
+/* Each figure is a card, drawn like the site's bold cards: a hairline border, a 3px accent
+   rule across the top, a soft lift on hover. */
+.storyStat {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--card-accent, var(--accent, #ff5436));
+  border-radius: 14px;
+  background: var(--surface);
+  padding: clamp(18px, 2vw, 26px) clamp(18px, 2vw, 28px);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.35s ease;
+}
+
+.storyStat:nth-child(5n + 1) { --card-accent: var(--card-accent-1); }
+.storyStat:nth-child(5n + 2) { --card-accent: var(--card-accent-2); }
+.storyStat:nth-child(5n + 3) { --card-accent: var(--card-accent-3); }
+.storyStat:nth-child(5n + 4) { --card-accent: var(--card-accent-4); }
+
+.storyStat:hover {
+  transform: translateY(-4px);
+  background: color-mix(in srgb, var(--card-accent, var(--accent)) 6%, var(--surface));
+  box-shadow: 0 14px 34px -12px color-mix(in srgb, var(--card-accent, var(--accent)) 55%, transparent);
+}
+
+.storyHead {
+  margin: 0 0 8px;
+  font-size: clamp(1.1rem, 1.5vw, 1.375rem);
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.storyFigure {
+  color: var(--card-accent, var(--accent, #ff5436));
+  font-size: clamp(1.4rem, 2vw, 1.875rem);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.storyBody {
+  margin: 0;
+  max-width: 56ch;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* ---------- Step cards (the "Roadmap" block) ---------- */
+.stepGrid {
+  list-style: none;
+  margin: clamp(20px, 3vw, 36px) 0 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(12px, 1.4vw, 20px);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .stepGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .stepGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* The card style /custom-ai-development-services uses (`.proofItem` in landing.module.css): a
+   short orange rule at the top-left that runs across the whole top edge on hover, while the
+   border turns orange and the card lifts a little. */
+.stepCard {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: clamp(20px, 2.2vw, 30px);
+  transition: border-color 0.4s ease, transform 0.35s ease;
+}
+
+.stepCard:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.stepCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stepCard:hover::before {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepCard,
+  .stepCard::before {
+    transition: none;
+  }
+}
+
+.stepCardImg {
+  display: block;
+  height: 72px;
+  width: auto;
+  margin: 0 0 18px auto;
+}
+
+.stepCardLabel {
+  margin: 0 0 6px;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label, 0.75rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stepCardName {
+  margin: 0 0 10px;
+  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.stepCardBody {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--muted);
+}

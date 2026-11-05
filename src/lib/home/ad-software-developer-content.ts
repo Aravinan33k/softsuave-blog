@@ -148,7 +148,7 @@ export const sdTech: TechStackContent = {
   images: Object.fromEntries(
     Object.entries({
       React: "react", "Vue.js": "vue-9-1", Javascript: "javascript-1", Bootstrap: "bootstrap", HTML: "html-5", Html: "html-5", CSS: "css3",
-      IOS: "ios-svgrepo-com", Ember: "ember-logo", Next: "nextjs-svgrepo-com", "Node Js": "nodejs", ".Net": "dotnet-1",
+      IOS: "ios-svgrepo-com", Ember: "ember-logo", "Node Js": "nodejs", ".Net": "dotnet-1",
       ROR: "ror-2", Swift: "swift", Kotlin: "kotlinlang-icon", Java: "java", Go: "Go-Logo_Aqua", Flutter: "flutter",
       Ionic: "ionic", AWS: "aws", Azure: "azure", "Google Cloud": "google-cloud", Docker: "docker", Jenkins: "jenkins-new",
       Ansible: "anisible", Kubernetes: "kubernets", Photoshop: "adobe-photoshop-2", Illustrator: "adobe-illustrator-cc-icon",
