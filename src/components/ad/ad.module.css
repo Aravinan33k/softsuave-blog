@@ -1438,3 +1438,8 @@
   color: var(--text);
 }
 
+
+/* Two-tone line icons (black and red) on a dark band: inverted to light, then the hue turned back so the red stays red. */
+.iconsOnDark img {
+  filter: invert(1) hue-rotate(180deg);
+}

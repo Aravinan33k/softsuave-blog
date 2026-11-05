@@ -261,7 +261,7 @@ export const rdPopup = {
     ],
   },
   form: {
-    title: "Staffing gaps? We fix. Let's discuss!",
+    title: "Staffing gaps? We fix. Let’s discuss!",
     note: "Alert: This form is for business, not candidates. To apply for jobs,",
     noteLink: { label: "click here", href: "/career-overview" },
     submit: "Submit",
