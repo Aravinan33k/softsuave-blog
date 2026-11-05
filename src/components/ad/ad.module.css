@@ -1152,3 +1152,35 @@
 .contactMail {
   border-radius: 12px;
 }
+
+/* ---------- Card grid whose cards draw their top line on hover ----------
+   At rest a card has a plain hairline across its top; on hover (or focus) the card's accent
+   colour draws across it from the left, as the lines on the site's stack panels do. Scoped
+   to a wrapper, so the same cards elsewhere keep their solid accent rule. */
+.sweepTop [class*="indBoldCard"] {
+  border-top: 1px solid var(--line);
+}
+
+.sweepTop [class*="indBoldCard"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--accent));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.sweepTop [class*="indBoldCard"]:hover::before,
+.sweepTop [class*="indBoldCard"]:focus-within::before {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweepTop [class*="indBoldCard"]::before {
+    transition: none;
+  }
+}
