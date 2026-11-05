@@ -1052,3 +1052,103 @@
 .shell:has(.whyWithImage) {
   padding-bottom: clamp(16px, 2vw, 32px);
 }
+
+/* ---------- Step tabs (Ideate / Develop / Release): the number line and the accent word ---------- */
+.stepNum {
+  margin: 0 0 8px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.stepNum span {
+  opacity: 0.5;
+  margin-right: 8px;
+}
+
+.stepAccent {
+  color: var(--accent, #ff5436);
+}
+
+/* ---------- App screens: phone shots in a loop, a button under each ---------- */
+.screens {
+  margin-top: clamp(20px, 3vw, 36px);
+  overflow: hidden;
+}
+
+.screen {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  margin-right: 24px;
+}
+
+/* Hovering a screen lays a black tint over it and brings up its button — the masthead
+   "Enquire Now" button's style (orange; a white wipe on hover). A touch screen has no
+   hover, so there the button stays and the tint is left off. */
+.screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.screen:hover::after,
+.screen:focus-within::after {
+  opacity: 1;
+}
+
+.screen .screenCta {
+  /* On the black tint the hover fill is white, whatever ground the band sits on. */
+  --cta-hover-bg: #ffffff;
+  --cta-hover-ink: #140b08;
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, calc(-50% + 8px));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0s, color 0.3s ease, border-color 0.3s ease;
+}
+
+.screen:hover .screenCta,
+.screen:focus-within .screenCta {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .screen .screenCta {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    pointer-events: auto;
+    top: auto;
+    bottom: 18px;
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen::after,
+  .screen .screenCta {
+    transition: none;
+  }
+}
+
+.screenImg {
+  flex: none;
+  max-width: none;
+  height: clamp(300px, 36vw, 420px);
+  width: auto;
+  border-radius: 18px;
+}
+
+/* The closing band's address button is rounded (the site's buttons are otherwise square). */
+.contactMail {
+  border-radius: 12px;
+}

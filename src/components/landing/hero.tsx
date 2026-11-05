@@ -2,7 +2,7 @@
 
 import { Fragment, useRef, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
-import { CalendarDays, Globe, SquareTerminal, Users } from "lucide-react";
+import { CalendarDays, Globe, Mail, SquareTerminal, Star, Users } from "lucide-react";
 import { publicMediaUrl } from "@/lib/media-url";
 import { heroBadgeSizes, isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import { SiteLink } from "@/themes/softsuave/site-link";
@@ -123,6 +123,21 @@ export interface HeroContent {
    * live /ad/remote-developers masthead's own "Start 40 Hours Free Trial →".
    */
   logoCta?: { readonly label: string; readonly href: string };
+  /** An email address: adds an icon button beside `logoCta` that opens a message to it. */
+  logoMail?: string;
+  /**
+   * Review scores under the body, each a gold star and its score over the review
+   * site's own mark, on a light card with a laurel wreath behind it — the live
+   * android ad hero's four "4.9/5" lockups.
+   */
+  ratings?: {
+    readonly items: readonly {
+      readonly score: string;
+      readonly logo: { readonly src: string; readonly alt: string; readonly width: number; readonly height: number };
+    }[];
+    /** The wreath drawn faintly behind each card. Root-relative under /public. */
+    readonly laurel?: string;
+  };
   /**
    * A small note beside the CTAs with a hover/focus tip — the live Java page's
    * "No Payment Required ?" whose popover explains the free trial. The tip is a
@@ -339,9 +354,21 @@ export default function Hero({
             <Logo tone="light" size={48} />
           </a>
           {content.logoCta && (
-            <a href={content.logoCta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.heroLogoCta}`}>
-              {content.logoCta.label}
-            </a>
+            <div className={styles.heroLogoActions}>
+              {content.logoMail && (
+                <a
+                  href={`mailto:${content.logoMail}`}
+                  className={`${styles.btn} ${styles.btnPrimary} ${styles.heroLogoMail}`}
+                  aria-label={content.logoMail}
+                  title={content.logoMail}
+                >
+                  <Mail size={18} aria-hidden />
+                </a>
+              )}
+              <a href={content.logoCta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.heroLogoCta}`}>
+                {content.logoCta.label}
+              </a>
+            </div>
           )}
         </div>
       )}
@@ -465,6 +492,35 @@ export default function Hero({
               </li>
             ))}
           </ul>
+          )}
+
+          {content.ratings && (
+            <ul className={styles.heroRatings}>
+              {content.ratings.items.map((r) => (
+                <li
+                  key={r.logo.src}
+                  className={styles.heroRating}
+                  style={
+                    content.ratings?.laurel
+                      ? ({ ["--laurel" as string]: `url(${publicMediaUrl(content.ratings.laurel)})` } as CSSProperties)
+                      : undefined
+                  }
+                >
+                  <span className={styles.heroRatingScore}>
+                    <Star size={18} fill="currentColor" aria-hidden />
+                    {r.score}
+                  </span>
+                  <Image
+                    src={publicMediaUrl(r.logo.src)}
+                    alt={r.logo.alt}
+                    width={r.logo.width}
+                    height={r.logo.height}
+                    unoptimized
+                    className={styles.heroRatingLogo}
+                  />
+                </li>
+              ))}
+            </ul>
           )}
 
           {content.ctas && content.ctas.length > 0 && (

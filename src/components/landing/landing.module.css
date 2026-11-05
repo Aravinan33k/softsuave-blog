@@ -284,6 +284,17 @@
   gap: 16px;
 }
 
+.heroLogoActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The email button is an icon, so it stays on a phone. */
+.heroLogo .heroLogoMail {
+  padding-inline: 12px;
+}
+
 .heroLogo .heroLogoCta {
   display: none;
 }
@@ -761,6 +772,67 @@
   width: 22px;
   height: 22px;
   object-fit: contain;
+}
+
+/* `ratings`: a gold star + score over the review site's mark, on a light card with a
+   laurel wreath behind it. */
+.heroRatings {
+  list-style: none;
+  margin: clamp(22px, 2.6vw, 32px) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.heroRating {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 150px;
+  height: 120px;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #1a1d29;
+  overflow: hidden;
+}
+
+.heroRating::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--laurel, none) center / contain no-repeat;
+  opacity: 0.35;
+}
+
+.heroRatingScore {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.heroRatingScore svg {
+  color: #ffa500;
+}
+
+.heroRatingLogo {
+  position: relative;
+  width: auto;
+  height: 28px;
+  max-width: 110px;
+  object-fit: contain;
+}
+
+@media (max-width: 520px) {
+  .heroRating {
+    width: calc(50% - 6px);
+  }
 }
 
 /* Partner standing (Upwork, Clutch, Microsoft, AWS) runs as the issuers' own
