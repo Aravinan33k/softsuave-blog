@@ -16,9 +16,18 @@ export default function SectionCta({
   if (!cta) return null;
   return (
     <div className={`${styles.ctaActions} ${styles.sectionCtaRow}`}>
-      <SiteLink href={cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
-        {cta.label}
-      </SiteLink>
+      {/* An in-page target ("#enquiry") stays a plain <a> so ScrollProvider's Lenis
+          handler can act on it; SiteLink reads it as a site path and sends it to
+          softsuave.com. */}
+      {cta.href.startsWith("#") ? (
+        <a href={cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
+          {cta.label}
+        </a>
+      ) : (
+        <SiteLink href={cta.href} className={`${styles.btn} ${styles.btnPrimary}`}>
+          {cta.label}
+        </SiteLink>
+      )}
     </div>
   );
 }

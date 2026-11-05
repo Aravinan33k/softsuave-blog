@@ -260,6 +260,27 @@
   overflow: hidden;
 }
 
+/* No top navigation above the hero: a modest top gap, then the logo. */
+.hero.heroNoNav,
+.hero.heroNoNav:not(.heroCompact) {
+  padding-top: clamp(16px, 2vw, 28px);
+}
+
+.heroLogo {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 clamp(20px, 2.4vw, 36px);
+}
+
+.heroLogo a {
+  display: inline-flex;
+}
+
+/* The breadcrumb row is empty on these pages; drop its reserved gap too. */
+.hero.heroNoNav .heroHead:empty {
+  display: none;
+}
+
 /* Decorative accent for the flat (no `image`) hero. Redundant once there's a
    real photo behind the section, so `image` pages render `.heroBg` instead —
    see hero.tsx. */
@@ -438,6 +459,12 @@
 
 .heroBody + .heroBody {
   margin-top: 1em;
+}
+
+/* A "*"-led footnote line under the hero copy ("*Satisfaction Guaranteed – Get
+   40-hour Free Trial") is a fixed 16px, not the body size. */
+.hero .heroBody.heroBodyNote {
+  font-size: 16px;
 }
 
 /* --- supporting points: hairline-separated rows, not a bulleted list --- */
@@ -717,6 +744,32 @@
   padding: 9px 13px;
   background: #fff;
   border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* `badgesBare`: marks drawn for a dark ground, with no plaque. */
+.badgeBare {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.badgeBareImg {
+  display: block;
+  width: auto;
+  height: clamp(32px, 3vw, 42px);
+  object-fit: contain;
+}
+
+/* `badgesBare: "large"`: round seals and other square marks, which need more height. */
+.badgeBareImgLg {
+  height: clamp(64px, 6.5vw, 96px);
+}
+
+/* Bare marks have no plaque to space them, so the row gets real room between
+   them instead of the plaques' 8px. */
+.badges:has(.badgeBare) {
+  gap: clamp(20px, 2.6vw, 36px);
+  align-items: center;
 }
 
 .badgeLogoImg {
@@ -8784,5 +8837,87 @@
     margin-top: 10px;
     font-size: 0.9375rem;
     line-height: 1.55;
+  }
+}
+
+/* "OR" between two calls to action (the ad landing page's hero and trial band). */
+.heroCtaOr,
+.ctaOr {
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  align-self: center;
+}
+
+/* The hero's "No Payment Required ?" note and its tip (`ctaNote`). The tip opens on
+   hover and on keyboard focus, above the button. */
+.heroTip {
+  position: relative;
+  display: inline-flex;
+}
+
+.heroTipBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.4em 0.2em;
+  border: 0;
+  background: none;
+  color: var(--muted, #9c9c9c);
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  cursor: help;
+}
+
+.heroTipBtn svg {
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.heroTipBtn:hover,
+.heroTipBtn:focus-visible {
+  color: var(--text-bright, #fff);
+}
+
+.heroTipBubble {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 10px);
+  z-index: 5;
+  display: grid;
+  gap: 6px;
+  width: min(340px, calc(100vw - 2 * var(--gutter, 20px)));
+  padding: 14px 16px;
+  border: 1px solid var(--line, #434343);
+  border-radius: 10px;
+  background: #fff;
+  color: #3f434d;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  box-shadow: 0 14px 34px -12px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  pointer-events: none;
+}
+
+.heroTipBubble strong {
+  color: #0f1115;
+  font-weight: 700;
+}
+
+.heroTip:hover .heroTipBubble,
+.heroTip:focus-within .heroTipBubble {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroTipBubble {
+    transition: none;
   }
 }

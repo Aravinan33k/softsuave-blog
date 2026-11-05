@@ -88,6 +88,8 @@ export default function IndustriesClient({
   cardLinks,
   icons,
   brand,
+  multi,
+  noIcons,
 }: {
   content: CardGridContent;
   id: string;
@@ -96,6 +98,10 @@ export default function IndustriesClient({
   cardLinks: boolean;
   icons: readonly ReactNode[];
   brand: readonly boolean[];
+  /** Cards whose icon slot holds a row of images rather than one badge. */
+  multi?: readonly boolean[];
+  /** Draw no icon on the `bold` cards. */
+  noIcons?: boolean;
 }) {
   /* Links: a card's own `href` wins; a grid of services or sectors also links
      cards whose name matches one of our pages (`lib/home/service-href.ts`).
@@ -132,13 +138,16 @@ export default function IndustriesClient({
                     brand mark, which has its own palette and is fought by the
                     ring's accent wash. A drawn glyph is `currentColor` and
                     wants that tint, so it keeps it. */}
-                <span
-                  className={styles.indBoldIcon}
-                  data-brand={brand[i] ? "true" : undefined}
-                  aria-hidden
-                >
-                  {icons[i]}
-                </span>
+                {!noIcons && (
+                  <span
+                    className={styles.indBoldIcon}
+                    data-brand={brand[i] ? "true" : undefined}
+                    data-multi={multi?.[i] ? "true" : undefined}
+                    aria-hidden
+                  >
+                    {icons[i]}
+                  </span>
+                )}
                 <h3 className={styles.indBoldName}>
                   {href && cardLinks ? (
                     <SiteLink href={href} className={styles.indBoldStretch}>
