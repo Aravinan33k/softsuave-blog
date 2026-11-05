@@ -169,7 +169,9 @@ export interface HeroContent {
      * (hire-by-skill review: "add a black gradient to increase visibility in
      * the hero section"). Omitted keeps the default even veil.
      */
-    veil?: "strong";
+    veil?: "strong" | "dark";
+    /** Hold the photo still — no slow drift/zoom (the live ad hero's banner does not move). */
+    still?: boolean;
   };
 }
 
@@ -315,7 +317,7 @@ export default function Hero({
             alt={content.image.alt}
             fill
             sizes="100vw"
-            className={styles.heroBg}
+            className={content.image.still ? `${styles.heroBg} ${styles.heroBgStill}` : styles.heroBg}
             priority
             {...(content.image.blurDataURL
               ? { placeholder: "blur" as const, blurDataURL: content.image.blurDataURL }

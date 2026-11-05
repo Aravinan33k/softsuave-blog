@@ -13,6 +13,14 @@
   padding-top: 0;
 }
 
+.shellTight {
+  padding-top: 0;
+}
+
+.shellJoined {
+  padding-bottom: 0;
+}
+
 /* Squared primary button — the same values as `landing.module.css .btn`/`.btnPrimary`. */
 .btn {
   display: inline-flex;
@@ -984,4 +992,63 @@
 /* Dark-lettered line-art marks (made for a light card) turned white, for a section set on the dark ground. */
 .markOnDark img {
   filter: invert(1);
+}
+
+/* ---------- Logo rows: tool marks, no names ---------- */
+.logoRows {
+  display: grid;
+  gap: 16px;
+  margin-top: clamp(20px, 3vw, 36px);
+  overflow: hidden;
+}
+
+.logoChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  padding: 0 28px;
+  margin-right: 16px;
+  flex: none;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  white-space: nowrap;
+}
+
+/* ---------- A card grid beside a photo ---------- */
+.gridWithImage {
+  display: grid;
+  gap: clamp(22px, 3vw, 48px);
+  grid-template-columns: 1fr;
+  align-items: center;
+  /* The photo sits inside the page gutter, as the card grid beside it does. */
+  padding-right: var(--gutter, clamp(20px, 5vw, 90px));
+}
+
+@media (max-width: 999px) {
+  /* Stacked, the photo takes the gutter on both sides. */
+  .gridImage {
+    margin: 0 var(--gutter, clamp(20px, 5vw, 90px));
+    width: calc(100% - 2 * var(--gutter, clamp(20px, 5vw, 90px)));
+  }
+}
+
+@media (min-width: 1000px) {
+  .gridWithImage {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  }
+}
+
+.gridImage {
+  width: 100%;
+  height: auto;
+  max-width: 520px;
+  justify-self: center;
+  border-radius: 20px;
+}
+
+/* A list beside a photo: the button under it sits close to the photo, not a whole section away. */
+.shell:has(.whyWithImage) {
+  padding-bottom: clamp(16px, 2vw, 32px);
 }

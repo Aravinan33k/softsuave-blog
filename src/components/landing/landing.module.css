@@ -346,6 +346,12 @@
   will-change: transform;
 }
 
+/* Opt-in (`image.still`): the photo holds still. */
+.heroBgStill {
+  animation: none;
+  will-change: auto;
+}
+
 @keyframes heroBgDrift {
   0% {
     transform: scale(1) translate3d(0, 0, 0);
@@ -380,6 +386,14 @@
       rgba(4, 5, 8, 0.6) 100%
     ),
     linear-gradient(180deg, rgba(4, 5, 8, 0.45) 0%, rgba(4, 5, 8, 0.2) 40%, rgba(4, 5, 8, 0.9) 100%);
+}
+
+/* Opt-in black veil (`image.veil: "dark"`): black over the whole photo, heaviest
+   under the copy column, so the photograph stays in view but reads as atmosphere. */
+.heroBgVeil[data-veil="dark"] {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.55) 55%, rgba(0, 0, 0, 0.4) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.55) 100%);
 }
 
 .heroGrid {
@@ -8756,8 +8770,15 @@
     heroBgDrift 26s ease-in-out infinite alternate;
 }
 
-.hero.heroCompact .heroBg {
+.hero.heroCompact .heroBg,
+.hero .heroBg.heroBgStill {
   animation: heroFadeIn 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s backwards;
+  will-change: auto;
+}
+
+/* A still photo is framed from the top, so a wide hero crops the bottom, not the subject's head. */
+.hero .heroBg.heroBgStill {
+  object-position: center top;
 }
 
 /* A masthead used on its own, with no list band under it (/privacy-policy):
