@@ -35,6 +35,8 @@ export interface HeroContent {
    * last-line accent.
    */
   accent?: string;
+  /** Set the whole headline in the one colour — no accent on its last line (the live staff-augmentation ad headline). */
+  noAccent?: boolean;
   /**
    * Size the H1 to its column so each of `titleLines` fits on one line — for
    * a headline whose first line is too long for the standard H1 size (the
@@ -402,7 +404,7 @@ export default function Hero({
                 <span
                   style={{ ["--i" as string]: i } as CSSProperties}
                   className={`${styles.heroTitleLine}${
-                    !content.accent && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
+                    !content.accent && !content.noAccent && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
                   }${content.titleSubLast && i === lastLine ? ` ${styles.heroTitleSub}` : ""}`}
                 >
                   {accentWithin(line, accents[i])}
