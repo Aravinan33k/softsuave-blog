@@ -313,6 +313,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/awards-recognition', title: 'Awards and Recognition' },
   { path: '/clients', title: 'Our Clients' },
   { path: '/faqs', title: 'Frequently Asked Questions' },
+  { path: '/engagement-model', title: 'Engagement Models' },
   { path: '/case-studies', title: 'Case Studies' },
   // Case-study pages, under the index in their breadcrumb. Registering one
   // here also turns every existing link to it (the index cards, the homepage

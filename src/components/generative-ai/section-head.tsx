@@ -22,7 +22,8 @@ export default function SectionHead({
   intro,
 }: {
   kicker?: string;
-  title: string;
+  /** A string, or a node when some of the words are picked out in the accent colour. */
+  title: ReactNode;
   /** Usually a string; a node when the intro carries inline links. */
   intro?: ReactNode;
 }) {

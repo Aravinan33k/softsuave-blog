@@ -46,7 +46,22 @@ import styles from "./home.module.css";
 /** Dwell on each badge before advancing, ms. */
 const DWELL = 3200;
 
-export default function Recognitions() {
+export default function Recognitions({
+  content = recognitions,
+}: {
+  /**
+   * The band's own copy and badges. Defaults to the homepage's. A page can retitle it — the engagement-model
+   * page's live band is "Awards & Certifications" with no label, no line under it and no "View All" button —
+   * by leaving `eyebrow`, `body` or `cta` out.
+   */
+  content?: {
+    readonly eyebrow?: string;
+    readonly title: string;
+    readonly body?: string;
+    readonly cta?: { readonly label: string; readonly href: string };
+    readonly items: typeof recognitions.items;
+  };
+} = {}) {
   const viewport = useRef<HTMLUListElement | null>(null);
   const [index, setIndex] = useState(0);
   /** One dot per resting position — measured, never assumed. */
@@ -150,20 +165,22 @@ export default function Recognitions() {
       <div className={styles.recogLayout}>
         <div className={styles.recogIntro}>
           {/* light-band variant: the section sits in a `.light` wrapper */}
-          <span className={styles.eyebrowDark}>{recognitions.eyebrow}</span>
+          {content.eyebrow ? <span className={styles.eyebrowDark}>{content.eyebrow}</span> : null}
           <SplitReveal as="h2" className={styles.h2} type="words">
-            {recognitions.title}
+            {content.title}
           </SplitReveal>
-          <p className={styles.lead}>{recognitions.body}</p>
+          {content.body ? <p className={styles.lead}>{content.body}</p> : null}
           {/* The site's orange section button (21 Oct review: was an orange
               text link with a drawn arrow), sized like "View all Case Studies". */}
-          <Link
-            className={`${styles.pillFilled} ${styles.pillLg} ${styles.recogViewAll}`}
-            href={recognitions.cta.href}
-            data-cursor="Open"
-          >
-            {recognitions.cta.label}
-          </Link>
+          {content.cta && (
+            <Link
+              className={`${styles.pillFilled} ${styles.pillLg} ${styles.recogViewAll}`}
+              href={content.cta.href}
+              data-cursor="Open"
+            >
+              {content.cta.label}
+            </Link>
+          )}
         </div>
 
         <FadeUp className={styles.recogShowcase}>
@@ -184,7 +201,7 @@ export default function Recognitions() {
             onBlur={() => setPaused(false)}
             onPointerDown={() => setRestart((n) => n + 1)}
           >
-            {recognitions.items.map((item) => (
+            {content.items.map((item) => (
               <li key={item.key} className={styles.recogStripItem}>
                 {item.src ? (
                   <span className={styles.recogBadge}>
