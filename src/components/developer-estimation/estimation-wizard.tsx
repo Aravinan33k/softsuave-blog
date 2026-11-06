@@ -1,19 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { appPath } from "@/lib/media-url";
-import { THANK_YOU_PATH } from "@/lib/forms/thank-you";
+import { useMemo, useState } from "react";
 import { SiteLink } from "@/themes/softsuave/site-link";
-import FieldIcon, { RequiredMark } from "@/components/common/field-icon";
-import PhoneField from "@/components/common/phone-field";
-import fx from "@/components/common/enquiry-form.module.css";
-import { emailError, nameError, phoneError } from "@/lib/forms/enquiry-rules";
+import { ChipIcon, ContactStep, Crumbs, Heading, SummaryCard, SummaryRow, Tile, toggle } from "./estimation-parts";
 import {
   estimationBilling,
   estimationButtons,
-  estimationContact,
   estimationCrumbs,
   estimationEvaluate,
   estimationExperience,
@@ -47,58 +39,6 @@ type Picks = {
 
 const EMPTY: Picks = { types: [], roles: [], techs: {}, years: "1+", interview: "", billing: "" };
 
-/** Toggle a value in a list, keeping the order it was first added. */
-const toggle = <T,>(list: readonly T[], v: T): T[] => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
-
-function Tile({
-  icon,
-  label,
-  selected,
-  onToggle,
-  small,
-}: {
-  icon: string;
-  label: string;
-  selected: boolean;
-  onToggle: () => void;
-  small?: boolean;
-}) {
-  return (
-    <button
-      type="button"
-      className={`${styles.tile} ${selected ? styles.tileOn : ""} ${small ? styles.tileSm : ""}`}
-      aria-pressed={selected}
-      onClick={onToggle}
-    >
-      <span className={styles.tileCard}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={icon} alt="" width={64} height={64} />
-      </span>
-      <span className={styles.tileLabel}>{label}</span>
-    </button>
-  );
-}
-
-function Heading({ children, as: Tag = "h3" }: { children: string; as?: "h1" | "h3" }) {
-  return (
-    <div className={`${styles.head} ${Tag === "h1" ? styles.headTight : ""}`}>
-      <Tag className={Tag === "h1" ? styles.h1 : styles.h3}>{children}</Tag>
-    </div>
-  );
-}
-
-function Crumb({ icon, label, active, onClick }: { icon: string; label: string; active: boolean; onClick: () => void }) {
-  return (
-    <li className={`${styles.crumb} ${active ? styles.crumbOn : ""}`}>
-      <button type="button" onClick={onClick} aria-current={active ? "step" : undefined}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={icon} alt="" width={22} height={22} />
-        {label}
-      </button>
-    </li>
-  );
-}
-
 export default function EstimationWizard() {
   const [step, setStep] = useState<Step>("developer");
   const [picks, setPicks] = useState<Picks>(EMPTY);
@@ -107,15 +47,6 @@ export default function EstimationWizard() {
   /** After Proceed on the role step with a type left unanswered, only that type's roles stay open. */
   const [missingTypes, setMissingTypes] = useState<TypeKey[] | null>(null);
 
-  const [form, setForm] = useState({ name: "", email: "", phone: "" });
-  const [errors, setErrors] = useState<{ name?: string; email?: string; phone?: string }>({});
-
-  const router = useRouter();
-  const pathname = usePathname();
-  const [website, setWebsite] = useState("");
-  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
-  const [sendError, setSendError] = useState<string | null>(null);
-  const crumbList = useRef<HTMLOListElement | null>(null);
   const hasWeb = picks.types.includes("web");
   const hasMobile = picks.types.includes("mobile");
 
@@ -203,18 +134,9 @@ export default function EstimationWizard() {
     go(to);
   };
 
-  // On a narrow screen the trail scrolls; keep the current step in view.
-  useEffect(() => {
-    const el = crumbList.current;
-    if (el) el.scrollLeft = el.scrollWidth;
-  }, [step, crumbs.length]);
-
   const summaryCards = (["web", "mobile"] as const).filter((t) => picks.types.includes(t));
 
   const payload = () => ({
-    name: form.name,
-    email: form.email,
-    phone: form.phone.replace(/^\+/, ""),
     desire_content: "Hire Developer",
     developer: picks.types.map((t) => estimationTypes.find((x) => x.key === t)!.value),
     webdeveloper: estimationRoles.web.filter((r) => picks.roles.includes(r.key)).map((r) => r.value),
@@ -253,51 +175,6 @@ export default function EstimationWizard() {
       .join("\n");
   };
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const next = { name: nameError(form.name) ?? undefined, email: emailError(form.email) ?? undefined, phone: phoneError(form.phone) ?? undefined };
-    setErrors(next);
-    if (next.name || next.email || next.phone) return;
-
-    setStatus("sending");
-    setSendError(null);
-    try {
-      // `appPath`, not a bare "/api/…": `fetch` does not pick up `basePath`.
-      const res = await fetch(appPath("/api/v1/enquiry"), {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          requirement: requirementText(),
-          website,
-          subject: "Developer Estimation",
-          sourcePath: pathname,
-          sourceKey: "developer-estimation",
-        }),
-      });
-      if (!res.ok) {
-        const detail = await res.json().catch(() => null);
-        throw new Error(
-          detail?.error?.message ??
-            (res.status === 429 ? "Too many attempts. Please wait a minute and try again." : "Something went wrong. Please try again."),
-        );
-      }
-      router.push(THANK_YOU_PATH);
-    } catch (err) {
-      setStatus("error");
-      setSendError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
-    }
-  };
-
-  const msg = (k: "name" | "email" | "phone") =>
-    errors[k] ? (
-      <p id={`est-${k}-error`} className={fx.fieldMessage}>
-        {errors[k]}
-      </p>
-    ) : null;
-
   const showProceed = step === "developer" || step === "roles" || step === "tech";
   const quick = (
     <SiteLink href={estimationButtons.quick.href} className={styles.quick}>
@@ -307,13 +184,7 @@ export default function EstimationWizard() {
 
   return (
     <div className={styles.wizard}>
-      <nav aria-label="breadcrumb" className={styles.crumbs}>
-        <ol ref={crumbList}>
-          {crumbs.map((c, i) => (
-            <Crumb key={c.key} icon={c.icon} label={c.label} active={i === crumbs.length - 1} onClick={() => onCrumb(c.to)} />
-          ))}
-        </ol>
-      </nav>
+      <Crumbs items={crumbs} onSelect={(to) => onCrumb(to as Step | "start")} />
 
       {step === "developer" && (
         <section className={styles.step}>
@@ -447,82 +318,40 @@ export default function EstimationWizard() {
           {summaryCards.map((type) => {
             const card = estimationSummary.cards[type];
             const roles = estimationRoles[type].filter((r) => picks.roles.includes(r.key));
+            const interview = picks.interview === "Yes" ? estimationSummary.interview.technical : estimationSummary.interview.trial;
+            const billing = estimationSummary.billing[picks.billing as "Hourly" | "Monthly"];
             return (
-              <div key={type} className={styles.summary}>
-                <div className={styles.summaryHead}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={card.icon} alt="" width={28} height={28} />
-                  {card.title}
-                </div>
-                <dl className={styles.summaryBody}>
-                  <div className={styles.summaryRow}>
-                    <dt>{estimationSummary.roleLabel}</dt>
-                    <dd>
-                      {roles.map((r) => (
-                        <span key={r.key} className={styles.chipIcon}>
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={r.smallIcon} alt="" width={26} height={26} />
-                          {r.crumb}
-                        </span>
-                      ))}
-                    </dd>
-                  </div>
+              <SummaryCard key={type} icon={card.icon} title={card.title}>
+                <SummaryRow label={estimationSummary.roleLabel}>
                   {roles.map((r) => (
-                    <div key={r.key} className={styles.summaryRow}>
-                      <dt>{r.summaryLabel}</dt>
-                      <dd>
-                        {r.techs
-                          .filter((t) => (picks.techs[r.key] ?? []).includes(t.value))
-                          .map((t) => (
-                            <span key={t.value} className={styles.chipIcon}>
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img src={t.preview.icon} alt="" width={26} height={26} />
-                              {t.preview.label}
-                            </span>
-                          ))}
-                      </dd>
-                    </div>
+                    <ChipIcon key={r.key} icon={r.smallIcon}>
+                      {r.crumb}
+                    </ChipIcon>
                   ))}
-                  <div className={styles.summaryRow}>
-                    <dt>{estimationSummary.experienceLabel}</dt>
-                    <dd>
-                      <span className={styles.chipIcon}>
-                        <strong>{picks.years}</strong> {estimationSummary.yearsWord}
-                      </span>
-                    </dd>
-                  </div>
-                  <div className={styles.summaryRow}>
-                    <dt>{estimationSummary.interviewLabel}</dt>
-                    <dd>
-                      {(() => {
-                        const v = picks.interview === "Yes" ? estimationSummary.interview.technical : estimationSummary.interview.trial;
-                        return (
-                          <span className={styles.chipIcon}>
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={v.icon} alt="" width={26} height={26} />
-                            {v.label}
-                          </span>
-                        );
-                      })()}
-                    </dd>
-                  </div>
-                  <div className={styles.summaryRow}>
-                    <dt>{estimationSummary.billingLabel}</dt>
-                    <dd>
-                      {(() => {
-                        const v = estimationSummary.billing[picks.billing as "Hourly" | "Monthly"];
-                        return (
-                          <span className={styles.chipIcon}>
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={v.icon} alt="" width={26} height={26} />
-                            {v.label}
-                          </span>
-                        );
-                      })()}
-                    </dd>
-                  </div>
-                </dl>
-              </div>
+                </SummaryRow>
+                {roles.map((r) => (
+                  <SummaryRow key={r.key} label={r.summaryLabel}>
+                    {r.techs
+                      .filter((t) => (picks.techs[r.key] ?? []).includes(t.value))
+                      .map((t) => (
+                        <ChipIcon key={t.value} icon={t.preview.icon}>
+                          {t.preview.label}
+                        </ChipIcon>
+                      ))}
+                  </SummaryRow>
+                ))}
+                <SummaryRow label={estimationSummary.experienceLabel}>
+                  <ChipIcon>
+                    <strong>{picks.years}</strong> {estimationSummary.yearsWord}
+                  </ChipIcon>
+                </SummaryRow>
+                <SummaryRow label={estimationSummary.interviewLabel}>
+                  <ChipIcon icon={interview.icon}>{interview.label}</ChipIcon>
+                </SummaryRow>
+                <SummaryRow label={estimationSummary.billingLabel}>
+                  <ChipIcon icon={billing.icon}>{billing.label}</ChipIcon>
+                </SummaryRow>
+              </SummaryCard>
             );
           })}
           <div className={styles.actions}>
@@ -533,87 +362,7 @@ export default function EstimationWizard() {
         </section>
       )}
 
-      {step === "fee" && (
-        <section className={styles.step}>
-          <Heading>{estimationContact.title}</Heading>
-          <div className={styles.contact}>
-            <div className={`${fx.card} ${styles.contactCard}`}>
-              <form className={fx.fields} onSubmit={onSubmit} noValidate>
-                <div className={fx.honeypot} aria-hidden>
-                  <label htmlFor="est-website">Website</label>
-                  <input id="est-website" type="text" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
-                </div>
-                <div className={`${fx.field} ${errors.name ? fx.fieldInvalid : ""}`}>
-                  <FieldIcon name="person" />
-                  <input
-                    id="est-name"
-                    className={fx.input}
-                    type="text"
-                    name="name"
-                    autoComplete="name"
-                    value={form.name}
-                    onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                    aria-invalid={errors.name ? true : undefined}
-                    aria-describedby={errors.name ? "est-name-error" : undefined}
-                    placeholder=" "
-                  />
-                  <label className={fx.label} htmlFor="est-name">
-                    <RequiredMark />
-                    {estimationContact.nameLabel}
-                  </label>
-                  {msg("name")}
-                </div>
-                <div className={`${fx.field} ${errors.email ? fx.fieldInvalid : ""}`}>
-                  <FieldIcon name="mail" />
-                  <input
-                    id="est-email"
-                    className={fx.input}
-                    type="email"
-                    name="email"
-                    autoComplete="email"
-                    value={form.email}
-                    onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                    aria-invalid={errors.email ? true : undefined}
-                    aria-describedby={errors.email ? "est-email-error" : undefined}
-                    placeholder=" "
-                  />
-                  <label className={fx.label} htmlFor="est-email">
-                    <RequiredMark />
-                    {estimationContact.emailLabel}
-                  </label>
-                  {msg("email")}
-                </div>
-                <div className={`${fx.field} ${errors.phone ? fx.fieldInvalid : ""}`}>
-                  <FieldIcon name="phone" />
-                  <PhoneField
-                    id="est-phone"
-                    value={form.phone}
-                    onChange={(phone) => setForm((f) => ({ ...f, phone }))}
-                    invalid={Boolean(errors.phone)}
-                    describedBy={errors.phone ? "est-phone-error" : undefined}
-                  />
-                  <label className={`${fx.label} ${fx.labelFloat}`} htmlFor="est-phone">
-                    <RequiredMark />
-                    {estimationContact.phoneLabel}
-                  </label>
-                  {msg("phone")}
-                </div>
-                {status === "error" && sendError && (
-                  <p className={fx.error} role="alert">
-                    {sendError}
-                  </p>
-                )}
-                <button type="submit" className={`${home.pillFilled} ${styles.submit}`} disabled={status === "sending"}>
-                  {estimationContact.submit}
-                </button>
-              </form>
-            </div>
-            <div className={styles.contactArt}>
-              <Image src={estimationContact.image} alt="" width={640} height={460} unoptimized />
-            </div>
-          </div>
-        </section>
-      )}
+      {step === "fee" && <ContactStep requirement={requirementText} subject="Developer Estimation" sourceKey="developer-estimation" />}
     </div>
   );
 }

@@ -325,3 +325,31 @@
   }
 }
 
+
+/* ---- free-text notes (project details) ---- */
+.notes {
+  display: block;
+  width: min(100%, 720px);
+  margin: 0 auto;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text-bright);
+  font: inherit;
+  line-height: 1.5;
+  resize: vertical;
+}
+.notes:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.notesText {
+  color: var(--text-bright);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.expRow + .head {
+  margin-top: clamp(32px, 4vw, 48px);
+}

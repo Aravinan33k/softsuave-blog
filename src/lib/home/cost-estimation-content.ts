@@ -23,8 +23,8 @@
  * would a team cost" and "what would this product cost") without pretending a
  * wizard is behind them.
  *
- * WHEN THE WIZARDS ARE PORTED: give each `estimatePaths` item an `href` and
- * the cards start linking, with no other change to this file.
+ * The wizards are ported now (/developer-estimation and /mobile-app-estimation), so each
+ * `estimatePaths` item carries an `href` and its card links to the matching wizard.
  *
  * Nothing here quotes a price. Soft Suave publishes indicative hourly rates on
  * the hire pages ($14/hour and up, per `hire-roles/*`), and those pages remain
@@ -90,12 +90,14 @@ export const estimatePaths: CardGridContent = {
     {
       tag: "Team",
       name: "Hire developers",
+      href: "/developer-estimation",
       body: "You know what you are building and need the people. Tell us the roles, the seniority and the overlap hours you need, and the estimate is a monthly run rate per role with a start date against each one.",
       icon: "users",
     },
     {
       tag: "Product",
       name: "Build a product",
+      href: "/mobile-app-estimation",
       body: "You have an outcome and need it built. Tell us what it has to do and who for, and the estimate is a phased build — scope per phase, the team shape behind it, and a cost and duration for each.",
       icon: "rocket",
     },
