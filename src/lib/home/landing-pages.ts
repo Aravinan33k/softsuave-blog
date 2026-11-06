@@ -317,6 +317,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/developer-estimation', title: 'Developer Estimation' },
   { path: '/mobile-app-estimation', title: 'Mobile App Estimation' },
   { path: '/test-web-est', title: 'Web Estimation' },
+  { path: '/staff-augmentation-cost-calculator', title: 'Staff Augmentation Cost Calculator' },
   { path: '/case-studies', title: 'Case Studies' },
   // Case-study pages, under the index in their breadcrumb. Registering one
   // here also turns every existing link to it (the index cards, the homepage

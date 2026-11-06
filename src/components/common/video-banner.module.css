@@ -46,11 +46,12 @@
 .title {
   margin: 0;
   max-width: 18ch;
-  font-family: var(--font-display-serif, inherit);
+  /* The site's heading face and the homepage hero's display size (70px on desktop, 40px on a phone), as the ad pages' H1 takes them. */
+  font-family: var(--font-display, var(--font-space-grotesk), sans-serif);
   font-weight: 600;
-  font-size: clamp(2.25rem, 5.4vw, 4.5rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-size: var(--fs-h1-home, clamp(40px, 6vw - 2px, 70px));
+  line-height: 1.05;
+  letter-spacing: -0.045em;
   color: #fff;
   text-wrap: balance;
 }

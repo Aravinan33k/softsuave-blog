@@ -59,7 +59,13 @@ export default function Recognitions({
     readonly title: string;
     readonly body?: string;
     readonly cta?: { readonly label: string; readonly href: string };
-    readonly items: typeof recognitions.items;
+    readonly items: readonly {
+      readonly key: string;
+      readonly title: string;
+      readonly org: string;
+      readonly year?: string | null;
+      readonly src?: string;
+    }[];
   };
 } = {}) {
   const viewport = useRef<HTMLUListElement | null>(null);
@@ -237,7 +243,8 @@ export default function Recognitions({
                     carried here instead — otherwise the strip is twelve
                     unlabelled images to anything that cannot see them. */}
                 <span className={styles.srOnly}>
-                  {item.title} &mdash; {item.org}
+                  {item.title}
+                  {item.org ? <> &mdash; {item.org}</> : null}
                   {item.year ? `, ${item.year}` : ""}
                 </span>
               </li>
