@@ -124,7 +124,13 @@ export default function FaqsPage() {
         <ManagerEnquiry
           content={{
             ...faqsPageEnquiry,
-            manager: { ...faqsPageEnquiry.manager, cta: { ...faqsPageEnquiry.manager.cta, href: navHref(faqsPageEnquiry.manager.cta.href) } },
+            manager: {
+              ...faqsPageEnquiry.manager,
+              cta: faqsPageEnquiry.manager.cta && {
+                ...faqsPageEnquiry.manager.cta,
+                href: navHref(faqsPageEnquiry.manager.cta.href),
+              },
+            },
           }}
           id="enquiry"
           idPrefix="faqs-contact"
