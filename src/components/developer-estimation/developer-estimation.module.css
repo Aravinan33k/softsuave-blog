@@ -1,0 +1,327 @@
+/* /developer-estimation — the estimate wizard, in the site's own styles. */
+
+.main {
+  padding: clamp(120px, 12vw, 160px) var(--gutter) clamp(72px, 8vw, 120px);
+  min-height: 100vh;
+  min-height: 100svh;
+}
+.wizard {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* ---- breadcrumb pill ---- */
+.crumbs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: clamp(28px, 4vw, 56px);
+}
+.crumbs ol {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  margin: 0;
+  padding: 10px 20px;
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.crumbs ol::-webkit-scrollbar {
+  display: none;
+}
+.crumb {
+  display: flex;
+  align-items: center;
+  flex: none;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 500;
+}
+.crumb + .crumb::before {
+  content: "›";
+  margin: 0 10px;
+  color: var(--muted);
+  font-size: 18px;
+}
+.crumb button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 2px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.crumb button:hover {
+  color: var(--text-bright);
+}
+.crumb img {
+  width: 22px;
+  height: 22px;
+  padding: 2px;
+  border-radius: 6px;
+  background: #fff;
+}
+.crumbOn,
+.crumbOn button {
+  color: var(--accent);
+}
+
+/* ---- headings ---- */
+.step {
+  margin-bottom: clamp(36px, 5vw, 64px);
+}
+.head {
+  text-align: center;
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+.h1,
+.h3 {
+  margin: 0;
+  font-family: var(--font-display, var(--font-space-grotesk), sans-serif);
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  color: var(--text-bright);
+}
+.headTight {
+  margin-bottom: 12px;
+}
+.question {
+  margin: 0 0 clamp(28px, 4vw, 48px);
+  text-align: center;
+  font-size: clamp(16px, 1.4vw, 20px);
+  color: var(--muted);
+}
+
+/* ---- option tiles ---- */
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(20px, 3vw, 48px);
+}
+.tilesWrap {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: var(--text);
+}
+.tileCard {
+  display: grid;
+  place-items: center;
+  width: clamp(112px, 12vw, 150px);
+  aspect-ratio: 1;
+  border: 2px solid var(--line);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 1px 0 var(--line), 0 8px 24px -16px rgba(23, 20, 15, 0.25);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.tileCard img {
+  width: 42%;
+  height: auto;
+  max-height: 50%;
+  object-fit: contain;
+}
+.tile:hover .tileCard,
+.tile:focus-visible .tileCard {
+  transform: translateY(-3px);
+  border-color: var(--accent-border, var(--accent));
+}
+.tileOn .tileCard {
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+.tileLabel {
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+.tileOn .tileLabel {
+  color: var(--text-bright);
+  font-weight: 600;
+}
+
+/* ---- buttons ---- */
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: clamp(32px, 4vw, 56px);
+}
+.proceed {
+  justify-content: center;
+  min-width: 150px;
+  padding: 0.8em 2em;
+  font-size: 13px;
+  cursor: pointer;
+}
+.proceed:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.submit {
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+  padding: 0.8em 2em;
+  font-size: 13px;
+  cursor: pointer;
+}
+.quick {
+  color: var(--text);
+  font-size: 15px;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.quick:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ---- experience ---- */
+.expRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--text);
+  font-size: 17px;
+}
+.select {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text-bright);
+  font: inherit;
+}
+
+/* ---- summary ---- */
+.summary {
+  max-width: 920px;
+  margin: 0 auto 28px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.summaryHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2, var(--surface));
+  color: var(--text-bright);
+  font-size: 18px;
+  font-weight: 600;
+}
+.summaryHead img {
+  width: 28px;
+  height: 28px;
+  padding: 4px;
+  border-radius: 8px;
+  background: var(--accent);
+}
+.summaryBody {
+  margin: 0;
+  padding: 8px 24px;
+}
+.summaryRow {
+  display: grid;
+  grid-template-columns: minmax(150px, 240px) 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.summaryRow:last-child {
+  border-bottom: 0;
+}
+.summaryRow dt {
+  color: var(--text-bright);
+  font-weight: 600;
+}
+.summaryRow dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  margin: 0;
+}
+.chipIcon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+.chipIcon img {
+  width: 26px;
+  height: 26px;
+  padding: 3px;
+  border-radius: 7px;
+  background: #fff;
+  object-fit: contain;
+}
+
+/* ---- contact ---- */
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.contactCard {
+  width: 100%;
+}
+.contactArt img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 860px) {
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .contactArt {
+    order: -1;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .summaryRow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .crumbs ol {
+    justify-content: flex-start;
+  }
+}
+

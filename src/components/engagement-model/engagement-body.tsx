@@ -177,14 +177,16 @@ export function TechBand() {
                     {'href' in l && l.href ? (
                       <SiteLink href={l.href} className={styles.techLink}>
                         <span className={stackStyles.stackItemLogo}>
-                          <Image src={l.src} alt={l.alt} width={28} height={28} unoptimized className={styles.techMark} />
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={l.src} alt={l.alt} className={styles.techMark} />
                         </span>
                         <span className={stackStyles.stackItemName}>{l.name}</span>
                       </SiteLink>
                     ) : (
                       <>
                         <span className={stackStyles.stackItemLogo}>
-                          <Image src={l.src} alt={l.alt} width={28} height={28} unoptimized className={styles.techMark} />
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={l.src} alt={l.alt} className={styles.techMark} />
                         </span>
                         <span className={stackStyles.stackItemName}>{l.name}</span>
                       </>
