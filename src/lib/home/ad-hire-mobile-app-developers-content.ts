@@ -153,7 +153,7 @@ export const mbWhy = {
     "160 Working Hours/Month with Flexible Hiring Models",
     "Simple & Transparent Pricing",
     "Agile Methodology",
-    "7 Days Risk-Free Trial",
+    "40 Hours Risk-Free Trial",
     "Strict NDA Signed for Complete Privacy",
     "Faster Resource Accessibility",
     "Focus on Your Core Business",

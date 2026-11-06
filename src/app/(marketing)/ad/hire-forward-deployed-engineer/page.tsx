@@ -83,7 +83,7 @@ export default function AdHireForwardDeployedEngineerPage() {
         <div className={home.light}>
           {/* The live page's client logos sit inside its hero section; here they
               open the white band that follows it. */}
-          <Clients logos={HIRE_CLIENT_LOGOS} title={fdeClients.title} body={fdeClients.body} />
+          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={fdeClients.title} body={fdeClients.body} />
           <CardGrid content={fdeWhy} id="why" variant="bold" autoLink={false} />
           <CtaRow lead={fdeWhyClosing} />
           <CardGrid content={fdeServices} id="services" variant="bold" autoLink={false} />

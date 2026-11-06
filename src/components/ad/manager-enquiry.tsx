@@ -19,6 +19,16 @@ export interface ManagerEnquiryContent {
 }
 
 /**
+ * What the band takes: `ManagerEnquiryContent`, except that the manager's button may be left out — the live
+ * AI / ML Solutions page has none beside the account manager.
+ */
+export type ManagerEnquiryInput = Omit<ManagerEnquiryContent, "manager"> & {
+  readonly manager: Omit<ManagerEnquiryContent["manager"], "cta"> & {
+    readonly cta?: ManagerEnquiryContent["manager"]["cta"];
+  };
+};
+
+/**
  * The page's closing band — "Start Your 40 Hours Trial": what happens next, the
  * account manager who will call, the credential lockups, and the enquiry form.
  */
@@ -27,7 +37,7 @@ export default function ManagerEnquiry({
   id = "enquiry",
   idPrefix = "ad-ai-contact",
 }: {
-  content: ManagerEnquiryContent;
+  content: ManagerEnquiryInput;
   id?: string;
   /** Namespaces the form's field ids and is stored on the lead as its `sourceKey`, so it names the page. */
   idPrefix?: string;
@@ -64,9 +74,11 @@ export default function ManagerEnquiry({
               </div>
             </div>
             {/* Plain anchor: the form below is on this page, and Lenis handles it. */}
-            <a className={`${styles.btn} ${styles.btnWipe}`} href={manager.cta.href}>
-              {manager.cta.label}
-            </a>
+            {manager.cta && (
+              <a className={`${styles.btn} ${styles.btnWipe}`} href={manager.cta.href}>
+                {manager.cta.label}
+              </a>
+            )}
           </div>
 
           <ul className={styles.enqBadges}>
