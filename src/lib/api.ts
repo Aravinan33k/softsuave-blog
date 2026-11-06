@@ -32,8 +32,8 @@ export async function api<T = unknown>(url: string, init?: RequestInit): Promise
   const isForm = init?.body instanceof FormData;
   const method = (init?.method ?? 'GET').toUpperCase();
   const csrf = SAFE.has(method) ? null : readCookie('sb_csrf');
-  // The app is mounted under a subpath and fetch() is not basePath-aware, so every
-  // caller can keep writing '/api/v1/…' and have it resolved here.
+  // fetch() is not basePath-aware, so every caller can keep writing '/api/v1/…'
+  // and have any mount subpath resolved here (a no-op at the domain root).
   const res = await fetch(appPath(url), {
     ...init,
     headers: {

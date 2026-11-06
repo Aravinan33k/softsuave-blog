@@ -4,7 +4,7 @@ import { useEffect, useState, type FunctionComponent } from 'react';
 import { CheckIcon, FacebookIcon, LinkedinIcon, LinkIcon, TwitterIcon, WhatsappIcon } from './icons';
 
 const BTN_CLASS =
-  'flex h-9 w-9 items-center justify-center rounded-full border text-neutral-600 transition-colors hover:border-[#ff0042] hover:text-[#ff0042]';
+  'flex h-9 w-9 items-center justify-center rounded-[6px] border text-neutral-600 transition-colors hover:border-[#ff0042] hover:text-[#ff0042]';
 
 export function ShareButtons({ title }: { title: string }) {
   const [url, setUrl] = useState('');

@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
 
     const where: Prisma.PageWhereInput = {};
     if (status && ['DRAFT', 'SCHEDULED', 'PUBLISHED'].includes(status)) where.status = status as ContentStatus;
-    if (q) where.title = { contains: q, mode: 'insensitive' };
+    if (q) where.title = { contains: q }; // case-insensitive via utf8mb4_unicode_ci collation
 
     const [items, total] = await Promise.all([
       prisma.page.findMany({
@@ -70,6 +70,7 @@ export async function POST(req: NextRequest) {
         slug,
         contentJson: d.contentJson as unknown as Prisma.InputJsonValue,
         contentHtml: rendered.contentHtml,
+        searchText: rendered.searchText,
         excerpt: rendered.excerpt,
         status: pub.value.status,
         publishedAt: pub.value.publishedAt,

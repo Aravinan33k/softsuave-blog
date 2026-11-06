@@ -5,7 +5,7 @@ import { getActiveTheme } from '@/lib/public/theme';
 import { searchPosts } from '@/lib/api/public';
 import type { PostSummary } from '@/themes/_contract';
 
-// Public search UI over the Postgres full-text search used by /api/v1/search.
+// Public search UI over the MySQL FULLTEXT search used by /api/v1/search.
 // Results are noindexed — thin/duplicate search pages should stay out of the index.
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<{ q?: string }> }): Promise<Metadata> {
@@ -26,10 +26,15 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   let results: PostSummary[] = [];
   let total = 0;
   let failed = false;
+  // Terms MySQL's FULLTEXT index cannot hold (shorter than
+  // innodb_ft_min_token_size). Shown to the reader because otherwise a search for
+  // "AI" reports "No results found", which on this blog is simply untrue.
+  let ignoredTerms: string[] = [];
   if (q) {
     try {
-      const { data, total: t } = await searchPosts(q, { page: 1, perPage: 12 });
+      const { data, total: t, ignoredTerms: ignored } = await searchPosts(q, { page: 1, perPage: 12 });
       total = t;
+      ignoredTerms = ignored;
       results = data.map((d) => ({
         slug: d.slug,
         title: d.title,
@@ -71,6 +76,14 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         {q && !failed && (
           <p className="mt-6 text-sm text-neutral-500">
             {total === 0 ? 'No results found.' : total > results.length ? `Showing ${results.length} of ${total} results.` : `${total} result${total === 1 ? '' : 's'}.`}
+          </p>
+        )}
+        {q && !failed && ignoredTerms.length > 0 && (
+          <p className="mt-2 text-sm text-neutral-500">
+            {ignoredTerms.length === 1 ? 'The term' : 'The terms'}{' '}
+            {ignoredTerms.map((t) => `“${t}”`).join(', ')}{' '}
+            {ignoredTerms.length === 1 ? 'was' : 'were'} too short to search and{' '}
+            {ignoredTerms.length === 1 ? 'was' : 'were'} ignored.
           </p>
         )}
         {failed && <p className="mt-6 text-sm text-neutral-500">Search is temporarily unavailable. Please try again later.</p>}

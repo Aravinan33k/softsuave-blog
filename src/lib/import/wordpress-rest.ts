@@ -69,7 +69,7 @@ interface WpPost {
 
 async function fetchJson<T>(url: string): Promise<T> {
   const res = await fetch(url, { headers: { 'user-agent': 'Mozilla/5.0 SoftSuaveBlogImporter/1.0' } });
-  if (!res.ok) throw new Error(`GET ${url} → ${res.status}`);
+  if (!res.ok) throw new Error(`GET ${url} â ${res.status}`);
   // Some WP plugins prepend stray HTML comments before the JSON body.
   const text = await res.text();
   const start = text.search(/[[{]/);
@@ -79,7 +79,7 @@ async function fetchJson<T>(url: string): Promise<T> {
 /**
  * Normalise WordPress/Gutenberg content so it maps 1:1 onto our editor nodes.
  * Grounded in the real softsuave.com/blog markup:
- *  - strip the embedded Easy-TOC entirely (container + inline anchor spans) — we
+ *  - strip the embedded Easy-TOC entirely (container + inline anchor spans) â we
  *    auto-generate the TOC from headings;
  *  - convert the Yoast FAQ block (.wp-block-yoast-faq-block / .schema-faq) into our
  *    <section class="faq"> native-<details> accordion, so it round-trips into the
@@ -100,7 +100,7 @@ export function normalizeWpContent(html: string): string {
   //    anchors injected inside every heading.
   doc.querySelectorAll('[class*="ez-toc"], [id^="ez-toc"]').forEach((el) => el.remove());
 
-  // 2. Yoast FAQ block → our faq section (native <details>/<summary> accordion).
+  // 2. Yoast FAQ block â our faq section (native <details>/<summary> accordion).
   doc.querySelectorAll('.wp-block-yoast-faq-block, .schema-faq').forEach((block) => {
     const section = doc.createElement('section');
     section.className = 'faq';
@@ -125,7 +125,7 @@ export function normalizeWpContent(html: string): string {
     else block.remove();
   });
 
-  // 3. Red-bordered "TL;DR" / "Key Takeaways" columns → our .callout box (unwrap the
+  // 3. Red-bordered "TL;DR" / "Key Takeaways" columns â our .callout box (unwrap the
   //    inner Gutenberg column so only the content survives). TL;DR boxes get the
   //    distinct callout-tldr variant.
   doc.querySelectorAll('.wp-block-columns.has-border-color, .wp-block-group.is-style-callout').forEach((el) => {
@@ -138,7 +138,7 @@ export function normalizeWpContent(html: string): string {
     el.replaceWith(box);
   });
 
-  // 4. WordPress CTA panels → our decorative ctaSection block. The marker is a
+  // 4. WordPress CTA panels â our decorative ctaSection block. The marker is a
   //    <div class="wp-block-buttons cta_btn"> inside a wp-block-group; the group
   //    holds a <p><strong> title, a plain <p> description, and the button. Runs
   //    before the generic button conversion (which handles standalone buttons).
@@ -177,7 +177,7 @@ export function normalizeWpContent(html: string): string {
     container.replaceWith(section);
   });
 
-  // 5. Remaining standalone WordPress buttons → our CTA button node. Set the class
+  // 5. Remaining standalone WordPress buttons â our CTA button node. Set the class
   //    our ctaButton node parses (a.cta-btn) and unwrap the Gutenberg wrappers so
   //    the anchor sits at block level.
   doc.querySelectorAll('a.wp-block-button__link').forEach((a) => {
@@ -191,7 +191,7 @@ export function normalizeWpContent(html: string): string {
     wrap.replaceWith(...Array.from(wrap.childNodes));
   });
 
-  // 5. Clean polluted alt text (WordPress/screen-reader leakage) — better for SEO
+  // 5. Clean polluted alt text (WordPress/screen-reader leakage) â better for SEO
   //    and accessibility; cap at a sensible length.
   doc.querySelectorAll('img[alt]').forEach((img) => {
     img.setAttribute('alt', cleanAlt(img.getAttribute('alt') ?? ''));
@@ -272,7 +272,7 @@ interface PostSeo {
 }
 
 function stripSiteSuffix(title: string): string {
-  return title.replace(/\s*[|\-–]\s*Soft ?Suave.*$/i, '').trim();
+  return title.replace(/\s*[|\-â]\s*Soft ?Suave.*$/i, '').trim();
 }
 
 /** Scrape Yoast SEO from the rendered post <head> (not exposed via the REST API). */
@@ -301,13 +301,13 @@ function decodeEntities(s: string): string {
   return s
     .replace(/&amp;/g, '&')
     .replace(/&#0?38;/g, '&')
-    .replace(/&#8217;/g, '’')
-    .replace(/&#8216;/g, '‘')
-    .replace(/&#8220;/g, '“')
-    .replace(/&#8221;/g, '”')
-    .replace(/&#8211;/g, '–')
-    .replace(/&#8212;/g, '—')
-    .replace(/&hellip;|&#8230;/g, '…')
+    .replace(/&#8217;/g, 'â')
+    .replace(/&#8216;/g, 'â')
+    .replace(/&#8220;/g, 'â')
+    .replace(/&#8221;/g, 'â')
+    .replace(/&#8211;/g, 'â')
+    .replace(/&#8212;/g, 'â')
+    .replace(/&hellip;|&#8230;/g, 'â¦')
     .replace(/&nbsp;/g, ' ')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
@@ -331,8 +331,8 @@ export async function importWordpressRest(opts: RestImportOptions): Promise<Rest
   const summary: RestImportSummary = { posts: 0, skipped: 0, categories: 0, tags: 0, media: 0, authors: 0, errors: [], slugs: [] };
 
   // Caches keyed by remote URL / WP id.
-  const mediaByUrl = new Map<string, string>(); // remote url → new url
-  const authorByWpId = new Map<number, string>(); // wp author id → our user id
+  const mediaByUrl = new Map<string, string>(); // remote url â new url
+  const authorByWpId = new Map<number, string>(); // wp author id â our user id
   const categoryBySlug = new Map<string, string>();
   const tagBySlug = new Map<string, string>();
   for (const c of await prisma.category.findMany({ select: { id: true, slug: true } })) categoryBySlug.set(c.slug, c.id);
@@ -395,7 +395,7 @@ export async function importWordpressRest(opts: RestImportOptions): Promise<Rest
         email,
         name: decodeEntities(a.name),
         role: 'EDITOR',
-        passwordHash: 'imported-no-login', // non-verifiable hash → cannot log in until reset
+        passwordHash: 'imported-no-login', // non-verifiable hash â cannot log in until reset
         bio: a.description ? decodeEntities(a.description) : null,
         avatarMediaId,
       },
@@ -455,7 +455,7 @@ export async function importWordpressRest(opts: RestImportOptions): Promise<Rest
       }
     }
 
-    // Featured image → cover.
+    // Featured image â cover.
     let coverImageId: string | null = null;
     const featured = post._embedded?.['wp:featuredmedia']?.[0];
     if (featured?.source_url) {
@@ -466,10 +466,10 @@ export async function importWordpressRest(opts: RestImportOptions): Promise<Rest
       }
     }
 
-    // Content: normalize WP blocks, demote h1→h2, rewrite images, sanitize, → TipTap JSON.
+    // Content: normalize WP blocks, demote h1âh2, rewrite images, sanitize, â TipTap JSON.
     const normalized = normalizeWpContent(post.content.rendered).replace(/<(\/?)h1(\s|>)/gi, '<$1h2$2');
     const withImages = await rewriteImages(normalized);
-    // Parse to TipTap JSON, then render contentHtml FROM that JSON — the same
+    // Parse to TipTap JSON, then render contentHtml FROM that JSON â the same
     // canonical path the editor's publish uses (generateHTML + sanitize), but via
     // the Node-safe @tiptap/html/server entry. Guarantees import output == publish
     // output: clean <h2> (so the TOC builds), our block markup (callout/faq/tldr),
@@ -480,7 +480,7 @@ export async function importWordpressRest(opts: RestImportOptions): Promise<Rest
     const excerptText = post.excerpt.rendered ? htmlToText(post.excerpt.rendered) : '';
     const excerpt = excerptText || (contentHtml ? deriveExcerpt(contentHtml) : null);
 
-    // SEO — scraped from the rendered <head> (Yoast) and preserved as-is.
+    // SEO â scraped from the rendered <head> (Yoast) and preserved as-is.
     const seo = await fetchSeo(post.link);
     let ogImageId: string | null = null;
     if (seo.ogImageUrl) {
@@ -498,6 +498,7 @@ export async function importWordpressRest(opts: RestImportOptions): Promise<Rest
         slug,
         contentJson: contentJson as unknown as Prisma.InputJsonValue,
         contentHtml,
+        searchText: htmlToText(contentHtml),
         excerpt,
         status,
         publishedAt,
@@ -537,7 +538,9 @@ export async function importWordpressRest(opts: RestImportOptions): Promise<Rest
         const contentHtml = sanitizeHtml(generateHTML(doc, baseExtensions));
         await prisma.post.update({
           where: { id: post.id },
-          data: { contentJson: doc as unknown as Prisma.InputJsonValue, contentHtml },
+          // searchText must move with contentHtml — rewriting the body without it
+          // would leave the FULLTEXT index describing the pre-rewrite text.
+          data: { contentJson: doc as unknown as Prisma.InputJsonValue, contentHtml, searchText: htmlToText(contentHtml) },
         });
         fixed += 1;
       }
@@ -560,7 +563,7 @@ export async function importWordpressRest(opts: RestImportOptions): Promise<Rest
       ids.push(...batch.map((b) => b.id));
       if (batch.length < 100) break;
     }
-    // Fisher–Yates shuffle, then take the sample.
+    // FisherâYates shuffle, then take the sample.
     for (let i = ids.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [ids[i], ids[j]] = [ids[j], ids[i]];
@@ -577,7 +580,7 @@ export async function importWordpressRest(opts: RestImportOptions): Promise<Rest
           summary.errors.push(`post ${post.slug}: ${(e as Error).message}`);
         }
         n += 1;
-        log(`(${n}/${batch.length}) ${post.slug} — posts:${summary.posts} media:${summary.media} skipped:${summary.skipped}`);
+        log(`(${n}/${batch.length}) ${post.slug} â posts:${summary.posts} media:${summary.media} skipped:${summary.skipped}`);
       }
     }
     await reconcileInternalLinks();
@@ -588,7 +591,7 @@ export async function importWordpressRest(opts: RestImportOptions): Promise<Rest
   const perPage = 20;
   let processed = 0;
   for (;;) {
-    // `limit` caps NEWLY imported posts — already-imported ones are skipped and do
+    // `limit` caps NEWLY imported posts â already-imported ones are skipped and do
     // not count, so running batches repeatedly keeps advancing through the archive.
     if (opts.limit && summary.posts >= opts.limit) break;
     let batch: WpPost[];
@@ -608,7 +611,7 @@ export async function importWordpressRest(opts: RestImportOptions): Promise<Rest
         summary.errors.push(`post ${post.slug}: ${(e as Error).message}`);
       }
       processed += 1;
-      log(`(${processed}) ${post.slug} — imported:${summary.posts} media:${summary.media} skipped:${summary.skipped}`);
+      log(`(${processed}) ${post.slug} â imported:${summary.posts} media:${summary.media} skipped:${summary.skipped}`);
     }
     page += 1;
   }

@@ -1,0 +1,1395 @@
+{
+  "hero": {
+    "src": "/images/four/hero.webp",
+    "width": 1920,
+    "height": 1200,
+    "alt": "Cinematic abstract representation of AI-driven design and engineering",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADwAQCdASoEAAMAAsBMJaACdLoAAxoZI0AA/iY8IdGKpn4oBSOCk82exktAAA=="
+  },
+  "work-1": {
+    "src": "/images/four/work-1.webp",
+    "width": 425,
+    "height": 488,
+    "alt": "AI personalization & inventory automation (Ecommerce)",
+    "blurDataURL": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAACwAQCdASoDAAQAAsBMJbACdAEO/aaQAP7vVP59I/YireovatzdLCFpav6ZAkr9opcHLTggAAA="
+  },
+  "work-2": {
+    "src": "/images/four/work-2.webp",
+    "width": 1920,
+    "height": 1220,
+    "alt": "Clinical workflow automation (HealthTech)",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoEAAIAAsBMJZACdAEO+KbQAPlHd5mgFY08LS2UCet+uNza+kAAAA=="
+  },
+  "work-3": {
+    "src": "/images/four/work-3.webp",
+    "width": 1500,
+    "height": 1500,
+    "alt": "Predictive routing & demand forecasting (Logistics)",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACQAQCdASoEAAQAAsBMJZQAApY4MQAA/kuBaN+yFOxOLrpMjNCAGZkgAAA="
+  },
+  "work-4": {
+    "src": "/images/four/work-4.webp",
+    "width": 457,
+    "height": 272,
+    "alt": "Real-time fraud detection (FinTech)",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoEAAIAAsBMJYwCdAD0bBwAAP7vK4h6STOJBIclFE/WVrl9LAA="
+  },
+  "work-5": {
+    "src": "/images/four/work-5.webp",
+    "width": 740,
+    "height": 370,
+    "alt": "Adaptive learning & content curation (EdTech)",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAIAAsBMJZQCdAEO+KbQAP7CixMOaoteIh8BuoAAAA=="
+  },
+  "work-6": {
+    "src": "/images/four/work-6.webp",
+    "width": 1100,
+    "height": 734,
+    "alt": "Legacy modernization with cloud & AI (Enterprise)",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoEAAMAAsBMJYwCdAD0cgEQAP7sLnvJ0VbUV4RfCleEKrBgAAA="
+  },
+  "story": {
+    "src": "/images/four/story.webp",
+    "width": 1400,
+    "height": 900,
+    "alt": "Soft Suave AI growth partnership from idea to launch",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoEAAMAAsBMJaQAAuTqYAAA3mfQIc5+yKWDHfzEAAAAAA=="
+  },
+  "contact-bg": {
+    "src": "/images/four/contact-bg.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "Abstract dark texture for contact section",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAABwAQCdASoEAAMAAsBMJQAAU6EmWAD++IFigCJF+h14/3UTnvagQAAA"
+  },
+  "avatar-1": {
+    "src": "/images/four/avatar-1.webp",
+    "width": 400,
+    "height": 400,
+    "alt": "Dimitris Rokos, Founder & CEO of AMD Telecom",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAQAAsBMJZQCdAEO+KbQAP6p9T0Ou9KgukcX45EdOAAA"
+  },
+  "avatar-2": {
+    "src": "/images/four/avatar-2.webp",
+    "width": 400,
+    "height": 400,
+    "alt": "Tim Maliyil, COO of Phoenix Technologies",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACQAQCdASoEAAQAAsBMJZwAAudIE3AA/rdbWl7GzN0KN7zMtbyJeAAA"
+  },
+  "avatar-3": {
+    "src": "/images/four/avatar-3.webp",
+    "width": 400,
+    "height": 400,
+    "alt": "Dr. Dara Huang, Co-Founder of Perkypet",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoEAAQAAsBMJQBOgB6PNbAAAP6JiW70xSA9sdbdb4g0FKpsUs2yEIAA"
+  },
+  "svc-custom-ai": {
+    "src": "/images/four/svc-custom-ai.webp",
+    "width": 1114,
+    "height": 627,
+    "alt": "Custom AI solutions",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAIAAsBMJZwCdAEO/gLsAP7CezHlgs/C+UzWjcAAAA=="
+  },
+  "svc-ai-integrations": {
+    "src": "/images/four/svc-ai-integrations.webp",
+    "width": 2487,
+    "height": 1536,
+    "alt": "AI integrations and workflow automation",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoEAAIAAsBMJQBOgCHfFPUAAP5CeZzaUs+tLLqy1EORxGGdYAA="
+  },
+  "svc-ai-agents": {
+    "src": "/images/four/svc-ai-agents.webp",
+    "width": 2256,
+    "height": 1664,
+    "alt": "AI chatbots and AI agents",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADQAQCdASoEAAMAAsBMJZwCdAEO+Kf2AAD+0N9OItYgpZ9sBxVX+kM8IAA="
+  },
+  "svc-custom-software": {
+    "src": "/images/four/svc-custom-software.webp",
+    "width": 701,
+    "height": 438,
+    "alt": "Custom software development",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAIAAsBMJZQCdAEO9qIgAP7zY77PG5IHYMnejaegAA=="
+  },
+  "svc-mobile": {
+    "src": "/images/four/svc-mobile.webp",
+    "width": 2048,
+    "height": 944,
+    "alt": "Mobile app development",
+    "blurDataURL": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAAAwAQCdASoEAAIAAsBMJZwAA3AA/uxfeacEhbOBAAA="
+  },
+  "svc-web": {
+    "src": "/images/four/svc-web.webp",
+    "width": 587,
+    "height": 410,
+    "alt": "Web app development",
+    "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4WAoAAAAQAAAAAwAAAgAAQUxQSAsAAAABD9D/iAhMQkT/owBWUDggKAAAALABAJ0BKgQAAwACwEwlAE6AId/AXYAA/uwKdheASrIfu73LREAAAAA="
+  },
+  "svc-modernization": {
+    "src": "/images/four/svc-modernization.webp",
+    "width": 2560,
+    "height": 1450,
+    "alt": "Enterprise modernization",
+    "blurDataURL": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAAAwAgCdASoEAAIAAsBMJagCdLoAngAFfdbUqAD+3jh2SZzBfnAzazPeM0Tkt+UxAk4aKvKBDAA="
+  },
+  "svc-gcc": {
+    "src": "/images/four/svc-gcc.webp",
+    "width": 1000,
+    "height": 562,
+    "alt": "Global capability center",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAIAAsBMJZwCdAEO+KbQAP7PXcOdUaiB0VTNaNwAAA=="
+  },
+  "ind-ecommerce": {
+    "src": "/images/four/ind-ecommerce.webp",
+    "width": 800,
+    "height": 1000,
+    "alt": "Ecommerce industry",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoDAAQAAsBMJQBOgCHfwF2AAP7GAkJZq+V01lShWfI5NfQAAAA="
+  },
+  "ind-healthtech": {
+    "src": "/images/four/ind-healthtech.webp",
+    "width": 800,
+    "height": 1000,
+    "alt": "HealthTech industry",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACQAQCdASoDAAQAAsBMJZQAAudZtgAA/tT4FKnrARc5oKyILng73vFwAAA="
+  },
+  "ind-logistics": {
+    "src": "/images/four/ind-logistics.webp",
+    "width": 800,
+    "height": 1000,
+    "alt": "Logistics industry",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAADQAQCdASoDAAQAAsBMJZQCdAEO/gOOAAD+voUfgHEVDJLAAAA="
+  },
+  "ind-edtech": {
+    "src": "/images/four/ind-edtech.webp",
+    "width": 800,
+    "height": 1000,
+    "alt": "EdTech industry",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoDAAQAAsBMJaQAAudFw0AA/tT7faF/1uX1OT0AAAA="
+  },
+  "ind-fintech": {
+    "src": "/images/four/ind-fintech.webp",
+    "width": 800,
+    "height": 1000,
+    "alt": "FinTech industry",
+    "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAADQAQCdASoDAAQAAsBMJagCdAEO9qiGAAD+8mWUjaTZg3LGOTES4/8py5i+YyKuLv7Gu4AA"
+  },
+  "ind-telecom": {
+    "src": "/images/four/ind-telecom.webp",
+    "width": 800,
+    "height": 1000,
+    "alt": "Telecom industry",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACQAQCdASoEAAMAAsBMJQBOgB6PNQAA/p+bOLVgk2O9aY01PwEbbJwAAAA="
+  },
+  "gcc-benefit-1": {
+    "src": "/images/four/gcc-benefit-1.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Cost structure that scales with headcount",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoEAAMAAsBMJYwC7AEO/aaQAP7rxWaaeVyea+igEfMMRzQ84OgAAA=="
+  },
+  "gcc-benefit-2": {
+    "src": "/images/four/gcc-benefit-2.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A team shaped around your roadmap",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJZQCdAEO9sTIAPwi4AYzFUFJdddogPHKYAAA"
+  },
+  "gcc-benefit-3": {
+    "src": "/images/four/gcc-benefit-3.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Teams deployed and shipping sooner",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoEAAMAAsBMJYgCdAEO/gLsAPqf2q+sh0pMuNvdmsODsfrhbLJwAA=="
+  },
+  "gcc-benefit-5": {
+    "src": "/images/four/gcc-benefit-5.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Domain knowledge that stays in-house",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADQAQCdASoEAAMAAsBMJZACdAEO+KeoAAD9T6ShMaV5QVP1Td4mc6wLsq9aJygA"
+  },
+  "gcc-benefit-6": {
+    "src": "/images/four/gcc-benefit-6.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Your leadership sets priorities directly",
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoEAAMAAsBMJQBOgCHXYJAAAP7SDQGaf9JedJiNzqYxc3g5XNlAn24AAAA="
+  },
+  "gcc-benefit-4": {
+    "src": "/images/four/gcc-benefit-4.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Access to India engineering talent",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJYwCdAEO9p5AAM4B6Qk8uQlw1Y5z9zBEgAAA"
+  },
+  "gcc-step-1": {
+    "src": "/images/four/gcc-step-1.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Mapping which functions move offshore",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAMAAsBMJZQCdAEOZ/HeAPR2HcJFf29jDU4/PD6oAA=="
+  },
+  "gcc-step-2": {
+    "src": "/images/four/gcc-step-2.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Company registration and statutory compliance",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJZwAApz7FAAA/gFc8K+4uCU8Ja7gAAA="
+  },
+  "gcc-step-3": {
+    "src": "/images/four/gcc-step-3.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Infrastructure and security commissioned",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADwAQCdASoEAAMAAsBMJagCdLoAAzv7+RAA/u6neCzUmC2+KAUjid3+LWtmUHAA"
+  },
+  "gcc-step-4": {
+    "src": "/images/four/gcc-step-4.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Sourcing and onboarding engineers",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJaQAAudLLQAA/PeUDyKrm9RFSUwcAAA="
+  },
+  "gcc-step-5": {
+    "src": "/images/four/gcc-step-5.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Running the centre against agreed SLAs",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoEAAMAAsBMJYwCdAEUo5oPwAD+qeDpCpgZP0uvG80QAAAA"
+  },
+  "ind-fintech-hero": {
+    "src": "/images/four/ind-fintech-hero.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "AI-driven financial technology and digital banking operations",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJaQAAudRuOAA/vGCEgO5/uQJhF8AAAA="
+  },
+  "ind-healthtech-hero": {
+    "src": "/images/four/ind-healthtech-hero.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Clinical teams using AI-assisted healthcare technology",
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACwAQCdASoEAAMAAsBMJZwAAveDaeoAAP7uEGM4B7aol4AA"
+  },
+  "ind-edtech-hero": {
+    "src": "/images/four/ind-edtech-hero.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Digital learning platform powered by adaptive AI",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoEAAMAAsBMJYwCdAEO9p5AAP5BLy4PzmvClmsoVuT9Lrse+AAAAA=="
+  },
+  "ind-ecommerce-hero": {
+    "src": "/images/four/ind-ecommerce-hero.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Online retail operations driven by AI personalisation",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAMAAsBMJZQCsAEO9qbgAP7tJCL1yCiZVYobY0AAAA=="
+  },
+  "ind-logistics-hero": {
+    "src": "/images/four/ind-logistics-hero.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Supply chain and fleet operations optimised with AI",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJZQAApz9zgAA/PoGUENSZxSFBpZgAAA="
+  },
+  "ind-telecom-hero": {
+    "src": "/images/four/ind-telecom-hero.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Telecom network operations monitored by AI systems",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJYwCdAD0eagAAPalhigXHWyOnrOpY0J/3wAA"
+  },
+  "ind-construction-hero": {
+    "src": "/images/four/ind-construction-hero.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Construction site planning supported by AI monitoring",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoEAAMAAsBMJagCdAEO/gLsAP7praeo8XdiPGDneWZw16VgAAA="
+  },
+  "fintech-step-1": {
+    "src": "/images/four/fintech-step-1.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Discovery & Use-Case Definition",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoEAAMAAsBMJZQCdAEUoxowAAD2aOCWF7B1XNOXI2P//kAA"
+  },
+  "fintech-step-2": {
+    "src": "/images/four/fintech-step-2.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Data Assessment & Preparation",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJZwAAudLLQAA/cHFEV1q8oOn4S8AAAA="
+  },
+  "fintech-step-3": {
+    "src": "/images/four/fintech-step-3.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Model Development & Training",
+    "blurDataURL": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAACQAQCdASoEAAMAAsBMJaQAAudFrAAA/viaTZ9xggAAAA=="
+  },
+  "fintech-step-4": {
+    "src": "/images/four/fintech-step-4.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Validation & Explainability",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoEAAMAAsBMJaQAAudZtgAA/sqARVjG8A4x17CpGKAAAA=="
+  },
+  "fintech-step-5": {
+    "src": "/images/four/fintech-step-5.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Integration & Secure Deployment",
+    "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAACwAQCdASoEAAMAAsBMJaACdAEPCliwAP70nyZFKNnHeN7u4E5oWQloB4xlHLJqDsIa8AAA"
+  },
+  "fintech-step-6": {
+    "src": "/images/four/fintech-step-6.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Monitoring & Continuous Improvement",
+    "blurDataURL": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAACQAQCdASoEAAMAAsBMJaQAAudZtgAA/vDjD4gAAAA="
+  },
+  "ecommerce-step-1": {
+    "src": "/images/four/ecommerce-step-1.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Goal Definition",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACwAQCdASoEAAMAAsBMJaQAAueGWGDAAP2pifcyzmsXVjaAAAA="
+  },
+  "ecommerce-step-2": {
+    "src": "/images/four/ecommerce-step-2.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Readiness Assessment",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAMAAsBMJaQAAudLlqcAAP6b1BJmeVbUAyU6cAAAAA=="
+  },
+  "ecommerce-step-3": {
+    "src": "/images/four/ecommerce-step-3.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Solution Design & Measurement Plan",
+    "blurDataURL": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAACQAQCdASoEAAMAAsBMJaQAAudZtgAA/phDZ+TyQgAAAA=="
+  },
+  "ecommerce-step-4": {
+    "src": "/images/four/ecommerce-step-4.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Model Development & Integration",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACQAQCdASoEAAMAAsBMJQBOgB6OKAAA/q29GSNqf3oEi3IobMshqXVjQAA="
+  },
+  "ecommerce-step-5": {
+    "src": "/images/four/ecommerce-step-5.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Testing & Validation",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoEAAMAAsBMJQBOgCHKWAAAyWCylzbnENnvsB1FE/AAAA=="
+  },
+  "ecommerce-step-6": {
+    "src": "/images/four/ecommerce-step-6.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Optimisation & Scale",
+    "blurDataURL": "data:image/webp;base64,UklGRigAAABXRUJQVlA4IBwAAABQAQCdASoEAAMAAsBMJZwABAAAAP70yarBh5AA"
+  },
+  "off-step-1": {
+    "src": "/images/four/off-step-1.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Requirements & Engagement Planning",
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACwAQCdASoEAAMAAsBMJZQCdAEO/gLsAPsbZ9JD7S6OBuwA"
+  },
+  "off-step-2": {
+    "src": "/images/four/off-step-2.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Architecture & Delivery Preparation",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAMAAsBMJaQAAveELtAAAP7XnFbB7bH+lNrAwAAAAA=="
+  },
+  "off-step-3": {
+    "src": "/images/four/off-step-3.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Iterative Development",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADQAQCdASoEAAMAAsBMJYwCdAEO9sV+AAD+C0+4eLWnU+Rk4GYbaFvGeAA="
+  },
+  "off-step-4": {
+    "src": "/images/four/off-step-4.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Testing & Review",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADQAQCdASoEAAMAAsBMJYgCdAEPAzVrAAD+9Hw91xDdLbCaZBaSMyTYOXmZr8AA"
+  },
+  "off-step-5": {
+    "src": "/images/four/off-step-5.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Release & Continuing Improvement",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADQAQCdASoEAAMAAsBMJYwCdAEO9qgYAADMn+UBVWkODIO4t4/HBsd/zQy6+JAA"
+  },
+  "staff-step-1": {
+    "src": "/images/four/staff-step-1.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Requirement Analysis",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJZQCdAEO9p5AAP6jaG9J/v1TxnqmWVSCAAAA"
+  },
+  "staff-step-2": {
+    "src": "/images/four/staff-step-2.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Candidate Shortlisting",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoEAAMAAsBMJZwAAudFrAAA/mqqbH/QqpqN9JEph5AAAA=="
+  },
+  "staff-step-3": {
+    "src": "/images/four/staff-step-3.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Interviews & Skill Assessment",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACQAQCdASoEAAMAAsBMJZQAAudGFIAA9r8VMYvvfc73vZpNSO0swAAA"
+  },
+  "staff-step-4": {
+    "src": "/images/four/staff-step-4.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Rapid Onboarding",
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoEAAMAAsBMJZwAAp0JU4AA/ubjZ/62g74+UgAA"
+  },
+  "staff-step-5": {
+    "src": "/images/four/staff-step-5.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Continuous Support & Monitoring",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAMAAsBMJZwC7AEO+KbQAPKhKJW5/gJdWxNHtgAAAA=="
+  },
+  "ito-step-1": {
+    "src": "/images/four/ito-step-1.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Discuss the Requirements",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJaQAAveCoOAA/oQSuNZ4HeNyYsQAAAA="
+  },
+  "ito-step-2": {
+    "src": "/images/four/ito-step-2.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Select the Engagement Model",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACQAQCdASoEAAMAAsBMJaQAAudLLQAA9rB6L1jy434H864PKEIAAAAA"
+  },
+  "ito-step-3": {
+    "src": "/images/four/ito-step-3.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Confirm Scope and Responsibilities",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJZwAAudZt7gA944paPBKq8LFFzrzoAA="
+  },
+  "ito-step-4": {
+    "src": "/images/four/ito-step-4.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Begin Delivery",
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoEAAMAAsBMJaQAAudZtgAA/mtOnMrRQhm9GQAA"
+  },
+  "ito-step-5": {
+    "src": "/images/four/ito-step-5.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Review and Improve",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACwAQCdASoEAAMAAsBMJZQCdAEO/gLsAOJxGZe+BKIr5UrWJAA="
+  },
+  "prod-step-1": {
+    "src": "/images/four/prod-step-1.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Planning",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoEAAMAAsBMJYwCdAEO/gOOAAD+bSFdQ/Oufd0wtjMBXyQpaAAAAA=="
+  },
+  "prod-step-2": {
+    "src": "/images/four/prod-step-2.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Development",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADQAQCdASoEAAMAAsBMJYgCdAEPA6gAAAD8160vD+1wcqQpN4BNXjd481FdlEAA"
+  },
+  "prod-step-3": {
+    "src": "/images/four/prod-step-3.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Deployment",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJZwAAueEr54AAP70wIOekbMR9af4Mm3ES8AA"
+  },
+  "prod-step-4": {
+    "src": "/images/four/prod-step-4.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Performance",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAADQAQCdASoEAAMAAsBMJZQCdAEUow5rAAD++IryydDkv69JYAA="
+  },
+  "prod-step-5": {
+    "src": "/images/four/prod-step-5.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Evolution",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoEAAMAAsBMJZgCdLoAArYYAACeZG9/N9hoI3xbFIVAAAAA"
+  },
+  "cloud-step-1": {
+    "src": "/images/four/cloud-step-1.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Assessment & Discovery",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJZwAAudR6dAA/t43Be1dhMmTKPSzAAA="
+  },
+  "cloud-step-2": {
+    "src": "/images/four/cloud-step-2.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Cloud Model & Technology Selection",
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAABwAQCdASoEAAMAAsBMJZgCdAGgAACbwH/fz7+vvKHYkwAA"
+  },
+  "cloud-step-3": {
+    "src": "/images/four/cloud-step-3.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Architecture & Budget Planning",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoEAAMAAsBMJQBOgCHe2JkAAM4/SrT2O9cO7vDTMm6bE3ZVAAA="
+  },
+  "cloud-step-4": {
+    "src": "/images/four/cloud-step-4.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Migration & Deployment",
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACwAQCdASoEAAMAAsBMJZQCdAEO9p5AAP73nCnWcXQisgwA"
+  },
+  "cloud-step-5": {
+    "src": "/images/four/cloud-step-5.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Optimisation & Managed Security",
+    "blurDataURL": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABQAQCdASoEAAMAAsBMJZwABAAAAP70KsgF3TAAAAA="
+  },
+  "hire-step-1": {
+    "src": "/images/four/hire-step-1.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Share the Requirement",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoEAAMAAsBMJaQAAudLMAQA/t2Sx3P/C8sr7CTnmgAAAA=="
+  },
+  "hire-step-2": {
+    "src": "/images/four/hire-step-2.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Receive a Shortlist",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAMAAsBMJZQCdAEO9p5AAP728yUpwAt6Sy61eYEsAA=="
+  },
+  "hire-step-3": {
+    "src": "/images/four/hire-step-3.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Interview the Candidates",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoEAAMAAsBMJaQAAudFw0AAzj/rbfqiQ2qOAFU41AAAAA=="
+  },
+  "hire-step-4": {
+    "src": "/images/four/hire-step-4.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Trial Period",
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACQAQCdASoEAAMAAsBMJZACdADA6AAA/OLfNhETshZCx8YUM4j3LRWBK2pRN6OAAAA="
+  },
+  "hire-step-5": {
+    "src": "/images/four/hire-step-5.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Onboard and Deliver",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoEAAMAAsBMJQBOgCHfFNoAAP63ymk/10EXOVOEx6K1gzDy80AAAA=="
+  },
+  "sec-hero-fintech": {
+    "src": "/images/four/sec-hero-fintech.webp",
+    "width": 1448,
+    "height": 1086,
+    "alt": "Trading floor analyst reviewing live market and payment data across multiple screens",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoEAAMAAsBMJZQCdAEO/gLsAP7vano8XIFZ4iRNJyXHaPqhd+fgAA=="
+  },
+  "sec-hero-edtech": {
+    "src": "/images/four/sec-hero-edtech.webp",
+    "width": 1448,
+    "height": 1086,
+    "alt": "Students working on laptops in a modern classroom while an instructor presents a lesson",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoEAAMAAsBMJQBOgCHfGbugAP1S9d6gPZASjVWjJaRCCE7rayfAAA=="
+  },
+  "sec-hero-ecommerce": {
+    "src": "/images/four/sec-hero-ecommerce.webp",
+    "width": 1448,
+    "height": 1086,
+    "alt": "Warehouse operator scanning a parcel beside a screen tracking an order through fulfilment",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAADQAQCdASoEAAMAAsBMJZQC7AEO/gOOAAD+wpvuFd8BRS5ZcAA="
+  },
+  "sec-hero-logistics": {
+    "src": "/images/four/sec-hero-logistics.webp",
+    "width": 1448,
+    "height": 1086,
+    "alt": "Port supervisor with a tablet watching container cranes load a ship at dusk",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoEAAMAAsBMJZgCdAEUo5ocIAD+oxZqCiIwrap48b985PbDc8AAAA=="
+  },
+  "sec-hero-telecom": {
+    "src": "/images/four/sec-hero-telecom.webp",
+    "width": 1448,
+    "height": 1086,
+    "alt": "Network operations engineer monitoring live network status with a transmission mast beyond",
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoEAAMAAsBMJaACdAEO9qIgAP717TgAViDViMvuN3HhKZe+tyoWY3y8AAA="
+  },
+  "sec-hero-construction": {
+    "src": "/images/four/sec-hero-construction.webp",
+    "width": 1448,
+    "height": 1086,
+    "alt": "Site engineer reviewing a building model on a tablet with the structure rising behind",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJQBOgCKUc0H4AP5+rwXhvqG9scWkpljE1gAA"
+  },
+  "ind-construction": {
+    "src": "/images/four/ind-construction.webp",
+    "width": 800,
+    "height": 1000,
+    "alt": "Construction industry",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoDAAQAAsBMJQBOgCHfFPUAAP71PgDgGtGlxx/fDxhMcvAA"
+  },
+  "svc-data-engineering": {
+    "src": "/images/four/svc-data-engineering.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Data engineering pipelines",
+    "blurDataURL": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAADwAQCdASoEAAMAAsBMJbACdLoAAwkG/ewA/rqGp5Qzd09/URD6jGH8iuRfJtsjD4AAAA=="
+  },
+  "svc-data-science": {
+    "src": "/images/four/svc-data-science.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Data science and analytics",
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAADQAQCdASoEAAMAAsBMJZQCsAEO9qiGAAD++cLAJkrGKtAA"
+  },
+  "svc-generative-ai": {
+    "src": "/images/four/svc-generative-ai.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Generative AI systems",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACwAQCdASoEAAMAAsBMJYwCdAEO/gLsAP75GhHF82WiTeZgAAA="
+  },
+  "svc-predictive": {
+    "src": "/images/four/svc-predictive.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Predictive intelligence and forecasting",
+    "blurDataURL": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAACQAQCdASoEAAMAAsBMJaQAAudZtgAA/vrzLcTEAAA="
+  },
+  "svc-mlops": {
+    "src": "/images/four/svc-mlops.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "MLOps and model operations",
+    "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoEAAMAAsBMJaQAA3AA/vXgwAA="
+  },
+  "svc-computer-vision": {
+    "src": "/images/four/svc-computer-vision.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Computer vision systems",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACQAQCdASoEAAMAAsBMJZwAAp0JGAAA/ulesp+DKXoZ6H9DwYSZ0swA"
+  },
+  "svc-fde": {
+    "src": "/images/four/svc-fde.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Forward deployed engineers with a client team",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADQAQCdASoEAAMAAsBMJZQCsAEPBL3VAAD2rBxPHYKi6rVv3A8QbFIAAAA="
+  },
+  "svc-rag": {
+    "src": "/images/four/svc-rag.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "RAG and document AI",
+    "blurDataURL": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAACwAQCdASoEAAMAAsBMJagCdAEO/gLsAP7xhaH+Leb53OpUyJ8Wy9Ud9EBZ9etLZt8gAA=="
+  },
+  "case-studies-hero": {
+    "src": "/images/four/case-studies-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "Product team reviewing a delivered project together in a dim office",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoEAAMAAsBMJQBOgCHfwHkAAP1Sy1910Hi8dG0PtAYOXmRXa6QAAA=="
+  },
+  "fl-cross-platform": {
+    "src": "/images/four/fl-cross-platform.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "One codebase running as an app on both an Android phone and an iPhone",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJZQCdAEO+KbQAP55DPEunZsdonz0RlrmAAAA"
+  },
+  "fl-ios-android": {
+    "src": "/images/four/fl-ios-android.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A developer testing the same app build on an iPhone and an Android handset",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACwAQCdASoEAAMAAsBMJZQAAudLllQAAP5FhQijQakad1PmgAA="
+  },
+  "fl-web": {
+    "src": "/images/four/fl-web.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A Flutter web build open in a browser on a developer workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoEAAMAAsBMJYwCdAEO92RQAP5I79ZDWbC+sRAQqgyU9fldt9pYAA=="
+  },
+  "fl-dart": {
+    "src": "/images/four/fl-dart.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Dart source code open in an editor during Flutter development",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACQAQCdASoEAAMAAsBMJQAAXOj9DAAA4nfIb9fwVDkp6kfAXTopvU0Wtf0mQAAA"
+  },
+  "fl-team": {
+    "src": "/images/four/fl-team.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "The dedicated Flutter engineering team working together in the studio",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABwAQCdASoEAAMAAsBMJaQAApY2oAD+ZtLyLiCQHteufvuAAAA="
+  },
+  "fl-chat": {
+    "src": "/images/four/fl-chat.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A chat application running on a phone, showing a live conversation thread",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoEAAMAAsBMJYgCdAEO9p5AAP7KmEqc4jenZe0bA6WGEyUbRaiY/QAA"
+  },
+  "ion-hybrid": {
+    "src": "/images/four/ion-hybrid.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "One hybrid build running as a native app on an iPhone and an Android phone side by side",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoEAAMAAsBMJZwAAudFrAAA/gdZOQnHz93QFyUw8gAAAA=="
+  },
+  "xam-overview": {
+    "src": "/images/four/xam-overview.webp",
+    "width": 1000,
+    "height": 1200,
+    "alt": "A developer writing C# for a cross-platform application at a desktop workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoDAAQAAsBMJZwAAudHyLAA+5n6Ozb4QmIeJMzmHkAAAA=="
+  },
+  "xam-appdev": {
+    "src": "/images/four/xam-appdev.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A cross-platform application running on a phone and a tablet during development",
+    "blurDataURL": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAACQAQCdASoEAAMAAsBMJaQAAudFrAAA/vSYsNKeAAA="
+  },
+  "net-overview": {
+    "src": "/images/four/net-overview.webp",
+    "width": 1000,
+    "height": 1200,
+    "alt": "A .NET engineer building an enterprise application at a desktop workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoDAAQAAsBMJZQCsAEOO/CwAP6+Bfvh9RhQlFfiSSRl0bLAAAA="
+  },
+  "net-customization": {
+    "src": "/images/four/net-customization.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Engineers integrating a third-party system into an existing application",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAMAAsBMJZQCdAD0bBwAAP7qGrG83tx79qnls8AMAA=="
+  },
+  "net-consulting": {
+    "src": "/images/four/net-consulting.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A consultant advising a client team on an application architecture",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoEAAMAAsBMJZwAAudZt7gA+9Ip/zGHZf3DOxfTmHkAAA=="
+  },
+  "web-hero": {
+    "src": "/images/four/web-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A web application team at work across large screens in a studio",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJZwAAudFrAAA/thdLKE/yaHFS7VtgAA="
+  },
+  "web-overview": {
+    "src": "/images/four/web-overview.webp",
+    "width": 1000,
+    "height": 1200,
+    "alt": "A web developer building a custom application at a desktop workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoDAAQAAsBMJaQAAudLYMAA/u0hcAdsWXIqtjPkFAAAAA=="
+  },
+  "web-cms": {
+    "src": "/images/four/web-cms.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "An editor publishing and organising content in a web content management system",
+    "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoEAAMAAsBMJbACdLoAAxoZI0AA/tHGpc1NMLfaQtPRqoJhSfGYRSJCcHxi/l5oan6x05keahNoTX7ifYAAAA=="
+  },
+  "web-dynamic": {
+    "src": "/images/four/web-dynamic.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A dynamic web application updating live on a large display",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADQAQCdASoEAAMAAsBMJZQC7AEO/agbAAD+ZqsWX9BeTDrBkFuVZHR4QAA="
+  },
+  "web-spa": {
+    "src": "/images/four/web-spa.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A single-page application running smoothly in a browser on a wide display",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoEAAMAAsBMJZQCdAEO9p5AAMtNwm5mHRlAuPU085IUgnlQAAA="
+  },
+  "ng-hero": {
+    "src": "/images/four/ng-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "An Angular engineering team building a web application together",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACQAQCdASoEAAMAAsBMJZQAAudLLQAA/AJghQP7LpYNApUcqKzT7PgA"
+  },
+  "ng-plugin": {
+    "src": "/images/four/ng-plugin.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Engineers extending an existing application with custom components",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACQAQCdASoEAAMAAsBMJZQAAudZtgAA/r5sIl4NhkCQT7ho5ZrAAAAA"
+  },
+  "ng-widget": {
+    "src": "/images/four/ng-widget.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Interface components being assembled on a design workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACQAQCdASoEAAMAAsBMJaQAAudFrAAA/th3J5B+hhBbF6oHritAAAAA"
+  },
+  "ng-api": {
+    "src": "/images/four/ng-api.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Backend services connecting an application to its data",
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoEAAMAAsBMJZwAAudFtmAA/vS+3GuRUQwEAAAA"
+  },
+  "ng-work-health": {
+    "src": "/images/four/ng-work-health.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A doctor consulting a patient over video on a tablet",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACQAQCdASoEAAMAAsBMJQBOgB42oAAA9Zte3FjVgp8TX48vpyyGwVnrrZ5oAAAA"
+  },
+  "ng-work-retail": {
+    "src": "/images/four/ng-work-retail.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A shopper browsing a multi-vendor marketplace on a phone",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoEAAMAAsBMJZQCdAEO/gLsAPyPytRc2ymZAGUBIomeOoJQAAA="
+  },
+  "ng-work-consulting": {
+    "src": "/images/four/ng-work-consulting.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A consulting team tracking project progress on a planning board",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoEAAMAAsBMJQBOgCHfFdvAAP7T3dlf47B1bVJR7BTe1uK4AAA="
+  },
+  "ng-spa": {
+    "src": "/images/four/ng-spa.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A single-page application running in a browser on a designer workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoEAAMAAsBMJYwCdAEO9p5AAPkOqioY1h3EKQIShGGsWldAAAA="
+  },
+  "nx-hero": {
+    "src": "/images/four/nx-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A product team building a web platform together in a bright studio",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACQAQCdASoEAAMAAsBMJYwAAudGFIAA/pqjruFwNpMv8Ljov2MVNcwAAAA="
+  },
+  "nx-custom": {
+    "src": "/images/four/nx-custom.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "An engineer building a custom web application at a workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACQAQCdASoEAAMAAsBMJZwAAzoO0gAA/DP6YZe9fh1qLzKiW0/dwAAA"
+  },
+  "nx-migration": {
+    "src": "/images/four/nx-migration.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Engineers planning a migration of an existing application",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJYwCdAEUkR1AAP6aHQNK7V95kX/P7xahC8AA"
+  },
+  "ror-hero": {
+    "src": "/images/four/ror-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A Ruby on Rails engineering team at work together in a studio",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACwAQCdASoEAAMAAsBMJaQAAudLllQAAPR2Ql+lI5DZQU4GAAA="
+  },
+  "tx-hero": {
+    "src": "/images/four/tx-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A TypeScript engineering team working on a business-critical application",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACQAQCdASoEAAMAAsBMJQBOgB6Ng4AA/Ck0lMwLxh5JSjYytyfrHrJ3iAAAAA=="
+  },
+  "tx-svc-custom": {
+    "src": "/images/four/tx-svc-custom.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "An engineer building a custom TypeScript application",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJaQAAudZtgAA/uvBRZrkVf0uqwAAAAA="
+  },
+  "tx-svc-migration": {
+    "src": "/images/four/tx-svc-migration.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Engineers planning an incremental migration of an existing codebase",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJZQCdAEO9qbgAPR2UA5RtMH1yH33xXcTy5gA"
+  },
+  "tx-svc-backend": {
+    "src": "/images/four/tx-svc-backend.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Backend services being built and deployed for an application",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACQAQCdASoEAAMAAsBMJYwAAudZtgAA/upaFh6Vv7F1YdrAeEC952YAAAA="
+  },
+  "tx-svc-api": {
+    "src": "/images/four/tx-svc-api.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "API contracts being agreed between client and server teams",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJZwAAudZtgAA/NYA/qXk9xpi5wkAAAA="
+  },
+  "tx-overview": {
+    "src": "/images/four/tx-overview.webp",
+    "width": 1000,
+    "height": 1200,
+    "alt": "A developer reviewing typed application code on a workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoDAAQAAsBMJZQCdAEO/gLsAM4QkFn1xb7e9ekJulUAAA=="
+  },
+  "tx-svc-frontend": {
+    "src": "/images/four/tx-svc-frontend.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A typed frontend interface being built on a wide display",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoEAAMAAsBMJZQCdAEO+KbQAP6ZhoUmYSeowO/9H+EwGzQ5wAA="
+  },
+  "tx-svc-maintenance": {
+    "src": "/images/four/tx-svc-maintenance.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "An engineer auditing an existing codebase before planned maintenance",
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoEAAMAAsBMJaQAApz7FAAA/cb0vfCYqrcDKHAA"
+  },
+  "gq-hero": {
+    "src": "/images/four/gq-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "Engineers connecting several services through a unified GraphQL API layer",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAMAAsBMJaQAAudnucwAAP7lCWe56dpmFnkRt4AAAA=="
+  },
+  "gq-overview": {
+    "src": "/images/four/gq-overview.webp",
+    "width": 1000,
+    "height": 1200,
+    "alt": "An engineer designing a GraphQL schema that unifies data from several services",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoDAAQAAsBMJZwAAudo3o4AAP7CEzJQV4EtzleRy+CXgAAA"
+  },
+  "gq-svc-schema": {
+    "src": "/images/four/gq-svc-schema.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Engineers mapping a GraphQL schema's object relationships on a whiteboard",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADQAQCdASoEAAMAAsBMJYwCdAEO92eIAAD+4j5ZEoRX/UR0fTj9EJztAAA="
+  },
+  "gq-svc-resolver": {
+    "src": "/images/four/gq-svc-resolver.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A backend engineer developing resolvers that connect a GraphQL API to live services",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAMAAsBMJQBOgCHfGbugAP75S35YSY0R2FwmMAAAAA=="
+  },
+  "gq-svc-integration": {
+    "src": "/images/four/gq-svc-integration.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Developers integrating a GraphQL API with existing REST services and platforms",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoEAAMAAsBMJZQAAud8PU4AAP7xqEGvRhwFKQOAoQFNHwUAAAA="
+  },
+  "gq-svc-migration": {
+    "src": "/images/four/gq-svc-migration.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Developers testing a phased migration from REST endpoints to GraphQL",
+    "blurDataURL": "data:image/webp;base64,UklGRigAAABXRUJQVlA4IBwAAAAwAQCdASoEAAMAAsBMJaQAA3AA/vXB6lP3oAAA"
+  },
+  "gq-svc-performance": {
+    "src": "/images/four/gq-svc-performance.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A performance dashboard used to review GraphQL query and resolver behavior",
+    "blurDataURL": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAADQAQCdASoEAAMAAsBMJbACdLoAAnUCQAD+7SA6XV4mk0oXlmA5zI77qwp9by1X9amRj6ngAAA="
+  },
+  "gq-svc-maintenance": {
+    "src": "/images/four/gq-svc-maintenance.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A dedicated team maintaining and updating a live GraphQL API",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoEAAMAAsBMJZQAAudnt/AA/s7oescGznQl6GV8wPQAAA=="
+  },
+  "rj-hero": {
+    "src": "/images/four/rj-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "An open laptop showing JavaScript code in a modern workspace",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACQAQCdASoEAAMAAsBMJaQAAudHxMAA4DfbjkeQLU+yBfAnvpcAAAAA"
+  },
+  "nj-overview": {
+    "src": "/images/four/nj-overview.webp",
+    "width": 1000,
+    "height": 1200,
+    "alt": "A NodeJS development team collaborating around a workstation",
+    "blurDataURL": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAACQAQCdASoDAAQAAsBMJaQAAudZtgAA+3Y1Qvyk5TIAAA=="
+  },
+  "java-hero": {
+    "src": "/images/four/java-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A Java developer's workstation with code on screen",
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoEAAMAAsBMJZwAAudLLzgA/vMvMlSkX14S8AAA"
+  },
+  "java-svc-cloud": {
+    "src": "/images/four/java-svc-cloud.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A cloud-native application dashboard viewed on a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoEAAMAAsBMJQBOgCHfFP7AAP3GSyb/VtyTQENg2B0JRbwk3jUWPG79YAA="
+  },
+  "java-svc-saas": {
+    "src": "/images/four/java-svc-saas.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A SaaS application interface open in a browser",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoEAAMAAsBMJYwCdAEUowugAAD+8XntjAirNuygE90pgAAA"
+  },
+  "java-svc-migration": {
+    "src": "/images/four/java-svc-migration.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Developers reviewing a plan to migrate an existing application to Java",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACQAQCdASoEAAMAAsBMJZwAApz7WgAA/vGM1I4bRo4SeaeqnA6QAAAA"
+  },
+  "java-svc-api": {
+    "src": "/images/four/java-svc-api.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A developer building a REST API on a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADQAQCdASoEAAMAAsBMJZgCdAEO/gOOAAD+rYqNheBlGrTnAIPEmByNuu4cjK1LsOTRkKIg/BhRNm2gAAA="
+  },
+  "java-svc-maintenance": {
+    "src": "/images/four/java-svc-maintenance.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A developer maintaining and supporting a live application",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAMAAsBMJZQCdAEO/gLsAP7vafQwrQwssPxhG2oAAA=="
+  },
+  "java-svc-dedicated": {
+    "src": "/images/four/java-svc-dedicated.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A dedicated team of Java developers working together",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoEAAMAAsBMJZwAAudr7r1AAP7sTfKDJSAxcpfEvAAAAA=="
+  },
+  "mad-hero": {
+    "src": "/images/four/mad-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A developer building a mobile app on a laptop beside a phone",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJaQAAudFrAAA/uz2keRrHEOmfwAAAAA="
+  },
+  "and-hero": {
+    "src": "/images/four/and-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A developer testing an Android app on a smartphone",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoEAAMAAsBMJaQAAudLLQAA4n7ItaMt0DZxSm1dGzHAAA=="
+  },
+  "svc-card-custom-ai": {
+    "src": "/images/four/svc-card-custom-ai.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Code editor with an AI assistant menu offering to explain, generate and fix code",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoEAAMAAsBMJZwAAp0f/gAA/vW+5zHPv6wD/3TxvFwAAA=="
+  },
+  "svc-card-data-engineering": {
+    "src": "/images/four/svc-card-data-engineering.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Data flowing through the stages of a processing pipeline",
+    "blurDataURL": "data:image/webp;base64,UklGRiYAAABXRUJQVlA4IBoAAAAwAQCdASoEAAIAAsBMJaQAA3AA/vES8uQAAA=="
+  },
+  "svc-card-data-science": {
+    "src": "/images/four/svc-card-data-science.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Analyst working through a data plot on a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJZQC7AEO9sTIAP6U7LuIceB/TTKj/garVJgA"
+  },
+  "svc-card-generative-ai": {
+    "src": "/images/four/svc-card-generative-ai.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Detailed digital illustration being created on a tablet, with code on screens behind",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoEAAMAAsBMJQBOgCHfSI8AAP7AbSjoBzNKyu7v+GbQ/xF8aAA="
+  },
+  "svc-card-agentic-ai": {
+    "src": "/images/four/svc-card-agentic-ai.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "A robotic hand and a human hand meeting in a fist bump",
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoEAAMAAsBMJZwAAud7WpAA/t/fn28FlMYeQAAA"
+  },
+  "svc-card-rag": {
+    "src": "/images/four/svc-card-rag.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Two colleagues reviewing documents alongside a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoEAAMAAsBMJQBOgCKUZnXAAAD+1+2zo8UCamevsNGn4BN2VQAAAA=="
+  },
+  "svc-card-computer-vision": {
+    "src": "/images/four/svc-card-computer-vision.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Camera monitoring traffic on a busy road",
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoEAAMAAsBMJbACdAD0bRugAP6prL8wjYLku4JbZ3XayHxofTEOsEzCUAA="
+  },
+  "svc-card-predictive": {
+    "src": "/images/four/svc-card-predictive.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Magnifying glass over trend charts",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJaQAApz7FAAA/uABqHbi+gal8yZo4AA="
+  },
+  "svc-card-mlops": {
+    "src": "/images/four/svc-card-mlops.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Laptop showing a monitoring dashboard of charts and metrics",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADQAQCdASoEAAMAAsBMJYwCdAEPBALTAAD5adrpv413l78yRtUUUcxHgAA="
+  },
+  "svc-card-fde": {
+    "src": "/images/four/svc-card-fde.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Engineer meeting with client stakeholders across a desk",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACwAQCdASoEAAMAAsBMJZwCdAEO/gLsAP7aBth/gC35WFVJgAA="
+  },
+  "mad-cs-grocery": {
+    "src": "/images/four/mad-cs-grocery.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Grocery delivery app on a phone, surrounded by fresh produce",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoEAAMAAsBMJYwCdAEPA6AoAAD+7iLpu4ClrfJ+l12Pa4AA"
+  },
+  "mad-hero-cross-device": {
+    "src": "/images/four/mad-hero-cross-device.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A mobile app open on a smartphone beside the same app on a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoEAAMAAsBMJQBOgCHfwHHAAPyP9ps96/Sf/c4Jzyx4uXNc6DWioAAA"
+  },
+  "svc-px-custom-ai": {
+    "src": "/images/four/svc-px-custom-ai.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "A robotic hand reaching toward glowing blue light",
+    "blurDataURL": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAACwAQCdASoEAAMAAsBMJYgCdAEO/gLsAP7zElrGzw7DVuJo1pw8VS7OR5d5P3KTnAAAAA=="
+  },
+  "svc-px-data-engineering": {
+    "src": "/images/four/svc-px-data-engineering.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Glowing fibre-optic strands carrying streams of light",
+    "blurDataURL": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAACwAQCdASoEAAMAAsBMJbACdAD0bBwAAP7zVQrNhQJefj6/Z+rFi/S1P/195Q7FEIAAAA=="
+  },
+  "svc-px-data-science": {
+    "src": "/images/four/svc-px-data-science.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "A hand working with glowing data graphs on a touchscreen",
+    "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAADQAQCdASoEAAMAAsBMJYgCdAEO9sW/AAD+9ttHpG6Ekj9MCQZNIYby1Zfnl3lR3X1dAAAA"
+  },
+  "svc-px-generative-ai": {
+    "src": "/images/four/svc-px-generative-ai.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "A transparent figure lit by blue light, suggesting an artificial mind",
+    "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAAAQAgCdASoEAAMAAsBMJbACdLoAAxockSwAAP7u81sbmXYiCOQFWzv2psU777voPZ3zFuAA"
+  },
+  "svc-px-agentic-ai": {
+    "src": "/images/four/svc-px-agentic-ai.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "A robot with glowing blue eyes",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJaQAAudnt/AA/uRLLbyTA5MC6HQAAAA="
+  },
+  "svc-px-rag": {
+    "src": "/images/four/svc-px-rag.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "A hand working a glowing touchscreen interface in the dark",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJZwAAxf8B0IAAP75zQwWL76oBNoMAX1cAAAA"
+  },
+  "svc-px-computer-vision": {
+    "src": "/images/four/svc-px-computer-vision.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "An eye in shadow crossed by a band of scanning light",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoEAAMAAsBMJZwAApz7WgAA/vS8Hn1ttzCL9EvihAAAAA=="
+  },
+  "svc-px-predictive": {
+    "src": "/images/four/svc-px-predictive.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "A data chart with a trend line and a dotted projection",
+    "blurDataURL": "data:image/webp;base64,UklGRiYAAABXRUJQVlA4IBoAAABQAQCdASoEAAMAAsBMJaQABDOAAP72neZwAA=="
+  },
+  "svc-px-mlops": {
+    "src": "/images/four/svc-px-mlops.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Server cooling fans lit blue inside a data centre",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADwAQCdASoEAAMAAsBMJagCdLoAAwjz9AAA/unZQmGGhsX9qYJIyl/6FPs4ZzAA"
+  },
+  "svc-px-fde": {
+    "src": "/images/four/svc-px-fde.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "A human hand and a robotic hand working side by side in blue light",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoEAAMAAsBMJZgCdAEOJBjQAP74ZIgBqpjJ7k1HH3G7jzrsHYLQgAAA"
+  },
+  "and-hero-strings": {
+    "src": "/images/four/and-hero-strings.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A hand holding an Android phone showing an app's string resources in code",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACQAQCdASoEAAIAAsBMJYwAAp0f/gAA/mc3GjEEvM83f8X52Pa4AAAA"
+  },
+  "fl-both-platforms": {
+    "src": "/images/four/fl-both-platforms.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "An iPhone and an Android phone held side by side",
+    "blurDataURL": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAACQAQCdASoEAAMAAsBMJaQAAudLMfAA/dXlqW8CNVIAAA=="
+  },
+  "fl-web-app": {
+    "src": "/images/four/fl-web-app.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "The same web app open on a smartphone and a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoEAAMAAsBMJZwAAudFw0AA/cXlOuKZ0CJqpxIKAAA="
+  },
+  "fl-chat-app": {
+    "src": "/images/four/fl-chat-app.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Hands typing a message in a chat app conversation on a smartphone",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoEAAMAAsBMJZQCdAEUozI9AAD+9LLGDRZIRZlZEdO+AAAA"
+  },
+  "ion-widgets": {
+    "src": "/images/four/ion-widgets.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A smartphone app screen built from widget tiles for billing, add-ons and payments",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoEAAMAAsBMJZwAAudHyLAA/qoJEPT9uCZ40z3QIQVgAA=="
+  },
+  "ion-watch-sync": {
+    "src": "/images/four/ion-watch-sync.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A smartwatch beside a smartphone showing the same weekly report",
+    "blurDataURL": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAACwAQCdASoEAAMAAsBMJZgCdAEO/gLsAP7tC2Q3S6iX40D0mYwpcphP5T1bU07sEAAAAA=="
+  },
+  "ion-support-team": {
+    "src": "/images/four/ion-support-team.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "A support team with headsets working on laptops in an office",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJZQCdAEO9p5AAPKkD04PGNoxaN64KHzKwAAA"
+  },
+  "xam-app-code": {
+    "src": "/images/four/xam-app-code.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "App code open on a laptop with a smartphone beside it on the desk",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADwAQCdASoEAAMAAsBMJQBOj+ADA0gUagAA/sJpeP+k43Hr62IGn25lYlx2AAAA"
+  },
+  "xam-screens": {
+    "src": "/images/four/xam-screens.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "One design shown on a monitor, a laptop, a tablet and a smartphone at a desk",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJZQCsAEO/gLsAPKAVRqiG2vA8NNKiyrXAAAA"
+  },
+  "svc-px-data-engineering-v2": {
+    "src": "/images/four/svc-px-data-engineering-v2.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Fibre-optic cables patched into a data-centre switch panel",
+    "blurDataURL": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAADQAQCdASoEAAMAAsBMJZACdAEU91MzAAD+TbEGvZvS2vQsAInpNwuwut/Du1ad9AwAAA=="
+  },
+  "svc-px-generative-ai-v2": {
+    "src": "/images/four/svc-px-generative-ai-v2.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "A human hand and a robotic hand typing on the same laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJZQC7AEO9qIgAP7SpO2frZjar/UXADn+aVAA"
+  },
+  "svc-px-agentic-ai-v2": {
+    "src": "/images/four/svc-px-agentic-ai-v2.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "A robotic arm carrying out an automated task in a lab",
+    "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAACQAQCdASoEAAIAAsBMJQhgATQAkAAA/u1P/t6J8Ldhgj+QziEFheIxf426Au3yyMZnoAAA"
+  },
+  "svc-px-rag-v2": {
+    "src": "/images/four/svc-px-rag-v2.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Rows of labelled document binders on a dark shelf",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAMAAsBMJZQCdAEO92RQAP70mg4Cai0wyYnyDUwLcAAA"
+  },
+  "ind-fintech-home": {
+    "src": "/images/four/ind-fintech-home.webp",
+    "width": 800,
+    "height": 1000,
+    "alt": "A phone held to a card terminal for a contactless payment",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoDAAQAAsBMJZQCdAEO+KbQAP7NrweRa1FekGg0hsqYE2AA"
+  },
+  "ind-edtech-home": {
+    "src": "/images/four/ind-edtech-home.webp",
+    "width": 800,
+    "height": 1000,
+    "alt": "A student in headphones taking an online class on a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoDAAQAAsBMJYgCdAEO9sTIAP7rvOn97itZKKqGfW+jGTOcweQ8YmsAAAA="
+  },
+  "ind-ecommerce-home": {
+    "src": "/images/four/ind-ecommerce-home.webp",
+    "width": 800,
+    "height": 1000,
+    "alt": "A laptop showing \"Shop now\" beside a small shopping cart and parcels",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoDAAQAAsBMJZwAAudZtgAA/uiJ9K5aVHwPUBIOrJWwAA=="
+  },
+  "ind-telecom-home": {
+    "src": "/images/four/ind-telecom-home.webp",
+    "width": 800,
+    "height": 1000,
+    "alt": "A mobile network tower with antenna panels against the sky",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADQAQCdASoDAAQAAsBMJagCdLoAAwYgAADeSOp+LcYr1J3nsqy8NqrCkAA="
+  },
+  "svc-px-custom-ai-v2": {
+    "src": "/images/four/svc-px-custom-ai-v2.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "An engineer lit by a wall of blue code on screen",
+    "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADwAQCdASoEAAIAAsBMJagCdLoAArpS3QAA/u0qw/5i1TXz/4NBneXt35t1+6Fbn/trC6e4NZoBVsTAMAA="
+  },
+  "svc-px-fde-v2": {
+    "src": "/images/four/svc-px-fde-v2.webp",
+    "width": 1200,
+    "height": 860,
+    "alt": "Engineers at their screens inside a client operations room",
+    "blurDataURL": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAACQAQCdASoEAAIAAsBMJZwAAudGFIAA/s0KkknatrxcAA=="
+  }
+}

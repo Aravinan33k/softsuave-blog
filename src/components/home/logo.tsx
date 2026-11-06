@@ -1,16 +1,29 @@
 import Image from "next/image";
 import { brand } from "@/lib/home/content";
+import { publicMediaUrl } from "@/lib/media-url";
 
 /** Full logo lockup assets (cube + wordmark + tagline). The light variant is for
- *  dark backgrounds; the dark variant is for light backgrounds. */
+ *  dark backgrounds; the dark variant is for light backgrounds.
+ *
+ *  Paths are root-relative and get the mount subpath applied at render time via
+ *  `publicMediaUrl`: `basePath` prefixes framework assets but not next/image
+ *  sources, and the optimizer fetches the `url` param verbatim — so under
+ *  `basePath: '/blog'` an unprefixed src 400s instead of resolving. */
+/* The `_trim` files are the same artwork with the 100px transparent margin
+   the originals carried on every side cut away (BUG-024). That margin was
+   inside the image box, so a 48px-tall logo drew a 38px lockup — about a
+   quarter smaller than softsuave.com's header logo, with the "A KiwiTech
+   Affiliate Company" line too small to read. New file names, so the dev image
+   optimizer cannot serve its cached copy of the old ones. */
 const LOCKUP = {
-  light: "/brand/softsuave_logo_light.webp",
-  dark: "/brand/softsuave_logo_dark.webp",
+  light: "/brand/softsuave_logo_light_trim.webp",
+  dark: "/brand/softsuave_logo_dark_trim.webp",
 } as const;
 /** Cube-only mark, served from /public (see next.config.ts localPatterns). */
 const MARK = "/brand/mark.png";
-const LOCKUP_W = 741;
-const LOCKUP_H = 193;
+/** The trimmed lockup's own proportions (2992×777). */
+const LOCKUP_W = 2992;
+const LOCKUP_H = 777;
 
 type Props = {
   /** height of the mark (legacy) or the whole lockup (tone mode) in px */
@@ -39,13 +52,15 @@ export default function Logo({
     const w = Math.round(h * (LOCKUP_W / LOCKUP_H));
     return (
       <Image
-        src={LOCKUP[tone]}
+        src={publicMediaUrl(LOCKUP[tone])}
         alt={brand.name}
         width={w}
         height={h}
         priority
         className={className}
-        style={{ height: h, width: "auto", display: "block" }}
+        // `--logo-h` lets a stylesheet resize the lockup per breakpoint (the
+        // nav's is smaller on phones) without fighting an inline height.
+        style={{ height: `var(--logo-h, ${h}px)`, width: "auto", display: "block" }}
       />
     );
   }
@@ -57,7 +72,7 @@ export default function Logo({
       aria-label={brand.name}
     >
       <Image
-        src={MARK}
+        src={publicMediaUrl(MARK)}
         alt=""
         height={size}
         width={Math.round((165 / 192) * size)}

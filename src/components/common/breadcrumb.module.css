@@ -1,0 +1,118 @@
+/* ============================================================
+   BREADCRUMB — the small "Home › <page>" trail above a hero's H1
+   ============================================================
+   Sits on the dark hero ground (both landing heroes are dark), so the colours
+   are pinned rather than read from `--muted`: the surface's muted grey
+   (#9c9c9c) is too faint for 0.8rem text over a photograph. The trail is
+   #c8c8c8, the current page the hero's own bright text colour. */
+
+.breadcrumb {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-eyebrow, ui-sans-serif, system-ui, sans-serif);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: #c8c8c8;
+}
+
+/* One row, always. A wrapping list dropped the current page onto a row of its
+   own the moment "Home › Parent ›" left it less room than its full name — a
+   second line of height and a gap on the right while there was still room for
+   the trail. Instead the middle (parent) crumbs give way first, with an
+   ellipsis; "Home" never shrinks; the current page shrinks last, and wraps
+   its own text only when even that is not enough. */
+.list {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+.item:first-child {
+  flex-shrink: 0;
+}
+
+.item:not(:first-child):not(:last-child) {
+  flex-shrink: 1;
+}
+
+/* The page you are on is never the one cut short. `max-width` lets it wrap
+   inside the row only when it alone is wider than the row. */
+.item:last-child:not(:first-child) {
+  flex-shrink: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 480px) {
+  .breadcrumb {
+    font-size: 0.74rem;
+  }
+
+  .list,
+  .item {
+    gap: 0.4em;
+  }
+}
+
+.item:not(:first-child):not(:last-child) .link {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sep {
+  flex: none;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--accent, #ff6a3d);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--accent, #ff6a3d);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.sep {
+  color: #8a8a8a;
+}
+
+.current {
+  color: var(--text-bright, #fff);
+}
+
+/* `tone="band"`: a masthead that is not a dark hero — the page headers of the
+   index/company pages, one of which sits in a `.light` band. The section's own
+   tokens carry the contrast there, and invert with the band. */
+.breadcrumb[data-tone="band"] {
+  color: var(--text);
+}
+
+.breadcrumb[data-tone="band"] .sep {
+  color: var(--muted);
+}
+
+.breadcrumb[data-tone="band"] .current {
+  color: var(--text-bright);
+}

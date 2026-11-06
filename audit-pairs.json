@@ -1,0 +1,1924 @@
+{
+  "routes": [
+    "/",
+    "/[slug]",
+    "/about",
+    "/admin",
+    "/admin/categories",
+    "/admin/login",
+    "/admin/media",
+    "/admin/pages",
+    "/admin/pages/[id]",
+    "/admin/pages/new",
+    "/admin/posts",
+    "/admin/posts/[id]",
+    "/admin/posts/new",
+    "/admin/profile",
+    "/admin/redirects",
+    "/admin/security",
+    "/admin/settings",
+    "/admin/tags",
+    "/admin/theme-preview",
+    "/admin/tools",
+    "/admin/users",
+    "/agentic-ai-development-services",
+    "/ai-development-service",
+    "/ai-in-logistics",
+    "/ai-solutions-for-construction",
+    "/ai-solutions-for-ecommerce",
+    "/ai-solutions-for-telecom",
+    "/ai-solutions-in-edutech",
+    "/ai-solutions-in-healthtech",
+    "/android-application-development-company",
+    "/angularjs-development-company",
+    "/awards-recognition",
+    "/blog",
+    "/career-overview",
+    "/case-studies",
+    "/category/[slug]",
+    "/clients",
+    "/cloud-computing",
+    "/computer-vision-development-services",
+    "/contact",
+    "/custom-ai-development-services",
+    "/data-engineering-services",
+    "/data-science-services",
+    "/dot-net-application-development-company",
+    "/faqs",
+    "/fintech-ai-solutions",
+    "/flutter-application-development-company",
+    "/free-cost-estimation",
+    "/generative-ai-development-company",
+    "/global-capability-center",
+    "/graphql-development-company",
+    "/hire-ai-developer",
+    "/hire-android-developers",
+    "/hire-angularjs-developers",
+    "/hire-backend-application-developer",
+    "/hire-blockchain-developer",
+    "/hire-dedicated-developers",
+    "/hire-devops-developers",
+    "/hire-django-developer",
+    "/hire-dot-net-developers",
+    "/hire-drupal-developer",
+    "/hire-flutter-developers",
+    "/hire-forward-deployed-engineer",
+    "/hire-frontend-application-developer",
+    "/hire-ionic-developers",
+    "/hire-ios-developers",
+    "/hire-java-developers",
+    "/hire-kotlin-developer",
+    "/hire-laravel-developer",
+    "/hire-magento-developer",
+    "/hire-mean-stack-developers-india",
+    "/hire-mern-stack-developers-india",
+    "/hire-mobile-app-developers",
+    "/hire-nestjs-developers",
+    "/hire-nodejs-developers",
+    "/hire-php-developers",
+    "/hire-python-developers",
+    "/hire-qa-testers-india",
+    "/hire-react-native-developers",
+    "/hire-reactjs-developers",
+    "/hire-ruby-on-rails-developer",
+    "/hire-salesforce-developer",
+    "/hire-software-developers",
+    "/hire-swift-developers",
+    "/hire-web-app-developers",
+    "/industries",
+    "/ionic-app-development-company",
+    "/ios-application-development-company",
+    "/it-outsourcing-company-india",
+    "/it-staff-augmentation-services",
+    "/java-application-development-company",
+    "/legacy-modernization-services",
+    "/life-at-softsuave",
+    "/mobile-application-development-company",
+    "/nextjs-development-company",
+    "/nodejs-development-company",
+    "/offshore-software-development-company",
+    "/php-application-development-company",
+    "/predictive-intelligence-services",
+    "/preview/[type]/[id]",
+    "/product-engineering-services",
+    "/python-application-development-company",
+    "/rag-development-services",
+    "/react-native-app-development-company",
+    "/reactjs-app-development-company",
+    "/ruby-on-rails-development-company",
+    "/search",
+    "/software-development-company",
+    "/success-stories",
+    "/tag/[slug]",
+    "/typescript-development-company",
+    "/web-application-development-company",
+    "/xamarin-app-development-company"
+  ],
+  "pairs": [
+    {
+      "file": "src/lib/home/about-content.ts",
+      "label": "Book free consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/agentic-ai.ts",
+      "label": "Discuss Your Use Case",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/android-app-content.ts",
+      "label": "Talk To Experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/android-app-content.ts",
+      "label": "Hire Android Developer",
+      "href": "/hire-android-developers"
+    },
+    {
+      "file": "src/lib/home/angular-app-content.ts",
+      "label": "Hire Angular Developers",
+      "href": "/hire-angularjs-developers"
+    },
+    {
+      "file": "src/lib/home/careers-content.ts",
+      "label": "Life at Soft Suave",
+      "href": "/life-at-softsuave"
+    },
+    {
+      "file": "src/lib/home/case-studies-content.ts",
+      "label": "Start a conversation",
+      "href": "#contact"
+    },
+    {
+      "file": "src/lib/home/clients-content.ts",
+      "label": "Talk to us",
+      "href": "#contact"
+    },
+    {
+      "file": "src/lib/home/cloud-computing-content.ts",
+      "label": "Book a free consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/computer-vision-content.ts",
+      "label": "Schedule a Consultation",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/construction-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/construction-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "https://www.softsuave.com/30-min-free-consultation"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Book AI Strategy Call",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Explore AI Solutions",
+      "href": "/custom-ai-development-services"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "View Case Study",
+      "href": "/case-studies"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "View All",
+      "href": "/awards-recognition"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Book a Free Consultation",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Talk With AI Experts",
+      "href": "#contact"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Services",
+      "href": "#services"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Industries",
+      "href": "/industries"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Company",
+      "href": "#why"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Resources",
+      "href": "/blog"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "About Us",
+      "href": "/about"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Awards & Recognition",
+      "href": "/awards-recognition"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Our Clients",
+      "href": "/clients"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Life at Soft Suave",
+      "href": "/life-at-softsuave"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Careers",
+      "href": "/career-overview"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Contact Us",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Blog",
+      "href": "/blog"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Case Studies",
+      "href": "/case-studies"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Success Stories",
+      "href": "/success-stories"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Free Cost Estimation",
+      "href": "/free-cost-estimation"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/company/softsuave"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Instagram",
+      "href": "https://www.instagram.com/softsuavetech/"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "YouTube",
+      "href": "https://www.youtube.com/@softsuave"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Privacy Policy",
+      "href": "/privacy-policy"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "FinTech",
+      "href": "/fintech-ai-solutions"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "HealthTech",
+      "href": "/ai-solutions-in-healthtech"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "EdTech",
+      "href": "/ai-solutions-in-edutech"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Ecommerce",
+      "href": "/ai-solutions-for-ecommerce"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Logistics",
+      "href": "/ai-in-logistics"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Telecom",
+      "href": "/ai-solutions-for-telecom"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Custom AI Development",
+      "href": "/custom-ai-development-services"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Data Engineering",
+      "href": "#services"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Data Science",
+      "href": "#services"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Generative AI",
+      "href": "/generative-ai-development-company"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Agentic AI",
+      "href": "/agentic-ai-development-services"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "RAG and Document AI",
+      "href": "#services"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Computer Vision",
+      "href": "#services"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Predictive Intelligence",
+      "href": "#services"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "MLOps",
+      "href": "#services"
+    },
+    {
+      "file": "src/lib/home/content.ts",
+      "label": "Forward Deployed Engineers",
+      "href": "/hire-forward-deployed-engineer"
+    },
+    {
+      "file": "src/lib/home/cost-estimation-content.ts",
+      "label": "See hire rates by role",
+      "href": "/hire-dedicated-developers"
+    },
+    {
+      "file": "src/lib/home/custom-ai-content.ts",
+      "label": "Book a Free Consultation",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/custom-ai-content.ts",
+      "label": "View all Case Studies",
+      "href": "/case-studies"
+    },
+    {
+      "file": "src/lib/home/custom-ai-content.ts",
+      "label": "Get a rough quote in 24 hours",
+      "href": "https://www.softsuave.com/free-quote"
+    },
+    {
+      "file": "src/lib/home/custom-ai-content.ts",
+      "label": "Talk to our experts",
+      "href": "https://www.softsuave.com/30-min-free-consultation"
+    },
+    {
+      "file": "src/lib/home/data-engineering-content.ts",
+      "label": "Discuss Your Project Scope",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/delivery-shared.ts",
+      "label": "Alert:",
+      "href": "/career-overview"
+    },
+    {
+      "file": "src/lib/home/dotnet-app-content.ts",
+      "label": "Talk To Experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/dotnet-app-content.ts",
+      "label": "Hire .NET Developer",
+      "href": "/hire-dot-net-developers"
+    },
+    {
+      "file": "src/lib/home/ecommerce-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/ecommerce-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "https://www.softsuave.com/30-min-free-consultation"
+    },
+    {
+      "file": "src/lib/home/edtech-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/edtech-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "https://www.softsuave.com/30-min-free-consultation"
+    },
+    {
+      "file": "src/lib/home/faqs-content.ts",
+      "label": "See all services",
+      "href": "/ai-development-service"
+    },
+    {
+      "file": "src/lib/home/faqs-content.ts",
+      "label": "Contact us",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/faqs-content.ts",
+      "label": "See our certifications",
+      "href": "/awards-recognition"
+    },
+    {
+      "file": "src/lib/home/faqs-content.ts",
+      "label": "See our clients",
+      "href": "/clients"
+    },
+    {
+      "file": "src/lib/home/faqs-content.ts",
+      "label": "Hire developers",
+      "href": "/hire-dedicated-developers"
+    },
+    {
+      "file": "src/lib/home/faqs-content.ts",
+      "label": "Ask a question",
+      "href": "#contact"
+    },
+    {
+      "file": "src/lib/home/fintech-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/fintech-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "https://www.softsuave.com/30-min-free-consultation"
+    },
+    {
+      "file": "src/lib/home/flutter-app-content.ts",
+      "label": "Hire a Mobile Developer Today",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/flutter-app-content.ts",
+      "label": "Talk To Experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/gcc-content.ts",
+      "label": "Book a free consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/generative-ai.ts",
+      "label": "Discuss Your Project",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/graphql-content.ts",
+      "label": "click here",
+      "href": "/career-overview"
+    },
+    {
+      "file": "src/lib/home/graphql-content.ts",
+      "label": "Plan Your GraphQL Architecture",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/healthtech-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/healthtech-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "https://www.softsuave.com/30-min-free-consultation"
+    },
+    {
+      "file": "src/lib/home/hire-blocks.ts",
+      "label": "Schedule a Call",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "React.js",
+      "href": "/hire-reactjs-developers"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "Angular",
+      "href": "/hire-angularjs-developers"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "ROR",
+      "href": "/hire-ruby-on-rails-developer"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "Node.js",
+      "href": "/hire-nodejs-developers"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "PHP",
+      "href": "/hire-php-developers"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "Java",
+      "href": "/hire-java-developers"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "Python",
+      "href": "/hire-python-developers"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": ".Net",
+      "href": "/hire-dot-net-developers"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "Laravel",
+      "href": "/hire-laravel-developer"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "Nest.js",
+      "href": "/hire-nestjs-developers"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "Django",
+      "href": "/hire-django-developer"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "Magento",
+      "href": "/hire-magento-developer"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "MERN",
+      "href": "/hire-mern-stack-developers-india"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "MEAN",
+      "href": "/hire-mean-stack-developers-india"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "Drupal",
+      "href": "/hire-drupal-developer"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "Swift",
+      "href": "/hire-swift-developers"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "Kotlin",
+      "href": "/hire-kotlin-developer"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "React Native",
+      "href": "/hire-react-native-developers"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "Flutter",
+      "href": "/hire-flutter-developers"
+    },
+    {
+      "file": "src/lib/home/hire-explore.ts",
+      "label": "Ionic",
+      "href": "/hire-ionic-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/android.ts",
+      "label": "Request Rate Card",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/hire-roles/backend.ts",
+      "label": "Start Your 40-Hour Trial",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/hire-roles/backend.ts",
+      "label": "Hire .NET Developers",
+      "href": "/hire-dot-net-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/backend.ts",
+      "label": "Hire PHP Developers",
+      "href": "/hire-php-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/backend.ts",
+      "label": "Hire Java Developers",
+      "href": "/hire-java-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/backend.ts",
+      "label": "Hire NodeJS Developers",
+      "href": "/hire-nodejs-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/backend.ts",
+      "label": "Hire Laravel Developers",
+      "href": "/hire-laravel-developer"
+    },
+    {
+      "file": "src/lib/home/hire-roles/backend.ts",
+      "label": "Hire Django Developers",
+      "href": "/hire-django-developer"
+    },
+    {
+      "file": "src/lib/home/hire-roles/backend.ts",
+      "label": "Hire Python Developers",
+      "href": "/hire-python-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/backend.ts",
+      "label": "Hire Ruby on Rails Developers",
+      "href": "/hire-ruby-on-rails-developer"
+    },
+    {
+      "file": "src/lib/home/hire-roles/dedicated.ts",
+      "label": "Software Developers",
+      "href": "/hire-software-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/dedicated.ts",
+      "label": "Web App Developers",
+      "href": "/hire-web-app-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/dedicated.ts",
+      "label": "Mobile App Developers",
+      "href": "/hire-mobile-app-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/dedicated.ts",
+      "label": "Frontend Developers",
+      "href": "/hire-frontend-application-developer"
+    },
+    {
+      "file": "src/lib/home/hire-roles/dedicated.ts",
+      "label": "Backend Developers",
+      "href": "/hire-backend-application-developer"
+    },
+    {
+      "file": "src/lib/home/hire-roles/dedicated.ts",
+      "label": "DevOps Engineers",
+      "href": "/hire-devops-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/dedicated.ts",
+      "label": "QA Testers",
+      "href": "/hire-qa-testers-india"
+    },
+    {
+      "file": "src/lib/home/hire-roles/dedicated.ts",
+      "label": "Download Rate Card",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/hire-roles/forward-deployed.ts",
+      "label": "Talk to us",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/hire-roles/frontend.ts",
+      "label": "Start Your 40-Hour Trial",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/hire-roles/frontend.ts",
+      "label": "Hire Reactjs Developers",
+      "href": "/hire-reactjs-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/frontend.ts",
+      "label": "Hire AngularJS Developers",
+      "href": "/hire-angularjs-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/ios.ts",
+      "label": "Request Rate Card",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/hire-roles/mobile-app.ts",
+      "label": "Book a Consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/hire-roles/mobile-app.ts",
+      "label": "Hire Android Developers",
+      "href": "/hire-android-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/mobile-app.ts",
+      "label": "Hire iOS Developers",
+      "href": "/hire-ios-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/mobile-app.ts",
+      "label": "Hire Flutter Developers",
+      "href": "/hire-flutter-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/mobile-app.ts",
+      "label": "Hire React Native Developers",
+      "href": "/hire-react-native-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/mobile-app.ts",
+      "label": "Hire Ionic Developers",
+      "href": "/hire-ionic-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/mobile-app.ts",
+      "label": "Hire Kotlin Developers",
+      "href": "/hire-kotlin-developer"
+    },
+    {
+      "file": "src/lib/home/hire-roles/mobile-app.ts",
+      "label": "Hire Java Developers",
+      "href": "/hire-java-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/mobile-app.ts",
+      "label": "Hire Swift Developers",
+      "href": "/hire-swift-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/qa.ts",
+      "label": "Request Rate Card",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/hire-roles/software.ts",
+      "label": "Start Your 40-Hour Trial",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/hire-roles/software.ts",
+      "label": "Hire Web App Developers",
+      "href": "/hire-web-app-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/software.ts",
+      "label": "Hire Mobile App Developers",
+      "href": "/hire-mobile-app-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/software.ts",
+      "label": "Hire Frontend Developers",
+      "href": "/hire-frontend-application-developer"
+    },
+    {
+      "file": "src/lib/home/hire-roles/software.ts",
+      "label": "Hire Backend Developers",
+      "href": "/hire-backend-application-developer"
+    },
+    {
+      "file": "src/lib/home/hire-roles/software.ts",
+      "label": "Hire DevOps Engineers",
+      "href": "/hire-devops-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/software.ts",
+      "label": "Hire Blockchain Developers",
+      "href": "/hire-blockchain-developer"
+    },
+    {
+      "file": "src/lib/home/hire-roles/web-app.ts",
+      "label": "Start Your 40-Hour Trial",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/hire-roles/web-app.ts",
+      "label": "Hire .NET Developers",
+      "href": "/hire-dot-net-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/web-app.ts",
+      "label": "Hire PHP Developers",
+      "href": "/hire-php-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/web-app.ts",
+      "label": "Hire Java Developers",
+      "href": "/hire-java-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/web-app.ts",
+      "label": "Hire Angular Developers",
+      "href": "/hire-angularjs-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/web-app.ts",
+      "label": "Hire NodeJS Developers",
+      "href": "/hire-nodejs-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/web-app.ts",
+      "label": "Hire ReactJS Developers",
+      "href": "/hire-reactjs-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/web-app.ts",
+      "label": "Hire Laravel Developers",
+      "href": "/hire-laravel-developer"
+    },
+    {
+      "file": "src/lib/home/hire-roles/web-app.ts",
+      "label": "Hire Django Developers",
+      "href": "/hire-django-developer"
+    },
+    {
+      "file": "src/lib/home/hire-roles/web-app.ts",
+      "label": "Hire Python Developers",
+      "href": "/hire-python-developers"
+    },
+    {
+      "file": "src/lib/home/hire-roles/web-app.ts",
+      "label": "Hire Ruby on Rails Developers",
+      "href": "/hire-ruby-on-rails-developer"
+    },
+    {
+      "file": "src/lib/home/hire-roles/web-app.ts",
+      "label": "Hire MERN Stack Developers",
+      "href": "/hire-mern-stack-developers-india"
+    },
+    {
+      "file": "src/lib/home/hire-roles/web-app.ts",
+      "label": "Hire MEAN Stack Developers",
+      "href": "/hire-mean-stack-developers-india"
+    },
+    {
+      "file": "src/lib/home/hire-skills-backend.ts",
+      "label": "Request Rate Card",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/hire-skills-backend.ts",
+      "label": "Download Now",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/hire-skills-mobile.ts",
+      "label": "Request Rate Card",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/hire-skills-web.ts",
+      "label": "Request Rate Card",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "Book AI Strategy Call",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "See all sectors",
+      "href": "#sectors"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "FinTech",
+      "href": "/fintech-ai-solutions"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "HealthTech",
+      "href": "/ai-solutions-in-healthtech"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "EdTech",
+      "href": "/ai-solutions-in-edutech"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "eCommerce",
+      "href": "/ai-solutions-for-ecommerce"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "Logistics",
+      "href": "/ai-in-logistics"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "Telecom",
+      "href": "/ai-solutions-for-telecom"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "Construction",
+      "href": "/ai-solutions-for-construction"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "Global Capability Center",
+      "href": "/global-capability-center"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "IT Staff Augmentation",
+      "href": "/it-staff-augmentation-services"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "Offshore Development",
+      "href": "/offshore-software-development-company"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "Product Engineering",
+      "href": "/product-engineering-services"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "Legacy Modernization",
+      "href": "/legacy-modernization-services"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "Cloud and DevOps",
+      "href": "/cloud-computing"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "Book a Free Consultation",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/industries-content.ts",
+      "label": "Explore AI services",
+      "href": "/ai-development-service"
+    },
+    {
+      "file": "src/lib/home/ionic-app-content.ts",
+      "label": "Talk to Our Experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/ios-app-content.ts",
+      "label": "Talk to an iOS expert",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/ios-app-content.ts",
+      "label": "Hire iOS Developer",
+      "href": "/hire-ios-developers"
+    },
+    {
+      "file": "src/lib/home/it-outsourcing-content.ts",
+      "label": "Talk to our experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/it-outsourcing-content.ts",
+      "label": "Get a rough quote in 24 hours",
+      "href": "https://www.softsuave.com/free-quote"
+    },
+    {
+      "file": "src/lib/home/java-content.ts",
+      "label": "click here",
+      "href": "/career-overview"
+    },
+    {
+      "file": "src/lib/home/java-content.ts",
+      "label": "Talk to Our Experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/java-content.ts",
+      "label": "Get FREE Consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/java-content.ts",
+      "label": "Hire Java Developers",
+      "href": "/hire-java-developers"
+    },
+    {
+      "file": "src/lib/home/java-content.ts",
+      "label": "Hire Java developers",
+      "href": "/hire-java-developers"
+    },
+    {
+      "file": "src/lib/home/java-content.ts",
+      "label": "Hire a Java developer",
+      "href": "/hire-java-developers"
+    },
+    {
+      "file": "src/lib/home/legacy-modernization-content.ts",
+      "label": "Book a free consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/life-content.ts",
+      "label": "See open roles",
+      "href": "/career-overview"
+    },
+    {
+      "file": "src/lib/home/logistics-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/logistics-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "https://www.softsuave.com/30-min-free-consultation"
+    },
+    {
+      "file": "src/lib/home/mobile-app-content.ts",
+      "label": "Talk to Our Experts →",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/mobile-app-content.ts",
+      "label": "Book a Consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/mobile-app-content.ts",
+      "label": "Hire Mobile App Developer →",
+      "href": "/hire-mobile-app-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "All services",
+      "href": "#services"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Generative AI",
+      "href": "/generative-ai-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Agentic AI",
+      "href": "/agentic-ai-development-services"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "RAG & Document AI",
+      "href": "/rag-development-services"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Computer Vision",
+      "href": "/computer-vision-development-services"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Predictive Intelligence",
+      "href": "/predictive-intelligence-services"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "AI Development Services",
+      "href": "/ai-development-service"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Data Engineering",
+      "href": "/data-engineering-services"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Data Science",
+      "href": "/data-science-services"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Forward Deployed Engineers",
+      "href": "/hire-forward-deployed-engineer"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Software Development",
+      "href": "/software-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Web App Development",
+      "href": "/web-application-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Mobile App Development",
+      "href": "/mobile-application-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Product Engineering",
+      "href": "/product-engineering-services"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Legacy Modernization",
+      "href": "/legacy-modernization-services"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Cloud & DevOps",
+      "href": "/cloud-computing"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Global Capability Center",
+      "href": "/global-capability-center"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Offshore Development",
+      "href": "/offshore-software-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "IT Outsourcing",
+      "href": "/it-outsourcing-company-india"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "IT Staff Augmentation",
+      "href": "/it-staff-augmentation-services"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Dedicated Development Teams",
+      "href": "/hire-dedicated-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Mobile Apps",
+      "href": "/mobile-application-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Android",
+      "href": "/android-application-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "iOS",
+      "href": "/ios-application-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "React Native",
+      "href": "/react-native-app-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Flutter",
+      "href": "/flutter-application-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Ionic",
+      "href": "/ionic-app-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Xamarin",
+      "href": "/xamarin-app-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Web Apps",
+      "href": "/web-application-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Next.js",
+      "href": "/nextjs-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "React.js",
+      "href": "/reactjs-app-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Angular",
+      "href": "/angularjs-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "TypeScript",
+      "href": "/typescript-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "GraphQL",
+      "href": "/graphql-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Node.js",
+      "href": "/nodejs-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Java",
+      "href": "/java-application-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Python",
+      "href": "/python-application-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "PHP",
+      "href": "/php-application-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": ".NET",
+      "href": "/dot-net-application-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Ruby on Rails",
+      "href": "/ruby-on-rails-development-company"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Hire Software Developer",
+      "href": "/hire-software-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Hire Web App Developer",
+      "href": "/hire-web-app-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Hire Mobile App Developer",
+      "href": "/hire-mobile-app-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Hire Frontend Developer",
+      "href": "/hire-frontend-application-developer"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Hire Backend Developer",
+      "href": "/hire-backend-application-developer"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Hire AI Developer",
+      "href": "/hire-ai-developer"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Hire QA Engineer",
+      "href": "/hire-qa-testers-india"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Hire DevOps Developer",
+      "href": "/hire-devops-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Hire Dedicated Developer",
+      "href": "/hire-dedicated-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "React",
+      "href": "/hire-reactjs-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Angular",
+      "href": "/hire-angularjs-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "ROR",
+      "href": "/hire-ruby-on-rails-developer"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Node.js",
+      "href": "/hire-nodejs-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Java",
+      "href": "/hire-java-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Python",
+      "href": "/hire-python-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "PHP",
+      "href": "/hire-php-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": ".Net",
+      "href": "/hire-dot-net-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Flutter",
+      "href": "/hire-flutter-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Laravel",
+      "href": "/hire-laravel-developer"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "React Native",
+      "href": "/hire-react-native-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "NestJS",
+      "href": "/hire-nestjs-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Django",
+      "href": "/hire-django-developer"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Ionic",
+      "href": "/hire-ionic-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Kotlin",
+      "href": "/hire-kotlin-developer"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Magento",
+      "href": "/hire-magento-developer"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Swift",
+      "href": "/hire-swift-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "MERN",
+      "href": "/hire-mern-stack-developers-india"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Drupal",
+      "href": "/hire-drupal-developer"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "MEAN",
+      "href": "/hire-mean-stack-developers-india"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Android",
+      "href": "/hire-android-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "iOS",
+      "href": "/hire-ios-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Salesforce",
+      "href": "/hire-salesforce-developer"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Blockchain",
+      "href": "/hire-blockchain-developer"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "All industries",
+      "href": "/industries"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "FinTech",
+      "href": "/fintech-ai-solutions"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "HealthTech",
+      "href": "/ai-solutions-in-healthtech"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "EdTech",
+      "href": "/ai-solutions-in-edutech"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Ecommerce",
+      "href": "/ai-solutions-for-ecommerce"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Logistics",
+      "href": "/ai-in-logistics"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Telecom",
+      "href": "/ai-solutions-for-telecom"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Construction",
+      "href": "/ai-solutions-for-construction"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Vision AI for tolling",
+      "href": "#work"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Subscription commerce",
+      "href": "#work"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Pet-care health platform",
+      "href": "#work"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "AI learning platform",
+      "href": "#work"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Talk to us",
+      "href": "#contact"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "About Us",
+      "href": "/about"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Why Soft Suave",
+      "href": "#why"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "AI Transformation Journey",
+      "href": "#journey"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Tech Stack",
+      "href": "#tech"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Life at Soft Suave",
+      "href": "/life-at-softsuave"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Careers",
+      "href": "/career-overview"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Success Stories",
+      "href": "/success-stories"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Contact",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "How to Hire",
+      "href": "/hire-software-developers"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Free Cost Estimation",
+      "href": "/free-cost-estimation"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "FAQs",
+      "href": "/faqs"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Awards & Recognition",
+      "href": "/awards-recognition"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Our Clients",
+      "href": "/clients"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Client Testimonials",
+      "href": "#testimonials"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Read the blog",
+      "href": "/blog"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Blog",
+      "href": "/blog"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Case Studies",
+      "href": "/case-studies"
+    },
+    {
+      "file": "src/lib/home/nav-menu.ts",
+      "label": "Search Articles",
+      "href": "/search"
+    },
+    {
+      "file": "src/lib/home/nextjs-content.ts",
+      "label": "click here",
+      "href": "/career-overview"
+    },
+    {
+      "file": "src/lib/home/nextjs-content.ts",
+      "label": "Plan Your Next.js Project",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/nodejs-content.ts",
+      "label": "click here",
+      "href": "/career-overview"
+    },
+    {
+      "file": "src/lib/home/nodejs-content.ts",
+      "label": "Talk To Experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/nodejs-content.ts",
+      "label": "Hire NodeJS Developer",
+      "href": "/hire-nodejs-developers"
+    },
+    {
+      "file": "src/lib/home/offshore-content.ts",
+      "label": "Talk to our experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/offshore-content.ts",
+      "label": "Book a 30-minute consultation",
+      "href": "https://www.softsuave.com/30-min-free-consultation"
+    },
+    {
+      "file": "src/lib/home/php-content.ts",
+      "label": "click here",
+      "href": "/career-overview"
+    },
+    {
+      "file": "src/lib/home/php-content.ts",
+      "label": "Talk To Experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/php-content.ts",
+      "label": "Hire PHP Developers",
+      "href": "/hire-php-developers"
+    },
+    {
+      "file": "src/lib/home/product-engineering-content.ts",
+      "label": "Book a free consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/python-content.ts",
+      "label": "click here",
+      "href": "/career-overview"
+    },
+    {
+      "file": "src/lib/home/python-content.ts",
+      "label": "Talk To Experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/python-content.ts",
+      "label": "Hire Python Developer",
+      "href": "/hire-python-developers"
+    },
+    {
+      "file": "src/lib/home/rag-document-ai-content.ts",
+      "label": "Discuss Your RAG Project",
+      "href": "/contact"
+    },
+    {
+      "file": "src/lib/home/react-native-app-content.ts",
+      "label": "Talk To Experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/react-native-app-content.ts",
+      "label": "Hire React Native Developer",
+      "href": "/hire-react-native-developers"
+    },
+    {
+      "file": "src/lib/home/reactjs-content.ts",
+      "label": "Talk to Experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/reactjs-content.ts",
+      "label": "Hire ReactJS Developers",
+      "href": "/hire-reactjs-developers"
+    },
+    {
+      "file": "src/lib/home/reactjs-content.ts",
+      "label": "Talk to Experts",
+      "href": "https://www.softsuave.com/free-quote"
+    },
+    {
+      "file": "src/lib/home/ruby-on-rails-content.ts",
+      "label": "Talk To Experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/ruby-on-rails-content.ts",
+      "label": "Hire ROR Developer",
+      "href": "/hire-ruby-on-rails-developer"
+    },
+    {
+      "file": "src/lib/home/staff-augmentation-content.ts",
+      "label": "Request matched profiles",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/staff-augmentation-content.ts",
+      "label": "Get a rough quote in 24 hours",
+      "href": "https://www.softsuave.com/free-quote"
+    },
+    {
+      "file": "src/lib/home/success-stories-content.ts",
+      "label": "Read the case studies",
+      "href": "/case-studies"
+    },
+    {
+      "file": "src/lib/home/telecom-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/telecom-ai-content.ts",
+      "label": "Book a free consultation",
+      "href": "https://www.softsuave.com/30-min-free-consultation"
+    },
+    {
+      "file": "src/lib/home/typescript-content.ts",
+      "label": "click here",
+      "href": "/career-overview"
+    },
+    {
+      "file": "src/lib/home/typescript-content.ts",
+      "label": "Plan Your TypeScript Project",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/web-app-content.ts",
+      "label": "Angular",
+      "href": "/angularjs-development-company"
+    },
+    {
+      "file": "src/lib/home/web-app-content.ts",
+      "label": "ReactJS",
+      "href": "/reactjs-app-development-company"
+    },
+    {
+      "file": "src/lib/home/web-app-content.ts",
+      "label": "Ionic",
+      "href": "/ionic-app-development-company"
+    },
+    {
+      "file": "src/lib/home/web-app-content.ts",
+      "label": "Nodejs",
+      "href": "/nodejs-development-company"
+    },
+    {
+      "file": "src/lib/home/web-app-content.ts",
+      "label": "Laravel",
+      "href": "/hire-laravel-developer"
+    },
+    {
+      "file": "src/lib/home/web-app-content.ts",
+      "label": "Django",
+      "href": "/python-application-development-company"
+    },
+    {
+      "file": "src/lib/home/web-app-content.ts",
+      "label": ".Net",
+      "href": "/dot-net-application-development-company"
+    },
+    {
+      "file": "src/lib/home/web-app-content.ts",
+      "label": "Talk To Experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/xamarin-app-content.ts",
+      "label": "Talk To Experts",
+      "href": "#enquiry"
+    },
+    {
+      "file": "src/lib/home/xamarin-app-content.ts",
+      "label": "Hire Xamarin Developer",
+      "href": "/hire-xamarin-developer"
+    },
+    {
+      "file": "src/components/admin/nav.ts",
+      "label": "Dashboard",
+      "href": "/admin"
+    },
+    {
+      "file": "src/components/admin/nav.ts",
+      "label": "Posts",
+      "href": "/admin/posts"
+    },
+    {
+      "file": "src/components/admin/nav.ts",
+      "label": "Pages",
+      "href": "/admin/pages"
+    },
+    {
+      "file": "src/components/admin/nav.ts",
+      "label": "Categories",
+      "href": "/admin/categories"
+    },
+    {
+      "file": "src/components/admin/nav.ts",
+      "label": "Tags",
+      "href": "/admin/tags"
+    },
+    {
+      "file": "src/components/admin/nav.ts",
+      "label": "Media",
+      "href": "/admin/media"
+    },
+    {
+      "file": "src/components/admin/nav.ts",
+      "label": "Profile",
+      "href": "/admin/profile"
+    },
+    {
+      "file": "src/components/admin/nav.ts",
+      "label": "Security",
+      "href": "/admin/security"
+    },
+    {
+      "file": "src/components/admin/nav.ts",
+      "label": "Users",
+      "href": "/admin/users"
+    },
+    {
+      "file": "src/components/admin/nav.ts",
+      "label": "Redirects",
+      "href": "/admin/redirects"
+    },
+    {
+      "file": "src/components/admin/nav.ts",
+      "label": "Tools",
+      "href": "/admin/tools"
+    },
+    {
+      "file": "src/components/admin/nav.ts",
+      "label": "Settings",
+      "href": "/admin/settings"
+    },
+    {
+      "file": "src/components/home/work-grid.tsx",
+      "label": "Start a project",
+      "href": "#contact"
+    },
+    {
+      "file": "src/components/industries/sector-page.tsx",
+      "label": "Book a Free Consultation",
+      "href": "/contact"
+    },
+    {
+      "file": "src/components/industries/sector-page.tsx",
+      "label": "All industries",
+      "href": "/industries"
+    },
+    {
+      "file": "src/app/admin/(dashboard)/page.tsx",
+      "label": "Posts",
+      "href": "/admin/posts"
+    },
+    {
+      "file": "src/app/admin/(dashboard)/page.tsx",
+      "label": "Pages",
+      "href": "/admin/pages"
+    },
+    {
+      "file": "src/app/admin/(dashboard)/page.tsx",
+      "label": "Media",
+      "href": "/admin/media"
+    },
+    {
+      "file": "src/app/admin/(dashboard)/page.tsx",
+      "label": "Categories",
+      "href": "/admin/categories"
+    },
+    {
+      "file": "src/app/admin/(dashboard)/page.tsx",
+      "label": "Tags",
+      "href": "/admin/tags"
+    },
+    {
+      "file": "src/app/admin/(dashboard)/page.tsx",
+      "label": "Users",
+      "href": "/admin/users"
+    },
+    {
+      "file": "src/app/admin/(dashboard)/page.tsx",
+      "label": "New post",
+      "href": "/admin/posts/new"
+    },
+    {
+      "file": "src/app/admin/(dashboard)/page.tsx",
+      "label": "Upload media",
+      "href": "/admin/media"
+    },
+    {
+      "file": "src/app/admin/(dashboard)/page.tsx",
+      "label": "New page",
+      "href": "/admin/pages/new"
+    }
+  ]
+}
