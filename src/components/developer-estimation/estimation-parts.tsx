@@ -43,9 +43,9 @@ export function Tile({
   );
 }
 
-export function Heading({ children, as: Tag = "h3" }: { children: string; as?: "h1" | "h3" }) {
+export function Heading({ children, as: Tag = "h3", tight = Tag === "h1" }: { children: React.ReactNode; as?: "h1" | "h3"; /** Sit close above a line of text (the default for an h1, which is followed by a question). */ tight?: boolean }) {
   return (
-    <div className={`${styles.head} ${Tag === "h1" ? styles.headTight : ""}`}>
+    <div className={`${styles.head} ${tight ? styles.headTight : ""}`}>
       <Tag className={Tag === "h1" ? styles.h1 : styles.h3}>{children}</Tag>
     </div>
   );
