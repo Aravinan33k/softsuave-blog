@@ -13,6 +13,14 @@
   padding-top: 0;
 }
 
+.shellTight {
+  padding-top: 0;
+}
+
+.shellJoined {
+  padding-bottom: 0;
+}
+
 /* Squared primary button — the same values as `landing.module.css .btn`/`.btnPrimary`. */
 .btn {
   display: inline-flex;
@@ -132,6 +140,63 @@
   letter-spacing: -0.02em;
   line-height: 1.2;
   color: var(--text-bright);
+}
+
+/* Text-only models (the live remote-developers "Top Talent" list): compact ticked
+   cards, as many across as fit, the last row centred. */
+.modelsPlain {
+  --plain-gap: clamp(12px, 1.4vw, 20px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--plain-gap);
+}
+
+.modelsPlain > * {
+  display: flex;
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .modelsPlain > * {
+    flex: 0 1 calc((100% - var(--plain-gap)) / 2);
+  }
+}
+
+@media (min-width: 1000px) {
+  .modelsPlain > * {
+    flex: 0 1 calc((100% - 2 * var(--plain-gap)) / 3);
+  }
+}
+
+.modelPlain {
+  flex: 1;
+  height: auto;
+  justify-content: center;
+  padding: clamp(16px, 1.6vw, 22px) clamp(18px, 1.8vw, 26px);
+}
+
+.modelPlain .modelName {
+  position: relative;
+  padding-left: 1.7em;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  letter-spacing: 0;
+  line-height: 1.45;
+}
+
+.modelPlain .modelName::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.8em;
+  height: 0.42em;
+  border-left: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(-45deg) translateY(-50%);
 }
 
 .modelPoints {
@@ -922,4 +987,459 @@
 /* The ad pages' H1 takes the homepage hero's display size (70px at desktop). */
 .adMain {
   --fs-h1: var(--fs-h1-home);
+}
+
+/* Dark-lettered line-art marks (made for a light card) turned white, for a section set on the dark ground. */
+.markOnDark img {
+  filter: invert(1);
+}
+
+/* ---------- Logo rows: tool marks, no names ---------- */
+.logoRows {
+  display: grid;
+  gap: 16px;
+  margin-top: clamp(20px, 3vw, 36px);
+  overflow: hidden;
+}
+
+.logoChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  padding: 0 28px;
+  margin-right: 16px;
+  flex: none;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  white-space: nowrap;
+}
+
+/* ---------- A card grid beside a photo ---------- */
+.gridWithImage {
+  display: grid;
+  gap: clamp(22px, 3vw, 48px);
+  grid-template-columns: 1fr;
+  align-items: center;
+  /* The photo sits inside the page gutter, as the card grid beside it does. */
+  padding-right: var(--gutter, clamp(20px, 5vw, 90px));
+}
+
+@media (max-width: 999px) {
+  /* Stacked, the photo takes the gutter on both sides. */
+  .gridImage {
+    margin: 0 var(--gutter, clamp(20px, 5vw, 90px));
+    width: calc(100% - 2 * var(--gutter, clamp(20px, 5vw, 90px)));
+  }
+}
+
+@media (min-width: 1000px) {
+  .gridWithImage {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  }
+}
+
+.gridImage {
+  width: 100%;
+  height: auto;
+  max-width: 520px;
+  justify-self: center;
+  border-radius: 20px;
+}
+
+/* A list beside a photo: the button under it sits close to the photo, not a whole section away. */
+.shell:has(.whyWithImage) {
+  padding-bottom: clamp(16px, 2vw, 32px);
+}
+
+/* ---------- Step tabs (Ideate / Develop / Release): the number line and the accent word ---------- */
+.stepNum {
+  margin: 0 0 8px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.stepNum span {
+  opacity: 0.5;
+  margin-right: 8px;
+}
+
+.stepAccent {
+  color: var(--accent, #ff5436);
+}
+
+/* ---------- App screens: phone shots in a loop, a button under each ---------- */
+.screens {
+  margin-top: clamp(20px, 3vw, 36px);
+  overflow: hidden;
+}
+
+.screen {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  margin-right: 24px;
+}
+
+/* Hovering a screen lays a black tint over it and brings up its button — the masthead
+   "Enquire Now" button's style (orange; a white wipe on hover). A touch screen has no
+   hover, so there the button stays and the tint is left off. */
+.screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.screen:hover::after,
+.screen:focus-within::after {
+  opacity: 1;
+}
+
+.screen .screenCta {
+  /* On the black tint the hover fill is white, whatever ground the band sits on. */
+  --cta-hover-bg: #ffffff;
+  --cta-hover-ink: #140b08;
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, calc(-50% + 8px));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0s, color 0.3s ease, border-color 0.3s ease;
+}
+
+.screen:hover .screenCta,
+.screen:focus-within .screenCta {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .screen .screenCta {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    pointer-events: auto;
+    top: auto;
+    bottom: 18px;
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen::after,
+  .screen .screenCta {
+    transition: none;
+  }
+}
+
+.screenImg {
+  flex: none;
+  max-width: none;
+  height: clamp(300px, 36vw, 420px);
+  width: auto;
+  border-radius: 18px;
+}
+
+/* The closing band's address button is rounded (the site's buttons are otherwise square). */
+.contactMail {
+  border-radius: 12px;
+}
+
+/* ---------- Card grid whose cards draw their top line on hover ----------
+   At rest a card has a plain hairline across its top; on hover (or focus) the card's accent
+   colour draws across it from the left, as the lines on the site's stack panels do. Scoped
+   to a wrapper, so the same cards elsewhere keep their solid accent rule. */
+.sweepTop [class*="indBoldCard"] {
+  border-top: 1px solid var(--line);
+}
+
+.sweepTop [class*="indBoldCard"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--accent));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.sweepTop [class*="indBoldCard"]:hover::before,
+.sweepTop [class*="indBoldCard"]:focus-within::before {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweepTop [class*="indBoldCard"]::before {
+    transition: none;
+  }
+}
+
+/* ---------- Stats story (the "Analysis" block) ---------- */
+.storyGrid {
+  display: grid;
+  gap: clamp(24px, 4vw, 64px);
+  grid-template-columns: 1fr;
+  align-items: center;
+  margin-top: clamp(20px, 3vw, 36px);
+}
+
+@media (min-width: 1000px) {
+  .storyGrid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+}
+
+.storyImage {
+  width: 100%;
+  height: auto;
+  max-width: 520px;
+  justify-self: center;
+}
+
+.storyStats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(12px, 1.4vw, 18px);
+}
+
+/* Each figure is a card, drawn like the site's bold cards: a hairline border, a 3px accent
+   rule across the top, a soft lift on hover. */
+.storyStat {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--card-accent, var(--accent, #ff5436));
+  border-radius: 14px;
+  background: var(--surface);
+  padding: clamp(18px, 2vw, 26px) clamp(18px, 2vw, 28px);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.35s ease;
+}
+
+.storyStat:nth-child(5n + 1) { --card-accent: var(--card-accent-1); }
+.storyStat:nth-child(5n + 2) { --card-accent: var(--card-accent-2); }
+.storyStat:nth-child(5n + 3) { --card-accent: var(--card-accent-3); }
+.storyStat:nth-child(5n + 4) { --card-accent: var(--card-accent-4); }
+
+.storyStat:hover {
+  transform: translateY(-4px);
+  background: color-mix(in srgb, var(--card-accent, var(--accent)) 6%, var(--surface));
+  box-shadow: 0 14px 34px -12px color-mix(in srgb, var(--card-accent, var(--accent)) 55%, transparent);
+}
+
+.storyHead {
+  margin: 0 0 8px;
+  font-size: clamp(1.1rem, 1.5vw, 1.375rem);
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.storyFigure {
+  color: var(--card-accent, var(--accent, #ff5436));
+  font-size: clamp(1.4rem, 2vw, 1.875rem);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.storyBody {
+  margin: 0;
+  max-width: 56ch;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* ---------- Step cards (the "Roadmap" block) ---------- */
+.stepGrid {
+  list-style: none;
+  margin: clamp(20px, 3vw, 36px) 0 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(12px, 1.4vw, 20px);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .stepGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .stepGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* The card style /custom-ai-development-services uses (`.proofItem` in landing.module.css): a
+   short orange rule at the top-left that runs across the whole top edge on hover, while the
+   border turns orange and the card lifts a little. */
+.stepCard {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: clamp(20px, 2.2vw, 30px);
+  transition: border-color 0.4s ease, transform 0.35s ease;
+}
+
+.stepCard:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.stepCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stepCard:hover::before {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepCard,
+  .stepCard::before {
+    transition: none;
+  }
+}
+
+.stepCardImg {
+  display: block;
+  height: 72px;
+  width: auto;
+  margin: 0 0 18px auto;
+}
+
+.stepCardLabel {
+  margin: 0 0 6px;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label, 0.75rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stepCardName {
+  margin: 0 0 10px;
+  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.stepCardBody {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ---------- Audience cards ---------- */
+.audGrid {
+  list-style: none;
+  margin: clamp(20px, 3vw, 36px) 0 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(12px, 1.4vw, 20px);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .audGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* The card style /custom-ai-development-services uses (`.proofItem` in landing.module.css): a short
+   orange rule at the top-left that runs across the whole top edge on hover, while the border turns
+   orange and the card lifts a little. */
+.audCard {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: clamp(22px, 2.4vw, 32px);
+  transition: border-color 0.4s ease, transform 0.35s ease;
+}
+
+.audCard:hover,
+.audCard:focus-within {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.audCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.audCard:hover::before,
+.audCard:focus-within::before {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audCard,
+  .audCard::before {
+    transition: none;
+  }
+}
+
+.audIcon {
+  display: block;
+  height: 56px;
+  width: auto;
+  margin-bottom: 18px;
+}
+
+.audName {
+  margin: 0 0 8px;
+  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.audLead {
+  margin: 0 0 14px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.audPoints {
+  margin: 0;
+  padding-left: 1.2em;
+  display: grid;
+  gap: 8px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+
+/* Two-tone line icons (black and red) on a dark band: inverted to light, then the hue turned back so the red stays red. */
+.iconsOnDark img {
+  filter: invert(1) hue-rotate(180deg);
 }

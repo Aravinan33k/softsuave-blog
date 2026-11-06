@@ -2,7 +2,7 @@
 
 import { Fragment, useRef, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
-import { CalendarDays, Globe, SquareTerminal, Users } from "lucide-react";
+import { CalendarDays, Globe, Mail, SquareTerminal, Star, Users } from "lucide-react";
 import { publicMediaUrl } from "@/lib/media-url";
 import { heroBadgeSizes, isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import { SiteLink } from "@/themes/softsuave/site-link";
@@ -35,6 +35,8 @@ export interface HeroContent {
    * last-line accent.
    */
   accent?: string;
+  /** Set the whole headline in the one colour — no accent on its last line (the live staff-augmentation ad headline). */
+  noAccent?: boolean;
   /**
    * Size the H1 to its column so each of `titleLines` fits on one line — for
    * a headline whose first line is too long for the standard H1 size (the
@@ -119,6 +121,26 @@ export interface HeroContent {
   /** Text set between the CTAs ("OR") — the ad landing page's pair reads "Start … OR Book a Meeting". */
   ctaSeparator?: string;
   /**
+   * A button at the top right of the logo row (`noNav` pages), from 768px up — the
+   * live /ad/remote-developers masthead's own "Start 40 Hours Free Trial →".
+   */
+  logoCta?: { readonly label: string; readonly href: string };
+  /** An email address: adds an icon button beside `logoCta` that opens a message to it. */
+  logoMail?: string;
+  /**
+   * Review scores under the body, each a gold star and its score over the review
+   * site's own mark, on a light card with a laurel wreath behind it — the live
+   * android ad hero's four "4.9/5" lockups.
+   */
+  ratings?: {
+    readonly items: readonly {
+      readonly score: string;
+      readonly logo: { readonly src: string; readonly alt: string; readonly width: number; readonly height: number };
+    }[];
+    /** The wreath drawn faintly behind each card. Root-relative under /public. */
+    readonly laurel?: string;
+  };
+  /**
    * A small note beside the CTAs with a hover/focus tip — the live Java page's
    * "No Payment Required ?" whose popover explains the free trial. The tip is a
    * title and a paragraph, shown on hover and on keyboard focus (and so on tap).
@@ -164,7 +186,9 @@ export interface HeroContent {
      * (hire-by-skill review: "add a black gradient to increase visibility in
      * the hero section"). Omitted keeps the default even veil.
      */
-    veil?: "strong";
+    veil?: "strong" | "dark";
+    /** Hold the photo still — no slow drift/zoom (the live ad hero's banner does not move). */
+    still?: boolean;
   };
 }
 
@@ -310,7 +334,7 @@ export default function Hero({
             alt={content.image.alt}
             fill
             sizes="100vw"
-            className={styles.heroBg}
+            className={content.image.still ? `${styles.heroBg} ${styles.heroBgStill}` : styles.heroBg}
             priority
             {...(content.image.blurDataURL
               ? { placeholder: "blur" as const, blurDataURL: content.image.blurDataURL }
@@ -331,6 +355,23 @@ export default function Hero({
           <a href="#top" aria-label="Soft Suave logo">
             <Logo tone="light" size={48} />
           </a>
+          {content.logoCta && (
+            <div className={styles.heroLogoActions}>
+              {content.logoMail && (
+                <a
+                  href={`mailto:${content.logoMail}`}
+                  className={`${styles.btn} ${styles.btnPrimary} ${styles.heroLogoMail}`}
+                  aria-label={content.logoMail}
+                  title={content.logoMail}
+                >
+                  <Mail size={18} aria-hidden />
+                </a>
+              )}
+              <a href={content.logoCta.href} className={`${styles.btn} ${styles.btnPrimary} ${styles.heroLogoCta}`}>
+                {content.logoCta.label}
+              </a>
+            </div>
+          )}
         </div>
       )}
 
@@ -363,7 +404,7 @@ export default function Hero({
                 <span
                   style={{ ["--i" as string]: i } as CSSProperties}
                   className={`${styles.heroTitleLine}${
-                    !content.accent && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
+                    !content.accent && !content.noAccent && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
                   }${content.titleSubLast && i === lastLine ? ` ${styles.heroTitleSub}` : ""}`}
                 >
                   {accentWithin(line, accents[i])}
@@ -453,6 +494,35 @@ export default function Hero({
               </li>
             ))}
           </ul>
+          )}
+
+          {content.ratings && (
+            <ul className={styles.heroRatings}>
+              {content.ratings.items.map((r) => (
+                <li
+                  key={r.logo.src}
+                  className={styles.heroRating}
+                  style={
+                    content.ratings?.laurel
+                      ? ({ ["--laurel" as string]: `url(${publicMediaUrl(content.ratings.laurel)})` } as CSSProperties)
+                      : undefined
+                  }
+                >
+                  <span className={styles.heroRatingScore}>
+                    <Star size={18} fill="currentColor" aria-hidden />
+                    {r.score}
+                  </span>
+                  <Image
+                    src={publicMediaUrl(r.logo.src)}
+                    alt={r.logo.alt}
+                    width={r.logo.width}
+                    height={r.logo.height}
+                    unoptimized
+                    className={styles.heroRatingLogo}
+                  />
+                </li>
+              ))}
+            </ul>
           )}
 
           {content.ctas && content.ctas.length > 0 && (

@@ -46,7 +46,7 @@ export const dedHero: HeroContent = {
     "Allow us to help you optimize your team productivity. Hire our app developers.",
   ],
   points: [
-    "7 Days Trial Available, 100% Risk-Free",
+    "40 Hours Trial Available, 100% Risk-Free",
     "Language/Time Zone Compatible Staff",
     `${SPECIALISTS_PLUS} In-house resources`,
   ],

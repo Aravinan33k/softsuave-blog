@@ -116,7 +116,7 @@ export default function TrialModal({
     <dialog
       ref={dialog}
       className={side ? `${styles.modal} ${styles.modalWide}` : styles.modal}
-      aria-label={form.title}
+      aria-label={form.title || "Free trial"}
       onClose={() => setOpen(false)}
       onClick={(e) => {
         if (e.target === e.currentTarget) dialog.current?.close();

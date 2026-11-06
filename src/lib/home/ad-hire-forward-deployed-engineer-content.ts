@@ -23,6 +23,7 @@ import type { ProcessContent } from "@/components/landing/process";
 import type { EnquiryFormContent } from "@/components/common/enquiry-form";
 import { adClients, adHero, TRIAL_HREF } from "@/lib/home/ad-app-developer-content";
 import { FIGURES, SPECIALISTS_PLUS } from "@/lib/company-figures";
+import { rdPopup } from "@/lib/home/ad-remote-developer-content";
 
 export const fdeMeta = {
   path: "/ad/hire-forward-deployed-engineer",
@@ -193,6 +194,8 @@ export const fdePopup = {
       { name: "Warm Point", src: "/brand/clients/warmpoint.webp" },
       { name: "Utiliko", src: "/brand/clients/utiliko.webp" },
     ],
+    /** The live popup shows the same four-card carousel as the remote-developer popup. */
+    testimonials: rdPopup.side.testimonials,
   },
   form: {
     title: "Staffing gaps? We fix. Let's discuss!",

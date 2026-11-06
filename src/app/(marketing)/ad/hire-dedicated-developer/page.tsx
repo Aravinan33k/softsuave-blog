@@ -86,7 +86,7 @@ export default function AdHireDedicatedDeveloperPage() {
         </div>
 
         <div className={home.light}>
-          <Clients logos={[...dedClients.logos]} title={dedClients.title} body="" loopShortRows noFade />
+          <Clients logos={[...dedClients.logos]} title={dedClients.title} body="" eyebrow="" loopShortRows noFade />
         </div>
 
         <TechStack content={dedTech} />

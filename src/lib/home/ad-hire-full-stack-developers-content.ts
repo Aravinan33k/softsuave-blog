@@ -107,42 +107,42 @@ export const fsStacks: CardGridContent = {
   cta: { label: "Start 40 Hours Risk-Free Trial", href: FS_HERO_FORM },
   items: [
     {
-      images: [{ src: "/brand/ad/stack/angular.webp", alt: "angular" }, { src: "/brand/ad/stack/mongodb.webp", alt: "mongodb" }, { src: "/brand/ad/stack/express.webp", alt: "express" }, { src: "/brand/ad/stack/node.webp", alt: "node" }],
+      images: [{ src: "/brand/ad/stack/angular.webp", width: 114, height: 120, alt: "angular" }, { src: "/brand/ad/stack/mongodb.webp", width: 54, height: 120, alt: "mongodb" }, { src: "/brand/ad/stack/express.webp", width: 120, height: 120, alt: "express" }, { src: "/brand/ad/stack/node.webp", width: 108, height: 120, alt: "node" }],
       name: "Hire MEAN Stack Developers",
       body: "Build future-ready web Apps with our Full Stack MEAN developers who are highly experienced in MongoDB, ExpressJS, Angular, and NodeJS.",
     },
     {
-      images: [{ src: "/brand/ad/stack/mongodb.webp", alt: "mongodb" }, { src: "/brand/ad/stack/express.webp", alt: "express" }, { src: "/brand/ad/stack/react.webp", alt: "react" }, { src: "/brand/ad/stack/node.webp", alt: "node" }],
+      images: [{ src: "/brand/ad/stack/mongodb.webp", width: 54, height: 120, alt: "mongodb" }, { src: "/brand/ad/stack/express.webp", width: 120, height: 120, alt: "express" }, { src: "/brand/ad/stack/react.webp", width: 120, height: 120, alt: "react" }, { src: "/brand/ad/stack/node.webp", width: 108, height: 120, alt: "node" }],
       name: "Hire MERN Developers",
       body: "Hire MERN Stack developers to design monolithic, multitier, and microservice architecture of applications that performs well.",
     },
     {
-      images: [{ src: "/brand/ad/stack/laravel.webp", alt: "laravel" }, { src: "/brand/ad/stack/vue.webp", alt: "vue" }],
+      images: [{ src: "/brand/ad/stack/laravel.webp", width: 120, height: 120, alt: "laravel" }, { src: "/brand/ad/stack/vue.webp", width: 120, height: 120, alt: "vue" }],
       name: "Laravel + VueJs",
       body: "Our proficient Laravel + VueJS developers can work with any MVC frameworks such as Symfony, Yii, CakePHP & Codeigniter.",
     },
     {
-      images: [{ src: "/brand/ad/stack/dotnet.webp", alt: "dotnet" }, { src: "/brand/ad/stack/angular.webp", alt: "angular" }],
+      images: [{ src: "/brand/ad/stack/dotnet.webp", width: 120, height: 120, alt: "dotnet" }, { src: "/brand/ad/stack/angular.webp", width: 114, height: 120, alt: "angular" }],
       name: ".NET + Angular",
       body: "Hire .NET developers who can design, develop, deploy, integrate and handle front-end development with Angular.",
     },
     {
-      images: [{ src: "/brand/ad/stack/mongodb.webp", alt: "mongodb" }, { src: "/brand/ad/stack/react.webp", alt: "react" }],
+      images: [{ src: "/brand/ad/stack/mongodb.webp", width: 54, height: 120, alt: "mongodb" }, { src: "/brand/ad/stack/react.webp", width: 120, height: 120, alt: "react" }],
       name: "React + React Native + MongoDB",
       body: "Hire React experts who can code both React web Apps and React Native-based hybrid mobile Apps with on-demand scalability.",
     },
     {
-      images: [{ src: "/brand/ad/stack/android.webp", alt: "android" }, { src: "/brand/ad/stack/flutter.webp", alt: "flutter" }],
+      images: [{ src: "/brand/ad/stack/android.webp", width: 102, height: 120, alt: "android" }, { src: "/brand/ad/stack/flutter.webp", width: 120, height: 120, alt: "flutter" }],
       name: "Android + Flutter",
       body: "We have Full Stack Android developers on board who can also work with Flutter for developing cross-platform mobile apps.",
     },
     {
-      images: [{ src: "/brand/ad/stack/electron.webp", alt: "electron" }, { src: "/brand/ad/stack/react.webp", alt: "react" }],
+      images: [{ src: "/brand/ad/stack/electron.webp", width: 111, height: 120, alt: "electron" }, { src: "/brand/ad/stack/react.webp", width: 120, height: 120, alt: "react" }],
       name: "React Native + Electron js",
       body: "Our proficient Full Stack engineers can build scalable desktop Apps from a single codebase by employing the power of Electron JS and React Native.",
     },
     {
-      images: [{ src: "/brand/ad/stack/angular.webp", alt: "angular" }, { src: "/brand/ad/stack/java.webp", alt: "java" }, { src: "/brand/ad/stack/react.webp", alt: "react" }, { src: "/brand/ad/stack/firebase.webp", alt: "firebase" }],
+      images: [{ src: "/brand/ad/stack/angular.webp", width: 114, height: 120, alt: "angular" }, { src: "/brand/ad/stack/java.webp", width: 120, height: 120, alt: "java" }, { src: "/brand/ad/stack/react.webp", width: 120, height: 120, alt: "react" }, { src: "/brand/ad/stack/firebase.webp", width: 120, height: 120, alt: "firebase" }],
       name: "Java + JS (React/Angular) + Firebase",
       body: "Hire our Full Stack specialists who can work with core Java, J2EE, Spring, Angular, React & Firebase to get the desired output.",
     },

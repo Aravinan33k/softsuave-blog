@@ -105,6 +105,12 @@ export const clients: {
     // homepage carousel — they are published on its /clients index instead,
     // which is where these came from, at the same 150x60 the rest of the strip
     // uses.
+    { name: "Centreax Technologies", src: "/brand/clients/centreax.webp" },
+    { name: "Neuraspeech", src: "/brand/clients/neuraspeech.webp" },
+    { name: "Alytico AI", src: "/brand/clients/alytico-ai.webp" },
+    { name: "Data Evolution", src: "/brand/clients/data-evolution.webp" },
+    { name: "MERLIN", src: "/brand/clients/merlin.webp" },
+    { name: "MT&T", src: "/brand/clients/mt-and-t-yellow.webp" },
     { name: "Phoenix Technologies", src: "/brand/clients/phoenix-technologies.webp" },
     { name: "AMD Telecom", src: "/brand/clients/amd-telecom.webp" },
     { name: "Perkypet", src: "/brand/clients/perkypet.webp" },
