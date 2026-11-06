@@ -60,6 +60,12 @@ export const clientsPageBrands: {
   // on /contact.
   cta: { label: "Talk To Experts", href: "/contact" },
   logos: [
+    { name: "Centreax Technologies", src: "/brand/clients/centreax.webp" },
+    { name: "Neuraspeech", src: "/brand/clients/neuraspeech.webp" },
+    { name: "Alytico AI", src: "/brand/clients/alytico-ai.webp" },
+    { name: "Data Evolution", src: "/brand/clients/data-evolution.webp" },
+    { name: "MERLIN", src: "/brand/clients/merlin.webp" },
+    { name: "MT&T", src: "/brand/clients/mt-and-t-yellow.webp" },
     { name: "AMD Telecom", src: "/brand/clients/amd-telecom.webp" },
     { name: "Phoenix Technologies", src: "/brand/clients/phoenix-technologies.webp" },
     { name: "Perkypet", src: "/brand/clients/perkypet.webp" },
