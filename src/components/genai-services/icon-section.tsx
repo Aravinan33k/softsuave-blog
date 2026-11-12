@@ -3,7 +3,14 @@ import FadeUp from '@/components/home/fade-up';
 import SectionHead from '@/components/landing/section-head';
 import { SiteLink } from '@/themes/softsuave/site-link';
 import { publicMediaUrl } from '@/lib/media-url';
-import type { IconCard } from '@/lib/home/genai-services-content';
+export interface IconCardItem {
+  readonly name: string;
+  /** Plain text, or runs of text with links. */
+  readonly body: string | readonly Piece[];
+  readonly icon: string;
+  readonly label?: string;
+  readonly href?: string;
+}
 import landing from '@/components/landing/landing.module.css';
 import badge from '@/components/common/card-icon-badge.module.css';
 import styles from './genai-services.module.css';
@@ -45,7 +52,7 @@ export default function IconSection({
   eyebrow: string;
   title: string;
   body: string | readonly Piece[];
-  items: readonly IconCard[];
+  items: readonly IconCardItem[];
   columns?: 2 | 3 | 4 | 5;
   mode?: 'tint' | 'bare';
   cta?: { readonly label: string; readonly href: string };
@@ -74,7 +81,7 @@ export default function IconSection({
                   it.name
                 )}
               </h3>
-              <p className={styles.body}>{it.body}</p>
+              <p className={styles.body}>{typeof it.body === 'string' ? it.body : <Pieces pieces={it.body} />}</p>
             </li>
           ))}
         </ul>

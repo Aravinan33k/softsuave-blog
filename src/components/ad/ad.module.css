@@ -963,6 +963,18 @@
   object-fit: contain;
 }
 
+.modelImgTint {
+  display: block;
+  background: var(--accent);
+  -webkit-mask: var(--mark) center / contain no-repeat;
+  mask: var(--mark) center / contain no-repeat;
+}
+
+.modelName.modelNameHeading {
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+}
+
 .modelFacts {
   margin: 0;
   display: grid;
