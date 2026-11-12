@@ -21,6 +21,7 @@ import { webHireSkills } from "./hire-skills-web";
 import { backendHireSkills } from "./hire-skills-backend";
 import { mobileHireSkills } from "./hire-skills-mobile";
 import { platformHireSkills } from "./hire-skills-platform";
+import { qaHireSkills } from "./hire-skills-qa";
 
 export type { HireSkill } from "./hire-skill";
 
@@ -29,6 +30,7 @@ export const HIRE_SKILLS: readonly HireSkill[] = [
   ...backendHireSkills,
   ...mobileHireSkills,
   ...platformHireSkills,
+  ...qaHireSkills,
 ];
 
 /**

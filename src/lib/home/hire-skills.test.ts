@@ -28,8 +28,8 @@ describe('hire skill registry', () => {
   // "Hire By Role", and their live pages run the role sections, so they are
   // role pages now. A path can only belong to one registry — two would mean two
   // entries in `LANDING_PAGES` for the same URL.
-  it('has all 21 skills', () => {
-    expect(HIRE_SKILLS).toHaveLength(21);
+  it('has all 22 skills', () => {
+    expect(HIRE_SKILLS).toHaveLength(22);
   });
 
   it('has unique slugs and keys', () => {
@@ -241,7 +241,7 @@ describe('hire page copy', () => {
 
   it('points every hero image at a real asset path', () => {
     for (const skill of HIRE_SKILLS) {
-      // A page whose live hero has no photograph (/hire-saas-developer) carries none.
+      // A page whose live hero has no photograph (/hire-saas-developer, /hire-selenium-tester) carries none.
       if (!skill.hero.image) continue;
       // The hire-by-skill review gave every page its own photo under
       // /images/landing; the file must exist, or the hero renders a broken image.

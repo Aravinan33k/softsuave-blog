@@ -44,4 +44,5 @@ export const HIRE_SKILL_ROUTES: readonly HireSkillRoute[] = [
   { path: "/hire-magento-developer", title: "Hire Magento Developer in India with Soft Suave", crumb: "Hire Magento Developers" },
   { path: "/hire-drupal-developer", title: "Hire Dedicated Drupal Developer India with 40 Hours Trial", crumb: "Hire Drupal Developers" },
   { path: "/hire-saas-developer", title: "Hire SaaS Developers | Fast, Affordable Cloud Talent On-Demand", crumb: "Hire SaaS Developers" },
+  { path: "/hire-selenium-tester", title: "Hire Selenium Developers\u200b with 40 Hours Risk-free Trial", crumb: "Hire Selenium Testers" },
 ];
