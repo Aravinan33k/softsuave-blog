@@ -101,7 +101,7 @@ export default function StaffCostCalculatorPage() {
             logos={[...staffCostClients.logos]}
           />
           <div className={styles.moreRow}>
-            <SiteLink href={staffCostClients.more.href} className={`${home.pillFilled} ${home.pillLg}`}>
+            <SiteLink href={staffCostClients.more.href} className={`${home.pill} ${home.pillFilled} ${home.navCta}`}>
               {staffCostClients.more.label}
             </SiteLink>
           </div>

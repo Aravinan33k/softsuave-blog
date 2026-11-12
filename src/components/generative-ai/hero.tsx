@@ -37,6 +37,11 @@ export interface HeroContent {
    * hero section must come in 2 lines".
    */
   titleFit?: boolean;
+  /**
+   * `"home"` sets the H1 in the homepage hero's size (70px on desktop, 40px on a phone) rather than the
+   * landing pages' smaller one. Omitted keeps the landing size.
+   */
+  titleScale?: "home";
   body: readonly string[];
   points: readonly string[];
   /**
@@ -113,10 +118,13 @@ export default function Hero({
   content = generativeAiHero,
   idPrefix = "genai",
   wide = false,
+  breadcrumb = true,
 }: {
   content?: HeroContent;
   idPrefix?: string;
   wide?: boolean;
+  /** `false` drops the "Home › page" trail, for a page whose live hero has none. */
+  breadcrumb?: boolean;
 } = {}) {
   const root = useRef<HTMLElement | null>(null);
 
@@ -153,14 +161,16 @@ export default function Hero({
           of its own above the grid, so the copy column opens on the H1 and the
           form's top edge lines up with it (15 Oct review: "Hero H1 name &
           forms horizontally aligned in the same line"). */}
-      <div className={styles.heroHead}>
-        <Breadcrumb />
-      </div>
+      {breadcrumb && (
+        <div className={styles.heroHead}>
+          <Breadcrumb />
+        </div>
+      )}
 
       <div className={styles.heroGrid}>
         <div className={content.titleFit ? styles.heroCopyFit : undefined}>
           <h1
-            className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}`}
+            className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}${content.titleScale === "home" ? ` ${styles.heroTitleHome}` : ""}`}
             style={content.titleFit ? titleFitStyle(content.titleLines) : undefined}
           >
             {/* The spans are display:block, so the spaces between them only

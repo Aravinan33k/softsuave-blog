@@ -500,6 +500,13 @@
   color: var(--text-bright);
 }
 
+.enqTitle.enqTitleHeading {
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+  font-size: var(--fs-h2);
+  line-height: 1.14;
+}
+
 .enqSub {
   margin: 0 0 clamp(22px, 3vw, 36px);
   max-width: 46ch;

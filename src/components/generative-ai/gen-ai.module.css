@@ -398,6 +398,13 @@
   display: block;
 }
 
+/* The homepage hero's headline size, for a page that asks for it (`titleScale: "home"`). */
+.heroTitle.heroTitleHome {
+  font-size: var(--fs-h1-home);
+  line-height: 1.05;
+  max-width: none;
+}
+
 /* `titleFit`: each title line kept to one line, sized to the copy column.
    Same rule and the same 0.51em-per-character estimate as `.heroTitleFit` in
    landing.module.css (the two heroes share the face and tracking); the hero
