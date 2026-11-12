@@ -65,7 +65,7 @@ export default function CtaBand({
           <SplitReveal as="h2" className={styles.ctaTitle} type="words">
             {content.title}
           </SplitReveal>
-          <p className={styles.ctaBody}>{content.body}</p>
+          {content.body ? <p className={styles.ctaBody}>{content.body}</p> : null}
         </div>
 
         <div className={styles.ctaActions}>
