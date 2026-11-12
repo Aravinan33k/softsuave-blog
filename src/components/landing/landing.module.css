@@ -9072,3 +9072,28 @@
     transition: none;
   }
 }
+
+/* The hero's "Scroll Down" cue (`scrollCue` on the hero's content). */
+.heroScrollCue {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: clamp(20px, 2.4vw, 32px);
+  font-family: var(--font-eyebrow);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+}
+.heroScrollCue:hover {
+  color: var(--accent);
+}
+.heroScrollArrow {
+  width: 10px;
+  height: 10px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  rotate: 45deg;
+  translate: 0 -2px;
+}

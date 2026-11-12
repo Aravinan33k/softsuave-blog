@@ -63,6 +63,8 @@ export interface HeroContent {
   body: readonly string[];
   /** Positions in `body` of the paragraphs set in bold (the live page's emphasised line). */
   boldBody?: readonly number[];
+  /** A "Scroll Down" cue under the copy (the live page's), carrying the reader to the element with this id. */
+  scrollCue?: { readonly label: string; readonly targetId: string };
   points: readonly string[];
   /**
    * Trust badges under the points. Optional — omit for a badge-less hero.
@@ -631,6 +633,13 @@ export default function Hero({
                 ),
               )}
             </ul>
+          )}
+
+          {content.scrollCue && (
+            <a className={styles.heroScrollCue} href={`#${content.scrollCue.targetId}`}>
+              <span className={styles.heroScrollArrow} aria-hidden />
+              {content.scrollCue.label}
+            </a>
           )}
         </div>
 

@@ -319,6 +319,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/generative-ai-integration-service', title: 'Generative AI Integration Services', parent: '/software-development-company' },
   { path: '/ecommerce-app-development-package', title: 'Ecommerce App Development Package' },
   { path: '/education-app-development-company', title: 'Education App Development Company' },
+  { path: '/generative-ai-integration-services', title: 'Generative AI Integration Services', parent: '/software-development-company' },
   { path: '/developer-estimation', title: 'Developer Estimation' },
   { path: '/mobile-app-estimation', title: 'Mobile App Estimation' },
   { path: '/test-web-est', title: 'Web Estimation' },
