@@ -39,6 +39,8 @@ export interface HeroContent {
   noAccent?: boolean;
   /** `"home"` sets the H1 at the homepage hero's size (70px desktop, 40px phone). */
   titleScale?: "home";
+  /** Per-page wording for a breadcrumb crumb, by its path. */
+  breadcrumbLabels?: Readonly<Record<string, string>>;
   /** Paint the accent words in the brand orange-to-rose gradient (the Forward Deployed Engineers page's headline) instead of flat orange. */
   accentGradient?: boolean;
   /**
@@ -68,6 +70,8 @@ export interface HeroContent {
    * emphasised line), a string is a phrase inside any paragraph (the cross-platform hero bolds two).
    */
   boldBody?: readonly (number | string)[];
+  /** Positions in `body` of paragraphs kept on one line wherever the column is wide enough (the live cross-platform hero's second line). */
+  bodyOneLine?: readonly number[];
   /** Phrases inside the body paragraphs that are links, by the words they wrap. */
   bodyLinks?: readonly { readonly text: string; readonly href: string }[];
   /** A "Scroll Down" cue under the copy (the live page's), carrying the reader to the element with this id. */
@@ -260,7 +264,7 @@ function richBody(
         at,
         len: link.text.length,
         node: (
-          <SiteLink key={`l${at}`} href={link.href}>
+          <SiteLink key={`l${at}`} href={link.href} className={styles.heroBodyLink}>
             <strong>{link.text}</strong>
           </SiteLink>
         ),
@@ -361,7 +365,7 @@ export default function Hero({
   const head = (
     <>
       {/* "Home › <page>", named from the route — see common/breadcrumb. */}
-      {breadcrumb && <Breadcrumb />}
+      {breadcrumb && <Breadcrumb labels={content.breadcrumbLabels} />}
       {content.eyebrow && <span className={`${styles.kicker} ${styles.heroEyebrow}`}>{content.eyebrow}</span>}
     </>
   );
@@ -470,7 +474,9 @@ export default function Hero({
           {content.body.map((p, i) => (
             <p
               key={p.slice(0, 24)}
-              className={`${styles.heroBody}${p.startsWith("*") ? ` ${styles.heroBodyNote}` : ""}`}
+              className={`${styles.heroBody}${p.startsWith("*") ? ` ${styles.heroBodyNote}` : ""}${
+                content.bodyOneLine?.includes(i) ? ` ${styles.heroBodyOneLine}` : ""
+              }`}
               style={{ ["--i" as string]: i } as CSSProperties}>
               {content.boldBody?.includes(i) ? (
                 <strong className={styles.heroBodyStrong}>{p}</strong>

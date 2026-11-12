@@ -548,6 +548,31 @@
   color: var(--text-bright);
 }
 
+.hero .heroBodyLink,
+.hero .heroBodyLink strong {
+  color: var(--accent);
+}
+
+.hero .heroBodyLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* `bodyOneLine`: one line wherever the column holds it. About 800px at the body size, so from ~1500px wide
+   at full size, and from 1400px at 16px; narrower, it wraps as any paragraph does. */
+@media (min-width: 1400px) {
+  .hero .heroBody.heroBodyOneLine {
+    max-width: none;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+}
+@media (min-width: 1500px) {
+  .hero .heroBody.heroBodyOneLine {
+    font-size: var(--fs-body);
+  }
+}
+
 .heroBodyNote {
   font-size: 16px;
 }

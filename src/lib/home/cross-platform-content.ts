@@ -33,6 +33,7 @@ export const cpHero: HeroContent = {
     'Are you in a desperate search for a trustworthy custom cross-platform mobile app development company in India? Soft Suave is your ultimate place to fulfill all your cross platform mobile App development needs.',
     'Want to team up with a reliable cross-platform app development partner? Get in touch for a free quote!',
   ],
+  bodyOneLine: [1],
   boldBody: ['cross-platform mobile app development company in India?', 'cross-platform app development partner?'],
   bodyLinks: [{ text: 'for a free quote!', href: '/free-quote' }],
   points: [],
