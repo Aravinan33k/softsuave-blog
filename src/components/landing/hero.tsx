@@ -37,6 +37,8 @@ export interface HeroContent {
   accent?: string;
   /** Set the whole headline in the one colour — no accent on its last line (the live staff-augmentation ad headline). */
   noAccent?: boolean;
+  /** `"home"` sets the H1 at the homepage hero's size (70px desktop, 40px phone). */
+  titleScale?: "home";
   /**
    * Size the H1 to its column so each of `titleLines` fits on one line — for
    * a headline whose first line is too long for the standard H1 size (the
@@ -59,6 +61,8 @@ export interface HeroContent {
    */
   titleSubLast?: boolean;
   body: readonly string[];
+  /** Positions in `body` of the paragraphs set in bold (the live page's emphasised line). */
+  boldBody?: readonly number[];
   points: readonly string[];
   /**
    * Trust badges under the points. Optional — omit for a badge-less hero.
@@ -387,7 +391,7 @@ export default function Hero({
             suppressHydrationWarning
             className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}${
               content.titleOneLine ? ` ${styles.heroTitleOneLine}` : ""
-            }`}
+            }${content.titleScale === "home" ? ` ${styles.heroTitleHome}` : ""}`}
             style={
               content.titleFit
                 ? // A `titleSubLast` subline has its own size, so only the
@@ -418,7 +422,7 @@ export default function Hero({
               key={p.slice(0, 24)}
               className={`${styles.heroBody}${p.startsWith("*") ? ` ${styles.heroBodyNote}` : ""}`}
               style={{ ["--i" as string]: i } as CSSProperties}>
-              {p}
+              {content.boldBody?.includes(i) ? <strong className={styles.heroBodyStrong}>{p}</strong> : p}
             </p>
           ))}
 

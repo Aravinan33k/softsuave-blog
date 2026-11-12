@@ -483,6 +483,12 @@
   max-width: 24ch;
 }
 
+/* The homepage hero's headline size, for a page that asks for it (`titleScale: "home"`). */
+.heroTitle.heroTitleHome {
+  font-size: var(--fs-h1-home);
+  max-width: none;
+}
+
 .heroTitleLine {
   display: block;
 }
@@ -518,7 +524,12 @@
 
 /* A "*"-led footnote line under the hero copy ("*Satisfaction Guaranteed – Get
    40-hour Free Trial") is a fixed 16px, not the body size. */
-.hero .heroBody.heroBodyNote {
+.hero .heroBody.heroBodyStrong {
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.heroBodyNote {
   font-size: 16px;
 }
 
