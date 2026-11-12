@@ -213,6 +213,10 @@ export default function EnquiryForm({
 
   return (
     <div className={fx.card} id={cardId}>
+      {/* An empty title drops the whole header — for a card whose source form
+          has no heading of its own (the Dubai page's closing consultation
+          form, which sits under the band's own copy). */}
+      {content.title ? (
       <div className={fx.header}>
         {content.eyebrow ? <span className={fx.eyebrow}>{content.eyebrow}</span> : null}
         {content.titleAs === "h2" ? (
@@ -223,6 +227,7 @@ export default function EnquiryForm({
         <span className={fx.accent} aria-hidden />
         {content.body ? <p className={fx.body}>{content.body}</p> : null}
       </div>
+      ) : null}
 
       <form ref={formRef} className={fx.fields} onSubmit={onSubmit} noValidate>
         {/* `noValidate`: the browser's own bubbles are replaced by the

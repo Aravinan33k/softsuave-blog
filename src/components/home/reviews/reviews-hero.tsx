@@ -38,7 +38,9 @@ export default function ReviewsHero({
       {/* `eyebrowDark` is the light-band variant of `.eyebrow` — the section
           sits in a `.light` wrapper on the homepage. Flip it back if the
           section ever returns to the dark canvas. */}
-      <span className={styles.eyebrowDark}>{eyebrow}</span>
+      {/* An empty eyebrow renders none — for a page whose live section has
+          no kicker (the developer profile page's "TESTIMONIALS"). */}
+      {eyebrow ? <span className={styles.eyebrowDark}>{eyebrow}</span> : null}
       <SplitReveal as="h2" className={styles.h2} type="words">
         {title}
       </SplitReveal>

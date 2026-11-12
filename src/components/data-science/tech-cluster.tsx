@@ -1,7 +1,9 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import TechLogo from "@/components/home/tech-logo";
+import { publicMediaUrl } from "@/lib/media-url";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import SectionHead from "@/components/landing/section-head";
 import type { TechStackContent } from "@/components/landing/tech-stack";
@@ -41,12 +43,40 @@ const rand = (i: number, s: number) => {
  * would restore at its interrupted progress, paused (see why-us.tsx). Under
  * reduced motion none of it runs and the clusters are simply there, in colour.
  */
+/**
+ * Per-tool overrides for a chip's mark, keyed by the item's name:
+ *
+ *   src  a hand-placed logo file (root-relative, under public/) drawn in place
+ *        of the `TechLogo` mark — for a tool `TechLogo` has no mark for, where
+ *        the source page publishes its own logo.
+ *   alt  the mark's accessible name. Without one the mark stays decorative
+ *        (`aria-hidden`), since the chip's label already names the tool; a page
+ *        ported from the live site passes the live `alt` so it is kept.
+ */
+export type TechClusterMarks = Readonly<
+  Record<
+    string,
+    {
+      readonly src?: string;
+      readonly alt?: string;
+      /**
+       * The `TechLogo` mark to draw when the label differs from its name — a
+       * source page's own spelling ("Jenkin", "kubernets") kept as the label,
+       * drawn with the tool's real mark. Ignored when `src` is set.
+       */
+      readonly mark?: string;
+    }
+  >
+>;
+
 export default function TechCluster({
   content,
   id = "tech",
+  marks,
 }: {
   content: TechStackContent;
   id?: string;
+  marks?: TechClusterMarks;
 }) {
   const root = useRef<HTMLDivElement | null>(null);
 
@@ -154,14 +184,33 @@ export default function TechCluster({
               <span className={styles.clusRule} aria-hidden />
 
               <ul className={styles.clusChips}>
-                {group.items.map((item) => (
+                {group.items.map((item) => {
+                  const mark = marks?.[item];
+                  return (
                   <li key={item} className={styles.clusChip}>
-                    <span className={styles.clusChipLogo} aria-hidden>
-                      <TechLogo name={item} />
-                    </span>
+                    {mark?.src ? (
+                      <span className={styles.clusChipLogo}>
+                        <Image
+                          src={publicMediaUrl(mark.src)}
+                          alt={mark.alt ?? ""}
+                          width={18}
+                          height={18}
+                          className="object-contain"
+                        />
+                      </span>
+                    ) : mark?.alt ? (
+                      <span className={styles.clusChipLogo} role="img" aria-label={mark.alt}>
+                        <TechLogo name={mark?.mark ?? item} />
+                      </span>
+                    ) : (
+                      <span className={styles.clusChipLogo} aria-hidden>
+                        <TechLogo name={mark?.mark ?? item} />
+                      </span>
+                    )}
                     <span className={styles.clusChipName}>{item}</span>
                   </li>
-                ))}
+                  );
+                })}
               </ul>
             </div>
           ))}

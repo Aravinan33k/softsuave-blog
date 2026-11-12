@@ -68,7 +68,7 @@
 .title {
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight, 300);
   font-size: var(--fs-h2);
   line-height: 1.14;
   letter-spacing: -0.03em;
@@ -387,7 +387,7 @@
 .heroTitle {
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight, 300);
   font-size: var(--fs-h1);
   line-height: 1.06;
   letter-spacing: -0.045em;
@@ -513,7 +513,7 @@
 .prose {
   display: grid;
   gap: 0.95em;
-  max-width: 76ch;
+  max-width: unset;
 }
 
 .prose p {
@@ -523,6 +523,7 @@
      one screen. Still comfortably above the 1.5 floor for body copy. */
   line-height: 1.68;
   color: var(--text);
+  text-align: justify;
 }
 
 /* The paragraphs a decision table closes on (`FitTable`). */
@@ -1985,7 +1986,7 @@
 
 /* The trigger lives inside its heading (ARIA accordion pattern); the heading
    itself must not contribute any box of its own. */
-.faqItem h3 {
+.faqItem :is(h3, h4) {
   margin: 0;
   font: inherit;
 }
@@ -2021,7 +2022,7 @@
 
 .faqQuestion {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight, 400);
   /* Its own FAQ size (home.css), not the section-level H3 it used to share. */
   font-size: var(--fs-faq-q);
   line-height: 1.32;
@@ -2111,6 +2112,27 @@
 
 .faqPanelWrap[data-open="true"] .faqAnswer {
   opacity: 1;
+}
+
+/* A structured answer (`blocks`): its paragraphs and bullet lists inside the
+   one answer box, spaced like the single-paragraph answer's line rhythm. */
+.faqAnswerBlocks > * {
+  margin: 0;
+}
+
+.faqAnswerBlocks > * + * {
+  margin-top: 0.75em;
+}
+
+.faqAnswerBlocks ul {
+  display: grid;
+  gap: 0.4em;
+  padding-left: 1.2em;
+  list-style: disc;
+}
+
+.faqAnswerBlocks li::marker {
+  color: var(--accent);
 }
 
 /* ============================================================
@@ -2956,4 +2978,33 @@
 
 [data-type-scale="hire"] .faqAnswer {
   font-size: 16px;
+}
+
+/* ============================================================
+   TILES WITH A FIGURE — the `tiles` variant's optional `figure`: the tile
+   grid (two across) and an illustration share a row from 1000px; stacked,
+   the picture follows the tiles. Used by the France page's legacy band.
+   ============================================================ */
+.indTilesWithFigure {
+  display: grid;
+  gap: clamp(24px, 3vw, 48px);
+  align-items: center;
+}
+
+.indTilesFigure {
+  margin: 0;
+}
+
+.indTilesFigure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1000px) {
+  .indTilesWithFigure {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
 }

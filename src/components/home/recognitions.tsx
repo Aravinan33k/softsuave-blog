@@ -46,7 +46,16 @@ import styles from "./home.module.css";
 /** Dwell on each badge before advancing, ms. */
 const DWELL = 3200;
 
-export default function Recognitions() {
+export default function Recognitions({
+  showCta = true,
+}: {
+  /**
+   * The "View All" button to /awards-recognition under the intro. On by
+   * default; a page whose live awards band has no button (the free demo app
+   * page) turns it off.
+   */
+  showCta?: boolean;
+} = {}) {
   const viewport = useRef<HTMLUListElement | null>(null);
   const [index, setIndex] = useState(0);
   /** One dot per resting position — measured, never assumed. */
@@ -157,13 +166,15 @@ export default function Recognitions() {
           <p className={styles.lead}>{recognitions.body}</p>
           {/* The site's orange section button (21 Oct review: was an orange
               text link with a drawn arrow), sized like "View all Case Studies". */}
-          <Link
-            className={`${styles.pillFilled} ${styles.pillLg} ${styles.recogViewAll}`}
-            href={recognitions.cta.href}
-            data-cursor="Open"
-          >
-            {recognitions.cta.label}
-          </Link>
+          {showCta ? (
+            <Link
+              className={`${styles.pillFilled} ${styles.pillLg} ${styles.recogViewAll}`}
+              href={recognitions.cta.href}
+              data-cursor="Open"
+            >
+              {recognitions.cta.label}
+            </Link>
+          ) : null}
         </div>
 
         <FadeUp className={styles.recogShowcase}>

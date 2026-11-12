@@ -50,6 +50,12 @@ export interface LandingPage {
    * "Web App Development".
    */
   readonly breadcrumbCurrentLabel?: string;
+  /**
+   * `false` keeps a route out of the sitemap while it stays a marketing route
+   * (release gate, local nav links) — for a page that is `noindex` by design,
+   * as its live counterpart is (/developer-profile).
+   */
+  readonly sitemap?: false;
 }
 
 import { HIRE_SKILL_ROUTES } from './hire-skill-routes';
@@ -85,6 +91,9 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/agentic-ai-development-services', title: 'Agentic AI Development Services' },
   { path: '/free-7-days-trial', title: '40-Hour Free Trial' },
   { path: '/30-min-free-consultation', title: 'Free Consultation' },
+  { path: '/free-demo-app', title: 'Free Demo App' },
+  // noindex,nofollow on the live site, so out of the sitemap here too.
+  { path: '/developer-profile', title: 'Hire India’s Top Remote Talents On Contract', sitemap: false },
   { path: '/free-quote', title: 'Free Quote' },
 
   // Custom-AI sub-pages.
@@ -99,6 +108,77 @@ export const LANDING_PAGES: readonly LandingPage[] = [
     path: '/mobile-application-development-company',
     title: 'Mobile App Development Company',
     breadcrumbCurrentLabel: 'Mobile App Development Service',
+    parent: '/software-development-company',
+  },
+  // softsuave.com's Dubai location page, slug unchanged. The live page shows
+  // no breadcrumb; the hero's trail places it under the Mobile App page.
+  {
+    path: '/mobile-app-development-company-dubai',
+    title: 'Best Mobile App Development Company in Dubai, UAE',
+    breadcrumbLabel: 'Mobile App Development Company in Dubai',
+    parent: ['/software-development-company', '/mobile-application-development-company'],
+  },
+  // The Germany location page, same structure and placement as Dubai's.
+  {
+    path: '/mobile-app-development-company-germany',
+    title: 'Top Notch Mobile App Development Company In Germany',
+    breadcrumbLabel: 'Mobile App Development Company in Germany',
+    parent: ['/software-development-company', '/mobile-application-development-company'],
+  },
+  // The Italy location page, same structure and placement as Dubai's.
+  {
+    path: '/mobile-app-development-company-italy',
+    title: 'Best Mobile App Development Services in Italy for Futuristic Apps',
+    breadcrumbLabel: 'Mobile App Development Company in Italy',
+    parent: ['/software-development-company', '/mobile-application-development-company'],
+  },
+  // The Maryland location page, same structure and placement as Dubai's.
+  {
+    path: '/mobile-app-development-company-maryland',
+    title: 'Mobile App Development Company in Maryland',
+    breadcrumbLabel: 'Mobile App Development Company in Maryland',
+    parent: ['/software-development-company', '/mobile-application-development-company'],
+  },
+  // The Poland location page (its own layout; same placement as Dubai's).
+  {
+    path: '/mobile-app-development-company-poland',
+    title: 'Mobile App Development Services in Poland',
+    breadcrumbLabel: 'Mobile App Development Company in Poland',
+    parent: ['/software-development-company', '/mobile-application-development-company'],
+  },
+  // The Saudi Arabia location page, same structure and placement as Dubai's.
+  {
+    path: '/mobile-app-development-company-saudi-arabia',
+    title: 'Custom Mobile App Development Company in Saudi Arabia, UAE',
+    breadcrumbLabel: 'Mobile App Development Company in Saudi Arabia',
+    parent: ['/software-development-company', '/mobile-application-development-company'],
+  },
+  // The South Africa location page, same structure and placement as Dubai's.
+  {
+    path: '/mobile-app-development-company-south-africa',
+    title: 'A Trustworthy Mobile App Development Company in South Africa',
+    breadcrumbLabel: 'Mobile App Development Company in South Africa',
+    parent: ['/software-development-company', '/mobile-application-development-company'],
+  },
+  // The France software development page, under Software Development.
+  {
+    path: '/software-development-company-france',
+    title: 'Bespoke Software Development Services In France',
+    breadcrumbLabel: 'Software Development Company in France',
+    parent: '/software-development-company',
+  },
+  // The Germany software development page, same structure and placement as France's.
+  {
+    path: '/software-development-company-germany',
+    title: 'The Best Software Development Company In Germany',
+    breadcrumbLabel: 'Software Development Company in Germany',
+    parent: '/software-development-company',
+  },
+  // The Spain software development page, same structure and placement as France's.
+  {
+    path: '/software-development-company-spain',
+    title: 'Dynamic Software Development Company in Spain',
+    breadcrumbLabel: 'Software Development Company in Spain',
     parent: '/software-development-company',
   },
   {
@@ -686,3 +766,8 @@ export const LANDING_PAGES: readonly LandingPage[] = [
  * ship together behind the homepage release flag.
  */
 export const MARKETING_ROUTES: readonly string[] = ['/', ...LANDING_PAGES.map((p) => p.path)];
+
+/** Marketing routes the sitemap leaves out — the registry's `sitemap: false` pages. */
+export const NON_SITEMAP_ROUTES: ReadonlySet<string> = new Set(
+  LANDING_PAGES.filter((p) => p.sitemap === false).map((p) => p.path),
+);

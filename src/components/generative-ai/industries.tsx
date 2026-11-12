@@ -1,6 +1,7 @@
 import { industries as generativeAiIndustries } from "@/lib/home/generative-ai";
 import CardIcon, { isBrandIcon } from "./card-icon";
 import IndustriesClient from "./industries-client";
+import type { InlineLink } from "@/components/common/linkify";
 
 // `CardIcon` holds the glyph vocabulary; see that file for why it is not here.
 // The "01"-style ordinals these cards used to carry are gone (review: icons
@@ -40,6 +41,14 @@ export interface CardGridContent {
    * missing"). Same size as the mid-page conversion band's button.
    */
   cta?: { readonly label: string; readonly href: string };
+  /**
+   * `tiles` only: an illustration set beside the tile grid (below it on
+   * narrow screens), for a section whose live counterpart shows its items
+   * next to a picture — the France page's legacy-modernisation band.
+   */
+  figure?: { readonly src: string; readonly width: number; readonly height: number; readonly alt: string };
+  /** `tiles` only: phrases in `body` (the intro) to link — see `common/linkify`. */
+  bodyLinks?: readonly InlineLink[];
 }
 
 /**
@@ -66,6 +75,7 @@ export default function Industries({
   variant = "photo",
   links = true,
   cardLinks = false,
+  nameAs = "h3",
 }: {
   content?: CardGridContent;
   id?: string;
@@ -111,6 +121,12 @@ export default function Industries({
    * clickable").
    */
   cardLinks?: boolean;
+  /**
+   * `tiles` only: heading level of each tile's name. H3 by default; a page
+   * ported from the live site passes its source's level (the France page's
+   * industry names are H4s). Styling is identical.
+   */
+  nameAs?: "h3" | "h4";
 } = {}) {
   return (
     <IndustriesClient
@@ -119,6 +135,7 @@ export default function Industries({
       variant={variant}
       links={links}
       cardLinks={cardLinks}
+      nameAs={nameAs}
       icons={content.items.map((item) => (
         <CardIcon key={item.name} iconKey={item.key} text={`${item.name}. ${item.body}`} />
       ))}

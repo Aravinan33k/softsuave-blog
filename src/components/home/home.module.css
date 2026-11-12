@@ -130,7 +130,7 @@
  */
 .h2 {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight, 400);
   font-size: var(--fs-h2);
   line-height: 1.08;
   letter-spacing: -0.03em;
@@ -1314,7 +1314,7 @@ h1.h2 {
   flex: 1 0 100%;
   margin: 3px 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight, 300);
   font-size: var(--fs-card-title);
   line-height: 1.24;
   letter-spacing: -0.02em;
@@ -7833,4 +7833,43 @@ h1.h2 {
   padding: 1.05em 2.1em;
   font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
   letter-spacing: 0.1em;
+}
+
+/* ============================================================
+   WORK LANE — MOBILE SLIDE (opt-in: <WorkGrid mobileSlide />)
+   Below 1000px the lane normally stacks its cards. With `mobileSlide` it
+   stays a horizontal scroll-snap row instead: one card and a peek of the
+   next, swiped natively, bleeding to the screen edges and snapping to the
+   gutter. Swiping is not motion, so it holds under reduced motion too —
+   hence the `!important`s, which outrank that block's stack rules by
+   specificity. Lanes without the attribute are untouched.
+   ============================================================ */
+@media (max-width: 999px) {
+  .workH[data-mobile-slide] .hLane {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+  }
+
+  .workH[data-mobile-slide] .hLane::-webkit-scrollbar {
+    display: none;
+  }
+
+  .workH[data-mobile-slide] .hTrack {
+    display: flex !important;
+    gap: 16px !important;
+    width: max-content;
+    padding: 0 0 4px !important;
+  }
+
+  .workH[data-mobile-slide] .hTile {
+    flex: 0 0 auto;
+    width: min(82vw, 380px) !important;
+    scroll-snap-align: start;
+  }
 }

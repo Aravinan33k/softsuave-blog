@@ -1,0 +1,187 @@
+/* =====================================================================
+   LEGACY SHOWCASE — a framed illustration beside numbered service rows.
+
+   Band tokens only (--bg, --surface, --line, --accent, --text,
+   --text-bright, --muted), so it reads on a dark band or a `.light` one.
+   ===================================================================== */
+
+.section {
+  overflow: hidden;
+}
+
+/* The warm glow low on the left, behind the stage. */
+.section::before {
+  content: "";
+  position: absolute;
+  left: -220px;
+  top: 35%;
+  width: 720px;
+  height: 720px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 16%, transparent), transparent);
+  pointer-events: none;
+}
+
+.body {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+}
+
+@media (min-width: 1000px) {
+  .body {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+}
+
+/* ---- The stage ------------------------------------------------------ */
+
+/* The illustration's container: the overview image's corners (14px, from
+   `.overviewMedia`), no stroke, no inner padding — the image fills its full
+   width — on a faint dot grid that fades toward the edges. */
+.stage {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at 50% 35%,
+    color-mix(in srgb, var(--surface) 92%, var(--text-bright)),
+    var(--bg) 72%
+  );
+}
+
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(color-mix(in srgb, var(--text-bright) 7%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(circle at 50% 50%, #000, transparent 75%);
+  pointer-events: none;
+}
+
+/* Full width of the container, its own aspect ratio, never cropped; still. */
+.stageImg {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- The list ------------------------------------------------------- */
+
+.list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+  padding: clamp(20px, 2vw, 26px) clamp(20px, 2.2vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+/* The accent edge that lights on hover / focus. */
+.item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22px;
+  bottom: 22px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(#ff9a3c, var(--accent));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.item:hover,
+.item:focus-within {
+  transform: translateX(8px);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  background: linear-gradient(100deg, color-mix(in srgb, var(--accent) 9%, var(--surface)), var(--surface) 55%);
+}
+
+.item:hover::before,
+.item:focus-within::before {
+  opacity: 1;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+}
+
+.icon svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.name {
+  margin: 0 0 6px;
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight, 400);
+  font-size: var(--fs-card-title);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--text-bright);
+}
+
+.text {
+  margin: 0;
+  font-size: var(--fs-body-sm);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ---- Phone ---------------------------------------------------------- */
+
+@media (max-width: 560px) {
+  .item {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+
+  .item:hover,
+  .item:focus-within {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    transition: none;
+  }
+}
