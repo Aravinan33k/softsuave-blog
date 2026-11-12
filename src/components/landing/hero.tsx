@@ -91,6 +91,12 @@ export interface HeroContent {
    */
   stats?: readonly HeroStat[];
   /**
+   * Set each stat card's title as an H3 rather than bold text — for a page
+   * whose live counterpart makes them headings (the free-demo-app page's
+   * "150+ CLIENTS" are H3s). Styling is identical either way.
+   */
+  statTitleAs?: "h3";
+  /**
    * Copy for the enquiry card; the card itself is `common/enquiry-form`.
    * Omitted only on a hero whose `aside` image takes the card's column.
    */
@@ -468,7 +474,11 @@ export default function Hero({
                       <Icon strokeWidth={1.6} />
                     </span>
                     <span>
-                      <strong className={styles.heroStatTitle}>{stat.title}</strong>
+                      {content.statTitleAs === "h3" ? (
+                        <h3 className={styles.heroStatTitle}>{stat.title}</h3>
+                      ) : (
+                        <strong className={styles.heroStatTitle}>{stat.title}</strong>
+                      )}
                       <span className={styles.heroStatBody}>{stat.body}</span>
                     </span>
                   </li>

@@ -289,9 +289,10 @@ export interface CardGridContent {
    * stays a plain string extracted verbatim from the live page, so a link is
    * declared by the phrase it wraps rather than by rewriting the copy into
    * JSX. Threaded across every card in the grid, so a repeated phrase links
-   * once. `cards`/`watermark`/`bold` only — `feature` and `list` cards use
-   * `href` for a whole-card link instead, and linking a phrase inside their
-   * shorter body would double up with that.
+   * once. Honoured by `cards`/`watermark`/`bold` and `feature` — the latter
+   * for a ported page whose live cards link a phrase in the body as well as
+   * ending on their own link (the Italy page's service cards). `list` cards
+   * ignore it.
    */
   links?: readonly InlineLink[];
   items: readonly {
@@ -358,8 +359,15 @@ export interface CardGridContent {
       readonly width?: number;
       readonly height?: number;
       readonly alt: string;
-      /** Draw the picture as the accent glyph in the same tinted badge the picked icons sit in. */
-      readonly badge?: boolean;
+      /**
+       * `contain` fits the whole illustration in the slot instead of cropping
+       * it to fill — for portrait art meant to be seen whole. `column`, where
+       * the card sets text and art side by side (from 1100px), stretches the
+       * art to the card's full height beside the text instead of a 4:3 box at
+       * its top, like the overview's `fit: "column"`; stacked, it stays 4:3.
+       * Omitted keeps the 4:3 crop.
+       */
+      readonly fit?: "contain" | "column";
     };
   }[];
 }
@@ -407,7 +415,14 @@ export default function Industries({
   autoLink: autoLinkProp,
   span,
   cardCta,
+  linkLabel = "Learn more",
 }: {
+  /**
+   * `feature` only: the visible words of each card's link. Defaults to
+   * "Learn more"; a page ported from the live site passes the live label
+   * ("Know More"). The screen-reader suffix naming the card is kept either way.
+   */
+  linkLabel?: string;
   content: CardGridContent;
   id?: string;
   /**
@@ -579,7 +594,14 @@ export default function Industries({
 
                   <h3 className={styles.featName}>{item.name}</h3>
                   <span className={styles.featRule} aria-hidden />
-                  {item.body ? <p className={styles.featText}>{item.body}</p> : null}
+                  {/* Inline links only where the content declares them (a
+                      ported page whose live card links a phrase *and* ends on
+                      its "Know More"); otherwise the body stays plain text. */}
+                  {item.body ? (
+                    <p className={styles.featText}>
+                      {linkify(item.body, content.links, usedLinks, styles.proseLink)}
+                    </p>
+                  ) : null}
 
                   {cardCta ? (
                     <SiteLink
@@ -593,7 +615,7 @@ export default function Industries({
 
                   {href ? (
                     <Link href={href} className={styles.featLink}>
-                      Learn more
+                      {linkLabel}
                       {/* Says where it goes for screen readers and crawlers; a
                           bare "Learn more" fails Lighthouse's link-text audit. */}
                       <span className={styles.srOnly}> about {item.name}</span>
@@ -617,13 +639,19 @@ export default function Industries({
                     />
                   </div>
                 ) : item.image ? (
-                  <div className={styles.featMedia}>
+                  <div
+                    className={
+                      item.image.fit === "column" ? `${styles.featMedia} ${styles.featMediaColumn}` : styles.featMedia
+                    }
+                  >
                     <Image
                       src={publicMediaUrl(item.image.src)}
                       alt={item.image.alt}
                       fill
                       sizes="(max-width: 700px) 100vw, (max-width: 1100px) 45vw, 30vw"
-                      className={styles.featImg}
+                      className={
+                        item.image.fit === "contain" ? `${styles.featImg} ${styles.featImgContain}` : styles.featImg
+                      }
                     />
                   </div>
                 ) : null}

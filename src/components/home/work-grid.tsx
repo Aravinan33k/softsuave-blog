@@ -43,7 +43,16 @@ export interface WorkCarouselItem {
    * source. `imageId` wins if both are set: the manifest slot carries a
    * generated blurDataURL a loose file has no equivalent for.
    */
-  readonly image?: { readonly src: string; readonly alt?: string };
+  readonly image?: {
+    readonly src: string;
+    readonly alt?: string;
+    /**
+     * `contain` shows the whole artwork inside the 4:3 frame instead of
+     * cropping it to fill — for portrait art such as phone screenshots, which
+     * `cover` cuts down to a strip. Omitted keeps `cover`.
+     */
+    readonly fit?: "contain";
+  };
   /**
    * Makes the whole tile a link to this route (Custom AI review, 1 Oct: "link
    * the cards to their relevant pages"). Optional: case-study lanes have no
@@ -134,13 +143,28 @@ export default function WorkGrid({
   content = HOMEPAGE_WORK,
   id = "work",
   countLabel = "projects",
+  tileTitleAs: TileTitle = "h3",
   autoplayMs = 0,
+  mobileSlide = false,
 }: {
+  /**
+   * Below 1000px, keep the cards in a horizontal, swipeable scroll-snap row
+   * (one card and a peek of the next) instead of stacking them vertically.
+   * Off by default, so every existing lane keeps its stacked mobile layout.
+   */
+  mobileSlide?: boolean;
   content?: WorkCarouselContent;
   /** Section anchor. Defaults to the homepage's `#work`. */
   id?: string;
   /** Noun after the tile count — "projects", "capabilities", "services". */
   countLabel?: string;
+  /**
+   * Heading level of each tile's title. H3 by default; a page ported from
+   * the live site passes the level its source uses (the Germany page's
+   * portfolio titles are H5s), so the outline stays the same. Styling is
+   * identical either way.
+   */
+  tileTitleAs?: "h3" | "h4" | "h5";
   /**
    * Auto-advance interval in ms; 0 (the default) leaves the lane manual, which
    * is what the homepage wants for case studies a reader chooses to browse.
@@ -494,13 +518,20 @@ export default function WorkGrid({
   }, [autoplayMs]);
 
   return (
-    <section ref={sectionRef} className={styles.workH} id={id}>
+    <section
+      ref={sectionRef}
+      className={styles.workH}
+      id={id}
+      data-mobile-slide={mobileSlide || undefined}
+    >
       <div
         ref={root}
         className={hasArt ? styles.hInner : `${styles.hInner} ${styles.hInnerFlat}`}
       >
         <div className={styles.hIntro}>
-          <span className={styles.eyebrow}>{content.eyebrow}</span>
+          {/* No kicker for a lane whose live section has none — an empty
+              eyebrow would still draw its coral rule. */}
+          {content.eyebrow ? <span className={styles.eyebrow}>{content.eyebrow}</span> : null}
           <SplitReveal as="h2" className={styles.h2} type="words">
             {content.title}
           </SplitReveal>
@@ -587,7 +618,7 @@ export default function WorkGrid({
                   alt={t.image.alt ?? ""}
                   fill
                   sizes="(max-width: 1000px) 100vw, 46vw"
-                  className="object-cover"
+                  className={t.image.fit === "contain" ? "object-contain" : "object-cover"}
                 />
               ) : null;
 
@@ -618,7 +649,7 @@ export default function WorkGrid({
                       ) : hasArt ? null : (
                         <span className={styles.tileTag}>{index}</span>
                       )}
-                      <h3 className={styles.tileTitle}>{t.title}</h3>
+                      <TileTitle className={styles.tileTitle}>{t.title}</TileTitle>
                     </div>
                     {t.metric ? <span className={styles.tileMetric}>{t.metric}</span> : null}
                   </div>

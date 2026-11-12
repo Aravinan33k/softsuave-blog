@@ -7871,63 +7871,41 @@ h1.h2 {
   letter-spacing: 0.1em;
 }
 
-/* ---- phones and tablets: long lists swipe sideways ---------------------------
-   Services (ten rows) and the case studies (eight tiles) used to stack into
-   2,500-5,000px of scrolling on a phone. Below the desktop breakpoint they are
-   now a native scroll-snap rail like the desktop lane: one card per swipe, the
-   next one peeking in at the edge as the hint. The rail is full-bleed (negative
-   gutter margin, matching padding) so cards run to the screen edge. */
+/* ============================================================
+   WORK LANE — MOBILE SLIDE (opt-in: <WorkGrid mobileSlide />)
+   Below 1000px the lane normally stacks its cards. With `mobileSlide` it
+   stays a horizontal scroll-snap row instead: one card and a peek of the
+   next, swiped natively, bleeding to the screen edges and snapping to the
+   gutter. Swiping is not motion, so it holds under reduced motion too —
+   hence the `!important`s, which outrank that block's stack rules by
+   specificity. Lanes without the attribute are untouched.
+   ============================================================ */
 @media (max-width: 999px) {
-  .carMobRail,
-  .hLane {
-    display: flex;
+  .workH[data-mobile-slide] .hLane {
     overflow-x: auto;
     overflow-y: hidden;
-    overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
     scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    margin-left: calc(-1 * var(--gutter));
-    margin-right: calc(-1 * var(--gutter));
-    padding: 0 var(--gutter) 4px;
-    scroll-padding-left: var(--gutter);
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
   }
-  .carMobRail::-webkit-scrollbar,
-  .hLane::-webkit-scrollbar {
+
+  .workH[data-mobile-slide] .hLane::-webkit-scrollbar {
     display: none;
   }
 
-  .carMobRail {
-    gap: 16px;
-    margin-top: clamp(24px, 5vw, 40px);
-  }
-  .carMobRail .carMobRow,
-  .carMobRail .carMobRow:first-of-type {
-    flex: 0 0 min(82vw, 380px);
-    scroll-snap-align: start;
-    margin: 0;
-    padding: 0;
-    border: 0;
-  }
-  /* Equal-height cards, button pinned to the bottom, so descriptions of
-     different lengths do not leave the buttons at different heights. */
-  .carMobRail .carMobText {
-    flex: 1 1 auto;
-  }
-  .carMobRail .carMobText > :last-child {
-    margin-top: auto;
+  .workH[data-mobile-slide] .hTrack {
+    display: flex !important;
+    gap: 16px !important;
+    width: max-content;
+    padding: 0 0 4px !important;
   }
 
-  .hTrack {
-    display: flex;
-    flex-wrap: nowrap;
-    width: max-content;
-    gap: 16px;
-    padding-right: var(--gutter);
-  }
-  .hTile,
-  .hOutro {
-    flex: 0 0 min(84vw, 420px);
+  .workH[data-mobile-slide] .hTile {
+    flex: 0 0 auto;
+    width: min(82vw, 380px) !important;
     scroll-snap-align: start;
   }
 }

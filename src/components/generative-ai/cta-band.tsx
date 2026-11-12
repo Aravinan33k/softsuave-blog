@@ -26,8 +26,15 @@ export interface CtaBandContent {
  */
 export default function CtaBand({
   content = generativeAiMidCta,
+  titleAs: Title = "h2",
 }: {
   content?: CtaBandContent;
+  /**
+   * Heading level of the band's title. H2 by default; a page ported from the
+   * live site passes its source's level (the Poland page's band is an H3),
+   * so the outline stays the same. Styling is identical.
+   */
+  titleAs?: "h2" | "h3";
 } = {}) {
   return (
     <section className={styles.ctaBand}>
@@ -36,7 +43,7 @@ export default function CtaBand({
       <FadeUp className={styles.ctaInner}>
         <div>
           {content.eyebrow && <span className={styles.kicker}>{content.eyebrow}</span>}
-          <h2 className={styles.ctaTitle}>{content.title}</h2>
+          <Title className={styles.ctaTitle}>{content.title}</Title>
           <p className={styles.ctaBody}>{content.body}</p>
         </div>
 

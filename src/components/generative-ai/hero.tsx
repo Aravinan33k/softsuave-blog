@@ -13,6 +13,7 @@ import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquir
 import Breadcrumb from "@/components/common/breadcrumb";
 import { titleFitStyle } from "@/components/landing/hero";
 import { SiteLink } from "@/themes/softsuave/site-link";
+import { linkify, type InlineLink } from "@/components/common/linkify";
 
 /**
  * Shape of the copy this hero renders. Every AI landing page supplies its own
@@ -44,6 +45,13 @@ export interface HeroContent {
    */
   titleScale?: "home";
   body: readonly string[];
+  /**
+   * Phrases in `body` to link, as the live hero links them ("Get in touch for
+   * a free quote!") — matched on their own words, see `common/linkify`.
+   * Omitted leaves the body as plain text, as before.
+   */
+  bodyLinks?: readonly InlineLink[];
+  /** Checkmarked supporting points. An empty list renders no list at all. */
   points: readonly string[];
   /**
    * Credential strip closing the hero copy column. Omitted renders nothing.
@@ -141,6 +149,8 @@ export default function Hero({
   // (PageSpeed, 15 Oct).
 
   const lastLine = content.titleLines.length - 1;
+  // One set across the hero's paragraphs, so a phrase links once.
+  const usedLinks = new Set<string>();
 
   return (
     <section ref={root} className={wide ? `${styles.hero} ${styles.heroWide}` : styles.hero} id="top">
@@ -198,10 +208,11 @@ export default function Hero({
 
           {content.body.map((p, i) => (
             <p key={p.slice(0, 24)} className={styles.heroBody} style={{ ["--i" as string]: i } as CSSProperties}>
-              {p}
+              {linkify(p, content.bodyLinks, usedLinks, styles.proseLink)}
             </p>
           ))}
 
+          {content.points.length > 0 && (
           <ul className={styles.heroPoints}>
             {content.points.map((point, i) => (
               <li key={point} className={styles.heroPoint} style={{ ["--i" as string]: i } as CSSProperties}>
@@ -221,6 +232,7 @@ export default function Hero({
               </li>
             ))}
           </ul>
+          )}
 
           {content.features && content.features.length > 0 && (
             /* The ad pages' stat cards (components/landing/hero), with a label and no description. */

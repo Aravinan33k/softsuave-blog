@@ -8,6 +8,7 @@ import FadeUp from "@/components/home/fade-up";
 import SectionHead from "./section-head";
 import { useServiceHref } from "@/components/common/service-link";
 import { SiteLink } from "@/themes/softsuave/site-link";
+import { linkify } from "@/components/common/linkify";
 import SectionCta from "./section-cta";
 import type { ReactNode } from "react";
 import type { CardGridContent } from "./industries";
@@ -96,6 +97,8 @@ export default function IndustriesClient({
   variant: "photo" | "compact" | "bold" | "tiles";
   links: boolean;
   cardLinks: boolean;
+  /** `tiles` only: the tile name's heading level. */
+  nameAs?: "h3" | "h4";
   icons: readonly ReactNode[];
   brand: readonly boolean[];
   /** Cards whose icon slot holds a row of images rather than one badge. */
@@ -185,12 +188,31 @@ export default function IndustriesClient({
 
     return (
       <section className={styles.sectionShell} id={id}>
-        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+        <SectionHead
+          kicker={content.eyebrow}
+          title={content.title}
+          intro={
+            content.bodyLinks ? linkify(content.body, content.bodyLinks, new Set(), styles.proseLink) : content.body
+          }
+        />
 
         <FadeUp>
-          <div className={styles.indGridTiles} data-cols={cols}>
-            {content.items.map((item, i) => (
-              <article key={item.name} className={`${styles.indBoldCard} ${styles.indTile}`}>
+          {/* With a `figure`, the grid and the picture share a row from
+              1000px (`.indTilesWithFigure`); without one, the grid is as
+              before. */}
+          <div className={content.figure ? styles.indTilesWithFigure : undefined}>
+          <div className={styles.indGridTiles} data-cols={content.figure ? 2 : cols}>
+            {content.items.map((item, i) => {
+              // A tile links only where its item names a destination — no
+              // name-matching here, so a label grid stays labels unless the
+              // content says otherwise.
+              const href = links && item.href && item.link !== false ? item.href : undefined;
+              return (
+              <article
+                key={item.name}
+                className={`${styles.indBoldCard} ${styles.indTile}`}
+                data-linked={href ? "true" : undefined}
+              >
                 <span
                   className={styles.indBoldIcon}
                   data-brand={brand[i] ? "true" : undefined}
@@ -198,10 +220,31 @@ export default function IndustriesClient({
                 >
                   {icons[i]}
                 </span>
-                <h3 className={styles.indBoldName}>{item.name}</h3>
+                <TileName className={styles.indBoldName}>
+                  {href ? (
+                    <SiteLink href={href} className={styles.indBoldStretch}>
+                      {item.name}
+                    </SiteLink>
+                  ) : (
+                    item.name
+                  )}
+                </TileName>
                 {item.body && <p className={styles.indBoldBody}>{item.body}</p>}
               </article>
-            ))}
+              );
+            })}
+          </div>
+          {content.figure ? (
+            <figure className={styles.indTilesFigure}>
+              <Image
+                src={publicMediaUrl(content.figure.src)}
+                alt={content.figure.alt}
+                width={content.figure.width}
+                height={content.figure.height}
+                sizes="(max-width: 999px) 92vw, 40vw"
+              />
+            </figure>
+          ) : null}
           </div>
         </FadeUp>
         <SectionCta cta={content.cta} />

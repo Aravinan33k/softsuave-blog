@@ -7463,6 +7463,28 @@
   object-fit: cover;
 }
 
+/* An item's `image.fit: "contain"` — the whole illustration in the slot,
+   centred, rather than a crop (portrait art meant to be seen whole). */
+.featImgContain {
+  object-fit: contain;
+}
+
+/* An item's `image.fit: "column"` — once the card sets text and art side by
+   side, the art fills the card's full height beside the text rather than a
+   4:3 box at its top that leaves the rest of the column empty. Stacked
+   (below 1100px) it keeps the 4:3 frame under the text. */
+@media (min-width: 1100px) {
+  .featCard:has(.featMediaColumn) {
+    align-items: stretch;
+  }
+
+  .featMedia.featMediaColumn {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 220px;
+  }
+}
+
 /* Side-by-side text and art once the card is wide enough to carry both. A card
    with no thumbnail keeps the single column and simply fills the width. */
 @media (min-width: 1100px) {

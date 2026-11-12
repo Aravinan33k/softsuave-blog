@@ -3,6 +3,7 @@ import CardIcon, { isBrandIcon } from "./card-icon";
 import Image from "next/image";
 import { publicMediaUrl } from "@/lib/media-url";
 import IndustriesClient from "./industries-client";
+import type { InlineLink } from "@/components/common/linkify";
 
 // `CardIcon` holds the glyph vocabulary; see that file for why it is not here.
 // The "01"-style ordinals these cards used to carry are gone (review: icons
@@ -82,6 +83,7 @@ export default function Industries({
   variant = "photo",
   links = true,
   cardLinks = false,
+  nameAs = "h3",
 }: {
   content?: CardGridContent;
   id?: string;
@@ -127,6 +129,12 @@ export default function Industries({
    * clickable").
    */
   cardLinks?: boolean;
+  /**
+   * `tiles` only: heading level of each tile's name. H3 by default; a page
+   * ported from the live site passes its source's level (the France page's
+   * industry names are H4s). Styling is identical.
+   */
+  nameAs?: "h3" | "h4";
 } = {}) {
   return (
     <IndustriesClient
@@ -135,28 +143,11 @@ export default function Industries({
       variant={variant}
       links={links}
       cardLinks={cardLinks}
-      noIcons={content.noIcons}
-      icons={content.items.map((item) =>
-        item.images ? (
-          <span key={item.name} style={{ display: "contents" }}>
-            {item.images.map((img, n) => (
-              <Image
-                key={`${img.alt}-${n}`}
-                src={publicMediaUrl(img.src)}
-                alt=""
-                width={img.width && img.height ? Math.round((40 * img.width) / img.height) : 40}
-                height={40}
-                unoptimized
-                style={{ height: 40, width: "auto" }}
-              />
-            ))}
-          </span>
-        ) : (
-          <CardIcon key={item.name} iconKey={item.key} text={`${item.name}. ${item.body}`} />
-        ),
-      )}
-      brand={content.items.map((item) => !item.images && isBrandIcon(item.key))}
-      multi={content.items.map((item) => Boolean(item.images))}
+      nameAs={nameAs}
+      icons={content.items.map((item) => (
+        <CardIcon key={item.name} iconKey={item.key} text={`${item.name}. ${item.body}`} />
+      ))}
+      brand={content.items.map((item) => isBrandIcon(item.key))}
     />
   );
 }
