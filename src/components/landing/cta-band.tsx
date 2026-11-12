@@ -3,6 +3,7 @@
 import { CalendarDays } from "lucide-react";
 import FadeUp from "@/components/home/fade-up";
 import SplitReveal from "@/components/home/split-reveal";
+import type { ReactNode } from "react";
 import styles from "./landing.module.css";
 import LightFieldBackdrop from "@/components/home/light-field-backdrop";
 import { SiteLink } from "@/themes/softsuave/site-link";
@@ -11,7 +12,8 @@ export interface CtaBandContent {
   /** Optional — omitted on pages whose CTA heading stands on its own. */
   eyebrow?: string;
   title: string;
-  body: string;
+  /** Usually a string; a node when some of the words are bold. */
+  body: ReactNode;
   cta: { readonly label: string; readonly href: string };
   /**
    * Optional second action, set after an "OR" beside the primary one — the ad

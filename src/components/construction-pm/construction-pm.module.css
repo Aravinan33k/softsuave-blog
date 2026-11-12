@@ -1,0 +1,162 @@
+/* /construction-project-management-software — the bands this page adds, in the site's styles. */
+
+.accent {
+  color: var(--accent);
+}
+
+/* ---- customers ---- */
+.customers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 24px);
+}
+.customer {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 0.7, 0.2, 1), border-color 0.35s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: clamp(20px, 2vw, 30px);
+  text-align: center;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
+/* The site's card rule: a short accent bar along the top edge at rest, running the full width on hover. */
+.customer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.customer:hover,
+.customer:focus-within {
+  transform: translateY(-8px);
+  border-color: var(--accent-border);
+  box-shadow: 0 22px 44px -26px rgba(184, 52, 26, 0.5);
+}
+.customer:hover::before,
+.customer:focus-within::before {
+  width: 100%;
+}
+.customer:hover .customerIcon,
+.customer:focus-within .customerIcon {
+  transform: scale(1.14) translateY(-2px);
+}
+.customer:hover .customerName,
+.customer:focus-within .customerName {
+  color: var(--accent);
+}
+.customerIcon,
+.customerName {
+  transition: transform 0.45s cubic-bezier(0.22, 0.7, 0.2, 1), color 0.3s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .customer,
+  .customer::before,
+  .customerIcon,
+  .customerName {
+    transition: none;
+  }
+  .customer:hover,
+  .customer:hover .customerIcon {
+    transform: none;
+  }
+}
+
+.customerIcon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+.customerName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+  letter-spacing: -0.02em;
+  font-weight: var(--heading-weight);
+  color: var(--text-bright);
+}
+
+/* ---- portfolio ---- */
+.portfolioSplit {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.portfolioSplit .media img {
+  max-width: 520px;
+}
+
+/* ---- quote form ---- */
+.dialog {
+  width: min(480px, calc(100vw - 32px));
+  max-height: calc(100svh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  overflow: visible;
+}
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+.modalCard {
+  position: relative;
+  max-height: calc(100svh - 32px);
+  overflow-y: auto;
+  padding: clamp(24px, 3vw, 36px);
+}
+.close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: none;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--fx-ink, #0f1115);
+  cursor: pointer;
+}
+.modalTitle {
+  margin: 0 36px 0 0;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  letter-spacing: -0.02em;
+  font-weight: var(--heading-weight);
+  color: var(--fx-ink, #0f1115);
+}
+.modalTitle .accent {
+  color: var(--accent);
+}
+.modalBody {
+  margin: 8px 0 20px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--fx-label, #3f434d);
+}
+.submit {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .portfolioSplit {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .customers {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

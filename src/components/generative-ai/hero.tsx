@@ -181,7 +181,7 @@ export default function Hero({
                 <span
                   style={{ ["--i" as string]: i } as CSSProperties}
                   className={`${styles.heroTitleLine}${
-                    !content.accent && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
+                    content.accent === undefined && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
                   }`}
                 >
                   {accentWithin(line, content.accent)}

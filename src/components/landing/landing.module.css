@@ -1822,6 +1822,14 @@
   color: var(--muted);
 }
 
+/* A card's own picture, in place of the glyph badge. */
+.cardImage {
+  display: block;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
 .cardName {
   margin: 8px 0 0;
   font-family: var(--font-heading);

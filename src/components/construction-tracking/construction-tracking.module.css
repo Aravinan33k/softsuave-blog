@@ -65,11 +65,11 @@
 .prose p:last-child {
   margin-bottom: 0;
 }
-.prose a {
+.prose p a {
   color: var(--accent);
   text-decoration: none;
 }
-.prose a:hover {
+.prose p a:hover {
   text-decoration: underline;
 }
 .prose strong {

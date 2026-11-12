@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import SplitReveal from "@/components/home/split-reveal";
 import Breadcrumb from "@/components/common/breadcrumb";
 import styles from "./landing.module.css";
@@ -23,8 +24,10 @@ export default function SectionHead({
   level = 2,
 }: Readonly<{
   kicker?: string;
-  title: string;
-  intro?: string;
+  /** A string, or a node when some of the words are picked out in the accent colour. */
+  title: ReactNode;
+  /** A string, or a node when some of the words are bold. */
+  intro?: ReactNode;
   /**
    * Heading level. `3` is for a sub-section that belongs under the section
    * above it — a comparison table introduced by its own H3 inside a wider
@@ -55,7 +58,13 @@ export default function SectionHead({
           {title}
         </SplitReveal>
       </div>
-      {intro && <p className={styles.intro}>{intro}</p>}
+      {/* One child for the split head's centring flex box: bare, an intro with a bold phrase or a link
+          became several flex items set side by side as columns. */}
+      {intro && (
+        <p className={styles.intro}>
+          <span>{intro}</span>
+        </p>
+      )}
     </div>
   );
 }
