@@ -505,8 +505,11 @@
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  /* Grow the painted box, then pull the layout back so nothing shifts. */
-  display: inline-block;
+  /* A hero over a photograph shades its H1 with a text-shadow, which a transparent fill would show through. */
+  text-shadow: none;
+  /* Inline, with each wrapped line cloned: every line then runs the whole orange-to-rose pair, where an
+     inline-block would stretch one gradient over the widest line and leave a short last line all orange. */
+  display: inline;
   padding: 0.08em 0.12em 0.16em 0.02em;
   margin: -0.08em -0.12em -0.16em -0.02em;
   -webkit-box-decoration-break: clone;
@@ -1510,6 +1513,11 @@
   /* Base only — <LightFieldBackdrop> paints over this. It still matters: it is
      what shows if the poster fails to load, and it keeps the band dark. */
   background: #050609;
+}
+
+/* `tightTop`: the band follows a section whose bottom padding already gives it room. */
+.ctaBand.ctaBandTightTop {
+  padding-top: clamp(20px, 2.5vw, 32px);
 }
 
 /* Above <LightFieldBackdrop>, which sits at z-index 0 inside the band. */

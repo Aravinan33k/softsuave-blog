@@ -63,8 +63,13 @@ export interface HeroContent {
    */
   titleSubLast?: boolean;
   body: readonly string[];
-  /** Positions in `body` of the paragraphs set in bold (the live page's emphasised line). */
-  boldBody?: readonly number[];
+  /**
+   * What is set in bold in `body`: a number is the position of a whole paragraph (the live page's
+   * emphasised line), a string is a phrase inside any paragraph (the cross-platform hero bolds two).
+   */
+  boldBody?: readonly (number | string)[];
+  /** Phrases inside the body paragraphs that are links, by the words they wrap. */
+  bodyLinks?: readonly { readonly text: string; readonly href: string }[];
   /** A "Scroll Down" cue under the copy (the live page's), carrying the reader to the element with this id. */
   scrollCue?: { readonly label: string; readonly targetId: string };
   points: readonly string[];
@@ -234,6 +239,45 @@ function accentSlices(lines: readonly string[], accent: string | undefined) {
     offset += line.length + 1;
     return at >= 0 && end > start ? ([start, end] as const) : null;
   });
+}
+
+/** A body paragraph with its bold phrases and link phrases picked out (each at its first position). */
+function richBody(
+  text: string,
+  bold: readonly string[] | undefined,
+  links: readonly { readonly text: string; readonly href: string }[] | undefined,
+) {
+  if (!bold?.length && !links?.length) return text;
+  const marks: { at: number; len: number; node: ReactNode }[] = [];
+  for (const phrase of bold ?? []) {
+    const at = text.indexOf(phrase);
+    if (at !== -1) marks.push({ at, len: phrase.length, node: <strong key={`b${at}`}>{phrase}</strong> });
+  }
+  for (const link of links ?? []) {
+    const at = text.indexOf(link.text);
+    if (at !== -1)
+      marks.push({
+        at,
+        len: link.text.length,
+        node: (
+          <SiteLink key={`l${at}`} href={link.href}>
+            <strong>{link.text}</strong>
+          </SiteLink>
+        ),
+      });
+  }
+  if (!marks.length) return text;
+  marks.sort((a, b) => a.at - b.at);
+  const out: ReactNode[] = [];
+  let cursor = 0;
+  for (const m of marks) {
+    if (m.at < cursor) continue;
+    if (m.at > cursor) out.push(text.slice(cursor, m.at));
+    out.push(m.node);
+    cursor = m.at + m.len;
+  }
+  if (cursor < text.length) out.push(text.slice(cursor));
+  return out;
 }
 
 /** `line` with its `[start, end)` slice wrapped in the accent colour. */
@@ -428,7 +472,15 @@ export default function Hero({
               key={p.slice(0, 24)}
               className={`${styles.heroBody}${p.startsWith("*") ? ` ${styles.heroBodyNote}` : ""}`}
               style={{ ["--i" as string]: i } as CSSProperties}>
-              {content.boldBody?.includes(i) ? <strong className={styles.heroBodyStrong}>{p}</strong> : p}
+              {content.boldBody?.includes(i) ? (
+                <strong className={styles.heroBodyStrong}>{p}</strong>
+              ) : (
+                richBody(
+                  p,
+                  content.boldBody?.filter((b): b is string => typeof b === "string"),
+                  content.bodyLinks,
+                )
+              )}
             </p>
           ))}
 
