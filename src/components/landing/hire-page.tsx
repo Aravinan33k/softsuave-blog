@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { Fragment, type ReactNode } from 'react';
 import type { Metadata } from 'next';
 
 import { BASE_PATH, pageRobots } from '@/lib/flags';
@@ -30,6 +30,9 @@ import Footer from '@/components/home/footer';
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import { faqsPageEnquiry } from '@/lib/home/faqs-content';
+import { navHref } from '@/themes/softsuave/nav-data';
 
 // Page-specific bands: the landing components, taking this skill's own copy.
 import Hero from '@/components/landing/hero';
@@ -42,6 +45,8 @@ import TechStack from '@/components/landing/tech-stack';
 // The Android page's labelled rows, for a page whose grouped panels are too
 // sparse to read as a grid (Kotlin: "need to change the design of the tech stack").
 import TechRows from '@/components/home/tech-stack';
+import PhotoCards from '@/components/generative-ai/industries';
+import SectionCta from '@/components/generative-ai/section-cta';
 import CtaBand from '@/components/landing/cta-band';
 import Process from '@/components/landing/process';
 import Comparison from '@/components/landing/comparison';
@@ -191,6 +196,31 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
           <CardGrid key={band} content={skill.combinations} id="combinations" variant="bold" />
         ) : null;
       case 'services':
+        if (skill.services && skill.servicesPhotoCards) {
+          return (
+            <Fragment key={band}>
+            <PhotoCards
+              id="services"
+              content={{
+                eyebrow: skill.services.eyebrow,
+                title: skill.services.title,
+                body: skill.services.body,
+                cta: skill.services.cta,
+                items: skill.services.items.map((item) => ({
+                  name: item.name,
+                  body: item.body,
+                  image: item.image?.src,
+                  link: false as const,
+                })),
+              }}
+            />
+            {/* The photo grid draws no closing button of its own. */}
+            <div className={home.section} style={{ paddingTop: 0, paddingBottom: 0, marginTop: 'calc(var(--section-y) * -0.95)', marginBottom: 'calc(var(--section-y) * -0.35)' }}>
+              <SectionCta cta={skill.services.cta} />
+            </div>
+            </Fragment>
+          );
+        }
         return skill.services ? (
           // `autoLink={false}`: the `services` id would otherwise link every card
           // whose name matches a page (review: "Remove the links from the
@@ -210,7 +240,7 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
           // page's pairing.
           return (
             <div key={band} className={home.techFit}>
-              <TechRows content={skill.techStack} staticFrom={768} />
+              <TechRows content={skill.techStack} staticFrom={768} collapsedGroups={skill.techStackCollapsedRows} />
             </div>
           );
         }
@@ -274,7 +304,7 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
           <ExploreMarquee key={band} content={skill.exploreMore} id="explore" />
         ) : null;
       case 'testimonials':
-        return <Testimonials key={band} />;
+        return <Testimonials key={band} content={skill.testimonials} />;
       case 'faq':
         return skill.faq ? (
           <Faq key={band} content={skill.faq} idPrefix={`${skill.key}-faq`} />
@@ -321,6 +351,7 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
             ctas: sharedHeroCtas,
           }}
           idPrefix={skill.key}
+          breadcrumb={!skill.hideHeroBreadcrumb}
         />
         {groups.map((g, i) =>
           g.light ? (
@@ -333,7 +364,22 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
         )}
         {/* No `ctaHref`: the closing CTA takes its default, the /contact
             route — the review asked for every final CTA to lead there. */}
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        {skill.closingEnquiry ? (
+          <ManagerEnquiry
+            content={{
+              ...faqsPageEnquiry,
+              manager: {
+                ...faqsPageEnquiry.manager,
+                cta: { ...faqsPageEnquiry.manager.cta, href: navHref(faqsPageEnquiry.manager.cta.href) },
+              },
+            }}
+            id="book-consultation"
+            idPrefix={`${skill.key}-contact`}
+            headingFont
+          />
+        ) : (
+          <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        )}
       </main>
 
       <Footer />

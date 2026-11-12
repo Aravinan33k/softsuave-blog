@@ -39,6 +39,8 @@ export interface HeroContent {
   noAccent?: boolean;
   /** `"home"` sets the H1 at the homepage hero's size (70px desktop, 40px phone). */
   titleScale?: "home";
+  /** Paint the accent words in the brand orange-to-rose gradient (the Forward Deployed Engineers page's headline) instead of flat orange. */
+  accentGradient?: boolean;
   /**
    * Size the H1 to its column so each of `titleLines` fits on one line — for
    * a headline whose first line is too long for the standard H1 size (the
@@ -393,7 +395,9 @@ export default function Hero({
             suppressHydrationWarning
             className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}${
               content.titleOneLine ? ` ${styles.heroTitleOneLine}` : ""
-            }${content.titleScale === "home" ? ` ${styles.heroTitleHome}` : ""}`}
+            }${content.titleScale === "home" ? ` ${styles.heroTitleHome}` : ""}${
+              content.accentGradient ? ` ${styles.heroTitleGradient}` : ""
+            }`}
             style={
               content.titleFit
                 ? // A `titleSubLast` subline has its own size, so only the
