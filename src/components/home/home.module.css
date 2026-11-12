@@ -7909,3 +7909,31 @@ h1.h2 {
     scroll-snap-align: start;
   }
 }
+
+/* The "View More" / "View Less" button under a collapsible list (home/expand-list). */
+.expandRow {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(20px, 2.5vw, 32px);
+}
+
+/* Accent-coloured, underlined text: no fill, no outline. */
+.expandBtn {
+  cursor: pointer;
+  padding: 0.4em 0.2em;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-eyebrow);
+  font-size: clamp(11px, 0.85vw, 13px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.45em;
+  text-decoration-thickness: 1px;
+  transition: color 0.3s ease;
+}
+.expandBtn:hover,
+.expandBtn:focus-visible {
+  color: var(--text-bright);
+}

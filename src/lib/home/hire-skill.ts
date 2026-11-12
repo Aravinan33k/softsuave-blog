@@ -26,6 +26,7 @@ import type { ComparisonContent } from "@/components/landing/comparison";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
+import type { Testimonial } from "./content";
 
 /**
  * Intrinsic size of the hero's background asset. Existing `page: "four"` art is
@@ -150,6 +151,14 @@ export interface HireSkill {
    * of a panel grid's cells empty.
    */
   readonly techStackStyle?: "rows";
+  /** Rows shown before "View More" on the `rows` stack (the live SaaS page shows four, then a toggle). */
+  readonly techStackCollapsedRows?: number;
+  /** Draw the services band as photo cards (each item's `image` behind its icon and name, copy on hover), the Agentic AI page's "Key Business Applications" grid. */
+  readonly servicesPhotoCards?: boolean;
+  /** Close on the full "Book Free Consultation" band (steps, account manager, badges and enquiry form) instead of the short "Schedule a Call" band. */
+  readonly closingEnquiry?: boolean;
+  /** True for a page whose live hero shows no "Home › …" trail. */
+  readonly hideHeroBreadcrumb?: boolean;
   /**
    * The same live band where it carries prose cards instead of tool chips.
    *
@@ -173,4 +182,15 @@ export interface HireSkill {
   readonly exploreMore?: CardGridContent;
   /** `.faq-sec` — the live page's own questions, in its own order. */
   readonly faq?: FaqContent;
+  /**
+   * A page whose live testimonials band words its heading and standfirst itself
+   * and runs its own five quotes — passed to the homepage's `Testimonials` in place
+   * of the homepage copy. Omitted, the band is the homepage's.
+   */
+  readonly testimonials?: {
+    readonly eyebrow: string;
+    readonly title: string;
+    readonly body: string;
+    readonly items: readonly Testimonial[];
+  };
 }

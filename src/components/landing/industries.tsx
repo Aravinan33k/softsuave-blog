@@ -673,7 +673,9 @@ export default function Industries({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.titleNode ?? content.title} intro={content.bodyNode ?? content.body} wide={content.wideHead} />
+      {content.title ? (
+        <SectionHead kicker={content.eyebrow} title={content.titleNode ?? content.title} intro={content.bodyNode ?? content.body} wide={content.wideHead} />
+      ) : null}
 
       {content.points && content.points.length > 0 && (
         <ul className={styles.gridPoints}>

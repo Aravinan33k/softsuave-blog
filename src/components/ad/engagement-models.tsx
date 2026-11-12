@@ -23,9 +23,15 @@ export interface EngagementModelsContent {
 export default function EngagementModels({
   content,
   id = "models",
+  headingFont = false,
+  tintIcons = false,
 }: {
   content: EngagementModelsContent;
   id?: string;
+  /** Names in the site heading face instead of the serif. */
+  headingFont?: boolean;
+  /** Draw the (single-colour) icons in the accent orange. */
+  tintIcons?: boolean;
 }) {
   return (
     <section className={styles.shell} id={id}>
@@ -34,15 +40,24 @@ export default function EngagementModels({
         {content.models.map((m, i) => (
           <FadeUp key={m.name} delay={i * 0.08}>
             <article className={`${styles.model} ${styles.modelCentered}`}>
-              <Image
-                src={publicMediaUrl(m.image.src)}
-                alt={m.image.alt}
-                width={65}
-                height={65}
-                unoptimized
-                className={styles.modelImg}
-              />
-              <h3 className={styles.modelName}>{m.name}</h3>
+              {tintIcons ? (
+                <span
+                  role="img"
+                  aria-label={m.image.alt}
+                  className={`${styles.modelImg} ${styles.modelImgTint}`}
+                  style={{ ["--mark" as string]: `url(${publicMediaUrl(m.image.src)})` }}
+                />
+              ) : (
+                <Image
+                  src={publicMediaUrl(m.image.src)}
+                  alt={m.image.alt}
+                  width={65}
+                  height={65}
+                  unoptimized
+                  className={styles.modelImg}
+                />
+              )}
+              <h3 className={headingFont ? `${styles.modelName} ${styles.modelNameHeading}` : styles.modelName}>{m.name}</h3>
               <dl className={styles.modelFacts}>
                 {m.facts.map((f) => (
                   <div key={f.label} className={styles.modelFact}>

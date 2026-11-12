@@ -39,6 +39,10 @@ export interface HeroContent {
   noAccent?: boolean;
   /** `"home"` sets the H1 at the homepage hero's size (70px desktop, 40px phone). */
   titleScale?: "home";
+  /** Per-page wording for a breadcrumb crumb, by its path. */
+  breadcrumbLabels?: Readonly<Record<string, string>>;
+  /** Paint the accent words in the brand orange-to-rose gradient (the Forward Deployed Engineers page's headline) instead of flat orange. */
+  accentGradient?: boolean;
   /**
    * Size the H1 to its column so each of `titleLines` fits on one line — for
    * a headline whose first line is too long for the standard H1 size (the
@@ -61,8 +65,17 @@ export interface HeroContent {
    */
   titleSubLast?: boolean;
   body: readonly string[];
-  /** Positions in `body` of the paragraphs set in bold (the live page's emphasised line). */
-  boldBody?: readonly number[];
+  /**
+   * What is set in bold in `body`: a number is the position of a whole paragraph (the live page's
+   * emphasised line), a string is a phrase inside any paragraph (the cross-platform hero bolds two).
+   */
+  boldBody?: readonly (number | string)[];
+  /** Positions in `body` of paragraphs kept on one line wherever the column is wide enough (the live cross-platform hero's second line). */
+  bodyOneLine?: readonly number[];
+  /** Phrases inside the body paragraphs that are links, by the words they wrap. */
+  bodyLinks?: readonly { readonly text: string; readonly href: string }[];
+  /** A "Scroll Down" cue under the copy (the live page's), carrying the reader to the element with this id. */
+  scrollCue?: { readonly label: string; readonly targetId: string };
   points: readonly string[];
   /**
    * Trust badges under the points. Optional — omit for a badge-less hero.
@@ -238,6 +251,45 @@ function accentSlices(lines: readonly string[], accent: string | undefined) {
   });
 }
 
+/** A body paragraph with its bold phrases and link phrases picked out (each at its first position). */
+function richBody(
+  text: string,
+  bold: readonly string[] | undefined,
+  links: readonly { readonly text: string; readonly href: string }[] | undefined,
+) {
+  if (!bold?.length && !links?.length) return text;
+  const marks: { at: number; len: number; node: ReactNode }[] = [];
+  for (const phrase of bold ?? []) {
+    const at = text.indexOf(phrase);
+    if (at !== -1) marks.push({ at, len: phrase.length, node: <strong key={`b${at}`}>{phrase}</strong> });
+  }
+  for (const link of links ?? []) {
+    const at = text.indexOf(link.text);
+    if (at !== -1)
+      marks.push({
+        at,
+        len: link.text.length,
+        node: (
+          <SiteLink key={`l${at}`} href={link.href} className={styles.heroBodyLink}>
+            <strong>{link.text}</strong>
+          </SiteLink>
+        ),
+      });
+  }
+  if (!marks.length) return text;
+  marks.sort((a, b) => a.at - b.at);
+  const out: ReactNode[] = [];
+  let cursor = 0;
+  for (const m of marks) {
+    if (m.at < cursor) continue;
+    if (m.at > cursor) out.push(text.slice(cursor, m.at));
+    out.push(m.node);
+    cursor = m.at + m.len;
+  }
+  if (cursor < text.length) out.push(text.slice(cursor));
+  return out;
+}
+
 /** `line` with its `[start, end)` slice wrapped in the accent colour. */
 function accentWithin(line: string, slice: readonly [number, number] | null) {
   if (!slice) return line;
@@ -319,7 +371,7 @@ export default function Hero({
   const head = (
     <>
       {/* "Home › <page>", named from the route — see common/breadcrumb. */}
-      {breadcrumb && <Breadcrumb />}
+      {breadcrumb && <Breadcrumb labels={content.breadcrumbLabels} />}
       {content.eyebrow && <span className={`${styles.kicker} ${styles.heroEyebrow}`}>{content.eyebrow}</span>}
     </>
   );
@@ -397,7 +449,9 @@ export default function Hero({
             suppressHydrationWarning
             className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}${
               content.titleOneLine ? ` ${styles.heroTitleOneLine}` : ""
-            }${content.titleScale === "home" ? ` ${styles.heroTitleHome}` : ""}`}
+            }${content.titleScale === "home" ? ` ${styles.heroTitleHome}` : ""}${
+              content.accentGradient ? ` ${styles.heroTitleGradient}` : ""
+            }`}
             style={
               content.titleFit
                 ? // A `titleSubLast` subline has its own size, so only the
@@ -426,9 +480,19 @@ export default function Hero({
           {content.body.map((p, i) => (
             <p
               key={p.slice(0, 24)}
-              className={`${styles.heroBody}${p.startsWith("*") ? ` ${styles.heroBodyNote}` : ""}`}
+              className={`${styles.heroBody}${p.startsWith("*") ? ` ${styles.heroBodyNote}` : ""}${
+                content.bodyOneLine?.includes(i) ? ` ${styles.heroBodyOneLine}` : ""
+              }`}
               style={{ ["--i" as string]: i } as CSSProperties}>
-              {content.boldBody?.includes(i) ? <strong className={styles.heroBodyStrong}>{p}</strong> : p}
+              {content.boldBody?.includes(i) ? (
+                <strong className={styles.heroBodyStrong}>{p}</strong>
+              ) : (
+                richBody(
+                  p,
+                  content.boldBody?.filter((b): b is string => typeof b === "string"),
+                  content.bodyLinks,
+                )
+              )}
             </p>
           ))}
 
@@ -641,6 +705,13 @@ export default function Hero({
                 ),
               )}
             </ul>
+          )}
+
+          {content.scrollCue && (
+            <a className={styles.heroScrollCue} href={`#${content.scrollCue.targetId}`}>
+              <span className={styles.heroScrollArrow} aria-hidden />
+              {content.scrollCue.label}
+            </a>
           )}
         </div>
 
