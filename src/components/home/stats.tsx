@@ -9,26 +9,8 @@ import styles from "./home.module.css";
  *  settles on its final value (classic split-flap / odometer feel). */
 const ODO = Array.from({ length: 20 }, (_, i) => i % 10);
 
-/** Per-stat icon + supporting line (aligned to why.stats by index). */
-const META = [
-  {
-    icon: "specialists",
-    line: "Engineers, data scientists, and AI specialists building production systems in-house.",
-  },
-  {
-    icon: "years",
-    line: "Over a decade shipping software — and now production AI — across industries.",
-  },
-  {
-    icon: "clients",
-    line: "Startups, SMBs, and enterprises trusting us from first idea to launch and beyond.",
-  },
-  {
-    icon: "countries",
-    line: "Delivering across time zones with teams and clients around the world.",
-  },
-] as const;
-
+/** The marks a stat can name in its `icon` field (`why.stats` in the content
+ *  module). Anything unrecognised falls back to the pin. */
 function StatIcon({ name }: { name: string }) {
   const common = {
     fill: "none",
@@ -80,10 +62,14 @@ function StatIcon({ name }: { name: string }) {
 /**
  * "Why Soft Suave" proof band — four square stat cards in a single row that
  * fits one screen (no scroll-through-to-reveal stacking; every number stays
- * fully readable throughout). Entering view fires one shared timeline: cards
- * fade/rise in together, then each card's odometer figure rolls into place
- * as its icon/line reveal lands. Reduced motion: figures set straight to
- * their final value, cards static.
+ * fully readable throughout). Entering view fires one shared timeline, once:
+ * cards fade/rise in together, then each card's odometer figure rolls into
+ * place as its icon/line reveal lands. Like every other reveal on the page it
+ * does not replay on re-entry. Reduced motion: figures set straight to their
+ * final value, cards static.
+ *
+ * Copy — label, caption, icon name — comes from `why.stats` in the content
+ * module; nothing textual lives here.
  */
 export default function Stats() {
   const root = useRef<HTMLDivElement | null>(null);
@@ -96,12 +82,26 @@ export default function Stats() {
       const landing = (t: Element) => -(Number((t as HTMLElement).dataset.digit) + 10) * 5;
       const cards = gsap.utils.toArray<HTMLElement>(`.${styles.stackCard}`, root.current);
 
+      /* The fan-in entrance is the only reason these cards live in a 3D
+         context: `.stackWrap` sets the perspective and `.stackTilt` passes it
+         through with `transform-style: preserve-3d`. Once the cards have
+         landed, that context is pure cost — a perspective-projected layer is
+         rasterized against the wrap's centre, which is why the two OUTER cards,
+         furthest from that origin, resolved their 1px border differently from
+         the middle two (BUG-005). Settling drops the 3D and hands the borders
+         back to plain 2D painting. */
+      const settle = () => {
+        gsap.set(cards, { clearProps: "transform" });
+        root.current?.classList.add(styles.stackSettled);
+      };
+
       if (reduce) {
         cards.forEach((card) => {
           gsap.utils
             .toArray<HTMLElement>(`.${styles.odoStrip}`, card)
             .forEach((s) => gsap.set(s, { yPercent: landing(s) }));
         });
+        settle();
         return;
       }
 
@@ -126,13 +126,13 @@ export default function Stats() {
         scrollTrigger: {
           trigger: root.current,
           start: "top 78%",
-          toggleActions: "restart none restart reset",
+          once: true,
         },
       });
 
       // cards swing/fan in and settle with a light spring overshoot, using the
       // section's existing 3D perspective so the entrance feels tied to the
-      // card design rather than a generic fade. Replays on every re-entry.
+      // card design rather than a generic fade.
       tl.to(
         cards,
         {
@@ -145,6 +145,7 @@ export default function Stats() {
           duration: 0.9,
           ease: "back.out(1.5)",
           stagger: 0.09,
+          onComplete: settle,
         },
         0,
       );
@@ -171,8 +172,7 @@ export default function Stats() {
   return (
     <section className={styles.whyStackSection}>
       <div ref={root} className={styles.stackWrap}>
-        {why.stats.map((s, i) => {
-          const meta = META[i] ?? META[0];
+        {why.stats.map((s) => {
           const digits = String(s.value).split("");
           return (
             <div key={s.label} className={styles.stackTilt}>
@@ -185,7 +185,7 @@ export default function Stats() {
 
                 <div className={styles.stackBody}>
                   <div className={`${styles.stackIcon} ${styles.stackReveal}`}>
-                    <StatIcon name={meta.icon} />
+                    <StatIcon name={s.icon} />
                   </div>
 
                   <span className={styles.stackNum}>
@@ -209,7 +209,7 @@ export default function Stats() {
                     </span>
                   </span>
 
-                  <p className={`${styles.stackLine} ${styles.stackReveal}`}>{meta.line}</p>
+                  <p className={`${styles.stackLine} ${styles.stackReveal}`}>{s.line}</p>
                 </div>
               </article>
             </div>

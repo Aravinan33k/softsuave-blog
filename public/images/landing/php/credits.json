@@ -1,0 +1,74 @@
+[
+  {
+    "file": "/images/landing/php/hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A close-up view of PHP code displayed on a computer screen, highlighting programming and development concepts.",
+    "pexelsId": "276452",
+    "source": "https://www.pexels.com/photo/276452/",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAABwAQCdASoQAAkAA4BaJZ12AAHJgAD+9Csg+g8xps1GSn8j74TAAA=="
+  },
+  {
+    "file": "/images/landing/php/overview.webp",
+    "width": 1400,
+    "height": 1050,
+    "alt": "Two programmers working together with focus on coding in a modern, tech-savvy office environment.",
+    "pexelsId": "6803554",
+    "source": "https://www.pexels.com/photo/6803554/",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAwAgCdASoQAAwAA4BaJZQC7AD/SedtwrrMgAD+5vqgH9qp35mxsI/sL7ckv+4NilkblUpaTfGIAO4YAVXwUrxCnV/YTW5ZKJAD+vFccywkVzG3RN1ImxoIGP1nMVBOfopOjAAA"
+  },
+  {
+    "file": "/images/landing/php/svc-webapp.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Close-up view of colorful code on a laptop screen, showcasing programming concepts.",
+    "pexelsId": "270373",
+    "source": "https://www.pexels.com/photo/270373/",
+    "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAAAQAgCdASoQAAwAA4BaJZQAAt4/z9nA/uwAAPvFSUOjys34pem8x5WEWcvjkdHDQipxjvo8YcmN0i25rQl8wAv+gpCwQcESGAA="
+  },
+  {
+    "file": "/images/landing/php/svc-ecommerce.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Person holding a credit card while shopping online on a laptop, indicating ecommerce transactions.",
+    "pexelsId": "34577",
+    "source": "https://www.pexels.com/photo/34577/",
+    "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADwAQCdASoQAAwAA4BaJYwCdADPB549OrAA/tz0TIiCE199SvX4BNfWwI4lbuvtRbZiumUtyBR5yzkyVrPrXwP+jYS2RMLpmLZiculpZ7AAAA=="
+  },
+  {
+    "file": "/images/landing/php/svc-portal.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Close-up of a tablet displaying analytics charts on a wooden office desk, alongside a smartphone and coffee cup.",
+    "pexelsId": "106344",
+    "source": "https://www.pexels.com/photo/106344/",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAQAgCdASoQAAwAA4BaJaACdAD0srRZ9IwAAP1MmUsrj3QMu2TEX5LgekBUR6GVP2cY69NO9AjAraRWiDpDozUBFwZMzxVsN3B3VYYnFn13W5gaDtNQOB1+BRqxyrdTgiCVIZAA"
+  },
+  {
+    "file": "/images/landing/php/svc-cms.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "Hands typing on a laptop with a blog post visible, cozy indoor setting with colorful screen in background.",
+    "pexelsId": "261662",
+    "source": "https://www.pexels.com/photo/261662/",
+    "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwAgCdASoQAAwAA4BaJYgAD49wKlGirwZTAAD9w2LnmnD7tuq4ehRQbkWg53KGYjHTBeB4p1Kl7X4QF7TyYYaX7Ur7yR3nq12W9oVBnu40OF3mogGaPPUu7S9P1/W2YaZNmUyD3HoAAA=="
+  },
+  {
+    "file": "/images/landing/php/svc-team.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "A diverse team of professionals brainstorming solutions at a whiteboard in an office setting.",
+    "pexelsId": "5257576",
+    "source": "https://www.pexels.com/photo/5257576/",
+    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAQAgCdASoQAAwAA4BaJZQC7AYxjF1uu24AAP7syX3KcsP3XLh8CqBNt7TtCvaH/CIpqed2Z8V3OLozS4Wcc64LUzk/V3eEnh9lPRk4OJqJn2XXloh2QbOJsAAAAA=="
+  },
+  {
+    "file": "/images/landing/php/svc-support.webp",
+    "width": 1200,
+    "height": 900,
+    "alt": "IT professional working on a computer in a modern office setting, focused on coding and tasks.",
+    "pexelsId": "6804086",
+    "source": "https://www.pexels.com/photo/6804086/",
+    "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAQAgCdASoQAAwAA4BaJZQCw7Yt9bGDU6oAAP7SvAIbwRMHZPGLqooUS+juIX/d4wKtyGaYBAwo5M6ZiJYmdm3//o+pe60CZN2hT/HBvIl3v7KPCFhG4BtNcyUNJ8DjjDcPFtWnd6tPupkc53voBvOAAAA="
+  }
+]

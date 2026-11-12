@@ -23,7 +23,8 @@ export function SoftSuavePostView({ post, relatedPosts }: PostViewProps) {
           the copy. A CSS background is invisible to the preload scanner and this
           is the LCP element, so ask for it explicitly. */}
       <link rel="preload" as="image" href={BANNER_BG} fetchPriority="high" />
-      <div className="bg-cover bg-center" style={{ backgroundImage: `url(${BANNER_BG})` }}>
+      {/* `data-nav-tone="dark"`: the site header turns black over this banner. */}
+      <div className="bg-cover bg-center" data-nav-tone="dark" style={{ backgroundImage: `url(${BANNER_BG})` }}>
         <div className="mx-auto max-w-[1320px] px-4 py-14 text-white sm:py-20">
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-white/80">
             <ol className="flex flex-wrap items-center">
@@ -91,7 +92,11 @@ export function SoftSuavePostView({ post, relatedPosts }: PostViewProps) {
 
           {post.tags.length > 0 && (
             <div className="mt-10 border-t pt-6">
-              <h4 className="ss-heading mb-2 font-bold">Tags:</h4>
+              {/* h2, not h4: this labels a section of the page that follows the
+                  article body, and the body's own headings are h2/h3 — an h4
+                  here skipped a level in the outline. The utility classes keep
+                  it at its existing size. */}
+              <h2 className="ss-heading mb-2 text-base font-bold">Tags:</h2>
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((t) => (
                   <Link key={t.slug} href={`/tag/${t.slug}`} className="rounded-full bg-neutral-100 px-3 py-1 text-sm text-neutral-700 hover:bg-neutral-200">
@@ -144,7 +149,7 @@ export function SoftSuavePostView({ post, relatedPosts }: PostViewProps) {
             <p className="mt-1 text-sm text-white/90">Hire vetted developers & AI experts with Soft Suave.</p>
             <a
               href="https://www.softsuave.com/contact"
-              className="ss-heading mt-4 inline-block rounded-full bg-white px-4 py-2 text-sm font-bold text-[#ff0042] transition-transform hover:scale-105"
+              className="ss-heading mt-4 inline-block rounded-[6px] bg-white px-4 py-2 text-sm font-bold text-[#ff0042] transition-transform hover:scale-105"
             >
               Let&apos;s Connect →
             </a>

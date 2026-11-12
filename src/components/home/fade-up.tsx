@@ -2,6 +2,7 @@
 
 import { useRef, type ReactNode } from "react";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { isOnScreen } from "@/lib/home/on-screen";
 import styles from "./home.module.css";
 
 /**
@@ -28,6 +29,8 @@ export default function FadeUp({
   useGSAP(
     () => {
       if (prefersReducedMotion() || !ref.current) return;
+      // Already on screen at hydration: leave it as painted (see on-screen.ts).
+      if (isOnScreen(ref.current)) return;
       gsap.from(ref.current, {
         opacity: 0,
         y,

@@ -49,8 +49,8 @@ export function Sidebar({
 
         <div className="shrink-0 space-y-1 border-t p-2">
           <a
-            // The public entry point moves with the release: the marketing
-            // homepage once it ships, the blog archive until then.
+            // The site root: the marketing homepage once it ships, and until
+            // then a 307 to the blog archive.
             href="/"
             target="_blank"
             rel="noopener"

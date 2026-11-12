@@ -1,0 +1,74 @@
+[
+  {
+    "file": "/images/landing/ionic/hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A workspace with a laptop, tablet and smartphones side by side, the devices one Ionic build has to reach",
+    "pexelsId": "34140",
+    "source": "https://www.pexels.com/photo/34140/",
+    "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoQAAkAA4BaJaQAD4fwRbe7ZAAA/u9U9+4k2k/OYS6YyuzTY6a/hhx9OpeptXQ6yrRMhkafPrWZBQNuIAAAAA=="
+  },
+  {
+    "file": "/images/landing/ionic/svc-design.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A sketchpad of app wireframes beside a smartphone and keyboard on a wooden desk",
+    "pexelsId": "196646",
+    "source": "https://www.pexels.com/photo/196646/",
+    "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAwAgCdASoQAAsAA4BaJaACdAEf3EdicUBaAAD+56HJrDLMIhykJenD8mB8qEtLRtoGQj/qj8aenqP5ShrL/O3NfeJmE0L81JDL86+//DO1LAAA"
+  },
+  {
+    "file": "/images/landing/ionic/svc-custom.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A developer building an application across dual monitors in a modern office",
+    "pexelsId": "16323581",
+    "source": "https://www.pexels.com/photo/16323581/",
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAACwAQCdASoQAAsAA4BaJagCdADu2xvQAPjh9GyYaIv6WK3Fy5BAlehBmA5Sz6+NxD0p0OUX3F9GbQ1fHvlVq2LYjiFrFTstiTH3mJuGUuiGmPkGKmcLoS4udEIFXgNgAAA="
+  },
+  {
+    "file": "/images/landing/ionic/svc-widget.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A close-up of a smartphone screen showing application code",
+    "pexelsId": "20694602",
+    "source": "https://www.pexels.com/photo/20694602/",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoQAAsAA4BaJaQAAudVXciAAP70JvFqif0iBbav7Xv2icHQAAA="
+  },
+  {
+    "file": "/images/landing/ionic/svc-hybrid.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "Phones and tablets laid out together, the platforms a hybrid app ships to",
+    "pexelsId": "9784247",
+    "source": "https://www.pexels.com/photo/9784247/",
+    "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAABQAgCdASoQAAsAA4BaJbAC7DBMwZ0j9BOamAAA/vG8enJkiYgbUeUJwyMPoOBoZFdyiUR+Y2Ov++HBAY9CUf0WhLuDypFiPt+XX8jHpM6XfurU8T/WWIb/Jv38uweQFU8djw+n9N4e9/Ef3f4pf4/5AAAAAA=="
+  },
+  {
+    "file": "/images/landing/ionic/svc-integration.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A person using an app on a smartwatch, one of the connected devices Ionic apps integrate with",
+    "pexelsId": "267391",
+    "source": "https://www.pexels.com/photo/267391/",
+    "blurDataURL": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAADwAQCdASoQAAsAA4BaJbACdADpHCIH+LAA9p0MWpNZebHmKekVXYol1TCMo63FSdqB6pjZTqvbaquPFW5whoDHPcjRahptkO/y6Hn+sbAou6vh8OlkDTItP+Y9mNDbU4AAAA=="
+  },
+  {
+    "file": "/images/landing/ionic/svc-support.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A support team at their desks monitoring live applications on screen",
+    "pexelsId": "5453857",
+    "source": "https://www.pexels.com/photo/5453857/",
+    "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAACQAQCdASoQAAsAA4BaJZQAAlVFX0AAzjofSEZi+6/kkP6fb2wm1+yqRIQ8w6ZunL1QDimkbeFPg9CbWwYtKdmKjSajptLfmpiYRT8kAAA="
+  },
+  {
+    "file": "/images/landing/ionic/overview.webp",
+    "width": 488,
+    "height": 451,
+    "alt": "A diagram of an Ionic app built from one codebase for iOS, Android and the web",
+    "source": "https://www.softsuave.com/ionic-app-development-company",
+    "note": "Soft Suave's own illustration from the live page, not a stock photo.",
+    "blurDataURL": "data:image/webp;base64,UklGRiYBAABXRUJQVlA4WAoAAAAQAAAADwAADgAAQUxQSHwAAAABgJtt2/HsiTOQbRu1s4DTZYdMgc6ss4Ftp9JvxM4AETEBAACx7fE3F87WTmztL0Aou8YSOdE856irAYCwPYP72JYAcKEzH5vttg3A3Z6tbrdbA0Dw3N/ye+0C/P/289TAWMjkUKjlYns6QSxlcoHkNL/0hbdOitLPKCbTVlA4IIQAAABQAgCdASoQAA8AA4BaJagC7Aacvm8UkQxKpoAA/udAxFov9anLEClLd7Qze7oXZ7/60ih/Pe1Stvf7QWDtWwe70h6XsyXZ42Mm3Vz42bldnYsGm2cli+ttY++YWGzT9ZP72w9KbhWcKqh+fPtBZ1zs7dTNIJNHdQsqOf7det+TvtQzaAA="
+  }
+]

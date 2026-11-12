@@ -3,6 +3,7 @@ import { cache } from 'react';
 import type { JSONContent } from '@tiptap/core';
 import type { Prisma } from '@/generated/prisma/client';
 import { prisma } from '../db';
+import { isDatabaseNotConfigured } from '../db-errors';
 import { withHeadingAnchors } from '../content/toc';
 import { publicMediaUrl } from '../media-url';
 import type { SiteInfo, PostSummary, PostFull, SocialLink } from '@/themes/_contract';
@@ -85,7 +86,11 @@ async function safe<T>(fn: () => Promise<T>, fallback: T, ctx: string): Promise<
   try {
     return await fn();
   } catch (err) {
-    console.warn(`[public query] ${ctx} failed (using fallback):`, (err as Error).message);
+    // No database configured is an expected state (lib/env.ts), not a failure
+    // worth a warning on every render.
+    if (!isDatabaseNotConfigured(err)) {
+      console.warn(`[public query] ${ctx} failed (using fallback):`, (err as Error).message);
+    }
     return fallback;
   }
 }

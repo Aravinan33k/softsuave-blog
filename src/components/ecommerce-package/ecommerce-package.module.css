@@ -1,0 +1,116 @@
+/* /ecommerce-app-development-package — the package table, in the site's styles. */
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.band {
+  /* The card grid above already ends in its own section padding, so this band only adds the bottom. */
+  padding: 0 var(--gutter) var(--section-y);
+}
+
+.wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
+.wrap:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: var(--fs-body-sm, 15px);
+  color: var(--text);
+}
+.table thead th {
+  padding: 18px 14px;
+  background: var(--text-bright);
+  color: #fff;
+  font-family: var(--font-eyebrow);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-align: center;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+.table thead .corner {
+  width: 24%;
+  border-left: 0;
+}
+.table th,
+.table td {
+  border-top: 1px solid var(--line);
+}
+.table td {
+  padding: 16px 14px;
+  text-align: center;
+  line-height: 1.6;
+  border-left: 1px solid var(--line);
+}
+.rowHead {
+  padding: 16px 18px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-bright);
+  background: #fff;
+}
+.section {
+  padding: 12px 14px;
+  background: var(--surface);
+  color: var(--text-bright);
+  font-family: var(--font-eyebrow);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-align: center;
+}
+.cell {
+  vertical-align: middle;
+}
+.yes {
+  display: inline-block;
+  vertical-align: middle;
+  color: #3f9a55;
+}
+.no {
+  display: inline-block;
+  vertical-align: middle;
+  color: var(--accent);
+}
+.star {
+  color: var(--accent);
+  font-weight: 600;
+}
+.small {
+  font-size: 0.85em;
+}
+.price {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  font-weight: var(--heading-weight);
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+.price sup {
+  font-size: 0.55em;
+  font-weight: 600;
+  vertical-align: super;
+}
+.note {
+  margin: 0;
+  padding: 14px 18px;
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-small, 14px);
+  color: var(--text);
+}

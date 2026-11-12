@@ -1,17 +1,34 @@
 import 'server-only';
 import { prisma } from '../db';
+import { homepageEnabled } from '../flags';
+import { MARKETING_ROUTES, NON_SITEMAP_ROUTES } from '../home/landing-pages';
 import { absoluteUrl } from './metadata';
 
 // Shared data for sitemap + feeds. Only indexable, published, live content.
 
 /**
- * The archive's landing URL. The app is mounted at /blog, so its root IS the
- * archive — absoluteUrl('/') resolves to https://…/blog. The marketing homepage
- * is deliberately absent: this deployment cannot serve the site root (the existing
- * website does), so listing it would advertise a URL this app never answers.
+ * The hand-written landing URLs: the marketing surface in app/(marketing) plus
+ * "/blog", the post archive. Everything else in the sitemap comes from the
+ * database.
+ *
+ * The marketing routes are listed only once the homepage is released. While the
+ * flag is off they are 307s to the archive, and a sitemap must never advertise a
+ * redirect. The list is the registry in lib/home/landing-pages.ts, the same one
+ * next.config.ts gates on.
  */
+
 function landingEntries(now: Date): SitemapEntry[] {
-  return [{ url: absoluteUrl('/'), lastModified: now }];
+  return [
+    // Minus the routes that are noindex by design (`sitemap: false` in the
+    // registry): a sitemap must not advertise a page that asks not to be indexed.
+    ...(homepageEnabled
+      ? MARKETING_ROUTES.filter((p) => !NON_SITEMAP_ROUTES.has(p)).map((p) => ({
+          url: absoluteUrl(p),
+          lastModified: now,
+        }))
+      : []),
+    { url: absoluteUrl('/blog'), lastModified: now },
+  ];
 }
 
 function published() {

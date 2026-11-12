@@ -1,0 +1,74 @@
+[
+  {
+    "file": "/images/landing/web-app/hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A developer building a web application at a workstation",
+    "pexelsId": "6804610",
+    "source": "https://www.pexels.com/photo/6804610/",
+    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADwAQCdASoQAAkAA4BaJZQCsAC7FhXRNgAA/vW/+txwzp85823wN7kW1Lg4iTAVu7+rWjE9tJjoDsy+4wBiNafFRSjSMQMQvxOm2fw/IUr/2csSNHUwJuDwEPAAAA=="
+  },
+  {
+    "file": "/images/landing/web-app/overview.webp",
+    "width": 1400,
+    "height": 1050,
+    "alt": "A laptop showing application code on a desk in a bright studio",
+    "pexelsId": "34804001",
+    "source": "https://www.pexels.com/photo/34804001/",
+    "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADQAQCdASoQAAwAA4BaJZQAAucf7FF6AADifZDtno2Es4K2f2u7h4sgqG7MqLktynJuf7V2YWGBZaXXMnEcPMJGObvnYW5KIm81BkPsy4EGRwd0pAA="
+  },
+  {
+    "file": "/images/landing/web-app/svc-dynamic.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A developer working across a laptop and an external monitor on a live application",
+    "pexelsId": "7988086",
+    "source": "https://www.pexels.com/photo/7988086/",
+    "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABQAgCdASoQAAsAA4BaJaAC7AYtzmps/d/oJ+QA/tGCrWOwLnr09wfCGtJBNN9FrykvhqZcs2Rny3askTx3y3zh3up146u5yg9a9HCiTlbkJdrCHFkazTkbQkhk4KDRajgIiZmv7YtEr4uYaraAAA=="
+  },
+  {
+    "file": "/images/landing/web-app/svc-ecommerce.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A shopper paying by card on an online store",
+    "pexelsId": "6207729",
+    "source": "https://www.pexels.com/photo/6207729/",
+    "blurDataURL": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABQAgCdASoQAAsAA4BaJbACdAYt92+ESc/wPDAA/myZx/jsi49Vvr3tjgZ8maKwRiCSeBfLFA2+9kZSEw4nc3z37GTcWs7UG1ReMeNZfUH+sNBgrkhJ+kmvslPF1pXckrOdNo66hRZadQSc5zxKAAAA"
+  },
+  {
+    "file": "/images/landing/web-app/svc-spa.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "Front-end markup on a laptop screen during a build",
+    "pexelsId": "574077",
+    "source": "https://www.pexels.com/photo/574077/",
+    "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAQAgCdASoQAAsAA4BaJQBOgB8xt5IhbA9AAP58YlI4mvzOKurzJlVA2HV6TLSRDYXgSPYUaJSVT4qcRtC2T55ZTYxCjt4FLq2NxRv5qX18AAAA"
+  },
+  {
+    "file": "/images/landing/web-app/svc-portal.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "Someone reading a data dashboard on a laptop, the kind of view a portal gives its users",
+    "pexelsId": "7109243",
+    "source": "https://www.pexels.com/photo/7109243/",
+    "blurDataURL": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAACQAgCdASoQAAsAA4BaJQBdkCYwURipKNCKB25hEAD2sa5d35rQSrb3D5KpT9SHmGhIppy1HZF1lk9R+UUrvBebldR0McXaw2W5meiGedcDGwdcCK6z7071P9EGkO8RL7dnATaFBoy45H9oAAA="
+  },
+  {
+    "file": "/images/landing/web-app/svc-cms.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A laptop and notes on a desk, the authoring setup a content system serves",
+    "pexelsId": "693859",
+    "source": "https://www.pexels.com/photo/693859/",
+    "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAwAgCdASoQAAsAA4BaJYwCdADxC2LQXK4LAAD+CgrwK3k71d6ALlJsflthdZJsCU2NbBMmVUJ8K72jjZYrVgam+6PhobWpdWx0rAAA"
+  },
+  {
+    "file": "/images/landing/web-app/svc-legacy.webp",
+    "width": 1280,
+    "height": 880,
+    "alt": "A developer reworking an existing codebase on a laptop",
+    "pexelsId": "4974912",
+    "source": "https://www.pexels.com/photo/4974912/",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAABQAgCdASoQAAsAA4BaJaACdAYtfUhz306zKQAA/n6qKnexTD+6ewQhevxn0vkoQBu1QGy/NSv/sL+ZwcxOHS/kGyBrO0tmPvEPrsXXGDnpLxzGl2hAjsC4cNHnsboy+lTZ/QAA"
+  }
+]

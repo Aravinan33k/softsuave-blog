@@ -23,7 +23,7 @@ export function buildRss(site: SiteInfo, posts: FeedPost[]): string {
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>${esc(site.title)}</title>
-    <link>${absoluteUrl('/')}</link>
+    <link>${absoluteUrl('/blog')}</link>
     <description>${esc(site.description ?? site.tagline ?? site.title)}</description>
     <language>en</language>
     <atom:link href="${absoluteUrl('/rss.xml')}" rel="self" type="application/rss+xml" />

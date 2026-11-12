@@ -30,8 +30,8 @@ export async function GET(req: NextRequest) {
     const where = q
       ? {
           OR: [
-            { filename: { contains: q, mode: 'insensitive' as const } },
-            { altText: { contains: q, mode: 'insensitive' as const } },
+            { filename: { contains: q } },
+            { altText: { contains: q } },
           ],
         }
       : {};
