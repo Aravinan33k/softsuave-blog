@@ -22,12 +22,15 @@ export default function SectionHead({
   title,
   intro,
   level = 2,
+  wide = false,
 }: Readonly<{
   kicker?: string;
   /** A string, or a node when some of the words are picked out in the accent colour. */
   title: ReactNode;
   /** A string, or a node when some of the words are bold. */
   intro?: ReactNode;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wide?: boolean;
   /**
    * Heading level. `3` is for a sub-section that belongs under the section
    * above it — a comparison table introduced by its own H3 inside a wider
@@ -42,7 +45,7 @@ export default function SectionHead({
   level?: 1 | 2 | 3;
 }>) {
   const tag = level === 1 ? "h1" : level === 3 ? "h3" : "h2";
-  const className = [styles.head, level === 3 && styles.headSub, level === 1 && styles.headPage]
+  const className = [styles.head, level === 3 && styles.headSub, level === 1 && styles.headPage, wide && styles.headWide]
     .filter(Boolean)
     .join(" ");
 

@@ -317,6 +317,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/construction-employee-time-tracking-app', title: 'Construction Employee Time Tracking App' },
   { path: '/construction-project-management-software', title: 'Construction Project Management Software' },
   { path: '/ecommerce-app-development-package', title: 'Ecommerce App Development Package' },
+  { path: '/education-app-development-company', title: 'Education App Development Company' },
   { path: '/developer-estimation', title: 'Developer Estimation' },
   { path: '/mobile-app-estimation', title: 'Mobile App Estimation' },
   { path: '/test-web-est', title: 'Web Estimation' },

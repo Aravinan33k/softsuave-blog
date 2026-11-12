@@ -7,6 +7,7 @@ import { hero as generativeAiHero } from "@/lib/home/generative-ai";
 import { publicMediaUrl } from "@/lib/media-url";
 import { heroBadgeSizes, isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import styles from "./gen-ai.module.css";
+import landing from "@/components/landing/landing.module.css";
 import cta from "@/components/common/cta-row.module.css";
 import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
 import Breadcrumb from "@/components/common/breadcrumb";
@@ -75,6 +76,11 @@ export interface HeroContent {
    * shape and treatment as `components/landing/hero`: the first renders
    * filled, the rest outlined; `external` opens a new tab.
    */
+  /**
+   * A row of small marks with a label under each, below the points — the live education page's three
+   * "School & Educational App Design" style items. Omitted renders nothing.
+   */
+  features?: readonly { readonly icon: string; readonly label: string }[];
   ctas?: readonly {
     readonly label: string;
     readonly href: string;
@@ -215,6 +221,24 @@ export default function Hero({
               </li>
             ))}
           </ul>
+
+          {content.features && content.features.length > 0 && (
+            /* The ad pages' stat cards (components/landing/hero), with a label and no description. */
+            <div className={landing.heroStatsWrap}>
+              <ul className={landing.heroStats}>
+                {content.features.map((f, i) => (
+                  <li key={f.label} className={landing.heroStat} style={{ ["--i" as string]: i } as CSSProperties}>
+                    <span className={landing.heroStatIcon} aria-hidden>
+                      <span className={styles.heroFeatureGlyph} style={{ ["--mark" as string]: `url(${publicMediaUrl(f.icon)})` }} />
+                    </span>
+                    <span>
+                      <strong className={landing.heroStatTitle}>{f.label}</strong>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {content.ctas && content.ctas.length > 0 && (
             <div className={`${styles.heroCtas} ${cta.ctaPair}`}>

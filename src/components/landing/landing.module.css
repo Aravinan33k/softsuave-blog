@@ -157,6 +157,18 @@
   }
 }
 
+/* `wide` on the section head: a long title gets a wider column beside the divider. */
+@media (min-width: 900px) {
+  .headWide:has(> .intro):not(.headSub):not(.headPage) .title {
+    /* Not clamped to `--fit-width`: the column already hugs the text (`fit-content`), and a width measured
+       before this rule applied would pin the title back to the narrow column. */
+    max-width: 34ch;
+  }
+  .headWide:has(> .intro):not(.headSub):not(.headPage) {
+    grid-template-columns: fit-content(66%) minmax(0, 1fr);
+  }
+}
+
 /* ============================================================
    BUTTONS — squared, mono-labelled. The homepage's `.pill` is a 999px
    capsule; these are deliberately not.
@@ -1820,6 +1832,15 @@
   font-size: var(--fs-label);
   letter-spacing: 0.18em;
   color: var(--muted);
+}
+
+/* A card's own mark drawn as the accent glyph: the picture's shape, filled with the accent. */
+.cardMarkGlyph {
+  width: 62%;
+  height: 62%;
+  background: currentColor;
+  -webkit-mask: var(--mark) center / contain no-repeat;
+  mask: var(--mark) center / contain no-repeat;
 }
 
 /* A card's own picture, in place of the glyph badge. */

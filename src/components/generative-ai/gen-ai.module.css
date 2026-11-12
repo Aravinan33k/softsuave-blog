@@ -398,6 +398,18 @@
   display: block;
 }
 
+/* A hero stat card's mark (`features` on the hero's content): the picture's shape, filled with the accent. */
+.heroFeatureGlyph {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: currentColor;
+  -webkit-mask: var(--mark) center / contain no-repeat;
+  mask: var(--mark) center / contain no-repeat;
+}
+
+
+
 /* The homepage hero's headline size, for a page that asks for it (`titleScale: "home"`). */
 .heroTitle.heroTitleHome {
   font-size: var(--fs-h1-home);

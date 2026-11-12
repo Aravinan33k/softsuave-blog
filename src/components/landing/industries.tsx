@@ -266,6 +266,8 @@ export interface CardGridContent {
   body: string;
   /** The same heading as a node, when some of its words are picked out in the accent colour. Wins over `title` where it is drawn. */
   titleNode?: ReactNode;
+  /** Gives a long title a wider column beside the divider. */
+  wideHead?: boolean;
   /** The same standfirst as a node, when some of its words are bold. Wins over `body` where it is drawn. */
   bodyNode?: ReactNode;
   /**
@@ -356,6 +358,8 @@ export interface CardGridContent {
       readonly width?: number;
       readonly height?: number;
       readonly alt: string;
+      /** Draw the picture as the accent glyph in the same tinted badge the picked icons sit in. */
+      readonly badge?: boolean;
     };
   }[];
 }
@@ -489,7 +493,7 @@ export default function Industries({
   if (list) {
     return (
       <section className={styles.sectionShell} id={id}>
-        <SectionHead kicker={content.eyebrow} title={content.titleNode ?? content.title} intro={content.bodyNode ?? content.body} />
+        <SectionHead kicker={content.eyebrow} title={content.titleNode ?? content.title} intro={content.bodyNode ?? content.body} wide={content.wideHead} />
 
         <FadeUp>
           <div className={styles.techListWrap}>
@@ -545,7 +549,7 @@ export default function Industries({
   if (feature) {
     return (
       <section className={styles.sectionShell} id={id}>
-        <SectionHead kicker={content.eyebrow} title={content.titleNode ?? content.title} intro={content.bodyNode ?? content.body} />
+        <SectionHead kicker={content.eyebrow} title={content.titleNode ?? content.title} intro={content.bodyNode ?? content.body} wide={content.wideHead} />
 
         <FadeUp>
           <div className={`${styles.featGrid}${columns === 2 ? ` ${styles.featGrid2}` : ""}`}>
@@ -641,7 +645,7 @@ export default function Industries({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.titleNode ?? content.title} intro={content.bodyNode ?? content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.titleNode ?? content.title} intro={content.bodyNode ?? content.body} wide={content.wideHead} />
 
       {content.points && content.points.length > 0 && (
         <ul className={styles.gridPoints}>
@@ -670,6 +674,14 @@ export default function Industries({
             >
               {bold ? (
                 item.tag && <span className={styles.boldTag}>{item.tag}</span>
+              ) : item.image?.badge ? (
+                <span className={`${badgeStyles.badge} ${badgeStyles.sm} ${badgeStyles.stack}`} role="img" aria-label={item.image.alt}>
+                  <span
+                    className={styles.cardMarkGlyph}
+                    style={{ ["--mark" as string]: `url(${publicMediaUrl(item.image.src)})` }}
+                    aria-hidden
+                  />
+                </span>
               ) : item.image ? (
                 /* The card's own hand-placed mark, where there is one, in place of the picked glyph. */
                 <Image
