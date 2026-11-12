@@ -14,6 +14,19 @@ import type { SiteInfo } from '@/themes/_contract';
 // and feed URL would point one level too high — at whatever serves the root instead.
 const SITE_URL = env.NEXT_PUBLIC_SITE_URL.replace(/\/+$/, '');
 
+/**
+ * The origin every page's canonical URL names: the public production domain,
+ * on every deployment. It is the root layout's `metadataBase`, so a page's
+ * `alternates.canonical: '/path'` resolves against it.
+ *
+ * Not SITE_URL (26 Oct): on the test server SITE_URL is the server's own
+ * address at build time but the .com default at runtime, so canonicals flipped
+ * between `http://54.237.230.68/…` and `https://www.softsuave.com/…` as pages
+ * revalidated. Canonicals now always name softsuave.com; og:url, share images
+ * and the sitemap still follow SITE_URL, so previews keep working there.
+ */
+export const CANONICAL_ORIGIN = 'https://www.softsuave.com';
+
 export function absoluteUrl(path: string): string {
   if (/^https?:\/\//.test(path)) return path; // already absolute (e.g. S3/R2 URL)
   let p = path.startsWith('/') ? path : `/${path}`;

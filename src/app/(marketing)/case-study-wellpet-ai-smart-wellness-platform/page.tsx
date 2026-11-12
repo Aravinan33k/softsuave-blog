@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: TITLE,
   description: wellPetMeta.description,
-  alternates: { canonical: 'https://www.softsuave.com/case-study-wellpet-ai-smart-wellness-platform' },
+  alternates: { canonical: wellPetMeta.path },
   robots: pageRobots,
   openGraph: {
     title: TITLE,

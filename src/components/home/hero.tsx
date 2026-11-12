@@ -7,6 +7,7 @@ import { publicMediaUrl } from "@/lib/media-url";
 import { useAfterLoad } from "./use-deferred-media";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import styles from "./home.module.css";
+import cta from "@/components/common/cta-row.module.css";
 
 /**
  * The intro video's first frame at 40px wide (~600 bytes), inlined so it paints
@@ -167,7 +168,7 @@ export default function Hero() {
 
         <p className={styles.heroSub}>{hero.subtitle}</p>
 
-        <div className={styles.heroCtaRow}>
+        <div className={`${styles.heroCtaRow} ${cta.ctaPair}`}>
           <Link href={hero.primaryCta.href} className={styles.pillFilled} data-cursor="Book">
             {hero.primaryCta.label}
           </Link>

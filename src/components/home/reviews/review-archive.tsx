@@ -10,7 +10,7 @@ import styles from "../home.module.css";
 
 /** How long each story holds before the next takes the slot, ms. A quote has
  *  to be read, not glanced at, so this is well over the badge strip's dwell. */
-const DWELL = 7000;
+const DWELL = 4000;
 
 /**
  * The client stories, shown one at a time in a single slot.

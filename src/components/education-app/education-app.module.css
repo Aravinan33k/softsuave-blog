@@ -1,0 +1,56 @@
+/* /education-app-development-company — the bands this page adds, in the site's styles. */
+
+.video {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border-radius: 14px;
+}
+
+.benefitCols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 48px);
+}
+.benefitCol {
+  padding: clamp(20px, 2.4vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
+.benefitTitle {
+  margin: 0 0 clamp(14px, 1.6vw, 22px);
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: var(--heading-weight);
+  color: var(--text-bright);
+}
+.benefit {
+  margin: 0 0 1em;
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--text);
+}
+.benefit:last-child {
+  margin-bottom: 0;
+}
+.benefit strong {
+  color: var(--text-bright);
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .benefitCols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* The technologies band above already ends in its own section padding, so the FAQ pulls up under it
+   instead of adding its full top padding on top. */
+.faqPull {
+  margin-top: calc(var(--section-y) * -0.6);
+}

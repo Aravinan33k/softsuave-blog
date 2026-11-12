@@ -98,7 +98,7 @@
 .title {
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
-  font-weight: var(--heading-weight, 400);
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h2);
   line-height: 1.08;
   letter-spacing: -0.03em;
@@ -154,6 +154,18 @@
     align-items: center;
     padding-left: var(--split-gap);
     border-left: 1px solid var(--line);
+  }
+}
+
+/* `wide` on the section head: a long title gets a wider column beside the divider. */
+@media (min-width: 900px) {
+  .headWide:has(> .intro):not(.headSub):not(.headPage) .title {
+    /* Not clamped to `--fit-width`: the column already hugs the text (`fit-content`), and a width measured
+       before this rule applied would pin the title back to the narrow column. */
+    max-width: 34ch;
+  }
+  .headWide:has(> .intro):not(.headSub):not(.headPage) {
+    grid-template-columns: fit-content(66%) minmax(0, 1fr);
   }
 }
 
@@ -257,8 +269,57 @@
      one and paints behind the whole page, not just this section. */
   isolation: isolate;
   padding: max(clamp(96px, 11vw, 150px), var(--hero-top)) var(--gutter) var(--section-y);
-  border-bottom: 1px solid var(--line);
   overflow: hidden;
+}
+
+/* No top navigation above the hero: a modest top gap, then the logo. */
+.hero.heroNoNav,
+.hero.heroNoNav:not(.heroCompact) {
+  padding-top: clamp(16px, 2vw, 28px);
+}
+
+.heroLogo {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 clamp(20px, 2.4vw, 36px);
+}
+
+.heroLogo a {
+  display: inline-flex;
+}
+
+/* A masthead button opposite the logo (`logoCta`), from tablet up. */
+.heroLogo:has(.heroLogoCta) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.heroLogoActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The email button is an icon, so it stays on a phone. */
+.heroLogo .heroLogoMail {
+  padding-inline: 12px;
+}
+
+.heroLogo .heroLogoCta {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .heroLogo .heroLogoCta {
+    display: inline-flex;
+  }
+}
+
+/* The breadcrumb row is empty on these pages; drop its reserved gap too. */
+.hero.heroNoNav .heroHead:empty {
+  display: none;
 }
 
 /* Decorative accent for the flat (no `image`) hero. Redundant once there's a
@@ -308,6 +369,12 @@
   will-change: transform;
 }
 
+/* Opt-in (`image.still`): the photo holds still. */
+.heroBgStill {
+  animation: none;
+  will-change: auto;
+}
+
 @keyframes heroBgDrift {
   0% {
     transform: scale(1) translate3d(0, 0, 0);
@@ -342,6 +409,14 @@
       rgba(4, 5, 8, 0.6) 100%
     ),
     linear-gradient(180deg, rgba(4, 5, 8, 0.45) 0%, rgba(4, 5, 8, 0.2) 40%, rgba(4, 5, 8, 0.9) 100%);
+}
+
+/* Opt-in black veil (`image.veil: "dark"`): black over the whole photo, heaviest
+   under the copy column, so the photograph stays in view but reads as atmosphere. */
+.heroBgVeil[data-veil="dark"] {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.55) 55%, rgba(0, 0, 0, 0.4) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.55) 100%);
 }
 
 .heroGrid {
@@ -400,12 +475,18 @@
 .heroTitle {
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
-  font-weight: 500;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h1);
   line-height: 1.05;
   letter-spacing: -0.045em;
   color: var(--text-bright);
   max-width: 24ch;
+}
+
+/* The homepage hero's headline size, for a page that asks for it (`titleScale: "home"`). */
+.heroTitle.heroTitleHome {
+  font-size: var(--fs-h1-home);
+  max-width: none;
 }
 
 .heroTitleLine {
@@ -439,6 +520,17 @@
 
 .heroBody + .heroBody {
   margin-top: 1em;
+}
+
+/* A "*"-led footnote line under the hero copy ("*Satisfaction Guaranteed – Get
+   40-hour Free Trial") is a fixed 16px, not the body size. */
+.hero .heroBody.heroBodyStrong {
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.heroBodyNote {
+  font-size: 16px;
 }
 
 /* --- supporting points: hairline-separated rows, not a bulleted list --- */
@@ -705,6 +797,67 @@
   object-fit: contain;
 }
 
+/* `ratings`: a gold star + score over the review site's mark, on a light card with a
+   laurel wreath behind it. */
+.heroRatings {
+  list-style: none;
+  margin: clamp(22px, 2.6vw, 32px) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.heroRating {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 150px;
+  height: 120px;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #1a1d29;
+  overflow: hidden;
+}
+
+.heroRating::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--laurel, none) center / contain no-repeat;
+  opacity: 0.35;
+}
+
+.heroRatingScore {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.heroRatingScore svg {
+  color: #ffa500;
+}
+
+.heroRatingLogo {
+  position: relative;
+  width: auto;
+  height: 28px;
+  max-width: 110px;
+  object-fit: contain;
+}
+
+@media (max-width: 520px) {
+  .heroRating {
+    width: calc(50% - 6px);
+  }
+}
+
 /* Partner standing (Upwork, Clutch, Microsoft, AWS) runs as the issuers' own
    lockups rather than as our paraphrase of them — a reader recognises the
    Clutch wordmark without reading it. Each file has a transparent ground and a
@@ -718,6 +871,32 @@
   padding: 9px 13px;
   background: #fff;
   border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* `badgesBare`: marks drawn for a dark ground, with no plaque. */
+.badgeBare {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.badgeBareImg {
+  display: block;
+  width: auto;
+  height: clamp(32px, 3vw, 42px);
+  object-fit: contain;
+}
+
+/* `badgesBare: "large"`: round seals and other square marks, which need more height. */
+.badgeBareImgLg {
+  height: clamp(64px, 6.5vw, 96px);
+}
+
+/* Bare marks have no plaque to space them, so the row gets real room between
+   them instead of the plaques' 8px. */
+.badges:has(.badgeBare) {
+  gap: clamp(20px, 2.6vw, 36px);
+  align-items: center;
 }
 
 .badgeLogoImg {
@@ -805,7 +984,7 @@
 .trustFigure {
   display: block;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.85rem, 3.2vw, 2.75rem);
   line-height: 1;
   letter-spacing: -0.035em;
@@ -956,7 +1135,7 @@
   border-radius: 0 12px 12px 0;
   background: var(--surface);
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.3rem, 2.2vw, 1.95rem);
   line-height: 1.25;
   letter-spacing: -0.02em;
@@ -1005,7 +1184,7 @@
 
 .table tbody th {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.05rem, 1.3vw, 1.25rem);
   line-height: 1.3;
   letter-spacing: -0.015em;
@@ -1048,7 +1227,7 @@
 .problemCardTitle {
   margin: 10px 0 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: 1.15rem;
   line-height: 1.28;
   letter-spacing: -0.015em;
@@ -1114,7 +1293,7 @@
 .cmpRowArea {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h3);
   letter-spacing: -0.01em;
   color: var(--text-bright);
@@ -1267,7 +1446,7 @@
 .svcTitle {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -1339,7 +1518,7 @@
 .ctaTitle {
   margin: 0.45em 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h2);
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -1413,7 +1592,7 @@
 .integrationLabel {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   /* Was `--fs-card-title` (22px), which sat too close to the body beneath it
      to read as this panel's heading (review: "the heading is very small").
      These are two panels to a row, not a grid of small cards, so the title
@@ -1557,7 +1736,7 @@
 .processName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h3);
   line-height: 1.12;
   letter-spacing: -0.025em;
@@ -1666,10 +1845,27 @@
   color: var(--muted);
 }
 
+/* A card's own mark drawn as the accent glyph: the picture's shape, filled with the accent. */
+.cardMarkGlyph {
+  width: 62%;
+  height: 62%;
+  background: currentColor;
+  -webkit-mask: var(--mark) center / contain no-repeat;
+  mask: var(--mark) center / contain no-repeat;
+}
+
+/* A card's own picture, in place of the glyph badge. */
+.cardImage {
+  display: block;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
 .cardName {
   margin: 8px 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.12;
   letter-spacing: -0.02em;
@@ -1734,7 +1930,7 @@
 .proofFigure {
   display: block;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.7rem, 2.8vw, 2.4rem);
   line-height: 1;
   letter-spacing: -0.04em;
@@ -1746,7 +1942,7 @@
 .proofName {
   margin: 14px 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.12;
   letter-spacing: -0.02em;
@@ -1798,7 +1994,7 @@
   display: block;
   margin-top: clamp(16px, 2vw, 24px);
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(2rem, 3.4vw, 2.9rem);
   line-height: 1;
   letter-spacing: -0.04em;
@@ -1818,7 +2014,7 @@
   padding-top: clamp(14px, 1.6vw, 18px);
   border-top: 1px solid var(--line);
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.28;
   letter-spacing: -0.015em;
@@ -1896,7 +2092,7 @@
 .stackGroupName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -2012,7 +2208,7 @@
   right: 0.06em;
   z-index: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(4.5rem, 7vw, 6.5rem);
   line-height: 1;
   letter-spacing: -0.06em;
@@ -2108,7 +2304,7 @@
 .showName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.16;
   letter-spacing: -0.025em;
@@ -2193,7 +2389,7 @@
   left: clamp(16px, 1.8vw, 22px);
   bottom: clamp(14px, 1.6vw, 20px);
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.6rem, 2.6vw, 2.3rem);
   line-height: 1;
   letter-spacing: -0.04em;
@@ -2289,7 +2485,7 @@
 .railName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h3);
   line-height: 1.18;
   letter-spacing: -0.025em;
@@ -2527,7 +2723,7 @@
 .finalTitle {
   margin: 0.45em 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h2);
   line-height: 1.06;
   letter-spacing: -0.035em;
@@ -2637,7 +2833,7 @@
 
 .faqQuestion {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   /* Its own FAQ size (home.css), not the section-level H3 it used to share. */
   font-size: var(--fs-faq-q);
   line-height: 1.32;
@@ -3173,7 +3369,7 @@
   width: 22%;
   min-width: 9rem;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(1rem, 1.18vw, 1.15rem);
   line-height: 1.3;
   letter-spacing: -0.01em;
@@ -3674,7 +3870,7 @@
   display: block;
   margin-top: 8px;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.02rem, 1.15vw, 1.15rem);
   line-height: 1.25;
   letter-spacing: -0.015em;
@@ -3931,7 +4127,7 @@
 .carouselTitle {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   /* Was `--fs-card-title` (22px). These are the page's service headings, not
      small cards in a grid — one is in focus at a time and the card is most of
      the row (review: "update the font sizes and spacing, especially in the
@@ -4081,7 +4277,7 @@
 
 @media (min-width: 1000px) {
   .carouselStage {
-    height: 452px;
+    height: 530px;
   }
 
   /* 30% each keeps all three cards inside the content width with a real gap
@@ -4185,7 +4381,7 @@
   margin: 0;
   flex: 1 1 auto;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h3);
   letter-spacing: -0.01em;
   color: var(--text-bright);
@@ -4403,7 +4599,7 @@
 .capProblem {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
@@ -4632,7 +4828,7 @@
 .fitProblemName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
@@ -4980,7 +5176,7 @@
 .latName {
   margin: 8px 0 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
@@ -5114,7 +5310,7 @@
 .ptPanelName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.2;
   letter-spacing: -0.018em;
@@ -5247,7 +5443,7 @@
 .trkName {
   margin: 8px 0 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h3);
   line-height: 1.25;
   letter-spacing: -0.015em;
@@ -5414,7 +5610,7 @@
 .engName {
   margin: 10px 0 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
@@ -5519,7 +5715,7 @@
 
 .slatName {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h3);
   line-height: 1.22;
   letter-spacing: -0.015em;
@@ -5737,7 +5933,7 @@
   flex: 0 1 auto;
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -5885,7 +6081,7 @@
   flex: 1 1 auto;
   min-width: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(0.98rem, 1.15vw, 1.1rem);
   line-height: 1.25;
   letter-spacing: -0.012em;
@@ -5973,7 +6169,7 @@
 .sbPanelName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.18;
   letter-spacing: -0.02em;
@@ -6088,7 +6284,7 @@
 .sbdName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.22;
   letter-spacing: -0.015em;
@@ -6157,7 +6353,7 @@
 .stcName {
   margin: 4px 0 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
@@ -6236,7 +6432,7 @@
 .ctaStatFigure {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.8rem, 4vw, 3rem);
   line-height: 1;
   letter-spacing: -0.03em;
@@ -6481,7 +6677,7 @@
   border-radius: 12px;
   background: var(--surface);
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(0.95rem, 1.1vw, 1.05rem);
   line-height: 1.3;
   color: var(--text-bright);
@@ -6623,7 +6819,7 @@
   right: 16px;
   z-index: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(38px, 3.1vw, 54px);
   line-height: 1;
   color: var(--svc-accent);
@@ -7201,7 +7397,7 @@
 .featName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: var(--heading-weight, 400);
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.01em;
@@ -7337,7 +7533,7 @@
 .techName {
   margin: 0 0 10px;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.01em;
@@ -7446,7 +7642,7 @@
 .pmName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h3);
   line-height: 1.2;
   letter-spacing: -0.015em;
@@ -7658,7 +7854,7 @@
 .teamName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
@@ -7753,7 +7949,7 @@
 .exploreRows .exploreChipGhost {
   display: inline-block;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.5rem, 3.2vw, 3rem);
   letter-spacing: -0.03em;
   line-height: 1;
@@ -8086,7 +8282,7 @@
 .caseGridRows .caseTitleRich {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.15rem, 1.5vw, 1.45rem);
   line-height: 1.3;
   letter-spacing: -0.015em;
@@ -8489,7 +8685,7 @@
 .thanksHeading {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h3);
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -8507,7 +8703,7 @@
 .thanksNoteTitle {
   margin: clamp(30px, 3.4vw, 44px) 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.2;
   color: var(--accent);
@@ -8708,8 +8904,15 @@
     heroBgDrift 26s ease-in-out infinite alternate;
 }
 
-.hero.heroCompact .heroBg {
+.hero.heroCompact .heroBg,
+.hero .heroBg.heroBgStill {
   animation: heroFadeIn 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s backwards;
+  will-change: auto;
+}
+
+/* A still photo is framed from the top, so a wide hero crops the bottom, not the subject's head. */
+.hero .heroBg.heroBgStill {
+  object-position: center top;
 }
 
 /* A masthead used on its own, with no list band under it (/privacy-policy):
@@ -8763,9 +8966,131 @@
 
 [data-type-scale="hire"] .clusName {
   font-family: var(--font-heading);
-  font-weight: var(--heading-weight, 300);
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.15;
   letter-spacing: -0.02em;
   text-transform: none;
+}
+
+/* Phones: title lines flow inline so the heading wraps to the real width. */
+@media (max-width: 767px) {
+  .heroTitle .heroTitleLine {
+    display: inline;
+  }
+
+  /* …except a `titleSubLast` subline, which is its own line at every width:
+     inline, it ran on after the headline in a smaller size. */
+  .heroTitle .heroTitleSub {
+    display: block;
+  }
+}
+
+/* Narrow phones: smaller H1 so long words can share a row. */
+@media (max-width: 379px) {
+  .hero .heroTitle,
+  .heroCopyFit .heroTitle.heroTitleFit {
+    font-size: clamp(27px, 8.6vw, 34px);
+  }
+}
+
+/* Laptop widths: the three cards are ~275-345px wide, where the phone/desktop
+   type scale ran the copy past the card and pushed the title out of its top
+   edge. Slightly smaller type for the narrow cards, and a taller stage. */
+@media (min-width: 1000px) and (max-width: 1279px) {
+  .carouselStage {
+    height: 490px;
+  }
+
+  .carouselTitle {
+    font-size: 1.25rem;
+  }
+
+  .carouselText {
+    margin-top: 10px;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+}
+
+/* "OR" between two calls to action (the ad landing page's hero and trial band). */
+.heroCtaOr,
+.ctaOr {
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  align-self: center;
+}
+
+/* The hero's "No Payment Required ?" note and its tip (`ctaNote`). The tip opens on
+   hover and on keyboard focus, above the button. */
+.heroTip {
+  position: relative;
+  display: inline-flex;
+}
+
+.heroTipBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.4em 0.2em;
+  border: 0;
+  background: none;
+  color: var(--muted, #9c9c9c);
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  cursor: help;
+}
+
+.heroTipBtn svg {
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.heroTipBtn:hover,
+.heroTipBtn:focus-visible {
+  color: var(--text-bright, #fff);
+}
+
+.heroTipBubble {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 10px);
+  z-index: 5;
+  display: grid;
+  gap: 6px;
+  width: min(340px, calc(100vw - 2 * var(--gutter, 20px)));
+  padding: 14px 16px;
+  border: 1px solid var(--line, #434343);
+  border-radius: 10px;
+  background: #fff;
+  color: #3f434d;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  box-shadow: 0 14px 34px -12px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  pointer-events: none;
+}
+
+.heroTipBubble strong {
+  color: #0f1115;
+  font-weight: 700;
+}
+
+.heroTip:hover .heroTipBubble,
+.heroTip:focus-within .heroTipBubble {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroTipBubble {
+    transition: none;
+  }
 }

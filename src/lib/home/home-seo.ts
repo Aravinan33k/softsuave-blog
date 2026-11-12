@@ -1,6 +1,6 @@
 import 'server-only';
 import type { Metadata } from 'next';
-import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
+import { absoluteUrl, CANONICAL_ORIGIN, ogImageUrl } from '@/lib/seo/metadata';
 import { brand } from './content';
 import { HOME_LIVE_JSON_LD } from './home-live-schema';
 import { pageRobots } from '@/lib/flags';
@@ -24,13 +24,13 @@ import { pageRobots } from '@/lib/flags';
  * nothing more.
  */
 
-/* The SEO title and description as supplied for the homepage (30 Sep): 44 and
-   113 characters, inside the ~60 / ~160 where Google truncates on desktop. */
-const TITLE = 'Custom AI Solutions to Empower Your Business';
+/* The SEO title and description as supplied for the homepage (26 Oct): 65 and
+   155 characters — the page's own H1 and hero line. */
+const TITLE = 'Empowering Businesses with Scalable AI, Automation & Integrations';
 
 const DESCRIPTION =
-  "Discover how Soft Suave's custom AI solutions can transform your business " +
-  'operations and drive innovation';
+  'Build scalable AI solutions, intelligent automation systems, and seamless ' +
+  'integrations with AI-enabled engineering teams focused on real business outcomes.';
 
 /* The link-preview card (1 Oct request: "add Social Share Preview image"): a
    frame of the hero's own intro video behind the page's title, set in the
@@ -48,7 +48,8 @@ const OG_IMAGE = {
 export const homeMetadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: '/' },
+  // softsuave.com's own homepage canonical, trailing slash included.
+  alternates: { canonical: `${CANONICAL_ORIGIN}/` },
   robots: pageRobots,
   openGraph: {
     title: TITLE,

@@ -393,6 +393,16 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/awards-recognition', title: 'Awards and Recognition' },
   { path: '/clients', title: 'Our Clients' },
   { path: '/faqs', title: 'Frequently Asked Questions' },
+  { path: '/engagement-model', title: 'Engagement Models' },
+  { path: '/construction-employee-time-tracking-app', title: 'Construction Employee Time Tracking App' },
+  { path: '/construction-project-management-software', title: 'Construction Project Management Software' },
+  { path: '/generative-ai-integration-service', title: 'Generative AI Integration Services', parent: '/software-development-company' },
+  { path: '/ecommerce-app-development-package', title: 'Ecommerce App Development Package' },
+  { path: '/education-app-development-company', title: 'Education App Development Company' },
+  { path: '/developer-estimation', title: 'Developer Estimation' },
+  { path: '/mobile-app-estimation', title: 'Mobile App Estimation' },
+  { path: '/test-web-est', title: 'Web Estimation' },
+  { path: '/staff-augmentation-cost-calculator', title: 'Staff Augmentation Cost Calculator' },
   { path: '/case-studies', title: 'Case Studies' },
   // Case-study pages, under the index in their breadcrumb. Registering one
   // here also turns every existing link to it (the index cards, the homepage

@@ -102,7 +102,7 @@
 .heroTitle {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h1-home);
   line-height: 1.05;
   letter-spacing: -0.045em;
@@ -122,9 +122,11 @@
   will-change: transform;
 }
 
+/* "AI" in the H1: italic, at the heading's own weight (`--heading-weight`) —
+   a fixed 300 left it the one thin word in a bold headline. */
 .heroItalic {
   font-style: italic;
-  font-weight: 300;
+  font-weight: inherit;
 }
 
 /* The rotating word. Every word shares one grid cell, so the slot is as wide as
@@ -386,7 +388,7 @@
 .panelTitle {
   margin: 18px 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(28px, 2.6vw, 40px);
   line-height: 1.05;
   letter-spacing: -0.03em;
@@ -760,7 +762,7 @@
 .jrName {
   margin: 10px 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.15;
   letter-spacing: -0.02em;

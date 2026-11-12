@@ -173,6 +173,8 @@ export default function TechCluster({
     <section className={styles.sectionShell} id={id}>
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
+      {content.groupsLabel && <h3 className={styles.clusName} style={{ margin: "0 0 20px", fontSize: "1.25rem" }}>{content.groupsLabel}</h3>}
+
       <div ref={root} className={styles.clusPlot}>
         <div className={styles.clusGrid}>
           {content.groups.map((group) => (

@@ -164,10 +164,11 @@ describe('no homepage content on a hire page', () => {
   /**
    * The homepage logo strip opens with the three clients its testimonials
    * quote, added here from softsuave.com's /clients index. The hire pages' own
-   * band runs the other nineteen, so those three must not ride along.
+   * band runs the other eighteen (nineteen until PromosTV's illegible logo was
+   * dropped, 26 Oct), so those three must not ride along.
    */
   it('runs the hire pages\' own client roster, not the homepage\'s three extras', () => {
-    expect(HIRE_CLIENT_LOGOS).toHaveLength(19);
+    expect(HIRE_CLIENT_LOGOS).toHaveLength(18);
     for (const name of ['Phoenix Technologies', 'AMD Telecom', 'Perkypet']) {
       expect(HIRE_CLIENT_LOGOS.map((l) => l.name), name).not.toContain(name);
     }

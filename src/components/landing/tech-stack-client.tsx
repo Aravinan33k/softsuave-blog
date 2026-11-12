@@ -87,7 +87,7 @@ export default function TechStackClient({
       className={largeLogos ? `${styles.sectionShell} ${styles.stackLargeLogos}` : styles.sectionShell}
       id={id}
     >
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <div ref={root} className={styles.stackList}>
         {content.groups.map((group) => (

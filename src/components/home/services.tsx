@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { services } from "@/lib/home/content";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import SplitReveal from "./split-reveal";
 import { useDesktopScene } from "@/lib/home/use-desktop-scene";
 import BrandImage from "./brand-image";
+import { publicMediaUrl } from "@/lib/media-url";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./home.module.css";
 
@@ -31,6 +33,25 @@ const USE_PLACEHOLDER = false;
 const PLACEHOLDER = ["work-1", "work-2", "work-3", "work-4", "work-5", "work-6", "work-1", "work-2"];
 const imgId = (i: number, img: string) =>
   USE_PLACEHOLDER ? PLACEHOLDER[i % PLACEHOLDER.length] : `svc-${img}`;
+
+/**
+ * What the carousel shows. Defaults to the homepage's `services`; another page passes its own list —
+ * an item with `src` draws that picture (contained, on a light plate) instead of a generated slot, and
+ * one without `href` has no Know More button and no card link.
+ */
+export type ServicesContent = {
+  readonly eyebrow?: string;
+  readonly title: string;
+  readonly body: string;
+  readonly items: readonly {
+    readonly key: string;
+    readonly name: string;
+    readonly body: string;
+    readonly href?: string;
+    readonly img?: string;
+    readonly src?: string;
+  }[];
+};
 
 const pad = (n: number) => String(n).padStart(2, "0");
 const cx = (...c: (string | false | undefined)[]) => c.filter(Boolean).join(" ");
@@ -88,12 +109,24 @@ function cardStyle(offset: number): React.CSSProperties {
  * focusable link. MLOps (`#services`, no page of its own) gets none: its "page"
  * is this section, so a card link would only scroll to where the reader is.
  */
-function CardLink({ href }: { href: string }) {
-  if (href.startsWith("#")) return null;
+function CardLink({ href }: { href?: string }) {
+  if (!href || href.startsWith("#")) return null;
   return <SiteLink href={href} className={styles.carCardHit} tabIndex={-1} aria-hidden="true" />;
 }
 
-export default function Services() {
+/** A card's picture: a hand-placed `src` on a light plate, or the generated slot. */
+function CardArt({ item, index, sizes }: { item: ServicesContent["items"][number]; index: number; sizes: string }) {
+  if (item.src) {
+    return (
+      <span className={styles.carCardPlate}>
+        <Image src={publicMediaUrl(item.src)} alt="" fill sizes={sizes} className="object-contain" />
+      </span>
+    );
+  }
+  return <BrandImage page="four" id={imgId(index, item.img ?? "")} fill sizes={sizes} className="object-cover" />;
+}
+
+export default function Services({ content = services }: { content?: ServicesContent } = {}) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [active, setActive] = useState(0);
   // Heading tags go to whichever layout is on screen — see useDesktopScene.
@@ -102,7 +135,7 @@ export default function Services() {
   const autoplayId = useRef<ReturnType<typeof setInterval> | null>(null);
   const inViewRef = useRef(false);
 
-  const items = services.items;
+  const items = content.items;
   const N = items.length;
 
   const goTo = (i: number) => {
@@ -206,12 +239,12 @@ export default function Services() {
             its full-viewport stage. */}
         <div className={styles.carHead}>
           <div>
-            <span className={styles.eyebrow}>{services.eyebrow}</span>
+            {content.eyebrow ? <span className={styles.eyebrow}>{content.eyebrow}</span> : null}
             <SplitReveal as={desktop ? "h2" : "div"} className={styles.carHeadTitle} type="words">
-              {services.title}
+              {content.title}
             </SplitReveal>
           </div>
-          <p className={styles.carHeadLead}>{services.body}</p>
+          <p className={styles.carHeadLead}>{content.body}</p>
         </div>
 
         <div className={styles.carGrid}>
@@ -227,7 +260,7 @@ export default function Services() {
                 form — the button named a service and then did not take them
                 to it. `KnowMoreLink` picks the element from the href, because
                 the list mixes real pages with one in-page anchor. */}
-            <KnowMoreLink href={items[active].href} />
+            {items[active].href ? <KnowMoreLink href={items[active].href} /> : null}
           </div>
 
           {/* The stack and its controls share one column, so the arrows sit
@@ -242,7 +275,7 @@ export default function Services() {
                   style={cardStyle(i - active)}
                   aria-hidden={i !== active}
                 >
-                  <BrandImage page="four" id={imgId(i, s.img)} fill sizes="55vw" className="object-cover" />
+                  <CardArt item={s} index={i} sizes="55vw" />
                   <span className={styles.carCardVeil} aria-hidden />
                   {/* The section's ten H3s while this layout is on screen — see
                       useDesktopScene. Positioned absolute, so h3 vs span is
@@ -289,20 +322,21 @@ export default function Services() {
         </div>
       </div>
 
-      {/* ---------- Mobile: vertical stack ---------- */}
+      {/* ---------- Mobile: horizontal swipe rail ---------- */}
       <div className={styles.carMobile}>
         <div className={styles.sectionHead}>
-          <span className={styles.eyebrow}>{services.eyebrow}</span>
+          {content.eyebrow ? <span className={styles.eyebrow}>{content.eyebrow}</span> : null}
           <SplitReveal as={desktop ? "div" : "h2"} className={styles.h2} type="words">
-            {services.title}
+            {content.title}
           </SplitReveal>
-          <p className={styles.lead}>{services.body}</p>
+          <p className={styles.lead}>{content.body}</p>
         </div>
 
+        <div className={styles.carMobRail}>
         {items.map((s, i) => (
           <article key={s.key} className={styles.carMobRow}>
             <div className={styles.carMobCard}>
-              <BrandImage page="four" id={imgId(i, s.img)} fill sizes="100vw" className="object-cover" />
+              <CardArt item={s} index={i} sizes="100vw" />
               <CardLink href={s.href} />
             </div>
             <div className={styles.carMobText}>
@@ -316,10 +350,12 @@ export default function Services() {
               {/* Same per-service destination as the desktop stage above —
                   the mobile stack renders every card at once, so each row's
                   button has to carry its own. */}
-              <KnowMoreLink href={s.href} />
+              {s.href ? <KnowMoreLink href={s.href} /> : null}
             </div>
           </article>
         ))}
+        </div>
+
       </div>
     </section>
   );

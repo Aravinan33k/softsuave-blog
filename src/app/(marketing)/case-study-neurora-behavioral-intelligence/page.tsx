@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: TITLE,
   description: neuroraMeta.description,
-  alternates: { canonical: 'https://www.softsuave.com/case-study-neurora-behavioral-intelligence' },
+  alternates: { canonical: neuroraMeta.path },
   robots: pageRobots,
   openGraph: {
     title: TITLE,

@@ -27,7 +27,29 @@ export default function Clients({
   logos = clients.logos,
   title = clients.title,
   body = clients.body,
+  loopShortRows = false,
+  noFade = false,
+  eyebrow = clients.eyebrow,
+  badges = false,
+  id = "clients",
 }: {
+  /** Drops the soft fade on the strip's left and right ends; logos keep their usual look. */
+  noFade?: boolean;
+  /** The small label above the heading; `""` drops it (a page whose live band has none). */
+  eyebrow?: string;
+  /**
+   * Draw the marks as full-colour badges, larger — for certifications rather than client
+   * logos, which the strip otherwise shows small and in grey.
+   */
+  badges?: boolean;
+  /** The section id; give a second strip on one page its own. */
+  id?: string;
+  /**
+   * Keep the strip scrolling when its marks are too few to overflow the row —
+   * `Marquee`'s `fill` repeats them until they do. Omitted, the strip is
+   * unchanged.
+   */
+  loopShortRows?: boolean;
   /**
    * Heading and standfirst. Default to the homepage's "Preferred AI-Enabled
    * Technology Partner…" pair, which most pages' live band repeats word for
@@ -48,21 +70,29 @@ export default function Clients({
   logos?: typeof clients.logos;
 } = {}) {
   return (
-    <section className={`${styles.section} ${styles.clients}`} id="clients">
+    <section className={`${styles.section} ${styles.clients}`} id={id}>
       <div className={styles.clientsHead}>
         <div className={styles.clientsHeadMain}>
-          <span className={styles.eyebrow}>{clients.eyebrow}</span>
+          {eyebrow && <span className={styles.eyebrow}>{eyebrow}</span>}
           <SplitReveal as="h2" className={styles.h2} type="words">
             {title}
           </SplitReveal>
         </div>
-        <FadeUp className={styles.clientsHeadAside}>
-          <p className={styles.clientsBody}>{body}</p>
-        </FadeUp>
+        {/* No text, no column: an empty aside still drew its divider line. */}
+        {body && (
+          <FadeUp className={styles.clientsHeadAside}>
+            <p className={styles.clientsBody}>{body}</p>
+          </FadeUp>
+        )}
       </div>
 
       <FadeUp className={styles.clientsRow} delay={0.08}>
-        <Marquee speed={30} className={styles.clientsMarquee} separator={<span aria-hidden />}>
+        <Marquee
+          speed={30}
+          className={`${styles.clientsMarquee}${noFade ? ` ${styles.clientsMarqueeNoFade}` : ""}${badges ? ` ${styles.clientsMarqueeBadges}` : ""}`}
+          separator={<span aria-hidden />}
+          fill={loopShortRows}
+        >
           {logos.map((logo) => (
             <span key={logo.name} className={styles.clientsItem}>
               {logo.src ? (

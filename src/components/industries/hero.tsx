@@ -8,6 +8,7 @@ import PartnerBadges from "@/components/common/partner-badges";
 import { why } from "@/lib/home/content";
 import { hero, sectors } from "@/lib/home/industries-content";
 import styles from "./industries.module.css";
+import cta from "@/components/common/cta-row.module.css";
 
 /** The years figure the whole site quotes, so this plate can never disagree. */
 const years = why.stats.find((s) => s.icon === "years");
@@ -54,7 +55,7 @@ export default function Hero() {
         <p className={styles.heroBody}>{hero.body}</p>
         <p className={styles.heroAside}>{hero.aside}</p>
 
-        <div className={styles.heroCtas}>
+        <div className={`${styles.heroCtas} ${cta.ctaPair}`}>
           <Link
             href={hero.primaryCta.href}
             className={`${styles.pill} ${styles.pillFilled}`}

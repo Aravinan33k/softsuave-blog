@@ -1,0 +1,65 @@
+/* A black tab on the right edge: its text runs bottom to top, the paper plane at the top. */
+.tab {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  z-index: 60;
+  translate: 0 -50%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 12px;
+  border-radius: 14px 0 0 14px;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  /* rotating 180° puts the rounded corners on the wrong side, so they are set for the rotated box */
+  border-radius: 0 14px 14px 0;
+  box-shadow: -6px 10px 30px -12px rgba(0, 0, 0, 0.55);
+  transition: translate 0.4s cubic-bezier(0.22, 0.7, 0.2, 1), background 0.25s ease, padding 0.25s ease, visibility 0s;
+}
+/* Out of sight past the right edge until the reader has scrolled below the header. */
+.tabHidden {
+  translate: 100% -50%;
+  visibility: hidden;
+  pointer-events: none;
+  transition: translate 0.4s cubic-bezier(0.22, 0.7, 0.2, 1), visibility 0s 0.4s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tab,
+  .tabHidden {
+    transition: none;
+  }
+}
+.tab:hover,
+.tab:focus-visible {
+  background: var(--cta-bg, #ff5436);
+  padding-right: 16px;
+  outline: none;
+}
+.label {
+  font-family: var(--font-body, inherit);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.icon {
+  flex: none;
+  rotate: 90deg;
+}
+@media (max-width: 700px) {
+  .tab {
+    padding: 14px 9px;
+  }
+  .label {
+    font-size: 13px;
+  }
+}
+@media print {
+  .tab {
+    display: none;
+  }
+}

@@ -8,6 +8,7 @@ import { why } from "@/lib/home/content";
 import { sectors } from "@/lib/home/industries-content";
 import type { SectorPageContent } from "@/lib/home/sectors/types";
 import styles from "./industries.module.css";
+import cta from "@/components/common/cta-row.module.css";
 
 const years = why.stats.find((s) => s.icon === "years");
 
@@ -67,7 +68,7 @@ export default function SectorHero({ content }: { content: SectorPageContent }) 
         </h1>
         <p className={styles.heroBody}>{hero.body}</p>
 
-        <div className={styles.heroCtas}>
+        <div className={`${styles.heroCtas} ${cta.ctaPair}`}>
           <Link
             href="/contact"
             className={`${styles.pill} ${styles.pillFilled}`}

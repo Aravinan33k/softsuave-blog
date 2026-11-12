@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { gsap, prefersReducedMotion } from "@/lib/home/gsap";
 import styles from "./home.module.css";
 
-type Section = { id: string; label: string };
-const SECTIONS: Section[] = [
+export type ChapterSection = { id: string; label: string };
+const DEFAULT_SECTIONS: ChapterSection[] = [
   { id: "top", label: "Intro" },
   { id: "why", label: "Why Us" },
   { id: "clients", label: "Clients" },
@@ -28,7 +28,12 @@ const pad = (n: number) => String(n + 1).padStart(2, "0");
  * it opens a compact section list; picking one jumps via the global Lenis anchor
  * routing. Deliberately tiny: no text ever sits over section content.
  */
-export default function ChapterNav() {
+export default function ChapterNav({
+  sections: SECTIONS = DEFAULT_SECTIONS,
+}: {
+  /** The sections to count; defaults to the homepage's twelve. */
+  sections?: readonly ChapterSection[];
+} = {}) {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -92,7 +97,7 @@ export default function ChapterNav() {
       window.removeEventListener("resize", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [SECTIONS]);
 
   // Close on Escape or a click outside.
   useEffect(() => {

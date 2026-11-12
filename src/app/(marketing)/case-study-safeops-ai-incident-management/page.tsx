@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: TITLE,
   description: safeOpsMeta.description,
-  alternates: { canonical: 'https://www.softsuave.com/case-study-safeops-ai-incident-management' },
+  alternates: { canonical: safeOpsMeta.path },
   robots: pageRobots,
   openGraph: {
     title: TITLE,

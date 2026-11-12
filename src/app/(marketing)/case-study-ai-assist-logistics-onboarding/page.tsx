@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: TITLE,
   description: aiAssistMeta.description,
-  alternates: { canonical: 'https://www.softsuave.com/case-study-ai-assist-logistics-onboarding' },
+  alternates: { canonical: aiAssistMeta.path },
   robots: pageRobots,
   openGraph: {
     title: TITLE,
