@@ -67,7 +67,7 @@ export default function Process({
    * step's own `n` (a year, on a timeline) instead of "Step N". Omit for
    * the default. `"none"` drops the label.
    */
-  label?: "step" | "n" | "none";
+  label?: "step" | "n" | "number" | "none";
 }>) {
   return (
     <section className={styles.sectionShell} id={id}>

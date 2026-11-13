@@ -823,16 +823,16 @@ const cms: HireSkill = {
     ],
   },
 
-  processLabel: "n",
+  processLabel: "number",
   process: {
     eyebrow: "Hiring Process",
     title: "Steps to Hire a CMS Developer",
     body: "Move from idea to execution in days with a simple discovery, shortlist, and interview process, then hire Developers who match your tech stack, budget, and launch timelines.",
     steps: [
-      { n: "1", name: "Share the JD", body: "Send a detailed JD so our team understands your goals and ideal developer profile." },
-      { n: "2", name: "Shortlist The Right Developers", body: "Receive curated, pre-vetted profiles that match your requirements, then quickly choose who to interview." },
-      { n: "3", name: "Free 40-hour Trial", body: "Collaborate with your chosen developer, testing skills, communication, and culture fit at zero risk." },
-      { n: "4", name: "Onboard & Manage", body: "Seamlessly integrate the developer into your processes while retaining control over tasks, priorities, and communication." },
+      { n: "01", name: "Share the JD", body: "Send a detailed JD so our team understands your goals and ideal developer profile." },
+      { n: "02", name: "Shortlist The Right Developers", body: "Receive curated, pre-vetted profiles that match your requirements, then quickly choose who to interview." },
+      { n: "03", name: "Free 40-hour Trial", body: "Collaborate with your chosen developer, testing skills, communication, and culture fit at zero risk." },
+      { n: "04", name: "Onboard & Manage", body: "Seamlessly integrate the developer into your processes while retaining control over tasks, priorities, and communication." },
     ],
   },
 

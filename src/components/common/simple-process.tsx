@@ -55,9 +55,10 @@ export default function SimpleProcess({
    * step's own `n` instead — for a chronology whose `n` is a year, where
    * "Step 3" would say nothing and the date is the point (/about's
    * milestones). A step with no `n` falls back to "Step N". `"none"` prints
-   * no label at all — for a sequence the live page shows unnumbered.
+   * no label at all — for a sequence the live page shows unnumbered. `"number"` prints the bare position ("1") —
+   * for a sequence the live page numbers without the word "Step".
    */
-  label?: "step" | "n" | "none";
+  label?: "step" | "n" | "number" | "none";
 }>) {
   return (
     <ol
@@ -68,7 +69,11 @@ export default function SimpleProcess({
         <li key={step.n ?? step.name} className={styles.step}>
           <div className={styles.top}>
             <CardIconBadge title={step.name} body={step.body} />
-            {label === "none" ? null : label === "n" && step.n ? (
+            {label === "none" ? null : label === "number" ? (
+              <span className={styles.label} aria-hidden>
+                {i + 1}
+              </span>
+            ) : label === "n" && step.n ? (
               /* Not aria-hidden: unlike an ordinal, the list does not
                  already announce a date. */
               <span className={styles.label}>{step.n}</span>

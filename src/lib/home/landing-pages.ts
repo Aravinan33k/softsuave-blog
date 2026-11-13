@@ -408,6 +408,9 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/magento-development', title: 'Magento Development', parent: ['/software-development-company', '/ecommerce-mobile-app-development-company'] },
   { path: '/multi-vendor-marketplace-platform', title: 'Multi-vendor Marketplace Platform' },
   { path: '/payment-gateway-integration-services', title: 'Payment Gateway Integration Services', parent: '/software-development-company' },
+  // One job-detail page for every opening, chosen by `?role=<slug>` (see lib/home/career-content.ts). `noindex` and out
+  // of the sitemap, as its live counterpart is.
+  { path: '/softsuave-career', title: 'Soft Suave Career', sitemap: false },
   { path: '/swift-app-development-company', title: 'Swift App Development Company', parent: '/software-development-company' },
   { path: '/video-call-app-development-company', title: 'Video Call App Development Company' },
   { path: '/wordpress-development-company', title: 'WordPress Development Company', breadcrumbCurrentLabel: 'WordPress Development', parent: '/software-development-company' },

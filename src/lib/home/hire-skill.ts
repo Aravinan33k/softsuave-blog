@@ -177,8 +177,8 @@ export interface HireSkill {
   readonly midCta?: CtaBandContent;
   /** `.hiring_steps` — the hiring sequence, with exactly the live page's steps. */
   readonly process?: ProcessContent;
-  /** `"n"` labels each hiring step with its own `n` ("1") rather than "Step 1" — the live CMS page numbers its steps bare. */
-  readonly processLabel?: "n";
+  /** `"number"` labels each hiring step with its bare position ("1") rather than "Step 1" — the live CMS page numbers its steps that way. */
+  readonly processLabel?: "number";
   /** `"none"` drops the "Step N" label from the vetting cards — the live CMS page shows that sequence unnumbered. */
   readonly vettingLabel?: "none";
   /** `.why_choose` — "Why Are Our X Developers Considered the Best?" cards. */
