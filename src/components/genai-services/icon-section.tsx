@@ -3,11 +3,13 @@ import FadeUp from '@/components/home/fade-up';
 import SectionHead from '@/components/landing/section-head';
 import { SiteLink } from '@/themes/softsuave/site-link';
 import { publicMediaUrl } from '@/lib/media-url';
+import CardIconBadge from '@/components/common/card-icon-badge';
 export interface IconCardItem {
   readonly name: string;
   /** Plain text, or runs of text with links. */
   readonly body: string | readonly Piece[];
-  readonly icon: string;
+  /** The live picture; omitted when the card shows the site's own icon (`mode="badge"`). */
+  readonly icon?: string;
   readonly label?: string;
   readonly href?: string;
 }
@@ -54,7 +56,7 @@ export default function IconSection({
   body: string | readonly Piece[];
   items: readonly IconCardItem[];
   columns?: 2 | 3 | 4 | 5;
-  mode?: 'tint' | 'bare';
+  mode?: 'tint' | 'bare' | 'badge';
   cta?: { readonly label: string; readonly href: string };
 }) {
   return (
@@ -64,11 +66,13 @@ export default function IconSection({
         <ul className={styles.grid} data-cols={columns}>
           {items.map((it) => (
             <li key={it.name} className={styles.card}>
-              {mode === 'bare' ? (
-                <Image src={publicMediaUrl(it.icon)} alt="" width={50} height={50} unoptimized className={styles.bareIcon} />
+              {mode === 'badge' ? (
+                <CardIconBadge title={it.name} body={typeof it.body === 'string' ? it.body : undefined} size="sm" />
+              ) : mode === 'bare' ? (
+                <Image src={publicMediaUrl(it.icon ?? '')} alt="" width={50} height={50} unoptimized className={styles.bareIcon} />
               ) : (
                 <span className={`${badge.badge} ${badge.sm}`}>
-                  <span className={styles.tintIcon} style={{ ['--mark' as string]: `url(${publicMediaUrl(it.icon)})` }} aria-hidden />
+                  <span className={styles.tintIcon} style={{ ['--mark' as string]: `url(${publicMediaUrl(it.icon ?? '')})` }} aria-hidden />
                 </span>
               )}
               {it.label ? <span className={styles.label}>{it.label}</span> : null}

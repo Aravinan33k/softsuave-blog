@@ -407,6 +407,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/low-code-development-company', title: 'Low-Code Development Company' },
   { path: '/magento-development', title: 'Magento Development', parent: ['/software-development-company', '/ecommerce-mobile-app-development-company'] },
   { path: '/multi-vendor-marketplace-platform', title: 'Multi-vendor Marketplace Platform' },
+  { path: '/payment-gateway-integration-services', title: 'Payment Gateway Integration Services', parent: '/software-development-company' },
   { path: '/hire-full-stack-developers-in-india', title: 'Hire Full Stack Developers', parent: '/hire-dedicated-developers' },
   { path: '/developer-estimation', title: 'Developer Estimation' },
   { path: '/mobile-app-estimation', title: 'Mobile App Estimation' },
