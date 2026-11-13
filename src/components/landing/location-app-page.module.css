@@ -1,0 +1,102 @@
+/* ============================================================
+   LOCATION APP PAGES — page-only type and rhythm.
+
+   The stylesheet of `location-app-page.tsx`, so it reaches only the
+   "mobile app development company in <location>" pages. Together with `data-type-scale="hire"` on the root (the shared
+   section labels, card copy, stack names and FAQ sizes), it sets this page
+   in the deployed hire-software-developers page's typography and widths
+   (http://54.237.230.68/hire-software-developers, measured from its CSS):
+
+     - headings in the heading face at weight 600 — the reference's
+       `.theme-four { --heading-weight: 600 }`. The heading rules this page
+       uses read `var(--heading-weight, <their old weight>)`, so only a page
+       that sets the token changes;
+     - the reference's section rhythm, `--section-y: clamp(56px, 5vw + 8px,
+       80px)`, its `--gutter`, and its hero offset under the fixed nav.
+
+   The type sizes themselves (--fs-h1/h2/card-title/body/label) are already
+   the reference's values in home.css.
+   ============================================================ */
+.root {
+  --heading-weight: 600;
+  --section-y: clamp(56px, 5vw + 8px, 80px);
+  --gutter: clamp(20px, 5vw, 90px);
+  --nav-h: 83px;
+  --hero-gap: clamp(18px, 1.5vw + 12px, 24px);
+  --hero-top: calc(var(--nav-h) + var(--hero-gap));
+}
+
+@media (min-width: 1000px) {
+  .root {
+    --nav-h: 89px;
+  }
+}
+
+@media (min-width: 1000px) and (max-height: 760px) {
+  .root {
+    --hero-gap: 14px;
+  }
+}
+
+/* Every band between the hero and the closing consultation band takes one
+   vertical rhythm. `:where()` keeps this at (0,1,1): above the shared
+   `.section` / `.sectionShell` paddings it replaces, below `.sectionShell +
+   .sectionShell` (0,2,0), so the two bands stacked in the last light
+   chapter still share one gap. Ids are `[id="…"]` because CSS Modules hash
+   a `#id` selector. */
+.root main :where(section:not([id="top"], [id="contact"])) {
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* Full-gutter width, as on the reference: the homepage clients band caps
+   its content and centres it, which on a wide screen pulls its left edge in
+   from every other section's. Only the inline margins are reset. */
+.root main [id="clients"] > * {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* The overview's H2 runs on as one continuous sentence at every width: no
+   forced break, and none of the shared section title's 26ch cap, which broke
+   this long heading into four short lines. Plain wrapping (`auto`, by
+   request) fills each line before breaking; on a phone the size steps down
+   slightly so it stays compact. (0,2,1) here outranks the shared `.title`. */
+.root main [id="overview"] h2 {
+  max-width: none;
+  text-wrap: auto;
+}
+
+@media (max-width: 640px) {
+  .root main [id="overview"] h2 {
+    font-size: clamp(22px, 5.6vw, 28px);
+  }
+}
+
+/* FAQ answers run the width of the row under their question (capped at
+   1700px — on a 1920px screen the row is ~1740px, so the answer spans it;
+   narrower screens are below the cap and the answer simply fills the row)
+   rather than the shared 78ch measure, keeping the question's left
+   indent and a right gutter clear of the +/− control. On a phone the gutter
+   goes, so the answer uses the full width the indent leaves. Matched through
+   the panel's `role="region"`, so the section's intro paragraph is not
+   touched. */
+.root main [id="faq"] [role="region"] > :is(p, div) {
+  max-width: 1700px;
+  padding-right: calc(28px + clamp(12px, 1.6vw, 22px));
+}
+
+@media (max-width: 640px) {
+  .root main [id="faq"] [role="region"] > :is(p, div) {
+    padding-right: 0;
+  }
+}
+
+/* The closing band, on the same rhythm at one and a half times the step. */
+.root main [id="contact"] {
+  padding-top: calc(var(--section-y) * 1.5);
+  padding-bottom: calc(var(--section-y) * 1.5);
+}

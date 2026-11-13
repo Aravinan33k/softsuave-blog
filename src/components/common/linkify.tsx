@@ -32,6 +32,13 @@ export interface InlineLink {
   readonly text: string;
   /** App-internal route, leading slash. */
   readonly href: string;
+  /**
+   * Optional anchor for a phrase that also occurs earlier in the copy than
+   * the place the live page links it: only an occurrence that directly
+   * follows this text is linked ("influence of" + "mobile app development"),
+   * so an earlier, unlinked occurrence of the same words is passed over.
+   */
+  readonly after?: string;
 }
 
 /**
@@ -58,7 +65,13 @@ export function linkify(
   const hits: { at: number; link: InlineLink }[] = [];
   for (const link of links) {
     if (used.has(link.text)) continue;
-    const at = text.indexOf(link.text);
+    let at: number;
+    if (link.after) {
+      const lead = text.indexOf(link.after + link.text);
+      at = lead === -1 ? -1 : lead + link.after.length;
+    } else {
+      at = text.indexOf(link.text);
+    }
     if (at !== -1) hits.push({ at, link });
   }
   if (!hits.length) return text;

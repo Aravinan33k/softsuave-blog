@@ -3,6 +3,7 @@ import CardIcon, { isBrandIcon } from "./card-icon";
 import Image from "next/image";
 import { publicMediaUrl } from "@/lib/media-url";
 import IndustriesClient from "./industries-client";
+import type { InlineLink } from "@/components/common/linkify";
 
 // `CardIcon` holds the glyph vocabulary; see that file for why it is not here.
 // The "01"-style ordinals these cards used to carry are gone (review: icons
@@ -56,6 +57,14 @@ export interface CardGridContent {
   cta?: { readonly label: string; readonly href: string };
   /** `bold` only: draw no icon on any card — a section whose live cards are a name and a line of copy. */
   noIcons?: boolean;
+  /**
+   * `tiles` only: an illustration set beside the tile grid (below it on
+   * narrow screens), for a section whose live counterpart shows its items
+   * next to a picture — the France page's legacy-modernisation band.
+   */
+  figure?: { readonly src: string; readonly width: number; readonly height: number; readonly alt: string };
+  /** `tiles` only: phrases in `body` (the intro) to link — see `common/linkify`. */
+  bodyLinks?: readonly InlineLink[];
 }
 
 /**
@@ -82,6 +91,7 @@ export default function Industries({
   variant = "photo",
   links = true,
   cardLinks = false,
+  nameAs = "h3",
 }: {
   content?: CardGridContent;
   id?: string;
@@ -127,6 +137,12 @@ export default function Industries({
    * clickable").
    */
   cardLinks?: boolean;
+  /**
+   * `tiles` only: heading level of each tile's name. H3 by default; a page
+   * ported from the live site passes its source's level (the France page's
+   * industry names are H4s). Styling is identical.
+   */
+  nameAs?: "h3" | "h4";
 } = {}) {
   return (
     <IndustriesClient
@@ -157,6 +173,7 @@ export default function Industries({
       )}
       brand={content.items.map((item) => !item.images && isBrandIcon(item.key))}
       multi={content.items.map((item) => Boolean(item.images))}
+      nameAs={nameAs}
     />
   );
 }

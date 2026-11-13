@@ -66,6 +66,24 @@
  *     list below: it mirrors softsuave.com's page, whose schema is a lone
  *     FAQPage — its Organization arrives from GTM and its footer keeps the
  *     address microdata, as live's does)
+ *   /mobile-app-development-company-dubai,
+ *     /mobile-app-development-company-germany,
+ *     /mobile-app-development-company-poland,
+ *     /mobile-app-development-company-saudi-arabia and
+ *     /mobile-app-development-company-south-africa (exceptions, like the Mobile App
+ *     page above: each mirrors its softsuave.com page, whose schema is a lone
+ *     FAQPage — its Organization arrives from GTM and its footer keeps the
+ *     address microdata, as live's does)
+ *   /software-development-company-france and
+ *     /software-development-company-germany (exceptions: each mirrors its
+ *     softsuave.com page's two blocks — a WebPage/ImageObject/WebSite graph
+ *     and a Service graph — which are its whole structured data; the footer
+ *     keeps its address microdata, as live's does)
+ *   /mobile-app-development-company-italy,
+ *     /software-development-company-spain, /free-demo-app, /developer-profile and
+ *     /mobile-app-development-company-maryland (exceptions, like
+ *     /cloud-computing below: their live pages carry no JSON-LD of their own,
+ *     so they emit none, and the footer keeps its microdata)
  *   /nextjs-development-company
  *   /php-application-development-company and
  *   /python-application-development-company (exceptions, like the mobile
@@ -212,6 +230,18 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/java-application-development-company',
   '/legacy-modernization-services',
   '/mobile-application-development-company',
+  '/mobile-app-development-company-dubai',
+  '/mobile-app-development-company-germany',
+  '/mobile-app-development-company-italy',
+  '/mobile-app-development-company-maryland',
+  '/mobile-app-development-company-poland',
+  '/mobile-app-development-company-saudi-arabia',
+  '/mobile-app-development-company-south-africa',
+  '/software-development-company-france',
+  '/software-development-company-germany',
+  '/software-development-company-spain',
+  '/free-demo-app',
+  '/developer-profile',
   '/nextjs-development-company',
   '/nodejs-development-company',
   '/offshore-software-development-company',

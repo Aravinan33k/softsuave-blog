@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { marketingFontVariables } from '@/lib/home/marketing-fonts';
 import ScrollProvider from '@/components/home/scroll-provider';
+import FreeEstimateTab from '@/components/common/free-estimate-tab';
 import { SiteGraph } from '@/components/seo/site-graph';
 import './home.css';
 
@@ -43,6 +44,9 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
        */}
       <SiteGraph />
       <ScrollProvider>{children}</ScrollProvider>
+      {/* softsuave.com's "Get Free Estimate" side tab, on every page of the marketing surface as on the live site
+          (the blog, which is outside this group, does not carry it there either). */}
+      <FreeEstimateTab />
     </div>
   );
 }

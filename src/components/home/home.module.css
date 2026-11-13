@@ -270,6 +270,7 @@ h1.h2 {
    grounds. */
 .pill,
 .pillFilled {
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 0.6em;
@@ -294,6 +295,9 @@ h1.h2 {
   color: var(--cta-ink, #ffffff);
 }
 
+.pillFilled:disabled {
+  cursor: not-allowed;
+}
 .pillFilled {
   background: var(--cta-bg, #ff5436);
   border-color: var(--cta-bg, #ff5436);
@@ -5852,6 +5856,16 @@ h1.h2 {
   overflow: hidden;
   background: var(--surface);
 }
+/* A hand-placed picture (a page passing its own `src` items) rests on a light plate, contained, with
+   room left under it for the card's tag. */
+.carCardPlate {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+}
+.carCardPlate img {
+  padding: 6% 6% 14%;
+}
 .carMobText {
   display: flex;
   flex-direction: column;
@@ -5956,6 +5970,13 @@ h1.h2 {
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: #fff;
+  }
+  /* A card on a light plate has no photograph to darken: no veil, and its tag reads dark. */
+  .carCardPlate ~ .carCardVeil {
+    display: none;
+  }
+  .carCardPlate ~ .carCardTag {
+    color: #17140f;
   }
 
   .carControls {
@@ -6523,8 +6544,9 @@ h1.h2 {
    settle where the dots step to. */
 .recogStrip {
   list-style: none;
-  margin: 0;
-  padding: 4px 0;
+  margin: -8px -8px -28px;
+  padding: 8px 8px 28px;
+  scroll-padding-inline: 8px;
   display: flex;
   gap: clamp(18px, 2.4vw, 36px);
   overflow-x: auto;
@@ -6575,6 +6597,8 @@ h1.h2 {
 
 /* Dots: one per resting position, the active one filled coral. */
 .recogDots {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -6604,6 +6628,25 @@ h1.h2 {
 @media (min-width: 900px) {
   .recogLayout {
     grid-template-columns: 0.82fr 1.18fr;
+  }
+}
+
+/* Beside the copy the strip is only as wide as its column: let the badges
+   share that width (shrinking to a 112px floor from their full size)
+   instead of sitting at a fixed size and being clipped at the edge. Narrower
+   than the floor allows, the strip still scrolls. */
+@media (min-width: 900px) {
+  .recogStrip {
+    gap: clamp(10px, 1.4vw, 28px);
+  }
+  .recogStrip .recogStripItem {
+    flex: 0 1 148px;
+    min-width: 112px;
+  }
+  .recogStrip .recogStripItem .recogBadge {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
   }
 }
 
@@ -7828,63 +7871,41 @@ h1.h2 {
   letter-spacing: 0.1em;
 }
 
-/* ---- phones and tablets: long lists swipe sideways ---------------------------
-   Services (ten rows) and the case studies (eight tiles) used to stack into
-   2,500-5,000px of scrolling on a phone. Below the desktop breakpoint they are
-   now a native scroll-snap rail like the desktop lane: one card per swipe, the
-   next one peeking in at the edge as the hint. The rail is full-bleed (negative
-   gutter margin, matching padding) so cards run to the screen edge. */
+/* ============================================================
+   WORK LANE — MOBILE SLIDE (opt-in: <WorkGrid mobileSlide />)
+   Below 1000px the lane normally stacks its cards. With `mobileSlide` it
+   stays a horizontal scroll-snap row instead: one card and a peek of the
+   next, swiped natively, bleeding to the screen edges and snapping to the
+   gutter. Swiping is not motion, so it holds under reduced motion too —
+   hence the `!important`s, which outrank that block's stack rules by
+   specificity. Lanes without the attribute are untouched.
+   ============================================================ */
 @media (max-width: 999px) {
-  .carMobRail,
-  .hLane {
-    display: flex;
+  .workH[data-mobile-slide] .hLane {
     overflow-x: auto;
     overflow-y: hidden;
-    overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
     scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    margin-left: calc(-1 * var(--gutter));
-    margin-right: calc(-1 * var(--gutter));
-    padding: 0 var(--gutter) 4px;
-    scroll-padding-left: var(--gutter);
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
   }
-  .carMobRail::-webkit-scrollbar,
-  .hLane::-webkit-scrollbar {
+
+  .workH[data-mobile-slide] .hLane::-webkit-scrollbar {
     display: none;
   }
 
-  .carMobRail {
-    gap: 16px;
-    margin-top: clamp(24px, 5vw, 40px);
-  }
-  .carMobRail .carMobRow,
-  .carMobRail .carMobRow:first-of-type {
-    flex: 0 0 min(82vw, 380px);
-    scroll-snap-align: start;
-    margin: 0;
-    padding: 0;
-    border: 0;
-  }
-  /* Equal-height cards, button pinned to the bottom, so descriptions of
-     different lengths do not leave the buttons at different heights. */
-  .carMobRail .carMobText {
-    flex: 1 1 auto;
-  }
-  .carMobRail .carMobText > :last-child {
-    margin-top: auto;
+  .workH[data-mobile-slide] .hTrack {
+    display: flex !important;
+    gap: 16px !important;
+    width: max-content;
+    padding: 0 0 4px !important;
   }
 
-  .hTrack {
-    display: flex;
-    flex-wrap: nowrap;
-    width: max-content;
-    gap: 16px;
-    padding-right: var(--gutter);
-  }
-  .hTile,
-  .hOutro {
-    flex: 0 0 min(84vw, 420px);
+  .workH[data-mobile-slide] .hTile {
+    flex: 0 0 auto;
+    width: min(82vw, 380px) !important;
     scroll-snap-align: start;
   }
 

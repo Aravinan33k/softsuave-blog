@@ -1,0 +1,201 @@
+/* =====================================================================
+   TALENT HERO — centred heading, intro, in-page button and arrow, then a
+   five-up stat strip. Band tokens only; dark on these pages.
+   ===================================================================== */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: max(clamp(78px, 6.6vw, 98px), var(--hero-top, 104px)) var(--gutter) clamp(36px, 4vw, 60px);
+  background: var(--bg);
+}
+
+.glow {
+  position: absolute;
+  left: 50%;
+  top: -10%;
+  width: min(1100px, 120vw);
+  height: 640px;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 18%, transparent), transparent);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight, 300);
+  font-size: var(--fs-h1);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: var(--text-bright);
+  text-wrap: balance;
+}
+
+.body {
+  margin: clamp(18px, 2vw, 26px) 0 0;
+  max-width: 760px;
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: clamp(24px, 2.6vw, 34px);
+  padding: 0.95em 2em;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cta:hover {
+  background: color-mix(in srgb, var(--accent) 88%, #000);
+  transform: translateY(-2px);
+}
+
+.cta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* The source's arrow is a dark glyph; inverted so it reads on the dark band. */
+.arrow {
+  display: inline-flex;
+  margin-top: clamp(24px, 2.6vw, 34px);
+  filter: invert(1);
+  opacity: 0.7;
+  animation: th-bounce 2s ease-in-out infinite;
+}
+
+@keyframes th-bounce {
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* ---- Stats ---------------------------------------------------------- */
+
+.stats {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 1200px;
+  margin: clamp(40px, 5vw, 72px) auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: clamp(18px, 2vw, 26px) 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  text-align: center;
+}
+
+.statIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+/* The source icons are dark line art; tinted toward the accent on the dark band. */
+.statIcon img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  filter: invert(1) brightness(0.95);
+}
+
+.statLabel {
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.statFigure {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 8px;
+}
+
+.statValue {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight, 400);
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.statUnit {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--fs-body-sm);
+  color: var(--accent);
+}
+
+/* The fifth stat spans the row when the strip is two across. */
+.stat:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 760px) {
+  .stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .stat:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+}
+
+@media (min-width: 1100px) {
+  .stats {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow {
+    animation: none;
+  }
+
+  .cta {
+    transition: none;
+  }
+}

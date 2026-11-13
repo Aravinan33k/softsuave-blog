@@ -21,9 +21,6 @@ const LOCKUP = {
 } as const;
 /** Cube-only mark, served from /public (see next.config.ts localPatterns). */
 const MARK = "/brand/mark.png";
-/** The trimmed lockup's own proportions (2992×777). */
-const LOCKUP_W = 2992;
-const LOCKUP_H = 777;
 
 type Props = {
   /** height of the mark (legacy) or the whole lockup (tone mode) in px */
@@ -49,7 +46,10 @@ export default function Logo({
 }: Props) {
   if (tone) {
     const h = size;
-    const w = Math.round(h * (LOCKUP_W / LOCKUP_H));
+    // The optimizer serves this lockup at 384×99 (its height rounded up from 98.8), so it paints at
+    // 3.879:1, not the file's 3.851:1. Using the painted ratio keeps the width attribute equal to
+    // the rendered width — otherwise next/image warns that only one dimension was modified.
+    const w = Math.round(h * (384 / 99));
     return (
       <Image
         src={publicMediaUrl(LOCKUP[tone])}
