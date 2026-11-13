@@ -7937,3 +7937,10 @@ h1.h2 {
 .expandBtn:focus-visible {
   color: var(--text-bright);
 }
+
+/* A clients strip with no heading of its own (the live Swift page runs its logos bare under the hero): the band keeps only a short margin around the strip. */
+.clientsHeadless.clientsHeadless {
+  padding-block: clamp(20px, 3vw, 40px);
+  min-height: 0;
+}
+.clientsHeadless .clientsRow { margin-top: 0; }

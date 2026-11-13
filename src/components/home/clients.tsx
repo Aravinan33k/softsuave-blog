@@ -70,21 +70,23 @@ export default function Clients({
   logos?: typeof clients.logos;
 } = {}) {
   return (
-    <section className={`${styles.section} ${styles.clients}`} id={id}>
-      <div className={styles.clientsHead}>
-        <div className={styles.clientsHeadMain}>
-          {eyebrow && <span className={styles.eyebrow}>{eyebrow}</span>}
-          <SplitReveal as="h2" className={styles.h2} type="words">
-            {title}
-          </SplitReveal>
+    <section className={`${styles.section} ${styles.clients}${title || body || eyebrow ? "" : ` ${styles.clientsHeadless}`}`} id={id}>
+      {(title || body || eyebrow) && (
+        <div className={styles.clientsHead}>
+          <div className={styles.clientsHeadMain}>
+            {eyebrow && <span className={styles.eyebrow}>{eyebrow}</span>}
+            <SplitReveal as="h2" className={styles.h2} type="words">
+              {title}
+            </SplitReveal>
+          </div>
+          {/* No text, no column: an empty aside still drew its divider line. */}
+          {body && (
+            <FadeUp className={styles.clientsHeadAside}>
+              <p className={styles.clientsBody}>{body}</p>
+            </FadeUp>
+          )}
         </div>
-        {/* No text, no column: an empty aside still drew its divider line. */}
-        {body && (
-          <FadeUp className={styles.clientsHeadAside}>
-            <p className={styles.clientsBody}>{body}</p>
-          </FadeUp>
-        )}
-      </div>
+      )}
 
       <FadeUp className={styles.clientsRow} delay={0.08}>
         <Marquee

@@ -408,6 +408,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/magento-development', title: 'Magento Development', parent: ['/software-development-company', '/ecommerce-mobile-app-development-company'] },
   { path: '/multi-vendor-marketplace-platform', title: 'Multi-vendor Marketplace Platform' },
   { path: '/payment-gateway-integration-services', title: 'Payment Gateway Integration Services', parent: '/software-development-company' },
+  { path: '/swift-app-development-company', title: 'Swift App Development Company', parent: '/software-development-company' },
   { path: '/pos-software-development-company', title: 'POS Software Development Company', breadcrumbLabel: 'Offshore Software Development Service', parent: '/software-development-company' },
   { path: '/real-estate-crm-software-development', title: 'Custom Real Estate CRM Software Development Company' },
   { path: '/retail-solutions', title: 'Retail Solutions' },
