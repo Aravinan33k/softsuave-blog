@@ -65,9 +65,9 @@ export default function Process({
   /**
    * Passed through to `SimpleProcess`: `"n"` labels each card with the
    * step's own `n` (a year, on a timeline) instead of "Step N". Omit for
-   * the default.
+   * the default. `"none"` drops the label.
    */
-  label?: "step" | "n";
+  label?: "step" | "n" | "none";
 }>) {
   return (
     <section className={styles.sectionShell} id={id}>

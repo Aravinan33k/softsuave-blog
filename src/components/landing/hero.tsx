@@ -143,6 +143,8 @@ export interface HeroContent {
   }[];
   /** Text set between the CTAs ("OR") — the ad landing page's pair reads "Start … OR Book a Meeting". */
   ctaSeparator?: string;
+  /** A line set under the points list and above the CTAs (the live CMS page's "*Satisfaction Guaranteed – Get 40-hour Free Trial"). */
+  afterPoints?: string;
   /**
    * A button at the top right of the logo row (`noNav` pages), from 768px up — the
    * live /ad/remote-developers masthead's own "Start 40 Hours Free Trial →".
@@ -573,6 +575,8 @@ export default function Hero({
             ))}
           </ul>
           )}
+
+          {content.afterPoints && <p className={styles.heroAfterPoints}>{content.afterPoints}</p>}
 
           {content.ratings && (
             <ul className={styles.heroRatings}>

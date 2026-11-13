@@ -26,7 +26,7 @@ import type { ComparisonContent } from "@/components/landing/comparison";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
-import type { Testimonial } from "./content";
+import type { ClientLogo, Testimonial } from "./content";
 
 /**
  * Intrinsic size of the hero's background asset. Existing `page: "four"` art is
@@ -135,6 +135,11 @@ export interface HireSkill {
 
   /** Hero: H1, positioning copy, assurance points and the enquiry form. */
   readonly hero: HeroContent;
+  /**
+   * A page whose live clients band words its label or runs its own marks. `eyebrow` is the label over the
+   * heading; `logos` replaces the shared hire roster (the live CMS band: "Our Clients" and its nineteen marks, PromosTV's among them).
+   */
+  readonly clientsBand?: { readonly eyebrow?: string; readonly logos?: readonly ClientLogo[] };
   /** `.about` — the page's opening prose band. */
   readonly overview?: OverviewContent;
   /** `.app_develop_section` — "Applications That Our Developers Build Using X". */
@@ -172,6 +177,10 @@ export interface HireSkill {
   readonly midCta?: CtaBandContent;
   /** `.hiring_steps` — the hiring sequence, with exactly the live page's steps. */
   readonly process?: ProcessContent;
+  /** `"n"` labels each hiring step with its own `n` ("1") rather than "Step 1" — the live CMS page numbers its steps bare. */
+  readonly processLabel?: "n";
+  /** `"none"` drops the "Step N" label from the vetting cards — the live CMS page shows that sequence unnumbered. */
+  readonly vettingLabel?: "none";
   /** `.why_choose` — "Why Are Our X Developers Considered the Best?" cards. */
   readonly whyUs?: CardGridContent;
   /** `.hire-models` — "Choose the Right X Development Partner". */
@@ -180,6 +189,8 @@ export interface HireSkill {
   readonly vetting?: ProcessContent;
   /** `.tech-stack` — "Explore More Web/Mobile Technologies for Your Project". */
   readonly exploreMore?: CardGridContent;
+  /** The same links under labelled tabs, where the live band has them ("Web" and "Quality Assurance" on the CMS page). */
+  readonly exploreTabs?: readonly { readonly label: string; readonly items: CardGridContent["items"] }[];
   /** `.faq-sec` — the live page's own questions, in its own order. */
   readonly faq?: FaqContent;
   /**
