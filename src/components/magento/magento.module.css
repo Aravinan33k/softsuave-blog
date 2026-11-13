@@ -1,0 +1,9 @@
+/* /magento-development — spacing between the seven services beside the contents column. */
+.item { padding-block: clamp(26px, 3.2vw, 52px); }
+.item:first-child { padding-top: 0; }
+.item:last-child { padding-bottom: 0; }
+.item section { padding-block: 0; }
+
+/* The links woven into the paragraphs read as links, like the About copy's. */
+.item p a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.item p a:hover { color: var(--text-bright); }

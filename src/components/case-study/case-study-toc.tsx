@@ -22,7 +22,8 @@ export default function CaseStudyToc({
   action,
   activeLine = 0.4,
 }: {
-  title: string;
+  /** The column's heading; omitted where the live page's list has none (the Magento page). */
+  title?: string;
   items: readonly { readonly id: string; readonly label: string }[];
   /** The case study's PDF download button, under the links. */
   downloadLabel?: string;
@@ -70,8 +71,8 @@ export default function CaseStudyToc({
   }, [ids, activeLine]);
 
   return (
-    <nav className={styles.toc} aria-label={`${title} sections`}>
-      <p className={styles.tocTitle}>{title}</p>
+    <nav className={styles.toc} aria-label={title ? `${title} sections` : "Sections"}>
+      {title && <p className={styles.tocTitle}>{title}</p>}
       <ol className={styles.tocList}>
         {items.map((item) => (
           <li key={item.id}>
