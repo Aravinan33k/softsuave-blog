@@ -23,6 +23,9 @@ import type { ServicesContent } from '@/components/landing/services';
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
+import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import { faqsPageEnquiry } from '@/lib/home/faqs-content';
+import { navHref } from '@/themes/softsuave/nav-data';
 
 // Page-specific bands: the landing components, taking this skill's own copy.
 import Hero from '@/components/landing/hero';
@@ -54,9 +57,13 @@ import home from '@/components/home/home.module.css';
  *   imports the 302 KB `images.generated.json` and so cannot be imported from
  *   anything the browser loads; the shell resolves it and passes the one small
  *   object this page needs.
+ * - `services` is the services band already drawn as photo cards, for a skill
+ *   with `servicesPhotoCards`. Those cards' icons render `TechLogo` too, so the
+ *   band comes in as a slot. `undefined` means: draw the usual card grid here.
  */
 export interface HireSectionsProps {
   techStack: ReactNode;
+  services?: ReactNode;
   overviewImage?: OverviewContent['image'];
 }
 
@@ -132,6 +139,7 @@ function asCardGrid(content: ServicesContent): CardGridContent {
 export default function HireBands({
   skill,
   techStack,
+  services,
   overviewImage,
 }: Readonly<HireSectionsProps & { skill: HireSkill }>) {
   function render(band: HireBand): ReactNode {
@@ -169,6 +177,8 @@ export default function HireBands({
           <CardGrid key={band} content={skill.combinations} id="combinations" variant="bold" />
         ) : null;
       case 'services':
+        // Photo cards, drawn on the server (see `HireSectionsProps.services`).
+        if (services) return <Fragment key={band}>{services}</Fragment>;
         return skill.services ? (
           // `autoLink={false}`: the `services` id would otherwise link every card
           // whose name matches a page (review: "Remove the links from the
@@ -244,7 +254,7 @@ export default function HireBands({
           <ExploreMarquee key={band} content={skill.exploreMore} id="explore" />
         ) : null;
       case 'testimonials':
-        return <Testimonials key={band} />;
+        return <Testimonials key={band} content={skill.testimonials} />;
       case 'faq':
         return skill.faq ? (
           <Faq key={band} content={skill.faq} idPrefix={`${skill.key}-faq`} />
@@ -281,6 +291,7 @@ export default function HireBands({
           ctas: sharedHeroCtas,
         }}
         idPrefix={skill.key}
+        breadcrumb={!skill.hideHeroBreadcrumb}
       />
       {groups.map((g, i) =>
         g.light ? (
@@ -293,7 +304,22 @@ export default function HireBands({
       )}
       {/* No `ctaHref`: the closing CTA takes its default, the /contact
           route — the review asked for every final CTA to lead there. */}
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      {skill.closingEnquiry ? (
+        <ManagerEnquiry
+          content={{
+            ...faqsPageEnquiry,
+            manager: {
+              ...faqsPageEnquiry.manager,
+              cta: { ...faqsPageEnquiry.manager.cta, href: navHref(faqsPageEnquiry.manager.cta.href) },
+            },
+          }}
+          id="book-consultation"
+          idPrefix={`${skill.key}-contact`}
+          headingFont
+        />
+      ) : (
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      )}
     </>
   );
 }

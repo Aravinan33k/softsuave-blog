@@ -4,6 +4,7 @@ import { publicMediaUrl } from "@/lib/media-url";
 import Marquee from "./marquee";
 import SplitReveal from "./split-reveal";
 import TechLogo from "./tech-logo";
+import ExpandList from "./expand-list";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import styles from "./home.module.css";
 
@@ -52,8 +53,11 @@ export default function TechStack({
   id = "tech",
   staticFrom,
   loopShortRows = false,
+  collapsedGroups,
 }: {
   content?: TechStackContent;
+  /** Show only this many groups, the rest behind "View More" / "View Less". Omitted, every group shows. */
+  collapsedGroups?: number;
   /**
    * Viewport width (px) from which the rows hold still and wrap instead of
    * scrolling — see `Marquee`'s prop of the same name. Omitted, the rows
@@ -87,8 +91,8 @@ export default function TechStack({
         <p className={styles.lead}>{content.body}</p>
       </div>
 
-      <div className={styles.techGroups} data-skew>
-        {content.groups.map((g, i) => (
+      {(() => {
+        const rows = content.groups.map((g, i) => (
           <div
             key={g.name || i}
             className={`${styles.techGroup}${g.name ? "" : ` ${styles.techGroupFull}`}`}
@@ -143,8 +147,17 @@ export default function TechStack({
               </Marquee>
             </div>
           </div>
-        ))}
-      </div>
+        ));
+        return collapsedGroups ? (
+          <ExpandList limit={collapsedGroups} className={styles.techGroups}>
+            {rows}
+          </ExpandList>
+        ) : (
+          <div className={styles.techGroups} data-skew>
+            {rows}
+          </div>
+        );
+      })()}
     </section>
   );
 }

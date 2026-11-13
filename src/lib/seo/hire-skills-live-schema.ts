@@ -115,6 +115,8 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
   // Organization — so this page emits none either (8 Oct review: "need to
   // remove the excess schema").
   "/hire-django-developer": [],
+  // Likewise: live's /hire-saas-developer carries no JSON-LD of its own.
+  "/hire-saas-developer": [],
   "/hire-dot-net-developers": [
     {
       "@context": "https://schema.org",

@@ -167,8 +167,11 @@ export function breadcrumbLabel(pathname: string): string | undefined {
 export default function Breadcrumb({
   className,
   tone = "hero",
+  labels,
 }: {
   className?: string;
+  /** Per-page wording for a crumb, by its path (the live eCommerce page calls Mobile App Development "Mobile App"). */
+  labels?: Readonly<Record<string, string>>;
   /**
    * `hero` (default) pins light colours for a dark hero over a photograph.
    * `band` reads the section's own tokens instead, so the trail inverts with
@@ -177,7 +180,7 @@ export default function Breadcrumb({
   tone?: "hero" | "band";
 }) {
   const pathname = usePathname();
-  const trail = pathname ? breadcrumbTrail(pathname) : [];
+  const trail = (pathname ? breadcrumbTrail(pathname) : []).map((c) => ({ ...c, name: labels?.[c.path] ?? c.name }));
   if (!trail.length) return null;
   const current = trail[trail.length - 1];
 
