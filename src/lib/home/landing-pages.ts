@@ -401,6 +401,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/ecommerce-app-development-package', title: 'Ecommerce App Development Package' },
   { path: '/education-app-development-company', title: 'Education App Development Company' },
   { path: '/generative-ai-integration-services', title: 'Generative AI Integration Services', parent: '/software-development-company' },
+  { path: '/enterprise-custom-application-development', title: 'Enterprise Custom Application Development' },
   { path: '/cross-platform-application-development-company', title: 'Cross-platform Development Service', parent: '/software-development-company' },
   { path: '/ecommerce-mobile-app-development-company', title: 'eCommerce App Development', parent: '/mobile-application-development-company' },
   { path: '/hire-full-stack-developers-in-india', title: 'Hire Full Stack Developers', parent: '/hire-dedicated-developers' },

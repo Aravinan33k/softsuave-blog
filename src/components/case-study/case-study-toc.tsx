@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { DownloadButton } from "./case-study-download";
 import home from "@/components/home/home.module.css";
 import styles from "./case-study.module.css";
@@ -19,10 +19,21 @@ export default function CaseStudyToc({
   title,
   items,
   downloadLabel,
+  action,
+  activeLine = 0.4,
 }: {
   title: string;
   items: readonly { readonly id: string; readonly label: string }[];
-  downloadLabel: string;
+  /** The case study's PDF download button, under the links. */
+  downloadLabel?: string;
+  /** Any other element for under the links (the enterprise page's "GET IN TOUCH"), in place of the download button. */
+  action?: ReactNode;
+  /**
+   * How far down the viewport (0–1) a section's top must have passed to count as the current one. The case
+   * studies' long sections suit the default; a list of short sections wants a line nearer the top, so
+   * arriving at one marks that one, not the next.
+   */
+  activeLine?: number;
 }) {
   const [active, setActive] = useState(items[0]?.id ?? "");
   const ids = items.map((i) => i.id).join(",");
@@ -40,7 +51,7 @@ export default function CaseStudyToc({
     let raf = 0;
     const read = () => {
       raf = 0;
-      const line = window.innerHeight * 0.4;
+      const line = window.innerHeight * activeLine;
       let current = sections[0].id;
       for (const el of sections) if (el.getBoundingClientRect().top <= line) current = el.id;
       setActive(current);
@@ -56,7 +67,7 @@ export default function CaseStudyToc({
       window.removeEventListener("resize", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [ids]);
+  }, [ids, activeLine]);
 
   return (
     <nav className={styles.toc} aria-label={`${title} sections`}>
@@ -74,10 +85,14 @@ export default function CaseStudyToc({
           </li>
         ))}
       </ol>
-      <DownloadButton
-        label={downloadLabel}
-        className={`${home.pill} ${home.pillFilled} ${styles.tocDownload}`}
-      />
+      {action ?? (
+        downloadLabel && (
+          <DownloadButton
+            label={downloadLabel}
+            className={`${home.pill} ${home.pillFilled} ${styles.tocDownload}`}
+          />
+        )
+      )}
     </nav>
   );
 }

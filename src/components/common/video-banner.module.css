@@ -60,6 +60,28 @@
   color: var(--accent, #ff5436);
 }
 
+/* An all-caps headline (the live enterprise page's): capitals need looser tracking than the display face's
+   -0.045em, and a wider line so a two-line title stays on two lines. */
+.titleCaps {
+  max-width: 24ch;
+  letter-spacing: -0.01em;
+}
+
+/* `accentGradient`: the brand orange-to-rose pair the Forward Deployed Engineers headline uses. Inline with each
+   wrapped line cloned, so every line runs the whole pair. */
+.accentGradient {
+  background-image: linear-gradient(90deg, #ff7a45, #fb3b5c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  padding: 0.08em 0.12em 0.16em 0.02em;
+  margin: -0.08em -0.12em -0.16em -0.02em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .video {
     display: none;

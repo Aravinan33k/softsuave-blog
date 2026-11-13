@@ -48,7 +48,25 @@ const DWELL = 3200;
 
 export default function Recognitions({
   showCta = true,
+  content = recognitions,
 }: {
+  /**
+   * The band's own copy and badges, for a page whose live awards section words
+   * it differently (/engagement-model, the staff-cost calculator). Omitted, the
+   * homepage's band renders as before.
+   */
+  content?: {
+    readonly eyebrow?: string;
+    readonly title: string;
+    readonly body?: string;
+    readonly items: readonly {
+      readonly key: string;
+      readonly org: string;
+      readonly title: string;
+      readonly year: string | null;
+      readonly src?: string;
+    }[];
+  };
   /**
    * The "View All" button to /awards-recognition under the intro. On by
    * default; a page whose live awards band has no button (the free demo app

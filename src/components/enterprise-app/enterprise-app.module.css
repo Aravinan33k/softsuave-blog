@@ -1,0 +1,18 @@
+/* /enterprise-custom-application-development — spacing between the nine solutions beside the contents column. */
+.item {
+  padding-block: clamp(26px, 3.2vw, 52px);
+}
+.item:first-child {
+  padding-top: 0;
+}
+.item:last-child {
+  padding-bottom: 0;
+}
+.item section {
+  padding-block: 0;
+}
+
+/* The closing section's heading sits clear of its first paragraph. */
+.customTitle {
+  margin-bottom: clamp(14px, 1.6vw, 22px);
+}
