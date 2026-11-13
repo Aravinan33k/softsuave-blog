@@ -1,0 +1,43 @@
+/* /real-estate-crm-software-development — the expertise tiles and the portfolio entry. */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(28px, 4vw, 56px) clamp(14px, 2vw, 28px);
+}
+.tile { margin: 0; }
+.tileInner { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
+.plaque {
+  display: grid;
+  place-items: center;
+  width: clamp(104px, 11vw, 140px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: border-color 0.4s ease, transform 0.35s ease, box-shadow 0.4s ease;
+}
+.plaque img { width: 52%; height: auto; }
+.tile:hover .plaque { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 10px 30px color-mix(in srgb, var(--accent) 28%, transparent); }
+.tileName {
+  margin: 0;
+  max-width: 24ch;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text);
+}
+.portfolioName {
+  margin: 0 0 12px;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: var(--heading-weight);
+  letter-spacing: -0.02em;
+}
+.portfolioCta { margin-top: 20px; }
+
+@media (min-width: 700px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
