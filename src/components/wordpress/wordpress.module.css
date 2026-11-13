@@ -1,0 +1,7 @@
+/* /wordpress-development-company — the services column. */
+.item { display: block; }
+.item + .item { margin-top: clamp(32px, 4vw, 56px); }
+
+/* The link woven into the last paragraph reads as a link, like the About copy's. */
+.item p a { color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.item p a:hover { color: var(--text-bright); }
