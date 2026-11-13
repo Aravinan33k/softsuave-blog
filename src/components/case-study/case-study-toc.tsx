@@ -22,7 +22,7 @@ export default function CaseStudyToc({
   action,
   activeLine = 0.4,
 }: {
-  /** The column's heading; omitted where the live page's list has none (the Magento page). */
+  /** The column's heading; omitted where the live page's list has none (the Magento and multi-vendor pages). */
   title?: string;
   items: readonly { readonly id: string; readonly label: string }[];
   /** The case study's PDF download button, under the links. */
