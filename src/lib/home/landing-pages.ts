@@ -410,6 +410,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/payment-gateway-integration-services', title: 'Payment Gateway Integration Services', parent: '/software-development-company' },
   { path: '/pos-software-development-company', title: 'POS Software Development Company', breadcrumbLabel: 'Offshore Software Development Service', parent: '/software-development-company' },
   { path: '/real-estate-crm-software-development', title: 'Custom Real Estate CRM Software Development Company' },
+  { path: '/retail-solutions', title: 'Retail Solutions' },
   { path: '/hire-full-stack-developers-in-india', title: 'Hire Full Stack Developers', parent: '/hire-dedicated-developers' },
   { path: '/developer-estimation', title: 'Developer Estimation' },
   { path: '/mobile-app-estimation', title: 'Mobile App Estimation' },
