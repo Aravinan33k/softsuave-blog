@@ -409,6 +409,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/multi-vendor-marketplace-platform', title: 'Multi-vendor Marketplace Platform' },
   { path: '/payment-gateway-integration-services', title: 'Payment Gateway Integration Services', parent: '/software-development-company' },
   { path: '/swift-app-development-company', title: 'Swift App Development Company', parent: '/software-development-company' },
+  { path: '/video-call-app-development-company', title: 'Video Call App Development Company' },
   { path: '/pos-software-development-company', title: 'POS Software Development Company', breadcrumbLabel: 'Offshore Software Development Service', parent: '/software-development-company' },
   { path: '/real-estate-crm-software-development', title: 'Custom Real Estate CRM Software Development Company' },
   { path: '/retail-solutions', title: 'Retail Solutions' },
