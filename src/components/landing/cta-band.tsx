@@ -42,6 +42,7 @@ export default function CtaBand({
   content,
   backdrop = true,
   ctaClassName,
+  tightTop = false,
 }: {
   content: CtaBandContent;
   /** Extra class on the primary button — lets a page restyle its hover without a new variant. */
@@ -54,9 +55,11 @@ export default function CtaBand({
    * treatment ties the band to the closing enquiry section on every other page.
    */
   backdrop?: boolean;
+  /** Trim the band's top padding, for a band that follows a section whose own bottom padding already gives it room. */
+  tightTop?: boolean;
 }) {
   return (
-    <section className={styles.ctaBand}>
+    <section className={`${styles.ctaBand}${tightTop ? ` ${styles.ctaBandTightTop}` : ""}`}>
       {backdrop && <LightFieldBackdrop />}
 
       <FadeUp className={styles.ctaInner}>

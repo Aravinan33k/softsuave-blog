@@ -13,6 +13,6 @@ import { skill } from '@/lib/home/hire-skills/hire-dot-net-developers';
  * The tech stack (tech-logo) and the overview photo (overview-images) stay on the server
  * and arrive as props from `HirePage`.
  */
-export default function Sections({ techStack, overviewImage }: Readonly<HireSectionsProps>) {
-  return <HireBands skill={skill} techStack={techStack} overviewImage={overviewImage} />;
+export default function Sections({ techStack, services, overviewImage }: Readonly<HireSectionsProps>) {
+  return <HireBands skill={skill} techStack={techStack} services={services} overviewImage={overviewImage} />;
 }

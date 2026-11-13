@@ -1,0 +1,123 @@
+/* /hire-full-stack-developers-in-india — the stack cards, the spacing pulls, steps and trust points. */
+
+/* ---- stack combinations ---- */
+.stackGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(10px, 1.2vw, 16px);
+}
+.stackCard {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 2vw, 28px);
+  border: 1px solid var(--card-line, var(--line));
+  border-radius: 12px;
+  background: var(--surface);
+  transition: border-color 0.4s ease;
+}
+.stackCard:hover { border-color: var(--accent); }
+.stackCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stackCard:hover::before { width: 100%; }
+.stackIcons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 34px;
+}
+.stackIcon {
+  width: auto;
+  height: 30px;
+  object-fit: contain;
+}
+.stackName {
+  margin: 16px 0 0;
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+  font-size: var(--fs-card-title);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+.stackBody {
+  margin: 12px 0 0;
+  font-size: var(--fs-body-sm);
+  line-height: 1.62;
+  color: var(--text);
+}
+.stackLink {
+  margin-top: auto;
+  padding-top: 16px;
+  font-family: var(--font-eyebrow);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+}
+.stackLink:hover { text-decoration: underline; }
+
+/* ---- why India ---- */
+.whyHead { padding-bottom: 0; }
+.pullUp { margin-top: calc(var(--section-y) * -0.9); }
+.whyPull { margin-top: calc(var(--section-y) * -1.5); }
+.whyCta { padding-bottom: calc(var(--section-y) * 0.5); margin-top: calc(var(--section-y) * -0.9 + 24px); }
+@media (max-width: 700px) { .whyPull { margin-top: calc(var(--section-y) * -2.6); } }
+/* The steps band above ends in its own section padding, so the trust band pulls up under it. */
+.trustPull { margin-top: calc(var(--section-y) * -0.6); }
+
+/* ---- steps: a wide strip, and a tall one on phones ---- */
+.stepsMedia { display: flex; justify-content: center; }
+.stepsWide { display: block; width: 100%; height: auto; }
+.stepsTall { display: none; width: 100%; max-width: 360px; height: auto; }
+@media (max-width: 700px) {
+  .stepsWide { display: none; }
+  .stepsTall { display: block; }
+}
+
+/* ---- trust points ---- */
+.points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.points li {
+  position: relative;
+  padding-left: 22px;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--text);
+}
+.points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+@media (max-width: 1100px) { .stackGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .stackGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .stackGrid { grid-template-columns: minmax(0, 1fr); } }
+
+.pointsRow { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: clamp(24px, 3vw, 40px); }
+@media (max-width: 700px) { .pointsRow { grid-template-columns: minmax(0, 1fr); } }

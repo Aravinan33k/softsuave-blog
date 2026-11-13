@@ -19,6 +19,10 @@ import TechStack from '@/components/landing/tech-stack';
 // The Android page's labelled rows, for a page whose grouped panels are too
 // sparse to read as a grid (Kotlin: "need to change the design of the tech stack").
 import TechRows from '@/components/home/tech-stack';
+// The Agentic AI page's photo-card grid, for a skill with `servicesPhotoCards`.
+// Its card icons draw `TechLogo`, so it is a server band like the two above.
+import PhotoCards from '@/components/generative-ai/industries';
+import SectionCta from '@/components/generative-ai/section-cta';
 
 import home from '@/components/home/home.module.css';
 
@@ -107,11 +111,50 @@ export default function HirePage({
    */
   const techStack = !skill.techStack ? null : skill.techStackStyle === 'rows' ? (
     <div className={home.techFit}>
-      <TechRows content={skill.techStack} staticFrom={768} />
+      <TechRows content={skill.techStack} staticFrom={768} collapsedGroups={skill.techStackCollapsedRows} />
     </div>
   ) : (
     <TechStack content={skill.techStack} />
   );
+
+  /*
+   * The services band as photo cards (`servicesPhotoCards`), drawn here for the
+   * same reason as the tech stack: `PhotoCards` renders `TechLogo` through its
+   * card icons. A skill without the flag gets `undefined` and the client draws
+   * its usual card grid.
+   */
+  const services =
+    skill.services && skill.servicesPhotoCards ? (
+      <>
+        <PhotoCards
+          id="services"
+          content={{
+            eyebrow: skill.services.eyebrow,
+            title: skill.services.title,
+            body: skill.services.body,
+            cta: skill.services.cta,
+            items: skill.services.items.map((item) => ({
+              name: item.name,
+              body: item.body,
+              image: item.image?.src,
+              link: false as const,
+            })),
+          }}
+        />
+        {/* The photo grid draws no closing button of its own. */}
+        <div
+          className={home.section}
+          style={{
+            paddingTop: 0,
+            paddingBottom: 0,
+            marginTop: 'calc(var(--section-y) * -0.95)',
+            marginBottom: 'calc(var(--section-y) * -0.35)',
+          }}
+        >
+          <SectionCta cta={skill.services.cta} />
+        </div>
+      </>
+    ) : undefined;
 
   // A skill's own overview image wins, so the photo is only looked up (and only
   // sent to the client) when the skill names none.
@@ -133,7 +176,7 @@ export default function HirePage({
       <Nav logoHref={BASE_PATH || '/'} />
 
       <main id="main">
-        <Sections techStack={techStack} overviewImage={overviewPhoto} />
+        <Sections techStack={techStack} services={services} overviewImage={overviewPhoto} />
       </main>
 
       <Footer />

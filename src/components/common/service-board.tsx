@@ -5,6 +5,7 @@ import Image from "next/image";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
 import SectionHead from "@/components/landing/section-head";
+import badgeStyles from "./card-icon-badge.module.css";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import ServiceLink, { useServiceHref } from "@/components/common/service-link";
 import { SiteLink } from "@/themes/softsuave/site-link";
@@ -36,6 +37,10 @@ export interface ServiceBoardContent {
      * it is on.
      */
     readonly href?: string;
+    /** A brand mark drawn in the icon badge of the card and its panel, in place of the picked glyph. */
+    readonly mark?: { readonly src: string; readonly alt: string };
+    /** `false` leaves this service unlinked even where its name matches one of our pages. */
+    readonly link?: false;
   }[];
 }
 
@@ -71,6 +76,22 @@ export interface ServiceBoardContent {
  * the card's, so the document outline keeps one heading per service exactly
  * as the live page has it.
  */
+/** The icon badge with a brand mark in it. */
+function MarkBadge({ mark, size }: { mark: { readonly src: string; readonly alt: string }; size?: "sm" }) {
+  return (
+    <span className={`${badgeStyles.badge}${size === "sm" ? ` ${badgeStyles.sm}` : ""}`} role="img" aria-label={mark.alt}>
+      <Image
+        src={publicMediaUrl(mark.src)}
+        alt=""
+        width={48}
+        height={48}
+        unoptimized
+        style={{ width: "58%", height: "58%", objectFit: "contain" }}
+      />
+    </span>
+  );
+}
+
 export default function ServiceBoard({
   content,
   id = "services",
@@ -211,7 +232,7 @@ export default function ServiceBoard({
               className={styles.sbCard}
               onClick={() => setActive(i)}
             >
-              <CardIconBadge title={item.name} body={item.paragraphs[0]} size="sm" />
+              {item.mark ? <MarkBadge mark={item.mark} size="sm" /> : <CardIconBadge title={item.name} body={item.paragraphs[0]} size="sm" />}
               <span className={styles.sbCardName}>{item.name}</span>
               <span className={styles.sbCardMark} aria-hidden>
                 <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
@@ -230,7 +251,7 @@ export default function ServiceBoard({
          */}
         <div className={styles.sbStage}>
           {items.map((item, i) => {
-            const href = hrefFor(item.name, item.href);
+            const href = item.link === false ? undefined : hrefFor(item.name, item.href);
             return (
             <div
               key={item.name}
@@ -254,7 +275,7 @@ export default function ServiceBoard({
               )}
 
               <div className={styles.sbCopy}>
-                <CardIconBadge title={item.name} body={item.paragraphs[0]} />
+                {item.mark ? <MarkBadge mark={item.mark} /> : <CardIconBadge title={item.name} body={item.paragraphs[0]} />}
                 <h3 className={styles.sbPanelName}>{item.name}</h3>
                 {item.paragraphs.map((p) => (
                   <p key={p.slice(0, 32)} className={styles.sbText}>
