@@ -36,8 +36,11 @@ export default function ManagerEnquiry({
   content,
   id = "enquiry",
   idPrefix = "ad-ai-contact",
+  headingFont = false,
 }: {
   content: ManagerEnquiryInput;
+  /** Sets the title in the page-heading face (Space Grotesk, 600) instead of the band's light display face. */
+  headingFont?: boolean;
   id?: string;
   /** Namespaces the form's field ids and is stored on the lead as its `sourceKey`, so it names the page. */
   idPrefix?: string;
@@ -47,7 +50,7 @@ export default function ManagerEnquiry({
     <section className={styles.shell} id="contact">
       <div className={styles.enq}>
         <div>
-          <h2 className={styles.enqTitle}>{content.title}</h2>
+          <h2 className={headingFont ? `${styles.enqTitle} ${styles.enqTitleHeading}` : styles.enqTitle}>{content.title}</h2>
           <p className={styles.enqSub}>{content.body}</p>
 
           <div className={styles.enqSteps}>

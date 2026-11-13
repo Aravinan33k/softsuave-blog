@@ -11,7 +11,17 @@ export interface FaqContent {
   eyebrow: string;
   title: string;
   body: string;
-  items: readonly { readonly q: string; readonly a: string }[];
+  items: readonly {
+    readonly q: string;
+    /** The answer as plain text — what schema helpers read. */
+    readonly a: string;
+    /**
+     * Optional structured answer, rendered in place of `a`: paragraphs and
+     * bullet lists in the live answer's own order, for an answer that is more
+     * than one paragraph ("The best frameworks to consider" + a list + …).
+     */
+    readonly blocks?: readonly FaqAnswerBlock[];
+  }[];
   /**
    * Internal links woven into the answers, matched on their own words — see
    * `components/common/linkify`. Each phrase links once across the whole
@@ -19,6 +29,9 @@ export interface FaqContent {
    */
   links?: readonly InlineLink[];
 }
+
+/** One block of a structured answer: a paragraph, or a bullet list. */
+export type FaqAnswerBlock = string | { readonly list: readonly string[] };
 
 /**
  * FAQ accordion.
@@ -41,9 +54,16 @@ export interface FaqContent {
 export default function Faq({
   content = generativeAiFaq,
   idPrefix = "faq",
+  questionAs: Question = "h3",
 }: {
   content?: FaqContent;
   idPrefix?: string;
+  /**
+   * Heading level wrapping each question's button. H3 by default; a page
+   * ported from the live site passes its source's level (the Germany page's
+   * questions are H4s), so the outline stays the same. Styling is identical.
+   */
+  questionAs?: "h3" | "h4";
 } = {}) {
   const [open, setOpen] = useState<number | null>(0);
   // One set per render, threaded through every answer, so a phrase that
@@ -60,7 +80,7 @@ export default function Faq({
             const isOpen = open === i;
             return (
               <div key={item.q} className={styles.faqItem}>
-                <h3>
+                <Question>
                   <button
                     type="button"
                     className={styles.faqTrigger}
@@ -72,7 +92,7 @@ export default function Faq({
                     <span className={styles.faqQuestion}>{item.q}</span>
                     <span className={styles.faqIcon} aria-hidden />
                   </button>
-                </h3>
+                </Question>
 
                 <div className={styles.faqPanelWrap} data-open={isOpen}>
                   <div
@@ -81,9 +101,25 @@ export default function Faq({
                     role="region"
                     aria-labelledby={`${idPrefix}-trigger-${i}`}
                   >
-                    <p className={styles.faqAnswer}>
-                      {linkify(item.a, content.links, usedLinks, styles.proseLink)}
-                    </p>
+                    {item.blocks ? (
+                      <div className={`${styles.faqAnswer} ${styles.faqAnswerBlocks}`}>
+                        {item.blocks.map((block, b) =>
+                          typeof block === "string" ? (
+                            <p key={b}>{linkify(block, content.links, usedLinks, styles.proseLink)}</p>
+                          ) : (
+                            <ul key={b}>
+                              {block.list.map((li) => (
+                                <li key={li}>{linkify(li, content.links, usedLinks, styles.proseLink)}</li>
+                              ))}
+                            </ul>
+                          ),
+                        )}
+                      </div>
+                    ) : (
+                      <p className={styles.faqAnswer}>
+                        {linkify(item.a, content.links, usedLinks, styles.proseLink)}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

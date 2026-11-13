@@ -1,7 +1,7 @@
 import 'server-only';
 import { prisma } from '../db';
 import { homepageEnabled } from '../flags';
-import { MARKETING_ROUTES } from '../home/landing-pages';
+import { MARKETING_ROUTES, NON_SITEMAP_ROUTES } from '../home/landing-pages';
 import { absoluteUrl } from './metadata';
 
 // Shared data for sitemap + feeds. Only indexable, published, live content.
@@ -19,7 +19,14 @@ import { absoluteUrl } from './metadata';
 
 function landingEntries(now: Date): SitemapEntry[] {
   return [
-    ...(homepageEnabled ? MARKETING_ROUTES.map((p) => ({ url: absoluteUrl(p), lastModified: now })) : []),
+    // Minus the routes that are noindex by design (`sitemap: false` in the
+    // registry): a sitemap must not advertise a page that asks not to be indexed.
+    ...(homepageEnabled
+      ? MARKETING_ROUTES.filter((p) => !NON_SITEMAP_ROUTES.has(p)).map((p) => ({
+          url: absoluteUrl(p),
+          lastModified: now,
+        }))
+      : []),
     { url: absoluteUrl('/blog'), lastModified: now },
   ];
 }

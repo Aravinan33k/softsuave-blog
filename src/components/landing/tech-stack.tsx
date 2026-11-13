@@ -10,6 +10,8 @@ export interface TechStackContent {
   groups: readonly { readonly name: string; readonly items: readonly string[] }[];
   /** A label over the groups ("Technologies") — shown by `TechCluster`, which has the room for it. */
   readonly groupsLabel?: string;
+  /** Gives a long title a wider column beside the divider. */
+  readonly wideHead?: boolean;
   /**
    * A mark of the page's own for a tool, by its name as written in `items` — drawn
    * instead of the `TechLogo` lookup (the live ad pages' stack shows an image for

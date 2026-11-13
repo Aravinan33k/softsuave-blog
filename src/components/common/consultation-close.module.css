@@ -1,0 +1,170 @@
+/* =====================================================================
+   CONSULTATION CLOSE — headline, next steps, consultant card and badges
+   on the left; the shared enquiry card on the right.
+
+   Band tokens only (--bg, --surface, --line, --accent, --text,
+   --text-bright, --muted), so it reads on a dark band or a `.light` one.
+   ===================================================================== */
+
+.section {
+  /* A faint coral glow behind the copy column, as the heroes carry. */
+  background:
+    radial-gradient(60% 70% at 0% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),
+    var(--bg);
+}
+
+.grid {
+  display: grid;
+  gap: clamp(28px, 4vw, 64px);
+  align-items: start;
+}
+
+.copy {
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight, 300);
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+}
+
+.rule {
+  display: block;
+  width: 56px;
+  height: 2px;
+  margin: clamp(16px, 1.6vw, 22px) 0;
+  background: var(--accent);
+}
+
+.body {
+  margin: 0;
+  max-width: 52ch;
+  font-size: var(--fs-body);
+  line-height: 1.62;
+  color: var(--text);
+}
+
+.steps {
+  display: grid;
+  gap: 14px;
+  margin: clamp(24px, 2.6vw, 36px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.stepNum {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  color: var(--accent);
+}
+
+.stepTitle {
+  margin: 0;
+  font-weight: 600;
+  font-size: var(--fs-body);
+  color: var(--text-bright);
+}
+
+.stepBody {
+  margin: 2px 0 0;
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.person {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 18px;
+  margin-top: clamp(24px, 2.6vw, 36px);
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.personImg {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.personText {
+  flex: 1 1 140px;
+  min-width: 0;
+}
+
+.personName {
+  margin: 0;
+  font-weight: 600;
+  font-size: var(--fs-body);
+  color: var(--text-bright);
+}
+
+.personRole {
+  margin: 2px 0 0;
+  font-family: var(--font-eyebrow);
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.personCta {
+  flex: 0 0 auto;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The issuers' art is dark-on-transparent, so each sits on a white plaque —
+   the heroes' treatment. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.badgeImg {
+  width: auto;
+  height: 28px;
+}
+
+.formCol {
+  min-width: 0;
+}
+
+@media (min-width: 1000px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
+  }
+}

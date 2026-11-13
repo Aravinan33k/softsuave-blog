@@ -1,4 +1,5 @@
 import CardGrid, { type CardGridContent, type CardIcon } from "@/components/landing/industries";
+import type { InlineLink } from "@/components/common/linkify";
 
 /**
  * Content this section accepts.
@@ -14,6 +15,8 @@ export interface ServicesGridContent {
   eyebrow: string;
   title: string;
   body: string;
+  /** Phrases in the cards' bodies to link, as the live cards link them — see `CardGrid`'s `links`. */
+  links?: readonly InlineLink[];
   items: readonly {
     readonly name: string;
     readonly body: string;
@@ -139,6 +142,23 @@ const SERVICE_ICONS: Readonly<Record<string, CardIcon>> = {
   "agent memory and context management": "database",
   "agent evaluation testing and guardrails": "shield",
   "deployment observability and optimization": "rocket",
+
+  // ---- /mobile-app-development-company-dubai ----
+  "ios app development": "code",
+  "android app development": "layers",
+  "enterprise mobility solutions": "network",
+  // ---- /mobile-app-development-company-saudi-arabia ----
+  "enterprise mobile solutions": "network",
+
+  // ---- /software-development-company-france ----
+  "enterprise solutions": "layers",
+  "product engineering services": "cpu",
+  "ai vi technologies": "spark",
+  "cloud application": "cloud",
+  "saas development": "code",
+  "ecommerce development": "target",
+  // ---- /software-development-company-germany (the rest as France) ----
+  "enterprise app development": "layers",
 };
 
 /**
@@ -213,16 +233,20 @@ export default function ServicesGrid({
   content,
   id = "services",
   columns,
+  linkLabel,
 }: {
   content: ServicesGridContent;
   id?: string;
   /** `2` keeps the grid two across at every width — see `CardGrid`'s `columns`. */
   columns?: 2;
+  /** Visible words of each card's link — see `CardGrid`'s `linkLabel`. */
+  linkLabel?: string;
 }) {
   const grid: CardGridContent = {
     eyebrow: content.eyebrow,
     title: content.title,
     body: content.body,
+    links: content.links,
     items: content.items.map((item) => ({
       name: item.name,
       body: item.body,
@@ -237,5 +261,5 @@ export default function ServicesGrid({
     })),
   };
 
-  return <CardGrid content={grid} id={id} variant="feature" columns={columns} />;
+  return <CardGrid content={grid} id={id} variant="feature" columns={columns} linkLabel={linkLabel} />;
 }
