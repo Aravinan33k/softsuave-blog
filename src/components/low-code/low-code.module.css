@@ -1,0 +1,43 @@
+/* /low-code-development-company — the six platform marks. */
+.platforms {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(10px, 1.2vw, 16px);
+}
+.platform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: clamp(20px, 2.4vw, 32px);
+  border: 1px solid var(--card-line, var(--line));
+  border-radius: 12px;
+  background: var(--surface);
+  transition: border-color 0.4s ease;
+}
+.platform:hover { border-color: var(--accent); }
+.platformLogo { display: flex; align-items: center; justify-content: center; height: 80px; }
+.platformMark { width: auto; height: auto; max-width: 160px; max-height: 72px; object-fit: contain; }
+.platformName {
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+  font-size: var(--fs-card-title);
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+  text-align: center;
+}
+@media (max-width: 900px) { .platforms { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .platforms { grid-template-columns: minmax(0, 1fr); } }
+
+/* "Considered the Best": the picture only from 1000px up, as on live (d-none d-lg-block). */
+.best { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(18px, 2.4vw, 32px); align-items: center; }
+.bestMedia { display: none; }
+.bestMedia img { width: 100%; height: auto; border-radius: 12px; }
+.bestGrid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 18px); }
+.bestGrid > li { cursor: default; }
+@media (min-width: 1000px) { .best { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); } .bestMedia { display: block; } }
+@media (max-width: 640px) { .bestGrid { grid-template-columns: minmax(0, 1fr); } }

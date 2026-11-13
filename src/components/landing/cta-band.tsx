@@ -115,7 +115,7 @@ export default function CtaBand({
 
       {content.stats && content.stats.length > 0 && (
         <FadeUp>
-          <dl className={styles.ctaStats}>
+          <dl className={styles.ctaStats} data-count={content.stats.length}>
             {content.stats.map((stat) => (
               <div key={stat.label} className={styles.ctaStat}>
                 <dt className={styles.ctaStatFigure}>{stat.figure}</dt>

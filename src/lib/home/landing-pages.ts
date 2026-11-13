@@ -404,6 +404,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/enterprise-custom-application-development', title: 'Enterprise Custom Application Development' },
   { path: '/cross-platform-application-development-company', title: 'Cross-platform Development Service', parent: '/software-development-company' },
   { path: '/ecommerce-mobile-app-development-company', title: 'eCommerce App Development', parent: '/mobile-application-development-company' },
+  { path: '/low-code-development-company', title: 'Low-Code Development Company' },
   { path: '/hire-full-stack-developers-in-india', title: 'Hire Full Stack Developers', parent: '/hire-dedicated-developers' },
   { path: '/developer-estimation', title: 'Developer Estimation' },
   { path: '/mobile-app-estimation', title: 'Mobile App Estimation' },

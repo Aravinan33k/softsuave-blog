@@ -6478,6 +6478,16 @@
   text-align: center;
 }
 
+/* Four figures sit in one row (two by two on a phone), not three and a lone fourth. */
+.ctaStats[data-count="4"] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+@media (max-width: 640px) {
+  .ctaStats[data-count="4"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .ctaStatFigure {
   margin: 0;
   font-family: var(--font-heading);
