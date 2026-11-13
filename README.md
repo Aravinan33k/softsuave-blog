@@ -228,6 +228,33 @@ This builds the app image, starts MySQL + the app (port 3000), runs `prisma migr
 on start, and persists local uploads in the `app_storage` volume. The `app` service reaches
 MySQL over the compose network (its `DATABASE_URL` is overridden to use the `mysql` host).
 
+### Production build for www.softsuave.com
+
+`NEXT_PUBLIC_*` values are compiled in at build time, so they must reach `docker build`
+(as `--build-arg`, or through `.env` for `docker compose`). Setting them only at runtime has
+no effect. For the live site:
+
+| Variable | Production value | Default if omitted |
+| --- | --- | --- |
+| `NEXT_PUBLIC_HOMEPAGE_ENABLED` | `true` | `false`: `/` redirects to `/blog` |
+| `NEXT_PUBLIC_ALLOW_INDEXING` | `true` | `false`: every page is `noindex, nofollow` |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.softsuave.com` | same |
+| `NEXT_PUBLIC_GTM_ID` | empty (uses `GTM-TWMFSDC`) | same |
+
+```bash
+docker build \
+  --build-arg NEXT_PUBLIC_HOMEPAGE_ENABLED=true \
+  --build-arg NEXT_PUBLIC_ALLOW_INDEXING=true \
+  --build-arg NEXT_PUBLIC_SITE_URL=https://www.softsuave.com \
+  -t softsuave-site:latest .
+```
+
+At runtime, replace every `dev-*` / `ChangeMe` secret from `.env.example` (`JWT_*`, `PREVIEW_SECRET`,
+`REVALIDATE_SECRET`, `SEED_ADMIN_*`), set `DATABASE_URL` to the production MySQL, leave
+`DATABASE_SSL` unset (or `verify`) when the database is on another host, and set `SMTP_*` and
+`NEETOCAL_API_KEY` so the enquiry forms and booking work. The container runs
+`prisma migrate deploy` on start, so take a database backup first.
+
 > **Build note:** the production build emits one Turbopack file-tracing warning for the local
 > `/uploads` route (it uses `process.cwd()`). It's harmless; on Vercel, use S3 storage and the
 > route is unused.
