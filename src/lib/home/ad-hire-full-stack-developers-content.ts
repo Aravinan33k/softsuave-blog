@@ -51,6 +51,8 @@ export const fsHero: HeroContent = {
   // Microsoft Silver Partner, AWS Select Technology Partner. Made for a dark
   // ground, so they sit bare.
   badgesBare: true,
+  // The live masthead's anniversary seal, top right; it reads "12th" there, and "14 years" here, as on the AI page.
+  logoBadge: { src: "/brand/ad/seal-14-years.webp", alt: "14 years of success and experience", width: 220, height: 220 },
   badges: [
     { src: "/brand/ad/fs-cmmi.webp", alt: "CMMI Level 3", width: 252, height: 180 },
     { src: "/brand/ad/fs-clutch.webp", alt: "Rate on Clutch 4.9", width: 296, height: 180 },

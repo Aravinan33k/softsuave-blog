@@ -96,7 +96,7 @@ export default function AdHireDedicatedDeveloperPage() {
           <CtaRow {...dedWhy.cta} wipe />
         </div>
 
-        <CtaBand content={dedRateBand} ctaClassName={styles.btnWipe} />
+        <CtaBand content={dedRateBand} />
 
         <div className={home.light}>
           <Comparison content={dedComparison} id="compare" />

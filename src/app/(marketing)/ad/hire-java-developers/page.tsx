@@ -78,7 +78,7 @@ export default function AdHireJavaDevelopersPage() {
           <CardGrid content={jvServices} id="services" variant="bold" />
         </div>
 
-        <CtaBand content={jvRateBand} ctaClassName={styles.btnWipe} />
+        <CtaBand content={jvRateBand} />
 
         <div className={home.light}>
           <EngagementModels content={jvModels} />

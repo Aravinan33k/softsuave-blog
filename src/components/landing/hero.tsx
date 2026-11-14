@@ -150,6 +150,8 @@ export interface HeroContent {
    * live /ad/remote-developers masthead's own "Start 40 Hours Free Trial →".
    */
   logoCta?: { readonly label: string; readonly href: string };
+  /** A seal at the top right of the logo row (`noNav` pages) — the live ad hero's anniversary badge. */
+  logoBadge?: { readonly src: string; readonly alt: string; readonly width: number; readonly height: number };
   /** An email address: adds an icon button beside `logoCta` that opens a message to it. */
   logoMail?: string;
   /**
@@ -419,6 +421,16 @@ export default function Hero({
           <a href="#top" aria-label="Soft Suave logo">
             <Logo tone="light" size={48} />
           </a>
+          {content.logoBadge && (
+            <Image
+              src={publicMediaUrl(content.logoBadge.src)}
+              alt={content.logoBadge.alt}
+              width={content.logoBadge.width}
+              height={content.logoBadge.height}
+              className={styles.heroLogoBadge}
+              priority
+            />
+          )}
           {content.logoCta && (
             <div className={styles.heroLogoActions}>
               {content.logoMail && (

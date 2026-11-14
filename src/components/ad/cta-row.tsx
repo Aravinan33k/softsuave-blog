@@ -8,6 +8,7 @@ export default function CtaRow({
   wipe = false,
   tight = false,
   joined = false,
+  white = false,
 }: {
   lead?: string;
   /** Omit with `href` for a closing line on its own, no button. */
@@ -19,6 +20,8 @@ export default function CtaRow({
   tight?: boolean;
   /** No bottom padding — for a row followed by a section on the same ground that carries its own top padding. */
   joined?: boolean;
+  /** The white left-to-right hover fill, for a button on a dark section (see `.btnWhite`). */
+  white?: boolean;
 }) {
   return (
     <section
@@ -28,7 +31,7 @@ export default function CtaRow({
         {lead && <p className={styles.ctaLead}>{lead}</p>}
         {/* Plain anchor: the trial modal (and Lenis) listen for in-page links. */}
         {label && href && (
-          <a className={wipe ? `${styles.btn} ${styles.btnWipe}` : styles.btn} href={href}>
+          <a className={wipe ? `${styles.btn} ${styles.btnWipe}` : white ? `${styles.btn} ${styles.btnWhite}` : styles.btn} href={href}>
             {label}
           </a>
         )}

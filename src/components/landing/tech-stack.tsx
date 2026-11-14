@@ -18,6 +18,8 @@ export interface TechStackContent {
    * every tool, including the ones `TechLogo` has no mark for).
    */
   readonly images?: Readonly<Record<string, string>>;
+  /** Tools from `images` whose mark is dark ink: they sit on a small light plaque so they read on the dark panel. */
+  readonly plaqueMarks?: readonly string[];
 }
 
 /**
@@ -89,7 +91,11 @@ export default function TechStack({
               width={56}
               height={56}
               unoptimized
-              style={{ width: largeLogos ? 28 : 22, height: largeLogos ? 28 : 22, objectFit: "contain" }}
+              style={
+                content.plaqueMarks?.includes(item)
+                  ? { width: 28, height: 28, objectFit: "contain", background: "#fff", borderRadius: 6, padding: 3, boxSizing: "border-box" }
+                  : { width: largeLogos ? 28 : 22, height: largeLogos ? 28 : 22, objectFit: "contain" }
+              }
             />
           ) : (
             <TechLogo key={item} name={item} />

@@ -44,6 +44,45 @@
   border-color: var(--accent-border);
 }
 
+/* The same left-to-right wipe as `.btnWipe`, filling white with dark ink: for a button on a dark section. */
+.btnWhite {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: background 0s, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btnWhite::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.btnWhite:hover,
+.btnWhite:focus-visible {
+  background: #fff;
+  border-color: #fff;
+  color: #140b08;
+  transition: background 0s 0.4s, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btnWhite:hover::before,
+.btnWhite:focus-visible::before {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btnWhite::before {
+    transition: none;
+  }
+}
+
 /* ---------- Top talent ---------- */
 .stats {
   display: grid;
@@ -1065,6 +1104,17 @@
   max-width: 520px;
   justify-self: center;
   border-radius: 20px;
+}
+
+/* A section that ends in its button: the next section already opens with its own top padding, so the button does not
+   also carry a full section's worth below it (two stacked paddings read as one huge gap). */
+.shell:has(> .cta:last-child:not(:only-child)) {
+  padding-bottom: clamp(16px, 2vw, 32px);
+}
+
+/* A card grid and the button row straight under it: the grid's own bottom padding is dropped so the two read as one block. */
+.gridWithCta > section:first-child {
+  padding-bottom: clamp(16px, 2vw, 32px);
 }
 
 /* A list beside a photo: the button under it sits close to the photo, not a whole section away. */

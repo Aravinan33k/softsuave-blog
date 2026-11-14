@@ -96,7 +96,7 @@ export default function AdHireFullStackDevelopersPage() {
           <CardGrid content={fsStacks} id="stacks" variant="bold" />
         </div>
 
-        <CtaBand content={fsRateBand} ctaClassName={styles.btnWipe} />
+        <CtaBand content={fsRateBand} />
 
         <div className={home.light}>
           <Process content={fsProcess} id="journey" />

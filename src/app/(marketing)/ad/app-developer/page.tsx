@@ -90,12 +90,14 @@ export default function AdAppDeveloperPage() {
               open the white band that follows it. */}
           <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={adClients.title} body={adClients.body} />
           <TopTalent content={adTalent} />
-          <CardGrid content={adMobile} id="services" variant="bold" span={4} autoLink={false} />
-          <CtaRow {...adMobileCta} />
+          <div className={styles.gridWithCta}>
+            <CardGrid content={adMobile} id="services" variant="bold" span={4} autoLink={false} />
+            <CtaRow {...adMobileCta} tight />
+          </div>
         </div>
 
         <TechCluster content={adExperts} />
-        <CtaRow label={adTrialBand.cta.label} href={adTrialBand.cta.href} />
+        <CtaRow label={adTrialBand.cta.label} href={adTrialBand.cta.href} tight />
 
         <div className={home.light}>
           <WhyList title={adWhy.title} items={adWhy.items} />

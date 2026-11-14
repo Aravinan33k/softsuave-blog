@@ -95,7 +95,7 @@ export default function AdHireMobileAppDevelopersPage() {
         </div>
 
         <TechCluster content={mbSkills} />
-        <CtaRow {...mbSkillsCta} />
+        <CtaRow {...mbSkillsCta} tight white />
 
         <div className={home.light}>
           <WhyList title={mbWhy.title} items={mbWhy.items} />

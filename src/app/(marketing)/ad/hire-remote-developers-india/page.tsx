@@ -82,7 +82,7 @@ export default function AdHireRemoteDevelopersIndiaPage() {
           <TechStack content={rdTech} />
         </div>
 
-        <CtaBand content={rdRateBand} ctaClassName={styles.btnWipe} />
+        <CtaBand content={rdRateBand} />
 
         <div className={home.light}>
           <EngagementModels content={rdModels} />

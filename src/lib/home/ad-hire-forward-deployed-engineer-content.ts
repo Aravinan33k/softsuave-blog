@@ -101,6 +101,34 @@ export const fdeTech: TechStackContent = {
     { name: "Cloud", items: ["Aws", "Azure", "Cloud", "Kubernetes", "Docker", "CI/CD"] },
     { name: "Automation & Scripting", items: ["Python", "Node.js", "Bash", "Workflow Orchestration"] },
   ],
+  // Dark-ink marks sit on a light plaque so they read on the dark panel.
+  plaqueMarks: ["REST API", "Webhooks", "LLMs", "RAG", "CI/CD", "Aws", "Docker"],
+  // The live stack shows an image for every tool, as its own files (under /public/brand/ad/tech). Its "ETL Tools"
+  // chip carries the JavaScript mark, so it does here.
+  images: Object.fromEntries(
+    Object.entries({
+      "REST API": "rest-api.svg",
+      GraphQL: "graphql-icon.svg",
+      Webhooks: "webhooks.svg",
+      middleware: "middleware.svg",
+      "ETL Tools": "javascript-1.webp",
+      LLMs: "llms.svg",
+      RAG: "rag.svg",
+      "Agent Frameworks": "agent-framework.svg",
+      "Vector DBs": "vectordb.svg",
+      MLOps: "mlops.svg",
+      Aws: "aws.webp",
+      Azure: "azure.webp",
+      Cloud: "google-cloud.webp",
+      Kubernetes: "kubernets.webp",
+      Docker: "docker.webp",
+      "CI/CD": "ci-cd.svg",
+      Python: "python.webp",
+      "Node.js": "nodejs.webp",
+      Bash: "bash.svg",
+      "Workflow Orchestration": "workflow-orchestration.svg",
+    }).map(([name, file]) => [name, `/brand/ad/tech/${file}`]),
+  ),
 };
 
 export const fdePractice: CardGridContent = {

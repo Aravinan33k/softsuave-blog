@@ -112,7 +112,7 @@ export default function AdHireSalesforceDeveloperPage() {
           <WhyList title={sfWhy.title} items={sfWhy.items} />
         </div>
 
-        <CtaBand content={sfTrialBand} ctaClassName={styles.btnWipe} />
+        <CtaBand content={sfTrialBand} />
 
         <div className={home.light}>
           <PricingPlans content={sfPricing} />

@@ -100,7 +100,7 @@ export default function AdRemoteDevelopersPage() {
           <CtaRow {...rsServicesCta} wipe />
         </div>
 
-        <CtaBand content={rsScaleBand} ctaClassName={styles.btnWipe} />
+        <CtaBand content={rsScaleBand} />
 
         {/* Light band after the dark "Scale" band, then the dark practice cards. */}
         <div className={home.light}>

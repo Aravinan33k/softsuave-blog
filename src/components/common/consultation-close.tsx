@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CalendarDays } from "lucide-react";
 import { publicMediaUrl } from "@/lib/media-url";
 import { heroBadgeSizes, type HeroBadge } from "@/lib/home/hero-badges";
 import { SiteLink } from "@/themes/softsuave/site-link";
@@ -43,7 +44,10 @@ export default function ConsultationClose({
   content,
   idPrefix,
   id = "contact",
+  ctaIcon = false,
 }: Readonly<{
+  /** A calendar icon before the booking button's label, as on the live booking buttons. */
+  ctaIcon?: boolean;
   content: ConsultationCloseContent;
   /** Namespaces the form's field ids and is the lead's `sourceKey`. */
   idPrefix: string;
@@ -86,9 +90,18 @@ export default function ConsultationClose({
               <p className={styles.personName}>{person.name}</p>
               <p className={styles.personRole}>{person.role}</p>
             </div>
-            <SiteLink href={content.cta.href} className={`${gen.btn} ${gen.btnPrimary} ${styles.personCta}`}>
-              {content.cta.label}
-            </SiteLink>
+            {/* An in-page anchor (the form beside it) stays a plain link: SiteLink would send a bare "#…" to the live site. */}
+            {content.cta.href.startsWith("#") ? (
+              <a href={content.cta.href} className={`${gen.btn} ${gen.btnPrimary} ${styles.personCta}`}>
+                {ctaIcon && <CalendarDays size={18} aria-hidden />}
+                {content.cta.label}
+              </a>
+            ) : (
+              <SiteLink href={content.cta.href} className={`${gen.btn} ${gen.btnPrimary} ${styles.personCta}`}>
+                {ctaIcon && <CalendarDays size={18} aria-hidden />}
+                {content.cta.label}
+              </SiteLink>
+            )}
           </div>
 
           {content.badges.length > 0 ? (

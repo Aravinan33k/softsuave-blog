@@ -288,12 +288,18 @@
   display: inline-flex;
 }
 
-/* A masthead button opposite the logo (`logoCta`), from tablet up. */
-.heroLogo:has(.heroLogoCta) {
+/* A masthead button or seal opposite the logo (`logoCta` / `logoBadge`). */
+.heroLogo:has(.heroLogoCta, .heroLogoBadge) {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+}
+
+.heroLogo .heroLogoBadge {
+  display: block;
+  width: clamp(64px, 7vw, 100px);
+  height: auto;
 }
 
 .heroLogoActions {
