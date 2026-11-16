@@ -62,6 +62,48 @@ describe('buildAutoReplyEmail', () => {
   });
 });
 
+describe('buildAutoReplyEmail — a case study request', () => {
+  const caseStudy = { title: 'Vehicle Intelligence', url: `${site}assets/case-studies/Vehicle_Intelligence_Case_Study.pdf` };
+
+  it('replaces "Know more" with a "Download Case Study" button to the PDF', async () => {
+    const { buildAutoReplyEmail } = await import('./auto-reply');
+    const { subject, text, html } = buildAutoReplyEmail({ name: 'Jane Doe', email: 'j@x.com' }, { siteUrl: site, caseStudy });
+    expect(subject).toBe('Your Soft Suave case study: Vehicle Intelligence');
+    expect(html).toContain(`href="${caseStudy.url}"`);
+    expect(html).toContain('>Download Case Study</a>');
+    expect(html).not.toContain('Know more');
+    expect(text).toContain(`Download Case Study: ${caseStudy.url}`);
+    expect(text).not.toContain('Know more');
+    expect(text).toContain('Vehicle Intelligence case study');
+  });
+
+  it('keeps "Know more" for every other form', async () => {
+    const { buildAutoReplyEmail } = await import('./auto-reply');
+    const { html } = buildAutoReplyEmail({ name: 'Jane', email: 'j@x.com' }, { siteUrl: site });
+    expect(html).toContain('>Know more</a>');
+    expect(html).not.toContain('Download Case Study');
+  });
+
+  it('names the case study from its PDF file', async () => {
+    const { caseStudyTitleFromPdf } = await import('./auto-reply');
+    expect(caseStudyTitleFromPdf('/assets/case-studies/Vehicle_Intelligence_Case_Study.pdf')).toBe('Vehicle Intelligence');
+    expect(caseStudyTitleFromPdf('/assets/case-studies/AI_Assist_Logistics_Case_Study.pdf')).toBe('AI Assist Logistics');
+    expect(caseStudyTitleFromPdf('/assets/case-studies/eaglebot.pdf')).toBe('eaglebot');
+  });
+
+  it('sends the case study e-mail through the same mailer', async () => {
+    vi.resetModules();
+    sendMail.mockReset();
+    vi.stubEnv('SMTP_HOST', 'smtp.example.com');
+    sendMail.mockResolvedValue({ messageId: '1' });
+    const { sendAutoReply } = await import('./auto-reply');
+    expect(await sendAutoReply({ name: 'Jane', email: 'j@x.com' }, site, caseStudy)).toBe(true);
+    expect(sendMail.mock.calls[0][0].subject).toBe('Your Soft Suave case study: Vehicle Intelligence');
+    expect(sendMail.mock.calls[0][0].html).toContain(caseStudy.url);
+    vi.unstubAllEnvs();
+  });
+});
+
 describe('sendAutoReply', () => {
   beforeEach(() => {
     vi.resetModules();

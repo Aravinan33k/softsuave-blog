@@ -1,0 +1,101 @@
+/* /retail-solutions — the numbered features and the alternating add-on rows. */
+.lead {
+  margin: 0 0 clamp(24px, 3vw, 40px);
+  max-width: 78ch;
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--text);
+}
+.features { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(10px, 1.2vw, 16px); }
+.feature { margin: 0; }
+.featureInner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(16px, 2.4vw, 32px);
+  padding: clamp(18px, 2.2vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  transition: border-color 0.4s ease, transform 0.35s ease;
+}
+.featureInner:hover { border-color: var(--accent); transform: translateY(-3px); }
+.num {
+  display: grid;
+  place-items: center;
+  width: clamp(44px, 4.4vw, 60px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  line-height: 1;
+}
+.featureName {
+  margin: 0 0 8px;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: var(--heading-weight);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.featureBody { margin: 0; font-size: var(--fs-body); line-height: 1.65; color: var(--text-muted, var(--text)); }
+
+.addons { display: grid; gap: clamp(40px, 6vw, 88px); }
+.addonRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 3vw, 48px);
+}
+.addonMedia { display: flex; justify-content: center; }
+.addonMedia img { width: min(100%, 440px); height: auto; }
+.addonName {
+  margin: 0 0 14px;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: var(--heading-weight);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.addonLead { margin: 0 0 18px; font-size: var(--fs-body); line-height: 1.7; color: var(--text); }
+.points { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.points li {
+  position: relative;
+  padding-left: 22px;
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: var(--text-muted, var(--text));
+}
+.points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.points strong { color: var(--text); font-weight: 600; }
+.connector { display: none; }
+
+@media (min-width: 900px) {
+  .addonRow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .addonTextLast { order: 2; }
+  .addonMediaFirst { order: 1; }
+  /* Its own row between two add-ons, so the curve never crosses their text. */
+  .connector {
+    display: block;
+    justify-self: center;
+    width: clamp(220px, 26vw, 380px);
+    height: auto;
+    margin: calc(-1 * clamp(20px, 3vw, 44px)) 0;
+    opacity: 0.75;
+    pointer-events: none;
+  }
+  .connectorFlip { transform: scaleX(-1); }
+}

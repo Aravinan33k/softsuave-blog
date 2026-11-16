@@ -22,10 +22,10 @@
  * (SEO Analyst, HR Executive, and a dozen others) are closed requisitions and
  * are NOT listed.
  *
- * `applyHref` is root-relative and deliberately NOT one of our routes:
- * `themes/softsuave/nav-data`'s `navHref` resolves any path outside the
- * landing-page registry to softsuave.com, so `/softsuave-career?role=…` lands
- * on the live applicant form — the one HR actually monitors.
+ * `applyHref` is root-relative (`/softsuave-career?role=…`) and is one of our routes: `/softsuave-career` is the
+ * role's details beside the application form, and `themes/softsuave/nav-data` recognises it with its query string
+ * (`isLocal` judges the path alone), so the Apply buttons stay in the app. The form's application is passed on to
+ * the live career endpoint, where the hiring team already receives them.
  */
 
 export const careersMeta = {

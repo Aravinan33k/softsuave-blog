@@ -16,27 +16,34 @@ afterEach(() => {
 });
 
 describe('navHref', () => {
-  // `/career-overview` is the stand-in for a path this app does not serve at
-  // all — it is linked from the nav (and from the applicant notice under every
-  // hero enquiry form) but has no route in app/(marketing), so it belongs to
-  // the live site whatever the release flag says. A path we DO serve can never
+  // `/developer-rate-card` is the stand-in for a path this app does not serve at all — it has no route in
+  // app/(marketing), so it belongs to the live site whatever the release flag says. A path we DO serve can never
   // demonstrate this.
   //
-  // It replaced `/career-overview` here once this app grew its own careers
-  // index, which had replaced `/case-studies`, which had replaced `/about`,
-  // which had replaced `/contact`. Each swap is this app absorbing one more
-  // page from the live site.
-  //
-  // `/softsuave-career` should outlast them: it is HR's applicant intake form,
-  // not a marketing page, and this app has no reason to grow one. Our own
-  // careers page deliberately links out to it (see `careers-content.ts`), so
-  // this assertion is load-bearing rather than illustrative — if it ever goes
-  // local, every "Apply Now" on /career-overview breaks with it.
+  // It replaced `/softsuave-career` here once this app grew its own copy of that page, which had replaced
+  // `/career-overview`, which had replaced `/case-studies`, which had replaced `/about`, which had replaced
+  // `/contact`. Each swap is this app absorbing one more page from the live site.
   it('sends paths this app does not serve to the live site in either release state', async () => {
     for (const flag of ['true', 'false']) {
       const { navHref, isExternalHref } = await loadNav(flag);
-      expect(navHref('/softsuave-career')).toBe(`${SITE}/softsuave-career`);
-      expect(isExternalHref('/softsuave-career')).toBe(true);
+      expect(navHref('/developer-rate-card')).toBe(`${SITE}/developer-rate-card`);
+      expect(isExternalHref('/developer-rate-card')).toBe(true);
+    }
+  });
+
+  // A query string is part of the link, not the route — the careers page's Apply buttons are
+  // `/softsuave-career?role=…`, and `/softsuave-career` is ours.
+  it('judges a path by itself, not by its query string', async () => {
+    for (const flag of ['true', 'false']) {
+      const { navHref, isExternalHref } = await loadNav(flag);
+      // A path we serve keeps its query and stays in the app (the marketing routes follow the release flag, as ever).
+      if (flag === 'true') {
+        expect(navHref('/softsuave-career?role=trainee-hr')).toBe('/softsuave-career?role=trainee-hr');
+        expect(isExternalHref('/softsuave-career?role=trainee-hr')).toBe(false);
+      }
+      // A path we do not serve still goes to the live site, query and all.
+      expect(navHref('/developer-rate-card?x=1')).toBe(`${SITE}/developer-rate-card?x=1`);
+      expect(isExternalHref('/developer-rate-card?x=1')).toBe(true);
     }
   });
 
@@ -197,7 +204,7 @@ describe('navRoute', () => {
   it('leaves paths this app does not serve to navHref, absolute and unprefixed', async () => {
     for (const flag of ['true', 'false']) {
       const { navRoute } = await loadNav(flag);
-      expect(navRoute('/softsuave-career')).toBe(`${SITE}/softsuave-career`);
+      expect(navRoute('/developer-rate-card')).toBe(`${SITE}/developer-rate-card`);
     }
   });
 });

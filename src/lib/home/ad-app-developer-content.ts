@@ -322,7 +322,7 @@ export const adProcess: ProcessContent = {
 /**
  * The five reviews the live page shows, in its order and its words. Portraits
  * and video links come from the homepage's records of the same people; the live
- * page gives Roland White and Aaron G. no role, so none is shown.
+ * page gives Roland White and Aaron G. no role; here they carry the homepage's designations.
  */
 const byName = (name: string) =>
   testimonials.items.find((t) => t.name.includes(name))!;
@@ -355,13 +355,13 @@ export const adTestimonials = {
       ...byName("Roland"),
       quote:
         "I've been asking Soft Suave to help me develop a mobile app. The team is available right from the start. They're nice guys to work with and highly recommend them. Thanks.",
-      role: "",
+      role: "CTO, Ginger Guru",
     },
     {
       ...byName("Aaron"),
       quote:
         "Soft Suave provides amazing service. I am completely satisfied with the projects and look forward to continuing my relationship. I will also recommend their services without question.",
-      role: "",
+      role: "Founder, Beautiful Mind",
     },
   ],
 } as const;

@@ -120,7 +120,7 @@ export const apIndustries: CardGridContent = {
 };
 export const apIndustriesCta = anIndustriesCta;
 
-/** The five reviews the live carousel shows, in its order; Roland White and Aaron G. carry no role there. */
+/** The five reviews the live carousel shows, in its order; Roland White and Aaron G. carry no role there; here they take the homepage's designations. */
 const byName = (name: string) => adTestimonials.items.find((t) => t.name.includes(name))!;
 export const apTestimonials = {
   eyebrow: "Testimonials",

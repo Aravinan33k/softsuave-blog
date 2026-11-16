@@ -1,0 +1,134 @@
+/* /softsuave-career — the role details beside the application card. */
+.shell.shell {
+  /* Clear the fixed header; doubled so it outranks the shared section padding whatever order the sheets load in. */
+  padding-top: clamp(112px, 11vw, 168px);
+}
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+
+/* "Role :" / "Experience :" — a label, then the value beside it, over a hairline. */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 16px;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.label {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: var(--heading-weight);
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.value {
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--text);
+}
+.descLabel { composes: label; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.points { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.points li {
+  position: relative;
+  padding-left: 40px;
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: var(--text);
+}
+/* The bag icon the live page puts before every point, drawn as a mask so it takes the site's orange. */
+.points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.12em;
+  width: 25px;
+  height: 25px;
+  background: var(--accent);
+  -webkit-mask: var(--bag) center / contain no-repeat;
+  mask: var(--bag) center / contain no-repeat;
+}
+
+/* The resume row: a label over a file picker that reads as a button. */
+.resume {
+  position: relative;
+  /* `min-width: 0`: a grid item will not shrink below its content otherwise, so a long file name widened the whole card. */
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+  padding-top: 6px;
+}
+.resumeLabel { font-size: 0.85rem; color: var(--fx-label, #3f434d); }
+.resumeInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.resumeButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding: 12px 16px;
+  border: 1px dashed var(--fx-line-hover, #c6cad2);
+  border-radius: 10px;
+  background: var(--fx-well, #f6f7f9);
+  color: var(--fx-ink, #0f1115);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.resumeButton svg { flex: none; }
+.resumeButton span { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.resumeButton:hover { border-color: var(--accent, #ff5436); }
+.resumeInput:focus-visible + .resumeButton { outline: 2px solid var(--accent, #ff5436); outline-offset: 2px; }
+.resumeInvalid .resumeButton { border-color: var(--fx-danger, #c8321c); }
+.resume > p { margin: 0; }
+
+.thanks {
+  margin: 0;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1f7a45;
+}
+
+/* "Submit": black on hover (the other forms' button deepens to a darker red). Doubled selectors so these outrank the
+   shared form card's own button rules whatever order the sheets load in; a button mid-request keeps its resting colour. */
+.submit.submit {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.submit.submit:hover:not(:disabled),
+.submit.submit:active:not(:disabled) {
+  background: #0b0d11;
+  border-color: #0b0d11;
+  color: #fff;
+}
+
+/* Until the form is complete and valid the button is greyed and cannot be pressed. A button that is disabled because it
+   is mid-request ("Sending...") keeps its orange instead; the doubled selectors outrank the shared card's own
+   `:disabled` rules. */
+.submit.submit.incomplete:disabled,
+.submit.submit.incomplete:disabled:hover {
+  background: #d9dce2;
+  border-color: #d9dce2;
+  color: #7a808b;
+  box-shadow: none;
+  cursor: not-allowed;
+}

@@ -78,11 +78,13 @@ export default function AdHireRemoteDevelopersIndiaPage() {
         </div>
 
         <div className={home.light}>
-          <CardGrid content={rdServices} id="services" variant="bold" />
-          <TechStack content={rdTech} />
+          <div className={styles.sectionsJoined}>
+            <CardGrid content={rdServices} id="services" variant="bold" />
+            <TechStack content={rdTech} />
+          </div>
         </div>
 
-        <CtaBand content={rdRateBand} ctaClassName={styles.btnWipe} />
+        <CtaBand content={rdRateBand} />
 
         <div className={home.light}>
           <EngagementModels content={rdModels} />

@@ -288,12 +288,18 @@
   display: inline-flex;
 }
 
-/* A masthead button opposite the logo (`logoCta`), from tablet up. */
-.heroLogo:has(.heroLogoCta) {
+/* A masthead button or seal opposite the logo (`logoCta` / `logoBadge`). */
+.heroLogo:has(.heroLogoCta, .heroLogoBadge) {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+}
+
+.heroLogo .heroLogoBadge {
+  display: block;
+  width: clamp(64px, 7vw, 100px);
+  height: auto;
 }
 
 .heroLogoActions {
@@ -6478,6 +6484,16 @@
   text-align: center;
 }
 
+/* Four figures sit in one row (two by two on a phone), not three and a lone fourth. */
+.ctaStats[data-count="4"] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+@media (max-width: 640px) {
+  .ctaStats[data-count="4"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .ctaStatFigure {
   margin: 0;
   font-family: var(--font-heading);
@@ -9168,3 +9184,42 @@
   rotate: 45deg;
   translate: 0 -2px;
 }
+
+/* A line under the hero's points list, before its buttons. */
+.heroAfterPoints {
+  margin: clamp(14px, 1.6vw, 22px) 0 0;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* The explore band's tabs (the live CMS page's "Web" / "Quality Assurance"): a centred pair of pills above the strip. */
+.exploreTabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: clamp(20px, 2.6vw, 36px) auto clamp(18px, 2.4vw, 32px);
+  padding: 4px;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+}
+.exploreTab {
+  padding: 10px clamp(18px, 3vw, 34px);
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.exploreTab:hover { color: var(--accent); }
+.exploreTabActive,
+.exploreTabActive:hover { background: var(--accent); color: var(--on-accent, #fff); }
+.exploreTab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

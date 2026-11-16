@@ -6,9 +6,17 @@ import { genaiWhy } from '@/lib/home/genai-services-content';
 import landing from '@/components/landing/landing.module.css';
 import styles from './genai-services.module.css';
 
+interface WhyContent {
+  readonly eyebrow: string;
+  readonly title: string;
+  readonly body: string;
+  readonly image: { readonly src: string; readonly width: number; readonly height: number; readonly alt: string };
+  readonly items: readonly { readonly name: string; readonly body: string; readonly icon?: string }[];
+}
+
 /** "Why Choose Soft Suave for GenAI Integration": the live illustration beside the four reasons. */
-export default function WhyChoose() {
-  const w = genaiWhy;
+export default function WhyChoose({ content = genaiWhy }: { content?: WhyContent } = {}) {
+  const w = content;
   return (
     <section className={landing.sectionShell} id="why">
       <SectionHead kicker={w.eyebrow} title={w.title} intro={w.body} />
@@ -21,7 +29,7 @@ export default function WhyChoose() {
             {w.items.map((it) => (
               <li key={it.name} className={styles.whyItem}>
                 {/* The live icons are white artwork, so they are drawn in the accent to read on a light band. */}
-                <span className={styles.whyIcon} style={{ ['--mark' as string]: `url(${publicMediaUrl(it.icon)})` }} aria-hidden />
+                <span className={styles.whyIcon} style={{ ['--mark' as string]: `url(${publicMediaUrl(it.icon ?? '')})` }} aria-hidden />
                 <div>
                   <h3 className={styles.whyName}>{it.name}</h3>
                   <p className={styles.body}>{it.body}</p>

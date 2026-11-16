@@ -1,0 +1,169 @@
+/* /multi-vendor-marketplace-platform */
+
+/* Icon-led cards: the platform trio, the seven reasons, the five highlights. */
+.cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 18px);
+}
+.cards > li { cursor: default; }
+@media (min-width: 700px) {
+  .cards3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cards4 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cards5 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1100px) {
+  .cards4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cards5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .cards, .cards3 { grid-template-columns: minmax(0, 1fr); }
+}
+.cardIcon { display: block; }
+.cardIcon img { width: 56px; height: 56px; object-fit: contain; }
+
+/* The four panels beside the contents column. */
+.panel { padding-block: clamp(26px, 3.2vw, 52px); }
+.panel:first-child { padding-top: 0; }
+.panel:last-child { padding-bottom: 0; }
+.panel section { padding-block: 0; }
+.panelGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(18px, 2.4vw, 32px);
+  margin-top: clamp(16px, 2vw, 28px);
+  align-items: center;
+}
+.panelPoints { display: grid; gap: clamp(14px, 1.6vw, 22px); }
+.panelPoints p { margin-top: 8px; }
+.pointTitle {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+  font-size: var(--fs-card-title);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+.panelMedia img { width: 100%; height: auto; border-radius: 12px; }
+@media (min-width: 760px) {
+  .panelGrid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  .panelFlip .panelPoints { order: 2; }
+}
+.panel p a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+/* The contents column's two buttons. */
+.tocActions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* The phone outline fixed in the middle, the app screens sliding past it (the live carousel). */
+.carousel { display: grid; gap: 18px; justify-items: center; }
+.stage { position: relative; width: 100%; height: 520px; overflow: hidden; --slide-w: 100%; }
+.phoneFrame { position: absolute; top: 17px; left: 50%; transform: translateX(-50%); width: 250px; height: auto; z-index: 2; pointer-events: none; }
+.track { position: absolute; inset: 0; }
+.slide {
+  position: absolute;
+  top: 30px;
+  width: var(--slide-w);
+  left: calc(50% - var(--slide-w) / 2);
+  display: flex;
+  justify-content: center;
+  transform: translateX(calc(var(--off) * 100%));
+  transition: transform 0.5s ease;
+}
+.slide[data-edge] { transition: none; }
+.shot { width: 220px; height: auto; border-radius: 30px; }
+.arrow {
+  display: none;
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  cursor: pointer;
+}
+.arrow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 9px;
+  height: 9px;
+  border: solid var(--text-bright);
+  border-width: 2px 2px 0 0;
+}
+.arrowPrev { left: 8px; }
+.arrowPrev::before { transform: translateX(2px) rotate(-135deg); }
+.arrowNext { right: 8px; }
+.arrowNext::before { transform: translateX(-2px) rotate(45deg); }
+.arrow:hover { border-color: var(--accent); }
+.dots { display: flex; gap: 10px; }
+.dot { width: 10px; height: 10px; padding: 0; border: 0; border-radius: 50%; background: var(--line); cursor: pointer; }
+.dot[aria-current] { background: var(--accent); }
+@media (min-width: 1000px) {
+  .stage { --slide-w: 33.3333%; }
+  .arrow { display: block; }
+  .dots { display: none; }
+}
+
+/* The technology marks. */
+.logos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(10px, 1.2vw, 16px);
+}
+.logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(18px, 2.2vw, 30px);
+  min-height: 120px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  /* The marks are dark artwork on a transparent ground, so each sits on a light plaque against the black band. */
+  background: #f7f5f1;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.logo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.logo img {
+  width: auto;
+  height: auto;
+  max-width: 170px;
+  max-height: 64px;
+  object-fit: contain;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.logo:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 14px 30px -12px rgba(255, 90, 50, 0.45);
+}
+.logo:hover::before { width: 100%; }
+.logo:hover img { transform: scale(1.1); }
+@media (prefers-reduced-motion: reduce) {
+  .logo, .logo img, .logo::before { transition: none; }
+  .logo:hover, .logo:hover img { transform: none; }
+}
+@media (max-width: 760px) { .logos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 420px) { .logos { grid-template-columns: minmax(0, 1fr); } }
