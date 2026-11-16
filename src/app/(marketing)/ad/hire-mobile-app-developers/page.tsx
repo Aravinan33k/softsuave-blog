@@ -15,6 +15,8 @@ import {
   mbWhy,
 } from "@/lib/home/ad-hire-mobile-app-developers-content";
 
+import { clientsPageBrands } from "@/lib/home/clients-content";
+
 import Clients from "@/components/home/clients";
 
 import Hero from "@/components/landing/hero";
@@ -84,7 +86,7 @@ export default function AdHireMobileAppDevelopersPage() {
         <div className={home.light}>
           {/* The live band has no label above its heading, so none here. */}
           <Clients
-            logos={[...mbClients.logos]}
+            logos={clientsPageBrands.logos}
             title={mbClients.title}
             body=""
             eyebrow=""

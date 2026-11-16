@@ -15,6 +15,8 @@ import {
   ioWhy,
 } from '@/lib/home/ad-ios-development-company-content';
 
+import { clientsPageBrands } from '@/lib/home/clients-content';
+
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 
@@ -80,7 +82,7 @@ export default function AdIosDevelopmentCompanyPage() {
         <Hero noNav content={ioHero} idPrefix="ad-ios" breadcrumb={false} />
 
         <div className={home.light}>
-          <Clients logos={[...ioClients.logos]} title={ioClients.title} body="" eyebrow="" loopShortRows noFade />
+          <Clients logos={clientsPageBrands.logos} title={ioClients.title} body="" eyebrow="" loopShortRows noFade />
           {/* The live icons are white, drawn on its red cards; on this band they are turned dark. */}
           <div className={`${styles.markOnDark} ${styles.sweepTop}`}>
             <CardGrid content={ioServices} id="services" variant="bold" />

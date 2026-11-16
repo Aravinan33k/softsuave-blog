@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import {
-  fsClosing,
   fsHero,
   fsMeta,
   fsProcess,
@@ -23,7 +22,8 @@ import TechStack from '@/components/landing/tech-stack';
 import CardGrid from '@/components/generative-ai/industries';
 
 import StatsRow from '@/components/ad/stats-row';
-import SplitEnquiry from '@/components/ad/split-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
+import { locationClose } from '@/lib/home/mobile-app-location-shared';
 
 import home from '@/components/home/home.module.css';
 import styles from '@/components/ad/ad.module.css';
@@ -104,12 +104,9 @@ export default function AdHireFullStackDevelopersPage() {
           <Process content={fsProcess} id="journey" />
         </div>
 
-        <SplitEnquiry
-          title={fsClosing.title}
-          body={fsClosing.body}
-          link={fsClosing.link}
-          logo
-          form={fsClosing.form}
+        <ConsultationClose
+          content={locationClose('Ad landing: Book Free Consultation (full-stack developers)')}
+          idPrefix="ad-full-stack-contact"
         />
       </main>
 

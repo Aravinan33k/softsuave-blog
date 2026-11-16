@@ -31,6 +31,7 @@ export default function Clients({
   noFade = false,
   eyebrow = clients.eyebrow,
   badges = false,
+  wideTitle = false,
   id = "clients",
 }: {
   /** Drops the soft fade on the strip's left and right ends; logos keep their usual look. */
@@ -42,6 +43,11 @@ export default function Clients({
    * logos, which the strip otherwise shows small and in grey.
    */
   badges?: boolean;
+  /**
+   * Lets a long heading run to two lines on a wide screen instead of the three the narrow default measure gives it
+   * ("Preferred Technology Partner for Startups and SMBs Globally"). Below 900px the heading is full width anyway.
+   */
+  wideTitle?: boolean;
   /** The section id; give a second strip on one page its own. */
   id?: string;
   /**
@@ -70,7 +76,10 @@ export default function Clients({
   logos?: typeof clients.logos;
 } = {}) {
   return (
-    <section className={`${styles.section} ${styles.clients}${title || body || eyebrow ? "" : ` ${styles.clientsHeadless}`}`} id={id}>
+    <section
+      className={`${styles.section} ${styles.clients}${title || body || eyebrow ? "" : ` ${styles.clientsHeadless}`}${wideTitle ? ` ${styles.clientsWideTitle}` : ""}`}
+      id={id}
+    >
       {(title || body || eyebrow) && (
         <div className={styles.clientsHead}>
           <div className={styles.clientsHeadMain}>

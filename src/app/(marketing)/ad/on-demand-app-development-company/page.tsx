@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
   odAudience,
   odClients,
@@ -14,6 +13,8 @@ import {
   odTech,
   odTestimonials,
 } from '@/lib/home/ad-on-demand-app-development-company-content';
+
+import { clientsPageBrands } from '@/lib/home/clients-content';
 
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
@@ -83,7 +84,7 @@ export default function AdOnDemandAppDevelopmentCompanyPage() {
         <Hero noNav content={odHero} idPrefix="ad-on-demand" breadcrumb={false} />
 
         <div className={home.light}>
-          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={odClients.title} body={odClients.body} />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={odClients.title} body={odClients.body} />
         </div>
 
         {/* "Industries Soft Suave Builds Generative AI For" is a dark band on the generative-ai page; so is this. */}

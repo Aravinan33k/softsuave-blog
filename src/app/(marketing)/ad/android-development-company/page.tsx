@@ -15,6 +15,8 @@ import {
   anWhy,
 } from '@/lib/home/ad-android-development-company-content';
 
+import { clientsPageBrands } from '@/lib/home/clients-content';
+
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 
@@ -80,7 +82,7 @@ export default function AdAndroidDevelopmentCompanyPage() {
         <Hero noNav content={anHero} idPrefix="ad-android" breadcrumb={false} />
 
         <div className={home.light}>
-          <Clients logos={[...anClients.logos]} title={anClients.title} body="" eyebrow="" loopShortRows noFade />
+          <Clients logos={clientsPageBrands.logos} title={anClients.title} body="" eyebrow="" loopShortRows noFade />
           {/* The live icons are white, drawn on its red cards; on this band they are turned dark. */}
           <div className={styles.markOnDark}>
             <CardGrid content={anServices} id="services" variant="bold" />

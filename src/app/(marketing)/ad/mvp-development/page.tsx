@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
   mvAnalysis,
   mvAudience,
@@ -15,6 +14,8 @@ import {
   mvTestimonials,
   mvWhy,
 } from '@/lib/home/ad-mvp-development-content';
+
+import { clientsPageBrands } from '@/lib/home/clients-content';
 
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
@@ -82,7 +83,7 @@ export default function AdMvpDevelopmentPage() {
         <Hero noNav content={mvHero} idPrefix="ad-mvp" breadcrumb={false} />
 
         <div className={home.light}>
-          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={mvClients.title} body={mvClients.body} />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={mvClients.title} body={mvClients.body} />
           <StatsStory content={mvAnalysis} />
           {/* The live icons are white, drawn on its red tiles; here they are turned dark. */}
           <div className={styles.markOnDark}>

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
   saugClients,
   saugClosingBand,
@@ -13,6 +12,8 @@ import {
   saugWhy,
   saugWhyClosing,
 } from '@/lib/home/ad-staff-augmentation-content';
+
+import { clientsPageBrands } from '@/lib/home/clients-content';
 
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
@@ -79,7 +80,7 @@ export default function AdStaffAugmentationPage() {
         <Hero noNav content={saugHero} idPrefix="ad-staff-aug-2" breadcrumb={false} />
 
         <div className={home.light}>
-          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={saugClients.title} body={saugClients.body} />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={saugClients.title} body={saugClients.body} />
           <CardGrid content={saugServices} id="services" variant="bold" />
         </div>
 

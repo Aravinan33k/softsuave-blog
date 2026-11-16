@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
   rdClients,
   rdExperts,
@@ -16,6 +15,8 @@ import {
   rdWhy,
   rdWhyClosing,
 } from '@/lib/home/ad-remote-developer-content';
+
+import { clientsPageBrands } from '@/lib/home/clients-content';
 
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
@@ -88,11 +89,17 @@ export default function AdRemoteDeveloperPage() {
         <div className={home.light}>
           {/* The live page's client logos sit inside its hero section; here they
               open the white band that follows it. */}
-          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={rdClients.title} body={rdClients.body} />
-          <CardGrid content={rdWhy} id="why" variant="bold" />
-          <CtaRow lead={rdWhyClosing} />
-          <CardGrid content={rdServices} id="services" variant="bold" />
-          <CtaRow {...rdServicesCta} wipe />
+          <div className={styles.sectionsJoined}>
+            <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={rdClients.title} body={rdClients.body} wideTitle />
+            <div className={styles.gridWithCta}>
+              <CardGrid content={rdWhy} id="why" variant="bold" />
+              <CtaRow lead={rdWhyClosing} tight joined />
+            </div>
+          </div>
+          <div className={styles.gridWithCta}>
+            <CardGrid content={rdServices} id="services" variant="bold" />
+            <CtaRow {...rdServicesCta} wipe tight />
+          </div>
         </div>
 
         <TechStack content={rdTech} largeLogos />
@@ -111,7 +118,9 @@ export default function AdRemoteDeveloperPage() {
           span={4}
         />
 
-        <Testimonials content={rdTestimonials} />
+        <div className={home.light}>
+          <Testimonials content={rdTestimonials} />
+        </div>
       </main>
 
       {/* Every "Start 40 Hours Free Trial" and "Hire Now" button opens this. */}

@@ -15,6 +15,8 @@ export interface CardGridContent {
   eyebrow: string;
   title: string;
   body: string;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wideHead?: boolean;
   items: readonly {
     readonly key?: string;
     /**

@@ -18,6 +18,8 @@ import {
   asTrialForm,
 } from '@/lib/home/ad-ai-solution-content';
 
+import { clientsPageBrands } from '@/lib/home/clients-content';
+
 import Clients from '@/components/home/clients';
 
 import Hero from '@/components/landing/hero';
@@ -83,7 +85,7 @@ export default function AdAiSolutionPage() {
         </div>
 
         <div className={home.light}>
-          <Clients logos={[...asClients.logos]} title={asClients.title} body="" eyebrow="" loopShortRows noFade />
+          <Clients logos={clientsPageBrands.logos} title={asClients.title} body="" eyebrow="" loopShortRows noFade />
           <CardGrid content={asStruggle} id="struggle" variant="bold" />
           <CtaRow {...asStruggleCta} tight />
         </div>

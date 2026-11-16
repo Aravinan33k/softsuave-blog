@@ -13,6 +13,8 @@ import {
   saWhy,
 } from '@/lib/home/ad-it-staff-augmentation-services-content';
 
+import { clientsPageBrands } from '@/lib/home/clients-content';
+
 import Clients from '@/components/home/clients';
 
 import Hero from '@/components/landing/hero';
@@ -77,7 +79,7 @@ export default function AdItStaffAugmentationServicesPage() {
         <Hero noNav content={saHero} idPrefix="ad-staff-aug" breadcrumb={false} />
 
         <div className={home.light}>
-          <Clients logos={[...saClients.logos]} title={saClients.title} body="" eyebrow="" loopShortRows noFade />
+          <Clients logos={clientsPageBrands.logos} title={saClients.title} body="" eyebrow="" loopShortRows noFade />
           <TopTalent content={saTalent} />
         </div>
 

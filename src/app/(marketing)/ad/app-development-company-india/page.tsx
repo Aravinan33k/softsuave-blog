@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
   apClients,
   apContact,
@@ -16,6 +15,8 @@ import {
   apTestimonials,
   apWhy,
 } from '@/lib/home/ad-app-development-company-india-content';
+
+import { clientsPageBrands } from '@/lib/home/clients-content';
 
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
@@ -84,7 +85,7 @@ export default function AdAppDevelopmentCompanyIndiaPage() {
         <Hero noNav content={apHero} idPrefix="ad-app-india" breadcrumb={false} />
 
         <div className={home.light}>
-          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={apClients.title} body={apClients.body} />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={apClients.title} body={apClients.body} />
           {/* The live icons are white or green, drawn on its red cards; here they are made for this band. */}
           <CardGrid content={apServices} id="services" variant="bold" />
           <CtaRow {...apServicesCta} tight />

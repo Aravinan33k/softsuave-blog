@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
   sdClients,
   sdHero,
@@ -16,6 +15,8 @@ import {
   sdTrialForm,
   sdWhy,
 } from '@/lib/home/ad-software-developer-content';
+
+import { clientsPageBrands } from '@/lib/home/clients-content';
 
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
@@ -88,10 +89,17 @@ export default function AdSoftwareDeveloperPage() {
         <div className={home.light}>
           {/* The live page's client logos sit inside its hero section; here they
               open the white band that follows it. */}
-          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={sdClients.title} body={sdClients.body} />
-          <TopTalent content={sdTalent} />
-          <CardGrid content={sdServices} id="services" variant="bold" />
-          <CtaRow {...sdServicesCta} wipe />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={sdClients.title} body={sdClients.body} wideTitle />
+        </div>
+
+        {/* Top Talent on the dark ground, by request, between the light clients and services bands; its button takes the white hover. */}
+        <TopTalent content={sdTalent} whiteHover />
+
+        <div className={home.light}>
+          <div className={styles.gridWithCta}>
+            <CardGrid content={sdServices} id="services" variant="bold" />
+            <CtaRow {...sdServicesCta} wipe tight />
+          </div>
         </div>
 
         <TechStack content={sdTech} loopShortRows />
@@ -104,7 +112,12 @@ export default function AdSoftwareDeveloperPage() {
 
         <div className={home.light}>
           <PricingPlans content={sdPricing} />
-          <Process content={sdProcess} id="journey" label="n" />
+        </div>
+
+        {/* The Process section on the dark ground, by request, between the light pricing and testimonials bands. */}
+        <Process content={sdProcess} id="journey" label="n" />
+
+        <div className={home.light}>
           <Testimonials content={sdTestimonials} />
         </div>
       </main>
