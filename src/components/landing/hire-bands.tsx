@@ -145,7 +145,13 @@ export default function HireBands({
   function render(band: HireBand): ReactNode {
     switch (band) {
       case 'clients':
-        return <Clients key={band} logos={HIRE_CLIENT_LOGOS} />;
+        return (
+          <Clients
+            key={band}
+            logos={(skill.clientsBand?.logos as typeof HIRE_CLIENT_LOGOS | undefined) ?? HIRE_CLIENT_LOGOS}
+            {...(skill.clientsBand?.eyebrow ? { eyebrow: skill.clientsBand.eyebrow } : {})}
+          />
+        );
       case 'overview':
         return skill.overview ? (
           <Overview
@@ -234,7 +240,7 @@ export default function HireBands({
         return skill.midCta ? <CtaBand key={band} content={skill.midCta} /> : null;
       case 'process':
         return skill.process ? (
-          <Process key={band} content={skill.process} variant="mosaic" />
+          <Process key={band} content={skill.process} variant="mosaic" label={skill.processLabel} />
         ) : null;
       case 'whyUs':
         return skill.whyUs ? (
@@ -244,14 +250,14 @@ export default function HireBands({
         return skill.comparison ? <Comparison key={band} content={skill.comparison} /> : null;
       case 'vetting':
         return skill.vetting ? (
-          <Process key={band} content={skill.vetting} id="vetting" variant="even" />
+          <Process key={band} content={skill.vetting} id="vetting" variant="even" label={skill.vettingLabel} />
         ) : null;
       case 'exploreMore':
         // The display-type marquee, not a card grid: these cards were a label
         // in a box with no body copy under it, because the live pages give
         // these links none. See components/landing/explore-marquee.tsx.
         return skill.exploreMore ? (
-          <ExploreMarquee key={band} content={skill.exploreMore} id="explore" />
+          <ExploreMarquee key={band} content={skill.exploreMore} id="explore" tabs={skill.exploreTabs} />
         ) : null;
       case 'testimonials':
         return <Testimonials key={band} content={skill.testimonials} />;
@@ -287,8 +293,9 @@ export default function HireBands({
           // The heavier veil on every skill hero (review: "add a black
           // gradient to increase visibility in the hero section").
           image: skill.hero.image && { ...skill.hero.image, veil: 'strong' },
-          badges: partnerHeroBadges,
-          ctas: sharedHeroCtas,
+          // A skill whose live hero differs states its own badges, buttons and separator.
+          badges: skill.hero.badges ?? partnerHeroBadges,
+          ctas: skill.hero.ctas ?? sharedHeroCtas,
         }}
         idPrefix={skill.key}
         breadcrumb={!skill.hideHeroBreadcrumb}

@@ -80,7 +80,8 @@
  *     and a Service graph — which are its whole structured data; the footer
  *     keeps its address microdata, as live's does)
  *   /mobile-app-development-company-italy,
- *     /software-development-company-spain, /free-demo-app, /developer-profile and
+ *     /software-development-company-spain, /free-demo-app, /developer-profile,
+ *     /softsuave-career and
  *     /mobile-app-development-company-maryland (exceptions, like
  *     /cloud-computing below: their live pages carry no JSON-LD of their own,
  *     so they emit none, and the footer keeps its microdata)
@@ -242,6 +243,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/software-development-company-spain',
   '/free-demo-app',
   '/developer-profile',
+  '/softsuave-career',
   '/nextjs-development-company',
   '/nodejs-development-company',
   '/offshore-software-development-company',

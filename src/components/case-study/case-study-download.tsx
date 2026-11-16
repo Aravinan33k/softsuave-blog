@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { Download, X } from "lucide-react";
 import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
-import { appPath } from "@/lib/media-url";
+import { CASE_STUDY_DOWNLOAD_PATH } from "@/lib/home/case-study-download-content";
 import styles from "./case-study.module.css";
 
 /**
@@ -11,12 +12,14 @@ import styles from "./case-study.module.css";
  * modal, rebuilt on this site's enquiry card.
  *
  * Live gates the PDF behind name, e-mail and phone and posts them to its own
- * lead endpoint before handing the file over. Here the same three fields go
+ * case-study endpoint; nothing downloads on the page — the server e-mails the
+ * visitor the case study and the visitor lands on /case-study-download. Here the same three fields go
  * through the site's one lead path (`/api/v1/enquiry`, via `EnquiryForm` with
- * a fixed requirement naming the case study), so the request is stored and
- * the team is notified like any other lead; once it is accepted the PDF —
- * hosted at the same path as live's — downloads straight away, with a button
- * to fetch it again.
+ * a fixed requirement naming the case study and the PDF's path), so the request
+ * is stored and the team is notified like any other lead, and the visitor is
+ * e-mailed the case study as a "Download Case Study" button (lib/leads/auto-reply.ts).
+ * With no database configured the request goes to live's own case-study
+ * endpoint instead (lib/leads/forward-case-study.ts), which sends that e-mail.
  *
  * Every "Download" control on the page opens the one dialog through a window
  * event, so the contents list and the download band need no shared state.
@@ -36,7 +39,7 @@ export interface CaseStudyDownloadContent {
   /** Stored as the lead's requirement, so the team sees what was asked for. */
   readonly requirement: string;
   readonly form: EnquiryFormContent;
-  /** Shown once the lead is in and the download has started. */
+  /** Left over from the in-page confirmation: the visitor now goes to /case-study-download, so none of it is shown. */
   readonly done: { readonly title: string; readonly body: string; readonly cta: string };
 }
 
@@ -58,8 +61,7 @@ export function DownloadButton({ label, className }: { label: string; className?
 /** The dialog itself — mount once per page. */
 export function DownloadDialog({ content }: { content: CaseStudyDownloadContent }) {
   const dialog = useRef<HTMLDialogElement>(null);
-  const [sent, setSent] = useState(false);
-  const pdf = appPath(content.pdf);
+  const router = useRouter();
 
   useEffect(() => {
     const open = () => {
@@ -72,15 +74,6 @@ export function DownloadDialog({ content }: { content: CaseStudyDownloadContent 
     window.addEventListener(OPEN_EVENT, open);
     return () => window.removeEventListener(OPEN_EVENT, open);
   }, []);
-
-  const startDownload = () => {
-    const a = document.createElement("a");
-    a.href = pdf;
-    a.download = content.fileName;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  };
 
   return (
     <dialog
@@ -103,27 +96,19 @@ export function DownloadDialog({ content }: { content: CaseStudyDownloadContent 
         >
           <X strokeWidth={1.8} aria-hidden />
         </button>
-        {sent ? (
-          <div className={styles.dialogDone} role="status">
-            <p className={styles.dialogDoneTitle}>{content.done.title}</p>
-            <p className={styles.dialogDoneBody}>{content.done.body}</p>
-            <a className={styles.dialogDoneCta} href={pdf} download={content.fileName}>
-              {content.done.cta}
-              <Download className={styles.downloadGlyph} strokeWidth={2} aria-hidden />
-            </a>
-          </div>
-        ) : (
-          <EnquiryForm
-            content={content.form}
-            idPrefix="case-study-download"
-            cardId="case-study-download"
-            fixedRequirement={content.requirement}
-            onSent={() => {
-              setSent(true);
-              startDownload();
-            }}
-          />
-        )}
+        <EnquiryForm
+          content={content.form}
+          idPrefix="case-study-download"
+          cardId="case-study-download"
+          fixedRequirement={content.requirement}
+          caseStudyPdf={content.pdf}
+          // As on softsuave.com: once the request is in, the visitor goes to the thank-you page, carrying their
+          // e-mail in the address (`/case-study-download?email=…`). The case study itself is e-mailed.
+          onSent={(lead) => {
+            dialog.current?.close();
+            router.push(`${CASE_STUDY_DOWNLOAD_PATH}?email=${encodeURIComponent(lead.email)}`);
+          }}
+        />
       </div>
     </dialog>
   );

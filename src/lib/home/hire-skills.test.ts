@@ -28,8 +28,8 @@ describe('hire skill registry', () => {
   // "Hire By Role", and their live pages run the role sections, so they are
   // role pages now. A path can only belong to one registry — two would mean two
   // entries in `LANDING_PAGES` for the same URL.
-  it('has all 22 skills', () => {
-    expect(HIRE_SKILLS).toHaveLength(22);
+  it('has all 23 skills', () => {
+    expect(HIRE_SKILLS).toHaveLength(23);
   });
 
   it('has unique slugs and keys', () => {

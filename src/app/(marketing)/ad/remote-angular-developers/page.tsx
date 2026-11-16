@@ -81,10 +81,14 @@ export default function AdRemoteAngularDevelopersPage() {
           {/* The live page's client logos sit inside its hero section; here they
               open the white band that follows it. */}
           <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={raClients.title} body={raClients.body} />
-          <CardGrid content={raWhy} id="why" variant="bold" />
-          <CtaRow lead={raWhyClosing} />
-          <CardGrid content={raServices} id="services" variant="bold" />
-          <CtaRow {...raServicesCta} wipe />
+          <div className={styles.gridWithCta}>
+            <CardGrid content={raWhy} id="why" variant="bold" />
+            <CtaRow lead={raWhyClosing} tight joined />
+          </div>
+          <div className={styles.gridWithCta}>
+            <CardGrid content={raServices} id="services" variant="bold" />
+            <CtaRow {...raServicesCta} wipe tight />
+          </div>
         </div>
 
         <TechStack content={raTech} largeLogos />

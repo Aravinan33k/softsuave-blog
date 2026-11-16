@@ -15,6 +15,8 @@ import {
   aiWhy,
 } from "@/lib/home/ad-hire-ai-developer-content";
 
+import { clientsPageBrands } from "@/lib/home/clients-content";
+
 import TechRows from "@/components/home/tech-stack";
 
 import Hero from "@/components/landing/hero";
@@ -26,7 +28,7 @@ import TopTalent from "@/components/ad/top-talent";
 import WhyList from "@/components/ad/why-list";
 import PricingPlans from "@/components/ad/pricing-plans";
 import HeroTestimonial from "@/components/ad/hero-testimonial";
-import ManagerEnquiry from "@/components/ad/manager-enquiry";
+import ConsultationClose from "@/components/common/consultation-close";
 import TrialModal from "@/components/ad/trial-modal";
 
 import home from "@/components/home/home.module.css";
@@ -90,7 +92,7 @@ export default function AdHireAiDeveloperPage() {
 
         <div className={home.light}>
           <Clients
-            logos={[...aiClients.logos]}
+            logos={clientsPageBrands.logos}
             title={aiClients.title}
             body=""
             eyebrow=""
@@ -113,7 +115,25 @@ export default function AdHireAiDeveloperPage() {
           <Process content={aiProcess} id="journey" />
         </div>
 
-        <ManagerEnquiry content={aiEnquiry} />
+        {/* The closing band in the /developer-profile style (its type, colours and "Schedule a Call" button), with this
+            page's own copy. The button jumps to the form beside it. */}
+        <ConsultationClose
+          idPrefix="ad-ai-contact"
+          ctaIcon
+          content={{
+            title: aiEnquiry.title,
+            body: aiEnquiry.body,
+            steps: aiEnquiry.steps,
+            person: {
+              image: { src: aiEnquiry.manager.photo, width: 157, height: 157, alt: "Soft Suave Manager" },
+              name: aiEnquiry.manager.name,
+              role: aiEnquiry.manager.role,
+            },
+            cta: { label: aiEnquiry.manager.cta.label, href: "#contact-enquiry" },
+            badges: aiEnquiry.badges,
+            form: aiEnquiry.form,
+          }}
+        />
       </main>
 
 

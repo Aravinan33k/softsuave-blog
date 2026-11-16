@@ -105,6 +105,7 @@ export default function EnquiryForm({
   idPrefix,
   fixedRequirement,
   onSent,
+  caseStudyPdf,
   cardId = "enquiry",
 }: {
   content: EnquiryFormContent;
@@ -120,7 +121,12 @@ export default function EnquiryForm({
    * `/thank-you` — for a card whose job continues on the same page (the case
    * study's PDF download).
    */
-  onSent?: () => void;
+  onSent?: (lead: { name: string; email: string; phone: string }) => void;
+  /**
+   * Site path of the case study PDF this form requests. The visitor is e-mailed the case study — nothing is
+   * downloaded on the page — as on softsuave.com.
+   */
+  caseStudyPdf?: string;
   /** The card's id; `enquiry` is what the pages' "#enquiry" CTAs jump to. */
   cardId?: string;
 }) {
@@ -225,6 +231,7 @@ export default function EnquiryForm({
           subject: content.subject,
           sourcePath: pathname,
           sourceKey: idPrefix,
+          ...(caseStudyPdf ? { caseStudyPdf } : {}),
         }),
       });
 
@@ -241,7 +248,7 @@ export default function EnquiryForm({
       // Stays "sending" — the form is about to be replaced by the page.
       if (onSent) {
         setStatus("idle");
-        onSent();
+        onSent({ name: form.name, email: form.email, phone: form.phone });
         return;
       }
       router.push(THANK_YOU_PATH);

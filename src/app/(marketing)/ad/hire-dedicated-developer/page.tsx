@@ -15,6 +15,8 @@ import {
   dedWhy,
 } from '@/lib/home/ad-hire-dedicated-developer-content';
 
+import { clientsPageBrands } from '@/lib/home/clients-content';
+
 import Clients from '@/components/home/clients';
 
 import Hero from '@/components/landing/hero';
@@ -26,7 +28,7 @@ import Comparison from '@/components/generative-ai/comparison';
 
 import WhyList from '@/components/ad/why-list';
 import CtaRow from '@/components/ad/cta-row';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ManagerClose from '@/components/ad/manager-close';
 import TrialModal from '@/components/ad/trial-modal';
 
 import home from '@/components/home/home.module.css';
@@ -86,7 +88,7 @@ export default function AdHireDedicatedDeveloperPage() {
         </div>
 
         <div className={home.light}>
-          <Clients logos={[...dedClients.logos]} title={dedClients.title} body="" eyebrow="" loopShortRows noFade />
+          <Clients logos={clientsPageBrands.logos} title={dedClients.title} body="" eyebrow="" loopShortRows noFade />
         </div>
 
         <TechStack content={dedTech} />
@@ -96,14 +98,14 @@ export default function AdHireDedicatedDeveloperPage() {
           <CtaRow {...dedWhy.cta} wipe />
         </div>
 
-        <CtaBand content={dedRateBand} ctaClassName={styles.btnWipe} />
+        <CtaBand content={dedRateBand} />
 
         <div className={home.light}>
           <Comparison content={dedComparison} id="compare" />
           <Process content={dedProcess} id="journey" />
         </div>
 
-        <ManagerEnquiry content={dedEnquiry} id="ad-contact-form" idPrefix="ad-dedicated-contact" />
+        <ManagerClose content={dedEnquiry} idPrefix="ad-dedicated-contact" />
       </main>
 
 

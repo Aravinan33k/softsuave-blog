@@ -9,11 +9,14 @@ import styles from "./video-banner.module.css";
 export default function VideoBanner({
   title,
   accent,
+  accentGradient = false,
   video,
 }: {
   title: string;
   /** The words of `title` set in the accent colour. */
   accent?: string;
+  /** Paint the accent words in the brand orange-to-rose gradient (the Forward Deployed Engineers headline) instead of flat orange. */
+  accentGradient?: boolean;
   /** Root-relative under /public. */
   video: { readonly webm: string };
 }) {
@@ -24,11 +27,11 @@ export default function VideoBanner({
       </video>
       <div className={styles.veil} aria-hidden />
       <div className={styles.glow} aria-hidden />
-      <h1 className={styles.title}>
+      <h1 className={`${styles.title}${title === title.toUpperCase() ? ` ${styles.titleCaps}` : ""}`}>
         {accent && title.includes(accent) ? (
           <>
             {title.slice(0, title.indexOf(accent))}
-            <span className={styles.accent}>{accent}</span>
+            <span className={`${styles.accent}${accentGradient ? ` ${styles.accentGradient}` : ""}`}>{accent}</span>
             {title.slice(title.indexOf(accent) + accent.length)}
           </>
         ) : (
