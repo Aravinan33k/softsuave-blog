@@ -1,0 +1,48 @@
+/* /case-study-download — the confirmation under the header: a tick, the heading, two centred lines. */
+.shell.shell {
+  /* Clear the fixed header; doubled so it outranks the shared section padding whatever order the sheets load in. */
+  padding-top: clamp(112px, 11vw, 168px);
+  padding-bottom: clamp(56px, 7vw, 112px);
+}
+
+.box {
+  max-width: 880px;
+  margin: 0 auto;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: clamp(14px, 2vw, 24px);
+}
+
+.tick {
+  display: block;
+  width: 56px;
+  height: 56px;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h2);
+  font-weight: var(--heading-weight);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.lines {
+  display: grid;
+  gap: 14px;
+  margin-top: clamp(8px, 1.4vw, 20px);
+}
+
+.line {
+  margin: 0;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--text);
+}

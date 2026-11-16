@@ -113,6 +113,15 @@ export const enquiryInput = z.object({
    * decides — silently, with the same 202 a real submission gets.
    */
   website: z.string().max(255).optional(),
+  /**
+   * A case study's download request: the site path of its PDF. The visitor is then e-mailed the case study
+   * (a "Download Case Study" button) instead of the generic thank-you. Only a file under /assets/case-studies.
+   */
+  caseStudyPdf: z
+    .string()
+    .trim()
+    .regex(/^\/assets\/case-studies\/[A-Za-z0-9._-]+\.pdf$/, 'Unknown case study.')
+    .optional(),
 });
 
 export type EnquiryInput = z.infer<typeof enquiryInput>;
