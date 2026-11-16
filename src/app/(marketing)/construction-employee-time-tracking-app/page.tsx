@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import { JsonLd } from '@/components/seo/json-ld';
+import { RestoredLiveLd } from '@/components/seo/restored-live-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { organizationLd } from '@/lib/seo/organization';
 import { faqsPageEnquiry } from '@/lib/home/faqs-content';
 import {
   timeTrackingFaqs,
@@ -49,22 +48,10 @@ export const metadata: Metadata = {
 
 const HOME_HREF = BASE_PATH || '/';
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  '@id': `${absoluteUrl(timeTrackingMeta.path)}#webpage`,
-  name: timeTrackingMeta.title,
-  description: timeTrackingMeta.description,
-  url: absoluteUrl(timeTrackingMeta.path),
-  inLanguage: 'en',
-  about: { '@id': organizationLd['@id'] },
-  publisher: { '@id': organizationLd['@id'] },
-};
-
 export default function ConstructionTimeTrackingPage() {
   return (
     <div className={home.page}>
-      <JsonLd data={structuredData} />
+      <RestoredLiveLd path="/construction-employee-time-tracking-app" />
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">

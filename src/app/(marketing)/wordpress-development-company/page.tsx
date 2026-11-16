@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import { JsonLd } from '@/components/seo/json-ld';
+import { RestoredLiveLd } from '@/components/seo/restored-live-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { organizationLd } from '@/lib/seo/organization';
 import { faqsPageEnquiry } from '@/lib/home/faqs-content';
 import { wpFaqs, wpHero, wpMeta, wpOffshore } from '@/lib/home/wordpress-content';
 import { navHref } from '@/themes/softsuave/nav-data';
@@ -45,22 +44,10 @@ export const metadata: Metadata = {
 
 const HOME_HREF = BASE_PATH || '/';
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  '@id': `${absoluteUrl(wpMeta.path)}#webpage`,
-  name: wpMeta.title,
-  description: wpMeta.description,
-  url: absoluteUrl(wpMeta.path),
-  inLanguage: 'en',
-  about: { '@id': organizationLd['@id'] },
-  publisher: { '@id': organizationLd['@id'] },
-};
-
 export default function WordpressDevelopmentCompanyPage() {
   return (
     <div className={home.page}>
-      <JsonLd data={structuredData} />
+      <RestoredLiveLd path="/wordpress-development-company" />
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">

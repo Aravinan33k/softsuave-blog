@@ -344,6 +344,46 @@ export const HIRE_SKILL_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>>
         "addressRegion": "USA",
         "postalCode": "21043"
       }
+    },
+    // Live serves this FAQPage as `<script type=application/ld+json>` (attribute unquoted), which the
+    // first copy missed; crawlers read it, so it is part of the page's schema.
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the cost of hiring Ionic developers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The cost of hiring an Ionic developer will vary depending on experience. Typical hourly rates range from $15 to $25, but these can vary depending on the specific needs of the business."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you offer flexible hiring options for Ionic developers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, we offer different hiring models based on your needs. You can choose to hire Ionic developers on a full-time, part-time, or project-based basis depending on the specifics of your project."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get started with hiring Ionic developers from your agency?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hiring made simple. Just fill out our form in ionic developer page or email us at contact@softsuave.com. Our team arrange a consultation for your project requirements and offer a free trial to evaluate our developers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the experience of your Ionic developers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We have a team of Ionic developers with over 2 to 7 years of experience. Depending on the needs of your project, we will assign a senior or junior Ionic developer to work on your hybrid applications."
+          }
+        }
+      ]
     }
   ],
   "/hire-java-developers": [

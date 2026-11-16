@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
+import { RestoredLiveLd } from '@/components/seo/restored-live-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import {
@@ -73,6 +74,7 @@ export default function HireAnthropicDevelopersPage() {
       <JsonLd data={[anthropicServiceLd, anthropicWebPageLd, anthropicFaqLd]} />
       <Nav logoHref={HOME_HREF} />
 
+      <RestoredLiveLd path="/hire-anthropic-developers" />
       <main id="main">
         <Sections
           techStack={<TechStack content={anthropicTech} staticFrom={768} />}
