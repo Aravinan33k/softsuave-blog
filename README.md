@@ -255,12 +255,15 @@ At runtime, replace every `dev-*` / `ChangeMe` secret from `.env.example` (`JWT_
 `NEETOCAL_API_KEY` so the enquiry forms and booking work. The container runs
 `prisma migrate deploy` on start, so take a database backup first.
 
-**Routing on the live server.** Some old PHP pages were never migrated and stay on the
-PHP site: `/portfolio`, the 18 `/portfolio-*` pages, `/construction-product`,
-`/field-tracking-product`, `/developer-rate-card`, every `*.php` URL their forms post to,
-their static folders, and the old `/ad/*` PHP pages this app does not have. Everything
-else goes to this app. [deploy/apache.softsuave.example.conf](deploy/apache.softsuave.example.conf)
-has the exact rules for the live Apache vhost.
+**Routing on the live server.** Apache sends a request to this app only when its exact
+path is listed in [deploy/softsuave-site-pages.map](deploy/softsuave-site-pages.map)
+(219 pages in six batches, homepage last), plus the app's own asset and form-API paths.
+Everything else stays as it is today: the existing blog app on `/blog`, the `/forms` API,
+the unmigrated PHP pages, the old `/ad/*` PHP pages, `robots.txt` and `sitemap.xml`.
+Switch a batch by adding its lines to the server's map file; roll back by removing them.
+[deploy/apache.softsuave.example.conf](deploy/apache.softsuave.example.conf) has the
+vhost rules. On that server the app runs without `DATABASE_URL`, so its forms forward
+leads to the same `/forms` endpoints the PHP pages use.
 
 > **Build note:** the production build emits one Turbopack file-tracing warning for the local
 > `/uploads` route (it uses `process.cwd()`). It's harmless; on Vercel, use S3 storage and the
