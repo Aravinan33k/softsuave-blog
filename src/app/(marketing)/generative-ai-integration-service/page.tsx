@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, pageRobots } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/organization';
@@ -46,7 +46,8 @@ export const metadata: Metadata = {
   title: genaiMeta.title,
   description: genaiMeta.description,
   alternates: { canonical: genaiMeta.path },
-  robots: pageRobots,
+  // Always noindex, nofollow (SEO page sheet, row 138): /generative-ai-integration-services is the indexed page.
+  robots: { index: false, follow: false },
   openGraph: {
     title: genaiMeta.title,
     description: genaiMeta.description,

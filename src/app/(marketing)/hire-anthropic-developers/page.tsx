@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, pageRobots } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
@@ -41,7 +41,8 @@ export const metadata: Metadata = {
   title: `${anthropicMeta.title} | Soft Suave`,
   description: anthropicMeta.description,
   alternates: { canonical: anthropicMeta.path },
-  robots: pageRobots,
+  // Always noindex, nofollow (SEO page sheet, row 185).
+  robots: { index: false, follow: false },
   openGraph: {
     title: `${anthropicMeta.title} | Soft Suave`,
     description: anthropicMeta.description,

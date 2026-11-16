@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { BASE_PATH } from '@/lib/flags';
+import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/json-ld';
 import {
@@ -38,7 +38,7 @@ import Sections from './sections';
  * The standalone page also rendered a "Deployment Units" section and a "CEO
  * Corner", both commented out there, so neither is ported.
  *
- * SEO is that app's too (`lib/fde/seo.ts`): title, description, noindex, and
+ * SEO is that app's too (`lib/fde/seo.ts`): title, description (robots follow the site setting), and
  * the Organization/WebSite + Service/FAQPage graphs, the FAQ built from the
  * rendered questions. Canonical and URLs are this app's route.
  */
@@ -63,12 +63,9 @@ export const metadata: Metadata = {
     'embedded engineering team',
   ],
   alternates: { canonical: pagePath },
-  // As the page's own build sets it.
-  robots: {
-    index: false,
-    follow: false,
-    googleBot: { index: false, follow: false },
-  },
+  // Index and follow on the production site, per the SEO team's page sheet (row 10). The page's
+  // old standalone build was noindex; `pageRobots` still keeps the test server out of search.
+  robots: pageRobots,
   openGraph: {
     type: 'website',
     siteName: brandName,
