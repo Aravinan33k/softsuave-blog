@@ -255,6 +255,13 @@ At runtime, replace every `dev-*` / `ChangeMe` secret from `.env.example` (`JWT_
 `NEETOCAL_API_KEY` so the enquiry forms and booking work. The container runs
 `prisma migrate deploy` on start, so take a database backup first.
 
+**Routing on the live server.** Some old PHP pages were never migrated and stay on the
+PHP site: `/portfolio`, the 18 `/portfolio-*` pages, `/construction-product`,
+`/field-tracking-product`, `/developer-rate-card`, every `*.php` URL their forms post to,
+their static folders, and the old `/ad/*` PHP pages this app does not have. Everything
+else goes to this app. [deploy/apache.softsuave.example.conf](deploy/apache.softsuave.example.conf)
+has the exact rules for the live Apache vhost.
+
 > **Build note:** the production build emits one Turbopack file-tracing warning for the local
 > `/uploads` route (it uses `process.cwd()`). It's harmless; on Vercel, use S3 storage and the
 > route is unused.
