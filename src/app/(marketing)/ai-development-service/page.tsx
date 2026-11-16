@@ -5,6 +5,7 @@ import Footer from '@/components/home/footer';
 import home from '@/components/home/home.module.css';
 
 import { JsonLd } from '@/components/seo/json-ld';
+import { RestoredLiveLd } from '@/components/seo/restored-live-ld';
 import { BASE_PATH } from '@/lib/flags';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import * as copy from '@/lib/services/ai-development';
@@ -80,6 +81,7 @@ export default function AiDevelopmentServicePage() {
           `#top` in-page too, and the lockup must go HOME from a sub-page. */}
       <Nav ownsAnchors logoHref={HOME_HREF} />
 
+      <RestoredLiveLd path="/ai-development-service" />
       <main id="main">
         <Sections />
       </main>

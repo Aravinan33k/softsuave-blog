@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import { JsonLd } from '@/components/seo/json-ld';
+import { RestoredLiveLd } from '@/components/seo/restored-live-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { organizationLd } from '@/lib/seo/organization';
 import {
   engagementAwards,
   engagementClients,
@@ -53,23 +52,11 @@ export const metadata: Metadata = {
 
 const HOME_HREF = BASE_PATH || '/';
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  '@id': `${absoluteUrl(engagementModelMeta.path)}#webpage`,
-  name: engagementModelMeta.title,
-  description: engagementModelMeta.description,
-  url: absoluteUrl(engagementModelMeta.path),
-  inLanguage: 'en',
-  about: { '@id': organizationLd['@id'] },
-  publisher: { '@id': organizationLd['@id'] },
-};
-
 export default function EngagementModelPage() {
   const [l1, l2, l3] = engagementModelHero.titleLines;
   return (
     <div className={`${home.page} ${styles.page}`}>
-      <JsonLd data={structuredData} />
+      <RestoredLiveLd path="/engagement-model" />
       <Nav logoHref={HOME_HREF} />
 
       <main id="main" className={styles.main}>

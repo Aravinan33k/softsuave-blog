@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
+import { RestoredLiveLd } from '@/components/seo/restored-live-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import { ngFaqs, ngMeta, ngServices } from '@/lib/home/angular-app-content';
@@ -119,6 +120,7 @@ export default function AngularDevelopmentPage() {
        * they need the warm-white ground to sit on, and pairing them keeps the
        * alternation intact either side.
        */}
+      <RestoredLiveLd path="/angularjs-development-company" />
       <main id="main">
         <Sections />
       </main>

@@ -262,4 +262,14 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/vuejs-development-company',
   '/web-application-development-company',
   '/xamarin-app-development-company',
+  // Live schema carried over by lib/seo/live-schema-restored.ts (16 Nov audit).
+  '/construction-employee-time-tracking-app',
+  '/cross-platform-application-development-company',
+  '/engagement-model',
+  '/hire-full-stack-developers-in-india',
+  '/magento-development',
+  '/multi-vendor-marketplace-platform',
+  '/pos-software-development-company',
+  '/swift-app-development-company',
+  '/wordpress-development-company',
 ]);
