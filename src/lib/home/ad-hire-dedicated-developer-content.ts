@@ -146,6 +146,8 @@ export const dedTech: TechStackContent = {
       items: ["Photoshop", "Illustrator", "Adobe-XD", "Figma"],
     },
   ],
+  // Dark-ink marks sit on a light plaque so they read on the dark panel.
+  plaqueMarks: ["Java", "ROR", "Aws", "Docker"],
   // The live stack shows an image for every tool, as its own files (under /public/brand/ad/tech).
   images: Object.fromEntries(
     Object.entries({

@@ -15,6 +15,8 @@ import {
   aiWhy,
 } from "@/lib/home/ad-hire-ai-developer-content";
 
+import { clientsPageBrands } from "@/lib/home/clients-content";
+
 import TechRows from "@/components/home/tech-stack";
 
 import Hero from "@/components/landing/hero";
@@ -90,7 +92,7 @@ export default function AdHireAiDeveloperPage() {
 
         <div className={home.light}>
           <Clients
-            logos={[...aiClients.logos]}
+            logos={clientsPageBrands.logos}
             title={aiClients.title}
             body=""
             eyebrow=""

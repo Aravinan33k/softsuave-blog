@@ -1117,6 +1117,12 @@
   padding-bottom: clamp(16px, 2vw, 32px);
 }
 
+/* Two full sections one after the other: the first gives up its bottom padding, so the gap between them is the second's
+   own top padding rather than both stacked. */
+.sectionsJoined > section:first-child {
+  padding-bottom: 0;
+}
+
 /* A list beside a photo: the button under it sits close to the photo, not a whole section away. */
 .shell:has(.whyWithImage) {
   padding-bottom: clamp(16px, 2vw, 32px);

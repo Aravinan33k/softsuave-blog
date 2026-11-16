@@ -177,7 +177,7 @@ export const anScreens: AppScreensContent = {
   cta: GET("Get Your App"),
 };
 
-/** The six reviews the live carousel shows, in its order. The live page gives the written ones no role. */
+/** The six reviews the live carousel shows, in its order. The live page gives the written ones no role; Aaron and Roland carry the homepage's designations. */
 const byName = (name: string) => testimonials.items.find((t) => t.name.includes(name))!;
 const written = (name: string, quote: string, photo: string) => ({
   quote,
@@ -192,8 +192,8 @@ export const anTestimonials = {
   body: "Soft Suave assisted industries across the world by providing exceptional software service and resources with our talented developers and app development teams. Have a look at some of our satisfied clients.",
   items: [
     written("Sophiea. K", "The communication with Soft Suave’s developers was very easy and their response time was quick. The team helped me build very beautiful and visually aesthetic websites at an economical cost.", "sophiea-k"),
-    { ...byName("Aaron"), role: "" },
-    { ...byName("Roland"), quote: "I've been asking software to help me develop a mobile app. The team is available right from the start. They're nice guys to work with and highly recommend them. Thanks.", role: "" },
+    { ...byName("Aaron") },
+    { ...byName("Roland"), quote: "I've been asking software to help me develop a mobile app. The team is available right from the start. They're nice guys to work with and highly recommend them. Thanks." },
     written("Vinny Nuthakki", "I love working with the team at Soft Suave because they helped me save time and money.From day 1, Soft Suave has been a reliable development partner who handles the work with the utmost professionalism.", "vinny-nuthakki"),
     written("Marcio. M", "Working with Soft Suave is a great experience so far. The developer I am working with right now is outstanding. The project manager always assigns the best resources to work on my project.", "marcio-m"),
     written("Robert. S", "Working with Soft Suave’s developers has been an extremely efficacious process for me. The answers are timely, explanations are never rushed, and communications are consistently clear and concise.", "robert-s"),

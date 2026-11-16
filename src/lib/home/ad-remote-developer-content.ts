@@ -255,7 +255,7 @@ export const rdPopup = {
       {
         text: "Exceptional service and great results. Highly satisfied and happy to recommend Soft Suave.",
         name: "Aaron. G",
-        title: " ",
+        title: "Founder, Beautiful Mind",
         photo: "/brand/testimonials/aaron-g.webp",
       },
     ],

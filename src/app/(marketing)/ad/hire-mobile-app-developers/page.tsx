@@ -26,7 +26,7 @@ import TopTalent from "@/components/ad/top-talent";
 import WhyList from "@/components/ad/why-list";
 import CtaRow from "@/components/ad/cta-row";
 import PricingPlans from "@/components/ad/pricing-plans";
-import ManagerEnquiry from "@/components/ad/manager-enquiry";
+import ConsultationClose from "@/components/common/consultation-close";
 import TrialModal from "@/components/ad/trial-modal";
 
 import home from "@/components/home/home.module.css";
@@ -108,10 +108,24 @@ export default function AdHireMobileAppDevelopersPage() {
           <Process content={mbProcess} id="journey" />
         </div>
 
-        <ManagerEnquiry
-          content={mbEnquiry}
-          id="ad-contact-form"
+        {/* The closing band in the /developer-profile style, with this page's own copy. The button jumps to the form beside it. */}
+        <ConsultationClose
+          id="ad-contact"
           idPrefix="ad-mobile-contact"
+          ctaIcon
+          content={{
+            title: mbEnquiry.title,
+            body: mbEnquiry.body,
+            steps: mbEnquiry.steps,
+            person: {
+              image: { src: mbEnquiry.manager.photo, width: 157, height: 157, alt: "Soft Suave Manager" },
+              name: mbEnquiry.manager.name,
+              role: mbEnquiry.manager.role,
+            },
+            cta: { label: mbEnquiry.manager.cta.label, href: "#ad-contact-enquiry" },
+            badges: mbEnquiry.badges,
+            form: mbEnquiry.form,
+          }}
         />
       </main>
 

@@ -207,6 +207,7 @@ export const devProfileTestimonials: {
       quote:
         '"Soft Suave provides amazing service. I am completely satisfied with the projects and look forward to continuing my relationship. I will also recommend their services without question."',
       name: 'Aaron. G',
+      role: 'Founder, Beautiful Mind',
       rating: '5.0',
     },
   ],

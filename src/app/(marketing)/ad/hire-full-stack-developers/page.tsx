@@ -11,6 +11,8 @@ import {
   fsTrusted,
 } from '@/lib/home/ad-hire-full-stack-developers-content';
 
+import { clientsPageBrands } from '@/lib/home/clients-content';
+
 import Clients from '@/components/home/clients';
 
 import Hero from '@/components/landing/hero';
@@ -80,7 +82,7 @@ export default function AdHireFullStackDevelopersPage() {
         <div className={home.light}>
           {/* The live band has no label above its heading, so none here. */}
           <Clients
-            logos={[...fsTrusted.logos]}
+            logos={clientsPageBrands.logos}
             title={fsTrusted.title}
             body=""
             eyebrow=""

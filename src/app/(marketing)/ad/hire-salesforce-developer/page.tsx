@@ -28,7 +28,7 @@ import TopTalent from '@/components/ad/top-talent';
 import WhyList from '@/components/ad/why-list';
 import PricingPlans from '@/components/ad/pricing-plans';
 import HeroTestimonial from '@/components/ad/hero-testimonial';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ManagerClose from '@/components/ad/manager-close';
 import TrialModal from '@/components/ad/trial-modal';
 
 import home from '@/components/home/home.module.css';
@@ -119,7 +119,7 @@ export default function AdHireSalesforceDeveloperPage() {
           <Process content={sfProcess} id="journey" />
         </div>
 
-        <ManagerEnquiry content={sfEnquiry} id="ad-contact-form" idPrefix="ad-salesforce-contact" />
+        <ManagerClose content={sfEnquiry} idPrefix="ad-salesforce-contact" />
       </main>
 
       {/* Every "Start 40 hours Free Trial" button opens this. */}

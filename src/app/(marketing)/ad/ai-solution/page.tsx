@@ -27,7 +27,7 @@ import CardGrid from '@/components/generative-ai/industries';
 import WhyList from '@/components/ad/why-list';
 import CtaRow from '@/components/ad/cta-row';
 import LogoRows from '@/components/ad/logo-rows';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ManagerClose from '@/components/ad/manager-close';
 import TrialModal from '@/components/ad/trial-modal';
 
 import home from '@/components/home/home.module.css';
@@ -118,7 +118,7 @@ export default function AdAiSolutionPage() {
           <CtaRow {...asBeyondCta} tight />
         </div>
 
-        <ManagerEnquiry content={asEnquiry} id="ad-contact-form" idPrefix="ad-ai-solution-contact" />
+        <ManagerClose content={asEnquiry} idPrefix="ad-ai-solution-contact" />
       </main>
 
       {/* Every "Let's Connect" button opens this. */}
