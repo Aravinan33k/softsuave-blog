@@ -265,6 +265,15 @@ Switch a batch by adding its lines to the server's map file; roll back by removi
 vhost rules. On that server the app runs without `DATABASE_URL`, so its forms forward
 leads to the same `/forms` endpoints the PHP pages use.
 
+**Releases on the live server.** The app runs under PM2 as `softsuave-site` from
+`/var/www/softsuave-site/current` (a link to `releases/<commit>`), with Node 22 in
+`/opt/node22` and its settings in the root-only `shared/.env`
+([deploy/pm2.softsuave-site.config.js](deploy/pm2.softsuave-site.config.js)).
+[deploy/build-release.sh](deploy/build-release.sh) builds a new release beside the running
+one (about 3 minutes; the build briefly uses most of the 4 GB RAM). Check it on a spare
+port, then point `current` at it and `pm2 restart softsuave-site`; rolling back is the same
+with the previous release.
+
 > **Build note:** the production build emits one Turbopack file-tracing warning for the local
 > `/uploads` route (it uses `process.cwd()`). It's harmless; on Vercel, use S3 storage and the
 > route is unused.
