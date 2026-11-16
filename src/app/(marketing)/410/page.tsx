@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { pageRobots } from '@/lib/flags';
 import { goneMeta, notFoundContent } from '@/lib/home/not-found-content';
 import ErrorPage from '@/components/common/error-page';
 
@@ -17,7 +16,8 @@ export const metadata: Metadata = {
   // `absolute`: the live page's <title> carries no " | Soft Suave" suffix.
   title: { absolute: goneMeta.title },
   alternates: { canonical: goneMeta.path },
-  robots: pageRobots,
+  // Always noindex, nofollow (SEO page sheet, row 116), like /404.
+  robots: { index: false, follow: false },
 };
 
 export default function GonePage() {
