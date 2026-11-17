@@ -104,6 +104,15 @@ export interface OverviewContent {
    * With no `stats` it does nothing, so it can never blank the column.
    */
   statsAside?: boolean;
+  /**
+   * Put `stats` in the LEFT column, under the heading and prose, two to a
+   * row, and keep `image` in the right-hand column — the counters stay with
+   * the copy they back up while the picture fills the other side
+   * (construction product review: "make this part into 2/2 in left side,
+   * right side is image"). Ignored with `statsAside`, which takes the
+   * right-hand column itself.
+   */
+  statsInColumn?: boolean;
   /** Optional — only pages whose copy ends on a pull quote supply one. */
   pullQuote?: string;
   /**
@@ -292,6 +301,8 @@ export default function Overview({
   const hasStats = Boolean(content.stats && content.stats.length > 0);
   const asideStats = Boolean(content.statsAside) && hasStats;
   const showImage = Boolean(image) && !asideStats;
+  /** The counters under the prose in the left column, two to a row, beside the image. */
+  const columnStats = Boolean(content.statsInColumn) && hasStats && !asideStats && showImage;
   /** Whether the heading/prose share a row with something to their right. */
   const twoColumn = showImage || asideStats;
   /**
@@ -343,7 +354,7 @@ export default function Overview({
           a hardcoded 4-up grid left a visibly empty trailing cell whenever a
           page supplied 3 (review: "remove the additional sections", the
           closest thing on the page to an invented extra section). */}
-      <dl className={styles.trustStats} style={{ "--stat-count": content.stats!.length } as CSSProperties}>
+      <dl className={styles.trustStats} style={{ "--stat-count": columnStats ? 2 : content.stats!.length } as CSSProperties}>
         {content.stats!.map((stat) => (
           <div key={stat.label} className={styles.trustStat}>
             <dt className={styles.srOnly}>{stat.label}</dt>
@@ -391,6 +402,8 @@ export default function Overview({
             {prose}
 
             {pointsInColumn && pointsList}
+
+            {columnStats && <div className={styles.overviewStats}>{statsPanel}</div>}
           </div>
 
           {showImage && image && (
@@ -446,7 +459,7 @@ export default function Overview({
           ))}
         {/* Full-width footer position — skipped when the counters have already
             been rendered in the column beside the prose. */}
-        {hasStats && !asideStats && <div className={styles.overviewStats}>{statsPanel}</div>}
+        {hasStats && !asideStats && !columnStats && <div className={styles.overviewStats}>{statsPanel}</div>}
         {content.pullQuote && <p className={styles.pullQuote}>{content.pullQuote}</p>}
         {content.flow && <Flow content={content.flow} />}
       </FadeUp>

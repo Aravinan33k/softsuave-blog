@@ -92,6 +92,7 @@ export default function IndustriesClient({
   brand,
   multi,
   noIcons,
+  span,
 }: {
   content: CardGridContent;
   id: string;
@@ -106,6 +107,8 @@ export default function IndustriesClient({
   multi?: readonly boolean[];
   /** Draw no icon on the `bold` cards. */
   noIcons?: boolean;
+  /** `bold` only: one desktop span for every card (3 = four across). */
+  span?: 3 | 4 | 6 | 12;
 }) {
   /* Links: a card's own `href` wins; a grid of services or sectors also links
      cards whose name matches one of our pages (`lib/home/service-href.ts`).
@@ -118,7 +121,7 @@ export default function IndustriesClient({
   if (variant === "bold") {
     /* Derived from the item count alone, so a section that gains or loses a
        card re-composes itself with no layout prop to keep in sync. */
-    const spans = gridSpansFor(content.items.length);
+    const spans = span ? content.items.map(() => span) : gridSpansFor(content.items.length);
 
     return (
       <section className={styles.sectionShell} id={id}>

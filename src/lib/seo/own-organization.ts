@@ -243,6 +243,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/software-development-company-spain',
   '/free-demo-app',
   '/developer-profile',
+  '/developer-rate-card',
   '/softsuave-career',
   '/nextjs-development-company',
   '/nodejs-development-company',
@@ -264,6 +265,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/xamarin-app-development-company',
   // Live schema carried over by lib/seo/live-schema-restored.ts (16 Nov audit).
   '/construction-employee-time-tracking-app',
+  '/construction-product',
   '/cross-platform-application-development-company',
   '/engagement-model',
   '/hire-full-stack-developers-in-india',
