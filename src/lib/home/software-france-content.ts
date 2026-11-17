@@ -100,10 +100,14 @@ export const sdfrAbout: OverviewContent = {
     { text: 'cloud computing', href: '/cloud-computing' },
   ],
   image: {
-    src: `${IMG}/overview-france.webp`,
-    width: 849,
-    height: 830,
+    // Replaced on request with the supplied Eiffel Tower / Seine photograph
+    // (1448×1086); the live page's alt text is kept.
+    src: `${IMG}/overview-france-eiffel.webp`,
+    width: 1448,
+    height: 1086,
     alt: 'Best software development company in France',
+    // In the first viewport under the short hero: the page's LCP.
+    eager: true,
     fit: 'column',
   },
 };

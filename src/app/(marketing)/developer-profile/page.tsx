@@ -6,7 +6,6 @@ import {
   devProfileHero,
   devProfileMeta,
   devProfileProfiles,
-  devProfileTestimonials,
 } from '@/lib/home/developer-profile-content';
 
 import Nav from '@/components/home/nav';
@@ -27,7 +26,8 @@ import location from '@/components/landing/location-app-page.module.css';
  * theme, slug unchanged, every word from `lib/home/developer-profile-content.ts`,
  * in the live page's order but for the clients band, moved up by request:
  * hero and stats, clients, sample profiles (with the download dialog),
- * testimonials, closing consultation.
+ * client stories, closing consultation. The client stories are the
+ * homepage's section, by request, in place of the live testimonials band.
  *
  * Head as live: title, description, canonical and robots — and robots is
  * `noindex, nofollow` there, so it is here too, permanently (not
@@ -73,8 +73,10 @@ export default function DeveloperProfilePage() {
         {/* On the dark ground, by request. */}
         <DeveloperProfiles content={devProfileProfiles} />
 
+        {/* The homepage's client stories (its own copy and reviews), by
+            request, in place of the live page's "TESTIMONIALS" band. */}
         <div className={home.light}>
-          <Testimonials content={devProfileTestimonials} />
+          <Testimonials />
         </div>
 
         <ConsultationClose content={devProfileClose} idPrefix="developer-profile-close" />

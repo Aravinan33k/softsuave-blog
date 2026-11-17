@@ -90,10 +90,14 @@ export const madeAbout: OverviewContent = {
   // the second paragraph's earlier "mobile app development companies".
   links: [{ text: 'mobile app development', href: '/mobile-application-development-company', after: 'influence of ' }],
   image: {
-    src: `${LOCATION_IMG}/overview-germany.webp`,
-    width: 445,
-    height: 423,
+    // Replaced on request with the supplied Reichstag photograph (1448×1086);
+    // the live page's alt text is kept.
+    src: `${LOCATION_IMG}/overview-germany-reichstag.webp`,
+    width: 1448,
+    height: 1086,
     alt: 'Best mobile app development company in Germany',
+    // In the first viewport under the short hero: the page's LCP.
+    eager: true,
     fit: 'column',
   },
 };
