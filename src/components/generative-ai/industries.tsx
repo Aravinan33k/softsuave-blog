@@ -94,6 +94,7 @@ export default function Industries({
   links = true,
   cardLinks = false,
   nameAs = "h3",
+  span,
 }: {
   content?: CardGridContent;
   id?: string;
@@ -145,6 +146,12 @@ export default function Industries({
    * industry names are H4s). Styling is identical.
    */
   nameAs?: "h3" | "h4";
+  /**
+   * `bold` only: one desktop column span (of 12) for every card, as on
+   * `Integration` — `3` sets four across. Omitted, the rows compose from the
+   * card count (`gridSpansFor`).
+   */
+  span?: 3 | 4 | 6 | 12;
 } = {}) {
   return (
     <IndustriesClient
@@ -176,6 +183,7 @@ export default function Industries({
       brand={content.items.map((item) => !item.images && isBrandIcon(item.key))}
       multi={content.items.map((item) => Boolean(item.images))}
       nameAs={nameAs}
+      span={span}
     />
   );
 }

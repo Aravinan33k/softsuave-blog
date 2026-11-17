@@ -35,6 +35,13 @@ export interface HeroContent {
    * last-line accent.
    */
   accent?: string;
+  /**
+   * Centre the hero: breadcrumb, kicker, H1 and buttons on the page's centre
+   * line, the kicker as a pill led by an accent dot, the H1's lines run
+   * together on one line, and the glow centred over them — for a hero with
+   * no form, image or slot beside it (the developer rate card, by request).
+   */
+  centered?: boolean;
   /** Set the whole headline in the one colour — no accent on its last line (the live staff-augmentation ad headline). */
   noAccent?: boolean;
   /** `"home"` sets the H1 at the homepage hero's size (70px desktop, 40px phone). */
@@ -388,6 +395,7 @@ export default function Hero({
         content.image ? styles.heroWithBg : "",
         compact ? styles.heroCompact : "",
         noNav ? styles.heroNoNav : "",
+        content.centered ? styles.heroCentered : "",
       ]
         .filter(Boolean)
         .join(" ")}

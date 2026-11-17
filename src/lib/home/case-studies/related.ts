@@ -26,7 +26,7 @@ import { caseStudyEntries } from "../case-studies-data";
 
 const LANE_SIZE = 5;
 
-type RelatedItem = CaseStudyContent["related"]["items"][number];
+type RelatedItem = NonNullable<CaseStudyContent["related"]>["items"][number];
 
 function card(i: number): RelatedItem {
   const e = caseStudyEntries[i];
@@ -34,7 +34,7 @@ function card(i: number): RelatedItem {
 }
 
 /** The related lane for the case study at `selfHref`. */
-export function relatedCaseStudies(selfHref: string): CaseStudyContent["related"] {
+export function relatedCaseStudies(selfHref: string): NonNullable<CaseStudyContent["related"]> {
   const n = caseStudyEntries.length;
   const at = caseStudyEntries.findIndex((e) => e.href === selfHref);
   if (at < 0) throw new Error(`relatedCaseStudies: no case-study listing entry for ${selfHref}`);
