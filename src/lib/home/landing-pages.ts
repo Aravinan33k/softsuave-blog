@@ -424,9 +424,10 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/test-web-est', title: 'Web Estimation' },
   { path: '/staff-augmentation-cost-calculator', title: 'Staff Augmentation Cost Calculator' },
   { path: '/case-studies', title: 'Case Studies' },
-  // Index and follow by the SEO page sheet (rows 117 and 245), so they belong in the sitemap.
+  // Index and follow by the SEO page sheet (row 117), so it belongs in the sitemap.
   { path: '/ai-ml-solutions', title: 'AI / ML Solutions' },
-  { path: '/case-study-download', title: 'Thanks for downloading case study' },
+  // A form's thank-you page: noindex, nofollow at the SEO team's request (17 Nov), overriding sheet row 245.
+  { path: '/case-study-download', title: 'Thanks for downloading case study', sitemap: false },
   // Case-study pages, under the index in their breadcrumb. Registering one
   // here also turns every existing link to it (the index cards, the homepage
   // and landing-page case-study lanes) from softsuave.com into this route.

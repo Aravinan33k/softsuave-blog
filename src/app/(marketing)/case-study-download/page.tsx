@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { BASE_PATH, pageRobots } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { publicMediaUrl } from '@/lib/media-url';
 import { caseStudyDownload as t, caseStudyDownloadMeta } from '@/lib/home/case-study-download-content';
 import { locationClose } from '@/lib/home/mobile-app-location-shared';
@@ -19,13 +19,16 @@ import styles from '@/components/case-study/case-study-download-page.module.css'
  * Its words and tick are the live page's (`lib/home/case-study-download-content.ts`), in this site's header,
  * footer and type; it closes on the shared "Book Free Consultation" band, as the live page does.
  *
- * Index and follow, as the live page is and as the SEO team's page sheet asks (row 245), so it is registered in
- * `landing-pages.ts` like any other page. The `email` the live page receives is not used, so the page is static.
+ * Noindex, nofollow: a form's thank-you page has nothing to rank, and the SEO team asked for it on 17 Nov
+ * (overriding sheet row 245, which said index). So it is kept out of the sitemap (`sitemap: false` in
+ * `landing-pages.ts`). Its canonical is its own URL; inheriting the homepage's sent a mixed signal.
+ * The `email` the live page receives is not used, so the page is static.
  */
 
 export const metadata: Metadata = {
   title: caseStudyDownloadMeta.title,
-  robots: pageRobots,
+  alternates: { canonical: '/case-study-download' },
+  robots: { index: false, follow: false },
 };
 
 const HOME_HREF = BASE_PATH || '/';
