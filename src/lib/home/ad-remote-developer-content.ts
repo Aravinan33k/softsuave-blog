@@ -16,6 +16,7 @@ import type { ProcessContent } from "@/components/landing/process";
 import type { EnquiryFormContent } from "@/components/common/enquiry-form";
 import { adClients, adHero, adTestimonials, TRIAL_HREF } from "@/lib/home/ad-app-developer-content";
 import { FIGURES, SPECIALISTS_PLUS } from "@/lib/company-figures";
+import { heroForm } from "@/lib/home/hire-roles/shared";
 
 export const rdMeta = {
   path: "/ad/remote-developer",
@@ -45,15 +46,21 @@ export const rdHero: HeroContent = {
     "Need top-rated remote developers on contract? Hire remote developers from india and enjoy the 40-hour free trial to experience their expertise!",
     "*Satisfaction Guaranteed – Get 40-hour Free Trial",
   ],
+  // The /hire-software-developers hero form, by request (in place of the live
+  // "Start 40-Hour Free Trial" card): its "40-Hour Risk-Free Trial" line,
+  // title, requirement wording and "Start My FREE Trial" button, from the same
+  // `heroForm` builder. Two things stay this page's own: the mail subject, so
+  // ad leads can still be told apart, and the title as plain text rather than
+  // an H2, so the page outline still matches the live page.
   form: {
-    title: "Start 40-Hour Free Trial",
-    note: "Alert: This form is for business, not candidates. To apply for jobs,",
-    noteLink: { label: "click here", href: "/career-overview" },
-    submit: "Submit",
-    sending: "Sending...",
-    requirementLabel: "Requirements",
-    requirementPlaceholder: "Tell us about your requirements",
-    subject: "Ad landing: 40-Hour Free Trial (remote developers)",
+    ...heroForm({
+      title: "Get Skilled Software Developers",
+      requirementLabel: "How can we help (your requirement)",
+      requirementPlaceholder:
+        "Tell us about your project scope, required skills, timeline, and preferred hiring model.",
+      subject: "Ad landing: 40-Hour Free Trial (remote developers)",
+    }),
+    titleAs: undefined,
   },
 };
 
