@@ -26,18 +26,9 @@ export const marketingWebSiteLd = {
     'Build scalable AI solutions, intelligent automation systems, and seamless integrations with AI-enabled engineering teams focused on real business outcomes.',
   inLanguage: 'en',
   publisher: { '@id': organizationLd['@id'] },
-  /* The site's own search, which this app serves at `app/search/page.tsx`
-     reading `q`. It belongs to the website rather than to the homepage: it was
-     declared inside `home-seo.ts`'s own WebSite node, which only existed
-     because the homepage described the site a second time. */
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: `${absoluteUrl('/search')}?q={search_term_string}`,
-    },
-    'query-input': 'required name=search_term_string',
-  },
+  /* No SearchAction: its target, /search, is not routed to this app on www.softsuave.com and
+     has no database there, so it answered 404 (17 Nov review). Google retired the sitelinks
+     search box it fed in Nov 2024. */
 } as const;
 
 /**

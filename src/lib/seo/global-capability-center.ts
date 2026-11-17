@@ -25,7 +25,9 @@ export const GCC_LIVE_LD: readonly object[] = [
       "name": "Soft Suave",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.softsuave.com/blog/wp-content/uploads/2024/11/SS_logo_color-191x42.webp"
+        // Live points at a WordPress upload (/blog/wp-content/uploads/2024/11/SS_logo_color-191x42.webp),
+        // a 404 since the blog moved; this is the logo the site Organization uses (17 Nov review).
+        "url": "https://www.softsuave.com/new-assets/common/images/softsuave_logo.webp"
       }
     }
   }
