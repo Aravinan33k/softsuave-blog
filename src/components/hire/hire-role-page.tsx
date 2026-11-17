@@ -1,44 +1,17 @@
-import type { ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
 import { BASE_PATH } from '@/lib/flags';
 import type { HireBand, HireRolePageContent } from '@/lib/home/hire-roles/types';
-import { assignGrounds } from '@/lib/home/hire-roles/band-grounds';
-import { partnerHeroBadges } from '@/lib/home/hero-badges';
-import { sharedHeroCtas } from '@/lib/home/delivery-shared';
+import { tilesGrid } from '@/lib/home/hire-roles/band-content';
 import { landingPhoto, overviewImage } from '@/lib/home/overview-images';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
-// Company-level sections: the homepage's own components, rendering the
-// homepage's own copy from `lib/home/content.ts`. A role page's claim to these
-// clients, these figures, these case studies and these client stories is the
-// same claim the homepage makes — so it is made with the same component, the
-// same layout and the same words, not a second version that can drift out of
-// step. Only the bands the live role pages actually run are imported: the Why
-// Soft Suave manifesto, the industries fan and the awards strip are not among
-// them, so they are not here.
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import Clients from '@/components/home/clients';
-import WorkGrid from '@/components/home/work-grid';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
+import type { CardBadges, HireRoleServerProps } from './hire-role-bands';
 
-// Role-specific sections: the landing-page components, which exist because the
-// homepage has no equivalent. The hero carries the enquiry form (the homepage
-// hero is a video showreel), and the rest are the parts of a hire page that are
-// genuinely about this role — what it does, which technologies, how you engage,
-// how hiring works, and how we compare to the alternatives.
-import Hero from '@/components/generative-ai/hero';
-import Overview from '@/components/generative-ai/overview';
-import Problems from '@/components/generative-ai/problems';
-import FitTable from '@/components/generative-ai/fit-table';
-import Services from '@/components/generative-ai/services';
-import CtaBand from '@/components/generative-ai/cta-band';
-import Integration from '@/components/generative-ai/integration';
-import Process from '@/components/generative-ai/process';
-import CardGrid from '@/components/generative-ai/industries';
-import Comparison from '@/components/generative-ai/comparison';
-import Faq from '@/components/generative-ai/faq';
+// The card grids' badge glyphs: the brand marks of `TechLogo` and the drawn set.
+import CardIcon, { isBrandIcon } from '@/components/generative-ai/card-icon';
+import type { CardGridContent } from '@/components/generative-ai/industries';
 
 // The static grouped stack panels the Android and service pages run, in place
 // of the homepage marquee (review: "Technology Stack — change the tech stack
@@ -50,223 +23,110 @@ import TechRows from '@/components/home/tech-stack';
 import styles from '@/components/home/home.module.css';
 
 /**
- * The one rendering of a "Hire Developers by Role" page.
+ * The server shell of a "Hire Developers by Role" page: the nav, `<main>` and
+ * footer, and everything the band rendering cannot compute for itself.
  *
- * All thirteen routes share this component, but *not* one fixed band order:
- * softsuave.com does not run these pages in a single sequence, and several of
- * them differ substantially — the Salesforce and Blockchain pages open on their
- * why-hire cards, the backend page puts its evaluation criteria after the
- * delivery section, the dedicated page closes on its rate table and challenges.
- * So the order is content, declared per page in `order` and rendered here in
- * exactly that sequence. A page's module is therefore the single description of
- * both what its live page says and the order it says it in.
+ * The bands themselves are `HireRoleBands` (see its header for how the page is
+ * put together), rendered through `Sections` — the route's own `sections.tsx`,
+ * a client component that imports that role's copy. The route passes the same
+ * copy here as `content`, but only this shell reads it: handed on to the client
+ * components as props it was serialized into the RSC payload as well as
+ * rendered, so every paragraph was in the document twice.
  *
- * **The split that matters**: a section is either about Soft Suave or about the
- * role. Everything in the first group is the homepage's component *and* the
- * homepage's content — the clients, the figures, the case studies, the client
- * stories and the closing enquiry band. Only the second group is written per
- * role, from that role's live page.
+ * What the shell does pass down is what must not be computed on the browser's
+ * side of the boundary:
  *
- * **What is not rendered at all**: every band here corresponds to one the live
- * role pages run. The homepage bands they do not run — the Why Soft Suave
- * manifesto, the industries fan and the awards strip — are left off, so these
- * pages carry nothing their source does not.
- *
- * A server component: it holds no state, so keeping it off the client boundary
- * means the copy for the static bands is serialised once into the HTML instead
- * of shipping as props. The interactive sections inside are the client ones.
+ * - **The technology bands.** `TechStack` and `TechRows` draw `TechLogo`, ~30 KB
+ *   gzipped of SVG, so they stay server components and arrive as slots.
+ * - **The card grids' badges.** `Industries` is a server half that draws each
+ *   card's badge (`CardIcon`, which routes to `TechLogo` too) for a client half
+ *   that draws the rest. The client half is rendered from the bands with the
+ *   page's own copy, and only the badges arrive here, ready-made.
+ * - **The pipeline's photos.** `overviewImage` / `landingPhoto` read
+ *   `images.generated.json` (~300 KB of blur placeholders), which would ship to
+ *   every visitor if a client module imported it. Only the one record the page
+ *   uses is resolved here and passed on.
  */
-export default function HireRolePage({ content }: { content: HireRolePageContent }) {
-  /**
-   * `ownsAnchors` on the nav promises this page has #services and #why. Which
-   * band carries each depends on what the live page runs: the services anchor
-   * goes to the capability carousel, or to the specialisations grid on a page
-   * whose only "what you can hire" band is that grid. The why anchor goes to
-   * the page's own why-hire cards, or — on the pages that publish none — to the
-   * client strip, and failing that to the overview.
-   */
-  const servicesBand: HireBand = content.capabilities ? 'capabilities' : 'specialisations';
-  const whyBand: HireBand = content.whyRole
-    ? 'whyRole'
-    : content.order.includes('clients')
-      ? 'clients'
-      : 'overview';
-
-  /**
-   * The hero's credentials: the page's own text tags (the free-trial
-   * guarantee, the FDE figures) first, then the four partner lockups every
-   * other hero on the surface closes on. Added here, once, because they are
-   * the company's standing rather than the role's.
-   */
-  const hero = {
-    ...content.hero,
-    badges: [...(content.hero.badges ?? []), ...partnerHeroBadges],
-    // The trial/meeting pair every live role hero runs beside its form — the
-    // same two buttons the hire-by-skill pages get from the same constant.
-    ctas: sharedHeroCtas,
+/** One badge per card, drawn exactly as `Industries` draws them. */
+function cardBadges(grid: CardGridContent): CardBadges {
+  return {
+    icons: grid.items.map((item) => (
+      <CardIcon key={item.name} iconKey={item.key} text={`${item.name}. ${item.body}`} />
+    )),
+    brand: grid.items.map((item) => isBrandIcon(item.key)),
   };
+}
 
-  function render(band: HireBand): ReactNode {
-    const anchor = (own: HireBand, fallback: string) => (whyBand === own ? 'why' : fallback);
+export default function HireRolePage({
+  content,
+  Sections,
+}: Readonly<{
+  content: HireRolePageContent;
+  /** The route's `sections.tsx`: `HireRoleBands` over this role's own copy. */
+  Sections: ComponentType<HireRoleServerProps>;
+}>) {
+  const slug = content.slug.replace(/^\//, '');
 
-    switch (band) {
-      case 'clients':
-        return (
-          <div key={band} id={whyBand === 'clients' ? 'why' : undefined}>
-            <Clients />
-          </div>
-        );
-      case 'overview':
-        return content.overview ? (
-          <Overview
-            key={band}
-            // A page's own image wins; otherwise the pipeline's per-page photo.
-            content={{
-              ...content.overview,
-              image: content.overview.image ?? overviewImage(content.slug.replace(/^\//, '')),
-            }}
-            id={anchor('overview', 'overview')}
-          />
-        ) : null;
-      case 'capabilities':
-        return content.capabilities ? (
-          <Services
-            key={band}
-            content={content.capabilities}
-            id={servicesBand === 'capabilities' ? 'services' : 'capabilities'}
-          />
-        ) : null;
-      case 'specialisations':
-        return content.specialisations ? (
-          <CardGrid
-            key={band}
-            content={content.specialisations}
-            id={servicesBand === 'specialisations' ? 'services' : 'expertise'}
-            variant="bold"
-            // The whole card is the link (review: "remove the 'Know More'
-            // buttons; the entire cards must be clickable").
-            cardLinks
-          />
-        ) : null;
-      case 'fit':
-        if (content.fitTable) return <FitTable key={band} content={content.fitTable} id="fit" />;
-        return content.fit ? <Problems key={band} content={content.fit} id="fit" /> : null;
-      case 'engagement':
-        return content.engagement ? (
-          <Integration
-            key={band}
-            content={content.engagement}
-            id="engagement"
-            variant="bold"
-            // Each live engagement model carries its own "Hire Now".
-            blockCta={{ label: 'Hire Now', href: '/contact' }}
-          />
-        ) : null;
-      case 'globalDelivery':
-        return content.globalDelivery ? (
-          <Overview
-            key={band}
-            // A page's own image wins; otherwise the pipeline's per-page
-            // delivery photo (`landing/dl-<slug>`) — the live band has one.
-            content={{
-              ...content.globalDelivery,
-              image:
-                content.globalDelivery.image ?? landingPhoto(`dl-${content.slug.replace(/^\//, '')}`),
-            }}
-            id="delivery"
-          />
-        ) : null;
-      case 'process':
-        return <Process key={band} content={content.process} />;
-      case 'midCta':
-        return content.midCta ? <CtaBand key={band} content={content.midCta} /> : null;
-      case 'whyRole':
-        return content.whyRole ? (
-          <CardGrid key={band} content={content.whyRole} id="why" variant="bold" />
-        ) : null;
-      case 'comparison':
-        return content.comparison ? (
-          <Comparison key={band} content={content.comparison} id="compare" />
-        ) : null;
-      case 'rates':
-        return content.rates ? <Comparison key={band} content={content.rates} id="rates" /> : null;
-      case 'techStack':
-        if (content.techStack && content.techStackStyle === 'rows') {
-          // `.techFit` drops the homepage band's full-viewport height;
-          // `staticFrom` holds the rows still from tablet width up — the same
-          // pairing the Android page uses.
-          return (
-            <div key={band} className={styles.techFit}>
-              <TechRows content={content.techStack} staticFrom={768} />
-            </div>
-          );
-        }
-        return content.techStack ? (
-          <TechStack
-            key={band}
-            content={content.techStack}
-            largeLogos={content.techStackLargeLogos}
-          />
-        ) : null;
-      case 'caseStudies':
-        // The page's own projects where its live page names them; otherwise
-        // the homepage's case studies.
-        return <WorkGrid key={band} content={content.caseStudies} />;
-      case 'testimonials':
-        return <Testimonials key={band} />;
-      case 'faq':
-        return <Faq key={band} content={content.faq} idPrefix={`${content.key}-faq`} />;
-      default: {
-        // `list:<key>` — one of the page's own label-only bands, rendered
-        // through the technology band because that is what it is: a heading and
-        // a row of named things. Same treatment, its own place in the page.
-        const list = content.lists?.find((l) => `list:${l.key}` === band);
-        // Its own anchor, not the band's default `tech`: a page may run several
-        // of these beside its real technology section, and they must not all
-        // answer to the same id — that is invalid HTML and it stole the nav's
-        // Tech Stack link, which belongs to the `techStack` band above.
-        // Labels, not tools — so no brand marks: a bullet per label rather than
-        // the generic fallback disc on every chip.
-        if (list?.display === 'tiles') {
-          return (
-            <CardGrid
-              key={band}
-              id={`list-${list.key}`}
-              variant="tiles"
-              content={{
-                eyebrow: list.eyebrow,
-                title: list.title,
-                body: list.body,
-                cta: list.cta,
-                items: list.groups.flatMap((g) =>
-                  g.items.map((name) => ({ name, body: '', key: list.tileIcons?.[name] })),
-                ),
-              }}
-            />
-          );
-        }
-        return list ? (
-          <TechStack key={band} content={list} id={`list-${list.key}`} logos={false} />
-        ) : null;
-      }
+  /**
+   * The technology bands, keyed by the `order` entry that places them — only
+   * the ones this page actually runs, since each is a rendered subtree that
+   * would otherwise cross the boundary unused.
+   */
+  const techStacks: Record<string, ReactNode> = {};
+  if (content.techStack && content.order.includes('techStack')) {
+    techStacks.techStack =
+      content.techStackStyle === 'rows' ? (
+        // `.techFit` drops the homepage band's full-viewport height;
+        // `staticFrom` holds the rows still from tablet width up — the same
+        // pairing the Android page uses.
+        <div className={styles.techFit}>
+          <TechRows content={content.techStack} staticFrom={768} />
+        </div>
+      ) : (
+        <TechStack content={content.techStack} largeLogos={content.techStackLargeLogos} />
+      );
+  }
+
+  /** The same, for the bands that are card grids. */
+  const badges: Record<string, CardBadges> = {};
+  if (content.specialisations && content.order.includes('specialisations')) {
+    badges.specialisations = cardBadges(content.specialisations);
+  }
+  if (content.whyRole && content.order.includes('whyRole')) {
+    badges.whyRole = cardBadges(content.whyRole);
+  }
+
+  for (const list of content.lists ?? []) {
+    const band: HireBand = `list:${list.key}`;
+    if (!content.order.includes(band)) continue;
+    if (list.display === 'tiles') {
+      // Labels as badge-and-name tiles: a card grid, made from the list the
+      // same way the bands make it.
+      badges[band] = cardBadges(tilesGrid(list));
+    } else {
+      // Labels as the technology band's chip rows. Own anchor, and no brand
+      // marks: labels, not tools (see `HireRoleBands`).
+      techStacks[band] = <TechStack content={list} id={`list-${list.key}`} logos={false} />;
     }
   }
 
-  // Render in the page's own order, dropping bands whose content is absent,
-  // then fold each run of same-ground bands into one wrapper, so a chapter
-  // reads as one surface rather than as stacked panels with doubled padding.
-  const bands = content.order
-    .map((band) => ({ band, node: render(band) }))
-    .filter((b): b is { band: HireBand; node: ReactNode } => b.node !== null);
-
-  const grounds = assignGrounds(bands.map((b) => b.band));
-  const chapters: { light: boolean; nodes: ReactNode[] }[] = [];
-  bands.forEach(({ node }, i) => {
-    const light = grounds[i] === 'light';
-    const last = chapters.at(-1);
-    if (last && last.light === light) last.nodes.push(node);
-    else chapters.push({ light, nodes: [node] });
-  });
+  // A page's own image wins; otherwise the pipeline's per-page photo, which is
+  // resolved here (see above) for the bands that run without one.
+  const ownOverview =
+    content.overview && content.order.includes('overview') && !content.overview.image
+      ? overviewImage(slug)
+      : undefined;
+  const overviewPhoto =
+    ownOverview && content.overviewImageAlign
+      ? { ...ownOverview, align: content.overviewImageAlign }
+      : ownOverview;
+  // The live band has a photo of its own: `landing/dl-<slug>`.
+  const deliveryPhoto =
+    content.globalDelivery &&
+    content.order.includes('globalDelivery') &&
+    !content.globalDelivery.image
+      ? landingPhoto(`dl-${slug}`)
+      : undefined;
 
   return (
     <div className={styles.page}>
@@ -275,26 +135,12 @@ export default function HireRolePage({ content }: { content: HireRolePageContent
       <Nav ownsAnchors logoHref={BASE_PATH || '/'} />
 
       <main id="main">
-        <Hero content={hero} idPrefix={content.key} />
-
-        {chapters.map((chapter, i) =>
-          chapter.light ? (
-            <div key={i} className={styles.light}>
-              {chapter.nodes}
-            </div>
-          ) : (
-            <div key={i}>{chapter.nodes}</div>
-          ),
-        )}
-
-        {/* The homepage's closing band — the scrubbed focus pull and the
-            press-and-hold confirm, which is this surface's rendering of the
-            "Book Free Consultation" form every live role page ends on. Its CTA
-            keeps the default `/contact` destination — the review asked for
-            every final CTA to lead to the contact page. Every role page now
-            takes this copy (13 Oct review); four used to opt in to it and the
-            rest kept the homepage's AI-strategy pitch. */}
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections
+          techStacks={techStacks}
+          cardBadges={badges}
+          overviewImage={overviewPhoto}
+          deliveryImage={deliveryPhoto}
+        />
       </main>
 
       <Footer />

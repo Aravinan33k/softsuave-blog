@@ -3,13 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { postGuardArticleLd } from '@/lib/seo/case-study-postguard-compliance-ai';
-import { postGuardCaseStudy, postGuardMeta } from '@/lib/home/case-studies/postguard-compliance-ai';
+import { postGuardMeta } from '@/lib/home/case-studies/postguard-compliance-ai';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * PostGuard, rebuilt from
@@ -76,7 +76,7 @@ export default function PostGuardCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={postGuardCaseStudy} idPrefix="case-study-postguard-compliance-ai" />
+        <Sections />
       </main>
 
       <Footer />

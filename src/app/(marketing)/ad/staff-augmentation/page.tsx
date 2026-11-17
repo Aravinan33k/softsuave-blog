@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
   saugClients,
   saugClosingBand,
@@ -13,6 +12,8 @@ import {
   saugWhy,
   saugWhyClosing,
 } from '@/lib/home/ad-staff-augmentation-content';
+
+import { clientsPageBrands } from '@/lib/home/clients-content';
 
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
@@ -79,19 +80,25 @@ export default function AdStaffAugmentationPage() {
         <Hero noNav content={saugHero} idPrefix="ad-staff-aug-2" breadcrumb={false} />
 
         <div className={home.light}>
-          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={saugClients.title} body={saugClients.body} />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={saugClients.title} body={saugClients.body} wideTitle />
+        </div>
+
+        {/* Dark → light → dark, by request: Our Services dark, Hire on the white band, Why Choose Us dark. The light
+            clients band above and the light testimonials below keep any two dark sections apart. */}
+        <div className={styles.iconsOnDark}>
           <CardGrid content={saugServices} id="services" variant="bold" />
         </div>
 
-        {/* "Hire Developers On-Demand": a dark band between two light ones. Its two-tone line icons (black and
-            red) are turned light, keeping their red. */}
-        <div className={styles.iconsOnDark}>
+        <div className={home.light}>
           <Integration content={saugHire} id="hire" variant="bold" blockCta={saugHire.cta} span={4} />
         </div>
 
-        <div className={home.light}>
+        <div className={`${styles.iconsOnDark} ${styles.gridWithCta}`}>
           <CardGrid content={saugWhy} id="why" variant="bold" />
-          <CtaRow lead={saugWhyClosing} />
+          <CtaRow lead={saugWhyClosing} tight />
+        </div>
+
+        <div className={home.light}>
           <Testimonials content={saugTestimonials} />
         </div>
 

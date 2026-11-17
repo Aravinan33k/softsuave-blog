@@ -245,7 +245,9 @@ export const mvFaqs: FaqContent = {
 
 export const mvHighlights = [
   { name: 'One Time Payment', icon: `${IMG}/icons/one-time-payment.png`, alt: 'One time payment' },
-  { name: 'Free Setup', icon: `${IMG}/icons/free-setup.png`, alt: 'Free Setup' },
+  // Not "free-setup.png": the live Apache vhost denies any URL containing "setup." (a guard against
+  // PHP installer scripts), so that name answered 403 on www.softsuave.com.
+  { name: 'Free Setup', icon: `${IMG}/icons/free-set-up.png`, alt: 'Free Setup' },
   { name: 'Access Source Code', icon: `${IMG}/icons/source-code.png`, alt: 'Source Code Guranteed' },
   { name: 'Expert Support', icon: `${IMG}/icons/expert-support.png`, alt: 'Import & Export' },
   { name: 'Fully Customizable', icon: `${IMG}/icons/fully-customizable.png`, alt: 'Fully Customizable' },

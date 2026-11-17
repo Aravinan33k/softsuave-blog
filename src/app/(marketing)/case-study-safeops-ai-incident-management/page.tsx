@@ -3,13 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { safeOpsArticleLd } from '@/lib/seo/case-study-safeops-ai-incident-management';
-import { safeOpsCaseStudy, safeOpsMeta } from '@/lib/home/case-studies/safeops-ai-incident-management';
+import { safeOpsMeta } from '@/lib/home/case-studies/safeops-ai-incident-management';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * SafeOps AI Incident Management, rebuilt from
@@ -76,7 +76,7 @@ export default function SafeOpsCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={safeOpsCaseStudy} idPrefix="case-study-safeops-ai-incident-management" />
+        <Sections />
       </main>
 
       <Footer />

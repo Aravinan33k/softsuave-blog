@@ -15,52 +15,15 @@ import generated from "./images.generated.json";
  * could drift from the file on disk.
  */
 
-interface GeneratedImage {
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-  blurDataURL: string;
-}
+import { imageSlots, type GeneratedImage } from "./image-slots";
 
-const images = generated as Record<string, GeneratedImage>;
-
-export interface OverviewImage {
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-  blurDataURL?: string;
-}
+export type { OverviewImage } from "./image-slots";
 
 /**
- * The overview photograph for a page slug, or `undefined` when the pipeline has
- * no slot for it — so a caller can write `image: overviewImage(slug)` and a page
- * without one simply renders prose-only, as before.
+ * The lookups over the full manifest, for server-side callers (the hire-page
+ * templates look a slug up at render time). Anything that ships to the browser
+ * takes `imageSlots` from `./image-slots` with its own shard instead.
  */
-export function overviewImage(slug: string): OverviewImage | undefined {
-  const img = images[`landing/ov-${slug}`];
-  if (!img) return undefined;
-  return { src: img.src, width: img.width, height: img.height, alt: img.alt, blurDataURL: img.blurDataURL };
-}
-
-/**
- * The same record, for the smaller card artwork a page can carry (the computer
- * vision page's service cards are the first). Returns the `{src, alt}` shape
- * the card components take, or `undefined` when the pipeline has no such slot.
- */
-export function landingImage(id: string): { src: string; alt: string } | undefined {
-  const img = images[`landing/${id}`];
-  return img ? { src: img.src, alt: img.alt } : undefined;
-}
-
-/**
- * A pipeline slot's full record — dimensions and blur placeholder included —
- * for a hero or other slot that is not an `ov-<slug>` overview. Same shape as
- * `overviewImage`, looked up by the slot's own id (`landing/<id>`).
- */
-export function landingPhoto(id: string): OverviewImage | undefined {
-  const img = images[`landing/${id}`];
-  if (!img) return undefined;
-  return { src: img.src, width: img.width, height: img.height, alt: img.alt, blurDataURL: img.blurDataURL };
-}
+export const { overviewImage, landingImage, landingPhoto } = imageSlots(
+  generated as Record<string, GeneratedImage>,
+);

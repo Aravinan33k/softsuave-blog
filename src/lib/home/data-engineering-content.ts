@@ -24,8 +24,11 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { FaqContent } from "@/components/landing/faq";
 
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
-import { landingImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/data-engineering.generated.json";
 import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
+
+const { landingImage } = imageSlots(shard);
 
 export const deMeta = {
   slug: "data-engineering-services",

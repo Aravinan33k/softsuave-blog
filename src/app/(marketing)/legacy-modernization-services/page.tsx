@@ -1,30 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
-import {
-  legacyAbout,
-  legacyHero,
-  legacyMeta,
-  legacyServices,
-  legacyTopCompany,
-} from '@/lib/home/legacy-modernization-content';
+import { legacyMeta } from '@/lib/home/legacy-modernization-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-// COMPANY-LEVEL SECTIONS — the homepage's closing enquiry band, which is the
-// live page's "Book Free Consultation" form.
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
-
-// SERVICE-SPECIFIC SECTIONS — shared landing components taking this page's copy.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-// Four services carrying three or four paragraphs each — the board keeps every
-// paragraph without a wall of text, as on the PHP and NodeJS pages.
-import ServiceBoard from '@/components/common/service-board';
-
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Legacy Modernization Services landing page.
@@ -88,19 +71,7 @@ export default function LegacyModernizationPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <Hero content={legacyHero} idPrefix="legacy" variant="compact" />
-
-        <div className={home.light}>
-          <Overview content={legacyTopCompany} id="overview" />
-        </div>
-
-        <Overview content={legacyAbout} id="why" />
-
-        <div className={home.light}>
-          <ServiceBoard content={legacyServices} />
-        </div>
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections />
       </main>
 
       <Footer />

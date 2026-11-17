@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
   rdClients,
   rdExperts,
@@ -17,6 +16,8 @@ import {
   rdWhyClosing,
 } from '@/lib/home/ad-remote-developer-content';
 
+import { clientsPageBrands } from '@/lib/home/clients-content';
+
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 
@@ -29,7 +30,6 @@ import CtaRow from '@/components/ad/cta-row';
 import SkillCarousel from '@/components/ad/skill-carousel';
 import ServiceCarousel from '@/components/ad/service-carousel';
 import TrialModal from '@/components/ad/trial-modal';
-import AdLegalFooter from '@/components/ad/legal-footer';
 
 import home from '@/components/home/home.module.css';
 import styles from '@/components/ad/ad.module.css';
@@ -41,8 +41,8 @@ import styles from '@/components/ad/ad.module.css';
  *
  * The same ad-page kit as the other /ad pages, with this page's own content
  * (`lib/home/ad-remote-developer-content.ts`). No top navigation, like the
- * other /ad pages; instead of a full footer it closes on the site footer's
- * legal line alone (© year, Privacy Policy, Terms & Conditions), by request.
+ * other /ad pages; instead of a full footer it closes on the site footer
+ * legal line alone, which the /ad layout adds (`ad/layout.tsx`).
  * Every trial and "Hire Now" button opens the
  * two-column popup (heading, logos, form), as on the live page, which has no
  * closing form.
@@ -91,7 +91,7 @@ export default function AdRemoteDeveloperPage() {
         <div className={home.light}>
           {/* The live page's client logos sit inside its hero section; here they
               open the white band that follows it. */}
-          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={rdClients.title} body={rdClients.body} />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={rdClients.title} body={rdClients.body} wideTitle />
           <CardGrid content={rdWhy} id="why" variant="bold" />
           {/* The Why section's closing line: under its cards, in the heading face. */}
           <CtaRow lead={rdWhyClosing} attached joined headingLead />
@@ -113,14 +113,11 @@ export default function AdRemoteDeveloperPage() {
             request), each card with its "Hire Now" to the trial popup. */}
         <SkillCarousel content={rdExperts} id="experts" />
 
-        {/* On the light ground, by request — between the dark skills band and
-            the dark legal line. */}
+        {/* On the light ground, by request, after the dark skills band. */}
         <div className={home.light}>
           <Testimonials content={rdTestimonials} />
         </div>
       </main>
-
-      <AdLegalFooter />
 
       {/* Every "Start 40 Hours Free Trial" and "Hire Now" button opens this. */}
       <TrialModal form={rdPopup.form} side={rdPopup.side} idPrefix="ad-remote-trial" wipe />

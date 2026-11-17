@@ -1,16 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
-import {
-  ticketManagementCaseStudy,
-  ticketManagementMeta,
-} from '@/lib/home/case-studies/ticket-management-system';
+import { ticketManagementMeta } from '@/lib/home/case-studies/ticket-management-system';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Advanced Ticket Management App for Risk-Free Transactions, rebuilt from
@@ -73,7 +70,7 @@ export default function TicketManagementCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={ticketManagementCaseStudy} idPrefix="case-study-ticket-management-system" />
+        <Sections />
       </main>
 
       <Footer />

@@ -3,46 +3,16 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { aiPageJsonLd, softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
-import {
-  ragComparison,
-  ragFaqs,
-  ragHero,
-  ragIndustries,
-  ragMeta,
-  ragOverview,
-  ragProjectCta,
-  ragServices,
-  ragTech,
-  ragUseCases,
-  ragWhyUs,
-} from '@/lib/home/rag-document-ai-content';
+import { ragMeta, ragTech } from '@/lib/home/rag-document-ai-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-
-// Shared landing-page surface — bordered panels and grids over the homepage's
-// typography and `.theme-four` tokens.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import ServicesGrid from '@/components/common/services-grid';
-import Industries from '@/components/landing/industries';
-import CtaBand from '@/components/landing/cta-band';
-import Comparison from '@/components/common/comparison';
-import WhyUs from '@/components/landing/why-us';
 // The homepage's marquee tech stack over this page's own groups — the same
 // section the generative-AI page renders, so the two read as a pair.
 import TechStack from '@/components/home/tech-stack';
-import Faq from '@/components/landing/faq';
-
-// Sections reused from the homepage verbatim: their copy is the homepage's
-// own (`lib/home/content.ts`), so they render with the homepage's actual
-// components rather than a second implementation of the same section.
-import Clients from '@/components/home/clients';
-import CaseStudies from '@/components/home/work-grid';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * RAG & Document AI landing page.
@@ -132,70 +102,9 @@ export default function RagDocumentAiServicePage() {
        * alternates, so the only two-dark run on the page is FAQ → Contact.
        */}
       <main id="main">
-        {/* Compact look — the generative-AI page's hero, so the two service
-            pages read as a matched pair. */}
-        <Hero content={ragHero} idPrefix="rag" variant="compact" />
-
-        <div className={home.light}>
-          <Clients />
-        </div>
-
-        {/* All four paragraphs shown in full: the "View more / View less"
-            clamp is gone (1 Oct review: "remove the View More and View Less
-            options in this section"). */}
-        <Overview content={ragOverview} variant="compact" />
-
-        <div className={home.light}>
-          {/* Every service on screen at once, each card wearing its own
-              artwork in its top corner — the GCC page's feature card. */}
-          <ServicesGrid content={ragServices} />
-        </div>
-
-        {/* Same bordered card grid as Industries, filled with use cases —
-            three across (1 Oct review: "we can try 3x2 alignments"), so the
-            five cards sit 3 + 2 instead of 4 + 1. */}
-        <Industries content={ragUseCases} id="use-cases" columns={3} />
-
-        <div className={home.light}>
-          <CtaBand content={ragProjectCta} />
-        </div>
-
-        {/* Decision board — each factor leans a marker toward the approach
-            that fits, with a tally of who takes how many. */}
-        <Comparison content={ragComparison} />
-
-        <div className={home.light}>
-          <Industries content={ragIndustries} />
-        </div>
-
-        <WhyUs content={ragWhyUs} />
-
-        {/* Homepage case-study gallery, on the warm-white band as it is there. */}
-        <div className={home.light}>
-          <CaseStudies />
-        </div>
-
-        {/* Dark, as on the homepage and the generative-AI page. `.techCompact`
-            only clears the homepage's full-viewport min-height.
-            `loopShortRows`: rows of five (Evaluation & Monitoring,
-            Infrastructure) fit a wide screen and held still while the longer
-            rows scrolled (7 Oct review: "the technologies under 'Evaluation &
-            Monitoring' are not scrolling"). */}
-        <div className={home.techCompact}>
-          <TechStack content={ragTech} loopShortRows />
-        </div>
-
-        {/* Homepage client stories, on the warm-white band as they are there. */}
-        <div className={home.light}>
-          <Testimonials />
-        </div>
-
-        <Faq content={ragFaqs} idPrefix="rag-faq" />
-
-        {/* The homepage's closing CTA, on its default /contact destination —
-            the review sheet asked for the CTA buttons to lead to the contact
-            page rather than back up to the hero's enquiry form. */}
-        <Contact />
+        <Sections
+          techStack={<TechStack content={ragTech} loopShortRows />}
+        />
       </main>
 
       <Footer addressMicrodata={false} />

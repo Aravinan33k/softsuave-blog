@@ -3,46 +3,15 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
-import { partnerHeroBadges } from '@/lib/home/hero-badges';
-import { sharedHeroCtas } from '@/lib/home/delivery-shared';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
-import {
-  hxComparison,
-  hxExpertise,
-  hxFaqs,
-  hxHero,
-  hxMeta,
-  hxProcess,
-  hxServices,
-  hxSkillCheck,
-  hxWhyHire,
-} from '@/lib/home/hire-xamarin-content';
+import { hxFaqs, hxHero, hxMeta, hxServices } from '@/lib/home/hire-xamarin-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-// The hire-software-developers bands: the hero, process, comparison and FAQ
-// every hire-by-role page renders, plus the homepage's own clients, client
-// stories and closing enquiry band.
-import Hero from '@/components/generative-ai/hero';
-import Process from '@/components/generative-ai/process';
-import Comparison from '@/components/generative-ai/comparison';
-import Faq from '@/components/generative-ai/faq';
-import Clients from '@/components/home/clients';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-
-// The sections this page's brief borrows from sibling pages: TypeScript's Why
-// Choose Us and Services, Data Science's Technology Stack, and the
-// hire-php-developers card grid for the vetting band.
-import WhyUs from '@/components/landing/why-us';
-import ServicesCarousel from '@/components/common/services-carousel';
-import TechCluster from '@/components/data-science/tech-cluster';
-import CardGrid from '@/components/landing/industries';
-
 import home from '@/components/home/home.module.css';
 // This page's own section rhythm (`--section-y`, `--gutter`), scoped to it.
 import page from './page.module.css';
+import Sections from './sections';
 
 /**
  * Hire Xamarin Developer — softsuave.com/hire-xamarin-developer carried into
@@ -123,42 +92,7 @@ export default function HireXamarinDeveloperPage() {
        * the TypeScript page, and the closing Contact band is dark.
        */}
       <main id="main">
-        {/* The partner lockups and trial/meeting pair are the company's
-            standing, added here as `HireRolePage` adds them. */}
-        <Hero
-          content={{ ...hxHero, badges: partnerHeroBadges, ctas: sharedHeroCtas }}
-          idPrefix="hire-xamarin"
-          wide
-        />
-
-        <div className={home.light}>
-          <Clients />
-          <WhyUs content={hxWhyHire} />
-        </div>
-
-        <Process content={hxProcess} />
-
-        <div className={home.light}>
-          <TechCluster content={hxExpertise} />
-        </div>
-
-        <ServicesCarousel content={hxServices} />
-
-        <div className={home.light}>
-          <CardGrid content={hxSkillCheck} id="vetting" variant="bold" span={3} />
-        </div>
-
-        <Comparison content={hxComparison} id="compare" />
-
-        <div className={home.light}>
-          <Testimonials />
-          <Faq content={hxFaqs} idPrefix="hire-xamarin-faq" />
-        </div>
-
-        {/* The old page's own "Book Free Consultation" band — the same copy
-            and no eyebrow, exactly as the hire-by-skill pages close. The CTA
-            keeps its /contact destination. */}
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections />
       </main>
 
       <Footer />

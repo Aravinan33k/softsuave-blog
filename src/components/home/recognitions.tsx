@@ -47,23 +47,24 @@ import styles from "./home.module.css";
 const DWELL = 3200;
 
 export default function Recognitions({
-  showCta = true,
   content = recognitions,
+  showCta = true,
 }: {
   /**
-   * The band's own copy and badges, for a page whose live awards section words
-   * it differently (/engagement-model, the staff-cost calculator). Omitted, the
-   * homepage's band renders as before.
+   * The band's own copy and badges. Defaults to the homepage's. A page can retitle it — the engagement-model
+   * page's live band is "Awards & Certifications" with no label, no line under it and no "View All" button —
+   * by leaving `eyebrow`, `body` or `cta` out.
    */
   content?: {
     readonly eyebrow?: string;
     readonly title: string;
     readonly body?: string;
+    readonly cta?: { readonly label: string; readonly href: string };
     readonly items: readonly {
       readonly key: string;
-      readonly org: string;
       readonly title: string;
-      readonly year: string | null;
+      readonly org: string;
+      readonly year?: string | null;
       readonly src?: string;
     }[];
   };
@@ -184,13 +185,13 @@ export default function Recognitions({
           {content.body ? <p className={styles.lead}>{content.body}</p> : null}
           {/* The site's orange section button (21 Oct review: was an orange
               text link with a drawn arrow), sized like "View all Case Studies". */}
-          {showCta ? (
+          {showCta && content.cta ? (
             <Link
               className={`${styles.pillFilled} ${styles.pillLg} ${styles.recogViewAll}`}
-              href={recognitions.cta.href}
+              href={content.cta.href}
               data-cursor="Open"
             >
-              {recognitions.cta.label}
+              {content.cta.label}
             </Link>
           ) : null}
         </div>

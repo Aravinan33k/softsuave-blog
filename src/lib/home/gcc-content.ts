@@ -23,8 +23,11 @@ import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesContent } from "@/components/landing/services";
 import type { CardGridContent } from "@/components/landing/industries";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
-import { overviewImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/gcc.generated.json";
 import { SPECIALISTS_PLUS } from "@/lib/company-figures";
+
+const { overviewImage } = imageSlots(shard);
 
 export const gccMeta = {
   slug: "global-capability-center",

@@ -2,9 +2,7 @@ import type { Metadata } from 'next';
 import { marketingFontVariables } from '@/lib/home/marketing-fonts';
 import ScrollProvider from '@/components/home/scroll-provider';
 import FreeEstimateTab from '@/components/common/free-estimate-tab';
-import { JsonLd } from '@/components/seo/json-ld';
 import { SiteGraph } from '@/components/seo/site-graph';
-import { MARKETING_SITE_GRAPH } from '@/lib/seo/page-graph';
 import './home.css';
 
 // Layout for the public marketing surface: the homepage at "/" and the service
@@ -44,9 +42,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
        * exactly — Organization included — nor on the pages whose approved
        * schema spec is their whole structured data (see `SiteGraph`).
        */}
-      <SiteGraph>
-        <JsonLd data={MARKETING_SITE_GRAPH} />
-      </SiteGraph>
+      <SiteGraph />
       <ScrollProvider>{children}</ScrollProvider>
       {/* softsuave.com's "Get Free Estimate" side tab, on every page of the marketing surface as on the live site
           (the blog, which is outside this group, does not carry it there either). */}

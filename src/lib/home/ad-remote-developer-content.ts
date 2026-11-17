@@ -82,6 +82,7 @@ export const rdWhyClosing = "We’re not just a staffing partner — we’re you
 export const rdServices: CardGridContent = {
   eyebrow: "Our Services",
   noIcons: true,
+  wideHead: true,
   title: "Hire Dedicated Developers for All Your Technology Needs",
   body: "Enhance your tech initiatives with dedicated developers. We specialize in various technologies to help your projects achieve maximum potential.",
   items: [
@@ -144,6 +145,7 @@ export const rdTech: TechStackContent = {
 
 export const rdPractice: CardGridContent = {
   eyebrow: "Code & Practice",
+  wideHead: true,
   title: "Our Coding Standards, Dev Practices - Your Success",
   body: "With clean code, smart workflows, and proven development practices, we build reliable products that drive your success from day one.",
   items: [

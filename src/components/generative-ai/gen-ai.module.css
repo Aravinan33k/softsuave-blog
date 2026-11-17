@@ -127,6 +127,20 @@
   }
 }
 
+/* `wide` on the section head: a long title gets a wider column beside the divider, so it sets in fewer lines. */
+@media (min-width: 900px) {
+  .headWide:has(> .intro) .title {
+    /* Not clamped to `--fit-width`: the column already hugs the text (`fit-content`), and a width measured
+       before this rule applied would pin the title back to the narrow column. */
+    max-width: 34ch;
+    text-wrap: balance;
+  }
+
+  .headWide:has(> .intro) {
+    grid-template-columns: fit-content(66%) minmax(0, 1fr);
+  }
+}
+
 /* ============================================================
    BUTTONS — squared, mono-labelled. The homepage's `.pill` is a 999px
    capsule; these are deliberately not.

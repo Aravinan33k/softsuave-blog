@@ -31,8 +31,11 @@ import type { ServiceBoardContent } from "@/components/common/service-board";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/home/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
-import { overviewImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/android-app.generated.json";
 import { sharedHeroAlert } from "./delivery-shared";
+
+const { overviewImage } = imageSlots(shard);
 
 export const andMeta = {
   slug: "android-application-development-company",

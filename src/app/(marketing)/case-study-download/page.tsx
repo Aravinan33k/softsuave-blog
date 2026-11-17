@@ -19,13 +19,15 @@ import styles from '@/components/case-study/case-study-download-page.module.css'
  * Its words and tick are the live page's (`lib/home/case-study-download-content.ts`), in this site's header,
  * footer and type; it closes on the shared "Book Free Consultation" band, as the live page does.
  *
- * Like /thank-you it is a confirmation, not a search result, so it is `noindex` (the live page is indexable, but
- * has no description or canonical and is reached only after a submission), and it is deliberately NOT in
- * `landing-pages.ts`, which feeds the sitemap. The `email` the live page receives is not used, so the page is static.
+ * Noindex, nofollow: a form's thank-you page has nothing to rank, and the SEO team asked for it on 17 Nov
+ * (overriding sheet row 245, which said index). So it is kept out of the sitemap (`sitemap: false` in
+ * `landing-pages.ts`). Its canonical is its own URL; inheriting the homepage's sent a mixed signal.
+ * The `email` the live page receives is not used, so the page is static.
  */
 
 export const metadata: Metadata = {
   title: caseStudyDownloadMeta.title,
+  alternates: { canonical: '/case-study-download' },
   robots: { index: false, follow: false },
 };
 

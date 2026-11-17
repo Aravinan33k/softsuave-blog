@@ -3,40 +3,14 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { ionFaqLd, ionServiceLd } from '@/lib/seo/ionic-app-development-company';
-import {
-  ionFaqs,
-  ionHero,
-  ionHireCta,
-  ionMeta,
-  ionOverview,
-  ionServices,
-  ionTech,
-} from '@/lib/home/ionic-app-content';
+import { ionMeta, ionTech } from '@/lib/home/ionic-app-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-
-// Shared landing-page surface — `components/landing` plus the newer sections
-// in `components/common`, over the homepage's typography and `.theme-four`
-// tokens. This page adds none of its own; every section the live page carries
-// already had a home here.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import ServiceBoard from '@/components/common/service-board';
-import CtaBand from '@/components/landing/cta-band';
 import TechStack from '@/components/landing/tech-stack';
-import Faq from '@/components/landing/faq';
-
-// Sections reused from the homepage verbatim. Not a stylistic choice here: the
-// live page's copy for both IS the homepage's, to the word — its clients band
-// reads "Preferred AI-Enabled Technology Partner for Startups and SMBs" and its
-// reviews band "What Our Clients Say About Us", both with the same standfirst.
-import Clients from '@/components/home/clients';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Ionic App Development landing page.
@@ -128,43 +102,9 @@ export default function IonicAppDevelopmentPage() {
        * has none, and nothing is invented to fill the rhythm.
        */}
       <main id="main">
-        {/* Compact look — the same hero as the other app-development pages,
-            so the marketing surface reads as a matched set. */}
-        <Hero content={ionHero} idPrefix="ion" variant="compact" />
-
-        <div className={home.light}>
-          <Clients />
-        </div>
-
-        <Overview content={ionOverview} variant="compact" />
-
-        {/* Six names to pick from, one stage to read on. Their copy is too
-            long to sit on cards and too long to run down the page. */}
-        <div className={home.light}>
-          <ServiceBoard content={ionServices} />
-        </div>
-
-        <CtaBand content={ionHireCta} />
-
-        {/* The FAQ now follows the client stories, as the review asked and as
-            every corrected page on this surface runs them — the proof lands
-            before the objection-handling rather than after it.
-
-            That puts the technology stack and the stories back to back on the
-            warm white, so they share one wrapper: two light bands stacked
-            would double the padding between them and read as separate panels
-            rather than one chapter. Same merge `landing/hire-page` does with
-            its own runs. */}
-        <div className={home.light}>
-          <TechStack content={ionTech} />
-          {/* Homepage client stories — the live page's band carries the same
-              heading and standfirst. */}
-          <Testimonials />
-        </div>
-
-        <Faq content={ionFaqs} idPrefix="ion-faq" />
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections
+          techStack={<TechStack content={ionTech} />}
+        />
       </main>
 
       <Footer />

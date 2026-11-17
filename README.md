@@ -228,6 +228,52 @@ This builds the app image, starts MySQL + the app (port 3000), runs `prisma migr
 on start, and persists local uploads in the `app_storage` volume. The `app` service reaches
 MySQL over the compose network (its `DATABASE_URL` is overridden to use the `mysql` host).
 
+### Production build for www.softsuave.com
+
+`NEXT_PUBLIC_*` values are compiled in at build time, so they must reach `docker build`
+(as `--build-arg`, or through `.env` for `docker compose`). Setting them only at runtime has
+no effect. For the live site:
+
+| Variable | Production value | Default if omitted |
+| --- | --- | --- |
+| `NEXT_PUBLIC_HOMEPAGE_ENABLED` | `true` | `false`: `/` redirects to `/blog` |
+| `NEXT_PUBLIC_ALLOW_INDEXING` | `true` | `false`: every page is `noindex, nofollow` |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.softsuave.com` | same |
+| `NEXT_PUBLIC_GTM_ID` | empty (uses `GTM-TWMFSDC`) | same |
+
+```bash
+docker build \
+  --build-arg NEXT_PUBLIC_HOMEPAGE_ENABLED=true \
+  --build-arg NEXT_PUBLIC_ALLOW_INDEXING=true \
+  --build-arg NEXT_PUBLIC_SITE_URL=https://www.softsuave.com \
+  -t softsuave-site:latest .
+```
+
+At runtime, replace every `dev-*` / `ChangeMe` secret from `.env.example` (`JWT_*`, `PREVIEW_SECRET`,
+`REVALIDATE_SECRET`, `SEED_ADMIN_*`), set `DATABASE_URL` to the production MySQL, leave
+`DATABASE_SSL` unset (or `verify`) when the database is on another host, and set `SMTP_*` and
+`NEETOCAL_API_KEY` so the enquiry forms and booking work. The container runs
+`prisma migrate deploy` on start, so take a database backup first.
+
+**Routing on the live server.** Apache sends a request to this app only when its exact
+path is listed in [deploy/softsuave-site-pages.map](deploy/softsuave-site-pages.map)
+(219 pages in six batches, homepage last), plus the app's own asset and form-API paths.
+Everything else stays as it is today: the existing blog app on `/blog`, the `/forms` API,
+the unmigrated PHP pages, the old `/ad/*` PHP pages, `robots.txt` and `sitemap.xml`.
+Switch a batch by adding its lines to the server's map file; roll back by removing them.
+[deploy/apache.softsuave.example.conf](deploy/apache.softsuave.example.conf) has the
+vhost rules. On that server the app runs without `DATABASE_URL`, so its forms forward
+leads to the same `/forms` endpoints the PHP pages use.
+
+**Releases on the live server.** The app runs under PM2 as `softsuave-site` from
+`/var/www/softsuave-site/current` (a link to `releases/<commit>`), with Node 22 in
+`/opt/node22` and its settings in the root-only `shared/.env`
+([deploy/pm2.softsuave-site.config.js](deploy/pm2.softsuave-site.config.js)).
+[deploy/build-release.sh](deploy/build-release.sh) builds a new release beside the running
+one (about 3 minutes; the build briefly uses most of the 4 GB RAM). Check it on a spare
+port, then point `current` at it and `pm2 restart softsuave-site`; rolling back is the same
+with the previous release.
+
 > **Build note:** the production build emits one Turbopack file-tracing warning for the local
 > `/uploads` route (it uses `process.cwd()`). It's harmless; on Vercel, use S3 storage and the
 > route is unused.

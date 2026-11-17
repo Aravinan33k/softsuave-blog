@@ -3,13 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/json-ld';
 import { liveSiteOrganizationLd } from '@/lib/seo/live-site-organization';
-import { digitalBankingCaseStudy, digitalBankingMeta } from '@/lib/home/case-studies/onestop-digital-banking-solution';
+import { digitalBankingMeta } from '@/lib/home/case-studies/onestop-digital-banking-solution';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Building a Highly Secured One-stop Digital Banking Solution, rebuilt from
@@ -78,7 +78,7 @@ export default function DigitalBankingCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={digitalBankingCaseStudy} idPrefix="onestop-digital-banking-solution" />
+        <Sections />
       </main>
 
       <Footer />

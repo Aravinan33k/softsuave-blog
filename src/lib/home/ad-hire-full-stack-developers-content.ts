@@ -18,7 +18,6 @@ import type { HeroContent } from "@/components/landing/hero";
 import type { CardGridContent } from "@/components/generative-ai/industries";
 import type { ProcessContent } from "@/components/landing/process";
 import type { CtaBandContent } from "@/components/landing/cta-band";
-import type { EnquiryFormContent } from "@/components/common/enquiry-form";
 import { dedTech } from "@/lib/home/ad-hire-dedicated-developer-content";
 import { CLIENTS_PLUS, COUNTRIES_PLUS, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
@@ -169,18 +168,3 @@ export const fsProcess: ProcessContent = {
     { n: "05", name: "Add resource in your team", body: "If you like the resource(s), pay for the trial time and onboard resource(s)." },
   ],
 };
-
-/** The closing block: heading, line, the mail link, and the "Start Risk-FREE Trial!" form. */
-export const fsClosing = {
-  title: "Request 1 Week Free Trial!",
-  body: "Get 1 week free trial and start your project risk-free!",
-  link: { label: "contact@softsuave.com", href: "mailto:contact@softsuave.com" },
-  form: {
-    title: "Start Risk-FREE Trial!",
-    submit: "Start Now",
-    sending: "Sending...",
-    requirementLabel: "Requirements",
-    requirementPlaceholder: "Tell us about your requirements",
-    subject: "Ad landing: Start Risk-FREE Trial (full-stack developers)",
-  } satisfies EnquiryFormContent,
-} as const;

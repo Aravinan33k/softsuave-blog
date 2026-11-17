@@ -33,7 +33,10 @@ import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServiceBoardContent } from "@/components/common/service-board";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
-import { overviewImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/legacy-modernization.generated.json";
+
+const { overviewImage } = imageSlots(shard);
 
 export const legacyMeta = {
   slug: "legacy-modernization-services",

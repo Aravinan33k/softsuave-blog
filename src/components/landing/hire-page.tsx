@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode } from 'react';
+import type { ComponentType } from 'react';
 import type { Metadata } from 'next';
 
 import { BASE_PATH, pageRobots } from '@/lib/flags';
@@ -6,120 +6,62 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import { HIRE_SKILL_LIVE_SCHEMA } from '@/lib/seo/hire-skills-live-schema';
-import type { HireBand, HireSkill } from '@/lib/home/hire-skill';
-import { HIRE_CLIENT_LOGOS, HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
-import { partnerHeroBadges } from '@/lib/home/hero-badges';
-import { sharedHeroCtas } from '@/lib/home/delivery-shared';
+import type { HireSkill } from '@/lib/home/hire-skill';
 import { overviewImage } from '@/lib/home/overview-images';
-import type { CardGridContent } from '@/components/landing/industries';
-import type { ServicesContent } from '@/components/landing/services';
+import type { HireSectionsProps } from '@/components/landing/hire-bands';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-// Company-level bands: the homepage's own components over the homepage's own
-// copy. A hire page's claim to these clients and these client stories is the
-// same claim the homepage makes, so it is made with the same component rather
-// than a second version free to drift out of step.
-//
-// Note what is NOT imported: `home/manifesto`. The homepage's "Why Soft Suave"
-// manifesto used to render on all twenty of these pages under an `#why` anchor,
-// and it appears on none of their live pages — it is homepage copy, and the
-// per-page "Why hire X from Soft Suave" cards in `whyUs` are what the live
-// pages actually run in its place.
-import Clients from '@/components/home/clients';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
-import { faqsPageEnquiry } from '@/lib/home/faqs-content';
-import { navHref } from '@/themes/softsuave/nav-data';
-
-// Page-specific bands: the landing components, taking this skill's own copy.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import CardGrid from '@/components/landing/industries';
-// The homepage's horizontal scroll-snap lane, reused for the expertise band.
-import WorkCarousel from '@/components/home/work-grid';
-import ExploreMarquee from '@/components/landing/explore-marquee';
+// Heavy server components: both draw `TechLogo`, ~30 KB gzipped of SVG, so they
+// stay here and reach the client bands as a slot (see `HireSectionsProps`).
 import TechStack from '@/components/landing/tech-stack';
 // The Android page's labelled rows, for a page whose grouped panels are too
 // sparse to read as a grid (Kotlin: "need to change the design of the tech stack").
 import TechRows from '@/components/home/tech-stack';
+// The Agentic AI page's photo-card grid, for a skill with `servicesPhotoCards`.
+// Its card icons draw `TechLogo`, so it is a server band like the two above.
 import PhotoCards from '@/components/generative-ai/industries';
 import SectionCta from '@/components/generative-ai/section-cta';
-import CtaBand from '@/components/landing/cta-band';
-import Process from '@/components/landing/process';
-import Comparison from '@/components/landing/comparison';
-import Faq from '@/components/landing/faq';
 
 import home from '@/components/home/home.module.css';
 
 /**
- * Which bands sit on the warm-white ground and which stay dark.
+ * Slugs whose overview takes the pipeline's photo centred against the prose
+ * rather than opening at the top of a column twice its height (MEAN, 13 Oct
+ * review: "center align the image").
  *
- * Presentation only — it decides nothing about what a page says. Consecutive
- * light bands are merged into one wrapper below, so a run of them reads as a
- * single chapter rather than several stacked panels with doubled padding.
+ * That was `align: 'center'` written into the skill record beside the
+ * `overviewImage()` call. The record is imported by the browser now, and
+ * `overview-images` must not be, so the lookup moved here and the alignment
+ * with it.
  */
-const LIGHT_BANDS: ReadonlySet<HireBand> = new Set<HireBand>([
-  'clients',
-  'overview',
-  'services',
-  'process',
-  'vetting',
-  'exploreMore',
-  'testimonials',
-  'faq',
-]);
-
-/**
- * A services band's content, as the card grid takes it.
- *
- * Every card section on these pages renders through `CardGrid` with
- * `variant="bold"` — the same component and variant the Global Capability
- * Center page's "Who It Fits" band uses, which is the structure these sections
- * are meant to match: the 12-column `gridSpansFor` composition, the accent rule
- * across the top of each card, the per-card accent from the warm ramp, and no
- * ordinal.
- *
- * The services and applications bands are typed as `ServicesContent` because
- * that is the shape their copy was written in, so they are converted here
- * rather than being rendered by a different component that merely looks close.
- * `image` is dropped — the bold card has no header-image slot, and no hire-page
- * band sets one.
- */
-function asCardGrid(content: ServicesContent): CardGridContent {
-  return {
-    eyebrow: content.eyebrow,
-    title: content.title,
-    body: content.body,
-    cta: content.cta,
-    items: content.items.map((item) => ({
-      name: item.name,
-      tag: item.tag,
-      body: item.body,
-    })),
-  };
-}
+const CENTERED_OVERVIEW_IMAGES: ReadonlySet<string> = new Set(['hire-mean-stack-developers-india']);
 
 /**
  * The one rendering of a "Hire <skill> Developers" page.
  *
- * All twenty routes share this component, but *not* one fixed band order.
- * softsuave.com does not run these pages in a single sequence: the six newer
- * pages (Django, Drupal, Kotlin, Laravel, Magento, Rails) open on a client band
- * and reach their hiring steps second, the ten older ones put a rate band
- * before the process, Node and Angular open on the applications they build,
- * React Native runs its comparison before its rates, and NestJS publishes no
- * FAQ. So the order is content, declared per page in `order` and rendered here
- * in exactly that sequence.
- *
  * A SERVER component, so it can own JSON-LD and be rendered from a route that
- * exports `metadata`; the section components inside are the client ones. Fonts,
- * `.theme-four` tokens and Lenis smooth scroll come from
- * `app/(marketing)/layout.tsx`.
+ * exports `metadata`. The band rendering itself — hero, the page's run of
+ * bands in the order `skill.order` declares, the closing enquiry band — lives in
+ * `./hire-bands`, a client component. Fonts, `.theme-four` tokens and Lenis
+ * smooth scroll come from `app/(marketing)/layout.tsx`.
+ *
+ * `Sections` is the route's own client wrapper (`<route>/sections.tsx`), which
+ * imports that route's skill and hands it to `HireBands`. The skill is NOT
+ * passed down from here: a prop crossing server -> client is serialized into the
+ * RSC payload as well as rendered, which put every paragraph in the document
+ * twice. What the shell does pass are the two things the browser cannot work out
+ * for itself — the tech-stack band and the overview photo; see
+ * `HireSectionsProps`.
  */
-export default function HirePage({ skill }: { skill: HireSkill }) {
+export default function HirePage({
+  skill,
+  Sections,
+}: {
+  skill: HireSkill;
+  Sections: ComponentType<HireSectionsProps>;
+}) {
   const path = `/${skill.slug}`;
 
   /*
@@ -161,175 +103,66 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
     faqs: skill.faq?.items,
   });
 
-  function render(band: HireBand): ReactNode {
-    switch (band) {
-      case 'clients':
-        return (
-          <Clients
-            key={band}
-            logos={(skill.clientsBand?.logos as typeof HIRE_CLIENT_LOGOS | undefined) ?? HIRE_CLIENT_LOGOS}
-            {...(skill.clientsBand?.eyebrow ? { eyebrow: skill.clientsBand.eyebrow } : {})}
-          />
-        );
-      case 'overview':
-        return skill.overview ? (
-          <Overview
-            key={band}
-            // A skill's own image wins; otherwise the pipeline's per-page photo.
-            content={{ ...skill.overview, image: skill.overview.image ?? overviewImage(skill.slug) }}
-            id="overview"
-            variant="compact"
-          />
-        ) : null;
-      case 'applications':
-        // `autoLink` forced on: the id "applications" doesn't match
-        // `CardGrid`'s own service/industry/solution guess, which left every
-        // card in this band unlinked on the two pages (Node, Angular) that
-        // open on it (review: "several buttons are not linked to any pages").
-        return skill.applications ? (
-          <CardGrid
-            key={band}
-            content={asCardGrid(skill.applications)}
-            id="applications"
-            variant="bold"
-            // No card links (hire-by-skill review: "Remove the links from the
-            // service cards").
-            autoLink={false}
-          />
-        ) : null;
-      case 'combinations':
-        return skill.combinations ? (
-          <CardGrid key={band} content={skill.combinations} id="combinations" variant="bold" />
-        ) : null;
-      case 'services':
-        if (skill.services && skill.servicesPhotoCards) {
-          return (
-            <Fragment key={band}>
-            <PhotoCards
-              id="services"
-              content={{
-                eyebrow: skill.services.eyebrow,
-                title: skill.services.title,
-                body: skill.services.body,
-                cta: skill.services.cta,
-                items: skill.services.items.map((item) => ({
-                  name: item.name,
-                  body: item.body,
-                  image: item.image?.src,
-                  link: false as const,
-                })),
-              }}
-            />
-            {/* The photo grid draws no closing button of its own. */}
-            <div className={home.section} style={{ paddingTop: 0, paddingBottom: 0, marginTop: 'calc(var(--section-y) * -0.95)', marginBottom: 'calc(var(--section-y) * -0.35)' }}>
-              <SectionCta cta={skill.services.cta} />
-            </div>
-            </Fragment>
-          );
-        }
-        return skill.services ? (
-          // `autoLink={false}`: the `services` id would otherwise link every card
-          // whose name matches a page (review: "Remove the links from the
-          // service cards").
-          <CardGrid
-            key={band}
-            content={asCardGrid(skill.services)}
-            id="services"
-            variant="bold"
-            autoLink={false}
-          />
-        ) : null;
-      case 'techStack':
-        if (skill.techStack && skill.techStackStyle === 'rows') {
-          // `.techFit` drops the homepage band's full-viewport height and
-          // `staticFrom` holds the rows still from tablet up — the Android
-          // page's pairing.
-          return (
-            <div key={band} className={home.techFit}>
-              <TechRows content={skill.techStack} staticFrom={768} collapsedGroups={skill.techStackCollapsedRows} />
-            </div>
-          );
-        }
-        return skill.techStack ? <TechStack key={band} content={skill.techStack} /> : null;
-      case 'expertise':
-        /*
-         * The horizontal scroll-snap lane from the homepage's case-study
-         * section, not the bold card grid the other bands use — a deliberate
-         * break, so the one band on the page that lists deep technical ground
-         * does not read as a fourth stack of identical cards.
-         *
-         * Content is passed through untouched: `name` becomes the tile title
-         * because that is what this template calls the same field, and nothing
-         * in `lib/home/hire-skills-*.ts` changed. These items carry no artwork,
-         * so the lane renders its text-only tiles (see WorkCarousel).
-         *
-         * It stays off LIGHT_BANDS, so the ground is the dark one it already
-         * had.
-         */
-        return skill.expertise ? (
-          <WorkCarousel
-            key={band}
-            id="expertise"
-            countLabel="capabilities"
-            /* Slower than the 4.6s the old services carousel used: these tiles
-               carry a full paragraph, and advancing before it can be read is
-               worse than not advancing at all. Pauses on hover and focus. */
-            autoplayMs={6000}
-            content={{
-              eyebrow: skill.expertise.eyebrow,
-              title: skill.expertise.title,
-              body: skill.expertise.body,
-              items: skill.expertise.items.map((item) => ({
-                title: item.name,
-                body: item.body ?? '',
-              })),
-            }}
-          />
-        ) : null;
-      case 'midCta':
-        return skill.midCta ? <CtaBand key={band} content={skill.midCta} /> : null;
-      case 'process':
-        return skill.process ? (
-          <Process key={band} content={skill.process} variant="mosaic" label={skill.processLabel} />
-        ) : null;
-      case 'whyUs':
-        return skill.whyUs ? (
-          <CardGrid key={band} content={skill.whyUs} id="why" variant="bold" />
-        ) : null;
-      case 'comparison':
-        return skill.comparison ? <Comparison key={band} content={skill.comparison} /> : null;
-      case 'vetting':
-        return skill.vetting ? (
-          <Process key={band} content={skill.vetting} id="vetting" variant="even" label={skill.vettingLabel} />
-        ) : null;
-      case 'exploreMore':
-        // The display-type marquee, not a card grid: these cards were a label
-        // in a box with no body copy under it, because the live pages give
-        // these links none. See components/landing/explore-marquee.tsx.
-        return skill.exploreMore ? (
-          <ExploreMarquee key={band} content={skill.exploreMore} id="explore" tabs={skill.exploreTabs} />
-        ) : null;
-      case 'testimonials':
-        return <Testimonials key={band} content={skill.testimonials} />;
-      case 'faq':
-        return skill.faq ? (
-          <Faq key={band} content={skill.faq} idPrefix={`${skill.key}-faq`} />
-        ) : null;
-      default:
-        return null;
-    }
-  }
+  /*
+   * The tech-stack band, drawn here because it is the one band that cannot be a
+   * client component. `.techFit` drops the homepage band's full-viewport height
+   * and `staticFrom` holds the rows still from tablet up — the Android page's
+   * pairing.
+   */
+  const techStack = !skill.techStack ? null : skill.techStackStyle === 'rows' ? (
+    <div className={home.techFit}>
+      <TechRows content={skill.techStack} staticFrom={768} collapsedGroups={skill.techStackCollapsedRows} />
+    </div>
+  ) : (
+    <TechStack content={skill.techStack} />
+  );
 
-  // Merge each run of consecutive light bands into a single wrapper.
-  const groups: { light: boolean; nodes: ReactNode[] }[] = [];
-  for (const band of skill.order) {
-    const node = render(band);
-    if (!node) continue;
-    const light = LIGHT_BANDS.has(band);
-    const last = groups[groups.length - 1];
-    if (last && last.light === light) last.nodes.push(node);
-    else groups.push({ light, nodes: [node] });
-  }
+  /*
+   * The services band as photo cards (`servicesPhotoCards`), drawn here for the
+   * same reason as the tech stack: `PhotoCards` renders `TechLogo` through its
+   * card icons. A skill without the flag gets `undefined` and the client draws
+   * its usual card grid.
+   */
+  const services =
+    skill.services && skill.servicesPhotoCards ? (
+      <>
+        <PhotoCards
+          id="services"
+          content={{
+            eyebrow: skill.services.eyebrow,
+            title: skill.services.title,
+            body: skill.services.body,
+            cta: skill.services.cta,
+            items: skill.services.items.map((item) => ({
+              name: item.name,
+              body: item.body,
+              image: item.image?.src,
+              link: false as const,
+            })),
+          }}
+        />
+        {/* The photo grid draws no closing button of its own. */}
+        <div
+          className={home.section}
+          style={{
+            paddingTop: 0,
+            paddingBottom: 0,
+            marginTop: 'calc(var(--section-y) * -0.95)',
+            marginBottom: 'calc(var(--section-y) * -0.35)',
+          }}
+        >
+          <SectionCta cta={skill.services.cta} />
+        </div>
+      </>
+    ) : undefined;
+
+  // A skill's own overview image wins, so the photo is only looked up (and only
+  // sent to the client) when the skill names none.
+  const photo = skill.overview && !skill.overview.image ? overviewImage(skill.slug) : undefined;
+  const overviewPhoto =
+    photo && CENTERED_OVERVIEW_IMAGES.has(skill.slug)
+      ? { ...photo, align: 'center' as const }
+      : photo;
 
   return (
     <div className={home.page}>
@@ -343,50 +176,7 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
       <Nav logoHref={BASE_PATH || '/'} />
 
       <main id="main">
-        {/* The partner lockups and the trial/meeting CTA pair are stated here,
-            once, rather than in twenty skill records: both are the company's
-            standing, not the skill's, and every live role page runs the same
-            two buttons beside the same four lockups. */}
-        <Hero
-          content={{
-            ...skill.hero,
-            // The heavier veil on every skill hero (review: "add a black
-            // gradient to increase visibility in the hero section").
-            image: skill.hero.image && { ...skill.hero.image, veil: 'strong' },
-            // A skill whose live hero differs states its own badges, buttons and separator.
-            badges: skill.hero.badges ?? partnerHeroBadges,
-            ctas: skill.hero.ctas ?? sharedHeroCtas,
-          }}
-          idPrefix={skill.key}
-          breadcrumb={!skill.hideHeroBreadcrumb}
-        />
-        {groups.map((g, i) =>
-          g.light ? (
-            <div key={i} className={home.light}>
-              {g.nodes}
-            </div>
-          ) : (
-            <div key={i}>{g.nodes}</div>
-          ),
-        )}
-        {/* No `ctaHref`: the closing CTA takes its default, the /contact
-            route — the review asked for every final CTA to lead there. */}
-        {skill.closingEnquiry ? (
-          <ManagerEnquiry
-            content={{
-              ...faqsPageEnquiry,
-              manager: {
-                ...faqsPageEnquiry.manager,
-                cta: { ...faqsPageEnquiry.manager.cta, href: navHref(faqsPageEnquiry.manager.cta.href) },
-              },
-            }}
-            id="book-consultation"
-            idPrefix={`${skill.key}-contact`}
-            headingFont
-          />
-        ) : (
-          <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
-        )}
+        <Sections techStack={techStack} services={services} overviewImage={overviewPhoto} />
       </main>
 
       <Footer />

@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import { aiHealthcareCaseStudy, aiHealthcareMeta } from '@/lib/home/case-studies/ai-optimization-in-healthcare';
+import { aiHealthcareMeta } from '@/lib/home/case-studies/ai-optimization-in-healthcare';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * AI Optimization in Healthcare, rebuilt from
@@ -59,7 +59,7 @@ export default function AiHealthcareCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={aiHealthcareCaseStudy} idPrefix="case-study-ai-optimization-in-healthcare" />
+        <Sections />
       </main>
 
       <Footer />

@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import { JsonLd } from '@/components/seo/json-ld';
+import { RestoredLiveLd } from '@/components/seo/restored-live-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { organizationLd } from '@/lib/seo/organization';
 import { faqsPageEnquiry } from '@/lib/home/faqs-content';
 import { mgFaqs, mgHero, mgMeta, mgOffshore } from '@/lib/home/magento-content';
 import { navHref } from '@/themes/softsuave/nav-data';
@@ -45,22 +44,10 @@ export const metadata: Metadata = {
 
 const HOME_HREF = BASE_PATH || '/';
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  '@id': `${absoluteUrl(mgMeta.path)}#webpage`,
-  name: mgMeta.title,
-  description: mgMeta.description,
-  url: absoluteUrl(mgMeta.path),
-  inLanguage: 'en',
-  about: { '@id': organizationLd['@id'] },
-  publisher: { '@id': organizationLd['@id'] },
-};
-
 export default function MagentoDevelopmentPage() {
   return (
     <div className={home.page}>
-      <JsonLd data={structuredData} />
+      <RestoredLiveLd path="/magento-development" />
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">

@@ -1,16 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
-import {
-  onlineConsultationCaseStudy,
-  onlineConsultationMeta,
-} from '@/lib/home/case-studies/online-consultation-platform-for-doctors';
+import { onlineConsultationMeta } from '@/lib/home/case-studies/online-consultation-platform-for-doctors';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Online consultation platform for doctors, rebuilt from
@@ -70,10 +67,7 @@ export default function OnlineConsultationCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={onlineConsultationCaseStudy}
-          idPrefix="case-study-online-consultation-platform-for-doctors"
-        />
+        <Sections />
       </main>
 
       <Footer />

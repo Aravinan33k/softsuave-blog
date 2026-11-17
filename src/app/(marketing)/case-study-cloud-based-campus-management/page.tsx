@@ -2,16 +2,13 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { liveSiteOrganizationLd } from '@/lib/seo/live-site-organization';
-import {
-  campusManagementCaseStudy,
-  campusManagementMeta,
-} from '@/lib/home/case-studies/cloud-based-campus-management';
+import { campusManagementMeta } from '@/lib/home/case-studies/cloud-based-campus-management';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Cloud-Based Campus Management, rebuilt from
@@ -64,7 +61,7 @@ export default function CampusManagementCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={campusManagementCaseStudy} idPrefix="case-study-cloud-based-campus-management" />
+        <Sections />
       </main>
 
       <Footer />

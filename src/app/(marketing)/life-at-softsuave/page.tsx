@@ -4,32 +4,13 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/organization';
 import { marketingWebSiteLd, SCHEMA_DATE_MODIFIED } from '@/lib/seo/page-graph';
-import {
-  lifeAwards,
-  lifeGallery,
-  lifeHero,
-  lifeMeta,
-  lifePerks,
-  lifePractice,
-  lifePurpose,
-} from '@/lib/home/life-content';
+import { lifeHero, lifeMeta } from '@/lib/home/life-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
-
-// PAGE-LOCAL SECTIONS, composed from the landing surface's classes and
-// primitives — the photo-led arrangements live uses that the shared landing set
-// has no equivalent for (see each component's header).
-import PhotoMasthead from '@/components/common/photo-masthead';
-import LifeGallery from '@/components/life/life-gallery';
-import LifePurpose from '@/components/life/life-purpose';
-import LifePerks from '@/components/life/life-perks';
-import LifePractice from '@/components/life/life-practice';
-import LifeAwards from '@/components/life/life-awards';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Life at Soft Suave — rebuilt from
@@ -103,25 +84,7 @@ export default function LifeAtSoftSuavePage() {
       {/* Band rhythm: photo masthead (dark), then light and dark alternating
           down to the dark Contact band. */}
       <main id="main">
-        <PhotoMasthead content={lifeHero} />
-
-        <div className={home.light}>
-          <LifeGallery content={lifeGallery} />
-        </div>
-
-        <LifePurpose content={lifePurpose} />
-
-        <div className={home.light}>
-          <LifePerks content={lifePerks} />
-        </div>
-
-        <LifePractice content={lifePractice} />
-
-        <div className={home.light}>
-          <LifeAwards content={lifeAwards} />
-        </div>
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections />
       </main>
 
       <Footer />

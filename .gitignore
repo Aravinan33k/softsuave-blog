@@ -68,3 +68,13 @@ next-env.d.ts
 /data/
 
 .idea/
+
+# One-off debugging and audit output at the repo root (Playwright probes,
+# link-audit JSON, deploy staging folders). Keep scripts in scripts/ instead.
+/_*.js
+/_*.mjs
+/audit-*.json
+/softsuave-deploy-*/
+# Throwaway build worktrees.
+/.prod-check/
+/.baseline-*/

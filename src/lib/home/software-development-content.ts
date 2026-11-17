@@ -42,9 +42,12 @@ import type { JourneyContent } from "@/components/home/journey";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
-import { overviewImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/software-development.generated.json";
 import { sharedHeroAlert } from "./delivery-shared";
 import { SPECIALISTS_PLUS } from "@/lib/company-figures";
+
+const { overviewImage } = imageSlots(shard);
 
 export const sdMeta = {
   slug: "software-development-company",

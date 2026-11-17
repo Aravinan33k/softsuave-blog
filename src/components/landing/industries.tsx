@@ -359,6 +359,8 @@ export interface CardGridContent {
       readonly width?: number;
       readonly height?: number;
       readonly alt: string;
+      /** Draw the picture as the accent glyph in the same tinted badge the picked icons sit in. */
+      readonly badge?: boolean;
       /**
        * `contain` fits the whole illustration in the slot instead of cropping
        * it to fill — for portrait art meant to be seen whole. `column`, where
@@ -368,11 +370,6 @@ export interface CardGridContent {
        * Omitted keeps the 4:3 crop.
        */
       readonly fit?: "contain" | "column";
-      /**
-       * Draw the mark as a glyph inside the shared icon badge (tinted to the
-       * band) instead of the image itself. Read by the card renderer below.
-       */
-      readonly badge?: boolean;
     };
   }[];
 }

@@ -1,16 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import {
-  equipmentWorkforceCaseStudy,
-  equipmentWorkforceMeta,
-} from '@/lib/home/case-studies/ai-driven-equipment-workforce-optimization';
+import { equipmentWorkforceMeta } from '@/lib/home/case-studies/ai-driven-equipment-workforce-optimization';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * AI-Driven Equipment & Workforce Optimization, rebuilt from
@@ -63,10 +60,7 @@ export default function EquipmentWorkforceCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={equipmentWorkforceCaseStudy}
-          idPrefix="case-study-ai-driven-equipment-workforce-optimization"
-        />
+        <Sections />
       </main>
 
       <Footer />

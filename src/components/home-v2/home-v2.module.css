@@ -38,37 +38,24 @@
   background: linear-gradient(90deg, transparent 0%, rgba(255, 84, 54, 0.55) 30%, rgba(255, 84, 54, 0.55) 70%, transparent 100%);
 }
 
-/* The hero's own video and, until it has frames, its first frame blurred.
-   Dimmed so the footage sits behind the copy; the veil below does the rest. */
-.heroPoster,
-.heroVideo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.6;
-}
-
-.heroPoster {
-  background-size: cover;
-  background-position: center;
-  filter: blur(14px);
-  transform: scale(1.08);
-}
-
-.heroVideo {
+/* The hero's still, at full strength: it is the picture, not ambient footage,
+   so the veil below carries the copy's contrast instead of an opacity. The
+   subject (the two fingertips meeting) sits right of centre, so narrower
+   screens crop towards it rather than to the empty middle. */
+.heroImage {
   object-fit: cover;
+  object-position: 50% 50%;
 }
 
-/* The veil does the rest: darkest behind the copy on the left, easing off to
-   the right where the footage has the frame to itself, and a deep fade at the
-   foot so the hero settles into the page. */
+/* The veil does the rest: darkest behind the copy on the left, clearing
+   towards the right where the hands have the frame to themselves, and a deep
+   fade at the foot so the hero settles into the page. */
 .heroVeil {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(4, 5, 8, 0.84) 0%, rgba(4, 5, 8, 0.66) 40%, rgba(4, 5, 8, 0.28) 76%, rgba(4, 5, 8, 0.38) 100%),
-    linear-gradient(180deg, rgba(4, 5, 8, 0.66) 0%, rgba(4, 5, 8, 0) 26%, rgba(4, 5, 8, 0) 58%, rgba(4, 5, 8, 0.96) 100%);
+    linear-gradient(90deg, rgba(4, 5, 8, 0.8) 0%, rgba(4, 5, 8, 0.6) 34%, rgba(4, 5, 8, 0.14) 62%, rgba(4, 5, 8, 0) 100%),
+    linear-gradient(180deg, rgba(4, 5, 8, 0.5) 0%, rgba(4, 5, 8, 0) 22%, rgba(4, 5, 8, 0) 64%, rgba(4, 5, 8, 0.92) 100%);
 }
 
 /* A faint warm bloom behind the headline — the brand's colour, barely there. */
@@ -82,9 +69,13 @@
 /* On phones and portrait tablets the copy spans the full width, so the veil
    is even across it rather than heaviest on the left. */
 @media (max-width: 999px) {
+  .heroImage {
+    object-position: 80% 50%;
+  }
+
   .heroVeil {
     background:
-      linear-gradient(180deg, rgba(4, 5, 8, 0.78) 0%, rgba(4, 5, 8, 0.6) 40%, rgba(4, 5, 8, 0.7) 70%, rgba(4, 5, 8, 0.96) 100%);
+      linear-gradient(180deg, rgba(4, 5, 8, 0.72) 0%, rgba(4, 5, 8, 0.52) 40%, rgba(4, 5, 8, 0.62) 70%, rgba(4, 5, 8, 0.94) 100%);
   }
 
   .heroVeil::after {

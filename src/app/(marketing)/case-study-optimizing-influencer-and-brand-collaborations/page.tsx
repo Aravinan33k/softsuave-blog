@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import {
-  influencerBrandCaseStudy,
-  influencerBrandMeta,
-} from '@/lib/home/case-studies/optimizing-influencer-brand-collaborations';
+import { influencerBrandMeta } from '@/lib/home/case-studies/optimizing-influencer-brand-collaborations';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Optimizing Influencer and Brand Collaborations, rebuilt from
@@ -51,10 +48,7 @@ export default function InfluencerBrandCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={influencerBrandCaseStudy}
-          idPrefix="case-study-optimizing-influencer-and-brand-collaborations"
-        />
+        <Sections />
       </main>
 
       <Footer />

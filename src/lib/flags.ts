@@ -81,21 +81,26 @@ export const gtmContainerId: string = gtmEnv === 'off' ? '' : gtmEnv || GTM_DEFA
 /**
  * When the GTM container loads (`components/analytics/google-tag-manager`).
  *
- * `eager` (the default): the stock snippet's timing, right after hydration —
- * as softsuave.com loads it. The container is also what injects the site's
- * Organization JSON-LD (live's pages carry none of their own), so loading it
- * late left a page with no Organization for its first seconds, which schema
- * checkers and crawlers that don't wait reported as missing (review, ParkSafe
- * case study, 26 Oct).
+ * `eager` (the default): GTM's stock snippet, verbatim, in the served `<head>`
+ * — what the install instructions say, what the old PHP pages carry, and the
+ * only form GTM checkers (which read the raw HTML, not the running page) and
+ * Tag Assistant recognise. The container starts as soon as the head is parsed. It
+ * is also what injects the site's Organization JSON-LD (live's pages carry none of
+ * their own), so a late container left a page with no Organization for its first
+ * seconds, which schema checkers and crawlers that don't wait reported as missing
+ * (review, ParkSafe case study, 26 Oct).
  *
- * `deferred`: on the visitor's first scroll, tap, click, key or mouse move,
- * or a few seconds after the page has loaded if none comes. The container
- * pulls in ~680 KB of tags — Analytics, two Google Ads tags, LinkedIn,
- * Clarity, OptinMonster, Leadfeeder, Factors — and running them while the
- * page starts up cost PageSpeed 15–20 points on mobile (/contact 80 → 63,
- * /generative-ai-development-company 75 → 55, 15 Oct). Opt in with
- * `NEXT_PUBLIC_GTM_LOAD=deferred` to trade the Organization's timing for
- * that score. `NEXT_PUBLIC_*`, so changing it needs a rebuild.
+ * `deferred`: no snippet in the HTML; `GtmLoader` injects the container on the
+ * visitor's first scroll, tap, click, key or mouse move, or a few seconds after
+ * load if none comes. The container pulls in ~680 KB of tags — Analytics, two
+ * Google Ads tags, LinkedIn, Clarity, OptinMonster, Leadfeeder, Factors — and
+ * running them while the page starts up cost PageSpeed 15–20 points on mobile
+ * (/contact 80 → 63, /generative-ai-development-company 75 → 55, 15 Oct).
+ * Visits are still recorded, but a checker reports the head script "not found" and
+ * the Organization arrives late.
+ * Choose it knowingly: PageSpeed against being detectable.
+ *
+ * `NEXT_PUBLIC_*`, so changing it needs a rebuild.
  */
 export const gtmLoad: 'deferred' | 'eager' =
   (process.env.NEXT_PUBLIC_GTM_LOAD ?? '').trim() === 'deferred' ? 'deferred' : 'eager';

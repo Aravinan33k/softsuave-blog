@@ -1,23 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import {
-  clientStories,
-  employeeStories,
-  successStoriesClosingBand,
-  successStoriesPageHero,
-  successStoriesPageMeta,
-} from '@/lib/home/success-stories-content';
+import { successStoriesPageMeta } from '@/lib/home/success-stories-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import Contact from '@/components/home/contact';
-
-import SectionHead from '@/components/landing/section-head';
-import VideoStories from '@/components/landing/video-stories';
 
 import home from '@/components/home/home.module.css';
-import landing from '@/components/landing/landing.module.css';
+import Sections from './sections';
 
 /**
  * Success Stories — mirrors softsuave.com/success-stories.
@@ -65,18 +55,7 @@ export default function SuccessStoriesPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <section className={landing.indexHead} id="top">
-          <SectionHead level={1} title={successStoriesPageHero.title} />
-        </section>
-
-        {/* The story grids sit on the light band, so the page is not dark from
-            the masthead to the footer; the masthead and the enquiry band stay dark. */}
-        <div className={home.light}>
-          <VideoStories group={clientStories} />
-          <VideoStories group={employeeStories} />
-        </div>
-
-        <Contact content={successStoriesClosingBand} eyebrow="" />
+        <Sections />
       </main>
 
       <Footer />

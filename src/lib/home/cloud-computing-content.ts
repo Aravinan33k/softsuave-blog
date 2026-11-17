@@ -34,7 +34,10 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { ProcessContent } from "@/components/landing/process";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
-import { overviewImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/cloud-computing.generated.json";
+
+const { overviewImage } = imageSlots(shard);
 
 export const cloudMeta = {
   slug: "cloud-computing",

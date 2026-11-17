@@ -146,6 +146,15 @@ export interface HireRolePageContent {
   /** Editorial prose defining what hiring this role gives you. */
   readonly overview?: OverviewContent;
   /**
+   * How the pipeline's per-page overview photo sits against the prose, for a
+   * page that takes that photo (no `overview.image` of its own) but wants it
+   * aligned differently — see `OverviewContent.image.align`. The page template
+   * resolves the photo on the server, so a content module, which the browser
+   * also imports, states only the alignment and never calls into the image
+   * record itself.
+   */
+  readonly overviewImageAlign?: 'center';
+  /**
    * The "which skill fits which need" selector, where the live page carries a
    * decision table. Omitted on roles whose live page has none.
    */
