@@ -23,6 +23,13 @@ export interface IntegrationContent {
     readonly body: string;
     /** Optional mark above the label, `bold` cards only — the live expert cards' technology logo. */
     readonly image?: { readonly src: string; readonly alt: string };
+    /**
+     * Optional photo across the top of the card, edge to edge, `bold` cards
+     * only — the construction product page's two app cards (review: "add the
+     * image in that card"). Root-relative under /public; shown at its own
+     * proportions.
+     */
+    readonly photo?: { readonly src: string; readonly width: number; readonly height: number; readonly alt: string };
   }[];
 }
 
@@ -84,6 +91,16 @@ export default function Integration({
                 {/* No glyph and no ordinal: an engagement model is a named
                     choice, not one of a numbered set, and the reference band's
                     own cards carry neither. */}
+                {b.photo && (
+                  <Image
+                    src={publicMediaUrl(b.photo.src)}
+                    alt={b.photo.alt}
+                    width={b.photo.width}
+                    height={b.photo.height}
+                    sizes="(max-width: 699px) 92vw, 46vw"
+                    className={styles.indBoldPhoto}
+                  />
+                )}
                 {b.image && (
                   <span className={styles.indBoldIcon} data-multi="true" aria-hidden>
                     <Image

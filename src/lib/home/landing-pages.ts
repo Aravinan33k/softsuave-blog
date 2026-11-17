@@ -94,6 +94,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/free-demo-app', title: 'Free Demo App' },
   // noindex,nofollow on the live site, so out of the sitemap here too.
   { path: '/developer-profile', title: 'Hire India’s Top Remote Talents On Contract', sitemap: false },
+  { path: '/developer-rate-card', title: 'Developer’s Rate Card' },
   { path: '/free-quote', title: 'Free Quote' },
 
   // Custom-AI sub-pages.
@@ -395,6 +396,8 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/faqs', title: 'Frequently Asked Questions' },
   { path: '/engagement-model', title: 'Engagement Models' },
   { path: '/construction-employee-time-tracking-app', title: 'Construction Employee Time Tracking App' },
+  // noindex,nofollow on the live site, so out of the sitemap here too.
+  { path: '/construction-product', title: 'Construction Product', sitemap: false },
   { path: '/construction-project-management-software', title: 'Construction Project Management Software' },
   // noindex by the SEO page sheet (row 138), so out of the sitemap.
   { path: '/generative-ai-integration-service', title: 'Generative AI Integration Services', parent: '/software-development-company', sitemap: false },

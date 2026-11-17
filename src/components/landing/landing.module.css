@@ -639,6 +639,84 @@
   margin: clamp(26px, 3vw, 38px) 0 0;
 }
 
+/* --- `HeroContent.centered`: everything on the centre line, the kicker as a
+   pill with an accent dot, the H1's lines run together, the glow centred over
+   the copy. For a hero with nothing beside its copy. --- */
+.heroCentered {
+  text-align: center;
+}
+
+.heroCentered .heroGlow {
+  background: radial-gradient(
+    38% 62% at 50% 40%,
+    rgba(255, 84, 54, 0.3) 0%,
+    rgba(255, 84, 54, 0.1) 45%,
+    transparent 74%
+  );
+}
+
+/* One full-width column at every size: the desktop grid otherwise keeps a
+   right-hand column for a form this hero does not have. Two classes, so it
+   outranks the breakpoint rules on `.heroGrid`. */
+.heroCentered .heroGrid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.heroCentered .heroHead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(22px, 2.6vw, 34px);
+}
+
+/* The breadcrumb's own list is a left-packed flex row; centre it. */
+.heroCentered .heroHead ol {
+  justify-content: center;
+}
+
+.heroCentered .heroEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  font-family: var(--font-body, inherit);
+  font-weight: 400;
+  font-size: 0.86rem;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--text);
+}
+
+.heroCentered .heroEyebrow::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 84, 54, 0.22);
+}
+
+.heroCentered .heroTitle {
+  /* Its 24ch cap stays (a long headline still wraps), centred in the column. */
+  margin-inline: auto;
+}
+
+.heroCentered .heroTitleLine {
+  display: inline;
+}
+
+.heroCentered .heroBody {
+  margin-inline: auto;
+}
+
+.heroCentered .heroCtas {
+  justify-content: center;
+}
+
 /* --- optional hero kicker ("FREE 7-DAY TRIAL"): the section-head kicker,
    brightened for the hero ground and sitting directly over the H1 --- */
 .heroEyebrow {
@@ -1052,6 +1130,9 @@
   text-transform: uppercase;
   line-height: 1.5;
   color: var(--muted);
+  /* A long single word ("OPERATORS/TECHNICIANS") breaks inside a half-width
+     phone cell instead of running past it. */
+  overflow-wrap: anywhere;
 }
 
 .trustSegments {

@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { Check } from "lucide-react";
 import Hero, { type HeroContent } from "@/components/landing/hero";
@@ -130,6 +131,26 @@ export interface CaseStudySection {
    * are full sentences, which the narrow logo tiles wrap into towers.
    */
   readonly techWide?: boolean;
+  /**
+   * Named groups of short labels — a card per group, its name over the labels
+   * set as pills, the groups side by side (the developer rate card's skill set:
+   * Frontend, Backend, Mobility, DevOps & Cloud). Each group's name is an H3.
+   */
+  readonly chipGroups?: readonly { readonly title: string; readonly items: readonly string[] }[];
+  /**
+   * A price list: a header row of three labels, then a row per offering with
+   * its name over its items as pills, an experience figure and a price (the
+   * developer rate card). A missing figure reads as a dash.
+   */
+  readonly rateTable?: {
+    readonly head: readonly [string, string, string];
+    readonly rows: readonly {
+      readonly name: string;
+      readonly items: readonly string[];
+      readonly experience?: string;
+      readonly price?: string;
+    }[];
+  };
   readonly image?: CaseStudyImage;
   /** Headline figures; a leading number counts up ("90%"). */
   readonly stats?: readonly { readonly value: string; readonly label: string }[];
@@ -140,8 +161,24 @@ export interface CaseStudyContent {
   /** Heading of the contents list ("Case Study"). */
   readonly tocTitle: string;
   readonly sections: readonly CaseStudySection[];
-  readonly download: CaseStudyDownloadContent;
-  readonly related: WorkCarouselContent;
+  /**
+   * The PDF download: the band closing the article, its dialog and the contents
+   * list's button. Omitted on a page with no PDF behind a form (the developer
+   * rate card, whose request is an ordinary enquiry); `tocAction` can then take
+   * the button's place.
+   */
+  readonly download?: CaseStudyDownloadContent;
+  /** Related case studies under the article; omitted or empty, no lane. */
+  readonly related?: WorkCarouselContent;
+  /**
+   * Contents links to sections outside the article, after its own — a page
+   * that closes on full-width bands (the rate card's FAQ) still lists them.
+   */
+  readonly tocExtra?: readonly { readonly id: string; readonly label: string }[];
+  /** A link under the contents list in place of the download button ("Download Rate Card" to the hero form). */
+  readonly tocAction?: { readonly label: string; readonly href: string };
+  /** `false` drops the closing consultation band, for a page that renders its own close. */
+  readonly closingBand?: false;
 }
 
 export default function CaseStudy({ content, idPrefix }: { content: CaseStudyContent; idPrefix: string }) {
@@ -155,8 +192,19 @@ export default function CaseStudy({ content, idPrefix }: { content: CaseStudyCon
         <div className={`${landing.sectionShell} ${styles.layout}`}>
           <CaseStudyToc
             title={content.tocTitle}
-            items={content.sections.flatMap((s) => (s.nav ? [{ id: s.id, label: s.nav }] : []))}
-            downloadLabel={content.download.navLabel}
+            items={[
+              ...content.sections.flatMap((s) => (s.nav ? [{ id: s.id, label: s.nav }] : [])),
+              ...(content.tocExtra ?? []),
+            ]}
+            downloadLabel={content.download?.navLabel}
+            action={
+              content.tocAction ? (
+                // An in-page target: a plain <a>, which the smooth scroller picks up.
+                <a href={content.tocAction.href} className={`${home.pill} ${home.pillFilled}`}>
+                  {content.tocAction.label}
+                </a>
+              ) : undefined
+            }
           />
 
           <article className={styles.article}>
@@ -247,6 +295,8 @@ export default function CaseStudy({ content, idPrefix }: { content: CaseStudyCon
 
                   {s.table && <SectionTable table={s.table} />}
 
+                  {s.rateTable && <RateTable table={s.rateTable} />}
+
                   {s.tech && (
                     <ul className={s.techWide ? `${styles.tech} ${styles.techWide}` : styles.tech} role="list">
                       {s.tech.map((t) => {
@@ -279,6 +329,23 @@ export default function CaseStudy({ content, idPrefix }: { content: CaseStudyCon
                     </ul>
                   )}
 
+                  {s.chipGroups && (
+                    <ul className={styles.chipGroups} role="list">
+                      {s.chipGroups.map((g) => (
+                        <li key={g.title} className={styles.chipGroup}>
+                          <h3 className={styles.chipGroupTitle}>{g.title}</h3>
+                          <ul className={styles.chips} role="list">
+                            {g.items.map((item) => (
+                              <li key={item} className={styles.chip}>
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
                   {s.image && (
                     <figure className={styles.figure}>
                       <Image
@@ -288,6 +355,7 @@ export default function CaseStudy({ content, idPrefix }: { content: CaseStudyCon
                         height={s.image.height}
                         sizes="(max-width: 999px) 92vw, 62vw"
                         className={styles.figureImg}
+                        style={{ "--figure-w": `${s.image.width}px` } as CSSProperties}
                         {...(s.image.blurDataURL
                           ? { placeholder: "blur" as const, blurDataURL: s.image.blurDataURL }
                           : {})}
@@ -311,6 +379,7 @@ export default function CaseStudy({ content, idPrefix }: { content: CaseStudyCon
 
             {/* The live page's closing download panel, set as the article's
                 last section so it sits in the body column under section 6. */}
+            {content.download && (
             <section
               id="case-study-download-panel"
               className={`${styles.section} ${styles.downloadBand}`}
@@ -335,6 +404,7 @@ export default function CaseStudy({ content, idPrefix }: { content: CaseStudyCon
                 />
               </div>
             </section>
+            )}
           </article>
         </div>
       </div>
@@ -342,7 +412,7 @@ export default function CaseStudy({ content, idPrefix }: { content: CaseStudyCon
       {/* Related case studies — the homepage's case-study lane, on its band
           (the cards chosen by `relatedCaseStudies`). Skipped if a lane has no
           cards, rather than a heading over an empty carousel. */}
-      {content.related.items.length > 0 && (
+      {content.related && content.related.items.length > 0 && (
         <div className={`${home.light} ${styles.related}`}>
           <WorkGrid content={content.related} id="related" countLabel="case studies" />
         </div>
@@ -350,10 +420,57 @@ export default function CaseStudy({ content, idPrefix }: { content: CaseStudyCon
 
       {/* "Book Free Consultation" — the live page's closing section, which every
           page here renders as the site's closing band. */}
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      {content.closingBand !== false && <Contact content={HIRE_CLOSING_BAND} eyebrow="" />}
 
-      <DownloadDialog content={content.download} />
+      {content.download && <DownloadDialog content={content.download} />}
     </>
+  );
+}
+
+/**
+ * A section's `rateTable`. A real table, so a screen reader announces each
+ * figure with its column; on a phone each row stacks, its cells labelled from
+ * the header (`data-label`).
+ */
+function RateTable({ table }: { table: NonNullable<CaseStudySection["rateTable"]> }) {
+  const [nameHead, expHead, priceHead] = table.head;
+  return (
+    <div className={styles.rateWrap}>
+      <table className={styles.rate}>
+        <thead>
+          <tr>
+            {table.head.map((h) => (
+              <th key={h} scope="col">
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {table.rows.map((row) => (
+            <tr key={row.name}>
+              <th scope="row" data-label={nameHead}>
+                <span className={styles.rateName}>{row.name}</span>
+                <ul className={styles.chips} role="list">
+                  {row.items.map((item) => (
+                    <li key={item} className={styles.chip}>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </th>
+              <td data-label={expHead} className={styles.rateExp}>
+                {row.experience ?? <span aria-label="Not listed">—</span>}
+              </td>
+              <td data-label={priceHead} className={styles.ratePrice}>
+                <span className={styles.rateDot} aria-hidden />
+                {row.price ?? <span aria-label="Not listed">—</span>}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
