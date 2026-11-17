@@ -6,7 +6,6 @@ import {
   devProfileHero,
   devProfileMeta,
   devProfileProfiles,
-  devProfileTestimonials,
 } from '@/lib/home/developer-profile-content';
 
 import Nav from '@/components/home/nav';
@@ -67,17 +66,17 @@ export default function DeveloperProfilePage() {
             software-development-company-spain clients band: the shared band's
             own heading and standfirst with the deployed homepage's 27 logos. */}
         <div className={home.light}>
-          <Clients logos={locationClientLogos} />
+          <Clients logos={locationClientLogos} wideTitle="31ch" />
         </div>
 
         {/* On the dark ground, by request. */}
         <DeveloperProfiles content={devProfileProfiles} />
 
         <div className={home.light}>
-          <Testimonials content={devProfileTestimonials} />
+          <Testimonials />
         </div>
 
-        <ConsultationClose content={devProfileClose} idPrefix="developer-profile-close" />
+        <ConsultationClose content={devProfileClose} idPrefix="developer-profile-close" ctaIcon />
       </main>
 
       <Footer />

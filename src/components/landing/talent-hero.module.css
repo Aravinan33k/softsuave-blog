@@ -68,7 +68,8 @@
 }
 
 .cta:hover {
-  background: color-mix(in srgb, var(--accent) 88%, #000);
+  background: #fff;
+  color: #140b08;
   transform: translateY(-2px);
 }
 

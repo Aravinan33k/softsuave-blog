@@ -261,6 +261,7 @@ export const masaProcess: ProcessStepperContent = {
 
 export const masaTech: TechStackContent = {
   eyebrow: '',
+  wideHead: true,
   title: 'Mobile Application Development Technologies We Use',
   body: 'Listed below are Soft Suave developers with expertise in and hands-on experience with a variety of technologies',
   groups: locationTechGroups,

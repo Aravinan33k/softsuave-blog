@@ -83,7 +83,7 @@ const HOME_HREF = BASE_PATH || '/';
 
 export default function MobileAppDevelopmentCompanyPolandPage() {
   return (
-    <div className={`${home.page} ${location.root}`} data-type-scale="hire">
+    <div className={`${home.page} ${location.root} ${location.submitBlack}`} data-type-scale="hire">
       {/* softsuave.com's own schema for this page, verbatim — its lone
           FAQPage. The route is in PAGES_WITH_OWN_SITE_GRAPH, so the layout
           adds nothing beside it. */}
@@ -109,7 +109,7 @@ export default function MobileAppDevelopmentCompanyPolandPage() {
           <Faq content={maplFaqs} idPrefix="mobile-app-poland-faq" questionAs="h4" />
         </div>
 
-        <ConsultationClose content={maplClose} idPrefix="mobile-app-poland-close" />
+        <ConsultationClose content={maplClose} idPrefix="mobile-app-poland-close" blackSubmit />
       </main>
 
       <Footer />

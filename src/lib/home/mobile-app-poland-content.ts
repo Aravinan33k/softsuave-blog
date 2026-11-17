@@ -85,6 +85,7 @@ export const maplAbout: OverviewContent = {
 
 /** "Reliable Mobile App Development Service Provider" — technology names are H4s, as live. */
 export const maplExpertise: TechGroupCardsContent = {
+  wideHead: true,
   title: 'Reliable Mobile App Development Service Provider in Poland',
   body: 'As one of the Best Mobile Application Development services in Poland, we create Android, iOS, and cross-platform mobile apps to bring your ideas to life.',
   groups: [

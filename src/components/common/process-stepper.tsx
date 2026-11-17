@@ -36,6 +36,8 @@ export interface ProcessStepperContent {
   eyebrow?: string;
   title: string;
   body?: string;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wideHead?: boolean;
   /**
    * Phrases in the steps' paragraphs to link, matched on their own words — see
    * `common/linkify`. Threaded across every step, so a phrase links once.
@@ -114,6 +116,7 @@ export default function ProcessStepper({
       <SectionHead
         kicker={content.eyebrow || undefined}
         title={content.title}
+        wide={content.wideHead}
         intro={content.body ? linkify(content.body, content.links, usedLinks, gen.proseLink) : undefined}
       />
 

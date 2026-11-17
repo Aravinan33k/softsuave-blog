@@ -99,6 +99,7 @@ export default function StaffCostCalculatorPage() {
             title={staffCostClients.title}
             body={staffCostClients.body}
             logos={[...staffCostClients.logos]}
+            wideTitle
           />
           <div className={styles.moreRow}>
             <SiteLink href={staffCostClients.more.href} className={`${home.pill} ${home.pillFilled} ${home.navCta}`}>

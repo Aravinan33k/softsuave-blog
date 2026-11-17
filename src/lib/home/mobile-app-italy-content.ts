@@ -102,6 +102,7 @@ export const maitAbout: OverviewContent = {
 
 export const maitServices: ServicesGridContent = {
   eyebrow: '',
+  wideHead: true,
   title: 'Our Range of Mobile App Development Services in Italy',
   body: 'Get the best out of everything and stand out among competitors with our range of mobile app development services in Italy for different platforms.',
   // Each live card links a phrase in its text as well as ending on "Know More".
@@ -187,6 +188,7 @@ export const maitPortfolio: WorkCarouselContent = {
 };
 
 export const maitProcess: ProcessStepperContent = {
+  wideHead: true,
   title: 'Soft Suave’s Approach To The App Development Process',
   body: 'We strive to provide a one-stop solution for all your app development needs as the leading Italian mobile app development company . As a full-service mobile application development firm, Soft Suave handles every aspect of the process.',
   steps: [

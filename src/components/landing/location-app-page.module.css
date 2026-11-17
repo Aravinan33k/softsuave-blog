@@ -60,6 +60,19 @@
   margin-right: 0;
 }
 
+/* `closeSubmitBlack`: the hero form's submit button turns black on hover too (the closing form's own rule is in ConsultationClose). */
+.submitBlack main [id="top"] form button[type="submit"]:hover:not(:disabled),
+.submitBlack main [id="top"] form button[type="submit"]:focus-visible:not(:disabled) {
+  background: #000;
+  border-color: #000;
+  color: #fff;
+}
+
+/* The technology cluster and the FAQ under it: the cluster's own bottom padding is dropped so only the FAQ's top padding separates them. */
+.faqJoined > section:first-child {
+  padding-bottom: 0;
+}
+
 /* The overview's H2 runs on as one continuous sentence at every width: no
    forced break, and none of the shared section title's 26ch cap, which broke
    this long heading into four short lines. Plain wrapping (`auto`, by

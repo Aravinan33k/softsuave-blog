@@ -171,7 +171,7 @@ export default function TechCluster({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       {content.groupsLabel && <h3 className={styles.clusName} style={{ margin: "0 0 20px", fontSize: "1.25rem" }}>{content.groupsLabel}</h3>}
 

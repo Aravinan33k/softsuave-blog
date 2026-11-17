@@ -122,6 +122,7 @@ export const madubaiAbout: OverviewContent = {
 
 export const madubaiServices: ServicesGridContent = {
   eyebrow: '',
+  wideHead: true,
   title: 'Soft Suave Mobile App Development Service in Dubai',
   body: 'We are top mobile application development company in UAE, which has evolved with modern technology trends and created new features to simplify every complex human task that we undertake.',
   items: [
@@ -282,6 +283,7 @@ export const madubaiProcess: ProcessStepperContent = {
 /** The live tabs become the clusters; each tool keeps its live label. */
 export const madubaiTech: TechStackContent = {
   eyebrow: '',
+  wideHead: true,
   title: 'Mobile Application Development Technologies We Use',
   body: 'Soft Suave developers with expertise and hands-on experience in the following technologies',
   groups: locationTechGroups,
