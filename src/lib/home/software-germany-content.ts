@@ -78,11 +78,15 @@ export const sddeAbout: OverviewContent = {
   ],
   links: [{ text: 'software development engineers', href: '/hire-software-developers' }],
   image: {
-    src: `${SOFTWARE_IMG}/overview-germany.webp`,
-    width: 434,
-    height: 427,
+    // Replaced on request with the supplied Berlin skyline (Fernsehturm)
+    // photograph, downscaled from 3840×2160 to 1920×1080.
+    src: `${SOFTWARE_IMG}/overview-germany-berlin.webp`,
+    width: 1920,
+    height: 1080,
     // The live alt text, verbatim — it names Spain.
     alt: 'Best software development company in Spain',
+    // In the first viewport under the short hero: the page's LCP.
+    eager: true,
     fit: 'column',
   },
 };

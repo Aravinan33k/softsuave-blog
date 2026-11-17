@@ -149,7 +149,10 @@
   height: 22px;
 }
 
-.chipLogo svg {
+/* An image logo fills the box exactly (object-contain keeps its shape), so
+   the global `img { height: auto }` does not resize one side only. */
+.chipLogo svg,
+.chipLogo img {
   width: 22px;
   height: 22px;
 }

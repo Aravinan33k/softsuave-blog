@@ -89,10 +89,14 @@ export const masaAbout: OverviewContent = {
     { text: 'Ionic', href: '/ionic-app-development-company' },
   ],
   image: {
-    src: `${LOCATION_IMG}/overview-saudi-arabia.webp`,
-    width: 469,
-    height: 464,
+    // Replaced on request with the supplied Riyadh skyline (Kingdom Centre)
+    // photograph (1448×1086); the live page's alt text is kept.
+    src: `${LOCATION_IMG}/overview-saudi-arabia-riyadh.webp`,
+    width: 1448,
+    height: 1086,
     alt: 'Best mobile app development company in Saudi Arabia',
+    // In the first viewport under the short hero: the page's LCP.
+    eager: true,
     fit: 'column',
   },
 };

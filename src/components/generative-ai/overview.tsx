@@ -51,6 +51,13 @@ export interface OverviewContent {
      * above the picture (iOS review, 13 Oct: "center align the image").
      */
     align?: "center";
+    /**
+     * Load the picture eagerly — for a page where the overview sits right
+     * under a short hero, so its image is in the first viewport and is the
+     * page's Largest Contentful Paint (next/image otherwise lazy-loads it and
+     * warns). Default lazy.
+     */
+    eager?: boolean;
   };
 }
 
@@ -112,6 +119,7 @@ export default function Overview({
                 alt={image.alt}
                 fill
                 sizes="(max-width: 999px) 92vw, 44vw"
+                {...(image.eager ? { loading: "eager" as const } : {})}
                 {...(image.blurDataURL
                   ? { placeholder: "blur" as const, blurDataURL: image.blurDataURL }
                   : {})}

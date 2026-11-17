@@ -113,6 +113,8 @@ export const madubaiAbout: OverviewContent = {
     width: 1448,
     height: 1086,
     alt: 'Best mobile app development company in Dubai',
+    // In the first viewport under the short hero: the page's LCP.
+    eager: true,
     // hire-mobile-app-developers' overview frame: from 1000px the image
     // stretches to the full height of the masthead + prose beside it,
     // instead of a 4:3 box on the row's bottom edge.

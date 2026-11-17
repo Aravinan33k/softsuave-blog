@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { publicMediaUrl } from "@/lib/media-url";
+import gen from "@/components/generative-ai/gen-ai.module.css";
 import styles from "./talent-hero.module.css";
 
 export interface TalentStat {
@@ -18,41 +19,80 @@ export interface TalentStat {
 export interface TalentHeroContent {
   /** The H1. */
   title: string;
+  /**
+   * The closing words of `title` to set on their own line in the accent
+   * ("Remote Talents"). Must be the end of `title`; the H1's text is
+   * unchanged, only styled.
+   */
+  titleAccent?: string;
   body: string;
   /** The in-page button down to the profiles (a plain `#id` anchor, so Lenis takes the jump). */
   cta: { readonly label: string; readonly href: string };
-  /** The bouncing arrow under the button, with its alt text. */
-  arrow?: { readonly src: string; readonly alt: string };
+  /** The illustration on the right. Decorative: `alt` is usually empty. */
+  art?: { readonly src: string; readonly width: number; readonly height: number; readonly alt: string };
   stats: readonly TalentStat[];
 }
 
+/** Split the H1 so its closing words can take the accent line. */
+function splitTitle(title: string, accent?: string): [string, string | null] {
+  if (!accent || !title.endsWith(accent)) return [title, null];
+  return [title.slice(0, title.length - accent.length).trimEnd(), accent];
+}
+
 /**
- * A centred, form-free hero with a stat strip — the developer profile page's
- * opening: the H1, a paragraph, an in-page button to the profiles and a
- * gently bouncing arrow, then the five stats, each an icon, a small label and
- * a figure (an H2) with its unit (an H4), in the order the source sets them.
+ * The developer profile page's opening: a left-aligned H1 (its closing words
+ * on an accent line), a paragraph and an in-page button to the profiles,
+ * with an illustration on the right; then the five stats, each an icon, a
+ * small label and a figure (an H2) with its unit (an H4), in the order the
+ * source sets them.
  *
- * Dark, on the page's tokens, with the landing heroes' soft glow. Clears the
- * fixed nav with `--hero-top`. The stats wrap five / three / two / one across
- * as the width allows. The arrow's bounce stops under reduced motion.
+ * Dark, on the page's tokens, with a soft glow behind the illustration.
+ * Clears the fixed nav with `--hero-top`. Copy and art sit side by side from
+ * 1000px and stack below it (art under the button). The stats run five /
+ * three / two across as the width allows.
+ *
+ * The button is the site's primary button (`gen.btn` + `gen.btnPrimary`),
+ * the same plate and contrast-wipe hover as the closing band's "Schedule a
+ * Call".
  *
  * A server component: nothing here is interactive beyond a link.
  */
 export default function TalentHero({ content }: { content: TalentHeroContent }) {
+  const [lead, accent] = splitTitle(content.title, content.titleAccent);
+
   return (
     <section className={styles.hero} id="top">
       <div className={styles.glow} aria-hidden />
 
       <div className={styles.inner}>
-        <h1 className={styles.title}>{content.title}</h1>
-        <p className={styles.body}>{content.body}</p>
-        <a href={content.cta.href} className={styles.cta}>
-          {content.cta.label}
-        </a>
-        {content.arrow ? (
-          <span className={styles.arrow}>
-            <Image src={publicMediaUrl(content.arrow.src)} alt={content.arrow.alt} width={30} height={30} />
-          </span>
+        <div className={styles.copy}>
+          <h1 className={styles.title}>
+            {lead}
+            {accent ? (
+              <>
+                {" "}
+                <span className={styles.titleAccent}>{accent}</span>
+              </>
+            ) : null}
+          </h1>
+          <p className={styles.body}>{content.body}</p>
+          <a href={content.cta.href} className={`${gen.btn} ${gen.btnPrimary} ${styles.cta}`}>
+            {content.cta.label}
+          </a>
+        </div>
+
+        {content.art ? (
+          <div className={styles.art}>
+            <Image
+              src={publicMediaUrl(content.art.src)}
+              alt={content.art.alt}
+              width={content.art.width}
+              height={content.art.height}
+              sizes="(min-width: 1000px) 46vw, 92vw"
+              priority
+              className={styles.artImg}
+            />
+          </div>
         ) : null}
       </div>
 

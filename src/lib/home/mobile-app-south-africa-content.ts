@@ -94,10 +94,14 @@ export const mazaAbout: OverviewContent = {
     { text: 'Education', href: '/education-app-development-company' },
   ],
   image: {
-    src: `${LOCATION_IMG}/overview-south-africa.webp`,
-    width: 433,
-    height: 433,
+    // Replaced on request with the supplied Cape Town (Table Mountain, Lion's
+    // Head, Green Point) photograph (1448×1086); the live page's alt text is kept.
+    src: `${LOCATION_IMG}/overview-south-africa-cape-town.webp`,
+    width: 1448,
+    height: 1086,
     alt: 'Best mobile app development company in South Africa',
+    // In the first viewport under the short hero: the page's LCP.
+    eager: true,
     fit: 'column',
   },
 };

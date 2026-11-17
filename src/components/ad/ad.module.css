@@ -21,6 +21,14 @@
   padding-bottom: 0;
 }
 
+/* `CtaRow attached`: continues the section above. Its top padding is gone
+   and it reaches back over that section's bottom padding, so the line sits
+   the process section's button gap (`.gridCtaRow`) under the last cards. */
+.shellAttached {
+  padding-top: 0;
+  margin-top: calc(clamp(26px, 3vw, 40px) - var(--section-y, clamp(44px, 5vw, 84px)));
+}
+
 /* Squared primary button — the same values as `landing.module.css .btn`/`.btnPrimary`. */
 .btn {
   display: inline-flex;
@@ -141,6 +149,13 @@
   font-size: clamp(1.4rem, 2.2vw, 1.9rem);
   letter-spacing: -0.02em;
   color: var(--text-bright);
+}
+
+/* `CtaRow headingLead`: the lead in the section headings' face and weight. */
+.ctaLeadHeading {
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight, 600);
+  letter-spacing: -0.01em;
 }
 
 .models {
@@ -1052,6 +1067,20 @@
 /* The ad pages' H1 takes the homepage hero's display size (70px at desktop). */
 .adMain {
   --fs-h1: var(--fs-h1-home);
+}
+
+/* Opt-in on a page's <main>: the Clients and Services headings set in two
+   lines rather than the split head's three (its 20ch measure). 31ch holds
+   both (59 and 55 characters) at two balanced lines; the head's column
+   still hugs the longest line. From 900px, where the head splits; stacked,
+   the full width already applies. `h2[class]` outranks the shared
+   `.head:has(> .intro) .title` (0,3,0) and `.clientsHead .h2`. */
+@media (min-width: 900px) {
+  .twoLineHeads [id="clients"] h2[class],
+  .twoLineHeads [id="services"] h2[class] {
+    max-width: 31ch;
+    text-wrap: balance;
+  }
 }
 
 /* Dark-lettered line-art marks (made for a light card) turned white, for a section set on the dark ground. */

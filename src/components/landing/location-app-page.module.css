@@ -51,6 +51,19 @@
   padding-right: var(--gutter);
 }
 
+/* The portfolio's work lane, on desktop: the intro column carries its own
+   left gutter and the lane runs to the screen's right edge (the homepage
+   `.workH` sets 0 inline padding there). The rule above would add the gutter
+   again, doubling the space left of the heading and cutting the lane short of
+   the edge, so this section keeps the lane's own zero inline padding.
+   (0,2,1) here outranks the (0,1,1) rule above. */
+@media (min-width: 1000px) and (prefers-reduced-motion: no-preference) {
+  .root main [id="portfolio"] {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 /* Full-gutter width, as on the reference: the homepage clients band caps
    its content and centres it, which on a wide screen pulls its left edge in
    from every other section's. Only the inline margins are reset. */

@@ -87,10 +87,14 @@ export const mamdAbout: OverviewContent = {
     { text: 'Mobile App developers', href: '/hire-mobile-app-developers' },
   ],
   image: {
-    src: `${LOCATION_IMG}/overview-maryland.webp`,
-    width: 1044,
-    height: 1328,
+    // Replaced on request with the supplied Baltimore (Washington Monument,
+    // Mount Vernon) photograph (1448×1086); the live page's alt text is kept.
+    src: `${LOCATION_IMG}/overview-maryland-baltimore.webp`,
+    width: 1448,
+    height: 1086,
     alt: 'Best mobile app development company in Maryland',
+    // In the first viewport under the short hero: the page's LCP.
+    eager: true,
     fit: 'column',
   },
 };
