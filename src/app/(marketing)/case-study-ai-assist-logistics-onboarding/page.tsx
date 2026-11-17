@@ -3,13 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { aiAssistArticleLd } from '@/lib/seo/case-study-ai-assist-logistics-onboarding';
-import { aiAssistCaseStudy, aiAssistMeta } from '@/lib/home/case-studies/ai-assist-logistics-onboarding';
+import { aiAssistMeta } from '@/lib/home/case-studies/ai-assist-logistics-onboarding';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * AI Assist Logistics Onboarding, rebuilt from
@@ -76,7 +76,7 @@ export default function AiAssistLogisticsOnboardingCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={aiAssistCaseStudy} idPrefix="case-study-ai-assist-logistics-onboarding" />
+        <Sections />
       </main>
 
       <Footer />

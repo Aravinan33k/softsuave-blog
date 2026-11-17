@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import {
   anClients,
-  anContact,
+  anEnquiry,
   anHero,
   anIndustries,
   anIndustriesCta,
@@ -15,6 +15,8 @@ import {
   anWhy,
 } from '@/lib/home/ad-android-development-company-content';
 
+import { clientsPageBrands } from '@/lib/home/clients-content';
+
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 
@@ -25,7 +27,7 @@ import CardGrid from '@/components/generative-ai/industries';
 import CtaRow from '@/components/ad/cta-row';
 import StepTabs from '@/components/ad/step-tabs';
 import AppScreens from '@/components/ad/app-screens';
-import ContactBand from '@/components/ad/contact-band';
+import ManagerClose from '@/components/ad/manager-close';
 import TrialModal from '@/components/ad/trial-modal';
 
 import home from '@/components/home/home.module.css';
@@ -79,8 +81,8 @@ export default function AdAndroidDevelopmentCompanyPage() {
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         <Hero noNav content={anHero} idPrefix="ad-android" breadcrumb={false} />
 
-        <div className={home.light}>
-          <Clients logos={[...anClients.logos]} title={anClients.title} body="" eyebrow="" loopShortRows noFade />
+        <div className={`${home.light} ${styles.sectionsJoined}`}>
+          <Clients logos={clientsPageBrands.logos} title={anClients.title} body="" eyebrow="" loopShortRows noFade />
           {/* The live icons are white, drawn on its red cards; on this band they are turned dark. */}
           <div className={styles.markOnDark}>
             <CardGrid content={anServices} id="services" variant="bold" />
@@ -93,14 +95,16 @@ export default function AdAndroidDevelopmentCompanyPage() {
         <div className={home.light}>
           <CardGrid content={anIndustries} id="industries" variant="tiles" />
           <CtaRow {...anIndustriesCta} tight />
-          <AppScreens content={anScreens} />
         </div>
+
+        {/* "Success / Proven App Screens" is a dark band between the light industries and testimonials. */}
+        <AppScreens content={anScreens} />
 
         <div className={home.light}>
           <Testimonials content={anTestimonials} />
         </div>
 
-        <ContactBand content={anContact} idPrefix="ad-android-contact" />
+        <ManagerClose content={anEnquiry} idPrefix="ad-android-contact" />
       </main>
 
       {/* Every "Enquire Now" and "Get …" button opens this. */}

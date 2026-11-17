@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
+import { RestoredLiveLd } from '@/components/seo/restored-live-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { organizationLd } from '@/lib/seo/organization';
 import { faqsPageEnquiry } from '@/lib/home/faqs-content';
@@ -63,6 +64,7 @@ export default function LowCodeDevelopmentCompanyPage() {
       <JsonLd data={structuredData} />
       <Nav logoHref={HOME_HREF} />
 
+      <RestoredLiveLd path="/low-code-development-company" />
       <main id="main">
         <Hero content={lcHero} idPrefix="low-code" />
 

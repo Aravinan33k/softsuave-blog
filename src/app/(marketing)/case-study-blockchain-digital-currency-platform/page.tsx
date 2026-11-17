@@ -2,16 +2,13 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { liveSiteOrganizationLd } from '@/lib/seo/live-site-organization';
-import {
-  blockchainCurrencyCaseStudy,
-  blockchainCurrencyMeta,
-} from '@/lib/home/case-studies/blockchain-digital-currency-platform';
+import { blockchainCurrencyMeta } from '@/lib/home/case-studies/blockchain-digital-currency-platform';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Blockchain Digital Currency Platform, rebuilt from
@@ -64,10 +61,7 @@ export default function BlockchainCurrencyCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={blockchainCurrencyCaseStudy}
-          idPrefix="case-study-blockchain-digital-currency-platform"
-        />
+        <Sections />
       </main>
 
       <Footer />

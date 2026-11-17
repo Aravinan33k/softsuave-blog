@@ -29,7 +29,8 @@
  */
 
 import { partnerHeroBadges } from "./hero-badges";
-import { landingImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/anthropic.generated.json";
 import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesCarouselContent } from "@/components/common/services-carousel";
@@ -37,6 +38,8 @@ import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { CardGridContent } from "@/components/landing/industries";
 import type { TechStackContent } from "@/components/home/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
+
+const { landingImage } = imageSlots(shard);
 
 /** Placeholder: a Vue page image under this page's own alt text. */
 function placeholder<T extends { alt: string }>(img: T | undefined, alt: string): T | undefined {

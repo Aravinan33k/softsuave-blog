@@ -3,38 +3,14 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
-import {
-  netFaqs,
-  netHero,
-  netHireCta,
-  netMeta,
-  netOverview,
-  netServices,
-  netTech,
-} from '@/lib/home/dotnet-app-content';
+import { netFaqs, netMeta, netServices, netTech } from '@/lib/home/dotnet-app-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-
-// Shared landing-page surface — `components/landing` plus the newer sections
-// in `components/common`, over the homepage's typography and `.theme-four`
-// tokens. This page adds none of its own; every section the live page carries
-// already had a home here.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import ServiceBoard from '@/components/common/service-board';
-import CtaBand from '@/components/landing/cta-band';
 import TechStack from '@/components/landing/tech-stack';
-import Faq from '@/components/landing/faq';
-
-// Reused from the homepage verbatim. Not a stylistic choice: the live page's
-// reviews band IS the homepage's, to the word — "What Our Clients Say About Us"
-// with the same standfirst.
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * .NET Application Development landing page.
@@ -141,41 +117,9 @@ export default function DotNetApplicationDevelopmentPage() {
        * the live page has none, and nothing is invented to fill the rhythm.
        */}
       <main id="main">
-        {/* Compact look — the same hero as the rest of the surface. */}
-        <Hero content={netHero} idPrefix="net" variant="compact" />
-
-        <div className={home.light}>
-          <Overview content={netOverview} variant="compact" />
-        </div>
-
-        {/* Six names to pick from, one stage to read on. Their copy is too
-            long to sit on cards and too long to run down the page. */}
-        <ServiceBoard content={netServices} />
-
-        {/* `backdrop={false}` drops the coral light-field loop, which read on
-            review as "the section colour is different" — the band now sits on
-            the page's own near-black ground like everything around it. */}
-        <CtaBand content={netHireCta} backdrop={false} />
-
-        {/* The client stories now come before the FAQ, as the review asked and
-            as every corrected page on this surface runs them — the proof lands
-            before the objection-handling rather than after it.
-
-            That puts the technology stack and the stories back to back on the
-            warm white, so they share one wrapper: two light bands stacked
-            would double the padding between them and read as separate panels
-            rather than one chapter. Same merge `landing/hire-page` does with
-            its own runs. */}
-        <div className={home.light}>
-          <TechStack content={netTech} />
-          {/* Homepage client stories — the live page's band carries the same
-              heading and standfirst. */}
-          <Testimonials />
-        </div>
-
-        <Faq content={netFaqs} idPrefix="net-faq" />
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections
+          techStack={<TechStack content={netTech} />}
+        />
       </main>
 
       <Footer />

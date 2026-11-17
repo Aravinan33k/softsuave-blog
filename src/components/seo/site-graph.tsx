@@ -1,7 +1,9 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { JsonLd } from "@/components/seo/json-ld";
 import { PAGES_WITH_OWN_SITE_GRAPH } from "@/lib/seo/own-organization";
+import { MARKETING_SITE_GRAPH } from "@/lib/seo/site-graph-data";
 
 /**
  * Decides whether the marketing layout emits its site-wide JSON-LD, by page:
@@ -15,18 +17,21 @@ import { PAGES_WITH_OWN_SITE_GRAPH } from "@/lib/seo/own-organization";
  *                                    WebSite not.
  *   every other page                 the Organization + WebSite pair.
  *
- * The graph arrives as server-rendered JSON-LD (`JsonLd`); this only decides
- * whether to render it. A layout cannot see the path without `headers()`,
- * which would turn every marketing page from static to per-request, whereas a
- * client component is pre-rendered on the server with the request's path — so
- * each page's static HTML carries exactly its own variant, and the choice
- * re-runs on client navigation because the layout persists across it.
+ * This imports the graph itself rather than taking it as children. A layout
+ * cannot see the path without `headers()`, which would turn every marketing page
+ * from static to per-request, so the choice is made here, in a client component
+ * that is pre-rendered on the server with the request's path — each page's static
+ * HTML carries exactly its own variant, and the choice re-runs on client
+ * navigation because the layout persists across it. Children, though, are
+ * serialized into the RSC payload whether or not they render, which put the whole
+ * Organization + WebSite graph (address and all) into the payload of every page
+ * that skips it.
  *
  * `usePathname` excludes the basePath, so these are app paths wherever the site
  * is mounted.
  */
-export function SiteGraph({ children }: { children: React.ReactNode }) {
+export function SiteGraph() {
   const path = usePathname();
   if (path === "/" || PAGES_WITH_OWN_SITE_GRAPH.has(path)) return null;
-  return children;
+  return <JsonLd data={MARKETING_SITE_GRAPH} />;
 }

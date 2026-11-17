@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { BASE_PATH, pageRobots } from '@/lib/flags';
+import { BASE_PATH } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
+import { RestoredLiveLd } from '@/components/seo/restored-live-ld';
 import { absoluteUrl } from '@/lib/seo/metadata';
 import { softSuaveOrganizationLd } from '@/lib/seo/ai-page-schema';
 import {
@@ -8,35 +9,14 @@ import {
   anthropicServiceLd,
   anthropicWebPageLd,
 } from '@/lib/seo/hire-anthropic-developers';
-import {
-  anthropicFaqs,
-  anthropicHero,
-  anthropicMeta,
-  anthropicOverview,
-  anthropicPlanCta,
-  anthropicServices,
-  anthropicTech,
-  anthropicWhyUs,
-} from '@/lib/home/anthropic-content';
+import { anthropicMeta, anthropicTech } from '@/lib/home/anthropic-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import ServicesCarousel from '@/components/common/services-carousel';
-import CtaBand from '@/components/landing/cta-band';
-import WhyUs from '@/components/landing/why-us';
-import Faq from '@/components/landing/faq';
-
-// Reused from the homepage verbatim: the clients logo band, the tech marquee,
-// the testimonials band, and the closing enquiry CTA.
-import Clients from '@/components/home/clients';
 import TechStack from '@/components/home/tech-stack';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Hire Anthropic Developers landing page.
@@ -62,7 +42,8 @@ export const metadata: Metadata = {
   title: `${anthropicMeta.title} | Soft Suave`,
   description: anthropicMeta.description,
   alternates: { canonical: anthropicMeta.path },
-  robots: pageRobots,
+  // Always noindex, nofollow (SEO page sheet, row 185).
+  robots: { index: false, follow: false },
   openGraph: {
     title: `${anthropicMeta.title} | Soft Suave`,
     description: anthropicMeta.description,
@@ -93,36 +74,11 @@ export default function HireAnthropicDevelopersPage() {
       <JsonLd data={[anthropicServiceLd, anthropicWebPageLd, anthropicFaqLd]} />
       <Nav logoHref={HOME_HREF} />
 
+      <RestoredLiveLd path="/hire-anthropic-developers" />
       <main id="main">
-        {/* No breadcrumb on this page (30 Sep request). */}
-        <Hero content={anthropicHero} idPrefix="anthropic" variant="compact" breadcrumb={false} />
-
-        <div className={home.light}>
-          <Clients />
-        </div>
-
-        <Overview content={anthropicOverview} variant="compact" />
-
-        <div className={home.light}>
-          <ServicesCarousel content={anthropicServices} />
-        </div>
-
-        <CtaBand content={anthropicPlanCta} />
-
-        <div className={home.light}>
-          <WhyUs content={anthropicWhyUs} />
-        </div>
-
-        <div className={home.techCompact}>
-          <TechStack content={anthropicTech} staticFrom={768} />
-        </div>
-
-        <div className={home.light}>
-          <Testimonials />
-          <Faq content={anthropicFaqs} idPrefix="anthropic-faq" />
-        </div>
-
-        <Contact />
+        <Sections
+          techStack={<TechStack content={anthropicTech} staticFrom={768} />}
+        />
       </main>
 
       <Footer addressMicrodata={false} />

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
   rsClients,
   rsExperts,
@@ -18,6 +17,8 @@ import {
   rsWhy,
   rsWhyClosing,
 } from '@/lib/home/ad-remote-developers-content';
+
+import { clientsPageBrands } from '@/lib/home/clients-content';
 
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
@@ -92,12 +93,21 @@ export default function AdRemoteDevelopersPage() {
         <div className={home.light}>
           {/* The live page's client logos sit inside its hero section; here they
               open the white band that follows it. */}
-          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={rsClients.title} body={rsClients.body} />
-          <TopTalent content={rsTalent} />
-          <CardGrid content={rsWhy} id="why" variant="bold" />
-          <CtaRow lead={rsWhyClosing} />
-          <CardGrid content={rsServices} id="services" variant="bold" />
-          <CtaRow {...rsServicesCta} wipe />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={rsClients.title} body={rsClients.body} wideTitle />
+        </div>
+
+        {/* Top Talent on the dark ground, by request; Why and Our Services stay on the light band after it. */}
+        <TopTalent content={rsTalent} whiteHover />
+
+        <div className={home.light}>
+          <div className={styles.gridWithCta}>
+            <CardGrid content={rsWhy} id="why" variant="bold" />
+            <CtaRow lead={rsWhyClosing} tight joined />
+          </div>
+          <div className={styles.gridWithCta}>
+            <CardGrid content={rsServices} id="services" variant="bold" />
+            <CtaRow {...rsServicesCta} wipe tight />
+          </div>
         </div>
 
         <CtaBand content={rsScaleBand} />

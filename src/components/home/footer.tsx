@@ -41,13 +41,31 @@ const SOCIAL_ICONS = {
   YouTube: YoutubeIcon,
 } as const;
 
+export function FooterBottom() {
+  const year = new Date().getFullYear();
+  return (
+    <div className={styles.footerBottom}>
+      <span>
+        © {year} {brand.name} — {brand.tagline}
+      </span>
+      <span className={styles.footerLegal}>
+        {footer.legal.map((l, i) => (
+          <span key={l.label}>
+            {i > 0 ? <span aria-hidden> · </span> : null}
+            {l.href ? <SiteLink href={l.href}>{l.label}</SiteLink> : l.label}
+          </span>
+        ))}
+      </span>
+    </div>
+  );
+}
+
 /**
  * `addressMicrodata={false}` drops the offices' PostalAddress microdata, for a
  * page whose approved schema spec is its whole structured data (see
  * `PAGES_WITH_OWN_SITE_GRAPH`). The visible addresses are unchanged.
  */
 export default function Footer({ addressMicrodata = true }: { addressMicrodata?: boolean } = {}) {
-  const year = new Date().getFullYear();
   // Same rule the nav uses: anchors stay in-page on the homepage and become
   // links back to it everywhere else.
   const onHome = usePathname() === "/";
@@ -201,19 +219,7 @@ export default function Footer({ addressMicrodata = true }: { addressMicrodata?:
         </div>
       </div>
 
-      <div className={styles.footerBottom}>
-        <span>
-          © {year} {brand.name} — {brand.tagline}
-        </span>
-        <span className={styles.footerLegal}>
-          {footer.legal.map((l, i) => (
-            <span key={l.label}>
-              {i > 0 ? <span aria-hidden> · </span> : null}
-              {l.href ? <SiteLink href={l.href}>{l.label}</SiteLink> : l.label}
-            </span>
-          ))}
-        </span>
-      </div>
+      <FooterBottom />
     </footer>
   );
 }

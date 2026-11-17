@@ -4,49 +4,20 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { ITO_LIVE_LD } from '@/lib/seo/it-outsourcing-company-india';
 import {
-  itoCaseStudies,
-  itoCollaboration,
-  itoDestinations,
   itoDestinationsNotes,
-  itoFaqs,
-  itoFit,
-  itoHero,
-  itoIndustries,
   itoMeta,
-  itoMidCta,
-  itoModels,
-  itoOverview,
-  itoProcess,
-  itoServices,
   itoServicesCta,
   itoTech,
-  itoWhyUs,
 } from '@/lib/home/it-outsourcing-content';
 import { linkify } from '@/components/common/linkify';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-
-// COMPANY-LEVEL SECTIONS — the homepage's own components: the case-study lane
-// (with this page's own stories), testimonials and the closing enquiry band.
-import WorkGrid from '@/components/home/work-grid';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
-
-// SERVICE-SPECIFIC SECTIONS — shared landing components taking this page's copy.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import Services from '@/components/landing/services';
-import Comparison from '@/components/landing/comparison';
-import CtaBand from '@/components/landing/cta-band';
-import Process from '@/components/landing/process';
-import CardGrid from '@/components/landing/industries';
 import TechStack from '@/components/landing/tech-stack';
-import Faq from '@/components/landing/faq';
 
 import home from '@/components/home/home.module.css';
 import landing from '@/components/landing/landing.module.css';
+import Sections from './sections';
 
 /**
  * IT Outsourcing Company in India landing page.
@@ -106,7 +77,6 @@ export const metadata: Metadata = {
 
 const HOME_HREF = BASE_PATH || '/';
 
-
 /**
  * The live services section closes on a line and a "Contact us" button; the
  * shared `Services` grid has no footer slot, so the row sits directly under it
@@ -155,54 +125,9 @@ export default function ItOutsourcingCompanyIndiaPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <Hero content={itoHero} idPrefix="it-outsourcing" />
-
-        <div className={home.light}>
-          <Overview content={itoOverview} />
-        </div>
-
-        {/* Whole cards link (review: "remove the 'Learn More' and make the
-            whole card clickable"). */}
-        <Services content={itoServices} variant="bold" cardLinks />
-        <ServicesCta />
-
-        <div className={home.light}>
-          <Overview content={itoFit} id="fit" />
-        </div>
-
-        <Comparison content={itoDestinations} id="destinations" />
-        <DestinationsNotes />
-
-        <div className={home.light}>
-          <Comparison content={itoModels} id="models" />
-        </div>
-
-        <CtaBand content={itoMidCta} />
-
-        <div className={home.light}>
-          <Process content={itoProcess} />
-        </div>
-
-        <Overview content={itoCollaboration} id="collaboration" />
-
-        <div className={home.light}>
-          <CardGrid content={itoIndustries} id="industries" variant="feature" />
-        </div>
-
-        <CardGrid content={itoWhyUs} id="why" variant="feature" />
-
-        <div className={home.light}>
-          <TechStack content={itoTech} />
-        </div>
-
-        <WorkGrid content={itoCaseStudies} id="results" countLabel="success stories" />
-
-        <div className={home.light}>
-          <Testimonials />
-          <Faq content={itoFaqs} idPrefix="it-outsourcing-faq" />
-        </div>
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections
+          techStack={<TechStack content={itoTech} />}
+        />
       </main>
 
       <Footer />

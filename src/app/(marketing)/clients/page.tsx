@@ -1,27 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import {
-  clientsPageBrands,
-  clientsPageHero,
-  clientsPageMeta,
-} from '@/lib/home/clients-content';
+import { clientsPageMeta } from '@/lib/home/clients-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-// COMPANY-LEVEL SECTIONS — the homepage's own components. Recognitions and
-// Testimonials read the homepage's own content, which matches the live page's
-// copy verbatim; the logo band takes this page's heading and roster as props.
-import Clients from '@/components/home/clients';
-import Recognitions from '@/components/home/recognitions';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
-
-import PhotoMasthead from '@/components/common/photo-masthead';
-
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Our Clients — softsuave.com's /clients index.
@@ -85,22 +71,7 @@ export default function ClientsPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        {/* Live's hero: the single word, no paragraph, over its handshake
-            photograph. */}
-        <PhotoMasthead content={clientsPageHero} />
-
-        <div className={home.light}>
-          <Clients
-            title={clientsPageBrands.title}
-            body={clientsPageBrands.body}
-            logos={clientsPageBrands.logos}
-          />
-          <Recognitions />
-
-          <Testimonials />
-        </div>
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Sections />
       </main>
 
       <Footer />

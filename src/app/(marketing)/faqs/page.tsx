@@ -4,28 +4,13 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { faqPageLd } from '@/lib/seo/jsonld';
 import { organizationLd } from '@/lib/seo/organization';
-import {
-  faqsGeneral,
-  faqsHire,
-  faqsPageEnquiry,
-  faqsPageHero,
-  faqsPageIntro,
-  faqsPageMeta,
-  faqsProject,
-} from '@/lib/home/faqs-content';
+import { faqsGeneral, faqsHire, faqsPageMeta, faqsProject } from '@/lib/home/faqs-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import { navHref } from '@/themes/softsuave/nav-data';
-
-import Hero from '@/components/landing/hero';
-import SectionHead from '@/components/landing/section-head';
-import Faq from '@/components/landing/faq';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
-
-import landing from '@/components/landing/landing.module.css';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Frequently Asked Questions — softsuave.com's /faqs page.
@@ -105,36 +90,7 @@ export default function FaqsPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <Hero content={faqsPageHero} idPrefix="faqs" variant="compact" breadcrumb={false} />
-
-        <div className={home.light}>
-          <section className={landing.sectionShell} id="faqs-intro">
-            <SectionHead title={faqsPageIntro.title} intro={faqsPageIntro.body} />
-          </section>
-          <Faq content={faqsGeneral} idPrefix="faq-general" />
-        </div>
-
-        <Faq content={faqsProject} idPrefix="faq-project" />
-
-        <div className={home.light}>
-          <Faq content={faqsHire} idPrefix="faq-hire" />
-        </div>
-
-        {/* The live page's closing "Book Free Consultation" block; its "Schedule a Call" goes to the free-consultation page. */}
-        <ManagerEnquiry
-          content={{
-            ...faqsPageEnquiry,
-            manager: {
-              ...faqsPageEnquiry.manager,
-              cta: faqsPageEnquiry.manager.cta && {
-                ...faqsPageEnquiry.manager.cta,
-                href: navHref(faqsPageEnquiry.manager.cta.href),
-              },
-            },
-          }}
-          id="enquiry"
-          idPrefix="faqs-contact"
-        />
+        <Sections />
       </main>
 
       <Footer />

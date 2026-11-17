@@ -9,8 +9,9 @@
  * · testimonials · closing form. This page has no popups; every button scrolls to
  * a form on the page.
  *
- * Its hiring models, steps, six testimonials and closing "Request 1 Week Free
- * Trial!" block are word for word the live Java page's, so they are reused from it.
+ * Its hiring models, steps and six testimonials are word for word the live Java page's, so they are reused
+ * from it. The live closing "Request 1 Week Free Trial!" block is not carried over: the page closes on the
+ * site's shared "Book Free Consultation" band (the /developer-profile design) instead.
  */
 
 import type { HeroContent } from "@/components/landing/hero";
@@ -19,7 +20,7 @@ import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { EngagementModelsContent } from "@/components/ad/engagement-models";
 import { FS_CLOSING_FORM, FS_HERO_FORM } from "@/lib/home/ad-hire-full-stack-developers-content";
-import { jvClosing, jvModels, jvProcess, jvTestimonials } from "@/lib/home/ad-hire-java-developers-content";
+import { jvModels, jvProcess, jvTestimonials } from "@/lib/home/ad-hire-java-developers-content";
 
 export const rdMeta = {
   path: "/ad/hire-remote-developers-india",
@@ -129,7 +130,3 @@ export const rdProcess = { ...jvProcess, title: "Hire Remote Developers in 5 eas
 
 export const rdTestimonials = jvTestimonials;
 
-export const rdClosing = {
-  ...jvClosing,
-  form: { ...jvClosing.form, subject: "Ad landing: Start Risk-FREE Trial (remote developers India)" },
-};

@@ -42,8 +42,11 @@ import type { FaqContent } from "@/components/landing/faq";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
 import type { InlineLink } from "@/components/common/linkify";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
-import { overviewImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/it-outsourcing.generated.json";
 import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
+
+const { overviewImage } = imageSlots(shard);
 
 export const itoMeta = {
   slug: "it-outsourcing-company-india",

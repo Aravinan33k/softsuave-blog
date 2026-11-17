@@ -1,4 +1,5 @@
 import type { CaseStudyContent } from "@/components/case-study/case-study";
+import { YEARS_PLUS } from "@/lib/company-figures";
 import { HERO_PLATFORM_ICONS as P, platformFact } from "./platform-icons";
 import { relatedCaseStudies } from "./related";
 
@@ -188,7 +189,7 @@ export const neuroraCaseStudy: CaseStudyContent = {
       kicker: "06 — Why Soft Suave",
       title: "Multi-sensor AI, delivered on a proven cadence",
       body: [
-        "This is not a dashboard project—it is sensor fusion, computer vision, gaze mapping, and behavioral modeling delivered as one production platform. Soft Suave brings 13+ years of engineering depth and a milestone-driven agile cadence: a no-cost proof of concept first, followed by parallel AI and application streams tracked in Jira and Confluence with full client visibility. Every milestone ships to a client-owned repository, backed by layered functional, integration, and regression testing, along with a 90-day post-deployment support period.",
+        `This is not a dashboard project—it is sensor fusion, computer vision, gaze mapping, and behavioral modeling delivered as one production platform. Soft Suave brings ${YEARS_PLUS} years of engineering depth and a milestone-driven agile cadence: a no-cost proof of concept first, followed by parallel AI and application streams tracked in Jira and Confluence with full client visibility. Every milestone ships to a client-owned repository, backed by layered functional, integration, and regression testing, along with a 90-day post-deployment support period.`,
       ],
     },
   ],

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import {
-  jvClosing,
   jvHero,
   jvMeta,
   jvModels,
@@ -20,7 +19,8 @@ import Process from '@/components/landing/process';
 import CardGrid from '@/components/generative-ai/industries';
 
 import EngagementModels from '@/components/ad/engagement-models';
-import SplitEnquiry from '@/components/ad/split-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
+import { locationClose } from '@/lib/home/mobile-app-location-shared';
 
 import home from '@/components/home/home.module.css';
 import styles from '@/components/ad/ad.module.css';
@@ -86,12 +86,8 @@ export default function AdHireJavaDevelopersPage() {
           <Testimonials content={jvTestimonials} />
         </div>
 
-        <SplitEnquiry
-          title={jvClosing.title}
-          body={jvClosing.body}
-          link={jvClosing.link}
-          logo
-          form={jvClosing.form}
+        <ConsultationClose
+          content={locationClose('Ad landing: Book Free Consultation (Java developers)')}
           idPrefix="ad-java-contact"
         />
       </main>

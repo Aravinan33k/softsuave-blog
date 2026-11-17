@@ -1,16 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import {
-  publicationWorkflowsCaseStudy,
-  publicationWorkflowsMeta,
-} from '@/lib/home/case-studies/streamlining-publication-workflows';
+import { publicationWorkflowsMeta } from '@/lib/home/case-studies/streamlining-publication-workflows';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Streamlining Publication Workflows with Integrated Tracking, rebuilt from
@@ -64,10 +61,7 @@ export default function PublicationWorkflowsCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={publicationWorkflowsCaseStudy}
-          idPrefix="case-study-streamlining-publication-workflows-with-integrated-tracking"
-        />
+        <Sections />
       </main>
 
       <Footer />

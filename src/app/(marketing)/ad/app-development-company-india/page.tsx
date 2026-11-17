@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
   apClients,
-  apContact,
+  apEnquiry,
   apHero,
   apIndustries,
   apIndustriesCta,
@@ -17,6 +16,8 @@ import {
   apWhy,
 } from '@/lib/home/ad-app-development-company-india-content';
 
+import { clientsPageBrands } from '@/lib/home/clients-content';
+
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 // The homepage's marquee rows — they scroll, alternating direction, as on the live page.
@@ -29,7 +30,7 @@ import CardGrid from '@/components/generative-ai/industries';
 import CtaRow from '@/components/ad/cta-row';
 import StepTabs from '@/components/ad/step-tabs';
 import AppScreens from '@/components/ad/app-screens';
-import ContactBand from '@/components/ad/contact-band';
+import ManagerClose from '@/components/ad/manager-close';
 import TrialModal from '@/components/ad/trial-modal';
 
 import home from '@/components/home/home.module.css';
@@ -83,8 +84,8 @@ export default function AdAppDevelopmentCompanyIndiaPage() {
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         <Hero noNav content={apHero} idPrefix="ad-app-india" breadcrumb={false} />
 
-        <div className={home.light}>
-          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={apClients.title} body={apClients.body} />
+        <div className={`${home.light} ${styles.sectionsJoined}`}>
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={apClients.title} body={apClients.body} wideTitle />
           {/* The live icons are white or green, drawn on its red cards; here they are made for this band. */}
           <CardGrid content={apServices} id="services" variant="bold" />
           <CtaRow {...apServicesCta} tight />
@@ -107,7 +108,7 @@ export default function AdAppDevelopmentCompanyIndiaPage() {
           <Testimonials content={apTestimonials} />
         </div>
 
-        <ContactBand content={apContact} idPrefix="ad-app-india-contact" />
+        <ManagerClose content={apEnquiry} idPrefix="ad-app-india-contact" />
       </main>
 
       {/* Every "Get …" button opens this. */}

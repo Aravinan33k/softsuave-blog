@@ -25,9 +25,12 @@ export interface TopTalentContent {
 export default function TopTalent({
   content,
   id = "overview",
+  whiteHover = false,
 }: {
   content: TopTalentContent;
   id?: string;
+  /** The white left-to-right hover fill on the button, for a Top Talent band on the dark ground (see `.btnWhite`). */
+  whiteHover?: boolean;
 }) {
   // Models that are a single line each (no points, no copy) are set as compact
   // ticked cards rather than the full-size headed ones.
@@ -71,7 +74,7 @@ export default function TopTalent({
       </div>
 
       <div className={styles.cta}>
-        <a className={styles.btn} href={content.cta.href}>
+        <a className={whiteHover ? `${styles.btn} ${styles.btnWhite}` : styles.btn} href={content.cta.href}>
           {content.cta.label}
         </a>
       </div>

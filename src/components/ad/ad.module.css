@@ -144,8 +144,8 @@
 
 .ctaLead {
   margin: 0;
-  font-family: var(--font-display-serif);
-  font-weight: 300;
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
   font-size: clamp(1.4rem, 2.2vw, 1.9rem);
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -383,8 +383,8 @@
 }
 
 .planPrice {
-  font-family: var(--font-display-serif);
-  font-weight: 300;
+  font-family: var(--font-heading);
+  font-weight: 400;
   font-size: clamp(2.5rem, 4.4vw, 3.75rem);
   letter-spacing: -0.03em;
   line-height: 1;
@@ -408,8 +408,8 @@
 
 .planTitle {
   margin: 0;
-  font-family: var(--font-display-serif);
-  font-weight: 300;
+  font-family: var(--font-heading);
+  font-weight: 400;
   font-size: clamp(1.6rem, 2.4vw, 2.1rem);
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -791,6 +791,35 @@
   }
 }
 
+/* `cards`: the reasons as the card grids' own bold cards — rounded, a thin border, the accent rule along the top edge and
+   the soft lift on hover — in one column. The card itself (border, radius, padding, hover) is composed from the
+   "Struggling to keep up…" card, so the two cannot drift apart; the accent colour cycles down the list as it does there. */
+.whyCard {
+  composes: indBoldCard from "../generative-ai/gen-ai.module.css";
+  display: block;
+  /* `.whyItem`'s left rule gives way to the card's own border and top accent rule, which it would otherwise
+     override (it is declared first but its shorthand wins over the composed card's longhands). */
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--card-accent, var(--accent));
+  border-radius: 14px;
+}
+
+/* With the cards, the list starts under the heading and lines up with the top of the picture beside it, rather than
+   sitting centred against the taller picture with a long gap above it. */
+.whyWithImage:has(.whyList[data-cards="true"]) {
+  align-items: start;
+}
+
+.whyList[data-cards="true"] {
+  grid-template-columns: 1fr;
+}
+
+.whyList[data-cards="true"] .whyCard:nth-child(5n + 1) { --card-accent: var(--card-accent-1); }
+.whyList[data-cards="true"] .whyCard:nth-child(5n + 2) { --card-accent: var(--card-accent-2); }
+.whyList[data-cards="true"] .whyCard:nth-child(5n + 3) { --card-accent: var(--card-accent-3); }
+.whyList[data-cards="true"] .whyCard:nth-child(5n + 4) { --card-accent: var(--card-accent-4); }
+.whyList[data-cards="true"] .whyCard:nth-child(5n + 5) { --card-accent: var(--card-accent-5); }
+
 .whyImage {
   width: 100%;
   height: auto;
@@ -983,28 +1012,6 @@
   }
 }
 
-/* The logo above a closing band's heading, and its mail button. */
-.enqLogo {
-  margin-bottom: clamp(20px, 2.6vw, 34px);
-}
-
-.enqMail {
-  /* Fully rounded ends; the black hover wipe inherits the shape. */
-  border-radius: 999px;
-  padding-inline: 1.7em;
-  gap: 0.7em;
-  text-transform: none;
-  letter-spacing: 0.02em;
-  font-size: clamp(0.875rem, 1.05vw, 1rem);
-  word-break: break-word;
-}
-
-.enqMailIcon {
-  width: 1.25em;
-  height: 1.25em;
-  flex: none;
-}
-
 /* ---------- Engagement-model box: icon, name, Duration / Billing / Timeline ---------- */
 .modelCentered {
   align-items: center;
@@ -1076,19 +1083,6 @@
   }
 }
 
-/* The legal line closing an /ad page (`ad/legal-footer.tsx`): the site
-   footer's bottom strip on the dark ground, with the footer's own bottom
-   padding. Its top margin is dropped — the rule above the line is the
-   section break here. */
-.adLegal {
-  background: var(--bg);
-  padding-bottom: 28px;
-}
-
-.adLegal > div {
-  margin-top: 0;
-}
-
 /* Dark-lettered line-art marks (made for a light card) turned white, for a section set on the dark ground. */
 .markOnDark img {
   filter: invert(1);
@@ -1114,6 +1108,12 @@
   border-radius: 14px;
   background: var(--surface);
   white-space: nowrap;
+}
+
+/* Marks drawn for a light card, on a dark band: each chip becomes a light plaque so none of them disappears. */
+.logoPlaques .logoChip {
+  background: #f6f3ee;
+  border-color: transparent;
 }
 
 /* ---------- A card grid beside a photo ---------- */
@@ -1163,6 +1163,11 @@
    own top padding rather than both stacked. */
 .sectionsJoined > section:first-child {
   padding-bottom: 0;
+}
+
+/* A button that closes a band and sits above a dark one: a full section's breathing room below it, not the 32px the card-grid rule leaves. */
+.ctaRoomy > .shell.shell.shell.shell:last-child {
+  padding-bottom: var(--section-y, clamp(44px, 5vw, 84px));
 }
 
 /* A list beside a photo: the button under it sits close to the photo, not a whole section away. */

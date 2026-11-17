@@ -30,6 +30,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { writeBrandImages } from "./brand-images.mjs";
+import { writeImageShards } from "./image-shards.mjs";
 import dotenv from "dotenv";
 import sharp from "sharp";
 
@@ -511,6 +512,7 @@ async function main() {
   ensureDir(path.dirname(GENERATED));
   fs.writeFileSync(GENERATED, JSON.stringify(generated, null, 2));
   await writeBrandImages(generated);
+  writeImageShards(generated);
 
   log(`done: ${filled} generated, ${skipped} skipped (already present), ${unfilled.length} unfilled`);
 

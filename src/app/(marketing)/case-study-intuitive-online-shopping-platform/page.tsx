@@ -1,16 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import {
-  intuitiveShoppingCaseStudy,
-  intuitiveShoppingMeta,
-} from '@/lib/home/case-studies/intuitive-online-shopping-platform';
+import { intuitiveShoppingMeta } from '@/lib/home/case-studies/intuitive-online-shopping-platform';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Intuitive Online Shopping Platform, rebuilt from
@@ -62,10 +59,7 @@ export default function IntuitiveShoppingCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={intuitiveShoppingCaseStudy}
-          idPrefix="case-study-intuitive-online-shopping-platform"
-        />
+        <Sections />
       </main>
 
       <Footer />

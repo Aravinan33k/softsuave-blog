@@ -1,27 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import {
-  freeQuoteClosingBand,
-  freeQuoteHero,
-  freeQuoteMeta,
-  freeQuoteProcess,
-} from '@/lib/home/free-quote-content';
+import { freeQuoteMeta } from '@/lib/home/free-quote-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-import Hero from '@/components/landing/hero';
-import Process from '@/components/landing/process';
-
-// The homepage's own bands, rendered verbatim: the clients logo band, the
-// awards strip, the testimonials and the closing enquiry band.
-import Clients from '@/components/home/clients';
-import Recognitions from '@/components/home/recognitions';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Free Quote — a clone of softsuave.com/free-quote. Same sections in the same
@@ -68,23 +54,7 @@ export default function FreeQuotePage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        {/* No breadcrumb: the live page shows none. */}
-        <Hero content={freeQuoteHero} idPrefix="free-quote" variant="compact" breadcrumb={false} />
-
-        {/* Same band rhythm as the sibling pages: Clients and the steps on one
-            light band, Recognitions on the dark ground, testimonials light. */}
-        <div className={home.light}>
-          <Clients />
-          <Process content={freeQuoteProcess} id="built-around-you" />
-        </div>
-
-        <Recognitions />
-
-        <div className={home.light}>
-          <Testimonials />
-        </div>
-
-        <Contact content={freeQuoteClosingBand} ctaHref={freeQuoteClosingBand.cta.href} eyebrow="" />
+        <Sections />
       </main>
 
       <Footer />

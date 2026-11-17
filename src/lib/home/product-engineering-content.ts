@@ -25,7 +25,10 @@ import type { OverviewContent } from "@/components/landing/overview";
 import type { ProcessContent } from "@/components/landing/process";
 import type { ServiceBoardContent } from "@/components/common/service-board";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
-import { overviewImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/product-engineering.generated.json";
+
+const { overviewImage } = imageSlots(shard);
 
 export const prodMeta = {
   slug: "product-engineering-services",

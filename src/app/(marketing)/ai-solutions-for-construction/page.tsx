@@ -4,38 +4,18 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import { pageSchemaGraph } from '@/lib/seo/page-graph';
 import {
-  constructionBenefits,
-  constructionCta,
   constructionFaqs,
-  constructionHero,
   constructionMeta,
-  constructionOverview,
   constructionSolutions,
-  constructionSuccessStories,
 } from '@/lib/home/construction-ai-content';
 import { industryTechApproach } from '@/lib/home/industry-shared';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-
-// COMPANY-LEVEL SECTIONS — the homepage's own components and content: the
-// client strip the live page opens on, the case-study lane (with this page's
-// own stories), the testimonials, and the closing enquiry band.
-import Clients from '@/components/home/clients';
-import WorkGrid from '@/components/home/work-grid';
-import Testimonials from '@/components/home/testimonials';
-import Contact from '@/components/home/contact';
-
-// SECTOR-SPECIFIC SECTIONS — shared landing components taking this page's copy.
-import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
-import Services from '@/components/landing/services';
-import CardGrid from '@/components/landing/industries';
 import TechStack from '@/components/home/tech-stack';
-import CtaBand from '@/components/landing/cta-band';
-import Faq from '@/components/landing/faq';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Construction AI Solutions landing page.
@@ -105,42 +85,9 @@ export default function ConstructionAiSolutionsPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <Hero content={constructionHero} idPrefix="construction" />
-
-        <div className={home.light}>
-          <Clients />
-        </div>
-
-        <Overview content={constructionOverview} id="overview" />
-
-        <div className={home.light}>
-          <Services content={constructionSolutions} id="solutions" variant="bold" />
-        </div>
-
-        <CardGrid content={constructionBenefits} id="benefits" variant="feature" />
-
-        <div className={home.light}>
-          {/* The homepage's technology rows under this section's live heading. */}
-          <div className={home.techFit}>
-            <TechStack content={industryTechApproach} />
-          </div>
-          <WorkGrid
-            content={constructionSuccessStories}
-            id="success-stories"
-            countLabel="case studies"
-          />
-        </div>
-
-        {/* The band is its own dark surface wherever it sits, so it takes a
-            dark slot rather than a `.light` wrapper. */}
-        <CtaBand content={constructionCta} />
-
-        <div className={home.light}>
-          <Testimonials />
-          <Faq content={constructionFaqs} idPrefix="construction-faq" />
-        </div>
-
-        <Contact />
+        <Sections
+          techStack={<TechStack content={industryTechApproach} />}
+        />
       </main>
 
       <Footer />

@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import { multiCloudCaseStudy, multiCloudMeta } from '@/lib/home/case-studies/ai-powered-multi-cloud-management';
+import { multiCloudMeta } from '@/lib/home/case-studies/ai-powered-multi-cloud-management';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * AI-Powered Multi-Cloud Management, rebuilt from
@@ -48,7 +48,7 @@ export default function MultiCloudCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={multiCloudCaseStudy} idPrefix="case-study-ai-powered-multi-cloud-management" />
+        <Sections />
       </main>
 
       <Footer />

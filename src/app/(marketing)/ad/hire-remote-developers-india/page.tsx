@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import {
-  rdClosing,
   rdHero,
   rdMeta,
   rdModels,
@@ -22,7 +21,8 @@ import TechStack from '@/components/landing/tech-stack';
 import CardGrid from '@/components/generative-ai/industries';
 
 import EngagementModels from '@/components/ad/engagement-models';
-import SplitEnquiry from '@/components/ad/split-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
+import { locationClose } from '@/lib/home/mobile-app-location-shared';
 
 import home from '@/components/home/home.module.css';
 import styles from '@/components/ad/ad.module.css';
@@ -92,12 +92,8 @@ export default function AdHireRemoteDevelopersIndiaPage() {
           <Testimonials content={rdTestimonials} />
         </div>
 
-        <SplitEnquiry
-          title={rdClosing.title}
-          body={rdClosing.body}
-          link={rdClosing.link}
-          logo
-          form={rdClosing.form}
+        <ConsultationClose
+          content={locationClose('Ad landing: Book Free Consultation (remote developers India)')}
           idPrefix="ad-remote-india-contact"
         />
       </main>

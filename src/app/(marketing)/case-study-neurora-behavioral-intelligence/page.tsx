@@ -3,13 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { neuroraBehavioralIntelligenceArticleLd } from '@/lib/seo/case-study-neurora-behavioral-intelligence';
-import { neuroraCaseStudy, neuroraMeta } from '@/lib/home/case-studies/neurora-behavioral-intelligence';
+import { neuroraMeta } from '@/lib/home/case-studies/neurora-behavioral-intelligence';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Neurora Behavioral Intelligence, rebuilt from
@@ -76,7 +76,7 @@ export default function NeuroraBehavioralIntelligenceCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={neuroraCaseStudy} idPrefix="case-study-neurora-behavioral-intelligence" />
+        <Sections />
       </main>
 
       <Footer />

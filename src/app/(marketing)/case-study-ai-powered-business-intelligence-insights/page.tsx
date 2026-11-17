@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import {
-  businessIntelligenceCaseStudy,
-  businessIntelligenceMeta,
-} from '@/lib/home/case-studies/ai-powered-business-intelligence';
+import { businessIntelligenceMeta } from '@/lib/home/case-studies/ai-powered-business-intelligence';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * AI-Powered Business Intelligence Insights, rebuilt from
@@ -51,10 +48,7 @@ export default function BusinessIntelligenceCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={businessIntelligenceCaseStudy}
-          idPrefix="case-study-ai-powered-business-intelligence-insights"
-        />
+        <Sections />
       </main>
 
       <Footer />

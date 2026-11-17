@@ -3,13 +3,13 @@ import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { shiftSenseArticleLd } from '@/lib/seo/case-study-shiftsense-ai-shift-intelligence';
-import { shiftSenseCaseStudy, shiftSenseMeta } from '@/lib/home/case-studies/shiftsense-ai-shift-intelligence';
+import { shiftSenseMeta } from '@/lib/home/case-studies/shiftsense-ai-shift-intelligence';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * ShiftSense AI Shift Intelligence, rebuilt from
@@ -76,7 +76,7 @@ export default function ShiftSenseCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={shiftSenseCaseStudy} idPrefix="case-study-shiftsense-ai-shift-intelligence" />
+        <Sections />
       </main>
 
       <Footer />

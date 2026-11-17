@@ -1,0 +1,58 @@
+{
+  "landing/ov-vuejs-development-company": {
+    "src": "/images/landing/ov-vuejs-development-company.webp",
+    "width": 1400,
+    "height": 1050,
+    "alt": "A product team planning a web application together around a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAQAgCdASoQAAsAA4BaJQBdgCHh1P/QVk0AAP7yjF1DiuI7heM49+eM46fzuTM36kAiIZvUJ99eMD2/7fJAzrzDWhQ4SEfwbKDpkkCe3/5hUsuSIdtJyo3wPHJU8C+ohzd816I1EAAAAA=="
+  },
+  "landing/vue-svc-custom": {
+    "src": "/images/landing/vue-svc-custom.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Frontend code for a custom web application in an editor",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADQAQCdASoQAAsAA4BaJYwAAudehBD/oAD+9XlKp0yztuVq6nxQDh6p2DRxKAAA"
+  },
+  "landing/vue-svc-ecommerce": {
+    "src": "/images/landing/vue-svc-ecommerce.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "An online store checkout on a laptop screen",
+    "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAAAQAgCdASoQAAsAA4BaJZwAAxXv/bQSZtYAAP7tCXD+TErRN0WYsF8/DJTmcTefXe61QSrsRz/0q7LRaXl8i/6af2/7EwnAAAA="
+  },
+  "landing/vue-svc-migration": {
+    "src": "/images/landing/vue-svc-migration.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Engineers planning a frontend migration together at a screen",
+    "blurDataURL": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABwAgCdASoQAAsAA4BaJZwAD46xZ31heG5nNmWAAP7iU1fUJ3fhw//ViYf/iH59smaJDkxlXiimVAKP1wVa3EyjyhOkiJ3b7PI6qbCIV+Xk9FDehfMVWjYhesFxDUmIwK+t+Wz0gKuj6YFgAAA="
+  },
+  "landing/vue-svc-portal": {
+    "src": "/images/landing/vue-svc-portal.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A business dashboard with charts and user data",
+    "blurDataURL": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAADwAQCdASoQAAsAA4BaJZQAD5CLzRBxwcAA/pwAlWMuq+Xm2b4MZ2GFD/B/qs2XnumSES2fSyzrADfsrs8qynAQw9RxfTXVGt06a3CVy4dyx/dsMKdU2XG7vcQ5LTn7AkMAAA=="
+  },
+  "landing/vue-svc-spa": {
+    "src": "/images/landing/vue-svc-spa.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A responsive single-page web application shown on several devices",
+    "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAwAgCdASoQAAsAA4BaJQBOgMXSqNY2VUc8wAD+3ho69KsUtEPO/9aTVqj0b28QzlXByUuzPvLymdPFQ8BgRfZtva9mJqi6Jr9MxmbhFHTd5O5gFp11oaYBT9/SV+uQRHozWXJrzbnKLzHj7gJAAA=="
+  },
+  "landing/vue-svc-support": {
+    "src": "/images/landing/vue-svc-support.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A developer maintaining and updating a live web application",
+    "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAABwAgCdASoQAAsAA4BaJZwAD5CQh9GtQ/ESuqIAAP7xoQDxB6zAfo4RurxOgrfxumNWoDy3yerX8am8GIliJW3sbybwe205ZMQ0UomBjpQ741eSVGtAAA=="
+  },
+  "landing/vuejs-hero": {
+    "src": "/images/landing/vuejs-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "A developer building a web application interface on a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAwAgCdASoQAAsAA4BaJQBOgCPgtveAfCSYAAD+9dMxIR5I+K/HjYAal5Y6xu2LtGrvuNa1gnWTruZPWgkYsWmT9iNynmIgMbvdZGy1F0V0EuZznaGbKQAA"
+  }
+}

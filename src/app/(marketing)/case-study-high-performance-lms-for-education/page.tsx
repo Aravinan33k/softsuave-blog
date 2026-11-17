@@ -2,13 +2,13 @@ import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { JsonLd } from '@/components/seo/json-ld';
 import { liveSiteOrganizationLd } from '@/lib/seo/live-site-organization';
-import { lmsEducationCaseStudy, lmsEducationMeta } from '@/lib/home/case-studies/high-performance-lms-for-education';
+import { lmsEducationMeta } from '@/lib/home/case-studies/high-performance-lms-for-education';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * High-Performance LMS for Education, rebuilt from
@@ -62,7 +62,7 @@ export default function LmsEducationCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy content={lmsEducationCaseStudy} idPrefix="case-study-high-performance-lms-for-education" />
+        <Sections />
       </main>
 
       <Footer />

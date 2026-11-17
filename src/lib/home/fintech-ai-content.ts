@@ -34,7 +34,10 @@ import type { ProblemsContent } from "@/components/generative-ai/problems";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import { industryHeroBadges, industryEnquiryForm } from "./industry-shared";
-import { overviewImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/fintech-ai.generated.json";
+
+const { overviewImage } = imageSlots(shard);
 
 export const fintechMeta = {
   slug: "fintech-ai-solutions",

@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
-import {
-  legalViolationCaseStudy,
-  legalViolationMeta,
-} from '@/lib/home/case-studies/legal-violation-tracking-application';
+import { legalViolationMeta } from '@/lib/home/case-studies/legal-violation-tracking-application';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Legal Violation Tracking Application, rebuilt from
@@ -58,10 +55,7 @@ export default function LegalViolationCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={legalViolationCaseStudy}
-          idPrefix="case-study-legal-violation-tracking-application"
-        />
+        <Sections />
       </main>
 
       <Footer />

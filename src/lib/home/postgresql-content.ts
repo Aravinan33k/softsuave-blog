@@ -28,7 +28,8 @@
  */
 
 import { partnerHeroBadges } from "./hero-badges";
-import { landingImage, landingPhoto, overviewImage } from "./overview-images";
+import { imageSlots } from "./image-slots";
+import shard from "./image-shards/postgresql.generated.json";
 import type { HeroContent } from "@/components/landing/hero";
 import type { OverviewContent } from "@/components/landing/overview";
 import type { ServicesCarouselContent } from "@/components/common/services-carousel";
@@ -37,6 +38,8 @@ import type { CardGridContent } from "@/components/landing/industries";
 import type { TechStackContent } from "@/components/home/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
 import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
+
+const { landingImage, landingPhoto, overviewImage } = imageSlots(shard);
 
 export const pgMeta = {
   slug: "postgresql-development-company",

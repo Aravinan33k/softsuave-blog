@@ -1,0 +1,30 @@
+{
+  "landing/pi-cap-anomaly-flag": {
+    "src": "/images/landing/pi-cap-anomaly-flag.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A live transaction metric inside its adaptive threshold band, with the one point outside it flagged as an anomaly",
+    "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAQCdASoQAAwAA4BaJYwAAtd+/GMAAP73eYLNTUnaq+8JKQ1gQQPzZaeCr7eJtwvFyZxIluMu1a48g/rOXql32Xk2aIAA"
+  },
+  "landing/pi-cap-forecasting": {
+    "src": "/images/landing/pi-cap-forecasting.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Hands holding a chart of product trends by month",
+    "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABQAgCdASoQAAsAA4BaJZgCdAYvrqwAuEzdVEAA/vNb9meC9JTSd5gUZALMSSBKP6hrDnfSzixZjiquELj4SYRqB4uBcmvdkx7+WgcIq29l0Uqdzjqsr2nToDePo4euFJEZXw4azelK4WKFexQAAA=="
+  },
+  "landing/pi-cap-modeling": {
+    "src": "/images/landing/pi-cap-modeling.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "An analyst working on a laptop showing a model's distribution curve",
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAABQAgCdASoQAAoAA4BaJYwCdAD7WKaDzuwLCYAA/t8WrOHzL2jMTiAoFTBhDvdjl+CfmD2Z7UL3HZFNwFpV9ZD8FmVbLV8BqHz2Zc0+FcL56a+NH6O76QPdowmCtrgA"
+  },
+  "landing/pi-cap-recommendation": {
+    "src": "/images/landing/pi-cap-recommendation.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A shopper pointing at recommended products in an online store on a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAQCdASoQAAsAA4BaJQBOgB6tOhBBTjAA8eFVjm9sPqJRIvgJXJv05JRvbsHuqgXbAP1ZXPhrzf3hMlgLL5Qkx1epyBMm/tV2qEc87zGUDguli2Q06l9EAAA="
+  }
+}

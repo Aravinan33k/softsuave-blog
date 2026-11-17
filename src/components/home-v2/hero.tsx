@@ -1,36 +1,28 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { hero } from "@/lib/home/content";
 import { publicMediaUrl } from "@/lib/media-url";
-import { useAfterLoad } from "@/components/home/use-deferred-media";
-import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import home from "@/components/home/home.module.css";
 import styles from "./home-v2.module.css";
 import cta from "@/components/common/cta-row.module.css";
 
 /**
- * The hero video's first frame at 48px wide (~450 bytes), inlined so it paints
- * with the page — blurred, it is the hero's backdrop until the video has
- * frames to show (the same trick as the homepage's hero; BUG-026).
- */
-const POSTER = "data:image/webp;base64,UklGRkQBAABXRUJQVlA4IDgBAACQBwCdASowABsAPrVOn0unJCKhqqoA4BaJYgCnR6UBdscHRP8mUz1YkQxSnV7AFkSsQEhRy3BaiLoAoIg936/LcU2Cm6AA/v3ay80reahOrunnTu0jkPFYzBmQg4G4jvQPBUH18a2TlbQGzE2yDsMeqtsvaGfrai6dQB1sqeH03+PReiqc4CknCp61k/T2ZAbm4cJ+e+FAEKwfiiN59SOTUgiUqheKS9zUIy9PnhFLqw7DI8x4KnPO7mdSPFJEzKbwZG8apLoqaLFQxXyd8wW08CLmfdgNbc6bPLt9/FeDG0rz/1UfxDgzqG4dCdIYbG4UDoAy8xBnm9TIffk7JpkyHRUCEwtVv5uY8IoFtqkDUZ0q8zlAfwJ3deS/atjND7+0HMV2LW5O+R4cV5pEE64IG9Nvql6i8AA=";
-
-/**
- * The hero's footage: warm, glowing particles drifting slowly through the dark
- * — the brand's own coral and amber, calm enough to sit behind the headline.
- * Pexels video 8551791 by TP Motion (Pexels licence: free to use, no
- * attribution required), re-encoded for the web with its last second
- * dissolved into its first, so the loop has no seam. WebM first, MP4 for
- * Safari. A new file name whenever the footage changes: browsers cache it by
+ * The hero's backdrop: a still of a human hand meeting a robot hand, in the
+ * brand's navy with a coral spark. It replaced the particle video (28 Oct).
+ * 2560x1440, upscaled (Lanczos) from the 1672x941 original with a light local
+ * contrast pass and an edge sharpen thresholded to leave flat areas alone.
+ * Served at quality 90 (allowed in next.config.ts), since 75 visibly softened
+ * it. It is the LCP element, so it preloads; the 24px blur paints until it
+ * arrives. A new file name whenever the picture changes: browsers cache it by
  * URL.
  */
-const VIDEO = { webm: "/videos/hero-particles.webm", mp4: "/videos/hero-particles.mp4" } as const;
-
-/** Slowed a touch: a backdrop should drift, not race. */
-const PLAYBACK_RATE = 0.8;
+const IMAGE = "/images/four/hero-ai-touch-v4.webp";
+const IMAGE_BLUR = "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAACwAwCdASoYAA4ALplotFoiqCgoCACYSyAE6ZQANT+DpqJ28DcQAAD++u0d4paXW4yuPNCrP+Y+0aVScFtvbwDaW4ihBh0bCpTzTi+vr7FsWKFUFI7lP4OnUyMJPQTJHGh9WIPgAJMg3cG/zjxxmPYwovRrS3fubBxdhgsgdlIXqAAA";
 
 /** How much of the CSS intro overlay is still to play, in ms (see home/hero.tsx). */
 function introRemainingMs(): number {
@@ -44,8 +36,8 @@ function introRemainingMs(): number {
 /**
  * Homepage hero (`/`). The homepage's copy, restaged:
  *
- * - Its own single, seamless video (see VIDEO), dimmed under a veil weighted
- *   to the copy's side, so the headline reads first.
+ * - Its own still (see IMAGE) under a veil weighted to the copy's side, so
+ *   the headline reads first and the two hands stay clear on the right.
  * - The headline with the rotating word in the brand gradient (clipped to its
  *   own slot, so a word in transit never draws over the lines around it), and
  *   larger CTAs. No kicker pill over the headline since the 21 Oct review (it
@@ -55,11 +47,6 @@ export default function Hero() {
   const root = useRef<HTMLElement | null>(null);
   const frame = useRef<HTMLDivElement | null>(null);
   const content = useRef<HTMLDivElement | null>(null);
-
-  // Mount the video once the page has loaded and gone idle: its 2.2 MB must
-  // never compete with the hero's CSS, fonts and copy (PageSpeed, 15 Oct). The
-  // poster underneath is its first frame, so the swap is invisible.
-  const mounted = useAfterLoad();
 
   useGSAP(
     () => {
@@ -102,26 +89,17 @@ export default function Hero() {
   return (
     <section ref={root} className={styles.hero} id="top">
       <div ref={frame} className={`${home.videoHeroFrame} ${styles.heroFrame}`}>
-        <div className={styles.heroPoster} style={{ backgroundImage: `url(${POSTER})` }} aria-hidden />
-        {mounted && (
-          <video
-            className={styles.heroVideo}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-hidden
-            onLoadedMetadata={(e) => {
-              e.currentTarget.defaultPlaybackRate = PLAYBACK_RATE;
-              e.currentTarget.playbackRate = PLAYBACK_RATE;
-            }}
-            onLoadedData={() => ScrollTrigger.refresh()}
-          >
-            <source src={publicMediaUrl(VIDEO.webm)} type="video/webm" />
-            <source src={publicMediaUrl(VIDEO.mp4)} type="video/mp4" />
-          </video>
-        )}
+        <Image
+          src={publicMediaUrl(IMAGE)}
+          alt=""
+          fill
+          preload
+          sizes="100vw"
+          quality={90}
+          placeholder="blur"
+          blurDataURL={IMAGE_BLUR}
+          className={styles.heroImage}
+        />
         <div className={styles.heroVeil} aria-hidden />
       </div>
 

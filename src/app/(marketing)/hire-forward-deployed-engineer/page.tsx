@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { BASE_PATH } from '@/lib/flags';
+import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl, ogImageUrl } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/json-ld';
 import {
@@ -19,19 +19,9 @@ import {
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
-import { Hero } from '@/components/fde/sections/Hero';
-import { TrustedBy } from '@/components/fde/sections/TrustedBy';
-import { ModelPartners } from '@/components/fde/sections/ModelPartners';
-import { Comparison } from '@/components/fde/sections/Comparison';
-import { EngagementModels } from '@/components/fde/sections/EngagementModels';
-import { Protocol } from '@/components/fde/sections/Protocol';
-import { WhyFde } from '@/components/fde/sections/WhyFde';
-import { CtaBanner } from '@/components/fde/sections/CtaBanner';
-import { Testimonials } from '@/components/fde/sections/Testimonials';
-import { Faq } from '@/components/fde/sections/Faq';
-
 import home from '@/components/home/home.module.css';
 import '@/components/fde/fde.css';
+import Sections from './sections';
 
 /**
  * Hire Forward Deployed Engineers.
@@ -48,7 +38,7 @@ import '@/components/fde/fde.css';
  * The standalone page also rendered a "Deployment Units" section and a "CEO
  * Corner", both commented out there, so neither is ported.
  *
- * SEO is that app's too (`lib/fde/seo.ts`): title, description, noindex, and
+ * SEO is that app's too (`lib/fde/seo.ts`): title, description (robots follow the site setting), and
  * the Organization/WebSite + Service/FAQPage graphs, the FAQ built from the
  * rendered questions. Canonical and URLs are this app's route.
  */
@@ -73,12 +63,9 @@ export const metadata: Metadata = {
     'embedded engineering team',
   ],
   alternates: { canonical: pagePath },
-  // As the page's own build sets it.
-  robots: {
-    index: false,
-    follow: false,
-    googleBot: { index: false, follow: false },
-  },
+  // Index and follow on the production site, per the SEO team's page sheet (row 10). The page's
+  // old standalone build was noindex; `pageRobots` still keeps the test server out of search.
+  robots: pageRobots,
   openGraph: {
     type: 'website',
     siteName: brandName,
@@ -122,16 +109,7 @@ export default function HireForwardDeployedEngineerPage() {
           header takes its white ground while scrolling over it — the one
           dark section opts back to the black bar (EngagementModels). */}
       <main id="main" className="fde" data-nav-tone="light">
-        <Hero />
-        <TrustedBy />
-        <ModelPartners />
-        <Comparison />
-        <EngagementModels />
-        <Protocol />
-        <WhyFde />
-        <CtaBanner />
-        <Testimonials />
-        <Faq />
+        <Sections />
       </main>
 
       <Footer />

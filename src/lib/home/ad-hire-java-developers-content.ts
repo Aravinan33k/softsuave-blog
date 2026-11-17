@@ -9,8 +9,9 @@
  * services · rate banner · engagement models · 5 steps · testimonials · closing
  * form. This page has no popups; every button scrolls to a form on the page.
  *
- * The five steps and the closing "Request 1 Week Free Trial!" block are the same
- * on the live full-stack page, so they are reused from it.
+ * The five steps are the same on the live full-stack page, so they are reused from it. The live closing
+ * "Request 1 Week Free Trial!" block is not carried over: the page closes on the site's shared "Book Free
+ * Consultation" band (the /developer-profile design) instead.
  */
 
 import type { HeroContent } from "@/components/landing/hero";
@@ -18,7 +19,7 @@ import type { CardGridContent } from "@/components/generative-ai/industries";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { EngagementModelsContent } from "@/components/ad/engagement-models";
 import type { Testimonial } from "@/lib/home/content";
-import { FS_CLOSING_FORM, FS_HERO_FORM, fsClosing, fsProcess } from "@/lib/home/ad-hire-full-stack-developers-content";
+import { FS_CLOSING_FORM, FS_HERO_FORM, fsProcess } from "@/lib/home/ad-hire-full-stack-developers-content";
 
 export const jvMeta = {
   path: "/ad/hire-java-developers",
@@ -222,9 +223,4 @@ export const jvTestimonials: {
   ],
 };
 
-/** The closing "Request 1 Week Free Trial!" block — the live full-stack page's, with this page's lead subject. */
-export const jvClosing = {
-  ...fsClosing,
-  form: { ...fsClosing.form, subject: "Ad landing: Start Risk-FREE Trial (Java developers)" },
-};
 

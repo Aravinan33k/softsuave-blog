@@ -15,6 +15,8 @@ export interface CardGridContent {
   eyebrow: string;
   title: string;
   body: string;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wideHead?: boolean;
   items: readonly {
     readonly key?: string;
     /**
@@ -151,11 +153,29 @@ export default function Industries({
       variant={variant}
       links={links}
       cardLinks={cardLinks}
+      noIcons={content.noIcons}
+      icons={content.items.map((item) =>
+        item.images ? (
+          <span key={item.name} style={{ display: "contents" }}>
+            {item.images.map((img, n) => (
+              <Image
+                key={`${img.alt}-${n}`}
+                src={publicMediaUrl(img.src)}
+                alt=""
+                width={img.width && img.height ? Math.round((40 * img.width) / img.height) : 40}
+                height={40}
+                unoptimized
+                style={{ height: 40, width: "auto" }}
+              />
+            ))}
+          </span>
+        ) : (
+          <CardIcon key={item.name} iconKey={item.key} text={`${item.name}. ${item.body}`} />
+        ),
+      )}
+      brand={content.items.map((item) => !item.images && isBrandIcon(item.key))}
+      multi={content.items.map((item) => Boolean(item.images))}
       nameAs={nameAs}
-      icons={content.items.map((item) => (
-        <CardIcon key={item.name} iconKey={item.key} text={`${item.name}. ${item.body}`} />
-      ))}
-      brand={content.items.map((item) => isBrandIcon(item.key))}
     />
   );
 }

@@ -1,16 +1,13 @@
 import type { Metadata } from 'next';
 import { BASE_PATH, pageRobots } from '@/lib/flags';
 import { absoluteUrl } from '@/lib/seo/metadata';
-import {
-  comprehensiveEcommerceCaseStudy,
-  comprehensiveEcommerceMeta,
-} from '@/lib/home/case-studies/comprehensive-ecommerce-for-retail';
+import { comprehensiveEcommerceMeta } from '@/lib/home/case-studies/comprehensive-ecommerce-for-retail';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import CaseStudy from '@/components/case-study/case-study';
 
 import home from '@/components/home/home.module.css';
+import Sections from './sections';
 
 /**
  * Comprehensive eCommerce for Retail, rebuilt from
@@ -62,10 +59,7 @@ export default function ComprehensiveEcommerceCaseStudyPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <CaseStudy
-          content={comprehensiveEcommerceCaseStudy}
-          idPrefix="case-study-comprehensive-ecommerce-for-retail"
-        />
+        <Sections />
       </main>
 
       <Footer />

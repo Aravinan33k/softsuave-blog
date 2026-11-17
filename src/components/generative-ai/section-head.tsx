@@ -20,15 +20,18 @@ export default function SectionHead({
   kicker,
   title,
   intro,
+  wide = false,
 }: {
   kicker?: string;
   /** A string, or a node when some of the words are picked out in the accent colour. */
   title: ReactNode;
   /** Usually a string; a node when the intro carries inline links. */
   intro?: ReactNode;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wide?: boolean;
 }) {
   return (
-    <div className={styles.head}>
+    <div className={wide ? `${styles.head} ${styles.headWide}` : styles.head}>
       <div>
         {kicker && <span className={styles.kicker}>{kicker}</span>}
         <SplitReveal as="h2" className={styles.title} type="words">
