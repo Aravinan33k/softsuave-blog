@@ -3,7 +3,7 @@
  *
  * Every string is softsuave.com/developer-profile's own, in its own order —
  * the hero, the five stats, the sample profiles, the clients band, the
- * testimonials, the download dialog and the closing consultation — carried
+ * download dialog and the closing consultation — carried
  * across without rewording.
  *
  * Notes on the source, kept rather than silently changed:
@@ -28,15 +28,15 @@
  *  - The clients band is the software-development-company-spain page's (by
  *    request): the shared band's own heading and standfirst with the
  *    deployed homepage's 27 logos, in place of the live "OUR CLIENTS" band.
- *  - The testimonials band's YouTube icon (to /success-stories) is left out,
- *    by request.
+ *  - The live "TESTIMONIALS" band is replaced, by request, with the
+ *    homepage's client stories section (its own copy and reviews), so its
+ *    copy is not kept here.
  *  - "400+" is the company's specialist figure, from `lib/company-figures.ts`
  *    (the one place figures are written; a test enforces it).
  */
 
 import type { TalentHeroContent } from '@/components/landing/talent-hero';
 import type { DeveloperProfilesContent } from '@/components/landing/developer-profiles';
-import type { Testimonial } from '@/lib/home/content';
 import { SPECIALISTS_PLUS } from '@/lib/company-figures';
 import { locationClose } from '@/lib/home/mobile-app-location-shared';
 
@@ -57,9 +57,13 @@ const icon = (file: string, width: number, height: number, alt: string) =>
 
 export const devProfileHero: TalentHeroContent = {
   title: 'Hire India’s Top Remote Talents',
+  // Same H1 text; only these closing words take the accent line (by request).
+  titleAccent: 'Remote Talents',
   body: `A platform that helps companies hiring from India, employ 10X faster & more efficiently. A network of ${SPECIALISTS_PLUS} talents, pre-vetted against their technical capabilities, language proficiency and behavioral skills.`,
   cta: { label: 'Hire a Talent', href: '#technical-skill-section' },
-  arrow: { src: `${IMG}/arrow-down.webp`, alt: 'down-arrow' },
+  // The right-hand illustration from the supplied layout (by request), in
+  // place of the live page's bouncing down-arrow. Decorative, so no alt.
+  art: { src: `${IMG}/hero-talent-laptop.webp`, width: 650, height: 450, alt: '' },
   stats: [
     { icon: icon('stat-network.webp', 210, 207, 'Network'), label: 'Network', value: SPECIALISTS_PLUS, unit: 'Talents' },
     { icon: icon('stat-process.webp', 136, 201, 'Process'), label: 'Process', value: '24 Hours', unit: 'Hiring' },
@@ -162,55 +166,6 @@ export const devProfileProfiles: DeveloperProfilesContent = {
       subject: 'Developer profile download',
     },
   },
-};
-
-/**
- * The live "TESTIMONIALS" band: its heading and paragraph, and its five
- * quotes and names, verbatim (including "time and money.From day 1"). The
- * live quotes carry no photos, so the stories show their monograms.
- */
-export const devProfileTestimonials: {
-  eyebrow: string;
-  title: string;
-  body: string;
-  items: readonly Testimonial[];
-} = {
-  eyebrow: '',
-  title: 'TESTIMONIALS',
-  body: 'Soft Suave assisted industries across the world by providing exceptional software service and resources with our talented developers and app development teams. Have a look at some of our satisfied clients.',
-  items: [
-    {
-      quote:
-        '"I love working with the team at Soft Suave because they helped me save time and money.From day 1, Soft Suave has been a reliable development partner who handles the work with the utmost professionalism."',
-      name: 'Vinny Nuthakki',
-      rating: '5.0',
-    },
-    {
-      quote:
-        '"Working with Soft Suave is a great experience so far. The developer I am working with right now is outstanding. The project manager always assigns the best resources to work on my project."',
-      name: 'Marcio. M',
-      rating: '5.0',
-    },
-    {
-      quote:
-        '"Working with Soft Suave’s developers has been an extremely efficacious process for me. The answers are timely, explanations are never rushed, and communications are consistently clear and concise."',
-      name: 'Robert. S',
-      rating: '5.0',
-    },
-    {
-      quote:
-        '"The communication with Soft Suave’s developers was very easy and their response time was quick. The team helped me build very beautiful and visually aesthetic websites at an economical cost."',
-      name: 'Sophiea. K',
-      rating: '5.0',
-    },
-    {
-      quote:
-        '"Soft Suave provides amazing service. I am completely satisfied with the projects and look forward to continuing my relationship. I will also recommend their services without question."',
-      name: 'Aaron. G',
-      role: 'Founder, Beautiful Mind',
-      rating: '5.0',
-    },
-  ],
 };
 
 export const devProfileClose = locationClose('Developer profile consultation');

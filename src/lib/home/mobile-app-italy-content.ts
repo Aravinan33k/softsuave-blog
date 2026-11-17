@@ -92,10 +92,14 @@ export const maitAbout: OverviewContent = {
     { text: 'cross-platform apps', href: '/cross-platform-application-development-company', after: 'hybrid, and ' },
   ],
   image: {
-    src: `${LOCATION_IMG}/overview-italy.webp`,
-    width: 391,
-    height: 375,
+    // Replaced on request with the supplied Rome photograph (1448×1086);
+    // the live page's alt text is kept.
+    src: `${LOCATION_IMG}/overview-italy-rome.webp`,
+    width: 1448,
+    height: 1086,
     alt: 'Best mobile app development company in Italy',
+    // In the first viewport under the short hero: the page's LCP.
+    eager: true,
     fit: 'column',
   },
 };

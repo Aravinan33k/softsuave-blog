@@ -57,8 +57,6 @@ export interface CardGridContent {
    * missing"). Same size as the mid-page conversion band's button.
    */
   cta?: { readonly label: string; readonly href: string };
-  /** `bold` only: draw no icon on any card — a section whose live cards are a name and a line of copy. */
-  noIcons?: boolean;
   /**
    * `tiles` only: an illustration set beside the tile grid (below it on
    * narrow screens), for a section whose live counterpart shows its items
@@ -67,6 +65,8 @@ export interface CardGridContent {
   figure?: { readonly src: string; readonly width: number; readonly height: number; readonly alt: string };
   /** `tiles` only: phrases in `body` (the intro) to link — see `common/linkify`. */
   bodyLinks?: readonly InlineLink[];
+  /** `bold` only: draw no icon on any card — a section whose live cards are a name and a line of copy. */
+  noIcons?: boolean;
 }
 
 /**

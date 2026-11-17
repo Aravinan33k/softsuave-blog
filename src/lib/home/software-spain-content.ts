@@ -76,11 +76,14 @@ export const sdesAbout: OverviewContent = {
     "As a software development company in Spain , we focus on setting clear Expectations, Providing excellent communication, and Delivering best-in-class products on time and within the budget for the Spanish people's needs. Hopefully, we will earn the privilege of having you as a long-term partner and continue to be a vital part of your business as a result.",
   ],
   image: {
-    // The same art as the France page's overview (`custom-m.png`).
-    src: `${SOFTWARE_IMG}/overview-france.webp`,
-    width: 849,
-    height: 830,
+    // Replaced on request with the supplied Madrid (Cibeles Palace and
+    // fountain) photograph (1448×1086); the live page's alt text is kept.
+    src: `${SOFTWARE_IMG}/overview-spain-madrid.webp`,
+    width: 1448,
+    height: 1086,
     alt: 'Best software development company in Spain',
+    // In the first viewport under the short hero: the page's LCP.
+    eager: true,
     fit: 'column',
   },
 };

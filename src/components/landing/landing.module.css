@@ -5103,7 +5103,10 @@
   height: 18px;
 }
 
-.clusChipLogo svg {
+/* An image logo fills the box exactly (object-contain keeps its shape), so
+   the global `img { height: auto }` does not resize one side only. */
+.clusChipLogo svg,
+.clusChipLogo img {
   width: 18px;
   height: 18px;
 }

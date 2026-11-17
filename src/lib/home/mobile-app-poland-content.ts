@@ -75,10 +75,14 @@ export const maplAbout: OverviewContent = {
     'Soft Suave helps startups and SMBs to get fast recognition globally by developing efficient apps with advanced technologies. Do you know why we are the best Mobile app development agency in Poland? Thanks to our app development team who creates apps that are easy to use with a futuristic interface that satisfies users of different levels of expertise.',
   ],
   image: {
-    src: `${IMG}/overview-poland.webp`,
-    width: 1400,
-    height: 991,
+    // Replaced on request with the supplied Kraków Main Square (St. Mary's
+    // Basilica) photograph (1448×1086); the live page's alt text is kept.
+    src: `${IMG}/overview-poland-krakow.webp`,
+    width: 1448,
+    height: 1086,
     alt: 'Mobile App Development Company in Poland',
+    // In the first viewport under the short hero: the page's LCP.
+    eager: true,
     fit: 'column',
   },
 };
