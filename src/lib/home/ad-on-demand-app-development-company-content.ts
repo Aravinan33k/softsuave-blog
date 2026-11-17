@@ -69,6 +69,7 @@ const photo = (name: string, body: string, file: string) => ({
 
 export const odSolutions: CardGridContent = {
   eyebrow: "Solutions",
+  wideHead: true,
   title: "On-Demand Solutions Built for Real-World Business Models",
   body: "From cab booking and food delivery to hyperlocal and lifestyle platforms — we build apps users rely on daily. Popular On-Demand Apps We Build:",
   items: [

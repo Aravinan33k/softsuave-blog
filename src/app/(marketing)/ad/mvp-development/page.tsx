@@ -83,8 +83,13 @@ export default function AdMvpDevelopmentPage() {
         <Hero noNav content={mvHero} idPrefix="ad-mvp" breadcrumb={false} />
 
         <div className={home.light}>
-          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={mvClients.title} body={mvClients.body} />
-          <StatsStory content={mvAnalysis} />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={mvClients.title} body={mvClients.body} wideTitle />
+        </div>
+
+        {/* "Analysis" on the dark ground, by request, between the light clients and solution bands. */}
+        <StatsStory content={mvAnalysis} />
+
+        <div className={home.light}>
           {/* The live icons are white, drawn on its red tiles; here they are turned dark. */}
           <div className={styles.markOnDark}>
             <CardGrid content={mvSolution} id="solution" variant="bold" />

@@ -10,20 +10,22 @@ export default function WhyList({
   items,
   id = "why",
   image,
+  cards = false,
 }: {
   title: string;
   items: readonly string[];
   id?: string;
   /** Shown beside the list from 1000px up, under it below that — the live block's side photo. */
   image?: { src: string; width: number; height: number; alt: string };
+  cards?: boolean;
 }) {
   return (
     <section className={styles.shell} id={id}>
       <SectionHead title={title} />
       <div className={image ? styles.whyWithImage : undefined}>
-        <ul className={styles.whyList} data-narrow={image ? "true" : undefined}>
+        <ul className={styles.whyList} data-narrow={image ? "true" : undefined} data-cards={cards ? "true" : undefined}>
           {items.map((item, i) => (
-            <li key={item} className={styles.whyItem}>
+            <li key={item} className={cards ? `${styles.whyItem} ${styles.whyCard}` : styles.whyItem}>
               <FadeUp delay={Math.min(i % 3, 2) * 0.06}>{item}</FadeUp>
             </li>
           ))}

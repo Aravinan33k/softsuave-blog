@@ -368,6 +368,7 @@ export interface CardGridContent {
        * Omitted keeps the 4:3 crop.
        */
       readonly fit?: "contain" | "column";
+      readonly badge?: boolean;
     };
   }[];
 }

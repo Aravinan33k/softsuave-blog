@@ -78,17 +78,17 @@ export default function AdItStaffAugmentationServicesPage() {
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         <Hero noNav content={saHero} idPrefix="ad-staff-aug" breadcrumb={false} />
 
-        <div className={home.light}>
+        <div className={`${home.light} ${styles.sectionsJoined} ${styles.ctaRoomy}`}>
           <Clients logos={clientsPageBrands.logos} title={saClients.title} body="" eyebrow="" loopShortRows noFade />
-          <TopTalent content={saTalent} />
+          <TopTalent content={saTalent} whiteHover />
         </div>
 
         <TechCluster content={saExperts} />
-        <CtaRow label={saExpertsCta.label} href={saExpertsCta.href} />
+        <CtaRow label={saExpertsCta.label} href={saExpertsCta.href} white />
 
         <div className={home.light}>
           <section className={styles.shell} id="why">
-            <SectionHead title={saWhy.title} intro={saWhy.intro} />
+            <SectionHead title={saWhy.title} intro={saWhy.intro} wide />
           </section>
         </div>
 

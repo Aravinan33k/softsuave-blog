@@ -84,7 +84,7 @@ export default function AdOnDemandAppDevelopmentCompanyPage() {
         <Hero noNav content={odHero} idPrefix="ad-on-demand" breadcrumb={false} />
 
         <div className={home.light}>
-          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={odClients.title} body={odClients.body} />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={odClients.title} body={odClients.body} wideTitle />
         </div>
 
         {/* "Industries Soft Suave Builds Generative AI For" is a dark band on the generative-ai page; so is this. */}

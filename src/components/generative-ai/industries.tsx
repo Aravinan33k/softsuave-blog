@@ -59,6 +59,8 @@ export interface CardGridContent {
   cta?: { readonly label: string; readonly href: string };
   /** `bold` only: draw no icon on any card — a section whose live cards are a name and a line of copy. */
   noIcons?: boolean;
+  figure?: { readonly src: string; readonly width: number; readonly height: number; readonly alt: string };
+  bodyLinks?: readonly InlineLink[];
 }
 
 /**

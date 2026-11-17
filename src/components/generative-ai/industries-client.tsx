@@ -87,6 +87,7 @@ export default function IndustriesClient({
   variant,
   links,
   cardLinks,
+  nameAs: TileName = "h3",
   icons,
   brand,
   multi,

@@ -103,15 +103,16 @@ export default function AdAiSolutionPage() {
               className={styles.gridImage}
             />
           </div>
+          <CtaRow {...asStruggleCta} tight white />
+        </div>
+
+        <div className={home.light}>
+          <WhyList title={asTrust.title} items={asTrust.items} image={asTrust.image} cards />
           <CtaRow {...asStruggleCta} tight />
         </div>
 
-        <div className={home.light}>
-          <WhyList title={asTrust.title} items={asTrust.items} image={asTrust.image} />
-          <CtaRow {...asStruggleCta} tight joined />
-        </div>
-
-        <div className={home.light}>
+        {/* Dark band between two light ones. */}
+        <div className={styles.logoPlaques}>
           <LogoRows content={asTech} />
         </div>
 
