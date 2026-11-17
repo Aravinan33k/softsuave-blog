@@ -5632,6 +5632,12 @@ h1.h2 {
        longest line it actually sets. */
     max-width: min(20ch, var(--fit-width, 20ch));
   }
+  /* `wideTitle`: room for a long heading to set in two lines; `--fit-width` still pulls the column in to the longest
+     line, and balancing keeps the two lines even. Doubled so it outranks the 20ch rule above. */
+  .clientsWideTitle .clientsHead .h2.h2 {
+    max-width: min(36ch, var(--fit-width, 36ch));
+    text-wrap: balance;
+  }
   .clientsHeadAside {
     /* Held to the end of its column, so the intro closes on the frame's
        right edge on a wide screen (16 Oct, 1920px) — see `.sectionHead`. */

@@ -87,11 +87,11 @@ export default function IndustriesClient({
   variant,
   links,
   cardLinks,
+  nameAs: TileName = "h3",
   icons,
   brand,
   multi,
   noIcons,
-  nameAs: TileName = "h3",
 }: {
   content: CardGridContent;
   id: string;
@@ -122,7 +122,7 @@ export default function IndustriesClient({
 
     return (
       <section className={styles.sectionShell} id={id}>
-        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
         <FadeUp>
           <div className={styles.indGridBold}>
@@ -192,6 +192,7 @@ export default function IndustriesClient({
         <SectionHead
           kicker={content.eyebrow}
           title={content.title}
+          wide={content.wideHead}
           intro={
             content.bodyLinks ? linkify(content.body, content.bodyLinks, new Set(), styles.proseLink) : content.body
           }
@@ -256,7 +257,7 @@ export default function IndustriesClient({
   if (variant === "compact") {
     return (
       <section className={styles.sectionShell} id={id}>
-        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
         <FadeUp>
           <div className={styles.indGridCompact}>
@@ -286,7 +287,7 @@ export default function IndustriesClient({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <FadeUp>
         <div className={styles.indGrid}>

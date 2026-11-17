@@ -18,6 +18,8 @@ import {
   asTrialForm,
 } from '@/lib/home/ad-ai-solution-content';
 
+import { clientsPageBrands } from '@/lib/home/clients-content';
+
 import Clients from '@/components/home/clients';
 
 import Hero from '@/components/landing/hero';
@@ -83,7 +85,7 @@ export default function AdAiSolutionPage() {
         </div>
 
         <div className={home.light}>
-          <Clients logos={[...asClients.logos]} title={asClients.title} body="" eyebrow="" loopShortRows noFade />
+          <Clients logos={clientsPageBrands.logos} title={asClients.title} body="" eyebrow="" loopShortRows noFade />
           <CardGrid content={asStruggle} id="struggle" variant="bold" />
           <CtaRow {...asStruggleCta} tight />
         </div>
@@ -101,15 +103,16 @@ export default function AdAiSolutionPage() {
               className={styles.gridImage}
             />
           </div>
+          <CtaRow {...asStruggleCta} tight white />
+        </div>
+
+        <div className={home.light}>
+          <WhyList title={asTrust.title} items={asTrust.items} image={asTrust.image} cards />
           <CtaRow {...asStruggleCta} tight />
         </div>
 
-        <div className={home.light}>
-          <WhyList title={asTrust.title} items={asTrust.items} image={asTrust.image} />
-          <CtaRow {...asStruggleCta} tight joined />
-        </div>
-
-        <div className={home.light}>
+        {/* Dark band between two light ones. */}
+        <div className={styles.logoPlaques}>
           <LogoRows content={asTech} />
         </div>
 

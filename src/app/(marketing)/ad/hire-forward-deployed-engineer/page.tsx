@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
   fdeClients,
   fdeExperts,
@@ -15,6 +14,8 @@ import {
   fdeWhy,
   fdeWhyClosing,
 } from '@/lib/home/ad-hire-forward-deployed-engineer-content';
+
+import { clientsPageBrands } from '@/lib/home/clients-content';
 
 import Clients from '@/components/home/clients';
 
@@ -83,7 +84,7 @@ export default function AdHireForwardDeployedEngineerPage() {
         <div className={home.light}>
           {/* The live page's client logos sit inside its hero section; here they
               open the white band that follows it. */}
-          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={fdeClients.title} body={fdeClients.body} />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={fdeClients.title} body={fdeClients.body} />
           <div className={styles.gridWithCta}>
             <CardGrid content={fdeWhy} id="why" variant="bold" autoLink={false} />
             <CtaRow lead={fdeWhyClosing} tight joined />

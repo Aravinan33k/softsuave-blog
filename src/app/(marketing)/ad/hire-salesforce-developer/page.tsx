@@ -16,6 +16,8 @@ import {
   sfWhy,
 } from '@/lib/home/ad-hire-salesforce-developer-content';
 
+import { clientsPageBrands } from '@/lib/home/clients-content';
+
 import Clients from '@/components/home/clients';
 
 import Hero from '@/components/landing/hero';
@@ -90,7 +92,7 @@ export default function AdHireSalesforceDeveloperPage() {
         <div className={home.light}>
           {/* The live bands have no label above their headings, so none here. */}
           <Clients
-            logos={[...sfClients.logos]}
+            logos={clientsPageBrands.logos}
             title={sfClients.title}
             body=""
             eyebrow=""
