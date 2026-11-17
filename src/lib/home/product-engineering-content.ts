@@ -8,7 +8,7 @@
  * schemas"). The live page runs an older, simpler template; the mapping, in
  * live page order:
  *
- *   H1 + paragraph + "Our Portfolio" + enquiry form      → `prodHero`
+ *   H1 + paragraph + "Our Case Studies" + enquiry form      → `prodHero`
  *   "Best-in-class Product Engineering Services Company" → `prodOverview`
  *   "Soft Suave in Product Engineering Services"         → `prodAbout`
  *   "Our Approach" (five steps)                           → `prodProcess`
@@ -52,8 +52,9 @@ export const prodHero: HeroContent = {
   ],
   // The live hero carries no bullet list.
   points: [],
-  // The live hero's own button, beside the copy.
-  ctas: [{ label: "Our Portfolio", href: "/portfolio" }],
+  // The live hero's own button, beside the copy. It went to /portfolio, which was taken offline on 17 Nov
+  // (301 to /case-studies), so it points at the case studies directly.
+  ctas: [{ label: "Our Case Studies", href: "/case-studies" }],
   badges: sharedHeroBadges,
   form: {
     // The live form's own heading pair.
