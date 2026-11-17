@@ -4,7 +4,7 @@ import 'server-only';
  * JSON-LD for `/case-study-neurora-behavioral-intelligence`: softsuave.com's
  * own schema for this page, verbatim. The live page's HTML carries exactly one
  * JSON-LD block — this NewsArticle — copied as served, quirks included (2015
- * dates, the blog-author URL). Its `image` is the page's share card, which this
+ * dates, the blog-author URL, now dropped). Its `image` is the page's share card, which this
  * site hosts at the same path (`public/assets/case-studies/`).
  *
  * As with the Vehicle Intelligence page, the route is in
@@ -21,7 +21,7 @@ export const neuroraBehavioralIntelligenceArticleLd = {
   "dateModified": "2015-02-05T09:20:00+08:00",
   "author": [{
     "@type": "Person",
-    "name": "Veera S",
-    "url": "https://www.softsuave.com/blog/author/admin/"
+    "name": "Veera S"
+    // Live's author url, /blog/author/admin/, is dropped: a 404 since the blog moved (17 Nov review).
   }]
 } as const;
