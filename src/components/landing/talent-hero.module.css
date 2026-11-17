@@ -1,34 +1,42 @@
 /* =====================================================================
-   TALENT HERO — centred heading, intro, in-page button and arrow, then a
-   five-up stat strip. Band tokens only; dark on these pages.
+   TALENT HERO — left-aligned heading, intro and button beside an
+   illustration, then a five-up stat strip. Band tokens only; dark on these
+   pages.
    ===================================================================== */
 
 .hero {
   position: relative;
   overflow: hidden;
-  padding: max(clamp(78px, 6.6vw, 98px), var(--hero-top, 104px)) var(--gutter) clamp(36px, 4vw, 60px);
+  padding: max(clamp(78px, 6.6vw, 98px), var(--hero-top, 104px)) var(--gutter) clamp(40px, 4.5vw, 64px);
   background: var(--bg);
 }
 
+/* A warm glow behind the illustration (centred under the copy when stacked). */
 .glow {
   position: absolute;
-  left: 50%;
-  top: -10%;
+  right: -10%;
+  top: -5%;
   width: min(1100px, 120vw);
-  height: 640px;
-  transform: translateX(-50%);
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 18%, transparent), transparent);
+  height: 760px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 16%, transparent), transparent);
   pointer-events: none;
 }
 
 .inner {
   position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(28px, 4vw, 56px);
+  max-width: none;
+  margin: 0;
+}
+
+.copy {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .title {
@@ -39,56 +47,60 @@
   line-height: 1.08;
   letter-spacing: -0.035em;
   color: var(--text-bright);
-  text-wrap: balance;
+}
+
+/* The closing words, on their own line in the accent. */
+.titleAccent {
+  display: block;
+  color: var(--accent);
 }
 
 .body {
   margin: clamp(18px, 2vw, 26px) 0 0;
-  max-width: 760px;
+  max-width: 640px;
   font-size: var(--fs-body);
   line-height: 1.65;
   color: var(--text);
 }
 
+/* Plate, type and hover wipe come from gen.btn + gen.btnPrimary. */
 .cta {
-  display: inline-flex;
-  align-items: center;
   margin-top: clamp(24px, 2.6vw, 34px);
-  padding: 0.95em 2em;
-  border-radius: 10px;
-  background: var(--accent);
-  color: #fff;
-  font-family: var(--font-body);
-  font-size: var(--fs-label);
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.cta:hover {
-  background: color-mix(in srgb, var(--accent) 88%, #000);
-  transform: translateY(-2px);
+/* The illustration is drawn on a near-black ground; its edges fade into the
+   band so no rectangle shows. */
+.art {
+  position: relative;
+  justify-self: center;
+  width: 100%;
+  max-width: 560px;
 }
 
-.cta:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
+.artImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Each edge fades out (two linear masks, intersected), so the art's own
+     dark ground never shows as a box; the icons and laptop sit inside. */
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 16%, #000 97%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0, #000 16%, #000 97%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
+  mask-composite: intersect;
 }
 
-/* The source's arrow is a dark glyph; inverted so it reads on the dark band. */
-.arrow {
-  display: inline-flex;
-  margin-top: clamp(24px, 2.6vw, 34px);
-  filter: invert(1);
-  opacity: 0.7;
-  animation: th-bounce 2s ease-in-out infinite;
-}
+@media (min-width: 1000px) {
+  .inner {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  }
 
-@keyframes th-bounce {
-  50% {
-    transform: translateY(8px);
+  .art {
+    justify-self: end;
+    max-width: 680px;
   }
 }
 
@@ -98,9 +110,9 @@
   position: relative;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  max-width: 1200px;
-  margin: clamp(40px, 5vw, 72px) auto 0;
+  gap: clamp(12px, 1.4vw, 20px);
+  max-width: none;
+  margin: clamp(40px, 5vw, 64px) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -109,8 +121,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: clamp(18px, 2vw, 26px) 14px;
+  gap: 10px;
+  padding: clamp(20px, 2.2vw, 30px) 14px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: color-mix(in srgb, var(--surface) 80%, transparent);
@@ -121,10 +133,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 6px;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  background: color-mix(in srgb, var(--accent) 26%, var(--surface));
 }
 
 /* The source icons are dark line art; tinted toward the accent on the dark band. */
@@ -155,7 +168,7 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: var(--heading-weight, 400);
-  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  font-size: clamp(1.7rem, 2.5vw, 2.4rem);
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--text-bright);
@@ -187,15 +200,5 @@
 @media (min-width: 1100px) {
   .stats {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .arrow {
-    animation: none;
-  }
-
-  .cta {
-    transition: none;
   }
 }

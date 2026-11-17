@@ -1,0 +1,151 @@
+/* =====================================================================
+   SERVICE CAROUSEL — the /ad pages' "Our Services" row
+   (`service-carousel-client.tsx`). One row of cards on native scroll-snap,
+   the next card peeking in from the gutter, dots under. Band tokens only.
+   ===================================================================== */
+
+.carousel {
+  /* Cards in view. On a phone a touch over one, so the next card shows past
+     the narrow gutter; from 680px the peek comes from the gutter itself. */
+  --per: 1.12;
+  --gap: clamp(16px, 1.8vw, 28px);
+  /* Room left of the first card for its shadow, inside the scroller. */
+  --inset: 16px;
+}
+
+.track {
+  display: flex;
+  gap: var(--gap);
+  /* Runs out through the right-hand gutter to the screen edge, so the next
+     card shows there; reaches back over the inset on the left. */
+  margin: 0 calc(-1 * var(--gutter, 20px)) 0 calc(-1 * var(--inset));
+  padding: 10px var(--gutter, 20px) 34px var(--inset);
+  scroll-padding-left: var(--inset);
+  list-style: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+/* The track's content box is the section's own width, so `--per` cards fill
+   it exactly and the next one starts in the gutter. */
+.slide {
+  flex: 0 0 calc((100% - (var(--per) - 1) * var(--gap)) / var(--per));
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+/* The grid's five-colour card ramp, by position, as on `.indGridBold`. */
+.slide:nth-child(5n + 1) { --card-accent: var(--card-accent-1); }
+.slide:nth-child(5n + 2) { --card-accent: var(--card-accent-2); }
+.slide:nth-child(5n + 3) { --card-accent: var(--card-accent-3); }
+.slide:nth-child(5n + 4) { --card-accent: var(--card-accent-4); }
+.slide:nth-child(5n + 5) { --card-accent: var(--card-accent-5); }
+
+/* A soft, rounded card on the band's own surface: no coloured top rule, a
+   lifted shadow instead. */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(9px, 0.95vw, 13px);
+  height: 100%;
+  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  border-radius: 20px;
+  background: var(--surface);
+  padding: clamp(24px, 2.6vw, 36px) clamp(22px, 2.4vw, 34px);
+  box-shadow: 0 18px 40px -26px rgba(20, 12, 6, 0.28);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.35s ease;
+}
+
+.card:hover,
+.card:focus-within {
+  transform: translateY(-4px);
+  background: color-mix(in srgb, var(--card-accent, var(--accent)) 6%, var(--surface));
+  box-shadow: 0 22px 44px -24px color-mix(in srgb, var(--card-accent, var(--accent)) 45%, transparent);
+}
+
+/* The card's glyph on a rounded tile in its own ramp colour. */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 6px;
+  border-radius: 16px;
+  color: var(--card-accent, var(--accent));
+  background: color-mix(in srgb, var(--card-accent, var(--accent)) 13%, transparent);
+}
+
+.icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* ---- Dots ---------------------------------------------------------- */
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: clamp(6px, 1vw, 14px);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--text-bright) 22%, transparent);
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.dot[aria-current="true"] {
+  background: var(--accent);
+  transform: scale(1.15);
+}
+
+.dot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---- Cards per page ------------------------------------------------ */
+
+@media (min-width: 680px) {
+  .carousel {
+    --per: 2;
+  }
+}
+
+@media (min-width: 1000px) {
+  .carousel {
+    --per: 3;
+  }
+}
+
+@media (min-width: 1280px) {
+  .carousel {
+    --per: 4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .dot {
+    transition: none;
+  }
+
+  .card:hover,
+  .card:focus-within {
+    transform: none;
+  }
+}
