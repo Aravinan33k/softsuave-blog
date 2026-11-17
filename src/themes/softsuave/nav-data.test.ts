@@ -16,18 +16,19 @@ afterEach(() => {
 });
 
 describe('navHref', () => {
-  // `/developer-rate-card` is the stand-in for a path this app does not serve at all — it has no route in
+  // `/ai-in-aviation` is the stand-in for a path this app does not serve at all — it has no route in
   // app/(marketing), so it belongs to the live site whatever the release flag says. A path we DO serve can never
   // demonstrate this.
   //
-  // It replaced `/softsuave-career` here once this app grew its own copy of that page, which had replaced
+  // It replaced `/developer-rate-card` here once this app grew its own copy of that page, which had replaced
+  // `/softsuave-career`, which had replaced
   // `/career-overview`, which had replaced `/case-studies`, which had replaced `/about`, which had replaced
   // `/contact`. Each swap is this app absorbing one more page from the live site.
   it('sends paths this app does not serve to the live site in either release state', async () => {
     for (const flag of ['true', 'false']) {
       const { navHref, isExternalHref } = await loadNav(flag);
-      expect(navHref('/developer-rate-card')).toBe(`${SITE}/developer-rate-card`);
-      expect(isExternalHref('/developer-rate-card')).toBe(true);
+      expect(navHref('/ai-in-aviation')).toBe(`${SITE}/ai-in-aviation`);
+      expect(isExternalHref('/ai-in-aviation')).toBe(true);
     }
   });
 
@@ -42,8 +43,8 @@ describe('navHref', () => {
         expect(isExternalHref('/softsuave-career?role=trainee-hr')).toBe(false);
       }
       // A path we do not serve still goes to the live site, query and all.
-      expect(navHref('/developer-rate-card?x=1')).toBe(`${SITE}/developer-rate-card?x=1`);
-      expect(isExternalHref('/developer-rate-card?x=1')).toBe(true);
+      expect(navHref('/ai-in-aviation?x=1')).toBe(`${SITE}/ai-in-aviation?x=1`);
+      expect(isExternalHref('/ai-in-aviation?x=1')).toBe(true);
     }
   });
 
@@ -204,7 +205,7 @@ describe('navRoute', () => {
   it('leaves paths this app does not serve to navHref, absolute and unprefixed', async () => {
     for (const flag of ['true', 'false']) {
       const { navRoute } = await loadNav(flag);
-      expect(navRoute('/developer-rate-card')).toBe(`${SITE}/developer-rate-card`);
+      expect(navRoute('/ai-in-aviation')).toBe(`${SITE}/ai-in-aviation`);
     }
   });
 });

@@ -2783,6 +2783,17 @@
   align-self: flex-start;
 }
 
+/* `IntegrationContent.blocks[].photo` — a photo across the card's top, out to
+   its edges: the negative margins cancel `.indBoldCard`'s own padding, so it
+   meets the accent rule above and both side borders. */
+.indBoldPhoto {
+  display: block;
+  width: calc(100% + 2 * clamp(20px, 2.1vw, 30px));
+  max-width: none;
+  height: auto;
+  margin: calc(-1 * clamp(22px, 2.4vw, 32px)) calc(-1 * clamp(20px, 2.1vw, 30px)) clamp(6px, 0.8vw, 10px);
+}
+
 /* Mobile first: one card per row. The spans below only apply once there is
    width to divide. */
 .indGridBold .indBoldCard {
@@ -2822,6 +2833,7 @@
   .indGridBold .indBoldCard[data-span="12"] { grid-column: span 12; }
   .indGridBold .indBoldCard[data-span="6"] { grid-column: span 6; }
   .indGridBold .indBoldCard[data-span="4"] { grid-column: span 4; }
+  .indGridBold .indBoldCard[data-span="3"] { grid-column: span 3; }
 }
 
 /* The lift and the shadow are decorative; the accent rule carries the design
