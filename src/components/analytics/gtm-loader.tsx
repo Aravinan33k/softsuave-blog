@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { gtmHosts } from "@/lib/flags";
 
 /** Interactions that load the container at once — any sign of a person. */
 const TRIGGERS = ["pointerdown", "keydown", "touchstart", "scroll", "wheel", "mousemove"] as const;
@@ -23,7 +24,8 @@ declare global {
  */
 export default function GtmLoader({ id, deferred }: { id: string; deferred: boolean }) {
   useEffect(() => {
-    if (window.__gtmLoaded) return;
+    // Only on the live site's hosts, as the head snippet (`gtmHosts`, lib/flags.ts).
+    if (window.__gtmLoaded || !gtmHosts.includes(window.location.hostname)) return;
 
     let timer: number | undefined;
     const load = () => {
