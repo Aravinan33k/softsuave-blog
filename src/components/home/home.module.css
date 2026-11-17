@@ -5788,6 +5788,10 @@ h1.h2 {
   color: var(--text-bright);
   max-width: 20ch;
 }
+.carHeadTitleWide {
+  max-width: 34ch;
+  text-wrap: balance;
+}
 .carHeadLead {
   margin: 0;
   max-width: 46ch;

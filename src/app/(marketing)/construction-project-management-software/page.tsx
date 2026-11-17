@@ -10,11 +10,12 @@ import { navHref } from '@/themes/softsuave/nav-data';
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 import Hero from '@/components/generative-ai/hero';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
 import QuoteModal from '@/components/construction-pm/quote-modal';
 import { Customers, Features, Intro, Portfolio, TryBand } from '@/components/construction-pm/blocks';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 
 /** Construction project management software — softsuave.com's /construction-project-management-software. */
 
@@ -62,7 +63,7 @@ const structuredData = {
 
 export default function ConstructionProjectManagementPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       <JsonLd data={structuredData} />
       <Nav logoHref={HOME_HREF} />
 
@@ -81,17 +82,27 @@ export default function ConstructionProjectManagementPage() {
           <Portfolio />
         </div>
 
-        <ManagerEnquiry
-          content={{
-            ...faqsPageEnquiry,
-            manager: {
-              ...faqsPageEnquiry.manager,
-              cta: { ...faqsPageEnquiry.manager.cta, href: navHref(faqsPageEnquiry.manager.cta.href) },
-            },
-          }}
+        {/* The closing "Book Free Consultation" band in the /developer-profile design (as on /faqs). */}
+        <ConsultationClose
           id="enquiry"
           idPrefix="construction-pm-contact"
-          headingFont
+          blackSubmit
+          content={{
+            title: faqsPageEnquiry.title,
+            body: faqsPageEnquiry.body,
+            steps: faqsPageEnquiry.steps,
+            person: {
+              image: { src: faqsPageEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+              name: faqsPageEnquiry.manager.name,
+              role: faqsPageEnquiry.manager.role,
+            },
+            cta: {
+              label: faqsPageEnquiry.manager.cta?.label ?? 'Schedule a Call',
+              href: navHref(faqsPageEnquiry.manager.cta?.href ?? '/30-min-free-consultation'),
+            },
+            badges: faqsPageEnquiry.badges,
+            form: faqsPageEnquiry.form,
+          }}
         />
       </main>
 

@@ -110,6 +110,7 @@ export const sdfrAbout: OverviewContent = {
 
 export const sdfrServices: ServicesGridContent = {
   eyebrow: '',
+  wideHead: true,
   title: 'Soft Suave’s Scope of Expertise in Software Development',
   body: 'As the top software development company in Paris and throughout France, we are renowned for delivering all business needs that never fail to fulfill business value and customer needs.',
   items: [
@@ -175,6 +176,7 @@ export const sdfrIndustries: TileGridContent = {
 /** The live tabs become the clusters; each tool keeps its live label. */
 export const sdfrTech: TechStackContent = {
   eyebrow: '',
+  wideHead: true,
   title: 'Delivering Highly Influentia Apps With These Dope Technologies',
   body: 'Here is a list of Soft Suave developers with expertise in a variety of technologies.',
   groups: softwareTechGroups,

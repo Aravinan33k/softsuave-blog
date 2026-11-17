@@ -11,6 +11,7 @@ import Hero from '@/components/generative-ai/hero';
 import { Closing, Packages, Solutions } from '@/components/ecommerce-package/blocks';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 
 /** Ecommerce app development package — softsuave.com's /ecommerce-app-development-package. */
 
@@ -53,7 +54,7 @@ const structuredData = {
 
 export default function EcommercePackagePage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       <JsonLd data={structuredData} />
       <Nav logoHref={HOME_HREF} />
 

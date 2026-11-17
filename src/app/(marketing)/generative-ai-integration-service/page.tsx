@@ -19,7 +19,7 @@ import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
 
 import Hero from '@/components/landing/hero';
 import Services from '@/components/landing/services';
@@ -87,7 +87,7 @@ export default function GenerativeAiIntegrationPage() {
         <Hero content={genaiHero} idPrefix="genai-integration" />
 
         <div className={home.light}>
-          <Clients eyebrow={genaiClients.eyebrow} title={genaiClients.title} body={genaiClients.body} />
+          <Clients eyebrow={genaiClients.eyebrow} title={genaiClients.title} body={genaiClients.body} wideTitle="31ch" />
         </div>
 
         <IconSection id="services" tint {...genaiServices} />
@@ -112,7 +112,7 @@ export default function GenerativeAiIntegrationPage() {
 
         <div className={home.light}>
           <div className={styles.pullUp}>
-            <CardGrid content={staffModels} id="models" variant="bold" />
+            <CardGrid content={{ ...staffModels, wideHead: true }} id="models" variant="bold" />
           </div>
         </div>
 
@@ -122,7 +122,7 @@ export default function GenerativeAiIntegrationPage() {
           <CardGrid content={genaiIndustries} id="industries" columns={5} />
         </div>
 
-        <CardGrid content={staffBenefits} id="benefits" columns={5} />
+        <CardGrid content={{ ...staffBenefits, wideHead: true }} id="benefits" columns={5} />
 
         <div className={home.light}>
           <Testimonials content={staffCostTestimonials} />
@@ -131,17 +131,27 @@ export default function GenerativeAiIntegrationPage() {
           </div>
         </div>
 
-        <ManagerEnquiry
-          content={{
-            ...faqsPageEnquiry,
-            manager: {
-              ...faqsPageEnquiry.manager,
-              cta: { ...faqsPageEnquiry.manager.cta, href: navHref(faqsPageEnquiry.manager.cta.href) },
-            },
-          }}
+        {/* The closing "Book Free Consultation" band in the /developer-profile design (as on /faqs). */}
+        <ConsultationClose
           id="enquiry"
           idPrefix="genai-contact"
-          headingFont
+          blackSubmit
+          content={{
+            title: faqsPageEnquiry.title,
+            body: faqsPageEnquiry.body,
+            steps: faqsPageEnquiry.steps,
+            person: {
+              image: { src: faqsPageEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+              name: faqsPageEnquiry.manager.name,
+              role: faqsPageEnquiry.manager.role,
+            },
+            cta: {
+              label: faqsPageEnquiry.manager.cta?.label ?? 'Schedule a Call',
+              href: navHref(faqsPageEnquiry.manager.cta?.href ?? '/30-min-free-consultation'),
+            },
+            badges: faqsPageEnquiry.badges,
+            form: faqsPageEnquiry.form,
+          }}
         />
       </main>
 

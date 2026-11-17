@@ -1581,6 +1581,11 @@
   max-width: 24ch;
 }
 
+.ctaTitleWide {
+  max-width: 40ch;
+  text-wrap: balance;
+}
+
 .ctaBody {
   margin: 0.9em 0 0;
   max-width: 56ch;

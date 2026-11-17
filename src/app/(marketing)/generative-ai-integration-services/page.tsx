@@ -30,11 +30,12 @@ import Process from '@/components/landing/process';
 import CardGrid from '@/components/landing/industries';
 import CtaBand from '@/components/landing/cta-band';
 import Faq from '@/components/landing/faq';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
 import IconSection from '@/components/genai-services/icon-section';
 import WhyChoose from '@/components/genai-services/why-choose';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 
 /** Generative AI Integration Services — softsuave.com's /generative-ai-integration-services. */
 
@@ -83,7 +84,7 @@ const testimonials = {
 
 export default function GenerativeAiIntegrationServicesPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       <JsonLd data={structuredData} />
       <Nav logoHref={HOME_HREF} />
 
@@ -91,7 +92,7 @@ export default function GenerativeAiIntegrationServicesPage() {
         <Hero content={genaiHero} idPrefix="genai-services" />
 
         <div className={home.light}>
-          <Clients eyebrow={genaiClients.eyebrow} title={genaiClients.title} body={genaiClients.body} />
+          <Clients eyebrow={genaiClients.eyebrow} title={genaiClients.title} body={genaiClients.body} wideTitle="31ch" />
         </div>
 
         <IconSection id="services" {...genaiServices} />
@@ -149,17 +150,27 @@ export default function GenerativeAiIntegrationServicesPage() {
           <Faq content={genaiFaqs} idPrefix="genai-services-faq" />
         </div>
 
-        <ManagerEnquiry
-          content={{
-            ...faqsPageEnquiry,
-            manager: {
-              ...faqsPageEnquiry.manager,
-              cta: { ...faqsPageEnquiry.manager.cta, href: navHref(faqsPageEnquiry.manager.cta.href) },
-            },
-          }}
+        {/* The closing "Book Free Consultation" band in the /developer-profile design (as on /faqs). */}
+        <ConsultationClose
           id="enquiry"
           idPrefix="genai-services-contact"
-          headingFont
+          blackSubmit
+          content={{
+            title: faqsPageEnquiry.title,
+            body: faqsPageEnquiry.body,
+            steps: faqsPageEnquiry.steps,
+            person: {
+              image: { src: faqsPageEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+              name: faqsPageEnquiry.manager.name,
+              role: faqsPageEnquiry.manager.role,
+            },
+            cta: {
+              label: faqsPageEnquiry.manager.cta?.label ?? 'Schedule a Call',
+              href: navHref(faqsPageEnquiry.manager.cta?.href ?? '/30-min-free-consultation'),
+            },
+            badges: faqsPageEnquiry.badges,
+            form: faqsPageEnquiry.form,
+          }}
         />
       </main>
 
