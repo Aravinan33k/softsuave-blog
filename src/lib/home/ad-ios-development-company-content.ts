@@ -14,11 +14,12 @@
 
 import type { HeroContent } from "@/components/landing/hero";
 import type { CardGridContent } from "@/components/generative-ai/industries";
+import type { ManagerEnquiryContent } from "@/components/ad/manager-enquiry";
 import type { StepTabsContent } from "@/components/ad/step-tabs";
 import {
   TRIAL_HREF,
   anClients,
-  anContact,
+  anEnquiry,
   anHero,
   anIndustries,
   anIndustriesCta,
@@ -43,7 +44,11 @@ export const ioIndustries: CardGridContent = anIndustries;
 export const ioIndustriesCta = anIndustriesCta;
 export const ioScreens = anScreens;
 export const ioTestimonials = anTestimonials;
-export const ioContact = anContact;
+/** The closing "Start Your 40 Hours Trial" band — the one /ad/ai-solution closes on. */
+export const ioEnquiry: ManagerEnquiryContent = {
+  ...anEnquiry,
+  form: { ...anEnquiry.form, subject: "Ad landing: Start Your 40 Hours Trial (iOS development company)" },
+};
 export const ioPopup = anPopup;
 export const ioServicesCta = anServicesCta;
 
@@ -58,6 +63,7 @@ export const ioHero: HeroContent = {
 const svc = (file: string) => [{ src: `/brand/ad/ios/svc-${file}.webp`, alt: "", width: 112, height: 112 }];
 export const ioServices: CardGridContent = {
   eyebrow: "",
+  wideHead: true,
   title: "iOS Application Development for All Apple Platforms",
   body: "Our iOS development service experts ensure that your applications are engineered perfectly to make your business lead the digital landscape.",
   items: [
@@ -67,4 +73,4 @@ export const ioServices: CardGridContent = {
   ],
 };
 
-export const ioWhy: StepTabsContent = { ...anWhy, title: "Why Choose Soft Suave for iOS App Development?" };
+export const ioWhy: StepTabsContent = { ...anWhy, wideHead: true, title: "Why Choose Soft Suave for iOS App Development?" };

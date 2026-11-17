@@ -12,6 +12,8 @@ export interface StepTabsContent {
   readonly eyebrow?: string;
   readonly title: string;
   readonly intro: string;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  readonly wideHead?: boolean;
   readonly steps: readonly {
     /** "01". */
     readonly n: string;
@@ -56,7 +58,7 @@ export default function StepTabs({ content, id = "why" }: { content: StepTabsCon
 
   return (
     <section className={styles.shell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.intro} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.intro} wide={content.wideHead} />
 
       <div className={landing.sbWrap}>
         <div className={landing.sbGrid} role="tablist" aria-label={content.title} onKeyDown={onKeyDown}>

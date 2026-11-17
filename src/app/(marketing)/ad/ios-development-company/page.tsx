@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import {
   ioClients,
-  ioContact,
+  ioEnquiry,
   ioHero,
   ioIndustries,
   ioIndustriesCta,
@@ -15,6 +15,8 @@ import {
   ioWhy,
 } from '@/lib/home/ad-ios-development-company-content';
 
+import { clientsPageBrands } from '@/lib/home/clients-content';
+
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 
@@ -25,7 +27,7 @@ import CardGrid from '@/components/generative-ai/industries';
 import CtaRow from '@/components/ad/cta-row';
 import StepTabs from '@/components/ad/step-tabs';
 import AppScreens from '@/components/ad/app-screens';
-import ContactBand from '@/components/ad/contact-band';
+import ManagerClose from '@/components/ad/manager-close';
 import TrialModal from '@/components/ad/trial-modal';
 
 import home from '@/components/home/home.module.css';
@@ -79,8 +81,8 @@ export default function AdIosDevelopmentCompanyPage() {
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         <Hero noNav content={ioHero} idPrefix="ad-ios" breadcrumb={false} />
 
-        <div className={home.light}>
-          <Clients logos={[...ioClients.logos]} title={ioClients.title} body="" eyebrow="" loopShortRows noFade />
+        <div className={`${home.light} ${styles.sectionsJoined}`}>
+          <Clients logos={clientsPageBrands.logos} title={ioClients.title} body="" eyebrow="" loopShortRows noFade />
           {/* The live icons are white, drawn on its red cards; on this band they are turned dark. */}
           <div className={`${styles.markOnDark} ${styles.sweepTop}`}>
             <CardGrid content={ioServices} id="services" variant="bold" />
@@ -93,14 +95,16 @@ export default function AdIosDevelopmentCompanyPage() {
         <div className={home.light}>
           <CardGrid content={ioIndustries} id="industries" variant="tiles" />
           <CtaRow {...ioIndustriesCta} tight />
-          <AppScreens content={ioScreens} />
         </div>
+
+        {/* "Success / Proven App Screens" is a dark band between the light industries and testimonials. */}
+        <AppScreens content={ioScreens} />
 
         <div className={home.light}>
           <Testimonials content={ioTestimonials} />
         </div>
 
-        <ContactBand content={ioContact} idPrefix="ad-ios-contact" />
+        <ManagerClose content={ioEnquiry} idPrefix="ad-ios-contact" />
       </main>
 
       {/* Every "Enquire Now" and "Get …" button opens this. */}

@@ -40,7 +40,7 @@ export const mvMeta = {
 
 export { TRIAL_HREF };
 export const mvClients = apClients;
-export const mvWhy = apWhy;
+export const mvWhy = { ...apWhy, wideHead: true };
 export const mvTech = apTech;
 export const mvScreens = apScreens;
 export const mvTestimonials = apTestimonials;

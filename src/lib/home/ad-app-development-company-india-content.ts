@@ -21,12 +21,12 @@ import type { HeroContent } from "@/components/landing/hero";
 import type { CardGridContent } from "@/components/generative-ai/industries";
 import type { EnquiryFormContent } from "@/components/common/enquiry-form";
 import type { StepTabsContent } from "@/components/ad/step-tabs";
-import type { ContactBandContent } from "@/components/ad/contact-band";
+import type { ManagerEnquiryContent } from "@/components/ad/manager-enquiry";
 import { testimonials } from "@/lib/home/content";
 import { partnerHeroBadges } from "@/lib/home/hero-badges";
 import { TRIAL_HREF, adClients, adTestimonials } from "@/lib/home/ad-app-developer-content";
 import { sdTech } from "@/lib/home/ad-software-developer-content";
-import { anIndustries, anIndustriesCta, anScreens, anWhy } from "@/lib/home/ad-android-development-company-content";
+import { anIndustries, anIndustriesCta, anScreens, anWhy, anEnquiry } from "@/lib/home/ad-android-development-company-content";
 
 export const apMeta = {
   path: "/ad/app-development-company-india",
@@ -92,6 +92,7 @@ export const apServicesCta = GET("Get Your Free App Quote");
 
 export const apWhy: StepTabsContent = {
   eyebrow: "Why Us?",
+  wideHead: true,
   title: "Why Trust Soft Suave for Your App Development?",
   intro: "We Ensure Zero Risk, High Performance & 100% Confidentiality.",
   steps: [
@@ -131,18 +132,10 @@ export const apTestimonials = {
   })),
 };
 
-export const apContact: ContactBandContent = {
-  title: "Get in Touch with us!",
-  body: "Let Us Become Your Partner In Developing A Memorable Digital Experience!",
-  email: "contact@softsuave.com",
-  form: {
-    title: "Get Your App Development Plan",
-    submit: "Submit Now",
-    sending: "Sending...",
-    requirementLabel: "Your Requirements",
-    requirementPlaceholder: "Your Requirements",
-    subject: "Ad landing: Get Your App Development Plan (app development company India)",
-  },
+/** The closing "Start Your 40 Hours Trial" band — the one /ad/ai-solution closes on. */
+export const apEnquiry: ManagerEnquiryContent = {
+  ...anEnquiry,
+  form: { ...anEnquiry.form, subject: "Ad landing: Start Your 40 Hours Trial (app development company India)" },
 };
 
 /** What every "Get …" button opens: the hero's own form. */

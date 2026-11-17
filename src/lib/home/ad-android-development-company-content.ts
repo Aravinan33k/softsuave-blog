@@ -21,6 +21,8 @@ import type { StepTabsContent } from "@/components/ad/step-tabs";
 import type { AppScreensContent } from "@/components/ad/app-screens";
 import type { ContactBandContent } from "@/components/ad/contact-band";
 import { testimonials } from "@/lib/home/content";
+import type { ManagerEnquiryContent } from "@/components/ad/manager-enquiry";
+import { aiEnquiry } from "@/lib/home/ad-hire-ai-developer-content";
 import { TRIAL_HREF } from "@/lib/home/ad-app-developer-content";
 
 export const anMeta = {
@@ -212,6 +214,12 @@ export const anContact: ContactBandContent = {
     requirementPlaceholder: "Your Requirements",
     subject: "Ad landing: Get Free Estimation (Android development company)",
   },
+};
+
+/** The closing "Start Your 40 Hours Trial" band — the one /ad/ai-solution closes on, with this page's own lead subject. */
+export const anEnquiry: ManagerEnquiryContent = {
+  ...aiEnquiry,
+  form: { ...aiEnquiry.form, subject: "Ad landing: Start Your 40 Hours Trial (Android development company)" },
 };
 
 /** What every "Enquire Now" / "Get …" button opens: the hero's own form. */

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
-import { HIRE_CLIENT_LOGOS } from '@/lib/home/hire-blocks';
 import {
   raClients,
   raHero,
@@ -13,6 +12,8 @@ import {
   raWhy,
   raWhyClosing,
 } from '@/lib/home/ad-remote-angular-developers-content';
+
+import { clientsPageBrands } from '@/lib/home/clients-content';
 
 import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
@@ -80,7 +81,7 @@ export default function AdRemoteAngularDevelopersPage() {
         <div className={home.light}>
           {/* The live page's client logos sit inside its hero section; here they
               open the white band that follows it. */}
-          <Clients logos={HIRE_CLIENT_LOGOS} eyebrow="Our Clients" title={raClients.title} body={raClients.body} />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={raClients.title} body={raClients.body} />
           <div className={styles.gridWithCta}>
             <CardGrid content={raWhy} id="why" variant="bold" />
             <CtaRow lead={raWhyClosing} tight joined />

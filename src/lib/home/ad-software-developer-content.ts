@@ -97,6 +97,7 @@ const icon = (file: string, alt: string) => [{ src: `/brand/ad/software/${file}.
 
 export const sdServices: CardGridContent = {
   eyebrow: "Our Services",
+  wideHead: true,
   title: "Hire Software Developers for All Your Technology Needs",
   body: "Enhance your tech initiatives with our dedicated software developers. We specialize in various technologies to help your projects achieve maximum potential.",
   items: [
