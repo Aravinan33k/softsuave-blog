@@ -28,8 +28,8 @@ describe('hire skill registry', () => {
   // "Hire By Role", and their live pages run the role sections, so they are
   // role pages now. A path can only belong to one registry — two would mean two
   // entries in `LANDING_PAGES` for the same URL.
-  it('has all 20 skills', () => {
-    expect(HIRE_SKILLS).toHaveLength(20);
+  it('has all 23 skills', () => {
+    expect(HIRE_SKILLS).toHaveLength(23);
   });
 
   it('has unique slugs and keys', () => {
@@ -164,10 +164,11 @@ describe('no homepage content on a hire page', () => {
   /**
    * The homepage logo strip opens with the three clients its testimonials
    * quote, added here from softsuave.com's /clients index. The hire pages' own
-   * band runs the other nineteen, so those three must not ride along.
+   * band runs the other eighteen (nineteen until PromosTV's illegible logo was
+   * dropped, 26 Oct), so those three must not ride along.
    */
   it('runs the hire pages\' own client roster, not the homepage\'s three extras', () => {
-    expect(HIRE_CLIENT_LOGOS).toHaveLength(19);
+    expect(HIRE_CLIENT_LOGOS).toHaveLength(18);
     for (const name of ['Phoenix Technologies', 'AMD Telecom', 'Perkypet']) {
       expect(HIRE_CLIENT_LOGOS.map((l) => l.name), name).not.toContain(name);
     }
@@ -240,6 +241,8 @@ describe('hire page copy', () => {
 
   it('points every hero image at a real asset path', () => {
     for (const skill of HIRE_SKILLS) {
+      // A page whose live hero has no photograph (/hire-saas-developer, /hire-selenium-tester) carries none.
+      if (!skill.hero.image) continue;
       // The hire-by-skill review gave every page its own photo under
       // /images/landing; the file must exist, or the hero renders a broken image.
       expect(skill.hero.image?.src, skill.slug).toMatch(/^\/images\/landing\/[\w.-]+$/);

@@ -48,7 +48,25 @@ const DWELL = 3200;
 
 export default function Recognitions({
   showCta = true,
+  content = recognitions,
 }: {
+  /**
+   * The band's own copy and badges, for a page whose live awards section words
+   * it differently (/engagement-model, the staff-cost calculator). Omitted, the
+   * homepage's band renders as before.
+   */
+  content?: {
+    readonly eyebrow?: string;
+    readonly title: string;
+    readonly body?: string;
+    readonly items: readonly {
+      readonly key: string;
+      readonly org: string;
+      readonly title: string;
+      readonly year: string | null;
+      readonly src?: string;
+    }[];
+  };
   /**
    * The "View All" button to /awards-recognition under the intro. On by
    * default; a page whose live awards band has no button (the free demo app
@@ -159,11 +177,11 @@ export default function Recognitions({
       <div className={styles.recogLayout}>
         <div className={styles.recogIntro}>
           {/* light-band variant: the section sits in a `.light` wrapper */}
-          <span className={styles.eyebrowDark}>{recognitions.eyebrow}</span>
+          {content.eyebrow ? <span className={styles.eyebrowDark}>{content.eyebrow}</span> : null}
           <SplitReveal as="h2" className={styles.h2} type="words">
-            {recognitions.title}
+            {content.title}
           </SplitReveal>
-          <p className={styles.lead}>{recognitions.body}</p>
+          {content.body ? <p className={styles.lead}>{content.body}</p> : null}
           {/* The site's orange section button (21 Oct review: was an orange
               text link with a drawn arrow), sized like "View all Case Studies". */}
           {showCta ? (
@@ -195,7 +213,7 @@ export default function Recognitions({
             onBlur={() => setPaused(false)}
             onPointerDown={() => setRestart((n) => n + 1)}
           >
-            {recognitions.items.map((item) => (
+            {content.items.map((item) => (
               <li key={item.key} className={styles.recogStripItem}>
                 {item.src ? (
                   <span className={styles.recogBadge}>
@@ -231,7 +249,8 @@ export default function Recognitions({
                     carried here instead — otherwise the strip is twelve
                     unlabelled images to anything that cannot see them. */}
                 <span className={styles.srOnly}>
-                  {item.title} &mdash; {item.org}
+                  {item.title}
+                  {item.org ? <> &mdash; {item.org}</> : null}
                   {item.year ? `, ${item.year}` : ""}
                 </span>
               </li>

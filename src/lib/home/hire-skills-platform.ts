@@ -15,6 +15,7 @@ import type { HireSkill } from "./hire-skill";
 import { sharedHeroAlert } from "./delivery-shared";
 import { webExplore } from "./hire-explore";
 import { partnerTable } from "./hire-comparison";
+import { staffCostTestimonials } from "./staff-cost-calculator-content";
 import { FIGURES, HOURLY_RATE, SPECIALISTS_PLUS } from "../company-figures";
 
 /** The newer pages' running order, with the prose expertise band. */
@@ -571,4 +572,412 @@ const drupal: HireSkill = {
   },
 };
 
-export const platformHireSkills: readonly HireSkill[] = [magento, drupal];
+/**
+ * /hire-saas-developer — softsuave.com's page, word for word. It runs the same
+ * layout as the Kotlin page (clients, why-hire cards, steps, technical expertise,
+ * services, vetting, comparison, testimonials, FAQs) without that page's
+ * "Explore More Technologies" band, which this live page does not have.
+ */
+const saas: HireSkill = {
+  slug: "hire-saas-developer",
+  key: "saas",
+  name: "SaaS",
+  role: "SaaS Developers",
+  metaTitle: "Hire SaaS Developers | Fast, Affordable Cloud Talent On-Demand",
+  metaDescription:
+    "Hire SaaS developers from Soft Suave and get flexible engagement models, pre‑vetted talent, 40‑hour free trial & top-tier support to scale faster.",
+  serviceType: "SaaS development staffing",
+  ctaLabel: "Hire SaaS developers",
+
+  order: [
+    "clients",
+    "whyUs",
+    "process",
+    "techStack",
+    "services",
+    "vetting",
+    "comparison",
+    "testimonials",
+    "faq",
+  ],
+
+  hero: {
+    titleLines: ["Hire SaaS Developers", "in India on Contract"],
+    accent: "SaaS Developers",
+    titleScale: "home",
+    accentGradient: true,
+    body: [
+      "Soft Suave provides SaaS developers from India experienced in multi-tenant platforms, subscription systems, APIs, cloud architecture, product scaling, and secure SaaS development. Hire pre-vetted experts quickly to accelerate your SaaS product roadmap.",
+      "See why businesses choose Soft Suave for their SaaS developer hiring.",
+      "*Satisfaction Guaranteed – Get 40-hour Free Trial",
+    ],
+    points: ["40-Hour Risk-Free Trial", "Hire Top SaaS Developers in India", "Time-Zone & Language Aligned Teams", "Airtight NDA & IP Protection"],
+    form: {
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "Requirement",
+      requirementPlaceholder: "Tell us about your SaaS requirement.",
+      subject: "SaaS Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+  },
+
+  whyUs: {
+    eyebrow: "Expert Developers",
+    title: "Why Hire Saas Developers from Soft Suave",
+    body: "With years of experience and unparalleled technical depth, our team elevates your platform’s performance. When you hire SaaS developers here, you gain a partner committed to the success of your project.",
+    links: [{ text: "offshore software development services", href: "/offshore-software-development-company" }],
+    items: [
+      { name: "Pre-vetted SaaS developers", body: "Our pre-vetted SaaS developers undergo rigorous screening, ensuring your team gets proven experts with guaranteed technical and project excellence.", icon: "users" },
+      { name: "Flexible hiring models", body: "Choose flexible hiring models that match your goals: fixed price, time & material, or dedicated team. Scale your SaaS development efficiently and stress-free.", icon: "gauge" },
+      { name: "Global delivery standards", body: "We maintain global delivery standards, guaranteeing quality, consistency, and seamless communication for all SaaS projects, regardless of your business location.", icon: "globe" },
+      { name: "Strict NDA & IP protection", body: "Enjoy complete peace of mind with strict NDA agreements and rock-solid IP protection, safeguarding your ideas and proprietary business assets.", icon: "shield" },
+      { name: "Time Zone Flexibility", body: "Benefit from time zone flexibility. Our SaaS developers align with your business hours for real-time collaboration and fast project turnaround.", icon: "book" },
+      { name: "World-Class Developers at Budget-Friendly Rates", body: "Experience world-class talent at affordable rates. Explore our offshore software development services for premium SaaS expertise without overspending.", icon: "coins" },
+    ],
+  },
+
+  process: {
+    eyebrow: "Hiring Processs",
+    title: "Steps to Hire a SaaS Developer",
+    body: "Start a seamless journey. Discover how effortless it is to hire SaaS developers who fit your culture.",
+    steps: [
+      { n: "01", name: "Share the JD", body: "Send us your detailed job description to match with the perfect SaaS developer quickly." },
+      { n: "02", name: "Shortlist The Right Developers", body: "Receive handpicked, skilled candidates perfectly aligned to your project and technology requirements for review." },
+      { n: "03", name: "Free 40-hour Trial", body: "Evaluate your chosen SaaS developer risk-free with our commitment-free 40-hour trial period." },
+      { n: "04", name: "Onboard & Manage", body: "Easily onboard your developer and manage progress seamlessly, while we handle all administrative tasks." },
+    ],
+  },
+
+  techStackStyle: "rows",
+  techStackCollapsedRows: 4,
+  hideHeroBreadcrumb: true,
+  servicesPhotoCards: true,
+  closingEnquiry: true,
+  techStack: {
+    eyebrow: "Expertise",
+    title: "Technical Expertise of Our SaaS Developers",
+    body: "From robust back-end logic to intuitive user interfaces, our developers bring leading tech stacks and frameworks. If your priority is innovation, hiring our SaaS developers ensures you stay ahead of the curve.",
+    groups: [
+      { name: "Front End", items: ["React.js", "Vue.js", "Angular", "HTML5", "CSS3", "Bootstrap", "JavaScript", "TypeScript"] },
+      { name: "Back End", items: ["Node.js", "Python (Django, Flask)", "Ruby on Rails", "Java (Spring Boot)", "PHP", ".NET Core", "Golang"] },
+      { name: "Cloud Platforms", items: ["AWS", "Azure", "Google Cloud Platform", "Heroku", "DigitalOcean"] },
+      { name: "DatDatabasesa", items: ["MySQL", "PostgreSQL", "MongoDB", "Redis", "Firebase", "DynamoDB"] },
+      { name: "APIs & Integrations", items: ["REST", "GraphQL", "SOAP", "OAuth2", "Webhooks", "Payment Gateways"] },
+      { name: "Testing Tools", items: ["Jest", "Mocha", "Selenium", "Cypress", "Postman", "JUnit", "RSpec"] },
+      { name: "DevOps & CI/CD", items: ["Docker", "Kubernetes", "Jenkins", "GitLab CI", "GitHub Actions", "Terraform"] },
+      { name: "SaaS Modules", items: ["Multi-tenant Architecture", "Billing Systems", "User Management", "Subscription Management", "Analytics Dashboards"] },
+      { name: "Libraries & Packages", items: ["Redux", "Lodash", "Moment.js", "Axios", "Express.js", "Passport.js", "Socket.io"] },
+      { name: "Security", items: ["JWT", "OAuth2", "SSO", "Data Encryption", "OWASP", "SSL/TLS", "Vulnerability Scanning"] },
+      { name: "Project Management", items: ["JIRA", "Trello", "Asana", "Slack", "Agile methodologies"] },
+    ],
+  },
+
+  services: {
+    eyebrow: "What We Do",
+    title: "Saas Development Services We Offer",
+    body: "Experience a full suite of cloud-powered possibilities, built for innovation, scalability, and long-term success. Hire SaaS developers to turn your software vision into a market-leading solution.",
+    cta: { label: "Talk to Our Experts", href: "/free-quote" },
+    items: [
+      { name: "Custom SaaS Application Development", body: "Create fully customized SaaS applications designed around your business needs, ensuring seamless workflows, unique features, and scalable cloud performance.", image: { src: "/images/hire-saas/service-1.webp", width: 1958, height: 1107, alt: "" } },
+      { name: "SaaS Product Modernization & Migration", body: "Seamlessly upgrade legacy software or migrate your application to modern SaaS platforms with secure, future-ready, and robust cloud infrastructure.", image: { src: "/images/hire-saas/service-2.webp", width: 490, height: 277, alt: "" } },
+      { name: "API Development & Third-Party Integrations", body: "Implement reliable APIs and integrate with payment systems, CRMs, ERPs, and more, enabling efficient data exchange and improved automation.", image: { src: "/images/hire-saas/service-3.webp", width: 490, height: 277, alt: "" } },
+      { name: "Multi-Tenant Architecture Implementation", body: "Design scalable multi-tenant SaaS platforms, managing multiple customers securely on one instance for cost savings and easy resource allocation.", image: { src: "/images/hire-saas/service-4.webp", width: 490, height: 277, alt: "" } },
+      { name: "SaaS UI/UX Design Services", body: "Deliver intuitive, engaging, and device-optimized experiences through expert interface and UX design tailored for high-performing SaaS products.", image: { src: "/images/hire-saas/service-5.webp", width: 490, height: 277, alt: "" } },
+      { name: "Subscription & Billing System Integration", body: "Embed automated subscription management and billing processes, supporting multiple plans, pricing models, and secure payment gateway integration.", image: { src: "/images/hire-saas/service-6.webp", width: 1958, height: 1107, alt: "" } },
+      { name: "Data Analytics & Reporting Dashboards", body: "Gain actionable insights with custom analytics modules and real-time reporting dashboards to visualize, monitor, and drive business growth.", image: { src: "/images/hire-saas/service-7.webp", width: 490, height: 277, alt: "" } },
+      { name: "SaaS Security & Compliance Solutions", body: "Safeguard your SaaS platform with advanced security, encryption, and regulatory compliance measures, protecting sensitive data and user privacy.", image: { src: "/images/hire-saas/service-8.webp", width: 490, height: 277, alt: "" } },
+      { name: "Mobile-Friendly SaaS Development", body: "Develop responsive SaaS applications for seamless mobile access, empowering users to work efficiently anywhere, anytime, on any device.", image: { src: "/images/hire-saas/service-9.webp", width: 490, height: 277, alt: "" } },
+      { name: "Ongoing Support & Maintenance", body: "Receive continuous support, timely updates, and proactive maintenance to ensure optimal performance and uninterrupted service for your SaaS solution.", image: { src: "/images/hire-saas/service-10.webp", width: 490, height: 277, alt: "" } },
+    ],
+  },
+
+  vetting: {
+    eyebrow: "Skill Check",
+    title: "How We Vet and Onboard Top Saas Developers",
+    body: "Our multi-layer screening process guarantees only proven, reliable candidates. Choose to hire SaaS developers with total confidence; our experts easily align with your workflow, culture, and speed requirements.",
+    steps: [
+      { n: "01", name: "Rigorous talent sourcing", body: "Our team finds top SaaS talent, ensuring expertise through a meticulous and targeted search process." },
+      { n: "02", name: "In-depth skill assessment", body: "Each candidate undergoes a thorough technical evaluation to guarantee strong problem-solving and domain proficiency." },
+      { n: "03", name: "Thinkers & Innovators", body: "We select SaaS developers who demonstrate creativity, strategic thinking, and proactive innovation in every project." },
+      { n: "04", name: "Cultural fit & adaptability", body: "Engineers are matched for personality, collaboration, and adaptability, perfectly integrating into your unique company culture." },
+    ],
+  },
+
+  comparison: {
+    ...partnerTable(
+    "Choosing the Right Saas Partner for Your Specific Needs",
+    "Finding the right SaaS collaboration is essential. Hiring developers who understand your business accelerates transformation, delivering tailored solutions aligned with your goals. Explore this comprehensive comparison table for deeper insights.",
+  ),
+    eyebrow: "Hiring Guide",
+  },
+
+  testimonials: {
+    ...staffCostTestimonials,
+    title: "What Our Clients Say",
+    body:
+      "Industry leaders hire SaaS developers from us again and again, impressed by technical rigor, timely results, and the ability to navigate even the most complex cloud challenges without hassle.",
+    // Live's order: Tim, Dara, Dimitris, Roland, Aaron.
+    items: [1, 2, 3, 4, 0].map((i) => staffCostTestimonials.items[i]),
+  },
+
+  faq: {
+    eyebrow: "Ask Us",
+    title: "FAQs About Hiring Saas Developers",
+    body: "Have questions before moving forward? Learn what sets us apart.",
+    items: [
+      { q: "How much does it cost to hire a Saas developer?", a: "Costs depend on skills, project duration, and other variables. Before hiring SaaS developers, consult with experts to gain accurate estimates and ensure the right fit for your business needs." },
+      { q: "Is there any free trial period available?", a: "Yes. When you hire SaaS developers, take advantage of our 40-hour risk-free trial to assess performance and culture fit before making your final decision." },
+      { q: "What are the hiring engagement options available at Soft Suave?", a: "Choose how you work. Hire SaaS developers through fixed price, time & material, or dedicated team models, giving you full flexibility to scale talent and budget." },
+      { q: "Do you provide support and maintenance services after deployment?", a: "Absolutely. Our commitment doesn’t end with deployment. Hire SaaS developers and receive comprehensive post-launch support, ongoing maintenance, and regular updates for worry-free performance." },
+      { q: "Where can you find a Saas Engineer?", a: "Look no further - Soft Suave’s talent network makes it easy to hire developers and onboard seasoned engineers ready for your next big project, starting immediately." },
+    ],
+  },
+};
+
+
+/**
+ * /hire-cms-developer — softsuave.com's page, word for word. It runs the saas page's layout (clients, why-hire cards,
+ * steps, the grouped technical expertise with "View More", services, vetting, comparison) and closes, as the live page
+ * does, on the web technologies it links to, the testimonials, the FAQs and the full consultation band. The page's
+ * trial is already the 40-hour one, so there is no duration to correct. Live's typos ("TopCMS", "CCompare", "CI/CDP")
+ * are kept as written.
+ */
+const cms: HireSkill = {
+  slug: "hire-cms-developer",
+  key: "cms",
+  name: "CMS",
+  role: "CMS Developers",
+  metaTitle: "Hire CMS Developers with a 40 Hour Risk-Free Trial",
+  metaDescription:
+    "Hire CMS Developers from Soft Suave for remote, on-demand, affordable experts with a 40-hour free trial and secure, scalable, high-performing CMS solutions.",
+  serviceType: "CMS development staffing",
+  ctaLabel: "Hire CMS developers",
+
+  order: [...PLATFORM_ORDER].map((b) => (b === "expertise" ? "techStack" : b)),
+
+  hero: {
+    titleLines: ["Hire CMS Developer", "in India"],
+    accent: "CMS Developer",
+    titleScale: "home",
+    accentGradient: true,
+    body: [
+      "Soft Suave helps businesses hire CMS developers from India for flexible website management and content-driven platforms. Our experts work in WordPress, Drupal, Joomla, headless CMS, custom themes, integrations, and scalable digital experiences.",
+      "See why businesses choose Soft Suave for their CMS developer hiring.",
+    ],
+    afterPoints: "*Satisfaction Guaranteed – Get 40-hour Free Trial",
+    // The live CMS hero carries no partner lockups, and its two buttons are joined by "OR".
+    badges: [],
+    ctaSeparator: "OR",
+    points: ["40-Hour Risk-Free Trial", "Hire Top CMS Developers in India", "Time-Zone & Language Aligned Teams", "Airtight NDA & IP Protection"],
+    form: {
+      title: "Get Skilled Remote Developers",
+      submit: "Start My FREE Trial",
+      sending: "Sending...",
+      requirementLabel: "How Can We Help(Requirement)",
+      requirementPlaceholder: "How Can We Help(Requirement)",
+      subject: "CMS Developers enquiry",
+      alert: sharedHeroAlert,
+    },
+  },
+
+  // The live band: "Our Clients" over these nineteen marks, in its order.
+  clientsBand: {
+    eyebrow: "Our Clients",
+    logos: [
+      { name: "Atomise", src: "/brand/clients/atomise.webp" },
+      { name: "CloudBankin", src: "/brand/clients/cloudbankin.webp" },
+      { name: "Enigma", src: "/brand/clients/enigma.webp" },
+      { name: "Waymore", src: "/brand/clients/waymore.webp" },
+      { name: "Who is up", src: "/brand/clients/whos-up.webp" },
+      { name: "Warmpoint", src: "/brand/clients/warmpoint.webp" },
+      { name: "Utiliko", src: "/brand/clients/utiliko.webp" },
+      { name: "Trafficspy", src: "/brand/clients/trafficspy.webp" },
+      { name: "diet", src: "/brand/clients/the-2020-diet.webp" },
+      { name: "Teamicate", src: "/brand/clients/teamicate.webp" },
+      { name: "Sulekha", src: "/brand/clients/sulekha.webp" },
+      { name: "Promostv", src: "/brand/clients/promostv.webp" },
+      { name: "Poorvika", src: "/brand/clients/poorvika.webp" },
+      { name: "Pacewisdom", src: "/brand/clients/pacewisdom.webp" },
+      { name: "Outsource", src: "/brand/clients/outsource.webp" },
+      { name: "Omri", src: "/brand/clients/omri.webp" },
+      { name: "Officespace", src: "/brand/clients/officespace.webp" },
+      { name: "Oasisdigital", src: "/brand/clients/oasis-digital.webp" },
+      { name: "Netsmartz", src: "/brand/clients/netsmartz.webp" },
+    ],
+  },
+
+  whyUs: {
+    eyebrow: "Why Hire",
+    title: "Why Hire CMS Developers from Soft Suave",
+    body: "Soft Suave’s experienced CMS experts craft secure, high-performing websites, streamline content workflows, and boost organic traffic. Confidently hire CMS Developers who understand growth-focused digital experiences.",
+    links: [{ text: "offshore software service", href: "/offshore-software-development-company" }],
+    items: [
+      { name: "Pre-vetted CMS Developers", body: "Work with rigorously screened CMS specialists, ensuring faster onboarding, consistent code quality, and reduced hiring risk for every critical release.", icon: "users" },
+      { name: "Global delivery standards", body: "Leverage mature global delivery practices, with documented processes, SLAs, and quality benchmarks that keep distributed CMS projects transparent and on schedule.", icon: "globe" },
+      { name: "Flexible hiring models", body: "Choose T&M, full-time, or dedicated CMS teams, scaling resources up or down quickly based on roadmap priorities and budget realities.", icon: "gauge" },
+      { name: "Time zone flexibility", body: "Collaborate smoothly through overlapping working hours, enabling real-time standups, quick reviews, and near 24/7 progress across continents.", icon: "book" },
+      { name: "Strict NDA & IP protection", body: "Every engagement includes strong NDAs and clear IP assignment, safeguarding your codebase, business logic, and sensitive customer data.", icon: "shield" },
+      { name: "World-Class Developers at Budget-Friendly Rates", body: "Access CMS talent with enterprise experience while optimizing costs with our offshore software service, without compromising on standards or quality.", icon: "coins" },
+    ],
+  },
+
+  processLabel: "number",
+  process: {
+    eyebrow: "Hiring Process",
+    title: "Steps to Hire a CMS Developer",
+    body: "Move from idea to execution in days with a simple discovery, shortlist, and interview process, then hire Developers who match your tech stack, budget, and launch timelines.",
+    steps: [
+      { n: "01", name: "Share the JD", body: "Send a detailed JD so our team understands your goals and ideal developer profile." },
+      { n: "02", name: "Shortlist The Right Developers", body: "Receive curated, pre-vetted profiles that match your requirements, then quickly choose who to interview." },
+      { n: "03", name: "Free 40-hour Trial", body: "Collaborate with your chosen developer, testing skills, communication, and culture fit at zero risk." },
+      { n: "04", name: "Onboard & Manage", body: "Seamlessly integrate the developer into your processes while retaining control over tasks, priorities, and communication." },
+    ],
+  },
+
+  techStackStyle: "rows",
+  techStackCollapsedRows: 4,
+  hideHeroBreadcrumb: true,
+  closingEnquiry: true,
+  techStack: {
+    eyebrow: "Expertise",
+    title: "Technical Expertise of Our CMS Developers",
+    body: "From WordPress and Drupal to Magento and headless stacks, our specialists unite backend, frontend, and DevOps expertise to build, scale, and secure complex digital ecosystems that never slow your growth",
+    groups: [
+      { name: "CMS platforms", items: ["WordPress", "Drupal", "Joomla", "Magento/Adobe Commerce", "Shopify", "WooCommerce", "Strapi", "Contentful", "Hygraph", "dotCMS"] },
+      { name: "Backend languages", items: ["PHP", "Node.js", "Python", ".NET", "Java"] },
+      { name: "Frontend fundamentals", items: ["HTML5", "CSS3", "JavaScript (ES6+)", "responsive design", "accessibility", "cross-browser compatibility"] },
+      { name: "Frontend frameworks", items: ["React", "Vue.js", "Angular", "Next.js", "Nuxt.js"] },
+      { name: "Themes & templates", items: ["Custom themes", "child themes", "Twig", "Blade", "Gutenberg", "page builders (Elementor, Divi, WPBakery)"] },
+      { name: "Plugins/modules /extensions", items: ["WordPress plugins", "Drupal modules", "Magento extension", "Shopify apps", "WooCommerce extensions"] },
+      { name: "Databases", items: ["MySQL", "MariaDB", "PostgreSQL", "SQL Server"] },
+      { name: "APIs & integrations", items: ["REST", "GraphQL", "webhooks", "OAuth", "third‑party integrations (CRM, ERP, payments, marketing tools)"] },
+      { name: "Headless & JAMstack", items: ["Headless CMS", "API-first CMS", "Gatsby", "static site generators"] },
+      { name: "Performance optimization", items: ["Caching", "CDNs", "asset minification", "image optimization", "lazy loading", "Core Web Vitals tuning."] },
+      { name: "Security", items: ["SSL/TLS", "OWASP practices", "backups", "role-based access", "security plugins/modules"] },
+      { name: "DevOps & deployment", items: ["Git", "CI/CDP", "Docker; Kubernetes", "AWS", "Azure", "GCP", "staging/production workflows"] },
+      { name: "SEO & analytics", items: ["On-page SEO", "schema markup", "sitemaps", "Google Analytics", "Google Tag Manager", "Search Console"] },
+      { name: "Collaboration & workflow", items: ["Jira", "Trello", "Asana", "agile/scrum", "code reviews", "documentation"] },
+    ],
+  },
+
+  services: {
+    eyebrow: "What We Do",
+    title: "CMS Development Services We Offer",
+    body: "Power your website lifecycle with end-to-end CMS services, from greenfield builds to migrations, integrations, and continuous optimization that keep content operations lean, secure, and effortlessly scalable.",
+    cta: { label: "Talk to Our Experts", href: "/free-quote" },
+    items: [
+      { name: "Custom CMS Website Development", body: "Design and build fully customized CMS websites tailored to your brand, workflows, and performance goals across devices and channels." },
+      { name: "CMS Theme & Template Development", body: "Create pixel-perfect, responsive themes and templates that reflect your brand identity while keeping editing simple for non-technical content teams." },
+      { name: "Plugin, Module & Extension Development", body: "Develop custom plugins, modules, and extensions to add advanced features, integrations, and automations without bloating your CMS installation." },
+      { name: "CMS Migration & Replatforming", body: "Move from legacy or underperforming platforms to modern CMS solutions with zero data loss, minimal downtime, and preserved SEO quality." },
+      { name: "Headless & Composable CMS Implementation", body: "Implement headless CMS architectures powering websites, apps, and devices through APIs, enabling omnichannel content delivery and future-ready digital experiences." },
+      { name: "E-commerce CMS Development", body: "Launch and scale e-commerce stores with robust product management, checkout flows, and integrations using leading CMS-based commerce platforms." },
+      { name: "CMS Performance Optimization", body: "Optimize speed, caching, databases, and front-end assets so content-heavy sites load fast, rank better, and deliver smoother user experiences." },
+      { name: "CMS Security Hardening & Compliance", body: "Harden your CMS with security best practices, monitoring, and updates to reduce vulnerabilities and support compliance requirements." },
+      { name: "CMS Integration Services", body: "Connect your CMS with CRMs, ERPs, analytics, marketing automation, and payment gateways for unified data and streamlined operations." },
+      { name: "Ongoing CMS Maintenance & Support", body: "Handle updates, bug fixes, backups, minor enhancements, and monitoring so your CMS stays secure, stable, and feature-ready over time." },
+    ],
+  },
+
+  vettingLabel: "none",
+  vetting: {
+    eyebrow: "Skill Check",
+    title: "How We Vet and Onboard TopCMS Developers",
+    body: "Every engineer passes rigorous technical screening, portfolio checks, and culture-fit interviews, so when you hire CMS developers, they integrate quickly into your tools, workflows, and delivery pipelines.",
+    steps: [
+      { n: "01", name: "Rigorous talent sourcing", body: "Continuously map talent pools and proactively source niche CMS specialists for every critical role." },
+      { n: "02", name: "In-depth skill assessment", body: "Validate CMS expertise with coding tasks, architecture reviews, and scenario-based evaluations beyond surface-level resumes." },
+      { n: "03", name: "Thinkers & Innovators", body: "Select developers who challenge assumptions, suggest smarter approaches, and bring product-thinking to complex problems." },
+      { n: "04", name: "Cultural fit & adaptability", body: "Evaluate communication, collaboration, and cross-cultural awareness to ensure seamless integration with your existing teams." },
+    ],
+  },
+
+  comparison: {
+    ...partnerTable(
+      "Choosing the Right CMS Partner for Your Specific Needs",
+      "CCompare how each hiring model stacks up: an in-house team, freelancers, and Soft Suave’s experts, using this side-by-side chart to pinpoint the best fit for your business.",
+    ),
+    eyebrow: "Hiring Guide",
+  },
+
+  exploreMore: {
+    eyebrow: "Web Innovation",
+    title: "Explore More Web Technologies for Your Project",
+    body: "Discover related web technologies and find experts in frameworks, tools, and languages to bring your vision to life.",
+    items: [
+      { name: "React.js Developer", href: "/hire-reactjs-developers" },
+      { name: "Angular Developer", href: "/hire-angularjs-developers" },
+      { name: "ROR Developer", href: "/hire-ruby-on-rails-developer" },
+      { name: "Node.js Developer", href: "/hire-nodejs-developers" },
+      { name: "PHP Developer", href: "/hire-php-developers" },
+      { name: "Java Developer", href: "/hire-java-developers" },
+      { name: "Python Developer", href: "/hire-python-developers" },
+      { name: ".Net Developer", href: "/hire-dot-net-developers" },
+      { name: "Nest.js Developer", href: "/hire-nestjs-developers" },
+      { name: "Django Developer", href: "/hire-django-developer" },
+      { name: "Magento Developer", href: "/hire-magento-developer" },
+      { name: "MERN Developer", href: "/hire-mern-stack-developers-india" },
+      { name: "MEAN Developer", href: "/hire-mean-stack-developers-india" },
+      { name: "Drupal Developer", href: "/hire-drupal-developer" },
+    ],
+  },
+
+  // The live band's two tabs: fourteen web links, then three quality-assurance ones.
+  exploreTabs: [
+    {
+      label: "Web",
+      items: [
+        { name: "React.js Developer", href: "/hire-reactjs-developers" },
+        { name: "Angular Developer", href: "/hire-angularjs-developers" },
+        { name: "ROR Developer", href: "/hire-ruby-on-rails-developer" },
+        { name: "Node.js Developer", href: "/hire-nodejs-developers" },
+        { name: "PHP Developer", href: "/hire-php-developers" },
+        { name: "Java Developer", href: "/hire-java-developers" },
+        { name: "Python Developer", href: "/hire-python-developers" },
+        { name: ".Net Developer", href: "/hire-dot-net-developers" },
+        { name: "Nest.js Developer", href: "/hire-nestjs-developers" },
+        { name: "Django Developer", href: "/hire-django-developer" },
+        { name: "Magento Developer", href: "/hire-magento-developer" },
+        { name: "MERN Developer", href: "/hire-mern-stack-developers-india" },
+        { name: "MEAN Developer", href: "/hire-mean-stack-developers-india" },
+        { name: "Drupal Developer", href: "/hire-drupal-developer" },
+      ],
+    },
+    {
+      label: "Quality Assurance",
+      items: [
+        { name: "Selenium Developer", href: "/hire-selenium-tester" },
+        { name: "Cypress Tester", href: "/hire-qa-testers-india" },
+        { name: "Manual Testers", href: "/hire-qa-testers-india" },
+      ],
+    },
+  ],
+
+  testimonials: {
+    ...staffCostTestimonials,
+    eyebrow: "Testimonials",
+    title: "What Our Clients Say About Us",
+    body: "We've empowered hundreds of clients globally to achieve theirs business goals. Hear firsthand how our expertise and AI-driven solutions have made a difference",
+    // Live's order: Tim, Dara, Dimitris, Roland, Aaron.
+    items: [1, 2, 3, 4, 0].map((i) => staffCostTestimonials.items[i]),
+  },
+
+  faq: {
+    eyebrow: "Ask Us",
+    title: "FAQs About Hiring CMS Developers",
+    body: "Get clear answers on costs, engagement models, tech stacks, and other vital details, so you hire CMS developers with full clarity.",
+    items: [
+      { q: "How much does it cost to hire a CMS developer?", a: "Costs vary widely by region, experience, engagement model, and project scope, so sharing requirements is essential for an accurate estimate." },
+      { q: "Where can you find a CMS Engineer?", a: "Look at vetted talent networks, specialized agencies, freelance marketplaces, LinkedIn, and developer communities focused on WordPress, Drupal, Magento, and headless platforms. You can also partner with Soft Suave to access pre-vetted experts at truly affordable, transparent rates." },
+      { q: "What is the hourly rate for a CMS developer in India?", a: "Rates in India are generally lower than in Western markets and depend heavily on seniority, specialization, and engagement structure. Typically, the developers' rates start from $15/hour." },
+      { q: "What are the benefits of using vetted talent networks for CMS developers?", a: "You get faster hiring, pre-validated skills, reduced screening overhead, better quality control, and easier scaling or replacement when project needs change." },
+      { q: "What are the key steps to defining your needs before hiring a CMS developer?", a: "Clarify business goals, choose a platform, define scope, integrations, budget, timeline, performance targets, and internal responsibilities before starting conversations." },
+      { q: "What factors should be evaluated when selecting CMS developer candidates?", a: "Assess platform expertise, portfolio relevance, problem-solving, communication, security, and performance knowledge, plus the ability to collaborate with non-technical stakeholders." },
+      { q: "Which technical skills are essential for a qualified CMS developer?", a: "Key skills include major CMS platforms, PHP/JavaScript, HTML/CSS, databases, APIs, theme/plugin development, optimization, security, and SEO/analytics." },
+    ],
+  },
+};
+
+export const platformHireSkills: readonly HireSkill[] = [magento, drupal, saas, cms];

@@ -6,7 +6,11 @@ import { prisma } from '@/lib/db';
 import { databaseConfigured } from '@/lib/env';
 import { forwardLead, leadPageUrl } from '@/lib/leads/forward';
 import { notifyLead } from '@/lib/leads/notify';
-import { sendAutoReply } from '@/lib/leads/auto-reply';
+import fs from 'node:fs';
+import path from 'node:path';
+import { caseStudyTitleFromPdf, sendAutoReply } from '@/lib/leads/auto-reply';
+import { caseStudyIdFor } from '@/lib/leads/case-study-ids';
+import { forwardCaseStudyRequest } from '@/lib/leads/forward-case-study';
 import { lookupIpLocation, normalizeIp, platformLocation } from '@/lib/leads/ip-location';
 
 /**
@@ -61,7 +65,12 @@ export async function POST(req: NextRequest) {
       return jsonError(400, 'invalid_input', first?.message ?? 'Please check the form and try again.');
     }
 
-    const { website, phone, ...lead } = parsed.data;
+    const { website, phone, caseStudyPdf: requestedPdf, ...lead } = parsed.data;
+
+    // A case-study download request names a PDF of ours: one that is really in /public/assets/case-studies.
+    // Anything else is treated as an ordinary lead rather than e-mailing a link to a file that does not exist.
+    const caseStudyPdf =
+      requestedPdf && fs.existsSync(path.join(process.cwd(), 'public', requestedPdf)) ? requestedPdf : null;
 
     // Honeypot. Answered with the same 202 a real submission gets: telling a bot
     // it was detected only teaches the next attempt which field to leave alone.
@@ -72,6 +81,26 @@ export async function POST(req: NextRequest) {
     // No database configured (lib/env.ts): hand the lead to softsuave.com's own
     // lead endpoint instead of storing it, so it still reaches the team.
     if (!databaseConfigured) {
+      // A case study's download goes to the live case-study endpoint, which e-mails the visitor the case study —
+      // as its own page does. A PDF it has no id for falls through to the ordinary lead.
+      const caseStudyType = caseStudyPdf ? caseStudyIdFor(caseStudyPdf) : null;
+      if (caseStudyType) {
+        const sentCaseStudy = await forwardCaseStudyRequest(req, {
+          name: lead.name,
+          email: lead.email,
+          phone: phone || '',
+          caseStudyType,
+          sourcePath: lead.sourcePath,
+        });
+        if (!sentCaseStudy) {
+          return jsonError(
+            502,
+            'lead_not_delivered',
+            'We could not send your request just now. Please try again, or email contact@softsuave.com.',
+          );
+        }
+        return NextResponse.json({ ok: true }, { status: 202 });
+      }
       const sent = await forwardLead(req, {
         name: lead.name,
         email: lead.email,
@@ -118,12 +147,16 @@ export async function POST(req: NextRequest) {
     // pointing at the home page of the site they used.
     const visitor = { name: lead.name, email: lead.email };
     const siteUrl = leadPageUrl(req, '/');
+    // A case-study request is thanked with the case study itself: a "Download Case Study" button in the e-mail.
+    const caseStudy = caseStudyPdf
+      ? { title: caseStudyTitleFromPdf(caseStudyPdf), url: leadPageUrl(req, caseStudyPdf) }
+      : undefined;
     // The team email waits on the visitor's city / region / country
     // (lib/leads/ip-location.ts); the thank-you does not need it.
     after(() =>
       Promise.all([
         lookupIpLocation(notice.ipAddress, platform).then((where) => notifyLead({ ...notice, ...where })),
-        sendAutoReply(visitor, siteUrl),
+        sendAutoReply(visitor, siteUrl, caseStudy),
       ]),
     );
 

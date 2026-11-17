@@ -64,9 +64,16 @@ export interface ProblemsContent {
 export default function Problems({
   content = generativeAiProblems,
   id = "problems",
+  photoOnly = false,
 }: {
   content?: ProblemsContent;
   id?: string;
+  /**
+   * Show only the row's photograph in the panel — no title or text over it, and no scrim.
+   * For a list whose rows are a name and a picture (the on-demand ad page's four steps),
+   * where repeating the name in the panel would add words the source page does not have.
+   */
+  photoOnly?: boolean;
 } = {}) {
   const root = useRef<HTMLElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -282,13 +289,15 @@ export default function Problems({
               </div>
             ) : null,
           )}
-          <div className={styles.psPanelScrim} aria-hidden />
+          {!photoOnly && <div className={styles.psPanelScrim} aria-hidden />}
 
-          <div ref={panelRef} className={styles.psPanelBody}>
-            <span className={styles.psPanelLabel}>{panelLabel}</span>
-            <p className={styles.psPanelTitle}>{rows[active].problem}</p>
-            <p className={styles.psPanelText}>{rows[active].solution}</p>
-          </div>
+          {!photoOnly && (
+            <div ref={panelRef} className={styles.psPanelBody}>
+              <span className={styles.psPanelLabel}>{panelLabel}</span>
+              <p className={styles.psPanelTitle}>{rows[active].problem}</p>
+              <p className={styles.psPanelText}>{rows[active].solution}</p>
+            </div>
+          )}
         </div>
       </div>
     </section>

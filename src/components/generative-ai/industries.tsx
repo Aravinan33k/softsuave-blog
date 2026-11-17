@@ -1,5 +1,7 @@
 import { industries as generativeAiIndustries } from "@/lib/home/generative-ai";
 import CardIcon, { isBrandIcon } from "./card-icon";
+import Image from "next/image";
+import { publicMediaUrl } from "@/lib/media-url";
 import IndustriesClient from "./industries-client";
 import type { InlineLink } from "@/components/common/linkify";
 
@@ -15,6 +17,18 @@ export interface CardGridContent {
   body: string;
   items: readonly {
     readonly key?: string;
+    /**
+     * A row of artwork shown in place of the single icon — a card that stands
+     * for a combination of technologies ("Angular + MongoDB + Express + Node")
+     * shows each of its marks. Root-relative under /public.
+     */
+    readonly images?: readonly {
+      readonly src: string;
+      readonly alt: string;
+      /** Natural size, for a mark that is not square — the width follows the 40px height. */
+      readonly width?: number;
+      readonly height?: number;
+    }[];
     readonly name: string;
     readonly body: string;
     /** Decorative backdrop shown at rest with the icon and name. */
@@ -49,6 +63,8 @@ export interface CardGridContent {
   figure?: { readonly src: string; readonly width: number; readonly height: number; readonly alt: string };
   /** `tiles` only: phrases in `body` (the intro) to link — see `common/linkify`. */
   bodyLinks?: readonly InlineLink[];
+  /** `bold` only: draw no icon on any card — a section whose live cards are a name and a line of copy. */
+  noIcons?: boolean;
 }
 
 /**

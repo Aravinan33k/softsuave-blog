@@ -6,7 +6,8 @@
  * testimonials — including its capitalisation and punctuation. Only the
  * presentation is ours. Two things on the live page are left out because the
  * live page itself hides them in HTML comments: the Vinny Nuthakki testimonial
- * and Roland White's "Phoenix - Industry Advisor" designation.
+ * and Roland White's "Phoenix - Industry Advisor" designation. Roland and Aaron carry the homepage's own
+ * designations (CTO, Ginger Guru / Founder, Beautiful Mind).
  *
  * Images: the award certificates and card icons were downloaded from the live
  * page into `public/images/contact/`. The testimonial portraits were already
@@ -209,6 +210,7 @@ export const contactTestimonials: {
       quote:
         "I've been asking Soft Suave to help me develop a mobile app. The team is available right from the start. They're nice guys to work with and highly recommend them. Thanks.",
       name: "Roland White",
+      role: "CTO, Ginger Guru",
       photo: "/brand/testimonials/roland-white.webp",
       rating: "5.0",
       videoUrl: "https://youtu.be/_YRv-r2q6xY",
@@ -217,6 +219,7 @@ export const contactTestimonials: {
       quote:
         "Soft Suave provides amazing service. I am completely satisfied with the projects and look forward to continuing my relationship. I will also recommend their services without question.",
       name: "Aaron. G",
+      role: "Founder, Beautiful Mind",
       photo: "/brand/testimonials/aaron-g.webp",
       rating: "5.0",
       videoUrl: "https://youtu.be/fkjg--dAEY4",

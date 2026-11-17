@@ -151,6 +151,9 @@ html.lenis body {
      JetBrains Mono). */
   --font-heading: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-eyebrow: var(--font-body);
+  /* Weight of every heading (Space Grotesk is a 300-700 variable font). One
+     knob: the heading rules in each stylesheet read it. */
+  --heading-weight: 600;
   /* Section eyebrows — the small label over each section's heading ("Why Soft
      Suave", "Clients", "Industries"…) — have been Inter since the 16 Oct
      review, a step heavier and a little less tracked than the other labels so
@@ -213,15 +216,14 @@ html.lenis body {
      Each kit used to set its own: 44-84px of padding a side on the landing
      pages, up to 96-168px on some homepage bands, plus whole screens of
      centring on the bands that held `100vh`.
-       --section-y         a band's top and bottom padding: 30px up to tablet
-                           width, easing to 56px at 1600px and above — at
-                           or under the smallest padding any band had
-                           before (`.section`'s), at every width;
+       --section-y         a band's top and bottom padding: 56px on phones,
+                           easing to 80px at 1600px and above (raised from
+                           30-56px so the gap between sections reads clearly);
        --section-head-gap  a section's masthead (eyebrow, heading, intro) to
                            what follows it: 20px easing to 36px.
      Two sections inside one band share a single --section-y between them
      (`.sectionShell + .sectionShell` drops the second's top padding). */
-  --section-y: clamp(30px, 3.4vw + 2px, 56px);
+  --section-y: clamp(56px, 5vw + 8px, 80px);
   --section-head-gap: clamp(20px, 1.6vw + 8px, 36px);
 
   /* Every button's corner (16 Oct): a rectangle with softly rounded corners,
@@ -325,4 +327,10 @@ body:has(.ss-theme) {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Bare headings with no class of their own take the same weight. `:where` keeps
+   specificity at zero, so any heading rule that sets its own weight still wins. */
+.theme-four :where(h1, h2, h3, h4, h5, h6) {
+  font-weight: var(--heading-weight);
 }

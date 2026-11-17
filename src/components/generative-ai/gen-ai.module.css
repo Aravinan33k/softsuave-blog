@@ -68,7 +68,7 @@
 .title {
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
-  font-weight: var(--heading-weight, 300);
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h2);
   line-height: 1.14;
   letter-spacing: -0.03em;
@@ -216,7 +216,6 @@
   position: relative;
   /* At least `--hero-top` (home.css): clear of the fixed bar with a gap. */
   padding: max(clamp(78px, 6.6vw, 98px), var(--hero-top)) var(--gutter) clamp(32px, 3.4vw, 52px);
-  border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
 
@@ -387,7 +386,7 @@
 .heroTitle {
   margin: 0.5em 0 0;
   font-family: var(--font-heading);
-  font-weight: var(--heading-weight, 300);
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h1);
   line-height: 1.06;
   letter-spacing: -0.045em;
@@ -397,6 +396,25 @@
 
 .heroTitleLine {
   display: block;
+}
+
+/* A hero stat card's mark (`features` on the hero's content): the picture's shape, filled with the accent. */
+.heroFeatureGlyph {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: currentColor;
+  -webkit-mask: var(--mark) center / contain no-repeat;
+  mask: var(--mark) center / contain no-repeat;
+}
+
+
+
+/* The homepage hero's headline size, for a page that asks for it (`titleScale: "home"`). */
+.heroTitle.heroTitleHome {
+  font-size: var(--fs-h1-home);
+  line-height: 1.05;
+  max-width: none;
 }
 
 /* `titleFit`: each title line kept to one line, sized to the copy column.
@@ -577,7 +595,7 @@
   border-radius: 0 12px 12px 0;
   background: var(--surface);
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: clamp(1rem, 1.35vw, 1.2rem);
   line-height: 1.45;
   letter-spacing: -0.02em;
@@ -661,7 +679,7 @@
 
 .psTabLabel {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.02rem, 1.35vw, 1.25rem);
   line-height: 1.25;
   letter-spacing: -0.015em;
@@ -773,7 +791,7 @@
 .psPanelTitle {
   margin: 14px 0 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.015em;
@@ -850,7 +868,7 @@
 
 .cmpTable tbody th {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(1rem, 1.2vw, 1.15rem);
   line-height: 1.3;
   letter-spacing: -0.015em;
@@ -902,7 +920,7 @@
 .cmpCardTitle {
   margin: 10px 0 0;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: 1.15rem;
   line-height: 1.28;
   letter-spacing: -0.015em;
@@ -1193,7 +1211,7 @@
   font-family: var(--font-heading);
   /* 400 over the surface's usual 300: the title sits on artwork, and the
      hairline weight thinned out against it (review: "the heading is small"). */
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -1281,7 +1299,7 @@
 .ctaTitle {
   margin: 0.45em 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h2);
   line-height: 1.16;
   letter-spacing: -0.03em;
@@ -1523,7 +1541,7 @@
 .processName {
   margin: 0.4em 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h3);
   line-height: 1.2;
   letter-spacing: -0.025em;
@@ -1657,7 +1675,7 @@
 .indCardName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.12;
   letter-spacing: -0.02em;
@@ -1768,7 +1786,7 @@
 .proofFigure {
   display: block;
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: clamp(1.7rem, 2.8vw, 2.4rem);
   line-height: 1;
   letter-spacing: -0.04em;
@@ -1780,7 +1798,7 @@
 .proofName {
   margin: 14px 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.12;
   letter-spacing: -0.02em;
@@ -1839,7 +1857,7 @@
 .stackGroupName {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -1915,7 +1933,7 @@
 .finalTitle {
   margin: 0.45em 0 0;
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h2);
   line-height: 1.12;
   letter-spacing: -0.035em;
@@ -2022,7 +2040,7 @@
 
 .faqQuestion {
   font-family: var(--font-heading);
-  font-weight: var(--heading-weight, 400);
+  font-weight: var(--heading-weight);
   /* Its own FAQ size (home.css), not the section-level H3 it used to share. */
   font-size: var(--fs-faq-q);
   line-height: 1.32;
@@ -2391,7 +2409,7 @@
   /* Matches `.indCardName`: the display serif at card scale, so the two card
      variants read as the same family. */
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.01em;
@@ -2545,6 +2563,21 @@
   transition: border-color 0.35s ease;
 }
 
+/* A combination card: each technology's own mark in a row, with no badge ring
+   around them — the ring is a single-icon device. */
+.indBoldIcon[data-multi="true"] {
+  width: fit-content;
+  align-self: flex-start;
+  height: auto;
+  min-height: 40px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 14px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
 .indBoldCard:hover .indBoldIcon,
 .indBoldCard:focus-within .indBoldIcon {
   border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 55%, var(--line));
@@ -2587,7 +2620,7 @@
      reference section's own card title, so every card on the site is set in
      the same family at the same weight. */
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.01em;
@@ -2934,7 +2967,7 @@
   margin: clamp(14px, 1.8vw, 26px) 0 0;
   color: var(--text-bright);
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: var(--heading-weight);
   font-size: var(--fs-h3);
   line-height: 1.14;
   letter-spacing: -0.02em;

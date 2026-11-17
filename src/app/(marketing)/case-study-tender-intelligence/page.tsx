@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: TITLE,
   description: tenderMeta.description,
-  alternates: { canonical: 'https://www.softsuave.com/case-study-tender-intelligence' },
+  alternates: { canonical: tenderMeta.path },
   robots: pageRobots,
   openGraph: {
     title: TITLE,

@@ -89,7 +89,7 @@ export default function Faq({
           {content.items.map((item, i) => {
             const isOpen = open === i;
             return (
-              <div key={item.q} className={styles.faqItem}>
+              <div key={`${i}-${item.q}`} className={styles.faqItem}>
                 <h3>
                   <button
                     type="button"

@@ -184,8 +184,8 @@ export const healthtechBenefits: CardGridContent = {
 };
 
 /**
- * The live page's five success stories, with the consultation prompt that
- * closes the section there as the lane's closing card.
+ * The live page's five success stories. The lane ends on its last story: the
+ * closing consultation card was removed as unnecessary.
  *
  * Three of the five stories publish no figure to lead on, so this is the
  * `WorkGrid` lane rather than the metric-led `CaseStudies` grid; each card's
@@ -196,13 +196,6 @@ export const healthtechSuccessStories: WorkCarouselContent = {
   eyebrow: "Success Stories",
   title: "Real-World Impact: AI Transformations in HealthTech",
   body: "Uncover the impact of AI-driven solutions in HealthTech, enhancing efficiency, accuracy, and patient outcomes. These real-world case studies highlight successful implementations and measurable results across the industry.",
-  outro: {
-    eyebrow: "See how AI can fit into your workflow",
-    line: "Discover how our AI solutions can seamlessly integrate into your healthcare processes to enhance efficiency and patient care.",
-    // The live "Request a Consultation" button; /contact, as the reviews ask
-    // of every consultation CTA.
-    cta: { label: "Request a Consultation", href: "/contact" },
-  },
   // Each card wears the live page's own artwork for that story (13 Oct
   // review: "update the case study images same as the old page").
   items: [

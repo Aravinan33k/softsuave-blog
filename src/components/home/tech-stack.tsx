@@ -1,7 +1,10 @@
 import { techStack as homeTechStack } from "@/lib/home/content";
+import Image from "next/image";
+import { publicMediaUrl } from "@/lib/media-url";
 import Marquee from "./marquee";
 import SplitReveal from "./split-reveal";
 import TechLogo from "./tech-logo";
+import ExpandList from "./expand-list";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import styles from "./home.module.css";
 
@@ -26,6 +29,12 @@ export interface TechStackContent {
     readonly body?: string;
     readonly items: readonly string[];
   }[];
+  /**
+   * A mark of the page's own for a tool, by its name as written in `items` —
+   * drawn instead of the `TechLogo` lookup (the live ad pages show an image for
+   * every tool). Root-relative under /public.
+   */
+  readonly images?: Readonly<Record<string, string>>;
 }
 
 /**
@@ -44,8 +53,11 @@ export default function TechStack({
   id = "tech",
   staticFrom,
   loopShortRows = false,
+  collapsedGroups,
 }: {
   content?: TechStackContent;
+  /** Show only this many groups, the rest behind "View More" / "View Less". Omitted, every group shows. */
+  collapsedGroups?: number;
   /**
    * Viewport width (px) from which the rows hold still and wrap instead of
    * scrolling — see `Marquee`'s prop of the same name. Omitted, the rows
@@ -79,8 +91,8 @@ export default function TechStack({
         <p className={styles.lead}>{content.body}</p>
       </div>
 
-      <div className={styles.techGroups} data-skew>
-        {content.groups.map((g, i) => (
+      {(() => {
+        const rows = content.groups.map((g, i) => (
           <div
             key={g.name || i}
             className={`${styles.techGroup}${g.name ? "" : ` ${styles.techGroupFull}`}`}
@@ -113,10 +125,21 @@ export default function TechStack({
                 staticFrom={staticFrom}
                 fill={loopShortRows}
               >
-                {g.items.map((it) => (
-                  <span key={it} className={styles.techChip}>
+                {g.items.map((it, n) => (
+                  <span key={`${it}-${n}`} className={styles.techChip}>
                     <span className={styles.chipLogo}>
-                      <TechLogo name={it} />
+                      {content.images?.[it] ? (
+                        <Image
+                          src={publicMediaUrl(content.images[it])}
+                          alt=""
+                          width={56}
+                          height={56}
+                          unoptimized
+                          style={{ width: 24, height: 24, objectFit: "contain" }}
+                        />
+                      ) : (
+                        <TechLogo name={it} />
+                      )}
                     </span>
                     <span className={styles.chipName}>{it}</span>
                   </span>
@@ -124,8 +147,17 @@ export default function TechStack({
               </Marquee>
             </div>
           </div>
-        ))}
-      </div>
+        ));
+        return collapsedGroups ? (
+          <ExpandList limit={collapsedGroups} className={styles.techGroups}>
+            {rows}
+          </ExpandList>
+        ) : (
+          <div className={styles.techGroups} data-skew>
+            {rows}
+          </div>
+        );
+      })()}
     </section>
   );
 }

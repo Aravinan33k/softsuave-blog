@@ -26,6 +26,27 @@ export type AutoReplyLead = {
   email: string;
 };
 
+/**
+ * A case-study download request. The visitor is not handed the PDF on the page (as on softsuave.com); this email
+ * carries it instead, as a "Download Case Study" button in place of "Know more".
+ */
+export type AutoReplyCaseStudy = {
+  /** "Vehicle Intelligence" — named in the subject and the line above the button. */
+  title: string;
+  /** Absolute URL of the PDF. */
+  url: string;
+};
+
+/** "Vehicle Intelligence" from `/assets/case-studies/Vehicle_Intelligence_Case_Study.pdf`. */
+export function caseStudyTitleFromPdf(pdfPath: string): string {
+  const file = decodeURIComponent(pdfPath.slice(pdfPath.lastIndexOf('/') + 1)).replace(/\.pdf$/i, '');
+  return file
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+case\s+study$/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 const BRAND = '#ff0042';
 const ASSET_DIR = path.join(process.cwd(), 'public', 'email');
 
@@ -53,19 +74,28 @@ const NEXT_STEP = 'Our team will review your requirements and contact you within
 /** Subject, plain text and HTML. Pure, so it is unit-tested without a mail server. */
 export function buildAutoReplyEmail(
   lead: AutoReplyLead,
-  opts: { siteUrl: string; year?: number },
+  opts: { siteUrl: string; year?: number; caseStudy?: AutoReplyCaseStudy },
 ): { subject: string; text: string; html: string } {
   const year = opts.year ?? new Date().getFullYear();
   const hello = firstName(lead.name);
   const address = `©${year} ${office.company} ${office.lines.join(', ')}.`;
-  const subject = 'Thank you for getting in touch with Soft Suave';
+  const study = opts.caseStudy;
+  const subject = study
+    ? `Your Soft Suave case study: ${oneLine(study.title)}`
+    : 'Thank you for getting in touch with Soft Suave';
+  // The one button: "Download Case Study" to the PDF for a case-study request, "Know more" to the site otherwise.
+  const button = study ? { label: 'Download Case Study', href: study.url } : { label: 'Know more', href: opts.siteUrl };
+  const intro = study
+    ? `Thank you for your interest in Soft Suave. Your copy of the ${oneLine(study.title)} case study is ready — use the button below to download it.`
+    : 'Thank you for getting in touch with Soft Suave.';
+  const next = study ? 'Our team may also contact you to discuss how we can help you.' : NEXT_STEP;
 
   const text = [
     `Hi ${hello},`,
     '',
-    'Thank you for getting in touch with Soft Suave.',
+    intro,
     '',
-    NEXT_STEP,
+    next,
     '',
     `If you have any questions in the meantime, please email us at ${contactEmail}.`,
     '',
@@ -74,7 +104,7 @@ export function buildAutoReplyEmail(
     'Best regards,',
     'Soft Suave Technologies',
     '',
-    `Know more: ${opts.siteUrl}`,
+    `${button.label}: ${button.href}`,
     '',
     address,
   ].join('\n');
@@ -99,14 +129,14 @@ export function buildAutoReplyEmail(
 <tr><td style="height:16px;line-height:16px;font-size:0;">&nbsp;</td></tr>
 <tr><td style="background:#ffffff;border-radius:6px;padding:34px 22px 16px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#4e4e4e;">
 <h1 style="margin:0 0 28px;font-size:20px;line-height:1.3;color:#222222;">Hi ${escapeHtml(hello)},</h1>
-<p style="${p}">Thank you for getting in touch with Soft Suave.</p>
-<p style="${p}">${NEXT_STEP}</p>
+<p style="${p}">${escapeHtml(intro)}</p>
+<p style="${p}">${escapeHtml(next)}</p>
 <p style="${p}">If you have any questions in the meantime, please email us at <a href="mailto:${contactEmail}" style="color:#1155cc;">${contactEmail}</a>.</p>
 <p style="margin:0 0 30px;">We look forward to working with you!</p>
 <p style="margin:0 0 6px;">Best regards,</p>
 <p style="margin:0 0 18px;font-size:13px;color:#222222;">Soft Suave Technologies</p>
 <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
-<tr><td style="background:${BRAND};border-radius:3px;"><a href="${escapeHtml(opts.siteUrl)}" style="display:inline-block;padding:9px 16px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;color:#ffffff;text-decoration:none;">Know more</a></td></tr>
+<tr><td style="background:${BRAND};border-radius:3px;"><a href="${escapeHtml(button.href)}" style="display:inline-block;padding:9px 16px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;color:#ffffff;text-decoration:none;">${escapeHtml(button.label)}</a></td></tr>
 </table>
 </td></tr>
 <tr><td align="center" style="padding:24px 0 10px;">${icons}</td></tr>
@@ -123,10 +153,14 @@ export function buildAutoReplyEmail(
  * Sends the thank-you to the visitor. Replies go to the team inbox, not to the
  * sending mailbox. Resolves true when the mail server accepted it; never throws.
  */
-export async function sendAutoReply(lead: AutoReplyLead, siteUrl: string): Promise<boolean> {
+export async function sendAutoReply(
+  lead: AutoReplyLead,
+  siteUrl: string,
+  caseStudy?: AutoReplyCaseStudy,
+): Promise<boolean> {
   if (!autoReplyEnabled) return false;
 
-  const { subject, text, html } = buildAutoReplyEmail(lead, { siteUrl });
+  const { subject, text, html } = buildAutoReplyEmail(lead, { siteUrl, caseStudy });
   try {
     await getTransporter().sendMail({
       from: senderAddress ? { name: 'Softsuave', address: senderAddress } : undefined,

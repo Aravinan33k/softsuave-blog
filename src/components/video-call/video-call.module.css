@@ -1,0 +1,36 @@
+/* /video-call-app-development-company — the feature cards and the portfolio entries. */
+.cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(10px, 1.2vw, 16px);
+}
+.card { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.cardName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: var(--heading-weight);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.cardBody { margin: 0; font-size: var(--fs-body); line-height: 1.65; color: var(--text-muted, var(--text)); }
+.cardBody strong { color: var(--text); font-weight: 600; }
+@media (min-width: 700px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.projects { display: grid; gap: clamp(16px, 2.5vw, 32px); }
+.projectName {
+  margin: 0 0 12px;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: var(--heading-weight);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.projectCta { margin-top: 20px; }
+
+/* Stacked on a phone, a picture still leads its entry even where the text comes first beside it. */
+@media (max-width: 899px) { .mediaFirstOnPhone { order: -1; } }

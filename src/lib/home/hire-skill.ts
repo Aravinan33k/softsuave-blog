@@ -26,6 +26,7 @@ import type { ComparisonContent } from "@/components/landing/comparison";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TechStackContent } from "@/components/landing/tech-stack";
 import type { FaqContent } from "@/components/landing/faq";
+import type { ClientLogo, Testimonial } from "./content";
 
 /**
  * Intrinsic size of the hero's background asset. Existing `page: "four"` art is
@@ -134,6 +135,11 @@ export interface HireSkill {
 
   /** Hero: H1, positioning copy, assurance points and the enquiry form. */
   readonly hero: HeroContent;
+  /**
+   * A page whose live clients band words its label or runs its own marks. `eyebrow` is the label over the
+   * heading; `logos` replaces the shared hire roster (the live CMS band: "Our Clients" and its nineteen marks, PromosTV's among them).
+   */
+  readonly clientsBand?: { readonly eyebrow?: string; readonly logos?: readonly ClientLogo[] };
   /** `.about` — the page's opening prose band. */
   readonly overview?: OverviewContent;
   /** `.app_develop_section` — "Applications That Our Developers Build Using X". */
@@ -150,6 +156,14 @@ export interface HireSkill {
    * of a panel grid's cells empty.
    */
   readonly techStackStyle?: "rows";
+  /** Rows shown before "View More" on the `rows` stack (the live SaaS page shows four, then a toggle). */
+  readonly techStackCollapsedRows?: number;
+  /** Draw the services band as photo cards (each item's `image` behind its icon and name, copy on hover), the Agentic AI page's "Key Business Applications" grid. */
+  readonly servicesPhotoCards?: boolean;
+  /** Close on the full "Book Free Consultation" band (steps, account manager, badges and enquiry form) instead of the short "Schedule a Call" band. */
+  readonly closingEnquiry?: boolean;
+  /** True for a page whose live hero shows no "Home › …" trail. */
+  readonly hideHeroBreadcrumb?: boolean;
   /**
    * The same live band where it carries prose cards instead of tool chips.
    *
@@ -163,6 +177,10 @@ export interface HireSkill {
   readonly midCta?: CtaBandContent;
   /** `.hiring_steps` — the hiring sequence, with exactly the live page's steps. */
   readonly process?: ProcessContent;
+  /** `"number"` labels each hiring step with its bare position ("1") rather than "Step 1" — the live CMS page numbers its steps that way. */
+  readonly processLabel?: "number";
+  /** `"none"` drops the "Step N" label from the vetting cards — the live CMS page shows that sequence unnumbered. */
+  readonly vettingLabel?: "none";
   /** `.why_choose` — "Why Are Our X Developers Considered the Best?" cards. */
   readonly whyUs?: CardGridContent;
   /** `.hire-models` — "Choose the Right X Development Partner". */
@@ -171,6 +189,19 @@ export interface HireSkill {
   readonly vetting?: ProcessContent;
   /** `.tech-stack` — "Explore More Web/Mobile Technologies for Your Project". */
   readonly exploreMore?: CardGridContent;
+  /** The same links under labelled tabs, where the live band has them ("Web" and "Quality Assurance" on the CMS page). */
+  readonly exploreTabs?: readonly { readonly label: string; readonly items: CardGridContent["items"] }[];
   /** `.faq-sec` — the live page's own questions, in its own order. */
   readonly faq?: FaqContent;
+  /**
+   * A page whose live testimonials band words its heading and standfirst itself
+   * and runs its own five quotes — passed to the homepage's `Testimonials` in place
+   * of the homepage copy. Omitted, the band is the homepage's.
+   */
+  readonly testimonials?: {
+    readonly eyebrow: string;
+    readonly title: string;
+    readonly body: string;
+    readonly items: readonly Testimonial[];
+  };
 }

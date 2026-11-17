@@ -105,6 +105,16 @@ const schema = z
     // lib/leads/forward.ts). Override only to point at a different collector.
     LEAD_FORWARD_URL: z.string().url().default('https://www.softsuave.com/forms/enquires/developer'),
 
+    // Where a job application (with its resume) goes: the live softsuave.com career endpoint its own
+    // /softsuave-career page posts to (see lib/leads/forward-career.ts). There is no database table for
+    // applications here, so this is the only place they are delivered. Override only to point at a different collector.
+    CAREER_FORWARD_URL: z.string().url().default('https://www.softsuave.com/forms/enquires/career'),
+
+    // Where a case-study download request goes when no database is configured: the live softsuave.com endpoint
+    // its "Download Case Study!!!" dialog posts to, which e-mails the visitor the case study (see
+    // lib/leads/forward-case-study.ts). Override only to point at a different collector.
+    CASE_STUDY_FORWARD_URL: z.string().url().default('https://www.softsuave.com/forms/enquires/caseStudy'),
+
     // Email notification for every lead stored in the database (enquiry forms
     // and meeting bookings; see lib/leads/notify.ts). Off until SMTP_HOST is
     // set — any SMTP account works (Google Workspace, Microsoft 365, SES…).

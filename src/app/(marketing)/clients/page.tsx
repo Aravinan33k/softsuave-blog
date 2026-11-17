@@ -6,7 +6,6 @@ import {
   clientsPageHero,
   clientsPageMeta,
 } from '@/lib/home/clients-content';
-import { SiteLink } from '@/themes/softsuave/site-link';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
@@ -23,7 +22,6 @@ import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 import PhotoMasthead from '@/components/common/photo-masthead';
 
 import home from '@/components/home/home.module.css';
-import landing from '@/components/landing/landing.module.css';
 
 /**
  * Our Clients — softsuave.com's /clients index.
@@ -36,8 +34,9 @@ import landing from '@/components/landing/landing.module.css';
  * nothing would link to it.
  *
  * The section set is the live page's and nothing more: the "Clients" hero,
- * the "Trusted by Leading Brands" logo band with its "Talk To Experts"
- * button, Industry Recognitions, the testimonials, then the consultation form.
+ * the "Trusted by Leading Brands" logo band (its "Talk To Experts" button was
+ * removed as unnecessary), Industry Recognitions, the testimonials, then the
+ * consultation form.
  * The homepage's integrations marquee and a "Your company here next" band used
  * to sit between them; the review removed both because live runs neither.
  *
@@ -96,29 +95,6 @@ export default function ClientsPage() {
             body={clientsPageBrands.body}
             logos={clientsPageBrands.logos}
           />
-          {/* `Clients` renders no button of its own, so live's "Talk To
-              Experts" sits directly under the band, on the band's content
-              measure. The negative top margin takes back the band's own
-              bottom padding (`.clients`), which is re-applied beneath the
-              button instead, so the button hangs off the logo strip rather
-              than floating between two sections. */}
-          <div
-            style={{
-              position: 'relative',
-              marginTop: 'calc(-1 * clamp(40px, 5vw, 76px))',
-              padding: '0 var(--gutter) clamp(40px, 5vw, 76px)',
-            }}
-          >
-            <div style={{ maxWidth: 1400, margin: '0 auto' }}>
-              <SiteLink
-                href={clientsPageBrands.cta.href}
-                className={`${landing.btn} ${landing.btnPrimary} ${landing.btnLg}`}
-              >
-                {clientsPageBrands.cta.label}
-              </SiteLink>
-            </div>
-          </div>
-
           <Recognitions />
 
           <Testimonials />

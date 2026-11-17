@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   // The root layout's title template is "%s", so this renders verbatim.
   title: TITLE,
   description: shiftSenseMeta.description,
-  alternates: { canonical: 'https://www.softsuave.com/case-study-shiftsense-ai-shift-intelligence' },
+  alternates: { canonical: shiftSenseMeta.path },
   robots: pageRobots,
   openGraph: {
     title: TITLE,

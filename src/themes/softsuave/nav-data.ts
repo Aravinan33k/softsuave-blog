@@ -177,13 +177,13 @@ const LOCAL_PATHS = new Set(homepageEnabled ? ['/blog', ...MARKETING_ROUTES] : [
 /**
  * Whether we serve the page a nav href points at.
  *
- * A fragment is part of the link, not part of the route: the mega menu's sector
- * items are "/industries#sector-fintech", and judging those by the whole string
- * would miss the set and send every one of them out to softsuave.com — a page
+ * A fragment or a query string is part of the link, not part of the route: the mega menu's sector items are
+ * "/industries#sector-fintech", and the careers page's Apply buttons are "/softsuave-career?role=trainee-hr".
+ * Judging those by the whole string would miss the set and send every one of them out to softsuave.com — a page
  * we serve ourselves. So the lookup is on the path alone.
  */
 function isLocal(href: string): boolean {
-  return LOCAL_PATHS.has(href.split('#')[0]);
+  return LOCAL_PATHS.has(href.split(/[?#]/)[0]);
 }
 
 /**

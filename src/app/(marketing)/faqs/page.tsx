@@ -7,23 +7,25 @@ import { organizationLd } from '@/lib/seo/organization';
 import {
   faqsGeneral,
   faqsHire,
-  faqsPageCta,
+  faqsPageEnquiry,
   faqsPageHero,
+  faqsPageIntro,
   faqsPageMeta,
   faqsProject,
 } from '@/lib/home/faqs-content';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
-import Contact from '@/components/home/contact';
-import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
+import { navHref } from '@/themes/softsuave/nav-data';
 
+import Hero from '@/components/landing/hero';
 import SectionHead from '@/components/landing/section-head';
 import Faq from '@/components/landing/faq';
-import CtaBand from '@/components/landing/cta-band';
+import ManagerEnquiry from '@/components/ad/manager-enquiry';
+
+import landing from '@/components/landing/landing.module.css';
 
 import home from '@/components/home/home.module.css';
-import landing from '@/components/landing/landing.module.css';
 
 /**
  * Frequently Asked Questions — softsuave.com's /faqs page.
@@ -103,16 +105,12 @@ export default function FaqsPage() {
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
-        <section className={landing.indexHead} id="top">
-          <SectionHead
-            level={1}
-            kicker={faqsPageHero.eyebrow}
-            title={faqsPageHero.title}
-            intro={faqsPageHero.intro}
-          />
-        </section>
+        <Hero content={faqsPageHero} idPrefix="faqs" variant="compact" breadcrumb={false} />
 
         <div className={home.light}>
+          <section className={landing.sectionShell} id="faqs-intro">
+            <SectionHead title={faqsPageIntro.title} intro={faqsPageIntro.body} />
+          </section>
           <Faq content={faqsGeneral} idPrefix="faq-general" />
         </div>
 
@@ -122,9 +120,21 @@ export default function FaqsPage() {
           <Faq content={faqsHire} idPrefix="faq-hire" />
         </div>
 
-        <CtaBand content={faqsPageCta} />
-
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        {/* The live page's closing "Book Free Consultation" block; its "Schedule a Call" goes to the free-consultation page. */}
+        <ManagerEnquiry
+          content={{
+            ...faqsPageEnquiry,
+            manager: {
+              ...faqsPageEnquiry.manager,
+              cta: faqsPageEnquiry.manager.cta && {
+                ...faqsPageEnquiry.manager.cta,
+                href: navHref(faqsPageEnquiry.manager.cta.href),
+              },
+            },
+          }}
+          id="enquiry"
+          idPrefix="faqs-contact"
+        />
       </main>
 
       <Footer />

@@ -31,7 +31,7 @@ export const why = {
   eyebrow: "Why Soft Suave",
   /* The full stop is part of the title so the heading's word-splitter keeps it
      attached to "Launch" rather than floating it as a word of its own. */
-  title: "Your AI Growth Partner, From Idea to Launch.",
+  title: "Your AI Growth Partner, From Idea to Launch",
   body: "With years of AI and software engineering experience, Soft Suave helps startups, SMBs, and enterprises build practical AI solutions backed by proven delivery strength.",
   /**
    * The proof cards. `label` is the kicker over the figure and must read with
@@ -105,6 +105,12 @@ export const clients: {
     // homepage carousel — they are published on its /clients index instead,
     // which is where these came from, at the same 150x60 the rest of the strip
     // uses.
+    { name: "Centreax Technologies", src: "/brand/clients/centreax.webp" },
+    { name: "Neuraspeech", src: "/brand/clients/neuraspeech.webp" },
+    { name: "Alytico AI", src: "/brand/clients/alytico-ai.webp" },
+    { name: "Data Evolution", src: "/brand/clients/data-evolution.webp" },
+    { name: "MERLIN", src: "/brand/clients/merlin.webp" },
+    { name: "MT&T", src: "/brand/clients/mt-and-t-yellow.webp" },
     { name: "Phoenix Technologies", src: "/brand/clients/phoenix-technologies.webp" },
     { name: "AMD Telecom", src: "/brand/clients/amd-telecom.webp" },
     { name: "Perkypet", src: "/brand/clients/perkypet.webp" },
@@ -119,7 +125,7 @@ export const clients: {
     { name: "The 2020 Diet", src: "/brand/clients/the-2020-diet.webp" },
     { name: "Teamicate", src: "/brand/clients/teamicate.webp" },
     { name: "Sulekha", src: "/brand/clients/sulekha.webp" },
-    { name: "PromosTV", src: "/brand/clients/promostv.webp" },
+    // PromosTV removed (26 Oct): its pale lockup was illegible on the band.
     { name: "Poorvika", src: "/brand/clients/poorvika.webp" },
     { name: "PaceWisdom", src: "/brand/clients/pacewisdom.webp" },
     { name: "Outsource", src: "/brand/clients/outsource.webp" },

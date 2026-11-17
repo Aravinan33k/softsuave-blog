@@ -2,10 +2,13 @@
 
 import { Fragment, useRef, type CSSProperties } from "react";
 import Image from "next/image";
+import { CalendarDays } from "lucide-react";
 import { hero as generativeAiHero } from "@/lib/home/generative-ai";
 import { publicMediaUrl } from "@/lib/media-url";
 import { heroBadgeSizes, isHeroBadge, type HeroBadge } from "@/lib/home/hero-badges";
 import styles from "./gen-ai.module.css";
+import landing from "@/components/landing/landing.module.css";
+import cta from "@/components/common/cta-row.module.css";
 import EnquiryForm, { type EnquiryFormContent } from "@/components/common/enquiry-form";
 import Breadcrumb from "@/components/common/breadcrumb";
 import { titleFitStyle } from "@/components/landing/hero";
@@ -36,6 +39,11 @@ export interface HeroContent {
    * hero section must come in 2 lines".
    */
   titleFit?: boolean;
+  /**
+   * `"home"` sets the H1 in the homepage hero's size (70px on desktop, 40px on a phone) rather than the
+   * landing pages' smaller one. Omitted keeps the landing size.
+   */
+  titleScale?: "home";
   body: readonly string[];
   /**
    * Phrases in `body` to link, as the live hero links them ("Get in touch for
@@ -76,6 +84,11 @@ export interface HeroContent {
    * shape and treatment as `components/landing/hero`: the first renders
    * filled, the rest outlined; `external` opens a new tab.
    */
+  /**
+   * A row of small marks with a label under each, below the points — the live education page's three
+   * "School & Educational App Design" style items. Omitted renders nothing.
+   */
+  features?: readonly { readonly icon: string; readonly label: string }[];
   ctas?: readonly {
     readonly label: string;
     readonly href: string;
@@ -119,10 +132,13 @@ export default function Hero({
   content = generativeAiHero,
   idPrefix = "genai",
   wide = false,
+  breadcrumb = true,
 }: {
   content?: HeroContent;
   idPrefix?: string;
   wide?: boolean;
+  /** `false` drops the "Home › page" trail, for a page whose live hero has none. */
+  breadcrumb?: boolean;
 } = {}) {
   const root = useRef<HTMLElement | null>(null);
 
@@ -161,14 +177,16 @@ export default function Hero({
           of its own above the grid, so the copy column opens on the H1 and the
           form's top edge lines up with it (15 Oct review: "Hero H1 name &
           forms horizontally aligned in the same line"). */}
-      <div className={styles.heroHead}>
-        <Breadcrumb />
-      </div>
+      {breadcrumb && (
+        <div className={styles.heroHead}>
+          <Breadcrumb />
+        </div>
+      )}
 
       <div className={styles.heroGrid}>
         <div className={content.titleFit ? styles.heroCopyFit : undefined}>
           <h1
-            className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}`}
+            className={`${styles.heroTitle}${content.titleFit ? ` ${styles.heroTitleFit}` : ""}${content.titleScale === "home" ? ` ${styles.heroTitleHome}` : ""}`}
             style={content.titleFit ? titleFitStyle(content.titleLines) : undefined}
           >
             {/* The spans are display:block, so the spaces between them only
@@ -179,7 +197,7 @@ export default function Hero({
                 <span
                   style={{ ["--i" as string]: i } as CSSProperties}
                   className={`${styles.heroTitleLine}${
-                    !content.accent && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
+                    content.accent === undefined && i === lastLine ? ` ${styles.heroTitleAccent}` : ""
                   }`}
                 >
                   {accentWithin(line, content.accent)}
@@ -216,8 +234,26 @@ export default function Hero({
           </ul>
           )}
 
+          {content.features && content.features.length > 0 && (
+            /* The ad pages' stat cards (components/landing/hero), with a label and no description. */
+            <div className={landing.heroStatsWrap}>
+              <ul className={landing.heroStats}>
+                {content.features.map((f, i) => (
+                  <li key={f.label} className={landing.heroStat} style={{ ["--i" as string]: i } as CSSProperties}>
+                    <span className={landing.heroStatIcon} aria-hidden>
+                      <span className={styles.heroFeatureGlyph} style={{ ["--mark" as string]: `url(${publicMediaUrl(f.icon)})` }} />
+                    </span>
+                    <span>
+                      <strong className={landing.heroStatTitle}>{f.label}</strong>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {content.ctas && content.ctas.length > 0 && (
-            <div className={styles.heroCtas}>
+            <div className={`${styles.heroCtas} ${cta.ctaPair}`}>
               {content.ctas.map((cta, i) => {
                 const className = i === 0 ? `${styles.btn} ${styles.btnPrimary}` : styles.btn;
                 if (cta.external) {
@@ -228,7 +264,14 @@ export default function Hero({
                       target="_blank"
                       rel="noopener noreferrer"
                       className={className}
+                      // The booking button leads with a calendar icon, as on the live pages.
+                      style={
+                        cta.href.includes("calendly.com")
+                          ? { display: "inline-flex", alignItems: "center", gap: 10 }
+                          : undefined
+                      }
                     >
+                      {cta.href.includes("calendly.com") && <CalendarDays size={18} aria-hidden />}
                       {cta.label}
                     </a>
                   );
