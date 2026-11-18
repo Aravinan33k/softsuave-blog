@@ -42,10 +42,16 @@ export const rdHero: HeroContent = {
   ...adHero,
   titleLines: ["Hire Remote Developers", "on Contract"],
   accent: "Remote Developers",
+  // No "Rated ★★★★★ on" strip under the CTAs (removed by request).
+  badges: undefined,
+  badgesLabel: undefined,
   body: [
     "Need top-rated remote developers on contract? Hire remote developers from india and enjoy the 40-hour free trial to experience their expertise!",
     "*Satisfaction Guaranteed – Get 40-hour Free Trial",
   ],
+  // The guarantee line highlighted (by request): bold here, in the accent
+  // colour from the page (`ad.module.css .heroNoteHighlight`).
+  boldBody: [1],
   // The /hire-software-developers hero form, by request (in place of the live
   // "Start 40-Hour Free Trial" card): its "40-Hour Risk-Free Trial" line,
   // title, requirement wording and "Start My FREE Trial" button, from the same
@@ -54,7 +60,7 @@ export const rdHero: HeroContent = {
   // an H2, so the page outline still matches the live page.
   form: {
     ...heroForm({
-      title: "Get Skilled Software Developers",
+      title: "Get Skilled Remote Developers",
       requirementLabel: "How can we help (your requirement)",
       requirementPlaceholder:
         "Tell us about your project scope, required skills, timeline, and preferred hiring model.",
@@ -169,22 +175,22 @@ export const rdProcess: ProcessContent = {
     {
       n: "Define",
       name: "Step 1: Share the JD",
-      body: "Start by sharing your detailed Job Description (JD) with us. Briefly explain your project goals, technical requirements, and the type of developers you need for your app development. The more clarity you provide, the better we can understand your vision and match you with the right talent.",
+      body: "Share your detailed Job Description (JD) with us. Briefly explain your project goals, technical requirements, and the developer type you’d need. The clearer you are, the better we match you with the right talent.",
     },
     {
       n: "Select",
       name: "Step 2: Shortlist The Right Developers",
-      body: "Based on your requirements, we present a curated list of top developers who best align with your project’s technical stack, experience level, and domain expertise. You can review their profiles, skill sets, and past work to shortlist the ideal candidates.",
+      body: "Based on your requirements, we present top developers matched to your tech stack, experience level, and domain expertise. Review their profiles, skill sets, and past work to shortlist your ideal candidates.",
     },
     {
       n: "Evaluate",
       name: "Step 3: Free 40-hour Trial",
-      body: "Experience our developers’ capabilities firsthand by taking advantage of a free 40-hour trial. This allows you to assess their technical proficiency, communication style, and overall fit for your project before making any commitment.",
+      body: "Experience our developers’ capabilities firsthand with a free 40-hour trial. This lets you assess their technical skills, communication style, and overall fit for your project before making any commitment.",
     },
     {
       n: "Onboard",
       name: "Step 4: Onboard & Manage",
-      body: "Once you’ve chosen your developer, we help you seamlessly onboard the resource. You’ll sign the necessary SLA and NDA documents to ensure complete confidentiality and transparency. After onboarding, you can directly manage the developer as an extended part of your own team.",
+      body: "Once you’ve chosen your developer, we help you onboard them seamlessly. Sign the necessary SLA and NDA documents for complete confidentiality. Then you can manage them directly as an extended part of your team.",
     },
   ],
 };

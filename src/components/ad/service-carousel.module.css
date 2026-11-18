@@ -1,7 +1,8 @@
 /* =====================================================================
    SERVICE CAROUSEL — the /ad pages' "Our Services" row
    (`service-carousel-client.tsx`). One row of cards on native scroll-snap,
-   the next card peeking in from the gutter, dots under. Band tokens only.
+   the next card peeking in from the gutter, the Experts arrows under.
+   Band tokens only.
    ===================================================================== */
 
 .carousel {
@@ -41,12 +42,14 @@
   scroll-snap-align: start;
 }
 
-/* The grid's five-colour card ramp, by position, as on `.indGridBold`. */
-.slide:nth-child(5n + 1) { --card-accent: var(--card-accent-1); }
-.slide:nth-child(5n + 2) { --card-accent: var(--card-accent-2); }
-.slide:nth-child(5n + 3) { --card-accent: var(--card-accent-3); }
-.slide:nth-child(5n + 4) { --card-accent: var(--card-accent-4); }
-.slide:nth-child(5n + 5) { --card-accent: var(--card-accent-5); }
+/* The grid's five-colour card ramp, by the card's own position, as on
+   `.indGridBold`. Set from the card's index rather than `nth-child`, so the
+   loop's copies of the first cards keep their originals' colours. */
+.slide[data-tone="1"] { --card-accent: var(--card-accent-1); }
+.slide[data-tone="2"] { --card-accent: var(--card-accent-2); }
+.slide[data-tone="3"] { --card-accent: var(--card-accent-3); }
+.slide[data-tone="4"] { --card-accent: var(--card-accent-4); }
+.slide[data-tone="5"] { --card-accent: var(--card-accent-5); }
 
 /* A soft, rounded card on the band's own surface: no coloured top rule, a
    lifted shadow instead. */
@@ -88,34 +91,14 @@
   height: 28px;
 }
 
-/* ---- Dots ---------------------------------------------------------- */
+/* ---- Arrows -------------------------------------------------------- */
 
-.dots {
+/* The Experts section's arrow pair (home.rArrows / rArrowBtn), under the row
+   on the right, placed as `skill-carousel.module.css .controls` places it. */
+.controls {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: clamp(6px, 1vw, 14px);
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--text-bright) 22%, transparent);
-  cursor: pointer;
-  transition: background-color 0.25s ease, transform 0.25s ease;
-}
-
-.dot[aria-current="true"] {
-  background: var(--accent);
-  transform: scale(1.15);
-}
-
-.dot:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
+  justify-content: flex-end;
+  margin-top: clamp(10px, 1.2vw, 16px);
 }
 
 /* ---- Cards per page ------------------------------------------------ */
@@ -139,8 +122,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card,
-  .dot {
+  .card {
     transition: none;
   }
 
