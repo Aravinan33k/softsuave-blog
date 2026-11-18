@@ -266,6 +266,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   // Live schema carried over by lib/seo/live-schema-restored.ts (16 Nov audit).
   '/construction-employee-time-tracking-app',
   '/construction-product',
+  '/field-tracking-product',
   '/cross-platform-application-development-company',
   '/engagement-model',
   '/hire-full-stack-developers-in-india',
