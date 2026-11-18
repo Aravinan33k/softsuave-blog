@@ -251,3 +251,6 @@
 # ── Batch 8: hire-forward page, off its standalone app on :3200 (18 Nov). Its vhost
 #    ProxyPass lines are commented out, not deleted, for rollback.
 /hire-forward-deployed-engineer app
+
+# ── Batch 9: PHP product page rebuilt later (1 page, 18 Nov)
+/field-tracking-product app
