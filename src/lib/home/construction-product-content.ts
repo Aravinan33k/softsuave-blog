@@ -42,13 +42,13 @@ const DEMO = { label: "Book Demo", href: "/free-demo-app" } as const;
 
 export const cpMeta = {
   path: "/construction-product",
-  // The live page's <title> and description, verbatim. The live page is
-  // noindex,nofollow, and its canonical points at the homepage; both are
-  // kept as served.
-  title: "Custom AI Solutions to Empower Your Business",
+  // The page's own title, description and self canonical (by request; they
+  // replace the live page's generic "Custom AI Solutions" ones and its
+  // homepage canonical). The page stays noindex,nofollow, as live.
+  title: "Construction Equipment Rental Software | Soft Suave",
   description:
-    "Discover how Soft Suave's custom AI solutions can transform your business operations and drive innovation.",
-  canonical: "https://www.softsuave.com/",
+    "Track machines, streamline billing, improve uptime and plan maintenance with Soft Suave’s construction rental platform. Book a demo today.",
+  canonical: "https://www.softsuave.com/construction-product",
   ogImage: "https://www.softsuave.com/assets/images/og-img-ai-solution.webp",
 } as const;
 
