@@ -246,3 +246,7 @@
 
 # ── Batch 6: homepage, last (1 pages)
 / app
+
+# ── Batch 7: PHP pages rebuilt later (2 pages, 18 Nov)
+/construction-product app
+/developer-rate-card app
