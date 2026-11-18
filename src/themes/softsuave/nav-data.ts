@@ -35,7 +35,7 @@ const SERVICE_GROUPS: NavGroup[] = [
     title: 'By Team Expertise',
     links: [
       { label: 'Global Capability Center', href: '/global-capability-center' },
-      { label: 'AI Solutions', href: '/ai-development-service' },
+      { label: 'AI Solutions', href: '/custom-ai-development-services' },
       { label: 'Offshore Development', href: '/offshore-software-development-company' },
       { label: 'IT Staff Augmentation', href: '/it-staff-augmentation-services' },
       // Not '/it-outsourcing-services' — that route doesn't exist. The

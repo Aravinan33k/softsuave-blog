@@ -79,6 +79,23 @@ const gtmEnv = (process.env.NEXT_PUBLIC_GTM_ID ?? '').trim();
 export const gtmContainerId: string = gtmEnv === 'off' ? '' : gtmEnv || GTM_DEFAULT;
 
 /**
+ * The only hostnames GTM runs on. Every build carries the snippet, so without
+ * this check local dev (localhost, *.local), the Vercel preview, screen-size
+ * testers that frame the live site and Google Translate's proxy all fired the
+ * container — Meta's Pixel listed nine such "new domains" (17 Nov) and Analytics
+ * and Ads counted them too. The snippet stays in the served HTML everywhere (GTM
+ * checkers still find it); it just does nothing on any other host.
+ *
+ * `NEXT_PUBLIC_GTM_HOSTS` (comma-separated) replaces the list, e.g. to try the
+ * container on a test server. Build time, like the other `NEXT_PUBLIC_*` flags.
+ */
+const gtmHostsEnv = (process.env.NEXT_PUBLIC_GTM_HOSTS ?? '').trim();
+export const gtmHosts: readonly string[] = (gtmHostsEnv || 'www.softsuave.com,softsuave.com')
+  .split(',')
+  .map((h) => h.trim().toLowerCase())
+  .filter((h) => /^[a-z0-9.-]+$/.test(h));
+
+/**
  * When the GTM container loads (`components/analytics/google-tag-manager`).
  *
  * `eager` (the default): GTM's stock snippet, verbatim, in the served `<head>`

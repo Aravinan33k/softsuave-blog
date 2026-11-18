@@ -1,4 +1,4 @@
-import { gtmContainerId, gtmLoad } from '@/lib/flags';
+import { gtmContainerId, gtmHosts, gtmLoad } from '@/lib/flags';
 import GtmLoader from './gtm-loader';
 
 /**
@@ -29,9 +29,14 @@ import GtmLoader from './gtm-loader';
 // through; anything else (a typo in NEXT_PUBLIC_GTM_ID) renders no snippet.
 const SAFE_ID = /^[\w-]+$/;
 
-/** Google's snippet, as given in GTM's install instructions, with the ID filled in. */
+/**
+ * Google's snippet, as given in GTM's install instructions, with the ID filled in —
+ * run only when the page is on one of `gtmHosts` (see `lib/flags.ts`). The hosts
+ * are plain hostnames (checked there), so JSON-encoding them is safe to inline.
+ */
 const headSnippet = (id: string) =>
-  `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  `if(${JSON.stringify(gtmHosts)}.indexOf(location.hostname)>-1)
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
