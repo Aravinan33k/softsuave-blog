@@ -1671,3 +1671,7 @@
 .iconsOnDark img {
   filter: invert(1) hue-rotate(180deg);
 }
+
+.copyrightBar > div {
+  margin-top: 0;
+}

@@ -23,10 +23,11 @@ import Industries from '@/components/landing/industries';
 import CtaBand from '@/components/landing/cta-band';
 import Faq from '@/components/landing/faq';
 import ServiceBoard from '@/components/common/service-board';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
 import TechGroups from '@/components/cross-platform/tech-groups';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 
 /** Cross-platform App Development — softsuave.com's /cross-platform-application-development-company. */
 
@@ -57,7 +58,7 @@ const HOME_HREF = BASE_PATH || '/';
 
 export default function CrossPlatformDevelopmentPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       <RestoredLiveLd path="/cross-platform-application-development-company" />
       <Nav logoHref={HOME_HREF} />
 
@@ -83,17 +84,26 @@ export default function CrossPlatformDevelopmentPage() {
           <Faq content={cpFaqs} idPrefix="cross-platform-faq" />
         </div>
 
-        <ManagerEnquiry
-          content={{
-            ...faqsPageEnquiry,
-            manager: {
-              ...faqsPageEnquiry.manager,
-              cta: { ...faqsPageEnquiry.manager.cta, href: navHref(faqsPageEnquiry.manager.cta.href) },
-            },
-          }}
+        <ConsultationClose
           id="book-consultation"
           idPrefix="cross-platform-contact"
-          headingFont
+          blackSubmit
+          content={{
+            title: faqsPageEnquiry.title,
+            body: faqsPageEnquiry.body,
+            steps: faqsPageEnquiry.steps,
+            person: {
+              image: { src: faqsPageEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+              name: faqsPageEnquiry.manager.name,
+              role: faqsPageEnquiry.manager.role,
+            },
+            cta: {
+              label: faqsPageEnquiry.manager.cta?.label ?? 'Schedule a Call',
+              href: navHref(faqsPageEnquiry.manager.cta?.href ?? '/30-min-free-consultation'),
+            },
+            badges: faqsPageEnquiry.badges,
+            form: faqsPageEnquiry.form,
+          }}
         />
       </main>
 

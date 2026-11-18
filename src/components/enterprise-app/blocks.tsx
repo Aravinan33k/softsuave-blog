@@ -22,7 +22,7 @@ export function Solutions() {
         activeLine={0.22}
         items={s.items.map((it) => ({ id: it.id, label: it.name }))}
         action={
-          <SiteLink href={s.cta.href} className={`${home.pill} ${home.pillFilled}`}>
+          <SiteLink href={s.cta.href} className={`${home.pill} ${home.pillFilled} ${styles.tocCta}`}>
             {s.cta.label}
           </SiteLink>
         }

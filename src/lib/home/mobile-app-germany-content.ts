@@ -183,6 +183,7 @@ export const madePortfolio: WorkCarouselContent = {
 };
 
 export const madeProcess: ProcessStepperContent = {
+  wideHead: true,
   title: 'Our Unique Approach To The App Development Process',
   body: 'Soft Suave focuses on creating newness that makes the digital world a better place to fulfill everyone’s needs. These are our steps for mobile app development.',
   steps: [

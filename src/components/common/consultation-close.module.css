@@ -168,3 +168,11 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
   }
 }
+
+/* `blackSubmit`: the form's button turns black (white ink) on hover and focus. */
+.blackSubmit form button[type="submit"]:hover:not(:disabled),
+.blackSubmit form button[type="submit"]:focus-visible:not(:disabled) {
+  background: #000;
+  border-color: #000;
+  color: #fff;
+}

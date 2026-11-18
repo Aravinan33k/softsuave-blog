@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getSiteInfo, getPostBySlug, getPageBySlug, getPublishedPostSlugs, getPublishedPageSlugs, getContentMeta, getRelatedPosts } from '@/lib/public/queries';
+import { isDatabaseNotConfigured } from '@/lib/db-errors';
 import { getActiveTheme } from '@/lib/public/theme';
 import { homepageEnabled } from '@/lib/flags';
 import { buildMetadata, absoluteUrl } from '@/lib/seo/metadata';
@@ -20,17 +21,26 @@ export async function generateStaticParams() {
 }
 
 async function load(slug: string) {
-  const post = await getPostBySlug(slug);
-  if (post) return { content: post, kind: 'post' as const };
-  const page = await getPageBySlug(slug);
-  if (page) return { content: page, kind: 'page' as const };
-  return null;
+  try {
+    const post = await getPostBySlug(slug);
+    if (post) return { content: post, kind: 'post' as const };
+    const page = await getPageBySlug(slug);
+    if (page) return { content: page, kind: 'page' as const };
+    return null;
+  } catch (err) {
+    if (isDatabaseNotConfigured(err)) return null;
+    throw err;
+  }
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const [site, meta] = await Promise.all([getSiteInfo(), getContentMeta(slug)]);
+  const meta = await getContentMeta(slug).catch((err) => {
+    if (isDatabaseNotConfigured(err)) return null;
+    throw err;
+  });
   if (!meta) return {};
+  const site = await getSiteInfo();
 
   const images = meta.ogImageUrl
     ? [absoluteUrl(meta.ogImageUrl)]

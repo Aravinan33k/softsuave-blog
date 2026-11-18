@@ -46,6 +46,17 @@ export interface LocationAppPageContent {
   /** Heading level of the FAQ questions, as the live page sets them. Default H3. */
   faqQuestionAs?: 'h3' | 'h4';
   close: ConsultationCloseContent;
+  /**
+   * The clients heading's measure, so it sets in two lines — see `Clients`' `wideTitle`. `"31ch"` by default, which
+   * suits the shared band's heading; `""` leaves the heading on the shared band's own measure.
+   */
+  clientsTitleMeasure?: string;
+  /** Drops the stacked padding between the technology cluster and the FAQ that follows it. On by default. */
+  faqTight?: boolean;
+  /** A calendar icon before the closing band's "Schedule a Call". On by default. */
+  closeIcon?: boolean;
+  /** The submit buttons of the hero form and the closing form turn black on hover. On by default. */
+  closeSubmitBlack?: boolean;
 }
 
 const HOME_HREF = BASE_PATH || '/';
@@ -78,6 +89,11 @@ const HOME_HREF = BASE_PATH || '/';
  */
 export default function LocationAppPage({ content }: { content: LocationAppPageContent }) {
   const { key } = content;
+  const clientsMeasure = content.clientsTitleMeasure ?? '31ch';
+  // Only where an FAQ follows the cluster: a page without one (Maryland) would otherwise lose the cluster's bottom padding
+  // and its box would touch the dark band below.
+  const faqTight = Boolean(content.faqs) && (content.faqTight ?? true);
+  const submitBlack = content.closeSubmitBlack ?? true;
 
   const portfolio = (
     <WorkGrid
@@ -90,23 +106,23 @@ export default function LocationAppPage({ content }: { content: LocationAppPageC
   );
   // The technology stack, and the FAQ where the page has one.
   const closingLight = (
-    <>
+    <div className={faqTight ? styles.faqJoined : undefined}>
       <TechCluster content={content.tech} marks={content.techMarks} />
       {content.faqs ? (
         <Faq content={content.faqs} idPrefix={`${key}-faq`} questionAs={content.faqQuestionAs} />
       ) : null}
-    </>
+    </div>
   );
 
   return (
-    <div className={`${home.page} ${styles.root}`} data-type-scale="hire">
+    <div className={`${home.page} ${styles.root}${submitBlack ? ` ${styles.submitBlack}` : ""}`} data-type-scale="hire">
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
         <Hero content={content.hero} idPrefix={key} wide />
 
         <div className={home.light}>
-          <Clients logos={content.clientLogos} />
+          <Clients logos={content.clientLogos} wideTitle={clientsMeasure || undefined} />
         </div>
 
         <Overview content={content.about} />
@@ -133,7 +149,7 @@ export default function LocationAppPage({ content }: { content: LocationAppPageC
           </div>
         )}
 
-        <ConsultationClose content={content.close} idPrefix={`${key}-close`} />
+        <ConsultationClose content={content.close} idPrefix={`${key}-close`} ctaIcon={content.closeIcon ?? true} blackSubmit={submitBlack} />
       </main>
 
       <Footer />

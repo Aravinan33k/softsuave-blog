@@ -73,6 +73,7 @@ export const timeTrackingBenefits = [
 
 /** The six-feature showcase, drawn by the homepage's services carousel. */
 export const timeTrackingFeatures: ServicesContent = {
+  wideHead: true,
   title: 'Increase your Field Employees’ Productivity with Soft Suave.',
   body: "Run a profitable construction business with Soft Suave's most flexible and productive time tracking software.",
   items: [

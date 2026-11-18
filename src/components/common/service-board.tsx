@@ -16,6 +16,8 @@ export interface ServiceBoardContent {
   eyebrow: string;
   title: string;
   body: string;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wideHead?: boolean;
   /**
    * Internal links to weave into the services' prose, matched on their own
    * words — see `components/common/linkify`. The live page links phrases
@@ -208,7 +210,7 @@ export default function ServiceBoard({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <div ref={root} className={styles.sbWrap}>
         <div

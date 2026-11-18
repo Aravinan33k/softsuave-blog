@@ -93,6 +93,7 @@ export const sddeAbout: OverviewContent = {
 
 export const sddeServices: ServicesGridContent = {
   eyebrow: '',
+  wideHead: true,
   title: 'Soft Suave’s Multi-dimensional Expertise Service',
   body: 'As one of the leading software development companies in Germany, we assist businesses, including start-ups and SMEs, by providing software development services.',
   items: [

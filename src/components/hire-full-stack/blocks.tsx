@@ -1,3 +1,4 @@
+import { clientsPageBrands } from '@/lib/home/clients-content';
 import Image from 'next/image';
 import FadeUp from '@/components/home/fade-up';
 import SectionHead from '@/components/landing/section-head';
@@ -50,7 +51,7 @@ export function About() {
   return (
     <section className={base.band} id="overview">
       <FadeUp>
-        <SectionHead title={a.title} intro={first} />
+        <SectionHead title={a.title} intro={first} wide />
       </FadeUp>
       <div className={base.split}>
         <FadeUp className={base.prose}>
@@ -151,7 +152,7 @@ export function Trust() {
       </FadeUp>
       <FadeUp className={home.clientsRow} delay={0.08}>
         <Marquee speed={30} className={home.clientsMarquee} separator={<span aria-hidden />}>
-          {t.logos.map((logo) => (
+          {clientsPageBrands.logos.flatMap((logo) => (logo.src ? [{ name: logo.name, src: logo.src }] : [])).map((logo) => (
             <span key={logo.name} className={home.clientsItem}>
               <span className={home.clientLogo}>
                 <Image src={logo.src} alt={logo.name} fill sizes="170px" className="object-contain" />

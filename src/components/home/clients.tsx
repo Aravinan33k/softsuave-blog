@@ -46,8 +46,10 @@ export default function Clients({
   /**
    * Lets a long heading run to two lines on a wide screen instead of the three the narrow default measure gives it
    * ("Preferred Technology Partner for Startups and SMBs Globally"). Below 900px the heading is full width anyway.
+   * A string (`"31ch"`) fixes the measure instead of pulling the column in to the longest line, for a heading that
+   * the pull-in measures once at three lines and holds there ("Preferred AI-Enabled Technology Partner…").
    */
-  wideTitle?: boolean;
+  wideTitle?: boolean | string;
   /** The section id; give a second strip on one page its own. */
   id?: string;
   /**
@@ -79,6 +81,7 @@ export default function Clients({
     <section
       className={`${styles.section} ${styles.clients}${title || body || eyebrow ? "" : ` ${styles.clientsHeadless}`}${wideTitle ? ` ${styles.clientsWideTitle}` : ""}`}
       id={id}
+      style={typeof wideTitle === "string" ? ({ "--clients-title-max": wideTitle } as React.CSSProperties) : undefined}
     >
       {(title || body || eyebrow) && (
         <div className={styles.clientsHead}>

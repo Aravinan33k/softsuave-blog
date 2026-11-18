@@ -16,6 +16,7 @@ import { SiteLink } from '@/themes/softsuave/site-link';
 
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
+import { clientsPageBrands } from '@/lib/home/clients-content';
 import Clients from '@/components/home/clients';
 import Recognitions from '@/components/home/recognitions';
 import Testimonials from '@/components/home/testimonials';
@@ -90,7 +91,7 @@ export default function StaffCostCalculatorPage() {
         </section>
 
         <div className={home.light}>
-          <section className={styles.band} id="calculator">
+          <section className={`${styles.band} ${styles.bandTight}`} id="calculator">
             <StaffCostCalculator marks={marks} />
           </section>
 
@@ -98,18 +99,21 @@ export default function StaffCostCalculatorPage() {
             eyebrow={staffCostClients.eyebrow}
             title={staffCostClients.title}
             body={staffCostClients.body}
-            logos={[...staffCostClients.logos]}
+            logos={clientsPageBrands.logos}
+            wideTitle
           />
           <div className={styles.moreRow}>
             <SiteLink href={staffCostClients.more.href} className={`${home.pill} ${home.pillFilled} ${home.navCta}`}>
               {staffCostClients.more.label}
             </SiteLink>
           </div>
-
-          <Recognitions content={staffCostAwards} />
         </div>
 
-        <Testimonials content={staffCostTestimonials} />
+        <Recognitions content={staffCostAwards} />
+
+        <div className={home.light}>
+          <Testimonials content={staffCostTestimonials} />
+        </div>
       </main>
 
       <Footer />

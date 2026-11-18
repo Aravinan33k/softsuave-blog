@@ -12,7 +12,7 @@ import { navHref } from '@/themes/softsuave/nav-data';
 import Hero from '@/components/landing/hero';
 import SectionHead from '@/components/landing/section-head';
 import Faq from '@/components/landing/faq';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
 import home from '@/components/home/home.module.css';
 import landing from '@/components/landing/landing.module.css';
 
@@ -29,7 +29,7 @@ export default function Sections() {
       <Hero content={faqsPageHero} idPrefix="faqs" variant="compact" breadcrumb={false} />
 
       <div className={home.light}>
-        <section className={landing.sectionShell} id="faqs-intro">
+        <section className={landing.sectionShell} id="faqs-intro" style={{ paddingBottom: 0 }}>
           <SectionHead title={faqsPageIntro.title} intro={faqsPageIntro.body} />
         </section>
         <Faq content={faqsGeneral} idPrefix="faq-general" />
@@ -41,20 +41,27 @@ export default function Sections() {
         <Faq content={faqsHire} idPrefix="faq-hire" />
       </div>
 
-      {/* The live page's closing "Book Free Consultation" block; its "Schedule a Call" goes to the free-consultation page. */}
-      <ManagerEnquiry
-        content={{
-          ...faqsPageEnquiry,
-          manager: {
-            ...faqsPageEnquiry.manager,
-            cta: faqsPageEnquiry.manager.cta && {
-              ...faqsPageEnquiry.manager.cta,
-              href: navHref(faqsPageEnquiry.manager.cta.href),
-            },
-          },
-        }}
+      {/* The closing "Book Free Consultation" band in the /developer-profile design; its "Schedule a Call" goes to the free-consultation page. */}
+      <ConsultationClose
         id="enquiry"
         idPrefix="faqs-contact"
+        ctaIcon
+        content={{
+          title: faqsPageEnquiry.title,
+          body: faqsPageEnquiry.body,
+          steps: faqsPageEnquiry.steps,
+          person: {
+            image: { src: faqsPageEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+            name: faqsPageEnquiry.manager.name,
+            role: faqsPageEnquiry.manager.role,
+          },
+          cta: {
+            label: faqsPageEnquiry.manager.cta?.label ?? 'Schedule a Call',
+            href: navHref(faqsPageEnquiry.manager.cta?.href ?? '/30-min-free-consultation'),
+          },
+          badges: faqsPageEnquiry.badges,
+          form: faqsPageEnquiry.form,
+        }}
       />
     </>
   );
