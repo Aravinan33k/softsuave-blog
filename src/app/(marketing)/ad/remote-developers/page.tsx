@@ -30,11 +30,12 @@ import Process from '@/components/landing/process';
 import TechStack from '@/components/landing/tech-stack';
 // The grid whose cards can carry the live page's own icon images.
 import CardGrid from '@/components/generative-ai/industries';
-// The engagement-model cards the /hire-* pages use, here with a "Hire Now" on each.
-import Integration from '@/components/generative-ai/integration';
 
 import TopTalent from '@/components/ad/top-talent';
 import CtaRow from '@/components/ad/cta-row';
+// The Our Services and Experts carousels, as /ad/remote-developer has them (by request).
+import ServiceCarousel from '@/components/ad/service-carousel';
+import SkillCarousel from '@/components/ad/skill-carousel';
 import TrialModal from '@/components/ad/trial-modal';
 
 import home from '@/components/home/home.module.css';
@@ -86,8 +87,11 @@ export const metadata: Metadata = {
 
 export default function AdRemoteDevelopersPage() {
   return (
-    <div className={home.page}>
-      <main id="main" className={styles.adMain}>
+    // `wideHeadGap`: a wider gap under every section head (by request, as /ad/remote-developer).
+    <div className={`${home.page} ${styles.wideHeadGap}`}>
+      {/* `halfHeads`: section heads with the eyebrow on top, then heading left
+          and subtext right of a centre rule (by request, as /ad/remote-developer). */}
+      <main id="main" className={`${styles.adMain} ${styles.halfHeads}`}>
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         <Hero noNav content={rsHero} idPrefix="ad-remote-developers" breadcrumb={false} />
 
@@ -101,14 +105,16 @@ export default function AdRemoteDevelopersPage() {
         <TopTalent content={rsTalent} whiteHover />
 
         <div className={home.light}>
-          <div className={styles.gridWithCta}>
+          {/* `ctaRoomy`: a full section's room under the closing line, so Services
+              opens a proper section gap below it (by request). */}
+          <div className={`${styles.gridWithCta} ${styles.ctaRoomy}`}>
             <CardGrid content={rsWhy} id="why" variant="bold" />
-            <CtaRow lead={rsWhyClosing} tight joined />
+            <CtaRow lead={rsWhyClosing} tight />
           </div>
-          <div className={styles.gridWithCta}>
-            <CardGrid content={rsServices} id="services" variant="bold" />
-            <CtaRow {...rsServicesCta} wipe tight />
-          </div>
+          {/* The services as a carousel, one card at a time with the Experts
+              arrows, then its own close — as on /ad/remote-developer (by request). */}
+          <ServiceCarousel content={rsServices} id="services" />
+          <CtaRow {...rsServicesCta} attached primary headingLead />
         </div>
 
         <CtaBand content={rsScaleBand} />
@@ -126,14 +132,9 @@ export default function AdRemoteDevelopersPage() {
           <Process content={rsProcess} id="journey" label="n" />
         </div>
 
-        {/* Dark band, three across — the engagement-model cards as the /hire-* pages show them. */}
-        <Integration
-          content={rsExperts}
-          id="experts"
-          variant="bold"
-          blockCta={rsExperts.cta}
-          span={4}
-        />
+        {/* Dark band: the twenty skills as a carousel with centred cards, each
+            with its "Hire Now" to the trial popup — as on /ad/remote-developer (by request). */}
+        <SkillCarousel content={rsExperts} id="experts" />
 
         {/* The site's warm-white band, so the dark experts above it are not
             followed by a second dark section. */}

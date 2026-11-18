@@ -10,7 +10,8 @@
  *   Hero                 landing/hero, the app screenshot in the form's column
  *   Clients              home/clients, the homepage's section as it is (by request)
  *   One Platform         generative-ai/industries (tiles), the picture beside
- *   Features             common/service-board, one live screenshot per feature
+ *   Features             common/feature-accordion (by request: the list left,
+ *                        the open feature's screenshot right)
  *   Hidden Risks         generative-ai/industries (bold), with the live icons
  *   Maximize Value       generative-ai/industries (bold), with the live icons
  *   Industries           generative-ai/industries (tiles), the site's icon badges
@@ -26,7 +27,7 @@
  *    and logos), by request, not the live page's bare strip of its own list.
  *  - The live section heads have no kicker above them. The shared heads
  *    expect one, so each section gets a short label here.
- *  - The live features are five H2s; on the service board they are H3s under
+ *  - The live features are five H2s; in the accordion they are H3s under
  *    the section's H2. "The Hidden Risks…" is set above its cards, where live
  *    sets it below them.
  *  - Every "Get Free Demo" goes to /free-quote, as on the live page.
@@ -35,7 +36,7 @@
 import type { HeroContent } from "@/components/landing/hero";
 import type { CardGridContent } from "@/components/generative-ai/industries";
 import type { CtaBandContent } from "@/components/landing/cta-band";
-import type { ServiceBoardContent } from "@/components/common/service-board";
+import type { FeatureAccordionContent } from "@/components/common/feature-accordion";
 
 const IMG = "/brand/field-tracking-product";
 
@@ -46,13 +47,14 @@ const icon = (file: string, alt: string) => [{ src: `${IMG}/${file}.svg`, alt, w
 
 export const ftMeta = {
   path: "/field-tracking-product",
-  // The live page's <title> and description, verbatim (the construction
-  // product page's own, as live has it). The live page is noindex,nofollow,
-  // and its canonical points at the homepage; both are kept as served.
-  title: "Custom AI Solutions to Empower Your Business",
+  // The page's own title, description and self canonical (by request; they
+  // replace the live page's, which reused the construction product page's
+  // title and description and pointed its canonical at the homepage). The
+  // page stays noindex,nofollow, as live.
+  title: "AI Field Ops Tracker for Smart Teams | Soft Suave",
   description:
-    "Discover how Soft Suave's custom AI solutions can transform your business operations and drive innovation.",
-  canonical: "https://www.softsuave.com/",
+    "Track field teams live with geofencing, biometric login, AI PPE checks and OCR data capture. Improve compliance, safety and efficiency. Get a free demo.",
+  canonical: "https://www.softsuave.com/field-tracking-product",
   ogImage: "https://www.softsuave.com/assets/images/og-img-field-tracking-solution.webp",
 } as const;
 
@@ -91,14 +93,18 @@ export const ftPlatform: CardGridContent = {
   ],
 };
 
+// Each feature's badge glyph, from the site's icon set (not the live page's
+// icons), one per feature so no two badges repeat.
+const FEATURE_ICONS = ["compass", "eye", "target", "file", "shield"] as const;
+
 const feature = (n: number, name: string, body: string) => ({
   name,
   paragraphs: [body],
-  image: { src: `${IMG}/ftpf_img_${n}.webp`, alt: name },
-  link: false as const,
+  icon: FEATURE_ICONS[n - 1],
+  image: { src: `${IMG}/ftpf_img_${n}.webp`, alt: name, width: 550, height: 370 },
 });
 
-export const ftFeatures: ServiceBoardContent = {
+export const ftFeatures: FeatureAccordionContent = {
   eyebrow: "Features",
   title: "Features That Redefine Field Performance",
   body: "Power your operations with secure, intelligent technology designed to enforce safety and maximize team output seamlessly.",
