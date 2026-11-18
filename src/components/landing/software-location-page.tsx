@@ -71,7 +71,7 @@ export default function SoftwareLocationPage({ content }: { content: SoftwareLoc
   const { key } = content;
 
   return (
-    <div className={`${home.page} ${location.root}`} data-type-scale="hire">
+    <div className={`${home.page} ${location.root} ${location.submitBlack}`} data-type-scale="hire">
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
@@ -80,7 +80,7 @@ export default function SoftwareLocationPage({ content }: { content: SoftwareLoc
         <div className={home.light}>
           {/* The hire-software-developers clients band with the deployed
               homepage's logos, as on the location pages. */}
-          <Clients logos={content.clientLogos} />
+          <Clients logos={content.clientLogos} wideTitle="31ch" />
         </div>
 
         <Overview content={content.about} />
@@ -108,7 +108,7 @@ export default function SoftwareLocationPage({ content }: { content: SoftwareLoc
           <Faq content={content.faqs} idPrefix={`${key}-faq`} questionAs="h4" />
         </div>
 
-        <ConsultationClose content={content.close} idPrefix={`${key}-close`} />
+        <ConsultationClose content={content.close} idPrefix={`${key}-close`} blackSubmit />
       </main>
 
       <Footer />

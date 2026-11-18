@@ -16,3 +16,15 @@
 .customTitle {
   margin-bottom: clamp(14px, 1.6vw, 22px);
 }
+
+/* "Get in Touch" under the contents list: on a phone it runs the full width, so its label is centred in it. */
+.tocCta {
+  justify-content: center;
+  text-align: center;
+}
+
+@media (min-width: 1000px) {
+  .tocCta {
+    justify-content: flex-start;
+  }
+}

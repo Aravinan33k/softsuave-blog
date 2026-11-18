@@ -53,7 +53,7 @@ export function About() {
   return (
     <section className={base.band} id="overview">
       <FadeUp>
-        <SectionHead title={<Title text={a.title} accent={a.accent} />} intro={a.body} />
+        <SectionHead title={<Title text={a.title} accent={a.accent} />} intro={a.body} wide />
       </FadeUp>
       <div className={base.split}>
         <FadeUp className={base.prose}>
@@ -103,6 +103,7 @@ export function Benefits() {
       columns={4}
       content={{
         eyebrow: '',
+        wideHead: true,
         title: b.title,
         titleNode: <Title text={b.title} accent={b.accent} />,
         body: b.body,

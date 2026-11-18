@@ -217,7 +217,7 @@ export const engagementTech = {
       body: 'Utilize our offshore mobile app developer’s cutting-edge skills to build top-tier apps with exceptional quality.',
       logos: [
         { name: 'Android', src: `${T}/android.webp`, alt: 'Android', href: '/hire-android-developers' },
-        { name: 'iOS', src: `${T}/apple.webp`, alt: 'iOS', href: '/hire-ios-developers' },
+        { name: 'iOS', src: '/brand/ad/tech/ios-svgrepo-com.webp', alt: 'iOS', href: '/hire-ios-developers' },
         { name: 'React Native', src: `${T}/react-native.webp`, alt: 'React Native', href: '/hire-react-native-developers' },
         { name: 'Flutter', src: `${T}/flutter.webp`, alt: 'Flutter', href: '/hire-flutter-developers' },
         { name: 'Swift', src: `${T}/swift.webp`, alt: 'Swift' },

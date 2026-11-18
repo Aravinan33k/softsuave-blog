@@ -16,7 +16,8 @@ import VideoBanner from '@/components/common/video-banner';
 // of Industries" on /software-development-company.
 import Industries from '@/components/landing/industries';
 import Overview from '@/components/landing/overview';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
+import { navHref } from '@/themes/softsuave/nav-data';
 
 import home from '@/components/home/home.module.css';
 
@@ -68,7 +69,25 @@ export default function AiMlSolutionsPage() {
           <Industries content={aiMlSolutions} id="solutions" columns={3} />
         </div>
 
-        <ManagerEnquiry content={aiMlEnquiry} id="enquiry" idPrefix="ai-ml-contact" />
+        {/* The closing band in the /developer-profile design (as on /faqs); "Schedule a Call" goes to the free-consultation page. */}
+        <ConsultationClose
+          id="enquiry"
+          idPrefix="ai-ml-contact"
+          ctaIcon
+          content={{
+            title: aiMlEnquiry.title,
+            body: aiMlEnquiry.body,
+            steps: aiMlEnquiry.steps,
+            person: {
+              image: { src: aiMlEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+              name: aiMlEnquiry.manager.name,
+              role: aiMlEnquiry.manager.role,
+            },
+            cta: { label: 'Schedule a Call', href: navHref('/30-min-free-consultation') },
+            badges: aiMlEnquiry.badges,
+            form: aiMlEnquiry.form,
+          }}
+        />
 
         <div className={home.light}>
           <Overview content={aiMlOverview} id="overview" />

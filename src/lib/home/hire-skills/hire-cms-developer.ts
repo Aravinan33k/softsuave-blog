@@ -7,6 +7,7 @@
 import type { HireSkill } from "../hire-skill";
 import { sharedHeroAlert } from "../delivery-shared";
 import { partnerTable } from "../hire-comparison";
+import { clientsPageBrands } from "../clients-content";
 import { staffCostTestimonials } from "../staff-cost-calculator-content";
 import { PLATFORM_ORDER } from "./platform-shared";
 
@@ -58,27 +59,7 @@ export const skill: HireSkill = {
   // The live band: "Our Clients" over these nineteen marks, in its order.
   clientsBand: {
     eyebrow: "Our Clients",
-    logos: [
-      { name: "Atomise", src: "/brand/clients/atomise.webp" },
-      { name: "CloudBankin", src: "/brand/clients/cloudbankin.webp" },
-      { name: "Enigma", src: "/brand/clients/enigma.webp" },
-      { name: "Waymore", src: "/brand/clients/waymore.webp" },
-      { name: "Who is up", src: "/brand/clients/whos-up.webp" },
-      { name: "Warmpoint", src: "/brand/clients/warmpoint.webp" },
-      { name: "Utiliko", src: "/brand/clients/utiliko.webp" },
-      { name: "Trafficspy", src: "/brand/clients/trafficspy.webp" },
-      { name: "diet", src: "/brand/clients/the-2020-diet.webp" },
-      { name: "Teamicate", src: "/brand/clients/teamicate.webp" },
-      { name: "Sulekha", src: "/brand/clients/sulekha.webp" },
-      { name: "Promostv", src: "/brand/clients/promostv.webp" },
-      { name: "Poorvika", src: "/brand/clients/poorvika.webp" },
-      { name: "Pacewisdom", src: "/brand/clients/pacewisdom.webp" },
-      { name: "Outsource", src: "/brand/clients/outsource.webp" },
-      { name: "Omri", src: "/brand/clients/omri.webp" },
-      { name: "Officespace", src: "/brand/clients/officespace.webp" },
-      { name: "Oasisdigital", src: "/brand/clients/oasis-digital.webp" },
-      { name: "Netsmartz", src: "/brand/clients/netsmartz.webp" },
-    ],
+    logos: clientsPageBrands.logos,
   },
 
   whyUs: {
@@ -173,9 +154,11 @@ export const skill: HireSkill = {
       "CCompare how each hiring model stacks up: an in-house team, freelancers, and Soft Suave’s experts, using this side-by-side chart to pinpoint the best fit for your business.",
     ),
     eyebrow: "Hiring Guide",
+    wideHead: true,
   },
 
   exploreMore: {
+    wideHead: true,
     eyebrow: "Web Innovation",
     title: "Explore More Web Technologies for Your Project",
     body: "Discover related web technologies and find experts in frameworks, tools, and languages to bring your vision to life.",

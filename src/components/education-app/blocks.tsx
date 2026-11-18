@@ -43,7 +43,7 @@ export function Intro() {
   return (
     <section className={base.band} id="overview">
       <FadeUp>
-        <SectionHead title={<Title text={t.title} accent={t.accent} />} intro={<Pieces pieces={t.body} />} />
+        <SectionHead title={<Title text={t.title} accent={t.accent} />} intro={<Pieces pieces={t.body} />} wide />
       </FadeUp>
       <div className={base.split}>
         <FadeUp className={base.prose}>

@@ -169,7 +169,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .download svg {
@@ -178,7 +178,9 @@
 }
 
 .download:hover {
-  background: color-mix(in srgb, var(--accent) 88%, #000);
+  background: #fff;
+  border-color: #fff;
+  color: #140b08;
 }
 
 .download:focus-visible {
@@ -189,6 +191,8 @@
 /* ---- Dialog --------------------------------------------------------- */
 
 .dialog {
+  /* Centred: the global reset zeroes a dialog's auto margins, which left it in the top-left corner. */
+  margin: auto;
   width: min(560px, calc(100vw - 32px));
   max-height: calc(100dvh - 32px);
   padding: 0;
@@ -211,7 +215,18 @@
   padding: clamp(22px, 3vw, 32px);
   border: 1px solid var(--line);
   border-radius: 20px;
-  background: var(--bg);
+  /* An all-white dialog, whatever band the page puts the profiles on: the band's tokens are swapped for light-ground ones. */
+  --text-bright: #140b08;
+  --text: #3f3833;
+  --line: rgb(20 11 8 / 14%);
+  background: #fff;
+}
+
+.panel form button[type="submit"]:hover:not(:disabled),
+.panel form button[type="submit"]:focus-visible:not(:disabled) {
+  background: #000;
+  border-color: #000;
+  color: #fff;
 }
 
 .close {

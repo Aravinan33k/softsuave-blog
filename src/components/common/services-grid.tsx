@@ -15,6 +15,8 @@ export interface ServicesGridContent {
   eyebrow: string;
   title: string;
   body: string;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wideHead?: boolean;
   /** Phrases in the cards' bodies to link, as the live cards link them — see `CardGrid`'s `links`. */
   links?: readonly InlineLink[];
   items: readonly {
@@ -246,6 +248,7 @@ export default function ServicesGrid({
     eyebrow: content.eyebrow,
     title: content.title,
     body: content.body,
+    wideHead: content.wideHead,
     links: content.links,
     items: content.items.map((item) => ({
       name: item.name,

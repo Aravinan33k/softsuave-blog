@@ -6,10 +6,12 @@ import { entBanner, entEnquiry, entMeta } from '@/lib/home/enterprise-app-conten
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 import VideoBanner from '@/components/common/video-banner';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
+import { navHref } from '@/themes/softsuave/nav-data';
 import { CustomSolutions, Solutions } from '@/components/enterprise-app/blocks';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 
 /** Enterprise Custom Application Development — softsuave.com's /enterprise-custom-application-development. */
 
@@ -41,7 +43,7 @@ export const metadata: Metadata = {
 
 export default function EnterpriseCustomApplicationDevelopmentPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       <Nav />
 
       <main id="main">
@@ -51,7 +53,24 @@ export default function EnterpriseCustomApplicationDevelopmentPage() {
           <Solutions />
         </div>
 
-        <ManagerEnquiry content={entEnquiry} id="enquiry" idPrefix="enterprise-contact" headingFont />
+        <ConsultationClose
+          id="enquiry"
+          idPrefix="enterprise-contact"
+          blackSubmit
+          content={{
+            title: entEnquiry.title,
+            body: entEnquiry.body,
+            steps: entEnquiry.steps,
+            person: {
+              image: { src: entEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+              name: entEnquiry.manager.name,
+              role: entEnquiry.manager.role,
+            },
+            cta: { label: 'Schedule a Call', href: navHref('/30-min-free-consultation') },
+            badges: entEnquiry.badges,
+            form: entEnquiry.form,
+          }}
+        />
 
         <div className={home.light}>
           <CustomSolutions />

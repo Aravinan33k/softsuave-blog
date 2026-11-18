@@ -92,6 +92,7 @@ export const skill: HireSkill = {
   },
 
   whyUs: {
+    wideHead: true,
     eyebrow: "",
     title: "What Makes Our Selenium Tester Unique and Trustworthy?",
     body: "Hire Selenium Tester from us having 5+ years of average experience to build expressive, scalable, & visually appealing web applications.",

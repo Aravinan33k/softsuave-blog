@@ -36,6 +36,8 @@ export interface TechGroup {
 }
 
 export interface TechGroupCardsContent {
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wideHead?: boolean;
   /** Kicker above the heading. Empty or omitted renders none. */
   eyebrow?: string;
   title: string;
@@ -79,7 +81,7 @@ export default function TechGroupCards({
 
   return (
     <section className={gen.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow || undefined} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow || undefined} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <FadeUp>
         <div className={styles.grid} data-cols={columns}>

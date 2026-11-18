@@ -44,10 +44,13 @@ export default function ConsultationClose({
   content,
   idPrefix,
   id = "contact",
-  ctaIcon = false,
+  ctaIcon = true,
+  blackSubmit = false,
 }: Readonly<{
-  /** A calendar icon before the booking button's label, as on the live booking buttons. */
+  /** A calendar icon before the booking button's label, as on the live booking buttons. On by default; `false` drops it. */
   ctaIcon?: boolean;
+  /** The form's submit button turns black on hover, instead of the shared accent shift. */
+  blackSubmit?: boolean;
   content: ConsultationCloseContent;
   /** Namespaces the form's field ids and is the lead's `sourceKey`. */
   idPrefix: string;
@@ -56,7 +59,7 @@ export default function ConsultationClose({
   const { person } = content;
 
   return (
-    <section className={`${gen.sectionShell} ${styles.section}`} id={id}>
+    <section className={`${gen.sectionShell} ${styles.section}${blackSubmit ? ` ${styles.blackSubmit}` : ""}`} id={id}>
       <div className={styles.grid}>
         <div className={styles.copy}>
           <p className={styles.title}>{content.title}</p>

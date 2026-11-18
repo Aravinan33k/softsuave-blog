@@ -24,6 +24,7 @@ import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
 import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
 import { faqsPageEnquiry } from '@/lib/home/faqs-content';
 import { navHref } from '@/themes/softsuave/nav-data';
 
@@ -40,6 +41,19 @@ import Comparison from '@/components/landing/comparison';
 import Faq from '@/components/landing/faq';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
+
+/**
+ * Hire pages that have had their page-by-page review: a clients heading held to two lines and the
+ * testimonials joined to the FAQ. Others keep their earlier look until reviewed.
+ */
+const REVIEWED: ReadonlySet<string> = new Set(['saas', 'cms']);
+
+/** Hire pages whose testimonials sit on the dark ground instead of joining the light FAQ band. */
+const DARK_TESTIMONIALS: ReadonlySet<string> = new Set(['cms']);
+
+/** Hire pages that close on the "Book Free Consultation" band (a superset of REVIEWED). */
+const CONSULT_CLOSE: ReadonlySet<string> = new Set(['saas', 'selenium', 'cms']);
 
 /**
  * What the server shell (`HirePage`) hands the route's client wrapper, and the
@@ -142,6 +156,8 @@ export default function HireBands({
   services,
   overviewImage,
 }: Readonly<HireSectionsProps & { skill: HireSkill }>) {
+  const reviewed = REVIEWED.has(skill.key);
+
   function render(band: HireBand): ReactNode {
     switch (band) {
       case 'clients':
@@ -149,6 +165,7 @@ export default function HireBands({
           <Clients
             key={band}
             logos={(skill.clientsBand?.logos as typeof HIRE_CLIENT_LOGOS | undefined) ?? HIRE_CLIENT_LOGOS}
+            {...(reviewed ? { wideTitle: '31ch' } : {})}
             {...(skill.clientsBand?.eyebrow ? { eyebrow: skill.clientsBand.eyebrow } : {})}
           />
         );
@@ -275,7 +292,7 @@ export default function HireBands({
   for (const band of skill.order) {
     const node = render(band);
     if (!node) continue;
-    const light = LIGHT_BANDS.has(band);
+    const light = LIGHT_BANDS.has(band) && !(band === 'testimonials' && DARK_TESTIMONIALS.has(skill.key));
     const last = groups[groups.length - 1];
     if (last && last.light === light) last.nodes.push(node);
     else groups.push({ light, nodes: [node] });
@@ -302,7 +319,7 @@ export default function HireBands({
       />
       {groups.map((g, i) =>
         g.light ? (
-          <div key={i} className={home.light}>
+          <div key={i} className={reviewed ? `${home.light} ${location.reviewsJoined}` : home.light}>
             {g.nodes}
           </div>
         ) : (
@@ -311,7 +328,29 @@ export default function HireBands({
       )}
       {/* No `ctaHref`: the closing CTA takes its default, the /contact
           route — the review asked for every final CTA to lead there. */}
-      {skill.closingEnquiry ? (
+      {skill.closingEnquiry && CONSULT_CLOSE.has(skill.key) ? (
+        <ConsultationClose
+          id="book-consultation"
+          idPrefix={`${skill.key}-contact`}
+          blackSubmit
+          content={{
+            title: faqsPageEnquiry.title,
+            body: faqsPageEnquiry.body,
+            steps: faqsPageEnquiry.steps,
+            person: {
+              image: { src: faqsPageEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+              name: faqsPageEnquiry.manager.name,
+              role: faqsPageEnquiry.manager.role,
+            },
+            cta: {
+              label: faqsPageEnquiry.manager.cta?.label ?? 'Schedule a Call',
+              href: navHref(faqsPageEnquiry.manager.cta?.href ?? '/30-min-free-consultation'),
+            },
+            badges: faqsPageEnquiry.badges,
+            form: faqsPageEnquiry.form,
+          }}
+        />
+      ) : skill.closingEnquiry ? (
         <ManagerEnquiry
           content={{
             ...faqsPageEnquiry,
