@@ -156,7 +156,7 @@
 # ── Batch 5: services, industries, company and utility pages (86 pages)
 /30-min-free-consultation app
 /about app
-/ai-development-service app
+# /ai-development-service: off the app 18 Nov, see rule 0c in apache.softsuave.example.conf
 /ai-in-logistics app
 /ai-ml-solutions app
 /ai-solutions-for-construction app
@@ -189,7 +189,7 @@
 /free-cost-estimation app
 /free-demo-app app
 /free-quote app
-/generative-ai-integration-service app
+# /generative-ai-integration-service: off the app 18 Nov, see rule 0c in apache.softsuave.example.conf
 /generative-ai-integration-services app
 /global-capability-center app
 /healthcare-mobile-app-development-company app

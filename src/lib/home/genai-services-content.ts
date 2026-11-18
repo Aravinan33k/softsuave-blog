@@ -106,7 +106,7 @@ export const genaiSolutions = {
   title: "Generative AI Solutions We Provide",
   body: [
     'Package your top-priority use cases into ready-to-launch GenAI solutions that plug into existing systems without disrupting current operations with our advanced ',
-    { text: 'AI development services.', href: '/ai-development-service' },
+    { text: 'AI development services.', href: '/custom-ai-development-services' },
   ] as const,
   items: [
     { name: "Smart Document Processing and Extraction", body: "Automatically extract, classify, and summarize data from contracts, forms, and documents so teams replace manual keying with accurate, searchable records.", icon: `${IMG}/solutions/GAIOI1.svg` },
