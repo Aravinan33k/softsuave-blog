@@ -1,8 +1,10 @@
 #!/bin/bash
 # Build a new softsuave-site release next to the running one. No traffic change, no restart.
-# usage: deploy-release.sh <old-rel> <new-rel> <changed-files.tar.gz>
+# usage: deploy-release.sh <old-rel> <new-rel> <changed-files.tar.gz> [deleted-files.txt]
+#   deleted-files.txt: repo-relative paths (one per line) removed since <old-rel>; the copy
+#   from <old-rel> would otherwise keep them, and a stale source file can break the build.
 set -euo pipefail
-OLD=$1; NEW=$2; TAR=$3
+OLD=$1; NEW=$2; TAR=$3; DEL=${4:-}
 BASE=/var/www/softsuave-site
 R=$BASE/releases/$NEW
 export PATH=/opt/node22/bin:/usr/local/bin:/usr/bin:/bin
@@ -13,6 +15,13 @@ mkdir -p "$R"
 tar -C "$BASE/releases/$OLD" --exclude=./.next --exclude=./node_modules -cf - . | tar -C "$R" -xf -
 cp -a "$BASE/releases/$OLD/node_modules" "$R/node_modules"
 tar -xzf "$TAR" -C "$R"
+if [ -n "$DEL" ]; then
+  while IFS= read -r f; do
+    f=${f%$'\r'}
+    case "$f" in ''|/*|*..*) continue ;; esac
+    rm -f -- "$R/$f" && echo "deleted $f"
+  done < "$DEL"
+fi
 ln -sfn "$BASE/shared/.env" "$R/.env"
 cd "$R"
 ( while true; do
