@@ -58,7 +58,8 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
         <Problems content={fintechSolutions} id="solutions" />
       </div>
 
-      <Services content={fintechServices} variant="bold" />
+      {/* No "Learn more" links on the service cards (by request). */}
+      <Services content={fintechServices} variant="bold" noLinks />
 
       <div className={home.light}>
         <Process content={fintechProcess} />
