@@ -398,6 +398,8 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   { path: '/construction-employee-time-tracking-app', title: 'Construction Employee Time Tracking App' },
   // noindex,nofollow on the live site, so out of the sitemap here too.
   { path: '/construction-product', title: 'Construction Product', sitemap: false },
+  // noindex,nofollow on the live site, so out of the sitemap here too.
+  { path: '/field-tracking-product', title: 'Field Tracking Product', sitemap: false },
   { path: '/construction-project-management-software', title: 'Construction Project Management Software' },
   // noindex by the SEO page sheet (row 138), so out of the sitemap.
   { path: '/generative-ai-integration-service', title: 'Generative AI Integration Services', parent: '/software-development-company', sitemap: false },
