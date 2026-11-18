@@ -17,7 +17,8 @@ import Footer from '@/components/home/footer';
 import FadeUp from '@/components/home/fade-up';
 import Recognitions from '@/components/home/recognitions';
 import Clients from '@/components/home/clients';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
+import { clientsPageBrands } from '@/lib/home/clients-content';
 import { Perks, TechBand } from '@/components/engagement-model/engagement-body';
 import { SiteLink } from '@/themes/softsuave/site-link';
 import { navHref } from '@/themes/softsuave/nav-data';
@@ -66,7 +67,7 @@ export default function EngagementModelPage() {
           <div className={styles.heroInner}>
             <h1 className={styles.h1}>
               <span className={styles.line}>
-                {l1}{' '}<span className={styles.accent}>{l2}</span>
+                {l1}{' '}<span className={styles.heroAccent}>{l2}</span>
               </span>
               <span className={styles.line}>{l3}</span>
             </h1>
@@ -80,16 +81,15 @@ export default function EngagementModelPage() {
 
         <TechBand />
 
-        <div className={home.light}>
+        <div className={`${home.light} ${styles.awardsClients}`}>
           <Recognitions content={{ title: engagementAwards.title, items: recognitions.items }} />
-        </div>
-
-        <div className={home.light}>
           <Clients
             eyebrow={engagementClients.eyebrow}
             title={engagementClients.title}
             body=""
-            logos={[...engagementClients.logos]}
+            logos={clientsPageBrands.logos}
+            loopShortRows
+            noFade
           />
           <FadeUp className={styles.moreRow}>
             <SiteLink href={engagementClients.more.href} className={`${home.pillFilled} ${home.pillLg}`}>
@@ -99,16 +99,26 @@ export default function EngagementModelPage() {
         </div>
 
         <FadeUp>
-          <ManagerEnquiry
-            content={{
-              ...faqsPageEnquiry,
-              manager: {
-                ...faqsPageEnquiry.manager,
-                cta: { ...faqsPageEnquiry.manager.cta, href: navHref(faqsPageEnquiry.manager.cta.href) },
-              },
-            }}
+          <ConsultationClose
             id="enquiry"
             idPrefix="engagement-contact"
+            ctaIcon
+            content={{
+              title: faqsPageEnquiry.title,
+              body: faqsPageEnquiry.body,
+              steps: faqsPageEnquiry.steps,
+              person: {
+                image: { src: faqsPageEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+                name: faqsPageEnquiry.manager.name,
+                role: faqsPageEnquiry.manager.role,
+              },
+              cta: {
+                label: faqsPageEnquiry.manager.cta?.label ?? 'Schedule a Call',
+                href: navHref(faqsPageEnquiry.manager.cta?.href ?? '/30-min-free-consultation'),
+              },
+              badges: faqsPageEnquiry.badges,
+              form: faqsPageEnquiry.form,
+            }}
           />
         </FadeUp>
 

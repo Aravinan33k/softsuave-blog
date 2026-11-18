@@ -100,7 +100,7 @@ export const skill: HireSkill = {
       { name: "Front End", items: ["React.js", "Vue.js", "Angular", "HTML5", "CSS3", "Bootstrap", "JavaScript", "TypeScript"] },
       { name: "Back End", items: ["Node.js", "Python (Django, Flask)", "Ruby on Rails", "Java (Spring Boot)", "PHP", ".NET Core", "Golang"] },
       { name: "Cloud Platforms", items: ["AWS", "Azure", "Google Cloud Platform", "Heroku", "DigitalOcean"] },
-      { name: "DatDatabasesa", items: ["MySQL", "PostgreSQL", "MongoDB", "Redis", "Firebase", "DynamoDB"] },
+      { name: "Databases", items: ["MySQL", "PostgreSQL", "MongoDB", "Redis", "Firebase", "DynamoDB"] },
       { name: "APIs & Integrations", items: ["REST", "GraphQL", "SOAP", "OAuth2", "Webhooks", "Payment Gateways"] },
       { name: "Testing Tools", items: ["Jest", "Mocha", "Selenium", "Cypress", "Postman", "JUnit", "RSpec"] },
       { name: "DevOps & CI/CD", items: ["Docker", "Kubernetes", "Jenkins", "GitLab CI", "GitHub Actions", "Terraform"] },

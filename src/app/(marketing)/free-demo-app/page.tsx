@@ -15,6 +15,7 @@ import Recognitions from '@/components/home/recognitions';
 import Testimonials from '@/components/home/testimonials';
 
 import home from '@/components/home/home.module.css';
+import styles from '@/components/ad/ad.module.css';
 
 /**
  * Free Demo App — a clone of softsuave.com/free-demo-app, on the Free
@@ -53,8 +54,8 @@ export default function FreeDemoAppPage() {
 
         {/* The consultation page's band rhythm: Clients and the steps on one
             light band, Recognitions on the dark ground, testimonials light. */}
-        <div className={home.light}>
-          <Clients />
+        <div className={`${home.light} ${styles.sectionsJoined}`}>
+          <Clients wideTitle="31ch" />
           <Process content={freeDemoProcess} id="built-around-you" />
         </div>
 

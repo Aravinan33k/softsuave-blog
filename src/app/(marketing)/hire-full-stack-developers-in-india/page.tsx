@@ -19,12 +19,13 @@ import Hero from '@/components/landing/hero';
 import Faq from '@/components/landing/faq';
 import CtaBand from '@/components/landing/cta-band';
 import EngagementModels from '@/components/ad/engagement-models';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
 import IconSection from '@/components/genai-services/icon-section';
 import { About, Steps, StackCards, Trust, WhyIndia } from '@/components/hire-full-stack/blocks';
 
 import home from '@/components/home/home.module.css';
 import styles from '@/components/hire-full-stack/hire-full-stack.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 
 /** Hire Full Stack Developers — softsuave.com's /hire-full-stack-developers-in-india. */
 
@@ -55,7 +56,7 @@ const HOME_HREF = BASE_PATH || '/';
 
 export default function HireFullStackDevelopersPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       <RestoredLiveLd path="/hire-full-stack-developers-in-india" />
       <Nav logoHref={HOME_HREF} />
 
@@ -72,10 +73,10 @@ export default function HireFullStackDevelopersPage() {
           <WhyIndia />
         </div>
 
-        <EngagementModels content={fsModels} headingFont tintIcons />
+        <EngagementModels content={{ ...fsModels, wideHead: true }} headingFont tintIcons whiteHover />
 
         <div className={home.light}>
-          <IconSection id="benefits" columns={3} mode="bare" eyebrow="" title={fsBenefits.title} body={fsBenefits.body} items={fsBenefits.items} />
+          <IconSection id="benefits" columns={3} mode="bare" wideHead eyebrow="" title={fsBenefits.title} body={fsBenefits.body} items={fsBenefits.items} />
         </div>
 
         <CtaBand content={fsRate} />
@@ -91,17 +92,27 @@ export default function HireFullStackDevelopersPage() {
           </div>
         </div>
 
-        <ManagerEnquiry
-          content={{
-            ...faqsPageEnquiry,
-            manager: {
-              ...faqsPageEnquiry.manager,
-              cta: { ...faqsPageEnquiry.manager.cta, href: navHref(faqsPageEnquiry.manager.cta.href) },
-            },
-          }}
+        {/* The closing "Book Free Consultation" band in the /developer-profile design (as on /faqs). */}
+        <ConsultationClose
           id="book-consultation"
           idPrefix="hire-full-stack-contact"
-          headingFont
+          blackSubmit
+          content={{
+            title: faqsPageEnquiry.title,
+            body: faqsPageEnquiry.body,
+            steps: faqsPageEnquiry.steps,
+            person: {
+              image: { src: faqsPageEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+              name: faqsPageEnquiry.manager.name,
+              role: faqsPageEnquiry.manager.role,
+            },
+            cta: {
+              label: faqsPageEnquiry.manager.cta?.label ?? 'Schedule a Call',
+              href: navHref(faqsPageEnquiry.manager.cta?.href ?? '/30-min-free-consultation'),
+            },
+            badges: faqsPageEnquiry.badges,
+            form: faqsPageEnquiry.form,
+          }}
         />
       </main>
 
