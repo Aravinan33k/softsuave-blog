@@ -206,7 +206,7 @@ export default function IndustriesClient({
               1000px (`.indTilesWithFigure`); without one, the grid is as
               before. */}
           <div className={content.figure ? styles.indTilesWithFigure : undefined}>
-          <div className={styles.indGridTiles} data-cols={content.figure ? 2 : cols}>
+          <div className={styles.indGridTiles} data-cols={content.figure ? (n % 2 === 1 ? 1 : 2) : cols}>
             {content.items.map((item, i) => {
               // A tile links only where its item names a destination — no
               // name-matching here, so a label grid stays labels unless the
