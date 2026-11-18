@@ -40,6 +40,9 @@
 .card {
   display: flex;
   flex-direction: column;
+  /* Icon, name and button centred in the card (by request). */
+  align-items: center;
+  text-align: center;
   gap: clamp(14px, 1.3vw, 18px);
   height: 100%;
   border: 1px solid var(--line);
@@ -81,7 +84,7 @@
 
 .cta {
   margin-top: auto;
-  align-self: flex-start;
+  align-self: center;
 }
 
 /* ---- Arrows -------------------------------------------------------- */

@@ -40,20 +40,32 @@ const siteIsHttps = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.softsuave.
 );
 const extra = (on: boolean, origins: string[]) => (on ? ` ${origins.join(' ')}` : '');
 
-const csp = [
-  "default-src 'self'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-ancestors 'self'", // allow same-origin theme-preview iframe
-  "object-src 'none'",
-  `script-src 'self' 'unsafe-inline'${isProd ? '' : " 'unsafe-eval'"}${extra(gtmOn, GTM_SCRIPT)}`,
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https:",
-  "font-src 'self' data:",
-  `connect-src 'self'${extra(gtmOn, GTM_CONNECT)}`,
-  ...(gtmOn ? [`frame-src 'self' ${GTM_SCRIPT[0]}`] : []),
-  ...(siteIsHttps ? ['upgrade-insecure-requests'] : []),
-].join('; ');
+// Microsoft Clarity's origins: tag.js loads from www.clarity.ms and pulls its
+// script from a lettered subdomain, and the recordings post to another
+// (y.clarity.ms, …). Admitted ONLY on the routes that carry the Clarity tag
+// (CLARITY_ROUTES), so every other page keeps the stricter policy.
+const CLARITY = ['https://www.clarity.ms', 'https://*.clarity.ms'];
+
+/** Pages that load the Clarity tag in their own markup (by request). */
+const CLARITY_ROUTES = ['/ad/remote-developer', '/ad/remote-developers'];
+
+const buildCsp = (clarity = false) =>
+  [
+    "default-src 'self'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "frame-ancestors 'self'", // allow same-origin theme-preview iframe
+    "object-src 'none'",
+    `script-src 'self' 'unsafe-inline'${isProd ? '' : " 'unsafe-eval'"}${extra(gtmOn, GTM_SCRIPT)}${extra(clarity, CLARITY)}`,
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: blob: https:",
+    "font-src 'self' data:",
+    `connect-src 'self'${extra(gtmOn, GTM_CONNECT)}${extra(clarity, CLARITY)}`,
+    ...(gtmOn ? [`frame-src 'self' ${GTM_SCRIPT[0]}`] : []),
+    ...(siteIsHttps ? ['upgrade-insecure-requests'] : []),
+  ].join('; ');
+
+const csp = buildCsp();
 
 const securityHeaders = [
   { key: 'Content-Security-Policy', value: csp },
@@ -146,7 +158,15 @@ const nextConfig: NextConfig = {
     qualities: [75, 90],
   },
   async headers() {
-    return [{ source: '/:path*', headers: securityHeaders }];
+    return [
+      { source: '/:path*', headers: securityHeaders },
+      // The Clarity pages' CSP. Listed after the catch-all on purpose: when two
+      // entries set the same header on a path, the last one wins.
+      ...CLARITY_ROUTES.map((source) => ({
+        source,
+        headers: [{ key: 'Content-Security-Policy', value: buildCsp(true) }],
+      })),
+    ];
   },
   // Redirects are matched before the filesystem, so the "/" rule below wins over
   // app/(marketing)/page.tsx without that route having to know about the flag.

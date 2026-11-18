@@ -1083,6 +1083,112 @@
   }
 }
 
+/* Opt-in on a page's <main> (/ad/remote-developer, by request): every section
+   head laid out like the reference. The eyebrow sits on its own row; under it
+   the heading takes the left half and the subtext the right half, after a
+   hairline at the container's middle, both top-aligned. Placement, spacing
+   and the subtext's line height only; type and colour stay the section's own.
+
+   The shared heads are other modules' classes, so they are matched by shape:
+     - eyebrow and heading in a first <div>, the subtext after it (the
+       landing and generative-ai `SectionHead`, the clients head)
+     - eyebrow, heading and subtext as siblings (the testimonials head)
+   The class is tripled to outrank the shared split-head rules (0,3,0).
+   Stacked below 900px, as before. */
+@media (min-width: 900px) {
+  .halfHeads.halfHeads.halfHeads
+    :is(div:has(> div:first-child > span + h2:last-child), div:has(> span:first-child + h2 + p:last-child)) {
+    --half-gap: clamp(28px, 2.4vw, 40px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "eyebrow eyebrow"
+      "title intro";
+    column-gap: 0;
+    row-gap: clamp(20px, 2.2vw, 32px);
+    align-items: start;
+    max-width: none;
+  }
+
+  /* The eyebrow-and-heading wrapper steps aside so both land on the grid. */
+  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child)) > div:first-child {
+    display: contents;
+  }
+
+  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child)) > div:first-child > span,
+  .halfHeads.halfHeads.halfHeads :is(div:has(> span:first-child + h2 + p:last-child)) > span:first-child {
+    grid-area: eyebrow;
+    margin: 0;
+  }
+
+  .halfHeads.halfHeads.halfHeads
+    :is(div:has(> div:first-child > span + h2:last-child), div:has(> span:first-child + h2 + p:last-child))
+    h2 {
+    grid-area: title;
+    margin: 0;
+    max-width: none;
+    padding-right: var(--half-gap);
+  }
+
+  .halfHeads.halfHeads.halfHeads
+    :is(div:has(> div:first-child > span + h2:last-child), div:has(> span:first-child + h2 + p:last-child))
+    > :is(p, div):last-child {
+    grid-area: intro;
+    display: block;
+    align-self: stretch;
+    justify-self: stretch;
+    max-width: none;
+    margin: 0;
+    padding-left: var(--half-gap);
+    border-left: 1px solid var(--line);
+  }
+
+  /* The subtext itself (the clients head wraps it in a fade-up <div>). */
+  .halfHeads.halfHeads.halfHeads
+    :is(div:has(> div:first-child > span + h2:last-child), div:has(> span:first-child + h2 + p:last-child))
+    > p:last-child,
+  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child)) > div:last-child > p {
+    max-width: none;
+    margin: 0;
+    line-height: 1.65;
+  }
+}
+
+/* Opt-in on a page's wrapper (/ad/remote-developer, by request): every H2 on
+   the page, the trial popup's included, at a 130% line height. One class and
+   an element outranks the shared single-class heading rules. */
+.h2Leading h2 {
+  line-height: 1.3;
+}
+
+/* Opt-in on the wrapper around a page's hero (/ad/remote-developer, by
+   request): a body line the hero sets in bold (`boldBody`, a whole paragraph
+   as one <strong>) takes the brand accent, so the guarantee line stands out. */
+.heroNoteHighlight p > strong:only-child {
+  color: var(--accent);
+  font-weight: 600;
+  /* Larger than the hero's small note size, and italic (by request):
+     18px on a phone up to 21px on desktop. */
+  font-size: clamp(18px, 1.1vw + 5px, 21px);
+  font-style: italic;
+}
+
+/* Opt-in on a page's wrapper (/ad/remote-developer, by request): a wider gap
+   between every section head and the cards or content under it. Overrides
+   the shared rhythm token (home.css: clamp(20px, 1.6vw + 8px, 36px)), which
+   every section head's bottom margin reads: 32px on a phone, about 55px at
+   1440 and 64px on wide screens. */
+.wideHeadGap {
+  --section-head-gap: clamp(32px, 3vw + 12px, 64px);
+}
+
+/* The testimonials head sets its own, tighter gap (`.reviewsInner
+   .sectionHead`, 0,2,0 in home.module.css) rather than the token; matched by
+   shape (eyebrow, heading, subtext as siblings) and brought onto the same gap. */
+.wideHeadGap.wideHeadGap.wideHeadGap div:has(> span:first-child + h2 + p:last-child) {
+  margin-bottom: var(--section-head-gap);
+}
+
 /* Dark-lettered line-art marks (made for a light card) turned white, for a section set on the dark ground. */
 .markOnDark img {
   filter: invert(1);
