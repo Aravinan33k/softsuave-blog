@@ -71,6 +71,7 @@ export const cpOverview: OverviewContent = {
 
 export const cpCapabilities: CardGridContent = {
   eyebrow: 'Capabilities',
+  wideHead: true,
   title: 'Soft Suave’s Cross Platform App Development Capabilities',
   body: 'When it comes to Cross Platform Native App Development, the following technologies are most preferable. Our team of mobility experts utilizes them to craft Apps with excellent performance and stunning graphic design.',
   links: [
@@ -105,6 +106,7 @@ export const cpCapabilities: CardGridContent = {
 
 export const cpServices: ServiceBoardContent = {
   eyebrow: 'What We Offer',
+  wideHead: true,
   title: 'Range of Cross Platform App Development Services We Offer',
   body: 'By delivering the best cross-platform app development services, Soft Suave has helped numerous startups and SMBs to open new business opportunities.',
   cta: { label: 'Talk To Experts', href: '/free-quote' },

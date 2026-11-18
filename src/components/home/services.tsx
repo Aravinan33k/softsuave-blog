@@ -42,6 +42,8 @@ const imgId = (i: number, img: string) =>
 export type ServicesContent = {
   readonly eyebrow?: string;
   readonly title: string;
+  /** Lets a long heading run to two lines instead of the three the narrow default measure gives it. */
+  readonly wideHead?: boolean;
   readonly body: string;
   readonly items: readonly {
     readonly key: string;
@@ -240,7 +242,7 @@ export default function Services({ content = services }: { content?: ServicesCon
         <div className={styles.carHead}>
           <div>
             {content.eyebrow ? <span className={styles.eyebrow}>{content.eyebrow}</span> : null}
-            <SplitReveal as={desktop ? "h2" : "div"} className={styles.carHeadTitle} type="words">
+            <SplitReveal as={desktop ? "h2" : "div"} className={content.wideHead ? `${styles.carHeadTitle} ${styles.carHeadTitleWide}` : styles.carHeadTitle} type="words">
               {content.title}
             </SplitReveal>
           </div>

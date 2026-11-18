@@ -15,7 +15,7 @@ export default function TechGroups() {
   return (
     <section className={landing.sectionShell} id="technologies">
       <FadeUp>
-        <SectionHead kicker={t.eyebrow} title={t.title} intro={t.body} />
+        <SectionHead kicker={t.eyebrow} title={t.title} intro={t.body} wide />
       </FadeUp>
       {t.groups.map((g) => (
         <div key={g.name} className={styles.group}>

@@ -47,7 +47,7 @@ export function About() {
   return (
     <section className={base.band} id="overview">
       <FadeUp>
-        <SectionHead title={a.title} intro={a.body} />
+        <SectionHead title={a.title} intro={a.body} wide />
       </FadeUp>
       <div className={base.split}>
         <FadeUp className={base.prose}>
@@ -117,7 +117,7 @@ export function Best() {
   return (
     <section className={landing.sectionShell} id="best">
       <FadeUp>
-        <SectionHead title={lcBest.title} intro={lcBest.body} />
+        <SectionHead title={lcBest.title} intro={lcBest.body} wide />
       </FadeUp>
       <div className={styles.best}>
         <FadeUp className={styles.bestMedia}>

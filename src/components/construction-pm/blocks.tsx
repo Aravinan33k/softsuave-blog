@@ -51,7 +51,7 @@ function Pieces({ pieces }: { pieces: readonly Piece[] }) {
 function Head({ title, accent, body }: { title: string; accent?: string; body?: React.ReactNode }) {
   return (
     <FadeUp>
-      <SectionHead title={accent ? <Title text={title} accent={accent} /> : title} intro={body} />
+      <SectionHead title={accent ? <Title text={title} accent={accent} /> : title} intro={body} wide />
     </FadeUp>
   );
 }
@@ -88,6 +88,7 @@ export function Features() {
         columns={3}
         content={{
           eyebrow: '',
+          wideHead: true,
           title: f.title,
           titleNode: <Title text={f.title} accent={f.accent} />,
           body: '',
@@ -125,7 +126,7 @@ export function Customers() {
 /** "Try Our Project Management Software…": the site's call-to-action band, its button opening the quote form. */
 export function TryBand() {
   const t = pmTry;
-  return <CtaBand content={{ title: t.title, body: <Pieces pieces={t.body} />, cta: t.cta }} />;
+  return <CtaBand content={{ title: t.title, wideTitle: true, body: <Pieces pieces={t.body} />, cta: t.cta }} />;
 }
 
 /** "Portfolio": the one piece, its picture on the left. */

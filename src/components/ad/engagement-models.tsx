@@ -6,6 +6,8 @@ import styles from "./ad.module.css";
 
 export interface EngagementModelsContent {
   readonly title: string;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  readonly wideHead?: boolean;
   readonly body: string;
   readonly models: readonly {
     readonly name: string;
@@ -25,6 +27,7 @@ export default function EngagementModels({
   id = "models",
   headingFont = false,
   tintIcons = false,
+  whiteHover = false,
 }: {
   content: EngagementModelsContent;
   id?: string;
@@ -32,10 +35,12 @@ export default function EngagementModels({
   headingFont?: boolean;
   /** Draw the (single-colour) icons in the accent orange. */
   tintIcons?: boolean;
+  /** The button's hover fill is white (for a band on the dark ground) instead of black. */
+  whiteHover?: boolean;
 }) {
   return (
     <section className={styles.shell} id={id}>
-      <SectionHead title={content.title} intro={content.body} />
+      <SectionHead title={content.title} intro={content.body} wide={content.wideHead} />
       <div className={styles.models}>
         {content.models.map((m, i) => (
           <FadeUp key={m.name} delay={i * 0.08}>
@@ -70,7 +75,7 @@ export default function EngagementModels({
         ))}
       </div>
       <div className={styles.cta}>
-        <a className={`${styles.btn} ${styles.btnWipe}`} href={content.cta.href}>
+        <a className={`${styles.btn} ${whiteHover ? styles.btnWhite : styles.btnWipe}`} href={content.cta.href}>
           {content.cta.label}
         </a>
       </div>

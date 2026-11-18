@@ -111,7 +111,7 @@ export const ecCaseStudy = {
   item: {
     name: 'Customized eCommerce Platform',
     body: 'This eCommerce app enables clients to provide an unmatched online shopping experience and hassle-free delivery experience for their valuable customers and widen their scope in the eCommerce industry.',
-    cta: { label: 'Download Case Study', href: 'https://www.softsuave.com/case-study-ecommerce-platform' },
+    cta: { label: 'Download Case Study', href: '/case-study-personalized-ecommerce-platform' },
     image: { src: `${IMG}/case-study.webp`, width: 321, height: 638, alt: 'Customized eCommerce Platform Mobile Application' },
   },
 } as const;

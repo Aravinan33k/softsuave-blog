@@ -49,6 +49,7 @@ export default function IconSection({
   columns = 3,
   mode = 'tint',
   cta,
+  wideHead,
 }: {
   id: string;
   eyebrow: string;
@@ -58,10 +59,12 @@ export default function IconSection({
   columns?: 2 | 3 | 4 | 5;
   mode?: 'tint' | 'bare' | 'badge';
   cta?: { readonly label: string; readonly href: string };
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wideHead?: boolean;
 }) {
   return (
     <section className={landing.sectionShell} id={id}>
-      <SectionHead kicker={eyebrow} title={title} intro={typeof body === 'string' ? body : <Pieces pieces={body} />} />
+      <SectionHead kicker={eyebrow} title={title} intro={typeof body === 'string' ? body : <Pieces pieces={body} />} wide={wideHead} />
       <FadeUp>
         <ul className={styles.grid} data-cols={columns}>
           {items.map((it) => (

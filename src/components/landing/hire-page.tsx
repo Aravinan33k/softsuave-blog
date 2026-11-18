@@ -25,6 +25,7 @@ import PhotoCards from '@/components/generative-ai/industries';
 import SectionCta from '@/components/generative-ai/section-cta';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 
 /**
  * Slugs whose overview takes the pipeline's photo centred against the prose
@@ -37,6 +38,9 @@ import home from '@/components/home/home.module.css';
  * with it.
  */
 const CENTERED_OVERVIEW_IMAGES: ReadonlySet<string> = new Set(['hire-mean-stack-developers-india']);
+
+/** Hire pages whose hero form's submit turns black on hover (reviewed page by page; others keep the pink). */
+const BLACK_SUBMIT: ReadonlySet<string> = new Set(['saas', 'selenium', 'cms']);
 
 /**
  * The one rendering of a "Hire <skill> Developers" page.
@@ -145,6 +149,8 @@ export default function HirePage({
         <div
           className={home.section}
           style={{
+            position: 'relative',
+            zIndex: 1,
             paddingTop: 0,
             paddingBottom: 0,
             marginTop: 'calc(var(--section-y) * -0.95)',
@@ -165,7 +171,7 @@ export default function HirePage({
       : photo;
 
   return (
-    <div className={home.page}>
+    <div className={BLACK_SUBMIT.has(skill.key) ? `${home.page} ${location.submitBlack}` : home.page}>
       {/* The live page's own blocks, one <script> each, where it has any —
           see lib/seo/hire-skills-live-schema; otherwise the graph built above. */}
       {HIRE_SKILL_LIVE_SCHEMA[path] ? (
