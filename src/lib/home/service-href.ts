@@ -88,7 +88,7 @@ const SERVICE_RULES: readonly (readonly [RegExp, string])[] = [
   [/\bdata engineering\b|\bdata pipelines?\b|\bdata foundation\b|\bdata preparation\b|\bbig data\b|\bdata warehous\w*\b/, "/data-engineering-services"],
   [/\bdata science\b|\bmlops\b|\bexploratory data analysis\b|\bstatistical analysis\b/, "/data-science-services"],
   [/\bcustom ai\b/, "/custom-ai-development-services"],
-  [/\bai (and ml |ml |\/ml )?(development|consulting|solutions|services|integration)\b|\bai ?(and|\/) ?(ml|machine learning)\b|\bmachine learning (development|services|solutions)\b/, "/ai-development-service"],
+  [/\bai (and ml |ml |\/ml )?(development|consulting|solutions|services|integration)\b|\bai ?(and|\/) ?(ml|machine learning)\b|\bmachine learning (development|services|solutions)\b/, "/custom-ai-development-services"],
   [/\bstaff augmentation\b|\bteam augmentation\b/, "/it-staff-augmentation-services"],
   [/\bglobal capability cent(er|re)s?\b|\bgcc\b/, "/global-capability-center"],
   [/\boffshore (software )?development\b|\boffshore development cent(er|re)\b/, "/offshore-software-development-company"],
