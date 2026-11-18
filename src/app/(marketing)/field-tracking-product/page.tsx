@@ -18,9 +18,10 @@ import Clients from '@/components/home/clients';
 import Hero from '@/components/landing/hero';
 import CtaBand from '@/components/landing/cta-band';
 import CardGrid from '@/components/generative-ai/industries';
-import ServiceBoard from '@/components/common/service-board';
+import FeatureAccordion from '@/components/common/feature-accordion';
 
 import home from '@/components/home/home.module.css';
+import ad from '@/components/ad/ad.module.css';
 
 /**
  * Field tracking product: softsuave.com/field-tracking-product, the AI
@@ -30,8 +31,9 @@ import home from '@/components/home/home.module.css';
  * The copy, and what the live page has that these sections cannot show, are
  * in `lib/home/field-tracking-product-content.ts`.
  *
- * The head is as live: title, description, canonical and Open Graph image,
- * and `noindex, nofollow`. That robots value is kept whatever the site-wide
+ * The head: the page's own title, description and self canonical (by
+ * request, replacing the live page's borrowed ones), the live Open Graph
+ * image, and `noindex, nofollow` as live. That robots value is kept whatever the site-wide
  * setting, so the page is also out of the sitemap (`sitemap: false` in the
  * registry). The live page's two JSON-LD blocks are served verbatim
  * (`live-schema-restored.ts`). The route is in PAGES_WITH_OWN_SITE_GRAPH,
@@ -44,10 +46,10 @@ import home from '@/components/home/home.module.css';
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  // The live page's own title, verbatim; the root title template is "%s".
+  // The page's title as given (it carries its own "| Soft Suave"); the root title template is "%s".
   title: ftMeta.title,
   description: ftMeta.description,
-  // The live canonical, verbatim (it points at the homepage).
+  // Self canonical (by request).
   alternates: { canonical: ftMeta.canonical },
   robots: { index: false, follow: false },
   openGraph: {
@@ -85,7 +87,12 @@ export default function FieldTrackingProductPage() {
           <CardGrid content={ftPlatform} id="overview" variant="tiles" />
         </div>
 
-        <ServiceBoard content={ftFeatures} id="features" />
+        {/* The features as an accordion beside the open one's screenshot, the
+            head in two parts (eyebrow on top, heading left, subtext right of
+            the rule): by request, the reference layout. */}
+        <div className={ad.halfHeads}>
+          <FeatureAccordion content={ftFeatures} id="features" />
+        </div>
 
         <div className={home.light}>
           <CardGrid content={ftRisks} id="risks" variant="bold" />
