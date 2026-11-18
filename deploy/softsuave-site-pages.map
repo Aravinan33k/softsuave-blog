@@ -10,9 +10,6 @@
 # Not listed on purpose:
 #   /404, /410            PHP keeps its own error pages (ErrorDocument 404 /404.php).
 #   /home-v2              a design preview, noindex; not a live URL.
-#   /hire-forward-deployed-engineer
-#                         served today by its own app on :3200. Switch it by
-#                         removing that ProxyPass from the vhost, then adding the line.
 # Everything else on www.softsuave.com (the blog, /forms, the unmigrated PHP pages,
 # the old /ad/* pages, robots.txt, sitemap.xml) is not in this file and stays as it is.
 
@@ -250,3 +247,7 @@
 # ── Batch 7: PHP pages rebuilt later (2 pages, 18 Nov)
 /construction-product app
 /developer-rate-card app
+
+# ── Batch 8: hire-forward page, off its standalone app on :3200 (18 Nov). Its vhost
+#    ProxyPass lines are commented out, not deleted, for rollback.
+/hire-forward-deployed-engineer app
