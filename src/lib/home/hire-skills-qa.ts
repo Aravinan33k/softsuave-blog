@@ -91,6 +91,7 @@ const selenium: HireSkill = {
 
   whyUs: {
     eyebrow: "",
+    wideHead: true,
     title: "What Makes Our Selenium Tester Unique and Trustworthy?",
     body: "Hire Selenium Tester from us having 5+ years of average experience to build expressive, scalable, & visually appealing web applications.",
     items: [

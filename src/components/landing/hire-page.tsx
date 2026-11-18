@@ -31,6 +31,7 @@ import Clients from '@/components/home/clients';
 import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
 import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
 import { faqsPageEnquiry } from '@/lib/home/faqs-content';
 import { navHref } from '@/themes/softsuave/nav-data';
 
@@ -53,6 +54,19 @@ import Comparison from '@/components/landing/comparison';
 import Faq from '@/components/landing/faq';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
+
+/**
+ * Hire pages that have had their page-by-page review: a clients heading held to two lines, the "Book Free
+ * Consultation" close, and a black hover on the hero form's submit. Others keep their earlier look until reviewed.
+ */
+const REVIEWED: ReadonlySet<string> = new Set(['saas']);
+
+/** Hire pages that close on the "Book Free Consultation" band (a superset of REVIEWED). */
+const CONSULT_CLOSE: ReadonlySet<string> = new Set(['saas', 'selenium']);
+
+/** Hire pages whose hero form's submit turns black on hover (a superset of REVIEWED). */
+const BLACK_SUBMIT: ReadonlySet<string> = new Set(['saas', 'selenium']);
 
 /**
  * Which bands sit on the warm-white ground and which stay dark.
@@ -121,6 +135,7 @@ function asCardGrid(content: ServicesContent): CardGridContent {
  */
 export default function HirePage({ skill }: { skill: HireSkill }) {
   const path = `/${skill.slug}`;
+  const reviewed = REVIEWED.has(skill.key);
 
   /*
    * All twenty-four pages' JSON-LD, from this one call.
@@ -168,6 +183,7 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
           <Clients
             key={band}
             logos={(skill.clientsBand?.logos as typeof HIRE_CLIENT_LOGOS | undefined) ?? HIRE_CLIENT_LOGOS}
+            {...(reviewed ? { wideTitle: '31ch' } : {})}
             {...(skill.clientsBand?.eyebrow ? { eyebrow: skill.clientsBand.eyebrow } : {})}
           />
         );
@@ -221,7 +237,7 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
               }}
             />
             {/* The photo grid draws no closing button of its own. */}
-            <div className={home.section} style={{ paddingTop: 0, paddingBottom: 0, marginTop: 'calc(var(--section-y) * -0.95)', marginBottom: 'calc(var(--section-y) * -0.35)' }}>
+            <div className={home.section} style={{ position: 'relative', zIndex: 1, paddingTop: 0, paddingBottom: 0, marginTop: 'calc(var(--section-y) * -0.95)', marginBottom: 'calc(var(--section-y) * -0.35)' }}>
               <SectionCta cta={skill.services.cta} />
             </div>
             </Fragment>
@@ -332,7 +348,7 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
   }
 
   return (
-    <div className={home.page}>
+    <div className={BLACK_SUBMIT.has(skill.key) ? `${home.page} ${location.submitBlack}` : home.page}>
       {/* The live page's own blocks, one <script> each, where it has any —
           see lib/seo/hire-skills-live-schema; otherwise the graph built above. */}
       {HIRE_SKILL_LIVE_SCHEMA[path] ? (
@@ -362,7 +378,7 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
         />
         {groups.map((g, i) =>
           g.light ? (
-            <div key={i} className={home.light}>
+            <div key={i} className={reviewed ? `${home.light} ${location.reviewsJoined}` : home.light}>
               {g.nodes}
             </div>
           ) : (
@@ -371,7 +387,29 @@ export default function HirePage({ skill }: { skill: HireSkill }) {
         )}
         {/* No `ctaHref`: the closing CTA takes its default, the /contact
             route — the review asked for every final CTA to lead there. */}
-        {skill.closingEnquiry ? (
+        {skill.closingEnquiry && CONSULT_CLOSE.has(skill.key) ? (
+          <ConsultationClose
+            id="book-consultation"
+            idPrefix={`${skill.key}-contact`}
+            blackSubmit
+            content={{
+              title: faqsPageEnquiry.title,
+              body: faqsPageEnquiry.body,
+              steps: faqsPageEnquiry.steps,
+              person: {
+                image: { src: faqsPageEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+                name: faqsPageEnquiry.manager.name,
+                role: faqsPageEnquiry.manager.role,
+              },
+              cta: {
+                label: faqsPageEnquiry.manager.cta?.label ?? 'Schedule a Call',
+                href: navHref(faqsPageEnquiry.manager.cta?.href ?? '/30-min-free-consultation'),
+              },
+              badges: faqsPageEnquiry.badges,
+              form: faqsPageEnquiry.form,
+            }}
+          />
+        ) : skill.closingEnquiry ? (
           <ManagerEnquiry
             content={{
               ...faqsPageEnquiry,

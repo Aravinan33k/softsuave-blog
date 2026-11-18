@@ -73,6 +73,12 @@
   padding-bottom: 0;
 }
 
+/* Testimonials above the FAQ: the testimonials' own bottom padding is dropped so only the FAQ's top padding separates them. */
+.reviewsJoined :global(#testimonials) {
+  /* !important: the section's own padding is !important. */
+  padding-bottom: 0 !important;
+}
+
 /* The overview's H2 runs on as one continuous sentence at every width: no
    forced break, and none of the shared section title's 26ch cap, which broke
    this long heading into four short lines. Plain wrapping (`auto`, by
