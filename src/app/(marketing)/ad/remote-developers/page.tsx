@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import {
   rsClients,
@@ -140,6 +141,16 @@ export default function AdRemoteDevelopersPage() {
           <Testimonials content={rsTestimonials} />
         </div>
       </main>
+
+      {/* Microsoft Clarity, on this page (by request). Its origins are
+          admitted for this route in next.config.ts (CLARITY_ROUTES). */}
+      <Script id="ms-clarity" strategy="afterInteractive">
+        {`(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "t5y4fjyp9d");`}
+      </Script>
 
       {/* Every "Start 40 Hours Free Trial" and "Hire Now" button opens this. */}
       <TrialModal form={rsPopup.form} side={rsPopup.side} idPrefix="ad-remote-developers-trial" wipe />

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import {
   rdClients,
@@ -80,11 +81,16 @@ export const metadata: Metadata = {
 
 export default function AdRemoteDeveloperPage() {
   return (
-    <div className={home.page}>
+    // `h2Leading`: every H2 on this page at a 130% line height; `wideHeadGap`:
+    // a wider gap under every section head (both by request).
+    <div className={`${home.page} ${styles.h2Leading} ${styles.wideHeadGap}`}>
       {/* `twoLineHeads`: the Clients and Services headings in two lines, by request. */}
-      <main id="main" className={`${styles.adMain} ${styles.twoLineHeads}`}>
+      {/* `halfHeads`: section heads with the eyebrow on top, then heading left
+          and subtext right of a centre rule (by request, this page only). */}
+      <main id="main" className={`${styles.adMain} ${styles.twoLineHeads} ${styles.halfHeads}`}>
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
-        <div className={styles.wipeForm}>
+        {/* `heroNoteHighlight`: the guarantee line in the accent colour (by request). */}
+        <div className={`${styles.wipeForm} ${styles.heroNoteHighlight}`}>
           <Hero noNav content={rdHero} idPrefix="ad-remote" breadcrumb={false} />
         </div>
 
@@ -93,8 +99,10 @@ export default function AdRemoteDeveloperPage() {
               open the white band that follows it. */}
           <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={rdClients.title} body={rdClients.body} wideTitle />
           <CardGrid content={rdWhy} id="why" variant="bold" />
-          {/* The Why section's closing line: under its cards, in the heading face. */}
-          <CtaRow lead={rdWhyClosing} attached joined headingLead />
+          {/* The Why section's closing line: under its cards, in the heading face.
+              Not `joined`: it keeps the band's bottom padding, so Services opens
+              a full section gap below it (by request). */}
+          <CtaRow lead={rdWhyClosing} attached headingLead />
           {/* The services as a carousel, three to a page (by request). */}
           <ServiceCarousel content={rdServices} id="services" />
           {/* The services section's own close: under its cards, with the
@@ -118,6 +126,16 @@ export default function AdRemoteDeveloperPage() {
           <Testimonials content={rdTestimonials} />
         </div>
       </main>
+
+      {/* Microsoft Clarity, on this page only (by request). Its origins are
+          admitted for this route alone in next.config.ts (CLARITY_ROUTES). */}
+      <Script id="ms-clarity" strategy="afterInteractive">
+        {`(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "t5y4fjyp9d");`}
+      </Script>
 
       {/* Every "Start 40 Hours Free Trial" and "Hire Now" button opens this. */}
       <TrialModal form={rdPopup.form} side={rdPopup.side} idPrefix="ad-remote-trial" wipe />
