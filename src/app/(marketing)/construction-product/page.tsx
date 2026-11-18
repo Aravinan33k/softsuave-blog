@@ -33,8 +33,9 @@ import home from '@/components/home/home.module.css';
  * order. The copy, and the list of what the live page has that these sections
  * cannot show, are in `lib/home/construction-product-content.ts`.
  *
- * The head is as live: title, description, canonical and Open Graph image,
- * and `noindex, nofollow`. That robots value is kept whatever the site-wide
+ * The head: the page's own title, description and self canonical (by
+ * request, replacing the live page's generic ones), the live Open Graph
+ * image, and `noindex, nofollow` as live. That robots value is kept whatever the site-wide
  * setting, so the page is also out of the sitemap (`sitemap: false` in
  * the registry). The live page's two JSON-LD blocks are served verbatim
  * (`live-schema-restored.ts`). The route is in PAGES_WITH_OWN_SITE_GRAPH,
@@ -47,10 +48,10 @@ import home from '@/components/home/home.module.css';
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  // The live page's own title, verbatim; the root title template is "%s".
+  // The page's title as given (it carries its own "| Soft Suave"); the root title template is "%s".
   title: cpMeta.title,
   description: cpMeta.description,
-  // The live canonical, verbatim (it points at the homepage).
+  // Self canonical (by request).
   alternates: { canonical: cpMeta.canonical },
   robots: { index: false, follow: false },
   openGraph: {
