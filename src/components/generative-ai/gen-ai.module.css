@@ -2670,6 +2670,12 @@
 .indGridTiles .indBoldCard:nth-child(5n + 4) { --card-accent: var(--card-accent-4); }
 .indGridTiles .indBoldCard:nth-child(5n + 5) { --card-accent: var(--card-accent-5); }
 
+/* Beside a figure, an odd count stacks in one column (three cards in two
+   columns left the third alone on its row beside the picture). */
+.indGridTiles[data-cols="1"] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 @media (min-width: 1000px) {
   .indGridTiles[data-cols="4"] {
     grid-template-columns: repeat(4, minmax(0, 1fr));
