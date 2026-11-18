@@ -31,7 +31,7 @@ export const thankYou = {
   help: ["Slice and dice data", "Make informed decision", "Seal the cracks quickly"],
   cta: {
     label: "Book My Calendar",
-    href: "https://calendly.com/soft_suave/initial_discussion",
+    href: "https://calendly.com/soft_suave/dedicated-teams",
   },
   note: {
     title: "Note:",

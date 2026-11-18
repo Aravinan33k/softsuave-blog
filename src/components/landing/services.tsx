@@ -72,10 +72,17 @@ export default function Services({
   id = "services",
   variant = "default",
   cardLinks = false,
+  noLinks = false,
 }: {
   content: ServicesContent;
   id?: string;
   variant?: "default" | "bold";
+  /**
+   * No link on any card: neither the "Learn more" nor a linked card. For a
+   * page that asks for the cards to stand alone (fintech AI page review:
+   * "remove the 'learn more' with link"). Wins over `cardLinks`.
+   */
+  noLinks?: boolean;
   /**
    * The whole card is the link instead of a "Learn more" under its copy
    * (reviews: "remove the 'Learn More' and make the whole card clickable").
@@ -120,7 +127,7 @@ export default function Services({
         className={bold ? styles.boldGrid : styles.svcGrid}
       >
         {content.items.map((s, i) => {
-          const href = hrefFor(s.name, s.href);
+          const href = noLinks ? undefined : hrefFor(s.name, s.href);
           const title =
             href && cardLinks ? (
               <SiteLink href={href} className={styles.cardStretch}>
