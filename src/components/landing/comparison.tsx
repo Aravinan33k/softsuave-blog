@@ -22,6 +22,8 @@ export interface ComparisonContent {
   eyebrow: string;
   title: string;
   body: string;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wideHead?: boolean;
   /**
    * Column headings for the value cells, in order. The first is the "lead"
    * column and takes the coral accent — on a vs. comparison that is the option
@@ -75,7 +77,7 @@ export default function Comparison({
 }) {
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <SimpleTable
         caption={content.title}

@@ -51,6 +51,7 @@ export interface TechStackContent {
 export default function TechStack({
   content = homeTechStack,
   id = "tech",
+  wideHead = false,
   staticFrom,
   loopShortRows = false,
   collapsedGroups,
@@ -80,9 +81,11 @@ export default function TechStack({
    * link to the first of them rather than to the technology section.
    */
   id?: string;
+  /** Lets a long heading run to two lines on a wide screen instead of three. */
+  wideHead?: boolean;
 } = {}) {
   return (
-    <section className={`${styles.section} ${styles.techSection}`} id={id}>
+    <section className={`${styles.section} ${styles.techSection}${wideHead ? ` ${styles.techWideHead}` : ""}`} id={id}>
       <div className={styles.sectionHead}>
         <span className={styles.eyebrow}>{content.eyebrow}</span>
         <SplitReveal as="h2" className={styles.h2} type="words">

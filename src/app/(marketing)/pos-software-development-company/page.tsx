@@ -11,11 +11,12 @@ import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 import Hero from '@/components/landing/hero';
 import Faq from '@/components/landing/faq';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
 import QuotePopup from '@/components/pos/quote-popup';
 import { About, Features, Portfolio, Services, Solutions } from '@/components/pos/blocks';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 
 /** POS Software Development Company — softsuave.com's /pos-software-development-company. */
 
@@ -59,7 +60,7 @@ const structuredData = {
 
 export default function PosSoftwareDevelopmentPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       <JsonLd data={structuredData} />
       <Nav logoHref={HOME_HREF} />
 
@@ -85,17 +86,26 @@ export default function PosSoftwareDevelopmentPage() {
 
         <QuotePopup />
 
-        <ManagerEnquiry
-          content={{
-            ...faqsPageEnquiry,
-            manager: {
-              ...faqsPageEnquiry.manager,
-              cta: { ...faqsPageEnquiry.manager.cta, href: navHref(faqsPageEnquiry.manager.cta.href) },
-            },
-          }}
+        <ConsultationClose
           id="book-consultation"
           idPrefix="pos-contact"
-          headingFont
+          blackSubmit
+          content={{
+            title: faqsPageEnquiry.title,
+            body: faqsPageEnquiry.body,
+            steps: faqsPageEnquiry.steps,
+            person: {
+              image: { src: faqsPageEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+              name: faqsPageEnquiry.manager.name,
+              role: faqsPageEnquiry.manager.role,
+            },
+            cta: {
+              label: faqsPageEnquiry.manager.cta?.label ?? 'Schedule a Call',
+              href: navHref(faqsPageEnquiry.manager.cta?.href ?? '/30-min-free-consultation'),
+            },
+            badges: faqsPageEnquiry.badges,
+            form: faqsPageEnquiry.form,
+          }}
         />
       </main>
 

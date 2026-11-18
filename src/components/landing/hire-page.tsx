@@ -60,13 +60,13 @@ import location from '@/components/landing/location-app-page.module.css';
  * Hire pages that have had their page-by-page review: a clients heading held to two lines, the "Book Free
  * Consultation" close, and a black hover on the hero form's submit. Others keep their earlier look until reviewed.
  */
-const REVIEWED: ReadonlySet<string> = new Set(['saas']);
+const REVIEWED: ReadonlySet<string> = new Set(['saas', 'cms']);
 
 /** Hire pages that close on the "Book Free Consultation" band (a superset of REVIEWED). */
-const CONSULT_CLOSE: ReadonlySet<string> = new Set(['saas', 'selenium']);
+const CONSULT_CLOSE: ReadonlySet<string> = new Set(['saas', 'selenium', 'cms']);
 
 /** Hire pages whose hero form's submit turns black on hover (a superset of REVIEWED). */
-const BLACK_SUBMIT: ReadonlySet<string> = new Set(['saas', 'selenium']);
+const BLACK_SUBMIT: ReadonlySet<string> = new Set(['saas', 'selenium', 'cms']);
 
 /**
  * Which bands sit on the warm-white ground and which stay dark.

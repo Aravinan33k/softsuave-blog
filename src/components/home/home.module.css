@@ -5643,6 +5643,11 @@ h1.h2 {
   }
   /* `wideTitle`: room for a long heading to set in two lines; `--fit-width` still pulls the column in to the longest
      line, and balancing keeps the two lines even. Doubled so it outranks the 20ch rule above. */
+  .techWideHead.techWideHead .sectionHead.sectionHead > h2.h2.h2 {
+    /* A fixed measure, not the pull-in: it lets this long heading run two lines. Doubled to outrank the split-head rule's :has() selector. */
+    max-width: 32ch;
+    text-wrap: balance;
+  }
   .clientsWideTitle .clientsHead .h2.h2 {
     max-width: var(--clients-title-max, min(36ch, var(--fit-width, 36ch)));
     text-wrap: balance;

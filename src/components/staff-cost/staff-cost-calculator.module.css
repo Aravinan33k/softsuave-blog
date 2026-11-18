@@ -642,5 +642,10 @@
   display: flex;
   justify-content: center;
   margin-top: calc(-1 * clamp(32px, 4vw, 56px));
-  padding: 0 var(--gutter);
+  padding: 0 var(--gutter) var(--section-y);
+}
+
+/* The calculator band when the Clients band follows it: Clients' own top padding is the only gap between them. */
+.bandTight {
+  padding-bottom: 0;
 }

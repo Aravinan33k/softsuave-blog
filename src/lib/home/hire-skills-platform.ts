@@ -15,6 +15,7 @@ import type { HireSkill } from "./hire-skill";
 import { sharedHeroAlert } from "./delivery-shared";
 import { webExplore } from "./hire-explore";
 import { partnerTable } from "./hire-comparison";
+import { clientsPageBrands } from "./clients-content";
 import { staffCostTestimonials } from "./staff-cost-calculator-content";
 import { FIGURES, HOURLY_RATE, SPECIALISTS_PLUS } from "../company-figures";
 
@@ -663,7 +664,7 @@ const saas: HireSkill = {
       { name: "Front End", items: ["React.js", "Vue.js", "Angular", "HTML5", "CSS3", "Bootstrap", "JavaScript", "TypeScript"] },
       { name: "Back End", items: ["Node.js", "Python (Django, Flask)", "Ruby on Rails", "Java (Spring Boot)", "PHP", ".NET Core", "Golang"] },
       { name: "Cloud Platforms", items: ["AWS", "Azure", "Google Cloud Platform", "Heroku", "DigitalOcean"] },
-      { name: "DatDatabasesa", items: ["MySQL", "PostgreSQL", "MongoDB", "Redis", "Firebase", "DynamoDB"] },
+      { name: "Databases", items: ["MySQL", "PostgreSQL", "MongoDB", "Redis", "Firebase", "DynamoDB"] },
       { name: "APIs & Integrations", items: ["REST", "GraphQL", "SOAP", "OAuth2", "Webhooks", "Payment Gateways"] },
       { name: "Testing Tools", items: ["Jest", "Mocha", "Selenium", "Cypress", "Postman", "JUnit", "RSpec"] },
       { name: "DevOps & CI/CD", items: ["Docker", "Kubernetes", "Jenkins", "GitLab CI", "GitHub Actions", "Terraform"] },
@@ -782,30 +783,10 @@ const cms: HireSkill = {
     },
   },
 
-  // The live band: "Our Clients" over these nineteen marks, in its order.
+  // The /clients page's full roster (109 marks), not the live band's nineteen.
   clientsBand: {
     eyebrow: "Our Clients",
-    logos: [
-      { name: "Atomise", src: "/brand/clients/atomise.webp" },
-      { name: "CloudBankin", src: "/brand/clients/cloudbankin.webp" },
-      { name: "Enigma", src: "/brand/clients/enigma.webp" },
-      { name: "Waymore", src: "/brand/clients/waymore.webp" },
-      { name: "Who is up", src: "/brand/clients/whos-up.webp" },
-      { name: "Warmpoint", src: "/brand/clients/warmpoint.webp" },
-      { name: "Utiliko", src: "/brand/clients/utiliko.webp" },
-      { name: "Trafficspy", src: "/brand/clients/trafficspy.webp" },
-      { name: "diet", src: "/brand/clients/the-2020-diet.webp" },
-      { name: "Teamicate", src: "/brand/clients/teamicate.webp" },
-      { name: "Sulekha", src: "/brand/clients/sulekha.webp" },
-      { name: "Promostv", src: "/brand/clients/promostv.webp" },
-      { name: "Poorvika", src: "/brand/clients/poorvika.webp" },
-      { name: "Pacewisdom", src: "/brand/clients/pacewisdom.webp" },
-      { name: "Outsource", src: "/brand/clients/outsource.webp" },
-      { name: "Omri", src: "/brand/clients/omri.webp" },
-      { name: "Officespace", src: "/brand/clients/officespace.webp" },
-      { name: "Oasisdigital", src: "/brand/clients/oasis-digital.webp" },
-      { name: "Netsmartz", src: "/brand/clients/netsmartz.webp" },
-    ],
+    logos: clientsPageBrands.logos,
   },
 
   whyUs: {
@@ -900,9 +881,11 @@ const cms: HireSkill = {
       "CCompare how each hiring model stacks up: an in-house team, freelancers, and Soft Suave’s experts, using this side-by-side chart to pinpoint the best fit for your business.",
     ),
     eyebrow: "Hiring Guide",
+    wideHead: true,
   },
 
   exploreMore: {
+    wideHead: true,
     eyebrow: "Web Innovation",
     title: "Explore More Web Technologies for Your Project",
     body: "Discover related web technologies and find experts in frameworks, tools, and languages to bring your vision to life.",

@@ -131,7 +131,7 @@ export default function ExploreMarquee({
   return (
     <section className={styles.exploreBand} id={id}>
       <div className={styles.exploreHead}>
-        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
       </div>
 
       {tabs && tabs.length > 0 ? (

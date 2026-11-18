@@ -9,7 +9,6 @@ import {
   swiftFaqs,
   swiftHero,
   swiftHire,
-  swiftLogos,
   swiftMeta,
 } from '@/lib/home/swift-content';
 import { navHref } from '@/themes/softsuave/nav-data';
@@ -21,10 +20,11 @@ import CtaBand from '@/components/landing/cta-band';
 import Faq from '@/components/landing/faq';
 import ServiceBoard from '@/components/common/service-board';
 import Clients from '@/components/home/clients';
-import ManagerEnquiry from '@/components/ad/manager-enquiry';
+import ConsultationClose from '@/components/common/consultation-close';
 import { About, TechTiles, WorkFor, Why } from '@/components/swift/blocks';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 
 /** Swift App Development Company — softsuave.com's /swift-app-development-company. */
 
@@ -68,16 +68,16 @@ const structuredData = {
 
 export default function SwiftAppDevelopmentCompanyPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       <JsonLd data={structuredData} />
       <Nav logoHref={HOME_HREF} />
 
       <main id="main">
         <Hero content={swiftHero} idPrefix="swift" breadcrumb={false} />
 
-        {/* The live page's eight client logos under the hero, running as the clients band does. */}
+        {/* The homepage client carousel, logos only. */}
         <div className={home.light}>
-          <Clients logos={swiftLogos} title="" body="" eyebrow="" id="clients" />
+          <Clients title="" body="" eyebrow="" id="clients" />
           <About />
           <ServiceBoard content={swiftExpertise} />
         </div>
@@ -96,17 +96,26 @@ export default function SwiftAppDevelopmentCompanyPage() {
 
         <Faq content={swiftFaqs} idPrefix="swift-faq" />
 
-        <ManagerEnquiry
-          content={{
-            ...faqsPageEnquiry,
-            manager: {
-              ...faqsPageEnquiry.manager,
-              cta: { ...faqsPageEnquiry.manager.cta, href: navHref(faqsPageEnquiry.manager.cta.href) },
-            },
-          }}
+        <ConsultationClose
           id="book-consultation"
           idPrefix="swift-contact"
-          headingFont
+          blackSubmit
+          content={{
+            title: faqsPageEnquiry.title,
+            body: faqsPageEnquiry.body,
+            steps: faqsPageEnquiry.steps,
+            person: {
+              image: { src: faqsPageEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+              name: faqsPageEnquiry.manager.name,
+              role: faqsPageEnquiry.manager.role,
+            },
+            cta: {
+              label: faqsPageEnquiry.manager.cta?.label ?? 'Schedule a Call',
+              href: navHref(faqsPageEnquiry.manager.cta?.href ?? '/30-min-free-consultation'),
+            },
+            badges: faqsPageEnquiry.badges,
+            form: faqsPageEnquiry.form,
+          }}
         />
       </main>
 
