@@ -5,26 +5,45 @@ import type { CardGridContent } from "@/components/generative-ai/industries";
 import FadeUp from "@/components/home/fade-up";
 import SectionHead from "@/components/generative-ai/section-head";
 import gen from "@/components/generative-ai/gen-ai.module.css";
+import home from "@/components/home/home.module.css";
 import styles from "./service-carousel.module.css";
 
 /** How long each position holds before the row moves on by one card. */
 const DWELL_MS = 3000;
 
 /**
+ * Copies of the first cards set after the last, so the loop runs on forward
+ * from the last card into the first instead of scrolling back over every
+ * card. As many as the widest view shows (`--per` at 1280px and up).
+ */
+const CLONES = 4;
+
+/** How long the row must be still before a stop inside the copies is swapped for the real cards. */
+const SETTLE_MS = 140;
+
+/**
  * The client half of `ServiceCarousel`: the section's standard head, then one
  * row of cards — a tinted icon tile, the name (an H3) and the card's line —
- * with the next card peeking in at the right edge, and a dot per page under
- * it. Four cards in view on a wide screen, then three, two and one.
+ * with the next card peeking in at the right edge, and the Experts section's
+ * arrow pair under it on the right (`SkillCarousel`: the client stories'
+ * boxed arrows, same classes). Four cards in view on a wide screen, then
+ * three, two and one.
  *
- * It runs on its own, one card every few seconds, back to the first after
- * the last. The run pauses while the pointer is over the row, while anything
- * in it has focus, while it is off screen and while the tab is hidden; under
- * reduced motion it never starts.
+ * It moves ONE card at a time: on its own every few seconds, and per click of
+ * an arrow. Both directions loop without running back over the row: past the
+ * last card it moves on into copies of the first cards (hidden from assistive
+ * tech and focus) and, once still, is swapped without motion for the real
+ * ones; back from the first card it is first swapped to those copies, then
+ * moves back one onto the last card.
  *
- * Native horizontal scroll with snap, so swipe, trackpad and keyboard work;
- * a dot jumps to its page. Name and line keep the card grid's own type
- * (`gen.indBoldName`, `gen.indBoldBody`), and each card keeps its place in
- * the brand's five-colour card ramp, as on the grid.
+ * The auto-advance pauses while the pointer is over the row, while anything in
+ * it has focus, while it is off screen and while the tab is hidden; under
+ * reduced motion it never starts and every move is a jump, not a glide.
+ *
+ * Native horizontal scroll with snap underneath, so swipe and trackpad work
+ * too. Name and line keep the card grid's own type (`gen.indBoldName`,
+ * `gen.indBoldBody`), and each card keeps its place in the brand's
+ * five-colour card ramp, as on the grid.
  */
 export default function ServiceCarouselClient({
   content,
@@ -37,69 +56,60 @@ export default function ServiceCarouselClient({
 }) {
   const root = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLUListElement>(null);
-  const [pages, setPages] = useState(1);
-  const [page, setPage] = useState(0);
+  const settle = useRef<number | undefined>(undefined);
+  const count = content.items.length;
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [visible, setVisible] = useState(false);
   const [reduced, setReduced] = useState(false);
 
-  /** One card's stride (its width plus the gap) and whole cards per page. */
-  const geometry = useCallback(() => {
+  /** One card's stride: its width plus the gap, measured unrounded. */
+  const stride = useCallback(() => {
     const el = track.current;
-    const first = el?.firstElementChild as HTMLElement | null;
-    if (!el || !first) return null;
-    const style = getComputedStyle(el);
-    const gap = parseFloat(style.columnGap) || 0;
-    const stride = first.offsetWidth + gap;
-    // The visible row, without the right-hand peek (the track runs into the
-    // gutter) or the left inset that keeps the cards' shadows unclipped.
-    const view = el.clientWidth - (parseFloat(style.paddingLeft) || 0) - (parseFloat(style.paddingRight) || 0);
-    const per = Math.max(1, Math.floor((view + gap + 1) / stride));
-    return { el, stride, per };
+    const [a, b] = el ? [el.children[0], el.children[1]] : [];
+    if (!a || !b) return 0;
+    return b.getBoundingClientRect().left - a.getBoundingClientRect().left;
   }, []);
 
-  const measure = useCallback(() => {
-    const g = geometry();
-    if (!g) return;
-    const { el, stride, per } = g;
-    const count = Math.max(1, Math.ceil(content.items.length / per));
-    const max = el.scrollWidth - el.clientWidth;
-    setPages(count);
-    setPage(
-      el.scrollLeft >= max - 2 ? count - 1 : Math.min(count - 1, Math.round(el.scrollLeft / (stride * per))),
-    );
-  }, [geometry, content.items.length]);
-
+  // Stopped inside the copies (after an arrow, the autoplay or a swipe):
+  // swap to the same place among the real cards.
   useEffect(() => {
     const el = track.current;
-    if (!el) return;
-    measure();
-    el.addEventListener("scroll", measure, { passive: true });
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => {
-      el.removeEventListener("scroll", measure);
-      ro.disconnect();
+    if (!el || count < 2) return;
+    const onScroll = () => {
+      window.clearTimeout(settle.current);
+      settle.current = window.setTimeout(() => {
+        const s = stride();
+        if (s && el.scrollLeft >= count * s - 2) el.scrollTo({ left: el.scrollLeft - count * s, behavior: "auto" });
+      }, SETTLE_MS);
     };
-  }, [measure]);
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      window.clearTimeout(settle.current);
+    };
+  }, [count, stride]);
 
-  const go = (to: number) => {
-    const g = geometry();
-    if (!g) return;
-    g.el.scrollTo({ left: to * g.per * g.stride, behavior: reduced ? "auto" : "smooth" });
-  };
-
-  /** On by one card; past the last, back to the first. */
-  const advance = useCallback(() => {
-    const g = geometry();
-    if (!g) return;
-    const { el, stride } = g;
-    const max = el.scrollWidth - el.clientWidth;
-    const behavior: ScrollBehavior = reduced ? "auto" : "smooth";
-    if (el.scrollLeft >= max - 2) el.scrollTo({ left: 0, behavior });
-    else el.scrollTo({ left: Math.min(max, (Math.round(el.scrollLeft / stride) + 1) * stride), behavior });
-  }, [geometry, reduced]);
+  /** Move one card either way, looping at both ends. */
+  const step = useCallback(
+    (dir: 1 | -1) => {
+      const el = track.current;
+      const s = stride();
+      if (!el || !s) return;
+      const behavior: ScrollBehavior = reduced ? "auto" : "smooth";
+      // Snap to the card boundary, so a half-swiped row lands whole.
+      let at = Math.round(el.scrollLeft / s);
+      if (dir === -1 && at <= 0) {
+        // Back from the first card: jump to its copy (the same view), then
+        // move back one onto the last card.
+        at = count;
+        el.scrollTo({ left: at * s, behavior: "auto" });
+      }
+      const to = (at + dir) * s;
+      requestAnimationFrame(() => el.scrollTo({ left: to, behavior }));
+    },
+    [stride, reduced, count],
+  );
 
   // Reduced motion, read live.
   useEffect(() => {
@@ -120,14 +130,29 @@ export default function ServiceCarouselClient({
   }, []);
 
   // The auto-advance itself.
-  const running = visible && !hovered && !focused && !reduced;
+  const running = visible && !hovered && !focused && !reduced && count > 1;
   useEffect(() => {
     if (!running) return;
     const timer = window.setInterval(() => {
-      if (!document.hidden) advance();
+      if (!document.hidden) step(1);
     }, DWELL_MS);
     return () => window.clearInterval(timer);
-  }, [running, advance]);
+  }, [running, step]);
+
+  const card = (i: number) => {
+    const item = content.items[i];
+    return (
+      <article className={styles.card}>
+        <span className={styles.icon} aria-hidden>
+          {icons[i]}
+        </span>
+        <h3 className={gen.indBoldName}>{item.name}</h3>
+        <p className={gen.indBoldBody}>{item.body}</p>
+      </article>
+    );
+  };
+
+  const clones = count > 1 ? Math.min(CLONES, count) : 0;
 
   return (
     <section className={gen.sectionShell} id={id}>
@@ -149,30 +174,46 @@ export default function ServiceCarouselClient({
         >
           <ul ref={track} className={styles.track}>
             {content.items.map((item, i) => (
-              <li key={item.name} className={styles.slide}>
-                <article className={styles.card}>
-                  <span className={styles.icon} aria-hidden>
-                    {icons[i]}
-                  </span>
-                  <h3 className={gen.indBoldName}>{item.name}</h3>
-                  <p className={gen.indBoldBody}>{item.body}</p>
-                </article>
+              <li key={item.name} className={styles.slide} data-tone={(i % 5) + 1}>
+                {card(i)}
+              </li>
+            ))}
+            {Array.from({ length: clones }, (_, i) => (
+              <li key={`copy-${i}`} className={styles.slide} data-tone={(i % 5) + 1} aria-hidden inert>
+                {card(i)}
               </li>
             ))}
           </ul>
 
-          {pages > 1 ? (
-            <div className={styles.dots}>
-              {Array.from({ length: pages }, (_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  className={styles.dot}
-                  aria-label={`Show services page ${i + 1} of ${pages}`}
-                  aria-current={i === page ? "true" : undefined}
-                  onClick={() => go(i)}
-                />
-              ))}
+          {count > 1 ? (
+            // The Experts section's arrow pair (`SkillCarousel`), as it draws it.
+            <div className={styles.controls}>
+              <div className={home.rArrows}>
+                <button type="button" className={home.rArrowBtn} onClick={() => step(-1)} aria-label="Previous service">
+                  <svg viewBox="0 0 34 8" aria-hidden focusable="false" className={home.rArrow}>
+                    <path
+                      d="M34 4H3M7 1L3 4l4 3"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+                <button type="button" className={home.rArrowBtn} onClick={() => step(1)} aria-label="Next service">
+                  <svg viewBox="0 0 34 8" aria-hidden focusable="false" className={home.rArrow}>
+                    <path
+                      d="M0 4h31M27 1l4 3-4 3"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           ) : null}
         </div>
