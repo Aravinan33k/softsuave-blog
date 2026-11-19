@@ -9015,14 +9015,14 @@
 
 .hero .heroTitleLine {
   --rise: 40%;
-  animation: heroRise 0.9s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
-  animation-delay: calc(0.15s + var(--i, 0) * 0.09s);
+  animation: heroRise var(--hero-title-dur, 0.9s) cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+  animation-delay: calc(var(--hero-title-delay, 0.15s) + var(--i, 0) * 0.09s);
 }
 
 .hero .heroBody {
   --rise: 20px;
-  animation: heroRise 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
-  animation-delay: calc(0.64s + var(--i, 0) * 0.08s);
+  animation: heroRise var(--hero-body-dur, 0.7s) cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: calc(var(--hero-body-delay, 0.64s) + var(--i, 0) * 0.08s);
 }
 
 .hero .heroPoint {
@@ -9046,8 +9046,8 @@
 /* The form card or the aside image: the grid's second column. */
 .hero .heroGrid > :nth-child(2) {
   --rise: 28px;
-  animation: heroRise 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
-  animation-delay: 0.4s;
+  animation: heroRise var(--hero-form-dur, 0.8s) cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: var(--hero-form-delay, 0.4s);
 }
 
 /* Fades in alongside the display hero's slow drift; the compact hero keeps no

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import {
@@ -20,7 +21,9 @@ import {
 import { clientsPageBrands } from '@/lib/home/clients-content';
 
 import Clients from '@/components/home/clients';
-import Testimonials from '@/components/home/testimonials';
+const SkillCarousel = dynamic(() => import('@/components/ad/skill-carousel'));
+const Testimonials = dynamic(() => import('@/components/home/testimonials'));
+const TrialModal = dynamic(() => import('@/components/ad/trial-modal'));
 
 import Hero from '@/components/landing/hero';
 import Process from '@/components/landing/process';
@@ -28,9 +31,7 @@ import TechStack from '@/components/landing/tech-stack';
 // The grid whose cards can carry the live page's own icon images.
 import CardGrid from '@/components/generative-ai/industries';
 import CtaRow from '@/components/ad/cta-row';
-import SkillCarousel from '@/components/ad/skill-carousel';
 import ServiceCarousel from '@/components/ad/service-carousel';
-import TrialModal from '@/components/ad/trial-modal';
 
 import home from '@/components/home/home.module.css';
 import styles from '@/components/ad/ad.module.css';
@@ -90,7 +91,7 @@ export default function AdRemoteDeveloperPage() {
       <main id="main" className={`${styles.adMain} ${styles.twoLineHeads} ${styles.halfHeads}`}>
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         {/* `heroNoteHighlight`: the guarantee line in the accent colour (by request). */}
-        <div className={`${styles.wipeForm} ${styles.heroNoteHighlight}`}>
+        <div className={`${styles.wipeForm} ${styles.heroNoteHighlight} ${styles.heroBodyEarly}`}>
           <Hero noNav content={rdHero} idPrefix="ad-remote" breadcrumb={false} />
         </div>
 
@@ -127,9 +128,11 @@ export default function AdRemoteDeveloperPage() {
         </div>
       </main>
 
-      {/* Microsoft Clarity, on this page only (by request). Its origins are
-          admitted for this route alone in next.config.ts (CLARITY_ROUTES). */}
-      <Script id="ms-clarity" strategy="afterInteractive">
+      {/* Microsoft Clarity, on this page only (by request). `lazyOnload`: it runs
+          after the page has loaded and gone idle, so it doesn't compete with
+          hydration. Its origins are admitted for this route alone in
+          next.config.ts (CLARITY_ROUTES). */}
+      <Script id="ms-clarity" strategy="lazyOnload">
         {`(function(c,l,a,r,i,t,y){
     c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
     t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
