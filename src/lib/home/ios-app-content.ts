@@ -263,6 +263,8 @@ export const iosStories: StoryCardsContent = {
     {
       industry: "Healthcare",
       name: "Cloud-based Secured Communication App for Patient Care",
+      // Stand-in: no case study covers this exact app. Point this at its own page once it exists.
+      href: "/case-study-online-consultation-platform-for-doctors",
       body: "Soft Suave developed a cross-platform healthcare app that simplifies doctor-patient communication and helps during emergency situations. The app made Professionals and patients interact online using the latest technology, offering quality, safety, and reliability.",
       image: {
         src: "/images/landing/ios-story-telehealth.webp",
@@ -272,6 +274,7 @@ export const iosStories: StoryCardsContent = {
     {
       industry: "E-commerce",
       name: "Personalized One-Stop Solution for E-commerce Industry",
+      href: "/case-study-personalized-ecommerce-platform",
       body: "Soft Suave created an app to satisfy multiple needs to seamlessly give effective e-commerce solutions to customers. Specifically, the client wanted mobile applications that would enable customers to make fast decisions and lead them to make a purchase.",
       image: {
         src: "/images/landing/ios-story-shopping-app.webp",
@@ -281,6 +284,7 @@ export const iosStories: StoryCardsContent = {
     {
       industry: "Consulting",
       name: "Effective Tool to track the Jobs or Projects for the Customers",
+      href: "/case-study-job-progress-tracking",
       body: "A standout job tracking solution app made by Soft Suave to ease the complex processes, for the customers to use and track the individual projects and Jobs more flexibly.",
       image: {
         src: "/images/landing/ios-story-job-tracking.webp",

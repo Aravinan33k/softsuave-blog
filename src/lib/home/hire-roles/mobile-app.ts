@@ -336,35 +336,41 @@ export const mobileApp: HireRolePageContent = {
   // (review: heading/content mismatch). Titles and bodies verbatim.
   caseStudies: {
     eyebrow: 'Case Studies',
+    tileCta: 'View Case Study',
     title: 'Mobile Applications Our Developers Have Built',
     body: 'See how our mobile developers have contributed to real products across different business requirements, bringing hands-on experience across platforms, architectures, integrations, and ongoing product development.',
     items: [
       {
         title: 'ParkSafe Community Vehicle Alert App',
+        href: '/case-study-parksafe-community-vehicle-alert-app',
         image: { src: '/images/case-studies/logistics-3.webp', alt: 'ParkSafe Community Vehicle Alert App' },
         tag: 'Community Safety',
         body: 'A mobile app that spots suspicious vehicles, sends real-time alerts, and improves community safety.',
       },
       {
         title: 'Smart Movie Ticketing app with Real-Time Booking',
+        href: '/case-study-smart-movie-ticketing-with-real-time-booking',
         image: { src: '/images/case-studies/on-demand-5.webp', alt: 'Smart Movie Ticketing app with Real-Time Booking' },
         tag: 'Entertainment',
         body: 'A ticketing app with live seat availability, secure payments, and a smooth booking flow.',
       },
       {
         title: 'Time-saving Video Calling App for Healthcare Industry',
+        href: '/case-study-telehealth-consultation-platform-for-doctors',
         image: { src: '/images/case-studies/telemedicine-2.png', alt: 'Time-saving Video Calling App for Healthcare Industry' },
         tag: 'HealthTech',
         body: 'Soft Suave developed an efficient Video calling app for instant consultations, to save time, and to get fast solutions.',
       },
       {
         title: 'HealthPass Wellness Subscriptions in Banking App',
+        href: '/case-study-healthpass-wellness-subscriptions-in-banking',
         image: { src: '/images/case-studies/finance-6.webp', alt: 'HealthPass Wellness Subscriptions in Banking App' },
         tag: 'Banking',
         body: 'Soft Suave helps banks boost customer loyalty with personalized wellness benefits and engagement insights.',
       },
       {
         title: 'All-in-One Financial Management App',
+        href: '/case-study-all-in-one-financial-management-app',
         image: { src: '/images/case-studies/finance-4.webp', alt: 'All-in-One Financial Management App' },
         tag: 'FinTech',
         body: 'Soft Suave built an all-in-one app that simplifies budgeting, expenses, investments, and bills.',

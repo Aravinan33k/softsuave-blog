@@ -440,9 +440,11 @@ export const fintechSuccessStories: WorkCarouselContent = {
   },
   // Each card wears the live page's own artwork for that story (13 Oct
   // review: "update the case study images same as the old page").
+  tileCta: "View Case Study",
   items: [
     {
       title: "Integrating Financial and Healthcare Services in One Platform A Health Subscription Success Story",
+      href: "/case-study-healthpass-wellness-subscriptions-in-banking",
       image: {
         src: "/images/industries/fintech/case-1.webp",
         alt: "A banker and a client reviewing financial and health subscription plans at a desk",
@@ -452,6 +454,7 @@ export const fintechSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Automating Fund Management for Smarter Corporate Banking: A Financial Management Success Story",
+      href: "/case-study-corporate-banking-solution",
       image: {
         src: "/images/industries/fintech/case-2.webp",
         alt: "A finance team reviewing automated fund-management dashboards",
@@ -461,6 +464,7 @@ export const fintechSuccessStories: WorkCarouselContent = {
     },
     {
       title: "A Scalable Corporate Banking Platform for Seamless Financial Operations: A SaaS Banking Success Story",
+      href: "/case-study-saas-platform-for-corporate-banking",
       image: {
         src: "/images/industries/fintech/case-3.webp",
         alt: "Traders monitoring corporate banking and investment screens",
@@ -470,6 +474,7 @@ export const fintechSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Transforming Digital Transactions with Blockchain-Powered Finance",
+      href: "/case-study-blockchain-digital-currency-platform",
       image: {
         src: "/images/industries/fintech/case-4.webp",
         alt: "A hand holding a phone with holographic blockchain finance charts",
@@ -479,6 +484,7 @@ export const fintechSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Empowering Smart Savings with Automated Financial Planning",
+      href: "/case-study-savings-solution-for-better-financial-management",
       image: {
         src: "/images/industries/fintech/case-5.webp",
         alt: "Planning savings with a notebook, coins and a toy car beside a laptop",

@@ -210,9 +210,11 @@ export const edtechSuccessStories: WorkCarouselContent = {
   eyebrow: "Success Stories",
   title: "Real Results: Transforming EdTech with AI",
   body: "Discover how our AI-powered solutions are reshaping EdTech, enhancing efficiency, accuracy, and cost-effectiveness. These success stories highlight real-world impact, showcasing smarter & faster operations, and optimized learning platforms.",
+  tileCta: "View Case Study",
   items: [
     {
       title: "AI-Enabled Learning: Smarter Classrooms, Interactive Teaching, and Automated Feedback",
+      href: "/case-study-ai-powered-education-solutions",
       tag: "AI Learning",
       body: "Enhanced Student Engagement · Improved Writing & Critical Thinking · Seamless Classroom Management · Transformative Learning",
       image: {
@@ -222,6 +224,7 @@ export const edtechSuccessStories: WorkCarouselContent = {
     },
     {
       title: "A Smarter Approach to Learning: High-Performance LMS for Modern Education",
+      href: "/case-study-high-performance-lms-for-education",
       tag: "LMS",
       body: "50% Reduction in Administrative Workload · Increased Student Engagement · Enhanced Teaching Efficiency · High-Performance Learning Platform",
       image: {
@@ -231,6 +234,7 @@ export const edtechSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Transforming Education with a Cloud-Integrated Campus Management System",
+      href: "/case-study-cloud-based-campus-management",
       tag: "Campus Management",
       body: "50% Increase in Operational Efficiency · 60% Improved Decision-Making · 55% Enhancement in Remote Learning · 40% Stronger Data Security & Compliance",
       image: {

@@ -191,9 +191,11 @@ export const telecomSuccessStories: WorkCarouselContent = {
   body: "Discover how our AI-driven telecom solutions have transformed challenges into success stories, delivering measurable results and long-term value for our clients.",
   // Each card wears the live page's own artwork for that story (13 Oct
   // review: "update the case study images same as the old page").
+  tileCta: "View Case Study",
   items: [
     {
       title: "Salesforce Telephone App Integration",
+      href: "/case-study-salesforce-telephone-app-integration",
       image: {
         src: "/images/industries/telecom/case-1.webp",
         alt: "The Salesforce logo on a cloud with verification badges",
