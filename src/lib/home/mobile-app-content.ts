@@ -371,9 +371,11 @@ export const madCaseStudies: WorkCarouselContent = {
   eyebrow: "Case Studies",
   title: "Mobile Apps We've Built",
   body: "A look at real mobile products we've shipped for clients across logistics, e-commerce, entertainment, and healthcare.",
+  tileCta: "View Case Study",
   items: [
     {
       title: "Logistics Ride Hailing Application",
+      href: "/case-study-logistics-ride-hailing-application",
       tag: "Transportation",
       body: "Native iOS and Android apps with separate rider and driver interfaces, live GPS tracking, and a web admin portal for a US taxi and goods-transportation provider.",
       // The case-study page's own artwork for this project (30 Sep request).
@@ -381,6 +383,8 @@ export const madCaseStudies: WorkCarouselContent = {
     },
     {
       title: "Grabcery",
+      // Stand-in: Grabcery's own case study (/case-study-ecommerce-platform) is not built here yet. Point this at it once it is.
+      href: "/case-study-personalized-ecommerce-platform",
       tag: "E-commerce",
       body: "A multi-vendor grocery delivery platform with dedicated shopper, vendor, and admin apps — GPS-enabled delivery tracking, real-time cart customization, and multiple payment gateways.",
       // No case-study artwork exists for Grabcery, so a grocery-delivery photo
@@ -389,6 +393,7 @@ export const madCaseStudies: WorkCarouselContent = {
     },
     {
       title: "Smart Movie Ticketing with Real-Time Booking",
+      href: "/case-study-smart-movie-ticketing-with-real-time-booking",
       tag: "On-Demand",
       body: "A fast, intuitive web and mobile ticketing platform for a multi-theater cinema operator, with real-time seat selection, AI-driven dynamic pricing, and loyalty features.",
       // The case-study page's own artwork for this project.
@@ -396,6 +401,7 @@ export const madCaseStudies: WorkCarouselContent = {
     },
     {
       title: "Custom Telehealth App for Doctor Consultation",
+      href: "/case-study-online-consultation-platform-for-doctors",
       tag: "HealthTech",
       body: "A cross-platform Android and iOS telemedicine app connecting patients with doctors across specialties for scheduled consultations, built for a MedTech startup.",
       // The case-study page's own artwork for this project.

@@ -198,9 +198,11 @@ export const logisticsSuccessStories: WorkCarouselContent = {
   },
   // Each card wears the live page's own artwork for that story (13 Oct
   // review: "update the case study images same as the old page").
+  tileCta: "View Case Study",
   items: [
     {
       title: "Optimizing Global Logistics: A Shipment Tracking Success Story",
+      href: "/case-study-centralized-shipment-tracking",
       image: {
         src: "/images/industries/logistics/case-1.webp",
         alt: "A hand on a tablet showing a world map for shipment tracking",
@@ -210,6 +212,7 @@ export const logisticsSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Enhancing Vehicle Safety: A Smart Parking Success Story",
+      href: "/case-study-parksafe-community-vehicle-alert-app",
       image: {
         src: "/images/industries/logistics/case-2.webp",
         alt: "A driver checking a phone app while at the wheel of a car",
@@ -219,6 +222,7 @@ export const logisticsSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Optimizing Logistics: A Scalable Delivery Management Success Story",
+      href: "/case-study-scalable-delivery-mangement-for-logistics",
       image: {
         src: "/images/industries/logistics/case-3.webp",
         alt: "A container ship loaded with cargo at sea",

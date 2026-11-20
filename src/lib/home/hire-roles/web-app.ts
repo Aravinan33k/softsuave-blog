@@ -342,35 +342,41 @@ export const webApp: HireRolePageContent = {
   // (review: heading/content mismatch). Titles and bodies verbatim.
   caseStudies: {
     eyebrow: 'Case Studies',
+    tileCta: 'View Case Study',
     title: 'Web Applications Built Around Business Needs',
     body: 'Explore web applications our remote web app developers have helped build and improve while collaborating with client teams across different technologies and business requirements.',
     items: [
       {
         title: 'A Vision AI Platform for Real-Time Axle Counting & Traffic Monitoring',
+        href: '/case-study-vehicle-intelligence',
         image: { src: '/images/case-studies/vehicle-intelligence-cs.webp', alt: 'A Vision AI Platform for Real-Time Axle Counting & Traffic Monitoring' },
         tag: 'Transportation',
         body: 'Soft Suave built a real-time computer-vision pipeline for accurate axle counting, lane-level vehicle tracking, congestion insights, and lifted/floating axle detection across high-traffic highway sites.',
       },
       {
         title: 'A Platform for Driver Attention, Stress and Safety',
+        href: '/case-study-neurora-behavioral-intelligence',
         image: { src: '/images/case-studies/neurora-intelligence-cs.webp', alt: 'A Platform for Driver Attention, Stress and Safety' },
         tag: 'Automotive',
         body: 'Soft Suave built an AI-powered Behavioral Intelligence web app that combines driving video, eye-gaze, and heart-rate data to deliver automated safety, focus, and stress scores.',
       },
       {
         title: 'AI-Powered Contract & Tender Management Lifecycle Platform',
+        href: '/case-study-tender-intelligence',
         image: { src: '/images/case-studies/tender-intelligence-cs.webp', alt: 'AI-Powered Contract & Tender Management Lifecycle Platform' },
         tag: 'Energy',
         body: 'Soft Suave built an AI-powered web app automating the contract and tender lifecycle with secure evaluation, audit trails, sealed-bid integrity, and English/Arabic support, fully on-premises for a leading LNG operator in Oman.',
       },
       {
         title: 'An AI-Powered Shift Intelligence and Digital Logbook Platform for LNG Operations',
+        href: '/case-study-shiftsense-ai-shift-intelligence',
         image: { src: '/images/case-studies/shift-sense-cs.webp', alt: 'An AI-Powered Shift Intelligence and Digital Logbook Platform for LNG Operations' },
         tag: 'Energy',
         body: 'Soft Suave delivered ShiftSense, an air-gapped AI platform transforming LNG operational logs into instant, source-cited shift insights with English/Arabic support and full auditability.',
       },
       {
         title: 'AI-Powered Onboarding and Configuration Assist for a Logistics Management Platform',
+        href: '/case-study-ai-assist-logistics-onboarding',
         image: { src: '/images/case-studies/ai-assist-cs.webp', alt: 'AI-Powered Onboarding and Configuration Assist for a Logistics Management Platform' },
         tag: 'Logistics',
         body: 'Soft Suave built an AI assistant for logistics onboarding that guides setup, validates steps in real time, cuts onboarding time by half, and reduces support tickets.',

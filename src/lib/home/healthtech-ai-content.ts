@@ -198,9 +198,11 @@ export const healthtechSuccessStories: WorkCarouselContent = {
   body: "Uncover the impact of AI-driven solutions in HealthTech, enhancing efficiency, accuracy, and patient outcomes. These real-world case studies highlight successful implementations and measurable results across the industry.",
   // Each card wears the live page's own artwork for that story (13 Oct
   // review: "update the case study images same as the old page").
+  tileCta: "View Case Study",
   items: [
     {
       title: "Revitalizing Al in Healthcare: A Performance Optimization Success Story",
+      href: "/case-study-ai-optimization-in-healthcare",
       image: {
         src: "/images/industries/healthtech/case-1.webp",
         alt: "Doctors discussing performance data on a tablet in a hospital",
@@ -210,6 +212,8 @@ export const healthtechSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Transforming Patient Care: A Communication Enhancement Success Story",
+      // Stand-in: no case study covers care coordination yet. Point this at its own page once it exists.
+      href: "/case-study-online-consultation-platform-for-doctors",
       image: {
         src: "/images/industries/healthtech/case-2.webp",
         alt: "A nurse and doctor attending a patient in a hospital bed",
@@ -219,6 +223,7 @@ export const healthtechSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Revolutionizing Digital Healthcare: A Telehealth Success Story",
+      href: "/case-study-telehealth-consultation-platform-for-doctors",
       image: {
         src: "/images/industries/healthtech/case-3.webp",
         alt: "A hand holding a phone with holographic telehealth screens",
@@ -228,6 +233,7 @@ export const healthtechSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Modernising Virtual Healthcare: An Online Consultation Success Story",
+      href: "/case-study-online-consultation-platform-for-doctors",
       image: {
         src: "/images/industries/healthtech/case-4.webp",
         alt: "A family on a video consultation with a doctor on a large screen",
@@ -237,6 +243,7 @@ export const healthtechSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Bridging Global Healthcare:A Telehealth Innovation Success Story",
+      href: "/case-study-online-consultation-platform-for-doctors",
       image: {
         src: "/images/industries/healthtech/case-5.webp",
         alt: "A doctor holding a glowing globe of connected healthcare icons",
