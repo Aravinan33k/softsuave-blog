@@ -1,0 +1,58 @@
+{
+  "landing/ov-postgresql-development-company": {
+    "src": "/images/landing/ov-postgresql-development-company.webp",
+    "width": 1400,
+    "height": 1050,
+    "alt": "Engineers reviewing data and database structure together on screen",
+    "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAACQAgCdASoQAAsAA4BaJYwCdAdwLe+rSE69syACAADiejKtStnCPqj/WO8sBKEjAc4fb+x87uHpJab/TzuvwVrVRGdJ3iXg3zf8r7JSM+eAwWNNUVAn4P92W8+pqaeWn2GDbHGg1DEnYSgOePTcwUigAAA="
+  },
+  "landing/pg-svc-custom": {
+    "src": "/images/landing/pg-svc-custom.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "SQL queries and database code on a monitor",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoQAAsAA4BaJYwAAudIFRmAAP71zIq+U06VzreyTYxk9WAA"
+  },
+  "landing/pg-svc-integration": {
+    "src": "/images/landing/pg-svc-integration.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Connected services and APIs linked to a central database",
+    "blurDataURL": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAwAgCdASoQAAsAA4BaJbAC7AYv1Lj9DJ8fAAD+ggXXIh5hMMG3QTxImAm5l7qDH7nqa63Uu1JWb/3lkqkee4p+quFFlJHiyQBulBIrA+B+Hmp1vARWAJsnKoNcCVaew8AAAA=="
+  },
+  "landing/pg-svc-migration": {
+    "src": "/images/landing/pg-svc-migration.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Fibre and network connections carrying data between systems during a migration",
+    "blurDataURL": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAABQAgCdASoQAAsAA4BaJQBdgMWg4QKpo/qMS+AA9qjEnHrdSYPgIV5Ylz0E+P+xzv8MobtH+/zQxEX4dV74k7U5FtdqmimdDJtNEZK4VumFUY9Aoo1R8tlrgge/ELg7Zis8kJKkXVlweTl0RrdTjb8Ip1DUAAAA"
+  },
+  "landing/pg-svc-performance": {
+    "src": "/images/landing/pg-svc-performance.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "Performance metrics and query timings on a monitoring screen",
+    "blurDataURL": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAAAwAQCdASoQAAsAA4BaJZwAA3AA/vLA/olRV++PG/erXmOE0nxBldZR+Owymha3OAAAAA=="
+  },
+  "landing/pg-svc-schema": {
+    "src": "/images/landing/pg-svc-schema.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "A team sketching a data model and table relationships on a whiteboard",
+    "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADQAQCdASoQAAsAA4BaJZwAAj1ccH2agAD+94YFDf9os3SwE8x3Y67WjKRg8qCDDKQCWuOHGkxf9YXIo5ituGH6c3TgrdQChn+lZB54xYNWDvPwAAA="
+  },
+  "landing/pg-svc-support": {
+    "src": "/images/landing/pg-svc-support.webp",
+    "width": 800,
+    "height": 600,
+    "alt": "An engineer monitoring a database environment in a server room",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAABQAQCdASoQAAsAA4BaJaQABAAAAP70+BJQXAeNnZO/GG1q2aAAAA=="
+  },
+  "landing/postgresql-hero": {
+    "src": "/images/landing/postgresql-hero.webp",
+    "width": 1920,
+    "height": 1080,
+    "alt": "Server racks in a data centre that host application databases",
+    "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAACQAQCdASoQAAsAA4BaJZwAAXD+7gAA/ttxVrKK3WCnBg4XnhV/yi4ZexPnNiV4xyVXEsYwrXr9VpBDtSY0SgVVBk0ZXkR1IAA="
+  }
+}

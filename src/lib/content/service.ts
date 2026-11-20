@@ -1,6 +1,6 @@
 import 'server-only';
 import type { JSONContent } from '@tiptap/core';
-import { renderTipTapToHtml, contentStats, deriveExcerpt } from './render';
+import { renderTipTapToHtml, contentStats, deriveExcerpt, htmlToText } from './render';
 import type { ContentStatus } from '@/generated/prisma/enums';
 import type { Role } from '../auth/tokens';
 
@@ -13,6 +13,14 @@ export function canModifyContent(session: { role: Role; sub: string }, authorId:
 
 export interface RenderedContent {
   contentHtml: string;
+  /**
+   * Plain-text body for the MySQL FULLTEXT index — see the `searchText` column
+   * in schema.prisma. This replaces the Postgres tsvector trigger, which stripped
+   * tags in SQL; here the app owns it, so every write path MUST spread the whole
+   * RenderedContent into the row. Persist `contentHtml` without `searchText` and
+   * the post simply stops being findable, with nothing failing loudly.
+   */
+  searchText: string;
   wordCount: number;
   readingTimeMinutes: number;
   excerpt: string | null;
@@ -27,7 +35,7 @@ export function renderContent(contentJson: JSONContent, providedExcerpt?: string
       : contentHtml
         ? deriveExcerpt(contentHtml)
         : null;
-  return { contentHtml, wordCount, readingTimeMinutes, excerpt };
+  return { contentHtml, searchText: htmlToText(contentHtml), wordCount, readingTimeMinutes, excerpt };
 }
 
 export interface PublishState {

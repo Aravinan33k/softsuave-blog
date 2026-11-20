@@ -1,0 +1,135 @@
+import type { Metadata } from 'next';
+import { BASE_PATH, pageRobots } from '@/lib/flags';
+import { RestoredLiveLd } from '@/components/seo/restored-live-ld';
+import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
+import {
+  engagementAwards,
+  engagementClients,
+  engagementFooterCta,
+  engagementModelHero,
+  engagementModelMeta,
+} from '@/lib/home/engagement-model-content';
+import { faqsPageEnquiry } from '@/lib/home/faqs-content';
+import { recognitions } from '@/lib/home/content';
+
+import Nav from '@/components/home/nav';
+import Footer from '@/components/home/footer';
+import FadeUp from '@/components/home/fade-up';
+import Recognitions from '@/components/home/recognitions';
+import Clients from '@/components/home/clients';
+import ConsultationClose from '@/components/common/consultation-close';
+import { clientsPageBrands } from '@/lib/home/clients-content';
+import { Perks, TechBand } from '@/components/engagement-model/engagement-body';
+import { SiteLink } from '@/themes/softsuave/site-link';
+import { navHref } from '@/themes/softsuave/nav-data';
+
+import home from '@/components/home/home.module.css';
+import styles from '@/components/engagement-model/engagement-model.module.css';
+
+/** Engagement Models — softsuave.com's /engagement-model page. */
+
+export const revalidate = 300;
+
+export const metadata: Metadata = {
+  title: engagementModelMeta.title,
+  description: engagementModelMeta.description,
+  alternates: { canonical: engagementModelMeta.path },
+  robots: pageRobots,
+  openGraph: {
+    title: engagementModelMeta.title,
+    description: engagementModelMeta.description,
+    url: absoluteUrl(engagementModelMeta.path),
+    siteName: 'Soft Suave',
+    type: 'website',
+    images: [dynamicOgImage(engagementModelMeta.shortTitle, 'Soft Suave')],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: engagementModelMeta.title,
+    description: engagementModelMeta.description,
+    images: [dynamicOgImage(engagementModelMeta.shortTitle, 'Soft Suave')],
+  },
+};
+
+const HOME_HREF = BASE_PATH || '/';
+
+export default function EngagementModelPage() {
+  const [l1, l2, l3] = engagementModelHero.titleLines;
+  return (
+    <div className={`${home.page} ${styles.page}`}>
+      <RestoredLiveLd path="/engagement-model" />
+      <Nav logoHref={HOME_HREF} />
+
+      <main id="main" className={styles.main}>
+        <section className={styles.hero}>
+          <div className={styles.heroWaves} aria-hidden />
+          <div className={styles.heroVeil} aria-hidden />
+          <div className={styles.heroInner}>
+            <h1 className={styles.h1}>
+              <span className={styles.line}>
+                {l1}{' '}<span className={styles.heroAccent}>{l2}</span>
+              </span>
+              <span className={styles.line}>{l3}</span>
+            </h1>
+            <p className={styles.lead}>{engagementModelHero.body}</p>
+          </div>
+        </section>
+
+        <div className={home.light}>
+          <Perks />
+        </div>
+
+        <TechBand />
+
+        <div className={`${home.light} ${styles.awardsClients}`}>
+          <Recognitions content={{ title: engagementAwards.title, items: recognitions.items }} />
+          <Clients
+            eyebrow={engagementClients.eyebrow}
+            title={engagementClients.title}
+            body=""
+            logos={clientsPageBrands.logos}
+            loopShortRows
+            noFade
+          />
+          <FadeUp className={styles.moreRow}>
+            <SiteLink href={engagementClients.more.href} className={`${home.pillFilled} ${home.pillLg}`}>
+              {engagementClients.more.label}
+            </SiteLink>
+          </FadeUp>
+        </div>
+
+        <FadeUp>
+          <ConsultationClose
+            id="enquiry"
+            idPrefix="engagement-contact"
+            ctaIcon
+            content={{
+              title: faqsPageEnquiry.title,
+              body: faqsPageEnquiry.body,
+              steps: faqsPageEnquiry.steps,
+              person: {
+                image: { src: faqsPageEnquiry.manager.photo, width: 157, height: 157, alt: 'Soft Suave Manager' },
+                name: faqsPageEnquiry.manager.name,
+                role: faqsPageEnquiry.manager.role,
+              },
+              cta: {
+                label: faqsPageEnquiry.manager.cta?.label ?? 'Schedule a Call',
+                href: navHref(faqsPageEnquiry.manager.cta?.href ?? '/30-min-free-consultation'),
+              },
+              badges: faqsPageEnquiry.badges,
+              form: faqsPageEnquiry.form,
+            }}
+          />
+        </FadeUp>
+
+        <FadeUp className={styles.estimate}>
+          <SiteLink href={engagementFooterCta.href} className={`${home.pillFilled} ${home.pillLg}`}>
+            {engagementFooterCta.label}
+          </SiteLink>
+        </FadeUp>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}

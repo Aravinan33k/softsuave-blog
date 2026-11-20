@@ -11,7 +11,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const dynamic = 'force-dynamic';
 
-type DailyRow = { day: string; n: number };
+// `n` arrives as a JS BigInt: MySQL types COUNT(*) as BIGINT and the driver maps
+// it faithfully. Normalised in dailySeries rather than cast in SQL, because
+// CAST(… AS SIGNED) is still a BIGINT to the driver.
+type DailyRow = { day: string; n: number | bigint };
 
 // Start of the 14-day sparkline window. Kept outside the component body so
 // the react-hooks/purity rule doesn't flag Date.now() during render — this
@@ -36,12 +39,16 @@ export default async function AdminDashboard() {
       take: 5,
       select: { id: true, title: true, status: true, updatedAt: true },
     }),
+    // DATE_FORMAT over the stored value, with no timezone conversion: createdAt
+    // is written as UTC (see lib/db.ts) and dailySeries keys the buckets off
+    // toISOString(), which is also UTC. Using MySQL's DATE() with a server on
+    // local time would bucket rows into the wrong day near midnight.
     prisma.$queryRaw<DailyRow[]>`
-      SELECT date_trunc('day', "createdAt")::date::text AS day, count(*)::int AS n
-      FROM "Post" WHERE "createdAt" >= ${fourteenDaysAgo} GROUP BY 1`,
+      SELECT DATE_FORMAT(createdAt, '%Y-%m-%d') AS day, COUNT(*) AS n
+      FROM \`Post\` WHERE createdAt >= ${fourteenDaysAgo} GROUP BY 1`,
     prisma.$queryRaw<DailyRow[]>`
-      SELECT date_trunc('day', "createdAt")::date::text AS day, count(*)::int AS n
-      FROM "Media" WHERE "createdAt" >= ${fourteenDaysAgo} GROUP BY 1`,
+      SELECT DATE_FORMAT(createdAt, '%Y-%m-%d') AS day, COUNT(*) AS n
+      FROM \`Media\` WHERE createdAt >= ${fourteenDaysAgo} GROUP BY 1`,
   ]);
 
   const postSeries = dailySeries(postDaily);
@@ -121,7 +128,7 @@ export default async function AdminDashboard() {
 
 // Fills a zero-padded daily series for the last 14 days (oldest → newest).
 function dailySeries(rows: DailyRow[], days = 14): number[] {
-  const byDay = new Map(rows.map((r) => [r.day, r.n]));
+  const byDay = new Map(rows.map((r) => [r.day, Number(r.n)]));
   const out: number[] = [];
   for (let i = days - 1; i >= 0; i--) {
     const d = new Date(Date.now() - i * 86400_000);

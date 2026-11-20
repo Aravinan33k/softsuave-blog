@@ -25,11 +25,30 @@ ENV NEXT_PUBLIC_HOMEPAGE_ENABLED=${NEXT_PUBLIC_HOMEPAGE_ENABLED}
 # Also NEXT_PUBLIC_*, so it must be present at BUILD time — providing it only via
 # the runtime env is too late: statically prerendered pages bake their canonical,
 # OG and sitemap URLs from it, and the schema default would ship localhost.
-# Must include the /blog mount subpath:
-#   --build-arg NEXT_PUBLIC_SITE_URL=https://www.softsuave.com/blog
-ARG NEXT_PUBLIC_SITE_URL=http://localhost:3000
+# The bare origin — this app owns the whole site, so no mount subpath:
+#   --build-arg NEXT_PUBLIC_SITE_URL=https://www.softsuave.com
+ARG NEXT_PUBLIC_SITE_URL=https://www.softsuave.com
 ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
-ENV DATABASE_URL=postgresql://placeholder:placeholder@localhost:5432/db?schema=public
+
+# Search indexing, also baked in at build time: every page's robots meta is
+# prerendered from it. Omitted means noindex, nofollow everywhere (right for the
+# test box, wrong for production). The www.softsuave.com build must pass
+#   --build-arg NEXT_PUBLIC_ALLOW_INDEXING=true
+ARG NEXT_PUBLIC_ALLOW_INDEXING=false
+ENV NEXT_PUBLIC_ALLOW_INDEXING=${NEXT_PUBLIC_ALLOW_INDEXING}
+
+# GTM container ("off" disables it; empty means the default GTM-TWMFSDC) and its
+# loading mode (empty means the stock snippet in <head>; "deferred" is opt-in).
+ARG NEXT_PUBLIC_GTM_ID=
+ENV NEXT_PUBLIC_GTM_ID=${NEXT_PUBLIC_GTM_ID}
+ARG NEXT_PUBLIC_GTM_LOAD=
+ENV NEXT_PUBLIC_GTM_LOAD=${NEXT_PUBLIC_GTM_LOAD}
+
+# Static-generation workers (next.config.ts). The default 2 suits a small build
+# box; set 1 where the builder has little memory, more on a large CI runner.
+ARG NEXT_BUILD_CPUS=2
+ENV NEXT_BUILD_CPUS=${NEXT_BUILD_CPUS}
+ENV DATABASE_URL=mysql://placeholder:placeholder@localhost:3306/db
 ENV JWT_ACCESS_SECRET=build-placeholder-secret-000000000000
 ENV JWT_REFRESH_SECRET=build-placeholder-secret-0000000000000
 ENV PREVIEW_SECRET=build-placeholder-secret-0000000000000000

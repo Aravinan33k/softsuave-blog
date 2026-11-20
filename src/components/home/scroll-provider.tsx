@@ -70,6 +70,14 @@ export default function ScrollProvider({ children }: { children: React.ReactNode
       if (!target) return;
       e.preventDefault();
       holdSnap(1800); // don't let the snapper tug us off the intended target
+      // Move keyboard focus with the scroll, as a native in-page jump does.
+      // Without this, "Skip to content" scrolled but left focus on itself, so
+      // the next Tab went straight back into the header (BUG-022). A target
+      // that is not focusable gets tabindex="-1" (focusable by script, not a
+      // tab stop); home.css drops the ring around such a target.
+      const el = target as HTMLElement;
+      if (el.tabIndex < 0 && !el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+      el.focus({ preventScroll: true });
       const pinId = REVEAL_END[href];
       if (pinId) {
         const st = ScrollTrigger.getById(pinId);
@@ -78,7 +86,11 @@ export default function ScrollProvider({ children }: { children: React.ReactNode
           return;
         }
       }
-      lenis.scrollTo(target as HTMLElement, { duration: 1.2, offset: -12 });
+      // No offset of its own: Lenis subtracts the root's `scroll-padding-top`
+      // (home.css — the fixed nav's clearance) and the target's
+      // `scroll-margin-top`, so a link lands where a native hash jump would.
+      // The old `-12` put every target's top 12px down, under the 77px nav.
+      lenis.scrollTo(target as HTMLElement, { duration: 1.2 });
     };
     document.addEventListener("click", onAnchorClick);
 
@@ -248,12 +260,27 @@ export default function ScrollProvider({ children }: { children: React.ReactNode
       });
 
     // ---- Refresh choreography (measure after everything loads) ---------
+    // After the first, each check refreshes only if the page has changed
+    // height since the last refresh — ScrollTrigger's own included (it refreshes
+    // itself on `load`). A refresh re-measures every trigger on the page; run
+    // unconditionally at each of these moments, they were several of the
+    // longest tasks of a phone's page load (PageSpeed, 15 Oct).
+    const root = document.documentElement;
+    let measured = -1;
+    const record = () => {
+      measured = root.scrollHeight;
+    };
+    ScrollTrigger.addEventListener("refresh", record);
     const refresh = () => ScrollTrigger.refresh();
+    // -1: the first refresh (next frame) has not run yet and will measure.
+    const refreshIfMoved = () => {
+      if (measured !== -1 && root.scrollHeight !== measured) refresh();
+    };
     const raf = requestAnimationFrame(refresh);
-    const settle = window.setTimeout(refresh, 600);
-    const late = window.setTimeout(refresh, 1600);
-    window.addEventListener("load", refresh);
-    if (document.fonts?.ready) document.fonts.ready.then(refresh).catch(() => {});
+    const settle = window.setTimeout(refreshIfMoved, 600);
+    const late = window.setTimeout(refreshIfMoved, 1600);
+    window.addEventListener("load", refreshIfMoved);
+    if (document.fonts?.ready) document.fonts.ready.then(refreshIfMoved).catch(() => {});
     // Refresh when the viewport/layout changes (Lenis re-measures too).
     let resizeTimer = 0;
     const onResize = () => {
@@ -271,7 +298,8 @@ export default function ScrollProvider({ children }: { children: React.ReactNode
       window.clearTimeout(late);
       window.clearTimeout(resizeTimer);
       window.clearTimeout(programmaticReset);
-      window.removeEventListener("load", refresh);
+      window.removeEventListener("load", refreshIfMoved);
+      ScrollTrigger.removeEventListener("refresh", record);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("wheel", onWheelProbe);
       document.removeEventListener("click", onAnchorClick);

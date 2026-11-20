@@ -1,0 +1,66 @@
+/* /pos-software-development-company */
+.cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(12px, 1.4vw, 18px); }
+.cards > li { cursor: default; }
+@media (min-width: 640px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .cards[data-cols="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.portfolioName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+  font-size: var(--fs-card-title);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+.portfolioCta { justify-self: start; margin-top: 8px; display: inline-flex; }
+
+.features { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(10px, 1.2vw, 16px); }
+@media (min-width: 640px) { .features { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .features { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: clamp(14px, 1.6vw, 20px);
+  border: 1px solid var(--card-line, var(--line));
+  border-radius: 12px;
+  background: var(--surface);
+  transition: border-color 0.4s ease;
+}
+.feature:hover { border-color: var(--accent); }
+.featureName {
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+  font-size: var(--fs-card-title);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+/* The "Get your FREE Quote Now !!!" popup. */
+.dialog {
+  width: min(520px, calc(100vw - 32px));
+  max-height: calc(100svh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+.dialog::backdrop { background: rgba(0, 0, 0, 0.65); }
+.dialogCard { position: relative; max-height: calc(100svh - 32px); overflow-y: auto; border-radius: 16px; }
+.close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: none;
+  font-size: 28px;
+  line-height: 1;
+  color: inherit;
+  cursor: pointer;
+}

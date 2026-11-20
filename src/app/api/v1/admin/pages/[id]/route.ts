@@ -57,6 +57,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       const rendered = renderContent(d.contentJson as unknown as JSONContent, d.excerpt);
       data.contentJson = d.contentJson as unknown as Prisma.InputJsonValue;
       data.contentHtml = rendered.contentHtml;
+      data.searchText = rendered.searchText;
       data.wordCount = rendered.wordCount;
       data.readingTimeMinutes = rendered.readingTimeMinutes;
       if (d.excerpt === undefined && !existing.excerpt) data.excerpt = rendered.excerpt;

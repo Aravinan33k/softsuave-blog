@@ -1,0 +1,58 @@
+[
+  {
+    "file": "/images/landing/ios/hero.webp",
+    "width": 1920,
+    "height": 1200,
+    "pexelsId": "36136699",
+    "source": "https://www.pexels.com/photo/36136699/",
+    "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAAAQAgCdASoQAAoAA4BaJZgC7AEfUgPzerX6AP712peOuxrLs/8fGktuI4UZ+Fatlw2c/r/5FyEA07tGItNlu9V2AAA="
+  },
+  {
+    "file": "/images/landing/ios/svc-custom.webp",
+    "width": 720,
+    "height": 720,
+    "pexelsId": "13570135",
+    "source": "https://www.pexels.com/photo/13570135/",
+    "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAAAwAgCdASoLABAAA4BaJZQC7AEO9BnlnzYgAAD+93uY7tL4TpUNWBe9lXeVByrXvpFbgA5cpLq/iSv2B4KmwWf9oGLWYQAA"
+  },
+  {
+    "file": "/images/landing/ios/svc-design.webp",
+    "width": 720,
+    "height": 720,
+    "pexelsId": "36747234",
+    "source": "https://www.pexels.com/photo/36747234/",
+    "blurDataURL": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAwAgCdASoQAA0AA4BaJagCdAYuRuV9Xn6aYAD+1Gns7wRNOkE+eUqwF0nEdO1UJBNHgOrgkPO8bu0nsPYnc8Yr/oOXGQWWjjVNlG+7fU0OcpcXYywnn9ZYPihOIk7H6S6gAA=="
+  },
+  {
+    "file": "/images/landing/ios/svc-watch.webp",
+    "width": 720,
+    "height": 720,
+    "pexelsId": "12843529",
+    "source": "https://www.pexels.com/photo/12843529/",
+    "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAwAgCdASoLABAAA4BaJYwCsAEWPJ7+4O4qwAD+6jrLO4GJAv83WkF8vnncZQr6nWozn/PpRMcjYg+gigc03NibNgFqHoIXf7IWAAAA"
+  },
+  {
+    "file": "/images/landing/ios/svc-tv.webp",
+    "width": 720,
+    "height": 720,
+    "pexelsId": "35490296",
+    "source": "https://www.pexels.com/photo/35490296/",
+    "blurDataURL": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAQAgCdASoQAAsAA4BaJaACdADwUIFb+6FgAP73kQuCEumLfng2qrzi7XTbVQyzlgqOw0i9xI9W6IC1oS7tyy2h0ej859jSbeVXbPysVOmefkStAa6Eyh2e6PLTV8MEIOwAAA=="
+  },
+  {
+    "file": "/images/landing/ios/svc-migration.webp",
+    "width": 720,
+    "height": 720,
+    "pexelsId": "4982698",
+    "source": "https://www.pexels.com/photo/4982698/",
+    "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAQCdASoLABAAA4BaJaQAAlcEj6khpsAA/rqEcpTVlUKSWlWIW+NfIFEs1LL86x/2CiP5o+FclDxeMe3mYDrncuqBZA128C++LfTDwwSBhbQAAAA="
+  },
+  {
+    "file": "/images/landing/ios/svc-team.webp",
+    "width": 720,
+    "height": 720,
+    "pexelsId": "6804068",
+    "source": "https://www.pexels.com/photo/6804068/",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAABwAgCdASoQAAsAA4BaJZwAD4cvN4fBqzbIlqvQAM4/m/p/2RdV9PFK9QDWf6vT3X1D8W634AsRhc+wO91BFpzf28CIlpHhAop7Az5uxvlW9PhKILILBF4D/7QJN1gASRU8q2wA"
+  }
+]

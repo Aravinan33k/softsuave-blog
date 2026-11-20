@@ -1,0 +1,256 @@
+# Pages served by the new Next.js app (127.0.0.1:3300) instead of the PHP site.
+# Apache reads this file through `RewriteMap softsuaveSite` in
+# apache.softsuave.example.conf. Format: "<exact path> app". No trailing slash:
+# the PHP .htaccess already 301s "/x/" to "/x" before the lookup sees it again.
+#
+# Switch in batches: copy one batch at a time into the server's
+# /etc/apache2/softsuave-site-pages.map. Apache re-reads the file when it changes
+# (no reload needed). To roll a page back to PHP, delete or comment its line.
+#
+# Not listed on purpose:
+#   /404, /410            PHP keeps its own error pages (ErrorDocument 404 /404.php).
+#   /home-v2              a design preview, noindex; not a live URL.
+# Everything else on www.softsuave.com (the blog, /forms, the unmigrated PHP pages,
+# the old /ad/* pages, robots.txt, sitemap.xml) is not in this file and stays as it is.
+
+# ── Batch 1: new pages, 404 on the live site today (13 pages)
+/agentic-ai-development-services app
+/computer-vision-development-services app
+/custom-ai-development-services app
+/data-engineering-services app
+/data-science-services app
+/generative-ai-development-company app
+/graphql-development-company app
+/nextjs-development-company app
+/postgresql-development-company app
+/predictive-intelligence-services app
+/rag-development-services app
+/typescript-development-company app
+/vuejs-development-company app
+
+# ── Batch 2: ad landing pages (noindex) (21 pages)
+/ad/ai-solution app
+/ad/android-development-company app
+/ad/app-developer app
+/ad/app-development-company-india app
+/ad/hire-ai-developer app
+/ad/hire-dedicated-developer app
+/ad/hire-forward-deployed-engineer app
+/ad/hire-full-stack-developers app
+/ad/hire-java-developers app
+/ad/hire-mobile-app-developers app
+/ad/hire-remote-developers-india app
+/ad/hire-salesforce-developer app
+/ad/ios-development-company app
+/ad/it-staff-augmentation-services app
+/ad/mvp-development app
+/ad/on-demand-app-development-company app
+/ad/remote-angular-developers app
+/ad/remote-developer app
+/ad/remote-developers app
+/ad/software-developer app
+/ad/staff-augmentation app
+
+# ── Batch 3: case studies (59 pages)
+/case-studies app
+/case-study-ai-assist-logistics-onboarding app
+/case-study-ai-chatbot-for-engagement-and-secure-transactions app
+/case-study-ai-driven-cybersecurity-automation app
+/case-study-ai-driven-equipment-&-workforce-optimization app
+/case-study-ai-optimization-in-healthcare app
+/case-study-ai-powered-business-intelligence-insights app
+/case-study-ai-powered-cyber-theart-detection app
+/case-study-ai-powered-education-solutions app
+/case-study-ai-powered-multi-cloud-management app
+/case-study-all-in-one-financial-management-app app
+/case-study-area-mapping-solution app
+/case-study-blockchain-digital-currency-platform app
+/case-study-brand-forge app
+/case-study-centralized-shipment-tracking app
+/case-study-cloud-based-campus-management app
+/case-study-comprehensive-ecommerce-for-retail app
+/case-study-corporate-banking-solution app
+/case-study-crm-application-for-real-estate app
+/case-study-custom-business-management-platform app
+/case-study-digital-advertising-in-public-spaces app
+/case-study-digitizing-product-inspections app
+/case-study-download app
+/case-study-healthpass-wellness-subscriptions-in-banking app
+/case-study-high-performance-lms-for-education app
+/case-study-high-performance-trading-platform app
+/case-study-hire-voice app
+/case-study-intuitive-online-shopping-platform app
+/case-study-job-progress-tracking app
+/case-study-legal-violation-tracking-application app
+/case-study-logistics-ride-hailing-application app
+/case-study-marketmind-ai-market-intelligence app
+/case-study-neurora-behavioral-intelligence app
+/case-study-online-consultation-platform-for-doctors app
+/case-study-optimizing-influencer-and-brand-collaborations app
+/case-study-parksafe-community-vehicle-alert-app app
+/case-study-personalized-ecommerce-platform app
+/case-study-postguard-compliance-ai app
+/case-study-project-&-compliance-workflow-transformation app
+/case-study-restaurant-workflow-optimization app
+/case-study-saas-platform-for-corporate-banking app
+/case-study-safeops-ai-incident-management app
+/case-study-salesforce-telephone-app-integration app
+/case-study-savings-solution-for-better-financial-management app
+/case-study-scalable-delivery-mangement-for-logistics app
+/case-study-shiftsense-ai-shift-intelligence app
+/case-study-smart-digital-signage-with-advanced-ad-scheduling app
+/case-study-smart-movie-ticketing-with-real-time-booking app
+/case-study-smart-warranty-and-document-management-app app
+/case-study-streamlining-publication-workflows-with-integrated-tracking app
+/case-study-subscription-management-for-customer-growth app
+/case-study-tech-driven-workforce-development-platform app
+/case-study-telehealth-consultation-platform-for-doctors app
+/case-study-tender-intelligence app
+/case-study-ticket-management-system app
+/case-study-vehicle-intelligence app
+/case-study-web-scraping-solution app
+/case-study-wellpet-ai-smart-wellness-platform app
+/success-stories app
+
+# ── Batch 4: hire pages (39 pages)
+/hire-ai-developer app
+/hire-android-developers app
+/hire-angularjs-developers app
+/hire-anthropic-developers app
+/hire-backend-application-developer app
+/hire-blockchain-developer app
+/hire-cms-developer app
+/hire-dedicated-developers app
+/hire-devops-developers app
+/hire-django-developer app
+/hire-dot-net-developers app
+/hire-drupal-developer app
+/hire-flutter-developers app
+/hire-frontend-application-developer app
+/hire-full-stack-developers-in-india app
+/hire-ionic-developers app
+/hire-ios-developers app
+/hire-java-developers app
+/hire-kotlin-developer app
+/hire-laravel-developer app
+/hire-magento-developer app
+/hire-mean-stack-developers-india app
+/hire-mern-stack-developers-india app
+/hire-mobile-app-developers app
+/hire-nestjs-developers app
+/hire-nodejs-developers app
+/hire-php-developers app
+/hire-python-developers app
+/hire-qa-testers-india app
+/hire-react-native-developers app
+/hire-reactjs-developers app
+/hire-ruby-on-rails-developer app
+/hire-saas-developer app
+/hire-salesforce-developer app
+/hire-selenium-tester app
+/hire-software-developers app
+/hire-swift-developers app
+/hire-web-app-developers app
+/hire-xamarin-developer app
+
+# ── Batch 5: services, industries, company and utility pages (86 pages)
+/30-min-free-consultation app
+/about app
+# /ai-development-service: off the app 18 Nov, see rule 0c in apache.softsuave.example.conf
+/ai-in-logistics app
+/ai-ml-solutions app
+/ai-solutions-for-construction app
+/ai-solutions-for-ecommerce app
+/ai-solutions-for-telecom app
+/ai-solutions-in-edutech app
+/ai-solutions-in-healthtech app
+/android-application-development-company app
+/angularjs-development-company app
+/awards-recognition app
+/career-overview app
+/clients app
+/cloud-computing app
+/construction-employee-time-tracking-app app
+/construction-project-management-software app
+/contact app
+/cross-platform-application-development-company app
+/developer-estimation app
+/developer-profile app
+/dot-net-application-development-company app
+/ecommerce-app-development-package app
+/ecommerce-mobile-app-development-company app
+/education-app-development-company app
+/engagement-model app
+/enterprise-custom-application-development app
+/faqs app
+/fintech-ai-solutions app
+/flutter-application-development-company app
+/free-7-days-trial app
+/free-cost-estimation app
+/free-demo-app app
+/free-quote app
+# /generative-ai-integration-service: off the app 18 Nov, see rule 0c in apache.softsuave.example.conf
+/generative-ai-integration-services app
+/global-capability-center app
+/healthcare-mobile-app-development-company app
+/industries app
+/ionic-app-development-company app
+/ios-application-development-company app
+/it-outsourcing-company-india app
+/it-staff-augmentation-services app
+/java-application-development-company app
+/legacy-modernization-services app
+/life-at-softsuave app
+/low-code-development-company app
+/magento-development app
+/mobile-app-development-company-dubai app
+/mobile-app-development-company-germany app
+/mobile-app-development-company-italy app
+/mobile-app-development-company-maryland app
+/mobile-app-development-company-poland app
+/mobile-app-development-company-saudi-arabia app
+/mobile-app-development-company-south-africa app
+/mobile-app-estimation app
+/mobile-application-development-company app
+/multi-vendor-marketplace-platform app
+/nodejs-development-company app
+/offshore-software-development-company app
+/onestop-digital-banking-solution app
+/payment-gateway-integration-services app
+/php-application-development-company app
+/pos-software-development-company app
+/privacy-policy app
+/product-engineering-services app
+/python-application-development-company app
+/react-native-app-development-company app
+/reactjs-app-development-company app
+/real-estate-crm-software-development app
+/retail-solutions app
+/ruby-on-rails-development-company app
+/softsuave-career app
+/software-development-company app
+/software-development-company-france app
+/software-development-company-germany app
+/software-development-company-spain app
+/staff-augmentation-cost-calculator app
+/swift-app-development-company app
+/test-web-est app
+/thank-you app
+/video-call-app-development-company app
+/web-application-development-company app
+/wordpress-development-company app
+/xamarin-app-development-company app
+
+# ── Batch 6: homepage, last (1 pages)
+/ app
+
+# ── Batch 7: PHP pages rebuilt later (2 pages, 18 Nov)
+/construction-product app
+/developer-rate-card app
+
+# ── Batch 8: hire-forward page, off its standalone app on :3200 (18 Nov). Its vhost
+#    ProxyPass lines are commented out, not deleted, for rollback.
+/hire-forward-deployed-engineer app
+
+# ── Batch 9: PHP product page rebuilt later (1 page, 18 Nov)
+/field-tracking-product app

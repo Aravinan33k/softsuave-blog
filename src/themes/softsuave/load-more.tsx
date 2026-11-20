@@ -67,7 +67,7 @@ export function LoadMore({ shown, total, filter }: { shown: number; total: numbe
           <button
             onClick={loadMore}
             disabled={loading}
-            className="ss-heading rounded-full bg-[#ff0042] px-8 py-3 font-bold text-white transition-colors hover:bg-[#d6003a] disabled:opacity-60"
+            className="ss-heading rounded-[6px] bg-[#ff0042] px-8 py-3 font-bold text-white transition-colors hover:bg-[#d6003a] disabled:opacity-60"
           >
             {loading ? 'Loading…' : 'Load More'}
           </button>
