@@ -12,6 +12,10 @@ import { CURATED_STEPS } from "../hire-blocks";
 import { HOURLY_RATE, YEARS_PLUS } from "../../company-figures";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
+  // The technology band on the light ground.
+  lightBands: ["techStack"],
   slug: "hire-ionic-developers",
   key: "ionic",
   name: "Ionic",
@@ -55,6 +59,7 @@ export const skill: HireSkill = {
     ],
     form: {
       title: "Get Skilled Remote Developers",
+      submitHover: 'black',
       submit: "Start My FREE Trial",
       sending: "Sending...",
       requirementLabel: "Requirement",
@@ -123,6 +128,7 @@ export const skill: HireSkill = {
   },
 
   techStack: {
+    wideHead: true,
     eyebrow: "Technology",
     title: "Make the Most of Our Ionic Developers' Technical Proficiency",
     body: "Our Ionic developers are well-versed in the following technologies:",
@@ -189,7 +195,7 @@ export const skill: HireSkill = {
     ],
   },
 
-  comparison: partnerTable("Choose the Right Ionic Development Partner"),
+  comparison: { ...partnerTable("Choose the Right Ionic Development Partner"), wideHead: true },
 
   process: {
     eyebrow: "Hiring Process",
@@ -198,7 +204,7 @@ export const skill: HireSkill = {
     steps: CURATED_STEPS,
   },
 
-  exploreMore: mobileExplore,
+  exploreMore: { ...mobileExplore, wideHead: true },
 
   faq: {
     eyebrow: "FAQs",

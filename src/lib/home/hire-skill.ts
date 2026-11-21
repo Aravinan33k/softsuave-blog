@@ -135,6 +135,10 @@ export interface HireSkill {
   /** Page-specific presentation options, enabled as each page is reviewed. */
   readonly clientsWideTitle?: boolean | string;
   readonly closingCtaIcon?: boolean;
+  /** Bands drawn on the light ground although they default to dark. */
+  readonly lightBands?: readonly HireBand[];
+  /** Bands drawn on the dark ground although they default to light. */
+  readonly darkBands?: readonly HireBand[];
 
   /** Hero: H1, positioning copy, assurance points and the enquiry form. */
   readonly hero: HeroContent;

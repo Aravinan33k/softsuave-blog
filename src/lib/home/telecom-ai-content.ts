@@ -143,6 +143,7 @@ export const telecomSolutions: ServicesContent = {
 
 /** The live page's six key benefits; the badge glyphs stand in for its card icons. */
 export const telecomBenefits: CardGridContent = {
+  hoverBorder: true,
   eyebrow: "Key Benefits",
   title: "Telecom Meets AI: Innovation Without Limits",
   body: "AI is transforming telecom with unmatched speed, accuracy, and intelligence - automating tasks, personalizing experiences, and helping providers scale, serve better, and innovate fast. Discover six key benefits driving this AI-powered telecom evolution.",

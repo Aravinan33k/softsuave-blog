@@ -7541,6 +7541,30 @@
   box-shadow: var(--card-lift);
 }
 
+/* `hoverBorder`: the plain card grid's hover (.card) on a feature card. */
+.featCardHover {
+  overflow: hidden;
+}
+
+.featCardHover:hover {
+  border-color: var(--accent);
+}
+
+.featCardHover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.featCardHover:hover::before {
+  width: 100%;
+}
+
 .featGrid .featCard:nth-child(5n + 1) { --feat-accent: var(--card-accent-1); }
 .featGrid .featCard:nth-child(5n + 2) { --feat-accent: var(--card-accent-2); }
 .featGrid .featCard:nth-child(5n + 3) { --feat-accent: var(--card-accent-3); }

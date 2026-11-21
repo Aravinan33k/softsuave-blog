@@ -125,6 +125,7 @@ export const ecommerceChallenges: ProblemsContent = {
 export const ecommerceWhyUs: OverviewContent = {
   eyebrow: "Why Soft Suave",
   title: "Why Choose Soft Suave Technologies for AI E-commerce Development",
+  wideHead: true,
   paragraphs: [
     "Soft Suave Technologies transforms your e-commerce business with cutting-edge AI solutions that enhance customer experiences, optimize operations, and drive growth. Our expert team delivers scalable, customized AI tools to ensure your online store stays competitive and efficient.",
   ],
@@ -156,6 +157,7 @@ export const ecommerceWhyUs: OverviewContent = {
 export const ecommerceServices: ServicesContent = {
   eyebrow: "What We Build",
   title: "Custom AI Development Services for E-commerce Businesses",
+  wideHead: true,
   body: "Build precisely what your e-commerce brand needs with tailored AI solutions that integrate with your system, scale with demand, and keep you ahead of competitors.",
   items: [
     {
