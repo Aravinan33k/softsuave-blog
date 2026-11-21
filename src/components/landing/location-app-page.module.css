@@ -81,6 +81,12 @@
   color: #fff;
 }
 
+/* The story cards and the awards band under them: the cards' own bottom padding is dropped so only the awards band's top padding separates them
+   (both paddings stacked into a ~160px gap). */
+.awardsJoined > section:first-child {
+  padding-bottom: 0;
+}
+
 /* The technology cluster and the FAQ under it: the cluster's own bottom padding is dropped so only the FAQ's top padding separates them. */
 .faqJoined > section:first-child {
   padding-bottom: 0;

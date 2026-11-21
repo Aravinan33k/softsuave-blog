@@ -231,6 +231,7 @@ export const nxWhyUs: CardGridContent = {
  */
 export const nxTech: TechStackContent = {
   eyebrow: "Technologies",
+  wideHead: true,
   title: "Technology Stack for Next.js Product Development",
   body: "We use a suitable technology stack to build secure, scalable, and maintainable Next.js applications based on your project requirements.",
   groups: [

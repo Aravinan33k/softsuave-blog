@@ -1724,6 +1724,34 @@
   padding: clamp(20px, 2.4vw, 32px);
 }
 
+/* `hoverBorder`: the same hover as the Why Choose Us cards (`.proofItem`) —
+   accent border, a 3px lift, and a top rule that grows from 34px to full width. */
+.integrationCardHover {
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s ease, transform 0.35s ease;
+}
+
+.integrationCardHover:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.integrationCardHover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.integrationCardHover:hover::before {
+  width: 100%;
+}
+
 /* The card's own <h3>. It was set as an eyebrow — 10px uppercase mono in the
    accent — so a real heading read as a label and the card looked headless
    (review: "the heading is really small; need to make it bigger"). It now

@@ -10,6 +10,7 @@ import Footer from '@/components/home/footer';
 import TechStack from '@/components/landing/tech-stack';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 import Sections from './sections';
 
 /**
@@ -100,7 +101,7 @@ export default function DotNetApplicationDevelopmentPage() {
   // single-item trail, so the schema is omitted rather than emitted empty.
 
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       <JsonLd data={LD} />
       <Nav logoHref={HOME_HREF} />
 

@@ -46,7 +46,7 @@ export default function Sections() {
       <Hero content={dsHero} idPrefix="ds" variant="compact" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       <Overview content={dsOverview} variant="compact" />

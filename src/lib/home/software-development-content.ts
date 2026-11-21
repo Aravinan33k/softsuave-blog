@@ -137,6 +137,9 @@ export const sdServices: ServicesCarouselContent = {
     },
     {
       name: "Software Development Service",
+      // Named rather than matched: the name alone resolves to this very page (/software-development-company),
+      // and a card never links to the page it is on, so it had no Learn More.
+      href: "/product-engineering-services",
       body: "Empower your digital vision with Soft Suave’s custom software development. From scalable web apps to intelligent systems, we deliver high-performance, secure, and future-ready solutions that drive business transformation.",
       image: {
         src: "/images/landing/software-development/svc-software.webp",

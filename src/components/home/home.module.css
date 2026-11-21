@@ -3177,6 +3177,13 @@ h1.h2 {
   position: relative;
 }
 
+/* `icon`: the label sits beside its icon, centred on one line. */
+.holdTextIcon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
 /* ============================================================
    FOOTER
    ============================================================ */
