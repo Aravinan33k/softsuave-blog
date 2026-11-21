@@ -104,6 +104,7 @@ export const iosHero: HeroContent = {
 export const iosServices: SpringboardContent = {
   eyebrow: "Services",
   title: "iOS Application Development Services We Offer",
+  wideHead: true,
   body: "Soft Suave's team of iPhone app experts uses the latest tools to build awesome iPhone apps. Here are the iPhone app development services we offer:",
   items: [
     {
@@ -143,6 +144,7 @@ export const iosServices: SpringboardContent = {
 export const iosTech: CardGridContent = {
   eyebrow: "Innovation",
   title: "Optimizing iOS Apps With The Latest Innovative Technologies",
+  wideHead: true,
   body: "We recognize the core challenges of iOS mobile app development. As a leading offshore iOS development company in India, our deep industry expertise enables us to use advanced technologies, simplify processes, speed up growth, and transform your app vision into reality.",
   points: [
     "Build high-performance iOS apps that utilize the full potential of iOS and iPad",
@@ -223,6 +225,7 @@ export const iosBenefits: CardGridContent = {
 export const iosWhyUs: CardGridContent = {
   eyebrow: "Why Soft Suave",
   title: "Why Choose Soft Suave As Your iOS Mobile App Development Company?",
+  wideHead: true,
   // VERBATIM, INCLUDING THE BUG: "web applications" on an iOS page.
   body: "Empower your web applications with Soft Suave's expert iOS app development services. Here's why you should choose us:",
   items: [

@@ -50,7 +50,7 @@ export default function Sections() {
       <Hero content={madHero} idPrefix="mad" variant="compact" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       {/* Seven slats, all on screen, one of them open. The section's
@@ -95,7 +95,7 @@ export default function Sections() {
 
       <Faq content={madFaqs} idPrefix="mad-faq" />
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

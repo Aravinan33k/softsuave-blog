@@ -75,6 +75,7 @@ export const itoHero: HeroContent = {
   ],
   badges: sharedHeroBadges,
   form: {
+    submitHover: "black",
     eyebrow: "Business Enquiry",
     // The live hero form's own heading.
     title: "Let's Discuss Your Project",
@@ -183,6 +184,7 @@ export const itoFit: OverviewContent = {
 };
 
 export const itoDestinations: ComparisonContent = {
+  wideHead: true,
   eyebrow: "Global Outsourcing Comparison",
   title: "How Does India Compare With Other IT Outsourcing Destinations?",
   // The live table's first heading (review: "First heading in the table is

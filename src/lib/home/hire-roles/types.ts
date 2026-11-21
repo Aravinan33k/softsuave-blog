@@ -135,6 +135,9 @@ export interface HireRolePageContent {
    * that order is the point of this field.
    */
   readonly order: readonly HireBand[];
+  /** Page-specific presentation options; other role pages keep their defaults. */
+  readonly clientsWideTitle?: boolean;
+  readonly closingCtaIcon?: boolean;
 
   readonly meta: {
     readonly title: string;
@@ -231,7 +234,7 @@ export interface HireRolePageContent {
    */
   readonly caseStudies?: WorkCarouselContent;
   /** This role's stack, rendered through the homepage's technology band. */
-  readonly techStack?: TechStackContent;
+  readonly techStack?: TechStackContent & { readonly wideHead?: boolean };
   /** Render the stack's logos at the Custom AI page's larger size. */
   readonly techStackLargeLogos?: boolean;
   /**

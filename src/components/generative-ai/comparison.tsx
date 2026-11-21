@@ -6,6 +6,7 @@ export interface ComparisonContent {
   eyebrow: string;
   title: string;
   body: string;
+  wideHead?: boolean;
   /** `[row-header column, ...option columns]`. */
   columns: readonly string[];
   /** One row per decision criterion; `values` aligns with `columns` minus its first entry. */
@@ -36,7 +37,7 @@ export default function Comparison({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
       <SimpleTable
         caption={content.title}
         columns={content.columns}
