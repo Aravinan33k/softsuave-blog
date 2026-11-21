@@ -132,6 +132,9 @@ export interface HireSkill {
    * of this field.
    */
   readonly order: readonly HireBand[];
+  /** Page-specific presentation options, enabled as each page is reviewed. */
+  readonly clientsWideTitle?: boolean | string;
+  readonly closingCtaIcon?: boolean;
 
   /** Hero: H1, positioning copy, assurance points and the enquiry form. */
   readonly hero: HeroContent;

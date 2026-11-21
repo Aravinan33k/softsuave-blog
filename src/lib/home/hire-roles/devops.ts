@@ -28,6 +28,8 @@ import { heroForm } from './shared';
 import { HOURLY_RATE, YEARS_PLUS } from '@/lib/company-figures';
 
 export const devops: HireRolePageContent = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
   key: 'hire-devops',
   slug: '/hire-devops-developers',
   name: 'Hire DevOps Engineers',
@@ -66,6 +68,7 @@ export const devops: HireRolePageContent = {
       'Strong Delivery Governance from Day One',
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
@@ -75,6 +78,7 @@ export const devops: HireRolePageContent = {
   },
 
   overview: {
+    wideHead: true,
     eyebrow: 'Overview',
     title: 'Hire Remote DevOps Engineers Within 48 Hours',
     // Portrait, stretched to the prose column's height (review: "resize the
@@ -98,6 +102,7 @@ export const devops: HireRolePageContent = {
   },
 
   capabilities: {
+    wideHead: true,
     eyebrow: 'Services',
     title: 'What Do Our DevOps Experts Do?',
     body: 'Connect with the most reliable DevOps developers to improve the quality of code and undertake continuous integration.',
@@ -136,6 +141,7 @@ export const devops: HireRolePageContent = {
   },
 
   whyRole: {
+    wideHead: true,
     eyebrow: 'Why Us',
     title: 'What Makes Our DevOps Engineers Unique and Trustworthy?',
     body: 'Reducing deployment risk and accelerating release cycles is made easy when you hire DevOps engineers from us.',
@@ -174,6 +180,7 @@ export const devops: HireRolePageContent = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: 'Hiring Process',
     title: 'Hire DevOps Programmers in 4 Easy Steps',
     body: 'Below is the simple Full-time Hiring Process that we follow while offering a 40-hour free trial to our clients.',
@@ -202,6 +209,7 @@ export const devops: HireRolePageContent = {
   },
 
   comparison: {
+    wideHead: true,
     eyebrow: 'Comparison',
     title: 'Soft Suave vs. In-House vs. Freelancer.',
     body: 'Compare common hiring approaches and find the option that best fits your software development and team requirements.',
@@ -243,6 +251,7 @@ export const devops: HireRolePageContent = {
   },
 
   techStack: {
+    wideHead: true,
     eyebrow: 'Technology',
     title: 'Explore Our DevOps Technology Competence',
     body: 'Our certified DevOps development team uses advanced technologies that aid us in delivering creative & innovative custom solutions.',
@@ -305,6 +314,7 @@ export const devops: HireRolePageContent = {
   },
 
   faq: {
+    wideHead: true,
     eyebrow: 'FAQs',
     title: 'Frequently Asked Questions',
     body: 'Know more about our processes and how we work, with the help of the following FAQs our clients ask.',

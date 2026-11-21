@@ -11,6 +11,8 @@ import styles from "./gen-ai.module.css";
 export interface OverviewContent {
   eyebrow: string;
   title: string;
+  /** Gives a long section heading room to wrap into fewer lines. */
+  wideHead?: boolean;
   paragraphs: readonly string[];
   /** Phrases in `paragraphs` to link, as the live page links them. */
   links?: readonly InlineLink[];
@@ -100,7 +102,7 @@ export default function Overview({
         <FadeUp>
           <div className={styles.overviewGrid}>
             <div>
-              <SectionHead kicker={content.eyebrow} title={content.title} />
+              <SectionHead kicker={content.eyebrow} title={content.title} wide={content.wideHead} />
 
               <Paragraphs content={content} />
             </div>
@@ -131,7 +133,7 @@ export default function Overview({
         </FadeUp>
       ) : (
         <>
-          <SectionHead kicker={content.eyebrow} title={content.title} />
+          <SectionHead kicker={content.eyebrow} title={content.title} wide={content.wideHead} />
 
           <FadeUp>
             <Paragraphs content={content} />

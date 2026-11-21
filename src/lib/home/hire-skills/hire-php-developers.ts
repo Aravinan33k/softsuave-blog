@@ -11,6 +11,7 @@ import { techSteps, techWhy } from "../hire-blocks";
 import { CLASSIC_ORDER } from "./backend-shared";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
   slug: "hire-php-developers",
   key: "php",
   name: "PHP",
@@ -38,6 +39,7 @@ export const skill: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
+      submitHover: 'black',
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",

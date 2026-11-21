@@ -26,6 +26,8 @@ import { heroForm } from './shared';
 import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const webApp: HireRolePageContent = {
+  clientsWideTitle: true,
+  closingCtaIcon: true,
   key: 'hire-web',
   slug: '/hire-web-app-developers',
   name: 'Hire Web App Developers',
@@ -69,6 +71,7 @@ export const webApp: HireRolePageContent = {
       'Direct Developer Collaboration',
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Hire Skilled Web App Developers',
       requirementLabel: 'Project Requirements',
       requirementPlaceholder:
@@ -78,6 +81,7 @@ export const webApp: HireRolePageContent = {
   },
 
   overview: {
+    wideHead: true,
     // Portrait, run the full height of the copy beside it (8 Oct review:
     // "resize the image to match the section") — the same photo, cut taller.
     image: {
@@ -100,6 +104,7 @@ export const webApp: HireRolePageContent = {
   },
 
   capabilities: {
+    wideHead: true,
     eyebrow: 'Capabilities',
     title: 'Web App Developers for Your Product Requirements',
     body: 'Hire web application developers who turn your requirements into reliable digital products, strengthen existing systems, and help your business scale confidently and adapt as priorities evolve over time.',
@@ -157,6 +162,7 @@ export const webApp: HireRolePageContent = {
   },
 
   engagement: {
+    wideHead: true,
     eyebrow: 'Hiring Options',
     title: 'Flexible Ways to Hire Web App Developers',
     body: 'Choose an engagement approach that reflects your application scope, delivery responsibilities, required flexibility, and the way your existing team works.',
@@ -177,6 +183,7 @@ export const webApp: HireRolePageContent = {
   },
 
   globalDelivery: {
+    wideHead: true,
     eyebrow: 'Global Delivery',
     title: 'Global Delivery for Distributed Development Teams',
     paragraphs: [
@@ -193,6 +200,7 @@ export const webApp: HireRolePageContent = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: 'Our Process',
     title: 'Our Process for Hiring a Web App Developer',
     body: 'Move from initial requirements to developer evaluation through a structured process designed to assess technical fit, communication, availability, and compatibility with your existing team.',
@@ -221,6 +229,7 @@ export const webApp: HireRolePageContent = {
   },
 
   specialisations: {
+    wideHead: true,
     eyebrow: 'Developer Expertise',
     title: 'Hire Web App Developers by Technology',
     body: 'Select web application developers according to your application architecture, existing stack, integration requirements, and planned development work to strengthen delivery, maintain compatibility, and support evolving product and business needs confidently.',
@@ -301,6 +310,7 @@ export const webApp: HireRolePageContent = {
   },
 
   whyRole: {
+    wideHead: true,
     eyebrow: 'Why Us',
     title: 'Why Hire Remote Web App Developers from Soft Suave?',
     body: 'Gain reliable engineering support that reduces hiring uncertainty, strengthens collaboration, and helps your web application progress as your business and technical priorities evolve.',
@@ -385,6 +395,7 @@ export const webApp: HireRolePageContent = {
   },
 
   techStack: {
+    wideHead: true,
     eyebrow: 'Technologies',
     title: 'Technology Expertise for Modern Web Applications',
     body: 'Work with technologies aligned to your existing architecture, application requirements, and long-term product direction instead of forcing your project into a predetermined stack.',
@@ -463,6 +474,7 @@ export const webApp: HireRolePageContent = {
   },
 
   faq: {
+    wideHead: true,
     eyebrow: 'Ask Us',
     title: 'Frequently Asked Questions About Hiring Web App Developers',
     body: 'Find clear answers to common questions about hiring the right web app developer for your project.',

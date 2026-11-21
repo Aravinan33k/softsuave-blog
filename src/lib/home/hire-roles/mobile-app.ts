@@ -28,6 +28,8 @@ import { heroForm, hiringComparison } from './shared';
 import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const mobileApp: HireRolePageContent = {
+  clientsWideTitle: true,
+  closingCtaIcon: true,
   key: 'hire-mobile',
   slug: '/hire-mobile-app-developers',
   name: 'Hire Mobile App Developers',
@@ -74,6 +76,7 @@ export const mobileApp: HireRolePageContent = {
       'Global Delivery from India',
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Hire Mobile App Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
@@ -83,6 +86,7 @@ export const mobileApp: HireRolePageContent = {
   },
 
   overview: {
+    wideHead: true,
     // Portrait, run the full height of the copy beside it (8 Oct review:
     // "resize the image to match the section") — the same photo, cut taller.
     image: {
@@ -108,6 +112,7 @@ export const mobileApp: HireRolePageContent = {
   // Selection ... it is a table with 3 columns, and it's not clear in the
   // current design"), with the two paragraphs it runs after it.
   fitTable: {
+    wideHead: true,
     eyebrow: 'Developer Selection',
     title: 'Which Mobile Developer Does Your Project Need?',
     body: 'The right choice depends on your existing architecture, target platforms, internal engineering skills, and product roadmap. Use these common scenarios to identify the expertise that best fits your project.',
@@ -170,6 +175,7 @@ export const mobileApp: HireRolePageContent = {
   },
 
   globalDelivery: {
+    wideHead: true,
     // Portrait, run the full height of the copy beside it (8 Oct review:
     // "resize the image to match the section") — the same photo, cut taller.
     image: {
@@ -192,6 +198,7 @@ export const mobileApp: HireRolePageContent = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: 'Developer Evaluation',
     title: 'Evaluate Your Mobile Developer Before You Onboard',
     body: 'Make a more confident hiring decision with a process designed to reduce uncertainty and help you choose the right developer for your team.',
@@ -220,6 +227,7 @@ export const mobileApp: HireRolePageContent = {
   },
 
   specialisations: {
+    wideHead: true,
     eyebrow: 'Mobile Development Expertise',
     title: 'Hire Mobile Developers Across Native and Cross-Platform Technologies',
     body: 'Get matched with mobile developers who fit your product, codebase, and team requirements from day one. Move faster with relevant expertise aligned to your technology, workflows, delivery priorities, and goals.',
@@ -289,6 +297,7 @@ export const mobileApp: HireRolePageContent = {
   },
 
   whyRole: {
+    wideHead: true,
     eyebrow: 'Why Choose Us',
     title: 'Why Hire Mobile Developers Through Soft Suave?',
     body: 'Choose a hiring process built around relevant technical expertise, direct developer evaluation, practical collaboration, and established engineering delivery. Review fit before extending the engagement while keeping your existing team involved.',
@@ -326,11 +335,14 @@ export const mobileApp: HireRolePageContent = {
     ],
   },
 
-  comparison: hiringComparison({
-    title: 'Hiring a Mobile App Developer: Soft Suave vs In-House vs Freelancer',
-    body: 'Compare common hiring approaches and find the option that best fits your software development and team requirements.',
-    column: 'Soft Suave Developer',
-  }),
+  comparison: {
+    wideHead: true,
+    ...hiringComparison({
+      title: 'Hiring a Mobile App Developer: Soft Suave vs In-House vs Freelancer',
+      body: 'Compare common hiring approaches and find the option that best fits your software development and team requirements.',
+      column: 'Soft Suave Developer',
+    }),
+  },
 
   // The live page's own case-study band, not the homepage's AI stories
   // (review: heading/content mismatch). Titles and bodies verbatim.
@@ -379,6 +391,7 @@ export const mobileApp: HireRolePageContent = {
   },
 
   techStack: {
+    wideHead: true,
     eyebrow: 'Tech Stack',
     title: 'Technology Stack for Mobile App Engineering',
     body: 'Our mobile developers work across native and cross-platform stacks, backend services, and the tooling required to ship and maintain production apps.',
@@ -411,6 +424,7 @@ export const mobileApp: HireRolePageContent = {
   },
 
   faq: {
+    wideHead: true,
     eyebrow: 'Ask Us',
     title: 'Frequently Asked Questions About Hiring Mobile Developers',
     body: 'Get clear answers to common questions about hiring mobile developers, pricing, technology fit, trials, and team integration.',

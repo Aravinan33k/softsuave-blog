@@ -20,6 +20,8 @@ const DWELL_MS = 4600;
 export interface ServicesContent {
   eyebrow: string;
   title: string;
+  /** Gives this page's long section heading room to wrap into fewer lines. */
+  wideHead?: boolean;
   body: string;
   items: readonly {
     readonly name: string;
@@ -228,6 +230,7 @@ export default function Services({
         kicker={content.eyebrow}
         title={content.title}
         intro={linkify(content.body, content.bodyLinks, new Set(), styles.proseLink)}
+        wide={content.wideHead}
       />
 
       <div

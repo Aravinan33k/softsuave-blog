@@ -16,6 +16,7 @@ import Footer from '@/components/home/footer';
 import TechStack from '@/components/landing/tech-stack';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 import landing from '@/components/landing/landing.module.css';
 import Sections from './sections';
 
@@ -116,7 +117,7 @@ function DestinationsNotes() {
 
 export default function ItOutsourcingCompanyIndiaPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       {/* softsuave.com's own schema for this page, verbatim, one <script> per
           block — see `lib/seo/it-outsourcing-company-india.ts`. */}
       {ITO_LIVE_LD.map((block, i) => (

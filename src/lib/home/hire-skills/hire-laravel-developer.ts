@@ -12,6 +12,8 @@ import { HOURLY_RATE } from "../../company-figures";
 import { MODERN_ORDER, vetting } from "./backend-shared";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
   slug: "hire-laravel-developer",
   key: "laravel",
   name: "Laravel",
@@ -39,6 +41,7 @@ export const skill: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
+      submitHover: 'black',
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -60,6 +63,7 @@ export const skill: HireSkill = {
   },
 
   whyUs: {
+    wideHead: true,
     eyebrow: "Why Soft Suave",
     title: "Why Hire Laravel Developers from Soft Suave",
     body: "At Soft Suave, we don't just provide developers - we deliver Laravel experts who think like partners, not just coders. Here's why businesses worldwide hire remote Laravel developers from us.",
@@ -98,6 +102,7 @@ export const skill: HireSkill = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: "Hiring Process",
     title: "Steps to Hire a Laravel Developer",
     body: "Fast, easy, and tailored: Our 4-step hiring process lets you hire expert Laravel developers & onboard them in no time",
@@ -132,6 +137,7 @@ export const skill: HireSkill = {
    * one; correcting it is the site owners' call.
    */
   techStack: {
+    wideHead: true,
     eyebrow: "Technology",
     title: "Technical Expertise of Our Laravel Developers",
     body: "Soft Suave makes it easy to hire Laravel developers with expertise in modern frameworks, API integrations, and building robust digital solutions.",
@@ -185,6 +191,7 @@ export const skill: HireSkill = {
   },
 
   services: {
+    wideHead: true,
     eyebrow: "Services",
     title: "Laravel Development Services We Offer",
     body: "From strategy to deployment, we deliver high-quality, tailored applications for diverse business needs. Our end-to-end Laravel development services empower businesses to build robust digital solutions",
@@ -237,6 +244,7 @@ export const skill: HireSkill = {
   },
 
   vetting: {
+    wideHead: true,
     eyebrow: "Vetting",
     title: "How We Vet and Onboard Top Laravel Developers",
     body: "Our process ensures only the best Laravel developers join your project – skilled, adaptable, and reliable, with proven experience in delivering high-performance, maintainable code across complex, deadline-driven development environments.",
@@ -248,14 +256,21 @@ export const skill: HireSkill = {
     ]),
   },
 
-  comparison: partnerTable(
-    "Choosing the Right Laravel Partner for Your Specific Needs",
-    "Explore how to choose the right fit for your business by comparing an in-house team, freelancers, & Soft Suave’s experts. Check out this detailed comparison chart for valuable insights.",
-  ),
+  comparison: {
+    ...partnerTable(
+      "Choosing the Right Laravel Partner for Your Specific Needs",
+      "Explore how to choose the right fit for your business by comparing an in-house team, freelancers, & Soft Suave’s experts. Check out this detailed comparison chart for valuable insights.",
+    ),
+    wideHead: true,
+  },
 
-  exploreMore: webExplore,
+  exploreMore: {
+    ...webExplore,
+    wideHead: true,
+  },
 
   faq: {
+    wideHead: true,
     eyebrow: "FAQs",
     title: "FAQs About Hiring Laravel Developers",
     body: "Learn more about our procedures & methods with the help of these FAQs.",

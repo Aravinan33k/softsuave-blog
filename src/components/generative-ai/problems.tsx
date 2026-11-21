@@ -15,6 +15,8 @@ const DWELL_MS = 5200;
 export interface ProblemsContent {
   eyebrow: string;
   title: string;
+  /** Gives a long section heading more room beside its introduction. */
+  wideHead?: boolean;
   body: string;
   /** `[row-header column, solution column]` — the second is the panel's label. */
   columns: readonly string[];
@@ -215,7 +217,7 @@ export default function Problems({
 
   return (
     <section ref={root} className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <div
         className={styles.psGrid}

@@ -12,6 +12,8 @@ import { HOURLY_RATE } from "../../company-figures";
 import { CLASSIC_ORDER } from "./backend-shared";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
   slug: "hire-dot-net-developers",
   key: "dotnet",
   name: ".NET",
@@ -42,6 +44,7 @@ export const skill: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
+      submitHover: 'black',
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -63,6 +66,7 @@ export const skill: HireSkill = {
   },
 
   overview: {
+    wideHead: true,
     // Internal links in the second paragraph (review: "internal link missing
     // in the 2nd paragraph"). The live page has none to copy, so each is a
     // phrase already in the copy, pointed at the matching service page.
@@ -80,6 +84,7 @@ export const skill: HireSkill = {
   },
 
   services: {
+    wideHead: true,
     eyebrow: "Expertise",
     title: "Expertise Of Our .NET Developers",
     body: "With in-depth technical expertise and agile methodology, our .NET developers offer top-class .NET solutions.",
@@ -118,6 +123,7 @@ export const skill: HireSkill = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: "Hiring Process",
     title: "Hire .Net Developers in 4 easy steps",
     body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
@@ -125,15 +131,20 @@ export const skill: HireSkill = {
   },
 
   whyUs: {
+    wideHead: true,
     eyebrow: "Why Soft Suave",
     title: "Why Are Our .Net Programmers Considered the Best?",
     body: "Clients all around the world trust our .NET developers to acquire industry-specific .NET solutions with quality.",
     items: techWhy(".NET", "ASP.NET, .NET Core, C#, Azure, MVC, and APIs"),
   },
 
-  exploreMore: webExplore,
+  exploreMore: {
+    ...webExplore,
+    wideHead: true,
+  },
 
   faq: {
+    wideHead: true,
     eyebrow: "FAQs",
     title: "Frequently Asked Questions",
     body: "Know more about our processes and how we work, with the help of the following FAQs.",
