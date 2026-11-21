@@ -41,6 +41,8 @@ export const logisticsMeta = {
 
 export const logisticsHero: HeroContent = {
   titleLines: ["AI in Logistics:", "Transforming Supply Chain Efficiency"],
+  // Each line on one line, as the Generative AI hero does (the H1 is two lines, not three).
+  titleFit: true,
   // 13 Oct review: the industry name is the highlighted phrase in the H1
   // ("eg for Ecommerce page - ecommerce in H1 must be highlighted").
   accent: "Logistics",
