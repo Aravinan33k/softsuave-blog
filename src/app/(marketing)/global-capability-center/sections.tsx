@@ -54,7 +54,7 @@ export default function Sections() {
 
       <CtaBand content={gccClosingCta} />
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

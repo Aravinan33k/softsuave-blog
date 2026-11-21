@@ -226,6 +226,7 @@ export const offProcess: ProcessContent = {
 export const offIndustries: PhotoGridContent = {
   eyebrow: "Industries",
   title: "Offshore Software Development Across Industries",
+  wideHead: true,
   body: "Offshore software development can support industry-specific workflows without relying on one standard solution. Our teams plan applications around the users, data, integrations, operational requirements, and technical context involved in each project.",
   items: [
     {

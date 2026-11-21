@@ -26,6 +26,8 @@ import { heroForm, hiringComparison } from './shared';
 import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const software: HireRolePageContent = {
+  clientsWideTitle: true,
+  closingCtaIcon: true,
   key: 'hire-software',
   slug: '/hire-software-developers',
   name: 'Hire Software Developers',
@@ -67,6 +69,7 @@ export const software: HireRolePageContent = {
       'Direct Developer Collaboration',
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Get Skilled Software Developers',
       requirementLabel: 'How can we help (your requirement)',
       requirementPlaceholder:
@@ -131,6 +134,7 @@ export const software: HireRolePageContent = {
   },
 
   specialisations: {
+    wideHead: true,
     eyebrow: 'Developer Expertise',
     title: 'Hire Remote Software Developers for Your Technology Needs',
     body: 'Hire software developers in India with expertise across web, mobile, frontend, backend, full-stack, DevOps, and other technologies aligned to your project requirements.',
@@ -206,6 +210,7 @@ export const software: HireRolePageContent = {
   },
 
   whyRole: {
+    wideHead: true,
     eyebrow: 'Why Choose Us',
     title: 'Why Hire Software Developers From Soft Suave?',
     body: 'See why businesses choose Soft Suave to hire software developers and what you can expect throughout the engagement.',
@@ -238,13 +243,17 @@ export const software: HireRolePageContent = {
     ],
   },
 
-  comparison: hiringComparison({
-    title: 'Hiring a Software Developer: Soft Suave vs In-House vs Freelancer',
-    body: 'Compare common hiring approaches and find the option that best fits your software development and team requirements.',
-    column: 'Soft Suave Developer',
-  }),
+  comparison: {
+    wideHead: true,
+    ...hiringComparison({
+      title: 'Hiring a Software Developer: Soft Suave vs In-House vs Freelancer',
+      body: 'Compare common hiring approaches and find the option that best fits your software development and team requirements.',
+      column: 'Soft Suave Developer',
+    }),
+  },
 
   techStack: {
+    wideHead: true,
     eyebrow: 'Tech Stack',
     title: 'Technology Stack for Modern Software Engineering',
     body: 'Work with frontend, backend, mobile, cloud, DevOps, and AI technologies that support scalable applications, efficient delivery, and modern software engineering workflows.',

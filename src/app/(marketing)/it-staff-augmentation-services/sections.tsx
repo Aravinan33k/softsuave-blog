@@ -39,7 +39,7 @@ export default function Sections() {
       <Hero content={staffHero} idPrefix="staff-aug" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle />
       </div>
 
       <CardGrid content={staffWhyUs} id="why" columns={4} />
@@ -69,7 +69,7 @@ export default function Sections() {
         <Faq content={staffFaqs} idPrefix="staff-aug-faq" />
       </div>
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

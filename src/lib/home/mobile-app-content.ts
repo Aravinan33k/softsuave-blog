@@ -244,6 +244,7 @@ export const madProcess: ReleaseTrackContent = {
 export const madWhyUs: CardGridContent = {
   eyebrow: "Why Choose Us",
   title: "Why Choose Soft Suave as Your Mobile App Development Company in India?",
+  wideHead: true,
   body: "At Soft Suave, we’re more than just coders; we’re partners dedicated to delivering impactful product outcomes and long-term value, ensuring your app’s success every step of the way.",
   items: [
     {
@@ -322,6 +323,7 @@ export const madIndustries: CardGridContent = {
 export const madEngagement: EngagementContent = {
   eyebrow: "Method",
   title: "Engagement Models to Work with Our Mobile App Development Company in India",
+  wideHead: true,
   body: "Choose the engagement model that aligns with your project’s stage, budget, and requirements. Whether you’re a startup or an SMB, we offer flexible models to deliver tailored solutions that drive success.",
   items: [
     {
@@ -413,6 +415,7 @@ export const madCaseStudies: WorkCarouselContent = {
 export const madFaqs: FaqContent = {
   eyebrow: "FAQs",
   title: "FAQs About Mobile App Development Companies in India",
+  wideHead: true,
   body: "Answers to the most common questions founders, product leaders, and CTOs ask before choosing a mobile app development company in India.",
   items: [
     {

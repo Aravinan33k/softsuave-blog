@@ -9,6 +9,7 @@ import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 import Sections from './sections';
 
 /**
@@ -76,7 +77,7 @@ const HOME_HREF = BASE_PATH || '/';
 
 export default function MobileAppDevelopmentPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       {/* softsuave.com's own schema for this page, verbatim — see
           `lib/seo/mobile-application-development-company.ts`. */}
       <JsonLd data={madFaqLd} />

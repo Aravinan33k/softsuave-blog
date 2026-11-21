@@ -183,7 +183,7 @@ export default function HireRoleBands({
       case 'clients':
         return (
           <div key={band} id={whyBand === 'clients' ? 'why' : undefined}>
-            <Clients />
+            <Clients wideTitle={content.clientsWideTitle} />
           </div>
         );
       case 'overview':
@@ -326,7 +326,7 @@ export default function HireRoleBands({
           every final CTA to lead to the contact page. Every role page now
           takes this copy (13 Oct review); four used to opt in to it and the
           rest kept the homepage's AI-strategy pitch. */}
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon={content.closingCtaIcon} />
     </>
   );
 }

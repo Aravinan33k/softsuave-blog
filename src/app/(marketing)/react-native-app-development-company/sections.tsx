@@ -71,7 +71,7 @@ export default function Sections() {
 
       <Faq content={rnFaqs} idPrefix="rn-faq" />
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }
