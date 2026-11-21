@@ -296,7 +296,10 @@ export default function HireRoleBands({
     .map((band) => ({ band, node: render(band) }))
     .filter((b): b is { band: HireBand; node: ReactNode } => b.node !== null);
 
-  const grounds = assignGrounds(bands.map((b) => b.band));
+  const grounds = assignGrounds(
+    bands.map((b) => b.band),
+    content.groundOverrides,
+  );
   const chapters: { light: boolean; nodes: ReactNode[] }[] = [];
   bands.forEach(({ node }, i) => {
     const light = grounds[i] === 'light';

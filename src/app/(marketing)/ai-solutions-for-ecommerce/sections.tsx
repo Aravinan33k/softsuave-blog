@@ -42,7 +42,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
       <Hero content={ecommerceHero} idPrefix="ecommerce" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       <Problems content={ecommerceChallenges} id="challenges" />

@@ -12,6 +12,8 @@ import { HOURLY_RATE, SPECIALISTS_PLUS } from "../../company-figures";
 import { PLATFORM_ORDER } from "./platform-shared";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: "38ch",
   slug: "hire-drupal-developer",
   key: "drupal",
   name: "Drupal",
@@ -40,6 +42,7 @@ export const skill: HireSkill = {
     ],
     form: {
       title: "Get Skilled Remote Developers",
+      submitHover: 'black',
       submit: "Start My FREE Trial",
       sending: "Sending...",
       requirementLabel: "Requirement",
@@ -126,6 +129,7 @@ export const skill: HireSkill = {
   },
 
   expertise: {
+    wideHead: true,
     eyebrow: "Technical Expertise",
     title: "Technical Expertise of Our Drupal Developers",
     body: "Our Drupal developers are more than just coders; they are architects of robust, scalable, and secure web solutions. They possess deep expertise across the entire Drupal ecosystem and more.",
@@ -247,12 +251,15 @@ export const skill: HireSkill = {
     ],
   },
 
-  comparison: partnerTable(
-    "Choosing the Right Drupal Partner for Your Specific Needs",
-    "Make a well-informed decision by comparing your options - freelancers, in-house teams, or our expertly vetted developers. Use our comparison guide for valuable insights.",
-  ),
+  comparison: {
+    ...partnerTable(
+      "Choosing the Right Drupal Partner for Your Specific Needs",
+      "Make a well-informed decision by comparing your options - freelancers, in-house teams, or our expertly vetted developers. Use our comparison guide for valuable insights.",
+    ),
+    wideHead: true,
+  },
 
-  exploreMore: webExplore,
+  exploreMore: { ...webExplore, wideHead: true },
 
   faq: {
     eyebrow: "FAQs",

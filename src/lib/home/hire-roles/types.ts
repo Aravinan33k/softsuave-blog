@@ -136,8 +136,10 @@ export interface HireRolePageContent {
    */
   readonly order: readonly HireBand[];
   /** Page-specific presentation options; other role pages keep their defaults. */
-  readonly clientsWideTitle?: boolean;
+  readonly clientsWideTitle?: boolean | string;
   readonly closingCtaIcon?: boolean;
+  /** A band drawn on a ground other than the one the sequence would give it. */
+  readonly groundOverrides?: Partial<Record<HireBand, 'light' | 'dark'>>;
 
   readonly meta: {
     readonly title: string;

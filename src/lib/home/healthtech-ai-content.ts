@@ -148,6 +148,7 @@ export const healthtechServices: ServicesContent = {
 export const healthtechBenefits: CardGridContent = {
   eyebrow: "Key Benefits",
   title: "Enhancing HealthTech with AI-Powered Intelligent Systems",
+  wideHead: true,
   body: "Adopting AI-driven solutions can transform healthcare operations, making them more efficient, accurate, and responsive. AI has the potential to reduce manual effort, enhance patient care, and optimize decision-making across various healthcare processes.",
   items: [
     {

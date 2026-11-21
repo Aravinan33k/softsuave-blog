@@ -321,6 +321,7 @@ export const fintechSectors: CardGridContent = {
 export const fintechBenefits: CardGridContent = {
   eyebrow: "Key Benefits",
   title: "Benefits of Fintech AI Solutions for All Financial Services",
+  wideHead: true,
   body: "AI is transforming fintech with automation, enhanced security, and smarter decision-making. Real-time insights help businesses optimize performance, reduce risks, and elevate customer experiences. Here’s how AI could add value to Fintech.",
   items: [
     {

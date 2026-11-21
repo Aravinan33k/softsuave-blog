@@ -298,7 +298,9 @@ export default function HireBands({
       (skill.key === 'angular' && band === 'combinations') ||
       ((skill.key === 'angular' || skill.key === 'nodejs') && band === 'techStack');
     const light =
-      (LIGHT_BANDS.has(band) || lightModelBand) &&
+      ((LIGHT_BANDS.has(band) && !skill.darkBands?.includes(band)) ||
+        lightModelBand ||
+        Boolean(skill.lightBands?.includes(band))) &&
       !(band === 'testimonials' && DARK_TESTIMONIALS.has(skill.key));
     const last = groups[groups.length - 1];
     if (last && last.light === light) last.nodes.push(node);

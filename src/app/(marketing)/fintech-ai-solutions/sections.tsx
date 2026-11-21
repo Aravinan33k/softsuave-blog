@@ -52,6 +52,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
           light band the solution panels open. */}
       <div className={home.light}>
         <Clients
+          wideTitle="38ch"
           title="Preferred Technology Partner for World-Class Enterprises Globally"
           body="We use the latest technology and innovation to help enterprises and startups transform digitally, guiding them through product development with unmatched experience and actionable results."
         />

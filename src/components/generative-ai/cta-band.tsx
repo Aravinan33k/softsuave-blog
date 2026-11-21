@@ -12,6 +12,8 @@ export interface CtaBandContent {
   title: string;
   body: string;
   cta: { readonly label: string; readonly href: string };
+  /** Lets a long title run to two lines instead of the default 24ch measure. */
+  wideTitle?: boolean;
 }
 
 /**
@@ -43,7 +45,7 @@ export default function CtaBand({
       <FadeUp className={styles.ctaInner}>
         <div>
           {content.eyebrow && <span className={styles.kicker}>{content.eyebrow}</span>}
-          <Title className={styles.ctaTitle}>{content.title}</Title>
+          <Title className={content.wideTitle ? `${styles.ctaTitle} ${styles.ctaTitleWide}` : styles.ctaTitle}>{content.title}</Title>
           <p className={styles.ctaBody}>{content.body}</p>
         </div>
 
