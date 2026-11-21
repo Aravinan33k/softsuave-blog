@@ -242,6 +242,7 @@ export const rjHireCta: CtaBandContent = {
  */
 export const rjBenefits: CardGridContent = {
   eyebrow: "Benefited",
+  wideHead: true,
   title: "Get Benefited From Soft Suave’s ReactJS App Solutions",
   body: "Know the benefits of using ReactJS for your application development process and our service.",
   items: [

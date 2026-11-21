@@ -10,6 +10,7 @@ import Footer from '@/components/home/footer';
 import TechStack from '@/components/home/tech-stack';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 import Sections from './sections';
 
 /**
@@ -82,7 +83,7 @@ const LD = aiPageJsonLd('predictiveIntelligence');
 
 export default function PredictiveIntelligenceServicesPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       {/* The spec's four blocks are this page's entire structured data:
           Organization (verbatim — no Facebook profile, unlike the site-wide
           node) + Service, WebPage, FAQPage. The layout adds nothing here, not
@@ -105,7 +106,7 @@ export default function PredictiveIntelligenceServicesPage() {
        */}
       <main id="main">
         <Sections
-          techStack={<TechStack content={piTech} staticFrom={768} />}
+          techStack={<TechStack content={piTech} staticFrom={768} wideHead />}
         />
       </main>
 

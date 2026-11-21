@@ -40,7 +40,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
       <Hero content={nxHero} idPrefix="nx" variant="compact" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       <Overview content={nxOverview} variant="compact" />
@@ -74,7 +74,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
         <Faq content={nxFaqs} idPrefix="nx-faq" />
       </div>
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }
