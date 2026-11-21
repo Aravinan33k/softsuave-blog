@@ -18,6 +18,7 @@ import Overview from '@/components/landing/overview';
 import Process from '@/components/landing/process';
 import Team from '@/components/landing/team';
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 
 /**
  * The page's sections, rendered from one client boundary that imports its own copy.
@@ -47,7 +48,7 @@ export default function Sections() {
       {/* Both proof bands share one light band: they are the same argument
           told twice (who rates us, who buys from us), and splitting them
           across an inversion would read as two unrelated sections. */}
-      <div className={home.light}>
+      <div className={`${home.light} ${location.awardsJoined}`}>
         <Recognitions />
         {/* The live About page's own heading and standfirst for this band. */}
         <Clients
@@ -56,7 +57,7 @@ export default function Sections() {
         />
       </div>
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }
