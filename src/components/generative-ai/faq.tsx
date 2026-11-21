@@ -10,6 +10,8 @@ import styles from "./gen-ai.module.css";
 export interface FaqContent {
   eyebrow: string;
   title: string;
+  /** Gives a long section heading room to wrap into fewer lines. */
+  wideHead?: boolean;
   body: string;
   items: readonly {
     readonly q: string;
@@ -72,7 +74,7 @@ export default function Faq({
 
   return (
     <section className={styles.sectionShell} id="faq">
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <FadeUp>
         <div className={styles.faqList}>

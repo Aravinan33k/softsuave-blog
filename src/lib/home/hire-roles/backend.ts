@@ -30,6 +30,8 @@ import { heroForm } from './shared';
 import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const backend: HireRolePageContent = {
+  clientsWideTitle: true,
+  closingCtaIcon: true,
   key: 'hire-backend',
   slug: '/hire-backend-application-developer',
   name: 'Hire Backend Developers',
@@ -86,6 +88,7 @@ export const backend: HireRolePageContent = {
       `Flexible Hiring from ${HOURLY_RATE}`,
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Get Skilled Backend Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
@@ -95,6 +98,7 @@ export const backend: HireRolePageContent = {
   },
 
   overview: {
+    wideHead: true,
     eyebrow: 'Overview',
     title: 'Hire Backend Developers Who Fit Your Application and Team',
     paragraphs: [
@@ -105,6 +109,7 @@ export const backend: HireRolePageContent = {
   },
 
   capabilities: {
+    wideHead: true,
     eyebrow: 'Responsibilities',
     title: 'Backend Work Our Developers Can Own',
     body: 'When you hire back end developers, they can take ownership of essential server-side work throughout the application lifecycle. Their responsibilities can include the following areas:',
@@ -158,6 +163,7 @@ export const backend: HireRolePageContent = {
   },
 
   fit: {
+    wideHead: true,
     eyebrow: 'Practical Evaluation',
     title: 'Evaluate Your Developer Through Practical Work',
     body: 'The 40-hour risk-free trial lets you evaluate a backend developer through work connected to your application, technology stack, engineering expectations, and collaboration model.',
@@ -222,6 +228,7 @@ export const backend: HireRolePageContent = {
   },
 
   engagement: {
+    wideHead: true,
     eyebrow: 'Engagement Options',
     title: 'Flexible Ways to Hire Backend Developers',
     body: 'Choose a flexible engagement model that fits your project and keeps development moving smoothly.',
@@ -242,6 +249,7 @@ export const backend: HireRolePageContent = {
   },
 
   globalDelivery: {
+    wideHead: true,
     eyebrow: 'Delivery Presence',
     title: 'Global Delivery Across Time Zones',
     paragraphs: [
@@ -252,6 +260,7 @@ export const backend: HireRolePageContent = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: 'Hiring Process',
     title: 'How to Hire a Backend Developer From Soft Suave',
     body: 'The process covers requirement review, developer matching, interviews, practical evaluation, selection, and onboarding into your existing development workflow.',
@@ -280,6 +289,7 @@ export const backend: HireRolePageContent = {
   },
 
   specialisations: {
+    wideHead: true,
     eyebrow: 'Technologies',
     title: 'Choose Backend Developers by Technology',
     body: 'Explore backend developers for hire across established languages, frameworks, and runtime environments. Select talent based on your application architecture, existing codebase, integration requirements, and long-term development plans.',
@@ -346,6 +356,7 @@ export const backend: HireRolePageContent = {
   },
 
   whyRole: {
+    wideHead: true,
     eyebrow: 'Why Soft Suave',
     title: 'Why Hire Backend Developers From Soft Suave?',
     body: 'Soft Suave combines established engineering experience, flexible hiring options, practical evaluation, and quality-managed processes to support backend developer engagements.',
@@ -384,6 +395,7 @@ export const backend: HireRolePageContent = {
   },
 
   techStack: {
+    wideHead: true,
     eyebrow: 'Technology Stack',
     title: 'Backend Technologies Our Developers Work With',
     body: 'Find backend developers for hire with experience across the languages, frameworks, databases, cloud platforms, and tools your application requires.',
@@ -451,6 +463,7 @@ export const backend: HireRolePageContent = {
   },
 
   faq: {
+    wideHead: true,
     eyebrow: 'Ask Us',
     title: 'Questions About Hiring Backend Developers',
     body: 'Find answers to common questions about hiring, evaluating, working with, and paying backend developers.',

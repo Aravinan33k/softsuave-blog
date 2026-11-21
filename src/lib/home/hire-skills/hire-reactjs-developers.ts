@@ -11,6 +11,8 @@ import { techSteps, techWhy } from "../hire-blocks";
 import { HOURLY_RATE } from "../../company-figures";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
   slug: "hire-reactjs-developers",
   key: "react",
   name: "ReactJS",
@@ -38,6 +40,7 @@ export const skill: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
+      submitHover: 'black',
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -59,6 +62,7 @@ export const skill: HireSkill = {
   },
 
   overview: {
+    wideHead: true,
     // Portrait, run the full height of the copy beside it (review: "resize
     // the image to fit the height of the section").
     image: {
@@ -81,6 +85,7 @@ export const skill: HireSkill = {
   },
 
   services: {
+    wideHead: true,
     eyebrow: "Expertise",
     title: "Soft Suave's ReactJS Developers Expertise",
     body: "Hire Reactjs developers from Soft Suave to boost your business growth and add a competitive edge.",
@@ -119,6 +124,7 @@ export const skill: HireSkill = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: "Hiring Process",
     title: "Hire ReactJS Developers in 4 easy steps",
     body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
@@ -126,15 +132,20 @@ export const skill: HireSkill = {
   },
 
   whyUs: {
+    wideHead: true,
     eyebrow: "Why Soft Suave",
     title: "What Makes Our ReactJs Developers Unique and Trustworthy?",
     body: "Hire ReactJS developers from us who have 5+ years of average experience and excellent coding skills.",
     items: techWhy("ReactJS", "React.js, Next.js, TypeScript, Redux, APIs, and cloud"),
   },
 
-  exploreMore: webExplore,
+  exploreMore: {
+    ...webExplore,
+    wideHead: true,
+  },
 
   faq: {
+    wideHead: true,
     eyebrow: "FAQs",
     title: "Frequently Asked Questions",
     body: "Know more about our processes and how we work, with the help of the following FAQs our clients ask.",
