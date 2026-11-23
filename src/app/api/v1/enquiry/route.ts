@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
       return jsonError(400, 'invalid_input', first?.message ?? 'Please check the form and try again.');
     }
 
-    const { website, phone, caseStudyPdf: requestedPdf, ...lead } = parsed.data;
+    const { website, phone, caseStudyPdf: requestedPdf, leadType, company, ...lead } = parsed.data;
 
     // A case-study download request names a PDF of ours: one that is really in /public/assets/case-studies.
     // Anything else is treated as an ordinary lead rather than e-mailing a link to a file that does not exist.
@@ -107,6 +107,8 @@ export async function POST(req: NextRequest) {
         phone: phone || null,
         description: lead.subject ? `${lead.requirement}\n\n(${lead.subject})` : lead.requirement,
         sourcePath: lead.sourcePath,
+        type: leadType,
+        company: company || null,
       });
       if (!sent) {
         return jsonError(

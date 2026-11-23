@@ -14,6 +14,8 @@ import {
   requirementError,
 } from "@/lib/forms/enquiry-rules";
 import { focusAtEnd } from "@/lib/forms/focus";
+import { leadRouting, type FormSlot } from "@/lib/forms/lead-routing";
+import { clearLeadDrafts, useLeadDraft } from "@/lib/forms/use-lead-draft";
 import { THANK_YOU_PATH } from "@/lib/forms/thank-you";
 import { useClearOnClick } from "@/lib/forms/use-clear-on-click";
 import { SiteLink } from "@/themes/softsuave/site-link";
@@ -107,6 +109,7 @@ export default function EnquiryForm({
   onSent,
   caseStudyPdf,
   cardId = "enquiry",
+  slot = "hero",
 }: {
   content: EnquiryFormContent;
   idPrefix: string;
@@ -129,8 +132,15 @@ export default function EnquiryForm({
   caseStudyPdf?: string;
   /** The card's id; `enquiry` is what the pages' "#enquiry" CTAs jump to. */
   cardId?: string;
+  /**
+   * Where the card sits — the page's hero (`hero`) or the closing consultation band (`close`, the live footer
+   * form). Picks the live endpoints the lead goes to (`lib/forms/lead-routing.ts`).
+   */
+  slot?: FormSlot;
 }) {
   const pathname = usePathname();
+  const routing = leadRouting(pathname, slot, Boolean(caseStudyPdf));
+  const saveDraft = useLeadDraft(routing.draft, pathname);
   const router = useRouter();
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -158,6 +168,19 @@ export default function EnquiryForm({
 
   const set = (key: Field) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     update(key, e.target.value);
+
+  /** Leaving the email, phone or message field saves what is typed so far, as the live forms do on blur. */
+  const draft = () =>
+    saveDraft(
+      {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        description: fixedRequirement ? undefined : form.requirement,
+        company: content.company ? company : undefined,
+      },
+      website,
+    );
 
   /** Props tying a control to its error message under the field. */
   const a11y = (key: Field) => ({
@@ -232,6 +255,8 @@ export default function EnquiryForm({
           sourcePath: pathname,
           sourceKey: idPrefix,
           ...(caseStudyPdf ? { caseStudyPdf } : {}),
+          ...(routing.submit !== "caseStudy" ? { leadType: routing.submit } : {}),
+          ...(content.company ? { company: company.trim() } : {}),
         }),
       });
 
@@ -245,6 +270,8 @@ export default function EnquiryForm({
         );
       }
 
+      // The lead is in: forget this visit's draft rows, as the live forms do on submit.
+      clearLeadDrafts();
       // Stays "sending" — the form is about to be replaced by the page.
       if (onSent) {
         setStatus("idle");
@@ -334,6 +361,7 @@ export default function EnquiryForm({
             maxLength={EMAIL_MAX}
             value={form.email}
             onChange={set("email")}
+            onBlur={draft}
             {...a11y("email")}
             placeholder="jane@company.com"
           />
@@ -386,6 +414,7 @@ export default function EnquiryForm({
             id={`${idPrefix}-phone`}
             value={form.phone}
             onChange={(phone) => update("phone", phone)}
+            onBlur={draft}
             invalid={Boolean(errors.phone)}
             describedBy={errors.phone ? `${idPrefix}-phone-error` : undefined}
             required
@@ -409,6 +438,7 @@ export default function EnquiryForm({
               maxLength={REQUIREMENT_MAX}
               value={form.requirement}
               onChange={set("requirement")}
+              onBlur={draft}
               {...a11y("requirement")}
               placeholder={content.requirementPlaceholder}
             />
