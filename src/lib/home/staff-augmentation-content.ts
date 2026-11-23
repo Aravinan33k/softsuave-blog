@@ -56,6 +56,7 @@ export const staffHero: HeroContent = {
   ],
   badges: sharedHeroBadges,
   form: {
+    submitHover: "black",
     // The live form's own heading and sub-line.
     title: "Let's Discuss Your Project",
     body: "Get free rough quote in 24 hrs",
@@ -100,6 +101,7 @@ export const staffWhyUs: CardGridContent = {
 };
 
 export const staffModels: CardGridContent = {
+  wideHead: true,
   eyebrow: "Models",
   title: "IT Staff Augmentation Models We Offer",
   body: "We provide flexible augmentation solutions tailored to your business needs, ensuring seamless integration of skilled talent that drives efficiency, innovation, and success across various industries and project requirements.",
@@ -190,6 +192,7 @@ export const staffProcess: ProcessContent = {
 };
 
 export const staffRoles: ServicesContent = {
+  wideHead: true,
   eyebrow: "Roles We Have",
   title: "Roles You Can Hire Through IT Staff Augmentation",
   body: "Access a wide range of skilled professionals, from developers to project managers, ensuring the right expertise for every role to accelerate your projects and drive success.",
@@ -299,6 +302,7 @@ export const staffIndustries: CardGridContent = {
 };
 
 export const staffBenefits: CardGridContent = {
+  wideHead: true,
   eyebrow: "Comparison",
   title: "Why Staff Augmentation Is Better Than Traditional Hiring",
   body: "Staff augmentation surpasses traditional hiring by enabling rapid scaling, flexible talent access, and smoother operations, helping businesses stay focused on core goals. Here are some notable advantages it offers.",

@@ -173,6 +173,7 @@ export const rnOutsourceCta: CtaBandContent = {
 export const rnBenefits: CardGridContent = {
   eyebrow: "React Native",
   title: "Benefits Of Using React Native For Mobile App Development",
+  wideHead: true,
   body: "Within a short time, React Native framework has become the preferred software development tool for mobile app developers around the globe. Here are the major benefits of using React Native.",
   items: [
     {

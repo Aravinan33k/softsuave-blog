@@ -1675,3 +1675,12 @@
 .copyrightBar > div {
   margin-top: 0;
 }
+
+.heroBodyEarly {
+  --hero-title-delay: 0s;
+  --hero-title-dur: 0.4s;
+  --hero-body-delay: 0s;
+  --hero-body-dur: 0.4s;
+  --hero-form-delay: 0s;
+  --hero-form-dur: 0.4s;
+}

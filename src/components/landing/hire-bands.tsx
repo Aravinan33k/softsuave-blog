@@ -120,6 +120,7 @@ function asCardGrid(content: ServicesContent): CardGridContent {
     eyebrow: content.eyebrow,
     title: content.title,
     body: content.body,
+    wideHead: content.wideHead,
     cta: content.cta,
     items: content.items.map((item) => ({
       name: item.name,
@@ -165,7 +166,7 @@ export default function HireBands({
           <Clients
             key={band}
             logos={(skill.clientsBand?.logos as typeof HIRE_CLIENT_LOGOS | undefined) ?? HIRE_CLIENT_LOGOS}
-            {...(reviewed ? { wideTitle: '31ch' } : {})}
+            wideTitle={skill.clientsWideTitle ?? (reviewed ? '31ch' : false)}
             {...(skill.clientsBand?.eyebrow ? { eyebrow: skill.clientsBand.eyebrow } : {})}
           />
         );
@@ -292,7 +293,15 @@ export default function HireBands({
   for (const band of skill.order) {
     const node = render(band);
     if (!node) continue;
-    const light = LIGHT_BANDS.has(band) && !(band === 'testimonials' && DARK_TESTIMONIALS.has(skill.key));
+    const lightModelBand =
+      ((skill.key === 'angular' || skill.key === 'nodejs') && band === 'applications') ||
+      (skill.key === 'angular' && band === 'combinations') ||
+      ((skill.key === 'angular' || skill.key === 'nodejs') && band === 'techStack');
+    const light =
+      ((LIGHT_BANDS.has(band) && !skill.darkBands?.includes(band)) ||
+        lightModelBand ||
+        Boolean(skill.lightBands?.includes(band))) &&
+      !(band === 'testimonials' && DARK_TESTIMONIALS.has(skill.key));
     const last = groups[groups.length - 1];
     if (last && last.light === light) last.nodes.push(node);
     else groups.push({ light, nodes: [node] });
@@ -364,7 +373,7 @@ export default function HireBands({
           headingFont
         />
       ) : (
-        <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+        <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon={skill.closingCtaIcon} />
       )}
     </>
   );

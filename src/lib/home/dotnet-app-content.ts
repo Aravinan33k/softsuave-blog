@@ -137,6 +137,7 @@ export const netOverview: OverviewContent = {
  */
 export const netServices: ServiceBoardContent = {
   eyebrow: ".NET Development Services",
+  wideHead: true,
   title: "Full-Cycle .NET Development Services For Your Business",
   body: "With the help of the best-skilled ASP.NET development team with talented developers, designers, project managers, and business analysts, we deliver high-quality results.",
   // /contact, not this page's `#enquiry` anchor — the review asked for this
@@ -220,6 +221,7 @@ export const netHireCta: CtaBandContent = {
  */
 export const netTech: TechStackContent = {
   eyebrow: ".NET Application Development",
+  wideHead: true,
   title: "Our Expertise in .NET Application Development Technologies",
   body: "Partner with us to work with one of India's Best .NET Development Companies who are proficient in various Tools, Frameworks, Technologies, and Databases.",
   groups: [

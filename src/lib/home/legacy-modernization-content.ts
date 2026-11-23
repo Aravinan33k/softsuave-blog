@@ -57,6 +57,7 @@ export const legacyHero: HeroContent = {
   points: [],
   badges: sharedHeroBadges,
   form: {
+    submitHover: "black",
     eyebrow: "Business Enquiry",
     // The live hero form's own heading.
     title: "Get Your FREE Quote Now!",

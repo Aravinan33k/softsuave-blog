@@ -46,6 +46,8 @@ export interface EnquiryFormContent {
   /** Text that continues the note after its link ("…privacy policy[ and we will never spam you]"). */
   noteAfter?: string;
   submit: string;
+  /** Optional page-specific submit button hover treatment. */
+  submitHover?: "black";
   sending: string;
   requirementLabel: string;
   requirementPlaceholder: string;
@@ -286,7 +288,7 @@ export default function EnquiryForm({
   };
 
   return (
-    <div className={fx.card} id={cardId}>
+    <div className={`${fx.card}${content.submitHover === "black" ? ` ${fx.blackSubmitHover}` : ""}`} id={cardId}>
       {/* A card with no title, eyebrow or body (the ad page's closing form, whose
           heading sits beside it) drops the header block altogether. */}
       {(content.title || content.eyebrow || content.body) && (

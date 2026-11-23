@@ -49,7 +49,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
       <Hero content={piHero} idPrefix="pi" variant="compact" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       {/* The comparison is an H3 sub-section under the Overview's H2, so it
@@ -78,7 +78,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
         <Process content={piProcess} variant="stages" />
       </div>
 
-      <Integration content={piIntegration} />
+      <Integration content={piIntegration} hoverBorder />
 
       {/* Six industries read as two rows of three rather than four then a
           two-card remainder. */}

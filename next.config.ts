@@ -155,7 +155,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com', pathname: '/**' }],
     // 75 is the default for every image; 90 is for the homepage hero still,
     // a full-bleed photo that visibly softens at 75.
-    qualities: [75, 90],
+    qualities: [60, 75, 90],
   },
   async headers() {
     return [

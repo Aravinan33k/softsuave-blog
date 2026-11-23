@@ -12,6 +12,8 @@ import { techSteps, techWhy } from "../hire-blocks";
 import { HOURLY_RATE, SPECIALISTS_PLUS } from "../../company-figures";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
   slug: "hire-react-native-developers",
   key: "react-native",
   name: "React Native",
@@ -50,6 +52,7 @@ export const skill: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
+      submitHover: 'black',
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -71,6 +74,7 @@ export const skill: HireSkill = {
   },
 
   overview: {
+    wideHead: true,
     // Portrait, run the full height of the copy beside it (8 Oct review:
     // "resize the image to match the section") — the same photo, cut taller.
     image: {
@@ -92,6 +96,7 @@ export const skill: HireSkill = {
   },
 
   services: {
+    wideHead: true,
     eyebrow: "Expertise",
     title: "Expertise of Our React Native Developers",
     body: "You are 100% guaranteed to have a competitive edge in the market if you hire our React Native developer.",
@@ -125,6 +130,7 @@ export const skill: HireSkill = {
 
   /** This page's own table — not the shared one. Its figures are published. */
   comparison: {
+    wideHead: true,
     eyebrow: "Compare",
     title: "Choose the Right React Native Development Partner",
     body: PARTNER_TABLE_INTRO,
@@ -177,6 +183,7 @@ export const skill: HireSkill = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: "Hiring Process",
     title: "Hire React Native Developers in 4 easy steps",
     body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
@@ -184,15 +191,20 @@ export const skill: HireSkill = {
   },
 
   whyUs: {
+    wideHead: true,
     eyebrow: "Why Soft Suave",
     title: "What Makes Our React Native Developers Unique and Trustworthy?",
     body: "We provide dedicated React Native developers in India who has exceptional knowledge in web app development.",
     items: techWhy("React Native", "cross-platform iOS and Android apps, UI/UX, plugin development, and app migration"),
   },
 
-  exploreMore: mobileExplore,
+  exploreMore: {
+    ...mobileExplore,
+    wideHead: true,
+  },
 
   faq: {
+    wideHead: true,
     eyebrow: "FAQs",
     title: "Frequently Asked Questions",
     body: "Know more about our processes and how we work, with the help of the following FAQs.",

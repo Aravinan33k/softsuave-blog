@@ -20,6 +20,8 @@ export interface ServicesCarouselContent {
   eyebrow: string;
   title: string;
   body: string;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wideHead?: boolean;
   /**
    * Optional button under the carousel. The live Angular page closes this
    * section with one and ours had none (review: "missing CTA").
@@ -192,7 +194,7 @@ export default function ServicesCarousel({
 
   return (
     <section ref={root} className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <div
         className={styles.carouselStage}

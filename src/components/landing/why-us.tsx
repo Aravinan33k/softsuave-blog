@@ -83,7 +83,7 @@ export default function WhyUs({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <ul ref={root} className={styles.proofGrid}>
         {content.items.map((item) => (

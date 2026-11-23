@@ -43,7 +43,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
       <Hero content={ionHero} idPrefix="ion" variant="compact" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       <Overview content={ionOverview} variant="compact" />
@@ -74,7 +74,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
 
       <Faq content={ionFaqs} idPrefix="ion-faq" />
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

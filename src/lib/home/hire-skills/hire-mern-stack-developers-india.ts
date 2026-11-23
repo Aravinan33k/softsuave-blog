@@ -11,6 +11,7 @@ import { MERN_STEPS, MERN_WHY } from "../hire-blocks";
 import { HOURLY_RATE } from "../../company-figures";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
   slug: "hire-mern-stack-developers-india",
   key: "mern",
   name: "MERN Stack",
@@ -47,6 +48,7 @@ export const skill: HireSkill = {
     ],
     form: {
       title: "Get Skilled Remote Developers",
+      submitHover: 'black',
       submit: "Start My FREE Trial",
       sending: "Sending...",
       requirementLabel: "Requirement",
@@ -94,6 +96,7 @@ export const skill: HireSkill = {
   },
 
   services: {
+    wideHead: true,
     eyebrow: "What We Build",
     title: "What Can Soft Suave's MERN Stack Developers Build?",
     body: "Soft Suave's MERN stack developers build full-stack JavaScript solutions for different business needs, from new web apps to legacy stack migrations. They craft fast, secure, and scalable MERN applications that power seamless user experiences and drive real business growth.",
@@ -132,6 +135,7 @@ export const skill: HireSkill = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: "Hiring Process",
     title: "How to Hire MERN Stack Developers from India in 4 Steps",
     body: "Hiring a MERN stack developer from Soft Suave is simple, transparent, and fast. Our process helps you evaluate the right developer before long-term onboarding, so you can move forward with more confidence.",
@@ -139,6 +143,7 @@ export const skill: HireSkill = {
   },
 
   whyUs: {
+    wideHead: true,
     eyebrow: "Why Soft Suave",
     title: "Why Hire MERN Stack Developers from Soft Suave?",
     body: "Soft Suave's MERN stack developers in India help businesses build, scale, and maintain full-stack JavaScript applications with reliable remote delivery. You get vetted talent, clear communication, structured project management, and flexible hiring models without the delays of building an in-house team.",
@@ -151,6 +156,7 @@ export const skill: HireSkill = {
    * its own while the roster stays the shared one.
    */
   exploreMore: {
+    wideHead: true,
     ...webExplore,
     eyebrow: "Technology",
     title: "Tech Stack and Tools Soft Suave's MERN Developers Use",
@@ -158,6 +164,7 @@ export const skill: HireSkill = {
   },
 
   faq: {
+    wideHead: true,
     eyebrow: "FAQs",
     title: "Frequently Asked Questions About Hiring MERN Stack Developers in India",
     body: "Know more about our processes and how we work, with the help of the following FAQs our clients ask.",

@@ -13,6 +13,7 @@ import TechStack from '@/components/landing/tech-stack';
 import Comparison from '@/components/custom-ai/comparison';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 import Sections from './sections';
 
 /**
@@ -91,7 +92,7 @@ const structuredData = aiPageJsonLd('customAi');
 
 export default function CustomAiDevelopmentPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       {/* The spec's four blocks are this page's entire structured data:
           Organization (verbatim — no Facebook profile, unlike the site-wide
           node) + Service, WebPage, FAQPage. The layout adds nothing here, not

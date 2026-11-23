@@ -34,6 +34,8 @@ import { heroForm } from './shared';
 import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const qa: HireRolePageContent = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
   key: 'hire-qa',
   slug: '/hire-qa-testers-india',
   name: 'Hire QA Engineers',
@@ -82,6 +84,7 @@ export const qa: HireRolePageContent = {
       'Strong Delivery Governance from Day One',
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
@@ -91,6 +94,7 @@ export const qa: HireRolePageContent = {
   },
 
   overview: {
+    wideHead: true,
     // Portrait, run the full height of the copy beside it (8 Oct review:
     // "resize the image to match the section") — the same photo, cut taller.
     image: {
@@ -113,6 +117,7 @@ export const qa: HireRolePageContent = {
   },
 
   fit: {
+    wideHead: true,
     eyebrow: 'QA Expertise',
     title: 'The Expertise of Our QA Engineers in India',
     body: "As having the best QA engineers, we run numerous range of tests to check the quality of the app's features, usability, functions, and so on to make sure to level it up and be bug-free.",
@@ -134,6 +139,7 @@ export const qa: HireRolePageContent = {
   },
 
   capabilities: {
+    wideHead: true,
     eyebrow: 'Benefits',
     title: 'Benefits to Hiring Quality Assurance Engineers in India from Soft Suave',
     body: 'Hire Remote QA testers from Soft Suave to get the advantage of special, full bug-free ensured service that prevents your apps from prospective errors.',
@@ -179,6 +185,7 @@ export const qa: HireRolePageContent = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: 'Hiring Process',
     title: 'Hire QA Tester India in 4 Easy Steps',
     body: 'Follow our simple steps below to get "full-time hiring" after a 40-hour free trial.',
@@ -207,6 +214,7 @@ export const qa: HireRolePageContent = {
   },
 
   comparison: {
+    wideHead: true,
     eyebrow: 'Comparison',
     title: 'Soft Suave vs. In-House vs. Freelancer.',
     body: 'Compare common hiring approaches and find the option that best fits your software development and team requirements.',
@@ -237,6 +245,7 @@ export const qa: HireRolePageContent = {
 
   techStackStyle: 'rows',
   techStack: {
+    wideHead: true,
     eyebrow: 'Tools',
     title: 'Powerful Tools and Technologies Our QA Testers Use',
     body: "With Soft Suave's quality assurance engineers trained to use both old and new technology stacks with continuous improvement, we can make your software or apps more efficient and flawless.",
@@ -281,6 +290,7 @@ export const qa: HireRolePageContent = {
    */
   lists: [
     {
+      wideHead: true,
       key: 'testing',
       display: 'tiles',
       tileIcons: {
@@ -311,6 +321,7 @@ export const qa: HireRolePageContent = {
       ],
     },
     {
+      wideHead: true,
       key: 'domains',
       display: 'tiles',
       tileIcons: {
@@ -344,6 +355,7 @@ export const qa: HireRolePageContent = {
       ],
     },
     {
+      wideHead: true,
       key: 'approach',
       display: 'tiles',
       tileIcons: {
@@ -372,6 +384,7 @@ export const qa: HireRolePageContent = {
   ],
 
   faq: {
+    wideHead: true,
     eyebrow: 'FAQs',
     title: 'Frequently Asked Questions',
     body: 'Learn more about the benefits of hiring QA engineers in India from Soft Suave',

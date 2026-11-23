@@ -41,6 +41,8 @@ export const logisticsMeta = {
 
 export const logisticsHero: HeroContent = {
   titleLines: ["AI in Logistics:", "Transforming Supply Chain Efficiency"],
+  // Each line on one line, as the Generative AI hero does (the H1 is two lines, not three).
+  titleFit: true,
   // 13 Oct review: the industry name is the highlighted phrase in the H1
   // ("eg for Ecommerce page - ecommerce in H1 must be highlighted").
   accent: "Logistics",
@@ -198,9 +200,11 @@ export const logisticsSuccessStories: WorkCarouselContent = {
   },
   // Each card wears the live page's own artwork for that story (13 Oct
   // review: "update the case study images same as the old page").
+  tileCta: "View Case Study",
   items: [
     {
       title: "Optimizing Global Logistics: A Shipment Tracking Success Story",
+      href: "/case-study-centralized-shipment-tracking",
       image: {
         src: "/images/industries/logistics/case-1.webp",
         alt: "A hand on a tablet showing a world map for shipment tracking",
@@ -210,6 +214,7 @@ export const logisticsSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Enhancing Vehicle Safety: A Smart Parking Success Story",
+      href: "/case-study-parksafe-community-vehicle-alert-app",
       image: {
         src: "/images/industries/logistics/case-2.webp",
         alt: "A driver checking a phone app while at the wheel of a car",
@@ -219,6 +224,7 @@ export const logisticsSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Optimizing Logistics: A Scalable Delivery Management Success Story",
+      href: "/case-study-scalable-delivery-mangement-for-logistics",
       image: {
         src: "/images/industries/logistics/case-3.webp",
         alt: "A container ship loaded with cargo at sea",

@@ -26,6 +26,8 @@ import { heroForm } from './shared';
 import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const webApp: HireRolePageContent = {
+  clientsWideTitle: true,
+  closingCtaIcon: true,
   key: 'hire-web',
   slug: '/hire-web-app-developers',
   name: 'Hire Web App Developers',
@@ -69,6 +71,7 @@ export const webApp: HireRolePageContent = {
       'Direct Developer Collaboration',
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Hire Skilled Web App Developers',
       requirementLabel: 'Project Requirements',
       requirementPlaceholder:
@@ -78,6 +81,7 @@ export const webApp: HireRolePageContent = {
   },
 
   overview: {
+    wideHead: true,
     // Portrait, run the full height of the copy beside it (8 Oct review:
     // "resize the image to match the section") — the same photo, cut taller.
     image: {
@@ -100,6 +104,7 @@ export const webApp: HireRolePageContent = {
   },
 
   capabilities: {
+    wideHead: true,
     eyebrow: 'Capabilities',
     title: 'Web App Developers for Your Product Requirements',
     body: 'Hire web application developers who turn your requirements into reliable digital products, strengthen existing systems, and help your business scale confidently and adapt as priorities evolve over time.',
@@ -157,6 +162,7 @@ export const webApp: HireRolePageContent = {
   },
 
   engagement: {
+    wideHead: true,
     eyebrow: 'Hiring Options',
     title: 'Flexible Ways to Hire Web App Developers',
     body: 'Choose an engagement approach that reflects your application scope, delivery responsibilities, required flexibility, and the way your existing team works.',
@@ -177,6 +183,7 @@ export const webApp: HireRolePageContent = {
   },
 
   globalDelivery: {
+    wideHead: true,
     eyebrow: 'Global Delivery',
     title: 'Global Delivery for Distributed Development Teams',
     paragraphs: [
@@ -193,6 +200,7 @@ export const webApp: HireRolePageContent = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: 'Our Process',
     title: 'Our Process for Hiring a Web App Developer',
     body: 'Move from initial requirements to developer evaluation through a structured process designed to assess technical fit, communication, availability, and compatibility with your existing team.',
@@ -221,6 +229,7 @@ export const webApp: HireRolePageContent = {
   },
 
   specialisations: {
+    wideHead: true,
     eyebrow: 'Developer Expertise',
     title: 'Hire Web App Developers by Technology',
     body: 'Select web application developers according to your application architecture, existing stack, integration requirements, and planned development work to strengthen delivery, maintain compatibility, and support evolving product and business needs confidently.',
@@ -301,6 +310,7 @@ export const webApp: HireRolePageContent = {
   },
 
   whyRole: {
+    wideHead: true,
     eyebrow: 'Why Us',
     title: 'Why Hire Remote Web App Developers from Soft Suave?',
     body: 'Gain reliable engineering support that reduces hiring uncertainty, strengthens collaboration, and helps your web application progress as your business and technical priorities evolve.',
@@ -342,35 +352,41 @@ export const webApp: HireRolePageContent = {
   // (review: heading/content mismatch). Titles and bodies verbatim.
   caseStudies: {
     eyebrow: 'Case Studies',
+    tileCta: 'View Case Study',
     title: 'Web Applications Built Around Business Needs',
     body: 'Explore web applications our remote web app developers have helped build and improve while collaborating with client teams across different technologies and business requirements.',
     items: [
       {
         title: 'A Vision AI Platform for Real-Time Axle Counting & Traffic Monitoring',
+        href: '/case-study-vehicle-intelligence',
         image: { src: '/images/case-studies/vehicle-intelligence-cs.webp', alt: 'A Vision AI Platform for Real-Time Axle Counting & Traffic Monitoring' },
         tag: 'Transportation',
         body: 'Soft Suave built a real-time computer-vision pipeline for accurate axle counting, lane-level vehicle tracking, congestion insights, and lifted/floating axle detection across high-traffic highway sites.',
       },
       {
         title: 'A Platform for Driver Attention, Stress and Safety',
+        href: '/case-study-neurora-behavioral-intelligence',
         image: { src: '/images/case-studies/neurora-intelligence-cs.webp', alt: 'A Platform for Driver Attention, Stress and Safety' },
         tag: 'Automotive',
         body: 'Soft Suave built an AI-powered Behavioral Intelligence web app that combines driving video, eye-gaze, and heart-rate data to deliver automated safety, focus, and stress scores.',
       },
       {
         title: 'AI-Powered Contract & Tender Management Lifecycle Platform',
+        href: '/case-study-tender-intelligence',
         image: { src: '/images/case-studies/tender-intelligence-cs.webp', alt: 'AI-Powered Contract & Tender Management Lifecycle Platform' },
         tag: 'Energy',
         body: 'Soft Suave built an AI-powered web app automating the contract and tender lifecycle with secure evaluation, audit trails, sealed-bid integrity, and English/Arabic support, fully on-premises for a leading LNG operator in Oman.',
       },
       {
         title: 'An AI-Powered Shift Intelligence and Digital Logbook Platform for LNG Operations',
+        href: '/case-study-shiftsense-ai-shift-intelligence',
         image: { src: '/images/case-studies/shift-sense-cs.webp', alt: 'An AI-Powered Shift Intelligence and Digital Logbook Platform for LNG Operations' },
         tag: 'Energy',
         body: 'Soft Suave delivered ShiftSense, an air-gapped AI platform transforming LNG operational logs into instant, source-cited shift insights with English/Arabic support and full auditability.',
       },
       {
         title: 'AI-Powered Onboarding and Configuration Assist for a Logistics Management Platform',
+        href: '/case-study-ai-assist-logistics-onboarding',
         image: { src: '/images/case-studies/ai-assist-cs.webp', alt: 'AI-Powered Onboarding and Configuration Assist for a Logistics Management Platform' },
         tag: 'Logistics',
         body: 'Soft Suave built an AI assistant for logistics onboarding that guides setup, validates steps in real time, cuts onboarding time by half, and reduces support tickets.',
@@ -379,6 +395,7 @@ export const webApp: HireRolePageContent = {
   },
 
   techStack: {
+    wideHead: true,
     eyebrow: 'Technologies',
     title: 'Technology Expertise for Modern Web Applications',
     body: 'Work with technologies aligned to your existing architecture, application requirements, and long-term product direction instead of forcing your project into a predetermined stack.',
@@ -457,6 +474,7 @@ export const webApp: HireRolePageContent = {
   },
 
   faq: {
+    wideHead: true,
     eyebrow: 'Ask Us',
     title: 'Frequently Asked Questions About Hiring Web App Developers',
     body: 'Find clear answers to common questions about hiring the right web app developer for your project.',

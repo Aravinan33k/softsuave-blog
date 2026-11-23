@@ -123,7 +123,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
         <Faq content={itoFaqs} idPrefix="it-outsourcing-faq" />
       </div>
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

@@ -20,6 +20,7 @@ export function tilesGrid(list: HireListBand): CardGridContent {
     eyebrow: list.eyebrow,
     title: list.title,
     body: list.body,
+    wideHead: list.wideHead,
     cta: list.cta,
     items: list.groups.flatMap((g) =>
       g.items.map((name) => ({ name, body: '', key: list.tileIcons?.[name] })),

@@ -275,6 +275,8 @@ export const flProjects: StoryCardsContent = {
     {
       industry: "E-commerce",
       name: "Ultimate Water delivery solution: An e-commerce success",
+      // Stand-in: no case study covers this water-delivery app. Point this at its own page once it exists.
+      href: "/case-study-personalized-ecommerce-platform",
       body: "Soft Suave successfully designed a water delivery app for a well-known e-commerce platform. This app can be accessed in multiple countries, supports various currencies, and has multi-language support. With real-time tracking and flexible payment methods, the app was received well.",
       image: {
         src: "/images/landing/flutter/proj-ecommerce.webp",
@@ -284,6 +286,8 @@ export const flProjects: StoryCardsContent = {
     {
       industry: "Insurance",
       name: "Insurance Simplified: Soft Suave’s Powerful Yet Simple Solution",
+      // Stand-in: no insurance case study exists here. Point this at its own page once it exists.
+      href: "/case-study-all-in-one-financial-management-app",
       body: "Soft Suave addressed an Insurance company’s challenges by creating a simple app with a user-friendly UI. It can be used by its customers for simple insurance purposes, like renewing insurance, changing their address, or reporting a claim.",
       image: {
         src: "/images/landing/flutter/proj-insurance.webp",
@@ -293,6 +297,8 @@ export const flProjects: StoryCardsContent = {
     {
       industry: "Rental & Leasing",
       name: "Rent With Ease: A One-Stop Rental Solution",
+      // Stand-in: no rental and leasing case study exists here. Point this at its own page once it exists.
+      href: "/case-study-custom-business-management-platform",
       body: "We built a high-functioning app for a material rental and leasing company. The solution can be accessed by both staff and customers and used to handle contracts, quotations, and more.",
       image: {
         src: "/images/landing/flutter/proj-rental.webp",
@@ -302,6 +308,7 @@ export const flProjects: StoryCardsContent = {
     {
       industry: "Digital Payments",
       name: "Soft Suave To The Rescue: Locks And Keys",
+      href: "/case-study-blockchain-digital-currency-platform",
       body: "Soft Suave created a secure application that can manage digital assets and transactions for a digital currency & payments platform. We integrated strong encryption to protect user data, making sure it will be secure even if the device is lost or hacked.",
       image: {
         src: "/images/landing/flutter/proj-digital-money.webp",

@@ -12,6 +12,11 @@ import { CURATED_STEPS } from "../hire-blocks";
 import { HOURLY_RATE } from "../../company-figures";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
+  // Compare band on the light ground; the hiring process on the dark one.
+  lightBands: ["comparison"],
+  darkBands: ["process"],
   slug: "hire-nestjs-developers",
   key: "nestjs",
   name: "NestJS",
@@ -49,6 +54,7 @@ export const skill: HireSkill = {
     ],
     form: {
       title: "Get Skilled Remote Developers",
+      submitHover: 'black',
       submit: "Start My FREE Trial",
       sending: "Sending...",
       requirementLabel: "Requirement",
@@ -110,12 +116,13 @@ export const skill: HireSkill = {
   },
 
   midCta: {
+    wideTitle: true,
     title: "Are you ready to take your backend development to the next level?",
     body: "Partner with Soft Suave to hire dedicated NestJS developers and gain scalable, secure, and high-performing applications tailored to your needs.",
     cta: { label: "Request Rate Card", href: "/contact" },
   },
 
-  comparison: partnerTable("Choose the Right NestJS Development Partner"),
+  comparison: { ...partnerTable("Choose the Right NestJS Development Partner"), wideHead: true },
 
   process: {
     eyebrow: "Hiring Process",
@@ -124,5 +131,5 @@ export const skill: HireSkill = {
     steps: CURATED_STEPS,
   },
 
-  exploreMore: webExplore,
+  exploreMore: { ...webExplore, wideHead: true },
 };

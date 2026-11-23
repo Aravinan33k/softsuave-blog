@@ -26,6 +26,10 @@ import { heroForm } from './shared';
 import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const android: HireRolePageContent = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
+  // The hiring process on the light ground.
+  groundOverrides: { process: 'light' },
   key: 'hire-android',
   slug: '/hire-android-developers',
   name: 'Hire Android Developers',
@@ -71,6 +75,7 @@ export const android: HireRolePageContent = {
       'Strong Delivery Governance from Day One',
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
@@ -168,6 +173,7 @@ export const android: HireRolePageContent = {
   },
 
   whyRole: {
+    wideHead: true,
     eyebrow: 'Why Us',
     title: 'Why Are Our Android App Developers Considered the Best?',
     body: 'Our strong team of Android App Developers has exceptional knowledge in the front end, back end, and integration solutions.',

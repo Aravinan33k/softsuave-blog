@@ -104,6 +104,7 @@ export const iosHero: HeroContent = {
 export const iosServices: SpringboardContent = {
   eyebrow: "Services",
   title: "iOS Application Development Services We Offer",
+  wideHead: true,
   body: "Soft Suave's team of iPhone app experts uses the latest tools to build awesome iPhone apps. Here are the iPhone app development services we offer:",
   items: [
     {
@@ -143,6 +144,7 @@ export const iosServices: SpringboardContent = {
 export const iosTech: CardGridContent = {
   eyebrow: "Innovation",
   title: "Optimizing iOS Apps With The Latest Innovative Technologies",
+  wideHead: true,
   body: "We recognize the core challenges of iOS mobile app development. As a leading offshore iOS development company in India, our deep industry expertise enables us to use advanced technologies, simplify processes, speed up growth, and transform your app vision into reality.",
   points: [
     "Build high-performance iOS apps that utilize the full potential of iOS and iPad",
@@ -223,6 +225,7 @@ export const iosBenefits: CardGridContent = {
 export const iosWhyUs: CardGridContent = {
   eyebrow: "Why Soft Suave",
   title: "Why Choose Soft Suave As Your iOS Mobile App Development Company?",
+  wideHead: true,
   // VERBATIM, INCLUDING THE BUG: "web applications" on an iOS page.
   body: "Empower your web applications with Soft Suave's expert iOS app development services. Here's why you should choose us:",
   items: [
@@ -263,6 +266,8 @@ export const iosStories: StoryCardsContent = {
     {
       industry: "Healthcare",
       name: "Cloud-based Secured Communication App for Patient Care",
+      // Stand-in: no case study covers this exact app. Point this at its own page once it exists.
+      href: "/case-study-online-consultation-platform-for-doctors",
       body: "Soft Suave developed a cross-platform healthcare app that simplifies doctor-patient communication and helps during emergency situations. The app made Professionals and patients interact online using the latest technology, offering quality, safety, and reliability.",
       image: {
         src: "/images/landing/ios-story-telehealth.webp",
@@ -272,6 +277,7 @@ export const iosStories: StoryCardsContent = {
     {
       industry: "E-commerce",
       name: "Personalized One-Stop Solution for E-commerce Industry",
+      href: "/case-study-personalized-ecommerce-platform",
       body: "Soft Suave created an app to satisfy multiple needs to seamlessly give effective e-commerce solutions to customers. Specifically, the client wanted mobile applications that would enable customers to make fast decisions and lead them to make a purchase.",
       image: {
         src: "/images/landing/ios-story-shopping-app.webp",
@@ -281,6 +287,7 @@ export const iosStories: StoryCardsContent = {
     {
       industry: "Consulting",
       name: "Effective Tool to track the Jobs or Projects for the Customers",
+      href: "/case-study-job-progress-tracking",
       body: "A standout job tracking solution app made by Soft Suave to ease the complex processes, for the customers to use and track the individual projects and Jobs more flexibly.",
       image: {
         src: "/images/landing/ios-story-job-tracking.webp",
