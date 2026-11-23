@@ -66,18 +66,19 @@ describe('endpoints', () => {
 });
 
 describe('leadRouting', () => {
-  it('a hero card saves to contactUs and submits to developer, as the live hero forms do', () => {
-    expect(leadRouting('/hire-react-developers')).toEqual({ draft: 'contactUs', submit: 'developer' });
+  it('a hero card uses the pair its old PHP page used: contactUs on the 61 listed pages, developer elsewhere', () => {
+    expect(leadRouting('/reactjs-app-development-company')).toEqual({ draft: 'contactUs', submit: 'contactUs' });
+    expect(leadRouting('/free-quote/')).toEqual({ draft: 'contactUs', submit: 'contactUs' });
+    expect(leadRouting('/hire-react-developers')).toEqual({ draft: 'developer', submit: 'developer' });
+    expect(leadRouting('/contact')).toEqual({ draft: 'developer', submit: 'developer' });
+    expect(leadRouting('/')).toEqual({ draft: 'developer', submit: 'developer' });
   });
-  it('the closing band is the live footer form: free quote both ways', () => {
+  it('the closing band is the old footer form: free quote both ways, on every page', () => {
     expect(leadRouting('/hire-react-developers', 'close')).toEqual({ draft: 'freeQuote', submit: 'freeQuote' });
+    expect(leadRouting('/reactjs-app-development-company', 'close')).toEqual({ draft: 'freeQuote', submit: 'freeQuote' });
   });
   it('a case-study download uses the case-study pair wherever it sits', () => {
     expect(leadRouting('/case-study-vehicle-intelligence', 'hero', true)).toEqual({ draft: 'caseStudy', submit: 'caseStudy' });
-  });
-  it('the contact and free-quote pages use contactUs both ways', () => {
-    expect(leadRouting('/contact')).toEqual({ draft: 'contactUs', submit: 'contactUs' });
-    expect(leadRouting('/free-quote/')).toEqual({ draft: 'contactUs', submit: 'contactUs' });
   });
   it('keeps the ids under the live pages\' sessionStorage keys', () => {
     expect(DRAFT_ID_KEY).toEqual({
