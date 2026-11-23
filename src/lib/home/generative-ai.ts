@@ -142,6 +142,7 @@ export const problems = {
 
 export const services = {
   eyebrow: "Our Services",
+  wideHead: true,
   title: "Custom Generative AI Development Services We Deliver",
   body: "Soft Suave provides end-to-end generative AI services, from selecting the right approach to deploying, managing, and optimizing production-ready solutions.",
   items: [

@@ -17,6 +17,8 @@ import styles from "./gen-ai.module.css";
 export interface IntegrationContent {
   readonly eyebrow: string;
   readonly title: string;
+  /** Gives a long section heading room to wrap into fewer lines. */
+  wideHead?: boolean;
   readonly body: string;
   readonly blocks: readonly {
     readonly label: string;
@@ -82,7 +84,7 @@ export default function Integration({
 
     return (
       <section className={styles.sectionShell} id={id}>
-        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
         <FadeUp>
           <div className={styles.indGridBold}>
@@ -146,7 +148,7 @@ export default function Integration({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <FadeUp>
         {/* Three panels get an even three-column row from 1000px up; two keep

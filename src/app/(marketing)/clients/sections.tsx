@@ -11,6 +11,7 @@ import Contact from '@/components/home/contact';
 import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 import PhotoMasthead from '@/components/common/photo-masthead';
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 
 /**
  * The page's sections, rendered from one client boundary that imports its own copy.
@@ -26,7 +27,7 @@ export default function Sections() {
           photograph. */}
       <PhotoMasthead content={clientsPageHero} />
 
-      <div className={home.light}>
+      <div className={`${home.light} ${location.awardsTight}`}>
         <Clients
           title={clientsPageBrands.title}
           body={clientsPageBrands.body}
@@ -37,7 +38,7 @@ export default function Sections() {
         <Testimonials />
       </div>
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

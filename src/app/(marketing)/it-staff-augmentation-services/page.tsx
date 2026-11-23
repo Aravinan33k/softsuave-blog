@@ -9,6 +9,7 @@ import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 import Sections from './sections';
 
 /**
@@ -64,7 +65,7 @@ const HOME_HREF = BASE_PATH || '/';
 
 export default function ItStaffAugmentationPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       {/* softsuave.com's own schema for this page, verbatim, one <script> per
           block — see `lib/seo/it-staff-augmentation-services.ts`. */}
       {STAFF_AUG_LIVE_LD.map((block, i) => (

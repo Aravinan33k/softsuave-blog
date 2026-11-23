@@ -226,6 +226,7 @@ export const offProcess: ProcessContent = {
 export const offIndustries: PhotoGridContent = {
   eyebrow: "Industries",
   title: "Offshore Software Development Across Industries",
+  wideHead: true,
   body: "Offshore software development can support industry-specific workflows without relying on one standard solution. Our teams plan applications around the users, data, integrations, operational requirements, and technical context involved in each project.",
   items: [
     {
@@ -356,45 +357,53 @@ export const offCaseStudies: WorkCarouselContent = {
   eyebrow: "Success Stories",
   title: "Offshore Software Development Case Studies",
   body: "Our case studies show how we solve real business challenges through software. See how our teams addressed different challenges and delivered solutions suited to each project.",
+  tileCta: "View Case Study",
   items: [
     {
       title: "Smart Movie Ticketing with Real-Time Booking",
+      href: "/case-study-smart-movie-ticketing-with-real-time-booking",
       tag: "On-Demand",
       body: "Soft Suave built a smart movie ticketing system with real-time seats, secure payments, and smooth booking.",
       image: { src: "/images/case-studies/on-demand-5.webp", alt: "Smart Movie Ticketing with Real-Time Booking" },
     },
     {
       title: "Area Mapping Solution For A Solar Business",
+      href: "/case-study-area-mapping-solution",
       tag: "On-Demand",
       body: "Founded in 2020, our client offers solar energy solutions focused on home efficiency and sustainable power, helping homeowners save on bills.",
       image: { src: "/images/case-studies/solar-mapping.webp", alt: "Area Mapping Solution For A Solar Business" },
     },
     {
       title: "ParkSafe Community Vehicle Alert App",
+      href: "/case-study-parksafe-community-vehicle-alert-app",
       tag: "Logistics",
       body: "Soft Suave built a smart app to spot suspicious vehicles, send alerts, and boost community safety in real time.",
       image: { src: "/images/case-studies/logistics-3.webp", alt: "ParkSafe Community Vehicle Alert App" },
     },
     {
       title: "Digital Advertising in Public Spaces",
+      href: "/case-study-digital-advertising-in-public-spaces",
       tag: "On-Demand",
       body: "Soft Suave built a dynamic digital ads platform for real-time content, location targeting, and analytics in public spaces.",
       image: { src: "/images/case-studies/on-demand-1.webp", alt: "Digital Advertising in Public Spaces" },
     },
     {
       title: "Restaurant Workflow Optimization",
+      href: "/case-study-restaurant-workflow-optimization",
       tag: "On-Demand",
       body: "Soft Suave built a smart restaurant system to optimize orders, kitchen flow, and staff coordination for better dining.",
       image: { src: "/images/case-studies/on-demand-3.webp", alt: "Restaurant Workflow Optimization" },
     },
     {
       title: "Optimizing Influencer and Brand Collaborations",
+      href: "/case-study-optimizing-influencer-and-brand-collaborations",
       tag: "On-Demand",
       body: "Soft Suave built a smart platform to streamline influencer-brand ties, automate tasks, and boost engagement with data.",
       image: { src: "/images/case-studies/on-demand-8.webp", alt: "Optimizing Influencer and Brand Collaborations" },
     },
     {
       title: "AI-Powered Multi-Cloud Management",
+      href: "/case-study-ai-powered-multi-cloud-management",
       tag: "On-Demand",
       body: "Soft Suave built an AI platform to monitor, optimize, and automate multi-cloud setups with speed, security, and savings.",
       image: { src: "/images/case-studies/on-demand-11.webp", alt: "AI-Powered Multi-Cloud Management" },

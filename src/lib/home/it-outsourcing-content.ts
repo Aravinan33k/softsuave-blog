@@ -75,6 +75,7 @@ export const itoHero: HeroContent = {
   ],
   badges: sharedHeroBadges,
   form: {
+    submitHover: "black",
     eyebrow: "Business Enquiry",
     // The live hero form's own heading.
     title: "Let's Discuss Your Project",
@@ -183,6 +184,7 @@ export const itoFit: OverviewContent = {
 };
 
 export const itoDestinations: ComparisonContent = {
+  wideHead: true,
   eyebrow: "Global Outsourcing Comparison",
   title: "How Does India Compare With Other IT Outsourcing Destinations?",
   // The live table's first heading (review: "First heading in the table is
@@ -470,39 +472,47 @@ export const itoCaseStudies: WorkCarouselContent = {
   eyebrow: "Success Stories",
   title: "Proven Results From IT Outsourcing Engagements",
   body: "See how our IT outsourcing services have helped businesses improve operations, accelerate delivery, strengthen platforms, and achieve measurable outcomes across complex technology projects.",
+  tileCta: "View Case Study",
   items: [
     {
       title: "Smart Movie Ticketing with Real-Time Booking",
+      href: "/case-study-smart-movie-ticketing-with-real-time-booking",
       body: "Soft Suave built a smart movie ticketing system with real-time seats, secure payments, and smooth booking.",
       image: { src: "/images/case-studies/on-demand-5.webp", alt: "Smart Movie Ticketing with Real-Time Booking" },
     },
     {
       title: "Area Mapping Solution For A Solar Business",
+      href: "/case-study-area-mapping-solution",
       body: "Our client offers solar energy solutions focused on home efficiency and sustainable power, helping homeowners save on bills.",
       image: { src: "/images/case-studies/solar-mapping.webp", alt: "Area Mapping Solution For A Solar Business" },
     },
     {
       title: "ParkSafe Community Vehicle Alert App",
+      href: "/case-study-parksafe-community-vehicle-alert-app",
       body: "Soft Suave built a smart app to spot suspicious vehicles, send alerts, and boost community safety in real time.",
       image: { src: "/images/case-studies/logistics-3.webp", alt: "ParkSafe Community Vehicle Alert App" },
     },
     {
       title: "Digital Advertising in Public Spaces",
+      href: "/case-study-digital-advertising-in-public-spaces",
       body: "Soft Suave built a dynamic digital ads platform for real-time content, location targeting, and analytics in public spaces.",
       image: { src: "/images/case-studies/on-demand-1.webp", alt: "Digital Advertising in Public Spaces" },
     },
     {
       title: "Restaurant Workflow Optimization",
+      href: "/case-study-restaurant-workflow-optimization",
       body: "Soft Suave built a smart restaurant system to optimize orders, kitchen flow, and staff coordination for better dining.",
       image: { src: "/images/case-studies/on-demand-3.webp", alt: "Restaurant Workflow Optimization" },
     },
     {
       title: "Optimizing Influencer and Brand Collaborations",
+      href: "/case-study-optimizing-influencer-and-brand-collaborations",
       body: "Soft Suave built a smart platform to streamline influencer-brand ties, automate tasks, and boost engagement with data.",
       image: { src: "/images/case-studies/on-demand-8.webp", alt: "Optimizing Influencer and Brand Collaborations" },
     },
     {
       title: "AI-Powered Multi-Cloud Management",
+      href: "/case-study-ai-powered-multi-cloud-management",
       body: "Soft Suave built an AI platform to monitor, optimize, and automate multi-cloud setups with speed, security, and savings.",
       image: { src: "/images/case-studies/on-demand-11.webp", alt: "AI-Powered Multi-Cloud Management" },
     },

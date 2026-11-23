@@ -6,6 +6,8 @@ import styles from "./gen-ai.module.css";
 export interface ProcessContent {
   eyebrow: string;
   title: string;
+  /** Gives a long section heading room to wrap into fewer lines. */
+  wideHead?: boolean;
   body: string;
   steps: readonly { readonly n: string; readonly name: string; readonly body: string }[];
 }
@@ -32,7 +34,7 @@ export default function Process({
 }> = {}) {
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
       <SimpleProcess steps={content.steps} />
     </section>
   );

@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
         name: lead.name,
         email: lead.email,
         phone: phone || null,
-        description: lead.subject ? `${lead.requirement}\n\n(${lead.subject})` : lead.requirement,
+        description: lead.requirement,
         sourcePath: lead.sourcePath,
         type: leadType,
         company: company || null,

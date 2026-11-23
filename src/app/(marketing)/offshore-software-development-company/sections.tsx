@@ -93,7 +93,7 @@ export default function Sections({ industries, techStack }: Readonly<{ industrie
         <Faq content={offFaqs} idPrefix="offshore-faq" />
       </div>
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

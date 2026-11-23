@@ -143,6 +143,7 @@ export const webOverview: OverviewContent = {
 /** The prose half of the live "Tech Specialties" section: one block per tier. */
 export const webSpecialties: IntegrationContent = {
   eyebrow: "Built for You",
+  wideHead: true,
   title: "The Tech Specialties We Offer For Web App Development",
   body: "Our impressive expertise in both frontend and backend areas assist us to craft groundbreaking web Apps that achieve the modern-day web presence many businesses crave.",
   items: [
@@ -406,6 +407,7 @@ export const webAudience: OverviewContent = {
 
 export const webWhyUs: CardGridContent = {
   eyebrow: "Why Choose Us",
+  wideHead: true,
   title: "Why Choose Soft Suave For Web App Development Services",
   body: "Create & Contemporize web Applications To Digitally Convert Your Business",
   items: [

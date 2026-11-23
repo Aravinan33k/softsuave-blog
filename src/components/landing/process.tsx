@@ -4,6 +4,7 @@ import SectionHead from "./section-head";
 import styles from "./landing.module.css";
 
 export interface ProcessContent {
+  wideHead?: boolean;
   /**
    * Masthead. Optional as a set: omit `title` and the section renders as a
    * bare run of step cards, for a stage list that continues the section
@@ -72,7 +73,7 @@ export default function Process({
   return (
     <section className={styles.sectionShell} id={id}>
       {content.title && (
-        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
       )}
       <SimpleProcess steps={content.steps} label={label} />
       {content.cta && (

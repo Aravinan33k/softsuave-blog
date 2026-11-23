@@ -15,6 +15,7 @@ import Industries from '@/components/generative-ai/industries';
 import TechStack from '@/components/generative-ai/tech-stack';
 
 import styles from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 import { pageRobots } from '@/lib/flags';
 import Sections from './sections';
 
@@ -75,7 +76,7 @@ const pageLd = aiPageJsonLd('agenticAi');
 
 export default function AgenticAiDevelopmentServicesPage() {
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${location.submitBlack}`}>
       {/* The spec's four blocks are this page's entire structured data:
           Organization (verbatim — no Facebook profile, unlike the site-wide
           node) + Service, WebPage, FAQPage. The layout adds nothing here, not

@@ -105,6 +105,7 @@ export const vueOverview: OverviewContent = {
 export const vueServices: ServicesCarouselContent = {
   eyebrow: "Services",
   title: "Vue.js Development Services for Web Applications",
+  wideHead: true,
   body: "Our Vue.js development services help businesses build and improve reliable, maintainable web applications that meet technical requirements and support long-term product goals.",
   items: [
     {

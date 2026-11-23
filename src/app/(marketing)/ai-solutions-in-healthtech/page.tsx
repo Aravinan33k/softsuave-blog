@@ -15,6 +15,7 @@ import Footer from '@/components/home/footer';
 import TechStack from '@/components/home/tech-stack';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 import Sections from './sections';
 
 /**
@@ -78,7 +79,7 @@ const LD = pageSchemaGraph({
 
 export default function HealthtechAiSolutionsPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       <JsonLd data={LD} />
       <Nav logoHref={HOME_HREF} />
 

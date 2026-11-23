@@ -237,6 +237,7 @@ export const ionHireCta: CtaBandContent = {
 export const ionTech: TechStackContent = {
   eyebrow: "Technology Stack",
   title: "Topmost Technologies We Use For Ionic App Development",
+  wideHead: true,
   body: "Having a strong team of Ionic App developers assist us to create, build, test, and launch highly interactive Apps.",
   groups: [
     {

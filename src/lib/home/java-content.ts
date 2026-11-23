@@ -352,11 +352,13 @@ export const javaSuccessStories: WorkCarouselContent = {
   // The homepage's case-study button, to the full index (13 Oct review: "add
   // a view all case studies button like in the home page").
   cta: { label: "View all Case Studies", href: "/case-studies" },
+  tileCta: "View Case Study",
   // Each card wears the live page's own artwork for that case study (13 Oct
   // review: "need to update the images"), in `public/images/landing/java/`.
   items: [
     {
       title: "Freelancer Platform",
+      href: "/case-study-optimizing-influencer-and-brand-collaborations",
       tag: "Freelancer",
       image: {
         src: "/images/landing/java/case-freelancer-platform.webp",
@@ -366,6 +368,7 @@ export const javaSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Multi-vendor E-commerce Marketplace Application",
+      href: "/case-study-personalized-ecommerce-platform",
       tag: "E-commerce",
       image: {
         src: "/images/landing/java/case-ecommerce-marketplace.webp",
@@ -375,6 +378,7 @@ export const javaSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Logistics Supported Ride Hailing Mobile Application",
+      href: "/case-study-logistics-ride-hailing-application",
       tag: "Logistics",
       image: {
         src: "/images/landing/java/case-ride-hailing-logistics.webp",
@@ -384,6 +388,7 @@ export const javaSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Building a Highly Secured One-stop Digital Banking Solution",
+      href: "/onestop-digital-banking-solution",
       tag: "Banking",
       image: {
         src: "/images/landing/java/case-digital-banking.webp",

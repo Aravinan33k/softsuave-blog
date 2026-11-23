@@ -143,6 +143,7 @@ export const telecomSolutions: ServicesContent = {
 
 /** The live page's six key benefits; the badge glyphs stand in for its card icons. */
 export const telecomBenefits: CardGridContent = {
+  hoverBorder: true,
   eyebrow: "Key Benefits",
   title: "Telecom Meets AI: Innovation Without Limits",
   body: "AI is transforming telecom with unmatched speed, accuracy, and intelligence - automating tasks, personalizing experiences, and helping providers scale, serve better, and innovate fast. Discover six key benefits driving this AI-powered telecom evolution.",
@@ -191,9 +192,11 @@ export const telecomSuccessStories: WorkCarouselContent = {
   body: "Discover how our AI-driven telecom solutions have transformed challenges into success stories, delivering measurable results and long-term value for our clients.",
   // Each card wears the live page's own artwork for that story (13 Oct
   // review: "update the case study images same as the old page").
+  tileCta: "View Case Study",
   items: [
     {
       title: "Salesforce Telephone App Integration",
+      href: "/case-study-salesforce-telephone-app-integration",
       image: {
         src: "/images/industries/telecom/case-1.webp",
         alt: "The Salesforce logo on a cloud with verification badges",

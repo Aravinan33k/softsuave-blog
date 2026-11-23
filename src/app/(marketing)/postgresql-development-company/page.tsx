@@ -11,6 +11,7 @@ import Footer from '@/components/home/footer';
 import TechStack from '@/components/home/tech-stack';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 import Sections from './sections';
 
 /**
@@ -78,7 +79,7 @@ const HOME_HREF = BASE_PATH || '/';
 
 export default function PostgreSqlDevelopmentCompanyPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       <JsonLd data={softSuaveOrganizationLd} />
       <JsonLd data={[pgServiceLd, pgWebPageLd, pgFaqLd]} />
       <Nav logoHref={HOME_HREF} />
@@ -92,7 +93,7 @@ export default function PostgreSqlDevelopmentCompanyPage() {
        */}
       <main id="main">
         <Sections
-          techStack={<TechStack content={pgTech} staticFrom={768} />}
+          techStack={<TechStack content={pgTech} staticFrom={768} wideHead />}
         />
       </main>
 

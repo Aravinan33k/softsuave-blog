@@ -24,6 +24,10 @@ import { heroForm, onboardingComparison } from './shared';
 import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const salesforce: HireRolePageContent = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
+  // The services band on the light ground.
+  groundOverrides: { capabilities: 'light' },
   key: 'hire-salesforce',
   slug: '/hire-salesforce-developer',
   name: 'Hire Salesforce Developers',
@@ -69,6 +73,7 @@ export const salesforce: HireRolePageContent = {
       'Strong Delivery Governance from Day One',
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
@@ -231,11 +236,14 @@ export const salesforce: HireRolePageContent = {
     ],
   },
 
-  comparison: onboardingComparison({
-    title: 'Choosing the Right Salesforce Partner for Your Specific Needs',
-    body: 'Selecting the appropriate Salesforce partner will make you successful. Our developers have reliability, expertise, and scalability that in-house devs and freelancers cannot match. The following brief comparison will help you make a decision.',
-    column: 'Soft Suave',
-  }),
+  comparison: {
+    ...onboardingComparison({
+      title: 'Choosing the Right Salesforce Partner for Your Specific Needs',
+      body: 'Selecting the appropriate Salesforce partner will make you successful. Our developers have reliability, expertise, and scalability that in-house devs and freelancers cannot match. The following brief comparison will help you make a decision.',
+      column: 'Soft Suave',
+    }),
+    wideHead: true,
+  },
 
   techStack: {
     eyebrow: 'Expertise',

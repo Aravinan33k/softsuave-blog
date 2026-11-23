@@ -43,7 +43,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
       <Hero content={gqHero} idPrefix="gq" variant="compact" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       <Overview content={gqOverview} variant="compact" />
@@ -79,7 +79,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
         <Faq content={gqFaqs} idPrefix="gq-faq" />
       </div>
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

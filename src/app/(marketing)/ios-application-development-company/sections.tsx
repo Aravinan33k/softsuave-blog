@@ -44,7 +44,7 @@ export default function Sections() {
       <Hero content={iosHero} idPrefix="ios" variant="compact" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       {/* Six services on rounded square tiles — the home-screen grid the
@@ -85,7 +85,7 @@ export default function Sections() {
 
       <Faq content={iosFaqs} idPrefix="ios-faq" />
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

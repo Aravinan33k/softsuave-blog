@@ -12,6 +12,8 @@ import { HOURLY_RATE } from "../../company-figures";
 import { CLASSIC_ORDER } from "./backend-shared";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
   slug: "hire-java-developers",
   key: "java",
   name: "Java",
@@ -42,6 +44,7 @@ export const skill: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
+      submitHover: 'black',
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -63,6 +66,7 @@ export const skill: HireSkill = {
   },
 
   overview: {
+    wideHead: true,
     // Portrait, run the full height of the copy beside it (8 Oct review:
     // "resize the image to match the section") — the same photo, cut taller.
     image: {
@@ -92,6 +96,7 @@ export const skill: HireSkill = {
   },
 
   services: {
+    wideHead: true,
     eyebrow: "Services",
     title: "Soft Suave's Java Development Services",
     body: "Our highly skilled Java developers have a separate client base all around the world for their revolutionary solutions.",
@@ -130,6 +135,7 @@ export const skill: HireSkill = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: "Hiring Process",
     title: "Hire Java Developers in 4 easy steps",
     body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
@@ -137,15 +143,20 @@ export const skill: HireSkill = {
   },
 
   whyUs: {
+    wideHead: true,
     eyebrow: "Why Soft Suave",
     title: "Why Are Our Java Developers Considered the Best?",
     body: "We have dedicated Java developers with exceptional technical knowledge to deliver secure Java solutions.",
     items: techWhy("Java", "Spring Boot, Hibernate, microservices, REST APIs, and AWS"),
   },
 
-  exploreMore: webExplore,
+  exploreMore: {
+    ...webExplore,
+    wideHead: true,
+  },
 
   faq: {
+    wideHead: true,
     eyebrow: "FAQs",
     title: "Frequently Asked Questions",
     body: "Know more about our processes and how we work, with the help of the following FAQs.",

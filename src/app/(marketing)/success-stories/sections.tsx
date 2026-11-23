@@ -33,7 +33,7 @@ export default function Sections() {
         <VideoStories group={employeeStories} />
       </div>
 
-      <Contact content={successStoriesClosingBand} eyebrow="" />
+      <Contact content={successStoriesClosingBand} eyebrow="" ctaIcon />
     </>
   );
 }

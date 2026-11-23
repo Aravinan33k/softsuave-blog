@@ -12,6 +12,7 @@ import TechStack from '@/components/landing/tech-stack';
 import Industries from '@/components/generative-ai/industries';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 import Sections from './sections';
 
 /**
@@ -68,7 +69,7 @@ const HOME_HREF = BASE_PATH || '/';
 
 export default function OffshoreSoftwareDevelopmentPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       {/* softsuave.com's own schema for this page, verbatim, one <script> per
           block — see `lib/seo/offshore-software-development-company.ts`. */}
       {OFFSHORE_LIVE_LD.map((block, i) => (

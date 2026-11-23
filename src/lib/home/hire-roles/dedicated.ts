@@ -35,6 +35,8 @@ import { heroForm, onboardingComparison, rateTiers } from './shared';
 import { HOURLY_RATE, SPECIALISTS_PLUS } from '@/lib/company-figures';
 
 export const dedicated: HireRolePageContent = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
   key: 'hire-dedicated',
   slug: '/hire-dedicated-developers',
   name: 'Hire Dedicated Developers',
@@ -98,6 +100,7 @@ export const dedicated: HireRolePageContent = {
       'Strong Delivery Governance from Day One',
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
@@ -107,6 +110,7 @@ export const dedicated: HireRolePageContent = {
   },
 
   overview: {
+    wideHead: true,
     // Portrait, run the full height of the copy beside it (8 Oct review:
     // "resize the image to match the section") — the same photo, cut taller.
     image: {
@@ -129,6 +133,7 @@ export const dedicated: HireRolePageContent = {
   },
 
   specialisations: {
+    wideHead: true,
     eyebrow: 'Developer Roles',
     title: 'What Dedicated Developer Roles Does Soft Suave Offer?',
     body: 'Soft Suave helps you hire dedicated developers across 9 key role categories, from software and web development to DevOps, QA, and e-commerce. Choose individual developers or build a multi-role team based on your project scope, technology needs, and delivery goals.',
@@ -195,6 +200,7 @@ export const dedicated: HireRolePageContent = {
   },
 
   fit: {
+    wideHead: true,
     eyebrow: 'Why Hire',
     title: 'Top 6 Reasons Companies Hire Dedicated Developers',
     body: 'Dedicated developers help companies scale faster with skilled talent, flexible engagement, and better project control. They work as an extension of your team and stay focused on your business goals, product needs, and delivery timelines.',
@@ -240,6 +246,7 @@ export const dedicated: HireRolePageContent = {
   },
 
   whyRole: {
+    wideHead: true,
     eyebrow: 'Hiring Guide',
     title: '6 Common Challenges When Hiring Dedicated Developers and How to Solve Them',
     body: 'Hiring dedicated developers can be highly effective, but the right process is important. Skill validation, communication, accountability, and security must be handled clearly before onboarding.',
@@ -278,6 +285,7 @@ export const dedicated: HireRolePageContent = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: 'Quick Steps',
     title: 'How to Hire Dedicated Developers from India in 4 Steps',
     body: 'Hiring dedicated developers from Soft Suave is simple, structured, and risk-free. Our process helps you define your needs, review suitable developer profiles, test their skills, and onboard the right talent with confidence.',
@@ -305,18 +313,25 @@ export const dedicated: HireRolePageContent = {
     ],
   },
 
-  comparison: onboardingComparison({
+  comparison: {
+    ...onboardingComparison({
     title: 'Soft Suave vs In-House Teams vs Freelancers: Which Should You Choose?',
     body: 'Compare hiring dedicated developers from Soft Suave with building an in-house team or hiring freelancers. The table below gives a clear side-by-side view to help you choose the right model for your project.',
     column: 'Soft Suave',
   }),
+    wideHead: true,
+  },
 
-  rates: rateTiers({
+  rates: {
+    ...rateTiers({
     title: 'How Much Does It Cost to Hire Dedicated Developers in India?',
     body: `Soft Suave's dedicated developers in India are available at flexible hourly rates starting from ${HOURLY_RATE}. The final cost depends on the developer's experience, skill level, technology stack, and project requirements. An approximate pricing breakdown is listed below to help you plan your hiring budget.`,
   }),
+    wideHead: true,
+  },
 
   techStack: {
+    wideHead: true,
     eyebrow: 'Expertise',
     title: "Tech Stack Soft Suave's Dedicated Developers Work With",
     body: "Soft Suave's dedicated developers work across 30+ stacks for web, mobile, cloud, DevOps, QA, backend, frontend, full-stack, and e-commerce development, building scalable, secure, high-performance products.",
@@ -396,6 +411,7 @@ export const dedicated: HireRolePageContent = {
   },
 
   faq: {
+    wideHead: true,
     eyebrow: 'Ask Us',
     title: 'Frequently Asked Questions About Hiring Dedicated Developers from India',
     body: "Know more about Soft Suave's hiring process, engagement models, trial option, onboarding timeline, and how our dedicated developers work with your team.",

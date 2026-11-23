@@ -29,6 +29,10 @@ import { heroForm, onboardingComparison } from './shared';
 import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const blockchain: HireRolePageContent = {
+  closingCtaIcon: true,
+  clientsWideTitle: '38ch',
+  // The services band on the light ground.
+  groundOverrides: { capabilities: 'light' },
   key: 'hire-blockchain',
   slug: '/hire-blockchain-developer',
   name: 'Hire Blockchain Developers',
@@ -76,6 +80,7 @@ export const blockchain: HireRolePageContent = {
       'Strong Delivery Governance from Day One',
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
@@ -242,11 +247,14 @@ export const blockchain: HireRolePageContent = {
     ],
   },
 
-  comparison: onboardingComparison({
-    title: 'Choosing the Right Blockchain Partner for Your Specific Needs',
-    body: 'Compare hiring methods - freelancers, internal hires, or our expert Blockchain team. Use our comprehensive comparison guide to decide.',
-    column: 'Soft Suave',
-  }),
+  comparison: {
+    ...onboardingComparison({
+      title: 'Choosing the Right Blockchain Partner for Your Specific Needs',
+      body: 'Compare hiring methods - freelancers, internal hires, or our expert Blockchain team. Use our comprehensive comparison guide to decide.',
+      column: 'Soft Suave',
+    }),
+    wideHead: true,
+  },
 
   techStack: {
     eyebrow: 'Expertise',
