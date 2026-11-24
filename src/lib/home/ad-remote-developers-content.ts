@@ -62,6 +62,9 @@ export const rsHero: HeroContent = {
   body: [
     "Hire dedicated remote developers to boost your project with expert skills, flexible hiring models, and cost-effective, scalable software development solutions",
   ],
+  // Review: the hero centred, its points in one row with a rule between them.
+  centered: true,
+  pointsInline: true,
   points: ["Flexible Engagement Models", "Strict NDA", "40 Hours Risk Free Trial"],
   ctas: [AD_TRIAL_CTA, BOOK_MEETING],
   ctaSeparator: "OR",

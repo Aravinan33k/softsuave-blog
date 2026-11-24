@@ -35,6 +35,8 @@ export const frontend: HireRolePageContent = {
   key: 'hire-frontend',
   slug: '/hire-frontend-application-developer',
   submitBlack: true,
+  // Every split section head set like /ad/remote-developers' "Our Clients".
+  halfHeads: true,
   name: 'Hire Frontend Developers',
   serviceType: 'Frontend development staffing',
 
