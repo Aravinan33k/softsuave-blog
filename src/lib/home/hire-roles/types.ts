@@ -35,6 +35,7 @@ import type { TechStackContent } from '@/components/home/tech-stack';
 import type { FaqContent } from '@/components/generative-ai/faq';
 import type { CtaBandContent } from '@/components/generative-ai/cta-band';
 import type { WorkCarouselContent } from '@/components/home/work-grid';
+import type { Ground } from './band-grounds';
 
 /**
  * Note what is NOT here: the client logos, the case studies, the client stories
@@ -136,10 +137,19 @@ export interface HireRolePageContent {
    */
   readonly order: readonly HireBand[];
   /** Page-specific presentation options; other role pages keep their defaults. */
+  /**
+   * The client strip's `wideTitle`: its heading in two balanced lines on a wide
+   * screen instead of three. A measure string (`"34ch"`) holds the column at
+   * that width — see `Clients`.
+   */
   readonly clientsWideTitle?: boolean | string;
   readonly closingCtaIcon?: boolean;
-  /** A band drawn on a ground other than the one the sequence would give it. */
-  readonly groundOverrides?: Partial<Record<HireBand, 'light' | 'dark'>>;
+  /**
+   * Pin a band to a ground on this page only, over the shared anchors in
+   * `band-grounds` (e.g. `{ techStack: 'light' }`). The other free bands
+   * re-flow around it.
+   */
+  readonly groundOverrides?: Readonly<Partial<Record<HireBand, Ground>>>;
 
   readonly meta: {
     readonly title: string;
@@ -158,7 +168,9 @@ export interface HireRolePageContent {
    * also imports, states only the alignment and never calls into the image
    * record itself.
    */
-  readonly overviewImageAlign?: 'center';
+  readonly overviewImageAlign?: 'center' | 'top' | 'both';
+  /** The same, for the global-delivery band's pipeline photo (`landing/dl-<slug>`). */
+  readonly globalDeliveryImageAlign?: 'center' | 'top' | 'both';
   /**
    * The "which skill fits which need" selector, where the live page carries a
    * decision table. Omitted on roles whose live page has none.
@@ -235,7 +247,10 @@ export interface HireRolePageContent {
    * (web app, mobile). Omitted renders the homepage's case studies.
    */
   readonly caseStudies?: WorkCarouselContent;
-  /** This role's stack, rendered through the homepage's technology band. */
+  /**
+   * This role's stack, rendered through the grouped panels (or the homepage's
+   * rows, with `techStackStyle`). `wideHead` is read by the panels only.
+   */
   readonly techStack?: TechStackContent & { readonly wideHead?: boolean };
   /** Render the stack's logos at the Custom AI page's larger size. */
   readonly techStackLargeLogos?: boolean;
@@ -243,8 +258,12 @@ export interface HireRolePageContent {
    * `rows` renders the stack as the Android page's labelled rows (the
    * homepage's band, held static) instead of the grouped panels (QA review:
    * "Powerful Tools and Technologies ... need to change the design").
+   * `tabs` renders it as category tabs over a centred grid of logo cards
+   * (`common/tech-tabs`; Hire Software Developers review).
    */
-  readonly techStackStyle?: 'rows';
+  readonly techStackStyle?: 'rows' | 'tabs';
+  /** The hero form's submit button turns black on hover and focus. */
+  readonly submitBlack?: boolean;
   /**
    * Further label-only bands, each placed by `order` as `list:<key>`.
    *

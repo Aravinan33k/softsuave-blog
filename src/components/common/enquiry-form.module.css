@@ -447,8 +447,11 @@
    card whose own edge is 10px away, and a rising plate read as detaching from
    it. The resting glow deepens with the fill so the press still has weight. */
 .submit:hover {
-  background: var(--accent-border, #fb3b5c);
-  border-color: var(--accent-border, #fb3b5c);
+  /* A lighter tint of the same orange, not the deeper rose (--accent-border) it
+     used to switch to, which read as the button going dark (review: "when i
+     hover the button in the form it's change the color into dark"). */
+  background: color-mix(in srgb, var(--accent, #ff5436) 86%, #fff);
+  border-color: color-mix(in srgb, var(--accent, #ff5436) 86%, #fff);
   /* No glow on hover: the coral/rose haze round the plate read as fog. The fill change is the whole signal. */
   box-shadow: none;
 }

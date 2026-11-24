@@ -117,6 +117,12 @@ export interface OverviewContent {
   /** Optional — only pages whose copy ends on a pull quote supply one. */
   pullQuote?: string;
   /**
+   * A smaller pull quote — body-scale rather than heading-scale — for a page
+   * whose closing line reads too loud at the default size (IT outsourcing
+   * review: "reduce this … font size"). Omitted keeps the default.
+   */
+  pullQuoteSize?: "small";
+  /**
    * Optional pipeline diagram under the prose (and the pull quote, if both
    * are set) — for an overview whose copy describes a sequence of stages.
    * Rendered by `landing/flow.tsx`.
@@ -197,6 +203,14 @@ export interface OverviewContent {
      * bigger slightly").
      */
     even?: boolean;
+    /**
+     * From 1000px, the prose takes the larger column (1.15 / 0.85) — for a
+     * long H2 that otherwise wraps a stray third line in browsers whose
+     * glyphs run a touch wider (Offshore review: "fix this h2").
+     */
+    textLead?: boolean;
+    /** Rounds the frame's corners to 14px (by request: "add the border-radius: 14px"). */
+    rounded?: boolean;
   };
 }
 
@@ -393,7 +407,9 @@ export default function Overview({
                 ? `${styles.overviewGrid} ${styles.overviewGridWideImage}`
                 : showImage && image?.even
                   ? `${styles.overviewGrid} ${styles.overviewGridEven}`
-                  : styles.overviewGrid
+                  : showImage && image?.textLead
+                    ? `${styles.overviewGrid} ${styles.overviewGridTextLead}`
+                    : styles.overviewGrid
               : undefined
           }
         >
@@ -416,6 +432,7 @@ export default function Overview({
                 image.aspect ? styles.overviewMediaFixed : "",
                 image.column ? styles.overviewMediaColumn : "",
                 image.align === "center" ? styles.overviewMediaCenter : "",
+                image.rounded ? styles.overviewMediaRounded : "",
               ]
                 .filter(Boolean)
                 .join(" ")}
@@ -461,7 +478,15 @@ export default function Overview({
         {/* Full-width footer position — skipped when the counters have already
             been rendered in the column beside the prose. */}
         {hasStats && !asideStats && !columnStats && <div className={styles.overviewStats}>{statsPanel}</div>}
-        {content.pullQuote && <p className={styles.pullQuote}>{content.pullQuote}</p>}
+        {content.pullQuote && (
+          <p
+            className={
+              content.pullQuoteSize === "small" ? `${styles.pullQuote} ${styles.pullQuoteSmall}` : styles.pullQuote
+            }
+          >
+            {content.pullQuote}
+          </p>
+        )}
         {content.flow && <Flow content={content.flow} />}
       </FadeUp>
     </section>

@@ -20,6 +20,9 @@
   --surface: #eeebe5;
   --surface-2: #e6e2da;
   --surface-3: #dcd7cd;
+  /* White logo cards on this ground (common/tech-tabs); unset on dark bands,
+     where the cards fall back to --surface. */
+  --tech-card-bg: #ffffff;
   --text: #4a4842;
   --text-bright: #17140f;
   --muted: #6b6862;
@@ -3694,6 +3697,37 @@ h1.h2 {
     font-size: var(--fs-body);
   }
 
+  /* `WorkCarouselContent.wideIntro` — a wider column for a long title the
+     default one broke a word to a line ("Offshore / Software / Development /
+     Case / Studies"), with its lines balanced so none is left with one word.
+     Two classes, so it outranks `.hIntro`'s width above. */
+  /* 46vw and a slimmer right pad leave the H2 ~490px+ from about 1280px, so
+     these long titles ("Proven Results From IT / Outsourcing Engagements")
+     settle into two lines instead of three (IT outsourcing review: "fix the
+     success stories section h2 heading"). */
+  /* The `100vw - 770px` term keeps the lane at 740px+ (its two-card
+     breakpoint), so the extra width never drops it to one wide card; the
+     outer `max()` floors it at the earlier min(40vw, 580px), so a narrow
+     desktop never gets a slimmer column than before. */
+  .hIntro.hIntroWide {
+    width: max(min(40vw, 580px), min(46vw, 660px, calc(100vw - 770px)));
+    padding-right: clamp(20px, 2vw, 40px);
+  }
+
+  .hIntro.hIntroWide .h2 {
+    text-wrap: balance;
+  }
+
+  /* `navBelow`: the line sits right under the lead, arrows below it on the left. */
+  .hProgressTrack.hProgressTrackLead {
+    margin-top: clamp(24px, 2.4vw, 36px);
+  }
+
+  .hControls.hControlsStart {
+    justify-content: flex-start;
+    margin-top: clamp(20px, 2vw, 28px);
+  }
+
   /* the scrollable lane: native horizontal scroll + snap, so drag/swipe/
      trackpad/shift-wheel and the arrow buttons all just work with no JS
      driving the motion. Scrollbar hidden — the tick + arrows are the UI. */
@@ -3866,6 +3900,15 @@ h1.h2 {
 
   .creamInner {
     grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+/* `wideIntro` on large screens: room for the title in two balanced lines
+   ("Offshore Software / Development Case Studies", ~486px at 40px) rather
+   than three (Offshore review: "fix the heading including 1920px"). */
+@media (min-width: 1800px) {
+  .hIntro.hIntroWide {
+    width: 660px;
   }
 }
 

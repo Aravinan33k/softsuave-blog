@@ -695,6 +695,19 @@
   color: var(--accent);
 }
 
+/* The tab icons 2px larger than the shared badge draws them (review: "the
+   icons is small"): the Material Symbols (`symbol`, 70% of the badge) and the
+   picked lucide glyph (55%) alike. */
+.psTab .psTabNum > svg[viewBox="0 -960 960 960"] {
+  width: calc(70% + 2px);
+  height: calc(70% + 2px);
+}
+
+.psTab .psTabNum > svg:not([viewBox="0 -960 960 960"]) {
+  width: calc(55% + 2px);
+  height: calc(55% + 2px);
+}
+
 .psTabLabel {
   font-family: var(--font-heading);
   font-weight: var(--heading-weight);
@@ -2318,6 +2331,31 @@
     align-self: center;
   }
 
+  /* `image.align: "middle"` — picture and copy both centred on the row: where
+     the picture is the taller of the two, the masthead + prose sit centred
+     against it rather than on the row's bottom edge, which left an empty band
+     above the kicker (generative AI page review). */
+  .overviewMedia.overviewMediaMiddle,
+  .overviewGrid:has(> .overviewMediaMiddle) > div:first-child {
+    align-self: center;
+  }
+
+  /* `image.align: "top"` — picture and copy both start at the row's top edge,
+     in place of the default bottom alignment (Hire Software Developers review:
+     "update the overview section to top alignment"). */
+  .overviewMedia.overviewMediaTop,
+  .overviewGrid:has(> .overviewMediaTop) > div:first-child {
+    align-self: start;
+  }
+
+  /* `image.align: "both"` — picture and copy centred on each other at every
+     desktop width; unlike "middle", no switch to top alignment at 1600px
+     (Hire Software Developers review: "fix the center alignment"). */
+  .overviewMedia.overviewMediaBoth,
+  .overviewGrid:has(> .overviewMediaBoth) > div:first-child {
+    align-self: center;
+  }
+
   /* Industries: 8 cards read as three per row (the last row runs short). */
   .indGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2334,6 +2372,28 @@
 
   .stackItems {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* `image.align: "middle"` on big screens: from 1600px both columns start at
+   the top edge instead of centring (generative AI page review: "make it
+   aligned in top for big screen sizes"). Below that, 1366px included, the
+   centred arrangement above stays. */
+@media (min-width: 1600px) {
+  .overviewMedia.overviewMediaMiddle,
+  .overviewGrid:has(> .overviewMediaMiddle) > div:first-child {
+    align-self: start;
+  }
+}
+
+/* The same section's pull quote at 1920-class widths: justified, so it reads
+   as one continuous block with both edges flush, like the prose above it
+   (review). Narrower screens keep the ragged right edge. */
+@media (min-width: 1800px) {
+  .overviewGrid:has(> .overviewMediaMiddle) ~ .pullQuote {
+    text-align: justify;
+    text-align-last: left;
+    hyphens: none;
   }
 }
 
@@ -3076,4 +3136,86 @@
   .indTilesWithFigure {
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   }
+}
+
+/* `CardGridContent.carousel` — the bold cards as one scroll-snap row.
+   Cards in view: 1 (with a peek) below 700px, 2 from 700px, 3 from 1100px
+   (1440 shows three), 4 from 1600px (1920 shows four). Two classes, so this
+   beats `.indGridBold`'s grid at every width. */
+.indGridBold.indCarousel {
+  --car-gap: clamp(12px, 1.3vw, 18px);
+  --car-per: 1.15;
+  display: flex;
+  gap: var(--car-gap);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  /* Room for the cards' hover lift and shadow, which the scroller would clip. */
+  padding: 8px 2px 16px;
+  margin: -8px -2px -16px;
+  scroll-padding-inline: 2px;
+}
+
+.indGridBold.indCarousel::-webkit-scrollbar {
+  display: none;
+}
+
+.indGridBold.indCarousel:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.indGridBold.indCarousel .indBoldCard {
+  flex: 0 0 calc((100% - (var(--car-per) - 1) * var(--car-gap)) / var(--car-per));
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 700px) {
+  .indGridBold.indCarousel { --car-per: 2; }
+}
+
+@media (min-width: 1100px) {
+  .indGridBold.indCarousel { --car-per: 3; }
+}
+
+@media (min-width: 1600px) {
+  .indGridBold.indCarousel { --car-per: 4; }
+}
+
+/* `CardGridContent.autoplay` from 700px: a marquee. The track clips, and the
+   row inside it is moved by script (transform), not scrolled. The row is the
+   track's width, so the cards' percentage widths above still resolve to it. */
+.indGridBold.indCarousel[data-marquee="true"] {
+  overflow: hidden;
+  scroll-snap-type: none;
+}
+
+.indMarqueeRow {
+  display: flex;
+  gap: var(--car-gap);
+  width: 100%;
+  will-change: transform;
+}
+
+.indMarqueeRow .indBoldCard {
+  scroll-snap-align: none;
+}
+
+.indCarousel .indBoldCard[data-accent="1"] { --card-accent: var(--card-accent-1); }
+.indCarousel .indBoldCard[data-accent="2"] { --card-accent: var(--card-accent-2); }
+.indCarousel .indBoldCard[data-accent="3"] { --card-accent: var(--card-accent-3); }
+.indCarousel .indBoldCard[data-accent="4"] { --card-accent: var(--card-accent-4); }
+.indCarousel .indBoldCard[data-accent="5"] { --card-accent: var(--card-accent-5); }
+
+.svcArrow:disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indGridBold.indCarousel { scroll-behavior: auto; }
 }

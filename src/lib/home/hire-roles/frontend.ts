@@ -34,6 +34,7 @@ export const frontend: HireRolePageContent = {
   closingCtaIcon: true,
   key: 'hire-frontend',
   slug: '/hire-frontend-application-developer',
+  submitBlack: true,
   name: 'Hire Frontend Developers',
   serviceType: 'Frontend development staffing',
 
@@ -93,16 +94,16 @@ export const frontend: HireRolePageContent = {
 
   overview: {
     wideHead: true,
-    // Portrait, run the full height of the copy beside it (8 Oct review:
-    // "resize the image to match the section") — the same photo, cut taller.
+    // A 4:3 frame centred against the copy, sized like the software page's
+    // overview image.
     image: {
-      src: '/images/landing/ov-hire-frontend-application-developer-tall.webp',
-      width: 1000,
-      height: 1250,
-      alt: 'Frontend developer designing a web interface',
+      src: '/images/landing/ov-hire-frontend-application-developer-v2.webp',
+      width: 960,
+      height: 720,
+      alt: 'A frontend developer at a laptop, surrounded by HTML, CSS, JavaScript, React, Angular, Vue and TypeScript icons',
       blurDataURL:
-        'data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAABwAQCdASoQAAsAA4BaJZVefAHJgAD+80KUupaBYIFis8C3qB9ioAAA',
-      fit: 'column',
+        'data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAwAgCdASoQAAwAAsBMJbACdAYulkz8XdKb0AD+wRLTu9N4z7w83hH3obP92yBXcLegB5dxa8V1Lp033s+KMcjh5x4COt1zNmePdpDTa+ts4gv90n3odBZ1G3S2vSzPlHcAAA==',
+      align: 'both',
     },
     eyebrow: 'Overview',
     title: 'Why Hire a Frontend Developer for Your Product Team?',
@@ -240,6 +241,17 @@ export const frontend: HireRolePageContent = {
 
   globalDelivery: {
     wideHead: true,
+    // Replaces the pipeline's `landing/dl-<slug>` photo; framed and centred
+    // like the software page's delivery image.
+    image: {
+      src: '/images/landing/dl-hire-frontend-application-developer-v2.webp',
+      width: 960,
+      height: 720,
+      alt: 'A frontend developer at a laptop collaborating with remote teammates across a world map, surrounded by design, code and sprint boards',
+      blurDataURL:
+        'data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAABQAgCdASoQAAwAAsBMJbACdAYrTq+P/ic8qAAA/vAb4jQAGPdqiqcc/FtwT/GjSFbzqBx9E6kP5VuodPwYV+YXxjndb79hGwXGKlwWMEEPx+HMXQuJDB60F7qeMtzIQNSnrFDlrsxokmT14aeP5Z0nLJGsdy9AQAA=',
+      align: 'both',
+    },
     eyebrow: 'Delivery Presence',
     title: 'Frontend Delivery Across Key Technology Markets',
     paragraphs: [

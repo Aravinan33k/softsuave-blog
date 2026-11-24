@@ -1,0 +1,153 @@
+/* Category tabs over a centred grid of logo cards — see tech-tabs.tsx.
+   Token-driven (--line, --surface, --text, --muted, --accent), so the band
+   renders on either ground. */
+
+.tabs {
+  display: flex;
+  /* `safe`: centred while the tabs fit, start-aligned once they overflow —
+     plain `center` pushed the first tabs off the left edge, out of scroll reach. */
+  justify-content: safe center;
+  gap: clamp(8px, 1.4vw, 32px);
+  margin: 0 auto clamp(28px, 3vw, 44px);
+  /* A long tab list scrolls sideways on a phone rather than wrapping into a
+     ragged second line of tabs. */
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  flex: none;
+  position: relative;
+  padding: 10px 16px 16px;
+  border: 0;
+  background: none;
+  font-family: var(--font-body);
+  font-size: clamp(16px, 1.1vw, 18px);
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+/* The active tab's accent underline, the width of the tab. */
+.tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--accent, #ff5436);
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab[aria-selected="true"] {
+  color: var(--accent, #ff5436);
+}
+
+.tab[aria-selected="true"]::after {
+  transform: scaleX(1);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--accent, #ff5436);
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+
+/* ---- the card grid ----
+   Fixed-size cards in a wrapping, centred row, the row capped at eight cards:
+   a short category centres in the band, and a ninth tool opens a new row with
+   the same gap rather than shrinking the first eight. */
+.grid {
+  --card: 148px;
+  --gap: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap);
+  max-width: calc(8 * var(--card) + 7 * var(--gap));
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  flex: 0 0 var(--card);
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  /* White on a light band (`--tech-card-bg`, set by `.light`), the theme's
+     own surface on a dark one. */
+  background: var(--tech-card-bg, var(--surface));
+  text-align: center;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.card:hover {
+  border-color: color-mix(in srgb, var(--accent, #ff5436) 55%, var(--line));
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+}
+
+/* `TechLogo` draws its SVGs at 22px; the card shows them at 60. */
+.mark > :is(svg, img) {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.name {
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--text-bright, var(--text));
+}
+
+/* Phones: three cards to a row, sized to the column instead of fixed. */
+@media (max-width: 599px) {
+  .grid {
+    --gap: 10px;
+  }
+
+  .card {
+    flex-basis: calc((100% - 2 * var(--gap)) / 3);
+    gap: 10px;
+  }
+
+  .mark {
+    width: 44px;
+    height: 44px;
+  }
+
+  .name {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab,
+  .tab::after,
+  .card {
+    transition: none;
+  }
+}

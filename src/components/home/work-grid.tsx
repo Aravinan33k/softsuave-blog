@@ -82,6 +82,19 @@ export interface WorkCarouselContent {
   };
   items: readonly WorkCarouselItem[];
   /**
+   * From 1000px, a wider intro column (and balanced heading lines), for a long
+   * title that the default ~460px column breaks one word per line (Offshore
+   * review: "fix the success stories h2 heading").
+   */
+  wideIntro?: boolean;
+  /**
+   * Drops the "07 projects" counter and stacks the intro's foot as: the
+   * progress line straight under the lead, then the arrows, left-aligned
+   * (Offshore review: "remove the 07 projects text … set the arrow button
+   * left aligned"). Omitted keeps the counter-and-arrows row above the line.
+   */
+  navBelow?: boolean;
+  /**
    * A visible label at the foot of each linked tile ("View Case Study"), for a
    * lane whose live counterpart prints one on every card — the case study's
    * related-work carousel. The tile is already one link named by its title, so
@@ -518,7 +531,7 @@ export default function WorkGrid({
         ref={root}
         className={hasArt ? styles.hInner : `${styles.hInner} ${styles.hInnerFlat}`}
       >
-        <div className={styles.hIntro}>
+        <div className={content.wideIntro ? `${styles.hIntro} ${styles.hIntroWide}` : styles.hIntro}>
           {/* No kicker for a lane whose live section has none — an empty
               eyebrow would still draw its coral rule. */}
           {content.eyebrow ? <span className={styles.eyebrow}>{content.eyebrow}</span> : null}
@@ -539,10 +552,17 @@ export default function WorkGrid({
             </div>
           ) : null}
 
-          <div className={styles.hControls}>
-            <span className={styles.carCounter}>
-              {String(tiles.length).padStart(2, "0")} {countLabel}
-            </span>
+          {content.navBelow ? (
+            <div className={`${styles.hProgressTrack} ${styles.hProgressTrackLead}`} aria-hidden>
+              <span ref={progressRef} className={styles.hProgressFill} />
+            </div>
+          ) : null}
+          <div className={content.navBelow ? `${styles.hControls} ${styles.hControlsStart}` : styles.hControls}>
+            {content.navBelow ? null : (
+              <span className={styles.carCounter}>
+                {String(tiles.length).padStart(2, "0")} {countLabel}
+              </span>
+            )}
             <div className={styles.carArrows}>
               <button
                 type="button"
@@ -568,9 +588,11 @@ export default function WorkGrid({
               </button>
             </div>
           </div>
-          <div className={styles.hProgressTrack} aria-hidden>
-            <span ref={progressRef} className={styles.hProgressFill} />
-          </div>
+          {content.navBelow ? null : (
+            <div className={styles.hProgressTrack} aria-hidden>
+              <span ref={progressRef} className={styles.hProgressFill} />
+            </div>
+          )}
         </div>
 
         <div

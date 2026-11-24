@@ -6,6 +6,7 @@ import { problems as generativeAiProblems } from "@/lib/home/generative-ai";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { publicMediaUrl } from "@/lib/media-url";
 import CardIconBadge from "@/components/common/card-icon-badge";
+import type { MaterialSymbolName } from "@/lib/home/material-symbols";
 import SectionHead from "./section-head";
 import styles from "./gen-ai.module.css";
 
@@ -25,6 +26,8 @@ export interface ProblemsContent {
     readonly solution: string;
     /** Decorative backdrop for this row's panel; rows without one show none. */
     readonly image?: string;
+    /** A Material Symbols Rounded icon for the row's tab; omitted, one is picked from its words. */
+    readonly symbol?: MaterialSymbolName;
   }[];
 }
 
@@ -259,6 +262,7 @@ export default function Problems({
               <CardIconBadge
                 title={row.problem}
                 body={row.solution}
+                symbol={"symbol" in row ? row.symbol : undefined}
                 size="sm"
                 className={styles.psTabNum}
               />
