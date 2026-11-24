@@ -36,11 +36,7 @@ import type { FaqContent } from "@/components/landing/faq";
 import type { CardGridContent as PhotoGridContent } from "@/components/generative-ai/industries";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
-import { imageSlots } from "./image-slots";
-import shard from "./image-shards/offshore.generated.json";
 import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
-
-const { overviewImage } = imageSlots(shard);
 
 export const offMeta = {
   slug: "offshore-software-development-company",
@@ -56,6 +52,8 @@ export const offHero: HeroContent = {
   // 8 Oct review: "highlight 'Offshore Software Development' in the H1".
   titleLines: ["Offshore Software Development", "Company for Global Businesses"],
   accent: "Offshore Software Development",
+  // Each line sized to fit the copy column, so the H1 sets in two lines.
+  titleFit: true,
   body: [
     "Soft Suave is an offshore software company that builds and modernizes software for startups, scaling businesses, and established organizations worldwide. We combine experienced engineering capabilities with flexible delivery models to address your project requirements.",
     "Share your requirements, and we'll outline the capabilities, delivery approach, and next steps for your project.",
@@ -81,15 +79,37 @@ export const offHero: HeroContent = {
     alert: sharedHeroAlert,
   },
   image: {
-    src: "/images/four/svc-custom-software.webp",
-    width: 1200,
-    height: 860,
-    alt: "An offshore software engineering team working across shared screens and code reviews",
+    // A hand-placed picture for this page only (by request): a glowing globe
+    // linking an offshore team's specialists across regions.
+    src: "/images/landing/hero/offshore-hero-globe-v1.webp",
+    width: 1672,
+    height: 941,
+    alt: "A glowing globe connecting offshore engineers and their specialities across regions",
+    // The avatar cards sit behind the H1 and body copy; the strong veil keeps
+    // the text readable while the globe still shows towards the form.
+    veil: "strong",
+    blurDataURL:
+      "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoQAAkAAsBMJaACdAEO9aGvs8gA/vh+t2DCHOOjJiL13yNbF3jC9Yg1jxwxmnQuMpxP93fVzjBIiAblNGr7QNJQoyeleXg2gAA=",
   },
 };
 
+/** The overview photo in a fixed, centred 4:3 frame; still prose-only when the slot is missing. */
 export const offOverview: OverviewContent = {
-  image: overviewImage("offshore-software-development-company"),
+  // Hand-placed (by request) rather than the generated overview slot. A fixed
+  // 4:3 frame (the asset's own ratio, so no crop) centred against the copy
+  // (review: the image ran the full height of the long prose at 1366px).
+  image: {
+    src: "/images/landing/ov-offshore-software-development-company-v2.webp",
+    width: 1448,
+    height: 1086,
+    alt: "A glowing globe linking a developer in India, a project manager in the UK, a UI/UX designer in Singapore and a QA engineer in the USA",
+    blurDataURL:
+      "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABQAgCdASoQAAwAAsBMJbACdAYq1q2jE5vkyQAA/vNVgAOB4ruwpmDplyeGuUGGrlyGvdCqMHupfxZgN7VQOHsbzGg++ze/tLC56vt2dJYp05+7qQaLxv9oaV8WfnHvu0+Gsgbr3kpN65RvIScb4AgA",
+    aspect: "4 / 3",
+    align: "center",
+    textLead: true,
+    rounded: true,
+  },
   eyebrow: "Overview",
   title: "What an Offshore Software Development Company Does",
   paragraphs: [
@@ -231,37 +251,49 @@ export const offIndustries: PhotoGridContent = {
     {
       key: "fintech",
       name: "FinTech",
-      image: "/images/landing/industries/ind-fintech.webp",
+      // A hand-placed picture for this page only (by request); the shared
+      // ind-fintech.webp still serves the other pages.
+      image: "/images/landing/industries/ind-fintech-offshore-v1.webp",
       body: "Develop applications that support financial workflows, digital platforms, data processing, customer experiences, transaction-related operations, reporting, and integrations with approved internal or third-party systems.",
     },
     {
       key: "healthtech",
       name: "HealthTech",
-      image: "/images/landing/industries/ind-healthtech.webp",
+      // A hand-placed picture for this page only (by request); the shared
+      // ind-healthtech.webp still serves the other pages.
+      image: "/images/landing/industries/ind-healthtech-offshore-v1.webp",
       body: "Build digital applications that support healthcare operations, user workflows, records, scheduling, communication, administrative processes, and connections between approved platforms and data sources.",
     },
     {
       key: "edtech",
       name: "EdTech",
-      image: "/images/landing/industries/ind-edtech.webp",
+      // A hand-placed picture for this page only (by request); the shared
+      // ind-edtech.webp still serves the other pages.
+      image: "/images/landing/industries/ind-edtech-offshore-v1.webp",
       body: "Create learning platforms, assessment workflows, content-delivery systems, student and educator experiences, administrative tools, reporting capabilities, and integrations supporting digital education operations.",
     },
     {
       key: "logistics",
       name: "Logistics",
-      image: "/images/landing/industries/ind-logistics.webp",
+      // A hand-placed picture for this page only (by request); the shared
+      // ind-logistics.webp still serves the other pages.
+      image: "/images/landing/industries/ind-logistics-offshore-v1.webp",
       body: "Engineer software supporting shipment workflows, fleet operations, routing, tracking, status visibility, documentation, supply-chain coordination, and integration with approved operational systems.",
     },
     {
       key: "telecom",
       name: "Telecom",
-      image: "/images/landing/industries/ind-telecom.webp",
+      // A hand-placed picture for this page only (by request); the shared
+      // ind-telecom.webp still serves the other pages.
+      image: "/images/landing/industries/ind-telecom-offshore-v1.webp",
       body: "Build applications supporting network operations, customer workflows, service management, data visibility, internal processes, reporting, and integration between approved telecom platforms and business systems.",
     },
     {
       key: "ecommerce",
       name: "E-commerce",
-      image: "/images/landing/industries/ind-ecommerce.webp",
+      // A hand-placed picture for this page only (by request); the shared
+      // ind-ecommerce.webp still serves the other pages.
+      image: "/images/landing/industries/ind-ecommerce-offshore-v1.webp",
       body: "Develop commerce platforms supporting product discovery, customer journeys, subscriptions, transactions, order workflows, account management, operational visibility, and approved payment or business-system integrations.",
     },
   ],
@@ -278,10 +310,19 @@ export const offGovernance: OverviewContent = {
     "Soft Suave’s ISO/IEC 27001:2022-certified information security management system supports structured information security practices across software development and delivery. Project-specific security, privacy, and regulatory requirements are reviewed separately.",
   ],
   image: {
-    src: "/images/four/off-step-4.webp",
-    width: 1200,
-    height: 900,
-    alt: "Source code under review on an engineer's screen",
+    src: "/images/landing/off-quality-governance-v1.webp",
+    width: 1536,
+    height: 1024,
+    alt: "Engineers working beside a screen of code, a security shield, review checklists and a certificate",
+    blurDataURL:
+      "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAwAgCdASoQAAsAAsBMJbACdAYubjFmGgTdIAD++N+McOcfpvdBazG6ehfvcVVN5ZhErRh3OVKXITE5EhyCXWGcJqx6+6tqxpwTBcJpCzmc6lSe/fFPAhdm/vSYJcVwEWjX1elwXdCt9A7m3RbzMEx5yakcZAAA",
+    // Same fixed, centred 4:3 frame as the overview (review: too tall at 1366px);
+    // this 3:2 asset loses a little empty margin at the sides.
+    aspect: "4 / 3",
+    align: "center",
+    // Wider prose column, so the H2 keeps a two-line break in every browser.
+    textLead: true,
+    rounded: true,
   },
 };
 
@@ -292,26 +333,38 @@ export const offWhyUs: CardGridContent = {
   items: [
     {
       name: `${YEARS_PLUS} Years of Technology Expertise`,
+      // Material Symbols Rounded "workspace_premium" (premium badge icon, by request).
+      symbol: "workspace_premium",
       body: `Soft Suave brings ${YEARS_PLUS} years of technology expertise to software development, modernization, integration, testing, and continuing engineering requirements across different project stages.`,
     },
     {
       name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+      // Material Symbols Rounded "groups" (group icon, by request).
+      symbol: "groups",
       body: `Access capabilities across software applications, mobile development, cloud, DevOps, data, testing, and AI through ${SPECIALISTS_PLUS} AI & Engineering Specialists.`,
     },
     {
       name: "Flexible Engagement Structures",
+      // Material Symbols Rounded "handshake" (handshake icon, by request).
+      symbol: "handshake",
       body: "Choose Fixed Price for defined projects, Time and Material for evolving requirements, or Dedicated Team for continuing access to matched engineering capabilities.",
     },
     {
       name: "ISO/IEC 27001:2022 Certified",
+      // Material Symbols Rounded "license" (certificate icon, by request).
+      symbol: "license",
       body: "Our ISO/IEC 27001:2022-certified information security management system supports structured security practices tailored to the needs of each project.",
     },
     {
       name: "AI-Enabled Engineering Practices",
+      // Material Symbols Rounded "neurology" (brain icon, by request).
+      symbol: "neurology",
       body: "AI-enabled practices include AI pair programming, automated test generation, LLM-assisted code review, and AI-monitored CI/CD when appropriate for each project.",
     },
     {
       name: "Global Delivery Presence",
+      // Material Symbols Rounded "globe" (globe icon, by request).
+      symbol: "globe",
       body: "Soft Suave maintains delivery presence across Chennai, Bengaluru, and the United States, supporting collaboration with organizations operating across different markets.",
     },
   ],
@@ -355,6 +408,10 @@ export const offTech: TechStackContent = {
 export const offCaseStudies: WorkCarouselContent = {
   eyebrow: "Success Stories",
   title: "Offshore Software Development Case Studies",
+  // Wider intro column: the default one broke this title a word to a line.
+  wideIntro: true,
+  // No project counter; the line under the lead, arrows left-aligned below it.
+  navBelow: true,
   body: "Our case studies show how we solve real business challenges through software. See how our teams addressed different challenges and delivered solutions suited to each project.",
   items: [
     {
@@ -362,42 +419,49 @@ export const offCaseStudies: WorkCarouselContent = {
       tag: "On-Demand",
       body: "Soft Suave built a smart movie ticketing system with real-time seats, secure payments, and smooth booking.",
       image: { src: "/images/case-studies/on-demand-5.webp", alt: "Smart Movie Ticketing with Real-Time Booking" },
+      href: "/case-study-smart-movie-ticketing-with-real-time-booking",
     },
     {
       title: "Area Mapping Solution For A Solar Business",
       tag: "On-Demand",
       body: "Founded in 2020, our client offers solar energy solutions focused on home efficiency and sustainable power, helping homeowners save on bills.",
       image: { src: "/images/case-studies/solar-mapping.webp", alt: "Area Mapping Solution For A Solar Business" },
+      href: "/case-study-area-mapping-solution",
     },
     {
       title: "ParkSafe Community Vehicle Alert App",
       tag: "Logistics",
       body: "Soft Suave built a smart app to spot suspicious vehicles, send alerts, and boost community safety in real time.",
       image: { src: "/images/case-studies/logistics-3.webp", alt: "ParkSafe Community Vehicle Alert App" },
+      href: "/case-study-parksafe-community-vehicle-alert-app",
     },
     {
       title: "Digital Advertising in Public Spaces",
       tag: "On-Demand",
       body: "Soft Suave built a dynamic digital ads platform for real-time content, location targeting, and analytics in public spaces.",
       image: { src: "/images/case-studies/on-demand-1.webp", alt: "Digital Advertising in Public Spaces" },
+      href: "/case-study-digital-advertising-in-public-spaces",
     },
     {
       title: "Restaurant Workflow Optimization",
       tag: "On-Demand",
       body: "Soft Suave built a smart restaurant system to optimize orders, kitchen flow, and staff coordination for better dining.",
       image: { src: "/images/case-studies/on-demand-3.webp", alt: "Restaurant Workflow Optimization" },
+      href: "/case-study-restaurant-workflow-optimization",
     },
     {
       title: "Optimizing Influencer and Brand Collaborations",
       tag: "On-Demand",
       body: "Soft Suave built a smart platform to streamline influencer-brand ties, automate tasks, and boost engagement with data.",
       image: { src: "/images/case-studies/on-demand-8.webp", alt: "Optimizing Influencer and Brand Collaborations" },
+      href: "/case-study-optimizing-influencer-and-brand-collaborations",
     },
     {
       title: "AI-Powered Multi-Cloud Management",
       tag: "On-Demand",
       body: "Soft Suave built an AI platform to monitor, optimize, and automate multi-cloud setups with speed, security, and savings.",
       image: { src: "/images/case-studies/on-demand-11.webp", alt: "AI-Powered Multi-Cloud Management" },
+      href: "/case-study-ai-powered-multi-cloud-management",
     },
   ],
 };

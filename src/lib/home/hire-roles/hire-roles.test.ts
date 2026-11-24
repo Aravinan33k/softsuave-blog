@@ -175,7 +175,7 @@ describe('hire-by-role pages', () => {
     // property of the sequence, so it is asserted over the sequence — and it
     // has to keep holding as the orders follow their live pages.
     for (const page of HIRE_ROLE_PAGES) {
-      const grounds = assignGrounds(page.order);
+      const grounds = assignGrounds(page.order, page.grounds);
       expect(grounds).toHaveLength(page.order.length);
 
       // Bookends: the hero above and the enquiry band below are both dark.
@@ -192,6 +192,10 @@ describe('hire-by-role pages', () => {
       // A lone band between two chapters of the other ground reads as a stripe.
       // One is punctuation — the mid-page CTA is meant to be exactly that — but
       // a page made mostly of them is the striping this replaced.
+      //
+      // Not asked of a page that pins every band to its live page's ground
+      // (`grounds`): there the sequence is the live site's, stripes included.
+      if (page.order.every((band) => page.grounds?.[band])) continue;
       const stripes = runs.filter((r) => r === 1).length;
       expect(stripes, `${page.key}: ${stripes} of ${runs.length} chapters are single bands`)
         .toBeLessThanOrEqual(Math.ceil(runs.length / 3));
@@ -210,9 +214,10 @@ describe('hire-by-role pages', () => {
       techStack: 'dark',
     };
     for (const page of HIRE_ROLE_PAGES) {
-      const grounds = assignGrounds(page.order);
+      const grounds = assignGrounds(page.order, page.grounds);
       page.order.forEach((band, i) => {
-        const want = band.startsWith('list:') ? 'dark' : ANCHORS[band];
+        // A page's own pin wins (`grounds`, e.g. the software page's light stack).
+        const want = page.grounds?.[band] ?? (band.startsWith('list:') ? 'dark' : ANCHORS[band]);
         if (want) expect(grounds[i], `${page.key}/${band}`).toBe(want);
       });
     }

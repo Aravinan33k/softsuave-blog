@@ -1219,6 +1219,11 @@
   object-fit: cover;
 }
 
+/* `OverviewContent.image.rounded` — 14px corners (the frame already clips). */
+.overviewMedia.overviewMediaRounded {
+  border-radius: 14px;
+}
+
 /* `OverviewContent.image.fit: "contain"` — the whole asset inside the frame
    rather than cropped to fill it.
 
@@ -3860,6 +3865,14 @@
   padding: clamp(16px, 1.8vw, 24px) clamp(18px, 2vw, 28px);
   font-size: clamp(1rem, 1.35vw, 1.2rem);
   line-height: 1.45;
+}
+
+/* `pullQuoteSize: "small"` — a quieter closing line (after the compact rule,
+   so it wins on either variant). */
+.pullQuote.pullQuoteSmall {
+  font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
 }
 
 @media (min-width: 1000px) {
@@ -7315,7 +7328,9 @@
   margin: clamp(16px, 2vw, 22px) 0 0;
   padding-left: 14px;
   border-left: 2px solid var(--accent);
-  max-width: 62ch;
+  /* Full section width, not a 62ch measure (IT outsourcing review: "make it
+     full width for the section"); only that page supplies a note today. */
+  max-width: none;
   font-size: clamp(0.95rem, 1.02vw, 1.05rem);
   line-height: 1.6;
   color: var(--text-bright);
@@ -8767,6 +8782,21 @@
   .overviewCompact .overviewGrid.overviewGridEven,
   .overviewGrid.overviewGridEven {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  /* `OverviewContent.image.textLead` — the prose takes the larger column
+     (1.15 / 0.85), so a two-line H2 keeps its break in every browser instead
+     of wrapping a third line where the glyphs render a touch wider (Offshore
+     review: "fix this h2", Firefox at 1400px). */
+  .overviewCompact .overviewGrid.overviewGridTextLead,
+  .overviewGrid.overviewGridTextLead {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  }
+
+  /* With the wider column, balance the heading's lines so it never leaves
+     one word alone on the last line ("…and Intellectual / Property"). */
+  .overviewGridTextLead .title {
+    text-wrap: balance;
   }
 }
 

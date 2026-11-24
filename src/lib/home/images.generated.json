@@ -5990,5 +5990,105 @@
     "photographer": "RealToughCandy.com",
     "pexelsUrl": "https://www.pexels.com/photo/php-elephant-sticker-11035390/",
     "matchedTier": "pinned:11035390"
+  },
+  "four/svc-custom-ai-v3": {
+    "page": "four",
+    "id": "svc-custom-ai-v3",
+    "src": "/images/four/svc-custom-ai-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "Two professionals at work beside a glowing holographic AI cube linked to data, cloud and analytics icons",
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAQCdASoQAAgAA4BaJagCdADz1qLHbWAA/Aik9tF6XAkGUZiDCfwepXwzWq422fEmYi1qxaHTEItsD276c8SdnenlD1lzpK+fc5QFV2rIW0BAxeSnhKAA",
+    "source": "hand-placed"
+  },
+  "four/svc-generative-ai-v3": {
+    "page": "four",
+    "id": "svc-generative-ai-v3",
+    "src": "/images/four/svc-generative-ai-v3.webp",
+    "width": 1200,
+    "height": 600,
+    "alt": "A glowing digital head with an AI chip, linked to code, chat, image, audio, video and data icons",
+    "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADwAQCdASoQAAgAA4BaJbACdAELz2cg3AAA/vfGMSZmCTwUGzcQ4VQGtngWSvSyQHw5E/LZ9Yn3ADkGmAAAAA==",
+    "source": "hand-placed"
+  },
+  "four/svc-mlops-v3": {
+    "page": "four",
+    "id": "svc-mlops-v3",
+    "src": "/images/four/svc-mlops-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "An MLOps infinity loop linking data ingestion, feature engineering, model development, training, deployment and monitoring",
+    "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAQCdASoQAAgAA4BaJbACdADwt0Ee4KAA/vbYvSa0pF28hX62JwYpdt/bRacDf4/KSFF6p8qvy2fWKBh24TRx8mQ7GhVGkAA=",
+    "source": "hand-placed"
+  },
+  "four/svc-rag-v3": {
+    "page": "four",
+    "id": "svc-rag-v3",
+    "src": "/images/four/svc-rag-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "Glowing document stacks feeding a central retrieval hub that returns a single answer document",
+    "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAAAQAgCdASoQAAgAA4BaJZwCdAED/34yoIeAAP7vkas1eVnnnbLiAcQg88ueWYLF2eihPwZiubwVlRsst7UHN6jaz9/mqQKa2W5U4VhVpRagAA==",
+    "source": "hand-placed"
+  },
+  "four/svc-predictive-v3": {
+    "page": "four",
+    "id": "svc-predictive-v3",
+    "src": "/images/four/svc-predictive-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "A hand reaching toward a laptop showing glowing analytics charts and forecasts beside an AI badge",
+    "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAQAgCdASoQAAgAA4BaJaACdAEQ/iKymvTAAP710vcs8oIQsZ08Hr+zy7FF+0dcvs42nR7KOM0byLHWmHVAhKf8Alysu5YGG3AtfLgA",
+    "source": "hand-placed"
+  },
+  "four/svc-fde-v3": {
+    "page": "four",
+    "id": "svc-fde-v3",
+    "src": "/images/four/svc-fde-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "Two engineers reviewing a holographic cloud and Kubernetes deployment diagram above laptops with code and dashboards",
+    "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoQAAgAA4BaJbACdADve7FGtAAA/ubWtYhZNpfZXdFoHa6vZr+76JOFPrYAZQIs4dUodIlUol678CCQ5q2n1UuNXUYgAA==",
+    "source": "hand-placed"
+  },
+  "four/svc-computer-vision-v3": {
+    "page": "four",
+    "id": "svc-computer-vision-v3",
+    "src": "/images/four/svc-computer-vision-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "A camera lens casting light on a machined metal part beside its glowing 3D wireframe scan",
+    "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAAAQAgCdASoQAAgAA4BaJZQCdAEfnMHvAQ3AAP70Wnhz+NDQTOnYT+0ZS6/i7fpLhn4meFg4CaDGH1pYYYAAAA==",
+    "source": "hand-placed"
+  },
+  "four/svc-data-science-v5": {
+    "page": "four",
+    "id": "svc-data-science-v5",
+    "src": "/images/four/svc-data-science-v5.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "Hands typing on a laptop as streams of data fan out into glowing blue, pink and gold lines of binary",
+    "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoQAAgAA4BaJZgCdADGZbB4sAAA/veLrRwl3i/YD3nH7zXaE9CyaMqH1sXqucN827bkSj3qZAhDrvGAAAA=",
+    "source": "hand-placed"
+  },
+  "four/svc-data-engineering-v3": {
+    "page": "four",
+    "id": "svc-data-engineering-v3",
+    "src": "/images/four/svc-data-engineering-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "An engineer in a lab coat working at a wall of monitors showing code, data pipelines and world maps",
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAwAgCdASoQAAgAA4BaJbACdAED/PbR2L2/AAD+3T8c6c8eI0MhZeNiQdOkXlUmEVQOfsWUCmTxF4G7zLOMkmxHjR0a/yRjULBSEpMtkvqIs6eqLtRFvvIzu1hhPAAA",
+    "source": "hand-placed"
+  },
+  "four/svc-agentic-ai-v3": {
+    "page": "four",
+    "id": "svc-agentic-ai-v3",
+    "src": "/images/four/svc-agentic-ai-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "A hand with a stylus working with holographic AI agent panels above a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAQCdASoQAAgAA4BaJbACdAEN5KAVBoAA/vGzbuq9q6KA3XfIk4ZXJ/ermMsVgZbCLaNzTaIpJwoqPLikubCpA/zIcsc/efzab8NxdwOFtahLQ8AAAA==",
+    "source": "hand-placed"
   }
 }

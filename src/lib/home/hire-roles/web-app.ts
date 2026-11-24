@@ -61,6 +61,13 @@ export const webApp: HireRolePageContent = {
       'Hire web app developers matched to your technology stack, product requirements, and delivery process. Build new applications, modernize existing platforms, complete integrations, or add engineering capacity with specialists selected for the work your team needs to deliver.',
       'Review relevant profiles, interview specialists directly, and evaluate their technical execution through a 40-hour risk-free trial before extending the engagement.',
     ],
+    // A full-bleed backdrop, set up like the frontend page's hero.
+    background: {
+      src: '/images/landing/hire-roles/hire-web-app-developer-cover.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAQCdASoQAAgAAsBMJZgCdAEQ/PKC/2AA/vFJQxQUMfh4fL1J2UXoW63+aPRGbXRhxVpMD0rI8oHyozbtDISV7tS8O2M0AAA=',
+      veil: 'strong',
+    },
     points: [
       'Project-Ready Developer Profiles',
       `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
@@ -78,16 +85,18 @@ export const webApp: HireRolePageContent = {
   },
 
   overview: {
-    // Portrait, run the full height of the copy beside it (8 Oct review:
-    // "resize the image to match the section") — the same photo, cut taller.
+    // The 4:3 frame centred on the copy, as the Hire Software Developers
+    // overview runs it (review: "fix the image height and width for the
+    // overview section ... like a hire software developers page"), with the
+    // page's own photo (review: "update this image in overview section").
     image: {
-      src: '/images/landing/ov-hire-web-app-developers-tall.webp',
-      width: 1000,
-      height: 1250,
-      alt: 'Web application developer working on a laptop',
+      src: '/images/landing/ov-hire-web-app-developers-v2.webp',
+      width: 1448,
+      height: 1086,
+      alt: 'A developer typing on a laptop with a React web app open in a code editor',
       blurDataURL:
-        'data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAQAgCdASoQAAsAA4BaJYwCdAEPPND78MMkAP7f9P8T+Bny0/Eh0KgWDycbfTPZEFsacddULmUHPRH+jWI7RGyC8TP2bUNgQfkXv2XWgAA=',
-      fit: 'column',
+        'data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQAgCdASoQAAwAAsBMJYwCdAEDpE/yUfRAAP7qJ9hpHmXJ+cEsDENI2Dzr6i4etoKQ7TnnDLFL+xkzByYcLjWoeYY6LHauLshpIQWbi7z0iQY4KcZsT6HKtmGhI2bvS2Z7di/bwAA=',
+      align: 'both',
     },
     eyebrow: 'Overview',
     title: 'Hire Web Application Developers for Your Product',
@@ -190,6 +199,18 @@ export const webApp: HireRolePageContent = {
         href: '/blog/how-to-hire-a-web-developer-in-india',
       },
     ],
+    // Hand-placed illustration (review: "update this image in global delivery
+    // section"), in the 4:3 frame centred on the copy; replaces the pipeline's
+    // `landing/dl-<slug>` photo, so the alignment is stated here.
+    image: {
+      src: '/images/landing/dl-hire-web-app-developers-v2.webp',
+      width: 960,
+      height: 720,
+      alt: 'Three developers at laptops collaborating across locations on a world map, with India pinned',
+      blurDataURL:
+        'data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAABQAgCdASoQAAwAAsBMJbACdAYqrwk+v63a+KgA/vgJRlZr1MOg9My3q8hhy3csBq9moHbL51+kJwQ2iBySkw8yZGVTc/JRkun0QLjX0t6fmx0Wp3MNvx8gaNgmqafGIafWXc/WxwMcYTnQPw8DiKWJSXpur343wJmQAA==',
+      align: 'both',
+    },
   },
 
   process: {
@@ -378,9 +399,15 @@ export const webApp: HireRolePageContent = {
     ],
   },
 
+  // Category tabs over a centred grid of logo cards, as the Hire Software
+  // Developers page runs its stack (review: "change the tech stack ui like a
+  // hire software developers page tech stack section").
+  techStackStyle: 'tabs',
+  submitBlack: true,
   techStack: {
     eyebrow: 'Technologies',
     title: 'Technology Expertise for Modern Web Applications',
+    wideHead: true,
     body: 'Work with technologies aligned to your existing architecture, application requirements, and long-term product direction instead of forcing your project into a predetermined stack.',
     groups: [
       {

@@ -56,6 +56,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { iconFor, type IconKey } from "@/lib/home/icon-for";
+import { MATERIAL_SYMBOLS, MATERIAL_SYMBOL_VIEWBOX, type MaterialSymbolName } from "@/lib/home/material-symbols";
 import styles from "./card-icon-badge.module.css";
 
 /**
@@ -138,12 +139,18 @@ export default function CardIconBadge({
   title,
   body,
   iconKey,
+  symbol,
   size = "md",
   className,
 }: Readonly<{
   title: string;
   body?: string;
   iconKey?: IconKey;
+  /**
+   * A Material Symbols Rounded glyph (see `lib/home/material-symbols.ts`) in
+   * place of the picked lucide one, where a page asks for a specific icon.
+   */
+  symbol?: MaterialSymbolName;
   size?: "sm" | "md";
   className?: string;
 }>) {
@@ -155,7 +162,13 @@ export default function CardIconBadge({
         .join(" ")}
       aria-hidden
     >
-      <Icon className={styles.glyph} strokeWidth={1.7} aria-hidden focusable={false} />
+      {symbol ? (
+        <svg viewBox={MATERIAL_SYMBOL_VIEWBOX} className={styles.symbol} fill="currentColor" aria-hidden focusable={false}>
+          <path d={MATERIAL_SYMBOLS[symbol]} />
+        </svg>
+      ) : (
+        <Icon className={styles.glyph} strokeWidth={1.7} aria-hidden focusable={false} />
+      )}
     </span>
   );
 }

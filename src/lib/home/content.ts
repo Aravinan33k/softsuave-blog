@@ -225,70 +225,80 @@ export const services = {
     {
       key: "custom-ai-development-services",
       href: "/custom-ai-development-services",
-      img: "px-custom-ai-v2",
+      // A hand-placed picture (by request): two people beside a glowing AI cube.
+      img: "custom-ai-v3",
       name: "Custom AI Development",
       body: "Create tailored solutions using generative AI, agentic AI, RAG, and more to automate workflows and solve complex business challenges.",
     },
     {
       key: "data-engineering",
       href: "/data-engineering-services",
-      img: "px-data-engineering-v2",
+      // A hand-placed picture (by request): an engineer at a wall of monitors.
+      img: "data-engineering-v3",
       name: "Data Engineering",
       body: "Build reliable data foundations with ETL and ELT pipelines, orchestration, data quality controls, and real-time streaming.",
     },
     {
       key: "data-science",
       href: "/data-science-services",
-      img: "px-data-science",
+      // A hand-placed picture (by request): data streams fanning out from a laptop.
+      img: "data-science-v5",
       name: "Data Science",
       body: "Turn data into actionable insights through model training, feature engineering, experimentation, and MLOps for scalable AI outcomes.",
     },
     {
       key: "generative-ai",
       href: "/generative-ai-development-company",
-      img: "px-generative-ai-v2",
+      // A hand-placed picture (by request): a glowing AI head linked to media and code.
+      img: "generative-ai-v3",
       name: "Generative AI",
       body: "Build tailored generative AI solutions using LLMs to create content, code, images, and intelligent experiences aligned with diverse business needs.",
     },
     {
       key: "agentic-ai",
       href: "/agentic-ai-development-services",
-      img: "px-agentic-ai-v2",
+      // A hand-placed picture (by request): holographic AI agent panels over a laptop.
+      img: "agentic-ai-v3",
       name: "Agentic AI",
       body: "Develop autonomous AI agents that reason, use tools, and execute multi-step workflows to support complex business processes and decisions efficiently.",
     },
     {
       key: "rag-document-ai",
       href: "/rag-development-services",
-      img: "px-rag-v2",
+      // A hand-placed picture (by request): documents feeding a retrieval hub.
+      img: "rag-v3",
       name: "RAG and Document AI",
       body: "Create RAG and Document AI solutions that retrieve trusted knowledge, extract information, and deliver accurate, context-aware responses from enterprise data.",
     },
     {
       key: "computer-vision",
       href: "/computer-vision-development-services",
-      img: "px-computer-vision",
+      // A hand-placed picture (by request): a camera scanning a part into a 3D wireframe.
+      img: "computer-vision-v3",
       name: "Computer Vision",
       body: "Build computer vision solutions for detection, OCR, video analytics, and inspection, enabling faster analysis, improved accuracy, and smarter operational decisions.",
     },
     {
       key: "predictive-intelligence",
       href: "/predictive-intelligence-services",
-      img: "px-predictive",
+      // A hand-placed picture (by request): an AI analytics dashboard on a laptop.
+      img: "predictive-v3",
       name: "Predictive Intelligence",
       body: "Turn historical and real-time data into forecasts, anomaly detection, and recommendations that help businesses anticipate outcomes and make informed decisions.",
     },
     {
       key: "mlops",
       href: "#services",
-      img: "px-mlops",
+      // A hand-placed picture (by request): the MLOps lifecycle as an infinity loop.
+      img: "mlops-v3",
       name: "MLOps",
       body: "Streamline model deployment, monitoring, CI/CD, and lifecycle management to keep AI systems scalable, reliable, secure, and consistently performing in production.",
     },
     {
       key: "forward-deployed-engineers",
       href: "/hire-forward-deployed-engineer",
-      img: "px-fde-v2",
+      // A hand-placed picture (by request): engineers at a holographic deployment diagram.
+      img: "fde-v3",
       name: "Forward Deployed Engineers",
       body: "Hire forward-deployed engineers who work with customers to understand requirements, develop integrations, solve challenges, and deploy production-ready solutions efficiently.",
     },

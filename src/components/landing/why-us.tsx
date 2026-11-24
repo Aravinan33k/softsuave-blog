@@ -88,7 +88,7 @@ export default function WhyUs({
       <ul ref={root} className={styles.proofGrid}>
         {content.items.map((item) => (
           <li key={item.name} className={styles.proofItem} onClick={bounce}>
-            <CardIconBadge title={item.name} body={item.body} />
+            <CardIconBadge title={item.name} body={item.body} symbol={item.symbol} />
             <h3 className={styles.proofName}>{item.name}</h3>
             <p className={styles.proofBody}>
               {item.body && linkify(item.body, content.links, usedLinks, styles.proseLink)}
