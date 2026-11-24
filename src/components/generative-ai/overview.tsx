@@ -50,7 +50,23 @@ export interface OverviewContent {
      * the frame's height cap, where the bottom edge left a tall empty band
      * above the picture (iOS review, 13 Oct: "center align the image").
      */
-    align?: "center";
+    /**
+     * `"middle"`: the copy is centred too — for a picture taller than the
+     * copy beside it, where the copy's default bottom alignment left an empty
+     * band above the kicker (generative AI page review).
+     */
+    /**
+     * `"top"`: picture and copy both start at the row's top edge, from 1000px
+     * (Hire Software Developers review: "update the overview section to top
+     * alignment").
+     */
+    /**
+     * `"both"`: picture and copy centred on each other at every width from
+     * 1000px — `"middle"` without its top alignment from 1600px, so the shorter
+     * of the two always sits on the other's centre line (Hire Software
+     * Developers review: "fix the center alignment").
+     */
+    align?: "center" | "middle" | "top" | "both";
     /**
      * Load the picture eagerly — for a page where the overview sits right
      * under a short hero, so its image is in the first viewport and is the
@@ -110,6 +126,9 @@ export default function Overview({
                 styles.overviewMedia,
                 image.fit === "column" ? styles.overviewMediaColumn : "",
                 image.align === "center" ? styles.overviewMediaCenter : "",
+                image.align === "middle" ? styles.overviewMediaMiddle : "",
+                image.align === "top" ? styles.overviewMediaTop : "",
+                image.align === "both" ? styles.overviewMediaBoth : "",
               ]
                 .filter(Boolean)
                 .join(" ")}

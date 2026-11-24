@@ -42,11 +42,7 @@ import type { FaqContent } from "@/components/landing/faq";
 import type { WorkCarouselContent } from "@/components/home/work-grid";
 import type { InlineLink } from "@/components/common/linkify";
 import { sharedHeroAlert, sharedHeroBadges } from "./delivery-shared";
-import { imageSlots } from "./image-slots";
-import shard from "./image-shards/it-outsourcing.generated.json";
 import { SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
-
-const { overviewImage } = imageSlots(shard);
 
 export const itoMeta = {
   slug: "it-outsourcing-company-india",
@@ -88,15 +84,36 @@ export const itoHero: HeroContent = {
     alert: sharedHeroAlert,
   },
   image: {
-    src: "/images/four/story.webp",
-    width: 1400,
-    height: 900,
-    alt: "Distributed engineering and delivery teams coordinating an outsourced technology programme",
+    // A hand-placed picture for this page only (by request): an engineer at a
+    // multi-screen workstation under a glowing world map.
+    src: "/images/landing/hero/ito-hero-workstation-v1.webp",
+    width: 1672,
+    height: 941,
+    alt: "An engineer at a multi-screen workstation of code and dashboards beneath a glowing world map",
+    // Same dark gradient under the copy as the offshore page's hero (by request).
+    veil: "strong",
+    blurDataURL:
+      "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAAAQAgCdASoQAAkAAsBMJYwCdAEUpRs9+VAAAP73m7giRXt3sDSZ2jLapkgbPnxCHmhSqdm4V2Rtn29wA1FYTwAA",
   },
 };
 
 export const itoOverview: OverviewContent = {
-  image: overviewImage("it-outsourcing-company-india"),
+  // A hand-placed picture for this page only (by request), in place of the
+  // pipeline's `overviewImage("it-outsourcing-company-india")` slot.
+  image: {
+    src: "/images/landing/ov-it-outsourcing-company-india-v2.webp",
+    width: 1448,
+    height: 1086,
+    alt: "An engineering team collaborating at a shared desk of laptops and multi-monitor code screens",
+    blurDataURL:
+      "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAABQAgCdASoQAAwAAsBMJZQCdAYtByE9Hef0OIAA/sYGwsmdrYiLVWhstoTvdzHSt+uXD3b/P1jIe/W3HvrtMqU9RWxpRfB/q7dLGFqImvFnhPIcWQW5c289LsPwc6VB45hSO6aBKAA=",
+    // Same frame as the offshore Overview: the asset's own 4:3 (no crop),
+    // centred against the copy, prose leading — not stretched tall at 1366px.
+    aspect: "4 / 3",
+    align: "center",
+    textLead: true,
+    rounded: true,
+  },
   eyebrow: "Overview",
   title: "What Does an IT Outsourcing Company in India Do?",
   paragraphs: [
@@ -174,11 +191,21 @@ export const itoFit: OverviewContent = {
   // The live section's closing line, which follows the list.
   pullQuote:
     "The right approach depends on how much responsibility you want to retain and whether the requirement is project-based, role-based, or ongoing.",
+  // Smaller than the default heading-scale quote (by request).
+  pullQuoteSize: "small",
   image: {
-    src: "/images/four/ito-step-4.webp",
-    width: 1200,
-    height: 900,
-    alt: "Distributed engineering team working across India and global time zones",
+    src: "/images/landing/ito-fit-v1.webp",
+    width: 1080,
+    height: 720,
+    alt: "An engineer in India coding and on a video call with teammates, with a world map linking India to global clients",
+    blurDataURL:
+      "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAQAgCdASoQAAsAAsBMJYgCdAEQ/jRpRkmAAP74GbPUJLnr9QWf/ZgvepbPDf5vc5ufTz7/tPVaos8pafmmewjuz0uy2LLDnpif901Mhs2ooF59l9voxmxkLIcNWzIKtk7vGgD1XH8AdgwA",
+    // Same frame as the offshore page's Overview: a fixed 4:3 (this 3:2 asset
+    // loses a thin strip at each side), centred against the copy, prose leading.
+    aspect: "4 / 3",
+    align: "center",
+    textLead: true,
+    rounded: true,
   },
 };
 
@@ -350,10 +377,19 @@ export const itoCollaboration: OverviewContent = {
     "Soft Suave has delivery presence across Chennai, Bengaluru, and the United States. The collaboration structure is defined around the engagement model, stakeholder availability, response expectations, and delivery requirements. Agreed schedules, documentation standards, handoff practices, and escalation routes help distributed teams stay aligned.",
   ],
   image: {
-    src: "/images/four/ito-step-3.webp",
-    width: 1200,
-    height: 900,
-    alt: "Team members collaborating on shared delivery documents across time zones",
+    src: "/images/landing/ito-collaboration-v1.webp",
+    width: 1536,
+    height: 1024,
+    alt: "A developer carrying a laptop on a video call with four teammates in other locations",
+    blurDataURL:
+      "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAACQAgCdASoQAAsAAsBMJZgCdAYtBzFjt+LXsvF0AAD++XePlzMrf3nzuhG3LYSwMD40POIOCZkWAuXQfq1vqzF5TvOyzdcOZ9pffEIzQn1EBWtvZpIj9SR1/+grfYHp/yIbVirj4lMOabIQoMSdznmnYKGZKQAA",
+    // Same frame as this page's Overview and Outsourcing Fit (by request):
+    // a 4:3 frame (this 3:2 asset loses a little empty margin at the
+    // sides), centred against the copy, prose leading.
+    aspect: "4 / 3",
+    align: "center",
+    textLead: true,
+    rounded: true,
   },
 };
 
@@ -469,42 +505,53 @@ export const itoTech: TechStackContent = {
 export const itoCaseStudies: WorkCarouselContent = {
   eyebrow: "Success Stories",
   title: "Proven Results From IT Outsourcing Engagements",
+  // As on the offshore page: a wider intro column (balanced H2), no project
+  // counter, and the line under the lead with the arrows left-aligned below.
+  wideIntro: true,
+  navBelow: true,
   body: "See how our IT outsourcing services have helped businesses improve operations, accelerate delivery, strengthen platforms, and achieve measurable outcomes across complex technology projects.",
   items: [
     {
       title: "Smart Movie Ticketing with Real-Time Booking",
       body: "Soft Suave built a smart movie ticketing system with real-time seats, secure payments, and smooth booking.",
       image: { src: "/images/case-studies/on-demand-5.webp", alt: "Smart Movie Ticketing with Real-Time Booking" },
+      href: "/case-study-smart-movie-ticketing-with-real-time-booking",
     },
     {
       title: "Area Mapping Solution For A Solar Business",
       body: "Our client offers solar energy solutions focused on home efficiency and sustainable power, helping homeowners save on bills.",
       image: { src: "/images/case-studies/solar-mapping.webp", alt: "Area Mapping Solution For A Solar Business" },
+      href: "/case-study-area-mapping-solution",
     },
     {
       title: "ParkSafe Community Vehicle Alert App",
       body: "Soft Suave built a smart app to spot suspicious vehicles, send alerts, and boost community safety in real time.",
       image: { src: "/images/case-studies/logistics-3.webp", alt: "ParkSafe Community Vehicle Alert App" },
+      href: "/case-study-parksafe-community-vehicle-alert-app",
     },
     {
       title: "Digital Advertising in Public Spaces",
       body: "Soft Suave built a dynamic digital ads platform for real-time content, location targeting, and analytics in public spaces.",
       image: { src: "/images/case-studies/on-demand-1.webp", alt: "Digital Advertising in Public Spaces" },
+      href: "/case-study-digital-advertising-in-public-spaces",
     },
     {
       title: "Restaurant Workflow Optimization",
       body: "Soft Suave built a smart restaurant system to optimize orders, kitchen flow, and staff coordination for better dining.",
       image: { src: "/images/case-studies/on-demand-3.webp", alt: "Restaurant Workflow Optimization" },
+      href: "/case-study-restaurant-workflow-optimization",
     },
     {
       title: "Optimizing Influencer and Brand Collaborations",
       body: "Soft Suave built a smart platform to streamline influencer-brand ties, automate tasks, and boost engagement with data.",
       image: { src: "/images/case-studies/on-demand-8.webp", alt: "Optimizing Influencer and Brand Collaborations" },
+      href: "/case-study-optimizing-influencer-and-brand-collaborations",
     },
     {
       title: "AI-Powered Multi-Cloud Management",
       body: "Soft Suave built an AI platform to monitor, optimize, and automate multi-cloud setups with speed, security, and savings.",
       image: { src: "/images/case-studies/on-demand-11.webp", alt: "AI-Powered Multi-Cloud Management" },
+      href: "/case-study-ai-powered-multi-cloud-management",
     },
   ],
 };

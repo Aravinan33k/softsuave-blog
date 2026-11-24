@@ -41,7 +41,9 @@ function DestinationsNotes() {
   const used = new Set<string>();
   return (
     <div className={landing.sectionShell}>
-      <div className={landing.prose}>
+      {/* Full section width, not `.prose`'s 76ch measure (by request:
+          "set the max width to unset"). */}
+      <div className={landing.prose} style={{ maxWidth: "unset" }}>
         {itoDestinationsNotes.paragraphs.map((p) => (
           <p key={p.slice(0, 32)}>{linkify(p, itoDestinationsNotes.links, used, landing.proseLink)}</p>
         ))}

@@ -183,7 +183,7 @@ export default function HireRoleBands({
       case 'clients':
         return (
           <div key={band} id={whyBand === 'clients' ? 'why' : undefined}>
-            <Clients />
+            <Clients wideTitle={content.clientsWideTitle} />
           </div>
         );
       case 'overview':
@@ -296,7 +296,10 @@ export default function HireRoleBands({
     .map((band) => ({ band, node: render(band) }))
     .filter((b): b is { band: HireBand; node: ReactNode } => b.node !== null);
 
-  const grounds = assignGrounds(bands.map((b) => b.band));
+  const grounds = assignGrounds(
+    bands.map((b) => b.band),
+    content.grounds,
+  );
   const chapters: { light: boolean; nodes: ReactNode[] }[] = [];
   bands.forEach(({ node }, i) => {
     const light = grounds[i] === 'light';

@@ -19,8 +19,11 @@ import type { CardGridContent } from '@/components/generative-ai/industries';
 import TechStack from '@/components/landing/tech-stack';
 // The Android page's labelled rows, for a page that asks for them instead.
 import TechRows from '@/components/home/tech-stack';
+// Category tabs over a centred logo-card grid, for a page that asks for them.
+import TechTabs from '@/components/common/tech-tabs';
 
 import styles from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 
 /**
  * The server shell of a "Hire Developers by Role" page: the nav, `<main>` and
@@ -82,6 +85,8 @@ export default function HireRolePage({
         <div className={styles.techFit}>
           <TechRows content={content.techStack} staticFrom={768} />
         </div>
+      ) : content.techStackStyle === 'tabs' ? (
+        <TechTabs content={content.techStack} />
       ) : (
         <TechStack content={content.techStack} largeLogos={content.techStackLargeLogos} />
       );
@@ -121,15 +126,19 @@ export default function HireRolePage({
       ? { ...ownOverview, align: content.overviewImageAlign }
       : ownOverview;
   // The live band has a photo of its own: `landing/dl-<slug>`.
-  const deliveryPhoto =
+  const ownDelivery =
     content.globalDelivery &&
     content.order.includes('globalDelivery') &&
     !content.globalDelivery.image
       ? landingPhoto(`dl-${slug}`)
       : undefined;
+  const deliveryPhoto =
+    ownDelivery && content.globalDeliveryImageAlign
+      ? { ...ownDelivery, align: content.globalDeliveryImageAlign }
+      : ownDelivery;
 
   return (
-    <div className={styles.page}>
+    <div className={content.submitBlack ? `${styles.page} ${location.submitBlack}` : styles.page}>
       {/* `logoHref` is stated because `ownsAnchors` also keeps the logo's
           default `#top` in-page, and the lockup must go HOME from a sub-page. */}
       <Nav ownsAnchors logoHref={BASE_PATH || '/'} />

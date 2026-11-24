@@ -10,9 +10,224 @@ import { useServiceHref } from "@/components/common/service-link";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import { linkify } from "@/components/common/linkify";
 import SectionCta from "./section-cta";
-import type { ReactNode } from "react";
+import { cloneElement, useCallback, useEffect, useRef, useState, type ReactElement, type ReactNode } from "react";
 import type { CardGridContent } from "./industries";
 import styles from "./gen-ai.module.css";
+
+function Arrow({ dir }: { dir: "prev" | "next" }) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden>
+      <path
+        d={dir === "prev" ? "M19 12H5M5 12L11 6M5 12L11 18" : "M5 12H19M19 12L13 6M19 12L13 18"}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Marquee drift speed, px per second (the reference section moves ~53px/s). */
+const DRIFT_PX_PER_S = 50;
+/** How long an arrow press takes to glide the row by one card. */
+const NUDGE_MS = 650;
+
+const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+
+/**
+ * The `carousel` layout of the bold cards.
+ *
+ * Below 700px it is a native scroll-snap row (touch scrolling), with arrows that
+ * step one card and disable at either end. From 700px with `autoplay`, it is a
+ * marquee: the row drifts right to left at a constant speed and loops without a
+ * seam (the cards are rendered twice; the copy is `aria-hidden` and `inert`),
+ * pausing on hover/focus, off screen and in a hidden tab, and not drifting at
+ * all under `prefers-reduced-motion`. The arrows then glide the row by one card
+ * either way. How many cards are in view is CSS (`.indCarousel`), not script.
+ */
+function CardCarousel({
+  label,
+  autoplay = false,
+  cards,
+}: {
+  label: string;
+  autoplay?: boolean;
+  cards: readonly ReactElement<{ className?: string }>[];
+}) {
+  const track = useRef<HTMLDivElement>(null);
+  const row = useRef<HTMLDivElement>(null);
+  const [edges, setEdges] = useState({ start: true, end: false });
+  const [marquee, setMarquee] = useState(false);
+  // Why the drift is held: pointer over / focus inside the carousel, section off screen.
+  const hold = useRef({ hover: false, focus: false, offscreen: true });
+  const offset = useRef(0);
+  const nudge = useRef<{ from: number; to: number; t0: number } | null>(null);
+
+  // Marquee only from 700px, and only with `autoplay`.
+  useEffect(() => {
+    if (!autoplay) return;
+    const mq = window.matchMedia("(min-width: 700px)");
+    const sync = () => setMarquee(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, [autoplay]);
+
+  const measure = useCallback(() => {
+    const el = track.current;
+    if (!el) return;
+    setEdges({
+      start: el.scrollLeft <= 2,
+      end: el.scrollLeft + el.clientWidth >= el.scrollWidth - 2,
+    });
+  }, []);
+
+  // Scroll mode: keep the arrows' end states current.
+  useEffect(() => {
+    const el = track.current;
+    if (!el || marquee) return;
+    measure();
+    el.addEventListener("scroll", measure, { passive: true });
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener("scroll", measure);
+      ro.disconnect();
+    };
+  }, [marquee, measure]);
+
+  /** One card plus the gap, in px. */
+  const cardStep = useCallback(() => {
+    const host = marquee ? row.current : track.current;
+    const card = host?.firstElementChild as HTMLElement | null;
+    if (!host || !card) return 0;
+    return card.offsetWidth + (parseFloat(getComputedStyle(host).columnGap) || 0);
+  }, [marquee]);
+
+  // Marquee mode: the drift loop.
+  useEffect(() => {
+    const el = track.current;
+    const strip = row.current;
+    if (!marquee || !el || !strip) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const io = new IntersectionObserver(([entry]) => {
+      hold.current.offscreen = !entry.isIntersecting;
+    });
+    io.observe(el);
+
+    /** The width of one full set of cards: where the copy begins. */
+    const setWidth = () => {
+      const copy = strip.children[cards.length] as HTMLElement | undefined;
+      return copy ? copy.offsetLeft - (strip.firstElementChild as HTMLElement).offsetLeft : 0;
+    };
+
+    let raf = 0;
+    let last = performance.now();
+    const tick = (now: number) => {
+      const dt = Math.min(now - last, 64);
+      last = now;
+      const w = setWidth();
+      const n = nudge.current;
+      if (n) {
+        const t = Math.min((now - n.t0) / NUDGE_MS, 1);
+        offset.current = n.from + (n.to - n.from) * easeInOut(t);
+        if (t === 1) nudge.current = null;
+      } else {
+        const h = hold.current;
+        if (!reduced && !h.hover && !h.focus && !h.offscreen && !document.hidden) {
+          offset.current += (DRIFT_PX_PER_S * dt) / 1000;
+        }
+      }
+      // Wrap within one set, so the copy takes over without a visible jump.
+      if (w > 0 && !nudge.current) {
+        offset.current = ((offset.current % w) + w) % w;
+      }
+      const shown = w > 0 ? ((offset.current % w) + w) % w : offset.current;
+      strip.style.transform = `translate3d(${-shown}px, 0, 0)`;
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+      strip.style.transform = "";
+      offset.current = 0;
+      nudge.current = null;
+    };
+  }, [marquee, cards.length]);
+
+  const step = (dir: 1 | -1) => {
+    const d = cardStep();
+    if (!d) return;
+    if (marquee) {
+      const from = offset.current;
+      nudge.current = { from, to: from + dir * d, t0: performance.now() };
+    } else {
+      track.current?.scrollBy({ left: dir * d, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <div
+      onPointerEnter={() => (hold.current.hover = true)}
+      onPointerLeave={() => (hold.current.hover = false)}
+      // Keyboard focus only: a mouse click on an arrow focuses it too, and must
+      // not stop the drift until something else is clicked.
+      onFocus={(e) => (hold.current.focus = e.target.matches(":focus-visible"))}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) hold.current.focus = false;
+      }}
+    >
+      <div
+        ref={track}
+        className={`${styles.indGridBold} ${styles.indCarousel}`}
+        data-marquee={marquee ? "true" : undefined}
+        role="region"
+        aria-label={label}
+        tabIndex={marquee ? undefined : 0}
+      >
+        {marquee ? (
+          <div ref={row} className={styles.indMarqueeRow}>
+            {cards}
+            {cards.map((card, i) =>
+              cloneElement(card, {
+                key: `copy-${i}`,
+                "aria-hidden": true,
+                inert: true,
+              } as Record<string, unknown>),
+            )}
+          </div>
+        ) : (
+          cards
+        )}
+      </div>
+      <div className={styles.svcNav}>
+        <button
+          type="button"
+          className={styles.svcArrow}
+          aria-label="Previous cards"
+          disabled={!marquee && edges.start}
+          onClick={() => step(-1)}
+        >
+          <Arrow dir="prev" />
+        </button>
+        <button
+          type="button"
+          className={styles.svcArrow}
+          aria-label="Next cards"
+          disabled={!marquee && edges.end}
+          onClick={() => step(1)}
+        >
+          <Arrow dir="next" />
+        </button>
+      </div>
+    </div>
+  );
+}
 
 /**
  * The card's "Know More".
@@ -123,13 +338,7 @@ export default function IndustriesClient({
        card re-composes itself with no layout prop to keep in sync. */
     const spans = span ? content.items.map(() => span) : gridSpansFor(content.items.length);
 
-    return (
-      <section className={styles.sectionShell} id={id}>
-        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
-
-        <FadeUp>
-          <div className={styles.indGridBold}>
-            {content.items.map((item, i) => {
+    const cards = content.items.map((item, i) => {
               const href = hrefOf(item);
               return (
               <article
@@ -140,6 +349,9 @@ export default function IndustriesClient({
                    are a small fixed set, so CSS can hold them and the markup
                    stays free of style attributes. */
                 data-span={spans[i]}
+                /* The carousel renders the set twice; a fixed accent per card
+                   keeps the copy's colours matching the originals. */
+                data-accent={content.carousel ? (i % 5) + 1 : undefined}
               >
                 {/* `data-brand` drops the accent tint behind a full-colour
                     brand mark, which has its own palette and is fought by the
@@ -178,8 +390,18 @@ export default function IndustriesClient({
                 )}
               </article>
               );
-            })}
-          </div>
+            });
+
+    return (
+      <section className={styles.sectionShell} id={id}>
+        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
+
+        <FadeUp>
+          {content.carousel ? (
+            <CardCarousel label={content.title} autoplay={content.autoplay} cards={cards} />
+          ) : (
+            <div className={styles.indGridBold}>{cards}</div>
+          )}
         </FadeUp>
         <SectionCta cta={content.cta} />
       </section>

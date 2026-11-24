@@ -10,6 +10,8 @@ export interface ComparisonContent {
   columns: readonly string[];
   /** One row per decision criterion; `values` aligns with `columns` minus its first entry. */
   rows: readonly { readonly criterion: string; readonly values: readonly string[] }[];
+  /** Give a long title the section head's wider column (see `SectionHead`'s `wide`). */
+  wideHead?: boolean;
 }
 
 /**
@@ -36,7 +38,7 @@ export default function Comparison({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
       <SimpleTable
         caption={content.title}
         columns={content.columns}

@@ -59,6 +59,13 @@ export const software: HireRolePageContent = {
       'Hire experienced software developers from India, matched to your technology stack, project requirements, and team needs. Add the right expertise to accelerate development, strengthen delivery, and support your business goals.',
       'Review relevant profiles, interview developers directly, and use a 40-hour risk-free trial to evaluate fit before extending the engagement.',
     ],
+    // A full-bleed backdrop, set up like the frontend page's hero.
+    background: {
+      src: '/images/landing/hire-roles/hire-software-developer-cover.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQAgCdASoQAAgAAsBMJbACdAEf58z8he0AAP70oQfNPuv6S0OqtwzcfcSOoerEk8z6xi53ai0G32Ed193VZyRKvr8o8NhuiyXG+xi4yF3U0Qibc+Uuz1aDVBqDNqYOmPcD+w4AAAA=',
+      veil: 'strong',
+    },
     points: [
       'Project-Ready Developer Profiles',
       `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
@@ -75,6 +82,31 @@ export const software: HireRolePageContent = {
     }),
   },
 
+  // The overview and global-delivery photos are both hand-placed, so each
+  // states its own `align: 'both'` — photo and copy centred on each other at
+  // every desktop width (review: "fix the center alignment for overview
+  // section and global delivery section").
+  //
+  // The client strip's heading in two even lines, like the page's other split
+  // heads (review: "need to fix the clients section h2 heading also").
+  clientsWideTitle: '34ch',
+  // Every band on the ground the live page gives it (review: "update the
+  // section dark and light theme like this page", softsuave.com/hire-software-
+  // developers, read 23 Nov) — pinned in full, so `assignGrounds` places
+  // nothing here and the page matches the live sequence band for band.
+  grounds: {
+    clients: 'light',
+    overview: 'light',
+    specialisations: 'dark',
+    globalDelivery: 'dark',
+    process: 'light',
+    midCta: 'dark',
+    techStack: 'light',
+    whyRole: 'dark',
+    comparison: 'light',
+    testimonials: 'light',
+    faq: 'light',
+  },
   overview: {
     eyebrow: 'Overview',
     title: 'Hire Software Developers with the Skills Your Team Needs',
@@ -83,6 +115,18 @@ export const software: HireRolePageContent = {
       'Soft Suave helps you identify software developers for hire across frontend, backend, full-stack, mobile, and cloud-focused development. You can review relevant experience, interview shortlisted developers, and evaluate how they work with your team before continuing the engagement.',
       'This approach can support new product development, ongoing feature delivery, modernization, integrations, technical capacity gaps, and longer-term engineering requirements.',
     ],
+    // Hand-placed photo (review: "update this image for hire software
+    // developer page overview section"); replaces the pipeline's per-page
+    // photo, so the alignment is stated here.
+    image: {
+      src: '/images/landing/ov-hire-software-developers-v2.webp',
+      width: 1536,
+      height: 1024,
+      alt: 'A developer typing at a keyboard with code editor windows floating above it',
+      blurDataURL:
+        'data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAADwAQCdASoQAAsAAsBMJaACdAEO9vJS9AAA/vR4sboZTeFoQnkt6gwFM+fUJP+ZZ88Vbr5cGTzB/NagmwpnA+x6U1EpvRK9QuyjT9Om4Kp9Scw1sUuoaWUwu0T7ELfZXb/5jOyCR6AAAA==',
+      align: 'both',
+    },
   },
 
   midCta: {
@@ -98,8 +142,20 @@ export const software: HireRolePageContent = {
     paragraphs: [
       'Hiring software developers in India gives global teams access to experienced technical talent across modern development stacks while supporting flexible team expansion and distributed delivery.',
       "Soft Suave's developers work across frontend, backend, full-stack, mobile, cloud, and DevOps technologies, with delivery teams based in Chennai and Bengaluru.",
-      'You can integrate developers into your existing workflows through shared project tools, direct communication, agreed working-hour overlap, and established development processes.',
+      'You can integrate developers into your existing workflows through sharedproject tools, direct communication, agreed working-hour overlap, and established development processes.',
     ],
+    // Hand-placed illustration (review: "update this image for Global Delivery
+    // section"); replaces the pipeline's `landing/dl-<slug>` photo, so the
+    // alignment is stated here.
+    image: {
+      src: '/images/landing/dl-hire-software-developers-v2.webp',
+      width: 960,
+      height: 720,
+      alt: 'A developer at a laptop on video calls with remote teammates, with Bengaluru and Chennai pinned on a globe',
+      blurDataURL:
+        'data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAABwAgCdASoQAAwAAsBMJbACdAYsZwn+VLfGpHEAAP74MubqWe+99t1AOs26lN/n5O6pt5GApFUrE3trMXd/QE7py2eKRlG7ENUUUfAr5GiraPL1dn9SHBW3NF1sxLfEG9nBGTKi33eW4w3jYQI1E0ZVgwv7DHtb2SZ/JV7pSAAAAA==',
+      align: 'both',
+    },
   },
 
   process: {
@@ -133,6 +189,16 @@ export const software: HireRolePageContent = {
   specialisations: {
     eyebrow: 'Developer Expertise',
     title: 'Hire Remote Software Developers for Your Technology Needs',
+    // Wider, balanced title column on every split head of this page, so the
+    // H2s set in two even lines instead of three ragged ones (review: "fix
+    // the h2 heading for all the section").
+    wideHead: true,
+    // One scrolling row (review: "change the UI like a carousel card scrolling"):
+    // four cards in view at 1920, three at 1440, fewer below.
+    carousel: true,
+    // Advances one card at a time on its own (review: "set the automatic
+    // smooth scrolling the card one by one").
+    autoplay: true,
     body: 'Hire software developers in India with expertise across web, mobile, frontend, backend, full-stack, DevOps, and other technologies aligned to your project requirements.',
     items: [
       {
@@ -162,10 +228,8 @@ export const software: HireRolePageContent = {
       {
         key: 'fullstack',
         name: 'Hire Fullstack Developers',
-        // Unlinked for now: live's target (/hire-full-stack-developers-in-india)
-        // has no page here, and the review wants these cards to stay on the new
-        // site rather than send readers to softsuave.com.
-        link: false,
+        // Live's target, which this site now serves.
+        href: '/hire-full-stack-developers-in-india',
         body: 'Get versatile, well-rounded full-stack developers who manage both front-end and back-end development with expertise. They seamlessly integrate your application layers, ensuring scalability, security, and efficiency for end-to-end solutions.',
       },
       {
@@ -193,6 +257,7 @@ export const software: HireRolePageContent = {
       {
         key: 'saas',
         name: 'Hire SaaS Developers',
+        href: '/hire-saas-developer',
         body: 'Transform your business with dedicated SaaS developers who create scalable and secure cloud-based apps. We deliver solutions that simplify operations, enhance customer experiences, and support your business goals with powerful SaaS platforms.',
       },
       {
@@ -208,6 +273,7 @@ export const software: HireRolePageContent = {
   whyRole: {
     eyebrow: 'Why Choose Us',
     title: 'Why Hire Software Developers From Soft Suave?',
+    wideHead: true,
     body: 'See why businesses choose Soft Suave to hire software developers and what you can expect throughout the engagement.',
     items: [
       {
@@ -238,15 +304,23 @@ export const software: HireRolePageContent = {
     ],
   },
 
-  comparison: hiringComparison({
-    title: 'Hiring a Software Developer: Soft Suave vs In-House vs Freelancer',
-    body: 'Compare common hiring approaches and find the option that best fits your software development and team requirements.',
-    column: 'Soft Suave Developer',
-  }),
+  comparison: {
+    ...hiringComparison({
+      title: 'Hiring a Software Developer: Soft Suave vs In-House vs Freelancer',
+      body: 'Compare common hiring approaches and find the option that best fits your software development and team requirements.',
+      column: 'Soft Suave Developer',
+    }),
+    wideHead: true,
+  },
 
+  // Category tabs over a centred grid of logo cards (review: "use this ui
+  // design for tech stack section in hire software developers").
+  techStackStyle: 'tabs',
+  submitBlack: true,
   techStack: {
     eyebrow: 'Tech Stack',
     title: 'Technology Stack for Modern Software Engineering',
+    wideHead: true,
     body: 'Work with frontend, backend, mobile, cloud, DevOps, and AI technologies that support scalable applications, efficient delivery, and modern software engineering workflows.',
     groups: [
       {

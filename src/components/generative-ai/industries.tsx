@@ -67,6 +67,20 @@ export interface CardGridContent {
   bodyLinks?: readonly InlineLink[];
   /** `bold` only: draw no icon on any card — a section whose live cards are a name and a line of copy. */
   noIcons?: boolean;
+  /**
+   * `bold` only: one scrolling row of cards with prev/next arrows instead of
+   * the wrapping grid — four in view at 1600px and up, three from 1100px, two
+   * from 700px, one (with a peek of the next) below (hire-software-developers
+   * review: "change the UI like a carousel card scrolling").
+   */
+  carousel?: boolean;
+  /**
+   * With `carousel`: advance one card every few seconds, smoothly, returning
+   * to the first card after the last. Pauses on hover/focus, off screen, in a
+   * hidden tab, and under `prefers-reduced-motion` (hire-software-developers
+   * review: "set the automatic smooth scrolling the card one by one").
+   */
+  autoplay?: boolean;
 }
 
 /**
