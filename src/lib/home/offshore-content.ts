@@ -422,7 +422,6 @@ export const offCaseStudies: WorkCarouselContent = {
       tag: "On-Demand",
       body: "Soft Suave built a smart movie ticketing system with real-time seats, secure payments, and smooth booking.",
       image: { src: "/images/case-studies/on-demand-5.webp", alt: "Smart Movie Ticketing with Real-Time Booking" },
-      href: "/case-study-smart-movie-ticketing-with-real-time-booking",
     },
     {
       title: "Area Mapping Solution For A Solar Business",
@@ -430,7 +429,6 @@ export const offCaseStudies: WorkCarouselContent = {
       tag: "On-Demand",
       body: "Founded in 2020, our client offers solar energy solutions focused on home efficiency and sustainable power, helping homeowners save on bills.",
       image: { src: "/images/case-studies/solar-mapping.webp", alt: "Area Mapping Solution For A Solar Business" },
-      href: "/case-study-area-mapping-solution",
     },
     {
       title: "ParkSafe Community Vehicle Alert App",
@@ -438,7 +436,6 @@ export const offCaseStudies: WorkCarouselContent = {
       tag: "Logistics",
       body: "Soft Suave built a smart app to spot suspicious vehicles, send alerts, and boost community safety in real time.",
       image: { src: "/images/case-studies/logistics-3.webp", alt: "ParkSafe Community Vehicle Alert App" },
-      href: "/case-study-parksafe-community-vehicle-alert-app",
     },
     {
       title: "Digital Advertising in Public Spaces",
@@ -446,7 +443,6 @@ export const offCaseStudies: WorkCarouselContent = {
       tag: "On-Demand",
       body: "Soft Suave built a dynamic digital ads platform for real-time content, location targeting, and analytics in public spaces.",
       image: { src: "/images/case-studies/on-demand-1.webp", alt: "Digital Advertising in Public Spaces" },
-      href: "/case-study-digital-advertising-in-public-spaces",
     },
     {
       title: "Restaurant Workflow Optimization",
@@ -454,7 +450,6 @@ export const offCaseStudies: WorkCarouselContent = {
       tag: "On-Demand",
       body: "Soft Suave built a smart restaurant system to optimize orders, kitchen flow, and staff coordination for better dining.",
       image: { src: "/images/case-studies/on-demand-3.webp", alt: "Restaurant Workflow Optimization" },
-      href: "/case-study-restaurant-workflow-optimization",
     },
     {
       title: "Optimizing Influencer and Brand Collaborations",
@@ -462,7 +457,6 @@ export const offCaseStudies: WorkCarouselContent = {
       tag: "On-Demand",
       body: "Soft Suave built a smart platform to streamline influencer-brand ties, automate tasks, and boost engagement with data.",
       image: { src: "/images/case-studies/on-demand-8.webp", alt: "Optimizing Influencer and Brand Collaborations" },
-      href: "/case-study-optimizing-influencer-and-brand-collaborations",
     },
     {
       title: "AI-Powered Multi-Cloud Management",
@@ -470,7 +464,6 @@ export const offCaseStudies: WorkCarouselContent = {
       tag: "On-Demand",
       body: "Soft Suave built an AI platform to monitor, optimize, and automate multi-cloud setups with speed, security, and savings.",
       image: { src: "/images/case-studies/on-demand-11.webp", alt: "AI-Powered Multi-Cloud Management" },
-      href: "/case-study-ai-powered-multi-cloud-management",
     },
   ],
 };

@@ -424,7 +424,6 @@ export const webApp: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Technologies',
     title: 'Technology Expertise for Modern Web Applications',
-    wideHead: true,
     body: 'Work with technologies aligned to your existing architecture, application requirements, and long-term product direction instead of forcing your project into a predetermined stack.',
     groups: [
       {
