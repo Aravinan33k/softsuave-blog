@@ -24,6 +24,7 @@ import TechTabs from '@/components/common/tech-tabs';
 
 import styles from '@/components/home/home.module.css';
 import location from '@/components/landing/location-app-page.module.css';
+import ad from '@/components/ad/ad.module.css';
 
 /**
  * The server shell of a "Hire Developers by Role" page: the nav, `<main>` and
@@ -138,7 +139,21 @@ export default function HireRolePage({
       : ownDelivery;
 
   return (
-    <div className={content.submitBlack ? `${styles.page} ${location.submitBlack}` : styles.page}>
+    <div
+      className={[
+        styles.page,
+        content.submitBlack && location.submitBlack,
+        content.heroPadBottom80 && styles.heroPadBottom80,
+        content.halfHeads && ad.halfHeads,
+        content.clientsTwoLineTitle && styles.clientsTwoLineTitle,
+        content.sectionGapsFull && styles.sectionGapsFull,
+        content.storyQuoteLarge && styles.storyQuoteLarge,
+        content.servicesHeadWrap && styles.servicesHeadWrap,
+        content.techNameLarge && styles.techNameLarge,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       {/* `logoHref` is stated because `ownsAnchors` also keeps the logo's
           default `#top` in-page, and the lockup must go HOME from a sub-page. */}
       <Nav ownsAnchors logoHref={BASE_PATH || '/'} />

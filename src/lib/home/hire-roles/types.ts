@@ -264,6 +264,26 @@ export interface HireRolePageContent {
   readonly techStackStyle?: 'rows' | 'tabs';
   /** The hero form's submit button turns black on hover and focus. */
   readonly submitBlack?: boolean;
+  /** `false` drops the partner lockups (Upwork, Clutch, Microsoft, AWS) from the hero. */
+  readonly heroPartnerBadges?: boolean;
+  /** The hero's bottom padding at 80px (56px on a phone), as the ad pages run it. */
+  readonly heroPadBottom80?: boolean;
+  /**
+   * Every split section head laid out as the ad pages' (`/ad/remote-developers`):
+   * the eyebrow on its own row, then the heading and subtext in two equal
+   * columns with no measure cap (`ad.module.css` `halfHeads`).
+   */
+  readonly halfHeads?: boolean;
+  /** The clients H2 eased down on mid-width screens so a long title holds two lines. */
+  readonly clientsTwoLineTitle?: boolean;
+  /** Bands following one on the same ground keep their own top padding. */
+  readonly sectionGapsFull?: boolean;
+  /** The client-story quote at 14px, easing up to 16px on a wide screen. */
+  readonly storyQuoteLarge?: boolean;
+  /** The services H2 wraps normally (fills its first line) instead of balancing. */
+  readonly servicesHeadWrap?: boolean;
+  /** The tech stack's tool names 1px larger than the shared label size. */
+  readonly techNameLarge?: boolean;
   /**
    * Further label-only bands, each placed by `order` as `list:<key>`.
    *

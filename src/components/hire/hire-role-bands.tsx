@@ -147,7 +147,10 @@ export default function HireRoleBands({
    */
   const hero = {
     ...content.hero,
-    badges: [...(content.hero.badges ?? []), ...partnerHeroBadges],
+    badges: [
+      ...(content.hero.badges ?? []),
+      ...(content.heroPartnerBadges === false ? [] : partnerHeroBadges),
+    ],
     // The trial/meeting pair every live role hero runs beside its form — the
     // same two buttons the hire-by-skill pages get from the same constant.
     ctas: sharedHeroCtas,

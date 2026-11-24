@@ -29,6 +29,20 @@ export const ai: HireRolePageContent = {
   closingCtaIcon: true,
   clientsWideTitle: true,
   key: 'hire-ai',
+  // Review: "remove the certification" — no partner lockups under the hero.
+  heroPartnerBadges: false,
+  // Review: hero bottom padding 80px; every section head set like
+  // /ad/remote-developers' "Our Clients".
+  heroPadBottom80: true,
+  halfHeads: true,
+  clientsTwoLineTitle: true,
+  // Review: even the gaps after "Why Us" and "Services"; story quote at 14px.
+  sectionGapsFull: true,
+  storyQuoteLarge: true,
+  // Review: the services H2 wraps normally rather than balanced.
+  servicesHeadWrap: true,
+  // Review: tech stack tool names 1px larger.
+  techNameLarge: true,
   slug: '/hire-ai-developer',
   name: 'Hire AI Developers',
   serviceType: 'AI development staffing',
@@ -55,24 +69,24 @@ export const ai: HireRolePageContent = {
   hero: {
     titleLines: ['Hire AI Developers', 'in India On contract'],
     accent: 'AI Developers',
-    // A full-bleed backdrop like the Frontend page's (review: "No image is
-    // visible in the background in the hero section").
+    // A full-bleed backdrop like the Frontend page's, at the same 1774×887
+    // (review: "update this background image in hero section").
     background: {
-      src: '/images/landing/hire-ai-hero.webp',
+      src: '/images/landing/hire-roles/hire-ai-developer-cover.webp',
       blurDataURL:
-        'data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoQAAsAA4BaJQBOgCHgVSIOAAD+9dkBG5Ys9xohIJzq2W/7sTPtTJ7OQkPX7sy1QeTDhDsm+fQU1twjiB+Px+qToIgCAtAA',
+        'data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAQAgCdASoQAAgAAsBMJYgCdAD6G1devx4AAP7163pwy3vzfSv/Vh/8+H4MRZ1SFDvkBtNeUo+noQ4rpG/2CLhDjC63x/JFm9nqXmsp3OcicAAA',
       veil: 'strong',
     },
     body: [
       'Soft Suave offers Indian AI developers without the long hiring cycles. We are a specialized agency that connects you with pre-vetted experts in Generative AI, LLMs, NLP, Machine Learning, computer vision, AI chatbots, and automation systems — contract-ready and onboarded fast.',
       'See why businesses choose Soft Suave for their AI developers hiring.',
     ],
+    // Review: drop "40-Hour Risk-Free Trial" and "Strong Delivery Governance
+    // from Day One" from the hero points.
     points: [
-      '40-Hour Risk-Free Trial',
       'Hire Top AI Developers in India',
       'Time-Zone & Language Aligned Teams',
       'Airtight NDA & IP Protection',
-      'Strong Delivery Governance from Day One',
     ],
     form: heroForm({
       submitHover: 'black',

@@ -195,7 +195,6 @@ export const software: HireRolePageContent = {
     // Wider, balanced title column on every split head of this page, so the
     // H2s set in two even lines instead of three ragged ones (review: "fix
     // the h2 heading for all the section").
-    wideHead: true,
     // One scrolling row (review: "change the UI like a carousel card scrolling"):
     // four cards in view at 1920, three at 1440, fewer below.
     carousel: true,
@@ -277,7 +276,6 @@ export const software: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Why Choose Us',
     title: 'Why Hire Software Developers From Soft Suave?',
-    wideHead: true,
     body: 'See why businesses choose Soft Suave to hire software developers and what you can expect throughout the engagement.',
     items: [
       {
@@ -325,7 +323,6 @@ export const software: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Tech Stack',
     title: 'Technology Stack for Modern Software Engineering',
-    wideHead: true,
     body: 'Work with frontend, backend, mobile, cloud, DevOps, and AI technologies that support scalable applications, efficient delivery, and modern software engineering workflows.',
     groups: [
       {
