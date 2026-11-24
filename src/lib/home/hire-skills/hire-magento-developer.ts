@@ -12,6 +12,8 @@ import { FIGURES, HOURLY_RATE } from "../../company-figures";
 import { PLATFORM_ORDER } from "./platform-shared";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: "38ch",
   slug: "hire-magento-developer",
   key: "magento",
   name: "Magento",
@@ -40,6 +42,7 @@ export const skill: HireSkill = {
     ],
     form: {
       title: "Get Skilled Remote Developers",
+      submitHover: 'black',
       submit: "Start My FREE Trial",
       sending: "Sending...",
       requirementLabel: "Requirement",
@@ -126,6 +129,7 @@ export const skill: HireSkill = {
   },
 
   expertise: {
+    wideHead: true,
     eyebrow: "Technical Expertise",
     title: "Technical Expertise of Our Magento Developers",
     body: "When you hire remote Magento developers from Soft Suave, you get deep technical skills, proven e-commerce expertise, reliable delivery, and a partner ready to help your store thrive and scale fast.",
@@ -243,12 +247,15 @@ export const skill: HireSkill = {
     ],
   },
 
-  comparison: partnerTable(
-    "Choosing the Right Magento Partner for Your Specific Needs",
-    "Our comparison guide will help you decide the right fit for your business by comparing an in-house team, freelancers, & our experts.",
-  ),
+  comparison: {
+    ...partnerTable(
+      "Choosing the Right Magento Partner for Your Specific Needs",
+      "Our comparison guide will help you decide the right fit for your business by comparing an in-house team, freelancers, & our experts.",
+    ),
+    wideHead: true,
+  },
 
-  exploreMore: webExplore,
+  exploreMore: { ...webExplore, wideHead: true },
 
   faq: {
     eyebrow: "FAQs",

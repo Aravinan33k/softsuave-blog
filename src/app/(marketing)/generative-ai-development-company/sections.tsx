@@ -40,7 +40,7 @@ export default function Sections({ industries, techStack }: Readonly<{ industrie
       {/* The homepage's client logo carousel — this page had no proof band
           between the hero and the overview at all. */}
       <div className={styles.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       {/* Band rhythm. The marketing surface alternates dark and inverted

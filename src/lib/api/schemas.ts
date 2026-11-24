@@ -122,6 +122,13 @@ export const enquiryInput = z.object({
     .trim()
     .regex(/^\/assets\/case-studies\/[A-Za-z0-9._-]+\.pdf$/, 'Unknown case study.')
     .optional(),
+  /**
+   * Which of softsuave.com's lead endpoints this form's live counterpart submitted to (`lib/forms/lead-routing.ts`).
+   * Omitted: `developer`, the endpoint every form used before the per-form routing.
+   */
+  leadType: z.enum(['developer', 'contactUs', 'freeQuote']).optional(),
+  /** The company box, sent on its own for the free-quote endpoint (it is also in `requirement`). */
+  company: z.string().trim().max(382).optional(),
 });
 
 export type EnquiryInput = z.infer<typeof enquiryInput>;

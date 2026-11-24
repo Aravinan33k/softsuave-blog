@@ -42,7 +42,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
       <Hero content={edtechHero} idPrefix="edtech" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       <Overview content={edtechOverview} id="overview" />

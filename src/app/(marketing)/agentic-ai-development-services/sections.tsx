@@ -45,7 +45,7 @@ export default function Sections({ industries, industries2, techStack }: Readonl
 
       {/* Review: "Our Clients missing" — the homepage's logo carousel. */}
       <div className={styles.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       {/* One inverted band, mirroring the homepage's single light section —

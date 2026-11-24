@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import {
@@ -22,7 +23,6 @@ import {
 import { clientsPageBrands } from '@/lib/home/clients-content';
 
 import Clients from '@/components/home/clients';
-import Testimonials from '@/components/home/testimonials';
 
 import Hero from '@/components/landing/hero';
 import CtaBand from '@/components/landing/cta-band';
@@ -35,8 +35,12 @@ import TopTalent from '@/components/ad/top-talent';
 import CtaRow from '@/components/ad/cta-row';
 // The Our Services and Experts carousels, as /ad/remote-developer has them (by request).
 import ServiceCarousel from '@/components/ad/service-carousel';
-import SkillCarousel from '@/components/ad/skill-carousel';
-import TrialModal from '@/components/ad/trial-modal';
+
+// Below the first screen: split into their own chunks so the hero and the first
+// sections hydrate without them. Still server-rendered, so the HTML is unchanged.
+const SkillCarousel = dynamic(() => import('@/components/ad/skill-carousel'));
+const Testimonials = dynamic(() => import('@/components/home/testimonials'));
+const TrialModal = dynamic(() => import('@/components/ad/trial-modal'));
 
 import home from '@/components/home/home.module.css';
 import styles from '@/components/ad/ad.module.css';

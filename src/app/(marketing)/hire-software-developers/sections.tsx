@@ -4,6 +4,7 @@ import HireRoleBands, { type HireRoleServerProps } from '@/components/hire/hire-
 // This role's own module, not the `lib/home/hire-roles` barrel: the barrel holds
 // all fourteen roles' copy, and the browser should get only this page's.
 import { software as content } from '@/lib/home/hire-roles/software';
+import home from '@/components/home/home.module.css';
 
 /**
  * The page's sections, rendered from one client boundary that imports its own copy.
@@ -15,5 +16,14 @@ import { software as content } from '@/lib/home/hire-roles/software';
  * see `HireRoleServerProps`.
  */
 export default function Sections(props: HireRoleServerProps) {
-  return <HireRoleBands content={content} {...props} />;
+  return (
+    <HireRoleBands
+      content={content}
+      {...props}
+      techStacks={{
+        ...props.techStacks,
+        techStack: <div className={home.light}>{props.techStacks.techStack}</div>,
+      }}
+    />
+  );
 }

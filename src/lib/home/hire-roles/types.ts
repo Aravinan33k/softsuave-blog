@@ -136,24 +136,25 @@ export interface HireRolePageContent {
    * that order is the point of this field.
    */
   readonly order: readonly HireBand[];
-
-  readonly meta: {
-    readonly title: string;
-    readonly description: string;
-  };
-
+  /** Page-specific presentation options; other role pages keep their defaults. */
   /**
    * The client strip's `wideTitle`: its heading in two balanced lines on a wide
    * screen instead of three. A measure string (`"34ch"`) holds the column at
    * that width — see `Clients`.
    */
   readonly clientsWideTitle?: boolean | string;
+  readonly closingCtaIcon?: boolean;
   /**
    * Pin a band to a ground on this page only, over the shared anchors in
    * `band-grounds` (e.g. `{ techStack: 'light' }`). The other free bands
    * re-flow around it.
    */
-  readonly grounds?: Readonly<Partial<Record<HireBand, Ground>>>;
+  readonly groundOverrides?: Readonly<Partial<Record<HireBand, Ground>>>;
+
+  readonly meta: {
+    readonly title: string;
+    readonly description: string;
+  };
 
   /** Hero: H1, positioning copy, assurance points and the enquiry form. */
   readonly hero: HeroContent;

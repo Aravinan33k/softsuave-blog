@@ -11,6 +11,8 @@ export interface IntegrationContent {
   eyebrow: string;
   title: string;
   body: string;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wideHead?: boolean;
   items: readonly {
     readonly name: string;
     readonly body: string;
@@ -45,9 +47,12 @@ export interface IntegrationContent {
 export default function Integration({
   content,
   id = "integration",
+  hoverBorder = false,
 }: {
   content: IntegrationContent;
   id?: string;
+  /** The Why Choose Us cards' hover: accent border, a small lift and a rule that sweeps across the top. */
+  hoverBorder?: boolean;
 }) {
   const root = useRef<HTMLDivElement | null>(null);
 
@@ -80,11 +85,14 @@ export default function Integration({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <div ref={root} className={styles.integrationGrid}>
         {content.items.map((item) => (
-          <article key={item.name} className={styles.integrationCard}>
+          <article
+            key={item.name}
+            className={hoverBorder ? `${styles.integrationCard} ${styles.integrationCardHover}` : styles.integrationCard}
+          >
             <h3 className={styles.integrationLabel}>{item.name}</h3>
             <p className={styles.integrationBody}>{item.body}</p>
 

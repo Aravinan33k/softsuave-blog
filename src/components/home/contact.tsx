@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { CalendarDays } from "lucide-react";
 import { finalCta } from "@/lib/home/content";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import HoldButton from "./hold-button";
@@ -18,7 +19,10 @@ export default function Contact({
   ctaHref = finalCta.cta.href,
   content = finalCta,
   eyebrow = "Business Enquiry",
+  ctaIcon = false,
 }: {
+  /** A calendar icon before the CTA label, as the closing bands on the /developer-profile style pages carry. */
+  ctaIcon?: boolean;
   /** Where the primary CTA goes. Defaults to the content's own href — the
    *  dedicated `/contact` route. The `/contact` page itself overrides this
    *  with `#contact`, because this band is the destination there and a CTA
@@ -176,7 +180,11 @@ export default function Contact({
           {/* A real link, not a button firing `location.href` — see
               HoldButton, which renders a genuine <a> so middle-click,
               cmd-click and link semantics all survive. */}
-          <HoldButton label={content.cta.label} href={ctaHref} />
+          <HoldButton
+            label={content.cta.label}
+            href={ctaHref}
+            icon={ctaIcon ? <CalendarDays size={18} aria-hidden /> : undefined}
+          />
         </div>
 
       </div>

@@ -12,6 +12,8 @@ import { HOURLY_RATE } from "../../company-figures";
 import { MODERN_ORDER, vetting } from "./backend-shared";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
   slug: "hire-ruby-on-rails-developer",
   key: "rails",
   name: "Ruby on Rails",
@@ -39,6 +41,7 @@ export const skill: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
+      submitHover: 'black',
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -64,6 +67,7 @@ export const skill: HireSkill = {
    * Rails page. Reproduced as published — see this file's header.
    */
   whyUs: {
+    wideHead: true,
     eyebrow: "Why Soft Suave",
     title: "Why Hire Ruby on Rails Developers from Soft Suave",
     body: "Why settle for average? Hire dedicated Ruby on Rails developers who thrive under pressure, adapt quickly, deliver exceptional results every time, and give your projects the expertise they truly deserve",
@@ -102,6 +106,7 @@ export const skill: HireSkill = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: "Hiring Process",
     title: "Steps to Hire a Ruby on Rails Developer",
     body: "Hire expert Ruby on Rails developers in just 4 easy steps & onboard them in no time!",
@@ -130,6 +135,7 @@ export const skill: HireSkill = {
   },
 
   techStack: {
+    wideHead: true,
     eyebrow: "Technology",
     title: "Technical Expertise of Our Ruby on Rails Developers",
     body: "Unlock the power of your project with our Ruby on Rails experts, from stunning front-end designs to robust database solutions. Hire experts who craft modular architecture, boost performance, and engineer every line for stability, speed, and scale.",
@@ -178,6 +184,7 @@ export const skill: HireSkill = {
   },
 
   services: {
+    wideHead: true,
     // Live closes this band on "Talk to Our Experts" (review: "CTA button missing").
     cta: { label: "Talk to Our Experts", href: "/contact" },
     eyebrow: "Services",
@@ -216,6 +223,7 @@ export const skill: HireSkill = {
   },
 
   vetting: {
+    wideHead: true,
     eyebrow: "Vetting",
     title: "How We Vet and Onboard Top Ruby on Rails Developers",
     body: "Each Ruby on Rails engineer is vetted for technical brilliance, communication, and reliability. Hire expert Ruby on Rails developers who deliver from day one.",
@@ -227,14 +235,21 @@ export const skill: HireSkill = {
     ]),
   },
 
-  comparison: partnerTable(
-    "Choosing the Right Ruby on Rails Partner for Your Specific Needs",
-    "Explore different hiring models: freelancers, in-house teams, or our expert Ruby on Rails developers. Our comparison chart helps you make an informed decision.",
-  ),
+  comparison: {
+    ...partnerTable(
+      "Choosing the Right Ruby on Rails Partner for Your Specific Needs",
+      "Explore different hiring models: freelancers, in-house teams, or our expert Ruby on Rails developers. Our comparison chart helps you make an informed decision.",
+    ),
+    wideHead: true,
+  },
 
-  exploreMore: webExplore,
+  exploreMore: {
+    ...webExplore,
+    wideHead: true,
+  },
 
   faq: {
+    wideHead: true,
     eyebrow: "FAQs",
     title: "FAQs About Hiring Ruby on Rails Developers",
     body: "Learn more about our procedures & methods with the help of these FAQs.",

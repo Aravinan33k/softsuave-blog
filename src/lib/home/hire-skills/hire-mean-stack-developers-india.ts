@@ -11,6 +11,7 @@ import { techSteps, techWhy } from "../hire-blocks";
 import { HOURLY_RATE } from "../../company-figures";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
   slug: "hire-mean-stack-developers-india",
   key: "mean",
   name: "MEAN Stack",
@@ -41,6 +42,7 @@ export const skill: HireSkill = {
     ],
     form: {
       title: "Get Skilled Remote Developers",
+      submitHover: 'black',
       submit: "Start My FREE Trial",
       sending: "Sending...",
       requirementLabel: "Requirement",
@@ -123,13 +125,14 @@ export const skill: HireSkill = {
   },
 
   whyUs: {
+    wideHead: true,
     eyebrow: "Why Soft Suave",
     title: "Why Are Our MEAN Stack Developers Considered the Best?",
     body: "Our strong team of remote MEAN Stack developers in India has complete expertise and exceptional knowledge in the front end, back end, databases, cloud deployment, and integration solutions.",
     items: techWhy("MEAN Stack", "MongoDB, Express, Angular, Node, APIs, and cloud"),
   },
 
-  exploreMore: webExplore,
+  exploreMore: { ...webExplore, wideHead: true },
 
   faq: {
     eyebrow: "FAQs",

@@ -26,6 +26,7 @@ import { HOURLY_RATE } from '@/lib/company-figures';
  * which page the enquiry came from.
  */
 export function heroForm(args: {
+  readonly submitHover?: 'black';
   /** Form heading, e.g. "Hire skilled backend developers". */
   readonly title: string;
   /** Label over the requirement textarea. */
@@ -51,6 +52,7 @@ export function heroForm(args: {
     note: 'Alert: This form is for business, not candidates. To apply for jobs,',
     noteLink: { label: 'click here', href: '/career-overview' },
     submit: 'Start My FREE Trial',
+    submitHover: args.submitHover,
     // The form POSTs to /api/v1/enquiry; it no longer opens a mail client.
     sending: 'Sending...',
     requirementLabel: args.requirementLabel,

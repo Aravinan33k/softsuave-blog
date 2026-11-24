@@ -14,6 +14,8 @@ import styles from "./gen-ai.module.css";
 export interface FitTableContent {
   eyebrow: string;
   title: string;
+  /** Gives a long section heading more room beside its introduction. */
+  wideHead?: boolean;
   body: string;
   /** `[row-header column, ...value columns]`. */
   columns: readonly string[];
@@ -25,7 +27,7 @@ export interface FitTableContent {
 export default function FitTable({ content, id = "fit" }: { content: FitTableContent; id?: string }) {
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
       <FadeUp>
         <SimpleTable caption={content.title} columns={content.columns} rows={content.rows} />
       </FadeUp>

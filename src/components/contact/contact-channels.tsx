@@ -9,6 +9,8 @@ import { EMAIL_MAX, NAME_MAX, emailError, nameError, phoneError } from "@/lib/fo
 import { focusAtEnd } from "@/lib/forms/focus";
 import { THANK_YOU_PATH } from "@/lib/forms/thank-you";
 import { useClearOnClick } from "@/lib/forms/use-clear-on-click";
+import { leadRouting } from "@/lib/forms/lead-routing";
+import { clearLeadDrafts, useLeadDraft } from "@/lib/forms/use-lead-draft";
 import PhoneField from "@/components/common/phone-field";
 import FadeUp from "@/components/home/fade-up";
 import { CONTACT_FORM_ID, contactForm, quickContact, serviceOptions } from "@/lib/home/contact-content";
@@ -61,6 +63,9 @@ function SteppedForm() {
   const [step, setStep] = useState<Step>(0);
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "" });
   const [website, setWebsite] = useState("");
+  // The live contact page saves each answer as it is given and submits to its own endpoint (lib/forms/lead-routing.ts).
+  const routing = leadRouting(pathname);
+  const saveDraft = useLeadDraft(routing.draft, pathname);
   const [fieldError, setFieldError] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -103,6 +108,8 @@ function SteppedForm() {
     });
 
   const next = () => {
+    // Moving on is this form's "leaving the field": save what is typed so far, as the live form does on blur.
+    saveDraft({ name: form.name, email: form.email, phone: form.phone, description: form.service }, website);
     const err = check(step);
     setFieldError(err);
     // Back into the field to fix it, rather than leaving focus on Next.
@@ -146,6 +153,7 @@ function SteppedForm() {
           subject: contactForm.subject,
           sourcePath: pathname,
           sourceKey: "contact",
+          ...(routing.submit !== "caseStudy" ? { leadType: routing.submit } : {}),
         }),
       });
       if (!res.ok) {
@@ -157,6 +165,7 @@ function SteppedForm() {
               : "Something went wrong. Please try again."),
         );
       }
+      clearLeadDrafts();
       // Stays "sending" until the thank-you page replaces this one.
       router.push(THANK_YOU_PATH);
     } catch (err) {

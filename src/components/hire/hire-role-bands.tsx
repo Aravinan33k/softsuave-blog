@@ -298,7 +298,7 @@ export default function HireRoleBands({
 
   const grounds = assignGrounds(
     bands.map((b) => b.band),
-    content.grounds,
+    content.groundOverrides,
   );
   const chapters: { light: boolean; nodes: ReactNode[] }[] = [];
   bands.forEach(({ node }, i) => {
@@ -329,7 +329,7 @@ export default function HireRoleBands({
           every final CTA to lead to the contact page. Every role page now
           takes this copy (13 Oct review); four used to opt in to it and the
           rest kept the homepage's AI-strategy pitch. */}
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon={content.closingCtaIcon} />
     </>
   );
 }

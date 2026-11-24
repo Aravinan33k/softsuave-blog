@@ -10,6 +10,7 @@ import Footer from '@/components/home/footer';
 import TechStack from '@/components/home/tech-stack';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 import Sections from './sections';
 
 /**
@@ -83,7 +84,7 @@ const LD = aiPageJsonLd('computerVision');
 
 export default function ComputerVisionDevelopmentServicesPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       {/* The spec's four blocks are this page's entire structured data:
           Organization (verbatim — no Facebook profile, unlike the site-wide
           node) + Service, WebPage, FAQPage. The layout adds nothing here, not
@@ -102,7 +103,7 @@ export default function ComputerVisionDevelopmentServicesPage() {
        */}
       <main id="main">
         <Sections
-          techStack={<TechStack content={cvTech} staticFrom={768} />}
+          techStack={<TechStack content={cvTech} staticFrom={768} wideHead />}
         />
       </main>
 

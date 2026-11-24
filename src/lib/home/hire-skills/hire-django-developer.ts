@@ -12,6 +12,8 @@ import { HOURLY_RATE } from "../../company-figures";
 import { MODERN_ORDER, vetting } from "./backend-shared";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: "38ch",
   slug: "hire-django-developer",
   key: "django",
   name: "Django",
@@ -42,6 +44,7 @@ export const skill: HireSkill = {
     ],
     form: {
       title: "Get Skilled Remote Developers",
+      submitHover: 'black',
       submit: "Start My FREE Trial",
       sending: "Sending...",
       requirementLabel: "Requirement",
@@ -198,12 +201,15 @@ export const skill: HireSkill = {
     ]),
   },
 
-  comparison: partnerTable(
-    "Choosing the Right Django Partner for Your Specific Needs",
-    "Explore different hiring models like freelancers, in-house teams, or our expert Django developers. Our comparison chart helps you make an informed decision.",
-  ),
+  comparison: {
+    ...partnerTable(
+      "Choosing the Right Django Partner for Your Specific Needs",
+      "Explore different hiring models like freelancers, in-house teams, or our expert Django developers. Our comparison chart helps you make an informed decision.",
+    ),
+    wideHead: true,
+  },
 
-  exploreMore: webExplore,
+  exploreMore: { ...webExplore, wideHead: true },
 
   faq: {
     eyebrow: "FAQs",

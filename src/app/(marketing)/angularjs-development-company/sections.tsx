@@ -32,6 +32,7 @@ import Testimonials from '@/components/home/testimonials';
 import Contact from '@/components/home/contact';
 import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 
 /**
  * The page's sections, rendered from one client boundary that imports its own copy.
@@ -47,7 +48,7 @@ export default function Sections() {
       <Hero content={ngHero} idPrefix="ng" variant="compact" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       {/* Centre-focused carousel — one service in focus with its neighbours
@@ -74,7 +75,7 @@ export default function Sections() {
           the coral light-field, as every corrected CTA on this surface does. */}
       <CtaBand content={ngProjectCta} backdrop={false} />
 
-      <div className={home.light}>
+      <div className={`${home.light} ${location.awardsJoined}`}>
         <StoryCards content={ngStories} />
         {/* The live page's "Awards & Certifications" band. NOT
             `home/awards.tsx` — that file is misleadingly named and renders
@@ -93,7 +94,7 @@ export default function Sections() {
 
       <Faq content={ngFaqs} idPrefix="ng-faq" />
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

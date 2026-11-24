@@ -9,6 +9,7 @@ import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 import Sections from './sections';
 
 /**
@@ -81,7 +82,7 @@ const LD = aiPageJsonLd('dataScience');
 
 export default function DataScienceServicesPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       {/* The spec's four blocks are this page's entire structured data:
           Organization (verbatim — no Facebook profile, unlike the site-wide
           node) + Service, WebPage, FAQPage. The layout adds nothing here, not

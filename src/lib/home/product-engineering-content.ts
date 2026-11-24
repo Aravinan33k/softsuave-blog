@@ -57,6 +57,7 @@ export const prodHero: HeroContent = {
   ctas: [{ label: "Our Case Studies", href: "/case-studies" }],
   badges: sharedHeroBadges,
   form: {
+    submitHover: "black",
     // The live form's own heading pair.
     eyebrow: "Let's Discuss Your Project",
     title: "Get free rough quote in 24 hrs",

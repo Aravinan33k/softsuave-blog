@@ -317,7 +317,7 @@ export const ngStories: StoryCardsContent = {
         fit: "contain",
         background: "#010101",
       },
-      href: "/case-study-ecommerce-platform",
+      href: "/case-study-personalized-ecommerce-platform",
     },
     {
       industry: "Business- Consulting",

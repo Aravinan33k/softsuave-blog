@@ -11,6 +11,8 @@ import { partnerTable } from "../hire-comparison";
 import { HOURLY_RATE } from "../../company-figures";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: "38ch",
   slug: "hire-kotlin-developer",
   key: "kotlin",
   name: "Kotlin",
@@ -50,6 +52,7 @@ export const skill: HireSkill = {
     ],
     form: {
       title: "Get Skilled Remote Developers",
+      submitHover: 'black',
       submit: "Start My FREE Trial",
       sending: "Sending...",
       requirementLabel: "Requirement",
@@ -250,12 +253,15 @@ export const skill: HireSkill = {
     ],
   },
 
-  comparison: partnerTable(
-    "Choosing the Right Kotlin Partner for Your Specific Needs",
-    "Use our simple guide to compare freelancers, in-house teams, and Soft Suave’s experts to find the best fit for your business.",
-  ),
+  comparison: {
+    ...partnerTable(
+      "Choosing the Right Kotlin Partner for Your Specific Needs",
+      "Use our simple guide to compare freelancers, in-house teams, and Soft Suave’s experts to find the best fit for your business.",
+    ),
+    wideHead: true,
+  },
 
-  exploreMore: mobileExplore,
+  exploreMore: { ...mobileExplore, wideHead: true },
 
   faq: {
     eyebrow: "FAQs",

@@ -115,7 +115,8 @@ export default function Clients({
                     src={logo.src}
                     alt={logo.name}
                     fill
-                    sizes="170px"
+                    sizes="(max-width: 900px) 120px, 170px"
+                    quality={60}
                     className="object-contain"
                   />
                 </span>

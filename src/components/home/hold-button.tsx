@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import styles from "./home.module.css";
 
 /**
@@ -21,7 +21,11 @@ import styles from "./home.module.css";
  * and a done-state at once — the done-state is meaningless once the page has
  * navigated away.
  */
-type HoldButtonProps = { label: string } & (
+type HoldButtonProps = {
+  label: string;
+  /** An icon drawn before the label (the closing band's calendar on "Schedule a Call"). */
+  icon?: ReactNode;
+} & (
   | { href: string; onConfirm?: never; doneLabel?: never }
   | { href?: never; onConfirm: () => void; doneLabel?: string }
 );
@@ -38,7 +42,8 @@ export default function HoldButton(props: HoldButtonProps) {
   const inner = (
     <>
       <span className={styles.holdFill} aria-hidden />
-      <span className={styles.holdText}>
+      <span className={props.icon ? `${styles.holdText} ${styles.holdTextIcon}` : styles.holdText}>
+        {props.icon}
         {props.href ? label : done ? props.doneLabel ?? "Confirmed" : label}
       </span>
     </>

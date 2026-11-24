@@ -24,7 +24,20 @@ export type ForwardedLead = {
   description: string;
   /** Root-relative path of the page the lead came from. */
   sourcePath?: string | null;
+  /**
+   * The live endpoint this form's counterpart submitted to (`lib/forms/lead-routing.ts`): `developer`
+   * (`LEAD_FORWARD_URL`, the default), `contactUs` or `freeQuote`, both beside it under /forms/enquires/.
+   */
+  type?: 'developer' | 'contactUs' | 'freeQuote';
+  /** Free-quote only: the company box (the live payload's `company`). */
+  company?: string | null;
 };
+
+/** The endpoint for a lead type: `developer` is `LEAD_FORWARD_URL`; the others are its siblings. */
+export function leadEndpoint(type: ForwardedLead['type'] = 'developer'): string {
+  if (type === 'developer') return env.LEAD_FORWARD_URL;
+  return new URL(type, env.LEAD_FORWARD_URL).toString();
+}
 
 /**
  * The absolute URL of the page a lead was sent from: the request's own origin
@@ -53,20 +66,32 @@ export async function forwardLead(req: Request, lead: ForwardedLead): Promise<bo
   // The live page sends the city with accents stripped.
   const ascii = (v: string) => v.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
-  const payload = {
-    name: lead.name,
-    phone: lead.phone ?? '',
-    email: lead.email,
-    description: lead.description,
+  const geo = {
     ipAddress: where.ipAddress ?? ip ?? '',
     url,
     city: ascii(where.city),
     region: where.region,
     country: where.country,
   };
+  // developer and contactUs take the same body (processDeveloperEmailForm / processContactEmailForm); the footer's
+  // free-quote form names the message `projectDescription` and adds its company, service and designation boxes
+  // (processFreeQuotefooterEmailForm), which these forms do not have beyond the company.
+  const payload =
+    lead.type === 'freeQuote'
+      ? {
+          name: lead.name,
+          phone: lead.phone ?? '',
+          email: lead.email,
+          projectDescription: lead.description,
+          typeOfService: '',
+          designation: '',
+          company: lead.company ?? '',
+          ...geo,
+        }
+      : { name: lead.name, phone: lead.phone ?? '', email: lead.email, description: lead.description, ...geo };
 
   try {
-    const res = await fetch(env.LEAD_FORWARD_URL, {
+    const res = await fetch(leadEndpoint(lead.type), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; charset=utf-8', Accept: 'application/json' },
       body: JSON.stringify(payload),

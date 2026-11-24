@@ -460,6 +460,14 @@
   box-shadow: 0 6px 14px -8px color-mix(in srgb, var(--accent-border, #fb3b5c) 75%, transparent);
 }
 
+.blackSubmitHover .submit:hover:not(:disabled),
+.blackSubmitHover .submit:focus-visible:not(:disabled) {
+  background: #000;
+  border-color: #000;
+  color: #fff;
+  box-shadow: none;
+}
+
 .submit:focus-visible {
   outline: 2px solid var(--accent, #ff5436);
   outline-offset: 3px;

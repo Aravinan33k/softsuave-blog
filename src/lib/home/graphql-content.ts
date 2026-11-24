@@ -132,6 +132,7 @@ export const gqOverview: OverviewContent = {
  */
 export const gqServices: ServicesCarouselContent = {
   eyebrow: "Services",
+  wideHead: true,
   title: "GraphQL Development Services for Complex Data Environments",
   body: "Our GraphQL development services help businesses create flexible, maintainable API foundations that support connected applications and changing data requirements.",
   items: [
@@ -251,6 +252,7 @@ export const gqTech: TechStackContent = {
 
 export const gqFaqs: FaqContent = {
   eyebrow: "Ask Us",
+  wideHead: true,
   title: "Frequently Asked Questions About GraphQL Development",
   body: "Find answers about GraphQL APIs, schema design, integrations, REST migration, project costs, delivery timelines, and more.",
   items: [

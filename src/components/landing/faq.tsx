@@ -40,6 +40,8 @@ export interface FaqContent {
   eyebrow: string;
   title: string;
   body: string;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wideHead?: boolean;
   /**
    * Internal links to weave into the answers, matched on their own words —
    * see `components/common/linkify`. `FaqItem.link` appends a link after the
@@ -82,7 +84,7 @@ export default function Faq({
 
   return (
     <section className={styles.sectionShell} id="faq">
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <FadeUp>
         <div className={styles.faqList}>
