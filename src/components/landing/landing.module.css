@@ -9398,3 +9398,48 @@
 .exploreTabActive,
 .exploreTabActive:hover { background: var(--accent); color: var(--on-accent, #fff); }
 .exploreTab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* `pointsInline`: the supporting points in one row, a hairline rule between
+   each (/ad/remote-developers). The rule is each point's left border, dropped
+   on the first; centred under a centred hero. On a phone the row wraps and the
+   rules give way to the stacked list's spacing. */
+.heroPointsInline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 8px;
+}
+
+.heroPointsInline .heroPoint {
+  padding: 4px clamp(16px, 2vw, 28px);
+  border-left: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.heroPointsInline .heroPoint:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.heroPointsInline .heroPoint:last-child {
+  padding-right: 0;
+}
+
+.heroCentered .heroPointsInline {
+  justify-content: center;
+}
+
+@media (max-width: 599px) {
+  .heroPointsInline {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .heroCentered .heroPointsInline {
+    align-items: center;
+  }
+
+  .heroPointsInline .heroPoint {
+    padding: 6px 0;
+    border-left: 0;
+  }
+}

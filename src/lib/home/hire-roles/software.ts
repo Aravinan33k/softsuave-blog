@@ -319,6 +319,8 @@ export const software: HireRolePageContent = {
   // design for tech stack section in hire software developers").
   techStackStyle: 'tabs',
   submitBlack: true,
+  // Every split section head set like /ad/remote-developers' "Our Clients".
+  halfHeads: true,
   techStack: {
     wideHead: true,
     eyebrow: 'Tech Stack',

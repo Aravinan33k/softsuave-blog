@@ -420,6 +420,8 @@ export const webApp: HireRolePageContent = {
   // hire software developers page tech stack section").
   techStackStyle: 'tabs',
   submitBlack: true,
+  // Every split section head set like /ad/remote-developers' "Our Clients".
+  halfHeads: true,
   techStack: {
     wideHead: true,
     eyebrow: 'Technologies',

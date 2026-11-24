@@ -105,8 +105,9 @@ export default function AdRemoteDevelopersPage() {
           <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={rsClients.title} body={rsClients.body} wideTitle />
         </div>
 
-        {/* Top Talent on the dark ground, by request; Why and Our Services stay on the light band after it. */}
-        <TopTalent content={rsTalent} whiteHover />
+        {/* Top Talent on the dark ground, by request; Why and Our Services stay on the light band after it.
+            `primary`: its button matches the Our Services one (by request). */}
+        <TopTalent content={rsTalent} primary />
 
         <div className={home.light}>
           {/* `ctaRoomy`: a full section's room under the closing line, so Services

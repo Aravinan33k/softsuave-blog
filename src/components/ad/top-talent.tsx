@@ -1,5 +1,6 @@
 import SectionHead from "@/components/landing/section-head";
 import FadeUp from "@/components/home/fade-up";
+import landing from "@/components/landing/landing.module.css";
 import styles from "./ad.module.css";
 
 export interface TopTalentContent {
@@ -26,11 +27,18 @@ export default function TopTalent({
   content,
   id = "overview",
   whiteHover = false,
+  primary = false,
 }: {
   content: TopTalentContent;
   id?: string;
   /** The white left-to-right hover fill on the button, for a Top Talent band on the dark ground (see `.btnWhite`). */
   whiteHover?: boolean;
+  /**
+   * The landing pages' large primary button (`landing.btn` + `btnPrimary` +
+   * `btnLg`), as `CtaRow`'s `primary` sets under Our Services, so the two trial
+   * buttons on /ad/remote-developers match (by request).
+   */
+  primary?: boolean;
 }) {
   // Models that are a single line each (no points, no copy) are set as compact
   // ticked cards rather than the full-size headed ones.
@@ -74,7 +82,16 @@ export default function TopTalent({
       </div>
 
       <div className={styles.cta}>
-        <a className={whiteHover ? `${styles.btn} ${styles.btnWhite}` : styles.btn} href={content.cta.href}>
+        <a
+          className={
+            primary
+              ? `${landing.btn} ${landing.btnPrimary} ${landing.btnLg}`
+              : whiteHover
+                ? `${styles.btn} ${styles.btnWhite}`
+                : styles.btn
+          }
+          href={content.cta.href}
+        >
           {content.cta.label}
         </a>
       </div>

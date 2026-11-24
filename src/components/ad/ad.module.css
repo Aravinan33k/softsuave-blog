@@ -1094,10 +1094,12 @@
        landing and generative-ai `SectionHead`, the clients head)
      - eyebrow, heading and subtext as siblings (the testimonials head)
    The class is tripled to outrank the shared split-head rules (0,3,0).
+   A head with no subtext beside it (the image-led overview bands: eyebrow and
+   heading only, the prose in a sibling) is left alone — `:has(> :nth-child(2))`.
    Stacked below 900px, as before. */
 @media (min-width: 900px) {
   .halfHeads.halfHeads.halfHeads
-    :is(div:has(> div:first-child > span + h2:last-child), div:has(> span:first-child + h2 + p:last-child)) {
+    :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)), div:has(> span:first-child + h2 + p:last-child)) {
     --half-gap: clamp(28px, 2.4vw, 40px);
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -1111,18 +1113,18 @@
   }
 
   /* The eyebrow-and-heading wrapper steps aside so both land on the grid. */
-  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child)) > div:first-child {
+  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2))) > div:first-child {
     display: contents;
   }
 
-  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child)) > div:first-child > span,
+  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2))) > div:first-child > span,
   .halfHeads.halfHeads.halfHeads :is(div:has(> span:first-child + h2 + p:last-child)) > span:first-child {
     grid-area: eyebrow;
     margin: 0;
   }
 
   .halfHeads.halfHeads.halfHeads
-    :is(div:has(> div:first-child > span + h2:last-child), div:has(> span:first-child + h2 + p:last-child))
+    :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)), div:has(> span:first-child + h2 + p:last-child))
     h2 {
     grid-area: title;
     margin: 0;
@@ -1131,7 +1133,7 @@
   }
 
   .halfHeads.halfHeads.halfHeads
-    :is(div:has(> div:first-child > span + h2:last-child), div:has(> span:first-child + h2 + p:last-child))
+    :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)), div:has(> span:first-child + h2 + p:last-child))
     > :is(p, div):last-child {
     grid-area: intro;
     display: block;
@@ -1145,9 +1147,9 @@
 
   /* The subtext itself (the clients head wraps it in a fade-up <div>). */
   .halfHeads.halfHeads.halfHeads
-    :is(div:has(> div:first-child > span + h2:last-child), div:has(> span:first-child + h2 + p:last-child))
+    :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)), div:has(> span:first-child + h2 + p:last-child))
     > p:last-child,
-  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child)) > div:last-child > p {
+  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2))) > div:last-child > p {
     max-width: none;
     margin: 0;
     line-height: 1.65;
