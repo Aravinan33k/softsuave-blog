@@ -8024,3 +8024,60 @@ h1.h2 {
   min-height: 0;
 }
 .clientsHeadless .clientsRow { margin-top: 0; }
+
+/* Opt-in on a page wrapper (`heroPadBottom80`, Hire AI Developers): the hero's
+   bottom padding at 80px, as the ad pages run it; 56px on a phone. The
+   element and attribute outrank the hero's own single-class padding. */
+.heroPadBottom80 main section[id="top"] {
+  padding-bottom: 80px;
+}
+
+@media (max-width: 599px) {
+  .heroPadBottom80 main section[id="top"] {
+    padding-bottom: 56px;
+  }
+}
+
+/* Opt-in on a page wrapper (`clientsTwoLineTitle`, Hire AI Developers): the
+   clients H2 eases down from 40px below ~1430px (32px floor) so its longer
+   title holds two lines in the half-width column, as the ad pages' does
+   (review: "update the clients h2 alignment like this"). */
+@media (min-width: 900px) {
+  .clientsTwoLineTitle main [id="clients"] h2[class] {
+    font-size: clamp(32px, 2.8vw, 40px);
+  }
+}
+
+/* Opt-in on a page wrapper (`sectionGapsFull`, Hire AI Developers): a band
+   that follows another on the same ground keeps its own top padding, so the
+   "Why Us" → "Hiring Process" and "Services" → "Vetting & Onboarding" joins
+   open the same gap as the page's other section breaks (the shared
+   `.sectionShell + .sectionShell` rule drops it to zero). */
+.sectionGapsFull main section:is([id="journey"], [id="fit"]) {
+  padding-top: var(--section-y);
+}
+
+/* Opt-in on a page wrapper (`storyQuoteLarge`, Hire AI Developers): the
+   client-story quote at 14px on phones and tablets, easing up to 16px on a
+   wide screen (the shared size is 13–15px). */
+.storyQuoteLarge main [id="testimonials"] blockquote p {
+  font-size: clamp(0.875rem, 0.6rem + 0.35vw, 1rem);
+}
+
+/* Opt-in on a page wrapper (`servicesHeadWrap`, Hire AI Developers): the
+   services H2 wraps normally, filling its first line, rather than balancing
+   into two short lines (review: "fix the h2 heading" — "like a wrap"). */
+.servicesHeadWrap main [id="services"] h2[class] {
+  text-wrap: wrap;
+}
+
+/* Opt-in on a page wrapper (`techNameLarge`, Hire AI Developers): the tech
+   stack's tool names 1px up from the shared label size (12px → 13px). The
+   attribute and element outrank the single-class `.stackItemName`. A long
+   name wraps to a second line rather than ending in an ellipsis in a phone's
+   narrow cell ("Amazon Bedrock", "Google Vertex AI", "Semantic Kernel"). */
+.techNameLarge main [id="tech"] li span[class] {
+  font-size: calc(var(--fs-label) + 1px);
+  white-space: normal;
+  text-overflow: clip;
+}
