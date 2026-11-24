@@ -135,7 +135,7 @@ export const software: HireRolePageContent = {
     eyebrow: 'Start With a Trial',
     title: 'Hire the Right Software Developer with a 40-Hour Trial',
     body: 'Evaluate your developer through real project work and assess technical execution, communication, responsiveness, and team compatibility before extending the engagement.',
-    cta: { label: 'Start Your 40-Hour Trial', href: '/contact' },
+    cta: { label: 'Start Your 40-Hour Trial', href: '/free-7-days-trial' },
   },
 
   globalDelivery: {
@@ -189,7 +189,6 @@ export const software: HireRolePageContent = {
   },
 
   specialisations: {
-    wideHead: true,
     eyebrow: 'Developer Expertise',
     title: 'Hire Remote Software Developers for Your Technology Needs',
     // Wider, balanced title column on every split head of this page, so the

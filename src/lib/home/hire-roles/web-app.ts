@@ -167,7 +167,7 @@ export const webApp: HireRolePageContent = {
     eyebrow: 'Start With a Trial',
     title: 'Find the Right Developer Before You Commit',
     body: 'Select the engagement model that fits your project, then use the 40-hour risk-free trial to assess developer performance before making a longer-term commitment with confidence.',
-    cta: { label: 'Start Your 40-Hour Trial', href: '/contact' },
+    cta: { label: 'Start Your 40-Hour Trial', href: '/free-7-days-trial' },
   },
 
   engagement: {
