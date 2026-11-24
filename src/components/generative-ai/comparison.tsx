@@ -11,6 +11,8 @@ export interface ComparisonContent {
   columns: readonly string[];
   /** One row per decision criterion; `values` aligns with `columns` minus its first entry. */
   rows: readonly { readonly criterion: string; readonly values: readonly string[] }[];
+  /** Give a long title the section head's wider column (see `SectionHead`'s `wide`). */
+  wideHead?: boolean;
 }
 
 /**

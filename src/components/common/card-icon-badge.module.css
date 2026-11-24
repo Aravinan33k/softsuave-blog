@@ -31,6 +31,13 @@
   height: 55%;
 }
 
+/* A Material Symbol (`symbol` prop) carries more inner padding than a lucide
+   glyph, so it is drawn larger to read at the same weight beside them. */
+.symbol {
+  width: 70%;
+  height: 70%;
+}
+
 /* Stacked above a title (rather than inline beside it), with room below. */
 .stack {
   margin-bottom: 2px;

@@ -10,6 +10,7 @@ import FadeUp from "@/components/home/fade-up";
 import CardIconBadge from "@/components/common/card-icon-badge";
 import { useServiceHref } from "@/components/common/service-link";
 import { linkify, type InlineLink } from "@/components/common/linkify";
+import type { MaterialSymbolName } from "@/lib/home/material-symbols";
 import badgeStyles from "@/components/common/card-icon-badge.module.css";
 import { gridSpansFor } from "./card-spans";
 import SectionHead from "./section-head";
@@ -313,6 +314,11 @@ export interface CardGridContent {
     readonly tag?: string;
     /** Badge glyph, `feature` variant only. Falls back to the ordinal alone. */
     readonly icon?: CardIcon;
+    /**
+     * `landing/why-us` only: a Material Symbols Rounded glyph for the card's
+     * badge in place of the one picked from its words, where a page names one.
+     */
+    readonly symbol?: MaterialSymbolName;
     /**
      * Destination for the card's "Learn more" link, `feature` variant only.
      * Omitted renders no link at all rather than a dead one — most cards are

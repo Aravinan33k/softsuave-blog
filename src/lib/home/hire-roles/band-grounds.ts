@@ -30,8 +30,14 @@ const ANCHORED: Readonly<Record<string, Ground>> = {
   techStack: 'dark',
 };
 
-/** A `list:` band is the technology treatment, so it takes its ground too. */
-function anchorOf(band: HireBand, overrides?: Partial<Record<HireBand, Ground>>): Ground | undefined {
+/**
+ * A `list:` band is the technology treatment, so it takes its ground too.
+ * A page's own `overrides` win over both (see `HireRolePageContent.groundOverrides`).
+ */
+function anchorOf(
+  band: HireBand,
+  overrides?: Readonly<Partial<Record<HireBand, Ground>>>,
+): Ground | undefined {
   return overrides?.[band] ?? (band.startsWith('list:') ? 'dark' : ANCHORED[band]);
 }
 
@@ -64,7 +70,7 @@ const BOOKEND_COST = 50;
 export function assignGrounds(
   bands: readonly HireBand[],
   /** A page's own ground for a band, taking precedence over the default anchors. */
-  overrides?: Partial<Record<HireBand, Ground>>,
+  overrides?: Readonly<Partial<Record<HireBand, Ground>>>,
 ): Ground[] {
   if (bands.length === 0) return [];
   const GROUNDS: readonly Ground[] = ['light', 'dark'];

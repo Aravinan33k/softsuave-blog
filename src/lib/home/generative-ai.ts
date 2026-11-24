@@ -90,6 +90,8 @@ export const overview = {
     width: 1120,
     height: 840,
     alt: "A central generative AI engine drawing on documents, databases, and media, and producing images, written content, 3D designs, and shareable outputs",
+    // The picture is taller than the copy: centre the copy against it (review).
+    align: "middle",
     blurDataURL:
       "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAABwAgCdASoQAAwAA4BaJYgCdAYuR2vzH47c0HwAAP72sCMEuM8HtTaeOBb93HyLPMNDpZqaTFAEPrDpvaOQDKn1u5MDbb04pLdvMUNs8OSQ72y4P50AAA==",
   },
@@ -109,6 +111,8 @@ export const problems = {
   rows: [
     {
       problem: "Knowledge locked in documents",
+      // Brain icon, Material Symbols Rounded (review).
+      symbol: "neurology",
       image: "/images/landing/problems/generative-ai-knowledge-locked-documents.webp",
       solution:
         "Employees spend hours searching contracts, policies, and support tickets. AI-powered search provides direct answers from these documents, with citations linking back to the original sources.",
@@ -121,18 +125,24 @@ export const problems = {
     },
     {
       problem: "Support demand exceeding team capacity",
+      // Team icon, Material Symbols Rounded (review).
+      symbol: "groups",
       image: "/images/landing/problems/support-capacity.webp",
       solution:
         "Repetitive Tier-1 queries take up valuable support time. An AI assistant answers common questions using your help centre and directs complex issues to the appropriate team.",
     },
     {
       problem: "Content production bottlenecks",
+      // Notes icon, Material Symbols Rounded (review).
+      symbol: "sticky_note_2",
       image: "/images/landing/problems/content-production.webp",
       solution:
         "Product, marketing, and localisation work slows when writing resources are limited. Generative AI creates initial drafts using your templates, ready for human review and approval.",
     },
     {
       problem: "Analysts spending time on routine research",
+      // Clock icon, Material Symbols Rounded (review).
+      symbol: "schedule",
       image: "/images/landing/problems/analyst-research.webp",
       solution:
         "Research, data summaries, and recurring reports consume valuable specialist time. AI agents prepare initial drafts using your data, allowing experts to review and refine the findings.",

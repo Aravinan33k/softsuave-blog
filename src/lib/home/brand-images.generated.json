@@ -1391,5 +1391,75 @@
     "height": 860,
     "alt": "Engineers at their screens inside a client operations room",
     "blurDataURL": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAACQAQCdASoEAAIAAsBMJZwAAudGFIAA/s0KkknatrxcAA=="
+  },
+  "svc-custom-ai-v3": {
+    "src": "/images/four/svc-custom-ai-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "Two professionals at work beside a glowing holographic AI cube linked to data, cloud and analytics icons",
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADQAQCdASoEAAIAAsBMJYgCdAEUowugAAD+6Z0nyQcfd390n6n+i8O3NkWkAAAA"
+  },
+  "svc-generative-ai-v3": {
+    "src": "/images/four/svc-generative-ai-v3.webp",
+    "width": 1200,
+    "height": 600,
+    "alt": "A glowing digital head with an AI chip, linked to code, chat, image, audio, video and data icons",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAABQAQCdASoEAAIAAsBMJagABAAAAP70yasWbYhCpD/+SXyd9j1OAAAA"
+  },
+  "svc-mlops-v3": {
+    "src": "/images/four/svc-mlops-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "An MLOps infinity loop linking data ingestion, feature engineering, model development, training, deployment and monitoring",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAIAAsBMJagCdAEO92RQAP73hGN2jftT8rPd99tbM0AA"
+  },
+  "svc-rag-v3": {
+    "src": "/images/four/svc-rag-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "Glowing document stacks feeding a central retrieval hub that returns a single answer document",
+    "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACwAQCdASoEAAIAAsBMJaQAAudnxgLAAP70WnFRG0LuAAAA"
+  },
+  "svc-predictive-v3": {
+    "src": "/images/four/svc-predictive-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "A hand reaching toward a laptop showing glowing analytics charts and forecasts beside an AI badge",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAIAAsBMJQBOgCHfwF2AAP7xgE5TybbzAdyfeIIJAAAA"
+  },
+  "svc-fde-v3": {
+    "src": "/images/four/svc-fde-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "Two engineers reviewing a holographic cloud and Kubernetes deployment diagram above laptops with code and dashboards",
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoEAAIAAsBMJQBOgCPtvqDAAP71s0NKDAkrVhe4NAsfZAAA"
+  },
+  "svc-computer-vision-v3": {
+    "src": "/images/four/svc-computer-vision-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "A camera lens casting light on a machined metal part beside its glowing 3D wireframe scan",
+    "blurDataURL": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAACQAQCdASoEAAIAAsBMJaQAAudFrAAA/veETmgAAAA="
+  },
+  "svc-data-science-v5": {
+    "src": "/images/four/svc-data-science-v5.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "Hands typing on a laptop as streams of data fan out into glowing blue, pink and gold lines of binary",
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADQAQCdASoEAAIAAsBMJYgCdAEO/gOOAAD+9JJi4FJgTP2Hk8rwAA=="
+  },
+  "svc-data-engineering-v3": {
+    "src": "/images/four/svc-data-engineering-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "An engineer in a lab coat working at a wall of monitors showing code, data pipelines and world maps",
+    "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoEAAIAAsBMJZACdAEO9qbgAP7s5jc3zXUBkFjyOd7PqO9Nl+YfKkUoAAA="
+  },
+  "svc-agentic-ai-v3": {
+    "src": "/images/four/svc-agentic-ai-v3.webp",
+    "width": 970,
+    "height": 490,
+    "alt": "A hand with a stylus working with holographic AI agent panels above a laptop",
+    "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoEAAIAAsBMJQBOgCHfGb94AP7yuKqasJcinVlqIcj4wmkjsAA="
   }
 }
