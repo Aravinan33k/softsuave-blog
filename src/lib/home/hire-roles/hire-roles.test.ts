@@ -264,7 +264,9 @@ describe('hire-by-role pages', () => {
   it('says something concrete in every band', () => {
     for (const page of HIRE_ROLE_PAGES) {
       expect(page.hero.titleLines.length).toBeGreaterThanOrEqual(2);
-      expect(page.hero.points.length).toBeGreaterThanOrEqual(4);
+      // Three at least: the AI page runs three (review: remove "40-Hour
+      // Risk-Free Trial" and "Strong Delivery Governance from Day One").
+      expect(page.hero.points.length).toBeGreaterThanOrEqual(3);
       // `overview` is present only where the live page runs a prose block —
       // the Salesforce and Blockchain pages go straight from the hero to their
       // "why hire" cards. Where there is one, it has to be more than a line.
