@@ -145,6 +145,7 @@ export default function HireRolePage({
         content.submitBlack && location.submitBlack,
         content.heroPadBottom80 && styles.heroPadBottom80,
         content.halfHeads && ad.halfHeads,
+        content.wideHeadGap && ad.wideHeadGap,
         content.clientsTwoLineTitle && styles.clientsTwoLineTitle,
         content.sectionGapsFull && styles.sectionGapsFull,
         content.storyQuoteLarge && styles.storyQuoteLarge,

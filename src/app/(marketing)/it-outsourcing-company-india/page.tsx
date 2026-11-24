@@ -17,6 +17,8 @@ import TechStack from '@/components/landing/tech-stack';
 
 import home from '@/components/home/home.module.css';
 import location from '@/components/landing/location-app-page.module.css';
+// Section heads set like /ad/remote-developers' "Our Clients" (`halfHeads`).
+import ad from '@/components/ad/ad.module.css';
 import landing from '@/components/landing/landing.module.css';
 import Sections from './sections';
 
@@ -117,7 +119,7 @@ function DestinationsNotes() {
 
 export default function ItOutsourcingCompanyIndiaPage() {
   return (
-    <div className={`${home.page} ${location.submitBlack}`}>
+    <div className={`${home.page} ${location.submitBlack} ${ad.halfHeads}`}>
       {/* softsuave.com's own schema for this page, verbatim, one <script> per
           block — see `lib/seo/it-outsourcing-company-india.ts`. */}
       {ITO_LIVE_LD.map((block, i) => (
