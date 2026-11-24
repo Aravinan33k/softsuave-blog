@@ -274,6 +274,11 @@ export interface HireRolePageContent {
    * columns with no measure cap (`ad.module.css` `halfHeads`).
    */
   readonly halfHeads?: boolean;
+  /**
+   * The ad pages' wider gap between every section head and its content
+   * (`ad.module.css` `wideHeadGap`: 32px on a phone, ~55px at 1440, 64px wide).
+   */
+  readonly wideHeadGap?: boolean;
   /** The clients H2 eased down on mid-width screens so a long title holds two lines. */
   readonly clientsTwoLineTitle?: boolean;
   /** Bands following one on the same ground keep their own top padding. */
