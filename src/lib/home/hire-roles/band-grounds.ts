@@ -32,7 +32,7 @@ const ANCHORED: Readonly<Record<string, Ground>> = {
 
 /**
  * A `list:` band is the technology treatment, so it takes its ground too.
- * A page's own `overrides` win over both (see `HireRolePageContent.grounds`).
+ * A page's own `overrides` win over both (see `HireRolePageContent.groundOverrides`).
  */
 function anchorOf(
   band: HireBand,
@@ -69,6 +69,7 @@ const BOOKEND_COST = 50;
  */
 export function assignGrounds(
   bands: readonly HireBand[],
+  /** A page's own ground for a band, taking precedence over the default anchors. */
   overrides?: Readonly<Partial<Record<HireBand, Ground>>>,
 ): Ground[] {
   if (bands.length === 0) return [];

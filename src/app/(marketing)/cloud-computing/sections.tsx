@@ -53,7 +53,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
         {techStack}
       </div>
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

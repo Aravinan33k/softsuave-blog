@@ -30,6 +30,8 @@ import { heroForm } from './shared';
 import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const frontend: HireRolePageContent = {
+  clientsWideTitle: true,
+  closingCtaIcon: true,
   key: 'hire-frontend',
   slug: '/hire-frontend-application-developer',
   submitBlack: true,
@@ -81,6 +83,7 @@ export const frontend: HireRolePageContent = {
       `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
@@ -90,6 +93,7 @@ export const frontend: HireRolePageContent = {
   },
 
   overview: {
+    wideHead: true,
     // A 4:3 frame centred against the copy, sized like the software page's
     // overview image.
     image: {
@@ -112,6 +116,7 @@ export const frontend: HireRolePageContent = {
   },
 
   capabilities: {
+    wideHead: true,
     eyebrow: 'Capabilities',
     title: 'How Our Frontend Developers Support Your Product',
     body: 'Hire frontend developers from Soft Suave to work across the frontend layer, from building new interfaces and modernizing existing applications to integrating APIs, improving performance, and maintaining test coverage.',
@@ -152,6 +157,7 @@ export const frontend: HireRolePageContent = {
   // The live page's three-column table, as a table (review: "Skill Matching
   // ... it is a table with 3 columns"), with the paragraph it closes on.
   fitTable: {
+    wideHead: true,
     eyebrow: 'Skill Matching',
     title: 'Find the Frontend Skills Your Product Requires',
     body: 'The right framework is only one part of the decision. Product type, existing architecture, user workflows, testing expectations, performance requirements, and team structure should also guide developer matching.',
@@ -213,6 +219,7 @@ export const frontend: HireRolePageContent = {
   },
 
   engagement: {
+    wideHead: true,
     eyebrow: 'Engagement Options',
     title: 'Choose an Engagement Model That Fits the Work',
     body: 'Select an engagement structure based on how clearly the work is defined, how often requirements change, and whether you need one specialist or broader team support.',
@@ -233,6 +240,7 @@ export const frontend: HireRolePageContent = {
   },
 
   globalDelivery: {
+    wideHead: true,
     // Replaces the pipeline's `landing/dl-<slug>` photo; framed and centred
     // like the software page's delivery image.
     image: {
@@ -254,6 +262,7 @@ export const frontend: HireRolePageContent = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: 'Our Process',
     title: 'Hire a Frontend Developer in Four Steps',
     body: 'Get a frontend developer matched to your technical requirements, product needs, and existing team structure in just 4 simple steps.',
@@ -282,6 +291,7 @@ export const frontend: HireRolePageContent = {
   },
 
   specialisations: {
+    wideHead: true,
     eyebrow: 'Technology Expertise',
     title: 'Choose Developers for Your Frontend Stack',
     body: "Choose frontend developers with experience in your product's technology stack, so they can contribute to your codebase without an extended ramp-up period.",
@@ -322,6 +332,7 @@ export const frontend: HireRolePageContent = {
   },
 
   whyRole: {
+    wideHead: true,
     eyebrow: 'Why Choose Us',
     title: 'Why Hire Frontend Developers From Soft Suave?',
     body: 'Your developer should bring the required technical skills while working effectively with your product, design, backend, and QA teams. Soft Suave supports that fit through practical evaluation and flexible engagement.',
@@ -360,6 +371,7 @@ export const frontend: HireRolePageContent = {
   },
 
   techStack: {
+    wideHead: true,
     eyebrow: 'Technologies',
     title: 'Technologies Our Frontend Developers Work With',
     body: 'Our frontend developers work across languages, frameworks, APIs, testing platforms, and build tools. Add frontend expertise aligned with your current technology stack, helping your team maintain development continuity from the first working day.',
@@ -411,6 +423,7 @@ export const frontend: HireRolePageContent = {
   },
 
   faq: {
+    wideHead: true,
     eyebrow: 'Ask Us',
     title: 'Questions About Hiring Frontend Developers',
     body: 'Find clear answers to common questions about hiring frontend developers from Soft Suave.',

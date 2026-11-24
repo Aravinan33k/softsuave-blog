@@ -47,7 +47,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
       <Hero content={ragHero} idPrefix="rag" variant="compact" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       {/* All four paragraphs shown in full: the "View more / View less"

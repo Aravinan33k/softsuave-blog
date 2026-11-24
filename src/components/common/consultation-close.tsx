@@ -126,7 +126,8 @@ export default function ConsultationClose({
         </div>
 
         <div className={styles.formCol}>
-          <EnquiryForm content={content.form} idPrefix={idPrefix} cardId={`${id}-enquiry`} />
+          {/* The live footer form: its leads go to the free-quote endpoints (lib/forms/lead-routing.ts). */}
+          <EnquiryForm content={content.form} idPrefix={idPrefix} cardId={`${id}-enquiry`} slot="close" />
         </div>
       </div>
     </section>

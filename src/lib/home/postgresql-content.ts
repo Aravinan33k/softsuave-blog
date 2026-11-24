@@ -197,6 +197,7 @@ export const pgTech: TechStackContent = {
 export const pgFaqs: FaqContent = {
   eyebrow: "Ask Us",
   title: "Frequently Asked Questions About PostgreSQL Development",
+  wideHead: true,
   body: "Review questions about PostgreSQL development, migrations, integrations, performance, project costs, delivery timelines, security, and ongoing support.",
   items: [
     {

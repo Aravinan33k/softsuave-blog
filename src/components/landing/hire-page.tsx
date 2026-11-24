@@ -136,6 +136,7 @@ export default function HirePage({
             eyebrow: skill.services.eyebrow,
             title: skill.services.title,
             body: skill.services.body,
+            wideHead: skill.services.wideHead,
             cta: skill.services.cta,
             items: skill.services.items.map((item) => ({
               name: item.name,

@@ -159,6 +159,10 @@
 
 /* `wide` on the section head: a long title gets a wider column beside the divider. */
 @media (min-width: 900px) {
+  .headWide:not(:has(> .intro)):not(.headSub):not(.headPage) .title {
+    max-width: 34ch;
+    text-wrap: balance;
+  }
   .headWide:has(> .intro):not(.headSub):not(.headPage) .title {
     /* Not clamped to `--fit-width`: the column already hugs the text (`fit-content`), and a width measured
        before this rule applied would pin the title back to the narrow column. */
@@ -1727,6 +1731,34 @@
   border-radius: 12px;
   background: var(--surface);
   padding: clamp(20px, 2.4vw, 32px);
+}
+
+/* `hoverBorder`: the same hover as the Why Choose Us cards (`.proofItem`) —
+   accent border, a 3px lift, and a top rule that grows from 34px to full width. */
+.integrationCardHover {
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s ease, transform 0.35s ease;
+}
+
+.integrationCardHover:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.integrationCardHover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.integrationCardHover:hover::before {
+  width: 100%;
 }
 
 /* The card's own <h3>. It was set as an eyebrow — 10px uppercase mono in the
@@ -7524,6 +7556,30 @@
   box-shadow: var(--card-lift);
 }
 
+/* `hoverBorder`: the plain card grid's hover (.card) on a feature card. */
+.featCardHover {
+  overflow: hidden;
+}
+
+.featCardHover:hover {
+  border-color: var(--accent);
+}
+
+.featCardHover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.featCardHover:hover::before {
+  width: 100%;
+}
+
 .featGrid .featCard:nth-child(5n + 1) { --feat-accent: var(--card-accent-1); }
 .featGrid .featCard:nth-child(5n + 2) { --feat-accent: var(--card-accent-2); }
 .featGrid .featCard:nth-child(5n + 3) { --feat-accent: var(--card-accent-3); }
@@ -9045,14 +9101,14 @@
 
 .hero .heroTitleLine {
   --rise: 40%;
-  animation: heroRise 0.9s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
-  animation-delay: calc(0.15s + var(--i, 0) * 0.09s);
+  animation: heroRise var(--hero-title-dur, 0.9s) cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+  animation-delay: calc(var(--hero-title-delay, 0.15s) + var(--i, 0) * 0.09s);
 }
 
 .hero .heroBody {
   --rise: 20px;
-  animation: heroRise 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
-  animation-delay: calc(0.64s + var(--i, 0) * 0.08s);
+  animation: heroRise var(--hero-body-dur, 0.7s) cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: calc(var(--hero-body-delay, 0.64s) + var(--i, 0) * 0.08s);
 }
 
 .hero .heroPoint {
@@ -9076,8 +9132,8 @@
 /* The form card or the aside image: the grid's second column. */
 .hero .heroGrid > :nth-child(2) {
   --rise: 28px;
-  animation: heroRise 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
-  animation-delay: 0.4s;
+  animation: heroRise var(--hero-form-dur, 0.8s) cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: var(--hero-form-delay, 0.4s);
 }
 
 /* Fades in alongside the display hero's slow drift; the compact hero keeps no

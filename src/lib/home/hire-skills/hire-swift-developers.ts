@@ -11,6 +11,7 @@ import { techWhy } from "../hire-blocks";
 import { HOURLY_RATE } from "../../company-figures";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
   slug: "hire-swift-developers",
   key: "swift",
   name: "Swift",
@@ -48,6 +49,7 @@ export const skill: HireSkill = {
     ],
     form: {
       title: "Get Skilled Remote Developers",
+      submitHover: 'black',
       submit: "Start My FREE Trial",
       sending: "Sending...",
       requirementLabel: "Requirement",
@@ -89,6 +91,7 @@ export const skill: HireSkill = {
   },
 
   services: {
+    wideHead: true,
     eyebrow: "Services",
     title: "Outsource Swift App Developers for Exceptional Range of Service",
     body: "Hire Dedicated Swift App Developers from Soft Suave whose Expertise is unparalleled, with years of experience and exceptionality in the field.",
@@ -157,13 +160,14 @@ export const skill: HireSkill = {
   },
 
   whyUs: {
+    wideHead: true,
     eyebrow: "Why Soft Suave",
     title: "Why Hire Swift Developers from Soft Suave Most Reliable?",
     body: "Our Swift app developers are renowned for their technical expertise, attention to detail, and focus on quality.",
     items: techWhy("Swift", "Swift, Xcode, and API development"),
   },
 
-  exploreMore: mobileExplore,
+  exploreMore: { ...mobileExplore, wideHead: true },
 
   faq: {
     eyebrow: "FAQs",

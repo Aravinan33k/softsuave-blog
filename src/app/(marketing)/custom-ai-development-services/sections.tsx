@@ -48,7 +48,7 @@ export default function Sections({ comparison, techStack }: Readonly<{ compariso
       <Hero content={caHero} idPrefix="custom-ai" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       <Overview content={caOverview} />

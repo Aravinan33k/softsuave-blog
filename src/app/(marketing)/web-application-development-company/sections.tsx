@@ -50,7 +50,7 @@ export default function Sections() {
       <Hero content={webHero} idPrefix="web" variant="compact" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       <Overview content={webOverview} variant="compact" />
@@ -103,7 +103,7 @@ export default function Sections() {
         <Faq content={webFaqs} idPrefix="web-faq" />
       </div>
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

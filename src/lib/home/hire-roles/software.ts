@@ -26,6 +26,7 @@ import { heroForm, hiringComparison } from './shared';
 import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
 
 export const software: HireRolePageContent = {
+  closingCtaIcon: true,
   key: 'hire-software',
   slug: '/hire-software-developers',
   name: 'Hire Software Developers',
@@ -74,6 +75,7 @@ export const software: HireRolePageContent = {
       'Direct Developer Collaboration',
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Get Skilled Software Developers',
       requirementLabel: 'How can we help (your requirement)',
       requirementPlaceholder:
@@ -94,7 +96,7 @@ export const software: HireRolePageContent = {
   // section dark and light theme like this page", softsuave.com/hire-software-
   // developers, read 23 Nov) — pinned in full, so `assignGrounds` places
   // nothing here and the page matches the live sequence band for band.
-  grounds: {
+  groundOverrides: {
     clients: 'light',
     overview: 'light',
     specialisations: 'dark',
@@ -187,6 +189,7 @@ export const software: HireRolePageContent = {
   },
 
   specialisations: {
+    wideHead: true,
     eyebrow: 'Developer Expertise',
     title: 'Hire Remote Software Developers for Your Technology Needs',
     // Wider, balanced title column on every split head of this page, so the
@@ -271,6 +274,7 @@ export const software: HireRolePageContent = {
   },
 
   whyRole: {
+    wideHead: true,
     eyebrow: 'Why Choose Us',
     title: 'Why Hire Software Developers From Soft Suave?',
     wideHead: true,
@@ -318,6 +322,7 @@ export const software: HireRolePageContent = {
   techStackStyle: 'tabs',
   submitBlack: true,
   techStack: {
+    wideHead: true,
     eyebrow: 'Tech Stack',
     title: 'Technology Stack for Modern Software Engineering',
     wideHead: true,

@@ -49,7 +49,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
       <Hero content={cvHero} idPrefix="cv" variant="compact" />
 
       <div className={home.light}>
-        <Clients />
+        <Clients wideTitle="38ch" />
       </div>
 
       {/* The overview's H2 introduces both the prose and the five workflow

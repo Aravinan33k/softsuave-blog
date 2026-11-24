@@ -27,6 +27,10 @@ import { heroForm } from './shared';
 import { HOURLY_RATE, YEARS_PLUS } from '@/lib/company-figures';
 
 export const ios: HireRolePageContent = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
+  // The hiring process on the light ground.
+  groundOverrides: { process: 'light' },
   key: 'hire-ios',
   slug: '/hire-ios-developers',
   name: 'Hire iOS Developers',
@@ -70,6 +74,7 @@ export const ios: HireRolePageContent = {
       'Strong Delivery Governance from Day One',
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
@@ -172,6 +177,7 @@ export const ios: HireRolePageContent = {
   },
 
   whyRole: {
+    wideHead: true,
     eyebrow: 'Why Us',
     title: 'Why You Should Team Up with Our iPhone Developers?',
     body: 'We have a strong team of iOS App developers who can overcome any technical difficulty or unique challenges to help our clients get what exactly they want.',

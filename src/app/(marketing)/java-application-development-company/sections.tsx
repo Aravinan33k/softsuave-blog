@@ -103,7 +103,7 @@ export default function Sections() {
         <Faq content={javaFaqs} idPrefix="java-faq" />
       </div>
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

@@ -12,6 +12,8 @@ import { CURATED_STEPS } from "../hire-blocks";
 import { CLIENTS_PLUS, HOURLY_RATE, YEARS_PLUS } from "../../company-figures";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
   slug: "hire-nodejs-developers",
   key: "nodejs",
   name: "Node.js",
@@ -55,6 +57,7 @@ export const skill: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
+      submitHover: 'black',
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -76,6 +79,7 @@ export const skill: HireSkill = {
   },
 
   applications: {
+    wideHead: true,
     eyebrow: "What We Build",
     title: "Applications That Our Developers Build Using NodeJS",
     body: "Build and utilize various high-performance web applications with our developer's expertise",
@@ -124,6 +128,7 @@ export const skill: HireSkill = {
   },
 
   combinations: {
+    wideHead: true,
     eyebrow: "Tech Combinations",
     title: "Tech Combinations Our Developers Use",
     body: "Technology Combinations our developers use to develop high-performing and scalable NodeJS apps",
@@ -156,6 +161,7 @@ export const skill: HireSkill = {
   },
 
   services: {
+    wideHead: true,
     eyebrow: "Why NodeJS",
     title: "Why We Recommend NodeJS for Building Web Applications?",
     body: "With a diverse set of tools out there for building web applications, why should you choose NodeJS?",
@@ -194,6 +200,7 @@ export const skill: HireSkill = {
   },
 
   techStack: {
+    wideHead: true,
     eyebrow: "Technology",
     title: "Tech Stack - Our Developer's Skillset",
     body: "Discover our developers' proficiency across a wide range of frameworks, libraries, databases, and tools, ensuring top-notch solutions for your projects",
@@ -223,6 +230,7 @@ export const skill: HireSkill = {
   },
 
   whyUs: {
+    wideHead: true,
     eyebrow: "Why Soft Suave",
     title: "Why Hire NodeJS Developer From Soft Suave?",
     body: "Using the skills of dedicated NodeJS developers in India can be highly beneficial for your web application needs. Let us tell you why",
@@ -245,18 +253,26 @@ export const skill: HireSkill = {
     ],
   },
 
-  comparison: partnerTable("Choose the Right NodeJS Development Partner"),
+  comparison: {
+    ...partnerTable("Choose the Right NodeJS Development Partner"),
+    wideHead: true,
+  },
 
   process: {
+    wideHead: true,
     eyebrow: "Hiring Process",
     title: "The 4-step NodeJS Developer Hiring Process",
     body: "Onboarding developers has never been easier. With this simple 4-step process, find the resource who is the perfect fit for your team!",
     steps: CURATED_STEPS,
   },
 
-  exploreMore: webExplore,
+  exploreMore: {
+    ...webExplore,
+    wideHead: true,
+  },
 
   faq: {
+    wideHead: true,
     eyebrow: "FAQs",
     title: "Frequently Asked Questions",
     body: "Know more about our processes and how we work, with the help of the following FAQs.",

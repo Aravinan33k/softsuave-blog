@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { appPath } from "@/lib/media-url";
 import { THANK_YOU_PATH } from "@/lib/forms/thank-you";
+import { clearLeadDrafts, useLeadDraft } from "@/lib/forms/use-lead-draft";
 import FieldIcon, { RequiredMark } from "@/components/common/field-icon";
 import PhoneField from "@/components/common/phone-field";
 import fx from "@/components/common/enquiry-form.module.css";
@@ -138,6 +139,10 @@ export function ContactStep({ requirement, subject, sourceKey }: { requirement: 
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [errors, setErrors] = useState<{ name?: string; email?: string; phone?: string }>({});
   const [website, setWebsite] = useState("");
+  // The old estimation pages saved the visitor's details on blur to the developer incomplete-lead endpoint
+  // (handleFieldBlur), so this form does too (lib/forms/lead-routing.ts).
+  const saveDraft = useLeadDraft("developer", pathname);
+  const draft = () => saveDraft({ name: form.name, email: form.email, phone: form.phone }, website);
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [sendError, setSendError] = useState<string | null>(null);
 
@@ -172,6 +177,7 @@ export function ContactStep({ requirement, subject, sourceKey }: { requirement: 
             (res.status === 429 ? "Too many attempts. Please wait a minute and try again." : "Something went wrong. Please try again."),
         );
       }
+      clearLeadDrafts();
       router.push(THANK_YOU_PATH);
     } catch (err) {
       setStatus("error");
@@ -226,6 +232,7 @@ export function ContactStep({ requirement, subject, sourceKey }: { requirement: 
                 autoComplete="email"
                 value={form.email}
                 onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                onBlur={draft}
                 aria-invalid={errors.email ? true : undefined}
                 aria-describedby={errors.email ? "est-email-error" : undefined}
                 placeholder=" "
@@ -242,6 +249,7 @@ export function ContactStep({ requirement, subject, sourceKey }: { requirement: 
                 id="est-phone"
                 value={form.phone}
                 onChange={(phone) => setForm((f) => ({ ...f, phone }))}
+                onBlur={draft}
                 invalid={Boolean(errors.phone)}
                 describedBy={errors.phone ? "est-phone-error" : undefined}
               />

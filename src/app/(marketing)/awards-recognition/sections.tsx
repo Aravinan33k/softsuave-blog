@@ -98,7 +98,7 @@ export default function Sections() {
       {/* The hire pages' "Book Free Consultation" close, on its default
           /contact destination (13 Oct review: one final CTA for every page
           but the homepage, the AI service pages and the industry pages). */}
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

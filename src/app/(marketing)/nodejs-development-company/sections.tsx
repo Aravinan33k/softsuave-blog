@@ -56,7 +56,7 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
         <Faq content={njFaqs} idPrefix="nj-faq" />
       </div>
 
-      <Contact content={HIRE_CLOSING_BAND} eyebrow="" />
+      <Contact content={HIRE_CLOSING_BAND} eyebrow="" ctaIcon />
     </>
   );
 }

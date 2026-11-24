@@ -204,9 +204,11 @@ export const constructionSuccessStories: WorkCarouselContent = {
   body: "Explore how our AI-driven solutions have transformed construction operations and delivered measurable results for our clients. These case studies highlight the power of innovation and efficiency in driving business growth.",
   // Each card wears the live page's own artwork for that story (13 Oct
   // review: "update the case study images same as the old page").
+  tileCta: "View Case Study",
   items: [
     {
       title: "CRM Application for Real Estate Management",
+      href: "/case-study-crm-application-for-real-estate",
       image: {
         src: "/images/industries/construction/case-1.webp",
         alt: "A hand touching a CRM dashboard surrounded by customer-relationship icons",
@@ -216,6 +218,7 @@ export const constructionSuccessStories: WorkCarouselContent = {
     },
     {
       title: "Job Progress Tracking: Task Completion & Performance Insights",
+      href: "/case-study-job-progress-tracking",
       image: {
         src: "/images/industries/construction/case-2.webp",
         alt: "A construction site interior with digital progress-tracking overlays",

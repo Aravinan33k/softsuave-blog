@@ -12,6 +12,8 @@ import { HOURLY_RATE, YEARS_PLUS } from "../../company-figures";
 import { CLASSIC_ORDER } from "./backend-shared";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
   slug: "hire-python-developers",
   key: "python",
   name: "Python",
@@ -39,6 +41,7 @@ export const skill: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
+      submitHover: 'black',
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -60,6 +63,7 @@ export const skill: HireSkill = {
   },
 
   overview: {
+    wideHead: true,
     // Portrait, run the full height of the copy beside it (8 Oct review:
     // "resize the image to match the section") — the same photo, cut taller.
     image: {
@@ -82,6 +86,7 @@ export const skill: HireSkill = {
   },
 
   services: {
+    wideHead: true,
     eyebrow: "Services",
     title: "Our Top-grade Python Development Services",
     body: "Soft Suave provides the most reliable Python app developers who can help businesses to accomplish 10X growth effortlessly.",
@@ -120,6 +125,7 @@ export const skill: HireSkill = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: "Hiring Process",
     title: "Hire Python Developers in 4 easy steps",
     body: "Below is the simple Full-time Hiring Process that we follow while offering 1-week free trial to our clients.",
@@ -127,15 +133,20 @@ export const skill: HireSkill = {
   },
 
   whyUs: {
+    wideHead: true,
     eyebrow: "Why Soft Suave",
     title: "What Makes Our Python Developers Unique and Trustworthy?",
     body: "Hire Python developers from us having 5+ years of average experience to build expressive, scalable, & visually appealing web applications.",
     items: techWhy("Python", "Django, Flask, FastAPI, AI/ML, automation, and data engineering"),
   },
 
-  exploreMore: webExplore,
+  exploreMore: {
+    ...webExplore,
+    wideHead: true,
+  },
 
   faq: {
+    wideHead: true,
     eyebrow: "FAQs",
     title: "Frequently Asked Questions",
     body: "Know more about our processes and how we work, with the help of the following FAQs.",

@@ -12,6 +12,8 @@ import { CURATED_STEPS } from "../hire-blocks";
 import { YEARS_PLUS } from "../../company-figures";
 
 export const skill: HireSkill = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
   slug: "hire-angularjs-developers",
   key: "angular",
   name: "Angular",
@@ -54,6 +56,7 @@ export const skill: HireSkill = {
       "Strong Delivery Governance from Day One",
     ],
     form: {
+      submitHover: 'black',
       title: "Get Skilled Remote Developers",
       submit: "Start My FREE Trial",
       sending: "Sending...",
@@ -75,6 +78,7 @@ export const skill: HireSkill = {
   },
 
   applications: {
+    wideHead: true,
     eyebrow: "What We Build",
     title: "Applications That Our Developers Build Using Angular",
     body: "Build various high-performance applications by accessing our offshore Angular developers",
@@ -111,6 +115,7 @@ export const skill: HireSkill = {
   },
 
   combinations: {
+    wideHead: true,
     eyebrow: "Tech Combinations",
     title: "Tech Combinations Our Developers Use",
     body: "Hire Angular Developers who can utilize various tech combinations to personalize your solutions",
@@ -149,6 +154,7 @@ export const skill: HireSkill = {
   },
 
   techStack: {
+    wideHead: true,
     eyebrow: "Technology",
     title: "Tech Stack - Our Developer's Skillset",
     body: "Discover our developers' proficiency across a wide range of frameworks, libraries, databases, and tools, ensuring top-notch solutions for your projects.",
@@ -176,6 +182,7 @@ export const skill: HireSkill = {
   },
 
   whyUs: {
+    wideHead: true,
     // Live closes this band on "Contact us" (review: "CTA button missing").
     cta: { label: "Contact us", href: "/contact" },
     eyebrow: "Why Soft Suave",
@@ -215,18 +222,26 @@ export const skill: HireSkill = {
     ],
   },
 
-  comparison: partnerTable("Choose the Right Angular Development Partner"),
+  comparison: {
+    ...partnerTable("Choose the Right Angular Development Partner"),
+    wideHead: true,
+  },
 
   process: {
+    wideHead: true,
     eyebrow: "Hiring Process",
     title: "The 4-step Angular Developer Hiring Process",
     body: "Onboarding developers has never been easier. With this simple 4-step process, find the resource who is the perfect fit for your team!",
     steps: CURATED_STEPS,
   },
 
-  exploreMore: webExplore,
+  exploreMore: {
+    ...webExplore,
+    wideHead: true,
+  },
 
   faq: {
+    wideHead: true,
     eyebrow: "FAQs",
     title: "Frequently Asked Questions",
     body: "Know more about our processes and how we work, with the help of the following FAQs.",

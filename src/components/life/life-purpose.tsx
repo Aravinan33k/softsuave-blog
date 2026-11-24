@@ -39,7 +39,7 @@ export default function LifePurpose({
       <FadeUp>
         <div className={landing.featGrid}>
           {content.items.map((item) => (
-            <article key={item.name} className={`${landing.featCard} ${styles.purposeCard}`}>
+            <article key={item.name} className={`${landing.featCard} ${landing.featCardHover} ${styles.purposeCard}`}>
               <div className={styles.purposeArt}>
                 <Image
                   src={publicMediaUrl(item.image.src)}

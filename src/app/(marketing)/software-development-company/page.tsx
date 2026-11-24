@@ -10,6 +10,7 @@ import Footer from '@/components/home/footer';
 import TechStack from '@/components/home/tech-stack';
 
 import home from '@/components/home/home.module.css';
+import location from '@/components/landing/location-app-page.module.css';
 import Sections from './sections';
 
 /**
@@ -86,7 +87,7 @@ const HOME_HREF = BASE_PATH || '/';
 
 export default function SoftwareDevelopmentCompanyPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${location.submitBlack}`}>
       {/* The live page's one JSON-LD block, verbatim — see
           `lib/seo/software-development-company.ts`. */}
       <JsonLd data={sdServiceLd} />

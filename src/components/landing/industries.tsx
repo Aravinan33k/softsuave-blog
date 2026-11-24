@@ -269,6 +269,8 @@ export interface CardGridContent {
   titleNode?: ReactNode;
   /** Gives a long title a wider column beside the divider. */
   wideHead?: boolean;
+  /** The `feature` cards take the plain card grid's hover: accent border and a rule growing across the top edge. */
+  hoverBorder?: boolean;
   /** The same standfirst as a node, when some of its words are bold. Wins over `body` where it is drawn. */
   bodyNode?: ReactNode;
   /**
@@ -588,7 +590,10 @@ export default function Industries({
               const href = hrefOf(item);
 
               return (
-              <article key={item.name} className={styles.featCard}>
+              <article
+                key={item.name}
+                className={content.hoverBorder ? `${styles.featCard} ${styles.featCardHover}` : styles.featCard}
+              >
                 <div className={styles.featBody}>
                   {glyph ? (
                     <div className={styles.featTop}>

@@ -16,6 +16,7 @@ export interface ServicesContent {
   eyebrow: string;
   title: string;
   body: string;
+  wideHead?: boolean;
   /**
    * Optional button under the cards, where the live page closes the section
    * on one ("Talk to Our Experts"). Drawn by the card grid the hire pages
@@ -120,7 +121,7 @@ export default function Services({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <div
         ref={root}

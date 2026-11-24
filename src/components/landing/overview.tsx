@@ -15,6 +15,7 @@ import styles from "./landing.module.css";
 
 
 export interface OverviewContent {
+  wideHead?: boolean;
   eyebrow: string;
   title: string;
   paragraphs: readonly string[];
@@ -396,7 +397,7 @@ export default function Overview({
           top to bottom, instead of just the prose. In one column this is
           unchanged: the heading sits above as this surface's normal
           full-width masthead. */}
-      {!twoColumn && <SectionHead kicker={content.eyebrow} title={content.title} />}
+      {!twoColumn && <SectionHead kicker={content.eyebrow} title={content.title} wide={content.wideHead} />}
 
       <FadeUp>
         <div
@@ -413,7 +414,7 @@ export default function Overview({
           }
         >
           <div>
-            {twoColumn && <SectionHead kicker={content.eyebrow} title={content.title} />}
+            {twoColumn && <SectionHead kicker={content.eyebrow} title={content.title} wide={content.wideHead} />}
 
             {prose}
 

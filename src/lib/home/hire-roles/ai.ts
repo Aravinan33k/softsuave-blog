@@ -26,6 +26,8 @@ import { caTech } from '@/lib/home/custom-ai-tech';
 import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const ai: HireRolePageContent = {
+  closingCtaIcon: true,
+  clientsWideTitle: true,
   key: 'hire-ai',
   slug: '/hire-ai-developer',
   name: 'Hire AI Developers',
@@ -73,6 +75,7 @@ export const ai: HireRolePageContent = {
       'Strong Delivery Governance from Day One',
     ],
     form: heroForm({
+      submitHover: 'black',
       title: 'Get Skilled Remote Developers',
       requirementLabel: 'Requirements',
       requirementPlaceholder:
@@ -82,6 +85,7 @@ export const ai: HireRolePageContent = {
   },
 
   whyRole: {
+    wideHead: true,
     eyebrow: 'Why Us',
     title: 'Why Hire AI Developers from Soft Suave',
     body: "At Soft Suave, we deliver AI visionaries who collaborate as partners, not just coders. Here's why businesses around the world trust us to hire remote AI developers for their projects.",
@@ -120,6 +124,7 @@ export const ai: HireRolePageContent = {
   },
 
   capabilities: {
+    wideHead: true,
     eyebrow: 'Services',
     title: 'AI Development Services We Offer',
     body: 'From Generative AI development to fine-tuning LLMs, we provide comprehensive, end-to-end solutions that empower your business to unlock the full potential of AI, driving innovation and growth. As a leading offshore software development company, we help businesses worldwide hire offshore AI developer teams to scale quickly and cost-effectively.',
@@ -165,6 +170,7 @@ export const ai: HireRolePageContent = {
   },
 
   fit: {
+    wideHead: true,
     eyebrow: 'Vetting & Onboarding',
     title: 'How We Vet and Onboard Top AI Developers',
     body: 'We select only the finest AI developers for your project who are agile, dependable, and experienced in delivering robust, high-performance code under tight deadlines and complex project requirements.',
@@ -197,6 +203,7 @@ export const ai: HireRolePageContent = {
   },
 
   process: {
+    wideHead: true,
     eyebrow: 'Hiring Process',
     title: 'Steps to Hire an AI Developer',
     body: 'Quick, streamlined, and customized: hire expert AI developers effortlessly with our proven 4-step method.',
@@ -224,14 +231,18 @@ export const ai: HireRolePageContent = {
     ],
   },
 
-  comparison: onboardingComparison({
+  comparison: {
+    ...onboardingComparison({
     title: 'Choosing the Right AI Partner for Your Specific Needs',
     body: 'Make an informed decision - compare hiring models like freelancers, in-house teams, or our vetted developers. Our comparison guide makes it easy.',
     column: 'Soft Suave',
   }),
+    wideHead: true,
+  },
 
   techStackLargeLogos: true,
   techStack: {
+    wideHead: true,
     eyebrow: 'Technical Expertise',
     title: 'Technical Expertise of Our AI Developers',
     body: 'Our AI developers excel in machine learning, deep learning, NLP, computer vision, and more, delivering innovative solutions tailored to your needs.',
@@ -242,6 +253,7 @@ export const ai: HireRolePageContent = {
   },
 
   faq: {
+    wideHead: true,
     eyebrow: 'FAQs',
     title: 'FAQs About Hiring AI Developers',
     body: 'Learn more about our procedures & methods with the help of these FAQs.',

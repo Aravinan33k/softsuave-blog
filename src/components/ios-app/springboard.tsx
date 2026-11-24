@@ -12,6 +12,8 @@ export interface SpringboardContent {
   eyebrow: string;
   title: string;
   body: string;
+  /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
+  wideHead?: boolean;
   items: readonly {
     readonly name: string;
     readonly body: string;
@@ -103,7 +105,7 @@ export default function Springboard({
 
   return (
     <section className={styles.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
       <ul ref={root} className={styles.sbdGrid}>
         {content.items.map((item) => (

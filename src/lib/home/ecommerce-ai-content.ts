@@ -125,6 +125,7 @@ export const ecommerceChallenges: ProblemsContent = {
 export const ecommerceWhyUs: OverviewContent = {
   eyebrow: "Why Soft Suave",
   title: "Why Choose Soft Suave Technologies for AI E-commerce Development",
+  wideHead: true,
   paragraphs: [
     "Soft Suave Technologies transforms your e-commerce business with cutting-edge AI solutions that enhance customer experiences, optimize operations, and drive growth. Our expert team delivers scalable, customized AI tools to ensure your online store stays competitive and efficient.",
   ],
@@ -156,6 +157,7 @@ export const ecommerceWhyUs: OverviewContent = {
 export const ecommerceServices: ServicesContent = {
   eyebrow: "What We Build",
   title: "Custom AI Development Services for E-commerce Businesses",
+  wideHead: true,
   body: "Build precisely what your e-commerce brand needs with tailored AI solutions that integrate with your system, scale with demand, and keep you ahead of competitors.",
   items: [
     {
@@ -207,10 +209,12 @@ export const ecommerceSuccessStories: WorkCarouselContent = {
   // pages run (13 Oct review: "need to redesign the success stories
   // section"), each with the live page's own artwork and its results list as
   // the line under the title, as the FinTech lane carries them.
+  tileCta: "View Case Study",
   items: [
     {
       tag: "Retail",
       title: "Optimizing Retail Operations With A Comprehensive E-commerce Solution",
+      href: "/case-study-comprehensive-ecommerce-for-retail",
       body: "+85% Improvement In Inventory Precision · +70% Onboarding & Product Approval · +60% Offer & Coupon Management · -50% Reduction In Workload · +40% Boost In Sales & Customer Retention",
       image: {
         src: "/images/industries/ecommerce/case-1.webp",
@@ -220,6 +224,7 @@ export const ecommerceSuccessStories: WorkCarouselContent = {
     {
       tag: "Marketplace",
       title: "Redefining Online Shopping with an Intuitive Platform for Effortless Transactions",
+      href: "/case-study-intuitive-online-shopping-platform",
       body: "50% Enhanced Product Visibility and Sales · 55% Higher Transaction Security and Trust · 45% Increased User Engagement · 45% Improved Seller Approval and Product Quality · 35% Faster Order Fulfillment and Processing Time",
       image: {
         src: "/images/industries/ecommerce/case-2.webp",

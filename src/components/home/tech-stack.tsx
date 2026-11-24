@@ -13,6 +13,7 @@ export interface TechStackContent {
   readonly eyebrow: string;
   readonly title: string;
   readonly body: string;
+  readonly wideHead?: boolean;
   readonly groups: readonly {
     /**
      * Empty for a band that is one flat list: the QA page's "Types of QA
@@ -51,7 +52,7 @@ export interface TechStackContent {
 export default function TechStack({
   content = homeTechStack,
   id = "tech",
-  wideHead = false,
+  wideHead = content.wideHead ?? false,
   staticFrom,
   loopShortRows = false,
   collapsedGroups,
