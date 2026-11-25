@@ -753,7 +753,7 @@
 }
 
 /* Spans the article column, so its edges line up with the cards and figures
-   above it. Dressed as the /hire-forward-deployed-engineer closing banner
+   above it. Dressed as the /hire-forward-deployed-engineers closing banner
    (`components/fde/sections/CtaBanner.tsx`), with the FDE ink tokens'
    values written out, since `--fde-*` is only defined on that page. It stays
    dark on the light article band, so its colours are fixed, not themed.

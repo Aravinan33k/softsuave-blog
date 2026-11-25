@@ -1,7 +1,7 @@
 /**
  * SEO for the Forward Deployed Engineers page, from the page's standalone
  * build (its root layout's metadata and `lib/seo.ts`), adapted to this app's
- * route. Emitted by `app/(marketing)/hire-forward-deployed-engineer/page.tsx`.
+ * route. Emitted by `app/(marketing)/hire-forward-deployed-engineers/page.tsx`.
  */
 import { contactEmail, contactPageHref } from "@/lib/fde/contact";
 import { faqItems } from "@/lib/fde/content/faq";
@@ -17,12 +17,11 @@ export { contactEmail };
 export const siteUrl = "https://www.softsuave.com";
 
 /**
- * Path this page is served from in this app. (The page's standalone build
- * pointed at "/hire-forward-deployed-engineers", the live page it replaces;
- * this app serves the singular route, and a canonical must name a URL the
- * app actually answers.)
+ * Path this page is served from in this app: the plural URL, as the page's
+ * standalone build and the old live page had it (25 Nov request). The
+ * singular URL 301s here (next.config.ts, and Apache rule 0c on the live box).
  */
-export const pagePath = "/hire-forward-deployed-engineer";
+export const pagePath = "/hire-forward-deployed-engineers";
 
 export const pageUrl = `${siteUrl}${pagePath}`;
 

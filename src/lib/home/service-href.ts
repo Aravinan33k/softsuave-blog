@@ -72,7 +72,7 @@ const TECH_RULES: readonly TechRule[] = [
   { pattern: /\bsalesforce\b/, hire: "/hire-salesforce-developer" },
   { pattern: /\bblockchain\b|\bweb3\b|\bsmart contracts?\b/, hire: "/hire-blockchain-developer" },
   { pattern: /\bdevops\b/, hire: "/hire-devops-developers" },
-  { pattern: /\bforward deployed\b/, hire: "/hire-forward-deployed-engineer" },
+  { pattern: /\bforward deployed\b/, hire: "/hire-forward-deployed-engineers" },
   { pattern: /\bqa\b|\bquality assurance\b|\bquality engineering\b|\bsoftware testing\b|\btesters?\b/, hire: "/hire-qa-testers-india" },
   { pattern: /\bfront ?-?end\b/, hire: "/hire-frontend-application-developer" },
   { pattern: /\bback ?-?end\b/, hire: "/hire-backend-application-developer" },
