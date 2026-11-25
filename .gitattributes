@@ -3,3 +3,6 @@
 deploy/*.sh text eol=lf
 deploy/*.map text eol=lf
 deploy/*.conf text eol=lf
+deploy/server/** text eol=lf
+deploy/ci/** text eol=lf
+.gitlab-ci.yml text eol=lf
