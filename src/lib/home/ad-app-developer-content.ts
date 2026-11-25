@@ -49,17 +49,6 @@ export const BOOK_MEETING = {
   external: true,
 } as const;
 
-/** The live form's dropdown, option for option. */
-const TECH_STACK_OPTIONS = [
-  "Front-End (React, Angular, Vue)",
-  "Back-End (Node, PHP, .NET)",
-  "Fullstack Developers",
-  "Mobile Dev (Flutter, React Native)",
-  "AI & ML Engineers",
-  "DevOps/Cloud (AWS, Azure)",
-  "Custom Requirements (Let’s discuss)",
-] as const;
-
 export const adHero: HeroContent = {
   titleLines: ["Hire Mobile App", "Developers for Your Project"],
   accent: "Mobile App Developers",

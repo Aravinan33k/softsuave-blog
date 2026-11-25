@@ -106,19 +106,6 @@
   flex: none;
 }
 
-.input,
-
-.input::placeholder,
-.textarea::placeholder {
-  color: color-mix(in srgb, var(--muted) 75%, transparent);
-}
-
-.input:focus-visible,
-.textarea:focus-visible {
-  outline: none;
-  border-color: var(--accent-border);
-}
-
 /* ---- prose block (the "what is it" answer) ---- */
 .prose {
   max-width: 68ch;
@@ -176,62 +163,6 @@
   margin: 0.75em 0 0;
   font-size: var(--fs-body);
   line-height: 1.68;
-  color: var(--muted);
-}
-
-/* ---- comparison table ---- */
-.tableWrap {
-  overflow-x: auto;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  -webkit-overflow-scrolling: touch;
-}
-
-.table {
-  width: 100%;
-  min-width: 640px;
-  border-collapse: collapse;
-  font-size: 0.9375rem;
-}
-
-.table th,
-.table td {
-  padding: clamp(14px, 1.5vw, 20px) clamp(16px, 1.8vw, 26px);
-  text-align: left;
-  vertical-align: top;
-  border-bottom: 1px solid var(--line);
-  line-height: 1.6;
-}
-
-.table tbody tr:last-child th,
-.table tbody tr:last-child td {
-  border-bottom: 0;
-}
-
-.table thead th {
-  font-family: var(--font-eyebrow);
-  font-size: 10.5px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 400;
-  color: var(--muted);
-  background: var(--surface);
-  white-space: nowrap;
-}
-
-/* The row label column, and the "custom" column the page argues for. */
-.table tbody th {
-  font-family: var(--font-body);
-  font-weight: 500;
-  color: var(--text-bright);
-  width: 22%;
-}
-
-.tableLead {
-  color: var(--text-bright);
-}
-
-.tableAlt {
   color: var(--muted);
 }
 
@@ -299,121 +230,6 @@
   font-size: var(--fs-body);
   line-height: 1.68;
   color: var(--muted);
-}
-
-/* ---- delivery process ---- */
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
-  gap: clamp(20px, 2.4vw, 34px);
-}
-
-.step {
-  border-top: 1px solid var(--line);
-  padding-top: clamp(16px, 1.8vw, 22px);
-}
-
-.stepNum {
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: clamp(2.25rem, 3.6vw, 3.25rem);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: color-mix(in srgb, var(--accent) 70%, var(--text-bright));
-}
-
-.stepName {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 1.0625rem;
-  line-height: 1.3;
-  color: var(--text-bright);
-  margin: 0.9em 0 0;
-}
-
-.stepBody {
-  margin: 0.6em 0 0;
-  font-size: 0.9125rem;
-  line-height: 1.68;
-  color: var(--muted);
-}
-
-/* ---- case studies ---- */
-.caseGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
-  gap: clamp(18px, 2.2vw, 28px);
-}
-
-.caseCard {
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: clamp(24px, 2.6vw, 36px);
-  background: var(--bg);
-  display: flex;
-  flex-direction: column;
-  transition: border-color 0.4s ease, transform 0.4s ease;
-}
-
-.caseCard:hover {
-  border-color: var(--accent-border);
-  transform: translateY(-3px);
-}
-
-.caseTop {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.caseIndustry {
-  font-family: var(--font-eyebrow);
-  font-size: 10.5px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.caseMetric {
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: clamp(1.5rem, 2.3vw, 2rem);
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: var(--accent);
-}
-
-.caseMetricLabel {
-  display: block;
-  font-family: var(--font-eyebrow);
-  font-size: 9.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 6px;
-  text-align: right;
-}
-
-.caseName {
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: clamp(1.1875rem, 1.6vw, 1.4375rem);
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  color: var(--text-bright);
-  margin: 1em 0 0;
-}
-
-.caseBody {
-  margin: 0.75em 0 0;
-  font-size: 0.9125rem;
-  line-height: 1.68;
-  color: var(--muted);
-}
-
-.caseFoot {
-  margin-top: clamp(26px, 3vw, 40px);
 }
 
 /* ---- tech stack ---- */
@@ -578,17 +394,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .card,
-  .caseCard,
   .faqQ,
-  .input,
-  .textarea,
   .faqMark::before,
   .faqMark::after {
     transition: none;
-  }
-
-  .caseCard:hover {
-    transform: none;
   }
 }
 

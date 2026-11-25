@@ -28,9 +28,12 @@ export default function TopTalent({
   id = "overview",
   whiteHover = false,
   primary = false,
+  headingFont = false,
 }: {
   content: TopTalentContent;
   id?: string;
+  /** Set the engagement-model names in the section headings' face and weight, not the light display serif (see `.modelNameHeading`). */
+  headingFont?: boolean;
   /** The white left-to-right hover fill on the button, for a Top Talent band on the dark ground (see `.btnWhite`). */
   whiteHover?: boolean;
   /**
@@ -67,7 +70,7 @@ export default function TopTalent({
         {content.models.map((m, i) => (
           <FadeUp key={m.name} delay={i * 0.08}>
             <article className={plain ? `${styles.model} ${styles.modelPlain}` : styles.model}>
-              <h3 className={styles.modelName}>{m.name}</h3>
+              <h3 className={headingFont ? `${styles.modelName} ${styles.modelNameHeading}` : styles.modelName}>{m.name}</h3>
               {m.points && (
                 <ul className={styles.modelPoints}>
                   {m.points.map((p) => (
