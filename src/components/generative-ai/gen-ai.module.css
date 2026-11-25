@@ -130,13 +130,13 @@
 /* `wide` on the section head: a long title gets a wider column beside the divider, so it sets in fewer lines. */
 @media (min-width: 900px) {
   .headWide:not(:has(> .intro)) .title {
-    max-width: 34ch;
+    max-width: var(--head-title-max, 34ch);
     text-wrap: balance;
   }
   .headWide:has(> .intro) .title {
     /* Not clamped to `--fit-width`: the column already hugs the text (`fit-content`), and a width measured
        before this rule applied would pin the title back to the narrow column. */
-    max-width: 34ch;
+    max-width: var(--head-title-max, 34ch);
     text-wrap: balance;
   }
 
@@ -856,136 +856,6 @@
 }
 
 /* ============================================================
-   COMPARISON TABLE (multi-column)
-   ============================================================ */
-.cmpWrap {
-  /* Four columns need real width before they stay legible; below 900px the
-     stacked cards underneath take over. */
-  display: none;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.cmpTable {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  table-layout: fixed;
-}
-
-.cmpTable th,
-.cmpTable td {
-  padding: clamp(14px, 1.6vw, 20px) clamp(14px, 1.6vw, 22px);
-  vertical-align: top;
-  border-bottom: 1px solid var(--line);
-}
-
-.cmpTable tbody tr:last-child th,
-.cmpTable tbody tr:last-child td {
-  border-bottom: 0;
-}
-
-.cmpTable thead th {
-  background: var(--surface);
-  font-family: var(--font-eyebrow);
-  font-weight: 400;
-  font-size: var(--fs-label);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-.cmpTable tbody th {
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: clamp(1rem, 1.2vw, 1.15rem);
-  line-height: 1.3;
-  letter-spacing: -0.015em;
-  color: var(--text-bright);
-}
-
-.cmpTable tbody td {
-  font-size: var(--fs-body-sm);
-  line-height: 1.58;
-  color: var(--text);
-}
-
-/* The column this page is about, given the accent the rest of the surface uses
-   for emphasis. Purely presentational — the text is unchanged. */
-.cmpLead {
-  background: color-mix(in srgb, var(--accent) 8%, transparent);
-}
-
-.cmpTable thead th.cmpLead {
-  color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
-}
-
-.cmpCards {
-  display: grid;
-  gap: 12px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.cmpCard {
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 12px 12px 0;
-  background: var(--surface);
-  padding: clamp(18px, 4vw, 24px);
-}
-
-.cmpCardLabel {
-  display: block;
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.cmpCardTitle {
-  margin: 10px 0 0;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: 1.15rem;
-  line-height: 1.28;
-  letter-spacing: -0.015em;
-  color: var(--text-bright);
-}
-
-.cmpDl {
-  margin: 14px 0 0;
-  padding-top: 4px;
-  display: grid;
-  gap: 12px;
-}
-
-.cmpDlRow {
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
-}
-
-.cmpDt {
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.cmpDd {
-  margin: 6px 0 0;
-  font-size: var(--fs-body-sm);
-  line-height: 1.6;
-  color: var(--text);
-}
-
-/* ============================================================
    SERVICES — centre-focused carousel.
 
    Three cards are on screen at once: the active one sits high and full-size,
@@ -1314,8 +1184,7 @@
 }
 
 /* Above <LightFieldBackdrop>, which sits at z-index 0 inside the band. */
-.ctaInner,
-.ctaStats {
+.ctaInner {
   position: relative;
   z-index: 1;
 }
@@ -1395,199 +1264,6 @@
 }
 
 /* ============================================================
-   PROCESS ORBIT — five steps rotating on an ellipse, the active one at
-   12 o'clock, with that step's copy inside the SAME card, in the ellipse's
-   own lower half. Two nested boxes, not two cards: `.processOrbit` is the
-   one visible panel (border, radius, background, padding); `.orbitStage` is
-   just a coordinate box for the ring — sized on its own so the trig in
-   `applyPositions` keeps sizing nodes off ITS height, unaffected by how tall
-   the copy underneath happens to be. See process.tsx for the rotation
-   mechanics; this block is layout and chrome only. Node position/size is
-   written inline per frame (--s / --o custom properties plus left/top), so
-   nothing here sets them. */
-.processOrbit {
-  margin-top: clamp(8px, 1vw, 16px);
-  /* Top padding clears the active node: at its largest it sits half outside
-     `.orbitStage`'s own box, breaching upward into this padding rather than
-     into the card's rounded top edge. Kept tight (rather than the ~65px the
-     node's max size would otherwise call for) so the whole card — heading,
-     ring, and the active step's copy — fits inside a single laptop-height
-     viewport without the page needing a second scroll just to read one step. */
-  padding: clamp(26px, 3vw, 38px) clamp(20px, 3vw, 40px) clamp(14px, 1.8vw, 22px);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: var(--surface);
-  overflow: hidden;
-}
-
-.orbitStage {
-  position: relative;
-  isolation: isolate;
-  height: clamp(140px, 15vw, 180px);
-}
-
-/* Contained accent wash, not a full-bleed one — this is the one place the
-   reference video's black-and-orange treatment is allowed in, and only as a
-   soft glow behind the ring, sized well inside the stage. */
-.orbitGlow {
-  position: absolute;
-  inset: -10%;
-  z-index: 0;
-  background: radial-gradient(
-    46% 46% at 50% 46%,
-    color-mix(in srgb, var(--accent) 20%, transparent) 0%,
-    transparent 72%
-  );
-  pointer-events: none;
-}
-
-.orbitRing {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: calc(2 * 42%);
-  height: calc(2 * 33%);
-  transform: translate(-50%, -50%);
-  border: 1px solid color-mix(in srgb, var(--accent) 38%, var(--line));
-  border-radius: 50%;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.orbitNode {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  width: clamp(40px, 4vw, 52px);
-  height: clamp(40px, 4vw, 52px);
-  margin: 0;
-  padding: 0;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--bg);
-  color: var(--muted);
-  cursor: pointer;
-  font: inherit;
-  /* Position/size come from JS every frame via these two custom properties
-     and inline left/top — left as the un-set default (centre, scale 1) so
-     the very first paint before useGSAP runs isn't a pile-up at the corner. */
-  --s: 1;
-  --o: 1;
-  transform: translate(-50%, -50%) scale(var(--s));
-  opacity: var(--o);
-  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
-}
-
-.orbitNode:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-.orbitNodeNum {
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.06em;
-}
-
-.orbitNodeActive {
-  width: clamp(72px, 7.2vw, 92px);
-  height: clamp(72px, 7.2vw, 92px);
-  border: 1px solid var(--accent);
-  background: var(--bg);
-  color: var(--accent);
-  box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 12%, transparent),
-    0 16px 40px -18px rgba(0, 0, 0, 0.6);
-}
-
-.orbitIcon {
-  display: grid;
-  place-items: center;
-  width: 55%;
-  height: 55%;
-}
-
-.orbitIcon svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* Dwell-time hairline under the active node, same device as `.psTicker`. */
-.orbitTicker {
-  position: absolute;
-  left: 18%;
-  right: 18%;
-  bottom: 10%;
-  height: 2px;
-  background: var(--accent);
-  transform-origin: left center;
-  transform: scaleX(0);
-}
-
-/* Centered, unlike every other text block on this page: it reads as the
-   caption for a radial composition (ring above, copy below, both on one
-   axis), the way the reference video frames it — not a paragraph in the
-   page's left-aligned column. The hairline is what actually separates it
-   from the ring above, now that both live in one card. */
-.orbitPanel {
-  margin-top: clamp(8px, 1vw, 12px);
-  padding-top: clamp(8px, 1vw, 12px);
-  border-top: 1px solid var(--line);
-  max-width: 62ch;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-.orbitPanel .processBody {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Manual prev/next under the ring. The ring advances on its own and is
-   driveable by keyboard, but nothing on screen said so (review: "the design
-   is confusing - or just keep a manual arrow"). */
-.orbitNav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(12px, 1.6vw, 20px);
-  margin-top: clamp(14px, 1.8vw, 22px);
-}
-
-.orbitCount {
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.16em;
-  color: var(--text);
-}
-
-.processStepLabel {
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.processName {
-  margin: 0.4em 0 0;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: var(--fs-h3);
-  line-height: 1.2;
-  letter-spacing: -0.025em;
-  color: var(--text-bright);
-}
-
-.processBody {
-  margin: 10px 0 0;
-  max-width: 68ch;
-  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
-  line-height: 1.65;
-  color: var(--text);
-}
-
-/* ============================================================
    CARD GRID (industries / applications)
    Own chrome: an accent top rule that widens on hover, and an inline mono
    index — not the homepage's `.statCard` with its absolute corner figure.
@@ -1627,17 +1303,6 @@
 .indCard:hover .indCardImg,
 .indCard:focus-within .indCardImg {
   transform: scale(1.06);
-}
-
-.indCardIndex {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  z-index: 2;
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.18em;
-  color: rgba(255, 255, 255, 0.85);
 }
 
 /* Bottom-weighted at rest (just enough to keep the name legible on any photo),
@@ -1812,18 +1477,6 @@
 .proofItem {
   padding: clamp(22px, 2.6vw, 34px) 0;
   border-bottom: 1px solid var(--line);
-}
-
-.proofFigure {
-  display: block;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: clamp(1.7rem, 2.8vw, 2.4rem);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  /* Full accent: the figure is the proof point itself, and at 70% alpha it
-     dropped under 3:1 on the dark bands (review: "text visibility"). */
-  color: var(--accent);
 }
 
 .proofName {
@@ -2239,14 +1892,6 @@
     grid-template-columns: 0.95fr 1.05fr;
     gap: clamp(24px, 3vw, 48px);
   }
-
-  .cmpWrap {
-    display: block;
-  }
-
-  .cmpCards {
-    display: none;
-  }
 }
 
 @media (min-width: 1000px) {
@@ -2449,16 +2094,6 @@
   border-color: var(--accent);
 }
 
-.compactIndex {
-  position: absolute;
-  top: clamp(16px, 1.8vw, 22px);
-  right: clamp(18px, 2vw, 26px);
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.18em;
-  color: var(--muted);
-}
-
 .compactIcon {
   display: inline-flex;
   align-items: center;
@@ -2612,19 +2247,6 @@
     color-mix(in srgb, var(--card-accent, var(--accent)) 55%, transparent);
 }
 
-/* The quiet mono ordinal, in the corner opposite the badge. Kept from the
-   compact card this replaces: at nine cards it is a real scanning aid, and it
-   stays far enough back not to compete with the name. */
-.indBoldIndex {
-  position: absolute;
-  top: clamp(18px, 2vw, 24px);
-  right: clamp(18px, 2vw, 26px);
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.18em;
-  color: var(--muted);
-}
-
 /* The discipline glyph, tinted to the card's own accent rather than the one
    site accent — which is what ties the badge to the rule above it. */
 .indBoldIcon {
@@ -2703,13 +2325,6 @@
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--text-bright);
-}
-
-/* Room for the ordinal, but only on the cards that have one — the index span
-   is rendered ahead of the name, so a sibling combinator can ask. Sections
-   without it (the engagement models) get the full measure back. */
-.indBoldIndex ~ .indBoldName {
-  padding-right: 2.2em;
 }
 
 .indBoldBody {

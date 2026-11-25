@@ -217,7 +217,7 @@ export const frontend: HireRolePageContent = {
     eyebrow: 'Start With a Trial',
     title: 'Evaluate Real Frontend Work Before You Hire',
     body: 'Use the 40-hour risk-free trial to review code structure, component design, UI accuracy, responsive behavior, API integration, testing discipline, communication, requirement understanding, and how well the developer works within your existing process.',
-    cta: { label: 'Start Your 40-Hour Trial', href: '/contact' },
+    cta: { label: 'Start Your 40-Hour Trial', href: '/free-7-days-trial' },
   },
 
   engagement: {
