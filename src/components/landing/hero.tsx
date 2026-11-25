@@ -42,6 +42,12 @@ export interface HeroContent {
    * no form, image or slot beside it (the developer rate card, by request).
    */
   centered?: boolean;
+  /**
+   * Set the supporting points in one horizontal row, a hairline rule between
+   * each, instead of a stacked list (/ad/remote-developers, by request). Wraps
+   * onto further rows on a narrow screen.
+   */
+  pointsInline?: boolean;
   /** Set the whole headline in the one colour — no accent on its last line (the live staff-augmentation ad headline). */
   noAccent?: boolean;
   /** `"home"` sets the H1 at the homepage hero's size (70px desktop, 40px phone). */
@@ -575,7 +581,7 @@ export default function Hero({
           )}
 
           {content.points.length > 0 && (
-          <ul className={styles.heroPoints}>
+          <ul className={content.pointsInline ? `${styles.heroPoints} ${styles.heroPointsInline}` : styles.heroPoints}>
             {content.points.map((point, i) => (
               <li key={point} className={styles.heroPoint} style={{ ["--i" as string]: i } as CSSProperties}>
                 <svg

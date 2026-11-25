@@ -35,6 +35,8 @@ export const ai: HireRolePageContent = {
   // /ad/remote-developers' "Our Clients".
   heroPadBottom80: true,
   halfHeads: true,
+  // Review: the head-to-cards gap as /ad/remote-developers runs it, every section.
+  wideHeadGap: true,
   clientsTwoLineTitle: true,
   // Review: even the gaps after "Why Us" and "Services"; story quote at 14px.
   sectionGapsFull: true,
@@ -275,7 +277,7 @@ export const ai: HireRolePageContent = {
     // links are missing in the FAQs"). The live FAQs carry none, so these
     // are ours: each phrase already in the copy, pointing at a served page.
     links: [
-      { text: '40-hour trial', href: '/contact' },
+      { text: '40-hour trial', href: '/free-7-days-trial' },
       { text: 'fully managed service models', href: '/it-staff-augmentation-services' },
     ],
     items: [
