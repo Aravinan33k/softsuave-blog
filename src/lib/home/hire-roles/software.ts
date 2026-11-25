@@ -54,7 +54,7 @@ export const software: HireRolePageContent = {
   },
 
   hero: {
-    titleLines: ['Hire Software Developers', 'Get the Right Talent for Your Next Project'],
+    titleLines: ['Hire Software Developers Get the', 'Right Talent for Your Next Project'],
     accent: 'Software Developers',
     body: [
       'Hire experienced software developers from India, matched to your technology stack, project requirements, and team needs. Add the right expertise to accelerate development, strengthen delivery, and support your business goals.',
@@ -135,7 +135,7 @@ export const software: HireRolePageContent = {
     eyebrow: 'Start With a Trial',
     title: 'Hire the Right Software Developer with a 40-Hour Trial',
     body: 'Evaluate your developer through real project work and assess technical execution, communication, responsiveness, and team compatibility before extending the engagement.',
-    cta: { label: 'Start Your 40-Hour Trial', href: '/contact' },
+    cta: { label: 'Start Your 40-Hour Trial', href: '/free-7-days-trial' },
   },
 
   globalDelivery: {
@@ -189,9 +189,9 @@ export const software: HireRolePageContent = {
   },
 
   specialisations: {
-    wideHead: true,
     eyebrow: 'Developer Expertise',
     title: 'Hire Remote Software Developers for Your Technology Needs',
+    wideHead: true,
     // Wider, balanced title column on every split head of this page, so the
     // H2s set in two even lines instead of three ragged ones (review: "fix
     // the h2 heading for all the section").
@@ -273,7 +273,8 @@ export const software: HireRolePageContent = {
   },
 
   whyRole: {
-    wideHead: true,
+    // 45 characters: 34ch holds them on one line at wide screens, 22ch breaks after "From".
+    wideHead: '24ch',
     eyebrow: 'Why Choose Us',
     title: 'Why Hire Software Developers From Soft Suave?',
     body: 'See why businesses choose Soft Suave to hire software developers and what you can expect throughout the engagement.',
