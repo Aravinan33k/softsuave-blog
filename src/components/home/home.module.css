@@ -1985,6 +1985,13 @@ h1.h2 {
   margin-bottom: clamp(16px, 2vw, 26px);
 }
 
+
+@media (min-width: 900px) {
+  .reviewsInner .sectionHead:has(> :is(h2, div.h2)):has(> .lead) > :is(h2, div.h2) {
+    max-width: 19ch;
+  }
+}
+
 /* The section carried two decorations that existed only to relieve a near-black
    canvas: a top hairline standing in for a chapter break, and a blurred coral
    wash behind the masthead. Both went when the section moved into the `.light`
