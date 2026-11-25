@@ -96,6 +96,7 @@ stop_test() {
 }
 stop_test
 ss -ltn "sport = :$TEST_PORT" | grep -q LISTEN && die "port $TEST_PORT is busy"
+trap stop_test EXIT   # never leave a test server behind, whatever ends the script
 
 log "test server on :$TEST_PORT"
 (cd "$R" && NODE_ENV=production nohup "$NODE22/node" --max-old-space-size=640 node_modules/next/dist/bin/next \
