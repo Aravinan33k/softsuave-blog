@@ -1,0 +1,17 @@
+#!/bin/bash
+# The only command the pipeline's SSH key may run (authorized_keys "command=" for the
+# deploy user). It accepts three requests and nothing else - no shell, no file upload:
+#   deploy <40-char sha>   ->  sudo ss-deploy <sha>   (the server fetches the code itself)
+#   rollback               ->  sudo ss-rollback
+#   status                 ->  sudo ss-deploy --status
+set -euo pipefail
+read -r cmd arg extra <<< "${SSH_ORIGINAL_COMMAND:-}"
+[ -z "${extra:-}" ] || { echo "too many arguments"; exit 2; }
+case "$cmd" in
+  deploy)
+    [[ "${arg:-}" =~ ^[0-9a-f]{40}$ ]] || { echo "deploy needs a 40-character commit sha"; exit 2; }
+    exec sudo -n /usr/local/sbin/ss-deploy "$arg" ;;
+  rollback) [ -z "${arg:-}" ] || exit 2; exec sudo -n /usr/local/sbin/ss-rollback ;;
+  status)   [ -z "${arg:-}" ] || exit 2; exec sudo -n /usr/local/sbin/ss-deploy --status ;;
+  *) echo "allowed: deploy <sha> | rollback | status"; exit 2 ;;
+esac
