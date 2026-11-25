@@ -42,7 +42,7 @@ export const HIRE_ROLE_ROUTES: readonly HireRoleRoute[] = [
   // Not in the "Hire By Role" panel — softsuave.com files Forward Deployed
   // Engineering under Services. Listed here because this set is what the
   // sitemap and the release redirects read, not because the nav shows it.
-  { path: '/hire-forward-deployed-engineer', title: 'Hire Forward Deployed Engineers' },
+  { path: '/hire-forward-deployed-engineers', title: 'Hire Forward Deployed Engineers' },
 ] as const;
 
 /** Just the paths, for the redirect list and the sitemap. */
