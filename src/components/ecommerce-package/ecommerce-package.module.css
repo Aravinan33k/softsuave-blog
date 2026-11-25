@@ -1,14 +1,5 @@
 /* /ecommerce-app-development-package — the package table, in the site's styles. */
 
-.srOnly {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
-
 .band {
   /* The card grid above already ends in its own section padding, so this band only adds the bottom. */
   padding: 0 var(--gutter) var(--section-y);

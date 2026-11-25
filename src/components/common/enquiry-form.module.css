@@ -247,11 +247,6 @@
   }
 }
 
-.optional {
-  font-weight: 400;
-  color: var(--fx-placeholder);
-}
-
 /* Required marker. Decorative — the real semantics are the `required`
    attribute on the control, so this is aria-hidden in the markup. */
 /* See landing.module.css .required — flat --accent is 3.19:1 on this white
@@ -524,14 +519,6 @@
 .noteLink:hover,
 .noteLink:focus-visible {
   color: color-mix(in srgb, var(--accent, #ff5436) 62%, #000);
-}
-
-.status {
-  margin: 12px 0 0;
-  font-size: 0.84rem;
-  line-height: 1.5;
-  color: color-mix(in srgb, var(--accent, #ff5436) 75%, #000);
-  text-align: center;
 }
 
 /* Notice under the form steering job applicants away from the sales inbox.
