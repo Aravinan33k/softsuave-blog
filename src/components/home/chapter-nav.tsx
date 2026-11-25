@@ -160,7 +160,7 @@ export default function ChapterNav({
         className={styles.chapBar}
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        aria-label="Sections"
+        aria-label={`${pad(idx)} / ${pad(SECTIONS.length - 1)} ${SECTIONS[idx].label}, sections`}
         data-cursor="Sections"
       >
         <span

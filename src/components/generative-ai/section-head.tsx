@@ -28,10 +28,13 @@ export default function SectionHead({
   /** Usually a string; a node when the intro carries inline links. */
   intro?: ReactNode;
   /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
-  wide?: boolean;
+  wide?: boolean | string;
 }) {
   return (
-    <div className={wide ? `${styles.head} ${styles.headWide}` : styles.head}>
+    <div
+      className={wide ? `${styles.head} ${styles.headWide}` : styles.head}
+      style={typeof wide === "string" ? ({ "--head-title-max": wide } as React.CSSProperties) : undefined}
+    >
       <div>
         {kicker && <span className={styles.kicker}>{kicker}</span>}
         <SplitReveal as="h2" className={styles.title} type="words">
