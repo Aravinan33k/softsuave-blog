@@ -31,6 +31,7 @@ import Hero from '@/components/generative-ai/hero';
 import Overview, { type OverviewContent } from '@/components/generative-ai/overview';
 import Problems from '@/components/generative-ai/problems';
 import FitTable from '@/components/generative-ai/fit-table';
+import SectionHead from '@/components/generative-ai/section-head';
 import Services from '@/components/generative-ai/services';
 import CtaBand from '@/components/generative-ai/cta-band';
 import Integration from '@/components/generative-ai/integration';
@@ -222,7 +223,15 @@ export default function HireRoleBands({
             )
           : null;
       case 'fit':
-        if (content.fitTable) return <FitTable key={band} content={content.fitTable} id="fit" />;
+        if (content.fitTable)
+          return (
+            <FitTable
+              key={band}
+              content={content.fitTable}
+              id="fit"
+              halfHeadOff={content.halfHeadsSkip?.includes(band)}
+            />
+          );
         return content.fit ? <Problems key={band} content={content.fit} id="fit" /> : null;
       case 'engagement':
         return content.engagement ? (
@@ -267,7 +276,27 @@ export default function HireRoleBands({
       case 'caseStudies':
         // The page's own projects where its live page names them; otherwise
         // the homepage's case studies.
-        return <WorkGrid key={band} content={content.caseStudies} />;
+        return (
+          <WorkGrid
+            key={band}
+            content={content.caseStudies}
+            mobileSlide={content.caseStudiesMobileSlide}
+            head={
+              // The page's own projects carry their head as the other
+              // bands do (eyebrow, heading, subtext — split by `halfHeads`),
+              // rather than the lane's side column (review: "like the hire
+              // software developers page").
+              content.caseStudiesHeadTop && content.caseStudies ? (
+                <SectionHead
+                  kicker={content.caseStudies.eyebrow}
+                  title={content.caseStudies.title}
+                  intro={content.caseStudies.body}
+                  wide
+                />
+              ) : undefined
+            }
+          />
+        );
       case 'testimonials':
         return <Testimonials key={band} />;
       case 'faq':

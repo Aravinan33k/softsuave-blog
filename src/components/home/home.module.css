@@ -1150,10 +1150,12 @@ h1.h2 {
    outcome is the one line of a case study that has to land. On the desktop
    lane every summary starts at the same height (ALIGNED TILES); a longer
    one just runs further down its own tile. */
+/* 16px on desktop, easing down to 14px on a phone (review: "case studies
+   paragraph font size to 16px with responsive sizes", every page). */
 .tileBody {
   margin: 12px 0 0;
-  font-size: clamp(0.8125rem, 0.92vw, 0.875rem);
-  line-height: 1.5;
+  font-size: clamp(0.875rem, 0.3vw + 0.8rem, 1rem);
+  line-height: 1.6;
   color: var(--muted);
 }
 
@@ -6372,6 +6374,43 @@ h1.h2 {
   }
 }
 
+/* ============================================================
+   WORK LANE — HEAD ON TOP (opt-in: <WorkGrid head={…} />)
+   The section head is drawn full width above the lane by the caller (the hire
+   pages' `SectionHead`), so the intro column keeps only the counter, arrows
+   and progress line, and moves under the cards. The lane runs the full width,
+   its first card on the gutter, in line with the heading. Lanes without the
+   attribute are untouched.
+   ============================================================ */
+.workH[data-head-top] .hInner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.workH[data-head-top] .hIntro {
+  order: 2;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  align-self: stretch;
+}
+
+@media (min-width: 1000px) {
+  /* Desktop drops the section's side padding (the old intro column carried
+     the gutter itself), so the head and controls take it back here. */
+  .workH[data-head-top] .hHeadTop,
+  .workH[data-head-top] .hIntro {
+    padding-inline: var(--gutter);
+  }
+
+  .workH[data-head-top] .hLane {
+    flex: none;
+    --lane-pad: var(--gutter);
+  }
+}
+
 /* The "View More" / "View Less" button under a collapsible list (home/expand-list). */
 .expandRow {
   display: flex;
@@ -6434,8 +6473,10 @@ h1.h2 {
    that follows another on the same ground keeps its own top padding, so the
    "Why Us" → "Hiring Process" and "Services" → "Vetting & Onboarding" joins
    open the same gap as the page's other section breaks (the shared
-   `.sectionShell + .sectionShell` rule drops it to zero). */
-.sectionGapsFull main section:is([id="journey"], [id="fit"]) {
+   `.sectionShell + .sectionShell` rule drops it to zero). Hire Frontend
+   Developers' Capabilities → Technology Expertise, Skill Matching →
+   Engagement Options and Why Choose Us → Delivery Presence joins likewise. */
+.sectionGapsFull main section:is([id="journey"], [id="fit"], [id="expertise"], [id="engagement"], [id="delivery"]) {
   padding-top: var(--section-y);
 }
 
@@ -6446,12 +6487,52 @@ h1.h2 {
   font-size: clamp(0.875rem, 0.6rem + 0.35vw, 1rem);
 }
 
+/* Opt-in on the homepage's <main> (`homeStoryQuote`): the client-story quote
+   at 16px on every screen size (review), in place of the shared 13–15px. The
+   line height stays the quote's own 1.72. */
+.homeStoryQuote [id="testimonials"] blockquote p {
+  font-size: 1rem;
+}
+
 /* Opt-in on a page wrapper (`servicesHeadWrap`, Hire AI Developers): the
    services H2 wraps normally, filling its first line, rather than balancing
    into two short lines (review: "fix the h2 heading" — "like a wrap"). */
 .servicesHeadWrap main [id="services"] h2[class] {
   text-wrap: wrap;
 }
+
+/* Opt-in on the homepage's <main> (`homeHeadGap`): twice the shared gap
+   between a section's head and what follows it — ~62px at 1440, 40px on a
+   phone, 72px wide — so the content stands clear of the split heads (review:
+   "increase the gap between the heading part and the card part … apply this
+   change for other section"). Re-declared on <main>, so the footer and every
+   other page keep the base token. */
+.homeHeadGap {
+  --section-head-gap: calc(clamp(20px, 1.6vw + 8px, 36px) * 2);
+}
+
+/* Clients already opens extra room above its logos (the marquee's own
+   padding), so it keeps the base gap rather than doubling it. */
+.homeHeadGap .clientsRow {
+  margin-top: calc(var(--section-head-gap) / 2);
+}
+
+/* The two heads that set their own gap rather than the token: the services
+   carousel's (`.carHead`, a fixed 16-32px) and client stories' (26px, plus
+   20px on the body under it). Both onto the doubled token, so every section
+   opens the same room under its head. */
+.homeHeadGap .carHead {
+  margin-bottom: var(--section-head-gap);
+}
+
+.homeHeadGap .reviewsInner .sectionHead {
+  margin-bottom: var(--section-head-gap);
+}
+
+.homeHeadGap .reviewsInner .reviewsBody {
+  margin-top: 0;
+}
+
 
 /* Opt-in on a page wrapper (`techNameLarge`, Hire AI Developers): the tech
    stack's tool names 1px up from the shared label size (12px → 13px). The
@@ -6462,4 +6543,53 @@ h1.h2 {
   font-size: calc(var(--fs-label) + 1px);
   white-space: normal;
   text-overflow: clip;
+}
+
+/* Opt-in on a page wrapper (`whyEvenGrid`, Hire Mobile App Developers): the
+   Why Choose Us cards as even rows of three from 1000px (six cards set 3/3
+   rather than the bold grid's two-up then three-up), and every card's top
+   edge the plain 1px line instead of the 3px accent stroke (review). Tablet
+   keeps two per row; phones one. The id, element and attribute outrank the
+   grid's own `[data-span]` and `.indBoldCard` rules. */
+.whyEvenGrid main [id="why"] article[data-span] {
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 1000px) {
+  .whyEvenGrid main [id="why"] article[data-span] {
+    grid-column: span 4;
+  }
+}
+
+/* Opt-in on a page wrapper (`cardsThreeUp`, Hire Frontend Developers): the
+   Why Choose Us and Technology Expertise card grids as even rows of three from
+   1000px — six cards set 3/3 rather than two-up, three-up, then one full
+   width (review). Layout only: the cards keep their accent stroke. Tablet
+   keeps two per row; phones one. */
+@media (min-width: 1000px) {
+  .cardsThreeUp main :is([id="why"], [id="expertise"]) article[data-span] {
+    grid-column: span 4;
+  }
+}
+
+/* `headStacked` (Clients): eyebrow, then the heading held to 70% of the screen
+   width (`70vw`), then its paragraph at the same width under it — no divider (/ad/remote-developers, by
+   request). Doubled to outrank `.clientsWideTitle .clientsHead .h2.h2`. */
+@media (min-width: 900px) {
+  .clientsStacked .clientsHead {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: clamp(16px, 1.6vw, 24px);
+    align-items: start;
+  }
+  .clientsStacked.clientsStacked .clientsHead .h2.h2 {
+    max-width: 70vw;
+  }
+  .clientsStacked .clientsHeadAside {
+    justify-self: start;
+    padding-left: 0;
+    border-left: 0;
+  }
+  .clientsStacked .clientsBody {
+    max-width: 70vw;
+  }
 }

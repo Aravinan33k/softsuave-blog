@@ -2,6 +2,7 @@
 
 import type { ReactNode } from 'react';
 import styles from '@/components/home/home.module.css';
+import ad from '@/components/ad/ad.module.css';
 import Hero from '@/components/home-v2/hero';
 import Manifesto from '@/components/home/manifesto';
 import Stats from '@/components/home/stats';
@@ -27,20 +28,32 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
   return (
     <>
       <Hero />
-      <div id="why" className={`${styles.light} ${styles.whySection}`}>
+      {/* `halfHeads` (here, on Clients, the tech stack and client stories):
+          the head set as on Hire Software Developers — eyebrow on its own row,
+          the heading in the left half, the subtext in the right half after a
+          rule at the centre, top-aligned (review). */}
+      <div id="why" className={`${styles.light} ${styles.whySection} ${ad.halfHeads}`}>
         <Manifesto />
         <Stats />
       </div>
       {/* Clients continues the light band opened by "Why Soft Suave" — the
           proof numbers and the names behind them read as one chapter. */}
-      <div className={styles.light}>
+      {/* `halfHeads`, as on Why Soft Suave above. */}
+      <div className={`${styles.light} ${ad.halfHeads}`}>
         <Clients />
       </div>
-      <Industries />
-      <div className={styles.light}>
+      {/* `halfHeads`, as on Why Soft Suave above. */}
+      <div className={ad.halfHeads}>
+        <Industries />
+      </div>
+      {/* `halfHeads`, as on Why Soft Suave above. */}
+      <div className={`${styles.light} ${ad.halfHeads}`}>
         <Services />
       </div>
-      <Journey />
+      {/* `halfHeads`, as on Why Soft Suave above. */}
+      <div className={ad.halfHeads}>
+        <Journey />
+      </div>
       {/* Case studies invert to the warm-white band — the photography and the
           outcome numbers carry more weight on light, and it breaks up the run
           of dark sections between Journey and Awards. */}
@@ -55,14 +68,16 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
       <div className={styles.light}>
         <Recognitions />
       </div>
-      {techStack}
+      {/* `halfHeads`, as on Why Soft Suave above. */}
+      <div className={ad.halfHeads}>{techStack}</div>
       {/* Client stories invert to the warm-white band, so the run reads
           TechStack(dark) → stories(light) → Contact(dark). The archive's own
           styles are token-driven, so the wrapper is the whole switch — the
           one exception is each photograph's hover veil, which stays
           near-black on purpose because it sits on the picture, not the page
           (see `.rImageVeilLabel`). */}
-      <div className={styles.light}>
+      {/* `halfHeads`, as on Why Soft Suave above. */}
+      <div className={`${styles.light} ${ad.halfHeads}`}>
         <Testimonials />
       </div>
       <Contact />
