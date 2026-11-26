@@ -248,6 +248,17 @@ export interface HireRolePageContent {
    */
   readonly caseStudies?: WorkCarouselContent;
   /**
+   * Below 1000px, keep the case studies a horizontal swipe row (one card and a
+   * peek of the next) instead of a vertical stack (`WorkGrid` `mobileSlide`).
+   */
+  readonly caseStudiesMobileSlide?: boolean;
+  /**
+   * The case studies' eyebrow, heading and subtext as the page's other section
+   * heads (`SectionHead`, split by `halfHeads`), full width above the lane,
+   * instead of the lane's own side column (`WorkGrid` `head`).
+   */
+  readonly caseStudiesHeadTop?: boolean;
+  /**
    * This role's stack, rendered through the grouped panels (or the homepage's
    * rows, with `techStackStyle`). `wideHead` is read by the panels only.
    */
@@ -274,6 +285,8 @@ export interface HireRolePageContent {
    * columns with no measure cap (`ad.module.css` `halfHeads`).
    */
   readonly halfHeads?: boolean;
+  /** Bands that keep their stacked head under `halfHeads` (supported by `fit`'s table). */
+  readonly halfHeadsSkip?: readonly HireBand[];
   /**
    * The ad pages' wider gap between every section head and its content
    * (`ad.module.css` `wideHeadGap`: 32px on a phone, ~55px at 1440, 64px wide).
@@ -289,6 +302,13 @@ export interface HireRolePageContent {
   readonly servicesHeadWrap?: boolean;
   /** The tech stack's tool names 1px larger than the shared label size. */
   readonly techNameLarge?: boolean;
+  /** The Why Choose Us cards three across in even rows (desktop), with no accent stroke along the top. */
+  readonly whyEvenGrid?: boolean;
+  /**
+   * The Why Choose Us and Technology Expertise cards three across in even rows
+   * (desktop), keeping their accent stroke — layout only (`cardsThreeUp`).
+   */
+  readonly cardsThreeUp?: boolean;
   /**
    * Further label-only bands, each placed by `order` as `list:<key>`.
    *

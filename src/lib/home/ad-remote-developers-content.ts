@@ -20,6 +20,10 @@
 import type { HeroContent } from "@/components/landing/hero";
 import type { CtaBandContent } from "@/components/landing/cta-band";
 import type { TopTalentContent } from "@/components/ad/top-talent";
+import type { FeatureAccordionContent } from "@/components/common/feature-accordion";
+import type { ProcessContent } from "@/components/landing/process";
+import type { PracticeShowcaseContent } from "@/components/ad/practice-showcase";
+import type { IconKey } from "@/lib/home/icon-for";
 import { AD_TRIAL_CTA, BOOK_MEETING, TRIAL_HREF } from "@/lib/home/ad-app-developer-content";
 import {
   rdClients,
@@ -46,11 +50,66 @@ export const rsMeta = {
 export { TRIAL_HREF };
 export const rsClients = rdClients;
 export const rsWhy = rdWhy;
+
+/**
+ * Why Choose Us as an accordion beside a photo (review: the field-tracking
+ * page's "Features That Redefine Field Performance" structure). Same head
+ * and the same five points, word for word; each point's line is its copy
+ * and each carries its own photo and badge glyph.
+ */
+const WHY_MEDIA: readonly { icon: IconKey; src: string; alt: string; width: number; height: number }[] = [
+  { icon: "award", src: "/images/landing/ov-hire-web-app-developers-v2.webp", alt: "A developer writing code on a laptop", width: 1448, height: 1086 },
+  { icon: "handshake", src: "/images/landing/ov-global-capability-center.webp", alt: "A team working together around a table with laptops", width: 1400, height: 1050 },
+  { icon: "globe", src: "/images/landing/why-ad-remote-developers-global-delivery.webp", alt: "A developer on a video call with a remote team, clocks for U.S., U.K. and India time zones on the wall", width: 640, height: 480 },
+  { icon: "rocket", src: "/images/landing/why-ad-remote-developers-faster-time-to-market.webp", alt: "A development team reviewing a sprint board together around a laptop", width: 640, height: 480 },
+  { icon: "eye", src: "/images/landing/why-ad-remote-developers-full-transparency.webp", alt: "Two people reviewing a project cost breakdown on a laptop and a printed summary", width: 640, height: 480 },
+];
+export const rsWhyFeatures: FeatureAccordionContent = {
+  eyebrow: rdWhy.eyebrow,
+  title: rdWhy.title,
+  body: rdWhy.body,
+  items: rdWhy.items.map((it, i) => {
+    const { icon, ...image } = WHY_MEDIA[i % WHY_MEDIA.length];
+    return { name: it.name, paragraphs: [it.body], icon, image };
+  }),
+};
 export const rsWhyClosing = rdWhyClosing;
 export const rsServices = rdServices;
 export const rsServicesCta = rdServicesCta;
 export const rsTech = rdTech;
 export const rsPractice = rdPractice;
+
+/**
+ * "Code & Practice" as photo-backed cards closing on a CTA card (review,
+ * from a reference). The same head and the same seven points, word for word,
+ * each with a line icon and a darkened site photo. "Learn More" opens the
+ * trial popup like every other button here; the closer books a meeting.
+ */
+const PRACTICE_VISUALS = [
+  ["code", "ov-hire-reactjs-developers"],
+  ["shield", "ov-cloud-computing"],
+  ["users", "ov-offshore-software-development-company"],
+  ["house", "ov-product-engineering-services"],
+  ["layers", "ov-hire-dot-net-developers"],
+  ["settings", "ov-hire-python-developers"],
+  ["globe", "ov-hire-mern-stack-developers-india"],
+] as const;
+export const rsPracticeShowcase: PracticeShowcaseContent = {
+  eyebrow: rdPractice.eyebrow,
+  title: rdPractice.title,
+  body: rdPractice.body,
+  items: rdPractice.items.map((it, i) => {
+    const [icon, file] = PRACTICE_VISUALS[i % PRACTICE_VISUALS.length];
+    return { name: it.name, body: it.body, icon, image: "/images/landing/" + file + ".webp" };
+  }),
+  more: { label: "Learn More", href: TRIAL_HREF },
+  closer: {
+    eyebrow: "Ready to build together?",
+    lines: ["Your Vision.", "Our Development."],
+    body: "Let’s turn your ideas into scalable, high-performing solutions.",
+    cta: { label: "Book a Strategy Call", href: BOOK_MEETING.href, external: true },
+  },
+};
 export const rsProcess = rdProcess;
 export const rsExperts = rdExperts;
 export const rsTestimonials = rdTestimonials;
@@ -66,6 +125,20 @@ export const rsHero: HeroContent = {
   centered: true,
   pointsInline: true,
   points: ["Flexible Engagement Models", "Strict NDA", "40 Hours Risk Free Trial"],
+  // A full-bleed backdrop, set up like the frontend page's hero (review).
+  // The black veil rather than "strong": this photo is already dark and the
+  // copy is centred, so the left-weighted strong veil buried it. Held still,
+  // as the frontend hero does not drift.
+  image: {
+    src: "/images/landing/ad-remote-developers-hero.webp",
+    width: 2400,
+    height: 1200,
+    alt: "A developer at a desk with four monitors of code, a city skyline at night through the window",
+    blurDataURL:
+      "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAAAQAgCdASoQAAgAA4BaJQBOgCPsw2dZqVlAAP7ytRTqzJFW70bCWk8ycIim3yLg1sNIIMlXyfmcyeEVk2EAAA==",
+    veil: "dark",
+    still: true,
+  },
   ctas: [AD_TRIAL_CTA, BOOK_MEETING],
   ctaSeparator: "OR",
   logoCta: AD_TRIAL_CTA,
@@ -82,6 +155,17 @@ export const rsTalent: TopTalentContent = {
     { name: "Replacement Guarantee For Developers’ Performance Concerns" },
     { name: "Dedicated Account Manager for Streamlined Communication" },
   ],
+  // A photo beside the models, as a two-column band (review: "better variation with add the image").
+  image: {
+    src: "/images/landing/ov-hire-dedicated-developers.webp",
+    alt: "A team of developers collaborating around a laptop in front of a large screen",
+    width: 1400,
+    height: 1050,
+    blurDataURL:
+      "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAADwAQCdASoQAAwAAsBMJYwC7AYtKwXp2jAA/vBxwfB6hApJdcbqjd8bVrd8+iUXN96X+F30aQtUirTlFg/6+Okhp6maYt7Z0Vfsc4dKnoXvXkSK5UYEHv0Syc+A/DRT0FWYZtzgHSYq/AAA",
+    // Not a figure the stats strip under it already shows.
+    badge: { figure: "40 hrs", label: "Risk-Free Trial" },
+  },
   cta: AD_TRIAL_CTA,
   statsLast: true,
   stats: [
@@ -96,6 +180,27 @@ export const rsScaleBand: CtaBandContent = {
   title: "Scale Your Developer Team On-Demand",
   body: "With SoftSuave, you can add remote developers as needed, ensuring faster iteration and predictable growth at reduced costs.",
   cta: AD_TRIAL_CTA,
+};
+
+/*
+ * Image visuals (review: "make the page creative, add image visuals").
+ * Every photo is one the site already serves; none repeats a photo used
+ * elsewhere on this page.
+ */
+
+/** The four hiring steps, each with a photo of that stage. */
+const PROCESS_PHOTOS = [
+  { src: "/images/landing/dl-hire-frontend-application-developer.webp", alt: "Two people planning requirements at a whiteboard" },
+  { src: "/images/landing/dl-hire-forward-deployed-engineer.webp", alt: "Two people reviewing developer profiles on a laptop" },
+  { src: "/images/landing/dl-hire-backend-application-developer.webp", alt: "A developer writing code at a desk with two screens" },
+  { src: "/images/landing/dl-hire-software-developers.webp", alt: "A smiling team of developers standing together" },
+];
+export const rsProcessPhotos: ProcessContent = {
+  ...rdProcess,
+  steps: rdProcess.steps.map((step, i) => ({
+    ...step,
+    image: { ...PROCESS_PHOTOS[i % PROCESS_PHOTOS.length], width: 1400, height: 1050 },
+  })),
 };
 
 /**

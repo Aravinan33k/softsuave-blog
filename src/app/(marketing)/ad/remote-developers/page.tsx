@@ -8,15 +8,15 @@ import {
   rsHero,
   rsMeta,
   rsPopup,
-  rsPractice,
-  rsProcess,
+  rsPracticeShowcase,
+  rsProcessPhotos,
   rsScaleBand,
   rsServices,
   rsServicesCta,
   rsTalent,
   rsTech,
   rsTestimonials,
-  rsWhy,
+  rsWhyFeatures,
   rsWhyClosing,
 } from '@/lib/home/ad-remote-developers-content';
 
@@ -26,15 +26,17 @@ import Clients from '@/components/home/clients';
 
 import Hero from '@/components/landing/hero';
 import CtaBand from '@/components/landing/cta-band';
-import Process from '@/components/landing/process';
 import TechStack from '@/components/landing/tech-stack';
-// The grid whose cards can carry the live page's own icon images.
-import CardGrid from '@/components/generative-ai/industries';
 
 import TopTalent from '@/components/ad/top-talent';
+// Why Choose Us as an accordion beside a photo, as on /field-tracking-product (by request).
+import FeatureAccordion from '@/components/common/feature-accordion';
 import CtaRow from '@/components/ad/cta-row';
 // The Our Services and Experts carousels, as /ad/remote-developer has them (by request).
 import ServiceCarousel from '@/components/ad/service-carousel';
+// Image-led sections for this page (review: "make the page creative, add image visuals").
+import PhotoSteps from '@/components/ad/photo-steps';
+import PracticeShowcase from '@/components/ad/practice-showcase';
 
 // Below the first screen: split into their own chunks so the hero and the first
 // sections hydrate without them. Still server-rendered, so the HTML is unchanged.
@@ -95,14 +97,15 @@ export default function AdRemoteDevelopersPage() {
     <div className={`${home.page} ${styles.wideHeadGap}`}>
       {/* `halfHeads`: section heads with the eyebrow on top, then heading left
           and subtext right of a centre rule (by request, as /ad/remote-developer). */}
-      <main id="main" className={`${styles.adMain} ${styles.halfHeads}`}>
+      <main id="main" className={`${styles.adMain} ${styles.stackHeads} ${styles.statsGrotesk}`}>
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         <Hero noNav content={rsHero} idPrefix="ad-remote-developers" breadcrumb={false} />
 
         <div className={home.light}>
           {/* The live page's client logos sit inside its hero section; here they
               open the white band that follows it. */}
-          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={rsClients.title} body={rsClients.body} wideTitle />
+          {/* `headStacked`: the heading held to 70% of the screen, its paragraph under it (by request). */}
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={rsClients.title} body={rsClients.body} wideTitle headStacked />
         </div>
 
         {/* Top Talent on the dark ground, by request; Why and Our Services stay on the light band after it.
@@ -113,7 +116,7 @@ export default function AdRemoteDevelopersPage() {
           {/* `ctaRoomy`: a full section's room under the closing line, so Services
               opens a proper section gap below it (by request). */}
           <div className={`${styles.gridWithCta} ${styles.ctaRoomy}`}>
-            <CardGrid content={rsWhy} id="why" variant="bold" />
+            <FeatureAccordion content={rsWhyFeatures} id="why" />
             <CtaRow lead={rsWhyClosing} tight />
           </div>
           {/* The services as a carousel, one card at a time with the Experts
@@ -129,12 +132,11 @@ export default function AdRemoteDevelopersPage() {
           <TechStack content={rsTech} largeLogos />
         </div>
 
-        <div className={styles.markOnDark}>
-          <CardGrid content={rsPractice} id="practice" variant="bold" />
-        </div>
+        {/* Photo-backed cards closing on a CTA card (review, from a reference). */}
+        <PracticeShowcase content={rsPracticeShowcase} id="practice" />
 
         <div className={home.light}>
-          <Process content={rsProcess} id="journey" label="n" />
+          <PhotoSteps content={rsProcessPhotos} id="journey" />
         </div>
 
         {/* Dark band: the twenty skills as a carousel with centred cards, each

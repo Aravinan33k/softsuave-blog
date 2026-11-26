@@ -32,6 +32,7 @@ export default function Clients({
   eyebrow = clients.eyebrow,
   badges = false,
   wideTitle = false,
+  headStacked = false,
   id = "clients",
 }: {
   /** Drops the soft fade on the strip's left and right ends; logos keep their usual look. */
@@ -50,6 +51,12 @@ export default function Clients({
    * the pull-in measures once at three lines and holds there ("Preferred AI-Enabled Technology Partner…").
    */
   wideTitle?: boolean | string;
+  /**
+   * Stack the head: eyebrow, then the heading held to 70% of the screen width,
+   * then the paragraph under it (no divider). Opts the section out of a page's
+   * split heads (`data-half-head-off`, see `ad.module.css` `halfHeads`).
+   */
+  headStacked?: boolean;
   /** The section id; give a second strip on one page its own. */
   id?: string;
   /**
@@ -79,8 +86,9 @@ export default function Clients({
 } = {}) {
   return (
     <section
-      className={`${styles.section} ${styles.clients}${title || body || eyebrow ? "" : ` ${styles.clientsHeadless}`}${wideTitle ? ` ${styles.clientsWideTitle}` : ""}`}
+      className={`${styles.section} ${styles.clients}${title || body || eyebrow ? "" : ` ${styles.clientsHeadless}`}${wideTitle ? ` ${styles.clientsWideTitle}` : ""}${headStacked ? ` ${styles.clientsStacked}` : ""}`}
       id={id}
+      data-half-head-off={headStacked || undefined}
       style={typeof wideTitle === "string" ? ({ "--clients-title-max": wideTitle } as React.CSSProperties) : undefined}
     >
       {(title || body || eyebrow) && (
