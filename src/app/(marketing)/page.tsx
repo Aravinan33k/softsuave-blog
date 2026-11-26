@@ -41,7 +41,9 @@ export default function HomePage() {
       {/* <Cursor /> */}
       <Nav />
       <ChapterNav />
-      <main id="main">
+      {/* `homeHeadGap`: twice the shared head-to-content gap in every section;
+          `homeStoryQuote`: the client-story quote at 16px (review). */}
+      <main id="main" className={`${styles.homeHeadGap} ${styles.homeStoryQuote}`}>
         <Sections
           techStack={<TechStack />}
         />

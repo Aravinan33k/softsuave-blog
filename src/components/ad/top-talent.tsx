@@ -1,6 +1,8 @@
+import Image from "next/image";
 import SectionHead from "@/components/landing/section-head";
 import FadeUp from "@/components/home/fade-up";
 import landing from "@/components/landing/landing.module.css";
+import { publicMediaUrl } from "@/lib/media-url";
 import styles from "./ad.module.css";
 
 export interface TopTalentContent {
@@ -16,6 +18,22 @@ export interface TopTalentContent {
     readonly points?: readonly string[];
     readonly body?: string;
   }[];
+  /**
+   * A photo beside the models: the band becomes two columns, the image on the
+   * left with an optional badge on it, the models as a ruled checklist on the
+   * right with the button under them (/ad/remote-developers, by request).
+   * Omitted keeps the models as a card grid with the button centred under it.
+   * `src` is root-relative and resolved through `publicMediaUrl`.
+   */
+  readonly image?: {
+    readonly src: string;
+    readonly alt: string;
+    readonly width: number;
+    readonly height: number;
+    readonly blurDataURL?: string;
+    /** A figure pinned to the photo's corner ("14+" / "Years of delivery"). */
+    readonly badge?: { readonly figure: string; readonly label: string };
+  };
 }
 
 /**
@@ -60,6 +78,23 @@ export default function TopTalent({
       </FadeUp>
   );
 
+  const button = (
+    <a
+      className={
+        primary
+          ? `${landing.btn} ${landing.btnPrimary} ${landing.btnLg}`
+          : whiteHover
+            ? `${styles.btn} ${styles.btnWhite}`
+            : styles.btn
+      }
+      href={content.cta.href}
+    >
+      {content.cta.label}
+    </a>
+  );
+
+  const image = content.image;
+
   return (
     <section className={styles.shell} id={id}>
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
@@ -81,23 +116,41 @@ export default function TopTalent({
               {m.body && <p className={styles.modelBody}>{m.body}</p>}
             </article>
           </FadeUp>
-        ))}
-      </div>
 
-      <div className={styles.cta}>
-        <a
-          className={
-            primary
-              ? `${landing.btn} ${landing.btnPrimary} ${landing.btnLg}`
-              : whiteHover
-                ? `${styles.btn} ${styles.btnWhite}`
-                : styles.btn
-          }
-          href={content.cta.href}
-        >
-          {content.cta.label}
-        </a>
-      </div>
+          <div className={styles.talentBody}>
+            <ul className={styles.talentList}>
+              {content.models.map((m, i) => (
+                <FadeUp key={m.name} delay={i * 0.06}>
+                  <li className={styles.talentItem}>{m.name}</li>
+                </FadeUp>
+              ))}
+            </ul>
+            <div className={styles.talentCta}>{button}</div>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className={plain ? `${styles.models} ${styles.modelsPlain}` : styles.models}>
+            {content.models.map((m, i) => (
+              <FadeUp key={m.name} delay={i * 0.08}>
+                <article className={plain ? `${styles.model} ${styles.modelPlain}` : styles.model}>
+                  <h3 className={styles.modelName}>{m.name}</h3>
+                  {m.points && (
+                    <ul className={styles.modelPoints}>
+                      {m.points.map((p) => (
+                        <li key={p}>{p}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {m.body && <p className={styles.modelBody}>{m.body}</p>}
+                </article>
+              </FadeUp>
+            ))}
+          </div>
+
+          <div className={styles.cta}>{button}</div>
+        </>
+      )}
 
       {content.statsLast && statsBlock}
     </section>

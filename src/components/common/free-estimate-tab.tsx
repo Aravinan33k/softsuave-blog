@@ -1,12 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Send } from "lucide-react";
 import { SiteLink } from "@/themes/softsuave/site-link";
 import styles from "./free-estimate-tab.module.css";
 
 /** How far down the page (px) the reader has to scroll before the tab slides in — the live site's threshold. */
 const SHOW_AFTER = 500;
+
+/**
+ * Pages with a single conversion goal that this tab would compete with. The
+ * "Have a Coffee With Us" campaign page has only its meeting-request form (by request).
+ */
+const HIDDEN_ON: ReadonlySet<string> = new Set(["/ad/coffee-with-us"]);
 
 /**
  * The "Get Free Estimate" tab fixed to the right edge of the viewport, vertically centred, reading bottom to
@@ -17,8 +24,10 @@ const SHOW_AFTER = 500;
  */
 export default function FreeEstimateTab({ href = "/free-cost-estimation", label = "Get Free Estimate" }: { href?: string; label?: string }) {
   const [shown, setShown] = useState(false);
+  const hidden = HIDDEN_ON.has((usePathname() ?? "").replace(/\/+$/, ""));
 
   useEffect(() => {
+    if (hidden) return;
     let raf = 0;
     const update = () => {
       raf = 0;
@@ -33,7 +42,9 @@ export default function FreeEstimateTab({ href = "/free-cost-estimation", label 
       window.removeEventListener("scroll", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [hidden]);
+
+  if (hidden) return null;
 
   return (
     <SiteLink

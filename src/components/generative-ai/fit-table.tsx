@@ -24,9 +24,18 @@ export interface FitTableContent {
   after?: readonly string[];
 }
 
-export default function FitTable({ content, id = "fit" }: { content: FitTableContent; id?: string }) {
+export default function FitTable({
+  content,
+  id = "fit",
+  halfHeadOff = false,
+}: {
+  content: FitTableContent;
+  id?: string;
+  /** Keep this head stacked on a page that splits its section heads (`ad.module.css` `halfHeads`). */
+  halfHeadOff?: boolean;
+}) {
   return (
-    <section className={styles.sectionShell} id={id}>
+    <section className={styles.sectionShell} id={id} data-half-head-off={halfHeadOff || undefined}>
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
       <FadeUp>
         <SimpleTable caption={content.title} columns={content.columns} rows={content.rows} />

@@ -6892,6 +6892,76 @@
       "height": 450,
       "keywords": ["code monitors dark"],
       "pexelsId": 34212916
+    },
+    {
+      "id": "cw-meeting",
+      "page": "landing",
+      "purpose": "coffee-with-us-hero-tile",
+      "alt": "Two business people talking over coffee at a cafe table",
+      "orientation": "portrait",
+      "width": 720,
+      "height": 900,
+      "keywords": ["business meeting coffee cafe", "two people coffee conversation", "business conversation cafe", "coffee meeting"]
+    },
+    {
+      "id": "cw-collab",
+      "page": "landing",
+      "purpose": "coffee-with-us-why-bento",
+      "alt": "A small team working together around a laptop in a bright office",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 900,
+      "keywords": ["small team collaboration laptop office", "team meeting laptop", "coworkers discussion office", "teamwork"]
+    },
+    {
+      "id": "cw-ai",
+      "page": "landing",
+      "purpose": "coffee-with-us-capability-card",
+      "alt": "Abstract visual of an artificial intelligence network",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 750,
+      "keywords": ["artificial intelligence abstract", "ai technology network", "neural network abstract", "technology abstract"]
+    },
+    {
+      "id": "cw-software",
+      "page": "landing",
+      "purpose": "coffee-with-us-capability-card",
+      "alt": "A developer writing code across two monitors",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 750,
+      "keywords": ["software developer coding monitors", "programmer code screen", "developer laptop code", "coding"]
+    },
+    {
+      "id": "cw-engineering",
+      "page": "landing",
+      "purpose": "coffee-with-us-capability-card",
+      "alt": "An engineering team planning a project at a whiteboard",
+      "orientation": "landscape",
+      "width": 1200,
+      "height": 750,
+      "keywords": ["engineering team whiteboard planning", "team planning whiteboard", "project planning office", "team strategy"]
+    },
+    {
+      "id": "cw-office",
+      "page": "landing",
+      "purpose": "coffee-with-us-standards-photo",
+      "alt": "Colleagues working in a modern open-plan office",
+      "orientation": "portrait",
+      "width": 900,
+      "height": 1200,
+      "keywords": ["modern office team working", "open office people working", "office workspace team", "office"]
+    },
+    {
+      "id": "cw-coffee",
+      "page": "landing",
+      "purpose": "coffee-with-us-invite-background",
+      "alt": "Two cups of coffee on a wooden meeting table",
+      "orientation": "landscape",
+      "width": 1600,
+      "height": 900,
+      "keywords": ["two coffee cups table", "coffee cups wooden table", "coffee table meeting", "coffee"]
     }
   ]
 }

@@ -151,6 +151,8 @@ export default function HireRolePage({
         content.storyQuoteLarge && styles.storyQuoteLarge,
         content.servicesHeadWrap && styles.servicesHeadWrap,
         content.techNameLarge && styles.techNameLarge,
+        content.whyEvenGrid && styles.whyEvenGrid,
+        content.cardsThreeUp && styles.cardsThreeUp,
       ]
         .filter(Boolean)
         .join(' ')}
