@@ -296,7 +296,7 @@ export const services = {
     },
     {
       key: "forward-deployed-engineers",
-      href: "/hire-forward-deployed-engineer",
+      href: "/hire-forward-deployed-engineers",
       // A hand-placed picture (by request): engineers at a holographic deployment diagram.
       img: "fde-v3",
       name: "Forward Deployed Engineers",

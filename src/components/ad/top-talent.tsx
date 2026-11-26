@@ -46,9 +46,12 @@ export default function TopTalent({
   id = "overview",
   whiteHover = false,
   primary = false,
+  headingFont = false,
 }: {
   content: TopTalentContent;
   id?: string;
+  /** Set the engagement-model names in the section headings' face and weight, not the light display serif (see `.modelNameHeading`). */
+  headingFont?: boolean;
   /** The white left-to-right hover fill on the button, for a Top Talent band on the dark ground (see `.btnWhite`). */
   whiteHover?: boolean;
   /**
@@ -98,23 +101,20 @@ export default function TopTalent({
 
       {!content.statsLast && statsBlock}
 
-      {image ? (
-        <div className={styles.talentMedia}>
-          <FadeUp className={styles.talentPhoto}>
-            <Image
-              src={publicMediaUrl(image.src)}
-              alt={image.alt}
-              width={image.width}
-              height={image.height}
-              sizes="(min-width: 900px) 50vw, 100vw"
-              {...(image.blurDataURL ? { placeholder: "blur" as const, blurDataURL: image.blurDataURL } : {})}
-            />
-            {image.badge && (
-              <span className={styles.talentBadge}>
-                <strong>{image.badge.figure}</strong>
-                <span>{image.badge.label}</span>
-              </span>
-            )}
+      <div className={plain ? `${styles.models} ${styles.modelsPlain}` : styles.models}>
+        {content.models.map((m, i) => (
+          <FadeUp key={m.name} delay={i * 0.08}>
+            <article className={plain ? `${styles.model} ${styles.modelPlain}` : styles.model}>
+              <h3 className={headingFont ? `${styles.modelName} ${styles.modelNameHeading}` : styles.modelName}>{m.name}</h3>
+              {m.points && (
+                <ul className={styles.modelPoints}>
+                  {m.points.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+              )}
+              {m.body && <p className={styles.modelBody}>{m.body}</p>}
+            </article>
           </FadeUp>
 
           <div className={styles.talentBody}>
