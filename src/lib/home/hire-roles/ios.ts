@@ -33,6 +33,7 @@ export const ios: HireRolePageContent = {
   groundOverrides: { process: 'light' },
   key: 'hire-ios',
   slug: '/hire-ios-developers',
+  stackedHeads: true,
   name: 'Hire iOS Developers',
   serviceType: 'iOS development staffing',
 

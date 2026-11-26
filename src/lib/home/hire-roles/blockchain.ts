@@ -35,6 +35,7 @@ export const blockchain: HireRolePageContent = {
   groundOverrides: { capabilities: 'light' },
   key: 'hire-blockchain',
   slug: '/hire-blockchain-developer',
+  stackedHeads: true,
   name: 'Hire Blockchain Developers',
   serviceType: 'Blockchain development staffing',
 

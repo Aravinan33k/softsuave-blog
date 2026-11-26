@@ -12,6 +12,8 @@ import TechStack from '@/components/home/tech-stack';
 
 import home from '@/components/home/home.module.css';
 import location from '@/components/landing/location-app-page.module.css';
+import landing from '@/components/landing/landing.module.css';
+import genAi from '@/components/generative-ai/gen-ai.module.css';
 import Sections from './sections';
 
 /**
@@ -75,7 +77,7 @@ const LD = pageSchemaGraph({
 
 export default function EdtechAiSolutionsPage() {
   return (
-    <div className={`${home.page} ${location.submitBlack}`}>
+    <div className={`${home.page} ${location.submitBlack} ${home.stackedHeads} ${landing.stackedHeads} ${genAi.stackedHeads}`}>
       <JsonLd data={LD} />
       <Nav logoHref={HOME_HREF} />
 
