@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import BrandImage from "./brand-image";
@@ -161,7 +161,16 @@ export default function WorkGrid({
   tileTitleAs: TileTitle = "h3",
   autoplayMs = 0,
   mobileSlide = false,
+  head,
 }: {
+  /**
+   * A section head drawn full width ABOVE the lane, in place of the intro
+   * column's own eyebrow, heading and lead — for a page whose other sections
+   * share one head treatment (the hire pages' `SectionHead`, split by
+   * `halfHeads`). The lane then runs the full width, its counter, arrows and
+   * progress line under the cards. Omitted keeps the intro column beside it.
+   */
+  head?: ReactNode;
   /**
    * Below 1000px, keep the cards in a horizontal, swipeable scroll-snap row
    * (one card and a peek of the next) instead of stacking them vertically.
@@ -526,19 +535,25 @@ export default function WorkGrid({
       className={styles.workH}
       id={id}
       data-mobile-slide={mobileSlide || undefined}
+      data-head-top={head ? true : undefined}
     >
+      {head ? <div className={styles.hHeadTop}>{head}</div> : null}
       <div
         ref={root}
         className={hasArt ? styles.hInner : `${styles.hInner} ${styles.hInnerFlat}`}
       >
         <div className={content.wideIntro ? `${styles.hIntro} ${styles.hIntroWide}` : styles.hIntro}>
-          {/* No kicker for a lane whose live section has none — an empty
-              eyebrow would still draw its coral rule. */}
-          {content.eyebrow ? <span className={styles.eyebrow}>{content.eyebrow}</span> : null}
-          <SplitReveal as="h2" className={styles.h2} type="words">
-            {content.title}
-          </SplitReveal>
-          <p className={styles.lead}>{content.body}</p>
+          {head ? null : (
+            <>
+              {/* No kicker for a lane whose live section has none — an empty
+                  eyebrow would still draw its coral rule. */}
+              {content.eyebrow ? <span className={styles.eyebrow}>{content.eyebrow}</span> : null}
+              <SplitReveal as="h2" className={styles.h2} type="words">
+                {content.title}
+              </SplitReveal>
+              <p className={styles.lead}>{content.body}</p>
+            </>
+          )}
 
           {content.cta ? (
             <div className={styles.hIntroCta}>

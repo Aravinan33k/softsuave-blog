@@ -562,7 +562,17 @@
   text-align: justify;
 }
 
-/* The paragraphs a decision table closes on (`FitTable`). */
+/* Phones: a ~40-character line has too few spaces to spread, so justified copy
+   opens wide gaps between words (UI/UX audit). Ragged right below tablet width;
+   wider screens keep the flush edges. */
+@media (max-width: 767px) {
+  .prose p {
+    text-align: left;
+  }
+}
+
+/* The paragraphs a decision table closes on (`FitTable`). Full width, the
+   table's own measure (review: "fill this paragraph width"). */
 .fitTableAfter {
   margin-top: clamp(24px, 2.6vw, 36px);
 }

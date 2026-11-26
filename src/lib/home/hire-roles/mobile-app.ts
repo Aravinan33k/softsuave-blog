@@ -32,6 +32,18 @@ export const mobileApp: HireRolePageContent = {
   closingCtaIcon: true,
   key: 'hire-mobile',
   slug: '/hire-mobile-app-developers',
+  // Section heads set like /ad/remote-developers' "Our Clients", the Developer
+  // Selection table's included (review). Overview and Global Delivery are image
+  // heads the rule already leaves alone.
+  halfHeads: true,
+  // Why Choose Us as two even rows of three, no top stroke (review).
+  whyEvenGrid: true,
+  // Case studies as a horizontal swipe row on phones and tablets, not a
+  // vertical stack (review).
+  caseStudiesMobileSlide: true,
+  // Its eyebrow, heading and subtext set like the other heads on the page and
+  // the Hire Software Developers page's (review), above a full-width lane.
+  caseStudiesHeadTop: true,
   name: 'Hire Mobile App Developers',
   serviceType: 'Mobile application development staffing',
   // No breadcrumb schema: the live page's BreadcrumbList sits inside an HTML
@@ -68,6 +80,13 @@ export const mobileApp: HireRolePageContent = {
       'Hire mobile app developers experienced in Android, iOS, Flutter, React Native, and other mobile technologies. Review relevant profiles, interview developers directly, and choose specialists who fit your product and existing codebase.',
       'Evaluate technical execution, communication, and workflow fit through real project work with a 40-hour trial before you onboard.',
     ],
+    // A full-bleed backdrop, set up like the frontend page's hero (review).
+    background: {
+      src: '/images/landing/hire-roles/hire-mobile-app-developer-cover.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoQAAgAA4BaJZACdADHaPs1BwAA/u6fZC5rHBQVN3fcSZMPfYuYiMdEuKeg/PDHcM5oFBkZWjntQI6EnehHvPWRmd3gUYAA',
+      veil: 'strong',
+    },
     points: [
       'Android, iOS & Cross-Platform Expertise',
       `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
@@ -87,16 +106,16 @@ export const mobileApp: HireRolePageContent = {
 
   overview: {
     wideHead: true,
-    // Portrait, run the full height of the copy beside it (8 Oct review:
-    // "resize the image to match the section") — the same photo, cut taller.
+    // A 4:3 frame centred against the copy, sized like the Hire Software
+    // Developers page (review: "fix the image size").
     image: {
-      src: '/images/landing/ov-hire-mobile-app-developers-tall.webp',
-      width: 1000,
-      height: 1250,
+      src: '/images/landing/ov-hire-mobile-app-developers.webp',
+      width: 1400,
+      height: 1050,
       alt: 'Mobile app developers testing apps on phones',
       blurDataURL:
-        'data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAABQAgCdASoQAAsAA4BaJbACdAYt9vPNftaaTIAA/vTFl2nlUNjvSykha/vqPIB7/Xv1+28xK9bQ6X7QBsq6ntlSHoqd5Fmejmh+8clBDBYx154vgoJHQ58tOB8t57/y+uQ4AkRdS7wg96Aw3m4AW6XgAN0pAAAA',
-      fit: 'column',
+        'data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAABQAgCdASoQAAwAAsBMJbACdAYtLlb8t9LyqWgA/voMJhyxIHVUSUb7Ycs4/EAqDD2Z8WX8HodSqsoOnf/z0GJ9N1/xH6zuYborYAZ4tUpp1TzRm9dFgH+kA+wXTuT+lIuz8graK/S4Gf4RGwy9QXxw8xVQ2Y6XRukwVtDjR9oUFAAOPmLq4AAA',
+      align: 'both',
     },
     eyebrow: 'Overview',
     title: 'Hire Mobile App Developers for Your Product and Team Needs',
@@ -176,16 +195,16 @@ export const mobileApp: HireRolePageContent = {
 
   globalDelivery: {
     wideHead: true,
-    // Portrait, run the full height of the copy beside it (8 Oct review:
-    // "resize the image to match the section") — the same photo, cut taller.
+    // A 4:3 frame centred against the copy, sized like the Hire Software
+    // Developers page (review: "fix the image size").
     image: {
-      src: '/images/landing/dl-hire-mobile-app-developers-tall.webp',
-      width: 1000,
-      height: 1250,
+      src: '/images/landing/dl-hire-mobile-app-developers.webp',
+      width: 1400,
+      height: 1050,
       alt: 'Developer on a video call with a headset at a laptop',
       blurDataURL:
-        'data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADwAQCdASoQAAsAA4BaJbACdAEUu/NkAIgA+UGylZxof7KpY3V9EiWXRfqSOElZvn8vd+dweBg/M8gX4JyB7WaB6SaFsJxufMzLf/2I2jwOAAAA',
-      fit: 'column',
+        'data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAQAgCdASoQAAwAAsBMJbACdAEVZzVEy1gAAPz8HhALJbDwz99eAkwIuWU6vasrxsS7eUynAexVOl2VIlFPcHmdo125aNvUN6m1N2A71W6TndNHalSBQAAA',
+      align: 'both',
     },
     eyebrow: 'Global Delivery',
     title: 'Hire Mobile App Developers in India for Global Teams',
@@ -230,6 +249,10 @@ export const mobileApp: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Mobile Development Expertise',
     title: 'Hire Mobile Developers Across Native and Cross-Platform Technologies',
+    // One auto-advancing scrolling row of cards, as the software page's
+    // "Developer Expertise" (review: "change … like a Developer Expertise section").
+    carousel: true,
+    autoplay: true,
     body: 'Get matched with mobile developers who fit your product, codebase, and team requirements from day one. Move faster with relevant expertise aligned to your technology, workflows, delivery priorities, and goals.',
     items: [
       {
