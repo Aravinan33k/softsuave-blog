@@ -30,6 +30,7 @@ export const webApp: HireRolePageContent = {
   closingCtaIcon: true,
   key: 'hire-web',
   slug: '/hire-web-app-developers',
+  stackedHeads: true,
   name: 'Hire Web App Developers',
   serviceType: 'Web application development staffing',
 

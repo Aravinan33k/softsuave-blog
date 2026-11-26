@@ -32,6 +32,7 @@ export const mobileApp: HireRolePageContent = {
   closingCtaIcon: true,
   key: 'hire-mobile',
   slug: '/hire-mobile-app-developers',
+  stackedHeads: true,
   name: 'Hire Mobile App Developers',
   serviceType: 'Mobile application development staffing',
   // No breadcrumb schema: the live page's BreadcrumbList sits inside an HTML

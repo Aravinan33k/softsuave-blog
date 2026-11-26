@@ -173,6 +173,33 @@
   }
 }
 
+/* `stackedHeads` on a page's root: each split section head on that page stays one
+   column (title, then the intro beneath, no divider rule). Fonts, sizes and
+   spacing are untouched. Opt-in per page. The extra class outranks the split
+   rules above and the `.headWide` one below (same specificity, later wins, so
+   this sits after both). */
+@media (min-width: 900px) {
+  .stackedHeads .head:has(> .intro):not(.headSub):not(.headPage),
+  .stackedHeads .headWide:has(> .intro):not(.headSub):not(.headPage) {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .stackedHeads .head:has(> .intro):not(.headSub):not(.headPage) > div:first-child {
+    max-width: 70%;
+  }
+
+  .stackedHeads .head:has(> .intro):not(.headSub):not(.headPage) > .intro {
+    justify-self: start;
+    align-self: auto;
+    display: block;
+    padding-left: 0;
+    border-left: 0;
+    /* The intro runs to 75% of the section's width before it wraps (was 800px). */
+    max-width: 75%;
+  }
+}
+
 /* ============================================================
    BUTTONS — squared, mono-labelled. The homepage's `.pill` is a 999px
    capsule; these are deliberately not.

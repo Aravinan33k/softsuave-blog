@@ -29,6 +29,7 @@ export const software: HireRolePageContent = {
   closingCtaIcon: true,
   key: 'hire-software',
   slug: '/hire-software-developers',
+  stackedHeads: true,
   name: 'Hire Software Developers',
   serviceType: 'Software development staffing',
 
