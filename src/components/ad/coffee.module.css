@@ -1,0 +1,1029 @@
+/* ==========================================================================
+   /ad/coffee-with-us — "Have a Coffee With Us"
+   Styles for this campaign's own pieces only: the hero visual and meeting
+   card, the credibility strip, the bento, the capability cards, the standards
+   split, the marquee and the CEO invitation. Everything else on the page is
+   the shared ad kit, unchanged. Reads the theme's semantic vars (--bg,
+   --surface, --line, --text-bright, --muted, --accent), so each block follows
+   the dark / light band it sits in.
+   ========================================================================== */
+
+/* ---------- page ---------- */
+
+/* The hero's own button scrolls to the form below the copy on phones and
+   tablets. From 1000px the form sits beside the copy, so the button goes —
+   wrapper and all, so its row leaves no gap. */
+@media (min-width: 1000px) {
+  .page div:has(> a[href="#meeting"]),
+  .page a[href="#meeting"] {
+    display: none;
+  }
+}
+
+/* The H1 at 50px on a desktop (by request), easing down to 34px on a phone —
+   the site's standard H1 scale, in place of the 70px every /ad page's <main>
+   sets (ad.module.css `.adMain`). Outranks that rule by specificity. */
+.page main[id="main"] {
+  --fs-h1: clamp(34px, 3.2vw + 11.6px, 50px);
+}
+
+/* The hero's three points sit in one ruled row only where all three fit
+   (1440px up, measured); on any narrower screen they stack one per line,
+   like the default hero list on /ai-solutions-in-edutech (by request).
+   The hero has no other list, so its one <ul> is the points. Mirrors the
+   shared inline list's own phone rule (landing.module.css .heroPointsInline). */
+@media (max-width: 1439px) {
+  .page section[id="top"] ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page section[id="top"] ul > li {
+    padding: 6px 0;
+    border-left: 0;
+  }
+}
+
+/* The client-story quote at 16px on every screen size, as on the homepage
+   (its `homeStoryQuote`), in place of the shared 13–15px. */
+.storyQuote [id="testimonials"] blockquote p {
+  font-size: 1rem;
+}
+
+/* The masthead button's label is long; keep it on one line. */
+.page section[id="top"] a[href="#book"] {
+  white-space: nowrap;
+}
+
+/* Any photograph filling its positioned frame. */
+.photoCover {
+  object-fit: cover;
+  transition: transform 0.9s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+/* The page's own pill button (bento tile, invitation). */
+.pillCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.95em 1.7em;
+  border-radius: 999px;
+  background: #f5821f;
+  color: #111;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(245, 130, 31, 0.28);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.pillCta span {
+  transition: transform 0.25s ease;
+}
+
+.pillCta:hover {
+  background: #ff9640;
+  transform: translateY(-1px);
+}
+
+.pillCta:hover span {
+  transform: translateX(4px);
+}
+
+.pillCta:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+/* ---------- hero: the meeting card's column ---------- */
+
+/* The card itself is the shared enquiry card (common/enquiry-form.module.css);
+   this only places it, and is the target of the hero's phone/tablet button. */
+.heroVisual {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+}
+
+@media (min-width: 1000px) {
+  .heroVisual {
+    max-width: 480px;
+    margin-left: auto;
+    justify-self: end;
+  }
+}
+
+/* ---------- meeting card: what the shared card does not have ---------- */
+
+.formCard {
+  /* Room above the card when a CTA scrolls to it. */
+  scroll-margin-top: 24px;
+}
+
+/* Header: left-aligned host row, title, then the meeting length. */
+.formHead {
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.formHost {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.formAvatar {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(160deg, #fbe3d4, #f3c7ad);
+  /* A white gap, then a soft orange ring. */
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(245, 130, 31, 0.45);
+}
+
+.formHostName {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #3f434d;
+}
+
+.formTitle {
+  margin: 14px 0 0;
+  font-family: var(--font-body);
+  font-size: clamp(1.625rem, 2.2vw, 2rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: #0f1115;
+}
+
+.formMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 0;
+  font-size: 0.9375rem;
+  color: #656b76;
+}
+
+.formMeta::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f5821f;
+}
+
+.formAvatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 12%;
+}
+
+/* The thank-you that replaces the fields once the lead is in. */
+.formDone {
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 12px;
+  background: #fff6ee;
+  color: #3f434d;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.formDone:focus {
+  outline: none;
+}
+
+.formDone p {
+  margin: 0;
+}
+
+.formDoneTitle {
+  margin-bottom: 6px !important;
+  font-weight: 700;
+  color: #0f1115;
+}
+
+/* ---------- credibility row (bottom of the hero) ----------
+   Big bold figures over Inter labels in capitals, all one muted colour,
+   split by thin rules that fade out at both ends. Five across from
+   1000px, three then two on a tablet, two per row (the last centred) on a
+   phone. A rule shows only between items on the same row. */
+
+.cred {
+  padding: clamp(8px, 1.5vw, 20px) var(--gutter) clamp(36px, 4.4vw, 64px);
+}
+
+.credList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  row-gap: clamp(26px, 4vw, 40px);
+  margin: 0;
+}
+
+.credItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 6px clamp(8px, 1.4vw, 20px);
+  text-align: center;
+}
+
+.credItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--line) 25%, var(--line) 75%, transparent);
+}
+
+/* Phone, two per row: no rule at a row's start; the fifth item centred alone. */
+.credItem:nth-child(odd)::before {
+  display: none;
+}
+
+.credItem:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 640px) {
+  /* Three per row on a six-track grid, so the two-item second row can sit centred. */
+  .credList {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .credItem,
+  .credItem:last-child:nth-child(odd) {
+    grid-column: span 2;
+  }
+
+  .credItem:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .credItem:nth-child(odd)::before {
+    display: block;
+  }
+
+  /* Three per row: rows start at the 1st and 4th. */
+  .credItem:nth-child(3n + 1)::before {
+    display: none;
+  }
+}
+
+@media (min-width: 1000px) {
+  .credList {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .credItem,
+  .credItem:nth-child(4),
+  .credItem:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+
+  .credItem:nth-child(3n + 1)::before {
+    display: block;
+  }
+
+  .credItem:first-child::before {
+    display: none;
+  }
+}
+
+.credFigure {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 4.4vw, 4.25rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.credLabel {
+  margin: 0;
+  /* Inter in capitals, widely tracked (by request). */
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(0.6875rem, 0.85vw, 0.8125rem);
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+
+/* ---------- why: bento (photo tile + four cards) ---------- */
+
+.bento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.4vw, 18px);
+}
+
+@media (min-width: 900px) {
+  .bento {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+}
+
+.bentoPhoto {
+  position: relative;
+  margin: 0;
+  min-height: 320px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.bentoPhoto:hover .photoCover {
+  transform: scale(1.04);
+}
+
+.bentoPhotoVeil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(18px, 2vw, 28px);
+  background: linear-gradient(180deg, transparent 45%, rgba(10, 10, 12, 0.72) 100%);
+}
+
+.bentoCards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.4vw, 18px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 600px) {
+  .bentoCards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.bentoCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(22px, 2.2vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.bentoCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(23, 20, 15, 0.1);
+}
+
+.bentoIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 6px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+}
+
+.bentoNum {
+  position: absolute;
+  top: clamp(22px, 2.2vw, 30px);
+  right: clamp(22px, 2.2vw, 30px);
+  font-family: var(--font-mono-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.bentoName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.125rem, 1.4vw, 1.3125rem);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--text-bright);
+}
+
+.bentoBody {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ---------- capability cards (photo-led) ---------- */
+
+.capGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 1.6vw, 22px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 900px) {
+  .capGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.capItem > * {
+  height: 100%;
+}
+
+.capCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.capCard:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  transform: translateY(-3px);
+}
+
+.capCard:hover .photoCover {
+  transform: scale(1.05);
+}
+
+.capMedia {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 15px;
+  overflow: hidden;
+  background: var(--surface-2, #171717);
+}
+
+.capIndex {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(8, 8, 10, 0.6);
+  backdrop-filter: blur(6px);
+  font-family: var(--font-mono-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: #fff;
+}
+
+.capText {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(18px, 2vw, 24px) clamp(12px, 1.4vw, 18px) clamp(14px, 1.6vw, 20px);
+}
+
+.capName {
+  margin: 0;
+  font-family: var(--font-display-serif);
+  font-weight: 400;
+  font-size: clamp(1.375rem, 1.9vw, 1.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+
+.capBody {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.capPoints {
+  display: grid;
+  gap: 10px;
+  margin: 6px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.capPoints li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+/* A drawn tick in the accent colour. */
+.capPoints li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.32em;
+  width: 12px;
+  height: 7px;
+  border-left: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(-45deg);
+}
+
+/* ---------- delivery standards: photo + cards ---------- */
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 1.6vw, 22px);
+}
+
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+}
+
+.splitPhoto {
+  position: relative;
+  margin: 0;
+  height: 100%;
+  min-height: 340px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.splitCards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.4vw, 18px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 600px) {
+  .splitCards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.splitCards > li > * {
+  height: 100%;
+}
+
+.splitCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  padding: clamp(22px, 2.2vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.splitCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(23, 20, 15, 0.1);
+}
+
+.splitIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 6px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.splitName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.125rem, 1.4vw, 1.3125rem);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--text-bright);
+}
+
+.splitBody {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ---------- marquee ---------- */
+
+.marquee {
+  overflow: hidden;
+  padding: clamp(22px, 3vw, 40px) 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  animation: cwMarquee 48s linear infinite;
+}
+
+.marquee:hover .marqueeTrack {
+  animation-play-state: paused;
+}
+
+.marqueeItem {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 36px);
+  padding-right: clamp(18px, 2.4vw, 36px);
+  /* Space Grotesk at 55px on a desktop (by request), easing down on smaller screens. */
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(2rem, 4.4vw, 55px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: var(--text-bright);
+}
+
+/* Every other line drawn in outline only. */
+.marqueeItem:nth-child(even) {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--muted);
+}
+
+.marqueeStar {
+  font-size: 0.45em;
+  color: var(--accent);
+  -webkit-text-stroke: 0;
+}
+
+@keyframes cwMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack {
+    animation: none;
+  }
+
+  .photoCover,
+  .bentoCard,
+  .capCard,
+  .splitCard,
+  .pillCta {
+    transition: none;
+  }
+}
+
+/* ---------- CEO invitation (approved card design) ----------
+   Space Grotesk (heading) and Inter (everything else) only. The button is the
+   site's own primary button (landing .btn .btnPrimary); this only sizes it. */
+
+.invitePanel {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(36px, 5vw, 64px);
+  align-items: center;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(32px, 5vw, 80px) clamp(24px, 4.6vw, 80px) clamp(64px, 7vw, 112px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 30px;
+  overflow: hidden;
+  background:
+    radial-gradient(70% 90% at 0% 100%, rgba(255, 98, 54, 0.16), transparent 60%),
+    radial-gradient(60% 70% at 100% 0%, rgba(255, 122, 69, 0.08), transparent 60%),
+    linear-gradient(160deg, #141416 0%, #0b0b0d 100%);
+}
+
+@media (min-width: 900px) {
+  .invitePanel {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+}
+
+/* The coffee-table photo, fading in from the right edge behind the portrait. */
+.inviteBackdrop {
+  position: absolute;
+  inset: 0 0 0 45%;
+  z-index: -1;
+  opacity: 0.3;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 55%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 55%);
+}
+
+@media (max-width: 899px) {
+  .inviteBackdrop {
+    inset: 45% 0 0 0;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 50%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 50%);
+  }
+}
+
+/* The glowing curve along the bottom left. */
+.inviteCurve {
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  z-index: -1;
+  width: min(64%, 860px);
+  height: clamp(60px, 7vw, 110px);
+  pointer-events: none;
+  /* Fades out toward its right end rather than stopping dead. */
+  -webkit-mask-image: linear-gradient(90deg, #000 60%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 60%, transparent 100%);
+}
+
+.inviteCurveLine,
+.inviteCurveGlow {
+  fill: none;
+  stroke: #ff7a45;
+}
+
+.inviteCurveLine {
+  stroke-width: 2;
+}
+
+.inviteCurveGlow {
+  stroke-width: 10;
+  opacity: 0.35;
+  filter: blur(8px);
+}
+
+.inviteCopy {
+  position: relative;
+}
+
+/* No leading rule (by request): the label alone. */
+.inviteEyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 0.9vw, 0.875rem);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #d4d4d4;
+}
+
+.inviteTitle {
+  margin: 24px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  /* 40px on desktop, easing down to 30px on a phone (review). */
+  font-size: clamp(1.875rem, 1.1vw + 1.6rem, 2.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #f2f2f2;
+}
+
+.inviteAccent {
+  color: #ff7a45;
+  font-weight: 600;
+}
+
+.inviteBody {
+  margin: 22px 0 0;
+  max-width: 56ch;
+  font-family: var(--font-body);
+  /* 18px on desktop, 16px on a phone (review). */
+  font-size: clamp(1rem, 0.3vw + 0.93rem, 1.125rem);
+  line-height: 1.65;
+  color: #d0d0d0;
+}
+
+.invitePoints {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.invitePoints li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #ececec;
+}
+
+.invitePoints svg {
+  flex: none;
+  color: #ff7a45;
+}
+
+/* One label per line, stacked, where three across would not fit; the
+   two-line break only applies in the row. */
+.invitePointBreak {
+  display: none;
+}
+
+@media (min-width: 640px) and (max-width: 899px), (min-width: 1200px) {
+  .invitePointBreak {
+    display: inline;
+  }
+
+  .invitePoints li {
+    white-space: nowrap;
+  }
+
+  .invitePoints {
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    gap: 0;
+  }
+
+  .invitePoints li {
+    padding: 4px clamp(12px, 1.6vw, 24px);
+    border-left: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .invitePoints li:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+}
+
+.inviteActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px clamp(18px, 2.4vw, 32px);
+  margin-top: 38px;
+}
+
+/* The site button, a size up for the closing call to action. */
+/* Rectangular, with the form button's corner radius (by request). */
+.inviteCta {
+  padding: 1.15em 1.9em;
+  font-size: 0.875rem;
+  border-radius: var(--btn-radius, 6px);
+}
+
+/* Two set lines (a <br> between them), each kept whole. */
+.inviteNote {
+  margin: 0;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #c4c4c4;
+}
+
+/* The portrait: a glowing frame with the cut-out over a softened office. */
+.inviteFigure {
+  position: relative;
+  margin: 0 auto;
+  width: min(100%, 440px);
+  padding: 30px clamp(18px, 4vw, 48px) 40px;
+}
+
+/* Beside the copy: room on the right for the tag to sit mostly outside the frame. */
+@media (min-width: 900px) {
+  .inviteFigure {
+    width: min(100%, 520px);
+    padding: 0 104px 40px 40px;
+  }
+}
+
+/* A narrow right column (about 900–1199px): less side room, so the frame keeps its height. */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .inviteFigure {
+    padding: 0 56px 40px 16px;
+  }
+}
+
+.inviteFrame {
+  position: relative;
+  aspect-ratio: 5 / 6.5;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1.5px solid rgba(255, 122, 69, 0.85);
+  background: #1a1a1d;
+  box-shadow:
+    0 0 0 6px rgba(255, 122, 69, 0.08),
+    0 0 48px rgba(255, 98, 54, 0.35),
+    0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.inviteRoom {
+  filter: blur(5px) brightness(0.62) saturate(0.9);
+  transform: scale(1.08);
+}
+
+.invitePortrait {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 94%;
+  width: auto;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.45));
+}
+
+/* The two floating glass cards. */
+.inviteTag,
+.inviteName {
+  position: absolute;
+  z-index: 1;
+  border: 1.5px solid rgba(255, 122, 69, 0.8);
+  border-radius: 20px;
+  background: rgba(16, 16, 18, 0.88);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 26px rgba(255, 98, 54, 0.28), 0 14px 30px rgba(0, 0, 0, 0.45);
+  font-family: var(--font-body);
+  color: #f2f2f2;
+}
+
+/* On the frame's top edge, clear of the face, where the panel is narrow. */
+.inviteTag {
+  top: 0;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.inviteTag svg {
+  flex: none;
+  color: #ff7a45;
+}
+
+@media (min-width: 900px) {
+  .inviteTag {
+    top: 30%;
+    right: 0;
+  }
+}
+
+.inviteName {
+  left: 0;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 22px 14px 30px;
+}
+
+.inviteName::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  bottom: 14px;
+  width: 3px;
+  border-radius: 3px;
+  background: #ff7a45;
+}
+
+.inviteName strong {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.inviteName span {
+  font-size: 0.9375rem;
+  color: #cfcfcf;
+}
