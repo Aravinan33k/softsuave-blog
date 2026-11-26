@@ -14,7 +14,7 @@ import type { HeroContent } from "@/components/landing/hero";
 import type { CardGridContent } from "@/components/generative-ai/industries";
 import { adClients, adTestimonials } from "@/lib/home/ad-app-developer-content";
 import { rdPractice } from "@/lib/home/ad-remote-developer-content";
-import { CLIENTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
+import { CLIENTS_PLUS, SPECIALISTS_PLUS, YEARS_PLUS } from "@/lib/company-figures";
 
 export const cwMeta = {
   path: "/ad/coffee-with-us",
@@ -69,9 +69,9 @@ export const cwForm = {
   fallbackRequirement: "Meeting request with the CEO (Have a Coffee With Us). No message added.",
 } as const;
 
-/** The proof row along the bottom of the hero. Clients and years are the site-wide figures. */
+/** The proof row along the bottom of the hero. Specialists, clients and years are the site-wide figures. */
 export const cwCredibility = [
-  { figure: "400+", label: "AI-Enabled Developers" },
+  { figure: SPECIALISTS_PLUS, label: "AI-Enabled Developers" },
   { figure: "100%", label: "In-House Team" },
   { figure: "ISO", label: "27001 & 9001 Certified" },
   { figure: CLIENTS_PLUS, label: "Happy Clients Worldwide" },
