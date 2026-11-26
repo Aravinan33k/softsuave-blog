@@ -47,7 +47,7 @@ const extra = (on: boolean, origins: string[]) => (on ? ` ${origins.join(' ')}` 
 const CLARITY = ['https://www.clarity.ms', 'https://*.clarity.ms'];
 
 /** Pages that load the Clarity tag in their own markup (by request). */
-const CLARITY_ROUTES = ['/ad/remote-developer', '/ad/remote-developers'];
+const CLARITY_ROUTES = ['/ad/remote-developer', '/ad/remote-developers', '/ad/coffee-with-us'];
 
 const buildCsp = (clarity = false) =>
   [

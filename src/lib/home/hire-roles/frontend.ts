@@ -37,6 +37,12 @@ export const frontend: HireRolePageContent = {
   submitBlack: true,
   // Every split section head set like /ad/remote-developers' "Our Clients".
   halfHeads: true,
+  // Why Choose Us and Technology Expertise as even 3/3 card rows (review).
+  cardsThreeUp: true,
+  // A full section gap where two bands share one ground (Capabilities →
+  // Technology Expertise, Skill Matching → Engagement Options, Why Choose Us
+  // → Delivery Presence), like the page's other section breaks (review).
+  sectionGapsFull: true,
   name: 'Hire Frontend Developers',
   serviceType: 'Frontend development staffing',
 

@@ -146,6 +146,21 @@ export default function SplitReveal({
           scrollTrigger: scrub
             ? { trigger: el, start, end, scrub: 0.8 }
             : { trigger: el, start, once: true },
+          // A play-once reveal hands the heading back as plain text when it
+          // lands. The split's line blocks are fixed at the width they were
+          // measured at — before the web font arrived, or before a resize or
+          // zoom — and then wrap again inside themselves, stranding a word on
+          // its own line ("…for All / Your / Technology Needs", ad remote-
+          // developers review). The landed state matches the original markup,
+          // so the swap does not show; the heading then re-wraps naturally and
+          // its `--fit-width` is re-measured.
+          onComplete: scrub
+            ? undefined
+            : () => {
+                split?.revert();
+                split = null;
+                scheduleFit(el);
+              },
         });
       };
 

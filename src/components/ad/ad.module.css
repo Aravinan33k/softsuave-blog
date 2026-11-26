@@ -1097,10 +1097,12 @@
    The class is tripled to outrank the shared split-head rules (0,3,0).
    A head with no subtext beside it (the image-led overview bands: eyebrow and
    heading only, the prose in a sibling) is left alone — `:has(> :nth-child(2))`.
+   Nor is a CTA band's copy (kicker, heading, body, then a div led by the
+   button: `:not(:has(+ div > a:first-child)):not([data-half-head-off] *)`), which stays stacked.
    Stacked below 900px, as before. */
 @media (min-width: 900px) {
   .halfHeads.halfHeads.halfHeads
-    :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)), div:has(> span:first-child + h2 + p:last-child)) {
+    :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)):not([data-half-head-off] *), div:has(> span:first-child + h2 + p:last-child):not(:has(+ div > a:first-child)):not([data-half-head-off] *)) {
     --half-gap: clamp(28px, 2.4vw, 40px);
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -1114,18 +1116,18 @@
   }
 
   /* The eyebrow-and-heading wrapper steps aside so both land on the grid. */
-  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2))) > div:first-child {
+  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)):not([data-half-head-off] *)) > div:first-child {
     display: contents;
   }
 
-  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2))) > div:first-child > span,
-  .halfHeads.halfHeads.halfHeads :is(div:has(> span:first-child + h2 + p:last-child)) > span:first-child {
+  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)):not([data-half-head-off] *)) > div:first-child > span,
+  .halfHeads.halfHeads.halfHeads :is(div:has(> span:first-child + h2 + p:last-child):not(:has(+ div > a:first-child)):not([data-half-head-off] *)) > span:first-child {
     grid-area: eyebrow;
     margin: 0;
   }
 
   .halfHeads.halfHeads.halfHeads
-    :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)), div:has(> span:first-child + h2 + p:last-child))
+    :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)):not([data-half-head-off] *), div:has(> span:first-child + h2 + p:last-child):not(:has(+ div > a:first-child)):not([data-half-head-off] *))
     h2 {
     grid-area: title;
     margin: 0;
@@ -1134,7 +1136,7 @@
   }
 
   .halfHeads.halfHeads.halfHeads
-    :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)), div:has(> span:first-child + h2 + p:last-child))
+    :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)):not([data-half-head-off] *), div:has(> span:first-child + h2 + p:last-child):not(:has(+ div > a:first-child)):not([data-half-head-off] *))
     > :is(p, div):last-child {
     grid-area: intro;
     display: block;
@@ -1146,11 +1148,13 @@
     border-left: 1px solid var(--line);
   }
 
-  /* The subtext itself (the clients head wraps it in a fade-up <div>). */
+  /* The subtext itself (the clients head wraps it in a fade-up <div>; the
+     homepage's Why Soft Suave head wraps that fade-up in its own column <div>). */
   .halfHeads.halfHeads.halfHeads
-    :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)), div:has(> span:first-child + h2 + p:last-child))
+    :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)):not([data-half-head-off] *), div:has(> span:first-child + h2 + p:last-child):not(:has(+ div > a:first-child)):not([data-half-head-off] *))
     > p:last-child,
-  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2))) > div:last-child > p {
+  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)):not([data-half-head-off] *)) > div:last-child > p,
+  .halfHeads.halfHeads.halfHeads :is(div:has(> div:first-child > span + h2:last-child):has(> :nth-child(2)):not([data-half-head-off] *)) > div:last-child > div:only-child > p:only-child {
     max-width: none;
     margin: 0;
     line-height: 1.65;
@@ -1686,4 +1690,485 @@
   --hero-body-dur: 0.4s;
   --hero-form-delay: 0s;
   --hero-form-dur: 0.4s;
+}
+
+/* Opt-in on a page's <main> (/ad/remote-developers, by request), in place of
+   `halfHeads`: every section head stacked as the Clients head is (`headStacked`
+   on Clients) — the eyebrow, then the heading held to 70% of the screen width,
+   then its subtext under it at the same width, no divider. Matched by shape:
+     - eyebrow and heading in a first <div>, the subtext <p> after it (the
+       landing and generative-ai `SectionHead`)
+     - eyebrow, heading and subtext as siblings (the testimonials head)
+   A CTA band's copy (heading and body, no eyebrow) matches neither, so it is
+   left as it is. The class is tripled to outrank the shared split-head rules.
+   Phones keep their stacked head, as before. */
+@media (min-width: 900px) {
+  .stackHeads.stackHeads.stackHeads
+    :is(div:has(> div:first-child > span + h2:last-child):has(> p:last-child), div:has(> span:first-child + h2 + p:last-child)) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(16px, 1.6vw, 24px);
+    max-width: none;
+  }
+
+  .stackHeads.stackHeads.stackHeads
+    :is(div:has(> div:first-child > span + h2:last-child):has(> p:last-child), div:has(> span:first-child + h2 + p:last-child))
+    h2 {
+    max-width: 70vw;
+    padding-right: 0;
+  }
+
+  .stackHeads.stackHeads.stackHeads
+    :is(div:has(> div:first-child > span + h2:last-child):has(> p:last-child), div:has(> span:first-child + h2 + p:last-child))
+    > p:last-child {
+    max-width: 70vw;
+    margin: 0;
+    padding-left: 0;
+    border-left: 0;
+    align-self: flex-start;
+  }
+
+  /* The testimonials head's eyebrow and heading keep their own spacing. */
+  .stackHeads.stackHeads.stackHeads div:has(> span:first-child + h2 + p:last-child) {
+    gap: 0;
+  }
+  .stackHeads.stackHeads.stackHeads div:has(> span:first-child + h2 + p:last-child) > p:last-child {
+    margin-top: clamp(16px, 1.6vw, 24px);
+  }
+}
+
+/* Opt-in on a page's <main> (/ad/remote-developers, by request): the Top
+   Talent figures and their labels in Space Grotesk (the heading face, a
+   300–700 variable font) and heavier — figures 300 → 600, labels → 500. */
+.statsGrotesk .statFigure {
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.statsGrotesk .statLabel {
+  font-family: var(--font-heading);
+  font-weight: 500;
+}
+
+/* ---------- Top Talent with a photo (`image` on TopTalentContent) ----------
+   Two columns from 900px: the photo on the left with a figure pinned to its
+   corner, the models as a ruled checklist on the right and the button under
+   them, left-aligned. Stacked, photo first, below that. */
+.talentMedia {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 64px);
+  align-items: center;
+  margin-top: var(--section-head-gap, clamp(26px, 3.4vw, 48px));
+}
+
+@media (min-width: 900px) {
+  .talentMedia {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  }
+}
+
+.talentPhoto {
+  position: relative;
+}
+
+.talentPhoto img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--card-line, var(--line));
+}
+
+/* The figure on the photo: a dark glass plate, accent figure over a mono label. */
+.talentBadge {
+  position: absolute;
+  left: clamp(14px, 1.6vw, 24px);
+  bottom: clamp(14px, 1.6vw, 24px);
+  display: grid;
+  gap: 4px;
+  padding: clamp(12px, 1.2vw, 16px) clamp(16px, 1.6vw, 22px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(4, 5, 8, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.talentBadge strong {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 2.4vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+
+.talentBadge span {
+  font-family: var(--font-mono-label);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.talentBody {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.talentList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--card-line, var(--line));
+}
+
+/* Each model a ruled row led by the accent tick (the plain cards' tick). */
+.talentItem {
+  position: relative;
+  padding: clamp(14px, 1.5vw, 20px) 0 clamp(14px, 1.5vw, 20px) 2.2em;
+  border-bottom: 1px solid var(--card-line, var(--line));
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(1rem, 1.15vw, 1.125rem);
+  line-height: 1.45;
+  color: var(--text-bright);
+}
+
+.talentItem::before {
+  content: "";
+  position: absolute;
+  left: 0.15em;
+  top: calc(clamp(14px, 1.5vw, 20px) + 0.42em);
+  width: 0.8em;
+  height: 0.42em;
+  border-left: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(-45deg);
+}
+
+.talentCta {
+  margin-top: clamp(24px, 2.6vw, 36px);
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Stacked: the button centred under the list, as the band's other buttons are. */
+@media (max-width: 899px) {
+  .talentCta {
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   IMAGE-LED SECTIONS (/ad/remote-developers, review: "make the page
+   creative, add image visuals")
+   - `PhotoSteps`: the hiring steps as photo cards.
+   ============================================================ */
+
+/* ---------- PhotoSteps ---------- */
+.photoSteps {
+  list-style: none;
+  margin: var(--section-head-gap, clamp(28px, 3vw, 48px)) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(20px, 2vw, 28px);
+}
+
+.photoStep {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.photoStepMedia {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.photoStepImg {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.photoStep:hover .photoStepImg {
+  transform: scale(1.05);
+}
+
+/* A soft shade along the bottom, so the chips read on any photo. */
+.photoStepMedia::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(180deg, transparent, rgba(4, 5, 8, 0.55));
+  pointer-events: none;
+}
+
+.photoStepStage,
+.photoStepNum {
+  position: absolute;
+  z-index: 1;
+  bottom: 14px;
+  padding: 7px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(4, 5, 8, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: var(--font-mono-label);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.photoStepStage {
+  left: 14px;
+}
+
+.photoStepNum {
+  right: 14px;
+  color: var(--brand-500, #ff5a36);
+}
+
+.photoStepName {
+  margin: 20px 0 0;
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+  font-size: var(--fs-card-title);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--text-bright);
+}
+
+.photoStepBody {
+  margin: 10px 0 0;
+  font-size: var(--fs-body-sm);
+  line-height: 1.65;
+  color: var(--text);
+}
+
+@media (min-width: 640px) {
+  .photoSteps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .photoSteps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photoStepImg {
+    transition: none;
+  }
+}
+
+/* ---------- PracticeShowcase ("Code & Practice", from a reference) ----------
+   Photo-backed cards: icon tile with a coral glow, name, line, "Learn More",
+   over a dark photo fading in from the right; the closing CTA card over a
+   drawn coral wave. 4 across from 1200px, 2 from 640px, 1 below. */
+.showGrid {
+  margin-top: var(--section-head-gap, clamp(28px, 3vw, 48px));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(14px, 1.4vw, 20px);
+}
+
+.showCard {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  min-height: 230px;
+  overflow: hidden;
+  padding: clamp(20px, 1.8vw, 26px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: #0d0e10;
+  transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.showCard:hover,
+.showCard:focus-within {
+  border-color: color-mix(in srgb, var(--brand-500, #ff5a36) 45%, transparent);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -22px color-mix(in srgb, var(--brand-500, #ff5a36) 60%, transparent);
+}
+
+/* The photo: the card's right two-thirds, faded out towards the copy and
+   the bottom, darkened and warmed so the white copy always reads. */
+.showMedia {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 0 30%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 55%), linear-gradient(180deg, #000 40%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 55%), linear-gradient(180deg, #000 40%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  opacity: 0.55;
+}
+
+.showImg {
+  object-fit: cover;
+  filter: brightness(0.6) saturate(0.85) sepia(0.25);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.showCard:hover .showImg {
+  transform: scale(1.06);
+}
+
+.showIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--brand-500, #ff5a36);
+  border-radius: 10px;
+  color: #fff;
+  background: color-mix(in srgb, var(--brand-500, #ff5a36) 14%, rgba(13, 14, 16, 0.8));
+  box-shadow: 0 0 22px -4px color-mix(in srgb, var(--brand-500, #ff5a36) 65%, transparent),
+    inset 0 0 12px -4px color-mix(in srgb, var(--brand-500, #ff5a36) 60%, transparent);
+}
+
+.showName {
+  margin: clamp(18px, 1.8vw, 24px) 0 0;
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+  font-size: clamp(1.05rem, 0.4vw + 0.95rem, 1.2rem);
+  line-height: 1.3;
+  color: #fff;
+}
+
+.showBody {
+  margin: 10px 0 0;
+  max-width: 34ch;
+  font-size: var(--fs-body-sm);
+  line-height: 1.6;
+  color: #c9c9c9;
+}
+
+.showMore {
+  margin-top: auto;
+  padding-top: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--brand-500, #ff5a36);
+  text-decoration: none;
+}
+
+.showMore svg {
+  transition: transform 0.25s ease;
+}
+
+.showMore:hover svg,
+.showMore:focus-visible svg {
+  transform: translateX(4px);
+}
+
+/* The closing CTA card. */
+.showCloser {
+  justify-content: center;
+  background: linear-gradient(160deg, #15100e 0%, #0d0e10 60%);
+}
+
+.showWave {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: 0;
+  width: 70%;
+  height: 75%;
+  fill: none;
+  stroke: var(--brand-500, #ff5a36);
+  stroke-width: 0.6;
+  opacity: 0.55;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 50%);
+  mask-image: linear-gradient(90deg, transparent, #000 50%);
+}
+
+.showCloserEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono-label);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #bdbdbd;
+}
+
+.showCloserEyebrow::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: var(--brand-500, #ff5a36);
+}
+
+.showCloserTitle {
+  margin: 14px 0 0;
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+  font-size: clamp(1.5rem, 1.2vw + 1.1rem, 1.9rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.showCloserTitle span {
+  color: var(--brand-500, #ff5a36);
+}
+
+.showCloserBody {
+  margin: 12px 0 0;
+  max-width: 30ch;
+  font-size: var(--fs-body-sm);
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+.showCloserBtn {
+  margin-top: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (min-width: 640px) {
+  .showGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .showGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showCard,
+  .showImg,
+  .showMore svg {
+    transition: none;
+  }
 }
