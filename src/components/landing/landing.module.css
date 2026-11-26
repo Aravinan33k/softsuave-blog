@@ -160,13 +160,13 @@
 /* `wide` on the section head: a long title gets a wider column beside the divider. */
 @media (min-width: 900px) {
   .headWide:not(:has(> .intro)):not(.headSub):not(.headPage) .title {
-    max-width: 34ch;
+    max-width: var(--head-title-max, 34ch);
     text-wrap: balance;
   }
   .headWide:has(> .intro):not(.headSub):not(.headPage) .title {
     /* Not clamped to `--fit-width`: the column already hugs the text (`fit-content`), and a width measured
        before this rule applied would pin the title back to the narrow column. */
-    max-width: 34ch;
+    max-width: var(--head-title-max, 34ch);
   }
   .headWide:has(> .intro):not(.headSub):not(.headPage) {
     grid-template-columns: fit-content(66%) minmax(0, 1fr);

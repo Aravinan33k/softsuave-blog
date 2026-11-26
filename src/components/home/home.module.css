@@ -4202,6 +4202,11 @@ h1.h2 {
   .stackedHeads .clientsHeadMain {
     max-width: 70%;
   }
+  /* Stacked, the Clients title gets the room the `wideTitle` ones have (it was pinned to 20ch for the narrow column beside the divider, three lines deep); `wideTitle` and its own measure still win. */
+  .stackedHeads .clientsHead .h2 {
+    max-width: min(36ch, var(--fit-width, 36ch));
+    text-wrap: balance;
+  }
 
   .stackedHeads .sectionHead:has(> :is(h2, div.h2)):has(> .lead) {
     grid-template-columns: minmax(0, 1fr);
