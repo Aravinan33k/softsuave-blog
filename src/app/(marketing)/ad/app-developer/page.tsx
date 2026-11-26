@@ -82,15 +82,16 @@ export default function AdAppDeveloperPage() {
   return (
     <div className={home.page}>
       <main id="main" className={styles.adMain}>
-        {/* Dark → light → dark rhythm; no two dark sections touch. */}
-        <Hero noNav content={adHero} idPrefix="ad-app-developer" breadcrumb={false} />
+       <div className={styles.wipeForm}>
+          <Hero noNav content={adHero} idPrefix="ad-app-developer" breadcrumb={false} />
+        </div>
 
         <div className={home.light}>
           {/* The live page's client logos sit inside its hero section; here they
               open the white band that follows it. The marks are the /clients page's full roster; the heading
               and text stay this page's own. */}
-          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={adClients.title} body={adClients.body} />
-          <TopTalent content={adTalent} />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={adClients.title} body={adClients.body} wideTitle />
+          <TopTalent content={adTalent} headingFont />
           <div className={styles.gridWithCta}>
             <CardGrid content={adMobile} id="services" variant="bold" span={4} autoLink={false} />
             <CtaRow {...adMobileCta} tight />
@@ -98,7 +99,7 @@ export default function AdAppDeveloperPage() {
         </div>
 
         <TechCluster content={adExperts} />
-        <CtaRow label={adTrialBand.cta.label} href={adTrialBand.cta.href} tight />
+        <CtaRow label={adTrialBand.cta.label} href={adTrialBand.cta.href} tight white />
 
         <div className={home.light}>
           <WhyList title={adWhy.title} items={adWhy.items} />

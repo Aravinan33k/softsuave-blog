@@ -385,7 +385,7 @@ export default function CaseStudy({ content, idPrefix }: { content: CaseStudyCon
               className={`${styles.section} ${styles.downloadBand}`}
               aria-label={content.download.label}
             >
-              {/* The /hire-forward-deployed-engineer closing banner's dress
+              {/* The /hire-forward-deployed-engineers closing banner's dress
                   (`components/fde/sections/CtaBanner.tsx`): a CSS ember wash
                   as the fallback, its artwork over that, a scrim over both. */}
               <div className={styles.downloadPanel}>

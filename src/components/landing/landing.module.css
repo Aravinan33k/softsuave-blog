@@ -1139,34 +1139,6 @@
   overflow-wrap: anywhere;
 }
 
-.trustSegments {
-  list-style: none;
-  margin: 0;
-  padding: clamp(16px, 2vw, 22px) clamp(20px, 2.4vw, 32px);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 10px;
-  background: var(--bg);
-}
-
-.trustSegment {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text);
-}
-
-.trustSegment::before {
-  content: "";
-  width: 4px;
-  height: 4px;
-  background: var(--accent);
-}
-
 /* ============================================================
    OVERVIEW (editorial prose)
    ============================================================ */
@@ -1283,107 +1255,6 @@
 }
 
 /* ============================================================
-   PROBLEM / SOLUTION TABLE (two columns)
-   ============================================================ */
-.tableWrap {
-  /* The table only becomes usable once there is room for two real columns;
-     below 800px the stacked cards below take over. */
-  display: none;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-}
-
-.table th,
-.table td {
-  padding: clamp(16px, 2vw, 24px) clamp(16px, 2vw, 26px);
-  vertical-align: top;
-  border-bottom: 1px solid var(--line);
-}
-
-.table tbody tr:last-child th,
-.table tbody tr:last-child td {
-  border-bottom: 0;
-}
-
-.table thead th {
-  background: var(--surface);
-  font-family: var(--font-eyebrow);
-  font-weight: 400;
-  font-size: var(--fs-label);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.table tbody th {
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
-  line-height: 1.3;
-  letter-spacing: -0.015em;
-  color: var(--text-bright);
-}
-
-.table tbody td {
-  font-size: var(--fs-body-sm);
-  line-height: 1.62;
-  color: var(--text);
-}
-
-/* Mobile falls back to stacked cards — a two-column table of long prose cannot
-   stay legible at 360px, and a horizontal scroller hides half the content. */
-.problemCards {
-  display: grid;
-  gap: 12px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.problemCard {
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 12px 12px 0;
-  background: var(--surface);
-  padding: clamp(18px, 4vw, 24px);
-}
-
-.problemCardLabel {
-  display: block;
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.problemCardTitle {
-  margin: 10px 0 0;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: 1.15rem;
-  line-height: 1.28;
-  letter-spacing: -0.015em;
-  color: var(--text-bright);
-}
-
-.problemCardBody {
-  margin: 12px 0 0;
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
-  font-size: var(--fs-body-sm);
-  line-height: 1.62;
-  color: var(--text);
-}
-
-/* ============================================================
    COMPARISON — one area per row, Custom vs. Off-the-shelf side by side.
    Replaces the old table(desktop)/cards(mobile) pair with a single
    responsive layout (a plain `<ol>`, not a `<table>` — each row is a
@@ -1393,100 +1264,6 @@
    hairline-divided list this was; the inner pair-vs-pair layout, reveal
    animation and per-card click bounce are unchanged either way.
    ============================================================ */
-.cmpRows {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: clamp(14px, 1.6vw, 20px);
-}
-
-.cmpRow {
-  padding: clamp(20px, 2.8vw, 30px);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
-  cursor: pointer;
-  transition: border-color 0.4s ease, background 0.4s ease, transform 0.35s ease;
-}
-
-.cmpRow:hover {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 4%, var(--surface));
-  transform: translateY(-2px);
-}
-
-.cmpRowHead {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: clamp(12px, 1.6vw, 18px);
-}
-
-.cmpRowIcon {
-  width: 18px;
-  height: 18px;
-  flex: 0 0 auto;
-  color: var(--accent);
-}
-
-.cmpRowArea {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: var(--fs-h3);
-  letter-spacing: -0.01em;
-  color: var(--text-bright);
-}
-
-.cmpRowGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-
-.cmpCellLabel {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.cmpCellLead .cmpCellLabel {
-  color: var(--accent);
-}
-
-.cmpCellIcon {
-  width: 13px;
-  height: 13px;
-  flex: 0 0 auto;
-}
-
-.cmpCellText {
-  margin: 8px 0 0;
-  font-size: var(--fs-body-sm);
-  line-height: 1.6;
-  color: var(--text);
-}
-
-@media (min-width: 640px) {
-  .cmpRowGrid {
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(28px, 3.4vw, 56px);
-  }
-
-  /* One hairline between the pair instead of a boxed/tinted card each —
-     the accent color on the lead label alone still marks which side this
-     page is about. */
-  .cmpRowGrid .cmpCell:last-child {
-    padding-left: clamp(28px, 3.4vw, 56px);
-    border-left: 1px solid var(--line);
-  }
-}
 
 /* ============================================================
    SERVICES — numbered bordered panels in one row of five (see the 700px/
@@ -1501,7 +1278,6 @@
    darkens it there and lifts it on the dark bands. Declared on the cards
    themselves so it resolves against whichever band's tokens they sit in. */
 .svcPanel,
-.processCard,
 .card,
 .boldCard {
   --card-line: color-mix(in srgb, var(--text-bright) 12%, var(--line));
@@ -1561,26 +1337,6 @@
   display: flex;
   align-items: center;
   gap: clamp(10px, 1.2vw, 14px);
-}
-
-.svcIndex {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  flex: none;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--bg);
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.04em;
-  color: var(--accent);
-  transition: border-color 0.4s ease;
-}
-
-.svcPanel:hover .svcIndex {
-  border-color: var(--accent);
 }
 
 .svcTitle {
@@ -1788,147 +1544,6 @@
   color: var(--text);
 }
 
-/* Platform targets as a bordered cell grid, not the homepage's capsule chips. */
-.targetGrid {
-  list-style: none;
-  margin: clamp(14px, 1.6vw, 20px) 0 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
-  overflow: hidden;
-}
-
-.targetCell {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: clamp(13px, 1.5vw, 17px) clamp(13px, 1.5vw, 18px);
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  min-width: 0;
-}
-
-.targetLogo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  width: 22px;
-  height: 22px;
-}
-
-.targetName {
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.05em;
-  color: var(--text-bright);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* ============================================================
-   PROCESS — bordered cards, one per step (image header + numbered badge +
-   title + body), the same card language as `.svcPanel` (Services) so the
-   two card grids on this page read as one system. 1-up on a phone, 2-up on
-   a tablet, all four side by side from 1000px.
-   (Was a vertical rail, and before that a scroll-pinned galaxy/orbit
-   diagram — this is the third pass at the section.)
-   ============================================================ */
-.processGrid {
-  list-style: none;
-  margin: clamp(28px, 3.4vw, 44px) 0 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(12px, 1.4vw, 18px);
-  /* Stretch for the same reason as `.svcGrid`: cards in a row share a height
-     so the grid lines up, with `.processCardBody` flexing to fill it. */
-  align-items: stretch;
-}
-
-.processCard {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--card-line);
-  border-radius: 12px;
-  background: var(--surface);
-  overflow: hidden;
-  transition: border-color 0.4s ease, background 0.4s ease;
-}
-
-.processCard:hover {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 5%, var(--surface));
-}
-
-.processImageFrame {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background: var(--bg);
-}
-
-.processImage {
-  object-fit: cover;
-}
-
-.processCardBody {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(10px, 1.2vw, 14px);
-  padding: clamp(20px, 2.2vw, 30px);
-}
-
-/* Badge sits beside the title, not stacked above it. */
-.processCardHead {
-  display: flex;
-  align-items: center;
-  gap: clamp(10px, 1.2vw, 14px);
-}
-
-.processMarker {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  flex: none;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--bg);
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.04em;
-  color: var(--accent);
-  transition: border-color 0.4s ease;
-}
-
-.processCard:hover .processMarker {
-  border-color: var(--accent);
-}
-
-.processName {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: var(--fs-h3);
-  line-height: 1.12;
-  letter-spacing: -0.025em;
-  color: var(--text-bright);
-}
-
-.processBody {
-  margin: 0;
-  max-width: 68ch;
-  font-size: var(--fs-body-sm);
-  line-height: 1.65;
-  color: var(--text);
-}
-
 /* ============================================================
    CARD GRID (industries / applications)
    Own chrome: an accent top rule that widens on hover, and an inline mono
@@ -2103,18 +1718,6 @@
 
 .proofItem:hover::before {
   width: 100%;
-}
-
-.proofFigure {
-  display: block;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: clamp(1.7rem, 2.8vw, 2.4rem);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  /* Full accent: the figure is the proof point itself, and at 70% alpha it
-     dropped under 3:1 on the dark bands (review: "text visibility"). */
-  color: var(--accent);
 }
 
 .proofName {
@@ -2584,119 +2187,12 @@
    PROCESS RAIL (landing/process-rail.tsx)
    Steps hung off a single drawn spine rather than laid out as a grid.
    ============================================================ */
-.rail {
-  position: relative;
-  list-style: none;
-  margin: clamp(22px, 2.8vw, 36px) 0 0;
-  padding: 0;
-}
-
-/* The spine. Inset top and bottom so it starts and ends at the first and
-   last markers rather than floating past them. */
-.railLine {
-  position: absolute;
-  left: 17px;
-  top: clamp(30px, 3.4vw, 40px);
-  bottom: clamp(30px, 3.4vw, 40px);
-  width: 1px;
-  background: linear-gradient(
-    180deg,
-    var(--accent) 0%,
-    color-mix(in srgb, var(--accent) 45%, var(--line)) 100%
-  );
-}
-
-.railRow {
-  position: relative;
-  display: grid;
-  grid-template-columns: 36px 1fr;
-  gap: clamp(16px, 2vw, 28px);
-  padding: clamp(16px, 1.9vw, 24px) 0;
-}
-
-.railMarker {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: var(--bg);
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
-}
-
-.railRow:hover .railMarker {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #140b08;
-}
-
-.railMain {
-  position: relative;
-  display: grid;
-  gap: 8px;
-}
-
-/* Short coral tick that reaches from the spine to the row on hover. */
-.railTick {
-  position: absolute;
-  left: calc(-1 * clamp(16px, 2vw, 28px));
-  top: 0.72em;
-  width: clamp(16px, 2vw, 28px);
-  height: 1px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.railRow:hover .railTick {
-  transform: scaleX(1);
-}
-
-.railName {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: var(--fs-h3);
-  line-height: 1.18;
-  letter-spacing: -0.025em;
-  color: var(--text-bright);
-  transition: color 0.4s ease;
-}
-
-.railBody {
-  margin: 0;
-  max-width: 68ch;
-  font-size: clamp(0.9rem, 1vw, 1rem);
-  line-height: 1.66;
-  color: var(--text);
-}
 
 /* From 900px the stage name and its description sit side by side rather than
    stacked. Stacked, both were capped at 68ch against a section more than twice
    that wide, so every row ended two-thirds of the way across and the band read
    as half-empty (review: "the right side of the section is empty"). The tick is
    absolutely positioned, so it stays out of this grid. */
-@media (min-width: 900px) {
-  .railMain {
-    grid-template-columns: minmax(11rem, 0.75fr) 1.6fr;
-    gap: clamp(20px, 2.6vw, 44px);
-    align-items: start;
-  }
-
-  .railBody {
-    /* The measure now comes from the column, and 68ch is wider than the column
-       ever gets — leaving it would only re-cap the text short of the edge. */
-    max-width: none;
-  }
-}
 
 /* ============================================================
    VERSUS LEDGER (landing/versus-ledger.tsx)
@@ -3153,7 +2649,6 @@
   .cardGrid,
   .caseGrid,
   .svcGrid,
-  .processGrid,
   .integrationGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3163,19 +2658,8 @@
     gap: clamp(16px, 2vw, 24px);
   }
 
-  .targetGrid,
   .stackItems {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 800px) {
-  .tableWrap {
-    display: block;
-  }
-
-  .problemCards {
-    display: none;
   }
 }
 
@@ -3259,11 +2743,6 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  /* Opt-in 3-up process, for a run of six steps. */
-  .processGrid.processGrid3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   /* Integration: the panels fill one row, however many there are.
      
      This was a hard `repeat(3, …)`, which is right for the three panels on
@@ -3291,12 +2770,6 @@
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
-  /* All four process steps side by side. */
-  .processGrid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .targetGrid,
   .stackItems {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -3354,37 +2827,6 @@
    put an <Image>/<BrandImage fill> inside a `.logoSlot` and delete its
    `opacity`. Nothing around it moves.
    ============================================================ */
-.logoRail {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(10px, 1.2vw, 16px);
-  margin: clamp(20px, 2.4vw, 32px) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.logoSlot {
-  aspect-ratio: 16 / 6;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
-}
-
-.logoSlot::after {
-  content: "";
-  width: 34%;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--line);
-}
-
-@media (min-width: 700px) {
-  .logoRail {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-}
 
 /* Case-study description, between the title and the year. Optional — cards
    that carry only a metric and a title simply omit it. */
@@ -3506,128 +2948,10 @@
    a simple table for the comparison"). Body copy runs at 1rem, a step above
    the card layout's cells — the same review called that text "very small".
    ============================================================ */
-.cmpTableWrap {
-  /* Only ever engages between the restack breakpoint and the width at which
-     three prose columns fit; on a phone the rows are stacked blocks. */
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.cmpTable {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: clamp(0.94rem, 1.02vw, 1rem);
-  line-height: 1.6;
-}
-
-.cmpTable thead th {
-  padding: clamp(12px, 1.3vw, 16px) clamp(12px, 1.4vw, 20px);
-  border-bottom: 1px solid var(--line);
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-.cmpTable tbody th,
-.cmpTable tbody td {
-  padding: clamp(13px, 1.5vw, 18px) clamp(12px, 1.4vw, 20px);
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
-}
-
-/* The row header is the dimension being compared. It carries the weight the
-   per-row <h3> used to, without being a heading — which is what stopped these
-   sections reading as a stack of repeated headings. */
-.cmpTable tbody th {
-  width: 22%;
-  min-width: 9rem;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: clamp(1rem, 1.18vw, 1.15rem);
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  color: var(--text-bright);
-}
-
-.cmpTable tbody td {
-  color: var(--text);
-}
-
-/* Only set when `tone="verdict"` names a winner for the row. */
-.cmpTable tbody td[data-favored="true"] {
-  color: var(--text-bright);
-  background: color-mix(in srgb, var(--accent) 7%, transparent);
-}
-
-.cmpTable tbody tr:last-child th,
-.cmpTable tbody tr:last-child td {
-  border-bottom: 0;
-}
 
 /* Below 720px three prose columns stop working at any type size, so each row
    becomes its own block: the factor as a small heading, then the two values
    each prefixed by the column name the header row would have carried. */
-@media (max-width: 719px) {
-  .cmpTable,
-  .cmpTable tbody,
-  .cmpTable tbody tr,
-  .cmpTable tbody th,
-  .cmpTable tbody td {
-    display: block;
-    width: auto;
-  }
-
-  .cmpTable thead {
-    /* Not `display: none` — that drops it from the accessibility tree too,
-       and the row cells still reference these names through `data-label`. */
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  .cmpTable tbody tr {
-    padding: clamp(14px, 3vw, 20px) 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .cmpTable tbody tr:last-child {
-    border-bottom: 0;
-  }
-
-  .cmpTable tbody th,
-  .cmpTable tbody td {
-    padding: 0;
-    border-bottom: 0;
-    min-width: 0;
-  }
-
-  .cmpTable tbody td {
-    margin-top: 12px;
-  }
-
-  .cmpTable tbody td::before {
-    content: attr(data-label);
-    display: block;
-    margin-bottom: 4px;
-    font-family: var(--font-eyebrow);
-    font-size: var(--fs-label);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .cmpTable tbody td[data-favored="true"] {
-    background: none;
-  }
-}
 
 /* Sub-section masthead (`level={3}` on SectionHead) — a heading that belongs
    under the section above it rather than opening a new one, so it sits a
@@ -4295,19 +3619,6 @@
   color: var(--text);
 }
 
-.carouselMain[data-plain="true"] .carouselIndex {
-  color: var(--accent);
-}
-
-.carouselIndex {
-  display: block;
-  margin-bottom: 8px;
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.18em;
-  color: var(--brand-coral);
-}
-
 /* Copy sits on imagery rather than the card surface, so it is near-white
    on either band. */
 .carouselTitle {
@@ -4490,224 +3801,6 @@
    answers, the winner lit (via the `--lit` custom property the reveal
    tweens 0 → 1), the other dimmed. A tally panel closes the board.
    ============================================================ */
-.boardLegend {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 12px;
-  padding: 0 clamp(20px, 2.8vw, 30px) 12px;
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.boardLegendEnd {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  justify-self: end;
-}
-
-.boardLegendLead {
-  justify-self: start;
-  color: var(--accent);
-}
-
-.boardLegendMid {
-  color: var(--muted);
-}
-
-.boardLegendDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-}
-
-.boardRows {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: clamp(12px, 1.4vw, 16px);
-}
-
-.boardRow {
-  position: relative;
-  padding: clamp(18px, 2.4vw, 26px) clamp(20px, 2.8vw, 30px);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
-  overflow: hidden;
-  transition: border-color 0.4s ease, transform 0.35s ease;
-}
-
-.boardRow:hover {
-  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
-  transform: translateY(-2px);
-}
-
-.boardRowHead {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.boardIndex {
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.18em;
-  color: var(--accent);
-}
-
-.boardArea {
-  margin: 0;
-  flex: 1 1 auto;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: var(--fs-h3);
-  letter-spacing: -0.01em;
-  color: var(--text-bright);
-}
-
-/* Verdict chip: names the winner in words. */
-.boardVerdict {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.45em 0.8em;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text);
-  background: color-mix(in srgb, var(--surface-2) 70%, transparent);
-}
-
-.boardVerdictLead {
-  color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-}
-
-/* The lean track. */
-.boardTrack {
-  position: relative;
-  height: 22px;
-  margin: clamp(14px, 1.8vw, 20px) 0 clamp(10px, 1.4vw, 14px);
-}
-
-.boardTrackLine {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--accent) 60%, var(--line)) 0%,
-    var(--line) 50%,
-    var(--line) 100%
-  );
-  transform: translateY(-50%);
-}
-
-.boardTrackTick {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 1px;
-  height: 10px;
-  background: var(--line);
-  transform: translate(-50%, -50%);
-}
-
-.boardMarker {
-  position: absolute;
-  top: 50%;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent),
-    0 0 16px color-mix(in srgb, var(--accent) 70%, transparent);
-  transform: translate(-50%, -50%);
-}
-
-.boardCells {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-}
-
-.boardCell {
-  --lit: 1;
-  display: grid;
-  gap: 5px;
-}
-
-.boardCellLabel {
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.boardCellValue {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--text);
-}
-
-.boardCellIcon {
-  flex: 0 0 auto;
-  width: 14px;
-  height: 14px;
-  color: var(--muted);
-}
-
-/* Winner: bright value, accent check, the glow fading in as `--lit` rises. */
-.boardCellWin .boardCellLabel {
-  color: var(--accent);
-}
-
-.boardCellWin .boardCellValue {
-  color: color-mix(in srgb, var(--text-bright) calc(var(--lit) * 100%), var(--text));
-  font-weight: 500;
-}
-
-.boardCellWin .boardCellIcon {
-  color: var(--accent);
-  opacity: var(--lit);
-}
-
-.boardCellLose .boardCellValue {
-  color: var(--muted);
-}
-
-@media (min-width: 640px) {
-  .boardCells {
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(24px, 3vw, 48px);
-  }
-
-  .boardCellOther {
-    text-align: right;
-    justify-items: end;
-  }
-
-  .boardCellOther .boardCellValue {
-    flex-direction: row-reverse;
-  }
-}
 
 /* ============================================================
    CAPABILITY GUIDE (landing/capability-guide.tsx)
@@ -4717,148 +3810,6 @@
    columns cannot stay legible at 360px, and a horizontal scroller hides
    most of the row.
    ============================================================ */
-.capRows {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: clamp(12px, 1.6vw, 18px);
-}
-
-.capCard {
-  position: relative;
-  padding: clamp(20px, 2.6vw, 30px);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
-  overflow: hidden;
-  transition: border-color 0.4s ease, transform 0.35s ease;
-}
-
-.capCard:hover {
-  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
-  transform: translateY(-2px);
-}
-
-/* Accent rule along the card's top edge, widening on hover — the same
-   card chrome as `.proofItem` and `.flowStep`. */
-.capCard::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 34px;
-  height: 2px;
-  background: var(--accent);
-  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.capCard:hover::before {
-  width: 100%;
-}
-
-.capHead {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: baseline;
-  gap: 4px 12px;
-  padding-bottom: clamp(14px, 1.8vw, 20px);
-  margin-bottom: clamp(14px, 1.8vw, 20px);
-  border-bottom: 1px solid var(--line);
-}
-
-/* The problem's icon badge (`CardIconBadge`, which replaced a "01" ordinal),
-   centred beside the two-line label + problem rather than on a baseline. */
-.capIndex {
-  grid-row: span 2;
-  align-self: center;
-}
-
-.capProblemLabel {
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.capProblem {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: var(--fs-card-title);
-  line-height: 1.25;
-  letter-spacing: -0.015em;
-  color: var(--text-bright);
-}
-
-.capFields {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(14px, 1.8vw, 20px);
-}
-
-.capField {
-  display: grid;
-  align-content: start;
-  gap: 6px;
-}
-
-.capFieldLabel {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.capFieldIcon {
-  flex: 0 0 auto;
-  width: 13px;
-  height: 13px;
-}
-
-.capFieldValue {
-  margin: 0;
-  font-size: var(--fs-body-sm);
-  line-height: 1.6;
-  color: var(--text);
-}
-
-/* The capability is what the reader is shopping for, so it carries the
-   accent; the outcome is what they get, so it closes the row on a tinted
-   panel rather than a fourth identical column of grey. */
-.capFieldKey .capFieldLabel {
-  color: var(--accent);
-}
-
-.capFieldKey .capFieldValue {
-  color: var(--text-bright);
-  font-weight: 500;
-}
-
-.capFieldOutcome {
-  padding: clamp(12px, 1.4vw, 16px);
-  margin: -4px;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--accent) 6%, transparent);
-}
-
-@media (min-width: 700px) {
-  .capFields {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1000px) {
-  .capFields {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(18px, 2.2vw, 30px);
-  }
-}
 
 /* ============================================================
    PROCESS — "EVEN" AND "STAGES" VARIANTS (landing/process.tsx)
@@ -4869,60 +3820,9 @@
    for a run of short pipeline stages, which the four-column base would
    otherwise leave orphaned on a second row.
    ============================================================ */
-.processEven {
-  /* Cards in a row share a height, so the bottoms line up whether or not a
-     heading wraps to a second line. */
-  align-items: stretch;
-}
-
-.processEven .processCard {
-  height: 100%;
-}
-
-.processEven .processCardBody {
-  /* Body sits against the card's bottom edge, so a one-line and a two-line
-     heading still leave the card evenly filled. */
-  flex: 1 1 auto;
-}
-
-.processEven .processBody {
-  text-align: left;
-}
-
-.processStages .processMarker {
-  width: 28px;
-  height: 28px;
-  font-size: var(--fs-label);
-}
-
-.processStages .processName {
-  font-size: var(--fs-h3);
-  line-height: 1.2;
-  letter-spacing: -0.015em;
-}
-
-.processStages .processBody {
-  font-size: var(--fs-body-sm);
-  line-height: 1.6;
-}
-
-@media (min-width: 700px) {
-  .processStages {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1000px) {
-  .processStages {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
 
 /* Five across: one clean row, no orphan. */
 @media (min-width: 1240px) {
-  .processStages {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
 
   /* Same reasoning for a five-item card grid (`columns={5}` on Industries):
      one clean row rather than four cards plus a lone fifth. */
@@ -4941,179 +3841,6 @@
    rather than in line as a fourth peer. `--lit` is the reveal
    (fit-guide.tsx tweens it 0 → 1 to bring the accent panel up).
    ============================================================ */
-.fitRows {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: clamp(12px, 1.6vw, 18px);
-}
-
-.fitRow {
-  position: relative;
-  padding: clamp(20px, 2.6vw, 30px);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
-  overflow: hidden;
-  transition: border-color 0.4s ease, transform 0.35s ease;
-}
-
-.fitRow:hover {
-  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
-  transform: translateY(-2px);
-}
-
-/* Accent rule along the row's top edge, widening on hover — the same card
-   chrome as `.capCard` and `.stackGroup`. */
-.fitRow::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 34px;
-  height: 2px;
-  background: var(--accent);
-  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.fitRow:hover::before {
-  width: 100%;
-}
-
-.fitTrack {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(12px, 1.6vw, 18px);
-  align-items: start;
-}
-
-.fitCell {
-  display: grid;
-  align-content: start;
-  gap: 6px;
-  min-width: 0;
-}
-
-.fitLabel {
-  display: flex;
-  align-items: center; /* on the problem cell's icon badge; text-only labels are unaffected */
-  gap: 8px;
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-/* The problem's icon badge (`CardIconBadge`, which replaced a "01" ordinal). */
-.fitIndex {
-  flex: none;
-}
-
-.fitProblemName {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: var(--fs-card-title);
-  line-height: 1.25;
-  letter-spacing: -0.015em;
-  color: var(--text-bright);
-}
-
-.fitValue {
-  margin: 0;
-  font-size: var(--fs-body-sm);
-  line-height: 1.6;
-  color: var(--text);
-}
-
-/* Connector between stages. Rotation lives on the glyph, not the span: the
-   reveal writes an inline transform on the span, which would replace any
-   transform set here. */
-.fitLink {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  color: color-mix(in srgb, var(--accent) 60%, var(--muted));
-}
-
-.fitLink svg {
-  width: 18px;
-  height: 18px;
-  transform: rotate(90deg);
-}
-
-/* The starting point is the answer the reader came for, so it closes the
-   track on a tinted panel rather than a third identical column of grey. */
-.fitStart {
-  --lit: 1;
-  padding: clamp(12px, 1.4vw, 16px);
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--accent) calc(var(--lit) * 7%), transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) calc(var(--lit) * 24%), transparent);
-}
-
-.fitStart .fitLabel {
-  color: var(--accent);
-}
-
-.fitStart .fitValue {
-  color: color-mix(in srgb, var(--text-bright) calc(var(--lit) * 100%), var(--text));
-  font-weight: 500;
-}
-
-/* The fallback branch: what to do when Data Science alone is not the
-   answer. Demoted below a dashed rule so it never reads as a fourth peer. */
-.fitBranch {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 4px 12px;
-  margin-top: clamp(14px, 1.8vw, 20px);
-  padding-top: clamp(14px, 1.8vw, 20px);
-  border-top: 1px dashed var(--line);
-}
-
-.fitFork {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 17px;
-  height: 17px;
-  margin-top: 1px;
-  color: var(--muted);
-}
-
-.fitFork svg {
-  width: 17px;
-  height: 17px;
-}
-
-.fitBranch .fitValue {
-  color: var(--muted);
-}
-
-@media (min-width: 1000px) {
-  .fitTrack {
-    grid-template-columns: minmax(0, 1.05fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
-    gap: clamp(14px, 1.8vw, 24px);
-    align-items: center;
-  }
-
-  .fitLink {
-    justify-content: center;
-  }
-
-  .fitLink svg {
-    transform: none;
-  }
-
-  .fitBranch {
-    /* One line at this width, so the fork centres against it instead of
-       hanging from the label. */
-    align-items: center;
-  }
-}
 
 /* ============================================================
    TECH CLUSTER (landing/tech-cluster.tsx)
@@ -5589,145 +4316,11 @@
    Below 1080px the rail goes and the phases become a plain column — six
    cards zigzagging needs width that is not there.
    ============================================================ */
-.trkGrid {
-  position: relative;
-  margin-top: clamp(20px, 2.6vw, 32px);
-}
-
-.trkRail {
-  display: none;
-}
-
-.trkList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(12px, 1.6vw, 18px);
-}
-
-.trkCard {
-  position: relative;
-  padding: clamp(20px, 2.4vw, 26px);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
-  transition: border-color 0.4s ease, transform 0.35s ease;
-}
-
-.trkCard:hover {
-  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
-  transform: translateY(-2px);
-}
-
-.trkNum {
-  display: block;
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.2em;
-  color: var(--accent);
-}
-
-.trkName {
-  margin: 8px 0 0;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: var(--fs-h3);
-  line-height: 1.25;
-  letter-spacing: -0.015em;
-  color: var(--text-bright);
-}
-
-.trkBody {
-  margin: 9px 0 0;
-  font-size: var(--fs-body-sm);
-  line-height: 1.62;
-  color: var(--text);
-}
 
 .trkCta {
   display: flex;
   justify-content: center;
   margin-top: clamp(22px, 2.6vw, 32px);
-}
-
-@media (min-width: 1080px) {
-  .trkList {
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    grid-template-rows: 1fr 1fr;
-    column-gap: clamp(14px, 1.6vw, 22px);
-    row-gap: clamp(56px, 6vw, 84px);
-  }
-
-  .trkCard {
-    /* Two columns from its own, so the station lands on the card's centre. */
-    grid-column: var(--col) / span 2;
-  }
-
-  .trkCard[data-side="up"] {
-    grid-row: 1;
-  }
-
-  .trkCard[data-side="down"] {
-    grid-row: 2;
-  }
-
-  .trkRail {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 0;
-    pointer-events: none;
-  }
-
-  .trkLine {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      color-mix(in srgb, var(--accent) 45%, var(--line)) 12%,
-      color-mix(in srgb, var(--accent) 45%, var(--line)) 88%,
-      transparent
-    );
-  }
-
-  .trkMark {
-    position: absolute;
-    top: 0;
-    width: 11px;
-    height: 11px;
-    margin: -5px 0 0 -5.5px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 14%, transparent);
-  }
-
-  /* The stem out of the line toward the card it belongs to. */
-  .trkStem {
-    position: absolute;
-    left: 50%;
-    width: 1px;
-    height: clamp(28px, 3vw, 42px);
-    margin-left: -0.5px;
-    background: color-mix(in srgb, var(--accent) 45%, var(--line));
-  }
-
-  .trkMark[data-side="up"] .trkStem {
-    bottom: 100%;
-    transform-origin: center bottom;
-  }
-
-  .trkMark[data-side="down"] .trkStem {
-    top: 100%;
-    transform-origin: center top;
-  }
 }
 
 /* ============================================================
@@ -6253,19 +4846,6 @@
   background: color-mix(in srgb, var(--accent) 9%, var(--surface));
 }
 
-.sbCardIndex {
-  flex: 0 0 auto;
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.2em;
-  color: var(--muted);
-  transition: color 0.3s ease;
-}
-
-.sbCard[aria-selected="true"] .sbCardIndex {
-  color: var(--accent);
-}
-
 .sbCardName {
   flex: 1 1 auto;
   min-width: 0;
@@ -6346,13 +4926,6 @@
   align-content: start;
   gap: clamp(9px, 1.1vw, 13px);
   min-width: 0;
-}
-
-.sbPanelIndex {
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.2em;
-  color: var(--accent);
 }
 
 .sbPanelName {
@@ -6924,27 +5497,6 @@
    single stacked column on a phone and as a four-across band on a desktop
    without a second markup path or a fixed breakpoint per column count.
    ============================================================ */
-.cmpRowGridWide {
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 640px) {
-  /* Overrides the `1fr 1fr` the base class takes at this breakpoint. */
-  .cmpRowGridWide {
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: clamp(20px, 2.4vw, 34px);
-  }
-
-  /* The two-column layout divides its pair with a hairline on the last cell.
-     That only reads as a divider when there are exactly two cells on one line:
-     with auto-fit the cells wrap, so the rule would land under a wrapped cell
-     with nothing to its left. Dropped here — the accented lead label and the
-     gap already separate the columns. */
-  .cmpRowGridWide .cmpCell:last-child {
-    padding-left: 0;
-    border-left: 0;
-  }
-}
 
 /* ============================================================
    BOLD CARD LAYOUT — shared by the services grid and the card grids.
@@ -7008,25 +5560,6 @@
   border-top-color: var(--svc-accent);
   background: color-mix(in srgb, var(--svc-accent) 6%, var(--surface));
   box-shadow: 0 14px 34px -12px color-mix(in srgb, var(--svc-accent) 55%, transparent);
-}
-
-/* The oversized ordinal, set in the display serif and dropped behind the copy.
-   `overflow: hidden` above keeps it clipped to the card. */
-.boldWatermark {
-  position: absolute;
-  top: 6px;
-  right: 16px;
-  z-index: 0;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: clamp(38px, 3.1vw, 54px);
-  line-height: 1;
-  color: var(--svc-accent);
-  /* Deliberately faint: purely decorative and aria-hidden, and it sits behind
-     the copy, so any stronger and it would cut into the title's contrast. */
-  opacity: 0.24;
-  pointer-events: none;
-  user-select: none;
 }
 
 /* Mono category label, in the card's own accent. */
@@ -7171,187 +5704,12 @@
    comparison. Below 760px the whole thing reflows to a card per row, because
    four destination columns cannot hold their own on a phone.
    ============================================================ */
-.cmpTableWrap {
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
-  overflow: hidden;
-}
-
-/* Four columns scroll sideways rather than crushing every cell to two words. */
-.cmpTableWrapWide {
-  overflow-x: auto;
-}
-
-.cmpTable {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-}
-
-.cmpTableWrapWide .cmpTable {
-  min-width: calc(190px + (var(--cmp-cols, 3) * 165px));
-}
-
-.cmpHeadRow {
-  border-bottom: 1px solid var(--line);
-}
-
-.cmpHeadArea,
-.cmpHeadCell {
-  padding: clamp(16px, 2vw, 22px) clamp(16px, 2.2vw, 26px);
-  vertical-align: bottom;
-  font-weight: 400;
-}
-
-/* The empty top-left corner. Fixed so the area rail does not shift width
-   between rows of different copy length. */
-.cmpHeadArea {
-  width: clamp(150px, 18%, 230px);
-}
-
-.cmpHeadLabel {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.cmpHeadCellLead .cmpHeadLabel {
-  color: var(--accent);
-}
-
-/* A 2px coral rule under the lead column only — the one place a NEUTRAL table
-   takes a side, and enough of one that the checkmark icon does not have to
-   shout. A verdict table adds the column wash above on top of this. */
-.cmpHeadCellLead {
-  box-shadow: inset 0 -2px 0 var(--accent);
-}
-
-.cmpHeadIcon {
-  width: 13px;
-  height: 13px;
-  flex: 0 0 auto;
-}
-
-.cmpTr {
-  border-top: 1px solid var(--line);
-  transition: background 0.35s ease;
-}
-
-.cmpTr:first-child {
-  border-top: 0;
-}
-
-/* Was 4%, which was invisible against the near-black canvas — the row simply
-   did not respond. 7% is legible without competing with the lead column's own
-   6% wash, which the row hover deliberately sits just above. */
-.cmpTr:hover {
-  background: color-mix(in srgb, var(--accent) 7%, transparent);
-}
-
-.cmpArea {
-  padding: clamp(18px, 2.2vw, 26px) clamp(16px, 2.2vw, 26px);
-  vertical-align: top;
-  font-weight: 400;
-}
-
-/* Flex sits on this wrapper rather than the <th> — see comparison.tsx. */
-.cmpAreaInner {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-/* A tinted chip around the glyph rather than a bare stroke floating beside
-   the serif label. Eight unboxed 17px icons down a column read as specks; the
-   chips line up into a rail, which is what gives the left edge structure. */
-.cmpAreaIcon {
-  width: 30px;
-  height: 30px;
-  flex: 0 0 auto;
-  padding: 6px;
-  border-radius: 8px;
-  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
-  background: color-mix(in srgb, var(--accent) 9%, transparent);
-  color: var(--accent);
-}
-
-.cmpAreaName {
-  font-family: var(--font-heading);
-  font-size: clamp(1rem, 1.2vw, 1.15rem);
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-  color: var(--text-bright);
-}
-
-.cmpTd {
-  padding: clamp(18px, 2.2vw, 26px) clamp(16px, 2.2vw, 26px);
-  vertical-align: top;
-  border-left: 1px solid var(--line);
-}
-
-/* Up from clamp(0.88rem, 0.95vw, 0.95rem). The values are what the reader
-   came for, and at the old size they were the smallest type in the section —
-   smaller than the row labels naming them. */
-.cmpTdText {
-  display: block;
-  font-size: clamp(0.95rem, 1.02vw, 1.05rem);
-  line-height: 1.62;
-  color: var(--text);
-}
-
-.cmpTdLead .cmpTdText {
-  color: var(--text-bright);
-}
 
 /* ---- verdict treatment -------------------------------------------------
    Only inside `.cmpTableWrapVerdict`, i.e. only where the content module set
    `verdict: true` because the page is genuinely arguing for column one. The
    even-handed destination matrix on /it-outsourcing-company-india keeps the
    neutral table below and must never pick up any of this. */
-
-/* A continuous wash down the lead column rather than a per-cell tint, so the
-   eye tracks one unbroken band instead of eight stacked patches. 6% reads
-   clearly on the near-black canvas without fighting the row hairlines; the
-   .light band re-points --accent to a deeper brick red, where the same 6%
-   over a warm white lands at a comparable weight. */
-.cmpTableWrapVerdict .cmpTdLead,
-.cmpTableWrapVerdict .cmpHeadCellLead {
-  background: color-mix(in srgb, var(--accent) 6%, transparent);
-}
-
-/* The alternatives step back one level. Not hidden, not greyed to
-   illegibility — this is still a comparison a reader is entitled to read —
-   just clearly the secondary side of it. */
-.cmpTableWrapVerdict .cmpTd:not(.cmpTdLead) .cmpTdText {
-  color: var(--muted);
-}
-
-/* The lead cell's tick. Floated out into the cell's left padding rather than
-   pushed inline, so every value in the column starts on the same x — a row
-   that ties (no tick) must not sit indented against the rows that win. */
-.cmpTableWrapVerdict .cmpTdLead {
-  position: relative;
-}
-
-.cmpTdTick {
-  position: absolute;
-  left: clamp(4px, 0.7vw, 9px);
-  top: clamp(19px, 2.3vw, 27px);
-  width: 13px;
-  height: 13px;
-  color: var(--accent);
-}
-
-/* Only ever visible in the reflowed card layout below. */
-.cmpTdLabel {
-  display: none;
-}
 
 /* The "so what" under a verdict table. Reads as an editorial aside rather than
    a ninth row: no border, indented to the table's own gutter, and carrying the
@@ -7366,105 +5724,6 @@
   font-size: clamp(0.95rem, 1.02vw, 1.05rem);
   line-height: 1.6;
   color: var(--text-bright);
-}
-
-@media (max-width: 759px) {
-  .cmpTableWrap,
-  .cmpTableWrapWide {
-    border: 0;
-    border-radius: 0;
-    background: none;
-    overflow: visible;
-  }
-
-  .cmpTableWrapWide .cmpTable {
-    min-width: 0;
-  }
-
-  .cmpTable,
-  .cmpTable tbody,
-  .cmpTr,
-  .cmpArea,
-  .cmpTd {
-    display: block;
-    width: auto;
-  }
-
-  /* The headings are restated inside each cell by `.cmpTdLabel`, so the real
-     header row is redundant here — and a four-column one would be unreadable. */
-  .cmpTable thead {
-    display: none;
-  }
-
-  .cmpTr {
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: var(--surface);
-    padding: clamp(18px, 4vw, 24px);
-  }
-
-  .cmpTr + .cmpTr {
-    margin-top: clamp(14px, 3vw, 18px);
-  }
-
-  /* Restores the top border the desktop :first-child rule removes — here the
-     first row is a card, not the row sitting directly under the header. */
-  .cmpTr:first-child {
-    border-top: 1px solid var(--line);
-  }
-
-  .cmpArea {
-    padding: 0 0 14px;
-  }
-
-  .cmpTd {
-    padding: 14px 0 0;
-    border-left: 0;
-    border-top: 1px solid var(--line);
-  }
-
-  .cmpTdLabel {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    margin-bottom: 7px;
-    font-family: var(--font-eyebrow);
-    font-size: var(--fs-label);
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .cmpTdLead .cmpTdLabel {
-    color: var(--accent);
-  }
-
-  /* ---- verdict treatment, reflowed --------------------------------------
-     The desktop wash runs down a column. There is no column here — each row
-     is its own card — so the same tint marks the recommended ANSWER inside
-     each card instead, which is the same claim at this width. It needs its
-     own padding and radius: the desktop cell's padding comes from the table,
-     and without it the tint would butt against the card's edge. */
-  .cmpTableWrapVerdict .cmpTdLead {
-    margin-top: 14px;
-    padding: 12px 14px;
-    border-top: 0;
-    border-radius: 10px;
-  }
-
-  .cmpTableWrapVerdict .cmpTdLead .cmpTdLabel {
-    margin-top: 0;
-  }
-
-  /* Floated rather than absolute: the cell's own left padding is what the
-     desktop tick is positioned into, and the reflowed card has none to spare.
-     Floating drops it at the head of the value and lets the prose wrap
-     around it, which keeps the tick on the text's first line at any width. */
-  .cmpTdTick {
-    position: static;
-    float: left;
-    margin: 3px 7px 0 0;
-  }
 }
 
 /* ============================================================
@@ -7811,179 +6070,9 @@
    Body copy is deliberately NOT justified. `.processBody` above still is, and
    at these column widths that is what produces the stretched word gaps.
    ============================================================ */
-.pmGrid {
-  list-style: none;
-  margin: clamp(22px, 2.6vw, 34px) 0 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(14px, 1.6vw, 20px);
-  align-items: stretch;
-}
-
-.pmCard {
-  display: grid;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--surface);
-  transition: border-color 0.4s ease, transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.pmCard:hover {
-  border-color: var(--accent);
-  transform: translateY(-3px);
-  box-shadow: 0 18px 38px -24px rgb(0 0 0 / 55%);
-}
-
-.pmBody {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  /* Cards in a row stretch to the tallest, so copy that sits at the top leaves
-     a dead panel beneath it — worst on a wide card paired with a tall one.
-     Centring on the cross axis parks the block in the middle of whatever height
-     the row ends up at, at every breakpoint, without touching the ragged-left
-     text alignment. */
-  justify-content: center;
-  gap: clamp(9px, 1vw, 12px);
-  padding: clamp(18px, 2vw, 26px);
-}
-
-/* The reference's dark category chip, in this system's accent. Mono/uppercase
-   keeps it in the same family as every other micro-label on the page. */
-.pmPill {
-  display: inline-block;
-  padding: 5px 11px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
-  color: var(--accent);
-  font-family: var(--font-eyebrow);
-  font-size: var(--fs-label);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.pmName {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-weight: var(--heading-weight);
-  font-size: var(--fs-h3);
-  line-height: 1.2;
-  letter-spacing: -0.015em;
-  color: var(--text-bright);
-}
-
-.pmText {
-  margin: 0;
-  max-width: 62ch;
-  font-size: var(--fs-body-sm);
-  line-height: 1.65;
-  color: var(--text);
-}
-
-.pmMedia {
-  position: relative;
-  overflow: hidden;
-  /* Holds the card's shape before the art decodes so the row does not reflow. */
-  min-height: 160px;
-  background: color-mix(in srgb, var(--text-bright) 6%, transparent);
-}
-
-.pmImg {
-  object-fit: cover;
-  /* Slow ease out, quicker ease in, so the push-in feels deliberate and the
-     release settles rather than snapping back. The frame above clips it. */
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
-/* Zoom is driven from the card, not the frame, so it fires anywhere on the card
-   — the copy included — and stays in step with the card's own hover lift. */
-.pmCard:hover .pmImg,
-.pmCard:focus-within .pmImg {
-  transform: scale(1.07);
-  transition-duration: 0.9s;
-}
-
-/* A card with no image yet must not leave a blank panel — the body simply takes
-   the whole card until art is added. */
-.pmCard:not(:has(.pmMedia)) .pmBody {
-  grid-column: 1 / -1;
-}
-
-@media (min-width: 1000px) {
-  .pmGrid {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-  }
-
-  .pmCard[data-span="12"] { grid-column: span 12; }
-  .pmCard[data-span="7"] { grid-column: span 7; }
-  .pmCard[data-span="5"] { grid-column: span 5; }
-
-  /* Wide: art beside the copy. Tall: art above it. */
-  .pmCardWide:has(.pmMedia) {
-    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
-    align-items: stretch;
-  }
-
-  .pmCardWide .pmMedia {
-    height: 100%;
-    min-height: 200px;
-  }
-
-  .pmCardTall:has(.pmMedia) {
-    grid-template-rows: auto 1fr;
-  }
-
-  /* This image is what sets the height of its whole row: the tall card's art is
-     the tallest thing in the pair, and `align-items: stretch` makes the wide
-     card beside it match. 16/10 on a 5-span column ran to ~360px on a large
-     screen, which is what made the section feel oversized. 16/9 takes roughly
-     an eighth off, and the max-height stops it growing without bound on
-     ultra-wide displays, where vw-based sizing otherwise keeps scaling. */
-  .pmCardTall .pmMedia {
-    aspect-ratio: 16 / 9;
-    max-height: 320px;
-  }
-
-  /* The full-width closing card gets a wider image than a 7-span one, or it
-     reads as a letterbox strip across the whole page. */
-  .pmCard[data-span="12"]:has(.pmMedia) {
-    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr);
-  }
-}
 
 /* Tablet and phone: always stacked, art on top. A side-by-side split at these
    widths leaves the copy column too narrow to set. */
-@media (max-width: 999px) {
-  .pmCard .pmMedia {
-    aspect-ratio: 16 / 9;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pmCard {
-    transition: none;
-  }
-
-  .pmCard:hover {
-    transform: none;
-  }
-
-  /* The image zoom is the one piece of motion here that runs on a large surface,
-     so it has to opt out too — the card keeps its border-colour hover, which is
-     colour-only and carries the affordance on its own. */
-  .pmImg {
-    transition: none;
-    will-change: auto;
-  }
-
-  .pmCard:hover .pmImg,
-  .pmCard:focus-within .pmImg {
-    transform: none;
-  }
-}
 
 /* ============================================================
    LEADERSHIP TEAM GRID (landing/team.tsx)
@@ -8379,11 +6468,6 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-bright);
-}
-
-.casePlatformsLabel {
-  margin-right: 0.8em;
-  color: var(--muted);
 }
 
 /* Pinned to the card's foot, so buttons line up across a row of cards whose

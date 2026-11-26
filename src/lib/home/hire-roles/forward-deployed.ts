@@ -1,5 +1,5 @@
 /**
- * Content for `/hire-forward-deployed-engineer`.
+ * Content for `/hire-forward-deployed-engineers`.
  *
  * Source: softsuave.com/hire-forward-deployed-engineer, and nothing else.
  *
@@ -39,7 +39,7 @@ import { HOURLY_RATE } from '@/lib/company-figures';
 
 export const forwardDeployed: HireRolePageContent = {
   key: 'hire-fde',
-  slug: '/hire-forward-deployed-engineer',
+  slug: '/hire-forward-deployed-engineers',
   name: 'Forward Deployed Engineers',
   serviceType: 'Forward deployed engineering staffing',
 

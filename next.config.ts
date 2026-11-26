@@ -213,6 +213,14 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
+      // The Forward Deployed Engineers page moved to the plural URL (25 Nov);
+      // the singular it was served under for a week lands there.
+      {
+        source: '/hire-forward-deployed-engineer',
+        destination: '/hire-forward-deployed-engineers',
+        permanent: true,
+      },
+
       // Retire the subpath mount's URLs. Under basePath '/blog' every post,
       // taxonomy and asset answered one level deeper than it does now, and those
       // URLs were live long enough to be linked and indexed.
