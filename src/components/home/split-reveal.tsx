@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 import SplitType from "split-type";
-import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
 import { isOnScreen } from "@/lib/home/on-screen";
 
 /*
@@ -113,8 +113,14 @@ export default function SplitReveal({
       // than splitting it into fresh, hidden words (see on-screen.ts).
       if (isOnScreen(el)) return;
       let split: SplitType | null = null;
+      let tween: gsap.core.Tween | null = null;
+      let resizeObserver: ResizeObserver | null = null;
+      let resizeTimer = 0;
+      let lastWidth = 0;
 
-      const arm = () => {
+      // `played`: the reveal already ran, so a re-split (below) leaves the words
+      // where they ended up instead of hiding them and playing the reveal again.
+      const build = (played: boolean) => {
         split = new SplitType(el, {
           types: type === "chars" ? "lines,chars" : "lines,words",
         });
@@ -135,8 +141,9 @@ export default function SplitReveal({
           paddingBottom: "0.28em",
           marginBottom: "-0.28em",
         });
+        if (played) return;
         gsap.set(targets, { yPercent: 110, rotate: 0.001, opacity: 0 });
-        gsap.to(targets, {
+        tween = gsap.to(targets, {
           yPercent: 0,
           opacity: 1,
           duration,
@@ -147,6 +154,35 @@ export default function SplitReveal({
             ? { trigger: el, start, end, scrub: 0.8 }
             : { trigger: el, start, once: true },
         });
+      };
+
+      // SplitType fixes each line break at the width the heading had when it
+      // was split. Resize the window afterwards (a responsive-mode drag, a
+      // rotated tablet) and the old breaks stay, leaving a stranded word on a
+      // line of its own. Re-split when the heading's width changes.
+      const resplit = () => {
+        if (!split) return;
+        const width = el.getBoundingClientRect().width;
+        if (Math.abs(width - lastWidth) < 1) return;
+        lastWidth = width;
+        const played = !tween || tween.progress() === 1;
+        tween?.scrollTrigger?.kill();
+        tween?.kill();
+        tween = null;
+        split.revert();
+        build(played);
+        ScrollTrigger.refresh();
+      };
+
+      const arm = () => {
+        build(false);
+        lastWidth = el.getBoundingClientRect().width;
+        if (typeof ResizeObserver === "undefined") return;
+        resizeObserver = new ResizeObserver(() => {
+          window.clearTimeout(resizeTimer);
+          resizeTimer = window.setTimeout(resplit, 150);
+        });
+        resizeObserver.observe(el.parentElement ?? el);
       };
 
       // Split and arm only when the heading is about to scroll into view
@@ -169,6 +205,8 @@ export default function SplitReveal({
 
       return () => {
         io.disconnect();
+        resizeObserver?.disconnect();
+        window.clearTimeout(resizeTimer);
         split?.revert();
       };
     },

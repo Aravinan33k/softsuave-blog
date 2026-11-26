@@ -275,6 +275,11 @@ export interface HireRolePageContent {
    */
   readonly halfHeads?: boolean;
   /**
+   * Every section head in one column (title, then the intro beneath at 75% width, no divider rule):
+   * `landing.stackedHeads`, `home.stackedHeads` and, beside `halfHeads`, `ad.stackHeads`.
+   */
+  readonly stackedHeads?: boolean;
+  /**
    * The ad pages' wider gap between every section head and its content
    * (`ad.module.css` `wideHeadGap`: 32px on a phone, ~55px at 1440, 64px wide).
    */

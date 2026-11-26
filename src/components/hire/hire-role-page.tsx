@@ -24,6 +24,8 @@ import TechTabs from '@/components/common/tech-tabs';
 
 import styles from '@/components/home/home.module.css';
 import location from '@/components/landing/location-app-page.module.css';
+import landing from '@/components/landing/landing.module.css';
+import genAi from '@/components/generative-ai/gen-ai.module.css';
 import ad from '@/components/ad/ad.module.css';
 
 /**
@@ -145,6 +147,10 @@ export default function HireRolePage({
         content.submitBlack && location.submitBlack,
         content.heroPadBottom80 && styles.heroPadBottom80,
         content.halfHeads && ad.halfHeads,
+        content.stackedHeads && landing.stackedHeads,
+        content.stackedHeads && styles.stackedHeads,
+        content.stackedHeads && ad.stackHeads,
+        content.stackedHeads && genAi.stackedHeads,
         content.wideHeadGap && ad.wideHeadGap,
         content.clientsTwoLineTitle && styles.clientsTwoLineTitle,
         content.sectionGapsFull && styles.sectionGapsFull,
