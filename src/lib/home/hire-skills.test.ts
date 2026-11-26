@@ -6,7 +6,7 @@ import { LANDING_PAGES } from './landing-pages';
 import { HIRE_SKILL_ROUTES } from './hire-skill-routes';
 import type { HireBand } from './hire-skill';
 import { HIRE_CLIENT_LOGOS, HIRE_CLOSING_BAND } from './hire-blocks';
-import { finalCta } from './content';
+import { clients, finalCta } from './content';
 
 /**
  * These pages render through one component, so the risks are not the usual
@@ -157,8 +157,10 @@ describe('no homepage content on a hire page', () => {
     expect(template).not.toMatch(/^import .*home\/manifesto/m);
   });
 
-  it('does not import the homepage industries fan, work grid or awards strip', () => {
-    for (const mod of ['industries', 'work-grid', 'awards']) {
+  // The homepage's work grid is allowed: `hire-bands.tsx` reuses its horizontal
+  // scroll lane (WorkCarousel) for the expertise band, with the page's own copy.
+  it('does not import the homepage industries fan or awards strip', () => {
+    for (const mod of ['industries', 'awards']) {
       expect(template, mod).not.toMatch(new RegExp(`^import .*home/${mod}`, 'm'));
     }
   });
@@ -170,7 +172,9 @@ describe('no homepage content on a hire page', () => {
    * dropped, 26 Oct), so those three must not ride along.
    */
   it('runs the hire pages\' own client roster, not the homepage\'s three extras', () => {
-    expect(HIRE_CLIENT_LOGOS).toHaveLength(18);
+    // The homepage strip minus exactly those three (it has grown since 26 Oct,
+    // so the count follows it rather than pinning a number).
+    expect(HIRE_CLIENT_LOGOS).toHaveLength(clients.logos.length - 3);
     for (const name of ['Phoenix Technologies', 'AMD Telecom', 'Perkypet']) {
       expect(HIRE_CLIENT_LOGOS.map((l) => l.name), name).not.toContain(name);
     }

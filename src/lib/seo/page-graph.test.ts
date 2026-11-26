@@ -57,11 +57,11 @@ const typeOf = (graph: object[], t: string) =>
   graph.find((n) => (n as Record<string, string>)['@type'] === t) as Record<string, unknown> | undefined;
 
 describe('pageSchemaGraph', () => {
+  // A breadcrumb is opt-in (`showBreadcrumb`): most live marketing pages carry
+  // none, so with nothing else asked for there is none, whatever the flag.
   it('emits Service and WebPage for a page with nothing else', () => {
     const g = pageSchemaGraph(base);
-    expect(g.map((n) => (n as Record<string, string>)['@type'])).toEqual(
-      homepageEnabled ? ['Service', 'WebPage', 'BreadcrumbList'] : ['Service', 'WebPage'],
-    );
+    expect(g.map((n) => (n as Record<string, string>)['@type'])).toEqual(['Service', 'WebPage']);
   });
 
   it('joins the nodes by @id rather than nesting copies', () => {
@@ -174,7 +174,7 @@ describe('pageSchemaGraph', () => {
      to one item — which must be dropped, not emitted as a one-crumb list
      pointing a crawler at a redirect. Both sides of that gate are asserted. */
   it('puts the page last in its own breadcrumb trail, or omits a lone crumb', () => {
-    const g = pageSchemaGraph({ ...base, breadcrumbName: 'Hire Python Developers' });
+    const g = pageSchemaGraph({ ...base, showBreadcrumb: true, breadcrumbName: 'Hire Python Developers' });
     const crumb = typeOf(g, 'BreadcrumbList');
     if (!homepageEnabled) {
       expect(crumb).toBeUndefined();
