@@ -136,7 +136,7 @@ const SERVICES: NavMenuPanel = {
     {
       key: "fdes",
       name: "FDEs",
-      items: [{ name: "Hire Forward Deployed Engineer", href: "/hire-forward-deployed-engineer" }],
+      items: [{ name: "Hire Forward Deployed Engineer", href: "/hire-forward-deployed-engineers" }],
     },
     {
       key: "software",

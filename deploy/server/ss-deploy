@@ -1,0 +1,154 @@
+#!/bin/bash
+# Deploy one commit of GitLab main to www.softsuave.com. Run by the pipeline (through
+# ss-deploy-gate) as root via sudo; can be run by hand the same way.
+#
+#   ss-deploy <40-char sha>    build, test on :3301, switch, verify, roll back on failure
+#   ss-deploy --status         what is live, what was live before, recent releases
+#
+# Guarantees:
+#   - Only code that is on GitLab main can go live: the commit is fetched by THIS server
+#     from GitLab (read-only deploy token) and must be an ancestor of main. Nothing the
+#     CI runner sends is built.
+#   - The live site is not touched until the new release has built, started on :3301
+#     and passed page-check against the live release.
+#   - After the switch the live app is checked again; on failure the previous release
+#     is switched back automatically.
+#   - Apache (page map, redirects) is never changed here.
+set -euo pipefail
+
+BASE=/var/www/softsuave-site
+MIRROR=$BASE/repo.git                 # bare mirror of GitLab, fetch URL holds the deploy token (root-only)
+LOGS=$BASE/logs
+MAP=/etc/apache2/softsuave-site-pages.map
+TEST_PORT=3301
+LIVE_PORT=3300
+KEEP=4                                # releases kept besides current and previous
+PM2="env PATH=/root/.nvm/versions/node/v20.19.5/bin:/usr/bin:/bin pm2"
+NODE22=/opt/node22/bin
+
+log() { echo "$(date -u +%FT%TZ) $*"; }
+die() { log "FAILED: $*"; exit 1; }
+
+current_rel() { basename "$(readlink -f "$BASE/current")"; }
+
+if [ "${1:-}" = "--status" ]; then
+  echo "live:     $(current_rel)"
+  echo "previous: $(cat "$BASE/releases/.previous" 2>/dev/null || echo none)"
+  echo "releases: $(ls -t "$BASE/releases" | tr '\n' ' ')"
+  $PM2 ls 2>/dev/null | grep -E "softsuave-site" || true
+  exit 0
+fi
+
+SHA=${1:-}
+[[ "$SHA" =~ ^[0-9a-f]{40}$ ]] || die "usage: ss-deploy <40-char commit sha> | --status"
+REL=${SHA:0:7}
+R=$BASE/releases/$REL
+
+exec 9>/var/lock/ss-deploy.lock
+flock -n 9 || die "another deploy or rollback is running"
+
+mkdir -p "$LOGS"
+exec > >(tee -a "$LOGS/deploy-$REL.log") 2>&1
+log "deploy $SHA"
+
+# ---- 1. the commit must be on GitLab main ----
+git -C "$MIRROR" fetch --quiet --prune origin '+refs/heads/main:refs/heads/main' || die "git fetch from GitLab"
+git -C "$MIRROR" cat-file -e "$SHA^{commit}" 2>/dev/null || die "commit $SHA not found on GitLab"
+git -C "$MIRROR" merge-base --is-ancestor "$SHA" main || die "commit $SHA is not on main"
+
+CUR=$(current_rel)
+[ "$CUR" = "$REL" ] && { log "already live: $REL"; exit 0; }
+
+# ---- 2. build the release (skipped when this commit was built before) ----
+if [ -f "$R/.build-ok" ]; then
+  log "release $REL already built, reusing it"
+else
+  rm -rf "$R"
+  mkdir -p "$R"
+  git -C "$MIRROR" archive "$SHA" | tar -x -C "$R"
+  if cmp -s "$R/package-lock.json" "$BASE/releases/$CUR/package-lock.json"; then
+    log "dependencies unchanged, copying node_modules from $CUR"
+    cp -a "$BASE/releases/$CUR/node_modules" "$R/node_modules"
+  else
+    log "package-lock.json changed, npm ci"
+    (cd "$R" && PATH=$NODE22:/usr/local/bin:/usr/bin:/bin npm ci --no-audit --no-fund)
+  fi
+  ln -sfn "$BASE/shared/.env" "$R/.env"
+  log "build"
+  t=$(date +%s)
+  (cd "$R" && unset NODE_ENV && PATH=$NODE22:/usr/local/bin:/usr/bin:/bin \
+     NEXT_BUILD_CPUS=1 NODE_OPTIONS=--max-old-space-size=2048 nice -n 19 ionice -c3 npm run build) \
+     > "$LOGS/build-$REL.log" 2>&1 || { tail -40 "$LOGS/build-$REL.log"; rm -rf "$R"; die "build (log: $LOGS/build-$REL.log)"; }
+  log "build ok in $(( $(date +%s) - t ))s"
+  echo "$SHA" > "$R/.build-ok"
+fi
+
+# ---- 3. test the new release on :3301 against the live one ----
+stop_test() {
+  local pid
+  pid=$(ss -ltnp "sport = :$TEST_PORT" | grep -o 'pid=[0-9]*' | head -1 | cut -d= -f2 || true)
+  [ -n "$pid" ] && kill "$pid" 2>/dev/null || true
+  sleep 2
+  # a next-server left behind with its parent gone (seen on 23 Nov) would hold the port
+  for p in $(ps -eo pid=,ppid=,comm= | awk '$2==1 && $3 ~ /next-server/ {print $1}'); do
+    case "$(readlink "/proc/$p/cwd" 2>/dev/null)" in "$BASE/releases/"*) [ "$(readlink "/proc/$p/cwd")" != "$(readlink -f "$BASE/current")" ] && kill "$p" || true ;; esac
+  done
+}
+stop_test
+ss -ltn "sport = :$TEST_PORT" | grep -q LISTEN && die "port $TEST_PORT is busy"
+trap stop_test EXIT   # never leave a test server behind, whatever ends the script
+
+log "test server on :$TEST_PORT"
+(cd "$R" && NODE_ENV=production nohup "$NODE22/node" --max-old-space-size=640 node_modules/next/dist/bin/next \
+   start -p $TEST_PORT -H 127.0.0.1 > "$LOGS/test-$REL.log" 2>&1 < /dev/null &)
+for i in $(seq 1 60); do curl -s -o /dev/null -m 3 "http://127.0.0.1:$TEST_PORT/" && break; sleep 1; done
+TPID=$(ss -ltnp "sport = :$TEST_PORT" | grep -o 'pid=[0-9]*' | head -1 | cut -d= -f2 || true)
+[ -n "$TPID" ] && [ "$(readlink "/proc/$TPID/cwd")" = "$R" ] || { stop_test; die "test server did not start from $R"; }
+
+awk '$2=="app"{print $1}' "$MAP" > "$LOGS/paths-$REL.txt"
+if ! python3 -I /usr/local/lib/ss-deploy/page-check.py \
+     "http://127.0.0.1:$LIVE_PORT" "http://127.0.0.1:$TEST_PORT" "$LOGS/paths-$REL.txt" "$LOGS/check-$REL.json" \
+     "$R/deploy/softsuave-site-pages.map"; then
+  stop_test
+  die "page-check: the new release breaks pages that work live (details above)"
+fi
+stop_test
+
+# ---- 4. switch, verify, roll back on failure ----
+switch_to() {
+  ln -sfn "releases/$1" "$BASE/current.new"
+  mv -T "$BASE/current.new" "$BASE/current"
+  $PM2 restart softsuave-site --update-env > /dev/null
+}
+live_ok() {
+  local i code
+  for i in $(seq 1 60); do curl -s -o /dev/null -m 3 "http://127.0.0.1:$LIVE_PORT/" && break; sleep 1; done
+  for p in / /contact /about /case-studies; do
+    code=$(curl -s -o /dev/null -m 10 -w '%{http_code}' "http://127.0.0.1:$LIVE_PORT$p" || true)
+    [ "$code" = 200 ] || { log "live check $p -> $code"; return 1; }
+  done
+  code=$(curl -s -o /dev/null -m 15 -w '%{http_code}' https://www.softsuave.com/ || true)
+  [ "$code" = 200 ] || { log "live check https://www.softsuave.com/ -> $code"; return 1; }
+}
+
+log "switch $CUR -> $REL"
+OLDPREV=$(cat "$BASE/releases/.previous" 2>/dev/null || true)
+echo "$CUR" > "$BASE/releases/.previous"
+switch_to "$REL"
+if ! live_ok; then
+  log "live check failed, rolling back to $CUR"
+  switch_to "$CUR"
+  echo "$OLDPREV" > "$BASE/releases/.previous"
+  live_ok && log "rolled back, $CUR is live" || log "ROLLBACK ALSO FAILED - needs a person now"
+  die "release $REL did not pass the live check"
+fi
+log "LIVE: $REL"
+
+# ---- 5. prune old releases (disk is tight) ----
+PREV=$CUR
+ls -t "$BASE/releases" | grep -vx -e "$REL" -e "$PREV" | tail -n +$((KEEP + 1)) | while read -r old; do
+  [ -d "$BASE/releases/$old" ] || continue
+  log "prune release $old"
+  rm -rf "${BASE:?}/releases/$old"
+done
+log "done"

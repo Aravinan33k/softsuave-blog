@@ -46,7 +46,7 @@
  *     (exceptions, like the hire pages: each mirrors its live page's own
  *     blocks verbatim — see `lib/seo/<slug>.ts` — with the site Organization
  *     arriving from GTM and the footer keeping its address microdata)
- *   /hire-ai-developer and /hire-forward-deployed-engineer (exceptions, like
+ *   /hire-ai-developer and /hire-forward-deployed-engineers (exceptions, like
  *     the hire pages above: the AI page's live page carries no JSON-LD of its
  *     own, so it emits none; the FDE page mirrors live's two blocks, which
  *     include its own Organization — see `hire-roles-live-schema`)
@@ -203,7 +203,7 @@ export const PAGES_WITH_OWN_SITE_GRAPH: ReadonlySet<string> = new Set([
   '/hire-django-developer',
   '/hire-dot-net-developers',
   '/hire-flutter-developers',
-  '/hire-forward-deployed-engineer',
+  '/hire-forward-deployed-engineers',
   '/hire-frontend-application-developer',
   '/hire-ionic-developers',
   '/hire-ios-developers',

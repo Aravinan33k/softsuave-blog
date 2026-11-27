@@ -25,7 +25,7 @@ import { HOURLY_RATE } from "@/lib/company-figures";
  *
  * /hire-ai-developer maps to no blocks: its live page carries no JSON-LD of
  * its own (only the GTM-injected site Organization), so it emits none either.
- * /hire-forward-deployed-engineer carries live's two blocks — a Service +
+ * /hire-forward-deployed-engineers carries live's two blocks — a Service +
  * FAQPage graph and its own Organization + WebSite graph.
  */
 export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> = {
@@ -1658,16 +1658,16 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
       ]
     }
   ],
-  "/hire-forward-deployed-engineer": [
+  "/hire-forward-deployed-engineers": [
     {
       "@context": "https://schema.org",
       "@graph": [
         {
           "@type": "Service",
-          "@id": "https://www.softsuave.com/hire-forward-deployed-engineer#service",
+          "@id": "https://www.softsuave.com/hire-forward-deployed-engineers#service",
           "serviceType": "Forward Deployed Engineering",
           "name": "Hire Forward Deployed Engineers",
-          "url": "https://www.softsuave.com/hire-forward-deployed-engineer",
+          "url": "https://www.softsuave.com/hire-forward-deployed-engineers",
           "description": "Dedicated Forward Deployed Engineering teams and project pods embedded in your workflow, reaching production deployment in 6-8 weeks.",
           "image": "https://www.softsuave.com/assets/images/OG-FDE.webp",
           "areaServed": [
@@ -1734,15 +1734,15 @@ export const HIRE_ROLE_LIVE_SCHEMA: Readonly<Record<string, readonly object[]>> 
         },
         {
           "@type": "FAQPage",
-          "@id": "https://www.softsuave.com/hire-forward-deployed-engineer#webpage",
-          "url": "https://www.softsuave.com/hire-forward-deployed-engineer",
+          "@id": "https://www.softsuave.com/hire-forward-deployed-engineers#webpage",
+          "url": "https://www.softsuave.com/hire-forward-deployed-engineers",
           "name": "Hire Forward Deployed Engineers in 6-8 Weeks | Soft Suave",
           "description": "Hire Forward Deployed Engineers who embed with your team and ship production code. Build and deploy AI in 6-8 weeks, not months — 120+ FDEs deployed.",
           "isPartOf": {
             "@id": "https://www.softsuave.com/#website"
           },
           "about": {
-            "@id": "https://www.softsuave.com/hire-forward-deployed-engineer#service"
+            "@id": "https://www.softsuave.com/hire-forward-deployed-engineers#service"
           },
           "primaryImageOfPage": "https://www.softsuave.com/assets/images/OG-FDE.webp",
           "inLanguage": "en",

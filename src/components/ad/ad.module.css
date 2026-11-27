@@ -1064,9 +1064,10 @@
   color: var(--text-bright);
 }
 
-/* The ad pages' H1 takes the homepage hero's display size (70px at desktop). */
+/* The ad pages' H1 follows the homepage hero's scaling (`--fs-h1-home`: 6vw - 2px, 40px minimum)
+   but stops at 50px rather than the homepage's 70px. Phones and tablets are unchanged. */
 .adMain {
-  --fs-h1: var(--fs-h1-home);
+  --fs-h1: clamp(40px, 6vw - 2px, 55px);
 }
 
 /* Opt-in on a page's <main>: the Clients and Services headings set in two
