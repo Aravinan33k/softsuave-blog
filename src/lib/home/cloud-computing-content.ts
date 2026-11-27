@@ -94,7 +94,17 @@ export const cloudIntro: OverviewContent = {
     "Better security and easy disaster recovery.",
     "Provides flexibility for businesses with fluctuating bandwidth demands.",
   ],
-  image: overviewImage("cloud-computing"),
+  // The whole 4:3 picture in its own frame, so it scales down with the screen
+  // instead of being cropped; bordered and rounded like the hire pages' frames.
+  image: overviewImage("cloud-computing")
+    ? {
+        ...overviewImage("cloud-computing")!,
+        aspect: "4 / 3",
+        align: "center",
+        rounded: true,
+        bordered: true,
+      }
+    : undefined,
 };
 
 /** "Soft Suave in Cloud Computing": the intro, then "Responsive Cloud Application Development". */
@@ -112,6 +122,11 @@ export const cloudAbout: OverviewContent = {
     width: 1200,
     height: 900,
     alt: "Engineer working on a tablet beside server racks in a data center",
+    // Same treatment as the overview: whole 4:3 picture, never cropped.
+    aspect: "4 / 3",
+    align: "center",
+    rounded: true,
+    bordered: true,
   },
 };
 
@@ -128,6 +143,11 @@ export const cloudApproach: OverviewContent = {
     width: 1200,
     height: 900,
     alt: "Two people reviewing a drawn plan together",
+    // Same treatment as the overview: whole 4:3 picture, never cropped.
+    aspect: "4 / 3",
+    align: "center",
+    rounded: true,
+    bordered: true,
   },
 };
 

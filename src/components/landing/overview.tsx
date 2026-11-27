@@ -211,6 +211,14 @@ export interface OverviewContent {
     textLead?: boolean;
     /** Rounds the frame's corners to 14px (by request: "add the border-radius: 14px"). */
     rounded?: boolean;
+    /** A 1px hairline round the frame, as the hire pages' picture frames carry. */
+    bordered?: boolean;
+    /**
+     * For a portrait asset: below 1000px, where the picture stacks under the
+     * prose, the frame stops at 440px and centres instead of running the full
+     * width (a full-width 3:4 frame would be taller than the screen).
+     */
+    narrow?: boolean;
   };
 }
 
@@ -433,6 +441,8 @@ export default function Overview({
                 image.column ? styles.overviewMediaColumn : "",
                 image.align === "center" ? styles.overviewMediaCenter : "",
                 image.rounded ? styles.overviewMediaRounded : "",
+                image.bordered ? styles.overviewMediaBordered : "",
+                image.narrow ? styles.overviewMediaNarrow : "",
               ]
                 .filter(Boolean)
                 .join(" ")}

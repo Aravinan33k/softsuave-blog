@@ -178,6 +178,7 @@ export const skill: HireSkill = {
   },
 
   services: {
+    carousel: true,
     // Live closes this band on "Talk to Our Experts" (review: "missing a CTA button").
     cta: { label: "Talk to Our Experts", href: "/contact" },
     eyebrow: "Services",

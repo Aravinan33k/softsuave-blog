@@ -29,8 +29,13 @@ function Arrow({ dir }: { dir: "prev" | "next" }) {
   );
 }
 
-/** Marquee drift speed, px per second (the reference section moves ~53px/s). */
-const DRIFT_PX_PER_S = 50;
+/**
+ * Marquee drift speed, px per second (the reference section moves ~53px/s). 60 is
+ * exactly one whole pixel per frame on a 60Hz screen: the row moves in whole device
+ * pixels (see `tick`), and at 50 one frame in six did not move, which read as a
+ * small hitch ("shaking") in the drift.
+ */
+const DRIFT_PX_PER_S = 60;
 /** How long an arrow press takes to glide the row by one card. */
 const NUDGE_MS = 650;
 
@@ -42,7 +47,7 @@ const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 
  * Below 700px it is a native scroll-snap row (touch scrolling), with arrows that
  * step one card and disable at either end. From 700px with `autoplay`, it is a
  * marquee: the row drifts right to left at a constant speed and loops without a
- * seam (the cards are rendered twice; the copy is `aria-hidden` and `inert`),
+ * seam (the cards are rendered twice; the copy is `aria-hidden`, with its links out of the tab order),
  * pausing on hover/focus, off screen and in a hidden tab, and not drifting at
  * all under `prefers-reduced-motion`. The arrows then glide the row by one card
  * either way. How many cards are in view is CSS (`.indCarousel`), not script.
@@ -100,11 +105,11 @@ function CardCarousel({
 
   /** One card plus the gap, in px. */
   const cardStep = useCallback(() => {
-    const host = marquee ? row.current : track.current;
+    const host = autoplay ? row.current : track.current;
     const card = host?.firstElementChild as HTMLElement | null;
     if (!host || !card) return 0;
     return card.offsetWidth + (parseFloat(getComputedStyle(host).columnGap) || 0);
-  }, [marquee]);
+  }, [autoplay]);
 
   // Marquee mode: the drift loop.
   useEffect(() => {
@@ -146,7 +151,10 @@ function CardCarousel({
         offset.current = ((offset.current % w) + w) % w;
       }
       const shown = w > 0 ? ((offset.current % w) + w) % w : offset.current;
-      strip.style.transform = `translate3d(${-shown}px, 0, 0)`;
+      // Whole device pixels: a fractional translate re-rasterises the text on every
+      // frame, which reads as the card copy shimmering ("vibrating") as it drifts.
+      const dpr = window.devicePixelRatio || 1;
+      strip.style.transform = `translate3d(${-Math.round(shown * dpr) / dpr}px, 0, 0)`;
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -159,6 +167,17 @@ function CardCarousel({
       nudge.current = null;
     };
   }, [marquee, cards.length]);
+
+  // The copy is for the eye only: its links and buttons stay out of the tab order.
+  useEffect(() => {
+    const strip = row.current;
+    if (!autoplay || !strip) return;
+    for (let i = cards.length; i < strip.children.length; i++) {
+      strip.children[i].querySelectorAll<HTMLElement>("a, button, input, select, textarea, [tabindex]").forEach((el) => {
+        el.tabIndex = -1;
+      });
+    }
+  }, [autoplay, cards.length]);
 
   const step = (dir: 1 | -1) => {
     const d = cardStep();
@@ -190,14 +209,22 @@ function CardCarousel({
         aria-label={label}
         tabIndex={marquee ? undefined : 0}
       >
-        {marquee ? (
+        {autoplay ? (
+          // The same markup in both modes, so nothing is swapped when the script
+          // decides the screen is wide enough to drift: the row is always here, the copy
+          // is hidden by CSS until `data-marquee` is set. (Rendering the row and the
+          // copy only after mount made the cards blink, and jump, ~300ms after load.)
           <div ref={row} className={styles.indMarqueeRow}>
             {cards}
             {cards.map((card, i) =>
+              // Hidden from assistive tech but NOT `inert`: that also switches off the
+              // pointer, so the hover on a card in the copy (which drifts into view as
+              // the set ends) did nothing. The copy's links are taken out of the tab
+              // order below instead.
               cloneElement(card, {
                 key: `copy-${i}`,
                 "aria-hidden": true,
-                inert: true,
+                className: `${card.props.className ?? ""} ${styles.indCardCopy}`.trim(),
               } as Record<string, unknown>),
             )}
           </div>
@@ -428,7 +455,11 @@ export default function IndustriesClient({
               1000px (`.indTilesWithFigure`); without one, the grid is as
               before. */}
           <div className={content.figure ? styles.indTilesWithFigure : undefined}>
-          <div className={styles.indGridTiles} data-cols={content.figure ? (n % 2 === 1 ? 1 : 2) : cols}>
+          <div
+            className={styles.indGridTiles}
+            data-cols={content.oneRow && !content.figure ? "row" : content.figure ? (n % 2 === 1 ? 1 : 2) : cols}
+            style={content.oneRow ? ({ "--tile-count": n } as React.CSSProperties) : undefined}
+          >
             {content.items.map((item, i) => {
               // A tile links only where its item names a destination — no
               // name-matching here, so a label grid stays labels unless the

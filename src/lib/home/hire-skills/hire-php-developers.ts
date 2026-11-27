@@ -61,8 +61,8 @@ export const skill: HireSkill = {
   },
 
   overview: {
-    // Portrait, run the full height of the copy beside it (8 Oct review:
-    // "resize the image to match the section") — the same photo, cut taller.
+    // 4:3 bordered rounded frame centred against the prose, matching
+    // /hire-reactjs-developers's overview treatment.
     image: {
       src: "/images/landing/ov-hire-php-developers-tall.webp",
       width: 1000,
@@ -70,7 +70,10 @@ export const skill: HireSkill = {
       alt: "PHP web developer coding a website",
       blurDataURL:
         "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAAAwAgCdASoQAAsAA4BaJQBOj+ADMgCN09icYAD+6jW94N/JYuDKmFBmkWUi5cYXV4neSEvcZ8Z23H3sRqp6P+xbkn3dvZbi3I9QApRB1J+gLWNoAAA=",
-      column: true,
+      aspect: "4 / 3",
+      align: "center",
+      rounded: true,
+      bordered: true,
     },
     eyebrow: "Overview",
     title: "Hire Remote PHP Developers 2X Faster",

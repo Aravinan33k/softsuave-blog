@@ -9,6 +9,7 @@ import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
 import home from '@/components/home/home.module.css';
+import genAi from '@/components/generative-ai/gen-ai.module.css';
 import landing from '@/components/landing/landing.module.css';
 import location from '@/components/landing/location-app-page.module.css';
 import Sections from './sections';
@@ -71,7 +72,7 @@ const HOME_HREF = BASE_PATH || '/';
 
 export default function GlobalCapabilityCenterPage() {
   return (
-    <div className={`${home.page} ${location.submitBlack} ${landing.stackedHeads} ${home.stackedHeads}`}>
+    <div className={`${home.page} ${location.submitBlack} ${landing.stackedHeads} ${home.stackedHeads} ${genAi.stackedHeads}`}>
       {/* softsuave.com's own schema for this page, verbatim, one <script> per
           block — see `lib/seo/global-capability-center.ts`. */}
       {GCC_LIVE_LD.map((block, i) => (

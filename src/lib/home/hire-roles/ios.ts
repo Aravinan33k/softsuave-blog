@@ -181,6 +181,8 @@ export const ios: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Why Us',
     title: 'Why You Should Team Up with Our iPhone Developers?',
+    // Six cards as three across, two rows, no scrolling.
+    span: 4,
     body: 'We have a strong team of iOS App developers who can overcome any technical difficulty or unique challenges to help our clients get what exactly they want.',
     items: [
       {

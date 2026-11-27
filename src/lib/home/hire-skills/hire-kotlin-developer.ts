@@ -169,6 +169,7 @@ export const skill: HireSkill = {
   },
 
   services: {
+    carousel: true,
     eyebrow: "Services",
     title: "Kotlin Development Services We Offer",
     body: "Explore our comprehensive Kotlin development services! From mobile apps to backend solutions, we provide tailored approaches to enhance user experience and scale business growth.",

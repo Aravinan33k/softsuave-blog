@@ -63,8 +63,8 @@ export const skill: HireSkill = {
 
   overview: {
     wideHead: true,
-    // Portrait, run the full height of the copy beside it (review: "resize
-    // the image to fit the height of the section").
+    // 4:3 bordered rounded frame centred against the prose, matching
+    // /global-capability-center's overview treatment.
     image: {
       src: "/images/landing/ov-hire-reactjs-developers-tall.webp",
       width: 1000,
@@ -72,7 +72,10 @@ export const skill: HireSkill = {
       alt: "React JSX component code on a monitor",
       blurDataURL:
         "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoJABAAA4BaJYwAAud9plYAAP74Z8fIoeb+U966Kek0QSANmPB3TAAA",
-      column: true,
+      aspect: "4 / 3",
+      align: "center",
+      rounded: true,
+      bordered: true,
     },
     eyebrow: "Overview",
     title: "Hire Top ReactJS Developers in India from Soft Suave",

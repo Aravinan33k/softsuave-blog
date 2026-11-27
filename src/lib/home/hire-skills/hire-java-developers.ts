@@ -76,7 +76,10 @@ export const skill: HireSkill = {
       alt: "Java developer focused on code at a workstation",
       blurDataURL:
         "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoQAAsAA4BaJZACdAEO9oMYRgAA/r4ciaQw9ZHpmttgeAoSRefWARcN2eARB1MbQdAdRpV+r7xEAAAA",
-      column: true,
+      aspect: "4 / 3",
+      align: "center",
+      rounded: true,
+      bordered: true,
     },
     // Internal links in the second paragraph (review: "internal link missing
     // in the 2nd paragraph"). The live page has none to copy, so each is a

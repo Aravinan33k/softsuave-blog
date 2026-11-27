@@ -70,8 +70,8 @@ export const skill: HireSkill = {
   },
 
   overview: {
-    // Portrait, run the full height of the copy beside it (review: "resize
-    // the image to fit the height of the section").
+    // 4:3 bordered rounded frame centred against the prose, matching
+    // /hire-reactjs-developers's overview treatment.
     image: {
       src: "/images/landing/ov-hire-swift-developers-tall.webp",
       width: 1000,
@@ -79,7 +79,10 @@ export const skill: HireSkill = {
       alt: "Developer testing code on a phone above a laptop terminal",
       blurDataURL:
         "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAwAgCdASoLABAAA4BaJZQCdAYstYp9MreQAAD9drL96gSg2yNz5A3qAI2G7Po54DLZpfH+VTTM1cI1fwD2X6XGBITWngotBaPCUfMNpZZZANoEw7SoUaIyFVAAAA==",
-      column: true,
+      aspect: "4 / 3",
+      align: "center",
+      rounded: true,
+      bordered: true,
     },
     eyebrow: "Overview",
     title: "Hire Remote Swift Developers from Soft Suave",

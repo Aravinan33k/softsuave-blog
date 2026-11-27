@@ -43,6 +43,9 @@ export const qa: HireRolePageContent = {
   serviceType: 'Software QA and testing staffing',
 
   /** Live order: overview, QA expertise, testing types, rate band, benefits, domains, approach, process, comparison, tools, testimonials, FAQ. This page runs no client-logo strip. */
+  // QA Services (the testing types) on the warm-white ground (review: "make it white").
+  groundOverrides: { 'list:testing': 'light' },
+
   order: [
     'overview',
     'fit',
@@ -96,16 +99,15 @@ export const qa: HireRolePageContent = {
 
   overview: {
     wideHead: true,
-    // Portrait, run the full height of the copy beside it (8 Oct review:
-    // "resize the image to match the section") — the same photo, cut taller.
+    // A 4:3 frame centred against the copy, as the Hire Software Developers
+    // overview: the whole picture, scaled with the screen, never cropped (review:
+    // "while minimising, reduce the entire image").
     image: {
-      src: '/images/landing/ov-hire-qa-testers-india-tall.webp',
-      width: 1000,
-      height: 1250,
+      src: '/images/landing/ov-hire-qa-testers-india.webp',
+      width: 1400,
+      height: 1050,
       alt: 'QA tester reviewing test results on a laptop',
-      blurDataURL:
-        'data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQAgCdASoQAAsAA4BaJQBOgMX6ccpwGy4AAP724hg3fexCDmp3Ja5l/Nhf0o2SSyYp1hKvo2Tp+1PGpsMhIxrOxbhUOFIemD4Cma215Lcw7Jupg2TgWr4Z6g3fDKacAAA=',
-      fit: 'column',
+      align: 'both',
     },
     eyebrow: 'Overview',
     title: 'Hire Remote QA Testers in India For Flawless Software Solutions',
@@ -302,6 +304,8 @@ export const qa: HireRolePageContent = {
         'Integration Testing': 'integration',
         'API Testing': 'api',
       },
+      // Seven short labels: one row on wide screens.
+      oneRow: true,
       eyebrow: 'QA Services',
       // Review: update the heading to "Explore the Types of QA Testing".
       title: 'Explore the Types of QA Testing',

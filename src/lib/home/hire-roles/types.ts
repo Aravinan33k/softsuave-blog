@@ -94,6 +94,8 @@ export interface HireListBand extends TechStackContent {
    * than a row of chips (QA review: "Need to change this section design").
    */
   readonly display?: 'tiles';
+  /** `tiles` only: every tile on one row from 1300px (labels short enough to share a line); below that the usual grid. */
+  readonly oneRow?: boolean;
   /** Icon key per label, for `tiles` — see `CARD_ICON_KEYS`. Unlisted labels pick from their words. */
   readonly tileIcons?: Readonly<Record<string, string>>;
   /** Optional button under the band, as the live page runs one. */
@@ -289,7 +291,7 @@ export interface HireRolePageContent {
   readonly halfHeadsSkip?: readonly HireBand[];
   /**
    * Every section head in one column (title, then the intro beneath at 75% width, no divider rule):
-   * `landing.stackedHeads`, `home.stackedHeads` and, beside `halfHeads`, `ad.stackHeads`.
+   * `landing.stackedHeads`, `home.stackedHeads` and, beside `halfHeads`, `ad.stackHeadsVars`.
    */
   readonly stackedHeads?: boolean;
   /**

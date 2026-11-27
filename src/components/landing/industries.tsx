@@ -269,6 +269,8 @@ export interface CardGridContent {
   titleNode?: ReactNode;
   /** Gives a long title a wider column beside the divider. */
   wideHead?: boolean;
+  /** Render the cards as a horizontal auto-scrolling carousel when supported (e.g. `hire-bands`). */
+  carousel?: boolean;
   /** The `feature` cards take the plain card grid's hover: accent border and a rule growing across the top edge. */
   hoverBorder?: boolean;
   /** The same standfirst as a node, when some of its words are bold. Wins over `body` where it is drawn. */

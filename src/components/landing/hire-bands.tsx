@@ -32,6 +32,7 @@ import { navHref } from '@/themes/softsuave/nav-data';
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
 import CardGrid from '@/components/landing/industries';
+import Industries from '@/components/generative-ai/industries';
 // The homepage's horizontal scroll-snap lane, reused for the expertise band.
 import WorkCarousel from '@/components/home/work-grid';
 import ExploreMarquee from '@/components/landing/explore-marquee';
@@ -100,6 +101,74 @@ const LIGHT_BANDS: ReadonlySet<HireBand> = new Set<HireBand>([
 ]);
 
 /**
+ * A card section of a skill page, laid out by how many cards it has:
+ *
+ *   - six cards: three across, two rows (`span` 4), not the default 2 + 3 + 1;
+ *   - more than seven: one scrolling row that advances a card at a time on its own;
+ *   - otherwise the bold grid, composed from the count as before.
+ *
+ * `autoLink` is the grid's own setting; the scrolling row links only a card that
+ * carries its own `href`.
+ */
+function cardSection(content: CardGridContent, id: string, autoLink?: boolean): ReactNode {
+  const n = content.items.length;
+  if (content.carousel) {
+    return (
+      <Industries
+        content={{
+          eyebrow: content.eyebrow,
+          title: content.title,
+          body: content.body,
+          wideHead: content.wideHead,
+          cta: content.cta,
+          carousel: true,
+          autoplay: true,
+          items: content.items.map((item) => ({
+            name: item.name,
+            body: item.body ?? '',
+            key: item.icon,
+            ...(item.href ? { href: item.href } : { link: false as const }),
+          })),
+        }}
+        id={id}
+        variant="bold"
+        cardLinks
+      />
+    );
+  }
+  return (
+    <CardGrid
+      content={content}
+      id={id}
+      variant="bold"
+      span={n === 6 ? 4 : undefined}
+      {...(autoLink === undefined ? {} : { autoLink })}
+    />
+  );
+}
+
+/**
+ * The overview picture in a frame of its own shape: the whole picture scales with
+ * the screen instead of being cropped to fit the column (review: "while minimising,
+ * reduce the entire image"). A picture that already states a frame (`aspect`),
+ * runs the full column height (`column`, as on `/hire-reactjs-developers`), or is
+ * drawn art kept whole (`contain`, `cutout`) is left as it is.
+ */
+function framedOverviewImage(image: OverviewContent['image']): OverviewContent['image'] {
+  if (!image || image.aspect || image.column || image.fit === 'contain' || image.fit === 'cutout') return image;
+  return {
+    ...image,
+    fit: undefined,
+    column: undefined,
+    aspect: `${image.width} / ${image.height}`,
+    align: 'center',
+    rounded: true,
+    bordered: true,
+    narrow: image.height > image.width,
+  };
+}
+
+/**
  * A services band's content, as the card grid takes it.
  *
  * Every card section on these pages renders through `CardGrid` with
@@ -121,6 +190,7 @@ function asCardGrid(content: ServicesContent): CardGridContent {
     title: content.title,
     body: content.body,
     wideHead: content.wideHead,
+    carousel: content.carousel,
     cta: content.cta,
     items: content.items.map((item) => ({
       name: item.name,
@@ -175,7 +245,7 @@ export default function HireBands({
           <Overview
             key={band}
             // A skill's own image wins; otherwise the pipeline's per-page photo.
-            content={{ ...skill.overview, image: skill.overview.image ?? overviewImage }}
+            content={{ ...skill.overview, image: framedOverviewImage(skill.overview.image ?? overviewImage) }}
             id="overview"
             variant="compact"
           />
@@ -186,34 +256,19 @@ export default function HireBands({
         // card in this band unlinked on the two pages (Node, Angular) that
         // open on it (review: "several buttons are not linked to any pages").
         return skill.applications ? (
-          <CardGrid
-            key={band}
-            content={asCardGrid(skill.applications)}
-            id="applications"
-            variant="bold"
-            // No card links (hire-by-skill review: "Remove the links from the
-            // service cards").
-            autoLink={false}
-          />
+          <Fragment key={band}>{cardSection(asCardGrid(skill.applications), 'applications', false)}</Fragment>
         ) : null;
       case 'combinations':
         return skill.combinations ? (
-          <CardGrid key={band} content={skill.combinations} id="combinations" variant="bold" />
+          <Fragment key={band}>{cardSection(skill.combinations, 'combinations')}</Fragment>
         ) : null;
       case 'services':
         // Photo cards, drawn on the server (see `HireSectionsProps.services`).
         if (services) return <Fragment key={band}>{services}</Fragment>;
+        // `autoLink` off: the `services` id would otherwise link every card whose name
+        // matches a page (review: "Remove the links from the service cards").
         return skill.services ? (
-          // `autoLink={false}`: the `services` id would otherwise link every card
-          // whose name matches a page (review: "Remove the links from the
-          // service cards").
-          <CardGrid
-            key={band}
-            content={asCardGrid(skill.services)}
-            id="services"
-            variant="bold"
-            autoLink={false}
-          />
+          <Fragment key={band}>{cardSection(asCardGrid(skill.services), 'services', false)}</Fragment>
         ) : null;
       case 'techStack':
         // Drawn on the server — `TechStack`, or `TechRows` for a skill whose
@@ -261,9 +316,7 @@ export default function HireBands({
           <Process key={band} content={skill.process} variant="mosaic" label={skill.processLabel} />
         ) : null;
       case 'whyUs':
-        return skill.whyUs ? (
-          <CardGrid key={band} content={skill.whyUs} id="why" variant="bold" />
-        ) : null;
+        return skill.whyUs ? <Fragment key={band}>{cardSection(skill.whyUs, 'why')}</Fragment> : null;
       case 'comparison':
         return skill.comparison ? <Comparison key={band} content={skill.comparison} /> : null;
       case 'vetting':

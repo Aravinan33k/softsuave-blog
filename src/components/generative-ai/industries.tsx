@@ -81,6 +81,15 @@ export interface CardGridContent {
    * review: "set the automatic smooth scrolling the card one by one").
    */
   autoplay?: boolean;
+  /** `tiles` only: every tile on one row from 1300px, for short labels. Below 1300px the usual grid. */
+  oneRow?: boolean;
+  /**
+   * `bold` only: one desktop column span (of 12) for every card, as the `span`
+   * prop — carried by the content so a page's data can set it where the page
+   * does not render the grid itself (the hire pages go through `hire-role-bands`).
+   * `4` sets three across: six cards as 3 + 3. The prop wins when both are set.
+   */
+  span?: 3 | 4 | 6 | 12;
 }
 
 /**
@@ -197,7 +206,7 @@ export default function Industries({
       brand={content.items.map((item) => !item.images && isBrandIcon(item.key))}
       multi={content.items.map((item) => Boolean(item.images))}
       nameAs={nameAs}
-      span={span}
+      span={span ?? content.span}
     />
   );
 }

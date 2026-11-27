@@ -82,17 +82,15 @@ export const devops: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Overview',
     title: 'Hire Remote DevOps Engineers Within 48 Hours',
-    // Portrait, stretched to the prose column's height (review: "resize the
-    // image to fit the section height") — the 4:3 default sat under a
-    // long column with a gap above it.
+    // A 4:3 frame centred against the copy, as the Hire Software Developers
+    // overview: the whole picture, scaled with the screen, never cropped (review:
+    // "while minimising, reduce the entire image").
     image: {
-      src: '/images/landing/ov-hire-devops-developers-tall.webp',
-      width: 1000,
-      height: 1250,
+      src: '/images/landing/ov-hire-devops-developers.webp',
+      width: 1400,
+      height: 1050,
       alt: 'DevOps engineer working in terminals across a laptop and monitor',
-      blurDataURL:
-        'data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADwAQCdASoLABAAA4BaJZwC7ADc90aEZbAA/vV/5uj+ob5IIfrjyjqGP+8PyHKYK0AwLobr2KEmEXtsY08FxV0Ge+JBZAAA',
-      fit: 'column',
+      align: 'both',
     },
     paragraphs: [
       'Redefine your software delivery & deployment strategy to the next level by hiring our DevOps developers.',
@@ -145,6 +143,8 @@ export const devops: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Why Us',
     title: 'What Makes Our DevOps Engineers Unique and Trustworthy?',
+    // Six cards as three across, two rows, no scrolling.
+    span: 4,
     body: 'Reducing deployment risk and accelerating release cycles is made easy when you hire DevOps engineers from us.',
     items: [
       {

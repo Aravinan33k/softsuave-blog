@@ -221,6 +221,62 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
+      {
+        source: '/offshore-software-development-company/angular',
+        destination: '/angularjs-development-company',
+        permanent: true,
+      },
+      {
+        source: '/offshore-software-development-company/dot-net',
+        destination: '/dot-net-application-development-company',
+        permanent: true,
+      },
+      {
+        source: '/offshore-software-development-company/flutter',
+        destination: '/flutter-application-development-company',
+        permanent: true,
+      },
+      {
+        source: '/offshore-software-development-company/java',
+        destination: '/java-application-development-company',
+        permanent: true,
+      },
+      {
+        source: '/offshore-software-development-company/php',
+        destination: '/php-application-development-company',
+        permanent: true,
+      },
+      {
+        source: '/offshore-software-development-company/react',
+        destination: '/react-native-app-development-company',
+        permanent: true,
+      },
+      {
+        source: '/offshore-software-development-company/react-native',
+        destination: '/react-native-app-development-company',
+        permanent: true,
+      },
+      {
+        source: '/offshore-software-development-company/ruby-on-rails',
+        destination: '/ruby-on-rails-development-company',
+        permanent: true,
+      },
+      {
+        source: '/software-development-company-india',
+        destination: '/software-development-company',
+        permanent: true,
+      },
+      {
+        source: '/services',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/technologies',
+        destination: '/',
+        permanent: true,
+      },
+
       // Retire the subpath mount's URLs. Under basePath '/blog' every post,
       // taxonomy and asset answered one level deeper than it does now, and those
       // URLs were live long enough to be linked and indexed.

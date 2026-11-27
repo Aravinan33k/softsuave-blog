@@ -79,6 +79,7 @@ export const skill: HireSkill = {
 
   applications: {
     wideHead: true,
+    carousel: true,
     eyebrow: "What We Build",
     title: "Applications That Our Developers Build Using Angular",
     body: "Build various high-performance applications by accessing our offshore Angular developers",
