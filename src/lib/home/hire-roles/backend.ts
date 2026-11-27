@@ -224,7 +224,7 @@ export const backend: HireRolePageContent = {
     eyebrow: 'Next Steps',
     title: 'Start Your Backend Engagement with Soft Suave',
     body: 'Share your backend technology, responsibilities, experience requirements, and engagement preferences. Review matched talent and evaluate practical work through the 40-hour risk-free trial.',
-    cta: { label: 'Start Your 40-Hour Trial', href: '/contact' },
+    cta: { label: 'Start Your 40-Hour Trial', href: '/free-7-days-trial' },
   },
 
   engagement: {

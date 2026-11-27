@@ -91,9 +91,6 @@
 .portfolioSplit {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
-.portfolioSplit .media img {
-  max-width: 520px;
-}
 
 /* ---- quote form ---- */
 .dialog {

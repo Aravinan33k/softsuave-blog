@@ -1,0 +1,113 @@
+# www.softsuave.com pipeline (GitLab softsuave-site/ss-new-pages-2.0).
+#
+#   merge request ──► check (typecheck, lint, tests, production build)
+#                 └─► approvals (2 approvals since the last push, author excluded)
+#   merge into main ──► deploy-production ──► ss-deploy on the server:
+#                         fetch from GitLab, build, test on :3301 against live,
+#                         switch, verify, automatic rollback on failure
+#   rollback (manual button on any main pipeline) ──► previous release
+#
+# Direct pushes to main are refused by the protected-branch setting, not by this file.
+# Setup and team workflow: deploy/PIPELINE.md.
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE == "web"
+
+stages: [check, deploy]
+
+variables:
+  DEPLOY_HOST: 3.229.92.25
+  REQUIRED_APPROVALS: "2"
+
+check:
+  stage: check
+  image: node:22-bookworm
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  variables:
+    # Production build flags (see README "Production build for www.softsuave.com").
+    NEXT_PUBLIC_HOMEPAGE_ENABLED: "true"
+    NEXT_PUBLIC_ALLOW_INDEXING: "true"
+    NEXT_PUBLIC_SITE_URL: https://www.softsuave.com
+    NEXT_BUILD_CPUS: "2"
+    NODE_OPTIONS: --max-old-space-size=3072
+    # Placeholders that satisfy env validation; the build needs no database.
+    DATABASE_URL: mysql://placeholder:placeholder@localhost:3306/db
+    JWT_ACCESS_SECRET: build-placeholder-secret-000000000000
+    JWT_REFRESH_SECRET: build-placeholder-secret-0000000000000
+    PREVIEW_SECRET: build-placeholder-secret-0000000000000000
+    REVALIDATE_SECRET: build-placeholder-secret-00000000000000
+  cache:
+    key:
+      files: [package-lock.json]
+    paths: [.npm/]
+  script:
+    - npm ci --cache .npm --prefer-offline --no-audit --no-fund
+    - npx prisma generate
+    - npm run typecheck
+    - npm run lint
+    - npm test
+    - npm run build
+
+approvals:
+  stage: check
+  image: node:22-alpine
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - node deploy/ci/check-approvals.mjs mr
+
+.ssh: &ssh
+  - apk add --no-cache openssh-client >/dev/null
+  - install -d -m 700 ~/.ssh
+  - cp "$DEPLOY_SSH_KEY" ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
+  - cp "$DEPLOY_KNOWN_HOSTS" ~/.ssh/known_hosts
+
+deploy-production:
+  stage: deploy
+  image: node:22-alpine
+  interruptible: false          # never cancel a deploy half way
+  resource_group: production    # one deploy at a time, in merge order
+  environment:
+    name: production
+    url: https://www.softsuave.com
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - node deploy/ci/check-approvals.mjs commit
+    - *ssh
+    # The server fetches this commit from GitLab itself and checks it is on main.
+    - ssh -o BatchMode=yes deploy@"$DEPLOY_HOST" deploy "$CI_COMMIT_SHA"
+
+rollback:
+  stage: deploy
+  image: node:22-alpine
+  interruptible: false
+  resource_group: production
+  environment:
+    name: production
+    url: https://www.softsuave.com
+    action: access
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+      allow_failure: true
+  script:
+    - *ssh
+    - ssh -o BatchMode=yes deploy@"$DEPLOY_HOST" rollback
+
+status:
+  stage: deploy
+  image: node:22-alpine
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+      allow_failure: true
+  script:
+    - *ssh
+    - ssh -o BatchMode=yes deploy@"$DEPLOY_HOST" status
