@@ -114,12 +114,12 @@ export default function AdRemoteDeveloperPage() {
 
         <TechStack content={rdTech} largeLogos />
 
+        {/* Code & Practice on the dark ground, as /ad/remote-developers (by request):
+            photo-backed cards closing on a CTA card. */}
+        <PracticeShowcase content={rsPracticeShowcase} id="practice" />
+
+        {/* The steps as photo cards on the light band, as /ad/remote-developers. */}
         <div className={home.light}>
-          {/* Code & Practice as photo-backed cards closing on a CTA card, and the
-              steps as photo cards, as /ad/remote-developers (by request). Kept on
-              the light band: the tech stack above is dark, and the cards carry
-              their own dark surface. */}
-          <PracticeShowcase content={rsPracticeShowcase} id="practice" />
           <PhotoSteps content={rsProcessPhotos} id="journey" />
         </div>
 
