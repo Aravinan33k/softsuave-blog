@@ -7,6 +7,8 @@ import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 
 import home from '@/components/home/home.module.css';
+import landing from '@/components/landing/landing.module.css';
+import genAi from '@/components/generative-ai/gen-ai.module.css';
 import Sections from './sections';
 
 /**
@@ -48,7 +50,7 @@ const HOME_HREF = BASE_PATH || '/';
 
 export default function SuccessStoriesPage() {
   return (
-    <div className={home.page}>
+    <div className={`${home.page} ${home.stackedHeads} ${landing.stackedHeads} ${genAi.stackedHeads}`}>
       {/* No JSON-LD: the live page carries none (13 Oct review: "need to update
           the schema"), and the route is in PAGES_WITH_OWN_SITE_GRAPH, so the
           layout adds no Organization or WebSite here either. */}

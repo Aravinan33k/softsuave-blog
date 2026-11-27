@@ -8,6 +8,7 @@ import Footer from '@/components/home/footer';
 import TechStack from '@/components/landing/tech-stack';
 
 import home from '@/components/home/home.module.css';
+import landing from '@/components/landing/landing.module.css';
 import location from '@/components/landing/location-app-page.module.css';
 import Sections from './sections';
 
@@ -65,7 +66,7 @@ const HOME_HREF = BASE_PATH || '/';
 
 export default function CloudComputingPage() {
   return (
-    <div className={`${home.page} ${location.submitBlack}`}>
+    <div className={`${home.page} ${location.submitBlack} ${landing.stackedHeads} ${home.stackedHeads}`}>
       {/* No page JSON-LD: softsuave.com's own page carries none (its only block
           is the site Organization the shared GTM container injects, which
           this site loads too), and the review asked for the live schema with

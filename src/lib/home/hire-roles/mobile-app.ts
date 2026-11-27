@@ -32,6 +32,7 @@ export const mobileApp: HireRolePageContent = {
   closingCtaIcon: true,
   key: 'hire-mobile',
   slug: '/hire-mobile-app-developers',
+  stackedHeads: true,
   // Section heads set like /ad/remote-developers' "Our Clients", the Developer
   // Selection table's included (review). Overview and Global Delivery are image
   // heads the rule already leaves alone.
