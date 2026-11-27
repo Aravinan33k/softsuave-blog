@@ -95,6 +95,8 @@ export const blockchain: HireRolePageContent = {
   whyRole: {
     eyebrow: 'Expert Developers',
     title: 'Why Hire Blockchain Developers from Soft Suave',
+    // Six cards as three across, two rows, no scrolling.
+    span: 4,
     body: "At Soft Suave, we build partnerships with expert blockchain developers, ensuring your vision becomes reality through skilled, experienced professionals dedicated to your project's success.",
     items: [
       {

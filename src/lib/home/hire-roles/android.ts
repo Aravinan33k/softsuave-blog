@@ -177,6 +177,8 @@ export const android: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Why Us',
     title: 'Why Are Our Android App Developers Considered the Best?',
+    // Six cards as three across, two rows, no scrolling.
+    span: 4,
     body: 'Our strong team of Android App Developers has exceptional knowledge in the front end, back end, and integration solutions.',
     items: [
       {

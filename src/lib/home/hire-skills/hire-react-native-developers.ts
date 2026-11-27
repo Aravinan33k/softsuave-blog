@@ -75,8 +75,8 @@ export const skill: HireSkill = {
 
   overview: {
     wideHead: true,
-    // Portrait, run the full height of the copy beside it (8 Oct review:
-    // "resize the image to match the section") — the same photo, cut taller.
+    // 4:3 bordered rounded frame centred against the prose, matching
+    // /hire-reactjs-developers's overview treatment.
     image: {
       src: "/images/landing/ov-hire-react-native-developers-tall.webp",
       width: 1000,
@@ -84,7 +84,10 @@ export const skill: HireSkill = {
       alt: "Developer building a cross-platform app on phone and laptop",
       blurDataURL:
         "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAwAgCdASoQAAsAA4BaJYgC7AYwd2128Mmg4AD+62Fel6PWmhxL/WJxydf2cXo9sY3lV6P3dw7damCaY4Fa1jZnv1NhIheIpfoGBTstmnKTfm8tbef53aqKWLR6EU8V8lka0FimJX2ONsD7HR+A8PTbAAA=",
-      column: true,
+      aspect: "4 / 3",
+      align: "center",
+      rounded: true,
+      bordered: true,
     },
     eyebrow: "Overview",
     title: "Hire Dedicated Team Of React Native Developers",

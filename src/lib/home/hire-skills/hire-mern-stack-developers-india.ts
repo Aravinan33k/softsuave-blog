@@ -69,8 +69,8 @@ export const skill: HireSkill = {
   },
 
   overview: {
-    // Portrait, run the full height of the copy beside it (review: "resize
-    // the image to fit the height of the section").
+    // 4:3 bordered rounded frame centred against the prose, matching
+    // /hire-reactjs-developers's overview treatment.
     image: {
       src: "/images/landing/ov-hire-mern-stack-developers-india-tall.webp",
       width: 1000,
@@ -78,7 +78,10 @@ export const skill: HireSkill = {
       alt: "Developer typing code on a laptop in a dim room",
       blurDataURL:
         "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAQCdASoLABAAA4BaJYwCdADdpisKC0AA/vQ2FsLVhDHXZz3fxoCFU15q0ymVTFoFyL7KBpaRFfhxive/uW6cegZYSO7LD7J9VErujMq2n/mtiMOEhUw8AAA=",
-      column: true,
+      aspect: "4 / 3",
+      align: "center",
+      rounded: true,
+      bordered: true,
     },
     eyebrow: "Overview",
     title: "Why Use the MERN Stack for Your Next Web App?",

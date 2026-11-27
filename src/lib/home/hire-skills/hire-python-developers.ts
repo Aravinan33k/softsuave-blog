@@ -64,8 +64,8 @@ export const skill: HireSkill = {
 
   overview: {
     wideHead: true,
-    // Portrait, run the full height of the copy beside it (8 Oct review:
-    // "resize the image to match the section") — the same photo, cut taller.
+    // 4:3 bordered rounded frame centred against the prose, matching
+    // /hire-reactjs-developers's overview treatment.
     image: {
       src: "/images/landing/ov-hire-python-developers-tall.webp",
       width: 1000,
@@ -73,7 +73,10 @@ export const skill: HireSkill = {
       alt: "Python programmer writing code on a laptop",
       blurDataURL:
         "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoQAAsAA4BaJQBOgBrZdLY/AAD+7Mecp03BGQbJESRK+CEARPKyVO9EOCeWu0z2ifyYnXCTDNzLmpWDlEAAAA==",
-      column: true,
+      aspect: "4 / 3",
+      align: "center",
+      rounded: true,
+      bordered: true,
     },
     eyebrow: "Overview",
     title: "Multiskilled Team of Dedicated Python Developers",

@@ -185,6 +185,7 @@ export const skill: HireSkill = {
 
   services: {
     wideHead: true,
+    carousel: true,
     // Live closes this band on "Talk to Our Experts" (review: "CTA button missing").
     cta: { label: "Talk to Our Experts", href: "/contact" },
     eyebrow: "Services",

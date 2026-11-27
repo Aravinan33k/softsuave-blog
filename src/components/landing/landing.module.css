@@ -50,7 +50,8 @@
    end of one grid and the next heading (review: "too much gap after the
    section"). The first section's padding-bottom already separates them, so
    the second drops its own. */
-.sectionShell + .sectionShell {
+.sectionShell + .sectionShell,
+section[class*="sectionShell"] + .sectionShell {
   padding-top: 0;
 }
 
@@ -1241,10 +1242,12 @@
   border: 1px solid var(--line);
 }
 
-/* `OverviewContent.image.narrow` — a portrait frame, stacked under the prose
-   below 1000px, stops at 440px and centres instead of running full width. */
-@media (max-width: 999px) {
-  .overviewMedia.overviewMediaNarrow {
+/* `OverviewContent.image.narrow` — a portrait frame, stacked under the prose, stops at
+   440px and centres on tablets (700-999px), where a full-width 3:4 frame would be taller
+   than the screen. Below 700px (phones) it takes the full width of the column, with no
+   gap beside it. Doubled so it outranks the grid's own `margin: 0`. */
+@media (min-width: 700px) and (max-width: 999px) {
+  .overviewGrid .overviewMedia.overviewMediaNarrow.overviewMediaNarrow {
     width: 100%;
     max-width: 440px;
     margin-inline: auto;

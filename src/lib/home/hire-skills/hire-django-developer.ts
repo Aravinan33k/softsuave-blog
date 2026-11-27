@@ -154,6 +154,7 @@ export const skill: HireSkill = {
   },
 
   services: {
+    carousel: true,
     eyebrow: "Services",
     title: "Django Development Services We Offer",
     body: "Unlock your project's full potential - our tailored Django solutions empower your ideas with innovation and precision. Accelerate digital growth by partnering with Soft Suave's highly skilled Django development experts today!",

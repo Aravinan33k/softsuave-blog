@@ -17,6 +17,8 @@ export interface ServicesContent {
   title: string;
   body: string;
   wideHead?: boolean;
+  /** Render the cards as a horizontal auto-scrolling carousel instead of a static grid. */
+  carousel?: boolean;
   /**
    * Optional button under the cards, where the live page closes the section
    * on one ("Talk to Our Experts"). Drawn by the card grid the hire pages

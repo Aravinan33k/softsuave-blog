@@ -35,7 +35,8 @@
 
 /* Two sections stacked in one band share one --section-y rather than both
    paddings — the landing kit's rule (landing/landing.module.css). */
-.sectionShell + .sectionShell {
+.sectionShell + .sectionShell,
+section[class*="sectionShell"] + .sectionShell {
   padding-top: 0;
 }
 

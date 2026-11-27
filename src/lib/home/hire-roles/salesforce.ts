@@ -88,6 +88,8 @@ export const salesforce: HireRolePageContent = {
   whyRole: {
     eyebrow: 'Why Us',
     title: 'Why Hire Salesforce Developers from Soft Suave',
+    // Six cards as three across, two rows, no scrolling.
+    span: 4,
     body: 'We provide experienced Salesforce developers to offer world-class service for your business. Put our experience to work and get the results that count.',
     items: [
       {

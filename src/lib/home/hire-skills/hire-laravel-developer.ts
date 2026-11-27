@@ -192,6 +192,7 @@ export const skill: HireSkill = {
 
   services: {
     wideHead: true,
+    carousel: true,
     eyebrow: "Services",
     title: "Laravel Development Services We Offer",
     body: "From strategy to deployment, we deliver high-quality, tailored applications for diverse business needs. Our end-to-end Laravel development services empower businesses to build robust digital solutions",
