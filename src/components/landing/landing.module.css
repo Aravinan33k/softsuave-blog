@@ -160,16 +160,42 @@
 /* `wide` on the section head: a long title gets a wider column beside the divider. */
 @media (min-width: 900px) {
   .headWide:not(:has(> .intro)):not(.headSub):not(.headPage) .title {
-    max-width: 34ch;
+    max-width: var(--head-title-max, 34ch);
     text-wrap: balance;
   }
   .headWide:has(> .intro):not(.headSub):not(.headPage) .title {
     /* Not clamped to `--fit-width`: the column already hugs the text (`fit-content`), and a width measured
        before this rule applied would pin the title back to the narrow column. */
-    max-width: 34ch;
+    max-width: var(--head-title-max, 34ch);
   }
   .headWide:has(> .intro):not(.headSub):not(.headPage) {
     grid-template-columns: fit-content(66%) minmax(0, 1fr);
+  }
+}
+
+.stackedHeads .heroTitleLine {
+  text-wrap: balance;
+}
+
+@media (min-width: 900px) {
+  .stackedHeads .head:has(> .intro):not(.headSub):not(.headPage),
+  .stackedHeads .headWide:has(> .intro):not(.headSub):not(.headPage) {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .stackedHeads .head:has(> .intro):not(.headSub):not(.headPage) > div:first-child {
+    max-width: 70%;
+  }
+
+  .stackedHeads .head:has(> .intro):not(.headSub):not(.headPage) > .intro {
+    justify-self: start;
+    align-self: auto;
+    display: block;
+    padding-left: 0;
+    border-left: 0;
+    /* The intro runs to 75% of the section's width before it wraps (was 800px). */
+    max-width: 75%;
   }
 }
 

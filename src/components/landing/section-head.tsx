@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import SplitReveal from "@/components/home/split-reveal";
 import Breadcrumb from "@/components/common/breadcrumb";
 import styles from "./landing.module.css";
@@ -23,6 +23,7 @@ export default function SectionHead({
   intro,
   level = 2,
   wide = false,
+  titleMax,
 }: Readonly<{
   kicker?: string;
   /** A string, or a node when some of the words are picked out in the accent colour. */
@@ -31,6 +32,8 @@ export default function SectionHead({
   intro?: ReactNode;
   /** Gives a long title a wider column beside the divider, so it sets in fewer lines. */
   wide?: boolean;
+  /** With `wide`: the title's measure (a CSS length, e.g. "40ch") in place of the default 34ch, for a long title that should set in two lines. */
+  titleMax?: string;
   /**
    * Heading level. `3` is for a sub-section that belongs under the section
    * above it — a comparison table introduced by its own H3 inside a wider
@@ -50,7 +53,7 @@ export default function SectionHead({
     .join(" ");
 
   return (
-    <div className={className}>
+    <div className={className} style={titleMax ? ({ "--head-title-max": titleMax } as CSSProperties) : undefined}>
       <div>
         {/* An index page's masthead is its hero, so it carries the trail too. */}
         {level === 1 && <Breadcrumb tone="band" />}

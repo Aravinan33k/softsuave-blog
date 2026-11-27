@@ -30,6 +30,7 @@ export const salesforce: HireRolePageContent = {
   groundOverrides: { capabilities: 'light' },
   key: 'hire-salesforce',
   slug: '/hire-salesforce-developer',
+  stackedHeads: true,
   name: 'Hire Salesforce Developers',
   serviceType: 'Salesforce development staffing',
 
