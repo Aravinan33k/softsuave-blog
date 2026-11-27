@@ -28,7 +28,8 @@ import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 // SERVICE-SPECIFIC SECTIONS — shared landing components taking this page's copy.
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
-import Services from '@/components/landing/services';
+import Industries from '@/components/generative-ai/industries';
+import { serviceHref } from '@/lib/home/service-href';
 import Comparison from '@/components/landing/comparison';
 import CtaBand from '@/components/landing/cta-band';
 import Process from '@/components/landing/process';
@@ -54,7 +55,10 @@ function DestinationsNotes() {
 
 function ServicesCta() {
   return (
-    <div className={landing.sectionShell}>
+    // The card row above already ends in a full section padding, and this shell
+    // opens with another, so the arrows sat ~156px from the line. No top padding
+    // of its own, and half of the row's bottom padding taken back: ~39px.
+    <div className={landing.sectionShell} style={{ paddingTop: 0, marginTop: 'calc(var(--section-y) * -0.5)' }}>
       <div className={landing.overviewCtaCenter}>
         <p style={{ margin: '0 0 18px', fontSize: 'var(--fs-body)', fontWeight: 600, color: 'var(--text-bright)' }}>
           {itoServicesCta.line}
@@ -86,7 +90,29 @@ export default function Sections({ techStack }: Readonly<{ techStack: ReactNode 
 
       {/* Whole cards link (review: "remove the 'Learn More' and make the
           whole card clickable"). */}
-      <Services content={itoServices} variant="bold" cardLinks />
+      {/* The Hire Software Developers "Developer Expertise" card style: one
+          scrolling row with arrows that advances a card at a time on its own.
+          A card links where its own `href` (or its name's route) says, and
+          stays unlinked where there is none. */}
+      <Industries
+        content={{
+          eyebrow: itoServices.eyebrow,
+          title: itoServices.title,
+          body: itoServices.body,
+          wideHead: itoServices.wideHead,
+          carousel: true,
+          autoplay: true,
+          items: itoServices.items.map((item) => {
+            const href = serviceHref(item.name, '/it-outsourcing-company-india', item.href);
+            return href
+              ? { name: item.name, body: item.body, href }
+              : { name: item.name, body: item.body, link: false as const };
+          }),
+        }}
+        id="services"
+        variant="bold"
+        cardLinks
+      />
       <ServicesCta />
 
       <div className={home.light}>

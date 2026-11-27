@@ -173,6 +173,15 @@
   }
 }
 
+/* `stackedHeads` on a page's root: a section title runs to
+   the title block's 70% limit, as the intro runs to 70%, instead of being pinned to
+   a narrow 20ch column ("Why Choose Soft Suave for / GCC?"). */
+@media (min-width: 900px) {
+  .stackedHeads .head:has(> .intro):not(.headSub):not(.headPage) .title {
+    max-width: none;
+  }
+}
+
 .stackedHeads .heroTitleLine {
   text-wrap: balance;
 }
@@ -194,8 +203,8 @@
     display: block;
     padding-left: 0;
     border-left: 0;
-    /* The intro runs to 75% of the section's width before it wraps (was 800px). */
-    max-width: 75%;
+    /* The intro runs to 70% of the section's width before it wraps (was 800px). */
+    max-width: 70%;
   }
 }
 
@@ -1224,6 +1233,21 @@
 /* `OverviewContent.image.rounded` — 14px corners (the frame already clips). */
 .overviewMedia.overviewMediaRounded {
   border-radius: 14px;
+}
+
+/* `OverviewContent.image.bordered` — a 1px hairline round the frame. */
+.overviewMedia.overviewMediaBordered {
+  border: 1px solid var(--line);
+}
+
+/* `OverviewContent.image.narrow` — a portrait frame, stacked under the prose
+   below 1000px, stops at 440px and centres instead of running full width. */
+@media (max-width: 999px) {
+  .overviewMedia.overviewMediaNarrow {
+    width: 100%;
+    max-width: 440px;
+    margin-inline: auto;
+  }
 }
 
 /* `OverviewContent.image.fit: "contain"` — the whole asset inside the frame
@@ -2613,7 +2637,7 @@
 .faqAnswer {
   margin: 0;
   padding: 0 0 clamp(20px, 2.4vw, 28px) calc(2.5rem + clamp(12px, 1.6vw, 22px));
-  max-width: 78ch;
+  max-width: 90%;
   font-size: var(--fs-faq-a);
   line-height: 1.68;
   color: var(--text);
@@ -2632,7 +2656,7 @@
 .faqPanel .tickList {
   margin: calc(0.2em - clamp(20px, 2.4vw, 28px)) 0 0;
   padding: 0 0 clamp(20px, 2.4vw, 28px) calc(2.5rem + clamp(12px, 1.6vw, 22px));
-  max-width: 78ch;
+  max-width: 90%;
   opacity: 0;
   transition: opacity 0.4s ease 0.08s;
 }
@@ -2838,7 +2862,7 @@
   margin-top: 0;
   margin-bottom: clamp(20px, 2.4vw, 28px);
   padding-left: calc(2.5rem + clamp(12px, 1.6vw, 22px));
-  max-width: 78ch;
+  max-width: 90%;
 }
 
 /* The list reads at the answer's own size (`--fs-faq-a`), not the shared

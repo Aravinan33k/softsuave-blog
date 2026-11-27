@@ -17,9 +17,9 @@ import { HIRE_CLOSING_BAND } from '@/lib/home/hire-blocks';
 // `CardGrid` is `components/landing/industries`, a generic bordered card grid
 // despite the filename.
 import Hero from '@/components/landing/hero';
-import Overview from '@/components/landing/overview';
+import Overview from '@/components/generative-ai/overview';
 import WhyUs from '@/components/landing/why-us';
-import Services from '@/components/landing/services';
+import Industries from '@/components/generative-ai/industries';
 import CardGrid from '@/components/landing/industries';
 import CtaBand from '@/components/landing/cta-band';
 import home from '@/components/home/home.module.css';
@@ -37,19 +37,63 @@ export default function Sections() {
       <Hero content={gccHero} idPrefix="gcc" />
 
       <div className={home.light}>
-        <Overview content={gccIntro} id="overview" />
+        {/* The Hire Software Developers "Global Delivery" treatment: a bordered 4:3
+            frame, centred against the copy, that shrinks whole with the column
+            instead of being cropped. */}
+        <Overview
+          content={{
+            ...gccIntro,
+            image: gccIntro.image && {
+              src: gccIntro.image.src,
+              width: gccIntro.image.width,
+              height: gccIntro.image.height,
+              alt: gccIntro.image.alt,
+              blurDataURL: gccIntro.image.blurDataURL,
+              align: 'both',
+            },
+          }}
+          id="overview"
+        />
       </div>
 
       <WhyUs content={gccWhyUs} id="why" />
 
       <div className={home.light}>
-        <Services content={gccServices} variant="bold" />
+        {/* The Hire Software Developers "Developer Expertise" card style: one scrolling
+            row with arrows that advances a card at a time on its own. */}
+        <Industries
+          content={{
+            eyebrow: gccServices.eyebrow,
+            title: gccServices.title,
+            body: gccServices.body,
+            wideHead: true,
+            carousel: true,
+            autoplay: true,
+            items: gccServices.items.map((item) => ({ name: item.name, body: item.body })),
+          }}
+          id="services"
+          variant="bold"
+          links={false}
+        />
       </div>
 
       <CardGrid content={gccBenefits} id="benefits" variant="feature" />
 
       <div className={home.light}>
-        <CardGrid content={gccAudience} id="audience" variant="bold" />
+        <CardGrid
+          content={{
+            ...gccAudience,
+            // "GCC-as-a-Service" is one name: it wraps whole, never at its hyphens.
+            titleNode: (
+              <>
+                Who Should Consider <span style={{ whiteSpace: 'nowrap' }}>GCC-as-a-Service</span>?
+              </>
+            ),
+          }}
+          id="audience"
+          variant="bold"
+          span={4}
+        />
       </div>
 
       <CtaBand content={gccClosingCta} />

@@ -84,7 +84,17 @@ export const prodHero: HeroContent = {
  * from it.
  */
 export const prodOverview: OverviewContent = {
-  image: overviewImage("product-engineering-services"),
+  // The whole 4:3 picture in its own frame, so it scales down with the screen
+  // instead of being cropped; bordered and rounded like the hire pages' frames.
+  image: overviewImage("product-engineering-services")
+    ? {
+        ...overviewImage("product-engineering-services")!,
+        aspect: "4 / 3",
+        align: "center",
+        rounded: true,
+        bordered: true,
+      }
+    : undefined,
   eyebrow: "Software Product Engineering Services",
   title: "Best-in-class Product Engineering Services Company",
   paragraphs: [
@@ -112,6 +122,11 @@ export const prodAbout: OverviewContent = {
     width: 1200,
     height: 900,
     alt: "An agile sprint board of sticky notes planning the week's product work",
+    // Same treatment as the overview above: whole 4:3 picture, never cropped.
+    aspect: "4 / 3",
+    align: "center",
+    rounded: true,
+    bordered: true,
   },
 };
 

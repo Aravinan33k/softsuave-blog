@@ -88,7 +88,18 @@ export const legacyHero: HeroContent = {
 export const legacyTopCompany: OverviewContent = {
   // Live runs this section without art; the pipeline photo fills what would
   // otherwise be an empty right half of the band.
-  image: overviewImage("legacy-modernization-services"),
+  // The whole portrait picture in a 3:4 frame (the asset's own shape), so it
+  // scales down with the screen instead of being cropped to a landscape strip.
+  image: overviewImage("legacy-modernization-services")
+    ? {
+        ...overviewImage("legacy-modernization-services")!,
+        aspect: "3 / 4",
+        align: "center",
+        rounded: true,
+        bordered: true,
+        narrow: true,
+      }
+    : undefined,
   eyebrow: "Overview",
   title: "Top Legacy Application Modernization Company in India",
   paragraphs: [
@@ -118,6 +129,12 @@ export const legacyAbout: OverviewContent = {
     width: 800,
     height: 1000,
     alt: "Best application modernization services company Soft Suave",
+    // Same treatment: the whole 4:5 picture in its own shape, never cropped.
+    aspect: "4 / 5",
+    align: "center",
+    rounded: true,
+    bordered: true,
+    narrow: true,
   },
 };
 

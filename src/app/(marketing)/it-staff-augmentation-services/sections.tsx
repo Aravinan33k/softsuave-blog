@@ -23,6 +23,7 @@ import Hero from '@/components/landing/hero';
 import Services from '@/components/landing/services';
 import Process from '@/components/landing/process';
 import CardGrid from '@/components/landing/industries';
+import Industries from '@/components/generative-ai/industries';
 import Faq from '@/components/landing/faq';
 import home from '@/components/home/home.module.css';
 
@@ -59,7 +60,22 @@ export default function Sections() {
       <CardGrid content={staffTechnologies} id="technologies" columns={4} />
 
       <div className={home.light}>
-        <CardGrid content={staffIndustries} id="industries" columns={5} />
+        {/* The Hire Software Developers "Developer Expertise" card style: one
+            scrolling row with arrows that advances a card at a time on its own. */}
+        <Industries
+          content={{
+            eyebrow: staffIndustries.eyebrow,
+            title: staffIndustries.title,
+            body: staffIndustries.body,
+            wideHead: staffIndustries.wideHead,
+            carousel: true,
+            autoplay: true,
+            items: staffIndustries.items.map((item) => ({ name: item.name, body: item.body ?? '' })),
+          }}
+          id="industries"
+          variant="bold"
+          links={false}
+        />
       </div>
 
       <CardGrid content={staffBenefits} id="benefits" columns={5} />

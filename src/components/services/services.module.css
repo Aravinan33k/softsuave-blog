@@ -348,7 +348,7 @@
 
 .faqA {
   padding: 0 0 clamp(20px, 2.2vw, 28px);
-  max-width: 76ch;
+  max-width: 90%;
   font-size: var(--fs-faq-a);
   line-height: 1.75;
   color: var(--muted);

@@ -2,6 +2,9 @@ import { JsonLd } from '@/components/seo/json-ld';
 import { homeMetadata, homeJsonLd } from '@/lib/home/home-seo';
 
 import styles from '@/components/home/home.module.css';
+import ad from '@/components/ad/ad.module.css';
+import landing from '@/components/landing/landing.module.css';
+import genAi from '@/components/generative-ai/gen-ai.module.css';
 import Preloader from '@/components/home/preloader';
 // Custom cursor disabled — using the native OS cursor. Kept for easy re-enable.
 // import Cursor from '@/components/home/cursor';
@@ -31,7 +34,7 @@ export const metadata = homeMetadata;
 
 export default function HomePage() {
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${styles.stackedHeads} ${landing.stackedHeads} ${genAi.stackedHeads} ${ad.stackHeads}`}>
       {/* softsuave.com's homepage schema, verbatim: one <script> per block,
           as live serves them — see `lib/home/home-live-schema.ts`. */}
       {homeJsonLd().map((node) => (

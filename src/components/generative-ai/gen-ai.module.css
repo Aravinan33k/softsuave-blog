@@ -146,8 +146,16 @@
 }
 
 /* `stackedHeads` on a page's root (opt-in): each split section head stays one
-   column (title, then the intro beneath at 75% width, no divider rule). Type,
+   column (title, then the intro beneath at 70% width, no divider rule). Type,
    sizes and the title's own width are untouched. Same rule as landing's. */
+/* `stackedHeads` on a page's root: a section title runs to
+   the title block's 70% limit instead of the narrow 20ch column. */
+@media (min-width: 900px) {
+  .stackedHeads .head:has(> .intro) .title {
+    max-width: none;
+  }
+}
+
 /* With `stackedHeads`, the hero headline's authored two lines run together and
    wrap evenly in the copy column. As two fixed lines the first one (for
    example "Hire Software Developers Get the") is wider than the column beside
@@ -176,7 +184,7 @@
     display: block;
     padding-left: 0;
     border-left: 0;
-    max-width: 75%;
+    max-width: 70%;
   }
 }
 
@@ -1720,7 +1728,7 @@
   border-top: 1px solid var(--line);
   /* Full section width (16 Oct, 1920px): the rows and their toggles end on
      the frame's right edge like every other band, as the landing kit's FAQ
-     already does; `.faqAnswer`'s own 78ch cap keeps the answers readable. */
+     already does; `.faqAnswer`'s own 90% cap keeps the answers inside the list. */
   /* Question numbers come from CSS, not from a span inside the `<h3>` —
      generated content is not in the DOM, so the heading text a crawler reads
      is the question alone. Mirrors `landing.module.css`. */
@@ -1849,7 +1857,7 @@
 .faqAnswer {
   margin: 0;
   padding: 0 0 clamp(20px, 2.4vw, 28px) calc(2.5rem + clamp(12px, 1.6vw, 22px));
-  max-width: 78ch;
+  max-width: 90%;
   font-size: var(--fs-faq-a);
   line-height: 1.68;
   color: var(--text);
@@ -2812,9 +2820,10 @@
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none;
-  /* Room for the cards' hover lift and shadow, which the scroller would clip. */
-  padding: 8px 2px 16px;
-  margin: -8px -2px -16px;
+  /* Room for the cards' hover lift and shadow, which the scroller would clip.
+     The shadow (0 14px 34px -12px) reaches ~36px below a card, so the bottom gets 40px. */
+  padding: 8px 2px 40px;
+  margin: -8px -2px -40px;
   scroll-padding-inline: 2px;
 }
 

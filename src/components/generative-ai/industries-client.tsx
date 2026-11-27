@@ -42,7 +42,7 @@ const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 
  * Below 700px it is a native scroll-snap row (touch scrolling), with arrows that
  * step one card and disable at either end. From 700px with `autoplay`, it is a
  * marquee: the row drifts right to left at a constant speed and loops without a
- * seam (the cards are rendered twice; the copy is `aria-hidden` and `inert`),
+ * seam (the cards are rendered twice; the copy is `aria-hidden`, with its links out of the tab order),
  * pausing on hover/focus, off screen and in a hidden tab, and not drifting at
  * all under `prefers-reduced-motion`. The arrows then glide the row by one card
  * either way. How many cards are in view is CSS (`.indCarousel`), not script.
@@ -160,6 +160,17 @@ function CardCarousel({
     };
   }, [marquee, cards.length]);
 
+  // The copy is for the eye only: its links and buttons stay out of the tab order.
+  useEffect(() => {
+    const strip = row.current;
+    if (!marquee || !strip) return;
+    for (let i = cards.length; i < strip.children.length; i++) {
+      strip.children[i].querySelectorAll<HTMLElement>("a, button, input, select, textarea, [tabindex]").forEach((el) => {
+        el.tabIndex = -1;
+      });
+    }
+  }, [marquee, cards.length]);
+
   const step = (dir: 1 | -1) => {
     const d = cardStep();
     if (!d) return;
@@ -194,10 +205,13 @@ function CardCarousel({
           <div ref={row} className={styles.indMarqueeRow}>
             {cards}
             {cards.map((card, i) =>
+              // Hidden from assistive tech but NOT `inert`: that also switches off the
+              // pointer, so the hover on a card in the copy (which drifts into view as
+              // the set ends) did nothing. The copy's links are taken out of the tab
+              // order below instead.
               cloneElement(card, {
                 key: `copy-${i}`,
                 "aria-hidden": true,
-                inert: true,
               } as Record<string, unknown>),
             )}
           </div>

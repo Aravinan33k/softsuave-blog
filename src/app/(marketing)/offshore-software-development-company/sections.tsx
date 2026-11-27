@@ -24,7 +24,8 @@ import WorkGrid from '@/components/home/work-grid';
 // SERVICE-SPECIFIC SECTIONS — shared landing components taking this page's copy.
 import Hero from '@/components/landing/hero';
 import Overview from '@/components/landing/overview';
-import Services from '@/components/landing/services';
+import Industries from '@/components/generative-ai/industries';
+import { serviceHref } from '@/lib/home/service-href';
 import CardGrid from '@/components/landing/industries';
 import CtaBand from '@/components/landing/cta-band';
 import Process from '@/components/landing/process';
@@ -59,7 +60,29 @@ export default function Sections({ industries, techStack }: Readonly<{ industrie
         {/* Whole cards link (review: "remove the 'Learn More' and make the
             whole card clickable"); each engagement model gets its "Hire Now"
             (review: "the hire now button is missing in these cards"). */}
-        <Services content={offServices} variant="bold" cardLinks />
+        {/* The Hire Software Developers "Developer Expertise" card style: one
+            scrolling row with arrows that advances a card at a time on its own.
+            A card links where its own `href` (or its name's route) says, and
+            stays unlinked where there is none. */}
+        <Industries
+          content={{
+            eyebrow: offServices.eyebrow,
+            title: offServices.title,
+            body: offServices.body,
+            wideHead: offServices.wideHead,
+            carousel: true,
+            autoplay: true,
+            items: offServices.items.map((item) => {
+              const href = serviceHref(item.name, '/offshore-software-development-company', item.href);
+              return href
+                ? { name: item.name, body: item.body, href }
+                : { name: item.name, body: item.body, link: false as const };
+            }),
+          }}
+          id="services"
+          variant="bold"
+          cardLinks
+        />
         <CardGrid
           content={offModels}
           id="models"
