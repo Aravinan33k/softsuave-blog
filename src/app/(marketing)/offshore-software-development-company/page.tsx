@@ -73,7 +73,7 @@ const HOME_HREF = BASE_PATH || '/';
 
 export default function OffshoreSoftwareDevelopmentPage() {
   return (
-    <div className={`${home.page} ${location.submitBlack} ${ad.halfHeads} ${ad.stackHeads} ${landing.stackedHeads} ${genAi.stackedHeads} ${home.stackedHeads}`}>
+    <div className={`${home.page} ${location.submitBlack} ${ad.halfHeads} ${ad.stackHeadsVars} ${landing.stackedHeads} ${genAi.stackedHeads} ${home.stackedHeads}`}>
       {/* softsuave.com's own schema for this page, verbatim, one <script> per
           block — see `lib/seo/offshore-software-development-company.ts`. */}
       {OFFSHORE_LIVE_LD.map((block, i) => (

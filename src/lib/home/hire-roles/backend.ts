@@ -232,6 +232,8 @@ export const backend: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Engagement Options',
     title: 'Flexible Ways to Hire Backend Developers',
+    // One card per row on tablets too, not two then one.
+    stackOnTablet: true,
     body: 'Choose a flexible engagement model that fits your project and keeps development moving smoothly.',
     blocks: [
       {
@@ -293,6 +295,9 @@ export const backend: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Technologies',
     title: 'Choose Backend Developers by Technology',
+    // One scrolling row that advances a card at a time on its own.
+    carousel: true,
+    autoplay: true,
     body: 'Explore backend developers for hire across established languages, frameworks, and runtime environments. Select talent based on your application architecture, existing codebase, integration requirements, and long-term development plans.',
     items: [
       {
@@ -360,6 +365,8 @@ export const backend: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Why Soft Suave',
     title: 'Why Hire Backend Developers From Soft Suave?',
+    // Six cards as three across, two rows, no scrolling.
+    span: 4,
     body: 'Soft Suave combines established engineering experience, flexible hiring options, practical evaluation, and quality-managed processes to support backend developer engagements.',
     items: [
       {

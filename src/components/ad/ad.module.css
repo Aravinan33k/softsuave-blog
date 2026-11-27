@@ -1166,8 +1166,10 @@
 }
 
 /* Add beside `.halfHeads` to set the same heads in one column (title, then the
-   intro beneath, no divider). Only the layout variables change. */
-.stackHeads {
+   intro beneath, no divider). Only the layout variables change. Named apart from
+   `.stackHeads` below (the /ad/remote-developers head layout, 70vw), which it must
+   not trigger. */
+.stackHeadsVars {
   --hh-cols: minmax(0, 1fr);
   --hh-areas: "eyebrow" "title" "intro";
   --hh-pr: 0;

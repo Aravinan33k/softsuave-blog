@@ -174,6 +174,7 @@ export default function HireRoleBands({
         variant={variant}
         links
         cardLinks={cardLinks}
+        span={grid.span}
         icons={badges.icons}
         brand={badges.brand}
       />

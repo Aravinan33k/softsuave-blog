@@ -112,16 +112,15 @@ export const dedicated: HireRolePageContent = {
 
   overview: {
     wideHead: true,
-    // Portrait, run the full height of the copy beside it (8 Oct review:
-    // "resize the image to match the section") — the same photo, cut taller.
+    // A 4:3 frame centred against the copy, as the Hire Software Developers
+    // overview: the whole picture, scaled with the screen, never cropped (review:
+    // "while minimising, reduce the entire image").
     image: {
-      src: '/images/landing/ov-hire-dedicated-developers-tall.webp',
-      width: 1000,
-      height: 1250,
+      src: '/images/landing/ov-hire-dedicated-developers.webp',
+      width: 1400,
+      height: 1050,
       alt: 'Dedicated development team working at their desks',
-      blurDataURL:
-        'data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAQAgCdASoQAAsAA4BaJZQAD45O61xiokCwAP7raFqv6IHiv5LhUdViF4/GphMEF3T7/lJzvwhsWx0TpIeOY3dXHpjdOQPONuHViKcMPj72cj7scpL/vj8EafTe/6K+4AAAAA==',
-      fit: 'column',
+      align: 'both',
     },
     eyebrow: 'Smart Choice',
     title: 'Why Hire Dedicated Developers from Soft Suave?',
@@ -137,6 +136,9 @@ export const dedicated: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Developer Roles',
     title: 'What Dedicated Developer Roles Does Soft Suave Offer?',
+    // One scrolling row that advances a card at a time on its own.
+    carousel: true,
+    autoplay: true,
     body: 'Soft Suave helps you hire dedicated developers across 9 key role categories, from software and web development to DevOps, QA, and e-commerce. Choose individual developers or build a multi-role team based on your project scope, technology needs, and delivery goals.',
     items: [
       {
@@ -250,6 +252,8 @@ export const dedicated: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Hiring Guide',
     title: '6 Common Challenges When Hiring Dedicated Developers and How to Solve Them',
+    // Six cards as three across, two rows, no scrolling.
+    span: 4,
     body: 'Hiring dedicated developers can be highly effective, but the right process is important. Skill validation, communication, accountability, and security must be handled clearly before onboarding.',
     items: [
       {

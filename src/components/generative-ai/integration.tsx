@@ -19,6 +19,12 @@ export interface IntegrationContent {
   readonly title: string;
   /** Gives a long section heading room to wrap into fewer lines. */
   wideHead?: boolean;
+  /**
+   * `bold` only: between 700px and 999px the cards stack one per row, instead of
+   * two per row with an odd last card spanning the row ("first 2, next 1"). Below
+   * 700px they already stack, and from 1000px the desktop composition applies.
+   */
+  stackOnTablet?: boolean;
   readonly body: string;
   readonly blocks: readonly {
     readonly label: string;
@@ -87,7 +93,7 @@ export default function Integration({
         <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
 
         <FadeUp>
-          <div className={styles.indGridBold}>
+          <div className={content.stackOnTablet ? `${styles.indGridBold} ${styles.indGridStack}` : styles.indGridBold}>
             {content.blocks.map((b, i) => (
               <article key={b.label} className={styles.indBoldCard} data-span={spans[i]}>
                 {/* No glyph and no ordinal: an engagement model is a named

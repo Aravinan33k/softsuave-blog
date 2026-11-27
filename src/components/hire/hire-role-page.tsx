@@ -149,7 +149,7 @@ export default function HireRolePage({
         content.halfHeads && ad.halfHeads,
         content.stackedHeads && landing.stackedHeads,
         content.stackedHeads && styles.stackedHeads,
-        content.stackedHeads && ad.stackHeads,
+        content.stackedHeads && ad.stackHeadsVars,
         content.stackedHeads && genAi.stackedHeads,
         content.wideHeadGap && ad.wideHeadGap,
         content.clientsTwoLineTitle && styles.clientsTwoLineTitle,

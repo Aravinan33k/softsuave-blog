@@ -179,6 +179,7 @@
 @media (min-width: 900px) {
   .stackedHeads .head:has(> .intro):not(.headSub):not(.headPage) .title {
     max-width: none;
+    text-wrap: wrap;
   }
 }
 

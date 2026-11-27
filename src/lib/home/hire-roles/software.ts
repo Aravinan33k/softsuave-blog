@@ -278,6 +278,8 @@ export const software: HireRolePageContent = {
     wideHead: '24ch',
     eyebrow: 'Why Choose Us',
     title: 'Why Hire Software Developers From Soft Suave?',
+    carousel: true,
+    autoplay: true,
     body: 'See why businesses choose Soft Suave to hire software developers and what you can expect throughout the engagement.',
     items: [
       {

@@ -153,6 +153,8 @@
 @media (min-width: 900px) {
   .stackedHeads .head:has(> .intro) .title {
     max-width: none;
+    /* Fill the 70% line before wrapping, as the intro under it does. */
+    text-wrap: wrap;
   }
 }
 
@@ -2418,6 +2420,27 @@
   }
 }
 
+/* `oneRow` (short labels): every tile on a single row from 1300px; the tile is
+   tightened so a name such as "Compatibility Testing" fits its column. Below
+   1300px the grid keeps its usual columns (four across from 1000px). */
+@media (min-width: 1000px) and (max-width: 1299px) {
+  .indGridTiles[data-cols="row"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1300px) {
+  .indGridTiles[data-cols="row"] {
+    grid-template-columns: repeat(var(--tile-count), minmax(0, 1fr));
+    gap: clamp(8px, 0.9vw, 14px);
+  }
+
+  .indGridTiles[data-cols="row"] .indTile {
+    padding: 18px 12px;
+    gap: 12px;
+  }
+}
+
 @media (max-width: 479px) {
   .indGridTiles {
     grid-template-columns: 1fr;
@@ -2561,6 +2584,16 @@
   /* An odd card out spans the full row rather than leaving a gap. */
   .indGridBold .indBoldCard:last-child:nth-child(odd) {
     grid-column: span 12;
+  }
+}
+
+/* `IntegrationContent.stackOnTablet`: one card per row on tablets too, in place
+   of two with an odd last card spanning the row. The doubled class outranks the
+   `:last-child:nth-child(odd)` rule above. */
+@media (min-width: 700px) and (max-width: 999px) {
+  .indGridBold.indGridStack.indGridStack .indBoldCard,
+  .indGridBold.indGridStack.indGridStack .indBoldCard:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
 }
 
@@ -2871,6 +2904,16 @@
 
 .indMarqueeRow .indBoldCard {
   scroll-snap-align: none;
+}
+
+/* Below 700px (no `data-marquee`) the row is transparent, so the cards are the
+   scroller's own flex items as in the plain carousel, and the copy is hidden. */
+.indGridBold.indCarousel:not([data-marquee="true"]) .indMarqueeRow {
+  display: contents;
+}
+
+.indGridBold.indCarousel:not([data-marquee="true"]) .indCardCopy {
+  display: none;
 }
 
 .indCarousel .indBoldCard[data-accent="1"] { --card-accent: var(--card-accent-1); }

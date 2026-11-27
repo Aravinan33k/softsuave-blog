@@ -105,6 +105,8 @@ export const ai: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Why Us',
     title: 'Why Hire AI Developers from Soft Suave',
+    // Six cards as three across, two rows, no scrolling.
+    span: 4,
     body: "At Soft Suave, we deliver AI visionaries who collaborate as partners, not just coders. Here's why businesses around the world trust us to hire remote AI developers for their projects.",
     items: [
       {

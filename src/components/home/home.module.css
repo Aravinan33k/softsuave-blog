@@ -4207,7 +4207,7 @@ h1.h2 {
   /* Stacked, the Clients title gets the room the `wideTitle` ones have (it was pinned to 20ch for the narrow column beside the divider, three lines deep); `wideTitle` and its own measure still win. */
   .stackedHeads .clientsHead .h2 {
     max-width: min(36ch, var(--fit-width, 36ch));
-    text-wrap: balance;
+    text-wrap: wrap;
   }
 
   .stackedHeads .sectionHead:has(> :is(h2, div.h2)):has(> .lead) {
@@ -4223,9 +4223,16 @@ h1.h2 {
      title block's 70% limit as well. */
   .stackedHeads .clientsHead .h2.h2 {
     max-width: none;
+    text-wrap: wrap;
   }
   .stackedHeads .sectionHead:has(> :is(h2, div.h2)):has(> .lead) > :is(h2, div.h2) {
-    max-width: none;
+    max-width: 70%;
+    text-wrap: wrap;
+  }
+  /* The technology band's own 32ch / balanced title (`techWideHead`) takes the same 70% line. */
+  .stackedHeads .techWideHead.techWideHead .sectionHead.sectionHead > h2.h2.h2 {
+    max-width: 70%;
+    text-wrap: wrap;
   }
   .stackedHeads .sectionHead:has(> :is(h2, div.h2)):has(> .lead) > .lead {
     grid-column: 1;

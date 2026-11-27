@@ -175,6 +175,7 @@ export const webApp: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Hiring Options',
     title: 'Flexible Ways to Hire Web App Developers',
+    stackOnTablet: true,
     body: 'Choose an engagement approach that reflects your application scope, delivery responsibilities, required flexibility, and the way your existing team works.',
     blocks: [
       {
@@ -254,6 +255,8 @@ export const webApp: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Developer Expertise',
     title: 'Hire Web App Developers by Technology',
+    carousel: true,
+    autoplay: true,
     body: 'Select web application developers according to your application architecture, existing stack, integration requirements, and planned development work to strengthen delivery, maintain compatibility, and support evolving product and business needs confidently.',
     items: [
       {
@@ -335,6 +338,8 @@ export const webApp: HireRolePageContent = {
     wideHead: true,
     eyebrow: 'Why Us',
     title: 'Why Hire Remote Web App Developers from Soft Suave?',
+    // Six cards as three across, two rows, no scrolling.
+    span: 4,
     body: 'Gain reliable engineering support that reduces hiring uncertainty, strengthens collaboration, and helps your web application progress as your business and technical priorities evolve.',
     items: [
       {

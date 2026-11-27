@@ -34,7 +34,7 @@ export const metadata = homeMetadata;
 
 export default function HomePage() {
   return (
-    <div className={`${styles.page} ${styles.stackedHeads} ${landing.stackedHeads} ${genAi.stackedHeads} ${ad.stackHeads}`}>
+    <div className={`${styles.page} ${styles.stackedHeads} ${landing.stackedHeads} ${genAi.stackedHeads} ${ad.stackHeadsVars}`}>
       {/* softsuave.com's homepage schema, verbatim: one <script> per block,
           as live serves them — see `lib/home/home-live-schema.ts`. */}
       {homeJsonLd().map((node) => (
