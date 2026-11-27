@@ -82,27 +82,30 @@ export const rsPractice = rdPractice;
 /**
  * "Code & Practice" as photo-backed cards closing on a CTA card (review,
  * from a reference). The same head and the same seven points, word for word,
- * each with a line icon and a darkened site photo. "Learn More" opens the
- * trial popup like every other button here; the closer books a meeting.
+ * each with a line icon and a darkened site photo. The closer books a
+ * meeting.
  */
 const PRACTICE_VISUALS = [
   ["code", "ov-hire-reactjs-developers"],
-  ["shield", "ov-cloud-computing"],
+  ["shield", "practice-iso-27001-crop"],
   ["users", "ov-offshore-software-development-company"],
   ["house", "ov-product-engineering-services"],
   ["layers", "ov-hire-dot-net-developers"],
   ["settings", "ov-hire-python-developers"],
   ["globe", "ov-hire-mern-stack-developers-india"],
 ] as const;
+/** Lines reworded for these cards only (review); the coffee page keeps the originals. */
+const PRACTICE_BODY: Readonly<Record<string, string>> = {
+  "ISO-Certified Company": "We're an ISO 27001 certified software development company.",
+};
 export const rsPracticeShowcase: PracticeShowcaseContent = {
   eyebrow: rdPractice.eyebrow,
   title: rdPractice.title,
   body: rdPractice.body,
   items: rdPractice.items.map((it, i) => {
     const [icon, file] = PRACTICE_VISUALS[i % PRACTICE_VISUALS.length];
-    return { name: it.name, body: it.body, icon, image: "/images/landing/" + file + ".webp" };
+    return { name: it.name, body: PRACTICE_BODY[it.name] ?? it.body, icon, image: "/images/landing/" + file + ".webp" };
   }),
-  more: { label: "Learn More", href: TRIAL_HREF },
   closer: {
     eyebrow: "Ready to build together?",
     lines: ["Your Vision.", "Our Development."],
@@ -190,10 +193,10 @@ export const rsScaleBand: CtaBandContent = {
 
 /** The four hiring steps, each with a photo of that stage. */
 const PROCESS_PHOTOS = [
-  { src: "/images/landing/dl-hire-frontend-application-developer.webp", alt: "Two people planning requirements at a whiteboard" },
-  { src: "/images/landing/dl-hire-forward-deployed-engineer.webp", alt: "Two people reviewing developer profiles on a laptop" },
+  { src: "/images/landing/process-step-share-jd.webp", alt: "Two people reviewing project wireframes on a tablet and noting requirements" },
+  { src: "/images/landing/process-step-shortlist.webp", alt: "A team reviewing and comparing shortlisted developer profiles on a laptop and a tablet" },
   { src: "/images/landing/dl-hire-backend-application-developer.webp", alt: "A developer writing code at a desk with two screens" },
-  { src: "/images/landing/dl-hire-software-developers.webp", alt: "A smiling team of developers standing together" },
+  { src: "/images/landing/process-step-onboard.webp", alt: "Two people in suits shaking hands to close an agreement" },
 ];
 export const rsProcessPhotos: ProcessContent = {
   ...rdProcess,
