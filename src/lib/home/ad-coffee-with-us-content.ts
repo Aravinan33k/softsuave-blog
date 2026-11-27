@@ -49,9 +49,43 @@ export const cwHero: HeroContent = {
   logoCta: { label: CTA_LABEL, href: BOOK_HREF },
 };
 
+/**
+ * Where the meeting form sends the visitor once the lead is accepted: this
+ * campaign's own confirmation page, so its conversion can be told apart from
+ * the site-wide /thank-you (`app/(marketing)/ad/thanks`). Its own route, not
+ * nested under /ad/coffee-with-us (by request); no redirect from the old URL.
+ */
+export const CW_THANK_YOU_PATH = "/ad/thanks";
+
+/** The confirmation page the form redirects to. */
+export const cwThankYou = {
+  meta: {
+    path: CW_THANK_YOU_PATH,
+    title: "Thank You | Have a Coffee With Us | Soft Suave",
+    description: "Your meeting request with Soft Suave's CEO has been received. Our team will be in touch shortly.",
+  },
+  eyebrow: "Meeting Request Received",
+  title: "Thank You for Connecting With Us.",
+  body: [
+    "We've received your meeting request and look forward to exploring how Soft Suave can support your business goals.",
+    "Our team will be in touch shortly to arrange a convenient time for your conversation with our CEO, Ramesh Vayavuru.",
+  ],
+  next: {
+    title: "What Happens Next?",
+    items: [
+      { icon: "mail", label: "Our team reviews your request" },
+      { icon: "calendar", label: "We coordinate a convenient meeting time" },
+      { icon: "coffee", label: "You connect directly with our CEO" },
+    ],
+  },
+  signoff: "See You Over Coffee.",
+  cta: { label: "Back to Homepage →", href: "/" },
+  footerLine: "AI Solutions · Software Development · Engineering Expertise",
+} as const;
+
 /** The meeting-request card in the hero's right column. */
 export const cwForm = {
-  title: "Have a Coffee With Us.",
+  title: "Have a Coffee With Us",
   /** The host line beside the portrait at the top of the card. */
   hostLabel: "Ramesh Vayavuru · CEO",
   /** The meeting length — under the card's title, and on the CEO invitation's portrait tag. */
@@ -59,10 +93,6 @@ export const cwForm = {
   submit: "Request a Meeting →",
   sending: "Sending…",
   note: "We'll be in touch to arrange your meeting.",
-  success: {
-    title: "Thank you. Your request is in.",
-    body: "We'll be in touch to arrange your meeting.",
-  },
   // Stored on the lead for triage, so these requests are told apart in the inbox.
   subject: "Ad landing: Have a Coffee With Us (CEO meeting request)",
   // Sent as the requirement when the visitor leaves the message box empty: the API needs one.
@@ -73,7 +103,7 @@ export const cwForm = {
 export const cwCredibility = [
   { figure: SPECIALISTS_PLUS, label: "AI-Enabled Developers" },
   { figure: "100%", label: "In-House Team" },
-  { figure: "ISO", label: "27001 & 9001 Certified" },
+  { figure: "ISO/IEC", label: "27001:2022 Certified" },
   { figure: CLIENTS_PLUS, label: "Happy Clients Worldwide" },
   { figure: YEARS_PLUS, label: "Glorious Years of Service" },
 ] as const;
@@ -150,7 +180,7 @@ export const cwStandards: CardGridContent = {
     // This page's own wording for the ISO card (by request); /ad/remote-developer keeps its own.
     .map((item) =>
       item.name === "ISO-Certified Company"
-        ? { ...item, body: "We're an ISO 27001 certified software development company." }
+        ? { ...item, body: "We're an ISO/IEC 27001:2022 certified software development company." }
         : item,
     ),
   cta: undefined,

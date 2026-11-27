@@ -13,7 +13,7 @@ const SHOW_AFTER = 500;
  * Pages with a single conversion goal that this tab would compete with. The
  * "Have a Coffee With Us" campaign page has only its meeting-request form (by request).
  */
-const HIDDEN_ON: ReadonlySet<string> = new Set(["/ad/coffee-with-us"]);
+const HIDDEN_ON: ReadonlySet<string> = new Set(["/ad/coffee-with-us", "/ad/thanks"]);
 
 /**
  * The "Get Free Estimate" tab fixed to the right edge of the viewport, vertically centred, reading bottom to
