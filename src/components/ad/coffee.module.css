@@ -186,31 +186,6 @@
   object-position: center 12%;
 }
 
-/* The thank-you that replaces the fields once the lead is in. */
-.formDone {
-  margin-top: 18px;
-  padding: 18px;
-  border-radius: 12px;
-  background: #fff6ee;
-  color: #3f434d;
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  text-align: center;
-}
-
-.formDone:focus {
-  outline: none;
-}
-
-.formDone p {
-  margin: 0;
-}
-
-.formDoneTitle {
-  margin-bottom: 6px !important;
-  font-weight: 700;
-  color: #0f1115;
-}
 
 /* ---------- credibility row (bottom of the hero) ----------
    Big bold figures over Inter labels in capitals, all one muted colour,
@@ -1026,4 +1001,149 @@
 .inviteName span {
   font-size: 0.9375rem;
   color: #cfcfcf;
+}
+
+/* ---------- thank-you page (/ad/coffee-with-us/thank-you) ----------
+   One centred column on the dark ground: check badge, confirmation, what
+   happens next, a sign-off and the way home. Space Grotesk and Inter only. */
+
+.thanks {
+  display: flex;
+  justify-content: center;
+  min-height: 70vh;
+  padding: clamp(48px, 8vw, 104px) var(--gutter) clamp(36px, 5vw, 64px);
+  text-align: center;
+}
+
+.thanksInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 760px;
+}
+
+.thanksBadge {
+  display: inline-flex;
+  padding: 10px;
+  border-radius: 50%;
+  background: rgba(255, 98, 54, 0.1);
+}
+
+.thanksBadgeRing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border: 1.5px solid #ff6236;
+  border-radius: 50%;
+  color: #ff6236;
+}
+
+.thanksEyebrow {
+  margin: 24px 0 0;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ff7a45;
+}
+
+.thanksTitle {
+  margin: 16px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: #f2f2f2;
+}
+
+.thanksBody {
+  margin: 18px 0 0;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.2vw, 1.0625rem);
+  line-height: 1.65;
+  color: #b4b4b4;
+}
+
+.thanksBodyBright {
+  color: #e6e6e6;
+}
+
+.thanksNext {
+  width: 100%;
+  max-width: 612px;
+  margin-top: 28px;
+  padding: 22px clamp(18px, 2.4vw, 28px) 24px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  background: #141416;
+  text-align: left;
+}
+
+.thanksNextTitle {
+  margin: 0 0 18px;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  color: #f2f2f2;
+}
+
+/* The list centred in the card as one block (by request), so the icons
+   still line up in a column. */
+.thanksSteps {
+  display: grid;
+  gap: 16px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.thanksSteps li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: #dedede;
+}
+
+.thanksSteps svg {
+  flex: none;
+  color: #ff6236;
+}
+
+.thanksSignoff {
+  margin: 30px 0 0;
+  /* Space Grotesk, the site's heading face (by request). */
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.125rem, 1.5vw, 1.3125rem);
+  color: #ff7a45;
+}
+
+/* Spacing and size only: the colour and hover wipe come from the site's
+   primary button (landing .btn .btnPrimary), as on the CEO invitation. */
+.thanksCta {
+  margin-top: 18px;
+  padding: 1.15em 1.9em;
+  font-size: 0.875rem;
+  border-radius: var(--btn-radius, 6px);
+  text-decoration: none;
+}
+
+.thanksFooterLine {
+  width: 100%;
+  margin: clamp(40px, 6vw, 64px) 0 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: #c4c4c4;
 }

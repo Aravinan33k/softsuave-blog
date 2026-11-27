@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
-import Script from 'next/script';
 import { absoluteUrl, dynamicOgImage } from '@/lib/seo/metadata';
 import {
   BOOK_HREF,
@@ -129,15 +128,16 @@ export default function AdCoffeeWithUsPage() {
 
       <CtaTracker targets={CTA_TARGETS} />
 
-      {/* Microsoft Clarity, as on /ad/remote-developer (by request). Its origins
-          are admitted for this route in next.config.ts (CLARITY_ROUTES). */}
-      <Script id="ms-clarity" strategy="lazyOnload">
-        {`(function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "t5y4fjyp9d");`}
-      </Script>
+      {/* Microsoft Clarity, this page's own project (zk4bs7rsgd), in the <head>
+          (by request). The supplied snippet lives verbatim in
+          public/scripts/clarity-coffee-with-us.js: React 19 hoists an async
+          script with a src into <head> in the server HTML, but not inline code,
+          and the snippet must run as written (its `window.clarity` queue is
+          what Clarity's tag calls first). `beforeInteractive` is not an option:
+          Next allows it only in the root layout, which would load it on every
+          page. Clarity's origins are admitted for this route in next.config.ts
+          (CLARITY_ROUTES); the file itself is same-origin. */}
+      <script async src="/scripts/clarity-coffee-with-us.js" />
     </div>
   );
 }
