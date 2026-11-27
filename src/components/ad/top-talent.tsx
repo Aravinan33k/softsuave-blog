@@ -101,20 +101,23 @@ export default function TopTalent({
 
       {!content.statsLast && statsBlock}
 
-      <div className={plain ? `${styles.models} ${styles.modelsPlain}` : styles.models}>
-        {content.models.map((m, i) => (
-          <FadeUp key={m.name} delay={i * 0.08}>
-            <article className={plain ? `${styles.model} ${styles.modelPlain}` : styles.model}>
-              <h3 className={headingFont ? `${styles.modelName} ${styles.modelNameHeading}` : styles.modelName}>{m.name}</h3>
-              {m.points && (
-                <ul className={styles.modelPoints}>
-                  {m.points.map((p) => (
-                    <li key={p}>{p}</li>
-                  ))}
-                </ul>
-              )}
-              {m.body && <p className={styles.modelBody}>{m.body}</p>}
-            </article>
+      {image ? (
+        <div className={styles.talentMedia}>
+          <FadeUp className={styles.talentPhoto}>
+            <Image
+              src={publicMediaUrl(image.src)}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
+              sizes="(min-width: 900px) 50vw, 100vw"
+              {...(image.blurDataURL ? { placeholder: "blur" as const, blurDataURL: image.blurDataURL } : {})}
+            />
+            {image.badge && (
+              <span className={styles.talentBadge}>
+                <strong>{image.badge.figure}</strong>
+                <span>{image.badge.label}</span>
+              </span>
+            )}
           </FadeUp>
 
           <div className={styles.talentBody}>
@@ -134,7 +137,7 @@ export default function TopTalent({
             {content.models.map((m, i) => (
               <FadeUp key={m.name} delay={i * 0.08}>
                 <article className={plain ? `${styles.model} ${styles.modelPlain}` : styles.model}>
-                  <h3 className={styles.modelName}>{m.name}</h3>
+                  <h3 className={headingFont ? `${styles.modelName} ${styles.modelNameHeading}` : styles.modelName}>{m.name}</h3>
                   {m.points && (
                     <ul className={styles.modelPoints}>
                       {m.points.map((p) => (

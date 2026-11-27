@@ -38,6 +38,7 @@ export const qa: HireRolePageContent = {
   clientsWideTitle: true,
   key: 'hire-qa',
   slug: '/hire-qa-testers-india',
+  stackedHeads: true,
   name: 'Hire QA Engineers',
   serviceType: 'Software QA and testing staffing',
 

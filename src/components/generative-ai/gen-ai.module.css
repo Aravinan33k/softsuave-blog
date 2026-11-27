@@ -145,6 +145,41 @@
   }
 }
 
+/* `stackedHeads` on a page's root (opt-in): each split section head stays one
+   column (title, then the intro beneath at 75% width, no divider rule). Type,
+   sizes and the title's own width are untouched. Same rule as landing's. */
+/* With `stackedHeads`, the hero headline's authored two lines run together and
+   wrap evenly in the copy column. As two fixed lines the first one (for
+   example "Hire Software Developers Get the") is wider than the column beside
+   the form and strands a word ("the") on a line of its own. */
+.stackedHeads .heroTitle {
+  text-wrap: balance;
+}
+.stackedHeads .heroTitleLine {
+  display: inline;
+}
+
+@media (min-width: 900px) {
+  .stackedHeads .head:has(> .intro),
+  .stackedHeads .headWide:has(> .intro) {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .stackedHeads .head:has(> .intro) > div:first-child {
+    max-width: 70%;
+  }
+
+  .stackedHeads .head:has(> .intro) > .intro {
+    justify-self: start;
+    align-self: auto;
+    display: block;
+    padding-left: 0;
+    border-left: 0;
+    max-width: 75%;
+  }
+}
+
 /* ============================================================
    BUTTONS — squared, mono-labelled. The homepage's `.pill` is a 999px
    capsule; these are deliberately not.

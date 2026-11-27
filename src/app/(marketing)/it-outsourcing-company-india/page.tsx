@@ -119,7 +119,7 @@ function DestinationsNotes() {
 
 export default function ItOutsourcingCompanyIndiaPage() {
   return (
-    <div className={`${home.page} ${location.submitBlack} ${ad.halfHeads}`}>
+    <div className={`${home.page} ${location.submitBlack} ${ad.halfHeads} ${ad.stackHeads} ${landing.stackedHeads} ${home.stackedHeads}`}>
       {/* softsuave.com's own schema for this page, verbatim, one <script> per
           block — see `lib/seo/it-outsourcing-company-india.ts`. */}
       {ITO_LIVE_LD.map((block, i) => (

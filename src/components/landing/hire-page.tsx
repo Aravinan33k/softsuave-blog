@@ -26,6 +26,8 @@ import SectionCta from '@/components/generative-ai/section-cta';
 
 import home from '@/components/home/home.module.css';
 import location from '@/components/landing/location-app-page.module.css';
+import landing from '@/components/landing/landing.module.css';
+import genAi from '@/components/generative-ai/gen-ai.module.css';
 
 /**
  * Slugs whose overview takes the pipeline's photo centred against the prose
@@ -172,7 +174,7 @@ export default function HirePage({
       : photo;
 
   return (
-    <div className={BLACK_SUBMIT.has(skill.key) ? `${home.page} ${location.submitBlack}` : home.page}>
+    <div className={[home.page, BLACK_SUBMIT.has(skill.key) && location.submitBlack, home.stackedHeads, landing.stackedHeads, genAi.stackedHeads].filter(Boolean).join(' ')}>
       {/* The live page's own blocks, one <script> each, where it has any —
           see lib/seo/hire-skills-live-schema; otherwise the graph built above. */}
       {HIRE_SKILL_LIVE_SCHEMA[path] ? (

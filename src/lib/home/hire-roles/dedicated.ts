@@ -39,6 +39,7 @@ export const dedicated: HireRolePageContent = {
   clientsWideTitle: true,
   key: 'hire-dedicated',
   slug: '/hire-dedicated-developers',
+  stackedHeads: true,
   name: 'Hire Dedicated Developers',
   serviceType: 'Dedicated development team staffing',
   // No breadcrumb schema: the live page's BreadcrumbList sits inside an HTML

@@ -46,6 +46,7 @@ export const ai: HireRolePageContent = {
   // Review: tech stack tool names 1px larger.
   techNameLarge: true,
   slug: '/hire-ai-developer',
+  stackedHeads: true,
   name: 'Hire AI Developers',
   serviceType: 'AI development staffing',
 
