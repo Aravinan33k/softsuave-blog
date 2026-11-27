@@ -1,0 +1,987 @@
+/* ==========================================================================
+   /ad/remote-developers-page — the Remote Developers ad page in the look of
+   /ad/coffee-with-us (brief, 27 Nov). Styles for this page's own sections
+   only (`components/ad/rdp/*`); the shared ad kit is reused unchanged. Reads
+   the theme's semantic vars (--bg, --surface, --line, --text, --text-bright,
+   --muted, --accent), so every block follows the dark / light band it sits
+   in: cards are warm beige on the light bands and charcoal on the dark ones.
+   ========================================================================== */
+
+.shell {
+  position: relative;
+  padding: var(--section-y, clamp(44px, 5vw, 84px)) var(--gutter, clamp(20px, 5vw, 90px));
+}
+
+.cover {
+  object-fit: cover;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- page ---------- */
+
+/* The H1 at the coffee page's 50px on a desktop, 34px on a phone, in place of
+   the 70px every /ad page's <main> sets. */
+.page main[id="main"] {
+  --fs-h1: clamp(34px, 3.2vw + 11.6px, 50px);
+}
+
+/* Room for the floating side tab and chat button on phones, so neither sits
+   over the last button or form field of a section. */
+@media (max-width: 639px) {
+  .page main[id="main"] {
+    padding-bottom: 72px;
+  }
+}
+
+/* Shared card type. */
+.cardName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(1.125rem, 1.3vw, 1.3125rem);
+  line-height: 1.25;
+  color: var(--text-bright);
+}
+
+.cardBody {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* Shared hover lift (≈200ms). */
+.whyCard,
+.serviceCard,
+.expertTile,
+.timelineStep {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.whyCard:hover,
+.serviceCard:hover,
+.expertTile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.35);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+}
+
+.iconTile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+}
+
+.cardNum {
+  position: absolute;
+  top: clamp(20px, 2vw, 28px);
+  right: clamp(20px, 2vw, 28px);
+  font-family: var(--font-mono-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.centerCta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(28px, 3vw, 44px);
+}
+
+/* ---------- 2. stats strip ---------- */
+.stats {
+  padding: clamp(8px, 1.5vw, 20px) var(--gutter) clamp(36px, 4.4vw, 64px);
+}
+
+.statsList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  row-gap: clamp(26px, 4vw, 40px);
+  margin: 0;
+}
+
+.statsItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 6px clamp(8px, 1.4vw, 20px);
+  text-align: center;
+}
+
+.statsItem + .statsItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--line) 25%, var(--line) 75%, transparent);
+}
+
+.statsItem:nth-child(3)::before {
+  display: none;
+}
+
+.statsFigure {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 4.4vw, 4.25rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+  font-variant-numeric: tabular-nums;
+}
+
+.statsLabel {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(0.6875rem, 0.85vw, 0.8125rem);
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@media (min-width: 900px) {
+  .statsList {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .statsItem:nth-child(3)::before {
+    display: block;
+  }
+}
+
+/* ---------- 4. Top Talent: photo collage + numbered list ---------- */
+.tcGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(40px, 5vw, 80px);
+  align-items: center;
+  margin-top: var(--section-head-gap, clamp(28px, 3vw, 48px));
+}
+
+.tcArt {
+  position: relative;
+  /* Room for the second photo hanging off the main one's lower-right corner. */
+  padding: 0 clamp(28px, 6vw, 72px) clamp(36px, 6vw, 72px) 0;
+}
+
+.tcMain,
+.tcSecond {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  background: var(--surface);
+}
+
+.tcMain {
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line);
+}
+
+.tcSecond {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 46%;
+  aspect-ratio: 1;
+  border: 6px solid var(--bg, #040508);
+  box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.7);
+}
+
+/* The round badge on the main photo's top-left corner. */
+.tcBadge {
+  position: absolute;
+  top: clamp(-18px, -1.6vw, -10px);
+  left: clamp(-18px, -1.6vw, -10px);
+  width: clamp(112px, 11vw, 148px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--brand-500, #ff5436);
+  color: #fff;
+  box-shadow: 0 18px 40px -14px color-mix(in srgb, var(--brand-500, #ff5436) 70%, transparent);
+}
+
+.tcRing {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: #fff;
+  font-family: var(--font-body);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  animation: tcSpin 18s linear infinite;
+}
+
+@keyframes tcSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tcBadgeCore {
+  position: relative;
+  margin: 0;
+  text-align: center;
+}
+
+.tcBadgeCore strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 1.6vw, 1.6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.tcList ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.tcItem {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(16px, 2vw, 28px);
+  padding: clamp(16px, 1.8vw, 22px) 0;
+  border-bottom: 1px solid var(--line);
+  transition: padding-left 0.25s ease;
+}
+
+.tcNum {
+  min-width: 2ch;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--brand-500, #ff5436) 80%, transparent);
+  transition: color 0.25s ease;
+}
+
+.tcText {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(1.0625rem, 1.2vw, 1.25rem);
+  line-height: 1.35;
+  color: var(--text-bright);
+}
+
+.tcItem:hover {
+  padding-left: 8px;
+}
+
+.tcItem:hover .tcNum {
+  color: var(--brand-500, #ff5436);
+}
+
+.tcCta {
+  margin-top: clamp(26px, 3vw, 40px);
+}
+
+@media (min-width: 1000px) {
+  .tcGrid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tcRing {
+    animation: none;
+  }
+  .tcItem,
+  .tcNum {
+    transition: none;
+  }
+  .tcItem:hover {
+    padding-left: 0;
+  }
+}
+
+/* ---------- 5. why bento ---------- */
+.whyGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(12px, 1.4vw, 18px);
+  margin-top: var(--section-head-gap, clamp(28px, 3vw, 48px));
+}
+
+.whyPhoto {
+  position: relative;
+  min-height: 320px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 22px;
+  background: var(--surface);
+}
+
+.whyCards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(12px, 1.4vw, 18px);
+}
+
+.whyCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(22px, 2.2vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface);
+}
+
+.whyClosing {
+  margin: clamp(28px, 3vw, 44px) auto 0;
+  max-width: 40ch;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(1.25rem, 1.6vw + 0.6rem, 1.9rem);
+  line-height: 1.25;
+  color: var(--text-bright);
+  text-wrap: balance;
+}
+
+/* One line from 1000px (by request): the size follows the screen width so the
+   whole sentence fits; narrower screens keep the balanced wrap. */
+@media (min-width: 1000px) {
+  .whyClosing {
+    max-width: none;
+    font-size: clamp(1.25rem, 1.7vw, 1.9rem);
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 640px) {
+  .whyCards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* Five cards: the last spans the row. */
+  .whyCard:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 900px) {
+  .whyGrid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+  .whyPhoto {
+    aspect-ratio: auto;
+  }
+}
+
+/* ---------- 6. services: an endless right-to-left row ---------- */
+.serviceViewport {
+  --card-w: clamp(260px, 26vw, 360px);
+  --gap: clamp(14px, 1.6vw, 22px);
+  margin: var(--section-head-gap, clamp(28px, 3vw, 48px)) calc(-1 * var(--gutter, clamp(20px, 5vw, 90px))) 0;
+  padding: 6px 0 14px;
+  overflow: hidden;
+  /* Fade the row out at both screen edges. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+.serviceTrack {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--gap);
+  width: max-content;
+  /* About 5s a card, so the drift reads as calm whatever the count. */
+  animation: serviceSlide calc(var(--count, 11) * 5s) linear infinite;
+}
+
+.serviceViewport:hover .serviceTrack,
+.serviceViewport:focus-within .serviceTrack {
+  animation-play-state: paused;
+}
+
+/* One set plus its trailing gap: the second set lands exactly where the first began. */
+@keyframes serviceSlide {
+  to {
+    transform: translateX(calc(-1 * var(--count, 11) * (var(--card-w) + var(--gap))));
+  }
+}
+
+.serviceCard {
+  flex: 0 0 var(--card-w);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.serviceArt {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #0d0e10;
+}
+
+.serviceImg {
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.serviceCard:hover .serviceImg {
+  transform: scale(1.05);
+}
+
+.serviceCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(20px, 2vw, 26px);
+}
+
+/* No drift for readers who ask for less motion: the row stands still and
+   scrolls sideways by hand, with the duplicate set left out. */
+@media (prefers-reduced-motion: reduce) {
+  .serviceViewport {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+    padding-inline: var(--gutter, clamp(20px, 5vw, 90px));
+  }
+  .serviceTrack {
+    animation: none;
+  }
+  .serviceTrack > [aria-hidden] {
+    display: none;
+  }
+}
+
+/* ---------- banner type (scale) ---------- */
+.bannerTitle {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight, 500);
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-bright);
+  max-width: 18ch;
+}
+
+.bannerBody {
+  margin: 1em 0 0;
+  max-width: 48ch;
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.bannerBtn {
+  margin-top: clamp(22px, 2.4vw, 32px);
+}
+
+/* ---------- 7. scale banner ---------- */
+.scale {
+  overflow: hidden;
+}
+
+.scale::before {
+  content: "";
+  position: absolute;
+  inset: 10% -10% auto auto;
+  width: 60%;
+  height: 80%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--brand-500, #ff5436) 22%, transparent), transparent);
+  pointer-events: none;
+}
+
+.scaleGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: center;
+}
+
+.scaleArt svg {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  margin-inline: auto;
+  overflow: visible;
+}
+
+.scaleLink {
+  stroke: color-mix(in srgb, var(--brand-500, #ff5436) 55%, transparent);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 5;
+}
+
+.scaleNode circle:first-child {
+  fill: #141518;
+  stroke: var(--brand-500, #ff5436);
+  stroke-width: 1.4;
+}
+
+.scaleNode[data-ring="0"] circle:first-child {
+  fill: color-mix(in srgb, var(--brand-500, #ff5436) 22%, #141518);
+}
+
+.scaleHead,
+.scaleBody {
+  fill: none;
+  stroke: #f2f2f2;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+}
+
+/* The reveal: hidden only once armed (JS ran, motion allowed), then grown
+   ring by ring when on screen. */
+.scaleArt[data-armed] .scaleNode,
+.scaleArt[data-armed] .scaleLink {
+  opacity: 0;
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.scaleArt[data-armed] .scaleNode {
+  transform: scale(0.4);
+}
+
+.scaleArt[data-armed][data-play] .scaleNode,
+.scaleArt[data-armed][data-play] .scaleLink {
+  opacity: 1;
+  transform: none;
+}
+
+@media (min-width: 900px) {
+  .scaleGrid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+/* ---------- 8. tech tabs ---------- */
+.tabList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: var(--section-head-gap, clamp(28px, 3vw, 48px));
+}
+
+.tab {
+  padding: 10px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: 500 0.9375rem/1 var(--font-body);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.tab:hover {
+  border-color: var(--accent);
+}
+
+.tab[aria-selected="true"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.tab:focus-visible,
+.tabPanel:focus-visible,
+.expertLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.tabPanels {
+  margin-top: 20px;
+}
+
+.tabPanel + .tabPanel {
+  margin-top: 24px;
+}
+
+.tabPanel[hidden] {
+  display: none;
+}
+
+.tabPanelTitle {
+  margin: 0 0 12px;
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  color: var(--text-bright);
+}
+
+.techList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.techItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  font-weight: 500;
+  color: var(--text-bright);
+}
+
+.techMark {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+@media (min-width: 640px) {
+  .techList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .techList {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ---------- 10 / 14. glow banners ---------- */
+.glow {
+  --bg: #050609;
+  --text-bright: #f2f2f2;
+  --muted: #cfcfcf;
+  --line: rgba(255, 255, 255, 0.14);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(40px, 5vw, 80px) clamp(24px, 5vw, 72px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  background:
+    radial-gradient(60% 90% at 85% 100%, color-mix(in srgb, var(--brand-500, #ff5436) 40%, transparent), transparent 70%),
+    radial-gradient(40% 60% at 0% 0%, rgba(255, 84, 54, 0.12), transparent 70%),
+    #0b0c0f;
+  color: var(--text-bright);
+}
+
+.glowLines {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: 0;
+  width: 70%;
+  height: 100%;
+  fill: none;
+  stroke: var(--brand-500, #ff5436);
+  stroke-width: 0.8;
+  opacity: 0.5;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 45%);
+  mask-image: linear-gradient(90deg, transparent, #000 45%);
+}
+
+.glowCopy {
+  position: relative;
+  max-width: 640px;
+}
+
+.glowEyebrow {
+  display: block;
+  font-family: var(--font-mono-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #d0d0d0;
+}
+
+.glowTitle {
+  margin: 14px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #fff;
+}
+
+.glowTitle span {
+  color: var(--brand-500, #ff5436);
+}
+
+.glowBody {
+  margin: 16px 0 0;
+  max-width: 46ch;
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: #e0e0e0;
+}
+
+.glowActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: clamp(22px, 2.4vw, 32px);
+}
+
+.glowActions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.glowSecondary {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  background: transparent;
+}
+
+/* ---------- 11. process timeline ---------- */
+.timeline {
+  --fill: 1;
+  --node: 56px;
+  position: relative;
+  list-style: none;
+  margin: var(--section-head-gap, clamp(28px, 3vw, 48px)) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+}
+
+/* The track (line) and its accent fill, down the left on phones. */
+.timeline::before,
+.timeline::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--node) / 2 - 1px);
+  top: calc(var(--node) / 2);
+  bottom: calc(var(--node) / 2);
+  width: 2px;
+  background: var(--line);
+}
+
+.timeline::after {
+  background: var(--accent);
+  transform: scaleY(var(--fill));
+  transform-origin: top;
+}
+
+.timelineStep {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--node) minmax(0, 1fr);
+  column-gap: 18px;
+  row-gap: 8px;
+  align-items: start;
+  /* Rows hug their content: a shorter step does not spread the spare height
+     of a taller neighbour between its rows. */
+  align-content: start;
+}
+
+.timelineStep > :not(.timelineNode) {
+  grid-column: 2;
+}
+
+.timelineNode {
+  position: relative;
+  z-index: 1;
+  grid-row: 1 / span 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--node);
+  height: var(--node);
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  background: var(--bg, #fff);
+  color: var(--muted);
+  transition: border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* A node lights up once the fill has reached it. */
+.timeline .timelineStep .timelineNode {
+  --lit: clamp(0, (var(--fill) - var(--at)) * 100, 1);
+  border-color: color-mix(in srgb, var(--accent) calc(var(--lit) * 100%), var(--line));
+  color: color-mix(in srgb, var(--accent) calc(var(--lit) * 100%), var(--muted));
+}
+
+.timelineLabel {
+  margin-top: 4px;
+  font-family: var(--font-mono-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+@media (min-width: 900px) {
+  .timeline {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(20px, 2.4vw, 36px);
+  }
+
+  /* Across the node centres on desktop. */
+  .timeline::before,
+  .timeline::after {
+    left: calc(100% / 8);
+    right: calc(100% / 8);
+    top: calc(var(--node) / 2 - 1px);
+    bottom: auto;
+    width: auto;
+    height: 2px;
+  }
+
+  .timeline::after {
+    transform: scaleX(var(--fill));
+    transform-origin: left;
+  }
+
+  .timelineStep {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+  }
+
+  .timelineStep > :not(.timelineNode) {
+    grid-column: 1;
+  }
+
+  .timelineNode {
+    grid-row: auto;
+    margin-bottom: 10px;
+  }
+}
+
+/* ---------- 12. experts ---------- */
+.expertGrid {
+  list-style: none;
+  margin: var(--section-head-gap, clamp(28px, 3vw, 48px)) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.expertTile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+.expertMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.expertMark img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.expertName {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--text-bright);
+}
+
+.expertLink {
+  margin-top: auto;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.expertLink:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 640px) {
+  .expertGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .expertGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .expertGrid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+/* ---------- motion preferences ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .whyCard,
+  .serviceCard,
+  .expertTile,
+  .timelineStep,
+  .timelineNode,
+  .serviceImg,
+  .tab {
+    transition: none;
+  }
+  .whyCard:hover,
+  .serviceCard:hover,
+  .expertTile:hover {
+    transform: none;
+  }
+}

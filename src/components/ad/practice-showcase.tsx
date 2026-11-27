@@ -27,8 +27,13 @@ export interface PracticeShowcaseContent {
     /** Root-relative photo, darkened and faded in behind the card's right side. */
     readonly image: string;
   }[];
-  /** The closing card in the grid's last slot. */
-  readonly closer: {
+  /**
+   * Optional "Learn More" link under every card (/ad/remote-developers-page).
+   * Omitted, the cards carry no link (the two remote-developers pages).
+   */
+  readonly more?: { readonly label: string; readonly href: string };
+  /** The closing card in the grid's last slot; omitted, the grid is the cards alone. */
+  readonly closer?: {
     readonly eyebrow: string;
     readonly lines: readonly [string, string];
     readonly body: string;
@@ -46,10 +51,19 @@ export interface PracticeShowcaseContent {
  * Four across from 1200px (seven cards and the closer make two even rows), two
  * from 640px, one below. /ad/remote-developers only.
  */
-export default function PracticeShowcase({ content, id = "practice" }: { content: PracticeShowcaseContent; id?: string }) {
-  const { closer } = content;
+export default function PracticeShowcase({
+  content,
+  id = "practice",
+  className,
+}: {
+  content: PracticeShowcaseContent;
+  id?: string;
+  /** Extra class on the section, for a page that lays the grid out its own way. */
+  className?: string;
+}) {
+  const { closer, more } = content;
   return (
-    <section className={styles.shell} id={id}>
+    <section className={className ? `${styles.shell} ${className}` : styles.shell} id={id}>
       <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
 
       <div className={styles.showGrid}>
@@ -72,38 +86,47 @@ export default function PracticeShowcase({ content, id = "practice" }: { content
                 </span>
                 <h3 className={styles.showName}>{item.name}</h3>
                 <p className={styles.showBody}>{item.body}</p>
+                {more && (
+                  <a className={styles.showMore} href={more.href}>
+                    {more.label}
+                    <span className={landing.srOnly}> about {item.name}</span>
+                    <ArrowRight size={16} strokeWidth={2} aria-hidden />
+                  </a>
+                )}
               </article>
             </FadeUp>
           );
         })}
 
-        <FadeUp delay={0.18}>
-          <article className={`${styles.showCard} ${styles.showCloser}`}>
-            <svg className={styles.showWave} viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden>
-              {Array.from({ length: 14 }, (_, n) => (
-                <path
-                  key={n}
-                  d={`M ${20 + n * 6} 200 C ${60 + n * 5} ${150 - n * 4}, ${120 + n * 3} ${170 - n * 9}, 200 ${40 + n * 7}`}
-                />
-              ))}
-            </svg>
-            <span className={styles.showCloserEyebrow}>{closer.eyebrow}</span>
-            <p className={styles.showCloserTitle}>
-              {closer.lines[0]}
-              <br />
-              <span>{closer.lines[1]}</span>
-            </p>
-            <p className={styles.showCloserBody}>{closer.body}</p>
-            <a
-              className={`${landing.btn} ${landing.btnPrimary} ${styles.showCloserBtn}`}
-              href={closer.cta.href}
-              {...(closer.cta.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            >
-              {closer.cta.label}
-              <ArrowRight size={16} strokeWidth={2} aria-hidden />
-            </a>
-          </article>
-        </FadeUp>
+        {closer && (
+          <FadeUp delay={0.18}>
+            <article className={`${styles.showCard} ${styles.showCloser}`}>
+              <svg className={styles.showWave} viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden>
+                {Array.from({ length: 14 }, (_, n) => (
+                  <path
+                    key={n}
+                    d={`M ${20 + n * 6} 200 C ${60 + n * 5} ${150 - n * 4}, ${120 + n * 3} ${170 - n * 9}, 200 ${40 + n * 7}`}
+                  />
+                ))}
+              </svg>
+              <span className={styles.showCloserEyebrow}>{closer.eyebrow}</span>
+              <p className={styles.showCloserTitle}>
+                {closer.lines[0]}
+                <br />
+                <span>{closer.lines[1]}</span>
+              </p>
+              <p className={styles.showCloserBody}>{closer.body}</p>
+              <a
+                className={`${landing.btn} ${landing.btnPrimary} ${styles.showCloserBtn}`}
+                href={closer.cta.href}
+                {...(closer.cta.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              >
+                {closer.cta.label}
+                <ArrowRight size={16} strokeWidth={2} aria-hidden />
+              </a>
+            </article>
+          </FadeUp>
+        )}
       </div>
     </section>
   );
