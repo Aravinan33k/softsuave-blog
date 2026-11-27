@@ -1197,6 +1197,12 @@
   font-style: italic;
 }
 
+/* With `heroNoteHighlight`: the guarantee line in green instead of the accent
+   (/ad/remote-developer, by request). Bright enough to read on the dark hero. */
+.heroNoteGreen p > strong:only-child {
+  color: #22c55e;
+}
+
 /* Opt-in on a page's wrapper (/ad/remote-developer, by request): a wider gap
    between every section head and the cards or content under it. Overrides
    the shared rhythm token (home.css: clamp(20px, 1.6vw + 8px, 36px)), which
@@ -2079,6 +2085,28 @@
   font-size: var(--fs-body-sm);
   line-height: 1.6;
   color: #c9c9c9;
+}
+
+/* "Learn More" under a card (optional `more`, /ad/remote-developers-page). */
+.showMore {
+  margin-top: auto;
+  padding-top: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--brand-500, #ff5a36);
+  text-decoration: none;
+}
+
+.showMore svg {
+  transition: transform 0.2s ease;
+}
+
+.showMore:hover svg,
+.showMore:focus-visible svg {
+  transform: translateX(4px);
 }
 
 /* The closing CTA card. */

@@ -73,7 +73,7 @@ export const rdHero: HeroContent = {
 export const rdWhy: CardGridContent = {
   eyebrow: "Why choose Us",
   noIcons: true,
-  title: "Why Choose Soft Suave",
+  title: "Why Choose Soft Suave?",
   body: "With proven expertise, rapid hiring, flexible models, and cost-effective solutions, we provide top-tier talent that seamlessly integrates, driving growth, innovation, and success for your business.",
   items: [
     { name: "Top 3% Tech Talent", body: "Handpicked professionals with proven experience" },

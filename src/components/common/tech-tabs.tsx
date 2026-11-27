@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import TechLogo from "@/components/home/tech-logo";
+import { publicMediaUrl } from "@/lib/media-url";
 import TechTabsClient from "./tech-tabs-client";
 
 /** One category tab and the tools under it. */
@@ -16,6 +18,13 @@ export interface TechTabsContent {
   readonly groups: readonly TechTabsGroup[];
   /** Gives a long title the section head's wider column (see `SectionHead`'s `wide`). */
   readonly wideHead?: boolean;
+  /**
+   * A page's own mark for a tool, by its name as written in `items` (root-
+   * relative image) — drawn instead of the `TechLogo` lookup. The /ad pages
+   * carry an image for every tool, including the ones `TechLogo` has no mark
+   * for. Omitted, every tool uses `TechLogo`, as before.
+   */
+  readonly images?: Readonly<Record<string, string>>;
 }
 
 /**
@@ -45,7 +54,11 @@ export default function TechTabs({
   const marks: Record<string, ReactNode> = Object.fromEntries(
     [...new Set(content.groups.flatMap((g) => g.items))].map((item) => [
       item,
-      <TechLogo key={item} name={item} />,
+      content.images?.[item] ? (
+        <Image key={item} src={publicMediaUrl(content.images[item])} alt="" width={44} height={44} unoptimized style={{ width: 44, height: 44, objectFit: "contain" }} />
+      ) : (
+        <TechLogo key={item} name={item} />
+      ),
     ]),
   );
 
