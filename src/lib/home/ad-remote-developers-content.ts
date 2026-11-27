@@ -96,7 +96,7 @@ const PRACTICE_VISUALS = [
 ] as const;
 /** Lines reworded for these cards only (review); the coffee page keeps the originals. */
 const PRACTICE_BODY: Readonly<Record<string, string>> = {
-  "ISO-Certified Company": "We're an ISO 27001 certified software development company.",
+  "ISO-Certified Company": "We're an ISO/IEC 27001:2022 certified software development company.",
 };
 export const rsPracticeShowcase: PracticeShowcaseContent = {
   eyebrow: rdPractice.eyebrow,

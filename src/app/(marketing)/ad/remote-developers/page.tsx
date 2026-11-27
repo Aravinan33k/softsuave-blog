@@ -9,33 +9,30 @@ import {
   rsMeta,
   rsPopup,
   rsPracticeShowcase,
-  rsProcessPhotos,
-  rsScaleBand,
+  rsProcess,
   rsServices,
   rsServicesCta,
-  rsTalent,
   rsTech,
   rsTestimonials,
-  rsWhyFeatures,
-  rsWhyClosing,
 } from '@/lib/home/ad-remote-developers-content';
+// Below the hero, every section as /ad/remote-developer sets it (by request):
+// its stats strip, Top Talent collage and Why grid, from /ad/remote-developers-page.
+import { rdpStats, rdpTalent, rdpWhy } from '@/lib/home/ad-remote-developers-page-content';
+import { AD_TRIAL_CTA, adProcess } from '@/lib/home/ad-app-developer-content';
 
 import { clientsPageBrands } from '@/lib/home/clients-content';
 
 import Clients from '@/components/home/clients';
 
 import Hero from '@/components/landing/hero';
-import CtaBand from '@/components/landing/cta-band';
-import TechStack from '@/components/landing/tech-stack';
-
-import TopTalent from '@/components/ad/top-talent';
-// Why Choose Us as an accordion beside a photo, as on /field-tracking-product (by request).
-import FeatureAccordion from '@/components/common/feature-accordion';
+// The tech stack as tabs, one per group, and the shared step cards, as /ad/remote-developer.
+import TechTabs from '@/components/common/tech-tabs';
+import Process from '@/components/landing/process';
+import StatsStrip from '@/components/ad/rdp/stats-strip';
+import TalentCollage from '@/components/ad/rdp/talent-collage';
+import WhyGrid from '@/components/ad/rdp/why-grid';
 import CtaRow from '@/components/ad/cta-row';
-// The Our Services and Experts carousels, as /ad/remote-developer has them (by request).
 import ServiceCarousel from '@/components/ad/service-carousel';
-// Image-led sections for this page (review: "make the page creative, add image visuals").
-import PhotoSteps from '@/components/ad/photo-steps';
 import PracticeShowcase from '@/components/ad/practice-showcase';
 
 // Below the first screen: split into their own chunks so the hero and the first
@@ -47,18 +44,56 @@ const TrialModal = dynamic(() => import('@/components/ad/trial-modal'));
 import home from '@/components/home/home.module.css';
 import styles from '@/components/ad/ad.module.css';
 
+/*
+ * The sections below the hero are set up exactly as on /ad/remote-developer
+ * (by request): the same photos, trial-button wiring and four steps. The
+ * content is already shared: every `rs*` export is the matching `rd*` one.
+ */
+
+/** The four steps from the ad kit, under this page's process head and trial button. */
+const process = { ...rsProcess, steps: adProcess.steps };
+
+/** Why Choose Us: one photo beside the cards, no closing line. */
+const why = {
+  ...rdpWhy,
+  closing: undefined,
+  photo: {
+    src: '/images/landing/ad-remote-developer-why.webp',
+    alt: 'A developer coding on a laptop at a desk in a modern office',
+    width: 1536,
+    height: 1024,
+  },
+};
+
+/** Top Talent: its button opens the trial popup; the collage photos as on /ad/remote-developer. */
+const talent = {
+  ...rdpTalent,
+  cta: { ...rdpTalent.cta, href: AD_TRIAL_CTA.href },
+  image: rdpTalent.image && {
+    ...rdpTalent.image,
+    src: '/images/landing/ad-remote-developer-talent-v2.webp',
+    alt: "A team gathered around a developer's monitors in a high-rise office",
+    width: 1500,
+    height: 844,
+    blurDataURL:
+      'data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADQAQCdASoQAAkAA4BaJZQAArMkKQxWAAD4W6OzZvZ3/fx/DkNEm+5jbmHlTwoDQh2/v3quNyqxlYwVmahTgr8FqipDCdpITlPtsSiR7CANWr5BPpygUwAA',
+  },
+};
+const talentSecond = {
+  src: '/images/landing/ad-remote-developer-talent-2.webp',
+  alt: 'Developers coding side by side at monitors in an office',
+} as const;
+
 /**
  * Hire Remote Developers on Contract — a clone of
  * softsuave.com/ad/remote-developers, rebuilt on the current theme and served at
  * /ad/remote-developers.
  *
- * The same ad-page kit as /ad/remote-developer, with this page's own masthead
- * (a trial button beside the logo, a hero with no form), a "Top Talent" block
- * and a "Scale Your Developer Team On-Demand" band
- * (`lib/home/ad-remote-developers-content.ts`). No top navigation and no footer,
- * like the other /ad pages. Every trial and "Hire Now" button opens the
- * two-column popup (heading, logos, form), as on the live page, which has no
- * closing form.
+ * This page's own masthead and hero (a trial button beside the logo, a centred
+ * hero with no form); everything below it follows /ad/remote-developer
+ * section for section (by request). No top navigation and no footer, like the
+ * other /ad pages. Every trial and "Hire Now" button opens the two-column
+ * popup (heading, logos, form).
  *
  * `noindex, nofollow` like the live page — in its metadata here, and as an
  * `X-Robots-Tag` header on every `/ad/*` route (next.config.ts). Not in
@@ -93,58 +128,40 @@ export const metadata: Metadata = {
 
 export default function AdRemoteDevelopersPage() {
   return (
-    // `wideHeadGap`: a wider gap under every section head (by request, as /ad/remote-developer).
-    <div className={`${home.page} ${styles.wideHeadGap}`}>
-      {/* `halfHeads`: section heads with the eyebrow on top, then heading left
-          and subtext right of a centre rule (by request, as /ad/remote-developer). */}
-      <main id="main" className={`${styles.adMain} ${styles.stackHeads} ${styles.statsGrotesk}`}>
-        {/* Dark → light → dark rhythm; no two dark sections touch. */}
+    // `h2Leading` and `wideHeadGap`: every H2 at a 130% line height and a wider
+    // gap under every section head, as /ad/remote-developer.
+    <div className={`${home.page} ${styles.h2Leading} ${styles.wideHeadGap}`}>
+      {/* `stackHeads`: the eyebrow, then the heading, then its subtext under it. */}
+      <main id="main" className={`${styles.adMain} ${styles.stackHeads}`}>
+        {/* This page's own hero, unchanged (by request). */}
         <Hero noNav content={rsHero} idPrefix="ad-remote-developers" breadcrumb={false} />
 
+        {/* From here down, the /ad/remote-developer sections in its order (by
+            request). Dark → light → dark rhythm; no two dark sections touch. */}
+        <StatsStrip items={rdpStats} />
+
         <div className={home.light}>
-          {/* The live page's client logos sit inside its hero section; here they
-              open the white band that follows it. */}
-          {/* `headStacked`: the heading held to 70% of the screen, its paragraph under it (by request). */}
           <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={rsClients.title} body={rsClients.body} wideTitle headStacked />
         </div>
 
-        {/* Top Talent on the dark ground, by request; Why and Our Services stay on the light band after it.
-            `primary`: its button matches the Our Services one (by request). */}
-        <TopTalent content={rsTalent} primary />
+        <TalentCollage content={talent} second={talentSecond} />
 
         <div className={home.light}>
-          {/* `ctaRoomy`: a full section's room under the closing line, so Services
-              opens a proper section gap below it (by request). */}
-          <div className={`${styles.gridWithCta} ${styles.ctaRoomy}`}>
-            <FeatureAccordion content={rsWhyFeatures} id="why" />
-            <CtaRow lead={rsWhyClosing} tight />
-          </div>
-          {/* The services as a carousel, one card at a time with the Experts
-              arrows, then its own close — as on /ad/remote-developer (by request). */}
+          <WhyGrid content={why} />
           <ServiceCarousel content={rsServices} id="services" />
           <CtaRow {...rsServicesCta} attached primary headingLead />
         </div>
 
-        <CtaBand content={rsScaleBand} />
+        <TechTabs content={rsTech} />
 
-        {/* Light band after the dark "Scale" band, then the dark practice cards. */}
-        <div className={home.light}>
-          <TechStack content={rsTech} largeLogos />
-        </div>
-
-        {/* Photo-backed cards closing on a CTA card (review, from a reference). */}
         <PracticeShowcase content={rsPracticeShowcase} id="practice" />
 
         <div className={home.light}>
-          <PhotoSteps content={rsProcessPhotos} id="journey" />
+          <Process content={process} id="journey" />
         </div>
 
-        {/* Dark band: the twenty skills as a carousel with centred cards, each
-            with its "Hire Now" to the trial popup — as on /ad/remote-developer (by request). */}
         <SkillCarousel content={rsExperts} id="experts" />
 
-        {/* The site's warm-white band, so the dark experts above it are not
-            followed by a second dark section. */}
         <div className={home.light}>
           <Testimonials content={rsTestimonials} />
         </div>
