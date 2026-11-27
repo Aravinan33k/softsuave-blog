@@ -27,8 +27,6 @@ export interface PracticeShowcaseContent {
     /** Root-relative photo, darkened and faded in behind the card's right side. */
     readonly image: string;
   }[];
-  /** "Learn More" under every card. */
-  readonly more: { readonly label: string; readonly href: string };
   /** The closing card in the grid's last slot. */
   readonly closer: {
     readonly eyebrow: string;
@@ -40,7 +38,7 @@ export interface PracticeShowcaseContent {
 
 /**
  * "Code & Practice" as photo-backed cards (review, from a reference): each card
- * an icon tile with a coral glow, the name, its line and a "Learn More" link,
+ * an icon tile with a coral glow, the name and its line,
  * over a dark photo that fades in from the right. The grid closes on a CTA
  * card — an eyebrow, a two-line headline (the second line in the accent), a
  * line and a button, over a drawn coral wave.
@@ -74,11 +72,6 @@ export default function PracticeShowcase({ content, id = "practice" }: { content
                 </span>
                 <h3 className={styles.showName}>{item.name}</h3>
                 <p className={styles.showBody}>{item.body}</p>
-                <a className={styles.showMore} href={content.more.href}>
-                  {content.more.label}
-                  <span className={landing.srOnly}> about {item.name}</span>
-                  <ArrowRight size={16} strokeWidth={2} aria-hidden />
-                </a>
               </article>
             </FadeUp>
           );

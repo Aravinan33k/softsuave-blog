@@ -8,15 +8,15 @@ import {
   rdHero,
   rdMeta,
   rdPopup,
-  rdPractice,
-  rdProcess,
   rdServices,
   rdServicesCta,
   rdTech,
   rdTestimonials,
-  rdWhy,
   rdWhyClosing,
 } from '@/lib/home/ad-remote-developer-content';
+// The Why, Code & Practice and Process sections as /ad/remote-developers sets them
+// (by request). Same copy as this page's own: those three are built from it.
+import { rsPracticeShowcase, rsProcessPhotos, rsWhyFeatures } from '@/lib/home/ad-remote-developers-content';
 
 import { clientsPageBrands } from '@/lib/home/clients-content';
 
@@ -26,10 +26,10 @@ const Testimonials = dynamic(() => import('@/components/home/testimonials'));
 const TrialModal = dynamic(() => import('@/components/ad/trial-modal'));
 
 import Hero from '@/components/landing/hero';
-import Process from '@/components/landing/process';
 import TechStack from '@/components/landing/tech-stack';
-// The grid whose cards can carry the live page's own icon images.
-import CardGrid from '@/components/generative-ai/industries';
+import FeatureAccordion from '@/components/common/feature-accordion';
+import PracticeShowcase from '@/components/ad/practice-showcase';
+import PhotoSteps from '@/components/ad/photo-steps';
 import CtaRow from '@/components/ad/cta-row';
 import ServiceCarousel from '@/components/ad/service-carousel';
 
@@ -85,10 +85,10 @@ export default function AdRemoteDeveloperPage() {
     // `h2Leading`: every H2 on this page at a 130% line height; `wideHeadGap`:
     // a wider gap under every section head (both by request).
     <div className={`${home.page} ${styles.h2Leading} ${styles.wideHeadGap}`}>
-      {/* `twoLineHeads`: the Clients and Services headings in two lines, by request. */}
-      {/* `halfHeads`: section heads with the eyebrow on top, then heading left
-          and subtext right of a centre rule (by request, this page only). */}
-      <main id="main" className={`${styles.adMain} ${styles.twoLineHeads} ${styles.halfHeads}`}>
+      {/* `stackHeads`: every section head as /ad/remote-developers sets it — the
+          eyebrow, then the heading held to 70% of the screen, then its subtext
+          under it, no divider (by request). */}
+      <main id="main" className={`${styles.adMain} ${styles.stackHeads}`}>
         {/* Dark → light → dark rhythm; no two dark sections touch. */}
         {/* `heroNoteHighlight`: the guarantee line in the accent colour (by request). */}
         <div className={`${styles.wipeForm} ${styles.heroNoteHighlight} ${styles.heroBodyEarly}`}>
@@ -98,8 +98,9 @@ export default function AdRemoteDeveloperPage() {
         <div className={home.light}>
           {/* The live page's client logos sit inside its hero section; here they
               open the white band that follows it. */}
-          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={rdClients.title} body={rdClients.body} wideTitle />
-          <CardGrid content={rdWhy} id="why" variant="bold" />
+          <Clients logos={clientsPageBrands.logos} eyebrow="Our Clients" title={rdClients.title} body={rdClients.body} wideTitle headStacked />
+          {/* Why Choose Us as an accordion beside a photo, as /ad/remote-developers (by request). */}
+          <FeatureAccordion content={rsWhyFeatures} id="why" />
           {/* The Why section's closing line: under its cards, in the heading face.
               Not `joined`: it keeps the band's bottom padding, so Services opens
               a full section gap below it (by request). */}
@@ -113,9 +114,13 @@ export default function AdRemoteDeveloperPage() {
 
         <TechStack content={rdTech} largeLogos />
 
+        {/* Code & Practice on the dark ground, as /ad/remote-developers (by request):
+            photo-backed cards closing on a CTA card. */}
+        <PracticeShowcase content={rsPracticeShowcase} id="practice" />
+
+        {/* The steps as photo cards on the light band, as /ad/remote-developers. */}
         <div className={home.light}>
-          <CardGrid content={rdPractice} id="practice" variant="bold" />
-          <Process content={rdProcess} id="journey" label="n" />
+          <PhotoSteps content={rsProcessPhotos} id="journey" />
         </div>
 
         {/* Dark band: the twenty skills as a carousel, five to a page (by
