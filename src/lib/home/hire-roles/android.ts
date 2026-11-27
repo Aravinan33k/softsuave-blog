@@ -32,6 +32,7 @@ export const android: HireRolePageContent = {
   groundOverrides: { process: 'light' },
   key: 'hire-android',
   slug: '/hire-android-developers',
+  stackedHeads: true,
   name: 'Hire Android Developers',
   serviceType: 'Android development staffing',
 

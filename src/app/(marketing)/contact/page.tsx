@@ -6,6 +6,8 @@ import { contactMeta } from '@/lib/home/contact-content';
 import Nav from '@/components/home/nav';
 import Footer from '@/components/home/footer';
 import styles from '@/components/home/home.module.css';
+import landing from '@/components/landing/landing.module.css';
+import genAi from '@/components/generative-ai/gen-ai.module.css';
 import Sections from './sections';
 
 /**
@@ -58,7 +60,7 @@ const HOME_HREF = BASE_PATH || '/';
 
 export default function ContactPage() {
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${styles.stackedHeads} ${landing.stackedHeads} ${genAi.stackedHeads}`}>
       <Nav logoHref={HOME_HREF} />
       <main id="main">
         <Sections />

@@ -38,9 +38,20 @@ export default function LifeGallery({
   content: LifeGalleryContent;
   id?: string;
 }) {
+  // "Lead: rest" sets as two lines, the colon ending the first.
+  const [lead, ...restParts] = content.title.split(": ");
+  const title = restParts.length ? (
+    <>
+      {lead}:<br />
+      {restParts.join(": ")}
+    </>
+  ) : (
+    content.title
+  );
+
   return (
     <section className={landing.sectionShell} id={id}>
-      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} />
+      <SectionHead kicker={content.eyebrow} title={title} intro={content.body} wide titleMax="46ch" />
 
       <div className={styles.rows}>
         {content.rows.map((row, r) => (

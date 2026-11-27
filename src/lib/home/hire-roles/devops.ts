@@ -32,6 +32,7 @@ export const devops: HireRolePageContent = {
   clientsWideTitle: true,
   key: 'hire-devops',
   slug: '/hire-devops-developers',
+  stackedHeads: true,
   name: 'Hire DevOps Engineers',
   serviceType: 'DevOps engineering staffing',
 

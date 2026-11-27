@@ -34,6 +34,7 @@ export const backend: HireRolePageContent = {
   closingCtaIcon: true,
   key: 'hire-backend',
   slug: '/hire-backend-application-developer',
+  stackedHeads: true,
   name: 'Hire Backend Developers',
   serviceType: 'Backend development staffing',
   // Matches the live page's own breadcrumb trail: Home › Hire Developers —
