@@ -1,8 +1,45 @@
 "use client";
 
-import { useRef, type ElementType, type ReactNode } from "react";
+import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 import SplitType from "split-type";
-import { gsap, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/home/gsap";
+import { isOnScreen } from "@/lib/home/on-screen";
+
+/*
+ * `--fit-width` measuring, batched across every heading on the page
+ * (BUG-026). Each heading used to measure itself in its own frame callback:
+ * clear the property (a style write), then read its line boxes — a forced
+ * layout of the whole page per heading, eleven of them back to back while
+ * the homepage loads. Here all the clears go first, then all the reads (one
+ * layout), then all the writes.
+ */
+const fitQueue = new Set<HTMLElement>();
+let fitFrame = 0;
+
+function fitWidthOf(el: HTMLElement): number {
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  const left = el.getBoundingClientRect().left;
+  let right = left;
+  for (const rect of range.getClientRects()) right = Math.max(right, rect.right);
+  return right > left ? Math.ceil(right - left) + 1 : 0;
+}
+
+function flushFit() {
+  fitFrame = 0;
+  const els = [...fitQueue].filter((el) => el.isConnected);
+  fitQueue.clear();
+  for (const el of els) el.style.removeProperty("--fit-width");
+  const widths = els.map(fitWidthOf);
+  els.forEach((el, i) => {
+    if (widths[i]) el.style.setProperty("--fit-width", `${widths[i]}px`);
+  });
+}
+
+function scheduleFit(el: HTMLElement) {
+  fitQueue.add(el);
+  if (!fitFrame) fitFrame = requestAnimationFrame(flushFit);
+}
 
 type Props = {
   children: ReactNode;
@@ -42,39 +79,155 @@ export default function SplitReveal({
 }: Props) {
   const ref = useRef<HTMLElement | null>(null);
 
+  // Publish the width of the heading's longest line as `--fit-width`.
+  //
+  // A wrapped block is as wide as its container, not as its text, so a heading
+  // beside a divider (the split section heads) leaves the slack of its last
+  // wrap as extra space before the rule — the gap either side of it no longer
+  // matches. The split-head CSS caps the heading at this width so its column
+  // hugs the text. Capping at the widest line can never change where a line
+  // breaks, and the variable does nothing where no rule reads it.
+  //
+  // Re-measured on resize and once the web fonts land: the property comes off
+  // first so the heading wraps at its natural width, then goes back on in the
+  // same frame, so nothing paints in between. The root element is observed —
+  // not the heading's own column, whose width this changes.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const schedule = () => scheduleFit(el);
+    const observer = new ResizeObserver(schedule);
+    observer.observe(document.documentElement);
+    document.fonts?.ready.then(schedule);
+    return () => {
+      observer.disconnect();
+      fitQueue.delete(el);
+    };
+  }, []);
+
   useGSAP(
-    () => {
-      if (prefersReducedMotion() || !ref.current) return;
-      const split = new SplitType(ref.current, {
-        types: type === "chars" ? "lines,chars" : "lines,words",
-      });
-      const targets = (type === "chars" ? split.chars : split.words) ?? [];
-      if (!targets.length) return;
+    (_context, contextSafe) => {
+      const el = ref.current;
+      if (prefersReducedMotion() || !el) return;
+      // Already on screen at hydration: leave the heading as painted rather
+      // than splitting it into fresh, hidden words (see on-screen.ts).
+      if (isOnScreen(el)) return;
+      let split: SplitType | null = null;
+      let tween: gsap.core.Tween | null = null;
+      let resizeObserver: ResizeObserver | null = null;
+      let resizeTimer = 0;
+      let lastWidth = 0;
 
-      // Each line is a clip-path/overflow mask; pieces rise from below with a
-      // slight rotation + fade for a bolder, clearly-in-view reveal.
-      gsap.set(split.lines, {
-        overflow: "hidden",
-        clipPath: "inset(-10% 0% -35% 0%)",
-        paddingBottom: "0.28em",
-        marginBottom: "-0.28em",
-      });
-      gsap.set(targets, { yPercent: 110, rotate: 0.001, opacity: 0 });
-      gsap.to(targets, {
-        yPercent: 0,
-        opacity: 1,
-        duration,
-        ease,
-        stagger,
-        delay,
-        scrollTrigger: scrub
-          ? { trigger: ref.current, start, end, scrub: 0.8 }
-          : { trigger: ref.current, start, once: true },
-      });
+      // `played`: the reveal already ran, so a re-split (below) leaves the words
+      // where they ended up instead of hiding them and playing the reveal again.
+      const build = (played: boolean) => {
+        split = new SplitType(el, {
+          types: type === "chars" ? "lines,chars" : "lines,words",
+        });
 
-      return () => split.revert();
+        // SplitType puts each visual line in its own block and drops the space
+        // at every wrap, so anything reading the text — crawlers, SEO audits —
+        // got "Builtfor", "AllSizes". A space between block lines renders as
+        // nothing; `revert()` restores the original markup, spaces and all.
+        split.lines?.slice(0, -1).forEach((line) => line.after(" "));
+        const targets = (type === "chars" ? split.chars : split.words) ?? [];
+        if (!targets.length) return;
+
+        // Each line is a clip-path/overflow mask; pieces rise from below with a
+        // slight rotation + fade for a bolder, clearly-in-view reveal.
+        gsap.set(split.lines, {
+          overflow: "hidden",
+          clipPath: "inset(-10% 0% -35% 0%)",
+          paddingBottom: "0.28em",
+          marginBottom: "-0.28em",
+        });
+        if (played) return;
+        gsap.set(targets, { yPercent: 110, rotate: 0.001, opacity: 0 });
+        tween = gsap.to(targets, {
+          yPercent: 0,
+          opacity: 1,
+          duration,
+          ease,
+          stagger,
+          delay,
+          scrollTrigger: scrub
+            ? { trigger: el, start, end, scrub: 0.8 }
+            : { trigger: el, start, once: true },
+          // A play-once reveal hands the heading back as plain text when it
+          // lands. The split's line blocks are fixed at the width they were
+          // measured at — before the web font arrived, or before a resize or
+          // zoom — and then wrap again inside themselves, stranding a word on
+          // its own line ("…for All / Your / Technology Needs", ad remote-
+          // developers review). The landed state matches the original markup,
+          // so the swap does not show; the heading then re-wraps naturally and
+          // its `--fit-width` is re-measured.
+          onComplete: scrub
+            ? undefined
+            : () => {
+                split?.revert();
+                split = null;
+                scheduleFit(el);
+              },
+        });
+      };
+
+      // SplitType fixes each line break at the width the heading had when it
+      // was split. Resize the window afterwards (a responsive-mode drag, a
+      // rotated tablet) and the old breaks stay, leaving a stranded word on a
+      // line of its own. Re-split when the heading's width changes.
+      const resplit = () => {
+        if (!split) return;
+        const width = el.getBoundingClientRect().width;
+        if (Math.abs(width - lastWidth) < 1) return;
+        lastWidth = width;
+        const played = !tween || tween.progress() === 1;
+        tween?.scrollTrigger?.kill();
+        tween?.kill();
+        tween = null;
+        split.revert();
+        build(played);
+        ScrollTrigger.refresh();
+      };
+
+      const arm = () => {
+        build(false);
+        lastWidth = el.getBoundingClientRect().width;
+        if (typeof ResizeObserver === "undefined") return;
+        resizeObserver = new ResizeObserver(() => {
+          window.clearTimeout(resizeTimer);
+          resizeTimer = window.setTimeout(resplit, 150);
+        });
+        resizeObserver.observe(el.parentElement ?? el);
+      };
+
+      // Split and arm only when the heading is about to scroll into view
+      // (BUG-026). Doing it for every heading at hydration — a split, a style
+      // read per word, a ScrollTrigger each — was the largest share of the
+      // homepage's main-thread work while it loaded, almost all of it for
+      // headings screens below the fold. The 30% look-ahead hides the words
+      // before the heading is on screen, so the reveal looks as it did.
+      // `contextSafe` records what `arm` creates, so cleanup still reverts it.
+      const armSafe = contextSafe ? contextSafe(arm) : arm;
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((e) => e.isIntersecting)) return;
+          io.disconnect();
+          armSafe();
+        },
+        { rootMargin: "0px 0px 30% 0px" },
+      );
+      io.observe(el);
+
+      return () => {
+        io.disconnect();
+        resizeObserver?.disconnect();
+        window.clearTimeout(resizeTimer);
+        split?.revert();
+      };
     },
-    { scope: ref },
+    // `Tag` can change after hydration (see `useDesktopScene`), which mounts a
+    // new element; re-split it rather than leave it unsplit.
+    { scope: ref, dependencies: [Tag], revertOnUpdate: true },
   );
 
   return (

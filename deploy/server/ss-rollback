@@ -1,0 +1,25 @@
+#!/bin/bash
+# Switch www.softsuave.com back to the release that was live before the current one.
+# Run by the pipeline's manual "rollback" job (through ss-deploy-gate) as root via sudo.
+# Running it twice switches forward again.
+set -euo pipefail
+BASE=/var/www/softsuave-site
+PM2="env PATH=/root/.nvm/versions/node/v20.19.5/bin:/usr/bin:/bin pm2"
+
+exec 9>/var/lock/ss-deploy.lock
+flock -n 9 || { echo "another deploy or rollback is running"; exit 1; }
+
+CUR=$(basename "$(readlink -f "$BASE/current")")
+PREV=$(cat "$BASE/releases/.previous" 2>/dev/null || true)
+[ -n "$PREV" ] && [ -f "$BASE/releases/$PREV/.next/BUILD_ID" ] || { echo "no previous release to roll back to"; exit 1; }
+
+echo "$(date -u +%FT%TZ) rollback $CUR -> $PREV" | tee -a "$BASE/logs/rollback.log"
+ln -sfn "releases/$PREV" "$BASE/current.new"
+mv -T "$BASE/current.new" "$BASE/current"
+echo "$CUR" > "$BASE/releases/.previous"
+$PM2 restart softsuave-site --update-env > /dev/null
+
+for i in $(seq 1 60); do curl -s -o /dev/null -m 3 http://127.0.0.1:3300/ && break; sleep 1; done
+code=$(curl -s -o /dev/null -m 15 -w '%{http_code}' https://www.softsuave.com/ || true)
+echo "$(date -u +%FT%TZ) live: $PREV, homepage $code" | tee -a "$BASE/logs/rollback.log"
+[ "$code" = 200 ]

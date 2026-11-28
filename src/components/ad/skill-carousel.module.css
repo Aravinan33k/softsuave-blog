@@ -1,0 +1,135 @@
+/* =====================================================================
+   SKILL CAROUSEL — the /ad pages' skills row (`skill-carousel.tsx`).
+   One row of cards on native scroll-snap, moving a card at a time; the
+   arrow pair sits under it on the right.
+   Band tokens only, so it reads on whichever ground it sits on.
+   ===================================================================== */
+
+.carousel {
+  position: relative;
+  /* Cards in view. */
+  --per: 1.15;
+  --gap: clamp(14px, 1.6vw, 24px);
+}
+
+.track {
+  display: flex;
+  gap: var(--gap);
+  margin: 0;
+  /* Room for the cards' hover lift and shadow inside the scroller. */
+  padding: 8px 1px 18px;
+  list-style: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: 0 0 calc((100% - (var(--per) - 1) * var(--gap)) / var(--per));
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+/* The shared bold card's frame and padding, without its coloured top rule. */
+.card {
+  display: flex;
+  flex-direction: column;
+  /* Icon, name and button centred in the card (by request). */
+  align-items: center;
+  text-align: center;
+  gap: clamp(14px, 1.3vw, 18px);
+  height: 100%;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: clamp(22px, 2.4vw, 32px) clamp(20px, 2.1vw, 30px);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.35s ease;
+}
+
+.card:hover,
+.card:focus-within {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+  box-shadow: 0 14px 34px -14px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+/* The logo on a rounded tile, a step lighter than the card. */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--text-bright) 6%, var(--surface));
+}
+
+.iconImg {
+  width: auto;
+  height: 40px;
+  max-width: 44px;
+  object-fit: contain;
+}
+
+/* The shared card title, kept to two lines' height so every button lines up. */
+.name {
+  min-height: 2.5em;
+}
+
+.cta {
+  margin-top: auto;
+  align-self: center;
+}
+
+/* ---- Arrows -------------------------------------------------------- */
+
+/* The client stories' arrow pair (home.rArrows / rArrowBtn), under the row
+   on the right. */
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: clamp(10px, 1.2vw, 16px);
+}
+
+/* ---- Cards per page ------------------------------------------------ */
+
+@media (min-width: 560px) {
+  .carousel {
+    --per: 2;
+  }
+}
+
+@media (min-width: 760px) {
+  .carousel {
+    --per: 3;
+  }
+}
+
+@media (min-width: 1000px) {
+  .carousel {
+    --per: 4;
+  }
+}
+
+@media (min-width: 1280px) {
+  .carousel {
+    --per: 5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .card:hover,
+  .card:focus-within {
+    transform: none;
+  }
+}

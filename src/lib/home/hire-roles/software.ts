@@ -1,0 +1,433 @@
+/**
+ * Content for `/hire-software-developers`.
+ *
+ * Source: softsuave.com/hire-software-developers, and nothing else. Every
+ * heading, paragraph, card, step, table cell, technology name and FAQ answer
+ * below is that page's own text. Where this surface's sections are named
+ * differently, the mapping is:
+ *
+ *   hero                → the H1, its sub-copy and the five hero bullets
+ *   overview            → "Hire Software Developers with the Skills Your Team Needs"
+ *   specialisations     → "Hire Remote Software Developers for Your Technology Needs"
+ *   globalDelivery      → "Global Delivery for Distributed Development Teams"
+ *   process             → "Our 4-Step Process to Hire a Software Developer"
+ *   midCta              → "Hire the Right Software Developer with a 40-Hour Trial"
+ *   techStack           → "Technology Stack for Modern Software Engineering"
+ *   whyRole             → "Why Hire Software Developers From Soft Suave?"
+ *   comparison          → the Soft Suave / in-house / freelancer table
+ *   faq                 → "Frequently Asked Questions About Hiring Developers"
+ *
+ * `capabilities` is omitted: the live page has one "what you can hire" band,
+ * not two, and that band is the linked discipline list in `specialisations`.
+ */
+
+import type { HireRolePageContent } from './types';
+import { heroForm, hiringComparison } from './shared';
+import { HOURLY_RATE, SPECIALISTS_PLUS, YEARS_PLUS } from '@/lib/company-figures';
+
+export const software: HireRolePageContent = {
+  closingCtaIcon: true,
+  key: 'hire-software',
+  slug: '/hire-software-developers',
+  stackedHeads: true,
+  name: 'Hire Software Developers',
+  serviceType: 'Software development staffing',
+
+  /** Live order: clients, overview, developer expertise, global delivery, evaluation, trial, tech stack, why choose us, comparison, testimonials, FAQ. */
+  order: [
+    'clients',
+    'overview',
+    'specialisations',
+    'globalDelivery',
+    'process',
+    'midCta',
+    'techStack',
+    'whyRole',
+    'comparison',
+    'testimonials',
+    'faq',
+  ],
+
+  meta: {
+    title: 'Hire Software Developers from India | Remote & Dedicated Teams',
+    description:
+      'Access software developers from India for global teams. Hire remote, dedicated, or offshore talent with a 40-hour risk-free trial.',
+  },
+
+  hero: {
+    titleLines: ['Hire Software Developers Get the', 'Right Talent for Your Next Project'],
+    accent: 'Software Developers',
+    body: [
+      'Hire experienced software developers from India, matched to your technology stack, project requirements, and team needs. Add the right expertise to accelerate development, strengthen delivery, and support your business goals.',
+      'Review relevant profiles, interview developers directly, and use a 40-hour risk-free trial to evaluate fit before extending the engagement.',
+    ],
+    // A full-bleed backdrop, set up like the frontend page's hero.
+    background: {
+      src: '/images/landing/hire-roles/hire-software-developer-cover.webp',
+      blurDataURL:
+        'data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQAgCdASoQAAgAAsBMJbACdAEf58z8he0AAP70oQfNPuv6S0OqtwzcfcSOoerEk8z6xi53ai0G32Ed193VZyRKvr8o8NhuiyXG+xi4yF3U0Qibc+Uuz1aDVBqDNqYOmPcD+w4AAAA=',
+      veil: 'strong',
+    },
+    points: [
+      'Project-Ready Developer Profiles',
+      `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+      '40-Hour Risk-Free Trial',
+      'Flexible Hiring Options',
+      'Direct Developer Collaboration',
+    ],
+    form: heroForm({
+      submitHover: 'black',
+      title: 'Get Skilled Software Developers',
+      requirementLabel: 'How can we help (your requirement)',
+      requirementPlaceholder:
+        'Tell us about your project scope, required skills, timeline, and preferred hiring model.',
+      subject: 'Software developer hiring enquiry',
+    }),
+  },
+
+  // The overview and global-delivery photos are both hand-placed, so each
+  // states its own `align: 'both'` — photo and copy centred on each other at
+  // every desktop width (review: "fix the center alignment for overview
+  // section and global delivery section").
+  //
+  // The client strip's heading in two even lines, like the page's other split
+  // heads (review: "need to fix the clients section h2 heading also").
+  clientsWideTitle: '34ch',
+  // Every band on the ground the live page gives it (review: "update the
+  // section dark and light theme like this page", softsuave.com/hire-software-
+  // developers, read 23 Nov) — pinned in full, so `assignGrounds` places
+  // nothing here and the page matches the live sequence band for band.
+  groundOverrides: {
+    clients: 'light',
+    overview: 'light',
+    specialisations: 'dark',
+    globalDelivery: 'dark',
+    process: 'light',
+    midCta: 'dark',
+    techStack: 'light',
+    whyRole: 'dark',
+    comparison: 'light',
+    testimonials: 'light',
+    faq: 'light',
+  },
+  overview: {
+    eyebrow: 'Overview',
+    title: 'Hire Software Developers with the Skills Your Team Needs',
+    paragraphs: [
+      'Hiring software developers gives you additional engineering capacity without requiring every role to become a permanent internal hire. The right developer should match your technology stack, responsibilities, delivery process, and collaboration requirements.',
+      'Soft Suave helps you identify software developers for hire across frontend, backend, full-stack, mobile, and cloud-focused development. You can review relevant experience, interview shortlisted developers, and evaluate how they work with your team before continuing the engagement.',
+      'This approach can support new product development, ongoing feature delivery, modernization, integrations, technical capacity gaps, and longer-term engineering requirements.',
+    ],
+    // Hand-placed photo (review: "update this image for hire software
+    // developer page overview section"); replaces the pipeline's per-page
+    // photo, so the alignment is stated here.
+    image: {
+      src: '/images/landing/ov-hire-software-developers-v2.webp',
+      width: 1536,
+      height: 1024,
+      alt: 'A developer typing at a keyboard with code editor windows floating above it',
+      blurDataURL:
+        'data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAADwAQCdASoQAAsAAsBMJaACdAEO9vJS9AAA/vR4sboZTeFoQnkt6gwFM+fUJP+ZZ88Vbr5cGTzB/NagmwpnA+x6U1EpvRK9QuyjT9Om4Kp9Scw1sUuoaWUwu0T7ELfZXb/5jOyCR6AAAA==',
+      align: 'both',
+    },
+  },
+
+  midCta: {
+    eyebrow: 'Start With a Trial',
+    title: 'Hire the Right Software Developer with a 40-Hour Trial',
+    body: 'Evaluate your developer through real project work and assess technical execution, communication, responsiveness, and team compatibility before extending the engagement.',
+    cta: { label: 'Start Your 40-Hour Trial', href: '/free-7-days-trial' },
+  },
+
+  globalDelivery: {
+    eyebrow: 'Global Delivery',
+    title: 'Global Delivery for Distributed Development Teams',
+    paragraphs: [
+      'Hiring software developers in India gives global teams access to experienced technical talent across modern development stacks while supporting flexible team expansion and distributed delivery.',
+      "Soft Suave's developers work across frontend, backend, full-stack, mobile, cloud, and DevOps technologies, with delivery teams based in Chennai and Bengaluru.",
+      'You can integrate developers into your existing workflows through sharedproject tools, direct communication, agreed working-hour overlap, and established development processes.',
+    ],
+    // Hand-placed illustration (review: "update this image for Global Delivery
+    // section"); replaces the pipeline's `landing/dl-<slug>` photo, so the
+    // alignment is stated here.
+    image: {
+      src: '/images/landing/dl-hire-software-developers-v2.webp',
+      width: 960,
+      height: 720,
+      alt: 'A developer at a laptop on video calls with remote teammates, with Bengaluru and Chennai pinned on a globe',
+      blurDataURL:
+        'data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAABwAgCdASoQAAwAAsBMJbACdAYsZwn+VLfGpHEAAP74MubqWe+99t1AOs26lN/n5O6pt5GApFUrE3trMXd/QE7py2eKRlG7ENUUUfAr5GiraPL1dn9SHBW3NF1sxLfEG9nBGTKi33eW4w3jYQI1E0ZVgwv7DHtb2SZ/JV7pSAAAAA==',
+      align: 'both',
+    },
+  },
+
+  process: {
+    eyebrow: 'Developer Evaluation',
+    title: 'Our 4-Step Process to Hire a Software Developer',
+    body: 'Make hiring simpler with a structured process designed to help you hire remote software developers who match your technical needs, collaboration style, and delivery expectations.',
+    steps: [
+      {
+        n: '01',
+        name: 'Share Your Developer Requirement',
+        body: 'Share your project scope, required skills, timeline, and preferred hiring model with our team.',
+      },
+      {
+        n: '02',
+        name: 'Review Curated Developer Profiles',
+        body: 'Get shortlisted developer profiles matched to your skills, goals, availability, and team needs.',
+      },
+      {
+        n: '03',
+        name: 'Start the 40-Hour Risk-Free Trial',
+        body: "Test the developer's coding skills, communication, quality, and workflow fit before onboarding.",
+      },
+      {
+        n: '04',
+        name: 'Onboard the Developer to Your Team',
+        body: 'Finalize SLA and NDA, set up communication, and integrate the developer into your workflow.',
+      },
+    ],
+  },
+
+  specialisations: {
+    eyebrow: 'Developer Expertise',
+    title: 'Hire Remote Software Developers for Your Technology Needs',
+    wideHead: true,
+    // Wider, balanced title column on every split head of this page, so the
+    // H2s set in two even lines instead of three ragged ones (review: "fix
+    // the h2 heading for all the section").
+    // One scrolling row (review: "change the UI like a carousel card scrolling"):
+    // four cards in view at 1920, three at 1440, fewer below.
+    carousel: true,
+    // Advances one card at a time on its own (review: "set the automatic
+    // smooth scrolling the card one by one").
+    autoplay: true,
+    body: 'Hire software developers in India with expertise across web, mobile, frontend, backend, full-stack, DevOps, and other technologies aligned to your project requirements.',
+    items: [
+      {
+        key: 'web',
+        name: 'Hire Web App Developers',
+        body: 'Expand your team with skilled web app developers who craft responsive, convenient, and performant applications. Whether you need dynamic features or secure solutions, our developers bring your web vision to life with precision.',
+        href: '/hire-web-app-developers',
+      },
+      {
+        key: 'mobile',
+        name: 'Hire Mobile App Developers',
+        body: 'Hire mobile app developers for iOS and Android and elevate your mobile presence. We build smooth, intuitive, and high-performing mobile apps that drive engagement and provide users with seamless experiences on any device.',
+        href: '/hire-mobile-app-developers',
+      },
+      {
+        key: 'frontend',
+        name: 'Hire Frontend Developers',
+        body: 'Bring your user interfaces to life with frontend developers who create dynamic, visually appealing, and responsive applications. We ensure that your users have a seamless experience across all devices, while optimizing design and performance.',
+        href: '/hire-frontend-application-developer',
+      },
+      {
+        key: 'backend',
+        name: 'Hire Backend Developers',
+        body: "Enhance your application's foundation with backend developers who build secure, scalable, and efficient server-side systems. They ensure smooth data flow, robust integrations, and minimal downtime, supporting a flawless user experience.",
+        href: '/hire-backend-application-developer',
+      },
+      {
+        key: 'fullstack',
+        name: 'Hire Fullstack Developers',
+        // Live's target, which this site now serves.
+        href: '/hire-full-stack-developers-in-india',
+        body: 'Get versatile, well-rounded full-stack developers who manage both front-end and back-end development with expertise. They seamlessly integrate your application layers, ensuring scalability, security, and efficiency for end-to-end solutions.',
+      },
+      {
+        key: 'devops',
+        name: 'Hire DevOps Engineers',
+        body: 'Speed up your development process with DevOps developers who ensure smooth collaboration between development and operations. They streamline continuous integration and delivery, enabling faster deployments, enhanced reliability, and system stability.',
+        href: '/hire-devops-developers',
+      },
+      {
+        key: 'blockchain',
+        name: 'Hire Blockchain Developers',
+        body: 'Unlock the power of blockchain with developers who build secure, decentralized applications. We create robust blockchain solutions, offering transparency, immutability, and efficiency for everything from smart contracts to crypto-based projects.',
+        href: '/hire-blockchain-developer',
+      },
+      {
+        key: 'ecommerce',
+        name: 'Hire E-commerce Developers',
+        body: 'Scale your online business with dedicated e-commerce developers. We specialize in building secure, user-friendly, and high-performing e-commerce platforms that enhance customer experience, drive conversions, and optimize your online sales process.',
+      },
+      {
+        key: 'game',
+        name: 'Hire Game Developers',
+        body: 'Bring your game ideas to life with expert game developers who specialize in creating immersive, high-performance games for mobile, desktop, and consoles. We turn your vision into reality with cutting-edge technology and engaging gameplay experiences.',
+      },
+      {
+        key: 'saas',
+        name: 'Hire SaaS Developers',
+        href: '/hire-saas-developer',
+        body: 'Transform your business with dedicated SaaS developers who create scalable and secure cloud-based apps. We deliver solutions that simplify operations, enhance customer experiences, and support your business goals with powerful SaaS platforms.',
+      },
+      {
+        key: 'fintech',
+        name: 'Hire Fintech Software Developers',
+        body: 'Build innovative financial solutions with experienced fintech developers. We specialize in secure, high-impact apps that streamline financial operations, enhance user experience, and integrate cutting-edge tech to support the future of finance.',
+      },
+    ],
+    // Live closes the section on "Ready to discuss? Contact us".
+    cta: { label: 'Contact us', href: '/contact' },
+  },
+
+  whyRole: {
+    // 45 characters: 34ch holds them on one line at wide screens, 22ch breaks after "From".
+    wideHead: '24ch',
+    eyebrow: 'Why Choose Us',
+    title: 'Why Hire Software Developers From Soft Suave?',
+    carousel: true,
+    autoplay: true,
+    body: 'See why businesses choose Soft Suave to hire software developers and what you can expect throughout the engagement.',
+    items: [
+      {
+        key: 'experience',
+        name: `${YEARS_PLUS} Years of Technology Expertise`,
+        body: `Bring ${YEARS_PLUS} years of technology expertise into software development requirements across applications, integrations, modernization, and ongoing engineering work.`,
+      },
+      {
+        key: 'specialists',
+        name: `${SPECIALISTS_PLUS} AI & Engineering Specialists`,
+        body: `Soft Suave is backed by ${SPECIALISTS_PLUS} AI & Engineering Specialists across multiple development disciplines and technology areas.`,
+      },
+      {
+        key: 'trial',
+        name: '40-Hour Risk-Free Trial',
+        body: 'Evaluate technical execution, communication, responsiveness, and workflow compatibility before deciding whether to extend the developer engagement.',
+      },
+      {
+        key: 'iso',
+        name: 'ISO-Certified Information Security Management',
+        body: 'Soft Suave is ISO/IEC 27001:2022 certified for information security management across our software development and delivery operations.',
+      },
+      {
+        key: 'delivery',
+        name: 'Global Delivery Support',
+        body: 'Delivery presence across Chennai, Bengaluru, and the United States supports collaboration with distributed teams and international development requirements.',
+      },
+    ],
+  },
+
+  comparison: {
+    ...hiringComparison({
+      title: 'Hiring a Software Developer: Soft Suave vs In-House vs Freelancer',
+      body: 'Compare common hiring approaches and find the option that best fits your software development and team requirements.',
+      column: 'Soft Suave Developer',
+    }),
+    wideHead: true,
+  },
+
+  // Category tabs over a centred grid of logo cards (review: "use this ui
+  // design for tech stack section in hire software developers").
+  techStackStyle: 'tabs',
+  submitBlack: true,
+  // Every split section head set like /ad/remote-developers' "Our Clients".
+  halfHeads: true,
+  techStack: {
+    wideHead: true,
+    eyebrow: 'Tech Stack',
+    title: 'Technology Stack for Modern Software Engineering',
+    body: 'Work with frontend, backend, mobile, cloud, DevOps, and AI technologies that support scalable applications, efficient delivery, and modern software engineering workflows.',
+    groups: [
+      {
+        name: 'Frontend',
+        body: 'Build responsive interfaces using modern frameworks for scalable user experiences.',
+        items: ['React', 'Next.js', 'Angular', 'Vue.js', 'TypeScript', 'JavaScript'],
+      },
+      {
+        name: 'Backend',
+        body: 'Develop secure backend systems, APIs, integrations, and business logic efficiently.',
+        items: ['Node.js', '.NET', 'Python', 'Java', 'PHP', 'GraphQL'],
+      },
+      {
+        name: 'Databases',
+        body: 'Manage structured and vector data for reliable application performance needs.',
+        items: ['PostgreSQL', 'Vector Databases'],
+      },
+      {
+        name: 'Mobile',
+        body: 'Create native and cross-platform apps for modern mobile experiences worldwide.',
+        items: ['Swift', 'Kotlin', 'Flutter', 'React Native', 'Ionic', 'SwiftUI'],
+      },
+      {
+        name: 'AI & Data',
+        body: 'Build intelligent features using modern AI, data, and model technologies.',
+        items: [
+          'LLMs',
+          'RAG',
+          'Agentic AI',
+          'PyTorch',
+          'TensorFlow',
+          'LangChain',
+          'Hugging Face',
+          'OpenAI API',
+        ],
+      },
+      {
+        name: 'Cloud & DevOps',
+        body: 'Deploy scalable applications with automated cloud infrastructure and delivery workflows.',
+        items: [
+          'AWS',
+          'Azure',
+          'Google Cloud',
+          'Docker',
+          'Kubernetes',
+          'Terraform',
+          'Jenkins',
+          'CI/CD',
+          'Grafana',
+        ],
+      },
+    ],
+  },
+
+  faq: {
+    eyebrow: 'Ask Us',
+    title: 'Frequently Asked Questions About Hiring Developers',
+    body: 'Find clear answers to common questions about hiring software developers and what to expect before starting an engagement.',
+    // Internal links woven into the answers (review: "several internal
+    // links are missing in the FAQs"). The live FAQs carry none, so these
+    // are ours: each phrase already in the copy, pointing at a served page.
+    links: [
+      { text: 'Dedicated software developers', href: '/hire-dedicated-developers' },
+      { text: 'modernization programs', href: '/legacy-modernization-services' },
+      { text: 'Offshore hiring', href: '/offshore-software-development-company' },
+    ],
+    items: [
+      {
+        q: 'How much does it cost to hire a software developer?',
+        a: `The cost depends on the developer's experience, technology stack, specialization, engagement duration, required capacity, and project responsibilities. Once we understand your requirements, we'll recommend the right developer and engagement model for your project. At Soft Suave, software developer rates start from ${HOURLY_RATE}.`,
+      },
+      {
+        q: 'Can I interview a software developer before hiring?',
+        a: 'Yes. You can interview shortlisted developers before starting the engagement to discuss their experience, technical skills, communication, project understanding, and suitability for your requirements.',
+      },
+      {
+        q: 'What happens during the 40-hour risk-free trial?',
+        a: 'The trial lets you evaluate the developer through practical working interaction. Assess technical execution, requirement understanding, communication, responsiveness, review participation, and compatibility with your development workflow before deciding whether the engagement should continue.',
+      },
+      {
+        q: 'Can I hire software developers in India for a global team?',
+        a: 'Yes. India-based developers can work with distributed teams through agreed communication windows, repositories, project-management tools, documentation, meetings, and delivery processes. Define your required working-hour overlap and collaboration expectations before the engagement begins.',
+      },
+      {
+        q: 'Can I hire dedicated software developers for ongoing work?',
+        a: 'Yes. Dedicated software developers can support ongoing products, platforms, backlogs, modernization programs, and other requirements where continuity matters. Define the expected capacity, responsibilities, technology stack, working model, and project context before profiles are matched.',
+      },
+      {
+        q: 'When should I hire remote software developers?',
+        a: 'Remote developers are suitable when your engineering work can be managed through shared development tools, documented processes, regular communication, and agreed working hours. They can support distributed teams without requiring the developer to work from your location.',
+      },
+      {
+        q: 'Why would I hire offshore software developers?',
+        a: 'Offshore hiring can expand the engineering talent available to your business and support distributed delivery. It works best when responsibilities, communication, reporting, access, working-hour overlap, and project ownership are clearly defined before the engagement starts.',
+      },
+      {
+        q: 'What if the developer is not the right fit?',
+        a: "If the developer profile isn't the right fit, we'll recommend an alternative profile at no additional cost, helping you continue the evaluation without disrupting your hiring process.",
+      },
+    ],
+  },
+};

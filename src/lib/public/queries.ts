@@ -3,6 +3,7 @@ import { cache } from 'react';
 import type { JSONContent } from '@tiptap/core';
 import type { Prisma } from '@/generated/prisma/client';
 import { prisma } from '../db';
+import { isDatabaseNotConfigured } from '../db-errors';
 import { withHeadingAnchors } from '../content/toc';
 import { publicMediaUrl } from '../media-url';
 import type { SiteInfo, PostSummary, PostFull, SocialLink } from '@/themes/_contract';
@@ -85,8 +86,25 @@ async function safe<T>(fn: () => Promise<T>, fallback: T, ctx: string): Promise<
   try {
     return await fn();
   } catch (err) {
-    console.warn(`[public query] ${ctx} failed (using fallback):`, (err as Error).message);
+    // No database configured is an expected state (lib/env.ts), not a failure
+    // worth a warning on every render.
+    if (!isDatabaseNotConfigured(err)) {
+      console.warn(`[public query] ${ctx} failed (using fallback):`, (err as Error).message);
+    }
     return fallback;
+  }
+}
+
+// Single-item lookups when no database is configured (lib/env.ts): there is no
+// blog content, so the lookup finds nothing and the route answers 404. Without
+// this, every unknown URL (/some-page, /tag/x) was a 500. Real database errors
+// still throw, so a DB outage is never served, and cached, as "page not found".
+async function orNoDatabase<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
+  try {
+    return await fn();
+  } catch (err) {
+    if (isDatabaseNotConfigured(err)) return fallback;
+    throw err;
   }
 }
 
@@ -153,15 +171,19 @@ export async function getPublishedPostSlugs(): Promise<string[]> {
 }
 
 export const getPostBySlug = cache(async function getPostBySlug(slug: string): Promise<PostFull | null> {
-  const p = await prisma.post.findFirst({
-    where: { slug, ...publishedFilter() },
-    include: {
-      coverImage: { select: { url: true, altText: true } },
-      author: { select: { name: true, title: true, bio: true, socialLinksJson: true, avatar: { select: { url: true } } } },
-      categories: { include: { category: { select: { name: true, slug: true } } } },
-      tags: { include: { tag: { select: { name: true, slug: true } } } },
-    },
-  });
+  const p = await orNoDatabase(
+    () =>
+      prisma.post.findFirst({
+        where: { slug, ...publishedFilter() },
+        include: {
+          coverImage: { select: { url: true, altText: true } },
+          author: { select: { name: true, title: true, bio: true, socialLinksJson: true, avatar: { select: { url: true } } } },
+          categories: { include: { category: { select: { name: true, slug: true } } } },
+          tags: { include: { tag: { select: { name: true, slug: true } } } },
+        },
+      }),
+    null,
+  );
   if (!p) return null;
   const { html, toc } = withHeadingAnchors(p.contentHtml);
   const summary: PostSummary = {
@@ -239,18 +261,26 @@ export async function getRelatedPosts(post: PostFull, limit = 4): Promise<PostSu
 export async function getAdjacentPosts(publishedAt: string | null): Promise<{ prev: { slug: string; title: string } | null; next: { slug: string; title: string } | null }> {
   if (!publishedAt) return { prev: null, next: null };
   const at = new Date(publishedAt);
-  const [prev, next] = await Promise.all([
-    prisma.post.findFirst({ where: { ...publishedFilter(), publishedAt: { lt: at } }, orderBy: { publishedAt: 'desc' }, select: { slug: true, title: true } }),
-    prisma.post.findFirst({ where: { ...publishedFilter(), publishedAt: { gt: at } }, orderBy: { publishedAt: 'asc' }, select: { slug: true, title: true } }),
-  ]);
+  const [prev, next] = await orNoDatabase(
+    () =>
+      Promise.all([
+        prisma.post.findFirst({ where: { ...publishedFilter(), publishedAt: { lt: at } }, orderBy: { publishedAt: 'desc' }, select: { slug: true, title: true } }),
+        prisma.post.findFirst({ where: { ...publishedFilter(), publishedAt: { gt: at } }, orderBy: { publishedAt: 'asc' }, select: { slug: true, title: true } }),
+      ]),
+    [null, null],
+  );
   return { prev, next };
 }
 
 export const getPageBySlug = cache(async function getPageBySlug(slug: string): Promise<PostFull | null> {
-  const p = await prisma.page.findFirst({
-    where: { slug, ...publishedFilter() },
-    include: { coverImage: { select: { url: true, altText: true } }, author: { select: { name: true } } },
-  });
+  const p = await orNoDatabase(
+    () =>
+      prisma.page.findFirst({
+        where: { slug, ...publishedFilter() },
+        include: { coverImage: { select: { url: true, altText: true } }, author: { select: { name: true } } },
+      }),
+    null,
+  );
   if (!p) return null;
   const { html, toc } = withHeadingAnchors(p.contentHtml);
   return {
@@ -307,15 +337,20 @@ export const getContentMeta = cache(async function getContentMeta(slug: string):
     coverImage: { select: { url: true } },
     author: { select: { name: true } },
   } as const;
-  const post = await prisma.post.findFirst({
-    where: { slug, ...publishedFilter() },
-    select: {
-      ...baseSelect,
-      categories: { include: { category: { select: { name: true } } } },
-      tags: { include: { tag: { select: { name: true } } } },
-    },
-  });
-  const row = post ?? (await prisma.page.findFirst({ where: { slug, ...publishedFilter() }, select: baseSelect }));
+  const post = await orNoDatabase(
+    () =>
+      prisma.post.findFirst({
+        where: { slug, ...publishedFilter() },
+        select: {
+          ...baseSelect,
+          categories: { include: { category: { select: { name: true } } } },
+          tags: { include: { tag: { select: { name: true } } } },
+        },
+      }),
+    null,
+  );
+  const row =
+    post ?? (await orNoDatabase(() => prisma.page.findFirst({ where: { slug, ...publishedFilter() }, select: baseSelect }), null));
   if (!row) return null;
   return {
     kind: post ? 'post' : 'page',
@@ -336,11 +371,11 @@ export const getContentMeta = cache(async function getContentMeta(slug: string):
 });
 
 export const getCategoryBySlug = cache(async function getCategoryBySlug(slug: string) {
-  return prisma.category.findUnique({ where: { slug }, select: { name: true, slug: true, description: true } });
+  return orNoDatabase(() => prisma.category.findUnique({ where: { slug }, select: { name: true, slug: true, description: true } }), null);
 });
 
 export const getTagBySlug = cache(async function getTagBySlug(slug: string) {
-  return prisma.tag.findUnique({ where: { slug }, select: { name: true, slug: true, description: true } });
+  return orNoDatabase(() => prisma.tag.findUnique({ where: { slug }, select: { name: true, slug: true, description: true } }), null);
 });
 
 /** Slugs of published categories/tags that have at least one live post — used by generateStaticParams. */

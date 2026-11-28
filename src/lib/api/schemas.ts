@@ -1,4 +1,12 @@
 import { z } from 'zod';
+import {
+  EMAIL_MESSAGE,
+  NAME_MESSAGE,
+  PHONE_MESSAGE,
+  isValidEmail,
+  isValidName,
+  isValidPhone,
+} from '@/lib/forms/enquiry-rules';
 
 // Request query schemas ------------------------------------------------------
 
@@ -57,3 +65,70 @@ export type TaxonomyItem = z.infer<typeof taxonomyItemDto>;
 export function paginationMeta(page: number, perPage: number, total: number) {
   return { page, perPage, total, totalPages: Math.max(1, Math.ceil(total / perPage)) };
 }
+
+// Enquiry (marketing hero form) ----------------------------------------------
+
+/**
+ * A lead from the landing pages' hero form (`landing/hero.tsx`).
+ *
+ * The maximums are the column widths in `prisma/schema.prisma`, not arbitrary
+ * limits: exceeding a VARCHAR on MySQL in strict mode REJECTS the insert, so a
+ * field that is validated short here can never fail at the database instead,
+ * where the reader would see an opaque 500 after filling the whole form.
+ *
+ * `website` is a honeypot, not a real field — see the route.
+ */
+export const enquiryInput = z.object({
+  // `isValidName` / `isValidPhone` are the SAME predicates the form applies
+  // before it sends (`lib/forms/enquiry-rules.ts`). The client half is the
+  // fast feedback; this is the half that decides, since the form is not the
+  // only way to reach this route. Without it a name of `12345` and a phone of
+  // `abcdef` both stored cleanly — QA BUG-008.
+  name: z
+    .string()
+    .trim()
+    .min(1, 'Please enter your name.')
+    .max(191)
+    .refine(isValidName, NAME_MESSAGE),
+  email: z.email(EMAIL_MESSAGE).trim().max(191).refine(isValidEmail, EMAIL_MESSAGE),
+  // Required: a country calling code and exactly ten digits, as the form's
+  // phone field produces them ("+91 9876543210").
+  phone: z
+    .string()
+    .trim()
+    .min(1, 'Please enter your phone number.')
+    .max(64)
+    .refine(isValidPhone, PHONE_MESSAGE),
+  requirement: z.string().trim().min(1, 'Please tell us what you need.').max(5000),
+  /** The page's own subject line, for triage. Not reader-supplied. */
+  subject: z.string().trim().max(255).optional(),
+  /** Route the form was submitted from, for per-page lead attribution. */
+  sourcePath: z.string().trim().max(512).optional(),
+  /** The page's own key, as the form's `idPrefix` carries it. */
+  sourceKey: z.string().trim().max(191).optional(),
+  /**
+   * Honeypot. Deliberately permissive: rejecting a filled value HERE would
+   * answer a bot with a 400 naming the field, which teaches the next attempt
+   * exactly which input to leave alone. The schema accepts it and the route
+   * decides — silently, with the same 202 a real submission gets.
+   */
+  website: z.string().max(255).optional(),
+  /**
+   * A case study's download request: the site path of its PDF. The visitor is then e-mailed the case study
+   * (a "Download Case Study" button) instead of the generic thank-you. Only a file under /assets/case-studies.
+   */
+  caseStudyPdf: z
+    .string()
+    .trim()
+    .regex(/^\/assets\/case-studies\/[A-Za-z0-9._-]+\.pdf$/, 'Unknown case study.')
+    .optional(),
+  /**
+   * Which of softsuave.com's lead endpoints this form's live counterpart submitted to (`lib/forms/lead-routing.ts`).
+   * Omitted: `developer`, the endpoint every form used before the per-form routing.
+   */
+  leadType: z.enum(['developer', 'contactUs', 'freeQuote']).optional(),
+  /** The company box, sent on its own for the free-quote endpoint (it is also in `requirement`). */
+  company: z.string().trim().max(382).optional(),
+});
+
+export type EnquiryInput = z.infer<typeof enquiryInput>;

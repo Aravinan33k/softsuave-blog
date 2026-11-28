@@ -1,0 +1,64 @@
+/* ============================================================
+   HIRE XAMARIN — page-only spacing.
+   A CSS module private to this route, so nothing here can reach another
+   page. The shared section components keep their own paddings everywhere
+   else; on this page every content band takes one vertical rhythm.
+   ============================================================ */
+.root {
+  --section-y: clamp(30px, 3.4vw + 2px, 56px);
+  --gutter: clamp(20px, 5vw, 90px);
+  /* Hero top = fixed nav height + a breathing gap — the reference page's
+     values (hire-software-developers as deployed). Read by the `wide` hero. */
+  --nav-h: 83px;
+  --hero-gap: clamp(18px, 1.5vw + 12px, 24px);
+  --hero-top: calc(var(--nav-h) + var(--hero-gap));
+}
+
+@media (min-width: 1000px) {
+  .root {
+    --nav-h: 89px;
+  }
+}
+
+@media (min-width: 1000px) and (max-height: 760px) {
+  .root {
+    --hero-gap: 14px;
+  }
+}
+
+/* Every band between the hero and the closing Contact band. The hero keeps
+   its own top padding (it clears the fixed nav) and Contact its own layout.
+
+   `:where()` keeps this at (0,1,1) whatever it holds: above the shared `.section` /
+   `.sectionShell` rules it replaces, but below `.sectionShell +
+   .sectionShell` (0,2,0), so two stacked bands in one `.light` wrapper still
+   share a single gap instead of doubling it. */
+.root main :where(section:not([id="top"], [id="contact"])) {
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+/* The client stories keep their own tighter padding (pinned with !important
+   in home.module.css) — the reference page runs them at 44/48px too — so
+   they get only the gutter from the rule above.
+
+   Ids are matched as `[id="…"]` throughout: CSS Modules treat a `#id`
+   selector as local and hash it, so `#testimonials` would never match. */
+
+/* Full-gutter width, as on the reference: the homepage's clients and
+   testimonials bands cap their content at 1400px / 1180px and centre it,
+   which on a wide screen pulls their left edge in from every other section's.
+   Only the inline margins are reset, so the logo row keeps its top margin. */
+.root main [id="clients"] > *,
+.root main [id="testimonials"] > * {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* The closing band, on the same rhythm at one and a half times the step. */
+.root main [id="contact"] {
+  padding-top: calc(var(--section-y) * 1.5);
+  padding-bottom: calc(var(--section-y) * 1.5);
+}

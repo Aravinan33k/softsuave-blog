@@ -1,0 +1,79 @@
+/* /healthcare-mobile-app-development-company — the story and advantage rows, in the site's styles. */
+
+.story {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(28px, 5vw, 80px);
+  align-items: center;
+  margin-top: clamp(32px, 4vw, 56px);
+}
+.story + .story {
+  margin-top: clamp(48px, 6vw, 96px);
+}
+/* the picture on the right */
+.storyFlip {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+}
+.storyFlip > :first-child {
+  order: 2;
+}
+.storyMedia img {
+  max-width: 340px;
+}
+.sub {
+  margin: clamp(14px, 1.6vw, 22px) 0 8px;
+  font-family: var(--font-heading);
+  font-size: var(--fs-card-title);
+  font-weight: var(--heading-weight);
+  letter-spacing: -0.02em;
+  color: var(--text-bright);
+}
+.points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.points li {
+  position: relative;
+  padding-left: 22px;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--text);
+}
+.points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.storyCta {
+  margin-top: clamp(18px, 2vw, 28px);
+}
+
+@media (max-width: 900px) {
+  .story,
+  .storyFlip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .storyFlip > :first-child {
+    order: 0;
+  }
+}
+
+/* The advantages band above ends in its own section padding, so the FAQ pulls up under it instead of
+   adding its full top padding on top. */
+.pullUp {
+  margin-top: calc(var(--section-y) * -0.6);
+}
+
+/* The service cards have no heading of their own and follow the overview rows, which already end in
+   their own section padding, so the cards pull up under them. */
+.cardsPull {
+  margin-top: calc(var(--section-y) * -0.7);
+}

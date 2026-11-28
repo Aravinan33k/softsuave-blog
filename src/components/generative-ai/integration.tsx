@@ -1,0 +1,178 @@
+"use client";
+
+import Image from "next/image";
+import { publicMediaUrl } from "@/lib/media-url";
+import { integration as generativeAiIntegration } from "@/lib/home/generative-ai";
+import { gridSpansFor } from "@/components/landing/card-spans";
+import FadeUp from "@/components/home/fade-up";
+import { SiteLink } from "@/themes/softsuave/site-link";
+import SectionHead from "./section-head";
+import styles from "./gen-ai.module.css";
+
+/**
+ * Shape of the copy this section renders. The Generative AI page's is the
+ * default, so existing usage (`<Integration />`) is unchanged; the hire-by-role
+ * pages pass their engagement models through the same two-to-three panel block.
+ */
+export interface IntegrationContent {
+  readonly eyebrow: string;
+  readonly title: string;
+  /** Gives a long section heading room to wrap into fewer lines. */
+  wideHead?: boolean;
+  /**
+   * `bold` only: between 700px and 999px the cards stack one per row, instead of
+   * two per row with an odd last card spanning the row ("first 2, next 1"). Below
+   * 700px they already stack, and from 1000px the desktop composition applies.
+   */
+  stackOnTablet?: boolean;
+  readonly body: string;
+  readonly blocks: readonly {
+    readonly label: string;
+    readonly body: string;
+    /** Optional mark above the label, `bold` cards only — the live expert cards' technology logo. */
+    readonly image?: { readonly src: string; readonly alt: string };
+    /**
+     * Optional photo across the top of the card, edge to edge, `bold` cards
+     * only — the construction product page's two app cards (review: "add the
+     * image in that card"). Root-relative under /public; shown at its own
+     * proportions.
+     */
+    readonly photo?: { readonly src: string; readonly width: number; readonly height: number; readonly alt: string };
+  }[];
+}
+
+/**
+ * A short block of bordered panels — two or three statements that each need a
+ * label and a paragraph and nothing else.
+ *
+ * On the Generative AI page these are the deployment and connectivity options
+ * (the platform targets themselves aren't repeated here; the technology-stack
+ * section further down that page is where those names live). On a hire-by-role
+ * page they are the engagement models.
+ */
+export default function Integration({
+  content = generativeAiIntegration,
+  id = "integrations",
+  variant = "panels",
+  blockCta,
+  span,
+}: {
+  content?: IntegrationContent;
+  id?: string;
+  /**
+   * `panels` (default) is the plain bordered block the AI pages use. `bold` is
+   * the hire pages' card — the Global Capability Center "Who It Fits"
+   * treatment, shared with the specialisations grid through the CARD GRID —
+   * BOLD VARIANT block in gen-ai.module.css — so a hire page's engagement
+   * models and its specialisations are the same card rather than two.
+   */
+  variant?: "panels" | "bold";
+  /**
+   * Optional button at the foot of every `bold` card — the live hire pages'
+   * "Hire Now" on each engagement model (review: "CTA button is missing in
+   * the Engagement Options section").
+   */
+  blockCta?: { readonly label: string; readonly href: string };
+  /**
+   * `bold` only: one desktop column span (of 12) for every card — `4` keeps three
+   * across however many cards there are, where the default composition varies
+   * the row widths.
+   */
+  span?: 3 | 4 | 6 | 12;
+} = {}) {
+  if (variant === "bold") {
+    /* Two blocks compose 6 + 6, three compose 4 + 4 + 4 — the same function the
+       reference section and the specialisations grid call, so all three
+       compose their rows identically. */
+    // `span` holds every card to one width (4 = three across); omitted, the rows
+    // are composed to fill, as before.
+    const spans = span ? content.blocks.map(() => span) : gridSpansFor(content.blocks.length);
+
+    return (
+      <section className={styles.sectionShell} id={id}>
+        <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
+
+        <FadeUp>
+          <div className={content.stackOnTablet ? `${styles.indGridBold} ${styles.indGridStack}` : styles.indGridBold}>
+            {content.blocks.map((b, i) => (
+              <article key={b.label} className={styles.indBoldCard} data-span={spans[i]}>
+                {/* No glyph and no ordinal: an engagement model is a named
+                    choice, not one of a numbered set, and the reference band's
+                    own cards carry neither. */}
+                {b.photo && (
+                  <Image
+                    src={publicMediaUrl(b.photo.src)}
+                    alt={b.photo.alt}
+                    width={b.photo.width}
+                    height={b.photo.height}
+                    sizes="(max-width: 699px) 92vw, 46vw"
+                    className={styles.indBoldPhoto}
+                  />
+                )}
+                {b.image && (
+                  <span className={styles.indBoldIcon} data-multi="true" aria-hidden>
+                    <Image
+                      src={publicMediaUrl(b.image.src)}
+                      alt=""
+                      width={40}
+                      height={40}
+                      unoptimized
+                      style={{ height: 40, width: "auto" }}
+                    />
+                  </span>
+                )}
+                <h3 className={styles.indBoldName}>{b.label}</h3>
+                {b.body ? <p className={styles.indBoldBody}>{b.body}</p> : null}
+                {blockCta &&
+                  (blockCta.href.startsWith("#") ? (
+                    // An in-page target stays a plain <a>: ScrollProvider's Lenis
+                    // handler (and the ad pages' popup) listen for those, whereas
+                    // SiteLink reads "#trial" as a site path and sends it away.
+                    <a
+                      href={blockCta.href}
+                      className={`${styles.btn} ${styles.btnPrimary} ${styles.indBoldCta}`}
+                      aria-label={`${blockCta.label}: ${b.label}`}
+                    >
+                      {blockCta.label}
+                    </a>
+                  ) : (
+                    <SiteLink
+                      href={blockCta.href}
+                      className={`${styles.btn} ${styles.btnPrimary} ${styles.indBoldCta}`}
+                      aria-label={`${blockCta.label}: ${b.label}`}
+                    >
+                      {blockCta.label}
+                    </SiteLink>
+                  ))}
+              </article>
+            ))}
+          </div>
+        </FadeUp>
+      </section>
+    );
+  }
+
+  return (
+    <section className={styles.sectionShell} id={id}>
+      <SectionHead kicker={content.eyebrow} title={content.title} intro={content.body} wide={content.wideHead} />
+
+      <FadeUp>
+        {/* Three panels get an even three-column row from 1000px up; two keep
+            the default two-column grid. Without the modifier a third panel
+            sits alone beside a gap. */}
+        <div
+          className={`${styles.integrationGrid}${
+            content.blocks.length === 3 ? ` ${styles.integrationGridTrio}` : ""
+          }`}
+        >
+          {content.blocks.map((b) => (
+            <article key={b.label} className={styles.integrationCard}>
+              <span className={styles.integrationLabel}>{b.label}</span>
+              <p className={styles.integrationBody}>{b.body}</p>
+            </article>
+          ))}
+        </div>
+      </FadeUp>
+    </section>
+  );
+}

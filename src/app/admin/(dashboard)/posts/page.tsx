@@ -34,9 +34,12 @@ export default async function PostsPage({ searchParams }: { searchParams: Promis
   const where: Prisma.PostWhereInput = {
     ...(params.q
       ? {
+          // No `mode: 'insensitive'` — MySQL has no such filter option, and none
+          // is needed: the utf8mb4_unicode_ci collation makes `contains` case-
+          // insensitive already. Case *sensitivity* is what would need work here.
           OR: [
-            { title: { contains: params.q, mode: 'insensitive' as const } },
-            { slug: { contains: params.q, mode: 'insensitive' as const } },
+            { title: { contains: params.q } },
+            { slug: { contains: params.q } },
           ],
         }
       : {}),

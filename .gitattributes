@@ -1,0 +1,8 @@
+# Files copied to the Linux server as-is: a CRLF line ending breaks bash scripts and makes
+# every Apache RewriteMap value "app\r", which never matches.
+deploy/*.sh text eol=lf
+deploy/*.map text eol=lf
+deploy/*.conf text eol=lf
+deploy/server/** text eol=lf
+deploy/ci/** text eol=lf
+.gitlab-ci.yml text eol=lf

@@ -1,0 +1,133 @@
+/* =====================================================================
+   SERVICE CAROUSEL — the /ad pages' "Our Services" row
+   (`service-carousel-client.tsx`). One row of cards on native scroll-snap,
+   the next card peeking in from the gutter, the Experts arrows under.
+   Band tokens only.
+   ===================================================================== */
+
+.carousel {
+  /* Cards in view. On a phone a touch over one, so the next card shows past
+     the narrow gutter; from 680px the peek comes from the gutter itself. */
+  --per: 1.12;
+  --gap: clamp(16px, 1.8vw, 28px);
+  /* Room left of the first card for its shadow, inside the scroller. */
+  --inset: 16px;
+}
+
+.track {
+  display: flex;
+  gap: var(--gap);
+  /* Runs out through the right-hand gutter to the screen edge, so the next
+     card shows there; reaches back over the inset on the left. */
+  margin: 0 calc(-1 * var(--gutter, 20px)) 0 calc(-1 * var(--inset));
+  padding: 10px var(--gutter, 20px) 34px var(--inset);
+  scroll-padding-left: var(--inset);
+  list-style: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+/* The track's content box is the section's own width, so `--per` cards fill
+   it exactly and the next one starts in the gutter. */
+.slide {
+  flex: 0 0 calc((100% - (var(--per) - 1) * var(--gap)) / var(--per));
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+/* The grid's five-colour card ramp, by the card's own position, as on
+   `.indGridBold`. Set from the card's index rather than `nth-child`, so the
+   loop's copies of the first cards keep their originals' colours. */
+.slide[data-tone="1"] { --card-accent: var(--card-accent-1); }
+.slide[data-tone="2"] { --card-accent: var(--card-accent-2); }
+.slide[data-tone="3"] { --card-accent: var(--card-accent-3); }
+.slide[data-tone="4"] { --card-accent: var(--card-accent-4); }
+.slide[data-tone="5"] { --card-accent: var(--card-accent-5); }
+
+/* A soft, rounded card on the band's own surface: no coloured top rule, a
+   lifted shadow instead. */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(9px, 0.95vw, 13px);
+  height: 100%;
+  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  border-radius: 20px;
+  background: var(--surface);
+  padding: clamp(24px, 2.6vw, 36px) clamp(22px, 2.4vw, 34px);
+  box-shadow: 0 18px 40px -26px rgba(20, 12, 6, 0.28);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.35s ease;
+}
+
+.card:hover,
+.card:focus-within {
+  transform: translateY(-4px);
+  background: color-mix(in srgb, var(--card-accent, var(--accent)) 6%, var(--surface));
+  box-shadow: 0 22px 44px -24px color-mix(in srgb, var(--card-accent, var(--accent)) 45%, transparent);
+}
+
+/* The card's glyph on a rounded tile in its own ramp colour. */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 6px;
+  border-radius: 16px;
+  color: var(--card-accent, var(--accent));
+  background: color-mix(in srgb, var(--card-accent, var(--accent)) 13%, transparent);
+}
+
+.icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* ---- Arrows -------------------------------------------------------- */
+
+/* The Experts section's arrow pair (home.rArrows / rArrowBtn), under the row
+   on the right, placed as `skill-carousel.module.css .controls` places it. */
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: clamp(10px, 1.2vw, 16px);
+}
+
+/* ---- Cards per page ------------------------------------------------ */
+
+@media (min-width: 680px) {
+  .carousel {
+    --per: 2;
+  }
+}
+
+@media (min-width: 1000px) {
+  .carousel {
+    --per: 3;
+  }
+}
+
+@media (min-width: 1280px) {
+  .carousel {
+    --per: 4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .card:hover,
+  .card:focus-within {
+    transform: none;
+  }
+}

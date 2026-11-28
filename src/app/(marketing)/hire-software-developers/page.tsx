@@ -1,0 +1,38 @@
+import type { Metadata } from 'next';
+
+import { JsonLd } from '@/components/seo/json-ld';
+import HireRolePage from '@/components/hire/hire-role-page';
+import { software as content } from '@/lib/home/hire-roles';
+import { hireRoleJsonLd, hireRoleMetadata } from '@/lib/home/hire-roles/page-meta';
+import Sections from './sections';
+
+/**
+ * Hire Software Developers — one of the nine "Hire Developers by Role" pages.
+ *
+ * A server component so the route can own its `metadata` and emit JSON-LD; the
+ * animated sections underneath are the client components. They live in
+ * `./sections.tsx`, which imports this role's copy itself: handed down as props
+ * it was serialized into the RSC payload as well as rendered. The surrounding
+ * `(marketing)` layout supplies the display fonts, the `.theme-four` tokens and
+ * the Lenis `ScrollProvider`, exactly as it does for the homepage.
+ *
+ * Everything about this page other than its copy lives in `HireRolePage`, which
+ * all nine routes share; the copy is `lib/home/hire-roles/software.ts`.
+ */
+
+// Matches the homepage/marketing cadence; nothing here is request-dependent.
+export const revalidate = 300;
+
+export const metadata: Metadata = hireRoleMetadata(content);
+
+export default function HireSoftwareDevelopersPage() {
+  return (
+    <>
+      {/* One <script> per block, as the live page serves them. */}
+      {hireRoleJsonLd(content).map((block, i) => (
+        <JsonLd key={i} data={block} />
+      ))}
+      <HireRolePage content={content} Sections={Sections} />
+    </>
+  );
+}

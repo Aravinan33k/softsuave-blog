@@ -1,0 +1,331 @@
+/**
+ * Shape of a "Hire Developers by Role" page — the nine routes under the nav's
+ * `hire-role` group (`lib/home/nav-menu.ts`).
+ *
+ * Each role gets its own module in this directory holding one object of this
+ * shape, and `app/(marketing)/<slug>/page.tsx` renders it through
+ * `components/hire/hire-role-page`. The slugs are softsuave.com's own, so these
+ * routes take over URLs that already exist rather than inventing new ones (see
+ * `MARKETING_PATHS` in themes/softsuave/nav-data).
+ *
+ * Every field is typed against the prop interface of the section component that
+ * renders it, imported from `components/generative-ai/*`. That is deliberate:
+ * these pages add no new section vocabulary, they only supply copy to the
+ * landing-page sections the AI pages already ship. A renamed prop therefore
+ * fails to compile here instead of rendering an empty band.
+ *
+ * Sourcing rule: the copy is the live softsuave.com page's own — its claims,
+ * its figures, its FAQ answers — restructured for these sections and edited for
+ * readability. Nothing here states a number, certification, client or
+ * capability the live page does not. Proof imagery and case-study facts come
+ * from `lib/home/content.ts`, so a role page can never quote a study the rest
+ * of the site does not.
+ */
+
+import type { HeroContent } from '@/components/generative-ai/hero';
+import type { OverviewContent } from '@/components/generative-ai/overview';
+import type { ServicesContent } from '@/components/generative-ai/services';
+import type { CardGridContent } from '@/components/generative-ai/industries';
+import type { ProblemsContent } from '@/components/generative-ai/problems';
+import type { FitTableContent } from '@/components/generative-ai/fit-table';
+import type { ComparisonContent } from '@/components/generative-ai/comparison';
+import type { ProcessContent } from '@/components/generative-ai/process';
+import type { IntegrationContent } from '@/components/generative-ai/integration';
+import type { TechStackContent } from '@/components/home/tech-stack';
+import type { FaqContent } from '@/components/generative-ai/faq';
+import type { CtaBandContent } from '@/components/generative-ai/cta-band';
+import type { WorkCarouselContent } from '@/components/home/work-grid';
+import type { Ground } from './band-grounds';
+
+/**
+ * Note what is NOT here: the client logos, the case studies, the client stories
+ * and the closing enquiry band. Those are statements about the company, not
+ * about the role, so the page renders the homepage's own components over the
+ * homepage's own copy in `lib/home/content.ts` — see
+ * `components/hire/hire-role-page`. A role-written version of any of them would
+ * be a second set of facts about Soft Suave, free to drift out of step with the
+ * homepage's.
+ *
+ * Those bands are on the live role pages too, where the page runs them: the
+ * client strip's heading and body are word for word the "Preferred AI-Enabled
+ * Technology Partner" block, the stories are its testimonials, and the closing
+ * band is its "Book Free Consultation" form. The homepage bands that no live
+ * role page runs — the Why Soft Suave manifesto, the industries fan and the
+ * awards strip — are not rendered on these pages at all. Which of the rest a
+ * page runs, and in what sequence, is its `order`.
+ */
+/**
+ * One band of a role page, named so a page can declare its own running order.
+ *
+ * `clients`, `caseStudies` and `testimonials` name the homepage components the
+ * page borrows; the rest name this interface's own fields. A band listed in
+ * `order` whose field is absent simply does not render, so a page can carry the
+ * same order as its sibling without inventing content to fill it.
+ *
+ * `list:<key>` names one entry of `lists`, which is how a page runs the same
+ * kind of band more than once at different points — the QA page prints three
+ * label-only lists in three separate places, and each needs its own position.
+ */
+export type HireBand =
+  | 'clients'
+  | 'overview'
+  | 'capabilities'
+  | 'specialisations'
+  | 'fit'
+  | 'engagement'
+  | 'globalDelivery'
+  | 'process'
+  | 'midCta'
+  | 'whyRole'
+  | 'comparison'
+  | 'rates'
+  | 'techStack'
+  | 'caseStudies'
+  | 'testimonials'
+  | 'faq'
+  | `list:${string}`;
+
+/** One of `lists`: a `TechStackContent` that `order` can name individually. */
+export interface HireListBand extends TechStackContent {
+  /** Names this band in `order` as `list:<key>`. Unique within the page. */
+  readonly key: string;
+  /**
+   * `tiles` renders the labels as the card grid's badge-and-name tiles rather
+   * than a row of chips (QA review: "Need to change this section design").
+   */
+  readonly display?: 'tiles';
+  /** `tiles` only: every tile on one row from 1300px (labels short enough to share a line); below that the usual grid. */
+  readonly oneRow?: boolean;
+  /** Icon key per label, for `tiles` — see `CARD_ICON_KEYS`. Unlisted labels pick from their words. */
+  readonly tileIcons?: Readonly<Record<string, string>>;
+  /** Optional button under the band, as the live page runs one. */
+  readonly cta?: { readonly label: string; readonly href: string };
+}
+
+export interface HireRolePageContent {
+  /** Stable key, used for the field-id prefix on the hero form. */
+  readonly key: string;
+  /** App-internal route, leading slash. softsuave.com's own path. */
+  readonly slug: string;
+  /** Role name, as the nav uses it. */
+  readonly name: string;
+  /** `serviceType` for the Service schema, e.g. "Backend development staffing". */
+  readonly serviceType: string;
+
+  /**
+   * Opt this page into a `BreadcrumbList`. Defaults to **off** — most of these
+   * 14 pages have no breadcrumb on their live page, and the schema here must
+   * never state more than the live page does. Set alongside `breadcrumbParents`
+   * on the few pages whose live page does carry one.
+   */
+  readonly showBreadcrumb?: boolean;
+  /** Crumbs between Home and this page, matching the live page's own trail exactly. */
+  readonly breadcrumbParents?: readonly { readonly name: string; readonly path: string }[];
+  /**
+   * Stop the trail at the last `breadcrumbParents` entry instead of naming this
+   * page as its own final crumb — matches the live pages whose own breadcrumb
+   * plugin does the same (e.g. `/hire-mobile-app-developers` traces to "Home ›
+   * Hire Developers" and never names itself).
+   */
+  readonly breadcrumbEndsAtParent?: boolean;
+
+  /**
+   * The bands this page runs, in the order its live page runs them — the hero
+   * is always first and the closing enquiry band always last, so neither is
+   * listed. These pages are not one template on softsuave.com: some open on
+   * their why-hire cards, some put the technology stack before the services,
+   * one closes on a rate table, and four run no client strip at all. Copying
+   * that order is the point of this field.
+   */
+  readonly order: readonly HireBand[];
+  /** Page-specific presentation options; other role pages keep their defaults. */
+  /**
+   * The client strip's `wideTitle`: its heading in two balanced lines on a wide
+   * screen instead of three. A measure string (`"34ch"`) holds the column at
+   * that width — see `Clients`.
+   */
+  readonly clientsWideTitle?: boolean | string;
+  readonly closingCtaIcon?: boolean;
+  /**
+   * Pin a band to a ground on this page only, over the shared anchors in
+   * `band-grounds` (e.g. `{ techStack: 'light' }`). The other free bands
+   * re-flow around it.
+   */
+  readonly groundOverrides?: Readonly<Partial<Record<HireBand, Ground>>>;
+
+  readonly meta: {
+    readonly title: string;
+    readonly description: string;
+  };
+
+  /** Hero: H1, positioning copy, assurance points and the enquiry form. */
+  readonly hero: HeroContent;
+  /** Editorial prose defining what hiring this role gives you. */
+  readonly overview?: OverviewContent;
+  /**
+   * How the pipeline's per-page overview photo sits against the prose, for a
+   * page that takes that photo (no `overview.image` of its own) but wants it
+   * aligned differently — see `OverviewContent.image.align`. The page template
+   * resolves the photo on the server, so a content module, which the browser
+   * also imports, states only the alignment and never calls into the image
+   * record itself.
+   */
+  readonly overviewImageAlign?: 'center' | 'top' | 'both';
+  /** The same, for the global-delivery band's pipeline photo (`landing/dl-<slug>`). */
+  readonly globalDeliveryImageAlign?: 'center' | 'top' | 'both';
+  /**
+   * The "which skill fits which need" selector, where the live page carries a
+   * decision table. Omitted on roles whose live page has none.
+   */
+  readonly fit?: ProblemsContent;
+  /**
+   * The same band as a plain table, for the pages whose live decision table
+   * has three columns — the selector above can only show two. Rendered at the
+   * `fit` position in `order`, in place of `fit`.
+   */
+  readonly fitTable?: FitTableContent;
+  /**
+   * What the role can own, as the centre-focused carousel. Optional: several of
+   * the live pages carry only one "what you can hire" section, and where that
+   * section is a linked list of disciplines it belongs in `specialisations`
+   * instead. Omitted rather than filled with a second, invented list.
+   */
+  readonly capabilities?: ServicesContent;
+  /**
+   * Mid-page conversion band, where the live page has one. Optional: the older
+   * role pages put their trial CTA in the hero and nowhere else, and a band
+   * invented for them would be the one section on the page we wrote ourselves.
+   */
+  readonly midCta?: CtaBandContent;
+  /**
+   * Engagement models, as the two-to-three panel block. Optional, because not
+   * every live page runs a hiring-options section — the ones that only name the
+   * models inside their comparison table are left without this band.
+   */
+  readonly engagement?: IntegrationContent;
+  /**
+   * "Global Delivery for Distributed Development Teams" — the working-hours
+   * overlap, the delivery locations and how a developer joins your workflow.
+   *
+   * Prose rather than labelled panels, because that is what the live pages run:
+   * a heading and two or three paragraphs. Panels would need a label per
+   * paragraph, and those labels would be ours, not the page's.
+   */
+  readonly globalDelivery?: OverviewContent;
+  /**
+   * The live page's own card band that none of the other fields fit — on most
+   * of these pages its "Why hire <role> developers from Soft Suave?" cards, and
+   * on the dedicated-developers page its list of common hiring challenges.
+   *
+   * Distinct from the homepage's Why band, which this page also renders: that
+   * band is the company's standing claim (13+ years, 400+ specialists), the
+   * same statement the live pages make in their "Preferred AI-Enabled
+   * Technology Partner" block. This field is the page's own cards, which differ
+   * page to page and would otherwise be dropped.
+   */
+  readonly whyRole?: CardGridContent;
+  /**
+   * Hiring process, with exactly the stages the live page publishes — four on
+   * most of these pages, five where the live copy separates interviewing out.
+   * `Process` sizes its ring to whatever it is given.
+   */
+  readonly process: ProcessContent;
+  /**
+   * Specialisations within the role: the technologies you can hire against.
+   * Optional, because not every live page runs one — the older role pages lead
+   * with their services and name no technology grid at all.
+   */
+  readonly specialisations?: CardGridContent;
+  /**
+   * Soft Suave vs in-house vs freelancer. Optional: only some of the live
+   * pages run this table, and a page that does not is left without one rather
+   * than given a comparison its source never makes.
+   */
+  readonly comparison?: ComparisonContent;
+  /** Rate tiers, where the live page publishes them. */
+  readonly rates?: ComparisonContent;
+  /**
+   * The `caseStudies` band's own projects, where the live page names them
+   * (web app, mobile). Omitted renders the homepage's case studies.
+   */
+  readonly caseStudies?: WorkCarouselContent;
+  /**
+   * Below 1000px, keep the case studies a horizontal swipe row (one card and a
+   * peek of the next) instead of a vertical stack (`WorkGrid` `mobileSlide`).
+   */
+  readonly caseStudiesMobileSlide?: boolean;
+  /**
+   * The case studies' eyebrow, heading and subtext as the page's other section
+   * heads (`SectionHead`, split by `halfHeads`), full width above the lane,
+   * instead of the lane's own side column (`WorkGrid` `head`).
+   */
+  readonly caseStudiesHeadTop?: boolean;
+  /**
+   * This role's stack, rendered through the grouped panels (or the homepage's
+   * rows, with `techStackStyle`). `wideHead` is read by the panels only.
+   */
+  readonly techStack?: TechStackContent & { readonly wideHead?: boolean };
+  /** Render the stack's logos at the Custom AI page's larger size. */
+  readonly techStackLargeLogos?: boolean;
+  /**
+   * `rows` renders the stack as the Android page's labelled rows (the
+   * homepage's band, held static) instead of the grouped panels (QA review:
+   * "Powerful Tools and Technologies ... need to change the design").
+   * `tabs` renders it as category tabs over a centred grid of logo cards
+   * (`common/tech-tabs`; Hire Software Developers review).
+   */
+  readonly techStackStyle?: 'rows' | 'tabs';
+  /** The hero form's submit button turns black on hover and focus. */
+  readonly submitBlack?: boolean;
+  /** `false` drops the partner lockups (Upwork, Clutch, Microsoft, AWS) from the hero. */
+  readonly heroPartnerBadges?: boolean;
+  /** The hero's bottom padding at 80px (56px on a phone), as the ad pages run it. */
+  readonly heroPadBottom80?: boolean;
+  /**
+   * Every split section head laid out as the ad pages' (`/ad/remote-developers`):
+   * the eyebrow on its own row, then the heading and subtext in two equal
+   * columns with no measure cap (`ad.module.css` `halfHeads`).
+   */
+  readonly halfHeads?: boolean;
+  /** Bands that keep their stacked head under `halfHeads` (supported by `fit`'s table). */
+  readonly halfHeadsSkip?: readonly HireBand[];
+  /**
+   * Every section head in one column (title, then the intro beneath at 75% width, no divider rule):
+   * `landing.stackedHeads`, `home.stackedHeads` and, beside `halfHeads`, `ad.stackHeadsVars`.
+   */
+  readonly stackedHeads?: boolean;
+  /**
+   * The ad pages' wider gap between every section head and its content
+   * (`ad.module.css` `wideHeadGap`: 32px on a phone, ~55px at 1440, 64px wide).
+   */
+  readonly wideHeadGap?: boolean;
+  /** The clients H2 eased down on mid-width screens so a long title holds two lines. */
+  readonly clientsTwoLineTitle?: boolean;
+  /** Bands following one on the same ground keep their own top padding. */
+  readonly sectionGapsFull?: boolean;
+  /** The client-story quote at 14px, easing up to 16px on a wide screen. */
+  readonly storyQuoteLarge?: boolean;
+  /** The services H2 wraps normally (fills its first line) instead of balancing. */
+  readonly servicesHeadWrap?: boolean;
+  /** The tech stack's tool names 1px larger than the shared label size. */
+  readonly techNameLarge?: boolean;
+  /** The Why Choose Us cards three across in even rows (desktop), with no accent stroke along the top. */
+  readonly whyEvenGrid?: boolean;
+  /**
+   * The Why Choose Us and Technology Expertise cards three across in even rows
+   * (desktop), keeping their accent stroke — layout only (`cardsThreeUp`).
+   */
+  readonly cardsThreeUp?: boolean;
+  /**
+   * Further label-only bands, each placed by `order` as `list:<key>`.
+   *
+   * The QA page is why this exists: it prints its testing types, its domains
+   * and its approach as three separate sections of bare labels, at three points
+   * in the page, none of them carrying descriptions. Cards would need a body
+   * per label and those bodies would be ours, not the page's; folding them into
+   * `techStack` put all three in one band, in one place, which is not where the
+   * page runs them.
+   */
+  readonly lists?: readonly HireListBand[];
+  readonly faq: FaqContent;
+}
